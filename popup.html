@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus Delivery Shield</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f141b;
+      --panel: #1a212b;
+      --panel-soft: rgba(255, 255, 255, 0.03);
+      --panel-strong: rgba(255, 255, 255, 0.045);
+      --border: #2c3644;
+      --text: #edf2f7;
+      --muted: #a9b4c2;
+      --accent: #7ef0a8;
+      --shadow: rgba(126, 240, 168, 0.14);
+      --danger: #ff8b8b;
+      --panel-radius: 24px;
+      --popup-width: 468px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-width: var(--popup-width);
+      border-radius: var(--panel-radius);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top, rgba(126, 240, 168, 0.14), transparent 42%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      padding: 14px;
+    }
+
+    .card {
+      border-radius: 24px;
+      border-radius: var(--panel-radius);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      overflow: hidden;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card.glow {
+      border-color: rgba(126, 240, 168, 0.45);
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.3), 0 0 28px var(--shadow);
+    }
+
+    .hero,
+    .section {
+      padding: 18px;
+    }
+
+    .hero {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(126, 240, 168, 0.12);
+      color: var(--accent);
+      font-size: 0.76rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 12px 0 8px;
+      font-size: 1.18rem;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .row + .row,
+    .field + .field,
+    .status + .field {
+      margin-top: 14px;
+    }
+
+    .toggle {
+      position: relative;
+      width: 58px;
+      height: 32px;
+      display: inline-block;
+      flex: 0 0 auto;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: #334155;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      left: 4px;
+      top: 4px;
+      border-radius: 50%;
+      background: white;
+      transition: 0.2s ease;
+    }
+
+    input:checked + .slider {
+      background: var(--accent);
+    }
+
+    input:checked + .slider::before {
+      transform: translateX(26px);
+      background: #122117;
+    }
+
+    .status {
+      min-height: 44px;
+      padding: 11px 12px;
+      border-radius: 14px;
+      background: var(--panel-soft);
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.35;
+    }
+
+    .field {
+      padding: 14px;
+      border-radius: 18px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .field small {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .number-input,
+    .time-input,
+    .text-input,
+    .range-input {
+      width: 100%;
+      font: inherit;
+      outline: none;
+    }
+
+    .number-input,
+    .time-input,
+    .text-input {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      background: #111823;
+      color: var(--text);
+      padding: 12px 14px;
+    }
+
+    .range-input {
+      accent-color: var(--accent);
+    }
+
+    .schedule-grid,
+    .dual-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .schedule-grid label,
+    .dual-inputs label {
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .custom-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .button {
+      border: 0;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #102016;
+      font: inherit;
+      font-weight: 700;
+      padding: 12px 14px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .button.secondary {
+      background: #293241;
+      color: var(--text);
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 12px;
+    }
+
+    .category-card {
+      padding: 12px;
+      border-radius: 16px;
+      background: var(--panel-strong);
+    }
+
+    .category-card + .category-card {
+      margin-top: 10px;
+    }
+
+    .category-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .site-list {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .site-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 0;
+    }
+
+    .site-item + .site-item {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .site-meta {
+      min-width: 0;
+    }
+
+    .site-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .site-url {
+      color: var(--muted);
+      font-size: 0.82rem;
+      word-break: break-all;
+    }
+
+    .site-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 0 0 auto;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .empty {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .value-chip {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(126, 240, 168, 0.12);
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <section class="hero">
+      <span class="eyebrow">Mindful Pause</span>
+      <h1>Focus Delivery Shield</h1>
+      <p>Pause impulse orders long enough to make a calmer choice.</p>
+    </section>
+
+    <section class="section">
+      <div class="row">
+        <div>
+          <div>Mindfulness blocker</div>
+          <div class="muted">Turn every block list on or off.</div>
+        </div>
+        <label class="toggle">
+          <input id="toggle" type="checkbox">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div id="status" class="status" aria-live="polite"></div>
+
+      <div class="field">
+        <div class="category-card">
+          <div class="row">
+            <div>
+              <div>Delivery sites</div>
+              <div class="muted" id="deliveryCount">Delivery ordering domains.</div>
+            </div>
+            <div class="category-actions">
+              <button id="toggleDeliveryList" class="button secondary" type="button">View Blocklist</button>
+              <label class="toggle">
+                <input id="deliverySitesEnabled" type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div id="deliveryList" class="site-list" hidden></div>
+        </div>
+
+        <div class="category-card">
+          <div class="row">
+            <div>
+              <div>Fast food sites</div>
+              <div class="muted" id="fastFoodCount">Major chain ordering domains.</div>
+            </div>
+            <div class="category-actions">
+              <button id="toggleFastFoodList" class="button secondary" type="button">View Blocklist</button>
+              <label class="toggle">
+                <input id="fastFoodSitesEnabled" type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div id="fastFoodList" class="site-list" hidden></div>
+        </div>
+
+        <div class="category-card">
+          <div class="row">
+            <div>
+              <div>Custom URLs</div>
+              <div class="muted">Add your own sites and disable them individually.</div>
+            </div>
+            <div class="category-actions">
+              <button id="toggleCustomList" class="button secondary" type="button">View Blocklist</button>
+              <label class="toggle">
+                <input id="customSitesEnabled" type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div id="customListSection" class="site-list" hidden>
+            <label for="customSiteInput">Add a custom blocked URL</label>
+            <div class="custom-row">
+              <input id="customSiteInput" class="text-input" type="text" placeholder="example.com or https://example.com">
+              <button id="addCustomSite" class="button" type="button">Add</button>
+            </div>
+            <small>We normalize entries to the domain and block that site across all pages.</small>
+            <div id="customSiteList" class="list"></div>
+            <div id="customSiteEmpty" class="empty">No custom URLs added yet.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="row">
+          <div>
+            <label for="timerSlider">Pause timer length</label>
+            <div class="muted">Adjust the countdown before Continue appears.</div>
+          </div>
+          <span id="timerDisplay" class="value-chip">60s</span>
+        </div>
+        <input id="timerSlider" class="range-input" type="range" min="10" max="300" step="5">
+        <div class="dual-inputs">
+          <div>
+            <label for="timerSeconds">Custom seconds</label>
+            <input id="timerSeconds" class="number-input" type="number" min="10" step="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="row">
+          <div>
+            <label for="scheduleEnabled">Block only during scheduled hours</label>
+            <div class="muted">Useful for meal budgets, late-night ordering, or work hours.</div>
+          </div>
+          <label class="toggle">
+            <input id="scheduleEnabled" type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="schedule-grid">
+          <div>
+            <label for="scheduleStart">Start time</label>
+            <input id="scheduleStart" class="time-input" type="time">
+          </div>
+          <div>
+            <label for="scheduleEnd">End time</label>
+            <input id="scheduleEnd" class="time-input" type="time">
+          </div>
+        </div>
+        <small id="scheduleSummary">Blocking will follow your daily schedule when this is enabled.</small>
+      </div>
+
+      <div class="field">
+        <div class="row">
+          <div>
+            <label for="passDurationSlider">Temporary pass length</label>
+            <div class="muted">Choose how long sites stay open after the timer ends.</div>
+          </div>
+          <span id="passDurationDisplay" class="value-chip">5m</span>
+        </div>
+        <input id="passDurationSlider" class="range-input" type="range" min="1" max="120" step="1">
+        <div class="dual-inputs">
+          <div>
+            <label for="passDurationMinutes">Custom minutes</label>
+            <input id="passDurationMinutes" class="number-input" type="number" min="1" step="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="row">
+          <div>
+            <div>Customization</div>
+            <div class="muted">Open settings for colors, layout tuning, and test tools.</div>
+          </div>
+          <button id="openSettings" class="button secondary" type="button">Settings</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>

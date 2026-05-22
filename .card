@@ -1,0 +1,14 @@
+.card:hover {
+  border-color: #2CFF7A55;
+  box-shadow: 0 0 18px rgba(44, 255, 122, 0.12);
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(44, 255, 122, 0.25); }
+  70% { box-shadow: 0 0 0 10px rgba(44, 255, 122, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(44, 255, 122, 0); }
+}
+
+.glow {
+  animation: pulse 2.5s infinite;
+}

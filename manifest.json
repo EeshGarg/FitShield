@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Usha Corporation Fitness Shield",
+  "version": "0.46",
+  "permissions": ["storage", "declarativeNetRequest", "alarms"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

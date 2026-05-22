@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extension Test Results</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f141b;
+      --panel: #1a212b;
+      --border: #2c3644;
+      --text: #edf2f7;
+      --muted: #a9b4c2;
+      --accent: #7ef0a8;
+      --panel-radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 28px;
+      background:
+        radial-gradient(circle at top, rgba(126, 240, 168, 0.14), transparent 38%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .card {
+      padding: 24px;
+      border-radius: var(--panel-radius);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.7rem;
+    }
+
+    p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .score {
+      margin-top: 18px;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .list {
+      margin-top: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .item {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .item.pass strong {
+      color: var(--accent);
+    }
+
+    .item.fail strong {
+      color: #ff8b8b;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <h1>Test App Functions</h1>
+      <!-- Internal diagnostics page for checking packaged files and extension wiring. -->
+      <p>The extension is running a quick built-in check across core files and runtime behavior.</p>
+      <div id="score" class="score">0/0</div>
+      <!-- testing.js appends one pass/fail result row here for each smoke test. -->
+      <div id="results" class="list"></div>
+    </section>
+  </main>
+
+  <script src="testing.js"></script>
+</body>
+</html>
