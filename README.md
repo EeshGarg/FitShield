@@ -10,7 +10,8 @@ if anyone knows how to make a logo, i would appriciate some help, my shit was pu
 Being a fatass sucks, here is another tool for your toolbox so you don't stay a fatass.
 
 
-# Enter: FitShield a browser extension that helps you stay mindful of your calories.
+# Enter: FitShield 
+A browser extension that helps you stay mindful of your calories.
 
 Features:
 
