@@ -23,7 +23,7 @@ Enter: FitShield - A browser extension that helps you stay mindful of your calor
 
 # Ethos
 
-look fat loss isn't easy and it only gets harder with site tracking, delivery sites, and whatnot, so don't buy in. block it entirely.
+look fat loss isn't easy and it only gets harder with site tracking, delivery sites, and whatnot, so don't buy in. block it entirely. Furthremore, all these delivery sites honestly just push people apart, think about it we are a social species, yet we insist on using something that pushes us all apart just for some unit of ease/convienience. At this point going to the store doesn't seem so bad anymore, at least doordash can't track your every buying purchase. 
 
 # Contributions
 
