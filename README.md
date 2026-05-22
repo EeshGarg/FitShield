@@ -14,7 +14,7 @@ Enter FitShield a browser extension that helps you stay mindful of your calories
 
 Features:
 
-1) url blocking for diversites and fast food sites.
+1) url blocking for delivery sites and fast food sites.
 2) custom url blocking.
 3) adjustable timer duration.
 4) scheduled blocking hours.
