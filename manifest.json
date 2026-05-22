@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Usha Corporation Fitness Shield",
+  "name": "FitShield",
   "version": "0.46",
   "permissions": ["storage", "declarativeNetRequest", "alarms"],
   "host_permissions": [

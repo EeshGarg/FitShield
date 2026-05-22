@@ -33,7 +33,7 @@ const timerParam = Number.parseInt(params.get("timer"), 10);
 const passDurationParam = Number.parseInt(params.get("pass"), 10);
 const destination = DESTINATIONS[siteKey] || DEFAULT_DESTINATION;
 
-// Query params are mainly for testing; normal users fall back to stored defaults.
+// Query params are mainly for manual URL overrides; normal users fall back to stored defaults.
 let secondsLeft = Number.isFinite(timerParam) && timerParam >= 10 ? timerParam : DEFAULT_TIMER_SECONDS;
 let totalSeconds = secondsLeft;
 let passDurationMinutes = Number.isFinite(passDurationParam) && passDurationParam >= 1
