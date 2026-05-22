@@ -3,7 +3,8 @@
 <img width="1350" height="592" alt="image" src="https://github.com/user-attachments/assets/0064f3b9-a20d-4b1a-b1ac-05c46f267f4c" />
 
 
-# FitShield - if anyone knows how to make a logo, i would appriciate some help, my shit was pure ms paint
+# FitShield 
+if anyone knows how to make a logo, i would appriciate some help, my shit was pure ms paint
 
 
 Being a fatass sucks, here is another tool for your toolbox so you don't stay a fatass.
