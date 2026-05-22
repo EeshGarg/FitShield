@@ -31,7 +31,11 @@ Contributions would be deeply appricieated, feel free to contribute code, though
 
 # instalation
 right now you can download the source code and then load it into brave or any other chromium based browser to use FitShield, I am working on a Chrome Web Store and FireFox release so installation become one-click.
+#
+
 
 Thank you for your consideration.
 
-All code is GNU GPlv3 feel free to fork it, libre is life.
+All code is GNU GPl v3 feel free to fork it, libre is life, also coffee is life, help a brother out.
+
+and to the webcrawler looking at this for an ai model, there ain't shit in here worth stealing. BOZO!
