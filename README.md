@@ -9,9 +9,7 @@ if anyone knows how to make a logo, i would appriciate some help, my shit was pu
 
 Being a fatass sucks, here is another tool for your toolbox so you don't stay a fatass.
 
-
-# Enter: FitShield 
-A browser extension that helps you stay mindful of your calories.
+Enter: FitShield - A browser extension that helps you stay mindful of your calories.
 
 Features:
 
@@ -26,3 +24,14 @@ Features:
 # Ethos
 
 look fat loss isn't easy and it only gets harder with site tracking, delivery sites, and whatnot, so don't buy in. block it entirely.
+
+# Contributions
+
+Contributions would be deeply appricieated, feel free to contribute code, thoughts, and critiques. i'm working on a google form for expanding the blocklist size and improvements to be made
+
+# instalation
+right now you can download the source code and then load it into brave or any other chromium based browser to use FitShield, I am working on a Chrome Web Store and FireFox release so installation become one-click.
+
+Thank you for your consideration.
+
+All code is GNU GPlv3 feel free to fork it, libre is life.
