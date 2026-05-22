@@ -22,6 +22,6 @@ Features:
 6) and color customization.
 
 
-#Ethos
+# Ethos
 
 look fat loss isn't easy and it only gets harder with site tracking, delivery sites, and whatnot, so don't buy in. block it entirely.
