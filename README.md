@@ -11,7 +11,7 @@ Being a fatass sucks, here is another tool for your toolbox so you don't stay a 
 
 Enter: FitShield - A browser extension that helps you stay mindful of your calories.
 
-#Features:
+# Features:
 
 1) url blocking for delivery sites and fast food sites.
 2) custom url blocking.
