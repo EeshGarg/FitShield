@@ -2,3 +2,20 @@
 
 
 Being a fatass sucks, here is another tool for your toolbox so you don't stay a fatass.
+
+
+Enter FitShield a browser extension that helps you stay mindful of your calories.
+
+Features:
+
+1) url blocking for diversites and fast food sites.
+2) custom url blocking.
+3) adjustable timer duration.
+4) scheduled blocking hours.
+5) custom allow time post timer duration.
+6) and color customization.
+
+
+#Ethos
+
+look fat loss isn't easy and it only gets harder with site tracking, delivery sites, and whatnot, so don't buy in. block it entirely.
