@@ -16,7 +16,7 @@
       --muted: #a9b4c2;
       --accent: #7ef0a8;
       --shadow: rgba(126, 240, 168, 0.14);
-      --panel-radius: 24px;
+      --panel-radius: 16px;
       --popup-width: 516px;
     }
 
@@ -29,15 +29,13 @@
       margin: 0;
       min-width: var(--popup-width);
       border-radius: var(--panel-radius);
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       background:
         radial-gradient(circle at top, rgba(126, 240, 168, 0.14), transparent 42%),
         var(--bg);
       color: var(--text);
       font-family: "Segoe UI", sans-serif;
-    }
-
-    body {
       padding: 10px;
     }
 
@@ -47,12 +45,13 @@
       border: 1px solid var(--border);
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
       overflow: hidden;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: box-shadow 0.2s ease;
     }
 
     .card.glow {
-      border-color: rgba(126, 240, 168, 0.45);
-      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.3), 0 0 28px var(--shadow);
+      box-shadow:
+        0 16px 44px rgba(0, 0, 0, 0.3),
+        0 0 28px var(--shadow);
     }
 
     .hero,
