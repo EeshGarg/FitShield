@@ -42,7 +42,7 @@ const DEFAULT_THEME = {
   muted: "#a9b4c2",
   accent: "#7ef0a8",
   shadow: "rgba(126, 240, 168, 0.14)",
-  radius: 24,
+  radius: 16,
   popupWidth: 516
 };
 
@@ -159,7 +159,10 @@ function getStatusMessage(state) {
     return `Blocker is armed, but outside scheduled hours. It will block from ${formatScheduleText(scheduleStart, scheduleEnd)}.`;
   }
 
-  return `Active. Selected sites show a ${normalizeTimerSeconds(timerSeconds)} second countdown before a ${normalizePassDurationMinutes(passDurationMinutes)} minute pass.`;
+  const passMinutes = normalizePassDurationMinutes(passDurationMinutes);
+  const passUnit = passMinutes === 1 ? "minute" : "minutes";
+
+  return `Shield up. ${normalizeTimerSeconds(timerSeconds)} seconds countdown, ${passMinutes} ${passUnit} pass.`;
 }
 
 function refreshStatusOnly() {
