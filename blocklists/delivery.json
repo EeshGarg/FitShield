@@ -1,0 +1,49 @@
+{
+  "_schema": {
+    "description": "FitShield metadata-driven blocklist.",
+    "fields": {
+      "domain": "Apex domain only. No protocol, no paths, no subdomains unless absolutely required.",
+      "name": "Human-readable brand name shown in UI/logging.",
+      "type": "Broad FitShield behavior bucket. Examples: fast_food, delivery.",
+      "countries": "ISO-style country codes where this brand is active or relevant, such as US, CA, CN.",
+      "regions": "Broad region tags for future filtering. Examples: NA, EU, AS, SA, AF, OC.",
+      "category": "Primary food/business category, such as burger, pizza, chicken, coffee, sandwich, delivery.",
+      "specialties": "More specific foods/services the brand is known for.",
+      "enabled": "Whether this entry should be active by default."
+    }
+  },
+  "_version": "1.0",
+  "_lastUpdated": "2026-06-24",
+  "entries": [
+    {
+      "domain": "doordash.com",
+      "name": "DoorDash",
+      "type": "delivery",
+      "countries": ["US", "CA", "AU"],
+      "regions": ["NA", "OC"],
+      "category": "delivery",
+      "specialties": ["restaurant delivery", "grocery delivery"],
+      "enabled": true
+    },
+    {
+      "domain": "ubereats.com",
+      "name": "Uber Eats",
+      "type": "delivery",
+      "countries": ["US", "CA", "GB", "JP", "AU"],
+      "regions": ["NA", "EU", "AS", "OC"],
+      "category": "delivery",
+      "specialties": ["restaurant delivery", "grocery delivery"],
+      "enabled": true
+    },
+    {
+      "domain": "grubhub.com",
+      "name": "Grubhub",
+      "type": "delivery",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "delivery",
+      "specialties": ["restaurant delivery"],
+      "enabled": true
+    }
+  ]
+}
