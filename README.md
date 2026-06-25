@@ -31,9 +31,19 @@ look fat loss isn't easy and it only gets harder with site tracking, delivery si
 Contributions would be deeply appricieated, feel free to contribute code, thoughts, and critiques. Just don't be dick while doing so. I'm working on a google form for expanding the blocklist size and opening improvement suggestions to the people. 
 
 
-# Licencing
+# Licensing
 
-All code under this repository is registered under the GNU GPLv3 software License. 
+Source Code: `LICENSE`
+
+Curated Data: `DATA_LICENSE.md`
+
+Branding: All FitShield names, logos, trademarks, service marks, trade dress,
+and branding remain the property of Usha Corporation and are not included in
+either license.
+
+Curated FitShield data includes JSON blocklists such as `delivery.json` and
+`fast-food.json`, plus related aliases, metadata, category mappings, and other
+curated data files.
 
 # Suggestions
 

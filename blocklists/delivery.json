@@ -1,4 +1,6 @@
 {
+  "_license": "FitShield Data License",
+  "_copyright": "Copyright (c) 2026 Usha Corporation",
   "_schema": {
     "description": "FitShield metadata-driven blocklist.",
     "fields": {
