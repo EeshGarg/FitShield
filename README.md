@@ -32,8 +32,7 @@ Contributions would be deeply appricieated, feel free to contribute code, though
 
 FitShield is completely free and open source. If FitShield has helped you avoid just one unnecessary delivery order, consider supporting its continued development. Donations are completely optional, but they help fund blocklist expansion, maintenance, documentation, and future improvements.
 
-☕ Buy Me a Coffee:
-https://buymeacoffee.com/eeshgarg
+Buy Me a Coffee ☕:
 
 [![Buy Me a Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=%E2%98%95&slug=eeshgarg&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/eeshgarg)
 
