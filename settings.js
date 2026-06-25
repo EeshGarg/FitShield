@@ -16,6 +16,29 @@ const DEFAULT_THEME = {
   popupWidth: 516
 };
 
+const DEFAULT_THEME_MODE = "dark";
+
+// Color palettes for the simple dark/light mode switch. Radius and popup width
+// are layout settings, so they are preserved when switching modes.
+const THEME_MODE_PRESETS = {
+  dark: {
+    bg: "#0f141b",
+    panel: "#1a212b",
+    border: "#2c3644",
+    text: "#edf2f7",
+    muted: "#a9b4c2",
+    accent: "#7ef0a8"
+  },
+  light: {
+    bg: "#f4f6fa",
+    panel: "#ffffff",
+    border: "#d6dde6",
+    text: "#1b2430",
+    muted: "#5a6675",
+    accent: "#15a05a"
+  }
+};
+
 const bgColorInput = document.getElementById("bgColor");
 const panelColorInput = document.getElementById("panelColor");
 const borderColorInput = document.getElementById("borderColor");
@@ -27,6 +50,7 @@ const radiusValue = document.getElementById("radiusValue");
 const popupWidthRange = document.getElementById("popupWidthRange");
 const popupWidthValue = document.getElementById("popupWidthValue");
 const resetThemeButton = document.getElementById("resetTheme");
+const lightModeToggle = document.getElementById("lightModeToggle");
 const timerSlider = document.getElementById("timerSlider");
 const timerDisplay = document.getElementById("timerDisplay");
 const timerSecondsInput = document.getElementById("timerSeconds");
@@ -137,11 +161,36 @@ async function saveTheme() {
   await chrome.storage.local.set({ theme });
 }
 
+function applyThemeMode(mode) {
+  const isLight = mode === "light";
+  document.documentElement.classList.toggle("theme-light", isLight);
+  document.documentElement.style.colorScheme = isLight ? "light" : "dark";
+
+  if (lightModeToggle) {
+    lightModeToggle.checked = isLight;
+  }
+}
+
+async function setThemeMode(mode) {
+  const preset = THEME_MODE_PRESETS[mode] || THEME_MODE_PRESETS[DEFAULT_THEME_MODE];
+  const theme = buildTheme({
+    ...preset,
+    radius: Number.parseInt(radiusRange.value, 10),
+    popupWidth: Number.parseInt(popupWidthRange.value, 10)
+  });
+
+  populateInputs(theme);
+  applyTheme(theme);
+  applyThemeMode(mode);
+  await chrome.storage.local.set({ theme, themeMode: mode });
+}
+
 async function loadTheme() {
-  const { theme } = await chrome.storage.local.get(["theme"]);
+  const { theme, themeMode } = await chrome.storage.local.get(["theme", "themeMode"]);
   const mergedTheme = buildTheme(theme);
   populateInputs(mergedTheme);
   applyTheme(mergedTheme);
+  applyThemeMode(themeMode === "light" ? "light" : DEFAULT_THEME_MODE);
 }
 
 function normalizeTimerSeconds(value) {
@@ -427,11 +476,16 @@ popupWidthRange.addEventListener("input", () => {
   saveTheme();
 });
 
+lightModeToggle.addEventListener("change", () => {
+  setThemeMode(lightModeToggle.checked ? "light" : "dark");
+});
+
 resetThemeButton.addEventListener("click", async () => {
   const theme = buildTheme(DEFAULT_THEME);
   populateInputs(theme);
   applyTheme(theme);
-  await chrome.storage.local.set({ theme });
+  applyThemeMode(DEFAULT_THEME_MODE);
+  await chrome.storage.local.set({ theme, themeMode: DEFAULT_THEME_MODE });
 });
 
 timerSlider.addEventListener("input", () => {

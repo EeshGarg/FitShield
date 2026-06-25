@@ -259,6 +259,42 @@
       font-size: 0.82rem;
       font-weight: 700;
     }
+
+    /* Light mode overrides — applied when <html> has the .theme-light class. */
+    html.theme-light,
+    html.theme-light body {
+      background:
+        radial-gradient(circle at top, rgba(126, 240, 168, 0.1), transparent 42%),
+        var(--bg);
+    }
+
+    html.theme-light .card {
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14);
+    }
+
+    html.theme-light .hero {
+      border-color: rgba(15, 23, 42, 0.08);
+    }
+
+    html.theme-light .number-input,
+    html.theme-light .time-input,
+    html.theme-light .text-input {
+      background: #ffffff;
+      border-color: rgba(15, 23, 42, 0.18);
+    }
+
+    html.theme-light .field {
+      border-color: rgba(15, 23, 42, 0.1);
+    }
+
+    html.theme-light .button.secondary {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    html.theme-light .slider {
+      background: #cbd5e1;
+    }
   </style>
 </head>
 <body>

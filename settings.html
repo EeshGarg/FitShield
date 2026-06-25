@@ -478,6 +478,61 @@
     .mb-empty[hidden] {
       display: none;
     }
+
+    /* Light mode overrides — applied when <html> has the .theme-light class. */
+    html.theme-light body {
+      background:
+        radial-gradient(circle at top, rgba(126, 240, 168, 0.10), transparent 40%),
+        var(--bg);
+    }
+
+    html.theme-light .hero,
+    html.theme-light .section {
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
+    }
+
+    html.theme-light input[type="number"],
+    html.theme-light input[type="search"],
+    html.theme-light input[type="text"],
+    html.theme-light input[type="time"] {
+      background: #ffffff;
+      border-color: rgba(15, 23, 42, 0.18);
+    }
+
+    html.theme-light .field,
+    html.theme-light .category-card,
+    html.theme-light .mb-chip {
+      border-color: rgba(15, 23, 42, 0.1);
+    }
+
+    html.theme-light .site-list,
+    html.theme-light .site-item + .site-item {
+      border-color: rgba(15, 23, 42, 0.1);
+    }
+
+    html.theme-light .secondary,
+    html.theme-light .mb-pill.off {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    html.theme-light .mb-result {
+      background: #f1f4f9;
+      border-color: rgba(15, 23, 42, 0.1);
+    }
+
+    html.theme-light .mb-chip-toggle.off {
+      background: #cbd5e1;
+      color: var(--muted);
+    }
+
+    html.theme-light .mb-chip-remove {
+      background: rgba(15, 23, 42, 0.08);
+    }
+
+    html.theme-light .slider {
+      background: #cbd5e1;
+    }
   </style>
 </head>
 <body>
@@ -660,6 +715,21 @@
       <div class="row">
         <h2>Theme</h2>
         <button id="resetTheme" class="secondary theme-reset-button" type="button">Reset Theme</button>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <div class="row">
+            <div>
+              <label for="lightModeToggle">Light mode</label>
+              <small>Switch between the dark and light color theme.</small>
+            </div>
+            <label class="toggle" title="Toggle light mode">
+              <input id="lightModeToggle" type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
       </div>
 
       <div class="grid theme-control-grid">

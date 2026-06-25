@@ -67,9 +67,16 @@ function applyTheme(theme = {}) {
   root.style.setProperty("--popup-width", `${mergedTheme.popupWidth}px`);
 }
 
+function applyThemeMode(mode) {
+  const isLight = mode === "light";
+  document.documentElement.classList.toggle("theme-light", isLight);
+  document.documentElement.style.colorScheme = isLight ? "light" : "dark";
+}
+
 async function loadTheme() {
-  const { theme } = await chrome.storage.local.get(["theme"]);
+  const { theme, themeMode } = await chrome.storage.local.get(["theme", "themeMode"]);
   applyTheme(theme);
+  applyThemeMode(themeMode === "light" ? "light" : "dark");
 }
 
 function normalizeTimerSeconds(value) {
