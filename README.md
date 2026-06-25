@@ -64,7 +64,7 @@ Curated Data: `DATA_LICENSE.md`
 Branding: `BRANDING_LICENSE.md`
 
 The FitShield name, logos, FitJack mascot, trademarks, service marks, trade dress,
-and all branding assets remain the exclusive property of Usha Corporation and
+and all branding assets remain the exclusive property of Usha Corporation/Eesh Garg and
 are not included under either the software or data licenses.
 
 Curated FitShield data includes JSON blocklists such as `delivery.json` and
