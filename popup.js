@@ -47,11 +47,102 @@ const DEFAULT_THEME = {
   popupWidth: 516
 };
 
-function applyTheme(theme = {}) {
+const DEFAULT_THEME_MODE = "dark";
+const THEME_MODE_OPTIONS = ["system", "light", "dark"];
+const THEME_MODE_COLOR_KEYS = ["bg", "panel", "border", "text", "muted", "accent"];
+const systemThemeQuery = typeof window.matchMedia === "function"
+  ? window.matchMedia("(prefers-color-scheme: light)")
+  : null;
+
+const THEME_MODE_PRESETS = {
+  dark: {
+    bg: "#0f141b",
+    panel: "#1a212b",
+    border: "#2c3644",
+    text: "#edf2f7",
+    muted: "#a9b4c2",
+    accent: "#7ef0a8"
+  },
+  light: {
+    bg: "#f4f6fa",
+    panel: "#ffffff",
+    border: "#d6dde6",
+    text: "#1b2430",
+    muted: "#5a6675",
+    accent: "#15a05a"
+  }
+};
+
+function hexToRgba(hex, alpha) {
+  const normalized = hex.replace("#", "");
+  const expanded = normalized.length === 3
+    ? normalized.split("").map((char) => char + char).join("")
+    : normalized;
+  const red = Number.parseInt(expanded.slice(0, 2), 16);
+  const green = Number.parseInt(expanded.slice(2, 4), 16);
+  const blue = Number.parseInt(expanded.slice(4, 6), 16);
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+}
+
+function buildTheme(theme = {}) {
+  const sourceTheme = theme || {};
   const mergedTheme = {
     ...DEFAULT_THEME,
-    ...theme
+    ...sourceTheme
   };
+  const hasThemeText = typeof sourceTheme.text === "string";
+  const hasThemeAccent = typeof sourceTheme.accent === "string";
+
+  return {
+    ...mergedTheme,
+    panelSoft: sourceTheme.panelSoft
+      || (hasThemeText ? hexToRgba(mergedTheme.text, 0.03) : DEFAULT_THEME.panelSoft),
+    panelStrong: sourceTheme.panelStrong
+      || (hasThemeText ? hexToRgba(mergedTheme.text, 0.045) : DEFAULT_THEME.panelStrong),
+    shadow: sourceTheme.shadow
+      || (hasThemeAccent ? hexToRgba(mergedTheme.accent, 0.14) : DEFAULT_THEME.shadow)
+  };
+}
+
+function normalizeThemeMode(mode) {
+  return THEME_MODE_OPTIONS.includes(mode) ? mode : DEFAULT_THEME_MODE;
+}
+
+function resolveThemeMode(mode) {
+  const normalizedMode = normalizeThemeMode(mode);
+
+  if (normalizedMode === "system") {
+    return systemThemeQuery?.matches ? "light" : "dark";
+  }
+
+  return normalizedMode;
+}
+
+function themeMatchesPreset(theme, preset) {
+  return THEME_MODE_COLOR_KEYS.every((key) => {
+    const value = theme?.[key];
+    return typeof value === "string" && value.toLowerCase() === preset[key];
+  });
+}
+
+function shouldUseResolvedPreset(theme, mode) {
+  return normalizeThemeMode(mode) === "system"
+    && (!theme || themeMatchesPreset(theme, THEME_MODE_PRESETS.dark) || themeMatchesPreset(theme, THEME_MODE_PRESETS.light));
+}
+
+function buildThemeForMode(mode, baseTheme = {}) {
+  const base = buildTheme(baseTheme);
+  const preset = THEME_MODE_PRESETS[resolveThemeMode(mode)] || THEME_MODE_PRESETS[DEFAULT_THEME_MODE];
+
+  return buildTheme({
+    ...preset,
+    radius: base.radius,
+    popupWidth: base.popupWidth
+  });
+}
+
+function applyTheme(theme = {}) {
+  const mergedTheme = buildTheme(theme);
   const root = document.documentElement;
 
   root.style.setProperty("--bg", mergedTheme.bg);
@@ -68,15 +159,20 @@ function applyTheme(theme = {}) {
 }
 
 function applyThemeMode(mode) {
-  const isLight = mode === "light";
+  const isLight = resolveThemeMode(mode) === "light";
   document.documentElement.classList.toggle("theme-light", isLight);
   document.documentElement.style.colorScheme = isLight ? "light" : "dark";
 }
 
 async function loadTheme() {
   const { theme, themeMode } = await chrome.storage.local.get(["theme", "themeMode"]);
-  applyTheme(theme);
-  applyThemeMode(themeMode === "light" ? "light" : "dark");
+  const normalizedMode = normalizeThemeMode(themeMode);
+  const mergedTheme = shouldUseResolvedPreset(theme, normalizedMode)
+    ? buildThemeForMode(normalizedMode, theme)
+    : buildTheme(theme);
+
+  applyTheme(mergedTheme);
+  applyThemeMode(normalizedMode);
 }
 
 function normalizeTimerSeconds(value) {

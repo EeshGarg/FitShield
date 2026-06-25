@@ -88,6 +88,43 @@
       grid-template-columns: repeat(6, minmax(110px, 1fr));
     }
 
+    .theme-mode-field {
+      display: grid;
+      gap: 12px;
+    }
+
+    .theme-mode-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      padding: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .theme-mode-button {
+      min-width: 0;
+      padding: 10px 8px;
+      border-radius: 12px;
+      background: transparent;
+      color: var(--muted);
+      transition: background 0.16s ease, color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .theme-mode-button:hover,
+    .theme-mode-button:focus-visible {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text);
+      outline: none;
+    }
+
+    .theme-mode-button.active {
+      background: var(--accent);
+      color: #102016;
+      box-shadow: 0 8px 18px rgba(126, 240, 168, 0.16);
+    }
+
     .field {
       padding: 14px;
       border-radius: 18px;
@@ -516,6 +553,16 @@
       color: var(--text);
     }
 
+    html.theme-light .theme-mode-options {
+      background: rgba(15, 23, 42, 0.04);
+      border-color: rgba(15, 23, 42, 0.1);
+    }
+
+    html.theme-light .theme-mode-button:hover,
+    html.theme-light .theme-mode-button:focus-visible {
+      background: rgba(15, 23, 42, 0.07);
+    }
+
     html.theme-light .mb-result {
       background: #f1f4f9;
       border-color: rgba(15, 23, 42, 0.1);
@@ -718,16 +765,15 @@
       </div>
 
       <div class="grid">
-        <div class="field">
-          <div class="row">
-            <div>
-              <label for="lightModeToggle">Light mode</label>
-              <small>Switch between the dark and light color theme.</small>
-            </div>
-            <label class="toggle" title="Toggle light mode">
-              <input id="lightModeToggle" type="checkbox">
-              <span class="slider"></span>
-            </label>
+        <div class="field theme-mode-field">
+          <div>
+            <label id="themeModeLabel">System theme</label>
+            <small>Device preference or a fixed mode.</small>
+          </div>
+          <div class="theme-mode-options" role="group" aria-labelledby="themeModeLabel">
+            <button class="theme-mode-button" type="button" data-theme-mode="system" aria-pressed="false">System</button>
+            <button class="theme-mode-button" type="button" data-theme-mode="light" aria-pressed="false">Light</button>
+            <button class="theme-mode-button" type="button" data-theme-mode="dark" aria-pressed="false">Dark</button>
           </div>
         </div>
       </div>
@@ -772,6 +818,7 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <script src="blocklist.js"></script>

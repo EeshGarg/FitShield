@@ -17,8 +17,13 @@ const DEFAULT_THEME = {
 };
 
 const DEFAULT_THEME_MODE = "dark";
+const THEME_MODE_OPTIONS = ["system", "light", "dark"];
+const THEME_MODE_COLOR_KEYS = ["bg", "panel", "border", "text", "muted", "accent"];
+const systemThemeQuery = typeof window.matchMedia === "function"
+  ? window.matchMedia("(prefers-color-scheme: light)")
+  : null;
 
-// Color palettes for the simple dark/light mode switch. Radius and popup width
+// Color palettes for the theme mode selector. Radius and popup width
 // are layout settings, so they are preserved when switching modes.
 const THEME_MODE_PRESETS = {
   dark: {
@@ -50,7 +55,7 @@ const radiusValue = document.getElementById("radiusValue");
 const popupWidthRange = document.getElementById("popupWidthRange");
 const popupWidthValue = document.getElementById("popupWidthValue");
 const resetThemeButton = document.getElementById("resetTheme");
-const lightModeToggle = document.getElementById("lightModeToggle");
+const themeModeButtons = Array.from(document.querySelectorAll("[data-theme-mode]"));
 const timerSlider = document.getElementById("timerSlider");
 const timerDisplay = document.getElementById("timerDisplay");
 const timerSecondsInput = document.getElementById("timerSeconds");
@@ -155,6 +160,43 @@ function populateInputs(theme) {
   popupWidthValue.textContent = String(theme.popupWidth);
 }
 
+function normalizeThemeMode(mode) {
+  return THEME_MODE_OPTIONS.includes(mode) ? mode : DEFAULT_THEME_MODE;
+}
+
+function resolveThemeMode(mode) {
+  const normalizedMode = normalizeThemeMode(mode);
+
+  if (normalizedMode === "system") {
+    return systemThemeQuery?.matches ? "light" : "dark";
+  }
+
+  return normalizedMode;
+}
+
+function themeMatchesPreset(theme, preset) {
+  return THEME_MODE_COLOR_KEYS.every((key) => {
+    const value = theme?.[key];
+    return typeof value === "string" && value.toLowerCase() === preset[key];
+  });
+}
+
+function shouldUseResolvedPreset(theme, mode) {
+  return normalizeThemeMode(mode) === "system"
+    && (!theme || themeMatchesPreset(theme, THEME_MODE_PRESETS.dark) || themeMatchesPreset(theme, THEME_MODE_PRESETS.light));
+}
+
+function buildThemeForMode(mode, baseTheme = {}) {
+  const base = buildTheme(baseTheme);
+  const preset = THEME_MODE_PRESETS[resolveThemeMode(mode)] || THEME_MODE_PRESETS[DEFAULT_THEME_MODE];
+
+  return buildTheme({
+    ...preset,
+    radius: base.radius,
+    popupWidth: base.popupWidth
+  });
+}
+
 async function saveTheme() {
   const theme = readThemeFromInputs();
   applyTheme(theme);
@@ -162,35 +204,41 @@ async function saveTheme() {
 }
 
 function applyThemeMode(mode) {
-  const isLight = mode === "light";
+  const normalizedMode = normalizeThemeMode(mode);
+  const isLight = resolveThemeMode(normalizedMode) === "light";
   document.documentElement.classList.toggle("theme-light", isLight);
   document.documentElement.style.colorScheme = isLight ? "light" : "dark";
 
-  if (lightModeToggle) {
-    lightModeToggle.checked = isLight;
-  }
+  themeModeButtons.forEach((button) => {
+    const isActive = button.dataset.themeMode === normalizedMode;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
 }
 
 async function setThemeMode(mode) {
-  const preset = THEME_MODE_PRESETS[mode] || THEME_MODE_PRESETS[DEFAULT_THEME_MODE];
-  const theme = buildTheme({
-    ...preset,
+  const normalizedMode = normalizeThemeMode(mode);
+  const theme = buildThemeForMode(normalizedMode, {
     radius: Number.parseInt(radiusRange.value, 10),
     popupWidth: Number.parseInt(popupWidthRange.value, 10)
   });
 
   populateInputs(theme);
   applyTheme(theme);
-  applyThemeMode(mode);
-  await chrome.storage.local.set({ theme, themeMode: mode });
+  applyThemeMode(normalizedMode);
+  await chrome.storage.local.set({ theme, themeMode: normalizedMode });
 }
 
 async function loadTheme() {
   const { theme, themeMode } = await chrome.storage.local.get(["theme", "themeMode"]);
-  const mergedTheme = buildTheme(theme);
+  const normalizedMode = normalizeThemeMode(themeMode);
+  const mergedTheme = shouldUseResolvedPreset(theme, normalizedMode)
+    ? buildThemeForMode(normalizedMode, theme)
+    : buildTheme(theme);
+
   populateInputs(mergedTheme);
   applyTheme(mergedTheme);
-  applyThemeMode(themeMode === "light" ? "light" : DEFAULT_THEME_MODE);
+  applyThemeMode(normalizedMode);
 }
 
 function normalizeTimerSeconds(value) {
@@ -476,8 +524,10 @@ popupWidthRange.addEventListener("input", () => {
   saveTheme();
 });
 
-lightModeToggle.addEventListener("change", () => {
-  setThemeMode(lightModeToggle.checked ? "light" : "dark");
+themeModeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setThemeMode(button.dataset.themeMode);
+  });
 });
 
 resetThemeButton.addEventListener("click", async () => {
