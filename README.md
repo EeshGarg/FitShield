@@ -30,6 +30,11 @@ look fat loss isn't easy and it only gets harder with site tracking, delivery si
 
 Contributions would be deeply appricieated, feel free to contribute code, thoughts, and critiques. Just don't be dick while doing so. I'm working on a google form for expanding the blocklist size and opening improvement suggestions to the people. 
 
+FitShield is completely free and open source. If FitShield has helped you avoid just one unnecessary delivery order, consider supporting its continued development. Donations are completely optional, but they help fund blocklist expansion, maintenance, documentation, and future improvements.
+
+☕ Buy Me a Coffee:
+https://buymeacoffee.com/eeshgarg
+
 
 # Licensing
 
@@ -52,7 +57,6 @@ Blocklist suggestions: coming soon
 
 
 Thank you for your consideration.
-Buy me a coffee: (coming soon)
 
 
 # Licensing
