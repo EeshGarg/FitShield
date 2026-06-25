@@ -66,13 +66,13 @@
       "enabled": true
     },
     {
-      "domain": "popeyes.com",
-      "name": "Popeyes",
+      "domain": "subway.com",
+      "name": "Subway",
       "type": "fast_food",
-      "countries": ["US", "CA"],
-      "regions": ["NA"],
-      "category": "chicken",
-      "specialties": ["fried chicken", "biscuits", "sandwiches"],
+      "countries": ["US", "CA", "GB", "AU"],
+      "regions": ["NA", "EU", "OC"],
+      "category": "sandwich",
+      "specialties": ["sandwiches", "subs", "salads"],
       "enabled": true
     },
     {
@@ -86,6 +86,306 @@
       "enabled": true
     },
     {
+      "domain": "arbys.com",
+      "name": "Arby's",
+      "type": "fast_food",
+      "countries": ["US", "CA"],
+      "regions": ["NA"],
+      "category": "sandwich",
+      "specialties": ["roast beef", "curly fries", "sandwiches"],
+      "enabled": true
+    },
+    {
+      "domain": "sonicdrivein.com",
+      "name": "Sonic Drive-In",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "hot dogs", "slushes", "tots"],
+      "enabled": true
+    },
+    {
+      "domain": "jackinthebox.com",
+      "name": "Jack in the Box",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "tacos", "fries", "breakfast"],
+      "enabled": true
+    },
+    {
+      "domain": "whataburger.com",
+      "name": "Whataburger",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "fries", "breakfast"],
+      "enabled": true
+    },
+    {
+      "domain": "hardees.com",
+      "name": "Hardee's",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "biscuits", "breakfast"],
+      "enabled": true
+    },
+    {
+      "domain": "carlsjr.com",
+      "name": "Carl's Jr.",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "fries", "breakfast"],
+      "enabled": true
+    },
+    {
+      "domain": "fiveguys.com",
+      "name": "Five Guys",
+      "type": "fast_food",
+      "countries": ["US", "CA", "GB"],
+      "regions": ["NA", "EU"],
+      "category": "burger",
+      "specialties": ["burgers", "fries", "hot dogs", "shakes"],
+      "enabled": true
+    },
+    {
+      "domain": "innout.com",
+      "name": "In-N-Out Burger",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "fries", "shakes"],
+      "enabled": true
+    },
+    {
+      "domain": "popeyes.com",
+      "name": "Popeyes",
+      "type": "fast_food",
+      "countries": ["US", "CA"],
+      "regions": ["NA"],
+      "category": "chicken",
+      "specialties": ["fried chicken", "biscuits", "sandwiches"],
+      "enabled": true
+    },
+    {
+      "domain": "raisingcanes.com",
+      "name": "Raising Cane's",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "chicken",
+      "specialties": ["chicken fingers", "fries", "toast"],
+      "enabled": true
+    },
+    {
+      "domain": "zaxbys.com",
+      "name": "Zaxby's",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "chicken",
+      "specialties": ["chicken fingers", "wings", "fries"],
+      "enabled": true
+    },
+    {
+      "domain": "bojangles.com",
+      "name": "Bojangles",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "chicken",
+      "specialties": ["fried chicken", "biscuits", "breakfast"],
+      "enabled": true
+    },
+    {
+      "domain": "churchs.com",
+      "name": "Church's Texas Chicken",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "chicken",
+      "specialties": ["fried chicken", "biscuits", "tenders"],
+      "enabled": true
+    },
+    {
+      "domain": "culvers.com",
+      "name": "Culver's",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["butterburgers", "custard", "cheese curds"],
+      "enabled": true
+    },
+    {
+      "domain": "steaknshake.com",
+      "name": "Steak 'n Shake",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["steakburgers", "shakes", "fries"],
+      "enabled": true
+    },
+    {
+      "domain": "whitecastle.com",
+      "name": "White Castle",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["sliders", "fries", "chicken rings"],
+      "enabled": true
+    },
+    {
+      "domain": "krystal.com",
+      "name": "Krystal",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["sliders", "fries", "chili"],
+      "enabled": true
+    },
+    {
+      "domain": "checkers.com",
+      "name": "Checkers",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "seasoned fries", "wings"],
+      "enabled": true
+    },
+    {
+      "domain": "rallys.com",
+      "name": "Rally's",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "seasoned fries", "wings"],
+      "enabled": true
+    },
+    {
+      "domain": "cookout.com",
+      "name": "Cook Out",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "barbecue", "milkshakes"],
+      "enabled": true
+    },
+    {
+      "domain": "freddys.com",
+      "name": "Freddy's Frozen Custard & Steakburgers",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["steakburgers", "custard", "fries"],
+      "enabled": true
+    },
+    {
+      "domain": "shakeshack.com",
+      "name": "Shake Shack",
+      "type": "fast_food",
+      "countries": ["US", "GB", "JP"],
+      "regions": ["NA", "EU", "AS"],
+      "category": "burger",
+      "specialties": ["burgers", "fries", "shakes"],
+      "enabled": true
+    },
+    {
+      "domain": "smashburger.com",
+      "name": "Smashburger",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "fries", "shakes"],
+      "enabled": true
+    },
+    {
+      "domain": "habitburger.com",
+      "name": "The Habit Burger Grill",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["charburgers", "fries", "sandwiches"],
+      "enabled": true
+    },
+    {
+      "domain": "burgerfi.com",
+      "name": "BurgerFi",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "fries", "custard"],
+      "enabled": true
+    },
+    {
+      "domain": "mooyah.com",
+      "name": "MOOYAH Burgers",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "fries", "shakes"],
+      "enabled": true
+    },
+    {
+      "domain": "fatburger.com",
+      "name": "Fatburger",
+      "type": "fast_food",
+      "countries": ["US", "CA"],
+      "regions": ["NA"],
+      "category": "burger",
+      "specialties": ["burgers", "fries", "shakes"],
+      "enabled": true
+    },
+    {
+      "domain": "deltaco.com",
+      "name": "Del Taco",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "mexican",
+      "specialties": ["tacos", "burritos", "fries"],
+      "enabled": true
+    },
+    {
+      "domain": "qdoba.com",
+      "name": "Qdoba",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "mexican",
+      "specialties": ["burritos", "bowls", "queso"],
+      "enabled": true
+    },
+    {
+      "domain": "moes.com",
+      "name": "Moe's Southwest Grill",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "mexican",
+      "specialties": ["burritos", "bowls", "queso"],
+      "enabled": true
+    },
+    {
       "domain": "chipotle.com",
       "name": "Chipotle",
       "type": "fast_food",
@@ -96,13 +396,473 @@
       "enabled": true
     },
     {
-      "domain": "subway.com",
-      "name": "Subway",
+      "domain": "pandaexpress.com",
+      "name": "Panda Express",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "asian",
+      "specialties": ["orange chicken", "chow mein", "fried rice"],
+      "enabled": true
+    },
+    {
+      "domain": "elpolloloco.com",
+      "name": "El Pollo Loco",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "chicken",
+      "specialties": ["grilled chicken", "tacos", "burritos"],
+      "enabled": true
+    },
+    {
+      "domain": "pollotropical.com",
+      "name": "Pollo Tropical",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "chicken",
+      "specialties": ["grilled chicken", "rice", "tropical sides"],
+      "enabled": true
+    },
+    {
+      "domain": "tacojohns.com",
+      "name": "Taco John's",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "mexican",
+      "specialties": ["tacos", "burritos", "potato oles"],
+      "enabled": true
+    },
+    {
+      "domain": "tacobueno.com",
+      "name": "Taco Bueno",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "mexican",
+      "specialties": ["tacos", "burritos", "queso"],
+      "enabled": true
+    },
+    {
+      "domain": "tacocabana.com",
+      "name": "Taco Cabana",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "mexican",
+      "specialties": ["tacos", "fajitas", "margaritas"],
+      "enabled": true
+    },
+    {
+      "domain": "tacotime.com",
+      "name": "Taco Time",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "mexican",
+      "specialties": ["tacos", "burritos", "crisp burritos"],
+      "enabled": true
+    },
+    {
+      "domain": "portillos.com",
+      "name": "Portillo's",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "fast_casual",
+      "specialties": ["hot dogs", "italian beef", "burgers"],
+      "enabled": true
+    },
+    {
+      "domain": "jimmyjohns.com",
+      "name": "Jimmy John's",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "sandwich",
+      "specialties": ["subs", "sandwiches", "chips"],
+      "enabled": true
+    },
+    {
+      "domain": "jerseymikes.com",
+      "name": "Jersey Mike's",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "sandwich",
+      "specialties": ["subs", "cheesesteaks", "sandwiches"],
+      "enabled": true
+    },
+    {
+      "domain": "firehousesubs.com",
+      "name": "Firehouse Subs",
+      "type": "fast_food",
+      "countries": ["US", "CA"],
+      "regions": ["NA"],
+      "category": "sandwich",
+      "specialties": ["subs", "hot sandwiches", "chips"],
+      "enabled": true
+    },
+    {
+      "domain": "potbelly.com",
+      "name": "Potbelly",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "sandwich",
+      "specialties": ["toasted sandwiches", "soups", "shakes"],
+      "enabled": true
+    },
+    {
+      "domain": "quiznos.com",
+      "name": "Quiznos",
+      "type": "fast_food",
+      "countries": ["US", "CA"],
+      "regions": ["NA"],
+      "category": "sandwich",
+      "specialties": ["toasted subs", "sandwiches", "soups"],
+      "enabled": true
+    },
+    {
+      "domain": "whichwich.com",
+      "name": "Which Wich",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "sandwich",
+      "specialties": ["sandwiches", "subs", "chips"],
+      "enabled": true
+    },
+    {
+      "domain": "penn-station.com",
+      "name": "Penn Station East Coast Subs",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "sandwich",
+      "specialties": ["subs", "cheesesteaks", "fries"],
+      "enabled": true
+    },
+    {
+      "domain": "mcalistersdeli.com",
+      "name": "McAlister's Deli",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "sandwich",
+      "specialties": ["sandwiches", "soups", "sweet tea"],
+      "enabled": true
+    },
+    {
+      "domain": "charleys.com",
+      "name": "Charleys Cheesesteaks",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "sandwich",
+      "specialties": ["cheesesteaks", "fries", "lemonade"],
+      "enabled": true
+    },
+    {
+      "domain": "panerabread.com",
+      "name": "Panera Bread",
+      "type": "fast_food",
+      "countries": ["US", "CA"],
+      "regions": ["NA"],
+      "category": "bakery",
+      "specialties": ["sandwiches", "soups", "bread", "coffee"],
+      "enabled": true
+    },
+    {
+      "domain": "noodles.com",
+      "name": "Noodles & Company",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "fast_casual",
+      "specialties": ["noodles", "pasta", "mac and cheese"],
+      "enabled": true
+    },
+    {
+      "domain": "einsteinbros.com",
+      "name": "Einstein Bros. Bagels",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "bakery",
+      "specialties": ["bagels", "coffee", "breakfast"],
+      "enabled": true
+    },
+    {
+      "domain": "aubonpain.com",
+      "name": "Au Bon Pain",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "bakery",
+      "specialties": ["sandwiches", "pastries", "coffee"],
+      "enabled": true
+    },
+    {
+      "domain": "pret.com",
+      "name": "Pret A Manger",
+      "type": "fast_food",
+      "countries": ["GB", "US"],
+      "regions": ["EU", "NA"],
+      "category": "sandwich",
+      "specialties": ["sandwiches", "coffee", "salads"],
+      "enabled": true
+    },
+    {
+      "domain": "starbucks.com",
+      "name": "Starbucks",
+      "type": "fast_food",
+      "countries": ["US", "CA", "GB", "JP"],
+      "regions": ["NA", "EU", "AS"],
+      "category": "coffee",
+      "specialties": ["coffee", "espresso", "breakfast", "pastries"],
+      "enabled": true
+    },
+    {
+      "domain": "dunkindonuts.com",
+      "name": "Dunkin'",
+      "type": "fast_food",
+      "countries": ["US", "KR", "PH"],
+      "regions": ["NA", "AS"],
+      "category": "coffee",
+      "specialties": ["coffee", "doughnuts", "breakfast"],
+      "enabled": true
+    },
+    {
+      "domain": "krispykreme.com",
+      "name": "Krispy Kreme",
       "type": "fast_food",
       "countries": ["US", "CA", "GB", "AU"],
       "regions": ["NA", "EU", "OC"],
-      "category": "sandwich",
-      "specialties": ["sandwiches", "subs", "salads"],
+      "category": "dessert",
+      "specialties": ["doughnuts", "coffee", "glazed doughnuts"],
+      "enabled": true
+    },
+    {
+      "domain": "timhortons.com",
+      "name": "Tim Hortons",
+      "type": "fast_food",
+      "countries": ["CA", "US"],
+      "regions": ["NA"],
+      "category": "coffee",
+      "specialties": ["coffee", "doughnuts", "breakfast"],
+      "enabled": true
+    },
+    {
+      "domain": "cariboucoffee.com",
+      "name": "Caribou Coffee",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "coffee",
+      "specialties": ["coffee", "espresso", "breakfast"],
+      "enabled": true
+    },
+    {
+      "domain": "biggby.com",
+      "name": "BIGGBY Coffee",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "coffee",
+      "specialties": ["coffee", "espresso", "breakfast"],
+      "enabled": true
+    },
+    {
+      "domain": "jamba.com",
+      "name": "Jamba",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "smoothie",
+      "specialties": ["smoothies", "juice", "bowls"],
+      "enabled": true
+    },
+    {
+      "domain": "smoothieking.com",
+      "name": "Smoothie King",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "smoothie",
+      "specialties": ["smoothies", "protein", "bowls"],
+      "enabled": true
+    },
+    {
+      "domain": "tropicalsmoothiecafe.com",
+      "name": "Tropical Smoothie Cafe",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "smoothie",
+      "specialties": ["smoothies", "wraps", "flatbreads"],
+      "enabled": true
+    },
+    {
+      "domain": "planetsmoothie.com",
+      "name": "Planet Smoothie",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "smoothie",
+      "specialties": ["smoothies", "protein", "fruit"],
+      "enabled": true
+    },
+    {
+      "domain": "orangejulius.com",
+      "name": "Orange Julius",
+      "type": "fast_food",
+      "countries": ["US", "CA"],
+      "regions": ["NA"],
+      "category": "smoothie",
+      "specialties": ["fruit drinks", "smoothies", "shakes"],
+      "enabled": true
+    },
+    {
+      "domain": "baskinrobbins.com",
+      "name": "Baskin-Robbins",
+      "type": "fast_food",
+      "countries": ["US", "CA", "JP"],
+      "regions": ["NA", "AS"],
+      "category": "dessert",
+      "specialties": ["ice cream", "cakes", "shakes"],
+      "enabled": true
+    },
+    {
+      "domain": "dq.com",
+      "name": "Dairy Queen",
+      "type": "fast_food",
+      "countries": ["US", "CA", "CN"],
+      "regions": ["NA", "AS"],
+      "category": "dessert",
+      "specialties": ["ice cream", "blizzards", "burgers", "fries"],
+      "enabled": true
+    },
+    {
+      "domain": "coldstonecreamery.com",
+      "name": "Cold Stone Creamery",
+      "type": "fast_food",
+      "countries": ["US", "CA", "JP"],
+      "regions": ["NA", "AS"],
+      "category": "dessert",
+      "specialties": ["ice cream", "cakes", "mix-ins"],
+      "enabled": true
+    },
+    {
+      "domain": "carvel.com",
+      "name": "Carvel",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "dessert",
+      "specialties": ["ice cream", "cakes", "soft serve"],
+      "enabled": true
+    },
+    {
+      "domain": "ritasice.com",
+      "name": "Rita's Italian Ice",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "dessert",
+      "specialties": ["italian ice", "custard", "gelati"],
+      "enabled": true
+    },
+    {
+      "domain": "sweetfrog.com",
+      "name": "sweetFrog",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "dessert",
+      "specialties": ["frozen yogurt", "toppings", "smoothies"],
+      "enabled": true
+    },
+    {
+      "domain": "menchies.com",
+      "name": "Menchie's Frozen Yogurt",
+      "type": "fast_food",
+      "countries": ["US", "CA"],
+      "regions": ["NA"],
+      "category": "dessert",
+      "specialties": ["frozen yogurt", "toppings", "sorbet"],
+      "enabled": true
+    },
+    {
+      "domain": "yogurtland.com",
+      "name": "Yogurtland",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "dessert",
+      "specialties": ["frozen yogurt", "toppings", "sorbet"],
+      "enabled": true
+    },
+    {
+      "domain": "cinnabon.com",
+      "name": "Cinnabon",
+      "type": "fast_food",
+      "countries": ["US", "CA"],
+      "regions": ["NA"],
+      "category": "bakery",
+      "specialties": ["cinnamon rolls", "coffee", "pastries"],
+      "enabled": true
+    },
+    {
+      "domain": "auntieannes.com",
+      "name": "Auntie Anne's",
+      "type": "fast_food",
+      "countries": ["US", "CA"],
+      "regions": ["NA"],
+      "category": "bakery",
+      "specialties": ["pretzels", "lemonade", "snacks"],
+      "enabled": true
+    },
+    {
+      "domain": "wetzels.com",
+      "name": "Wetzel's Pretzels",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "bakery",
+      "specialties": ["pretzels", "lemonade", "snacks"],
+      "enabled": true
+    },
+    {
+      "domain": "sbarro.com",
+      "name": "Sbarro",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["pizza", "pasta", "stromboli"],
+      "enabled": true
+    },
+    {
+      "domain": "littlecaesars.com",
+      "name": "Little Caesars",
+      "type": "fast_food",
+      "countries": ["US", "CA", "MX"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["pizza", "breadsticks", "wings"],
+      "enabled": true
+    },
+    {
+      "domain": "pizzahut.com",
+      "name": "Pizza Hut",
+      "type": "fast_food",
+      "countries": ["US", "GB", "CN"],
+      "regions": ["NA", "EU", "AS"],
+      "category": "pizza",
+      "specialties": ["pizza", "pasta", "wings"],
       "enabled": true
     },
     {
@@ -116,13 +876,173 @@
       "enabled": true
     },
     {
-      "domain": "pizzahut.com",
-      "name": "Pizza Hut",
+      "domain": "papajohns.com",
+      "name": "Papa Johns",
       "type": "fast_food",
-      "countries": ["US", "GB", "CN"],
-      "regions": ["NA", "EU", "AS"],
+      "countries": ["US", "GB"],
+      "regions": ["NA", "EU"],
       "category": "pizza",
-      "specialties": ["pizza", "pasta", "wings"],
+      "specialties": ["pizza", "breadsticks", "wings"],
+      "enabled": true
+    },
+    {
+      "domain": "marcos.com",
+      "name": "Marco's Pizza",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["pizza", "subs", "cheezybread"],
+      "enabled": true
+    },
+    {
+      "domain": "hungryhowies.com",
+      "name": "Hungry Howie's",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["pizza", "flavored crust", "subs"],
+      "enabled": true
+    },
+    {
+      "domain": "jetspizza.com",
+      "name": "Jet's Pizza",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["detroit-style pizza", "wings", "salads"],
+      "enabled": true
+    },
+    {
+      "domain": "modpizza.com",
+      "name": "MOD Pizza",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["pizza", "salads", "custom toppings"],
+      "enabled": true
+    },
+    {
+      "domain": "blazepizza.com",
+      "name": "Blaze Pizza",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["pizza", "salads", "custom toppings"],
+      "enabled": true
+    },
+    {
+      "domain": "pieology.com",
+      "name": "Pieology",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["pizza", "salads", "custom toppings"],
+      "enabled": true
+    },
+    {
+      "domain": "pizzainn.com",
+      "name": "Pizza Inn",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["pizza", "buffet", "wings"],
+      "enabled": true
+    },
+    {
+      "domain": "roundtablepizza.com",
+      "name": "Round Table Pizza",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["pizza", "wings", "breadsticks"],
+      "enabled": true
+    },
+    {
+      "domain": "godfathers.com",
+      "name": "Godfather's Pizza",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["pizza", "breadsticks", "desserts"],
+      "enabled": true
+    },
+    {
+      "domain": "papamurphys.com",
+      "name": "Papa Murphy's",
+      "type": "fast_food",
+      "countries": ["US", "CA"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["take-and-bake pizza", "salads", "desserts"],
+      "enabled": true
+    },
+    {
+      "domain": "huntbrotherspizza.com",
+      "name": "Hunt Brothers Pizza",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "pizza",
+      "specialties": ["pizza", "wings", "convenience stores"],
+      "enabled": true
+    },
+    {
+      "domain": "schlotzskys.com",
+      "name": "Schlotzsky's",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "sandwich",
+      "specialties": ["sandwiches", "flatbreads", "soups"],
+      "enabled": true
+    },
+    {
+      "domain": "leeannchin.com",
+      "name": "Leeann Chin",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "asian",
+      "specialties": ["chinese", "fried rice", "noodles"],
+      "enabled": true
+    },
+    {
+      "domain": "jollibeefoods.com",
+      "name": "Jollibee Foods",
+      "type": "fast_food",
+      "countries": ["PH", "US", "CA"],
+      "regions": ["AS", "NA"],
+      "category": "chicken",
+      "specialties": ["fried chicken", "spaghetti", "burgers"],
+      "enabled": true
+    },
+    {
+      "domain": "wingstop.com",
+      "name": "Wingstop",
+      "type": "fast_food",
+      "countries": ["US", "GB"],
+      "regions": ["NA", "EU"],
+      "category": "chicken",
+      "specialties": ["wings", "fries", "tenders"],
+      "enabled": true
+    },
+    {
+      "domain": "longjohnsilvers.com",
+      "name": "Long John Silver's",
+      "type": "fast_food",
+      "countries": ["US"],
+      "regions": ["NA"],
+      "category": "seafood",
+      "specialties": ["fish", "shrimp", "fries"],
       "enabled": true
     }
   ]
