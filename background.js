@@ -1,3 +1,5 @@
+importScripts("blocklist.js");
+
 const BYPASS_ALARM = "temporaryBypassExpired";
 const SCHEDULE_ALARM = "scheduleBoundaryReached";
 const DEFAULT_TIMER_SECONDS = 60;
@@ -7,25 +9,64 @@ const MIN_PASS_DURATION_MINUTES = 1;
 const DEFAULT_SCHEDULE_START = "18:00";
 const DEFAULT_SCHEDULE_END = "23:00";
 
-const DELIVERY_SITES = [
-  { key: "doordash", label: "DoorDash", match: "doordash.com", home: "https://www.doordash.com/" },
-  { key: "ubereats", label: "Uber Eats", match: "ubereats.com", home: "https://www.ubereats.com/" },
-  { key: "grubhub", label: "Grubhub", match: "grubhub.com", home: "https://www.grubhub.com/" }
-];
+// The legacy delivery/fast-food site lists are now sourced from the JSON
+// blocklists. They are populated on demand by ensureBlocklistsLoaded() and keep
+// the same { key, label, match, home, ... } shape the rest of the code expects.
+let DELIVERY_SITES = [];
+let FAST_FOOD_SITES = [];
+let blocklistsLoaded = false;
+let blocklistLoadPromise = null;
 
-const FAST_FOOD_SITES = [
-  { key: "mcdonalds", label: "McDonald's", match: "mcdonalds.com", home: "https://www.mcdonalds.com/" },
-  { key: "burgerking", label: "Burger King", match: "burgerking.com", home: "https://www.burgerking.com/" },
-  { key: "wendys", label: "Wendy's", match: "wendys.com", home: "https://www.wendys.com/" },
-  { key: "tacobell", label: "Taco Bell", match: "tacobell.com", home: "https://www.tacobell.com/" },
-  { key: "kfc", label: "KFC", match: "kfc.com", home: "https://www.kfc.com/" },
-  { key: "popeyes", label: "Popeyes", match: "popeyes.com", home: "https://www.popeyes.com/" },
-  { key: "chickfila", label: "Chick-fil-A", match: "chick-fil-a.com", home: "https://www.chick-fil-a.com/" },
-  { key: "chipotle", label: "Chipotle", match: "chipotle.com", home: "https://www.chipotle.com/" },
-  { key: "subway", label: "Subway", match: "subway.com", home: "https://www.subway.com/" },
-  { key: "dominos", label: "Domino's", match: "dominos.com", home: "https://www.dominos.com/" },
-  { key: "pizzahut", label: "Pizza Hut", match: "pizzahut.com", home: "https://www.pizzahut.com/" }
-];
+// Derive a stable key from an apex domain (e.g. "chick-fil-a.com" -> "chickfila").
+function domainToKey(domain) {
+  return String(domain || "")
+    .toLowerCase()
+    .replace(/\.[a-z]+$/, "")
+    .replace(/[^a-z0-9]/g, "");
+}
+
+// Map a JSON blocklist entry to the site-record shape used throughout the
+// background script, preserving the metadata so it can be filtered later.
+function entryToSiteRecord(entry) {
+  const domain = FitShieldBlocklist.normalizeHostname(entry.domain);
+
+  return {
+    key: domainToKey(domain),
+    label: entry.name || domain,
+    match: domain,
+    home: `https://www.${domain}/`,
+    domain,
+    type: entry.type || "",
+    countries: Array.isArray(entry.countries) ? entry.countries : [],
+    regions: Array.isArray(entry.regions) ? entry.regions : [],
+    category: entry.category || "",
+    specialties: Array.isArray(entry.specialties) ? entry.specialties : [],
+    enabled: entry.enabled !== false
+  };
+}
+
+async function ensureBlocklistsLoaded() {
+  if (blocklistsLoaded) {
+    return;
+  }
+
+  if (!blocklistLoadPromise) {
+    blocklistLoadPromise = FitShieldBlocklist.loadBlocklists()
+      .then((entries) => {
+        const records = entries.map(entryToSiteRecord);
+        DELIVERY_SITES = records.filter((record) => record.type === "delivery");
+        FAST_FOOD_SITES = records.filter((record) => record.type === "fast_food");
+        blocklistsLoaded = true;
+      })
+      .catch((error) => {
+        console.error("Failed to load blocklists:", error);
+        blocklistLoadPromise = null;
+        throw error;
+      });
+  }
+
+  await blocklistLoadPromise;
+}
 
 let refreshChain = Promise.resolve();
 
@@ -150,12 +191,35 @@ function mergeSitesWithEnabledState(sites, disabledKeys) {
   }));
 }
 
+// Keep only the recognized filter fields and drop empty values so an "empty"
+// filter is a plain {} that matches everything (the "Block All" default).
+function normalizeBlockFilter(value) {
+  const source = value && typeof value === "object" ? value : {};
+  const filter = {};
+
+  ["type", "country", "region", "category", "specialty"].forEach((field) => {
+    const fieldValue = typeof source[field] === "string" ? source[field].trim() : "";
+
+    if (fieldValue) {
+      filter[field] = fieldValue;
+    }
+  });
+
+  return filter;
+}
+
 function getRuleCatalog(settings) {
   const catalog = [];
+  const blockFilter = settings.blockFilter || {};
+
+  // Narrow the branded lists by the active metadata filter (type/country/
+  // region/category/specialty). An empty filter matches everything, so the
+  // default "Block All" behavior is preserved.
+  const applyBlockFilter = (sites) => FitShieldBlocklist.filterEntries(blockFilter, sites);
 
   if (settings.deliverySitesEnabled) {
     catalog.push(
-      ...settings.deliverySites.filter((site) => site.enabled).map((site) => ({
+      ...applyBlockFilter(settings.deliverySites.filter((site) => site.enabled)).map((site) => ({
         ...site,
         category: "delivery"
       }))
@@ -164,7 +228,7 @@ function getRuleCatalog(settings) {
 
   if (settings.fastFoodSitesEnabled) {
     catalog.push(
-      ...settings.fastFoodSites.filter((site) => site.enabled).map((site) => ({
+      ...applyBlockFilter(settings.fastFoodSites.filter((site) => site.enabled)).map((site) => ({
         ...site,
         category: "fastfood"
       }))
@@ -206,7 +270,9 @@ function createRules(settings) {
         }
       },
       condition: {
-        urlFilter: site.match,
+        // "||" anchors to a domain-name boundary so subdomains match but
+        // look-alikes (e.g. fake-mcdonalds.com) do not.
+        urlFilter: `||${site.match}`,
         resourceTypes: ["main_frame"]
       }
     };
@@ -260,6 +326,8 @@ async function syncAlarms({ bypassUntil, scheduleEnabled, scheduleStart, schedul
 }
 
 async function getSettings() {
+  await ensureBlocklistsLoaded();
+
   const state = await chrome.storage.local.get([
     "enabled",
     "bypassUntil",
@@ -274,7 +342,8 @@ async function getSettings() {
     "disabledDeliverySiteKeys",
     "disabledFastFoodSiteKeys",
     "customSites",
-    "siteBypasses"
+    "siteBypasses",
+    "blockFilter"
   ]);
 
   const customSites = Array.isArray(state.customSites)
@@ -297,7 +366,8 @@ async function getSettings() {
     deliverySites: mergeSitesWithEnabledState(DELIVERY_SITES, state.disabledDeliverySiteKeys),
     fastFoodSites: mergeSitesWithEnabledState(FAST_FOOD_SITES, state.disabledFastFoodSiteKeys),
     customSites: [...new Map(customSites.map((site) => [site.domain, site])).values()],
-    siteBypasses
+    siteBypasses,
+    blockFilter: normalizeBlockFilter(state.blockFilter)
   };
 }
 
@@ -387,7 +457,8 @@ chrome.runtime.onInstalled.addListener(async () => {
     "disabledDeliverySiteKeys",
     "disabledFastFoodSiteKeys",
     "customSites",
-    "siteBypasses"
+    "siteBypasses",
+    "blockFilter"
   ]);
 
   const customSites = Array.isArray(state.customSites)
@@ -407,7 +478,8 @@ chrome.runtime.onInstalled.addListener(async () => {
     disabledDeliverySiteKeys: Array.isArray(state.disabledDeliverySiteKeys) ? state.disabledDeliverySiteKeys : [],
     disabledFastFoodSiteKeys: Array.isArray(state.disabledFastFoodSiteKeys) ? state.disabledFastFoodSiteKeys : [],
     customSites: [...new Map(customSites.map((site) => [site.domain, site])).values()],
-    siteBypasses: getActiveBypasses(state.siteBypasses)
+    siteBypasses: getActiveBypasses(state.siteBypasses),
+    blockFilter: normalizeBlockFilter(state.blockFilter)
   });
 
   await queueRefreshBlockingState();
@@ -437,7 +509,8 @@ chrome.storage.onChanged.addListener((changes, area) => {
     changes.disabledDeliverySiteKeys ||
     changes.disabledFastFoodSiteKeys ||
     changes.customSites ||
-    changes.siteBypasses
+    changes.siteBypasses ||
+    changes.blockFilter
   ) {
     queueRefreshBlockingState().catch((error) => {
       console.error("Failed to refresh blocking state:", error);
