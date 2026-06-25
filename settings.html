@@ -333,6 +333,151 @@
       padding: 8px 12px;
       border-radius: 12px;
     }
+
+    /* Country & category blocking */
+    .mb-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .mb-card input[type="search"] {
+      margin-top: 4px;
+    }
+
+    .mb-results {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+
+    .mb-results[hidden] {
+      display: none;
+    }
+
+    .mb-result {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 12px;
+      background: #111823;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .mb-result-label {
+      min-width: 0;
+    }
+
+    .mb-result-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .mb-result-sub {
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-top: 2px;
+    }
+
+    .mb-pill {
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+    }
+
+    .mb-pill.on {
+      background: var(--accent);
+      color: #102016;
+    }
+
+    .mb-pill.off {
+      background: #293241;
+      color: var(--text);
+    }
+
+    .mb-quick {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .mb-quick-head {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .mb-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .mb-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 6px 5px 13px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .mb-chip-label {
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .mb-chip-toggle {
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      letter-spacing: 0.03em;
+    }
+
+    .mb-chip-toggle.on {
+      background: var(--accent);
+      color: #102016;
+    }
+
+    .mb-chip-toggle.off {
+      background: #3a4556;
+      color: var(--muted);
+    }
+
+    .mb-chip-remove {
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mb-chip-remove:hover {
+      background: #c0485a;
+      color: #fff;
+    }
+
+    .mb-empty {
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin-top: 8px;
+    }
+
+    .mb-empty[hidden] {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -478,6 +623,39 @@
       </div>
     </section>
 
+    <section id="metadata-blocking" class="section">
+      <h2>Country &amp; Category Blocking</h2>
+      <p>Block whole groups of sites by the country a brand operates in or the kind of food it serves. These blocks add to your existing site and custom-URL blocks.</p>
+
+      <div class="grid mb-grid">
+        <div class="field mb-card">
+          <label for="countrySearchInput">Block by country</label>
+          <small>Search by country name or code, e.g. "United" or "US". Enabling a country blocks every brand active there.</small>
+          <input id="countrySearchInput" type="search" placeholder="Search countries…" autocomplete="off">
+          <div id="countrySearchResults" class="mb-results" hidden></div>
+
+          <div class="mb-quick">
+            <div class="mb-quick-head">Quick access — countries</div>
+            <div id="countryQuickAccess" class="mb-chips"></div>
+            <div id="countryQuickEmpty" class="mb-empty">Enable a country from search to pin it here.</div>
+          </div>
+        </div>
+
+        <div class="field mb-card">
+          <label for="categorySearchInput">Block by category</label>
+          <small>Search categories like burger, pizza, or coffee. Specialties are searchable too; the block applies by category.</small>
+          <input id="categorySearchInput" type="search" placeholder="Search categories…" autocomplete="off">
+          <div id="categorySearchResults" class="mb-results" hidden></div>
+
+          <div class="mb-quick">
+            <div class="mb-quick-head">Quick access — categories</div>
+            <div id="categoryQuickAccess" class="mb-chips"></div>
+            <div id="categoryQuickEmpty" class="mb-empty">Enable a category from search to pin it here.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="row">
         <h2>Theme</h2>
@@ -526,6 +704,7 @@
     </section>
   </main>
 
+  <script src="blocklist.js"></script>
   <script src="settings.js"></script>
 </body>
 </html>

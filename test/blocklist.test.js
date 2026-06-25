@@ -9,10 +9,16 @@ const blocklist = require("../blocklist.js");
 const {
   loadBlocklists,
   normalizeHostname,
+  normalizeDomain,
   domainMatches,
   getEnabledEntries,
   filterEntries,
-  isBlockedHost
+  isBlockedHost,
+  getCountryName,
+  getAvailableCountries,
+  getAvailableCategories,
+  shouldBlockByCountry,
+  shouldBlockByCategory
 } = blocklist;
 
 // Fixture entries so the filter/matching tests do not depend on the live
@@ -162,4 +168,89 @@ test("blocklist JSON files are valid and apex-only", () => {
       assert.ok(!/^www\./.test(entry.domain), `${entry.domain} has no www. prefix`);
     });
   });
+});
+
+// ---------------------------------------------------------------------------
+// Country & category blocking helpers.
+// ---------------------------------------------------------------------------
+
+test("normalizeDomain handles strings and entry objects", () => {
+  assert.equal(normalizeDomain("https://www.mcdonalds.com/order"), "mcdonalds.com");
+  assert.equal(normalizeDomain({ domain: "WWW.KFC.com" }), "kfc.com");
+  assert.equal(normalizeDomain(null), "");
+});
+
+test("getCountryName maps known codes and falls back to the code", () => {
+  assert.equal(getCountryName("US"), "United States");
+  assert.equal(getCountryName("cn"), "China");
+  assert.equal(getCountryName("ZZ"), "ZZ");
+});
+
+test("getAvailableCountries discovers unique codes with counts", () => {
+  const countries = getAvailableCountries(FIXTURE);
+  const codes = countries.map((c) => c.code);
+  assert.ok(codes.includes("US"));
+  assert.ok(codes.includes("CN"));
+  // US appears in mcdonalds, kfc, doordash, grubhub fixtures = 4.
+  assert.equal(countries.find((c) => c.code === "US").count, 4);
+  assert.equal(countries.find((c) => c.code === "US").name, "United States");
+});
+
+test("getAvailableCategories discovers categories with specialties", () => {
+  const categories = getAvailableCategories(FIXTURE);
+  const names = categories.map((c) => c.category);
+  assert.ok(names.includes("burger"));
+  assert.ok(names.includes("chicken"));
+  assert.ok(names.includes("delivery"));
+  const burger = categories.find((c) => c.category === "burger");
+  assert.ok(burger.specialties.includes("fries"));
+});
+
+test("shouldBlockByCountry matches any enabled country (multi-country safe)", () => {
+  const mcd = FIXTURE[0]; // countries: US, CA
+  assert.equal(shouldBlockByCountry(mcd, ["CA"]), true);
+  assert.equal(shouldBlockByCountry(mcd, ["cn"]), false);
+  assert.equal(shouldBlockByCountry(mcd, ["GB", "CA"]), true);
+  assert.equal(shouldBlockByCountry(mcd, []), false);
+});
+
+test("shouldBlockByCategory matches on category only", () => {
+  const kfc = FIXTURE[1]; // category: chicken, specialties: fried chicken
+  assert.equal(shouldBlockByCategory(kfc, ["chicken"]), true);
+  assert.equal(shouldBlockByCategory(kfc, ["CHICKEN"]), true);
+  assert.equal(shouldBlockByCategory(kfc, ["burger"]), false);
+  // specialties are NOT a blocking trigger
+  assert.equal(shouldBlockByCategory(kfc, ["fried chicken"]), false);
+});
+
+test("metadata helpers are defensive against missing fields", () => {
+  const bare = { domain: "example.com" };
+  const stringEntry = "legacy.com";
+  assert.doesNotThrow(() => getAvailableCountries([bare, stringEntry]));
+  assert.doesNotThrow(() => getAvailableCategories([bare, stringEntry]));
+  assert.equal(shouldBlockByCountry(bare, ["US"]), false);
+  assert.equal(shouldBlockByCategory(bare, ["burger"]), false);
+  assert.equal(shouldBlockByCountry(stringEntry, ["US"]), false);
+});
+
+test("country/category union blocking against loaded entries", async () => {
+  const entries = await loadBlocklists();
+
+  // shouldBlockByCountry over the real data: CN should hit KFC and Pizza Hut.
+  // (Assertions check inclusion so they stay valid as the blocklist grows.)
+  const cnBlocked = entries.filter((entry) => shouldBlockByCountry(entry, ["CN"])).map((e) => e.domain);
+  assert.ok(cnBlocked.includes("kfc.com"));
+  assert.ok(cnBlocked.includes("pizzahut.com"));
+  assert.ok(!cnBlocked.includes("doordash.com")); // delivery brand, not in CN
+
+  // shouldBlockByCategory: pizza should include Domino's and Pizza Hut.
+  const pizzaBlocked = entries.filter((entry) => shouldBlockByCategory(entry, ["pizza"])).map((e) => e.domain);
+  assert.ok(pizzaBlocked.includes("dominos.com"));
+  assert.ok(pizzaBlocked.includes("pizzahut.com"));
+  // Pizza entries are blocked while a burger like McDonald's is not.
+  assert.ok(!pizzaBlocked.includes("mcdonalds.com"));
+
+  // getAvailableCategories / getAvailableCountries reflect the full dataset.
+  assert.ok(getAvailableCategories(entries).some((c) => c.category === "pizza"));
+  assert.ok(getAvailableCountries(entries).some((c) => c.code === "CN"));
 });
