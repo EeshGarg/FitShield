@@ -17,12 +17,29 @@ let FAST_FOOD_SITES = [];
 let blocklistsLoaded = false;
 let blocklistLoadPromise = null;
 
-// Derive a stable key from an apex domain (e.g. "chick-fil-a.com" -> "chickfila").
-function domainToKey(domain) {
+// Legacy keys stripped the TLD, which caused regional domains to collide
+// ("mcdonalds.com" and "mcdonalds.cl" both became "mcdonalds"). Keep this only
+// so existing saved disabled-site preferences still apply after the safer key
+// format below.
+function legacyDomainToKey(domain) {
   return String(domain || "")
     .toLowerCase()
     .replace(/\.[a-z]+$/, "")
     .replace(/[^a-z0-9]/g, "");
+}
+
+// Derive a stable, collision-resistant key from the full hostname and bucket.
+function domainToKey(domain, type) {
+  const bucket = String(type || "site")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  const host = String(domain || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  return `${bucket}-${host}`;
 }
 
 // Map a JSON blocklist entry to the site-record shape used throughout the
@@ -31,7 +48,8 @@ function entryToSiteRecord(entry) {
   const domain = FitShieldBlocklist.normalizeHostname(entry.domain);
 
   return {
-    key: domainToKey(domain),
+    key: domainToKey(domain, entry.type),
+    legacyKey: legacyDomainToKey(domain),
     label: entry.name || domain,
     match: domain,
     home: `https://www.${domain}/`,
@@ -53,7 +71,17 @@ async function ensureBlocklistsLoaded() {
   if (!blocklistLoadPromise) {
     blocklistLoadPromise = FitShieldBlocklist.loadBlocklists()
       .then((entries) => {
-        const records = entries.map(entryToSiteRecord);
+        const recordsByTypeAndDomain = new Map();
+
+        entries.map(entryToSiteRecord).forEach((record) => {
+          const dedupeKey = `${record.type}:${record.domain}`;
+
+          if (!recordsByTypeAndDomain.has(dedupeKey)) {
+            recordsByTypeAndDomain.set(dedupeKey, record);
+          }
+        });
+
+        const records = [...recordsByTypeAndDomain.values()];
         DELIVERY_SITES = records.filter((record) => record.type === "delivery");
         FAST_FOOD_SITES = records.filter((record) => record.type === "fast_food");
         blocklistsLoaded = true;
@@ -187,7 +215,7 @@ function mergeSitesWithEnabledState(sites, disabledKeys) {
   const disabledSet = new Set(disabledKeys || []);
   return sites.map((site) => ({
     ...site,
-    enabled: !disabledSet.has(site.key)
+    enabled: !disabledSet.has(site.key) && !disabledSet.has(site.legacyKey)
   }));
 }
 
