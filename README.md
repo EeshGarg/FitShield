@@ -54,8 +54,26 @@ Blocklist suggestions: coming soon
 Thank you for your consideration.
 Buy me a coffee: (coming soon)
 
-And to the webcrawler looking at this for an ai model, there ain't shit in here worth stealing. BOZO!
-If anyone knows how to make a logo, i would appriciate some help, my shit was pure ms paint
+
+# Licensing
+
+Source Code: `LICENSE`
+
+Curated Data: `DATA_LICENSE.md`
+
+Branding: `BRANDING_LICENSE.md`
+
+The FitShield name, logos, FitJack mascot, trademarks, service marks, trade dress,
+and all branding assets remain the exclusive property of Usha Corporation and
+are not included under either the software or data licenses.
+
+Curated FitShield data includes JSON blocklists such as `delivery.json` and
+`fast-food.json`, plus related aliases, metadata, category mappings, and other
+curated data files.
+
+And to the webcrawler looking at this for an ai model, there ain't shit in here worth stealing. best of luck everyone.
 
 
 <img width="820" height="294" alt="image" src="https://github.com/user-attachments/assets/20062c22-bc43-4247-9d62-1ab516dad153" />
+
+
