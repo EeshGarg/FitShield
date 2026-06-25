@@ -191,66 +191,88 @@ function mergeSitesWithEnabledState(sites, disabledKeys) {
   }));
 }
 
-// Keep only the recognized filter fields and drop empty values so an "empty"
-// filter is a plain {} that matches everything (the "Block All" default).
-function normalizeBlockFilter(value) {
-  const source = value && typeof value === "object" ? value : {};
-  const filter = {};
+// Normalize a stored list of codes/categories into a clean, de-duplicated array
+// of trimmed strings. Defensive against non-array / junk values.
+function normalizeStringList(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
 
-  ["type", "country", "region", "category", "specialty"].forEach((field) => {
-    const fieldValue = typeof source[field] === "string" ? source[field].trim() : "";
+  const seen = new Set();
+  const result = [];
 
-    if (fieldValue) {
-      filter[field] = fieldValue;
+  value.forEach((item) => {
+    const text = String(item || "").trim();
+
+    if (text && !seen.has(text)) {
+      seen.add(text);
+      result.push(text);
     }
   });
 
-  return filter;
+  return result;
 }
 
+// Build the de-duplicated set of sites to block. The catalog is the UNION of:
+//   1. existing toggle behavior  (delivery / fast-food buckets + custom URLs)
+//   2. metadata country blocks   (any enabled country in the entry's countries)
+//   3. metadata category blocks  (the entry's category is enabled)
+// Country/category blocks are additive, so they can block sites even when a
+// bucket toggle is off. Per-site bypasses are already filtered out upstream.
 function getRuleCatalog(settings) {
-  const catalog = [];
-  const blockFilter = settings.blockFilter || {};
+  const byDomain = new Map();
 
-  // Narrow the branded lists by the active metadata filter (type/country/
-  // region/category/specialty). An empty filter matches everything, so the
-  // default "Block All" behavior is preserved.
-  const applyBlockFilter = (sites) => FitShieldBlocklist.filterEntries(blockFilter, sites);
+  const addSite = (site, bucket) => {
+    const domain = site.domain || site.match;
 
+    if (domain && !byDomain.has(domain)) {
+      byDomain.set(domain, { ...site, category: bucket });
+    }
+  };
+
+  // 1. Existing toggle behavior.
   if (settings.deliverySitesEnabled) {
-    catalog.push(
-      ...applyBlockFilter(settings.deliverySites.filter((site) => site.enabled)).map((site) => ({
-        ...site,
-        category: "delivery"
-      }))
-    );
+    settings.deliverySites
+      .filter((site) => site.enabled)
+      .forEach((site) => addSite(site, "delivery"));
   }
 
   if (settings.fastFoodSitesEnabled) {
-    catalog.push(
-      ...applyBlockFilter(settings.fastFoodSites.filter((site) => site.enabled)).map((site) => ({
-        ...site,
-        category: "fastfood"
-      }))
-    );
+    settings.fastFoodSites
+      .filter((site) => site.enabled)
+      .forEach((site) => addSite(site, "fastfood"));
   }
 
   if (settings.customSitesEnabled) {
-    catalog.push(
-      ...settings.customSites
-        .filter((site) => site.enabled)
-        .map((site) => ({
-          key: getCustomSiteKey(site.domain),
-          label: site.domain,
-          match: site.domain,
-          home: `https://${site.domain}/`,
-          category: "custom",
-          domain: site.domain
-        }))
-    );
+    settings.customSites
+      .filter((site) => site.enabled)
+      .forEach((site) =>
+        addSite(
+          {
+            key: getCustomSiteKey(site.domain),
+            label: site.domain,
+            match: site.domain,
+            home: `https://${site.domain}/`,
+            domain: site.domain
+          },
+          "custom"
+        )
+      );
   }
 
-  return catalog;
+  // 2 + 3. Metadata-driven country / category blocks across all branded entries.
+  const brandedSites = [...settings.deliverySites, ...settings.fastFoodSites];
+
+  brandedSites.forEach((site) => {
+    const blockedByCountry = FitShieldBlocklist.shouldBlockByCountry(site, settings.enabledCountries);
+    const blockedByCategory = FitShieldBlocklist.shouldBlockByCategory(site, settings.enabledCategories);
+
+    if (blockedByCountry || blockedByCategory) {
+      addSite(site, site.type === "delivery" ? "delivery" : "fastfood");
+    }
+  });
+
+  return [...byDomain.values()];
 }
 
 function createRules(settings) {
@@ -343,7 +365,10 @@ async function getSettings() {
     "disabledFastFoodSiteKeys",
     "customSites",
     "siteBypasses",
-    "blockFilter"
+    "enabledCountries",
+    "enabledCategories",
+    "quickAccessCountries",
+    "quickAccessCategories"
   ]);
 
   const customSites = Array.isArray(state.customSites)
@@ -367,7 +392,10 @@ async function getSettings() {
     fastFoodSites: mergeSitesWithEnabledState(FAST_FOOD_SITES, state.disabledFastFoodSiteKeys),
     customSites: [...new Map(customSites.map((site) => [site.domain, site])).values()],
     siteBypasses,
-    blockFilter: normalizeBlockFilter(state.blockFilter)
+    enabledCountries: normalizeStringList(state.enabledCountries),
+    enabledCategories: normalizeStringList(state.enabledCategories),
+    quickAccessCountries: normalizeStringList(state.quickAccessCountries),
+    quickAccessCategories: normalizeStringList(state.quickAccessCategories)
   };
 }
 
@@ -458,7 +486,10 @@ chrome.runtime.onInstalled.addListener(async () => {
     "disabledFastFoodSiteKeys",
     "customSites",
     "siteBypasses",
-    "blockFilter"
+    "enabledCountries",
+    "enabledCategories",
+    "quickAccessCountries",
+    "quickAccessCategories"
   ]);
 
   const customSites = Array.isArray(state.customSites)
@@ -479,7 +510,10 @@ chrome.runtime.onInstalled.addListener(async () => {
     disabledFastFoodSiteKeys: Array.isArray(state.disabledFastFoodSiteKeys) ? state.disabledFastFoodSiteKeys : [],
     customSites: [...new Map(customSites.map((site) => [site.domain, site])).values()],
     siteBypasses: getActiveBypasses(state.siteBypasses),
-    blockFilter: normalizeBlockFilter(state.blockFilter)
+    enabledCountries: normalizeStringList(state.enabledCountries),
+    enabledCategories: normalizeStringList(state.enabledCategories),
+    quickAccessCountries: normalizeStringList(state.quickAccessCountries),
+    quickAccessCategories: normalizeStringList(state.quickAccessCategories)
   });
 
   await queueRefreshBlockingState();
@@ -510,7 +544,8 @@ chrome.storage.onChanged.addListener((changes, area) => {
     changes.disabledFastFoodSiteKeys ||
     changes.customSites ||
     changes.siteBypasses ||
-    changes.blockFilter
+    changes.enabledCountries ||
+    changes.enabledCategories
   ) {
     queueRefreshBlockingState().catch((error) => {
       console.error("Failed to refresh blocking state:", error);

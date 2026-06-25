@@ -29,10 +29,7 @@ const fastFoodCount = document.getElementById("fastFoodCount");
 const popupSearchInput = document.getElementById("popupSearchInput");
 const popupSearchButton = document.getElementById("popupSearchButton");
 const openSettingsButton = document.getElementById("openSettings");
-const blockCountrySelect = document.getElementById("blockCountrySelect");
-const blockAllButton = document.getElementById("blockAllButton");
-const blockCountryButton = document.getElementById("blockCountryButton");
-const blockFilterSummary = document.getElementById("blockFilterSummary");
+const openMetadataBlockingButton = document.getElementById("openMetadataBlocking");
 
 let latestState = null;
 
@@ -123,44 +120,6 @@ function updateScheduleControls(scheduleEnabled) {
   scheduleEndInput.disabled = !scheduleEnabled;
 }
 
-function describeBlockFilter(blockFilter = {}) {
-  const parts = [];
-
-  if (blockFilter.type) {
-    parts.push(`type ${blockFilter.type}`);
-  }
-
-  if (blockFilter.country) {
-    parts.push(`country ${blockFilter.country}`);
-  }
-
-  if (blockFilter.region) {
-    parts.push(`region ${blockFilter.region}`);
-  }
-
-  if (blockFilter.category) {
-    parts.push(`category ${blockFilter.category}`);
-  }
-
-  if (blockFilter.specialty) {
-    parts.push(`specialty ${blockFilter.specialty}`);
-  }
-
-  if (parts.length === 0) {
-    return "Blocking all enabled sites.";
-  }
-
-  return `Blocking only sites matching ${parts.join(", ")}.`;
-}
-
-function updateBlockFilterControls(blockFilter = {}) {
-  blockFilterSummary.textContent = describeBlockFilter(blockFilter);
-
-  if (blockFilter.country) {
-    blockCountrySelect.value = blockFilter.country;
-  }
-}
-
 function getStatusMessage(state) {
   const {
     enabled = false,
@@ -232,8 +191,7 @@ function updateUI(state) {
     customSitesEnabled = true,
     deliverySites = [],
     fastFoodSites = [],
-    customSites = [],
-    blockFilter = {}
+    customSites = []
   } = state;
 
   const bypassActive = enabled && bypassUntil > Date.now();
@@ -242,7 +200,6 @@ function updateUI(state) {
     (fastFoodSitesEnabled ? fastFoodSites.filter((site) => site.enabled).length : 0) +
     (customSitesEnabled ? customSites.filter((site) => site.enabled).length : 0);
 
-  updateBlockFilterControls(blockFilter);
   toggle.checked = enabled;
   deliverySitesEnabledInput.checked = deliverySitesEnabled;
   fastFoodSitesEnabledInput.checked = fastFoodSitesEnabled;
@@ -385,13 +342,9 @@ openSettingsButton.addEventListener("click", () => {
   openSettings();
 });
 
-blockAllButton.addEventListener("click", async () => {
-  await saveSettings({ enabled: true, blockFilter: {} });
-});
-
-blockCountryButton.addEventListener("click", async () => {
-  const country = blockCountrySelect.value;
-  await saveSettings({ enabled: true, blockFilter: country ? { country } : {} });
+openMetadataBlockingButton.addEventListener("click", () => {
+  // Deep-link to the country & category blocking section in settings.
+  openSettings("settings.html#metadata-blocking");
 });
 
 loadState();

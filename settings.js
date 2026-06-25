@@ -641,3 +641,318 @@ if (initialSearch) {
 
 loadTheme();
 loadBlocklist();
+
+// ===========================================================================
+// Country & category blocking (metadata-driven).
+// Available countries/categories are discovered from the blocklist metadata via
+// blocklist.js; enabled/quick-access selections live in chrome.storage.local
+// and the background service worker turns them into block rules.
+// ===========================================================================
+
+const MB_MAX_RESULTS = 8;
+
+const countrySearchInput = document.getElementById("countrySearchInput");
+const countrySearchResults = document.getElementById("countrySearchResults");
+const countryQuickAccess = document.getElementById("countryQuickAccess");
+const countryQuickEmpty = document.getElementById("countryQuickEmpty");
+const categorySearchInput = document.getElementById("categorySearchInput");
+const categorySearchResults = document.getElementById("categorySearchResults");
+const categoryQuickAccess = document.getElementById("categoryQuickAccess");
+const categoryQuickEmpty = document.getElementById("categoryQuickEmpty");
+
+const metadataBlocking = {
+  countries: [], // [{ code, name, count }]
+  categories: [], // [{ category, count, specialties }]
+  enabledCountries: [],
+  enabledCategories: [],
+  quickAccessCountries: [],
+  quickAccessCategories: []
+};
+
+function asStringArray(value) {
+  return Array.isArray(value) ? value.filter((item) => typeof item === "string") : [];
+}
+
+function addUnique(list, value) {
+  return list.includes(value) ? list : [...list, value];
+}
+
+function removeValue(list, value) {
+  return list.filter((item) => item !== value);
+}
+
+function capitalize(text) {
+  return text ? text.charAt(0).toUpperCase() + text.slice(1) : text;
+}
+
+function pluralizeSites(count) {
+  return `${count} site${count === 1 ? "" : "s"}`;
+}
+
+function buildResultRow(name, sub, enabled, onToggle) {
+  const row = document.createElement("div");
+  row.className = "mb-result";
+
+  const label = document.createElement("div");
+  label.className = "mb-result-label";
+
+  const nameEl = document.createElement("div");
+  nameEl.className = "mb-result-name";
+  nameEl.textContent = name;
+
+  const subEl = document.createElement("div");
+  subEl.className = "mb-result-sub";
+  subEl.textContent = sub;
+
+  label.append(nameEl, subEl);
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = `mb-pill ${enabled ? "on" : "off"}`;
+  button.textContent = enabled ? "Blocking" : "Block";
+  button.addEventListener("click", onToggle);
+
+  row.append(label, button);
+  return row;
+}
+
+function buildQuickChip(label, enabled, onToggle, onRemove) {
+  const chip = document.createElement("div");
+  chip.className = "mb-chip";
+
+  const labelEl = document.createElement("span");
+  labelEl.className = "mb-chip-label";
+  labelEl.textContent = label;
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = `mb-chip-toggle ${enabled ? "on" : "off"}`;
+  toggle.textContent = enabled ? "On" : "Off";
+  toggle.title = enabled ? "Blocking — click to pause" : "Paused — click to block";
+  toggle.addEventListener("click", onToggle);
+
+  const remove = document.createElement("button");
+  remove.type = "button";
+  remove.className = "mb-chip-remove";
+  remove.textContent = "×";
+  remove.title = "Remove shortcut from quick access";
+  remove.setAttribute("aria-label", `Remove ${label} from quick access`);
+  remove.addEventListener("click", onRemove);
+
+  chip.append(labelEl, toggle, remove);
+  return chip;
+}
+
+async function persistMetadataBlocking(partial) {
+  await chrome.storage.local.set(partial);
+}
+
+// --- Country actions ---
+
+async function setCountryEnabled(code, enabled) {
+  // Toggle = enable/disable the block. Enabling also pins it to quick access.
+  metadataBlocking.enabledCountries = enabled
+    ? addUnique(metadataBlocking.enabledCountries, code)
+    : removeValue(metadataBlocking.enabledCountries, code);
+
+  if (enabled) {
+    metadataBlocking.quickAccessCountries = addUnique(metadataBlocking.quickAccessCountries, code);
+  }
+
+  await persistMetadataBlocking({
+    enabledCountries: metadataBlocking.enabledCountries,
+    quickAccessCountries: metadataBlocking.quickAccessCountries
+  });
+
+  renderCountryResults();
+  renderCountryQuickAccess();
+}
+
+async function unpinCountry(code) {
+  // X = remove the shortcut only; the block itself stays as-is and remains
+  // discoverable through search.
+  metadataBlocking.quickAccessCountries = removeValue(metadataBlocking.quickAccessCountries, code);
+  await persistMetadataBlocking({ quickAccessCountries: metadataBlocking.quickAccessCountries });
+  renderCountryQuickAccess();
+}
+
+function renderCountryResults() {
+  const query = countrySearchInput.value.trim().toLowerCase();
+  countrySearchResults.replaceChildren();
+
+  if (!query) {
+    countrySearchResults.hidden = true;
+    return;
+  }
+
+  const matches = metadataBlocking.countries
+    .filter((country) =>
+      country.name.toLowerCase().includes(query) || country.code.toLowerCase().includes(query)
+    )
+    .slice(0, MB_MAX_RESULTS);
+
+  if (matches.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "mb-empty";
+    empty.textContent = "No countries match that search.";
+    countrySearchResults.appendChild(empty);
+  } else {
+    matches.forEach((country) => {
+      const enabled = metadataBlocking.enabledCountries.includes(country.code);
+      countrySearchResults.appendChild(
+        buildResultRow(
+          country.name,
+          `${country.code} · ${pluralizeSites(country.count)}`,
+          enabled,
+          () => setCountryEnabled(country.code, !enabled)
+        )
+      );
+    });
+  }
+
+  countrySearchResults.hidden = false;
+}
+
+function renderCountryQuickAccess() {
+  countryQuickAccess.replaceChildren();
+  const codes = metadataBlocking.quickAccessCountries;
+  countryQuickEmpty.hidden = codes.length > 0;
+
+  codes.forEach((code) => {
+    const meta = metadataBlocking.countries.find((country) => country.code === code);
+    const label = meta ? `${meta.name} (${code})` : code;
+    const enabled = metadataBlocking.enabledCountries.includes(code);
+
+    countryQuickAccess.appendChild(
+      buildQuickChip(
+        label,
+        enabled,
+        () => setCountryEnabled(code, !enabled),
+        () => unpinCountry(code)
+      )
+    );
+  });
+}
+
+// --- Category actions ---
+
+async function setCategoryEnabled(category, enabled) {
+  metadataBlocking.enabledCategories = enabled
+    ? addUnique(metadataBlocking.enabledCategories, category)
+    : removeValue(metadataBlocking.enabledCategories, category);
+
+  if (enabled) {
+    metadataBlocking.quickAccessCategories = addUnique(metadataBlocking.quickAccessCategories, category);
+  }
+
+  await persistMetadataBlocking({
+    enabledCategories: metadataBlocking.enabledCategories,
+    quickAccessCategories: metadataBlocking.quickAccessCategories
+  });
+
+  renderCategoryResults();
+  renderCategoryQuickAccess();
+}
+
+async function unpinCategory(category) {
+  metadataBlocking.quickAccessCategories = removeValue(metadataBlocking.quickAccessCategories, category);
+  await persistMetadataBlocking({ quickAccessCategories: metadataBlocking.quickAccessCategories });
+  renderCategoryQuickAccess();
+}
+
+function renderCategoryResults() {
+  const query = categorySearchInput.value.trim().toLowerCase();
+  categorySearchResults.replaceChildren();
+
+  if (!query) {
+    categorySearchResults.hidden = true;
+    return;
+  }
+
+  const matches = metadataBlocking.categories
+    .filter((entry) => {
+      if (entry.category.toLowerCase().includes(query)) {
+        return true;
+      }
+      // Specialties are searchable even though the toggle blocks by category.
+      return entry.specialties.some((specialty) => specialty.toLowerCase().includes(query));
+    })
+    .slice(0, MB_MAX_RESULTS);
+
+  if (matches.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "mb-empty";
+    empty.textContent = "No categories match that search.";
+    categorySearchResults.appendChild(empty);
+  } else {
+    matches.forEach((entry) => {
+      const enabled = metadataBlocking.enabledCategories.includes(entry.category);
+      const specialtyHint = entry.specialties.slice(0, 3).join(", ");
+      const sub = specialtyHint
+        ? `${pluralizeSites(entry.count)} · ${specialtyHint}`
+        : pluralizeSites(entry.count);
+
+      categorySearchResults.appendChild(
+        buildResultRow(
+          capitalize(entry.category),
+          sub,
+          enabled,
+          () => setCategoryEnabled(entry.category, !enabled)
+        )
+      );
+    });
+  }
+
+  categorySearchResults.hidden = false;
+}
+
+function renderCategoryQuickAccess() {
+  categoryQuickAccess.replaceChildren();
+  const categories = metadataBlocking.quickAccessCategories;
+  categoryQuickEmpty.hidden = categories.length > 0;
+
+  categories.forEach((category) => {
+    const enabled = metadataBlocking.enabledCategories.includes(category);
+
+    categoryQuickAccess.appendChild(
+      buildQuickChip(
+        capitalize(category),
+        enabled,
+        () => setCategoryEnabled(category, !enabled),
+        () => unpinCategory(category)
+      )
+    );
+  });
+}
+
+async function initMetadataBlocking() {
+  try {
+    const entries = await FitShieldBlocklist.loadBlocklists();
+    metadataBlocking.countries = FitShieldBlocklist.getAvailableCountries(entries);
+    metadataBlocking.categories = FitShieldBlocklist.getAvailableCategories(entries);
+  } catch (error) {
+    console.error("Failed to load blocklist metadata:", error);
+  }
+
+  const stored = await chrome.storage.local.get([
+    "enabledCountries",
+    "enabledCategories",
+    "quickAccessCountries",
+    "quickAccessCategories"
+  ]);
+
+  metadataBlocking.enabledCountries = asStringArray(stored.enabledCountries);
+  metadataBlocking.enabledCategories = asStringArray(stored.enabledCategories);
+  metadataBlocking.quickAccessCountries = asStringArray(stored.quickAccessCountries);
+  metadataBlocking.quickAccessCategories = asStringArray(stored.quickAccessCategories);
+
+  renderCountryResults();
+  renderCategoryResults();
+  renderCountryQuickAccess();
+  renderCategoryQuickAccess();
+}
+
+countrySearchInput.addEventListener("input", renderCountryResults);
+categorySearchInput.addEventListener("input", renderCategoryResults);
+
+initMetadataBlocking();
