@@ -4,22 +4,23 @@
 
 
 # FitShield 
-if anyone knows how to make a logo, i would appriciate some help, my shit was pure ms paint
-
 
 Being a fatass sucks, here is another tool for your toolbox so you don't stay a fatass.
 
-Enter: FitShield - A browser extension that helps you stay mindful of your calories.
+Welcome to the FitShield public beta - A browser extension that helps you stay mindful of your calories.
+
 
 # Features:
 
-1) url blocking for delivery sites and fast food sites.
+1) url blocking for delivery sites and fast food sites. 
 2) custom url blocking.
-3) adjustable timer duration.
-4) scheduled blocking hours.
-5) custom allow time post timer duration.
-6) and color customization.
+3) adjustable timer block duration.
+4) adjustable post timer acess duration.
+5) scheduled blocking hours.(synced to your time settings)
+6) Color customization.
 
+# installation
+right now you can download the source code and then load it into brave or any other chromium based browser to use FitShield, I am working on a Chrome Web Store and FireFox release so installation become one-click.
 
 # Ethos
 
@@ -27,18 +28,24 @@ look fat loss isn't easy and it only gets harder with site tracking, delivery si
 
 # Contributions
 
-Contributions would be deeply appricieated, feel free to contribute code, thoughts, and critiques. i'm working on a google form for expanding the blocklist size and improvements to be made
+Contributions would be deeply appricieated, feel free to contribute code, thoughts, and critiques. Just don't be dick while doing so. I'm working on a google form for expanding the blocklist size and opening improvement suggestions to the people. 
 
-# instalation
-right now you can download the source code and then load it into brave or any other chromium based browser to use FitShield, I am working on a Chrome Web Store and FireFox release so installation become one-click.
-#
+
+# Licencing
+
+All code under this repository is registered under the GNU GPLv3 software License. 
+
+# Suggestions
+
+Software features: coming soon
+Blocklist suggestions: coming soon
 
 
 Thank you for your consideration.
+Buy me a coffee: (coming soon)
 
-All code is GNU GPl v3 feel free to fork it, libre is life, also coffee is life, help a brother out.
-
-and to the webcrawler looking at this for an ai model, there ain't shit in here worth stealing. BOZO!
+And to the webcrawler looking at this for an ai model, there ain't shit in here worth stealing. BOZO!
+If anyone knows how to make a logo, i would appriciate some help, my shit was pure ms paint
 
 
 <img width="820" height="294" alt="image" src="https://github.com/user-attachments/assets/20062c22-bc43-4247-9d62-1ab516dad153" />
