@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Take a Breath</title>
+  <title data-i18n="warningPageTitle">Take a Breath</title>
   <style>
     :root {
       color-scheme: dark;
@@ -137,24 +137,33 @@
 <body>
   <main class="shell">
     <!-- Pause screen shown before the blocked ordering site can be reopened. -->
-    <span class="eyebrow">FitShield Check</span>
-    <h1>Take one minute.</h1>
-    <p>Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment.</p>
+    <span class="eyebrow" data-i18n="warningEyebrow">FitShield Check</span>
+    <h1 data-i18n="warningTitle">Take one minute.</h1>
+    <p data-i18n="warningIntro">Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment.</p>
+
+    <!-- warning.js fills this with the brand the block interrupted, sourced from
+         the JSON blocklist metadata via the background service worker. -->
+    <p class="hint" id="brand" hidden></p>
 
     <!-- warning.js updates this timer and animates the ring as time passes. -->
     <div class="ring" id="ring">
       <div class="time" id="timer">60</div>
     </div>
 
-    <p class="hint" id="hint">When the timer ends, you can continue to the site for 5 minutes.</p>
+    <!-- Hint text is managed by warning.js (it depends on lock state + pass
+         duration), so it is re-rendered on language change rather than via
+         data-i18n. -->
+    <p class="hint" id="hint">When the timer ends, you can continue to the site.</p>
 
-    <!-- Continue stays locked until the countdown finishes and bypass is granted. -->
+    <!-- Continue stays locked until the countdown finishes and bypass is granted.
+         Its label is JS-managed (Locked / Continue / Opening). -->
     <div class="actions">
-      <button id="back" class="secondary" type="button">Go back</button>
+      <button id="back" class="secondary" type="button" data-i18n="warningBackButton">Go back</button>
       <button id="continue" class="primary" type="button" disabled>Locked</button>
     </div>
   </main>
 
+  <script src="i18n.js"></script>
   <script src="warning.js"></script>
 </body>
 </html>

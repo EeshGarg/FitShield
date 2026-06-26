@@ -1,6 +1,14 @@
 const DEFAULT_TIMER_SECONDS = 60;
 const DEFAULT_PASS_DURATION_MINUTES = 5;
-const DEFAULT_DESTINATION = "https://www.doordash.com/";
+
+// Localization helper (i18n.js loads first). Falls back to the key so missing
+// strings stay visible rather than blank.
+const t = (key, subs) =>
+  (typeof FitShieldI18n !== "undefined" ? FitShieldI18n.t(key, subs) : key);
+
+function minuteUnit(value) {
+  return t(value === 1 ? "unitMinute" : "unitMinutes");
+}
 
 // Base styling for the warning screen before custom theme preferences load.
 const DEFAULT_THEME = {
@@ -14,24 +22,23 @@ const DEFAULT_THEME = {
   radius: 24
 };
 
-// Maps the query-string site key to the site we reopen after the pause.
-const DESTINATIONS = {
-  doordash: "https://www.doordash.com/",
-  ubereats: "https://www.ubereats.com/",
-  grubhub: "https://www.grubhub.com/"
-};
-
 const timerEl = document.getElementById("timer");
 const ringEl = document.getElementById("ring");
 const hintEl = document.getElementById("hint");
+const brandEl = document.getElementById("brand");
 const backButton = document.getElementById("back");
 const continueButton = document.getElementById("continue");
 
 const params = new URLSearchParams(window.location.search);
-const siteKey = params.get("site") || "doordash";
+const siteKey = params.get("site") || "";
 const timerParam = Number.parseInt(params.get("timer"), 10);
 const passDurationParam = Number.parseInt(params.get("pass"), 10);
-const destination = DESTINATIONS[siteKey] || DEFAULT_DESTINATION;
+
+// The site that triggered the block is resolved from the JSON blocklist metadata
+// by the background service worker (see getBlockedSiteInfo). Until that resolves
+// we have no hard-coded destination; the bypass response carries the real one.
+let destination = "";
+let siteLabel = "";
 
 // Query params are mainly for manual URL overrides; normal users fall back to stored defaults.
 let secondsLeft = Number.isFinite(timerParam) && timerParam >= 10 ? timerParam : DEFAULT_TIMER_SECONDS;
@@ -68,13 +75,32 @@ function renderTimer() {
   ringEl.style.boxShadow = `0 0 ${24 + progress * 26}px rgba(126, 240, 168, 0.22)`;
 }
 
+// Render every JS-managed string based on current state. Called on load and
+// whenever the language changes, so the block screen stays consistent.
+function renderDynamicText() {
+  if (siteLabel) {
+    brandEl.textContent = t("warningTriggeredBy", [siteLabel]);
+    brandEl.hidden = false;
+  } else {
+    brandEl.hidden = true;
+  }
+
+  hintEl.textContent = unlocked
+    ? t("warningUnlockHint", [String(passDurationMinutes), minuteUnit(passDurationMinutes)])
+    : t("warningHintLocked", [String(passDurationMinutes), minuteUnit(passDurationMinutes)]);
+
+  // Leave the button alone while it is mid-navigation ("Opening…").
+  if (continueButton.dataset.state !== "opening") {
+    continueButton.textContent = unlocked ? t("warningContinueButton") : t("warningLockedButton");
+  }
+}
+
 function unlock() {
   // Unlocking enables the one-click temporary bypass flow.
   unlocked = true;
   continueButton.disabled = false;
   continueButton.classList.add("ready");
-  continueButton.textContent = "Continue";
-  hintEl.textContent = `You can visit the site now. The blocker will come back automatically after ${passDurationMinutes} minute${passDurationMinutes === 1 ? "" : "s"}.`;
+  renderDynamicText();
 }
 
 let timerInterval;
@@ -105,7 +131,8 @@ continueButton.addEventListener("click", async () => {
   }
 
   continueButton.disabled = true;
-  continueButton.textContent = "Opening...";
+  continueButton.dataset.state = "opening";
+  continueButton.textContent = t("warningOpeningButton");
 
   try {
     const response = await chrome.runtime.sendMessage({
@@ -117,14 +144,33 @@ continueButton.addEventListener("click", async () => {
       throw new Error(response?.error || "Temporary bypass failed.");
     }
 
-    window.location.href = response.destination || destination;
+    window.location.href = response.destination || destination || "about:blank";
   } catch (error) {
     console.error(error);
+    delete continueButton.dataset.state;
     continueButton.disabled = false;
-    continueButton.textContent = "Continue";
-    hintEl.textContent = "Something went wrong while opening the site. Please try again.";
+    continueButton.textContent = t("warningContinueButton");
+    hintEl.textContent = t("warningErrorHint");
   }
 });
+
+async function loadBlockedSite() {
+  // Pull the brand + destination for the site key from the JSON-backed catalog.
+  if (!siteKey) {
+    return;
+  }
+
+  try {
+    const info = await chrome.runtime.sendMessage({ type: "getBlockedSiteInfo", site: siteKey });
+
+    if (info?.ok && info.found) {
+      destination = info.home || destination;
+      siteLabel = info.label || "";
+    }
+  } catch (error) {
+    console.error("Failed to load blocked site info:", error);
+  }
+}
 
 async function initializeTimer() {
   try {
@@ -148,8 +194,22 @@ async function initializeTimer() {
     console.error("Failed to load timer settings:", error);
   }
 
+  await loadBlockedSite();
+
+  renderDynamicText();
   renderTimer();
   startTimer();
 }
 
-initializeTimer();
+// Re-render JS-managed strings when the language changes mid-screen.
+if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.onChange) {
+  FitShieldI18n.onChange(renderDynamicText);
+}
+
+// Wait until the stored UI language is applied so the screen does not flash the
+// browser default, then start the countdown.
+const i18nReady = (typeof FitShieldI18n !== "undefined" && FitShieldI18n.ready)
+  ? FitShieldI18n.ready
+  : Promise.resolve();
+
+i18nReady.then(initializeTimer);

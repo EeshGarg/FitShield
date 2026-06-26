@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield ব্রাউজার এক্সটেনশন যা আপনাকে খাদ্য সরবরাহ এবং ফাস্ট-ফুড অর্ডারিং সম্পর্কে সচেতন থাকতে সাহায্য করে।"
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "সাইটের নাম বা URL অনুসন্ধান করুন"
+  },
+  "searchButton": {
+    "message": "অনুসন্ধান করুন"
+  },
+  "clearButton": {
+    "message": "পরিষ্কার"
+  },
+  "openButton": {
+    "message": "খোলা"
+  },
+  "addButton": {
+    "message": "যোগ করুন"
+  },
+  "removeButton": {
+    "message": "সরান"
+  },
+  "viewBlocklistButton": {
+    "message": "ব্লকলিস্ট দেখুন"
+  },
+  "timerDurationLabel": {
+    "message": "টাইমারের সময়কাল"
+  },
+  "timerDurationHint": {
+    "message": "অবিরত প্রদর্শিত হওয়ার আগে কাউন্টডাউন সামঞ্জস্য করুন।"
+  },
+  "customSecondsLabel": {
+    "message": "কাস্টম সেকেন্ড"
+  },
+  "siteOpenTimeLabel": {
+    "message": "সাইট খোলার সময়"
+  },
+  "siteOpenTimeHint": {
+    "message": "টাইমার শেষ হওয়ার পর কতক্ষণ সাইট খোলা থাকবে তা বেছে নিন।"
+  },
+  "customMinutesLabel": {
+    "message": "কাস্টম মিনিট"
+  },
+  "startTimeLabel": {
+    "message": "শুরুর সময়"
+  },
+  "endTimeLabel": {
+    "message": "শেষ সময়"
+  },
+  "scheduleDefaultSummary": {
+    "message": "এটি সক্ষম হলে ব্লক করা আপনার দৈনিক সময়সূচী অনুসরণ করবে।"
+  },
+  "currentScheduleSummary": {
+    "message": "বর্তমান সময়সূচী: $1।"
+  },
+  "everyDaySuffix": {
+    "message": " প্রতিদিন"
+  },
+  "scheduleRange": {
+    "message": "$1 থেকে $2"
+  },
+  "unitMinute": {
+    "message": "মিনিট"
+  },
+  "unitMinutes": {
+    "message": "মিনিট"
+  },
+  "unitSite": {
+    "message": "সাইট"
+  },
+  "unitSites": {
+    "message": "সাইট"
+  },
+  "popupSettingsButton": {
+    "message": "সেটিংস"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield ব্লকার"
+  },
+  "popupBlockerSubtitle": {
+    "message": "প্রতিটি ব্লক তালিকা চালু বা বন্ধ করুন।"
+  },
+  "popupMetadataLabel": {
+    "message": "দেশ ও বিভাগ ব্লকিং"
+  },
+  "popupMetadataSubtitle": {
+    "message": "দেশ বা খাদ্য বিভাগ অনুসারে সাইটের সম্পূর্ণ গ্রুপ ব্লক করুন।"
+  },
+  "popupDeliveryLabel": {
+    "message": "ডেলিভারি সাইট"
+  },
+  "popupDeliveryDefault": {
+    "message": "ডেলিভারি অর্ডারিং ডোমেন।"
+  },
+  "popupFastFoodLabel": {
+    "message": "ফাস্ট ফুড সাইট"
+  },
+  "popupFastFoodDefault": {
+    "message": "প্রধান চেইন অর্ডারিং ডোমেন।"
+  },
+  "popupCustomLabel": {
+    "message": "কাস্টম ইউআরএল"
+  },
+  "popupCustomSubtitle": {
+    "message": "আপনার নিজস্ব সাইট যোগ করুন এবং পৃথকভাবে তাদের নিষ্ক্রিয়."
+  },
+  "popupScheduleLabel": {
+    "message": "শুধুমাত্র নির্ধারিত সময়ের মধ্যে ব্লক করুন"
+  },
+  "popupScheduleSubtitle": {
+    "message": "খাবারের বাজেট, গভীর রাতের অর্ডার বা কাজের সময়গুলির জন্য দরকারী।"
+  },
+  "statusInactive": {
+    "message": "নিষ্ক্রিয়। সমস্ত সাইট অ্যাক্সেসযোগ্য."
+  },
+  "statusAllDisabled": {
+    "message": "ব্লকার চালু আছে, কিন্তু প্রতিটি পৃথক সাইট অক্ষম করা হয়েছে। কিছু সাইট আবার চালু করতে সেটিংস খুলুন।"
+  },
+  "statusBypassActive": {
+    "message": "অস্থায়ী পাস সক্রিয় আছে। $1-এ ব্লক করা রিজিউম।"
+  },
+  "statusOutsideSchedule": {
+    "message": "ব্লকার সশস্ত্র, কিন্তু নির্ধারিত সময়ের বাইরে। এটি $1 থেকে ব্লক করবে।"
+  },
+  "statusShieldUp": {
+    "message": "ঝাল আপ. $1 সেকেন্ডের কাউন্টডাউন, $2 $3 পাস।"
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$2 ডেলিভারি সাইটগুলির মধ্যে $1 সক্ষম৷"
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$2 ফাস্ট ফুড সাইটগুলির মধ্যে $1 সক্ষম৷"
+  },
+  "searchMatchSuffix": {
+    "message": " $1 সার্চের সাথে মেলে।"
+  },
+  "warningPageTitle": {
+    "message": "একটি শ্বাস নিন"
+  },
+  "warningEyebrow": {
+    "message": "FitShield চেক"
+  },
+  "warningTitle": {
+    "message": "এক মিনিট সময় নিন।"
+  },
+  "warningIntro": {
+    "message": "আপনি অর্ডার করার আগে চেক ইন করুন. ক্ষুধা, সুবিধা, মানসিক চাপ এবং অভ্যাস এই মুহূর্তে অনুরূপ অনুভব করতে পারে।"
+  },
+  "warningTriggeredBy": {
+    "message": "আপনি $1 থেকে অর্ডার করতে চলেছেন৷"
+  },
+  "warningHintDefault": {
+    "message": "টাইমার শেষ হলে, আপনি সাইটে চালিয়ে যেতে পারেন।"
+  },
+  "warningHintLocked": {
+    "message": "টাইমার শেষ হলে, আপনি $1 $2-এর জন্য সাইটে চালিয়ে যেতে পারেন।"
+  },
+  "warningBackButton": {
+    "message": "ফিরে যান"
+  },
+  "warningLockedButton": {
+    "message": "তালাবদ্ধ"
+  },
+  "warningContinueButton": {
+    "message": "চালিয়ে যান"
+  },
+  "warningOpeningButton": {
+    "message": "খোলা হচ্ছে..."
+  },
+  "warningUnlockHint": {
+    "message": "আপনি এখন সাইট পরিদর্শন করতে পারেন. ব্লকার $1 $2 পরে স্বয়ংক্রিয়ভাবে ফিরে আসবে।"
+  },
+  "warningErrorHint": {
+    "message": "সাইটটি খোলার সময় কিছু ভুল হয়েছে৷ আবার চেষ্টা করুন."
+  },
+  "settingsTitle": {
+    "message": "FitShield সেটিংস"
+  },
+  "blockingOptionsHeading": {
+    "message": "ব্লকিং অপশন"
+  },
+  "scheduledHoursLabel": {
+    "message": "নির্ধারিত সময়"
+  },
+  "scheduledHoursHint": {
+    "message": "শুধুমাত্র একটি দৈনিক সময় উইন্ডোর সময় ব্লক করুন."
+  },
+  "customizeBlocklistHeading": {
+    "message": "ব্লকলিস্ট কাস্টমাইজ করুন"
+  },
+  "customizeBlocklistIntro": {
+    "message": "কোন অন্তর্নির্মিত গোষ্ঠীগুলি সক্রিয় রয়েছে তা চয়ন করুন, পৃথক সাইটগুলি চালু বা বন্ধ করুন এবং আপনার নিজস্ব ডোমেনগুলি যুক্ত করুন৷"
+  },
+  "deliverySitesHeading": {
+    "message": "ডেলিভারি সাইট"
+  },
+  "fastFoodSitesHeading": {
+    "message": "ফাস্ট ফুড সাইট"
+  },
+  "customUrlsHeading": {
+    "message": "কাস্টম ইউআরএল"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "আপনার নিজস্ব ডোমেন যোগ করুন এবং পৃথকভাবে তাদের নিষ্ক্রিয় করুন."
+  },
+  "showSitesButton": {
+    "message": "সাইট দেখান"
+  },
+  "hideSitesButton": {
+    "message": "সাইট লুকান"
+  },
+  "showUrlsButton": {
+    "message": "ইউআরএল দেখান"
+  },
+  "hideUrlsButton": {
+    "message": "ইউআরএল লুকান"
+  },
+  "deliveryToggleTitle": {
+    "message": "ডেলিভারি সাইট ব্লকিং সক্ষম করুন"
+  },
+  "fastFoodToggleTitle": {
+    "message": "ফাস্ট ফুড সাইট ব্লকিং সক্ষম করুন"
+  },
+  "customToggleTitle": {
+    "message": "কাস্টম URL ব্লকিং সক্ষম করুন"
+  },
+  "addCustomUrlLabel": {
+    "message": "একটি কাস্টম অবরুদ্ধ URL যোগ করুন"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com বা https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "এন্ট্রিগুলি ডোমেনে স্বাভাবিক করা হয় এবং সমস্ত পৃষ্ঠায় ব্লক করা হয়।"
+  },
+  "customEmptyDefault": {
+    "message": "এখনো কোনো কাস্টম URL যোগ করা হয়নি।"
+  },
+  "customNoMatch": {
+    "message": "কোনো কাস্টম URL এই অনুসন্ধানের সাথে মেলে না।"
+  },
+  "emptyDeliverySearch": {
+    "message": "কোনো ডেলিভারি সাইট এই অনুসন্ধানের সাথে মেলে না।"
+  },
+  "emptyFastFoodSearch": {
+    "message": "কোন ফাস্ট ফুড সাইট এই অনুসন্ধান মেলে না."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 মিলেছে \"$3\"।"
+  },
+  "invalidUrlNotice": {
+    "message": "সেই URLটি এখনও বৈধ বলে মনে হচ্ছে না। example.com এর মতো একটি ডোমেন চেষ্টা করুন।"
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 ইতিমধ্যেই ব্লকলিস্টে রয়েছে, তাই এটি পুনরায় সক্ষম করা হয়েছে৷"
+  },
+  "addedToBlocklist": {
+    "message": "$1 কাস্টম ব্লকলিস্টে যোগ করা হয়েছে।"
+  },
+  "removedFromBlocklist": {
+    "message": "$1 কাস্টম ব্লকলিস্ট থেকে সরানো হয়েছে।"
+  },
+  "metadataHeading": {
+    "message": "দেশ ও বিভাগ ব্লকিং"
+  },
+  "metadataIntro": {
+    "message": "একটি ব্র্যান্ড যে দেশে কাজ করে বা এটি যে ধরনের খাবার পরিবেশন করে তার ভিত্তিতে সাইটের সম্পূর্ণ গ্রুপ ব্লক করুন। এই ব্লকগুলি আপনার বিদ্যমান সাইট এবং কাস্টম-URL ব্লকে যোগ করে।"
+  },
+  "blockByCountryLabel": {
+    "message": "দেশ অনুসারে ব্লক করুন"
+  },
+  "blockByCountryHint": {
+    "message": "দেশের নাম বা কোড দ্বারা অনুসন্ধান করুন, যেমন \"ইউনাইটেড\" বা \"মার্কিন\"। একটি দেশ সক্রিয় করা সেখানে সক্রিয় প্রতিটি ব্র্যান্ডকে ব্লক করে।"
+  },
+  "countrySearchPlaceholder": {
+    "message": "দেশ অনুসন্ধান করুন..."
+  },
+  "quickAccessCountries": {
+    "message": "দ্রুত অ্যাক্সেস — দেশগুলি"
+  },
+  "countryQuickEmpty": {
+    "message": "এটিকে এখানে পিন করতে অনুসন্ধান থেকে একটি দেশ সক্ষম করুন৷"
+  },
+  "blockByCategoryLabel": {
+    "message": "বিভাগ দ্বারা ব্লক"
+  },
+  "blockByCategoryHint": {
+    "message": "বার্গার, পিৎজা বা কফির মতো বিভাগগুলি অনুসন্ধান করুন৷ বিশেষত্বগুলিও অনুসন্ধানযোগ্য; ব্লক বিভাগ দ্বারা প্রযোজ্য."
+  },
+  "categorySearchPlaceholder": {
+    "message": "বিভাগগুলি অনুসন্ধান করুন..."
+  },
+  "quickAccessCategories": {
+    "message": "দ্রুত অ্যাক্সেস — বিভাগ"
+  },
+  "categoryQuickEmpty": {
+    "message": "এটিকে এখানে পিন করতে অনুসন্ধান থেকে একটি বিভাগ সক্ষম করুন৷"
+  },
+  "noCountriesMatch": {
+    "message": "কোন দেশ এই অনুসন্ধানের সাথে মেলে না।"
+  },
+  "noCategoriesMatch": {
+    "message": "এই অনুসন্ধানের সাথে কোন বিভাগ মেলে না।"
+  },
+  "languageHeading": {
+    "message": "ভাষা"
+  },
+  "languageIntro": {
+    "message": "FitShield এর নিজস্ব স্ক্রিনের জন্য যে ভাষা ব্যবহার করে তা বেছে নিন। এটি শুধুমাত্র এক্সটেনশনের জন্য আপনার ব্রাউজারের ভাষাকে ওভাররাইড করে।"
+  },
+  "languageSelectLabel": {
+    "message": "ভাষা প্রদর্শন করুন"
+  },
+  "languageHint": {
+    "message": "একটি ভাষা অনুসন্ধান করুন এবং এটি নির্বাচন করুন। আপনার ব্রাউজার অনুসরণ করতে সিস্টেম ডিফল্ট নির্বাচন করুন."
+  },
+  "languageSearchPlaceholder": {
+    "message": "ভাষা খুঁজুন…"
+  },
+  "currentLanguageHead": {
+    "message": "বর্তমান ভাষা"
+  },
+  "languageUseButton": {
+    "message": "ব্যবহার করুন"
+  },
+  "languageActiveButton": {
+    "message": "সক্রিয়"
+  },
+  "languageSystem": {
+    "message": "সিস্টেম ডিফল্ট"
+  },
+  "languageSystemSub": {
+    "message": "আপনার ব্রাউজারের ভাষা অনুসরণ করুন"
+  },
+  "languageEnglish": {
+    "message": "ইংরেজি"
+  },
+  "languageJapanese": {
+    "message": "জাপানিজ"
+  },
+  "languageChinese": {
+    "message": "চীনা (সরলীকৃত)"
+  },
+  "languageFrench": {
+    "message": "ফরাসি"
+  },
+  "languageCantonese": {
+    "message": "ক্যান্টোনিজ"
+  },
+  "languageThai": {
+    "message": "থাই"
+  },
+  "languagePunjabi": {
+    "message": "পাঞ্জাবি"
+  },
+  "languageTamil": {
+    "message": "তামিল"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "চীনা (ঐতিহ্যগত, তাইওয়ান)"
+  },
+  "languageKorean": {
+    "message": "কোরিয়ান"
+  },
+  "languageHindi": {
+    "message": "হিন্দি"
+  },
+  "languageSpanishLatam": {
+    "message": "স্প্যানিশ (ল্যাটিন আমেরিকা)"
+  },
+  "languageSpanishSpain": {
+    "message": "স্প্যানিশ (স্পেন)"
+  },
+  "languageAfrikaans": {
+    "message": "আফ্রিকান"
+  },
+  "languageAlbanian": {
+    "message": "আলবেনিয়ান"
+  },
+  "languageBasque": {
+    "message": "বাস্ক"
+  },
+  "languageBelarusian": {
+    "message": "বেলারুশিয়ান"
+  },
+  "languageBulgarian": {
+    "message": "বুলগেরিয়ান"
+  },
+  "languageCatalan": {
+    "message": "কাতালান"
+  },
+  "languageCroatian": {
+    "message": "ক্রোয়েশিয়ান"
+  },
+  "languageCzech": {
+    "message": "চেক"
+  },
+  "languageDanish": {
+    "message": "ড্যানিশ"
+  },
+  "languageDutch": {
+    "message": "ডাচ"
+  },
+  "languageEstonian": {
+    "message": "এস্তোনিয়ান"
+  },
+  "languageFinnish": {
+    "message": "ফিনিশ"
+  },
+  "languageGreek": {
+    "message": "গ্রীক"
+  },
+  "languageHungarian": {
+    "message": "হাঙ্গেরিয়ান"
+  },
+  "languageIcelandic": {
+    "message": "আইসল্যান্ডিক"
+  },
+  "languageIrish": {
+    "message": "আইরিশ"
+  },
+  "languageItalian": {
+    "message": "ইতালীয়"
+  },
+  "languageLatvian": {
+    "message": "লাটভিয়ান"
+  },
+  "languageLithuanian": {
+    "message": "লিথুয়ানিয়ান"
+  },
+  "languageMacedonian": {
+    "message": "ম্যাসেডোনিয়ান"
+  },
+  "languageMaltese": {
+    "message": "মাল্টিজ"
+  },
+  "languageNorwegian": {
+    "message": "নরওয়েজিয়ান"
+  },
+  "languagePolish": {
+    "message": "পোলিশ"
+  },
+  "languagePortuguesePortugal": {
+    "message": "পর্তুগিজ (পর্তুগাল)"
+  },
+  "languageRomanian": {
+    "message": "রোমানিয়ান"
+  },
+  "languageRussian": {
+    "message": "রাশিয়ান"
+  },
+  "languageSerbian": {
+    "message": "সার্বিয়ান"
+  },
+  "languageSlovak": {
+    "message": "স্লোভাক"
+  },
+  "languageSlovenian": {
+    "message": "স্লোভেনীয়"
+  },
+  "languageSwedish": {
+    "message": "সুইডিশ"
+  },
+  "languageTurkish": {
+    "message": "তুর্কি"
+  },
+  "languageUkrainian": {
+    "message": "ইউক্রেনীয়"
+  },
+  "languageWelsh": {
+    "message": "ওয়েলশ"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "গুজরাটি"
+  },
+  "languageKannada": {
+    "message": "কন্নড়"
+  },
+  "languageMalayalam": {
+    "message": "মালায়লাম"
+  },
+  "languageMarathi": {
+    "message": "মারাঠি"
+  },
+  "languageNepali": {
+    "message": "নেপালি"
+  },
+  "languageOdia": {
+    "message": "ওডিয়া"
+  },
+  "languageSinhala": {
+    "message": "সিংহল"
+  },
+  "languageTelugu": {
+    "message": "তেলেগু"
+  },
+  "languageUrdu": {
+    "message": "উর্দু"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "ইন্দোনেশিয়ান"
+  },
+  "languageMalay": {
+    "message": "মলয়"
+  },
+  "languageVietnamese": {
+    "message": "ভিয়েতনামী"
+  },
+  "languageKhmer": {
+    "message": "খমের"
+  },
+  "languageLao": {
+    "message": "লাও"
+  },
+  "languageBurmese": {
+    "message": "বার্মিজ (মিয়ানমার)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "ফিলিপিনো / তাগালগ"
+  },
+  "languageJavanese": {
+    "message": "জাভানিজ"
+  },
+  "languageSundanese": {
+    "message": "সুন্দানিজ"
+  },
+  "languageArabic": {
+    "message": "আরবি"
+  },
+  "languagePersian": {
+    "message": "ফার্সি (ফার্সি)"
+  },
+  "languageHebrew": {
+    "message": "হিব্রু"
+  },
+  "languageArmenian": {
+    "message": "আর্মেনিয়ান"
+  },
+  "languageGeorgian": {
+    "message": "জর্জিয়ান"
+  },
+  "languageKazakh": {
+    "message": "কাজাখ"
+  },
+  "languageKyrgyz": {
+    "message": "কিরগিজ"
+  },
+  "languageMongolian": {
+    "message": "মঙ্গোলীয়"
+  },
+  "languagePashto": {
+    "message": "পশতু"
+  },
+  "languageTajik": {
+    "message": "তাজিক"
+  },
+  "languageTurkmen": {
+    "message": "তুর্কমেন"
+  },
+  "languageUyghur": {
+    "message": "উইঘুর"
+  },
+  "languageUzbek": {
+    "message": "উজবেক"
+  },
+  "noLanguagesMatch": {
+    "message": "এই অনুসন্ধানের সাথে কোন ভাষা মেলে না।"
+  },
+  "mbBlocking": {
+    "message": "ব্লকিং"
+  },
+  "mbBlock": {
+    "message": "ব্লক"
+  },
+  "mbOn": {
+    "message": "চালু"
+  },
+  "mbOff": {
+    "message": "বন্ধ"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "ব্লক করা - বিরতি দিতে ক্লিক করুন"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "বিরাম দেওয়া হয়েছে — ব্লক করতে ক্লিক করুন"
+  },
+  "mbChipRemoveTitle": {
+    "message": "দ্রুত অ্যাক্সেস থেকে শর্টকাট সরান"
+  },
+  "mbChipRemoveAria": {
+    "message": "দ্রুত অ্যাক্সেস থেকে $1 সরান"
+  },
+  "themeHeading": {
+    "message": "থিম"
+  },
+  "resetThemeButton": {
+    "message": "থিম রিসেট করুন"
+  },
+  "systemThemeLabel": {
+    "message": "সিস্টেম থিম"
+  },
+  "systemThemeHint": {
+    "message": "ডিভাইস পছন্দ বা একটি নির্দিষ্ট মোড."
+  },
+  "themeSystem": {
+    "message": "সিস্টেম"
+  },
+  "themeLight": {
+    "message": "আলো"
+  },
+  "themeDark": {
+    "message": "অন্ধকার"
+  },
+  "themeBackground": {
+    "message": "পটভূমি"
+  },
+  "themePanel": {
+    "message": "প্যানেল"
+  },
+  "themeBorder": {
+    "message": "বর্ডার"
+  },
+  "themeText": {
+    "message": "পাঠ্য"
+  },
+  "themeMutedText": {
+    "message": "নিঃশব্দ পাঠ্য"
+  },
+  "themeAccent": {
+    "message": "উচ্চারণ"
+  },
+  "cornerRadiusLabel": {
+    "message": "কোণার ব্যাসার্ধ"
+  },
+  "popupWidthLabel": {
+    "message": "পপআপ প্রস্থ"
+  },
+  "supportFooterText": {
+    "message": "যদি FitShield আপনাকে একটি অপ্রয়োজনীয় ডেলিভারি অর্ডার এড়াতে সাহায্য করে, তাহলে ঐচ্ছিক সমর্থন ব্লকলিস্ট এবং ডক্সকে সচল রাখতে সাহায্য করে।"
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

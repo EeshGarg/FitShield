@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "תוסף דפדפן FitShield שעוזר לך להישאר מודע למשלוח מזון והזמנת מזון מהיר."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "חפש שם אתר או כתובת אתר"
+  },
+  "searchButton": {
+    "message": "חפש"
+  },
+  "clearButton": {
+    "message": "ברור"
+  },
+  "openButton": {
+    "message": "פתוח"
+  },
+  "addButton": {
+    "message": "הוסף"
+  },
+  "removeButton": {
+    "message": "הסר"
+  },
+  "viewBlocklistButton": {
+    "message": "הצג רשימת חסימות"
+  },
+  "timerDurationLabel": {
+    "message": "משך הטיימר"
+  },
+  "timerDurationHint": {
+    "message": "כוונן את הספירה לאחור לפני הופעת המשך."
+  },
+  "customSecondsLabel": {
+    "message": "שניות מותאמות אישית"
+  },
+  "siteOpenTimeLabel": {
+    "message": "זמן פתיחת האתר"
+  },
+  "siteOpenTimeHint": {
+    "message": "בחר כמה זמן אתרים יישארו פתוחים לאחר סיום הטיימר."
+  },
+  "customMinutesLabel": {
+    "message": "דקות מותאמות אישית"
+  },
+  "startTimeLabel": {
+    "message": "שעת התחלה"
+  },
+  "endTimeLabel": {
+    "message": "שעת סיום"
+  },
+  "scheduleDefaultSummary": {
+    "message": "החסימה תפעל לפי לוח הזמנים היומי שלך כאשר זה מופעל."
+  },
+  "currentScheduleSummary": {
+    "message": "לוח זמנים נוכחי: $1."
+  },
+  "everyDaySuffix": {
+    "message": " כל יום"
+  },
+  "scheduleRange": {
+    "message": "$1 ל-$2"
+  },
+  "unitMinute": {
+    "message": "דקה"
+  },
+  "unitMinutes": {
+    "message": "דקות"
+  },
+  "unitSite": {
+    "message": "אתר"
+  },
+  "unitSites": {
+    "message": "אתרים"
+  },
+  "popupSettingsButton": {
+    "message": "הגדרות"
+  },
+  "popupBlockerTitle": {
+    "message": "חוסם FitShield"
+  },
+  "popupBlockerSubtitle": {
+    "message": "הפעל או כבה כל רשימת חסימות."
+  },
+  "popupMetadataLabel": {
+    "message": "חסימת מדינה וקטגוריות"
+  },
+  "popupMetadataSubtitle": {
+    "message": "חסום קבוצות שלמות של אתרים לפי מדינה או קטגוריית מזון."
+  },
+  "popupDeliveryLabel": {
+    "message": "אתרי משלוחים"
+  },
+  "popupDeliveryDefault": {
+    "message": "דומיינים להזמנת משלוחים."
+  },
+  "popupFastFoodLabel": {
+    "message": "אתרי מזון מהיר"
+  },
+  "popupFastFoodDefault": {
+    "message": "רשתות מרכזיות להזמנת דומיינים."
+  },
+  "popupCustomLabel": {
+    "message": "כתובות אתרים מותאמות אישית"
+  },
+  "popupCustomSubtitle": {
+    "message": "הוסף אתרים משלך והשבת אותם בנפרד."
+  },
+  "popupScheduleLabel": {
+    "message": "חסום רק בשעות קבועות"
+  },
+  "popupScheduleSubtitle": {
+    "message": "שימושי עבור תקציבי ארוחות, הזמנת לילה מאוחרת או שעות עבודה."
+  },
+  "statusInactive": {
+    "message": "לא פעיל. כל האתרים נגישים."
+  },
+  "statusAllDisabled": {
+    "message": "חוסם מופעל, אך כל אתר בודד מושבת. פתח את ההגדרות כדי להפעיל מחדש אתרים מסוימים."
+  },
+  "statusBypassActive": {
+    "message": "הכרטיס הזמני פעיל. חסימת קורות חיים ב-$1."
+  },
+  "statusOutsideSchedule": {
+    "message": "החוסם חמוש, אך מחוץ לשעות המתוכננות. זה יחסום מ-$1."
+  },
+  "statusShieldUp": {
+    "message": "מגן למעלה. $1 שניות ספירה לאחור, $2 $3 עוברים."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 של אתרי משלוח $2 מופעלים."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 של אתרי מזון מהיר $2 מופעלים."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 תואם את החיפוש."
+  },
+  "warningPageTitle": {
+    "message": "קח נשימה"
+  },
+  "warningEyebrow": {
+    "message": "FitShield בדיקה"
+  },
+  "warningTitle": {
+    "message": "קח דקה אחת."
+  },
+  "warningIntro": {
+    "message": "בדוק לפני שאתה מזמין. רעב, נוחות, מתח והרגל יכולים להרגיש דומים ברגע זה."
+  },
+  "warningTriggeredBy": {
+    "message": "אתה עומד להזמין מ-$1."
+  },
+  "warningHintDefault": {
+    "message": "בסיום הטיימר ניתן להמשיך לאתר."
+  },
+  "warningHintLocked": {
+    "message": "כאשר הטיימר מסתיים, תוכל להמשיך לאתר עבור $1 $2."
+  },
+  "warningBackButton": {
+    "message": "תחזור אחורה"
+  },
+  "warningLockedButton": {
+    "message": "נעול"
+  },
+  "warningContinueButton": {
+    "message": "המשך"
+  },
+  "warningOpeningButton": {
+    "message": "פותח..."
+  },
+  "warningUnlockHint": {
+    "message": "אתה יכול לבקר באתר עכשיו. החוסם יחזור אוטומטית לאחר $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "משהו השתבש במהלך פתיחת האתר. אנא נסה שוב."
+  },
+  "settingsTitle": {
+    "message": "הגדרות FitShield"
+  },
+  "blockingOptionsHeading": {
+    "message": "אפשרויות חסימה"
+  },
+  "scheduledHoursLabel": {
+    "message": "שעות מתוזמנות"
+  },
+  "scheduledHoursHint": {
+    "message": "חסום רק במהלך חלון זמן יומי."
+  },
+  "customizeBlocklistHeading": {
+    "message": "התאם אישית את רשימת החסימות"
+  },
+  "customizeBlocklistIntro": {
+    "message": "בחר אילו קבוצות מובנות פעילות, הפעל או כבה אתרים בודדים והוסף דומיינים משלך."
+  },
+  "deliverySitesHeading": {
+    "message": "אתרי משלוחים"
+  },
+  "fastFoodSitesHeading": {
+    "message": "אתרי מזון מהיר"
+  },
+  "customUrlsHeading": {
+    "message": "כתובות אתרים מותאמות אישית"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "הוסף דומיינים משלך והשבת אותם בנפרד."
+  },
+  "showSitesButton": {
+    "message": "הצג אתרים"
+  },
+  "hideSitesButton": {
+    "message": "הסתר אתרים"
+  },
+  "showUrlsButton": {
+    "message": "הצג כתובות אתרים"
+  },
+  "hideUrlsButton": {
+    "message": "הסתר כתובות אתרים"
+  },
+  "deliveryToggleTitle": {
+    "message": "אפשר חסימת אתרי מסירה"
+  },
+  "fastFoodToggleTitle": {
+    "message": "אפשר חסימת אתרי מזון מהיר"
+  },
+  "customToggleTitle": {
+    "message": "אפשר חסימת כתובת אתר מותאמת אישית"
+  },
+  "addCustomUrlLabel": {
+    "message": "הוסף כתובת אתר חסומה מותאמת אישית"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com או https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "ערכים מנורמלים לדומיינים וחוסמים בכל הדפים."
+  },
+  "customEmptyDefault": {
+    "message": "עדיין לא נוספו כתובות אתרים מותאמות אישית."
+  },
+  "customNoMatch": {
+    "message": "אין כתובות אתרים מותאמות אישית שתואמות לחיפוש זה."
+  },
+  "emptyDeliverySearch": {
+    "message": "אין אתרי משלוחים שתואמים לחיפוש זה."
+  },
+  "emptyFastFoodSearch": {
+    "message": "אין אתרי מזון מהיר שתואמים לחיפוש זה."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 תואם ל-\"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "כתובת האתר הזו עדיין לא נראית חוקית. נסה דומיין כמו example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 כבר ברשימת החסימה, אז הוא הופעל מחדש."
+  },
+  "addedToBlocklist": {
+    "message": "$1 התווסף לרשימת החסימות המותאמת אישית."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 הוסר מרשימת החסימות המותאמת אישית."
+  },
+  "metadataHeading": {
+    "message": "חסימת מדינה וקטגוריות"
+  },
+  "metadataIntro": {
+    "message": "חסום קבוצות שלמות של אתרים לפי המדינה שבה המותג פועל או סוג האוכל שהוא מגיש. בלוקים אלה מוסיפים לחסימות האתר הקיים שלך ולחסימות כתובות אתרים מותאמות אישית."
+  },
+  "blockByCountryLabel": {
+    "message": "חסום לפי מדינה"
+  },
+  "blockByCountryHint": {
+    "message": "חפש לפי שם מדינה או קוד, למשל. \"United\" או \"US\". הפעלת מדינה חוסמת כל מותג שפעיל שם."
+  },
+  "countrySearchPlaceholder": {
+    "message": "חפש מדינות..."
+  },
+  "quickAccessCountries": {
+    "message": "גישה מהירה - מדינות"
+  },
+  "countryQuickEmpty": {
+    "message": "אפשר מדינה מחיפוש כדי להצמיד אותה לכאן."
+  },
+  "blockByCategoryLabel": {
+    "message": "חסום לפי קטגוריה"
+  },
+  "blockByCategoryHint": {
+    "message": "חפש קטגוריות כמו המבורגר, פיצה או קפה. גם התמחויות ניתנות לחיפוש; החסימה חלה לפי קטגוריה."
+  },
+  "categorySearchPlaceholder": {
+    "message": "חפש קטגוריות..."
+  },
+  "quickAccessCategories": {
+    "message": "גישה מהירה - קטגוריות"
+  },
+  "categoryQuickEmpty": {
+    "message": "אפשר קטגוריה מחיפוש כדי להצמיד אותה לכאן."
+  },
+  "noCountriesMatch": {
+    "message": "אין מדינות שתואמות את החיפוש הזה."
+  },
+  "noCategoriesMatch": {
+    "message": "אין קטגוריות שתואמות את החיפוש הזה."
+  },
+  "languageHeading": {
+    "message": "שפה"
+  },
+  "languageIntro": {
+    "message": "בחר את השפה שבה משתמשת FitShield עבור המסכים שלה. זה עוקף את שפת הדפדפן שלך עבור התוסף בלבד."
+  },
+  "languageSelectLabel": {
+    "message": "שפת תצוגה"
+  },
+  "languageHint": {
+    "message": "חפש שפה ובחר אותה. בחר ברירת מחדל מערכת כדי לעקוב אחר הדפדפן שלך."
+  },
+  "languageSearchPlaceholder": {
+    "message": "חיפוש שפות..."
+  },
+  "currentLanguageHead": {
+    "message": "שפה נוכחית"
+  },
+  "languageUseButton": {
+    "message": "השתמש"
+  },
+  "languageActiveButton": {
+    "message": "פעיל"
+  },
+  "languageSystem": {
+    "message": "ברירת המחדל של המערכת"
+  },
+  "languageSystemSub": {
+    "message": "עקוב אחר שפת הדפדפן שלך"
+  },
+  "languageEnglish": {
+    "message": "אנגלית"
+  },
+  "languageJapanese": {
+    "message": "יפני"
+  },
+  "languageChinese": {
+    "message": "סינית (פשוטה)"
+  },
+  "languageFrench": {
+    "message": "צרפתית"
+  },
+  "languageCantonese": {
+    "message": "קנטונזית"
+  },
+  "languageThai": {
+    "message": "תאילנדית"
+  },
+  "languagePunjabi": {
+    "message": "פנג'בי"
+  },
+  "languageTamil": {
+    "message": "טמילית"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "סינית (מסורתית, טייוואן)"
+  },
+  "languageKorean": {
+    "message": "קוריאנית"
+  },
+  "languageHindi": {
+    "message": "הינדי"
+  },
+  "languageSpanishLatam": {
+    "message": "ספרדית (אמריקה הלטינית)"
+  },
+  "languageSpanishSpain": {
+    "message": "ספרדית (ספרד)"
+  },
+  "languageAfrikaans": {
+    "message": "אפריקאנס"
+  },
+  "languageAlbanian": {
+    "message": "אלבני"
+  },
+  "languageBasque": {
+    "message": "באסקית"
+  },
+  "languageBelarusian": {
+    "message": "בלארוסית"
+  },
+  "languageBulgarian": {
+    "message": "בולגרית"
+  },
+  "languageCatalan": {
+    "message": "קטלאנית"
+  },
+  "languageCroatian": {
+    "message": "קרואטית"
+  },
+  "languageCzech": {
+    "message": "צ'כית"
+  },
+  "languageDanish": {
+    "message": "דנית"
+  },
+  "languageDutch": {
+    "message": "הולנדית"
+  },
+  "languageEstonian": {
+    "message": "אסטונית"
+  },
+  "languageFinnish": {
+    "message": "פינית"
+  },
+  "languageGreek": {
+    "message": "יוונית"
+  },
+  "languageHungarian": {
+    "message": "הונגרית"
+  },
+  "languageIcelandic": {
+    "message": "איסלנדית"
+  },
+  "languageIrish": {
+    "message": "אירית"
+  },
+  "languageItalian": {
+    "message": "איטלקי"
+  },
+  "languageLatvian": {
+    "message": "לטבית"
+  },
+  "languageLithuanian": {
+    "message": "ליטאית"
+  },
+  "languageMacedonian": {
+    "message": "מקדונית"
+  },
+  "languageMaltese": {
+    "message": "מלטזית"
+  },
+  "languageNorwegian": {
+    "message": "נורבגית"
+  },
+  "languagePolish": {
+    "message": "פולני"
+  },
+  "languagePortuguesePortugal": {
+    "message": "פורטוגזית (פורטוגל)"
+  },
+  "languageRomanian": {
+    "message": "רומנית"
+  },
+  "languageRussian": {
+    "message": "רוסית"
+  },
+  "languageSerbian": {
+    "message": "סרבית"
+  },
+  "languageSlovak": {
+    "message": "סלובקית"
+  },
+  "languageSlovenian": {
+    "message": "סלובנית"
+  },
+  "languageSwedish": {
+    "message": "שוודית"
+  },
+  "languageTurkish": {
+    "message": "טורקית"
+  },
+  "languageUkrainian": {
+    "message": "אוקראינית"
+  },
+  "languageWelsh": {
+    "message": "וולשית"
+  },
+  "languageBengali": {
+    "message": "בנגלית"
+  },
+  "languageGujarati": {
+    "message": "גוג'ראטי"
+  },
+  "languageKannada": {
+    "message": "קנאדה"
+  },
+  "languageMalayalam": {
+    "message": "מלאיאלאם"
+  },
+  "languageMarathi": {
+    "message": "מראטי"
+  },
+  "languageNepali": {
+    "message": "נפאלית"
+  },
+  "languageOdia": {
+    "message": "אודיה"
+  },
+  "languageSinhala": {
+    "message": "סינהאלה"
+  },
+  "languageTelugu": {
+    "message": "טלוגו"
+  },
+  "languageUrdu": {
+    "message": "אורדו"
+  },
+  "languageAssamese": {
+    "message": "אסאמים"
+  },
+  "languageIndonesian": {
+    "message": "אינדונזית"
+  },
+  "languageMalay": {
+    "message": "מלאית"
+  },
+  "languageVietnamese": {
+    "message": "וייטנאמית"
+  },
+  "languageKhmer": {
+    "message": "חמר"
+  },
+  "languageLao": {
+    "message": "לאו"
+  },
+  "languageBurmese": {
+    "message": "בורמזית (מיאנמר)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "פיליפינית / טגלוג"
+  },
+  "languageJavanese": {
+    "message": "ג'אוואנית"
+  },
+  "languageSundanese": {
+    "message": "סונדני"
+  },
+  "languageArabic": {
+    "message": "ערבית"
+  },
+  "languagePersian": {
+    "message": "פרסית (פרסית)"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "ארמני"
+  },
+  "languageGeorgian": {
+    "message": "גרוזינית"
+  },
+  "languageKazakh": {
+    "message": "קזחית"
+  },
+  "languageKyrgyz": {
+    "message": "קירגיזית"
+  },
+  "languageMongolian": {
+    "message": "מונגולית"
+  },
+  "languagePashto": {
+    "message": "פשטו"
+  },
+  "languageTajik": {
+    "message": "טג'יקית"
+  },
+  "languageTurkmen": {
+    "message": "טורקמנית"
+  },
+  "languageUyghur": {
+    "message": "אויגורי"
+  },
+  "languageUzbek": {
+    "message": "אוזבקית"
+  },
+  "noLanguagesMatch": {
+    "message": "אין שפות שמתאימות לחיפוש הזה."
+  },
+  "mbBlocking": {
+    "message": "חסימה"
+  },
+  "mbBlock": {
+    "message": "חסום"
+  },
+  "mbOn": {
+    "message": "פועל"
+  },
+  "mbOff": {
+    "message": "כבוי"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "חסימה - לחץ כדי להשהות"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "מושהה - לחץ כדי לחסום"
+  },
+  "mbChipRemoveTitle": {
+    "message": "הסר קיצור דרך מגישה מהירה"
+  },
+  "mbChipRemoveAria": {
+    "message": "הסר את $1 מגישה מהירה"
+  },
+  "themeHeading": {
+    "message": "נושא"
+  },
+  "resetThemeButton": {
+    "message": "אפס ערכת נושא"
+  },
+  "systemThemeLabel": {
+    "message": "נושא המערכת"
+  },
+  "systemThemeHint": {
+    "message": "העדפת מכשיר או מצב קבוע."
+  },
+  "themeSystem": {
+    "message": "מערכת"
+  },
+  "themeLight": {
+    "message": "אור"
+  },
+  "themeDark": {
+    "message": "כהה"
+  },
+  "themeBackground": {
+    "message": "רקע"
+  },
+  "themePanel": {
+    "message": "פאנל"
+  },
+  "themeBorder": {
+    "message": "גבול"
+  },
+  "themeText": {
+    "message": "טקסט"
+  },
+  "themeMutedText": {
+    "message": "טקסט מושתק"
+  },
+  "themeAccent": {
+    "message": "מבטא"
+  },
+  "cornerRadiusLabel": {
+    "message": "רדיוס פינתי"
+  },
+  "popupWidthLabel": {
+    "message": "רוחב קופץ"
+  },
+  "supportFooterText": {
+    "message": "אם FitShield עזר לך להימנע מהזמנת משלוח מיותרת, תמיכה אופציונלית עוזרת לשמור על תנועה של רשימות חסימות ומסמכים."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

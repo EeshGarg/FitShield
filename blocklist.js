@@ -108,6 +108,34 @@
     return host === apex || host.endsWith(`.${apex}`);
   }
 
+  /**
+   * Every blockable hostname for an entry: its primary apex `domain` plus any
+   * `aliases` (alternate domains a brand owns). Aliases are optional metadata;
+   * entries without them are unaffected. Returns a de-duplicated, normalized
+   * list so callers can match a request against all of a brand's domains.
+   */
+  function getEntryDomains(entry) {
+    if (!entry || typeof entry !== "object") {
+      return [];
+    }
+
+    const domains = [normalizeHostname(entry.domain)];
+
+    if (Array.isArray(entry.aliases)) {
+      entry.aliases.forEach((alias) => domains.push(normalizeHostname(alias)));
+    }
+
+    return [...new Set(domains.filter(Boolean))];
+  }
+
+  /**
+   * True when `hostname` is the entry's apex domain, one of its alias domains,
+   * or a subdomain of any of those.
+   */
+  function entryMatchesHost(entry, hostname) {
+    return getEntryDomains(entry).some((domain) => domainMatches(hostname, domain));
+  }
+
   function getEnabledEntries(entries) {
     const source = Array.isArray(entries) ? entries : loadedEntries;
     return source.filter((entry) => entry && entry.enabled !== false);
@@ -167,7 +195,7 @@
     const pool = onlyEnabled ? getEnabledEntries(source) : source;
     const candidates = filterEntries(filters, pool);
 
-    return candidates.some((entry) => domainMatches(hostname, entry.domain));
+    return candidates.some((entry) => entryMatchesHost(entry, hostname));
   }
 
   // ---------------------------------------------------------------------------
@@ -329,6 +357,8 @@
     normalizeHostname,
     normalizeDomain,
     domainMatches,
+    getEntryDomains,
+    entryMatchesHost,
     getEnabledEntries,
     filterEntries,
     isBlockedHost,

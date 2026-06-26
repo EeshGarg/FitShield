@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield ბრაუზერის გაფართოება, რომელიც გეხმარებათ იყოთ ყურადღებიანი საკვების მიწოდებისა და სწრაფი კვების შეკვეთის შესახებ."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "მოძებნეთ საიტის სახელი ან URL"
+  },
+  "searchButton": {
+    "message": "ძიება"
+  },
+  "clearButton": {
+    "message": "წმინდა"
+  },
+  "openButton": {
+    "message": "გახსენით"
+  },
+  "addButton": {
+    "message": "დამატება"
+  },
+  "removeButton": {
+    "message": "ამოღება"
+  },
+  "viewBlocklistButton": {
+    "message": "დაბლოკვის სიის ნახვა"
+  },
+  "timerDurationLabel": {
+    "message": "ტაიმერის ხანგრძლივობა"
+  },
+  "timerDurationHint": {
+    "message": "დაარეგულირეთ ათვლა, სანამ გამოჩნდება Continue."
+  },
+  "customSecondsLabel": {
+    "message": "მორგებული წამები"
+  },
+  "siteOpenTimeLabel": {
+    "message": "საიტის გახსნის დრო"
+  },
+  "siteOpenTimeHint": {
+    "message": "აირჩიეთ, რამდენ ხანს დარჩება საიტები ღია ტაიმერის დასრულების შემდეგ."
+  },
+  "customMinutesLabel": {
+    "message": "მორგებული წუთები"
+  },
+  "startTimeLabel": {
+    "message": "დაწყების დრო"
+  },
+  "endTimeLabel": {
+    "message": "დასრულების დრო"
+  },
+  "scheduleDefaultSummary": {
+    "message": "დაბლოკვა მოჰყვება თქვენს ყოველდღიურ განრიგს, როდესაც ეს ჩართულია."
+  },
+  "currentScheduleSummary": {
+    "message": "მიმდინარე განრიგი: $1."
+  },
+  "everyDaySuffix": {
+    "message": " ყოველ დღე"
+  },
+  "scheduleRange": {
+    "message": "$1-დან $2-მდე"
+  },
+  "unitMinute": {
+    "message": "წუთი"
+  },
+  "unitMinutes": {
+    "message": "წუთები"
+  },
+  "unitSite": {
+    "message": "საიტი"
+  },
+  "unitSites": {
+    "message": "საიტები"
+  },
+  "popupSettingsButton": {
+    "message": "პარამეტრები"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield ბლოკერი"
+  },
+  "popupBlockerSubtitle": {
+    "message": "ჩართეთ ან გამორთეთ ყველა ბლოკის სია."
+  },
+  "popupMetadataLabel": {
+    "message": "ქვეყნის და კატეგორიის დაბლოკვა"
+  },
+  "popupMetadataSubtitle": {
+    "message": "დაბლოკეთ საიტების მთელი ჯგუფები ქვეყნის ან საკვების კატეგორიის მიხედვით."
+  },
+  "popupDeliveryLabel": {
+    "message": "მიწოდების საიტები"
+  },
+  "popupDeliveryDefault": {
+    "message": "მიწოდების შეკვეთის დომენები."
+  },
+  "popupFastFoodLabel": {
+    "message": "სწრაფი კვების საიტები"
+  },
+  "popupFastFoodDefault": {
+    "message": "ძირითადი ჯაჭვის შეკვეთის დომენები."
+  },
+  "popupCustomLabel": {
+    "message": "მორგებული URL-ები"
+  },
+  "popupCustomSubtitle": {
+    "message": "დაამატეთ თქვენი საკუთარი საიტები და გამორთეთ ისინი ინდივიდუალურად."
+  },
+  "popupScheduleLabel": {
+    "message": "დაბლოკვა მხოლოდ დაგეგმილ საათებში"
+  },
+  "popupScheduleSubtitle": {
+    "message": "სასარგებლოა კვების ბიუჯეტისთვის, გვიან ღამით შეკვეთისთვის ან სამუშაო საათებისთვის."
+  },
+  "statusInactive": {
+    "message": "არააქტიური. ყველა საიტი ხელმისაწვდომია."
+  },
+  "statusAllDisabled": {
+    "message": "ბლოკერი ჩართულია, მაგრამ ყველა ინდივიდუალური საიტი გამორთულია. ზოგიერთი საიტის ხელახლა ჩასართავად გახსენით პარამეტრები."
+  },
+  "statusBypassActive": {
+    "message": "დროებითი საშვი აქტიურია. დაბლოკვა განახლდება $1-ში."
+  },
+  "statusOutsideSchedule": {
+    "message": "ბლოკერი შეიარაღებულია, მაგრამ დაგეგმილ საათებში. ის დაიბლოკება $1-დან."
+  },
+  "statusShieldUp": {
+    "message": "დაიფარე. $1 წამის ათვლა, $2 $3 საშვი."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 $2 მიწოდების საიტებიდან ჩართულია."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 $2 სწრაფი კვების საიტებიდან ჩართულია."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 ემთხვევა ძიებას."
+  },
+  "warningPageTitle": {
+    "message": "ამოისუნთქე"
+  },
+  "warningEyebrow": {
+    "message": "FitShield შემოწმება"
+  },
+  "warningTitle": {
+    "message": "დაუთმეთ ერთი წუთი."
+  },
+  "warningIntro": {
+    "message": "შეკვეთამდე შეამოწმეთ. შიმშილი, კომფორტი, სტრესი და ჩვევა შეიძლება მსგავსი იყოს ამ მომენტში."
+  },
+  "warningTriggeredBy": {
+    "message": "თქვენ აპირებთ შეკვეთას $1-დან."
+  },
+  "warningHintDefault": {
+    "message": "როდესაც ტაიმერი დასრულდება, შეგიძლიათ გააგრძელოთ საიტზე."
+  },
+  "warningHintLocked": {
+    "message": "როდესაც ტაიმერი დასრულდება, შეგიძლიათ გააგრძელოთ საიტზე $1 $2."
+  },
+  "warningBackButton": {
+    "message": "დაბრუნდი"
+  },
+  "warningLockedButton": {
+    "message": "ჩაკეტილი"
+  },
+  "warningContinueButton": {
+    "message": "განაგრძეთ"
+  },
+  "warningOpeningButton": {
+    "message": "გახსნა..."
+  },
+  "warningUnlockHint": {
+    "message": "ახლავე შეგიძლიათ ეწვიოთ საიტს. ბლოკერი ავტომატურად დაბრუნდება $1 $2-ის შემდეგ."
+  },
+  "warningErrorHint": {
+    "message": "საიტის გახსნისას მოხდა რაღაც შეცდომა. გთხოვთ, სცადოთ ხელახლა."
+  },
+  "settingsTitle": {
+    "message": "FitShield პარამეტრები"
+  },
+  "blockingOptionsHeading": {
+    "message": "დაბლოკვის პარამეტრები"
+  },
+  "scheduledHoursLabel": {
+    "message": "დაგეგმილი საათები"
+  },
+  "scheduledHoursHint": {
+    "message": "დაბლოკვა მხოლოდ ყოველდღიური დროის ფანჯრის დროს."
+  },
+  "customizeBlocklistHeading": {
+    "message": "დაბლოკვის სიის მორგება"
+  },
+  "customizeBlocklistIntro": {
+    "message": "აირჩიეთ ჩაშენებული ჯგუფები აქტიური, ჩართეთ ან გამორთეთ ცალკეული საიტები და დაამატეთ თქვენი საკუთარი დომენები."
+  },
+  "deliverySitesHeading": {
+    "message": "მიწოდების საიტები"
+  },
+  "fastFoodSitesHeading": {
+    "message": "სწრაფი კვების საიტები"
+  },
+  "customUrlsHeading": {
+    "message": "მორგებული URL-ები"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "დაამატეთ თქვენი საკუთარი დომენები და გამორთეთ ისინი ინდივიდუალურად."
+  },
+  "showSitesButton": {
+    "message": "საიტების ჩვენება"
+  },
+  "hideSitesButton": {
+    "message": "საიტების დამალვა"
+  },
+  "showUrlsButton": {
+    "message": "URL-ების ჩვენება"
+  },
+  "hideUrlsButton": {
+    "message": "URL-ების დამალვა"
+  },
+  "deliveryToggleTitle": {
+    "message": "მიწოდების საიტის დაბლოკვის ჩართვა"
+  },
+  "fastFoodToggleTitle": {
+    "message": "ჩართეთ სწრაფი კვების საიტის დაბლოკვა"
+  },
+  "customToggleTitle": {
+    "message": "მორგებული URL-ის დაბლოკვის ჩართვა"
+  },
+  "addCustomUrlLabel": {
+    "message": "დაამატეთ მორგებული დაბლოკილი URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com ან https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "ჩანაწერები ნორმალიზდება დომენებისთვის და დაბლოკილია ყველა გვერდზე."
+  },
+  "customEmptyDefault": {
+    "message": "მორგებული URL-ები ჯერ არ არის დამატებული."
+  },
+  "customNoMatch": {
+    "message": "არც ერთი მორგებული URL არ შეესაბამება ამ ძიებას."
+  },
+  "emptyDeliverySearch": {
+    "message": "მიწოდების საიტი არ შეესაბამება ამ ძიებას."
+  },
+  "emptyFastFoodSearch": {
+    "message": "არც ერთი სწრაფი კვების საიტი არ შეესაბამება ამ ძიებას."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 დაემთხვა \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "ეს URL ჯერ არ გამოიყურება სწორი. სცადეთ დომენი, როგორიცაა example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 უკვე არის დაბლოკილ სიაში, ამიტომ ის ხელახლა ჩართულია."
+  },
+  "addedToBlocklist": {
+    "message": "$1 დაემატა მორგებულ ბლოკ სიას."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 ამოიშალა მორგებული დაბლოკვის სიიდან."
+  },
+  "metadataHeading": {
+    "message": "ქვეყნის და კატეგორიის ბლოკირება"
+  },
+  "metadataIntro": {
+    "message": "დაბლოკეთ საიტების მთელი ჯგუფები იმ ქვეყნის მიხედვით, სადაც ბრენდი ოპერირებს ან რა სახის საკვებს ემსახურება. ეს ბლოკები ემატება თქვენს არსებულ საიტს და მორგებული URL ბლოკებს."
+  },
+  "blockByCountryLabel": {
+    "message": "ბლოკი ქვეყნების მიხედვით"
+  },
+  "blockByCountryHint": {
+    "message": "ძიება ქვეყნის სახელით ან კოდით, მაგ. \"გაერთიანებული\" ან \"აშშ\". ქვეყნის ჩართვა ბლოკავს იქ აქტიურ ყველა ბრენდს."
+  },
+  "countrySearchPlaceholder": {
+    "message": "ქვეყნების ძიება…"
+  },
+  "quickAccessCountries": {
+    "message": "სწრაფი წვდომა — ქვეყნები"
+  },
+  "countryQuickEmpty": {
+    "message": "ჩართეთ ქვეყანა ძიებიდან, რომ დაამაგროთ იგი აქ."
+  },
+  "blockByCategoryLabel": {
+    "message": "დაბლოკვა კატეგორიის მიხედვით"
+  },
+  "blockByCategoryHint": {
+    "message": "მოძებნეთ კატეგორიები, როგორიცაა ბურგერი, პიცა ან ყავა. ასევე შესაძლებელია სპეციალობების ძიება; ბლოკი ვრცელდება კატეგორიის მიხედვით."
+  },
+  "categorySearchPlaceholder": {
+    "message": "კატეგორიების ძიება…"
+  },
+  "quickAccessCategories": {
+    "message": "სწრაფი წვდომა — კატეგორიები"
+  },
+  "categoryQuickEmpty": {
+    "message": "ჩართეთ კატეგორია საძიებოდან აქ დასამაგრებლად."
+  },
+  "noCountriesMatch": {
+    "message": "არცერთი ქვეყანა არ შეესაბამება ამ ძიებას."
+  },
+  "noCategoriesMatch": {
+    "message": "არცერთი კატეგორია არ შეესაბამება ამ ძიებას."
+  },
+  "languageHeading": {
+    "message": "ენა"
+  },
+  "languageIntro": {
+    "message": "აირჩიეთ ენა, რომელსაც FitShield იყენებს საკუთარი ეკრანებისთვის. ეს უგულებელყოფს თქვენი ბრაუზერის ენას მხოლოდ გაფართოებისთვის."
+  },
+  "languageSelectLabel": {
+    "message": "ჩვენების ენა"
+  },
+  "languageHint": {
+    "message": "მოძებნეთ ენა და აირჩიეთ. აირჩიეთ სისტემის ნაგულისხმევი თქვენი ბრაუზერის თვალყურის დევნება."
+  },
+  "languageSearchPlaceholder": {
+    "message": "ენების ძიება…"
+  },
+  "currentLanguageHead": {
+    "message": "აქტუალური ენა"
+  },
+  "languageUseButton": {
+    "message": "გამოყენება"
+  },
+  "languageActiveButton": {
+    "message": "აქტიური"
+  },
+  "languageSystem": {
+    "message": "სისტემის ნაგულისხმევი"
+  },
+  "languageSystemSub": {
+    "message": "დაიცავით თქვენი ბრაუზერის ენა"
+  },
+  "languageEnglish": {
+    "message": "ინგლისური"
+  },
+  "languageJapanese": {
+    "message": "იაპონური"
+  },
+  "languageChinese": {
+    "message": "ჩინური (გამარტივებული)"
+  },
+  "languageFrench": {
+    "message": "ფრანგული"
+  },
+  "languageCantonese": {
+    "message": "კანტონური"
+  },
+  "languageThai": {
+    "message": "ტაილანდური"
+  },
+  "languagePunjabi": {
+    "message": "პენჯაბური"
+  },
+  "languageTamil": {
+    "message": "ტამილური"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "ჩინური (ტრადიციული, ტაივანი)"
+  },
+  "languageKorean": {
+    "message": "კორეული"
+  },
+  "languageHindi": {
+    "message": "ჰინდი"
+  },
+  "languageSpanishLatam": {
+    "message": "ესპანური (ლათინური ამერიკა)"
+  },
+  "languageSpanishSpain": {
+    "message": "ესპანური (ესპანეთი)"
+  },
+  "languageAfrikaans": {
+    "message": "აფრიკაანსი"
+  },
+  "languageAlbanian": {
+    "message": "ალბანური"
+  },
+  "languageBasque": {
+    "message": "ბასკური"
+  },
+  "languageBelarusian": {
+    "message": "ბელორუსული"
+  },
+  "languageBulgarian": {
+    "message": "ბულგარული"
+  },
+  "languageCatalan": {
+    "message": "კატალონიური"
+  },
+  "languageCroatian": {
+    "message": "ხორვატული"
+  },
+  "languageCzech": {
+    "message": "ჩეხური"
+  },
+  "languageDanish": {
+    "message": "დანიური"
+  },
+  "languageDutch": {
+    "message": "ჰოლანდიური"
+  },
+  "languageEstonian": {
+    "message": "ესტონური"
+  },
+  "languageFinnish": {
+    "message": "ფინური"
+  },
+  "languageGreek": {
+    "message": "ბერძენი"
+  },
+  "languageHungarian": {
+    "message": "უნგრული"
+  },
+  "languageIcelandic": {
+    "message": "ისლანდიური"
+  },
+  "languageIrish": {
+    "message": "ირლანდიელი"
+  },
+  "languageItalian": {
+    "message": "იტალიური"
+  },
+  "languageLatvian": {
+    "message": "ლატვიური"
+  },
+  "languageLithuanian": {
+    "message": "ლიტვური"
+  },
+  "languageMacedonian": {
+    "message": "მაკედონელი"
+  },
+  "languageMaltese": {
+    "message": "მალტური"
+  },
+  "languageNorwegian": {
+    "message": "ნორვეგიული"
+  },
+  "languagePolish": {
+    "message": "პოლონური"
+  },
+  "languagePortuguesePortugal": {
+    "message": "პორტუგალიური (პორტუგალია)"
+  },
+  "languageRomanian": {
+    "message": "რუმინული"
+  },
+  "languageRussian": {
+    "message": "რუსული"
+  },
+  "languageSerbian": {
+    "message": "სერბული"
+  },
+  "languageSlovak": {
+    "message": "სლოვაკური"
+  },
+  "languageSlovenian": {
+    "message": "სლოვენური"
+  },
+  "languageSwedish": {
+    "message": "შვედური"
+  },
+  "languageTurkish": {
+    "message": "თურქული"
+  },
+  "languageUkrainian": {
+    "message": "უკრაინული"
+  },
+  "languageWelsh": {
+    "message": "უელსური"
+  },
+  "languageBengali": {
+    "message": "ბენგალური"
+  },
+  "languageGujarati": {
+    "message": "გუჯარათი"
+  },
+  "languageKannada": {
+    "message": "კანადა"
+  },
+  "languageMalayalam": {
+    "message": "მალაიალამური"
+  },
+  "languageMarathi": {
+    "message": "მარათჰი"
+  },
+  "languageNepali": {
+    "message": "ნეპალური"
+  },
+  "languageOdia": {
+    "message": "ოდია"
+  },
+  "languageSinhala": {
+    "message": "სინჰალური"
+  },
+  "languageTelugu": {
+    "message": "ტელუგუ"
+  },
+  "languageUrdu": {
+    "message": "ურდუ"
+  },
+  "languageAssamese": {
+    "message": "ასამური"
+  },
+  "languageIndonesian": {
+    "message": "ინდონეზიური"
+  },
+  "languageMalay": {
+    "message": "მალაიზია"
+  },
+  "languageVietnamese": {
+    "message": "ვიეტნამური"
+  },
+  "languageKhmer": {
+    "message": "ქმერული"
+  },
+  "languageLao": {
+    "message": "ლაოსი"
+  },
+  "languageBurmese": {
+    "message": "ბირმული (მიანმარი)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "ფილიპინური / ტაგალური"
+  },
+  "languageJavanese": {
+    "message": "იავური"
+  },
+  "languageSundanese": {
+    "message": "სუნდური"
+  },
+  "languageArabic": {
+    "message": "არაბული"
+  },
+  "languagePersian": {
+    "message": "სპარსული (სპარსული)"
+  },
+  "languageHebrew": {
+    "message": "ებრაული"
+  },
+  "languageArmenian": {
+    "message": "სომხური"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "ყაზახური"
+  },
+  "languageKyrgyz": {
+    "message": "ყირგიზული"
+  },
+  "languageMongolian": {
+    "message": "მონღოლური"
+  },
+  "languagePashto": {
+    "message": "პუშტუ"
+  },
+  "languageTajik": {
+    "message": "ტაჯიკური"
+  },
+  "languageTurkmen": {
+    "message": "თურქმენი"
+  },
+  "languageUyghur": {
+    "message": "უიღური"
+  },
+  "languageUzbek": {
+    "message": "უზბეკური"
+  },
+  "noLanguagesMatch": {
+    "message": "არცერთი ენა არ შეესაბამება ამ ძიებას."
+  },
+  "mbBlocking": {
+    "message": "ბლოკირება"
+  },
+  "mbBlock": {
+    "message": "დაბლოკვა"
+  },
+  "mbOn": {
+    "message": "ჩართულია"
+  },
+  "mbOff": {
+    "message": "გამორთულია"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "დაბლოკვა - დააწკაპუნეთ პაუზაზე"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "შეჩერებულია — დააწკაპუნეთ დასაბლოკად"
+  },
+  "mbChipRemoveTitle": {
+    "message": "წაშალეთ მალსახმობი სწრაფი წვდომიდან"
+  },
+  "mbChipRemoveAria": {
+    "message": "ამოიღეთ $1 სწრაფი წვდომიდან"
+  },
+  "themeHeading": {
+    "message": "თემა"
+  },
+  "resetThemeButton": {
+    "message": "თემის გადატვირთვა"
+  },
+  "systemThemeLabel": {
+    "message": "სისტემის თემა"
+  },
+  "systemThemeHint": {
+    "message": "მოწყობილობის უპირატესობა ან ფიქსირებული რეჟიმი."
+  },
+  "themeSystem": {
+    "message": "სისტემა"
+  },
+  "themeLight": {
+    "message": "სინათლე"
+  },
+  "themeDark": {
+    "message": "ბნელი"
+  },
+  "themeBackground": {
+    "message": "ფონი"
+  },
+  "themePanel": {
+    "message": "პანელი"
+  },
+  "themeBorder": {
+    "message": "საზღვარი"
+  },
+  "themeText": {
+    "message": "ტექსტი"
+  },
+  "themeMutedText": {
+    "message": "დადუმებული ტექსტი"
+  },
+  "themeAccent": {
+    "message": "აქცენტი"
+  },
+  "cornerRadiusLabel": {
+    "message": "კუთხის რადიუსი"
+  },
+  "popupWidthLabel": {
+    "message": "ამომხტარის სიგანე"
+  },
+  "supportFooterText": {
+    "message": "თუ FitShield დაგეხმარებათ თავიდან აიცილოთ არასაჭირო მიწოდების შეკვეთა, სურვილისამებრ მხარდაჭერა გეხმარებათ ბლოკ სიებისა და დოკუმენტების მოძრაობაში."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

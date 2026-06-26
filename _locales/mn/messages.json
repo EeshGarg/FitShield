@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield хөтчийн өргөтгөл нь танд хоол хүргэлт, түргэн хоолны захиалга зэргийг анхаарч үзэхэд тусалдаг."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Сайтын нэр эсвэл URL хайх"
+  },
+  "searchButton": {
+    "message": "Хайх"
+  },
+  "clearButton": {
+    "message": "Тодорхой"
+  },
+  "openButton": {
+    "message": "Нээлттэй"
+  },
+  "addButton": {
+    "message": "Нэмэх"
+  },
+  "removeButton": {
+    "message": "Устгах"
+  },
+  "viewBlocklistButton": {
+    "message": "Блоклох жагсаалтыг харах"
+  },
+  "timerDurationLabel": {
+    "message": "Таймер үргэлжлэх хугацаа"
+  },
+  "timerDurationHint": {
+    "message": "Үргэлжлүүлэх гэсэн гарч ирэхээс өмнө тооллогыг тохируулна уу."
+  },
+  "customSecondsLabel": {
+    "message": "Тусгай секунд"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Сайтын нээлттэй цаг"
+  },
+  "siteOpenTimeHint": {
+    "message": "Цаг хэмжигч дууссаны дараа сайтууд хэр удаан нээлттэй байхыг сонгоно уу."
+  },
+  "customMinutesLabel": {
+    "message": "Захиалгат минут"
+  },
+  "startTimeLabel": {
+    "message": "Эхлэх цаг"
+  },
+  "endTimeLabel": {
+    "message": "Дуусах цаг"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Үүнийг идэвхжүүлсэн үед блоклох нь таны өдөр тутмын хуваарийг дагаж мөрдөх болно."
+  },
+  "currentScheduleSummary": {
+    "message": "Одоогийн хуваарь: $1."
+  },
+  "everyDaySuffix": {
+    "message": " өдөр бүр"
+  },
+  "scheduleRange": {
+    "message": "$1-аас $2 руу"
+  },
+  "unitMinute": {
+    "message": "минут"
+  },
+  "unitMinutes": {
+    "message": "минут"
+  },
+  "unitSite": {
+    "message": "сайт"
+  },
+  "unitSites": {
+    "message": "сайтууд"
+  },
+  "popupSettingsButton": {
+    "message": "Тохиргоо"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield хориглогч"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Блоклох жагсаалт бүрийг асаах эсвэл унтраа."
+  },
+  "popupMetadataLabel": {
+    "message": "Улс, ангиллыг хориглох"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Бүхэл бүтэн бүлгийг улс орон эсвэл хүнсний ангиллаар блоклох."
+  },
+  "popupDeliveryLabel": {
+    "message": "Хүргэлтийн сайтууд"
+  },
+  "popupDeliveryDefault": {
+    "message": "Хүргэлтийн захиалгын домэйнууд."
+  },
+  "popupFastFoodLabel": {
+    "message": "Түргэн хоолны газрууд"
+  },
+  "popupFastFoodDefault": {
+    "message": "Гол сүлжээ захиалгын домэйнууд."
+  },
+  "popupCustomLabel": {
+    "message": "Тусгай URL-ууд"
+  },
+  "popupCustomSubtitle": {
+    "message": "Өөрийн сайтуудыг нэмж тус тусад нь идэвхгүй болгох."
+  },
+  "popupScheduleLabel": {
+    "message": "Зөвхөн хуваарийн дагуу блоклох"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Хоолны төсөв, шөнийн цагаар захиалга хийх эсвэл ажлын цагаар хэрэглэхэд тохиромжтой."
+  },
+  "statusInactive": {
+    "message": "Идэвхгүй. Бүх сайтуудад хандах боломжтой."
+  },
+  "statusAllDisabled": {
+    "message": "Блоклогч асаалттай, гэхдээ сайт бүр идэвхгүй байна. Зарим сайтыг дахин асаахын тулд Тохиргоог нээнэ үү."
+  },
+  "statusBypassActive": {
+    "message": "Түр зуурын тасалбар идэвхтэй байна. $1-д хоригийг үргэлжлүүлж байна."
+  },
+  "statusOutsideSchedule": {
+    "message": "Блоклогч нь зэвсэглэсэн боловч хуваарьт цагаас гадуур. Энэ нь $1-аас блоклох болно."
+  },
+  "statusShieldUp": {
+    "message": "Хамгаалах. $1 секундын тоолол, $2 $3 дамжуулна."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$2 хүргэх сайтуудын $1 идэвхжсэн."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$2 түргэн хоолны сайтуудын $1 идэвхжсэн."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 хайлтад таарч байна."
+  },
+  "warningPageTitle": {
+    "message": "Амьсгалаа аваарай"
+  },
+  "warningEyebrow": {
+    "message": "FitShield шалгах"
+  },
+  "warningTitle": {
+    "message": "Нэг минут зарцуул."
+  },
+  "warningIntro": {
+    "message": "Захиалга хийхээсээ өмнө шалгана уу. Өлсгөлөн, тав тухтай байдал, стресс, зуршил зэрэг нь тухайн мөчид ижил төстэй мэдрэмж төрүүлдэг."
+  },
+  "warningTriggeredBy": {
+    "message": "Та $1-с захиалах гэж байна."
+  },
+  "warningHintDefault": {
+    "message": "Таймер дуусахад та сайт руугаа үргэлжлүүлж болно."
+  },
+  "warningHintLocked": {
+    "message": "Цаг хэмжигч дуусахад та $1 $2 сайт руу үргэлжлүүлж болно."
+  },
+  "warningBackButton": {
+    "message": "Буцах"
+  },
+  "warningLockedButton": {
+    "message": "Түгжигдсэн"
+  },
+  "warningContinueButton": {
+    "message": "Үргэлжлүүлэх"
+  },
+  "warningOpeningButton": {
+    "message": "Нээх..."
+  },
+  "warningUnlockHint": {
+    "message": "Та одоо сайтад зочилж болно. Блоклогч нь $1 $2 дараа автоматаар буцаж ирнэ."
+  },
+  "warningErrorHint": {
+    "message": "Сайтыг нээх явцад алдаа гарлаа. Дахин оролдоно уу."
+  },
+  "settingsTitle": {
+    "message": "FitShield тохиргоо"
+  },
+  "blockingOptionsHeading": {
+    "message": "Блоклох сонголтууд"
+  },
+  "scheduledHoursLabel": {
+    "message": "Хуваарьт цаг"
+  },
+  "scheduledHoursHint": {
+    "message": "Зөвхөн өдөр тутмын цонхны үеэр блокло."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Блоклох жагсаалтыг тохируулах"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Аль суурилагдсан бүлгүүд идэвхтэй байгааг сонгож, тус тусдаа сайтуудыг асааж, унтрааж, өөрийн домэйнүүдийг нэмнэ үү."
+  },
+  "deliverySitesHeading": {
+    "message": "Хүргэлтийн сайтууд"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Түргэн хоолны газрууд"
+  },
+  "customUrlsHeading": {
+    "message": "Тусгай URL-ууд"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Өөрийн домэйнүүдийг нэмж тус тусад нь идэвхгүй болгох."
+  },
+  "showSitesButton": {
+    "message": "Сайтуудыг харуулах"
+  },
+  "hideSitesButton": {
+    "message": "Сайтуудыг нуух"
+  },
+  "showUrlsButton": {
+    "message": "URL-уудыг харуулах"
+  },
+  "hideUrlsButton": {
+    "message": "URL-уудыг нуух"
+  },
+  "deliveryToggleTitle": {
+    "message": "Хүргэлтийн сайтыг блоклохыг идэвхжүүлэх"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Түргэн хоолны сайтыг хаахыг идэвхжүүлнэ үү"
+  },
+  "customToggleTitle": {
+    "message": "Тусгай URL хориглохыг идэвхжүүлэх"
+  },
+  "addCustomUrlLabel": {
+    "message": "Тусгай хориглосон URL нэмнэ үү"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com эсвэл https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Бичлэгүүдийг домэйнд хэвийн болгож, бүх хуудсанд блоклодог."
+  },
+  "customEmptyDefault": {
+    "message": "Тусгай URL хараахан нэмээгүй байна."
+  },
+  "customNoMatch": {
+    "message": "Энэ хайлтад тохирох тусгай URL байхгүй байна."
+  },
+  "emptyDeliverySearch": {
+    "message": "Энэ хайлтад тохирох хүргэлтийн сайт байхгүй байна."
+  },
+  "emptyFastFoodSearch": {
+    "message": "Энэ хайлтад тохирох түргэн хоолны газар байхгүй байна."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 \"$3\"-тай таарч байна."
+  },
+  "invalidUrlNotice": {
+    "message": "Энэ URL хараахан хүчинтэй харагдахгүй байна. example.com шиг домэйн ашиглаж үзнэ үү."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 аль хэдийн хориглосон жагсаалтад байгаа тул дахин идэвхжүүлсэн."
+  },
+  "addedToBlocklist": {
+    "message": "$1-г тусгайлан хориглосон жагсаалтад нэмсэн."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 захиалгат хориглох жагсаалтаас хасагдсан."
+  },
+  "metadataHeading": {
+    "message": "Улс, Ангилалыг хориглох"
+  },
+  "metadataIntro": {
+    "message": "Брэндийн үйл ажиллагаа явуулдаг улс орон эсвэл үйлчилдэг хоолны төрлөөр нь сайтуудыг бүхэлд нь блокло. Эдгээр блокууд нь таны одоо байгаа сайт болон захиалгат URL блокуудад нэмэгддэг."
+  },
+  "blockByCountryLabel": {
+    "message": "Улсаар блоклох"
+  },
+  "blockByCountryHint": {
+    "message": "Улс орны нэр эсвэл кодоор хайх, жишээлбэл. \"Нэгдсэн\" эсвэл \"АНУ\". Тухайн улсыг идэвхжүүлснээр тэнд идэвхтэй байгаа брэнд бүрийг блоклодог."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Улс хайх..."
+  },
+  "quickAccessCountries": {
+    "message": "Түргэн нэвтрэх — улс орнууд"
+  },
+  "countryQuickEmpty": {
+    "message": "Хайлтаас тухайн улсыг энд бэхлэхийн тулд идэвхжүүлнэ үү."
+  },
+  "blockByCategoryLabel": {
+    "message": "Ангилалаар блоклох"
+  },
+  "blockByCategoryHint": {
+    "message": "Бургер, пицца, кофе зэрэг ангилал хайх. Мэргэжилтнүүд мөн хайлт хийх боломжтой; блок ангилалд хамаарна."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Ангилал хайх..."
+  },
+  "quickAccessCategories": {
+    "message": "Түргэн нэвтрэх - ангилал"
+  },
+  "categoryQuickEmpty": {
+    "message": "Хайлтаас категорийг идэвхжүүлж, энд бэхлээрэй."
+  },
+  "noCountriesMatch": {
+    "message": "Энэ хайлтад тохирох улс байхгүй байна."
+  },
+  "noCategoriesMatch": {
+    "message": "Энэ хайлтад тохирох ангилал алга."
+  },
+  "languageHeading": {
+    "message": "Хэл"
+  },
+  "languageIntro": {
+    "message": "FitShield-н өөрийн дэлгэцэнд ашигладаг хэлийг сонгоно уу. Энэ нь зөвхөн өргөтгөлийн хөтөчийн хэлийг хүчингүй болгоно."
+  },
+  "languageSelectLabel": {
+    "message": "Дэлгэцийн хэл"
+  },
+  "languageHint": {
+    "message": "Хэлийг хайж олоод сонгоно уу. Хөтөчөө дагахын тулд Системийн өгөгдмөл сонголтыг сонгоно уу."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Хэл хайх..."
+  },
+  "currentLanguageHead": {
+    "message": "Одоогийн хэл"
+  },
+  "languageUseButton": {
+    "message": "Ашиглах"
+  },
+  "languageActiveButton": {
+    "message": "Идэвхтэй"
+  },
+  "languageSystem": {
+    "message": "Системийн өгөгдмөл"
+  },
+  "languageSystemSub": {
+    "message": "Хөтөчийнхөө хэлийг дагаж мөрдөөрэй"
+  },
+  "languageEnglish": {
+    "message": "Англи"
+  },
+  "languageJapanese": {
+    "message": "Япон"
+  },
+  "languageChinese": {
+    "message": "Хятад (Хялбаршуулсан)"
+  },
+  "languageFrench": {
+    "message": "Франц"
+  },
+  "languageCantonese": {
+    "message": "Кантон хэл"
+  },
+  "languageThai": {
+    "message": "Тайланд"
+  },
+  "languagePunjabi": {
+    "message": "Пунжаби"
+  },
+  "languageTamil": {
+    "message": "Тамил"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "Хятад (Уламжлалт, Тайвань)"
+  },
+  "languageKorean": {
+    "message": "Солонгос"
+  },
+  "languageHindi": {
+    "message": "Хинди"
+  },
+  "languageSpanishLatam": {
+    "message": "Испани (Латин Америк)"
+  },
+  "languageSpanishSpain": {
+    "message": "Испани (Испани)"
+  },
+  "languageAfrikaans": {
+    "message": "Африк"
+  },
+  "languageAlbanian": {
+    "message": "Албани"
+  },
+  "languageBasque": {
+    "message": "Баск"
+  },
+  "languageBelarusian": {
+    "message": "Беларусь"
+  },
+  "languageBulgarian": {
+    "message": "Болгар"
+  },
+  "languageCatalan": {
+    "message": "каталон"
+  },
+  "languageCroatian": {
+    "message": "Хорват"
+  },
+  "languageCzech": {
+    "message": "чех"
+  },
+  "languageDanish": {
+    "message": "Дани"
+  },
+  "languageDutch": {
+    "message": "Голланд"
+  },
+  "languageEstonian": {
+    "message": "Эстони"
+  },
+  "languageFinnish": {
+    "message": "Финланд"
+  },
+  "languageGreek": {
+    "message": "Грек"
+  },
+  "languageHungarian": {
+    "message": "Унгар"
+  },
+  "languageIcelandic": {
+    "message": "Исланд"
+  },
+  "languageIrish": {
+    "message": "Ирланд"
+  },
+  "languageItalian": {
+    "message": "итали"
+  },
+  "languageLatvian": {
+    "message": "Латви"
+  },
+  "languageLithuanian": {
+    "message": "Литва"
+  },
+  "languageMacedonian": {
+    "message": "македон"
+  },
+  "languageMaltese": {
+    "message": "Мальта"
+  },
+  "languageNorwegian": {
+    "message": "Норвеги"
+  },
+  "languagePolish": {
+    "message": "Польш"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Португали (Португаль)"
+  },
+  "languageRomanian": {
+    "message": "румын"
+  },
+  "languageRussian": {
+    "message": "орос"
+  },
+  "languageSerbian": {
+    "message": "Серб"
+  },
+  "languageSlovak": {
+    "message": "словак"
+  },
+  "languageSlovenian": {
+    "message": "Словен"
+  },
+  "languageSwedish": {
+    "message": "швед"
+  },
+  "languageTurkish": {
+    "message": "турк"
+  },
+  "languageUkrainian": {
+    "message": "украин"
+  },
+  "languageWelsh": {
+    "message": "Уэльс"
+  },
+  "languageBengali": {
+    "message": "Бенгал"
+  },
+  "languageGujarati": {
+    "message": "Гужарати"
+  },
+  "languageKannada": {
+    "message": "Каннада"
+  },
+  "languageMalayalam": {
+    "message": "Малайлам"
+  },
+  "languageMarathi": {
+    "message": "Марати"
+  },
+  "languageNepali": {
+    "message": "Непал"
+  },
+  "languageOdia": {
+    "message": "Одиа"
+  },
+  "languageSinhala": {
+    "message": "Синхал"
+  },
+  "languageTelugu": {
+    "message": "Тэлугу"
+  },
+  "languageUrdu": {
+    "message": "Урду"
+  },
+  "languageAssamese": {
+    "message": "Ассам"
+  },
+  "languageIndonesian": {
+    "message": "Индонез"
+  },
+  "languageMalay": {
+    "message": "малай"
+  },
+  "languageVietnamese": {
+    "message": "вьетнам"
+  },
+  "languageKhmer": {
+    "message": "кхмер"
+  },
+  "languageLao": {
+    "message": "Лао"
+  },
+  "languageBurmese": {
+    "message": "Бирм (Мьянмар)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Филиппин / Тагалог"
+  },
+  "languageJavanese": {
+    "message": "Ява"
+  },
+  "languageSundanese": {
+    "message": "Сундан"
+  },
+  "languageArabic": {
+    "message": "Араб"
+  },
+  "languagePersian": {
+    "message": "Перс (Фарси)"
+  },
+  "languageHebrew": {
+    "message": "Еврей"
+  },
+  "languageArmenian": {
+    "message": "армян"
+  },
+  "languageGeorgian": {
+    "message": "Гүрж"
+  },
+  "languageKazakh": {
+    "message": "Казак"
+  },
+  "languageKyrgyz": {
+    "message": "Киргиз"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "Пашто"
+  },
+  "languageTajik": {
+    "message": "Тажик"
+  },
+  "languageTurkmen": {
+    "message": "туркмен"
+  },
+  "languageUyghur": {
+    "message": "уйгур"
+  },
+  "languageUzbek": {
+    "message": "узбек"
+  },
+  "noLanguagesMatch": {
+    "message": "Энэ хайлтад тохирох хэл байхгүй байна."
+  },
+  "mbBlocking": {
+    "message": "Блоклох"
+  },
+  "mbBlock": {
+    "message": "Блоклох"
+  },
+  "mbOn": {
+    "message": "Асаалттай"
+  },
+  "mbOff": {
+    "message": "Унтраах"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Блоклох — түр зогсоохын тулд товшино уу"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Түр зогссон — блоклохын тулд товшино уу"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Шуурхай хандалтаас товчлолыг устгана уу"
+  },
+  "mbChipRemoveAria": {
+    "message": "$1-г хурдан хандалтаас хас"
+  },
+  "themeHeading": {
+    "message": "Сэдэв"
+  },
+  "resetThemeButton": {
+    "message": "Загварыг дахин тохируулах"
+  },
+  "systemThemeLabel": {
+    "message": "Системийн сэдэв"
+  },
+  "systemThemeHint": {
+    "message": "Төхөөрөмжийн сонголт эсвэл тогтмол горим."
+  },
+  "themeSystem": {
+    "message": "Систем"
+  },
+  "themeLight": {
+    "message": "Гэрэл"
+  },
+  "themeDark": {
+    "message": "Харанхуй"
+  },
+  "themeBackground": {
+    "message": "Суурь"
+  },
+  "themePanel": {
+    "message": "Самбар"
+  },
+  "themeBorder": {
+    "message": "Хил"
+  },
+  "themeText": {
+    "message": "Текст"
+  },
+  "themeMutedText": {
+    "message": "Дууг хаасан текст"
+  },
+  "themeAccent": {
+    "message": "Өргөлт"
+  },
+  "cornerRadiusLabel": {
+    "message": "Булангийн радиус"
+  },
+  "popupWidthLabel": {
+    "message": "Попап өргөн"
+  },
+  "supportFooterText": {
+    "message": "Хэрэв FitShield танд шаардлагагүй хүргэлтийн захиалгаас зайлсхийхэд тусалсан бол нэмэлт тусламж нь блоклох жагсаалт болон баримт бичгүүдийг хөдөлгөхөд тусална."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

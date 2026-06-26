@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield ബ്രൗസർ വിപുലീകരണം, ഭക്ഷണ വിതരണത്തിലും ഫാസ്റ്റ് ഫുഡ് ഓർഡറിംഗിലും ശ്രദ്ധ പുലർത്താൻ നിങ്ങളെ സഹായിക്കുന്നു."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "സൈറ്റിൻ്റെ പേര് അല്ലെങ്കിൽ URL തിരയുക"
+  },
+  "searchButton": {
+    "message": "തിരയുക"
+  },
+  "clearButton": {
+    "message": "ക്ലിയർ"
+  },
+  "openButton": {
+    "message": "തുറക്കുക"
+  },
+  "addButton": {
+    "message": "ചേർക്കുക"
+  },
+  "removeButton": {
+    "message": "നീക്കം ചെയ്യുക"
+  },
+  "viewBlocklistButton": {
+    "message": "ബ്ലോക്ക്‌ലിസ്റ്റ് കാണുക"
+  },
+  "timerDurationLabel": {
+    "message": "ടൈമർ ദൈർഘ്യം"
+  },
+  "timerDurationHint": {
+    "message": "Continue ദൃശ്യമാകുന്നതിന് മുമ്പ് കൗണ്ട്ഡൗൺ ക്രമീകരിക്കുക."
+  },
+  "customSecondsLabel": {
+    "message": "ഇഷ്‌ടാനുസൃത സെക്കൻഡുകൾ"
+  },
+  "siteOpenTimeLabel": {
+    "message": "സൈറ്റ് തുറന്ന സമയം"
+  },
+  "siteOpenTimeHint": {
+    "message": "ടൈമർ അവസാനിച്ചതിന് ശേഷം എത്ര സമയം സൈറ്റുകൾ തുറന്ന് നിൽക്കണമെന്ന് തിരഞ്ഞെടുക്കുക."
+  },
+  "customMinutesLabel": {
+    "message": "ഇഷ്‌ടാനുസൃത മിനിറ്റ്"
+  },
+  "startTimeLabel": {
+    "message": "ആരംഭിക്കുന്ന സമയം"
+  },
+  "endTimeLabel": {
+    "message": "അവസാന സമയം"
+  },
+  "scheduleDefaultSummary": {
+    "message": "ഇത് പ്രവർത്തനക്ഷമമാക്കുമ്പോൾ തടയൽ നിങ്ങളുടെ ദൈനംദിന ഷെഡ്യൂൾ പിന്തുടരും."
+  },
+  "currentScheduleSummary": {
+    "message": "നിലവിലെ ഷെഡ്യൂൾ: $1."
+  },
+  "everyDaySuffix": {
+    "message": " എല്ലാ ദിവസവും"
+  },
+  "scheduleRange": {
+    "message": "$1 മുതൽ $2 വരെ"
+  },
+  "unitMinute": {
+    "message": "മിനിറ്റ്"
+  },
+  "unitMinutes": {
+    "message": "മിനിറ്റ്"
+  },
+  "unitSite": {
+    "message": "സൈറ്റ്"
+  },
+  "unitSites": {
+    "message": "സൈറ്റുകൾ"
+  },
+  "popupSettingsButton": {
+    "message": "ക്രമീകരണങ്ങൾ"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield ബ്ലോക്കർ"
+  },
+  "popupBlockerSubtitle": {
+    "message": "എല്ലാ ബ്ലോക്ക് ലിസ്റ്റും ഓണാക്കുകയോ ഓഫാക്കുകയോ ചെയ്യുക."
+  },
+  "popupMetadataLabel": {
+    "message": "രാജ്യവും വിഭാഗവും തടയൽ"
+  },
+  "popupMetadataSubtitle": {
+    "message": "രാജ്യമോ ഭക്ഷണ വിഭാഗമോ അനുസരിച്ച് സൈറ്റുകളുടെ മുഴുവൻ ഗ്രൂപ്പുകളും തടയുക."
+  },
+  "popupDeliveryLabel": {
+    "message": "ഡെലിവറി സൈറ്റുകൾ"
+  },
+  "popupDeliveryDefault": {
+    "message": "ഡെലിവറി ഓർഡർ ഡൊമെയ്‌നുകൾ."
+  },
+  "popupFastFoodLabel": {
+    "message": "ഫാസ്റ്റ് ഫുഡ് സൈറ്റുകൾ"
+  },
+  "popupFastFoodDefault": {
+    "message": "പ്രധാന ചെയിൻ ഓർഡർ ഡൊമെയ്‌നുകൾ."
+  },
+  "popupCustomLabel": {
+    "message": "ഇഷ്‌ടാനുസൃത URL-കൾ"
+  },
+  "popupCustomSubtitle": {
+    "message": "നിങ്ങളുടെ സ്വന്തം സൈറ്റുകൾ ചേർക്കുകയും അവ വ്യക്തിഗതമായി പ്രവർത്തനരഹിതമാക്കുകയും ചെയ്യുക."
+  },
+  "popupScheduleLabel": {
+    "message": "ഷെഡ്യൂൾ ചെയ്ത സമയങ്ങളിൽ മാത്രം തടയുക"
+  },
+  "popupScheduleSubtitle": {
+    "message": "ഭക്ഷണ ബജറ്റുകൾക്കും രാത്രി വൈകി ഓർഡർ ചെയ്യുന്നതിനും അല്ലെങ്കിൽ ജോലി സമയത്തിനും ഉപയോഗപ്രദമാണ്."
+  },
+  "statusInactive": {
+    "message": "നിഷ്ക്രിയം. എല്ലാ സൈറ്റുകളും ആക്സസ് ചെയ്യാവുന്നതാണ്."
+  },
+  "statusAllDisabled": {
+    "message": "ബ്ലോക്കർ ഓണാണ്, എന്നാൽ ഓരോ വ്യക്തിഗത സൈറ്റും പ്രവർത്തനരഹിതമാണ്. ചില സൈറ്റുകൾ വീണ്ടും ഓണാക്കാൻ ക്രമീകരണം തുറക്കുക."
+  },
+  "statusBypassActive": {
+    "message": "താൽക്കാലിക പാസ് സജീവമാണ്. $1-ൽ തടയൽ റെസ്യൂമുകൾ."
+  },
+  "statusOutsideSchedule": {
+    "message": "ബ്ലോക്കർ സായുധനാണ്, എന്നാൽ ഷെഡ്യൂൾ ചെയ്ത സമയത്തിന് പുറത്ത്. ഇത് $1-ൽ നിന്ന് തടയും."
+  },
+  "statusShieldUp": {
+    "message": "കവചം. $1 സെക്കൻഡ് കൗണ്ട്ഡൗൺ, $2 $3 പാസ്."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$2 ഡെലിവറി സൈറ്റുകളുടെ $1 പ്രവർത്തനക്ഷമമാക്കി."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 ഫാസ്റ്റ് ഫുഡ് സൈറ്റുകൾ പ്രവർത്തനക്ഷമമാക്കി."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 തിരയലുമായി പൊരുത്തപ്പെടുന്നു."
+  },
+  "warningPageTitle": {
+    "message": "ഒരു ശ്വാസം എടുക്കുക"
+  },
+  "warningEyebrow": {
+    "message": "FitShield പരിശോധിക്കുക"
+  },
+  "warningTitle": {
+    "message": "ഒരു മിനിറ്റ് എടുക്കുക."
+  },
+  "warningIntro": {
+    "message": "നിങ്ങൾ ഓർഡർ ചെയ്യുന്നതിന് മുമ്പ് ചെക്ക് ഇൻ ചെയ്യുക. വിശപ്പ്, സൗകര്യം, സമ്മർദ്ദം, ശീലം എന്നിവ ഈ നിമിഷത്തിൽ സമാനമായി അനുഭവപ്പെടാം."
+  },
+  "warningTriggeredBy": {
+    "message": "നിങ്ങൾ $1-ൽ നിന്ന് ഓർഡർ ചെയ്യാൻ പോകുകയാണ്."
+  },
+  "warningHintDefault": {
+    "message": "ടൈമർ അവസാനിക്കുമ്പോൾ, നിങ്ങൾക്ക് സൈറ്റിലേക്ക് തുടരാം."
+  },
+  "warningHintLocked": {
+    "message": "ടൈമർ അവസാനിക്കുമ്പോൾ, നിങ്ങൾക്ക് $1 $2 എന്നതിനായുള്ള സൈറ്റിലേക്ക് തുടരാം."
+  },
+  "warningBackButton": {
+    "message": "തിരികെ പോകൂ"
+  },
+  "warningLockedButton": {
+    "message": "പൂട്ടി"
+  },
+  "warningContinueButton": {
+    "message": "തുടരുക"
+  },
+  "warningOpeningButton": {
+    "message": "തുറക്കുന്നു..."
+  },
+  "warningUnlockHint": {
+    "message": "നിങ്ങൾക്ക് ഇപ്പോൾ സൈറ്റ് സന്ദർശിക്കാം. $1 $2-ന് ശേഷം ബ്ലോക്കർ സ്വയമേവ തിരികെ വരും."
+  },
+  "warningErrorHint": {
+    "message": "സൈറ്റ് തുറക്കുമ്പോൾ എന്തോ കുഴപ്പം സംഭവിച്ചു. ദയവായി വീണ്ടും ശ്രമിക്കുക."
+  },
+  "settingsTitle": {
+    "message": "FitShield ക്രമീകരണങ്ങൾ"
+  },
+  "blockingOptionsHeading": {
+    "message": "തടയൽ ഓപ്ഷനുകൾ"
+  },
+  "scheduledHoursLabel": {
+    "message": "ഷെഡ്യൂൾ ചെയ്ത സമയം"
+  },
+  "scheduledHoursHint": {
+    "message": "ദൈനംദിന സമയ വിൻഡോയിൽ മാത്രം തടയുക."
+  },
+  "customizeBlocklistHeading": {
+    "message": "ബ്ലോക്ക്‌ലിസ്റ്റ് ഇഷ്ടാനുസൃതമാക്കുക"
+  },
+  "customizeBlocklistIntro": {
+    "message": "ഏതൊക്കെ ബിൽറ്റ്-ഇൻ ഗ്രൂപ്പുകൾ സജീവമാണെന്ന് തിരഞ്ഞെടുക്കുക, വ്യക്തിഗത സൈറ്റുകൾ ഓണാക്കുകയോ ഓഫാക്കുകയോ ചെയ്യുക, നിങ്ങളുടെ സ്വന്തം ഡൊമെയ്‌നുകൾ ചേർക്കുക."
+  },
+  "deliverySitesHeading": {
+    "message": "ഡെലിവറി സൈറ്റുകൾ"
+  },
+  "fastFoodSitesHeading": {
+    "message": "ഫാസ്റ്റ് ഫുഡ് സൈറ്റുകൾ"
+  },
+  "customUrlsHeading": {
+    "message": "ഇഷ്‌ടാനുസൃത URL-കൾ"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "നിങ്ങളുടെ സ്വന്തം ഡൊമെയ്‌നുകൾ ചേർക്കുകയും അവ വ്യക്തിഗതമായി പ്രവർത്തനരഹിതമാക്കുകയും ചെയ്യുക."
+  },
+  "showSitesButton": {
+    "message": "സൈറ്റുകൾ കാണിക്കുക"
+  },
+  "hideSitesButton": {
+    "message": "സൈറ്റുകൾ മറയ്ക്കുക"
+  },
+  "showUrlsButton": {
+    "message": "URL-കൾ കാണിക്കുക"
+  },
+  "hideUrlsButton": {
+    "message": "URL-കൾ മറയ്ക്കുക"
+  },
+  "deliveryToggleTitle": {
+    "message": "ഡെലിവറി സൈറ്റ് തടയൽ പ്രവർത്തനക്ഷമമാക്കുക"
+  },
+  "fastFoodToggleTitle": {
+    "message": "ഫാസ്റ്റ് ഫുഡ് സൈറ്റ് തടയൽ പ്രവർത്തനക്ഷമമാക്കുക"
+  },
+  "customToggleTitle": {
+    "message": "ഇഷ്‌ടാനുസൃത URL തടയൽ പ്രവർത്തനക്ഷമമാക്കുക"
+  },
+  "addCustomUrlLabel": {
+    "message": "ഇഷ്‌ടാനുസൃത ബ്ലോക്ക് ചെയ്‌ത URL ചേർക്കുക"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com അല്ലെങ്കിൽ https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "എൻട്രികൾ ഡൊമെയ്‌നുകളിലേക്ക് നോർമലൈസ് ചെയ്യുകയും എല്ലാ പേജുകളിലും ബ്ലോക്ക് ചെയ്യുകയും ചെയ്യുന്നു."
+  },
+  "customEmptyDefault": {
+    "message": "ഇഷ്‌ടാനുസൃത URL-കളൊന്നും ഇതുവരെ ചേർത്തിട്ടില്ല."
+  },
+  "customNoMatch": {
+    "message": "ഇഷ്‌ടാനുസൃത URL-കളൊന്നും ഈ തിരയലുമായി പൊരുത്തപ്പെടുന്നില്ല."
+  },
+  "emptyDeliverySearch": {
+    "message": "ഡെലിവറി സൈറ്റുകളൊന്നും ഈ തിരയലുമായി പൊരുത്തപ്പെടുന്നില്ല."
+  },
+  "emptyFastFoodSearch": {
+    "message": "ഫാസ്റ്റ് ഫുഡ് സൈറ്റുകളൊന്നും ഈ തിരയലുമായി പൊരുത്തപ്പെടുന്നില്ല."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 \"$3\" എന്നതുമായി പൊരുത്തപ്പെട്ടു."
+  },
+  "invalidUrlNotice": {
+    "message": "ആ URL ഇതുവരെ സാധുതയുള്ളതായി തോന്നുന്നില്ല. example.com പോലുള്ള ഒരു ഡൊമെയ്ൻ പരീക്ഷിക്കുക."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 ഇതിനകം ബ്ലോക്ക്‌ലിസ്റ്റിൽ ഉള്ളതിനാൽ ഇത് വീണ്ടും പ്രവർത്തനക്ഷമമാക്കി."
+  },
+  "addedToBlocklist": {
+    "message": "$1 ഇഷ്‌ടാനുസൃത ബ്ലോക്ക്‌ലിസ്റ്റിലേക്ക് ചേർത്തു."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 ഇഷ്‌ടാനുസൃത ബ്ലോക്ക്‌ലിസ്റ്റിൽ നിന്ന് നീക്കം ചെയ്‌തു."
+  },
+  "metadataHeading": {
+    "message": "രാജ്യവും വിഭാഗവും തടയൽ"
+  },
+  "metadataIntro": {
+    "message": "ഒരു ബ്രാൻഡ് പ്രവർത്തിക്കുന്ന രാജ്യമോ അത് നൽകുന്ന ഭക്ഷണമോ അനുസരിച്ചുള്ള സൈറ്റുകളുടെ മുഴുവൻ ഗ്രൂപ്പുകളും തടയുക. ഈ ബ്ലോക്കുകൾ നിങ്ങളുടെ നിലവിലുള്ള സൈറ്റിലേക്കും ഇഷ്‌ടാനുസൃത-URL ബ്ലോക്കുകളിലേക്കും ചേർക്കുന്നു."
+  },
+  "blockByCountryLabel": {
+    "message": "രാജ്യം അനുസരിച്ച് തടയുക"
+  },
+  "blockByCountryHint": {
+    "message": "രാജ്യത്തിൻ്റെ പേരോ കോഡോ ഉപയോഗിച്ച് തിരയുക, ഉദാ. \"യുണൈറ്റഡ്\" അല്ലെങ്കിൽ \"യുഎസ്\". ഒരു രാജ്യം പ്രവർത്തനക്ഷമമാക്കുന്നത് അവിടെ സജീവമായ എല്ലാ ബ്രാൻഡുകളും തടയുന്നു."
+  },
+  "countrySearchPlaceholder": {
+    "message": "രാജ്യങ്ങൾ തിരയുക..."
+  },
+  "quickAccessCountries": {
+    "message": "ദ്രുത പ്രവേശനം - രാജ്യങ്ങൾ"
+  },
+  "countryQuickEmpty": {
+    "message": "ഇവിടെ പിൻ ചെയ്യാൻ തിരയലിൽ നിന്ന് ഒരു രാജ്യം പ്രവർത്തനക്ഷമമാക്കുക."
+  },
+  "blockByCategoryLabel": {
+    "message": "വിഭാഗം അനുസരിച്ച് തടയുക"
+  },
+  "blockByCategoryHint": {
+    "message": "ബർഗർ, പിസ്സ അല്ലെങ്കിൽ കോഫി പോലുള്ള വിഭാഗങ്ങൾ തിരയുക. പ്രത്യേകതകളും തിരയാവുന്നതാണ്; വിഭാഗം അനുസരിച്ച് ബ്ലോക്ക് ബാധകമാണ്."
+  },
+  "categorySearchPlaceholder": {
+    "message": "വിഭാഗങ്ങൾ തിരയുക..."
+  },
+  "quickAccessCategories": {
+    "message": "ദ്രുത പ്രവേശനം - വിഭാഗങ്ങൾ"
+  },
+  "categoryQuickEmpty": {
+    "message": "ഇവിടെ പിൻ ചെയ്യാൻ തിരയലിൽ നിന്ന് ഒരു വിഭാഗം പ്രവർത്തനക്ഷമമാക്കുക."
+  },
+  "noCountriesMatch": {
+    "message": "ആ തിരയലുമായി ഒരു രാജ്യവും പൊരുത്തപ്പെടുന്നില്ല."
+  },
+  "noCategoriesMatch": {
+    "message": "വിഭാഗങ്ങളൊന്നും ആ തിരയലുമായി പൊരുത്തപ്പെടുന്നില്ല."
+  },
+  "languageHeading": {
+    "message": "ഭാഷ"
+  },
+  "languageIntro": {
+    "message": "FitShield സ്വന്തം സ്ക്രീനുകൾക്കായി ഉപയോഗിക്കുന്ന ഭാഷ തിരഞ്ഞെടുക്കുക. ഇത് വിപുലീകരണത്തിനായി മാത്രം നിങ്ങളുടെ ബ്രൗസർ ഭാഷയെ അസാധുവാക്കുന്നു."
+  },
+  "languageSelectLabel": {
+    "message": "പ്രദർശന ഭാഷ"
+  },
+  "languageHint": {
+    "message": "ഒരു ഭാഷ തിരയുക, അത് തിരഞ്ഞെടുക്കുക. നിങ്ങളുടെ ബ്രൗസർ പിന്തുടരാൻ സിസ്റ്റം ഡിഫോൾട്ട് തിരഞ്ഞെടുക്കുക."
+  },
+  "languageSearchPlaceholder": {
+    "message": "ഭാഷകൾ തിരയുക..."
+  },
+  "currentLanguageHead": {
+    "message": "നിലവിലെ ഭാഷ"
+  },
+  "languageUseButton": {
+    "message": "ഉപയോഗിക്കുക"
+  },
+  "languageActiveButton": {
+    "message": "സജീവമാണ്"
+  },
+  "languageSystem": {
+    "message": "സിസ്റ്റം ഡിഫോൾട്ട്"
+  },
+  "languageSystemSub": {
+    "message": "നിങ്ങളുടെ ബ്രൗസറിൻ്റെ ഭാഷ പിന്തുടരുക"
+  },
+  "languageEnglish": {
+    "message": "ഇംഗ്ലീഷ്"
+  },
+  "languageJapanese": {
+    "message": "ജാപ്പനീസ്"
+  },
+  "languageChinese": {
+    "message": "ചൈനീസ് (ലളിതമാക്കിയത്)"
+  },
+  "languageFrench": {
+    "message": "ഫ്രഞ്ച്"
+  },
+  "languageCantonese": {
+    "message": "കൻ്റോണീസ്"
+  },
+  "languageThai": {
+    "message": "തായ്"
+  },
+  "languagePunjabi": {
+    "message": "പഞ്ചാബി"
+  },
+  "languageTamil": {
+    "message": "തമിഴ്"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "ചൈനീസ് (പരമ്പരാഗത, തായ്‌വാൻ)"
+  },
+  "languageKorean": {
+    "message": "കൊറിയൻ"
+  },
+  "languageHindi": {
+    "message": "ഹിന്ദി"
+  },
+  "languageSpanishLatam": {
+    "message": "സ്പാനിഷ് (ലാറ്റിൻ അമേരിക്ക)"
+  },
+  "languageSpanishSpain": {
+    "message": "സ്പാനിഷ് (സ്പെയിൻ)"
+  },
+  "languageAfrikaans": {
+    "message": "ആഫ്രിക്കൻസ്"
+  },
+  "languageAlbanian": {
+    "message": "അൽബേനിയൻ"
+  },
+  "languageBasque": {
+    "message": "ബാസ്ക്"
+  },
+  "languageBelarusian": {
+    "message": "ബെലാറഷ്യൻ"
+  },
+  "languageBulgarian": {
+    "message": "ബൾഗേറിയൻ"
+  },
+  "languageCatalan": {
+    "message": "കറ്റാലൻ"
+  },
+  "languageCroatian": {
+    "message": "ക്രൊയേഷ്യൻ"
+  },
+  "languageCzech": {
+    "message": "ചെക്ക്"
+  },
+  "languageDanish": {
+    "message": "ഡാനിഷ്"
+  },
+  "languageDutch": {
+    "message": "ഡച്ച്"
+  },
+  "languageEstonian": {
+    "message": "എസ്റ്റോണിയൻ"
+  },
+  "languageFinnish": {
+    "message": "ഫിന്നിഷ്"
+  },
+  "languageGreek": {
+    "message": "ഗ്രീക്ക്"
+  },
+  "languageHungarian": {
+    "message": "ഹംഗേറിയൻ"
+  },
+  "languageIcelandic": {
+    "message": "ഐസ്‌ലാൻഡിക്"
+  },
+  "languageIrish": {
+    "message": "ഐറിഷ്"
+  },
+  "languageItalian": {
+    "message": "ഇറ്റാലിയൻ"
+  },
+  "languageLatvian": {
+    "message": "ലാത്വിയൻ"
+  },
+  "languageLithuanian": {
+    "message": "ലിത്വാനിയൻ"
+  },
+  "languageMacedonian": {
+    "message": "മാസിഡോണിയൻ"
+  },
+  "languageMaltese": {
+    "message": "മാൾട്ടീസ്"
+  },
+  "languageNorwegian": {
+    "message": "നോർവീജിയൻ"
+  },
+  "languagePolish": {
+    "message": "പോളിഷ്"
+  },
+  "languagePortuguesePortugal": {
+    "message": "പോർച്ചുഗീസ് (പോർച്ചുഗൽ)"
+  },
+  "languageRomanian": {
+    "message": "റൊമാനിയൻ"
+  },
+  "languageRussian": {
+    "message": "റഷ്യൻ"
+  },
+  "languageSerbian": {
+    "message": "സെർബിയൻ"
+  },
+  "languageSlovak": {
+    "message": "സ്ലോവാക്"
+  },
+  "languageSlovenian": {
+    "message": "സ്ലോവേനിയൻ"
+  },
+  "languageSwedish": {
+    "message": "സ്വീഡിഷ്"
+  },
+  "languageTurkish": {
+    "message": "ടർക്കിഷ്"
+  },
+  "languageUkrainian": {
+    "message": "ഉക്രേനിയൻ"
+  },
+  "languageWelsh": {
+    "message": "വെൽഷ്"
+  },
+  "languageBengali": {
+    "message": "ബംഗാളി"
+  },
+  "languageGujarati": {
+    "message": "ഗുജറാത്തി"
+  },
+  "languageKannada": {
+    "message": "കന്നഡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "മറാത്തി"
+  },
+  "languageNepali": {
+    "message": "നേപ്പാളി"
+  },
+  "languageOdia": {
+    "message": "ഒഡിയ"
+  },
+  "languageSinhala": {
+    "message": "സിംഹള"
+  },
+  "languageTelugu": {
+    "message": "തെലുങ്ക്"
+  },
+  "languageUrdu": {
+    "message": "ഉർദു"
+  },
+  "languageAssamese": {
+    "message": "അസമീസ്"
+  },
+  "languageIndonesian": {
+    "message": "ഇന്തോനേഷ്യൻ"
+  },
+  "languageMalay": {
+    "message": "മലയാളി"
+  },
+  "languageVietnamese": {
+    "message": "വിയറ്റ്നാമീസ്"
+  },
+  "languageKhmer": {
+    "message": "ഖെമർ"
+  },
+  "languageLao": {
+    "message": "ലാവോ"
+  },
+  "languageBurmese": {
+    "message": "ബർമീസ് (മ്യാൻമർ)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "ഫിലിപ്പിനോ / തഗാലോഗ്"
+  },
+  "languageJavanese": {
+    "message": "ജാവനീസ്"
+  },
+  "languageSundanese": {
+    "message": "സുന്ദനീസ്"
+  },
+  "languageArabic": {
+    "message": "അറബി"
+  },
+  "languagePersian": {
+    "message": "പേർഷ്യൻ (ഫാർസി)"
+  },
+  "languageHebrew": {
+    "message": "ഹീബ്രു"
+  },
+  "languageArmenian": {
+    "message": "അർമേനിയൻ"
+  },
+  "languageGeorgian": {
+    "message": "ജോർജിയൻ"
+  },
+  "languageKazakh": {
+    "message": "കസാഖ്"
+  },
+  "languageKyrgyz": {
+    "message": "കിർഗിസ്"
+  },
+  "languageMongolian": {
+    "message": "മംഗോളിയൻ"
+  },
+  "languagePashto": {
+    "message": "പാഷ്തോ"
+  },
+  "languageTajik": {
+    "message": "താജിക്ക്"
+  },
+  "languageTurkmen": {
+    "message": "തുർക്ക്മെൻ"
+  },
+  "languageUyghur": {
+    "message": "ഉയ്ഗൂർ"
+  },
+  "languageUzbek": {
+    "message": "ഉസ്ബെക്ക്"
+  },
+  "noLanguagesMatch": {
+    "message": "ആ തിരയലുമായി പൊരുത്തപ്പെടുന്ന ഭാഷകളൊന്നുമില്ല."
+  },
+  "mbBlocking": {
+    "message": "തടയുന്നു"
+  },
+  "mbBlock": {
+    "message": "തടയുക"
+  },
+  "mbOn": {
+    "message": "ഓൺ"
+  },
+  "mbOff": {
+    "message": "ഓഫ്"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "തടയുന്നു - താൽക്കാലികമായി നിർത്താൻ ക്ലിക്കുചെയ്യുക"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "താൽക്കാലികമായി നിർത്തി - തടയാൻ ക്ലിക്ക് ചെയ്യുക"
+  },
+  "mbChipRemoveTitle": {
+    "message": "ദ്രുത പ്രവേശനത്തിൽ നിന്ന് കുറുക്കുവഴി നീക്കം ചെയ്യുക"
+  },
+  "mbChipRemoveAria": {
+    "message": "ദ്രുത പ്രവേശനത്തിൽ നിന്ന് $1 നീക്കം ചെയ്യുക"
+  },
+  "themeHeading": {
+    "message": "തീം"
+  },
+  "resetThemeButton": {
+    "message": "തീം പുനഃസജ്ജമാക്കുക"
+  },
+  "systemThemeLabel": {
+    "message": "സിസ്റ്റം തീം"
+  },
+  "systemThemeHint": {
+    "message": "ഉപകരണ മുൻഗണന അല്ലെങ്കിൽ ഒരു നിശ്ചിത മോഡ്."
+  },
+  "themeSystem": {
+    "message": "സിസ്റ്റം"
+  },
+  "themeLight": {
+    "message": "വെളിച്ചം"
+  },
+  "themeDark": {
+    "message": "ഇരുട്ട്"
+  },
+  "themeBackground": {
+    "message": "പശ്ചാത്തലം"
+  },
+  "themePanel": {
+    "message": "പാനൽ"
+  },
+  "themeBorder": {
+    "message": "അതിർത്തി"
+  },
+  "themeText": {
+    "message": "വാചകം"
+  },
+  "themeMutedText": {
+    "message": "നിശബ്ദമാക്കിയ വാചകം"
+  },
+  "themeAccent": {
+    "message": "ഉച്ചാരണം"
+  },
+  "cornerRadiusLabel": {
+    "message": "കോർണർ റേഡിയസ്"
+  },
+  "popupWidthLabel": {
+    "message": "പോപ്പ്അപ്പ് വീതി"
+  },
+  "supportFooterText": {
+    "message": "അനാവശ്യമായ ഒരു ഡെലിവറി ഓർഡർ ഒഴിവാക്കാൻ FitShield നിങ്ങളെ സഹായിച്ചിട്ടുണ്ടെങ്കിൽ, ഓപ്‌ഷണൽ പിന്തുണ ബ്ലോക്ക്‌ലിസ്റ്റുകളും ഡോക്‌സും നീക്കാൻ സഹായിക്കുന്നു."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

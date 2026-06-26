@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield အစားအစာပေးပို့ခြင်းနှင့် အမြန်အစားအစာမှာယူခြင်းတို့ကို သတိပြုမိစေရန် ကူညီပေးသည့် ဘရောက်ဆာ extension။"
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "ဆိုက်အမည် သို့မဟုတ် URL ကို ရှာပါ။"
+  },
+  "searchButton": {
+    "message": "ရှာရန်"
+  },
+  "clearButton": {
+    "message": "ရှင်းပါတယ်။"
+  },
+  "openButton": {
+    "message": "ဖွင့်သည်။"
+  },
+  "addButton": {
+    "message": "ထည့်ပါ။"
+  },
+  "removeButton": {
+    "message": "ဖယ်ရှားပါ။"
+  },
+  "viewBlocklistButton": {
+    "message": "Blocklist ကို ကြည့်ပါ။"
+  },
+  "timerDurationLabel": {
+    "message": "Timer ကြာချိန်"
+  },
+  "timerDurationHint": {
+    "message": "Continue မပေါ်မီ နှစ်သစ်ကို ချိန်ညှိပါ။"
+  },
+  "customSecondsLabel": {
+    "message": "စိတ်ကြိုက်စက္ကန့်"
+  },
+  "siteOpenTimeLabel": {
+    "message": "ဆိုဒ်ဖွင့်ချိန်"
+  },
+  "siteOpenTimeHint": {
+    "message": "timer ပြီးဆုံးပြီးနောက်တွင် ဝဘ်ဆိုက်များမည်မျှကြာကြာဖွင့်နေမည်ကို ရွေးပါ။"
+  },
+  "customMinutesLabel": {
+    "message": "စိတ်ကြိုက်မိနစ်"
+  },
+  "startTimeLabel": {
+    "message": "စတင်ချိန်"
+  },
+  "endTimeLabel": {
+    "message": "ကုန်ဆုံးချိန်"
+  },
+  "scheduleDefaultSummary": {
+    "message": "၎င်းကိုဖွင့်ထားသည့်အခါ ပိတ်ဆို့ခြင်းသည် သင်၏နေ့စဉ်အချိန်ဇယားအတိုင်း လုပ်ဆောင်ပါမည်။"
+  },
+  "currentScheduleSummary": {
+    "message": "လက်ရှိအချိန်ဇယား- $1။"
+  },
+  "everyDaySuffix": {
+    "message": " နေ့တိုင်း"
+  },
+  "scheduleRange": {
+    "message": "$1 မှ $2"
+  },
+  "unitMinute": {
+    "message": "မိနစ်"
+  },
+  "unitMinutes": {
+    "message": "မိနစ်"
+  },
+  "unitSite": {
+    "message": "site"
+  },
+  "unitSites": {
+    "message": "ဆိုဒ်များ"
+  },
+  "popupSettingsButton": {
+    "message": "ဆက်တင်များ"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blocker"
+  },
+  "popupBlockerSubtitle": {
+    "message": "ဘလောက်စာရင်းတိုင်းကို အဖွင့်အပိတ်လုပ်ပါ။"
+  },
+  "popupMetadataLabel": {
+    "message": "နိုင်ငံနှင့် အမျိုးအစား ပိတ်ဆို့ခြင်း။"
+  },
+  "popupMetadataSubtitle": {
+    "message": "နိုင်ငံ သို့မဟုတ် အစားအစာအမျိုးအစားအလိုက် ဝဘ်ဆိုက်အုပ်စုအားလုံးကို ပိတ်ပါ။"
+  },
+  "popupDeliveryLabel": {
+    "message": "ပို့ဆောင်ရေးဆိုဒ်များ"
+  },
+  "popupDeliveryDefault": {
+    "message": "မှာယူမှုဒိုမိန်းများ ပေးပို့ခြင်း။"
+  },
+  "popupFastFoodLabel": {
+    "message": "အမြန်အစားအစာ ဆိုက်များ"
+  },
+  "popupFastFoodDefault": {
+    "message": "အဓိက ကွင်းဆက် အော်ဒါမှာသော ဒိုမိန်းများ။"
+  },
+  "popupCustomLabel": {
+    "message": "စိတ်ကြိုက် URL များ"
+  },
+  "popupCustomSubtitle": {
+    "message": "သင့်ကိုယ်ပိုင်ဆိုက်များကို ပေါင်းထည့်ကာ ၎င်းတို့ကို တစ်ဦးချင်း ပိတ်ပါ။"
+  },
+  "popupScheduleLabel": {
+    "message": "သတ်မှတ်ထားသော နာရီအတွင်းသာ ပိတ်ပါ။"
+  },
+  "popupScheduleSubtitle": {
+    "message": "အစားအသောက်ဘတ်ဂျက်များ၊ ညနှောင်းပိုင်းအမိန့်စာ သို့မဟုတ် အလုပ်ချိန်များအတွက် အသုံးဝင်သည်။"
+  },
+  "statusInactive": {
+    "message": "မလှုပ်မရှား။ ဆိုက်များအားလုံး ဝင်ရောက်ကြည့်ရှုနိုင်ပြီဖြစ်သည်။"
+  },
+  "statusAllDisabled": {
+    "message": "Blocker ကိုဖွင့်ထားသော်လည်း ဝဘ်ဆိုက်တစ်ခုစီတိုင်းကို ပိတ်ထားသည်။ အချို့ဆိုဒ်များကို ပြန်ဖွင့်ရန် ဆက်တင်များကိုဖွင့်ပါ။"
+  },
+  "statusBypassActive": {
+    "message": "ယာယီဖြတ်သန်းခွင့်သည် အသက်ဝင်ပါသည်။ ပိတ်ဆို့ခြင်းကို $1 တွင် ပြန်လည်စတင်သည်။"
+  },
+  "statusOutsideSchedule": {
+    "message": "Blocker သည် လက်နက်ကိုင်ဆောင်ထားသော်လည်း သတ်မှတ်ချိန်ပြင်ပတွင် ရှိနေသည်။ ၎င်းသည် $1 မှပိတ်ဆို့လိမ့်မည်။"
+  },
+  "statusShieldUp": {
+    "message": "အကာအကွယ်။ $1 စက္ကန့်နှစ်သစ်၊ $2 $3 ကျော်ပါ။"
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 delivery sites enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 fast food sites enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 ရှာဖွေမှုနှင့် ကိုက်ညီသည်။"
+  },
+  "warningPageTitle": {
+    "message": "အသက်ရှုပါ။"
+  },
+  "warningEyebrow": {
+    "message": "FitShield စစ်ဆေးပါ။"
+  },
+  "warningTitle": {
+    "message": "တစ်မိနစ်လောက် အချိန်ပေးပါ။"
+  },
+  "warningIntro": {
+    "message": "သင်အမိန့်မချမီစစ်ဆေးပါ။ ဆာလောင်မှု၊ အဆင်ပြေမှု၊ ဖိစီးမှုနှင့် အလေ့အထသည် အခိုက်အတန့်တွင် အလားတူခံစားရနိုင်သည်။"
+  },
+  "warningTriggeredBy": {
+    "message": "သင် $1 မှ မှာယူပါတော့မည်။"
+  },
+  "warningHintDefault": {
+    "message": "timer ပြီးဆုံးသောအခါ၊ သင်သည် ဆိုက်သို့ ဆက်သွားနိုင်သည်။"
+  },
+  "warningHintLocked": {
+    "message": "အချိန်တိုင်းကိရိယာ ပြီးဆုံးသောအခါ၊ သင်သည် $1 $2 အတွက် ဝဘ်ဆိုက်သို့ ဆက်သွားနိုင်ပါသည်။"
+  },
+  "warningBackButton": {
+    "message": "ပြန်သွားပါ။"
+  },
+  "warningLockedButton": {
+    "message": "သော့ခတ်ထားသည်။"
+  },
+  "warningContinueButton": {
+    "message": "ဆက်ရန်"
+  },
+  "warningOpeningButton": {
+    "message": "ဖွင့်လှစ်ခြင်း..."
+  },
+  "warningUnlockHint": {
+    "message": "သင်ယခုဆိုက်ကိုသွားရောက်ကြည့်ရှုနိုင်ပါတယ်။ $1 $2 ပြီးနောက် blocker သည် အလိုအလျောက်ပြန်လာပါမည်။"
+  },
+  "warningErrorHint": {
+    "message": "ဆိုက်ကိုဖွင့်စဉ် တစ်ခုခုမှားသွားသည်။ ထပ်စမ်းကြည့်ပါ။"
+  },
+  "settingsTitle": {
+    "message": "FitShield ဆက်တင်များ"
+  },
+  "blockingOptionsHeading": {
+    "message": "ပိတ်ဆို့ခြင်း ရွေးချယ်မှုများ"
+  },
+  "scheduledHoursLabel": {
+    "message": "အချိန်ဇယားဆွဲထားသည်။"
+  },
+  "scheduledHoursHint": {
+    "message": "နေ့စဉ်အချိန်ဝင်းဒိုးတစ်ခုအတွင်းသာ ပိတ်ပါ။"
+  },
+  "customizeBlocklistHeading": {
+    "message": "Blocklist ကို စိတ်ကြိုက်လုပ်ပါ။"
+  },
+  "customizeBlocklistIntro": {
+    "message": "မည်သည့် built-in အဖွဲ့များ တက်ကြွနေကြောင်းကို ရွေးပါ၊ ဆိုက်တစ်ခုချင်းစီကို အဖွင့် သို့မဟုတ် ပိတ်ကာ သင့်ကိုယ်ပိုင် ဒိုမိန်းများကို ထည့်ပါ။"
+  },
+  "deliverySitesHeading": {
+    "message": "ပို့ဆောင်ရေးဆိုဒ်များ"
+  },
+  "fastFoodSitesHeading": {
+    "message": "အမြန်အစားအစာဆိုဒ်များ"
+  },
+  "customUrlsHeading": {
+    "message": "စိတ်ကြိုက် URL များ"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "သင့်ကိုယ်ပိုင် ဒိုမိန်းများကို ထည့်သွင်းပြီး ၎င်းတို့ကို တစ်ဦးချင်း ပိတ်ပါ။"
+  },
+  "showSitesButton": {
+    "message": "ဆိုက်များကို ပြပါ။"
+  },
+  "hideSitesButton": {
+    "message": "ဆိုက်များကို ဖျောက်ပါ။"
+  },
+  "showUrlsButton": {
+    "message": "URL များကိုပြသပါ။"
+  },
+  "hideUrlsButton": {
+    "message": "URL များကို ဖျောက်ပါ။"
+  },
+  "deliveryToggleTitle": {
+    "message": "ပို့ဆောင်မှုဆိုက်ပိတ်ဆို့ခြင်းကို ဖွင့်ပါ။"
+  },
+  "fastFoodToggleTitle": {
+    "message": "အမြန်အစားအစာဆိုက်ကို ပိတ်ဆို့ခြင်းကို ဖွင့်ပါ။"
+  },
+  "customToggleTitle": {
+    "message": "စိတ်ကြိုက် URL ပိတ်ဆို့ခြင်းကို ဖွင့်ပါ။"
+  },
+  "addCustomUrlLabel": {
+    "message": "စိတ်ကြိုက်ပိတ်ဆို့ထားသော URL ကိုထည့်ပါ။"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com သို့မဟုတ် https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "ထည့်သွင်းမှုများကို ဒိုမိန်းများတွင် ပုံမှန်ပြုလုပ်ထားပြီး စာမျက်နှာအားလုံးတွင် ပိတ်ဆို့ထားသည်။"
+  },
+  "customEmptyDefault": {
+    "message": "စိတ်ကြိုက် URL များ မထည့်ရသေးပါ။"
+  },
+  "customNoMatch": {
+    "message": "ဤရှာဖွေမှုနှင့် ကိုက်ညီသော စိတ်ကြိုက် URL မရှိပါ။"
+  },
+  "emptyDeliverySearch": {
+    "message": "ဤရှာဖွေမှုနှင့် ကိုက်ညီသော ပို့ဆောင်ရေးဆိုက်များ မရှိပါ။"
+  },
+  "emptyFastFoodSearch": {
+    "message": "ဤရှာဖွေမှုနှင့် ကိုက်ညီသော အမြန်အစားအစာ ဆိုက်များမရှိပါ။"
+  },
+  "noticeMatched": {
+    "message": "$1 $2 \"$3\" နှင့် ကိုက်ညီပါသည်။"
+  },
+  "invalidUrlNotice": {
+    "message": "ထို URL သည် တရားဝင်ပုံမပေါ်သေးပါ။ example.com ကဲ့သို့သော ဒိုမိန်းတစ်ခုကို စမ်းကြည့်ပါ။"
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 သည် blocklist တွင်ရှိပြီးဖြစ်သောကြောင့် ၎င်းကို ပြန်လည်ဖွင့်ထားပါသည်။"
+  },
+  "addedToBlocklist": {
+    "message": "$1 ကို စိတ်ကြိုက်ပိတ်ဆို့စာရင်းတွင် ထည့်သွင်းခဲ့သည်။"
+  },
+  "removedFromBlocklist": {
+    "message": "$1 ကို စိတ်ကြိုက်ပိတ်ဆို့စာရင်းမှ ဖယ်ရှားခဲ့သည်။"
+  },
+  "metadataHeading": {
+    "message": "နိုင်ငံနှင့် အမျိုးအစား ပိတ်ဆို့ခြင်း"
+  },
+  "metadataIntro": {
+    "message": "အမှတ်တံဆိပ်တစ်ခု လုပ်ကိုင်နေသော နိုင်ငံအလိုက် ဆိုက်အုပ်စုတစ်စုလုံး သို့မဟုတ် ၎င်းတွင် ဝန်ဆောင်မှုပေးသော အစားအစာအမျိုးအစားများကို ပိတ်ပါ။ ဤပိတ်ဆို့မှုများသည် သင့်ရှိပြီးသားဆိုက်နှင့် စိတ်ကြိုက် URL ပိတ်ဆို့ခြင်းများထဲသို့ ပေါင်းထည့်သည်။"
+  },
+  "blockByCountryLabel": {
+    "message": "နိုင်ငံအလိုက်ပိတ်ဆို့"
+  },
+  "blockByCountryHint": {
+    "message": "နိုင်ငံအမည် သို့မဟုတ် ကုဒ်ဖြင့် ရှာဖွေပါ၊ ဥပမာ၊ \"ယူနိုက်တက်\" သို့မဟုတ် \"အမေရိကန်\" ။ နိုင်ငံတစ်ခုအား ဖွင့်ခြင်းသည် ထိုနေရာတွင် အသုံးပြုနေသည့် အမှတ်တံဆိပ်တိုင်းကို ပိတ်ဆို့ထားသည်။"
+  },
+  "countrySearchPlaceholder": {
+    "message": "နိုင်ငံများကို ရှာဖွေပါ..."
+  },
+  "quickAccessCountries": {
+    "message": "အမြန်ဝင်ရောက်ခွင့် — နိုင်ငံများ"
+  },
+  "countryQuickEmpty": {
+    "message": "ဤနေရာတွင် ပင်ထိုးရန် ရှာဖွေမှုမှ နိုင်ငံတစ်ခုကို ဖွင့်ပါ။"
+  },
+  "blockByCategoryLabel": {
+    "message": "အမျိုးအစားအလိုက် ပိတ်ဆို့ပါ။"
+  },
+  "blockByCategoryHint": {
+    "message": "ဘာဂါ၊ ပီဇာ သို့မဟုတ် ကော်ဖီကဲ့သို့ အမျိုးအစားများကို ရှာဖွေပါ။ အထူးပြုချက်များကို ရှာဖွေနိုင်သည်။ block သည် အမျိုးအစားအလိုက် အကျုံးဝင်သည်။"
+  },
+  "categorySearchPlaceholder": {
+    "message": "အမျိုးအစားများကို ရှာဖွေပါ..."
+  },
+  "quickAccessCategories": {
+    "message": "အမြန်ဝင်ရောက်ခြင်း — အမျိုးအစားများ"
+  },
+  "categoryQuickEmpty": {
+    "message": "ဤနေရာတွင် ပင်ထိုးရန် ရှာဖွေမှုမှ အမျိုးအစားတစ်ခုကို ဖွင့်ပါ။"
+  },
+  "noCountriesMatch": {
+    "message": "ထိုရှာဖွေမှုနှင့် တူညီသောနိုင်ငံမရှိပါ။"
+  },
+  "noCategoriesMatch": {
+    "message": "ထိုရှာဖွေမှုနှင့် ကိုက်ညီသော အမျိုးအစားမရှိပါ။"
+  },
+  "languageHeading": {
+    "message": "ဘာသာစကား"
+  },
+  "languageIntro": {
+    "message": "၎င်း၏ကိုယ်ပိုင်ဖန်သားပြင်များအတွက် FitShield အသုံးပြုသည့်ဘာသာစကားကို ရွေးချယ်ပါ။ ၎င်းသည် တိုးချဲ့မှုအတွက်သာ သင့်ဘရောက်ဆာဘာသာစကားကို အစားထိုးသည်။"
+  },
+  "languageSelectLabel": {
+    "message": "ပြသသည့်ဘာသာစကား"
+  },
+  "languageHint": {
+    "message": "ဘာသာစကားတစ်ခုကိုရှာပြီး ၎င်းကိုရွေးချယ်ပါ။ သင့်ဘရောက်ဆာကို လိုက်ကြည့်ရန် စနစ်မူလကို ရွေးပါ။"
+  },
+  "languageSearchPlaceholder": {
+    "message": "ဘာသာစကားများကို ရှာဖွေပါ..."
+  },
+  "currentLanguageHead": {
+    "message": "လက်ရှိဘာသာစကား"
+  },
+  "languageUseButton": {
+    "message": "သုံးပါ။"
+  },
+  "languageActiveButton": {
+    "message": "အသက်ဝင်သည်။"
+  },
+  "languageSystem": {
+    "message": "စနစ် ပုံသေ"
+  },
+  "languageSystemSub": {
+    "message": "သင့်ဘရောက်ဆာ၏ ဘာသာစကားကို လိုက်နာပါ။"
+  },
+  "languageEnglish": {
+    "message": "အင်္ဂလိပ်စာ"
+  },
+  "languageJapanese": {
+    "message": "ဂျပန်"
+  },
+  "languageChinese": {
+    "message": "တရုတ် (အတိုကောက်)"
+  },
+  "languageFrench": {
+    "message": "ပြင်သစ်"
+  },
+  "languageCantonese": {
+    "message": "ကန်တုံ"
+  },
+  "languageThai": {
+    "message": "ထိုင်း"
+  },
+  "languagePunjabi": {
+    "message": "ပန်ချာပီ"
+  },
+  "languageTamil": {
+    "message": "တမီလ်"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "တရုတ် (ရိုးရာ၊ ထိုင်ဝမ်)"
+  },
+  "languageKorean": {
+    "message": "ကိုးရီးယား"
+  },
+  "languageHindi": {
+    "message": "ဟိန္ဒီ"
+  },
+  "languageSpanishLatam": {
+    "message": "စပိန် (လက်တင်အမေရိက)"
+  },
+  "languageSpanishSpain": {
+    "message": "စပိန် (စပိန်)"
+  },
+  "languageAfrikaans": {
+    "message": "အာဖရိကန်"
+  },
+  "languageAlbanian": {
+    "message": "အယ်လ်ဘေးနီးယန်း"
+  },
+  "languageBasque": {
+    "message": "ဥေ"
+  },
+  "languageBelarusian": {
+    "message": "ဘီလာရု"
+  },
+  "languageBulgarian": {
+    "message": "ဘူဂေးရီးယား"
+  },
+  "languageCatalan": {
+    "message": "ကတ်တလန်"
+  },
+  "languageCroatian": {
+    "message": "ခရိုအေးရှား"
+  },
+  "languageCzech": {
+    "message": "ချက်"
+  },
+  "languageDanish": {
+    "message": "ဒိန်းမတ်"
+  },
+  "languageDutch": {
+    "message": "ဒတ်ခ်ျ"
+  },
+  "languageEstonian": {
+    "message": "အက်စ်တိုးနီးယား"
+  },
+  "languageFinnish": {
+    "message": "ဖင်"
+  },
+  "languageGreek": {
+    "message": "ဂရိ"
+  },
+  "languageHungarian": {
+    "message": "ဟန်ဂေရီ"
+  },
+  "languageIcelandic": {
+    "message": "အိုက်စလန်"
+  },
+  "languageIrish": {
+    "message": "အိုင်းရစ်"
+  },
+  "languageItalian": {
+    "message": "အီတလီ"
+  },
+  "languageLatvian": {
+    "message": "အံ"
+  },
+  "languageLithuanian": {
+    "message": "လစ်သူယေးနီးယား"
+  },
+  "languageMacedonian": {
+    "message": "မက်ဆီဒိုးနီးယား"
+  },
+  "languageMaltese": {
+    "message": "မောလ်"
+  },
+  "languageNorwegian": {
+    "message": "နော်ဝေ"
+  },
+  "languagePolish": {
+    "message": "ပိုလန်"
+  },
+  "languagePortuguesePortugal": {
+    "message": "ပေါ်တူဂီ (ပေါ်တူဂီ)"
+  },
+  "languageRomanian": {
+    "message": "ရိုမေးနီးယား"
+  },
+  "languageRussian": {
+    "message": "ရုရှ"
+  },
+  "languageSerbian": {
+    "message": "ဆားဘီးယား"
+  },
+  "languageSlovak": {
+    "message": "လိုဗက်"
+  },
+  "languageSlovenian": {
+    "message": "စလိုဗေးနီးယန်း"
+  },
+  "languageSwedish": {
+    "message": "ဒိ"
+  },
+  "languageTurkish": {
+    "message": "တူရကီ"
+  },
+  "languageUkrainian": {
+    "message": "ယူကရိန်း"
+  },
+  "languageWelsh": {
+    "message": "ဝလေ"
+  },
+  "languageBengali": {
+    "message": "ဘင်္ဂါလီ"
+  },
+  "languageGujarati": {
+    "message": "ဂူဂျာရတ်"
+  },
+  "languageKannada": {
+    "message": "ကန်နာဒါ"
+  },
+  "languageMalayalam": {
+    "message": "မလေး"
+  },
+  "languageMarathi": {
+    "message": "မာရသီ"
+  },
+  "languageNepali": {
+    "message": "နီပေါ"
+  },
+  "languageOdia": {
+    "message": "အိုဒီးယား"
+  },
+  "languageSinhala": {
+    "message": "ဆင်ဟာလာ"
+  },
+  "languageTelugu": {
+    "message": "အဂု"
+  },
+  "languageUrdu": {
+    "message": "အူရဒူ"
+  },
+  "languageAssamese": {
+    "message": "အာသံ"
+  },
+  "languageIndonesian": {
+    "message": "အင်ဒိုနီးရှား"
+  },
+  "languageMalay": {
+    "message": "မလေး"
+  },
+  "languageVietnamese": {
+    "message": "ဗီယက်နမ်"
+  },
+  "languageKhmer": {
+    "message": "ခမာ"
+  },
+  "languageLao": {
+    "message": "လာအို"
+  },
+  "languageBurmese": {
+    "message": "ဗမာ (မြန်မာ)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "ဖိလစ်ပိုင်/Tagalog"
+  },
+  "languageJavanese": {
+    "message": "ဂျာဗား"
+  },
+  "languageSundanese": {
+    "message": "ဆူဒန်"
+  },
+  "languageArabic": {
+    "message": "အာရဗီ"
+  },
+  "languagePersian": {
+    "message": "ပါရှန် (ဖာစီ)"
+  },
+  "languageHebrew": {
+    "message": "ဟီး"
+  },
+  "languageArmenian": {
+    "message": "အာမေးနီးယန်း"
+  },
+  "languageGeorgian": {
+    "message": "ဂျော်ဂျီယံ"
+  },
+  "languageKazakh": {
+    "message": "ဇါ"
+  },
+  "languageKyrgyz": {
+    "message": "ခရူ"
+  },
+  "languageMongolian": {
+    "message": "မွန်ဂိုလီးယား"
+  },
+  "languagePashto": {
+    "message": "ပါရှတို"
+  },
+  "languageTajik": {
+    "message": "တာဂျစ်"
+  },
+  "languageTurkmen": {
+    "message": "တာ့ခ်မင်၊"
+  },
+  "languageUyghur": {
+    "message": "ဝီဂါ"
+  },
+  "languageUzbek": {
+    "message": "ဥဇဘက်"
+  },
+  "noLanguagesMatch": {
+    "message": "ထိုရှာဖွေမှုနှင့် ကိုက်ညီသော ဘာသာစကားမရှိပါ။"
+  },
+  "mbBlocking": {
+    "message": "ပိတ်ဆို့ခြင်း။"
+  },
+  "mbBlock": {
+    "message": "ပိတ်ဆို့သည်။"
+  },
+  "mbOn": {
+    "message": "ဂရန်"
+  },
+  "mbOff": {
+    "message": "ပိတ်သည်။"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "ပိတ်ဆို့ခြင်း — ခေတ္တရပ်ရန် နှိပ်ပါ။"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "ခေတ္တရပ်ထားသည် — ပိတ်ဆို့ရန် နှိပ်ပါ။"
+  },
+  "mbChipRemoveTitle": {
+    "message": "အမြန်ဝင်ရောက်ခွင့်မှ ဖြတ်လမ်းလင့်ခ်ကို ဖယ်ရှားပါ။"
+  },
+  "mbChipRemoveAria": {
+    "message": "$1 ကို အမြန်ဝင်ရောက်ခွင့်မှ ဖယ်ရှားပါ။"
+  },
+  "themeHeading": {
+    "message": "အပြင်အဆင်"
+  },
+  "resetThemeButton": {
+    "message": "အပြင်အဆင်ကို ပြန်လည်သတ်မှတ်ပါ။"
+  },
+  "systemThemeLabel": {
+    "message": "စနစ်အပြင်အဆင်"
+  },
+  "systemThemeHint": {
+    "message": "စက်ပစ္စည်း ဦးစားပေး သို့မဟုတ် ပုံသေမုဒ်။"
+  },
+  "themeSystem": {
+    "message": "စနစ်"
+  },
+  "themeLight": {
+    "message": "အလင်း"
+  },
+  "themeDark": {
+    "message": "အမှောင်"
+  },
+  "themeBackground": {
+    "message": "နောက်ခံ"
+  },
+  "themePanel": {
+    "message": "ဘောင်"
+  },
+  "themeBorder": {
+    "message": "နယ်စပ်"
+  },
+  "themeText": {
+    "message": "စာသား"
+  },
+  "themeMutedText": {
+    "message": "အသံပိတ်ထားသော စာသား"
+  },
+  "themeAccent": {
+    "message": "လေယူလေသိမ်း"
+  },
+  "cornerRadiusLabel": {
+    "message": "ထောင့်အချင်းဝက်"
+  },
+  "popupWidthLabel": {
+    "message": "ပေါ်လာသော အကျယ်"
+  },
+  "supportFooterText": {
+    "message": "FitShield သည် သင့်အား မလိုအပ်သော ပေးပို့မှုအမှာစာကို ရှောင်ရှားရန် ကူညီပေးခဲ့ပါက၊ ရွေးချယ်နိုင်သော ပံ့ပိုးကူညီမှုသည် blocklists များနှင့် docs များကို ဆက်လက်ရွေ့လျားစေပါသည်။"
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

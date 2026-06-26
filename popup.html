@@ -302,15 +302,15 @@
     <section class="hero">
       <div class="header-row">
         <h1>FitShield</h1>
-        <button id="openSettings" class="button secondary" type="button">Settings</button>
+        <button id="openSettings" class="button secondary" type="button" data-i18n="popupSettingsButton">Settings</button>
       </div>
     </section>
 
     <section class="section">
       <div class="row">
         <div>
-          <div>FitShield blocker</div>
-          <div class="muted">Turn every block list on or off.</div>
+          <div data-i18n="popupBlockerTitle">FitShield blocker</div>
+          <div class="muted" data-i18n="popupBlockerSubtitle">Turn every block list on or off.</div>
         </div>
         <label class="toggle">
           <input id="toggle" type="checkbox">
@@ -319,8 +319,8 @@
       </div>
 
       <div class="search-row">
-        <input id="popupSearchInput" class="text-input" type="search" placeholder="Search site name or URL">
-        <button id="popupSearchButton" class="button secondary" type="button">Search</button>
+        <input id="popupSearchInput" class="text-input" type="search" placeholder="Search site name or URL" data-i18n-placeholder="searchSitePlaceholder">
+        <button id="popupSearchButton" class="button secondary" type="button" data-i18n="searchButton">Search</button>
       </div>
 
       <div id="status" class="status" aria-live="polite"></div>
@@ -328,10 +328,10 @@
       <div class="field">
         <div class="row">
           <div>
-            <label>Country &amp; category blocking</label>
-            <div class="muted">Block whole groups of sites by country or food category.</div>
+            <label data-i18n="popupMetadataLabel">Country &amp; category blocking</label>
+            <div class="muted" data-i18n="popupMetadataSubtitle">Block whole groups of sites by country or food category.</div>
           </div>
-          <button id="openMetadataBlocking" class="button secondary" type="button">Open</button>
+          <button id="openMetadataBlocking" class="button secondary" type="button" data-i18n="openButton">Open</button>
         </div>
       </div>
 
@@ -339,11 +339,11 @@
         <div class="category-card">
           <div class="row">
             <div>
-              <div>Delivery sites</div>
-              <div class="muted" id="deliveryCount">Delivery ordering domains.</div>
+              <div data-i18n="popupDeliveryLabel">Delivery sites</div>
+              <div class="muted" id="deliveryCount" data-i18n="popupDeliveryDefault">Delivery ordering domains.</div>
             </div>
             <div class="category-actions">
-              <button id="toggleDeliveryList" class="button secondary" type="button">View Blocklist</button>
+              <button id="toggleDeliveryList" class="button secondary" type="button" data-i18n="viewBlocklistButton">View Blocklist</button>
               <label class="toggle">
                 <input id="deliverySitesEnabled" type="checkbox">
                 <span class="slider"></span>
@@ -355,11 +355,11 @@
         <div class="category-card">
           <div class="row">
             <div>
-              <div>Fast food sites</div>
-              <div class="muted" id="fastFoodCount">Major chain ordering domains.</div>
+              <div data-i18n="popupFastFoodLabel">Fast food sites</div>
+              <div class="muted" id="fastFoodCount" data-i18n="popupFastFoodDefault">Major chain ordering domains.</div>
             </div>
             <div class="category-actions">
-              <button id="toggleFastFoodList" class="button secondary" type="button">View Blocklist</button>
+              <button id="toggleFastFoodList" class="button secondary" type="button" data-i18n="viewBlocklistButton">View Blocklist</button>
               <label class="toggle">
                 <input id="fastFoodSitesEnabled" type="checkbox">
                 <span class="slider"></span>
@@ -371,11 +371,11 @@
         <div class="category-card">
           <div class="row">
             <div>
-              <div>Custom URLs</div>
-              <div class="muted">Add your own sites and disable them individually.</div>
+              <div data-i18n="popupCustomLabel">Custom URLs</div>
+              <div class="muted" data-i18n="popupCustomSubtitle">Add your own sites and disable them individually.</div>
             </div>
             <div class="category-actions">
-              <button id="toggleCustomList" class="button secondary" type="button">View Blocklist</button>
+              <button id="toggleCustomList" class="button secondary" type="button" data-i18n="viewBlocklistButton">View Blocklist</button>
               <label class="toggle">
                 <input id="customSitesEnabled" type="checkbox">
                 <span class="slider"></span>
@@ -388,15 +388,15 @@
       <div class="field">
         <div class="row">
           <div>
-            <label for="timerSlider">Timer duration</label>
-            <div class="muted">Adjust the countdown before Continue appears.</div>
+            <label for="timerSlider" data-i18n="timerDurationLabel">Timer duration</label>
+            <div class="muted" data-i18n="timerDurationHint">Adjust the countdown before Continue appears.</div>
           </div>
           <span id="timerDisplay" class="value-chip">60s</span>
         </div>
         <input id="timerSlider" class="range-input" type="range" min="10" max="300" step="5">
         <div class="dual-inputs">
           <div>
-            <label for="timerSeconds">Custom seconds</label>
+            <label for="timerSeconds" data-i18n="customSecondsLabel">Custom seconds</label>
             <input id="timerSeconds" class="number-input" type="number" min="10" step="1">
           </div>
         </div>
@@ -405,8 +405,8 @@
       <div class="field">
         <div class="row">
           <div>
-            <label for="scheduleEnabled">Block only during scheduled hours</label>
-            <div class="muted">Useful for meal budgets, late-night ordering, or work hours.</div>
+            <label for="scheduleEnabled" data-i18n="popupScheduleLabel">Block only during scheduled hours</label>
+            <div class="muted" data-i18n="popupScheduleSubtitle">Useful for meal budgets, late-night ordering, or work hours.</div>
           </div>
           <label class="toggle">
             <input id="scheduleEnabled" type="checkbox">
@@ -416,29 +416,29 @@
 
         <div class="schedule-grid">
           <div>
-            <label for="scheduleStart">Start time</label>
+            <label for="scheduleStart" data-i18n="startTimeLabel">Start time</label>
             <input id="scheduleStart" class="time-input" type="time">
           </div>
           <div>
-            <label for="scheduleEnd">End time</label>
+            <label for="scheduleEnd" data-i18n="endTimeLabel">End time</label>
             <input id="scheduleEnd" class="time-input" type="time">
           </div>
         </div>
-        <small id="scheduleSummary">Blocking will follow your daily schedule when this is enabled.</small>
+        <small id="scheduleSummary" data-i18n="scheduleDefaultSummary">Blocking will follow your daily schedule when this is enabled.</small>
       </div>
 
       <div class="field">
         <div class="row">
           <div>
-            <label for="passDurationSlider">Site open time</label>
-            <div class="muted">Choose how long sites stay open after the timer ends.</div>
+            <label for="passDurationSlider" data-i18n="siteOpenTimeLabel">Site open time</label>
+            <div class="muted" data-i18n="siteOpenTimeHint">Choose how long sites stay open after the timer ends.</div>
           </div>
           <span id="passDurationDisplay" class="value-chip">5m</span>
         </div>
         <input id="passDurationSlider" class="range-input" type="range" min="1" max="120" step="1">
         <div class="dual-inputs">
           <div>
-            <label for="passDurationMinutes">Custom minutes</label>
+            <label for="passDurationMinutes" data-i18n="customMinutesLabel">Custom minutes</label>
             <input id="passDurationMinutes" class="number-input" type="number" min="1" step="1">
           </div>
         </div>
@@ -446,6 +446,7 @@
     </section>
   </main>
 
+  <script src="i18n.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

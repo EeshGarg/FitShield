@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "ສ່ວນຂະຫຍາຍບຣາວເຊີ FitShield ທີ່ຊ່ວຍໃຫ້ທ່ານມີສະຕິໃນການຈັດສົ່ງອາຫານ ແລະ ການສັ່ງອາຫານດ່ວນ."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "ຊອກຫາຊື່ເວັບໄຊ ຫຼື URL"
+  },
+  "searchButton": {
+    "message": "ຊອກຫາ"
+  },
+  "clearButton": {
+    "message": "ຈະແຈ້ງ"
+  },
+  "openButton": {
+    "message": "ເປີດ"
+  },
+  "addButton": {
+    "message": "ເພີ່ມ"
+  },
+  "removeButton": {
+    "message": "ເອົາອອກ"
+  },
+  "viewBlocklistButton": {
+    "message": "ເບິ່ງລາຍຊື່ບລັອກ"
+  },
+  "timerDurationLabel": {
+    "message": "ໄລຍະເວລາຈັບເວລາ"
+  },
+  "timerDurationHint": {
+    "message": "ປັບການນັບຖອຍຫຼັງກ່ອນທີ່ຈະສືບຕໍ່ປະກົດຂຶ້ນ."
+  },
+  "customSecondsLabel": {
+    "message": "ວິນາທີທີ່ກຳນົດເອງ"
+  },
+  "siteOpenTimeLabel": {
+    "message": "ເວລາເປີດເວັບໄຊ"
+  },
+  "siteOpenTimeHint": {
+    "message": "ເລືອກໄລຍະເວລາທີ່ສະຖານທີ່ເປີດຫຼັງຈາກໂມງຈັບເວລາສິ້ນສຸດລົງ."
+  },
+  "customMinutesLabel": {
+    "message": "ນາທີທີ່ກຳນົດເອງ"
+  },
+  "startTimeLabel": {
+    "message": "ເວລາເລີ່ມຕົ້ນ"
+  },
+  "endTimeLabel": {
+    "message": "ເວລາສິ້ນສຸດ"
+  },
+  "scheduleDefaultSummary": {
+    "message": "ການຂັດຂວາງຈະປະຕິບັດຕາມຕາຕະລາງປະຈໍາວັນຂອງທ່ານເມື່ອສິ່ງນີ້ຖືກເປີດໃຊ້."
+  },
+  "currentScheduleSummary": {
+    "message": "ຕາຕະລາງປະຈຸບັນ: $1."
+  },
+  "everyDaySuffix": {
+    "message": " ທຸກໆມື້"
+  },
+  "scheduleRange": {
+    "message": "$1 ເຖິງ $2"
+  },
+  "unitMinute": {
+    "message": "ນາທີ"
+  },
+  "unitMinutes": {
+    "message": "ນາທີ"
+  },
+  "unitSite": {
+    "message": "ເວັບໄຊ"
+  },
+  "unitSites": {
+    "message": "ສະຖານທີ່"
+  },
+  "popupSettingsButton": {
+    "message": "ການຕັ້ງຄ່າ"
+  },
+  "popupBlockerTitle": {
+    "message": "ຕົວບລັອກ FitShield"
+  },
+  "popupBlockerSubtitle": {
+    "message": "ເປີດ ຫຼືປິດທຸກລາຍການບລັອກ."
+  },
+  "popupMetadataLabel": {
+    "message": "ການບລັອກປະເທດ ແລະປະເພດ"
+  },
+  "popupMetadataSubtitle": {
+    "message": "ບລັອກກຸ່ມທັງໝົດຂອງເວັບໄຊຕາມປະເທດ ຫຼືໝວດອາຫານ."
+  },
+  "popupDeliveryLabel": {
+    "message": "ສະຖານທີ່ຈັດສົ່ງ"
+  },
+  "popupDeliveryDefault": {
+    "message": "ການຈັດສົ່ງຄໍາສັ່ງໂດເມນ."
+  },
+  "popupFastFoodLabel": {
+    "message": "ສະຖານທີ່ອາຫານໄວ"
+  },
+  "popupFastFoodDefault": {
+    "message": "ໂດເມນຄໍາສັ່ງລະບົບຕ່ອງໂສ້ທີ່ສໍາຄັນ."
+  },
+  "popupCustomLabel": {
+    "message": "URL ແບບກຳນົດເອງ"
+  },
+  "popupCustomSubtitle": {
+    "message": "ເພີ່ມເວັບໄຊຂອງທ່ານເອງແລະປິດການທໍາງານຂອງແຕ່ລະບຸກຄົນ."
+  },
+  "popupScheduleLabel": {
+    "message": "ບລັອກພຽງແຕ່ໃນລະຫວ່າງຊົ່ວໂມງທີ່ກໍານົດໄວ້"
+  },
+  "popupScheduleSubtitle": {
+    "message": "ມີປະໂຫຍດສຳລັບງົບປະມານອາຫານ, ການສັ່ງເດິກຕອນກາງຄືນ, ຫຼືຊົ່ວໂມງເຮັດວຽກ."
+  },
+  "statusInactive": {
+    "message": "ບໍ່ເຄື່ອນໄຫວ. ສະຖານທີ່ທັງຫມົດແມ່ນສາມາດເຂົ້າເຖິງໄດ້."
+  },
+  "statusAllDisabled": {
+    "message": "ຕົວບລັອກເປີດຢູ່, ແຕ່ແຕ່ລະເວັບໄຊຖືກປິດໃຊ້ງານ. ເປີດການຕັ້ງຄ່າເພື່ອເປີດບາງເວັບໄຊຄືນໃໝ່."
+  },
+  "statusBypassActive": {
+    "message": "ບັດຊົ່ວຄາວເປີດຢູ່. ການຂັດຂວາງການສືບຕໍ່ໃນ $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blocker ແມ່ນປະກອບອາວຸດ, ແຕ່ຢູ່ນອກຊົ່ວໂມງທີ່ກໍານົດໄວ້. ມັນຈະບລັອກຈາກ $1."
+  },
+  "statusShieldUp": {
+    "message": "ປ້ອງກັນ. $1 ວິນາທີນັບຖອຍຫຼັງ, $2 $3 ຜ່ານ."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 ຂອງ $2 ສະຖານທີ່ຈັດສົ່ງໄດ້ຖືກເປີດໃຊ້."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 ຂອງ $2 ສະຖານທີ່ອາຫານຈານດ່ວນຖືກເປີດໃຊ້."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 ກົງກັບການຄົ້ນຫາ."
+  },
+  "warningPageTitle": {
+    "message": "ຫາຍໃຈ"
+  },
+  "warningEyebrow": {
+    "message": "FitShield ກວດສອບ"
+  },
+  "warningTitle": {
+    "message": "ໃຊ້ເວລາຫນຶ່ງນາທີ."
+  },
+  "warningIntro": {
+    "message": "ເຊັກອິນກ່ອນທີ່ທ່ານຈະສັ່ງ. ຄວາມອຶດຫິວ, ຄວາມສະດວກສະບາຍ, ຄວາມກົດດັນ, ແລະນິໄສສາມາດມີຄວາມຮູ້ສຶກຄ້າຍຄືກັນໃນເວລານີ້."
+  },
+  "warningTriggeredBy": {
+    "message": "ທ່ານກຳລັງຈະສັ່ງຈາກ $1."
+  },
+  "warningHintDefault": {
+    "message": "ເມື່ອເຄື່ອງຈັບເວລາສິ້ນສຸດ, ທ່ານສາມາດສືບຕໍ່ໄປຫາເວັບໄຊທ໌ໄດ້."
+  },
+  "warningHintLocked": {
+    "message": "ເມື່ອໂມງຈັບເວລາສິ້ນສຸດລົງ, ທ່ານສາມາດສືບຕໍ່ໄປຫາເວັບໄຊທ໌ $1 $2."
+  },
+  "warningBackButton": {
+    "message": "ກັບຄືນ"
+  },
+  "warningLockedButton": {
+    "message": "ລັອກ"
+  },
+  "warningContinueButton": {
+    "message": "ສືບຕໍ່"
+  },
+  "warningOpeningButton": {
+    "message": "ກຳລັງເປີດ..."
+  },
+  "warningUnlockHint": {
+    "message": "ທ່ານສາມາດໄປຢ້ຽມຢາມເວັບໄຊທ໌ໄດ້ໃນປັດຈຸບັນ. ຕົວບລັອກຈະກັບຄືນມາໂດຍອັດຕະໂນມັດຫຼັງຈາກ $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "ມີບາງຢ່າງຜິດພາດໃນຂະນະທີ່ເປີດເວັບໄຊ. ກະລຸນາລອງອີກຄັ້ງ."
+  },
+  "settingsTitle": {
+    "message": "ການຕັ້ງຄ່າ FitShield"
+  },
+  "blockingOptionsHeading": {
+    "message": "ຕົວເລືອກການຂັດຂວາງ"
+  },
+  "scheduledHoursLabel": {
+    "message": "ຊົ່ວໂມງທີ່ກຳນົດໄວ້"
+  },
+  "scheduledHoursHint": {
+    "message": "ບລັອກພຽງແຕ່ໃນລະຫວ່າງປ່ອງຢ້ຽມເວລາປະຈໍາວັນ."
+  },
+  "customizeBlocklistHeading": {
+    "message": "ປັບແຕ່ງບັນຊີບລັອກ"
+  },
+  "customizeBlocklistIntro": {
+    "message": "ເລືອກວ່າກຸ່ມໃນຕົວໃດມີການເຄື່ອນໄຫວ, ເປີດ ຫຼືປິດແຕ່ລະເວັບໄຊ, ແລະເພີ່ມໂດເມນຂອງທ່ານເອງ."
+  },
+  "deliverySitesHeading": {
+    "message": "ສະຖານທີ່ຈັດສົ່ງ"
+  },
+  "fastFoodSitesHeading": {
+    "message": "ສະຖານທີ່ອາຫານໄວ"
+  },
+  "customUrlsHeading": {
+    "message": "URL ແບບກຳນົດເອງ"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "ເພີ່ມໂດເມນຂອງທ່ານເອງແລະປິດການທໍາງານຂອງເຂົາເຈົ້າສ່ວນບຸກຄົນ."
+  },
+  "showSitesButton": {
+    "message": "ສະແດງເວັບໄຊ"
+  },
+  "hideSitesButton": {
+    "message": "ເຊື່ອງເວັບໄຊ"
+  },
+  "showUrlsButton": {
+    "message": "ສະແດງ URLs"
+  },
+  "hideUrlsButton": {
+    "message": "ເຊື່ອງ URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "ເປີດໃຊ້ການບລັອກສະຖານທີ່ຈັດສົ່ງ"
+  },
+  "fastFoodToggleTitle": {
+    "message": "ເປີດໃຊ້ການບລັອກເວັບໄຊອາຫານໄວ"
+  },
+  "customToggleTitle": {
+    "message": "ເປີດໃຊ້ການບລັອກ URL ແບບກຳນົດເອງ"
+  },
+  "addCustomUrlLabel": {
+    "message": "ເພີ່ມ URL ທີ່ຖືກບລັອກແບບກຳນົດເອງ"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com ຫຼື https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "ການປ້ອນຂໍ້ມູນຖືກເຮັດໃຫ້ເປັນໂດເມນປົກກະຕິ ແລະຖືກບລັອກທົ່ວທຸກໜ້າ."
+  },
+  "customEmptyDefault": {
+    "message": "ບໍ່ມີການເພີ່ມ URL ແບບກຳນົດເອງເທື່ອ."
+  },
+  "customNoMatch": {
+    "message": "ບໍ່ມີ URL ແບບກຳນົດເອງທີ່ກົງກັບການຄົ້ນຫານີ້."
+  },
+  "emptyDeliverySearch": {
+    "message": "ບໍ່ມີສະຖານທີ່ຈັດສົ່ງທີ່ກົງກັບການຄົ້ນຫານີ້."
+  },
+  "emptyFastFoodSearch": {
+    "message": "ບໍ່ມີສະຖານທີ່ອາຫານໄວທີ່ກົງກັບການຄົ້ນຫານີ້."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 ຈັບຄູ່ \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "URL ນັ້ນເບິ່ງບໍ່ຖືກຕ້ອງເທື່ອ. ລອງໂດເມນເຊັ່ນ example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 ຢູ່ໃນບັນຊີບລັອກຢູ່ກ່ອນແລ້ວ, ສະນັ້ນມັນໄດ້ຖືກເປີດໃຊ້ຄືນໃໝ່."
+  },
+  "addedToBlocklist": {
+    "message": "$1 ຖືກເພີ່ມໃສ່ບັນຊີບລັອກແບບກຳນົດເອງ."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 ຖືກລຶບອອກຈາກລາຍຊື່ບລັອກແບບກຳນົດເອງ."
+  },
+  "metadataHeading": {
+    "message": "ການຂັດຂວາງປະເທດ & ປະເພດ"
+  },
+  "metadataIntro": {
+    "message": "ບລັອກກຸ່ມທັງໝົດຂອງເວັບໄຊຕາມປະເທດທີ່ຍີ່ຫໍ້ດຳເນີນງານ ຫຼືປະເພດຂອງອາຫານທີ່ມັນໃຫ້ບໍລິການ. ບລັອກເຫຼົ່ານີ້ເພີ່ມໃສ່ເວັບໄຊທີ່ມີຢູ່ແລ້ວຂອງເຈົ້າ ແລະບລັອກ URL ແບບກຳນົດເອງ."
+  },
+  "blockByCountryLabel": {
+    "message": "ບລັອກຕາມປະເທດ"
+  },
+  "blockByCountryHint": {
+    "message": "ຄົ້ນຫາໂດຍຊື່ປະເທດ ຫຼືລະຫັດ, ເຊັ່ນ: \"ສະຫະປະຊາ\" ຫຼື \"ສະຫະລັດ\". ການເປີດໃຊ້ງານປະເທດໃດໜຶ່ງຂັດຂວາງທຸກຍີ່ຫໍ້ທີ່ເຄື່ອນໄຫວຢູ່ທີ່ນັ້ນ."
+  },
+  "countrySearchPlaceholder": {
+    "message": "ຊອກຫາປະເທດ..."
+  },
+  "quickAccessCountries": {
+    "message": "ການ​ເຂົ້າ​ເຖິງ​ໄວ — ປະ​ເທດ​"
+  },
+  "countryQuickEmpty": {
+    "message": "ເປີດໃຊ້ປະເທດຈາກການຄົ້ນຫາເພື່ອປັກໝຸດມັນຢູ່ບ່ອນນີ້."
+  },
+  "blockByCategoryLabel": {
+    "message": "ບລັອກຕາມໝວດໝູ່"
+  },
+  "blockByCategoryHint": {
+    "message": "ຊອກຫາໝວດໝູ່ເຊັ່ນ: ເບີເກີ, pizza, ຫຼືກາເຟ. ພິເສດແມ່ນສາມາດຄົ້ນຫາໄດ້ຄືກັນ; ບລັອກນຳໃຊ້ຕາມໝວດໝູ່."
+  },
+  "categorySearchPlaceholder": {
+    "message": "ຊອກຫາໝວດໝູ່..."
+  },
+  "quickAccessCategories": {
+    "message": "ການ​ເຂົ້າ​ເຖິງ​ໄວ — ປະ​ເພດ​"
+  },
+  "categoryQuickEmpty": {
+    "message": "ເປີດໃຊ້ໝວດໝູ່ຈາກການຊອກຫາເພື່ອປັກໝຸດມັນຢູ່ບ່ອນນີ້."
+  },
+  "noCountriesMatch": {
+    "message": "ບໍ່ມີປະເທດໃດທີ່ກົງກັບການຄົ້ນຫານັ້ນ."
+  },
+  "noCategoriesMatch": {
+    "message": "ບໍ່ມີໝວດໝູ່ທີ່ກົງກັບການຄົ້ນຫານັ້ນ."
+  },
+  "languageHeading": {
+    "message": "ພາສາ"
+  },
+  "languageIntro": {
+    "message": "ເລືອກພາສາທີ່ FitShield ໃຊ້ສຳລັບໜ້າຈໍຂອງຕົນເອງ. ນີ້ overrides ພາສາຂອງຕົວທ່ອງເວັບຂອງທ່ານສໍາລັບສ່ວນຂະຫຍາຍເທົ່ານັ້ນ."
+  },
+  "languageSelectLabel": {
+    "message": "ພາສາທີ່ສະແດງ"
+  },
+  "languageHint": {
+    "message": "ຄົ້ນຫາພາສາແລະເລືອກມັນ. ເລືອກຄ່າເລີ່ມຕົ້ນຂອງລະບົບເພື່ອຕິດຕາມຕົວທ່ອງເວັບຂອງທ່ານ."
+  },
+  "languageSearchPlaceholder": {
+    "message": "ຊອກຫາພາສາ..."
+  },
+  "currentLanguageHead": {
+    "message": "ພາສາປັດຈຸບັນ"
+  },
+  "languageUseButton": {
+    "message": "ໃຊ້"
+  },
+  "languageActiveButton": {
+    "message": "ເຄື່ອນໄຫວ"
+  },
+  "languageSystem": {
+    "message": "ຄ່າເລີ່ມຕົ້ນຂອງລະບົບ"
+  },
+  "languageSystemSub": {
+    "message": "ປະຕິບັດຕາມພາສາຂອງຕົວທ່ອງເວັບຂອງທ່ານ"
+  },
+  "languageEnglish": {
+    "message": "ພາສາອັງກິດ"
+  },
+  "languageJapanese": {
+    "message": "ພາສາຍີ່ປຸ່ນ"
+  },
+  "languageChinese": {
+    "message": "ຈີນ (ຕົວຫຍໍ້)"
+  },
+  "languageFrench": {
+    "message": "ພາສາຝຣັ່ງ"
+  },
+  "languageCantonese": {
+    "message": "ກວາງຕຸ້ງ"
+  },
+  "languageThai": {
+    "message": "ໄທ"
+  },
+  "languagePunjabi": {
+    "message": "ປັນຈາບີ"
+  },
+  "languageTamil": {
+    "message": "ທະມິນ"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "ຈີນ (ດັ້ງເດີມ, ໄຕ້ຫວັນ)"
+  },
+  "languageKorean": {
+    "message": "ເກົາຫຼີ"
+  },
+  "languageHindi": {
+    "message": "ຮິນດູ"
+  },
+  "languageSpanishLatam": {
+    "message": "ແອສປາໂຍນ (ອາເມລິກາລາຕິນ)"
+  },
+  "languageSpanishSpain": {
+    "message": "ແອສປາໂຍນ (ສະເປນ)"
+  },
+  "languageAfrikaans": {
+    "message": "ອາຟຣິກາ"
+  },
+  "languageAlbanian": {
+    "message": "ອານບານີ"
+  },
+  "languageBasque": {
+    "message": "Basque"
+  },
+  "languageBelarusian": {
+    "message": "ເບລາຣຸດ"
+  },
+  "languageBulgarian": {
+    "message": "ບຸນກາຣີ"
+  },
+  "languageCatalan": {
+    "message": "ຄາຕາລານ"
+  },
+  "languageCroatian": {
+    "message": "ໂຄຣເອເຊຍ"
+  },
+  "languageCzech": {
+    "message": "ເຊັກ"
+  },
+  "languageDanish": {
+    "message": "ເດັນມາກ"
+  },
+  "languageDutch": {
+    "message": "ໂຮນລັງ"
+  },
+  "languageEstonian": {
+    "message": "ເອສໂຕເນຍ"
+  },
+  "languageFinnish": {
+    "message": "ຟິນແລນ"
+  },
+  "languageGreek": {
+    "message": "ກຣີກ"
+  },
+  "languageHungarian": {
+    "message": "ຮັງກາຣີ"
+  },
+  "languageIcelandic": {
+    "message": "ໄອສແລນຕິກ"
+  },
+  "languageIrish": {
+    "message": "ໄອແລນ"
+  },
+  "languageItalian": {
+    "message": "ອິຕາລຽນ"
+  },
+  "languageLatvian": {
+    "message": "ລັດເວຍ"
+  },
+  "languageLithuanian": {
+    "message": "ລິທົວເນຍ"
+  },
+  "languageMacedonian": {
+    "message": "ມາເຊໂດເນຍ"
+  },
+  "languageMaltese": {
+    "message": "Maltese"
+  },
+  "languageNorwegian": {
+    "message": "ນໍເວ"
+  },
+  "languagePolish": {
+    "message": "ໂປໂລຍ"
+  },
+  "languagePortuguesePortugal": {
+    "message": "ປອກຕຸຍການ (ປອກຕຸຍການ)"
+  },
+  "languageRomanian": {
+    "message": "ໂຣມາເນຍ"
+  },
+  "languageRussian": {
+    "message": "ພາສາລັດເຊຍ"
+  },
+  "languageSerbian": {
+    "message": "ເຊີເບຍ"
+  },
+  "languageSlovak": {
+    "message": "ສະໂລວັກ"
+  },
+  "languageSlovenian": {
+    "message": "ສະໂລເວເນຍ"
+  },
+  "languageSwedish": {
+    "message": "ຊູແອັດ"
+  },
+  "languageTurkish": {
+    "message": "ຕວກກີ"
+  },
+  "languageUkrainian": {
+    "message": "ອູແກຣນ"
+  },
+  "languageWelsh": {
+    "message": "ເວນ"
+  },
+  "languageBengali": {
+    "message": "ເບັງກາລີ"
+  },
+  "languageGujarati": {
+    "message": "ກູຈາຣາຕີ"
+  },
+  "languageKannada": {
+    "message": "ແຄນນາດາ"
+  },
+  "languageMalayalam": {
+    "message": "ມາລາຢາລາມ"
+  },
+  "languageMarathi": {
+    "message": "Marathi"
+  },
+  "languageNepali": {
+    "message": "ເນປານ"
+  },
+  "languageOdia": {
+    "message": "Odia"
+  },
+  "languageSinhala": {
+    "message": "Sinhala"
+  },
+  "languageTelugu": {
+    "message": "ເຕລູກູ"
+  },
+  "languageUrdu": {
+    "message": "ອູດູ"
+  },
+  "languageAssamese": {
+    "message": "Assamese"
+  },
+  "languageIndonesian": {
+    "message": "ອິນໂດເນເຊຍ"
+  },
+  "languageMalay": {
+    "message": "ມາເລ"
+  },
+  "languageVietnamese": {
+    "message": "ຫວຽດນາມ"
+  },
+  "languageKhmer": {
+    "message": "ຂະເໝນ"
+  },
+  "languageLao": {
+    "message": "ພາສາລາວ"
+  },
+  "languageBurmese": {
+    "message": "ມຽນມາ (ມຽນມາ)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "ຟີລິບປິນ / ຕາກາລັອກ"
+  },
+  "languageJavanese": {
+    "message": "ພາສາ Javanese"
+  },
+  "languageSundanese": {
+    "message": "ຊູດານ"
+  },
+  "languageArabic": {
+    "message": "ອາຣັບ"
+  },
+  "languagePersian": {
+    "message": "ເປີເຊຍ (Farsi)"
+  },
+  "languageHebrew": {
+    "message": "ເຮັບເຣີ"
+  },
+  "languageArmenian": {
+    "message": "ອາເມເນຍ"
+  },
+  "languageGeorgian": {
+    "message": "ຈໍເຈຍ"
+  },
+  "languageKazakh": {
+    "message": "ຄາຊັກ"
+  },
+  "languageKyrgyz": {
+    "message": "ກີຈີສ"
+  },
+  "languageMongolian": {
+    "message": "ມົງໂກລີ"
+  },
+  "languagePashto": {
+    "message": "ພາສໂຕ"
+  },
+  "languageTajik": {
+    "message": "ທາຈິກ"
+  },
+  "languageTurkmen": {
+    "message": "ເຕີກເມັນ"
+  },
+  "languageUyghur": {
+    "message": "ອຸຍກູ"
+  },
+  "languageUzbek": {
+    "message": "ອຸສເບກ"
+  },
+  "noLanguagesMatch": {
+    "message": "ບໍ່ມີພາສາທີ່ກົງກັບການຄົ້ນຫານັ້ນ."
+  },
+  "mbBlocking": {
+    "message": "ການຂັດຂວາງ"
+  },
+  "mbBlock": {
+    "message": "ຕັນ"
+  },
+  "mbOn": {
+    "message": "ສຸດ"
+  },
+  "mbOff": {
+    "message": "ປິດ"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "ການຂັດຂວາງ - ຄລິກເພື່ອຢຸດຊົ່ວຄາວ"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "ຢຸດຊົ່ວຄາວ - ຄລິກເພື່ອບລັອກ"
+  },
+  "mbChipRemoveTitle": {
+    "message": "ເອົາທາງລັດອອກຈາກການເຂົ້າເຖິງດ່ວນ"
+  },
+  "mbChipRemoveAria": {
+    "message": "ເອົາ $1 ອອກຈາກການເຂົ້າເຖິງດ່ວນ"
+  },
+  "themeHeading": {
+    "message": "ຫົວຂໍ້"
+  },
+  "resetThemeButton": {
+    "message": "ຣີເຊັດຮູບແບບສີສັນ"
+  },
+  "systemThemeLabel": {
+    "message": "ຫົວຂໍ້ລະບົບ"
+  },
+  "systemThemeHint": {
+    "message": "ການຕັ້ງຄ່າອຸປະກອນ ຫຼືໂໝດຄົງທີ່."
+  },
+  "themeSystem": {
+    "message": "ລະບົບ"
+  },
+  "themeLight": {
+    "message": "ແສງສະຫວ່າງ"
+  },
+  "themeDark": {
+    "message": "ມືດ"
+  },
+  "themeBackground": {
+    "message": "ຄວາມເປັນມາ"
+  },
+  "themePanel": {
+    "message": "ກະດານ"
+  },
+  "themeBorder": {
+    "message": "ຊາຍແດນ"
+  },
+  "themeText": {
+    "message": "ຂໍ້ຄວາມ"
+  },
+  "themeMutedText": {
+    "message": "ຂໍ້ຄວາມຖືກປິດສຽງ"
+  },
+  "themeAccent": {
+    "message": "ສຳນຽງ"
+  },
+  "cornerRadiusLabel": {
+    "message": "ມຸມ Radius"
+  },
+  "popupWidthLabel": {
+    "message": "ຄວາມກວ້າງປັອບອັບ"
+  },
+  "supportFooterText": {
+    "message": "ຖ້າ FitShield ຊ່ວຍໃຫ້ທ່ານຫຼີກເວັ້ນຄໍາສັ່ງການຈັດສົ່ງທີ່ບໍ່ຈໍາເປັນ, ການສະຫນັບສະຫນູນທາງເລືອກຊ່ວຍໃຫ້ລາຍຊື່ບລັອກແລະເອກະສານເຄື່ອນຍ້າຍ."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FitShield Settings</title>
+  <title data-i18n="settingsTitle">FitShield Settings</title>
   <style>
     :root {
       color-scheme: dark;
@@ -415,6 +415,50 @@
       margin-top: 4px;
     }
 
+    .language-card {
+      padding: 12px 14px;
+    }
+
+    .language-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 8px;
+    }
+
+    .language-copy {
+      min-width: 0;
+    }
+
+    .language-copy label {
+      margin-bottom: 6px;
+    }
+
+    .language-current {
+      min-width: 210px;
+      max-width: 42%;
+      text-align: right;
+    }
+
+    .language-current .mb-quick-head {
+      margin-bottom: 6px;
+    }
+
+    .language-current .mb-chips {
+      justify-content: flex-end;
+    }
+
+    .language-current .mb-chip {
+      max-width: 100%;
+    }
+
+    .language-current .mb-chip-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     .mb-results {
       margin-top: 10px;
       display: flex;
@@ -426,6 +470,10 @@
 
     .mb-results[hidden] {
       display: none;
+    }
+
+    .language-results {
+      max-height: 186px;
     }
 
     .mb-result {
@@ -615,30 +663,47 @@
     html.theme-light .slider {
       background: #cbd5e1;
     }
+
+    @media (max-width: 640px) {
+      .language-card-head {
+        display: grid;
+        gap: 10px;
+      }
+
+      .language-current {
+        max-width: none;
+        min-width: 0;
+        text-align: left;
+      }
+
+      .language-current .mb-chips {
+        justify-content: flex-start;
+      }
+    }
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="hero">
-      <h1>FitShield Settings</h1>
+      <h1 data-i18n="settingsTitle">FitShield Settings</h1>
     </section>
 
     <section id="blocking-options" class="section">
-      <h2>Blocking Options</h2>
+      <h2 data-i18n="blockingOptionsHeading">Blocking Options</h2>
 
       <div class="grid">
         <div class="field">
           <div class="row">
             <div>
-              <label for="timerSlider">Timer duration</label>
-              <small>Adjust the countdown before Continue appears.</small>
+              <label for="timerSlider" data-i18n="timerDurationLabel">Timer duration</label>
+              <small data-i18n="timerDurationHint">Adjust the countdown before Continue appears.</small>
             </div>
             <span id="timerDisplay" class="value-chip">60s</span>
           </div>
           <input id="timerSlider" type="range" min="10" max="300" step="5">
           <div class="dual-inputs">
             <div>
-              <label for="timerSeconds">Custom seconds</label>
+              <label for="timerSeconds" data-i18n="customSecondsLabel">Custom seconds</label>
               <input id="timerSeconds" type="number" min="10" step="1">
             </div>
           </div>
@@ -647,15 +712,15 @@
         <div class="field">
           <div class="row">
             <div>
-              <label for="passDurationSlider">Site open time</label>
-              <small>Choose how long sites stay open after the timer ends.</small>
+              <label for="passDurationSlider" data-i18n="siteOpenTimeLabel">Site open time</label>
+              <small data-i18n="siteOpenTimeHint">Choose how long sites stay open after the timer ends.</small>
             </div>
             <span id="passDurationDisplay" class="value-chip">5m</span>
           </div>
           <input id="passDurationSlider" type="range" min="1" max="120" step="1">
           <div class="dual-inputs">
             <div>
-              <label for="passDurationMinutes">Custom minutes</label>
+              <label for="passDurationMinutes" data-i18n="customMinutesLabel">Custom minutes</label>
               <input id="passDurationMinutes" type="number" min="1" step="1">
             </div>
           </div>
@@ -664,8 +729,8 @@
         <div class="field">
           <div class="row">
             <div>
-              <label for="scheduleEnabled">Scheduled hours</label>
-              <small>Block only during a daily time window.</small>
+              <label for="scheduleEnabled" data-i18n="scheduledHoursLabel">Scheduled hours</label>
+              <small data-i18n="scheduledHoursHint">Block only during a daily time window.</small>
             </div>
             <label class="toggle">
               <input id="scheduleEnabled" type="checkbox">
@@ -675,38 +740,38 @@
 
           <div class="schedule-grid">
             <div>
-              <label for="scheduleStart">Start time</label>
+              <label for="scheduleStart" data-i18n="startTimeLabel">Start time</label>
               <input id="scheduleStart" type="time">
             </div>
             <div>
-              <label for="scheduleEnd">End time</label>
+              <label for="scheduleEnd" data-i18n="endTimeLabel">End time</label>
               <input id="scheduleEnd" type="time">
             </div>
           </div>
-          <small id="scheduleSummary">Blocking will follow your daily schedule when this is enabled.</small>
+          <small id="scheduleSummary" data-i18n="scheduleDefaultSummary">Blocking will follow your daily schedule when this is enabled.</small>
         </div>
       </div>
     </section>
 
     <section id="customize-blocklist" class="section">
-      <h2>Customize Blocklist</h2>
-      <p>Choose which built-in groups are active, turn individual sites on or off, and add your own domains.</p>
+      <h2 data-i18n="customizeBlocklistHeading">Customize Blocklist</h2>
+      <p data-i18n="customizeBlocklistIntro">Choose which built-in groups are active, turn individual sites on or off, and add your own domains.</p>
 
       <div class="search-controls">
-        <input id="blocklistSearchInput" type="search" placeholder="Search site name or URL">
-        <button id="blocklistSearchButton" class="secondary" type="button">Search</button>
-        <button id="clearBlocklistSearch" class="secondary" type="button">Clear</button>
+        <input id="blocklistSearchInput" type="search" placeholder="Search site name or URL" data-i18n-placeholder="searchSitePlaceholder">
+        <button id="blocklistSearchButton" class="secondary" type="button" data-i18n="searchButton">Search</button>
+        <button id="clearBlocklistSearch" class="secondary" type="button" data-i18n="clearButton">Clear</button>
       </div>
 
       <div class="category-card">
         <div class="row stack-row">
           <div>
-            <h2>Delivery Sites</h2>
-            <p id="deliveryCount">Delivery ordering domains.</p>
+            <h2 data-i18n="deliverySitesHeading">Delivery Sites</h2>
+            <p id="deliveryCount" data-i18n="popupDeliveryDefault">Delivery ordering domains.</p>
           </div>
           <div class="category-actions">
-            <button id="toggleDeliveryList" class="secondary list-toggle" type="button" aria-expanded="false">Show Sites</button>
-            <label class="toggle" title="Enable delivery site blocking">
+            <button id="toggleDeliveryList" class="secondary list-toggle" type="button" aria-expanded="false" data-i18n="showSitesButton">Show Sites</button>
+            <label class="toggle" title="Enable delivery site blocking" data-i18n-title="deliveryToggleTitle">
               <input id="deliverySitesEnabled" type="checkbox">
               <span class="slider"></span>
             </label>
@@ -718,12 +783,12 @@
       <div class="category-card">
         <div class="row stack-row">
           <div>
-            <h2>Fast Food Sites</h2>
-            <p id="fastFoodCount">Major chain ordering domains.</p>
+            <h2 data-i18n="fastFoodSitesHeading">Fast Food Sites</h2>
+            <p id="fastFoodCount" data-i18n="popupFastFoodDefault">Major chain ordering domains.</p>
           </div>
           <div class="category-actions">
-            <button id="toggleFastFoodList" class="secondary list-toggle" type="button" aria-expanded="false">Show Sites</button>
-            <label class="toggle" title="Enable fast food site blocking">
+            <button id="toggleFastFoodList" class="secondary list-toggle" type="button" aria-expanded="false" data-i18n="showSitesButton">Show Sites</button>
+            <label class="toggle" title="Enable fast food site blocking" data-i18n-title="fastFoodToggleTitle">
               <input id="fastFoodSitesEnabled" type="checkbox">
               <span class="slider"></span>
             </label>
@@ -735,119 +800,141 @@
       <div class="category-card">
         <div class="row stack-row">
           <div>
-            <h2>Custom URLs</h2>
-            <p>Add your own domains and disable them individually.</p>
+            <h2 data-i18n="customUrlsHeading">Custom URLs</h2>
+            <p data-i18n="customUrlsSettingsSubtitle">Add your own domains and disable them individually.</p>
           </div>
           <div class="category-actions">
-            <button id="toggleCustomList" class="secondary list-toggle" type="button" aria-expanded="false">Show URLs</button>
-            <label class="toggle" title="Enable custom URL blocking">
+            <button id="toggleCustomList" class="secondary list-toggle" type="button" aria-expanded="false" data-i18n="showUrlsButton">Show URLs</button>
+            <label class="toggle" title="Enable custom URL blocking" data-i18n-title="customToggleTitle">
               <input id="customSitesEnabled" type="checkbox">
               <span class="slider"></span>
             </label>
           </div>
         </div>
         <div class="site-list">
-          <label for="customSiteInput">Add a custom blocked URL</label>
+          <label for="customSiteInput" data-i18n="addCustomUrlLabel">Add a custom blocked URL</label>
           <div class="custom-row">
-            <input id="customSiteInput" type="text" placeholder="example.com or https://example.com">
-            <button id="addCustomSite" class="primary" type="button">Add</button>
+            <input id="customSiteInput" type="text" placeholder="example.com or https://example.com" data-i18n-placeholder="customSitePlaceholder">
+            <button id="addCustomSite" class="primary" type="button" data-i18n="addButton">Add</button>
           </div>
-          <small>Entries are normalized to domains and blocked across all pages.</small>
+          <small data-i18n="customNormalizeHint">Entries are normalized to domains and blocked across all pages.</small>
           <div id="customSiteList" class="list" hidden></div>
-          <div id="customSiteEmpty" class="empty">No custom URLs added yet.</div>
+          <div id="customSiteEmpty" class="empty" data-i18n="customEmptyDefault">No custom URLs added yet.</div>
           <div id="blocklistNotice" class="notice" aria-live="polite"></div>
         </div>
       </div>
     </section>
 
     <section id="metadata-blocking" class="section">
-      <h2>Country &amp; Category Blocking</h2>
-      <p>Block whole groups of sites by the country a brand operates in or the kind of food it serves. These blocks add to your existing site and custom-URL blocks.</p>
+      <h2 data-i18n="metadataHeading">Country &amp; Category Blocking</h2>
+      <p data-i18n="metadataIntro">Block whole groups of sites by the country a brand operates in or the kind of food it serves. These blocks add to your existing site and custom-URL blocks.</p>
 
       <div class="grid mb-grid">
         <div class="field mb-card">
-          <label for="countrySearchInput">Block by country</label>
-          <small>Search by country name or code, e.g. "United" or "US". Enabling a country blocks every brand active there.</small>
-          <input id="countrySearchInput" type="search" placeholder="Search countries…" autocomplete="off">
+          <label for="countrySearchInput" data-i18n="blockByCountryLabel">Block by country</label>
+          <small data-i18n="blockByCountryHint">Search by country name or code, e.g. "United" or "US". Enabling a country blocks every brand active there.</small>
+          <input id="countrySearchInput" type="search" placeholder="Search countries…" autocomplete="off" data-i18n-placeholder="countrySearchPlaceholder">
           <div id="countrySearchResults" class="mb-results" hidden></div>
 
           <div class="mb-quick">
-            <div class="mb-quick-head">Quick access — countries</div>
+            <div class="mb-quick-head" data-i18n="quickAccessCountries">Quick access — countries</div>
             <div id="countryQuickAccess" class="mb-chips"></div>
-            <div id="countryQuickEmpty" class="mb-empty">Enable a country from search to pin it here.</div>
+            <div id="countryQuickEmpty" class="mb-empty" data-i18n="countryQuickEmpty">Enable a country from search to pin it here.</div>
           </div>
         </div>
 
         <div class="field mb-card">
-          <label for="categorySearchInput">Block by category</label>
-          <small>Search categories like burger, pizza, or coffee. Specialties are searchable too; the block applies by category.</small>
-          <input id="categorySearchInput" type="search" placeholder="Search categories…" autocomplete="off">
+          <label for="categorySearchInput" data-i18n="blockByCategoryLabel">Block by category</label>
+          <small data-i18n="blockByCategoryHint">Search categories like burger, pizza, or coffee. Specialties are searchable too; the block applies by category.</small>
+          <input id="categorySearchInput" type="search" placeholder="Search categories…" autocomplete="off" data-i18n-placeholder="categorySearchPlaceholder">
           <div id="categorySearchResults" class="mb-results" hidden></div>
 
           <div class="mb-quick">
-            <div class="mb-quick-head">Quick access — categories</div>
+            <div class="mb-quick-head" data-i18n="quickAccessCategories">Quick access — categories</div>
             <div id="categoryQuickAccess" class="mb-chips"></div>
-            <div id="categoryQuickEmpty" class="mb-empty">Enable a category from search to pin it here.</div>
+            <div id="categoryQuickEmpty" class="mb-empty" data-i18n="categoryQuickEmpty">Enable a category from search to pin it here.</div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="language-blocking" class="section">
+      <h2 data-i18n="languageHeading">Language</h2>
+      <p data-i18n="languageIntro">Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only.</p>
+
+      <div class="grid mb-grid">
+        <div class="field mb-card language-card">
+          <div class="language-card-head">
+            <div class="language-copy">
+              <label for="languageSearchInput" data-i18n="languageSelectLabel">Display language</label>
+              <small data-i18n="languageHint">Search for a language and select it. Choose System default to follow your browser.</small>
+            </div>
+            <div class="language-current">
+              <div class="mb-quick-head" data-i18n="currentLanguageHead">Current language</div>
+              <div id="languageCurrent" class="mb-chips"></div>
+            </div>
+          </div>
+          <input id="languageSearchInput" type="search" placeholder="Search languages…" autocomplete="off" data-i18n-placeholder="languageSearchPlaceholder">
+          <div id="languageSearchResults" class="mb-results language-results"></div>
         </div>
       </div>
     </section>
 
     <section class="section">
       <div class="row">
-        <h2>Theme</h2>
-        <button id="resetTheme" class="secondary theme-reset-button" type="button">Reset Theme</button>
+        <h2 data-i18n="themeHeading">Theme</h2>
+        <button id="resetTheme" class="secondary theme-reset-button" type="button" data-i18n="resetThemeButton">Reset Theme</button>
       </div>
 
       <div class="grid">
         <div class="field theme-mode-field">
           <div>
-            <label id="themeModeLabel">System theme</label>
-            <small>Device preference or a fixed mode.</small>
+            <label id="themeModeLabel" data-i18n="systemThemeLabel">System theme</label>
+            <small data-i18n="systemThemeHint">Device preference or a fixed mode.</small>
           </div>
           <div class="theme-mode-options" role="group" aria-labelledby="themeModeLabel">
-            <button class="theme-mode-button" type="button" data-theme-mode="system" aria-pressed="false">System</button>
-            <button class="theme-mode-button" type="button" data-theme-mode="light" aria-pressed="false">Light</button>
-            <button class="theme-mode-button" type="button" data-theme-mode="dark" aria-pressed="false">Dark</button>
+            <button class="theme-mode-button" type="button" data-theme-mode="system" aria-pressed="false" data-i18n="themeSystem">System</button>
+            <button class="theme-mode-button" type="button" data-theme-mode="light" aria-pressed="false" data-i18n="themeLight">Light</button>
+            <button class="theme-mode-button" type="button" data-theme-mode="dark" aria-pressed="false" data-i18n="themeDark">Dark</button>
           </div>
         </div>
       </div>
 
       <div class="grid theme-control-grid">
         <div class="field theme-color-field">
-          <label for="bgColor">Background</label>
+          <label for="bgColor" data-i18n="themeBackground">Background</label>
           <input id="bgColor" type="color">
         </div>
         <div class="field theme-color-field">
-          <label for="panelColor">Panel</label>
+          <label for="panelColor" data-i18n="themePanel">Panel</label>
           <input id="panelColor" type="color">
         </div>
         <div class="field theme-color-field">
-          <label for="borderColor">Border</label>
+          <label for="borderColor" data-i18n="themeBorder">Border</label>
           <input id="borderColor" type="color">
         </div>
         <div class="field theme-color-field">
-          <label for="textColor">Text</label>
+          <label for="textColor" data-i18n="themeText">Text</label>
           <input id="textColor" type="color">
         </div>
         <div class="field theme-color-field">
-          <label for="mutedColor">Muted Text</label>
+          <label for="mutedColor" data-i18n="themeMutedText">Muted Text</label>
           <input id="mutedColor" type="color">
         </div>
         <div class="field theme-color-field">
-          <label for="accentColor">Accent</label>
+          <label for="accentColor" data-i18n="themeAccent">Accent</label>
           <input id="accentColor" type="color">
         </div>
       </div>
 
       <div class="grid">
         <div class="field">
-          <label for="radiusRange">Corner Radius</label>
+          <label for="radiusRange" data-i18n="cornerRadiusLabel">Corner Radius</label>
           <input id="radiusRange" type="range" min="12" max="36" step="1">
           <small><span id="radiusValue">24</span> px</small>
         </div>
         <div class="field">
-          <label for="popupWidthRange">Popup Width</label>
+          <label for="popupWidthRange" data-i18n="popupWidthLabel">Popup Width</label>
           <input id="popupWidthRange" type="range" min="420" max="620" step="4">
           <small><span id="popupWidthValue">516</span> px</small>
         </div>
@@ -855,19 +942,21 @@
     </section>
 
     <footer class="support-footer">
-      <p>If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blocklists and docs moving.</p>
+      <p data-i18n="supportFooterText">If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blocklists and docs moving.</p>
       <a class="bmc-link" href="https://buymeacoffee.com/eeshgarg" target="_blank" rel="noopener noreferrer">
         <img
           src="https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=%E2%98%95&slug=eeshgarg&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"
           alt="Buy Me a Coffee"
           width="271"
           height="75"
+          data-i18n-alt="bmcAlt"
         >
       </a>
     </footer>
   </main>
 
   <script src="blocklist.js"></script>
+  <script src="i18n.js"></script>
   <script src="settings.js"></script>
 </body>
 </html>

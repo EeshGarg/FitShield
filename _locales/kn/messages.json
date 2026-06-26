@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield ಬ್ರೌಸರ್ ವಿಸ್ತರಣೆಯು ಆಹಾರ ವಿತರಣೆ ಮತ್ತು ತ್ವರಿತ-ಆಹಾರದ ಆದೇಶದ ಬಗ್ಗೆ ಎಚ್ಚರವಾಗಿರಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "ಸೈಟ್ ಹೆಸರು ಅಥವಾ URL ಅನ್ನು ಹುಡುಕಿ"
+  },
+  "searchButton": {
+    "message": "ಹುಡುಕು"
+  },
+  "clearButton": {
+    "message": "ತೆರವುಗೊಳಿಸಿ"
+  },
+  "openButton": {
+    "message": "ತೆರೆಯಿರಿ"
+  },
+  "addButton": {
+    "message": "ಸೇರಿಸಿ"
+  },
+  "removeButton": {
+    "message": "ತೆಗೆದುಹಾಕಿ"
+  },
+  "viewBlocklistButton": {
+    "message": "ಬ್ಲಾಕ್‌ಲಿಸ್ಟ್ ವೀಕ್ಷಿಸಿ"
+  },
+  "timerDurationLabel": {
+    "message": "ಟೈಮರ್ ಅವಧಿ"
+  },
+  "timerDurationHint": {
+    "message": "ಮುಂದುವರಿಸಿ ಕಾಣಿಸಿಕೊಳ್ಳುವ ಮೊದಲು ಕೌಂಟ್‌ಡೌನ್ ಅನ್ನು ಹೊಂದಿಸಿ."
+  },
+  "customSecondsLabel": {
+    "message": "ಕಸ್ಟಮ್ ಸೆಕೆಂಡುಗಳು"
+  },
+  "siteOpenTimeLabel": {
+    "message": "ಸೈಟ್ ತೆರೆಯುವ ಸಮಯ"
+  },
+  "siteOpenTimeHint": {
+    "message": "ಟೈಮರ್ ಮುಗಿದ ನಂತರ ಸೈಟ್‌ಗಳು ಎಷ್ಟು ಸಮಯದವರೆಗೆ ತೆರೆದಿರುತ್ತವೆ ಎಂಬುದನ್ನು ಆರಿಸಿ."
+  },
+  "customMinutesLabel": {
+    "message": "ಕಸ್ಟಮ್ ನಿಮಿಷಗಳು"
+  },
+  "startTimeLabel": {
+    "message": "ಪ್ರಾರಂಭದ ಸಮಯ"
+  },
+  "endTimeLabel": {
+    "message": "ಅಂತಿಮ ಸಮಯ"
+  },
+  "scheduleDefaultSummary": {
+    "message": "ಇದನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿದಾಗ ನಿರ್ಬಂಧಿಸುವಿಕೆಯು ನಿಮ್ಮ ದೈನಂದಿನ ವೇಳಾಪಟ್ಟಿಯನ್ನು ಅನುಸರಿಸುತ್ತದೆ."
+  },
+  "currentScheduleSummary": {
+    "message": "ಪ್ರಸ್ತುತ ವೇಳಾಪಟ್ಟಿ: $1."
+  },
+  "everyDaySuffix": {
+    "message": " ಪ್ರತಿ ದಿನ"
+  },
+  "scheduleRange": {
+    "message": "$1 ರಿಂದ $2"
+  },
+  "unitMinute": {
+    "message": "ನಿಮಿಷ"
+  },
+  "unitMinutes": {
+    "message": "ನಿಮಿಷಗಳು"
+  },
+  "unitSite": {
+    "message": "ಸೈಟ್"
+  },
+  "unitSites": {
+    "message": "ಸೈಟ್ಗಳು"
+  },
+  "popupSettingsButton": {
+    "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield ಬ್ಲಾಕರ್"
+  },
+  "popupBlockerSubtitle": {
+    "message": "ಪ್ರತಿ ಬ್ಲಾಕ್ ಪಟ್ಟಿಯನ್ನು ಆನ್ ಅಥವಾ ಆಫ್ ಮಾಡಿ."
+  },
+  "popupMetadataLabel": {
+    "message": "ದೇಶ ಮತ್ತು ವರ್ಗವನ್ನು ನಿರ್ಬಂಧಿಸುವುದು"
+  },
+  "popupMetadataSubtitle": {
+    "message": "ದೇಶ ಅಥವಾ ಆಹಾರ ವರ್ಗದ ಮೂಲಕ ಸೈಟ್‌ಗಳ ಸಂಪೂರ್ಣ ಗುಂಪುಗಳನ್ನು ನಿರ್ಬಂಧಿಸಿ."
+  },
+  "popupDeliveryLabel": {
+    "message": "ವಿತರಣಾ ತಾಣಗಳು"
+  },
+  "popupDeliveryDefault": {
+    "message": "ಡೆಲಿವರಿ ಆರ್ಡರ್ ಮಾಡುವ ಡೊಮೇನ್‌ಗಳು."
+  },
+  "popupFastFoodLabel": {
+    "message": "ತ್ವರಿತ ಆಹಾರ ತಾಣಗಳು"
+  },
+  "popupFastFoodDefault": {
+    "message": "ಪ್ರಮುಖ ಸರಣಿ ಆರ್ಡರ್ ಮಾಡುವ ಡೊಮೇನ್‌ಗಳು."
+  },
+  "popupCustomLabel": {
+    "message": "ಕಸ್ಟಮ್ URL ಗಳು"
+  },
+  "popupCustomSubtitle": {
+    "message": "ನಿಮ್ಮ ಸ್ವಂತ ಸೈಟ್‌ಗಳನ್ನು ಸೇರಿಸಿ ಮತ್ತು ಅವುಗಳನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ."
+  },
+  "popupScheduleLabel": {
+    "message": "ನಿಗದಿತ ಸಮಯದಲ್ಲಿ ಮಾತ್ರ ನಿರ್ಬಂಧಿಸಿ"
+  },
+  "popupScheduleSubtitle": {
+    "message": "ಊಟದ ಬಜೆಟ್‌ಗಳು, ತಡರಾತ್ರಿಯ ಆರ್ಡರ್‌ಗಳು ಅಥವಾ ಕೆಲಸದ ಸಮಯಗಳಿಗೆ ಉಪಯುಕ್ತವಾಗಿದೆ."
+  },
+  "statusInactive": {
+    "message": "ನಿಷ್ಕ್ರಿಯ. ಎಲ್ಲಾ ಸೈಟ್‌ಗಳನ್ನು ಪ್ರವೇಶಿಸಬಹುದಾಗಿದೆ."
+  },
+  "statusAllDisabled": {
+    "message": "ಬ್ಲಾಕರ್ ಆನ್ ಆಗಿದೆ, ಆದರೆ ಪ್ರತಿಯೊಂದು ಸೈಟ್ ಅನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ. ಕೆಲವು ಸೈಟ್‌ಗಳನ್ನು ಮತ್ತೆ ಆನ್ ಮಾಡಲು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ತೆರೆಯಿರಿ."
+  },
+  "statusBypassActive": {
+    "message": "ತಾತ್ಕಾಲಿಕ ಪಾಸ್ ಸಕ್ರಿಯವಾಗಿದೆ. $1 ನಲ್ಲಿ ರೆಸ್ಯೂಮ್‌ಗಳನ್ನು ನಿರ್ಬಂಧಿಸುವುದು."
+  },
+  "statusOutsideSchedule": {
+    "message": "ಬ್ಲಾಕರ್ ಶಸ್ತ್ರಸಜ್ಜಿತವಾಗಿದೆ, ಆದರೆ ನಿಗದಿತ ಸಮಯದ ಹೊರಗೆ. ಇದು $1 ನಿಂದ ನಿರ್ಬಂಧಿಸುತ್ತದೆ."
+  },
+  "statusShieldUp": {
+    "message": "ಶೀಲ್ಡ್ ಅಪ್. $1 ಸೆಕೆಂಡುಗಳ ಕೌಂಟ್‌ಡೌನ್, $2 $3 ಪಾಸ್."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 ಆಫ್ $2 ಡೆಲಿವರಿ ಸೈಟ್‌ಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$2 ನ $1 ತ್ವರಿತ ಆಹಾರ ಸೈಟ್‌ಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 ಹುಡುಕಾಟಕ್ಕೆ ಹೊಂದಾಣಿಕೆಯಾಗುತ್ತದೆ."
+  },
+  "warningPageTitle": {
+    "message": "ಉಸಿರು ತೆಗೆದುಕೊಳ್ಳಿ"
+  },
+  "warningEyebrow": {
+    "message": "FitShield ಚೆಕ್"
+  },
+  "warningTitle": {
+    "message": "ಒಂದು ನಿಮಿಷ ತೆಗೆದುಕೊಳ್ಳಿ."
+  },
+  "warningIntro": {
+    "message": "ನೀವು ಆರ್ಡರ್ ಮಾಡುವ ಮೊದಲು ಪರಿಶೀಲಿಸಿ. ಹಸಿವು, ಅನುಕೂಲತೆ, ಒತ್ತಡ ಮತ್ತು ಅಭ್ಯಾಸವು ಕ್ಷಣದಲ್ಲಿ ಒಂದೇ ರೀತಿಯ ಭಾವನೆಯನ್ನು ಉಂಟುಮಾಡಬಹುದು."
+  },
+  "warningTriggeredBy": {
+    "message": "ನೀವು $1 ನಿಂದ ಆರ್ಡರ್ ಮಾಡಲಿರುವಿರಿ."
+  },
+  "warningHintDefault": {
+    "message": "ಟೈಮರ್ ಕೊನೆಗೊಂಡಾಗ, ನೀವು ಸೈಟ್‌ಗೆ ಮುಂದುವರಿಯಬಹುದು."
+  },
+  "warningHintLocked": {
+    "message": "ಟೈಮರ್ ಕೊನೆಗೊಂಡಾಗ, ನೀವು $1 $2 ಗಾಗಿ ಸೈಟ್‌ಗೆ ಮುಂದುವರಿಯಬಹುದು."
+  },
+  "warningBackButton": {
+    "message": "ಹಿಂತಿರುಗಿ"
+  },
+  "warningLockedButton": {
+    "message": "ಲಾಕ್ ಮಾಡಲಾಗಿದೆ"
+  },
+  "warningContinueButton": {
+    "message": "ಮುಂದುವರಿಸಿ"
+  },
+  "warningOpeningButton": {
+    "message": "ತೆರೆಯಲಾಗುತ್ತಿದೆ..."
+  },
+  "warningUnlockHint": {
+    "message": "ನೀವು ಈಗ ಸೈಟ್‌ಗೆ ಭೇಟಿ ನೀಡಬಹುದು. $1 $2 ನಂತರ ಬ್ಲಾಕರ್ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಹಿಂತಿರುಗುತ್ತದೆ."
+  },
+  "warningErrorHint": {
+    "message": "ಸೈಟ್ ತೆರೆಯುವಾಗ ಏನೋ ತಪ್ಪಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+  },
+  "settingsTitle": {
+    "message": "FitShield ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+  },
+  "blockingOptionsHeading": {
+    "message": "ನಿರ್ಬಂಧಿಸುವ ಆಯ್ಕೆಗಳು"
+  },
+  "scheduledHoursLabel": {
+    "message": "ನಿಗದಿತ ಸಮಯ"
+  },
+  "scheduledHoursHint": {
+    "message": "ದೈನಂದಿನ ಸಮಯದ ವಿಂಡೋದಲ್ಲಿ ಮಾತ್ರ ನಿರ್ಬಂಧಿಸಿ."
+  },
+  "customizeBlocklistHeading": {
+    "message": "ಬ್ಲಾಕ್‌ಲಿಸ್ಟ್ ಅನ್ನು ಕಸ್ಟಮೈಸ್ ಮಾಡಿ"
+  },
+  "customizeBlocklistIntro": {
+    "message": "ಯಾವ ಅಂತರ್ನಿರ್ಮಿತ ಗುಂಪುಗಳು ಸಕ್ರಿಯವಾಗಿವೆ ಎಂಬುದನ್ನು ಆರಿಸಿ, ಪ್ರತ್ಯೇಕ ಸೈಟ್‌ಗಳನ್ನು ಆನ್ ಅಥವಾ ಆಫ್ ಮಾಡಿ ಮತ್ತು ನಿಮ್ಮ ಸ್ವಂತ ಡೊಮೇನ್‌ಗಳನ್ನು ಸೇರಿಸಿ."
+  },
+  "deliverySitesHeading": {
+    "message": "ವಿತರಣಾ ಸೈಟ್ಗಳು"
+  },
+  "fastFoodSitesHeading": {
+    "message": "ತ್ವರಿತ ಆಹಾರ ತಾಣಗಳು"
+  },
+  "customUrlsHeading": {
+    "message": "ಕಸ್ಟಮ್ URL ಗಳು"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "ನಿಮ್ಮ ಸ್ವಂತ ಡೊಮೇನ್‌ಗಳನ್ನು ಸೇರಿಸಿ ಮತ್ತು ಅವುಗಳನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ."
+  },
+  "showSitesButton": {
+    "message": "ಸೈಟ್‌ಗಳನ್ನು ತೋರಿಸಿ"
+  },
+  "hideSitesButton": {
+    "message": "ಸೈಟ್‌ಗಳನ್ನು ಮರೆಮಾಡಿ"
+  },
+  "showUrlsButton": {
+    "message": "URL ಗಳನ್ನು ತೋರಿಸಿ"
+  },
+  "hideUrlsButton": {
+    "message": "URL ಗಳನ್ನು ಮರೆಮಾಡಿ"
+  },
+  "deliveryToggleTitle": {
+    "message": "ವಿತರಣಾ ಸೈಟ್ ನಿರ್ಬಂಧಿಸುವಿಕೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ"
+  },
+  "fastFoodToggleTitle": {
+    "message": "ತ್ವರಿತ ಆಹಾರ ಸೈಟ್ ನಿರ್ಬಂಧಿಸುವಿಕೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ"
+  },
+  "customToggleTitle": {
+    "message": "ಕಸ್ಟಮ್ URL ನಿರ್ಬಂಧಿಸುವಿಕೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ"
+  },
+  "addCustomUrlLabel": {
+    "message": "ಕಸ್ಟಮ್ ನಿರ್ಬಂಧಿಸಿದ URL ಅನ್ನು ಸೇರಿಸಿ"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com ಅಥವಾ https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "ನಮೂದುಗಳನ್ನು ಡೊಮೇನ್‌ಗಳಿಗೆ ಸಾಮಾನ್ಯೀಕರಿಸಲಾಗಿದೆ ಮತ್ತು ಎಲ್ಲಾ ಪುಟಗಳಲ್ಲಿ ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ."
+  },
+  "customEmptyDefault": {
+    "message": "ಯಾವುದೇ ಕಸ್ಟಮ್ URL ಗಳನ್ನು ಇನ್ನೂ ಸೇರಿಸಲಾಗಿಲ್ಲ."
+  },
+  "customNoMatch": {
+    "message": "ಈ ಹುಡುಕಾಟಕ್ಕೆ ಯಾವುದೇ ಕಸ್ಟಮ್ URL ಗಳು ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ."
+  },
+  "emptyDeliverySearch": {
+    "message": "ಈ ಹುಡುಕಾಟಕ್ಕೆ ಯಾವುದೇ ವಿತರಣಾ ಸೈಟ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ."
+  },
+  "emptyFastFoodSearch": {
+    "message": "ಈ ಹುಡುಕಾಟಕ್ಕೆ ಯಾವುದೇ ತ್ವರಿತ ಆಹಾರ ಸೈಟ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 \"$3\" ಗೆ ಹೊಂದಿಕೆಯಾಗಿದೆ."
+  },
+  "invalidUrlNotice": {
+    "message": "ಆ URL ಇನ್ನೂ ಮಾನ್ಯವಾಗಿ ಕಾಣುತ್ತಿಲ್ಲ. example.com ನಂತಹ ಡೊಮೇನ್ ಅನ್ನು ಪ್ರಯತ್ನಿಸಿ."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 ಈಗಾಗಲೇ ಬ್ಲಾಕ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ, ಆದ್ದರಿಂದ ಇದನ್ನು ಮರು-ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ."
+  },
+  "addedToBlocklist": {
+    "message": "$1 ಅನ್ನು ಕಸ್ಟಮ್ ಬ್ಲಾಕ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 ಅನ್ನು ಕಸ್ಟಮ್ ಬ್ಲಾಕ್‌ಲಿಸ್ಟ್‌ನಿಂದ ತೆಗೆದುಹಾಕಲಾಗಿದೆ."
+  },
+  "metadataHeading": {
+    "message": "ದೇಶ ಮತ್ತು ವರ್ಗವನ್ನು ನಿರ್ಬಂಧಿಸುವುದು"
+  },
+  "metadataIntro": {
+    "message": "ಬ್ರ್ಯಾಂಡ್ ಕಾರ್ಯನಿರ್ವಹಿಸುವ ದೇಶ ಅಥವಾ ಅದು ನೀಡುವ ಆಹಾರದ ಪ್ರಕಾರ ಸೈಟ್‌ಗಳ ಸಂಪೂರ್ಣ ಗುಂಪುಗಳನ್ನು ನಿರ್ಬಂಧಿಸಿ. ಈ ಬ್ಲಾಕ್‌ಗಳು ನಿಮ್ಮ ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಸೈಟ್ ಮತ್ತು ಕಸ್ಟಮ್-URL ಬ್ಲಾಕ್‌ಗಳಿಗೆ ಸೇರಿಸುತ್ತವೆ."
+  },
+  "blockByCountryLabel": {
+    "message": "ದೇಶದ ಮೂಲಕ ನಿರ್ಬಂಧಿಸಿ"
+  },
+  "blockByCountryHint": {
+    "message": "ದೇಶದ ಹೆಸರು ಅಥವಾ ಕೋಡ್ ಮೂಲಕ ಹುಡುಕಿ, ಉದಾ. \"ಯುನೈಟೆಡ್\" ಅಥವಾ \"ಯುಎಸ್\". ದೇಶವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸುವುದರಿಂದ ಅಲ್ಲಿ ಸಕ್ರಿಯವಾಗಿರುವ ಪ್ರತಿಯೊಂದು ಬ್ರ್ಯಾಂಡ್ ಅನ್ನು ನಿರ್ಬಂಧಿಸುತ್ತದೆ."
+  },
+  "countrySearchPlaceholder": {
+    "message": "ದೇಶಗಳನ್ನು ಹುಡುಕಿ..."
+  },
+  "quickAccessCountries": {
+    "message": "ತ್ವರಿತ ಪ್ರವೇಶ - ದೇಶಗಳು"
+  },
+  "countryQuickEmpty": {
+    "message": "ಇಲ್ಲಿ ಪಿನ್ ಮಾಡಲು ಹುಡುಕಾಟದಿಂದ ದೇಶವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ."
+  },
+  "blockByCategoryLabel": {
+    "message": "ವರ್ಗದಿಂದ ನಿರ್ಬಂಧಿಸಿ"
+  },
+  "blockByCategoryHint": {
+    "message": "ಬರ್ಗರ್, ಪಿಜ್ಜಾ ಅಥವಾ ಕಾಫಿಯಂತಹ ವರ್ಗಗಳನ್ನು ಹುಡುಕಿ. ವಿಶೇಷತೆಗಳನ್ನು ಸಹ ಹುಡುಕಬಹುದಾಗಿದೆ; ಬ್ಲಾಕ್ ವರ್ಗದಿಂದ ಅನ್ವಯಿಸುತ್ತದೆ."
+  },
+  "categorySearchPlaceholder": {
+    "message": "ವರ್ಗಗಳನ್ನು ಹುಡುಕಿ..."
+  },
+  "quickAccessCategories": {
+    "message": "ತ್ವರಿತ ಪ್ರವೇಶ - ವರ್ಗಗಳು"
+  },
+  "categoryQuickEmpty": {
+    "message": "ಇಲ್ಲಿ ಪಿನ್ ಮಾಡಲು ಹುಡುಕಾಟದಿಂದ ವರ್ಗವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ."
+  },
+  "noCountriesMatch": {
+    "message": "ಯಾವುದೇ ದೇಶಗಳು ಆ ಹುಡುಕಾಟಕ್ಕೆ ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ."
+  },
+  "noCategoriesMatch": {
+    "message": "ಆ ಹುಡುಕಾಟಕ್ಕೆ ಯಾವುದೇ ವರ್ಗಗಳು ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ."
+  },
+  "languageHeading": {
+    "message": "ಭಾಷೆ"
+  },
+  "languageIntro": {
+    "message": "FitShield ತನ್ನದೇ ಆದ ಪರದೆಗಳಿಗಾಗಿ ಬಳಸುವ ಭಾಷೆಯನ್ನು ಆರಿಸಿ. ಇದು ವಿಸ್ತರಣೆಗಾಗಿ ಮಾತ್ರ ನಿಮ್ಮ ಬ್ರೌಸರ್ ಭಾಷೆಯನ್ನು ಅತಿಕ್ರಮಿಸುತ್ತದೆ."
+  },
+  "languageSelectLabel": {
+    "message": "ಪ್ರದರ್ಶನ ಭಾಷೆ"
+  },
+  "languageHint": {
+    "message": "ಭಾಷೆಯನ್ನು ಹುಡುಕಿ ಮತ್ತು ಅದನ್ನು ಆಯ್ಕೆ ಮಾಡಿ. ನಿಮ್ಮ ಬ್ರೌಸರ್ ಅನ್ನು ಅನುಸರಿಸಲು ಸಿಸ್ಟಮ್ ಡೀಫಾಲ್ಟ್ ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ."
+  },
+  "languageSearchPlaceholder": {
+    "message": "ಭಾಷೆಗಳನ್ನು ಹುಡುಕಿ..."
+  },
+  "currentLanguageHead": {
+    "message": "ಪ್ರಸ್ತುತ ಭಾಷೆ"
+  },
+  "languageUseButton": {
+    "message": "ಬಳಸಿ"
+  },
+  "languageActiveButton": {
+    "message": "ಸಕ್ರಿಯ"
+  },
+  "languageSystem": {
+    "message": "ಸಿಸ್ಟಮ್ ಡೀಫಾಲ್ಟ್"
+  },
+  "languageSystemSub": {
+    "message": "ನಿಮ್ಮ ಬ್ರೌಸರ್‌ನ ಭಾಷೆಯನ್ನು ಅನುಸರಿಸಿ"
+  },
+  "languageEnglish": {
+    "message": "ಇಂಗ್ಲೀಷ್"
+  },
+  "languageJapanese": {
+    "message": "ಜಪಾನೀಸ್"
+  },
+  "languageChinese": {
+    "message": "ಚೈನೀಸ್ (ಸರಳೀಕೃತ)"
+  },
+  "languageFrench": {
+    "message": "ಫ್ರೆಂಚ್"
+  },
+  "languageCantonese": {
+    "message": "ಕ್ಯಾಂಟೋನೀಸ್"
+  },
+  "languageThai": {
+    "message": "ಥಾಯ್"
+  },
+  "languagePunjabi": {
+    "message": "ಪಂಜಾಬಿ"
+  },
+  "languageTamil": {
+    "message": "ತಮಿಳು"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "ಚೈನೀಸ್ (ಸಾಂಪ್ರದಾಯಿಕ, ತೈವಾನ್)"
+  },
+  "languageKorean": {
+    "message": "ಕೊರಿಯನ್"
+  },
+  "languageHindi": {
+    "message": "ಹಿಂದಿ"
+  },
+  "languageSpanishLatam": {
+    "message": "ಸ್ಪ್ಯಾನಿಷ್ (ಲ್ಯಾಟಿನ್ ಅಮೇರಿಕಾ)"
+  },
+  "languageSpanishSpain": {
+    "message": "ಸ್ಪ್ಯಾನಿಷ್ (ಸ್ಪೇನ್)"
+  },
+  "languageAfrikaans": {
+    "message": "ಆಫ್ರಿಕಾನ್ಸ್"
+  },
+  "languageAlbanian": {
+    "message": "ಅಲ್ಬೇನಿಯನ್"
+  },
+  "languageBasque": {
+    "message": "ಬಾಸ್ಕ್"
+  },
+  "languageBelarusian": {
+    "message": "ಬೆಲರೂಸಿಯನ್"
+  },
+  "languageBulgarian": {
+    "message": "ಬಲ್ಗೇರಿಯನ್"
+  },
+  "languageCatalan": {
+    "message": "ಕೆಟಲಾನ್"
+  },
+  "languageCroatian": {
+    "message": "ಕ್ರೊಯೇಷಿಯನ್"
+  },
+  "languageCzech": {
+    "message": "ಜೆಕ್"
+  },
+  "languageDanish": {
+    "message": "ಡ್ಯಾನಿಶ್"
+  },
+  "languageDutch": {
+    "message": "ಡಚ್"
+  },
+  "languageEstonian": {
+    "message": "ಎಸ್ಟೋನಿಯನ್"
+  },
+  "languageFinnish": {
+    "message": "ಫಿನ್ನಿಶ್"
+  },
+  "languageGreek": {
+    "message": "ಗ್ರೀಕ್"
+  },
+  "languageHungarian": {
+    "message": "ಹಂಗೇರಿಯನ್"
+  },
+  "languageIcelandic": {
+    "message": "ಐಸ್ಲ್ಯಾಂಡಿಕ್"
+  },
+  "languageIrish": {
+    "message": "ಐರಿಷ್"
+  },
+  "languageItalian": {
+    "message": "ಇಟಾಲಿಯನ್"
+  },
+  "languageLatvian": {
+    "message": "ಲಟ್ವಿಯನ್"
+  },
+  "languageLithuanian": {
+    "message": "ಲಿಥುವೇನಿಯನ್"
+  },
+  "languageMacedonian": {
+    "message": "ಮೆಸಿಡೋನಿಯನ್"
+  },
+  "languageMaltese": {
+    "message": "ಮಾಲ್ಟೀಸ್"
+  },
+  "languageNorwegian": {
+    "message": "ನಾರ್ವೇಜಿಯನ್"
+  },
+  "languagePolish": {
+    "message": "ಪೋಲಿಷ್"
+  },
+  "languagePortuguesePortugal": {
+    "message": "ಪೋರ್ಚುಗೀಸ್ (ಪೋರ್ಚುಗಲ್)"
+  },
+  "languageRomanian": {
+    "message": "ರೊಮೇನಿಯನ್"
+  },
+  "languageRussian": {
+    "message": "ರಷ್ಯನ್"
+  },
+  "languageSerbian": {
+    "message": "ಸರ್ಬಿಯನ್"
+  },
+  "languageSlovak": {
+    "message": "ಸ್ಲೋವಾಕ್"
+  },
+  "languageSlovenian": {
+    "message": "ಸ್ಲೊವೇನಿಯನ್"
+  },
+  "languageSwedish": {
+    "message": "ಸ್ವೀಡಿಷ್"
+  },
+  "languageTurkish": {
+    "message": "ಟರ್ಕಿಶ್"
+  },
+  "languageUkrainian": {
+    "message": "ಉಕ್ರೇನಿಯನ್"
+  },
+  "languageWelsh": {
+    "message": "ವೆಲ್ಷ್"
+  },
+  "languageBengali": {
+    "message": "ಬೆಂಗಾಲಿ"
+  },
+  "languageGujarati": {
+    "message": "ಗುಜರಾತಿ"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "ಮಲಯಾಳಂ"
+  },
+  "languageMarathi": {
+    "message": "ಮರಾಠಿ"
+  },
+  "languageNepali": {
+    "message": "ನೇಪಾಳಿ"
+  },
+  "languageOdia": {
+    "message": "ಒಡಿಯಾ"
+  },
+  "languageSinhala": {
+    "message": "ಸಿಂಹಳೀಯ"
+  },
+  "languageTelugu": {
+    "message": "ತೆಲುಗು"
+  },
+  "languageUrdu": {
+    "message": "ಉರ್ದು"
+  },
+  "languageAssamese": {
+    "message": "ಅಸ್ಸಾಮಿ"
+  },
+  "languageIndonesian": {
+    "message": "ಇಂಡೋನೇಷಿಯನ್"
+  },
+  "languageMalay": {
+    "message": "ಮಲಯ"
+  },
+  "languageVietnamese": {
+    "message": "ವಿಯೆಟ್ನಾಮೀಸ್"
+  },
+  "languageKhmer": {
+    "message": "ಖಮೇರ್"
+  },
+  "languageLao": {
+    "message": "ಲಾವೊ"
+  },
+  "languageBurmese": {
+    "message": "ಬರ್ಮೀಸ್ (ಮ್ಯಾನ್ಮಾರ್)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "ಫಿಲಿಪಿನೋ / ಟ್ಯಾಗಲೋಗ್"
+  },
+  "languageJavanese": {
+    "message": "ಜಾವಾನೀಸ್"
+  },
+  "languageSundanese": {
+    "message": "ಸುಂದನೀಸ್"
+  },
+  "languageArabic": {
+    "message": "ಅರೇಬಿಕ್"
+  },
+  "languagePersian": {
+    "message": "ಪರ್ಷಿಯನ್ (ಫಾರ್ಸಿ)"
+  },
+  "languageHebrew": {
+    "message": "ಹೀಬ್ರೂ"
+  },
+  "languageArmenian": {
+    "message": "ಅರ್ಮೇನಿಯನ್"
+  },
+  "languageGeorgian": {
+    "message": "ಜಾರ್ಜಿಯನ್"
+  },
+  "languageKazakh": {
+    "message": "ಕಝಕ್"
+  },
+  "languageKyrgyz": {
+    "message": "ಕಿರ್ಗಿಜ್"
+  },
+  "languageMongolian": {
+    "message": "ಮಂಗೋಲಿಯನ್"
+  },
+  "languagePashto": {
+    "message": "ಪಾಷ್ಟೋ"
+  },
+  "languageTajik": {
+    "message": "ತಾಜಿಕ್"
+  },
+  "languageTurkmen": {
+    "message": "ತುರ್ಕಮೆನ್"
+  },
+  "languageUyghur": {
+    "message": "ಉಯ್ಘರ್"
+  },
+  "languageUzbek": {
+    "message": "ಉಜ್ಬೆಕ್"
+  },
+  "noLanguagesMatch": {
+    "message": "ಯಾವುದೇ ಭಾಷೆಗಳು ಆ ಹುಡುಕಾಟಕ್ಕೆ ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ."
+  },
+  "mbBlocking": {
+    "message": "ತಡೆಯುವುದು"
+  },
+  "mbBlock": {
+    "message": "ನಿರ್ಬಂಧಿಸಿ"
+  },
+  "mbOn": {
+    "message": "ಆನ್"
+  },
+  "mbOff": {
+    "message": "ಆಫ್"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "ನಿರ್ಬಂಧಿಸುವುದು - ವಿರಾಮಗೊಳಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ - ನಿರ್ಬಂಧಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ"
+  },
+  "mbChipRemoveTitle": {
+    "message": "ತ್ವರಿತ ಪ್ರವೇಶದಿಂದ ಶಾರ್ಟ್‌ಕಟ್ ತೆಗೆದುಹಾಕಿ"
+  },
+  "mbChipRemoveAria": {
+    "message": "ತ್ವರಿತ ಪ್ರವೇಶದಿಂದ $1 ತೆಗೆದುಹಾಕಿ"
+  },
+  "themeHeading": {
+    "message": "ಥೀಮ್"
+  },
+  "resetThemeButton": {
+    "message": "ಥೀಮ್ ಅನ್ನು ಮರುಹೊಂದಿಸಿ"
+  },
+  "systemThemeLabel": {
+    "message": "ಸಿಸ್ಟಮ್ ಥೀಮ್"
+  },
+  "systemThemeHint": {
+    "message": "ಸಾಧನದ ಆದ್ಯತೆ ಅಥವಾ ಸ್ಥಿರ ಮೋಡ್."
+  },
+  "themeSystem": {
+    "message": "ವ್ಯವಸ್ಥೆ"
+  },
+  "themeLight": {
+    "message": "ಬೆಳಕು"
+  },
+  "themeDark": {
+    "message": "ಕತ್ತಲು"
+  },
+  "themeBackground": {
+    "message": "ಹಿನ್ನೆಲೆ"
+  },
+  "themePanel": {
+    "message": "ಫಲಕ"
+  },
+  "themeBorder": {
+    "message": "ಗಡಿ"
+  },
+  "themeText": {
+    "message": "ಪಠ್ಯ"
+  },
+  "themeMutedText": {
+    "message": "ಮ್ಯೂಟ್ ಮಾಡಿದ ಪಠ್ಯ"
+  },
+  "themeAccent": {
+    "message": "ಉಚ್ಚಾರಣೆ"
+  },
+  "cornerRadiusLabel": {
+    "message": "ಕಾರ್ನರ್ ತ್ರಿಜ್ಯ"
+  },
+  "popupWidthLabel": {
+    "message": "ಪಾಪ್ಅಪ್ ಅಗಲ"
+  },
+  "supportFooterText": {
+    "message": "FitShield ನಿಮಗೆ ಅನಗತ್ಯ ವಿತರಣಾ ಆದೇಶವನ್ನು ತಪ್ಪಿಸಲು ಸಹಾಯ ಮಾಡಿದರೆ, ಐಚ್ಛಿಕ ಬೆಂಬಲವು ಬ್ಲಾಕ್‌ಲಿಸ್ಟ್‌ಗಳು ಮತ್ತು ಡಾಕ್ಸ್ ಅನ್ನು ಚಲಿಸುವಂತೆ ಮಾಡುತ್ತದೆ."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

@@ -5,6 +5,15 @@ const MIN_PASS_DURATION_MINUTES = 1;
 const DEFAULT_SCHEDULE_START = "18:00";
 const DEFAULT_SCHEDULE_END = "23:00";
 
+// Localization helper (i18n.js loads first). Falls back to the key when a
+// message is missing so the gap is visible rather than blank.
+const t = (key, subs) =>
+  (typeof FitShieldI18n !== "undefined" ? FitShieldI18n.t(key, subs) : key);
+
+function minuteUnit(value) {
+  return t(value === 1 ? "unitMinute" : "unitMinutes");
+}
+
 const toggle = document.getElementById("toggle");
 const status = document.getElementById("status");
 const card = document.querySelector(".card");
@@ -207,7 +216,10 @@ function formatScheduleText(start, end) {
   const endDate = new Date();
   endDate.setHours(endHour, endMinute, 0, 0);
 
-  return `${startDate.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })} to ${endDate.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`;
+  return t("scheduleRange", [
+    startDate.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }),
+    endDate.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+  ]);
 }
 
 function formatTimerDisplay(seconds) {
@@ -248,25 +260,28 @@ function getStatusMessage(state) {
     (customSitesEnabled ? customSites.filter((site) => site.enabled).length : 0);
 
   if (!enabled) {
-    return "Inactive. All sites are accessible.";
+    return t("statusInactive");
   }
 
   if (activeSiteCount === 0) {
-    return "Blocker is on, but every individual site is disabled. Open Settings to turn some sites back on.";
+    return t("statusAllDisabled");
   }
 
   if (bypassActive) {
-    return `Temporary pass is active. Blocking resumes in ${formatTimeRemaining(bypassUntil - Date.now())}.`;
+    return t("statusBypassActive", [formatTimeRemaining(bypassUntil - Date.now())]);
   }
 
   if (scheduleEnabled && !scheduleActive) {
-    return `Blocker is armed, but outside scheduled hours. It will block from ${formatScheduleText(scheduleStart, scheduleEnd)}.`;
+    return t("statusOutsideSchedule", [formatScheduleText(scheduleStart, scheduleEnd)]);
   }
 
   const passMinutes = normalizePassDurationMinutes(passDurationMinutes);
-  const passUnit = passMinutes === 1 ? "minute" : "minutes";
 
-  return `Shield up. ${normalizeTimerSeconds(timerSeconds)} seconds countdown, ${passMinutes} ${passUnit} pass.`;
+  return t("statusShieldUp", [
+    String(normalizeTimerSeconds(timerSeconds)),
+    String(passMinutes),
+    minuteUnit(passMinutes)
+  ]);
 }
 
 function refreshStatusOnly() {
@@ -317,12 +332,20 @@ function updateUI(state) {
   scheduleStartInput.value = scheduleStart;
   scheduleEndInput.value = scheduleEnd;
   updateScheduleControls(scheduleEnabled);
-  deliveryCount.textContent = `${deliverySites.filter((site) => site.enabled).length} of ${deliverySites.length} delivery sites enabled.`;
-  fastFoodCount.textContent = `${fastFoodSites.filter((site) => site.enabled).length} of ${fastFoodSites.length} fast food sites enabled.`;
+  deliveryCount.textContent = t("deliverySitesEnabledCount", [
+    String(deliverySites.filter((site) => site.enabled).length),
+    String(deliverySites.length)
+  ]);
+  fastFoodCount.textContent = t("fastFoodSitesEnabledCount", [
+    String(fastFoodSites.filter((site) => site.enabled).length),
+    String(fastFoodSites.length)
+  ]);
 
   scheduleSummary.textContent = scheduleEnabled
-    ? `Current schedule: ${formatScheduleText(scheduleStart, scheduleEnd)}${scheduleStart === scheduleEnd ? " every day" : ""}.`
-    : "Blocking will follow your daily schedule when this is enabled.";
+    ? t("currentScheduleSummary", [
+        formatScheduleText(scheduleStart, scheduleEnd) + (scheduleStart === scheduleEnd ? t("everyDaySuffix") : "")
+      ])
+    : t("scheduleDefaultSummary");
 
   card.classList.toggle("glow", enabled && activeSiteCount > 0 && (scheduleActive || !scheduleEnabled) && !bypassActive);
 
@@ -450,6 +473,22 @@ openMetadataBlockingButton.addEventListener("click", () => {
   openSettings("settings.html#metadata-blocking");
 });
 
-loadState();
+// Resolve once the stored UI language has been applied so the first render
+// uses the right locale instead of flashing the browser default.
+const i18nReady = (typeof FitShieldI18n !== "undefined" && FitShieldI18n.ready)
+  ? FitShieldI18n.ready
+  : Promise.resolve();
+
+i18nReady.then(loadState);
 loadTheme();
 setInterval(refreshStatusOnly, 1000);
+
+// Re-render dynamic strings when the language changes. Static data-i18n
+// elements are handled by i18n.js itself.
+if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.onChange) {
+  FitShieldI18n.onChange(() => {
+    if (latestState) {
+      updateUI(latestState);
+    }
+  });
+}

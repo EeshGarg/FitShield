@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield brauzer giňeltmesi, azyk önümlerini eltip bermek we çalt nahar sargytlaryny ýadyňyzda saklamaga kömek edýär."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Sahypanyň adyny ýa-da URL-ni gözläň"
+  },
+  "searchButton": {
+    "message": "Gözlemek"
+  },
+  "clearButton": {
+    "message": "Arassala"
+  },
+  "openButton": {
+    "message": "Aç"
+  },
+  "addButton": {
+    "message": "Goş"
+  },
+  "removeButton": {
+    "message": "Aýyr"
+  },
+  "viewBlocklistButton": {
+    "message": "Blok sanawyny gör"
+  },
+  "timerDurationLabel": {
+    "message": "Hasaplaýjynyň dowamlylygy"
+  },
+  "timerDurationHint": {
+    "message": "Dowam etmezden ozal hasaplamany sazlaň."
+  },
+  "customSecondsLabel": {
+    "message": "Secondsörite sekuntlar"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Sahypanyň açyk wagty"
+  },
+  "siteOpenTimeHint": {
+    "message": "Taymer gutarandan soň saýtlaryň näçe wagt açyk boljakdygyny saýlaň."
+  },
+  "customMinutesLabel": {
+    "message": "Omörite minutlar"
+  },
+  "startTimeLabel": {
+    "message": "Başlamak wagty"
+  },
+  "endTimeLabel": {
+    "message": "Ahyrky wagt"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Blokirlemek, bu işledilende gündelik meýilnamaňyza eýerer."
+  },
+  "currentScheduleSummary": {
+    "message": "Häzirki tertip: $1."
+  },
+  "everyDaySuffix": {
+    "message": " her gün"
+  },
+  "scheduleRange": {
+    "message": "$1-den $2"
+  },
+  "unitMinute": {
+    "message": "minut"
+  },
+  "unitMinutes": {
+    "message": "minut"
+  },
+  "unitSite": {
+    "message": "sahypa"
+  },
+  "unitSites": {
+    "message": "saýtlary"
+  },
+  "popupSettingsButton": {
+    "message": "Sazlamalar"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield bloklaýjy"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Her blok sanawyny açyň ýa-da öçüriň."
+  },
+  "popupMetadataLabel": {
+    "message": "& Urt we kategoriýa blokirlemesi"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Sahypalaryň ähli toparlaryny ýurt ýa-da iýmit kategoriýasy boýunça blokirläň."
+  },
+  "popupDeliveryLabel": {
+    "message": "Eltip beriş sahypalary"
+  },
+  "popupDeliveryDefault": {
+    "message": "Domenleri eltip bermek."
+  },
+  "popupFastFoodLabel": {
+    "message": "Çalt nahar ýerleri"
+  },
+  "popupFastFoodDefault": {
+    "message": "Esasy zynjyr sargytlary."
+  },
+  "popupCustomLabel": {
+    "message": "Hususy URL-ler"
+  },
+  "popupCustomSubtitle": {
+    "message": "Öz sahypalaryňyzy goşuň we aýratynlykda öçüriň."
+  },
+  "popupScheduleLabel": {
+    "message": "Diňe bellenen sagatlarda blokirläň"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Nahar býudjetleri, gijeki sargytlar ýa-da iş sagatlary üçin peýdaly."
+  },
+  "statusInactive": {
+    "message": "Aktiw däl. Sitehli saýtlara girip bolýar."
+  },
+  "statusAllDisabled": {
+    "message": "Bloker açyk, ýöne her bir sahypa ýapyk. Käbir sahypalary yza öwürmek üçin Sazlamalary açyň."
+  },
+  "statusBypassActive": {
+    "message": "Wagtlaýyn geçiş işjeňdir. Bloklamak $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Bloker ýaragly, ýöne meýilleşdirilen sagatlaryň daşynda. $1-den bloklanar."
+  },
+  "statusShieldUp": {
+    "message": "Galkan. $1 sekunt sanamak, $2 $3 geçiş."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$2 iberiş saýtlarynyň $1 açyk."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$2 çalt nahar saýtlary $1 açyk."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 gözleg bilen gabat gelýär."
+  },
+  "warningPageTitle": {
+    "message": "Dem alyň"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Barlaň"
+  },
+  "warningTitle": {
+    "message": "Bir minut wagt alyň."
+  },
+  "warningIntro": {
+    "message": "Sargyt etmezden ozal barlaň. Açlyk, amatlylyk, stres we endik häzirki pursatda şuňa meňzeýär."
+  },
+  "warningTriggeredBy": {
+    "message": "$1 zakaz etjek bolýarsyňyz."
+  },
+  "warningHintDefault": {
+    "message": "Taymer gutarandan soň, sahypa girip bilersiňiz."
+  },
+  "warningHintLocked": {
+    "message": "Hasaplaýjy gutaransoň, $1 $2 üçin sahypa girip bilersiňiz."
+  },
+  "warningBackButton": {
+    "message": "Yzyňa dolan"
+  },
+  "warningLockedButton": {
+    "message": "Gulply"
+  },
+  "warningContinueButton": {
+    "message": "Dowam et"
+  },
+  "warningOpeningButton": {
+    "message": "Açmak ..."
+  },
+  "warningUnlockHint": {
+    "message": "Sahypa indi girip bilersiňiz. Bloklaýjy $1 $2-den soň awtomatiki ýagdaýda gaýdyp geler."
+  },
+  "warningErrorHint": {
+    "message": "Sahypany açanda bir zat ýalňyşdy. Gaýtadan synanyşmagyňyzy haýyş edýäris."
+  },
+  "settingsTitle": {
+    "message": "FitShield sazlamalary"
+  },
+  "blockingOptionsHeading": {
+    "message": "Blokirlemegiň opsiýalary"
+  },
+  "scheduledHoursLabel": {
+    "message": "Meýilleşdirilen sagatlar"
+  },
+  "scheduledHoursHint": {
+    "message": "Diňe gündelik wagt penjiresinde blokirläň."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Blok sanawyny özleşdiriň"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Gurlan toparlaryň haýsysynyň işjeňdigini saýlaň, aýratyn sahypalary açyň ýa-da öçüriň we öz domenleriňizi goşuň."
+  },
+  "deliverySitesHeading": {
+    "message": "Eltip beriş sahypalary"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Çalt iýmit saýtlary"
+  },
+  "customUrlsHeading": {
+    "message": "Hususy URL-ler"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Öz domenleriňizi goşuň we aýratynlykda öçüriň."
+  },
+  "showSitesButton": {
+    "message": "Sahypalary görkez"
+  },
+  "hideSitesButton": {
+    "message": "Sahypalary gizläň"
+  },
+  "showUrlsButton": {
+    "message": "URL-ler görkez"
+  },
+  "hideUrlsButton": {
+    "message": "URL-leri gizläň"
+  },
+  "deliveryToggleTitle": {
+    "message": "Gowşuryş sahypasynyň blokirlemesini işjeňleşdiriň"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Çalt nahar sahypasynyň petiklenmegini üpjün ediň"
+  },
+  "customToggleTitle": {
+    "message": "Hususy URL blokirlemesini işjeňleşdiriň"
+  },
+  "addCustomUrlLabel": {
+    "message": "Blockörite bloklanan URL goşuň"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com ýa-da https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Domenlere ýazgylar kadalaşdyrylýar we ähli sahypalarda bloklanýar."
+  },
+  "customEmptyDefault": {
+    "message": "Hususy URL-ler entek goşulmady."
+  },
+  "customNoMatch": {
+    "message": "Bu gözlegde hiç hili ýörite URL ýok."
+  },
+  "emptyDeliverySearch": {
+    "message": "Bu gözleg bilen hiç hili gowşuryş sahypasy gabat gelenok."
+  },
+  "emptyFastFoodSearch": {
+    "message": "Bu gözlegde çalt nahar saýtlary ýok."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 \"$3\" gabat geldi."
+  },
+  "invalidUrlNotice": {
+    "message": "Şol URL entek dogry görünmeýär. example.com ýaly domeni synap görüň."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 eýýäm blok sanawynda, şonuň üçin gaýtadan işledildi."
+  },
+  "addedToBlocklist": {
+    "message": "$1 ýörite blokirleme sanawyna goşuldy."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 adaty blok sanawyndan aýryldy."
+  },
+  "metadataHeading": {
+    "message": "& Urt we kategoriýa blokirlemesi"
+  },
+  "metadataIntro": {
+    "message": "Bir markanyň işleýän ýa-da iýmitlenýän görnüşi boýunça ýurtlaryň ähli toparlaryny bloklaň. Bu bloklar bar bolan sahypaňyza we adaty URL bloklaryna goşýar."
+  },
+  "blockByCountryLabel": {
+    "message": "Byurt boýunça blokirläň"
+  },
+  "blockByCountryHint": {
+    "message": "Nameurduň ady ýa-da kody boýunça gözläň, meselem. \"Birleşen\" ýa-da \"ABŞ\". Countryurt açmak, ol ýerdäki işjeň markalaryň hemmesini bloklaýar."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Countriesurtlary gözläň…"
+  },
+  "quickAccessCountries": {
+    "message": "Çalt giriş - ýurtlar"
+  },
+  "countryQuickEmpty": {
+    "message": "Gözlegden bir ýurda bu ýere basmak üçin mümkinçilik beriň."
+  },
+  "blockByCategoryLabel": {
+    "message": "Kategoriýa boýunça blokirläň"
+  },
+  "blockByCategoryHint": {
+    "message": "Burger, pizza ýa-da kofe ýaly kategoriýalary gözläň. Hünärler hem gözlenýär; blok kategoriýa boýunça ulanylýar."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Gözleg kategoriýalary…"
+  },
+  "quickAccessCategories": {
+    "message": "Çalt giriş - kategoriýalar"
+  },
+  "categoryQuickEmpty": {
+    "message": "Gözlegden bir kategoriýany şu ýere gysmak üçin mümkinçilik beriň."
+  },
+  "noCountriesMatch": {
+    "message": "Bu gözlegde hiç bir ýurt gabat gelenok."
+  },
+  "noCategoriesMatch": {
+    "message": "Bu gözleg hiç bir kategoriýa gabat gelenok."
+  },
+  "languageHeading": {
+    "message": "Dil"
+  },
+  "languageIntro": {
+    "message": "FitShield öz ekranlary üçin ulanýan dilini saýlaň. Diňe giňeltmek üçin brauzer diliňizi ýok edýär."
+  },
+  "languageSelectLabel": {
+    "message": "Dil görkeziň"
+  },
+  "languageHint": {
+    "message": "Dil gözläň we saýlaň. Brauzeriňizi yzarlamak üçin Ulgamy saýlaň."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Dil gözläň…"
+  },
+  "currentLanguageHead": {
+    "message": "Häzirki dil"
+  },
+  "languageUseButton": {
+    "message": "Ulany"
+  },
+  "languageActiveButton": {
+    "message": "Işjeň"
+  },
+  "languageSystem": {
+    "message": "Ulgam deslapky"
+  },
+  "languageSystemSub": {
+    "message": "Brauzeriňiziň diline eýeriň"
+  },
+  "languageEnglish": {
+    "message": "Iňlis"
+  },
+  "languageJapanese": {
+    "message": "Japaneseaponlar"
+  },
+  "languageChinese": {
+    "message": "Hytaý (plönekeýleşdirilen)"
+  },
+  "languageFrench": {
+    "message": "Fransuz"
+  },
+  "languageCantonese": {
+    "message": "Kanton"
+  },
+  "languageThai": {
+    "message": "Taý"
+  },
+  "languagePunjabi": {
+    "message": "Penjebi"
+  },
+  "languageTamil": {
+    "message": "Tamil"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "Hytaý (Adaty, Taýwan)"
+  },
+  "languageKorean": {
+    "message": "Koreýçe"
+  },
+  "languageHindi": {
+    "message": "Hindi"
+  },
+  "languageSpanishLatam": {
+    "message": "Ispan (Latyn Amerikasy)"
+  },
+  "languageSpanishSpain": {
+    "message": "Ispan (Ispaniýa)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrika"
+  },
+  "languageAlbanian": {
+    "message": "Alban"
+  },
+  "languageBasque": {
+    "message": "Bask"
+  },
+  "languageBelarusian": {
+    "message": "Belarus"
+  },
+  "languageBulgarian": {
+    "message": "Bolgar"
+  },
+  "languageCatalan": {
+    "message": "Katalan"
+  },
+  "languageCroatian": {
+    "message": "Horwatiýa"
+  },
+  "languageCzech": {
+    "message": "Çeh"
+  },
+  "languageDanish": {
+    "message": "Daniýaly"
+  },
+  "languageDutch": {
+    "message": "Gollandiýaly"
+  },
+  "languageEstonian": {
+    "message": "Eston"
+  },
+  "languageFinnish": {
+    "message": "Fin"
+  },
+  "languageGreek": {
+    "message": "Grek"
+  },
+  "languageHungarian": {
+    "message": "Wenger"
+  },
+  "languageIcelandic": {
+    "message": "Islandiýa"
+  },
+  "languageIrish": {
+    "message": "Irlandiýaly"
+  },
+  "languageItalian": {
+    "message": "Italýan"
+  },
+  "languageLatvian": {
+    "message": "Latwiýa"
+  },
+  "languageLithuanian": {
+    "message": "Litwa"
+  },
+  "languageMacedonian": {
+    "message": "Makedoniýa"
+  },
+  "languageMaltese": {
+    "message": "Malta"
+  },
+  "languageNorwegian": {
+    "message": "Norweg"
+  },
+  "languagePolish": {
+    "message": "Polýak"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Portugaliýa (Portugaliýa)"
+  },
+  "languageRomanian": {
+    "message": "Rumyn"
+  },
+  "languageRussian": {
+    "message": "Rus"
+  },
+  "languageSerbian": {
+    "message": "Serb"
+  },
+  "languageSlovak": {
+    "message": "Slowakiýa"
+  },
+  "languageSlovenian": {
+    "message": "Sloweniýa"
+  },
+  "languageSwedish": {
+    "message": "Şwesiýa"
+  },
+  "languageTurkish": {
+    "message": "Türk"
+  },
+  "languageUkrainian": {
+    "message": "Ukrain"
+  },
+  "languageWelsh": {
+    "message": "Uels"
+  },
+  "languageBengali": {
+    "message": "Bengali"
+  },
+  "languageGujarati": {
+    "message": "Gujarati"
+  },
+  "languageKannada": {
+    "message": "Kannada"
+  },
+  "languageMalayalam": {
+    "message": "Malaýalam"
+  },
+  "languageMarathi": {
+    "message": "Marathi"
+  },
+  "languageNepali": {
+    "message": "Nepali"
+  },
+  "languageOdia": {
+    "message": "Odia"
+  },
+  "languageSinhala": {
+    "message": "Sinhala"
+  },
+  "languageTelugu": {
+    "message": "Telugu"
+  },
+  "languageUrdu": {
+    "message": "Urdu"
+  },
+  "languageAssamese": {
+    "message": "Assamese"
+  },
+  "languageIndonesian": {
+    "message": "Indoneziýaly"
+  },
+  "languageMalay": {
+    "message": "Malaý"
+  },
+  "languageVietnamese": {
+    "message": "Wýetnamly"
+  },
+  "languageKhmer": {
+    "message": "Khmer"
+  },
+  "languageLao": {
+    "message": "Laos"
+  },
+  "languageBurmese": {
+    "message": "Birma (Mýanma)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filippinler / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Javaneseawan"
+  },
+  "languageSundanese": {
+    "message": "Sundanese"
+  },
+  "languageArabic": {
+    "message": "Arapça"
+  },
+  "languagePersian": {
+    "message": "Parsça (Parsça)"
+  },
+  "languageHebrew": {
+    "message": "Hebrewewreýçe"
+  },
+  "languageArmenian": {
+    "message": "Ermeni"
+  },
+  "languageGeorgian": {
+    "message": "Gürji"
+  },
+  "languageKazakh": {
+    "message": "Gazak"
+  },
+  "languageKyrgyz": {
+    "message": "Gyrgyzystan"
+  },
+  "languageMongolian": {
+    "message": "Mongol"
+  },
+  "languagePashto": {
+    "message": "Puştun"
+  },
+  "languageTajik": {
+    "message": "Täjik"
+  },
+  "languageTurkmen": {
+    "message": "Türkmenler"
+  },
+  "languageUyghur": {
+    "message": "Uýgur"
+  },
+  "languageUzbek": {
+    "message": "Özbek"
+  },
+  "noLanguagesMatch": {
+    "message": "Bu gözlegde hiç bir dil gabat gelenok."
+  },
+  "mbBlocking": {
+    "message": "Blokirlemek"
+  },
+  "mbBlock": {
+    "message": "Blok"
+  },
+  "mbOn": {
+    "message": "Işlediň"
+  },
+  "mbOff": {
+    "message": "Öçürilen"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Blokirlemek - dynmak üçin basyň"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Arakesme - blokirlemek üçin basyň"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Çalt girişden salgylanmany aýyryň"
+  },
+  "mbChipRemoveAria": {
+    "message": "$1 çalt girişden aýyryň"
+  },
+  "themeHeading": {
+    "message": "Mowzuk"
+  },
+  "resetThemeButton": {
+    "message": "Mowzugy täzeden düzmek"
+  },
+  "systemThemeLabel": {
+    "message": "Ulgam mowzugy"
+  },
+  "systemThemeHint": {
+    "message": "Enjamyň ileri tutulmagy ýa-da kesgitlenen tertip."
+  },
+  "themeSystem": {
+    "message": "Ulgam"
+  },
+  "themeLight": {
+    "message": "Lightagtylyk"
+  },
+  "themeDark": {
+    "message": "Garaňky"
+  },
+  "themeBackground": {
+    "message": "Düşündiriş"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "Serhet"
+  },
+  "themeText": {
+    "message": "Tekst"
+  },
+  "themeMutedText": {
+    "message": "Öçürilen tekst"
+  },
+  "themeAccent": {
+    "message": "Accent"
+  },
+  "cornerRadiusLabel": {
+    "message": "Burç radiusy"
+  },
+  "popupWidthLabel": {
+    "message": "Açylýan giňlik"
+  },
+  "supportFooterText": {
+    "message": "FitShield gereksiz gowşuryş sargytlaryndan gaça durmaga kömek eden bolsa, goşmaça goldaw blokirlemeleriň we resminamalaryň hereket etmegine kömek edýär."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Търсене сайт name or URL"
+  },
+  "searchButton": {
+    "message": "Търсене"
+  },
+  "clearButton": {
+    "message": "Изчисти"
+  },
+  "openButton": {
+    "message": "Отвори"
+  },
+  "addButton": {
+    "message": "Добави"
+  },
+  "removeButton": {
+    "message": "Премахни"
+  },
+  "viewBlocklistButton": {
+    "message": "View Блокирайlist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Продължи appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long сайтове stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom минути"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Блокиране will follow your daily график when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Текущ график: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "минута"
+  },
+  "unitMinutes": {
+    "message": "минути"
+  },
+  "unitSite": {
+    "message": "сайт"
+  },
+  "unitSites": {
+    "message": "сайтове"
+  },
+  "popupSettingsButton": {
+    "message": "Настройки"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield блокер"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every блокирай list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & категория блокирайing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Блокирай whole groups of сайтове by държава or food категория."
+  },
+  "popupDeliveryLabel": {
+    "message": "Сайтове за доставка"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Сайтове за бързо хранене"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "Персонализирани URL адреси"
+  },
+  "popupCustomSubtitle": {
+    "message": "Добави your own сайтове and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Блокирай only during графикd hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Използвайful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All сайтове are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Блокер is on, but every individual сайт is disabled. Отвори Настройки to turn some сайтове back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Блокиране resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Блокер is armed, but outside графикd hours. It will блокирай from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 сайтове за доставка enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 сайтове за бързо хранене enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one минута."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the сайт."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the сайт for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Назад"
+  },
+  "warningLockedButton": {
+    "message": "Заключено"
+  },
+  "warningContinueButton": {
+    "message": "Продължи"
+  },
+  "warningOpeningButton": {
+    "message": "Отваряне..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the сайт now. The блокер will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the сайт. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Настройки"
+  },
+  "blockingOptionsHeading": {
+    "message": "Блокиране Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Планирани часове"
+  },
+  "scheduledHoursHint": {
+    "message": "Блокирай only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Блокирайlist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual сайтове on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Сайтове за доставка"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Сайтове за бързо хранене"
+  },
+  "customUrlsHeading": {
+    "message": "Персонализирани URL адреси"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Добави your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Покажи Sites"
+  },
+  "hideSitesButton": {
+    "message": "Скрий Sites"
+  },
+  "showUrlsButton": {
+    "message": "Покажи URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Скрий URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Активирай delivery сайт блокирайing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Активирай fast food сайт блокирайing"
+  },
+  "customToggleTitle": {
+    "message": "Активирай custom URL блокирайing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Добави a custom блокирайed URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and блокирайed across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No персонализирани URL адреси added yet."
+  },
+  "customNoMatch": {
+    "message": "No персонализирани URL адреси match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No сайтове за доставка match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No сайтове за бързо хранене match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the блокирайlist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom блокирайlist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom блокирайlist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Блокиране"
+  },
+  "metadataIntro": {
+    "message": "Блокирай whole groups of сайтове by the държава a brand operates in or the kind of food it serves. These блокирайs add to your existing сайт and custom-URL блокирайs."
+  },
+  "blockByCountryLabel": {
+    "message": "Блокирай by държава"
+  },
+  "blockByCountryHint": {
+    "message": "Търсене by държава name or code, e.g. \"United\" or \"US\". Enabling a държава блокирайs every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Търсене държави…"
+  },
+  "quickAccessCountries": {
+    "message": "Бърз достъп — държави"
+  },
+  "countryQuickEmpty": {
+    "message": "Активирай a държава from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Блокирай by категория"
+  },
+  "blockByCategoryHint": {
+    "message": "Търсене категории like burger, pizza, or coffee. Specialties are searchable too; the блокирай applies by категория."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Търсене категории…"
+  },
+  "quickAccessCategories": {
+    "message": "Бърз достъп — категории"
+  },
+  "categoryQuickEmpty": {
+    "message": "Активирай a категория from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No държави match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No категории match that search."
+  },
+  "languageHeading": {
+    "message": "Език"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Търсене for a language and select it. Choose Система default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Търсене на езици…"
+  },
+  "currentLanguageHead": {
+    "message": "Текущ language"
+  },
+  "languageUseButton": {
+    "message": "Използвай"
+  },
+  "languageActiveButton": {
+    "message": "Активен"
+  },
+  "languageSystem": {
+    "message": "Система default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Няма езици, които съвпадат с това търсене."
+  },
+  "mbBlocking": {
+    "message": "Блокиране"
+  },
+  "mbBlock": {
+    "message": "Блокирай"
+  },
+  "mbOn": {
+    "message": "Вкл"
+  },
+  "mbOff": {
+    "message": "Изкл"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Блокиране — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to блокирай"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Премахни shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Премахни $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Тема"
+  },
+  "resetThemeButton": {
+    "message": "Нулирай Тема"
+  },
+  "systemThemeLabel": {
+    "message": "Система theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Система"
+  },
+  "themeLight": {
+    "message": "Светла"
+  },
+  "themeDark": {
+    "message": "Тъмна"
+  },
+  "themeBackground": {
+    "message": "Фон"
+  },
+  "themePanel": {
+    "message": "Панел"
+  },
+  "themeBorder": {
+    "message": "Граница"
+  },
+  "themeText": {
+    "message": "Текст"
+  },
+  "themeMutedText": {
+    "message": "Приглушен текст"
+  },
+  "themeAccent": {
+    "message": "Акцент"
+  },
+  "cornerRadiusLabel": {
+    "message": "Радиус на ъгъла"
+  },
+  "popupWidthLabel": {
+    "message": "Ширина на изскачащия прозорец"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep блокирайlists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

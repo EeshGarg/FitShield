@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Soek werf name or URL"
+  },
+  "searchButton": {
+    "message": "Soek"
+  },
+  "clearButton": {
+    "message": "Maak skoon"
+  },
+  "openButton": {
+    "message": "Open"
+  },
+  "addButton": {
+    "message": "Voeg by"
+  },
+  "removeButton": {
+    "message": "Verwyder"
+  },
+  "viewBlocklistButton": {
+    "message": "View Blokkeerlist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Gaan voort appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long werwe stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom minuut"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Blokkering will follow your daily skedule when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Huidige skedule: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "minuut"
+  },
+  "unitMinutes": {
+    "message": "minuut"
+  },
+  "unitSite": {
+    "message": "werf"
+  },
+  "unitSites": {
+    "message": "werwe"
+  },
+  "popupSettingsButton": {
+    "message": "Instellings"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blokkeerder"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every blokkeer list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & kategorie blokkeering"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Blokkeer whole groups of werwe by land or food kategorie."
+  },
+  "popupDeliveryLabel": {
+    "message": "Afleweringswerwe"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Kitskoswerwe"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "Pasgemaakte URL's"
+  },
+  "popupCustomSubtitle": {
+    "message": "Voeg by your own werwe and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Blokkeer only during skeduled hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Gebruikful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All werwe are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Blokkeerder is on, but every individual werf is disabled. Open Instellings to turn some werwe back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Blokkering resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blokkeerder is armed, but outside skeduled hours. It will blokkeer from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 afleweringswerwe enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 kitskoswerwe enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one minuut."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the werf."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the werf for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Gaan terug"
+  },
+  "warningLockedButton": {
+    "message": "Gesluit"
+  },
+  "warningContinueButton": {
+    "message": "Gaan voort"
+  },
+  "warningOpeningButton": {
+    "message": "Maak oop..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the werf now. The blokkeerder will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the werf. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Instellings"
+  },
+  "blockingOptionsHeading": {
+    "message": "Blokkering Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Geskeduleerde ure"
+  },
+  "scheduledHoursHint": {
+    "message": "Blokkeer only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Blokkeerlist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual werwe on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Afleweringswerwe"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Kitskoswerwe"
+  },
+  "customUrlsHeading": {
+    "message": "Pasgemaakte URL's"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Voeg by your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Wys Sites"
+  },
+  "hideSitesButton": {
+    "message": "Versteek Sites"
+  },
+  "showUrlsButton": {
+    "message": "Wys URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Versteek URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Aktiveer delivery werf blokkeering"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Aktiveer fast food werf blokkeering"
+  },
+  "customToggleTitle": {
+    "message": "Aktiveer custom URL blokkeering"
+  },
+  "addCustomUrlLabel": {
+    "message": "Voeg by a custom blokkeered URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and blokkeered across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No pasgemaakte URL's added yet."
+  },
+  "customNoMatch": {
+    "message": "No pasgemaakte URL's match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No afleweringswerwe match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No kitskoswerwe match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the blokkeerlist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom blokkeerlist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom blokkeerlist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Blokkering"
+  },
+  "metadataIntro": {
+    "message": "Blokkeer whole groups of werwe by the land a brand operates in or the kind of food it serves. These blokkeers add to your existing werf and custom-URL blokkeers."
+  },
+  "blockByCountryLabel": {
+    "message": "Blokkeer by land"
+  },
+  "blockByCountryHint": {
+    "message": "Soek by land name or code, e.g. \"United\" or \"US\". Enabling a land blokkeers every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Soek lande…"
+  },
+  "quickAccessCountries": {
+    "message": "Vinnige toegang — lande"
+  },
+  "countryQuickEmpty": {
+    "message": "Aktiveer a land from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Blokkeer by kategorie"
+  },
+  "blockByCategoryHint": {
+    "message": "Soek kategorieë like burger, pizza, or coffee. Specialties are searchable too; the blokkeer applies by kategorie."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Soek kategorieë…"
+  },
+  "quickAccessCategories": {
+    "message": "Vinnige toegang — kategorieë"
+  },
+  "categoryQuickEmpty": {
+    "message": "Aktiveer a kategorie from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No lande match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No kategorieë match that search."
+  },
+  "languageHeading": {
+    "message": "Taal"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Soek for a language and select it. Choose Stelsel default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Soek tale…"
+  },
+  "currentLanguageHead": {
+    "message": "Huidige language"
+  },
+  "languageUseButton": {
+    "message": "Gebruik"
+  },
+  "languageActiveButton": {
+    "message": "Aktief"
+  },
+  "languageSystem": {
+    "message": "Stelsel default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Geen tale pas by daardie soektog nie."
+  },
+  "mbBlocking": {
+    "message": "Blokkering"
+  },
+  "mbBlock": {
+    "message": "Blokkeer"
+  },
+  "mbOn": {
+    "message": "Aan"
+  },
+  "mbOff": {
+    "message": "Af"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Blokkering — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to blokkeer"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Verwyder shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Verwyder $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Tema"
+  },
+  "resetThemeButton": {
+    "message": "Herstel Tema"
+  },
+  "systemThemeLabel": {
+    "message": "Stelsel theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Stelsel"
+  },
+  "themeLight": {
+    "message": "Lig"
+  },
+  "themeDark": {
+    "message": "Donker"
+  },
+  "themeBackground": {
+    "message": "Agtergrond"
+  },
+  "themePanel": {
+    "message": "Paneel"
+  },
+  "themeBorder": {
+    "message": "Rand"
+  },
+  "themeText": {
+    "message": "Teks"
+  },
+  "themeMutedText": {
+    "message": "Gedempte teks"
+  },
+  "themeAccent": {
+    "message": "Aksent"
+  },
+  "cornerRadiusLabel": {
+    "message": "Hoekradius"
+  },
+  "popupWidthLabel": {
+    "message": "Opspringwydte"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blokkeerlists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

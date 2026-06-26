@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "음식 배달과 패스트푸드 주문을 의식하도록 도와주는 FitShield 브라우저 확장 프로그램입니다."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "사이트 이름 또는 URL 검색"
+  },
+  "searchButton": {
+    "message": "검색"
+  },
+  "clearButton": {
+    "message": "지우기"
+  },
+  "openButton": {
+    "message": "열기"
+  },
+  "addButton": {
+    "message": "추가"
+  },
+  "removeButton": {
+    "message": "제거"
+  },
+  "viewBlocklistButton": {
+    "message": "차단 목록 보기"
+  },
+  "timerDurationLabel": {
+    "message": "타이머 시간"
+  },
+  "timerDurationHint": {
+    "message": "계속이 나타나기 전 카운트다운을 조정합니다."
+  },
+  "customSecondsLabel": {
+    "message": "사용자 지정 초"
+  },
+  "siteOpenTimeLabel": {
+    "message": "사이트 열림 시간"
+  },
+  "siteOpenTimeHint": {
+    "message": "타이머가 끝난 후 사이트를 열어 두는 시간을 선택합니다."
+  },
+  "customMinutesLabel": {
+    "message": "사용자 지정 분"
+  },
+  "startTimeLabel": {
+    "message": "시작 시간"
+  },
+  "endTimeLabel": {
+    "message": "종료 시간"
+  },
+  "scheduleDefaultSummary": {
+    "message": "사용 설정하면 매일 일정에 따라 차단합니다."
+  },
+  "currentScheduleSummary": {
+    "message": "현재 일정: $1."
+  },
+  "everyDaySuffix": {
+    "message": " (매일)"
+  },
+  "scheduleRange": {
+    "message": "$1 ~ $2"
+  },
+  "unitMinute": {
+    "message": "분"
+  },
+  "unitMinutes": {
+    "message": "분"
+  },
+  "unitSite": {
+    "message": "개 사이트"
+  },
+  "unitSites": {
+    "message": "개 사이트"
+  },
+  "popupSettingsButton": {
+    "message": "설정"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield 차단기"
+  },
+  "popupBlockerSubtitle": {
+    "message": "모든 차단 목록을 한 번에 켜거나 끕니다."
+  },
+  "popupMetadataLabel": {
+    "message": "국가 및 카테고리 차단"
+  },
+  "popupMetadataSubtitle": {
+    "message": "국가나 음식 카테고리별로 사이트를 한꺼번에 차단합니다."
+  },
+  "popupDeliveryLabel": {
+    "message": "배달 사이트"
+  },
+  "popupDeliveryDefault": {
+    "message": "배달 주문 도메인."
+  },
+  "popupFastFoodLabel": {
+    "message": "패스트푸드 사이트"
+  },
+  "popupFastFoodDefault": {
+    "message": "주요 체인 주문 도메인."
+  },
+  "popupCustomLabel": {
+    "message": "사용자 지정 URL"
+  },
+  "popupCustomSubtitle": {
+    "message": "자신의 사이트를 추가하고 개별적으로 비활성화할 수 있습니다."
+  },
+  "popupScheduleLabel": {
+    "message": "지정한 시간에만 차단"
+  },
+  "popupScheduleSubtitle": {
+    "message": "식비 관리, 심야 주문, 근무 시간 등에 유용합니다."
+  },
+  "statusInactive": {
+    "message": "비활성 상태입니다. 모든 사이트에 접근할 수 있습니다."
+  },
+  "statusAllDisabled": {
+    "message": "차단기는 켜져 있지만 모든 개별 사이트가 비활성화되어 있습니다. 설정을 열어 일부 사이트를 다시 켜세요."
+  },
+  "statusBypassActive": {
+    "message": "임시 통행증이 활성화되어 있습니다. $1 후에 차단이 다시 시작됩니다."
+  },
+  "statusOutsideSchedule": {
+    "message": "차단기가 준비되었지만 지정 시간이 아닙니다. $1부터 차단합니다."
+  },
+  "statusShieldUp": {
+    "message": "보호 작동 중. 카운트다운 $1초, 통행 $2 $3."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "배달 사이트 $2개 중 $1개가 활성화되었습니다."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "패스트푸드 사이트 $2개 중 $1개가 활성화되었습니다."
+  },
+  "searchMatchSuffix": {
+    "message": " $1개가 검색과 일치합니다."
+  },
+  "warningPageTitle": {
+    "message": "잠시 숨 고르기"
+  },
+  "warningEyebrow": {
+    "message": "FitShield 점검"
+  },
+  "warningTitle": {
+    "message": "1분만 멈춰 보세요."
+  },
+  "warningIntro": {
+    "message": "주문하기 전에 잠시 점검해 보세요. 배고픔, 편리함, 스트레스, 습관은 그 순간 비슷하게 느껴질 수 있습니다."
+  },
+  "warningTriggeredBy": {
+    "message": "지금 $1에서 주문하려고 합니다."
+  },
+  "warningHintDefault": {
+    "message": "타이머가 끝나면 사이트로 계속 이동할 수 있습니다."
+  },
+  "warningHintLocked": {
+    "message": "타이머가 끝나면 $1 $2 동안 사이트로 계속 이동할 수 있습니다."
+  },
+  "warningBackButton": {
+    "message": "뒤로"
+  },
+  "warningLockedButton": {
+    "message": "잠김"
+  },
+  "warningContinueButton": {
+    "message": "계속"
+  },
+  "warningOpeningButton": {
+    "message": "여는 중..."
+  },
+  "warningUnlockHint": {
+    "message": "이제 사이트를 방문할 수 있습니다. $1 $2 후에 차단기가 자동으로 다시 켜집니다."
+  },
+  "warningErrorHint": {
+    "message": "사이트를 여는 중 문제가 발생했습니다. 다시 시도해 주세요."
+  },
+  "settingsTitle": {
+    "message": "FitShield 설정"
+  },
+  "blockingOptionsHeading": {
+    "message": "차단 옵션"
+  },
+  "scheduledHoursLabel": {
+    "message": "예약 시간"
+  },
+  "scheduledHoursHint": {
+    "message": "매일 지정한 시간대에만 차단합니다."
+  },
+  "customizeBlocklistHeading": {
+    "message": "차단 목록 사용자 지정"
+  },
+  "customizeBlocklistIntro": {
+    "message": "사용할 기본 그룹을 선택하고, 사이트를 개별적으로 켜고 끄며, 자신의 도메인을 추가하세요."
+  },
+  "deliverySitesHeading": {
+    "message": "배달 사이트"
+  },
+  "fastFoodSitesHeading": {
+    "message": "패스트푸드 사이트"
+  },
+  "customUrlsHeading": {
+    "message": "사용자 지정 URL"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "자신의 도메인을 추가하고 개별적으로 비활성화할 수 있습니다."
+  },
+  "showSitesButton": {
+    "message": "사이트 표시"
+  },
+  "hideSitesButton": {
+    "message": "사이트 숨기기"
+  },
+  "showUrlsButton": {
+    "message": "URL 표시"
+  },
+  "hideUrlsButton": {
+    "message": "URL 숨기기"
+  },
+  "deliveryToggleTitle": {
+    "message": "배달 사이트 차단 사용"
+  },
+  "fastFoodToggleTitle": {
+    "message": "패스트푸드 사이트 차단 사용"
+  },
+  "customToggleTitle": {
+    "message": "사용자 지정 URL 차단 사용"
+  },
+  "addCustomUrlLabel": {
+    "message": "차단할 사용자 지정 URL 추가"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com 또는 https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "항목은 도메인으로 정규화되어 모든 페이지에서 차단됩니다."
+  },
+  "customEmptyDefault": {
+    "message": "아직 추가된 사용자 지정 URL이 없습니다."
+  },
+  "customNoMatch": {
+    "message": "이 검색과 일치하는 사용자 지정 URL이 없습니다."
+  },
+  "emptyDeliverySearch": {
+    "message": "이 검색과 일치하는 배달 사이트가 없습니다."
+  },
+  "emptyFastFoodSearch": {
+    "message": "이 검색과 일치하는 패스트푸드 사이트가 없습니다."
+  },
+  "noticeMatched": {
+    "message": "$1 $2이(가) \"$3\"과(와) 일치합니다."
+  },
+  "invalidUrlNotice": {
+    "message": "해당 URL이 아직 유효하지 않은 것 같습니다. example.com 같은 도메인을 입력해 보세요."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1은(는) 이미 차단 목록에 있어 다시 사용 설정되었습니다."
+  },
+  "addedToBlocklist": {
+    "message": "$1을(를) 사용자 지정 차단 목록에 추가했습니다."
+  },
+  "removedFromBlocklist": {
+    "message": "$1을(를) 사용자 지정 차단 목록에서 제거했습니다."
+  },
+  "metadataHeading": {
+    "message": "국가 및 카테고리 차단"
+  },
+  "metadataIntro": {
+    "message": "브랜드가 운영하는 국가나 제공하는 음식 종류별로 사이트를 한꺼번에 차단합니다. 이 차단은 기존 사이트 및 사용자 지정 URL 차단에 추가됩니다."
+  },
+  "blockByCountryLabel": {
+    "message": "국가별 차단"
+  },
+  "blockByCountryHint": {
+    "message": "국가 이름이나 코드로 검색하세요(예: \"United\" 또는 \"US\"). 국가를 사용 설정하면 해당 국가에서 운영하는 모든 브랜드가 차단됩니다."
+  },
+  "countrySearchPlaceholder": {
+    "message": "국가 검색…"
+  },
+  "quickAccessCountries": {
+    "message": "빠른 접근 — 국가"
+  },
+  "countryQuickEmpty": {
+    "message": "검색에서 국가를 사용 설정하면 여기에 고정됩니다."
+  },
+  "blockByCategoryLabel": {
+    "message": "카테고리별 차단"
+  },
+  "blockByCategoryHint": {
+    "message": "burger, pizza, coffee 같은 카테고리를 검색하세요. 전문 메뉴도 검색할 수 있지만 차단은 카테고리 단위로 적용됩니다."
+  },
+  "categorySearchPlaceholder": {
+    "message": "카테고리 검색…"
+  },
+  "quickAccessCategories": {
+    "message": "빠른 접근 — 카테고리"
+  },
+  "categoryQuickEmpty": {
+    "message": "검색에서 카테고리를 사용 설정하면 여기에 고정됩니다."
+  },
+  "noCountriesMatch": {
+    "message": "해당 검색과 일치하는 국가가 없습니다."
+  },
+  "noCategoriesMatch": {
+    "message": "해당 검색과 일치하는 카테고리가 없습니다."
+  },
+  "languageHeading": {
+    "message": "언어"
+  },
+  "languageIntro": {
+    "message": "FitShield 화면에 사용할 언어를 선택하세요. 이는 확장 프로그램에 한해 브라우저 언어를 재정의합니다."
+  },
+  "languageSelectLabel": {
+    "message": "표시 언어"
+  },
+  "languageHint": {
+    "message": "언어를 검색한 후 선택하세요. 브라우저를 따르려면 시스템 기본값을 선택하세요."
+  },
+  "languageSearchPlaceholder": {
+    "message": "언어 검색…"
+  },
+  "currentLanguageHead": {
+    "message": "현재 언어"
+  },
+  "languageUseButton": {
+    "message": "사용"
+  },
+  "languageActiveButton": {
+    "message": "사용 중"
+  },
+  "languageSystem": {
+    "message": "시스템 기본값"
+  },
+  "languageSystemSub": {
+    "message": "브라우저 언어를 따름"
+  },
+  "languageEnglish": {
+    "message": "영어"
+  },
+  "languageJapanese": {
+    "message": "일본어"
+  },
+  "languageChinese": {
+    "message": "중국어(간체)"
+  },
+  "languageFrench": {
+    "message": "프랑스어"
+  },
+  "languageCantonese": {
+    "message": "광둥어"
+  },
+  "languageThai": {
+    "message": "태국어"
+  },
+  "languagePunjabi": {
+    "message": "펀자브어"
+  },
+  "languageTamil": {
+    "message": "타밀어"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "중국어(번체, 대만)"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "힌디어"
+  },
+  "languageSpanishLatam": {
+    "message": "스페인어(라틴 아메리카)"
+  },
+  "languageSpanishSpain": {
+    "message": "스페인어(스페인)"
+  },
+  "noLanguagesMatch": {
+    "message": "해당 검색과 일치하는 언어가 없습니다."
+  },
+  "mbBlocking": {
+    "message": "차단 중"
+  },
+  "mbBlock": {
+    "message": "차단"
+  },
+  "mbOn": {
+    "message": "켜짐"
+  },
+  "mbOff": {
+    "message": "꺼짐"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "차단 중 — 클릭하여 일시중지"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "일시중지됨 — 클릭하여 차단"
+  },
+  "mbChipRemoveTitle": {
+    "message": "빠른 접근에서 바로가기 제거"
+  },
+  "mbChipRemoveAria": {
+    "message": "빠른 접근에서 $1 제거"
+  },
+  "themeHeading": {
+    "message": "테마"
+  },
+  "resetThemeButton": {
+    "message": "테마 초기화"
+  },
+  "systemThemeLabel": {
+    "message": "시스템 테마"
+  },
+  "systemThemeHint": {
+    "message": "기기 환경설정 또는 고정 모드."
+  },
+  "themeSystem": {
+    "message": "시스템"
+  },
+  "themeLight": {
+    "message": "라이트"
+  },
+  "themeDark": {
+    "message": "다크"
+  },
+  "themeBackground": {
+    "message": "배경"
+  },
+  "themePanel": {
+    "message": "패널"
+  },
+  "themeBorder": {
+    "message": "테두리"
+  },
+  "themeText": {
+    "message": "텍스트"
+  },
+  "themeMutedText": {
+    "message": "보조 텍스트"
+  },
+  "themeAccent": {
+    "message": "강조"
+  },
+  "cornerRadiusLabel": {
+    "message": "모서리 둥글기"
+  },
+  "popupWidthLabel": {
+    "message": "팝업 너비"
+  },
+  "supportFooterText": {
+    "message": "FitShield가 불필요한 배달 주문을 피하는 데 도움이 되었다면, 자발적인 후원이 차단 목록과 문서 유지에 도움이 됩니다."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Kërko faqe name or URL"
+  },
+  "searchButton": {
+    "message": "Kërko"
+  },
+  "clearButton": {
+    "message": "Pastro"
+  },
+  "openButton": {
+    "message": "Hap"
+  },
+  "addButton": {
+    "message": "Shto"
+  },
+  "removeButton": {
+    "message": "Hiq"
+  },
+  "viewBlocklistButton": {
+    "message": "View Bllokolist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Vazhdo appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long faqe stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom minuta"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Bllokimi will follow your daily orari when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Aktuale orari: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "minutë"
+  },
+  "unitMinutes": {
+    "message": "minuta"
+  },
+  "unitSite": {
+    "message": "faqe"
+  },
+  "unitSites": {
+    "message": "faqe"
+  },
+  "popupSettingsButton": {
+    "message": "Cilësimet"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield bllokuesi"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every blloko list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & kategori bllokoing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Blloko whole groups of faqe by shtet or food kategori."
+  },
+  "popupDeliveryLabel": {
+    "message": "Faqe dërgese"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Faqe fast food"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "URL të personalizuara"
+  },
+  "popupCustomSubtitle": {
+    "message": "Shto your own faqe and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Blloko only during orarid hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Përdorful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All faqe are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Bllokuesi is on, but every individual faqe is disabled. Hap Cilësimet to turn some faqe back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Bllokimi resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Bllokuesi is armed, but outside orarid hours. It will blloko from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 faqe dërgese enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 faqe fast food enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one minutë."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the faqe."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the faqe for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Kthehu"
+  },
+  "warningLockedButton": {
+    "message": "I kyçur"
+  },
+  "warningContinueButton": {
+    "message": "Vazhdo"
+  },
+  "warningOpeningButton": {
+    "message": "Po hapet..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the faqe now. The bllokuesi will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the faqe. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Cilësimet"
+  },
+  "blockingOptionsHeading": {
+    "message": "Bllokimi Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Orë të planifikuara"
+  },
+  "scheduledHoursHint": {
+    "message": "Blloko only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Bllokolist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual faqe on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Faqe dërgese"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Faqe fast food"
+  },
+  "customUrlsHeading": {
+    "message": "URL të personalizuara"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Shto your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Shfaq Sites"
+  },
+  "hideSitesButton": {
+    "message": "Fshih Sites"
+  },
+  "showUrlsButton": {
+    "message": "Shfaq URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Fshih URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Aktivizo delivery faqe bllokoing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Aktivizo fast food faqe bllokoing"
+  },
+  "customToggleTitle": {
+    "message": "Aktivizo custom URL bllokoing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Shto a custom bllokoed URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and bllokoed across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No URL të personalizuara added yet."
+  },
+  "customNoMatch": {
+    "message": "No URL të personalizuara match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No faqe dërgese match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No faqe fast food match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the bllokolist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom bllokolist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom bllokolist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Bllokimi"
+  },
+  "metadataIntro": {
+    "message": "Blloko whole groups of faqe by the shtet a brand operates in or the kind of food it serves. These bllokos add to your existing faqe and custom-URL bllokos."
+  },
+  "blockByCountryLabel": {
+    "message": "Blloko by shtet"
+  },
+  "blockByCountryHint": {
+    "message": "Kërko by shtet name or code, e.g. \"United\" or \"US\". Enabling a shtet bllokos every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Kërko shtete…"
+  },
+  "quickAccessCountries": {
+    "message": "Qasje e shpejtë — shtete"
+  },
+  "countryQuickEmpty": {
+    "message": "Aktivizo a shtet from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Blloko by kategori"
+  },
+  "blockByCategoryHint": {
+    "message": "Kërko kategori like burger, pizza, or coffee. Specialties are searchable too; the blloko applies by kategori."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Kërko kategori…"
+  },
+  "quickAccessCategories": {
+    "message": "Qasje e shpejtë — kategori"
+  },
+  "categoryQuickEmpty": {
+    "message": "Aktivizo a kategori from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No shtete match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No kategori match that search."
+  },
+  "languageHeading": {
+    "message": "Gjuha"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Kërko for a language and select it. Choose Sistemi default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Kërko gjuhë…"
+  },
+  "currentLanguageHead": {
+    "message": "Aktuale language"
+  },
+  "languageUseButton": {
+    "message": "Përdor"
+  },
+  "languageActiveButton": {
+    "message": "Aktive"
+  },
+  "languageSystem": {
+    "message": "Sistemi default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Asnjë gjuhë nuk përputhet me këtë kërkim."
+  },
+  "mbBlocking": {
+    "message": "Bllokimi"
+  },
+  "mbBlock": {
+    "message": "Blloko"
+  },
+  "mbOn": {
+    "message": "Aktiv"
+  },
+  "mbOff": {
+    "message": "Joaktiv"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Bllokimi — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to blloko"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Hiq shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Hiq $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Tema"
+  },
+  "resetThemeButton": {
+    "message": "Rivendos Tema"
+  },
+  "systemThemeLabel": {
+    "message": "Sistemi theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Sistemi"
+  },
+  "themeLight": {
+    "message": "E hapur"
+  },
+  "themeDark": {
+    "message": "E errët"
+  },
+  "themeBackground": {
+    "message": "Sfond"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "Kufi"
+  },
+  "themeText": {
+    "message": "Tekst"
+  },
+  "themeMutedText": {
+    "message": "Tekst i zbehtë"
+  },
+  "themeAccent": {
+    "message": "Theks"
+  },
+  "cornerRadiusLabel": {
+    "message": "Rrezja e qoshes"
+  },
+  "popupWidthLabel": {
+    "message": "Gjerësia e dritares"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep bllokolists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

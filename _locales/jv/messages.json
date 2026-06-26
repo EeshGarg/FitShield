@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "Ekstensi browser FitShield sing mbantu sampeyan tetep eling babagan pangiriman panganan lan pesenan panganan cepet."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Telusuri jeneng situs utawa URL"
+  },
+  "searchButton": {
+    "message": "Nggoleki"
+  },
+  "clearButton": {
+    "message": "Cetha"
+  },
+  "openButton": {
+    "message": "Mbukak"
+  },
+  "addButton": {
+    "message": "Tambah"
+  },
+  "removeButton": {
+    "message": "Mbusak"
+  },
+  "viewBlocklistButton": {
+    "message": "Ndeleng Blocklist"
+  },
+  "timerDurationLabel": {
+    "message": "Durasi wektu"
+  },
+  "timerDurationHint": {
+    "message": "Setel countdown sadurunge Terusake katon."
+  },
+  "customSecondsLabel": {
+    "message": "Detik khusus"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Wektu mbukak situs"
+  },
+  "siteOpenTimeHint": {
+    "message": "Pilih suwene situs tetep mbukak sawise wektu rampung."
+  },
+  "customMinutesLabel": {
+    "message": "Menit khusus"
+  },
+  "startTimeLabel": {
+    "message": "Wektu wiwitan"
+  },
+  "endTimeLabel": {
+    "message": "wektu pungkasan"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Pamblokiran bakal ngetutake jadwal saben dina nalika iki diaktifake."
+  },
+  "currentScheduleSummary": {
+    "message": "Jadwal saiki: $1."
+  },
+  "everyDaySuffix": {
+    "message": " saben dina"
+  },
+  "scheduleRange": {
+    "message": "$1 kanggo $2"
+  },
+  "unitMinute": {
+    "message": "menit"
+  },
+  "unitMinutes": {
+    "message": "menit"
+  },
+  "unitSite": {
+    "message": "situs"
+  },
+  "unitSites": {
+    "message": "situs"
+  },
+  "popupSettingsButton": {
+    "message": "Setelan"
+  },
+  "popupBlockerTitle": {
+    "message": "Pamblokir FitShield"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Nguripake utawa mateni saben dhaptar blokir."
+  },
+  "popupMetadataLabel": {
+    "message": "Pamblokiran negara & kategori"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Blokir kabeh klompok situs miturut negara utawa kategori panganan."
+  },
+  "popupDeliveryLabel": {
+    "message": "Situs pangiriman"
+  },
+  "popupDeliveryDefault": {
+    "message": "Domain pesenan pangiriman."
+  },
+  "popupFastFoodLabel": {
+    "message": "situs panganan cepet"
+  },
+  "popupFastFoodDefault": {
+    "message": "Domain pesenan chain utama."
+  },
+  "popupCustomLabel": {
+    "message": "URL khusus"
+  },
+  "popupCustomSubtitle": {
+    "message": "Tambahake situs sampeyan dhewe lan mateni dhewe-dhewe."
+  },
+  "popupScheduleLabel": {
+    "message": "Blokir mung sajrone jam sing dijadwalake"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Migunani kanggo anggaran dhaharan, pesenan ing wayah wengi, utawa jam kerja."
+  },
+  "statusInactive": {
+    "message": "Ora aktif. Kabeh situs bisa diakses."
+  },
+  "statusAllDisabled": {
+    "message": "Blocker aktif, nanging saben situs dipateni. Bukak Setelan kanggo nguripake sawetara situs maneh."
+  },
+  "statusBypassActive": {
+    "message": "Pass sementara aktif. Watesan resume ing $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blocker bersenjata, nanging ing njaba jam sing dijadwalake. Iku bakal mblokir saka $1."
+  },
+  "statusShieldUp": {
+    "message": "Tameng munggah. $1 detik countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 saka $2 situs pangiriman diaktifake."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 saka $2 situs panganan cepet aktif."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 cocog karo panelusuran."
+  },
+  "warningPageTitle": {
+    "message": "Ambegan"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Priksa"
+  },
+  "warningTitle": {
+    "message": "Njupuk siji menit."
+  },
+  "warningIntro": {
+    "message": "Priksa sadurunge sampeyan pesen. Keluwen, penak, stres, lan pakulinan bisa uga padha ing wektu iki."
+  },
+  "warningTriggeredBy": {
+    "message": "Sampeyan arep supaya saka $1."
+  },
+  "warningHintDefault": {
+    "message": "Nalika wektu rampung, sampeyan bisa nerusake menyang situs."
+  },
+  "warningHintLocked": {
+    "message": "Nalika wektu ends, sampeyan bisa terus menyang situs kanggo $1 $2."
+  },
+  "warningBackButton": {
+    "message": "mulih"
+  },
+  "warningLockedButton": {
+    "message": "Dikunci"
+  },
+  "warningContinueButton": {
+    "message": "Terusake"
+  },
+  "warningOpeningButton": {
+    "message": "Bukak..."
+  },
+  "warningUnlockHint": {
+    "message": "Sampeyan bisa ngunjungi situs saiki. Pamblokir bakal bali kanthi otomatis sawise $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Ana sing salah nalika mbukak situs kasebut. Coba maneh."
+  },
+  "settingsTitle": {
+    "message": "Setelan FitShield"
+  },
+  "blockingOptionsHeading": {
+    "message": "Pilihan pamblokiran"
+  },
+  "scheduledHoursLabel": {
+    "message": "Jam sing dijadwalake"
+  },
+  "scheduledHoursHint": {
+    "message": "Blokir mung sajrone jendela wektu saben dina."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Kustomisasi Blocklist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Pilih klompok sing wis dibangun sing aktif, nguripake utawa mateni situs individu, lan tambahake domain sampeyan dhewe."
+  },
+  "deliverySitesHeading": {
+    "message": "Situs Pangiriman"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Situs Fast Food"
+  },
+  "customUrlsHeading": {
+    "message": "URL khusus"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Tambah domain sampeyan dhewe lan mateni siji-sijine."
+  },
+  "showSitesButton": {
+    "message": "Tampilake Sites"
+  },
+  "hideSitesButton": {
+    "message": "Singidaken Situs"
+  },
+  "showUrlsButton": {
+    "message": "Tampilake URL"
+  },
+  "hideUrlsButton": {
+    "message": "Singidaken URL"
+  },
+  "deliveryToggleTitle": {
+    "message": "Aktifake pamblokiran situs pangiriman"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Aktifake pamblokiran situs panganan cepet"
+  },
+  "customToggleTitle": {
+    "message": "Aktifake pamblokiran URL khusus"
+  },
+  "addCustomUrlLabel": {
+    "message": "Tambah URL sing diblokir khusus"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com utawa https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entri dinormalisasi menyang domain lan diblokir ing kabeh kaca."
+  },
+  "customEmptyDefault": {
+    "message": "Durung ana URL khusus sing ditambahake."
+  },
+  "customNoMatch": {
+    "message": "Ora ana URL khusus sing cocog karo panelusuran iki."
+  },
+  "emptyDeliverySearch": {
+    "message": "Ora ana situs pangiriman sing cocog karo panelusuran iki."
+  },
+  "emptyFastFoodSearch": {
+    "message": "Ora ana situs panganan cepet sing cocog karo panelusuran iki."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 cocog karo \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "URL kasebut durung katon valid. Coba domain kaya example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 wis ana ing dhaptar blokir, mula wis diaktifake maneh."
+  },
+  "addedToBlocklist": {
+    "message": "$1 ditambahake menyang dhaptar blokir khusus."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 dibusak saka dhaptar blokir khusus."
+  },
+  "metadataHeading": {
+    "message": "Pamblokiran Negara & Kategori"
+  },
+  "metadataIntro": {
+    "message": "Blokir kabeh klompok situs miturut negara sing dioperasikake merek utawa jinis panganan sing disedhiyakake. Pamblokiran iki nambah menyang situs sing wis ana lan pamblokiran URL khusus."
+  },
+  "blockByCountryLabel": {
+    "message": "Blok miturut negara"
+  },
+  "blockByCountryHint": {
+    "message": "Telusuri miturut jeneng negara utawa kode, contone. \"United\" utawa \"AS\". Ngaktifake negara mblokir saben merek sing aktif ing kana."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Telusuri negara…"
+  },
+  "quickAccessCountries": {
+    "message": "Akses cepet - negara"
+  },
+  "countryQuickEmpty": {
+    "message": "Aktifake negara saka panelusuran kanggo pin kene."
+  },
+  "blockByCategoryLabel": {
+    "message": "Blok miturut kategori"
+  },
+  "blockByCategoryHint": {
+    "message": "Telusuri kategori kaya burger, pizza, utawa kopi. Spesialisasi uga bisa ditelusuri; pemblokiran ditrapake miturut kategori."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Telusuri kategori…"
+  },
+  "quickAccessCategories": {
+    "message": "Akses cepet - kategori"
+  },
+  "categoryQuickEmpty": {
+    "message": "Aktifake kategori saka telusuran kanggo nyelehake ing kene."
+  },
+  "noCountriesMatch": {
+    "message": "Ora ana negara sing cocog karo panelusuran kasebut."
+  },
+  "noCategoriesMatch": {
+    "message": "Ora ana kategori sing cocog karo panelusuran kasebut."
+  },
+  "languageHeading": {
+    "message": "Basa"
+  },
+  "languageIntro": {
+    "message": "Pilih basa sing digunakake FitShield kanggo layar dhewe. Iki ngganti basa browser sampeyan mung kanggo ekstensi."
+  },
+  "languageSelectLabel": {
+    "message": "Basa tampilan"
+  },
+  "languageHint": {
+    "message": "Telusuri basa lan pilih. Pilih System default kanggo ngetutake browser sampeyan."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Telusuri basa…"
+  },
+  "currentLanguageHead": {
+    "message": "Basa saiki"
+  },
+  "languageUseButton": {
+    "message": "Gunakake"
+  },
+  "languageActiveButton": {
+    "message": "Aktif"
+  },
+  "languageSystem": {
+    "message": "Sistem standar"
+  },
+  "languageSystemSub": {
+    "message": "Tindakake basa browser sampeyan"
+  },
+  "languageEnglish": {
+    "message": "Inggris"
+  },
+  "languageJapanese": {
+    "message": "Jepang"
+  },
+  "languageChinese": {
+    "message": "Cina (Sederhana)"
+  },
+  "languageFrench": {
+    "message": "Prancis"
+  },
+  "languageCantonese": {
+    "message": "basa Kanton"
+  },
+  "languageThai": {
+    "message": "Thai"
+  },
+  "languagePunjabi": {
+    "message": "Punjabi"
+  },
+  "languageTamil": {
+    "message": "Tamil"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "Cina (Tradisional, Taiwan)"
+  },
+  "languageKorean": {
+    "message": "Korea"
+  },
+  "languageHindi": {
+    "message": "Hindi"
+  },
+  "languageSpanishLatam": {
+    "message": "Spanyol (Amerika Latin)"
+  },
+  "languageSpanishSpain": {
+    "message": "Spanyol (Spanyol)"
+  },
+  "languageAfrikaans": {
+    "message": "wong Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "basa Albania"
+  },
+  "languageBasque": {
+    "message": "Basque"
+  },
+  "languageBelarusian": {
+    "message": "Belarusia"
+  },
+  "languageBulgarian": {
+    "message": "basa Bulgaria"
+  },
+  "languageCatalan": {
+    "message": "Katalan"
+  },
+  "languageCroatian": {
+    "message": "basa Kroasia"
+  },
+  "languageCzech": {
+    "message": "Ceko"
+  },
+  "languageDanish": {
+    "message": "Danish"
+  },
+  "languageDutch": {
+    "message": "Walanda"
+  },
+  "languageEstonian": {
+    "message": "basa Estonia"
+  },
+  "languageFinnish": {
+    "message": "basa Finlandia"
+  },
+  "languageGreek": {
+    "message": "Yunani"
+  },
+  "languageHungarian": {
+    "message": "Hungaria"
+  },
+  "languageIcelandic": {
+    "message": "basa Islandia"
+  },
+  "languageIrish": {
+    "message": "Irish"
+  },
+  "languageItalian": {
+    "message": "basa Italia"
+  },
+  "languageLatvian": {
+    "message": "Latvia"
+  },
+  "languageLithuanian": {
+    "message": "Lithuania"
+  },
+  "languageMacedonian": {
+    "message": "Makedonia"
+  },
+  "languageMaltese": {
+    "message": "wong Malta"
+  },
+  "languageNorwegian": {
+    "message": "basa Norwegia"
+  },
+  "languagePolish": {
+    "message": "Polandia"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Portugis (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "basa Rumania"
+  },
+  "languageRussian": {
+    "message": "Rusian"
+  },
+  "languageSerbian": {
+    "message": "basa Serbia"
+  },
+  "languageSlovak": {
+    "message": "basa Slowakia"
+  },
+  "languageSlovenian": {
+    "message": "basa Slovenia"
+  },
+  "languageSwedish": {
+    "message": "Swedia"
+  },
+  "languageTurkish": {
+    "message": "basa Turki"
+  },
+  "languageUkrainian": {
+    "message": "Ukrainia"
+  },
+  "languageWelsh": {
+    "message": "Welsh"
+  },
+  "languageBengali": {
+    "message": "Bengali"
+  },
+  "languageGujarati": {
+    "message": "Gujarati"
+  },
+  "languageKannada": {
+    "message": "Kannada"
+  },
+  "languageMalayalam": {
+    "message": "Malayalam"
+  },
+  "languageMarathi": {
+    "message": "Marathi"
+  },
+  "languageNepali": {
+    "message": "Nepali"
+  },
+  "languageOdia": {
+    "message": "Odia"
+  },
+  "languageSinhala": {
+    "message": "Sinhala"
+  },
+  "languageTelugu": {
+    "message": "Telugu"
+  },
+  "languageUrdu": {
+    "message": "Basa Urdu"
+  },
+  "languageAssamese": {
+    "message": "Assamese"
+  },
+  "languageIndonesian": {
+    "message": "basa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Vietnam"
+  },
+  "languageKhmer": {
+    "message": "Khmer"
+  },
+  "languageLao": {
+    "message": "Lao"
+  },
+  "languageBurmese": {
+    "message": "Burma (Myanmar)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "basa jawa"
+  },
+  "languageSundanese": {
+    "message": "Sundha"
+  },
+  "languageArabic": {
+    "message": "Arab"
+  },
+  "languagePersian": {
+    "message": "Persia (Farsi)"
+  },
+  "languageHebrew": {
+    "message": "basa Ibrani"
+  },
+  "languageArmenian": {
+    "message": "wong Armenia"
+  },
+  "languageGeorgian": {
+    "message": "Georgian"
+  },
+  "languageKazakh": {
+    "message": "Kazakh"
+  },
+  "languageKyrgyz": {
+    "message": "Kyrgyz"
+  },
+  "languageMongolian": {
+    "message": "Mongolian"
+  },
+  "languagePashto": {
+    "message": "Pashto"
+  },
+  "languageTajik": {
+    "message": "Tajik"
+  },
+  "languageTurkmen": {
+    "message": "Turkmen"
+  },
+  "languageUyghur": {
+    "message": "Uighur"
+  },
+  "languageUzbek": {
+    "message": "Uzbek"
+  },
+  "noLanguagesMatch": {
+    "message": "Ora ana basa sing cocog karo panelusuran kasebut."
+  },
+  "mbBlocking": {
+    "message": "Pamblokiran"
+  },
+  "mbBlock": {
+    "message": "Blok"
+  },
+  "mbOn": {
+    "message": "On"
+  },
+  "mbOff": {
+    "message": "Mati"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Pamblokiran - klik kanggo ngaso"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Ngaso - klik kanggo mblokir"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Mbusak trabasan saka akses cepet"
+  },
+  "mbChipRemoveAria": {
+    "message": "Copot $1 saka akses cepet"
+  },
+  "themeHeading": {
+    "message": "Tema"
+  },
+  "resetThemeButton": {
+    "message": "Reset Tema"
+  },
+  "systemThemeLabel": {
+    "message": "Tema sistem"
+  },
+  "systemThemeHint": {
+    "message": "Preferensi piranti utawa mode tetep."
+  },
+  "themeSystem": {
+    "message": "Sistem"
+  },
+  "themeLight": {
+    "message": "cahya"
+  },
+  "themeDark": {
+    "message": "peteng"
+  },
+  "themeBackground": {
+    "message": "Latar mburi"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "wates"
+  },
+  "themeText": {
+    "message": "Teks"
+  },
+  "themeMutedText": {
+    "message": "Teks bisu"
+  },
+  "themeAccent": {
+    "message": "Aksen"
+  },
+  "cornerRadiusLabel": {
+    "message": "Radius pojok"
+  },
+  "popupWidthLabel": {
+    "message": "Jembare nyembul"
+  },
+  "supportFooterText": {
+    "message": "Yen FitShield mbantu sampeyan ngindhari pesenan pangiriman sing ora perlu, dhukungan opsional mbantu supaya dhaptar blokir lan dokumen tetep obah."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

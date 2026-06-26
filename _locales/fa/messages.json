@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "افزونه مرورگر FitShield که به شما کمک می کند مراقب تحویل غذا و سفارش فست فود باشید."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "نام یا آدرس سایت را جستجو کنید"
+  },
+  "searchButton": {
+    "message": "جستجو کنید"
+  },
+  "clearButton": {
+    "message": "پاک کردن"
+  },
+  "openButton": {
+    "message": "باز کنید"
+  },
+  "addButton": {
+    "message": "اضافه کنید"
+  },
+  "removeButton": {
+    "message": "حذف کنید"
+  },
+  "viewBlocklistButton": {
+    "message": "مشاهده لیست بلاک ها"
+  },
+  "timerDurationLabel": {
+    "message": "مدت زمان تایمر"
+  },
+  "timerDurationHint": {
+    "message": "قبل از اینکه Continue ظاهر شود، شمارش معکوس را تنظیم کنید."
+  },
+  "customSecondsLabel": {
+    "message": "ثانیه های سفارشی"
+  },
+  "siteOpenTimeLabel": {
+    "message": "زمان باز شدن سایت"
+  },
+  "siteOpenTimeHint": {
+    "message": "مدت زمان باز ماندن سایت ها پس از پایان تایمر را انتخاب کنید."
+  },
+  "customMinutesLabel": {
+    "message": "دقیقه های سفارشی"
+  },
+  "startTimeLabel": {
+    "message": "زمان شروع"
+  },
+  "endTimeLabel": {
+    "message": "زمان پایان"
+  },
+  "scheduleDefaultSummary": {
+    "message": "وقتی این فعال باشد، مسدود کردن برنامه روزانه شما را دنبال می کند."
+  },
+  "currentScheduleSummary": {
+    "message": "برنامه زمانی فعلی: $1."
+  },
+  "everyDaySuffix": {
+    "message": " هر روز"
+  },
+  "scheduleRange": {
+    "message": "$1 تا $2"
+  },
+  "unitMinute": {
+    "message": "دقیقه"
+  },
+  "unitMinutes": {
+    "message": "دقیقه"
+  },
+  "unitSite": {
+    "message": "سایت"
+  },
+  "unitSites": {
+    "message": "سایت ها"
+  },
+  "popupSettingsButton": {
+    "message": "تنظیمات"
+  },
+  "popupBlockerTitle": {
+    "message": "مسدود کننده FitShield"
+  },
+  "popupBlockerSubtitle": {
+    "message": "هر لیست بلوک را روشن یا خاموش کنید."
+  },
+  "popupMetadataLabel": {
+    "message": "مسدود کردن کشور و دسته"
+  },
+  "popupMetadataSubtitle": {
+    "message": "گروه‌های کامل سایت‌ها را بر اساس کشور یا دسته غذا مسدود کنید."
+  },
+  "popupDeliveryLabel": {
+    "message": "سایت های تحویل"
+  },
+  "popupDeliveryDefault": {
+    "message": "دامنه های سفارش تحویل."
+  },
+  "popupFastFoodLabel": {
+    "message": "سایت های فست فود"
+  },
+  "popupFastFoodDefault": {
+    "message": "دامنه های سفارش زنجیره اصلی."
+  },
+  "popupCustomLabel": {
+    "message": "URL های سفارشی"
+  },
+  "popupCustomSubtitle": {
+    "message": "سایت های خود را اضافه کنید و آنها را به صورت جداگانه غیرفعال کنید."
+  },
+  "popupScheduleLabel": {
+    "message": "مسدود کردن فقط در ساعات برنامه ریزی شده"
+  },
+  "popupScheduleSubtitle": {
+    "message": "برای بودجه وعده های غذایی، سفارش آخر شب یا ساعات کاری مفید است."
+  },
+  "statusInactive": {
+    "message": "غیر فعال همه سایت ها قابل دسترسی هستند."
+  },
+  "statusAllDisabled": {
+    "message": "مسدود کننده روشن است، اما هر سایت جداگانه غیرفعال است. تنظیمات را باز کنید تا برخی از سایت‌ها دوباره روشن شوند."
+  },
+  "statusBypassActive": {
+    "message": "مجوز موقت فعال است. مسدود کردن در $1 از سر گرفته می شود."
+  },
+  "statusOutsideSchedule": {
+    "message": "مسدود کننده مسلح است، اما خارج از ساعات برنامه ریزی شده. از $1 مسدود می شود."
+  },
+  "statusShieldUp": {
+    "message": "سپر. $1 ثانیه شمارش معکوس، $2 $3 پاس."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 از سایت های تحویل $2 فعال است."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 از سایت های فست فود $2 فعال شد."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 با جستجو مطابقت دارد."
+  },
+  "warningPageTitle": {
+    "message": "نفس بکش"
+  },
+  "warningEyebrow": {
+    "message": "FitShield بررسی کنید"
+  },
+  "warningTitle": {
+    "message": "یک دقیقه وقت بگذارید"
+  },
+  "warningIntro": {
+    "message": "قبل از سفارش بررسی کنید گرسنگی، راحتی، استرس و عادت می توانند در لحظه احساس مشابهی داشته باشند."
+  },
+  "warningTriggeredBy": {
+    "message": "شما در شرف سفارش از $1 هستید."
+  },
+  "warningHintDefault": {
+    "message": "وقتی تایمر تمام شد، می توانید به سایت ادامه دهید."
+  },
+  "warningHintLocked": {
+    "message": "وقتی تایمر به پایان رسید، می توانید به سایت برای $1 $2 ادامه دهید."
+  },
+  "warningBackButton": {
+    "message": "به عقب برگرد"
+  },
+  "warningLockedButton": {
+    "message": "قفل شده است"
+  },
+  "warningContinueButton": {
+    "message": "ادامه دهید"
+  },
+  "warningOpeningButton": {
+    "message": "باز شدن..."
+  },
+  "warningUnlockHint": {
+    "message": "اکنون می توانید به سایت مراجعه کنید. مسدود کننده به طور خودکار پس از $1 $2 برمی گردد."
+  },
+  "warningErrorHint": {
+    "message": "هنگام باز کردن سایت مشکلی پیش آمد. لطفا دوباره امتحان کنید."
+  },
+  "settingsTitle": {
+    "message": "تنظیمات FitShield"
+  },
+  "blockingOptionsHeading": {
+    "message": "مسدود کردن گزینه ها"
+  },
+  "scheduledHoursLabel": {
+    "message": "ساعت های برنامه ریزی شده"
+  },
+  "scheduledHoursHint": {
+    "message": "مسدود کردن فقط در طول یک پنجره زمانی روزانه."
+  },
+  "customizeBlocklistHeading": {
+    "message": "سفارشی کردن لیست مسدود"
+  },
+  "customizeBlocklistIntro": {
+    "message": "انتخاب کنید کدام گروه‌های داخلی فعال هستند، سایت‌های جداگانه را روشن یا خاموش کنید و دامنه‌های خود را اضافه کنید."
+  },
+  "deliverySitesHeading": {
+    "message": "سایت های تحویل"
+  },
+  "fastFoodSitesHeading": {
+    "message": "سایت های فست فود"
+  },
+  "customUrlsHeading": {
+    "message": "URL های سفارشی"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "دامنه های خود را اضافه کنید و آنها را به صورت جداگانه غیرفعال کنید."
+  },
+  "showSitesButton": {
+    "message": "نمایش سایت ها"
+  },
+  "hideSitesButton": {
+    "message": "پنهان کردن سایت ها"
+  },
+  "showUrlsButton": {
+    "message": "نشانی های اینترنتی را نشان دهید"
+  },
+  "hideUrlsButton": {
+    "message": "پنهان کردن URL ها"
+  },
+  "deliveryToggleTitle": {
+    "message": "مسدود کردن سایت تحویل را فعال کنید"
+  },
+  "fastFoodToggleTitle": {
+    "message": "مسدود کردن سایت فست فود را فعال کنید"
+  },
+  "customToggleTitle": {
+    "message": "مسدود کردن URL سفارشی را فعال کنید"
+  },
+  "addCustomUrlLabel": {
+    "message": "یک URL مسدود شده سفارشی اضافه کنید"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com یا https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "ورودی ها به دامنه ها عادی می شوند و در تمام صفحات مسدود می شوند."
+  },
+  "customEmptyDefault": {
+    "message": "هنوز URL سفارشی اضافه نشده است."
+  },
+  "customNoMatch": {
+    "message": "هیچ نشانی اینترنتی سفارشی با این جستجو مطابقت ندارد."
+  },
+  "emptyDeliverySearch": {
+    "message": "هیچ سایت تحویل با این جستجو مطابقت ندارد."
+  },
+  "emptyFastFoodSearch": {
+    "message": "هیچ سایت فست فودی با این جستجو مطابقت ندارد."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 با \"$3\" مطابقت دارد."
+  },
+  "invalidUrlNotice": {
+    "message": "آن URL هنوز معتبر به نظر نمی رسد. دامنه ای مانند example.com را امتحان کنید."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 در حال حاضر در لیست مسدود است، بنابراین دوباره فعال شده است."
+  },
+  "addedToBlocklist": {
+    "message": "$1 به لیست مسدودی سفارشی اضافه شد."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 از لیست مسدودی سفارشی حذف شد."
+  },
+  "metadataHeading": {
+    "message": "مسدود کردن کشور و دسته"
+  },
+  "metadataIntro": {
+    "message": "گروه‌های کامل سایت‌ها را بر اساس کشوری که یک برند در آن فعالیت می‌کند یا نوع غذایی که ارائه می‌کند مسدود کنید. این بلوک ها به سایت موجود و بلوک های URL سفارشی شما اضافه می شوند."
+  },
+  "blockByCountryLabel": {
+    "message": "مسدود کردن بر اساس کشور"
+  },
+  "blockByCountryHint": {
+    "message": "جستجو بر اساس نام کشور یا کد، به عنوان مثال \"یونایتد\" یا \"ایالات متحده\". فعال کردن یک کشور همه برندهای فعال در آنجا را مسدود می کند."
+  },
+  "countrySearchPlaceholder": {
+    "message": "جستجوی کشورها…"
+  },
+  "quickAccessCountries": {
+    "message": "دسترسی سریع - کشورها"
+  },
+  "countryQuickEmpty": {
+    "message": "کشوری را از جستجو فعال کنید تا آن را در اینجا پین کنید."
+  },
+  "blockByCategoryLabel": {
+    "message": "مسدود کردن بر اساس دسته"
+  },
+  "blockByCategoryHint": {
+    "message": "دسته‌هایی مانند همبرگر، پیتزا یا قهوه را جستجو کنید. تخصص ها نیز قابل جستجو هستند. بلوک بر اساس دسته اعمال می شود."
+  },
+  "categorySearchPlaceholder": {
+    "message": "جستجوی دسته‌ها…"
+  },
+  "quickAccessCategories": {
+    "message": "دسترسی سریع - دسته ها"
+  },
+  "categoryQuickEmpty": {
+    "message": "یک دسته را از جستجو فعال کنید تا آن را در اینجا پین کنید."
+  },
+  "noCountriesMatch": {
+    "message": "هیچ کشوری با آن جستجو مطابقت ندارد."
+  },
+  "noCategoriesMatch": {
+    "message": "هیچ دسته ای با آن جستجو مطابقت ندارد."
+  },
+  "languageHeading": {
+    "message": "زبان"
+  },
+  "languageIntro": {
+    "message": "زبانی را که FitShield برای صفحه نمایش خود استفاده می کند، انتخاب کنید. این زبان مرورگر شما را فقط برای برنامه افزودنی لغو می کند."
+  },
+  "languageSelectLabel": {
+    "message": "نمایش زبان"
+  },
+  "languageHint": {
+    "message": "یک زبان را جستجو کنید و آن را انتخاب کنید. برای دنبال کردن مرورگر خود، System default را انتخاب کنید."
+  },
+  "languageSearchPlaceholder": {
+    "message": "جستجوی زبان‌ها…"
+  },
+  "currentLanguageHead": {
+    "message": "زبان فعلی"
+  },
+  "languageUseButton": {
+    "message": "استفاده کنید"
+  },
+  "languageActiveButton": {
+    "message": "فعال"
+  },
+  "languageSystem": {
+    "message": "پیش فرض سیستم"
+  },
+  "languageSystemSub": {
+    "message": "زبان مرورگر خود را دنبال کنید"
+  },
+  "languageEnglish": {
+    "message": "انگلیسی"
+  },
+  "languageJapanese": {
+    "message": "ژاپنی"
+  },
+  "languageChinese": {
+    "message": "چینی (ساده شده)"
+  },
+  "languageFrench": {
+    "message": "فرانسوی"
+  },
+  "languageCantonese": {
+    "message": "کانتونی"
+  },
+  "languageThai": {
+    "message": "تایلندی"
+  },
+  "languagePunjabi": {
+    "message": "پنجابی"
+  },
+  "languageTamil": {
+    "message": "تامیل"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "چینی (سنتی، تایوان)"
+  },
+  "languageKorean": {
+    "message": "کره ای"
+  },
+  "languageHindi": {
+    "message": "هندی"
+  },
+  "languageSpanishLatam": {
+    "message": "اسپانیایی (آمریکای لاتین)"
+  },
+  "languageSpanishSpain": {
+    "message": "اسپانیایی (اسپانیا)"
+  },
+  "languageAfrikaans": {
+    "message": "آفریقایی"
+  },
+  "languageAlbanian": {
+    "message": "آلبانیایی"
+  },
+  "languageBasque": {
+    "message": "باسکی"
+  },
+  "languageBelarusian": {
+    "message": "بلاروسی"
+  },
+  "languageBulgarian": {
+    "message": "بلغاری"
+  },
+  "languageCatalan": {
+    "message": "کاتالان"
+  },
+  "languageCroatian": {
+    "message": "کروات"
+  },
+  "languageCzech": {
+    "message": "چک"
+  },
+  "languageDanish": {
+    "message": "دانمارکی"
+  },
+  "languageDutch": {
+    "message": "هلندی"
+  },
+  "languageEstonian": {
+    "message": "استونیایی"
+  },
+  "languageFinnish": {
+    "message": "فنلاندی"
+  },
+  "languageGreek": {
+    "message": "یونانی"
+  },
+  "languageHungarian": {
+    "message": "مجارستانی"
+  },
+  "languageIcelandic": {
+    "message": "ایسلندی"
+  },
+  "languageIrish": {
+    "message": "ایرلندی"
+  },
+  "languageItalian": {
+    "message": "ایتالیایی"
+  },
+  "languageLatvian": {
+    "message": "لتونی"
+  },
+  "languageLithuanian": {
+    "message": "لیتوانیایی"
+  },
+  "languageMacedonian": {
+    "message": "مقدونی"
+  },
+  "languageMaltese": {
+    "message": "مالتی"
+  },
+  "languageNorwegian": {
+    "message": "نروژی"
+  },
+  "languagePolish": {
+    "message": "لهستانی"
+  },
+  "languagePortuguesePortugal": {
+    "message": "پرتغالی (پرتغال)"
+  },
+  "languageRomanian": {
+    "message": "رومانیایی"
+  },
+  "languageRussian": {
+    "message": "روسی"
+  },
+  "languageSerbian": {
+    "message": "صربی"
+  },
+  "languageSlovak": {
+    "message": "اسلواکی"
+  },
+  "languageSlovenian": {
+    "message": "اسلوونیایی"
+  },
+  "languageSwedish": {
+    "message": "سوئدی"
+  },
+  "languageTurkish": {
+    "message": "ترکی"
+  },
+  "languageUkrainian": {
+    "message": "اوکراینی"
+  },
+  "languageWelsh": {
+    "message": "ولز"
+  },
+  "languageBengali": {
+    "message": "بنگالی"
+  },
+  "languageGujarati": {
+    "message": "گجراتی"
+  },
+  "languageKannada": {
+    "message": "کانادا"
+  },
+  "languageMalayalam": {
+    "message": "مالایایی"
+  },
+  "languageMarathi": {
+    "message": "مراتی"
+  },
+  "languageNepali": {
+    "message": "نپالی"
+  },
+  "languageOdia": {
+    "message": "اودیا"
+  },
+  "languageSinhala": {
+    "message": "سینهالی"
+  },
+  "languageTelugu": {
+    "message": "تلوگو"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "آسامی"
+  },
+  "languageIndonesian": {
+    "message": "اندونزیایی"
+  },
+  "languageMalay": {
+    "message": "مالایی"
+  },
+  "languageVietnamese": {
+    "message": "ویتنامی"
+  },
+  "languageKhmer": {
+    "message": "خمر"
+  },
+  "languageLao": {
+    "message": "لائوس"
+  },
+  "languageBurmese": {
+    "message": "برمه (میانمار)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "فیلیپینی / تاگالوگ"
+  },
+  "languageJavanese": {
+    "message": "جاوه ای"
+  },
+  "languageSundanese": {
+    "message": "ساندانی"
+  },
+  "languageArabic": {
+    "message": "عربی"
+  },
+  "languagePersian": {
+    "message": "فارسی (فارسی)"
+  },
+  "languageHebrew": {
+    "message": "عبری"
+  },
+  "languageArmenian": {
+    "message": "ارمنی"
+  },
+  "languageGeorgian": {
+    "message": "گرجی"
+  },
+  "languageKazakh": {
+    "message": "قزاقستان"
+  },
+  "languageKyrgyz": {
+    "message": "قرقیزستان"
+  },
+  "languageMongolian": {
+    "message": "مغولی"
+  },
+  "languagePashto": {
+    "message": "پشتو"
+  },
+  "languageTajik": {
+    "message": "تاجیک"
+  },
+  "languageTurkmen": {
+    "message": "ترکمن"
+  },
+  "languageUyghur": {
+    "message": "اویغور"
+  },
+  "languageUzbek": {
+    "message": "ازبکستان"
+  },
+  "noLanguagesMatch": {
+    "message": "هیچ زبانی با آن جستجو مطابقت ندارد."
+  },
+  "mbBlocking": {
+    "message": "مسدود کردن"
+  },
+  "mbBlock": {
+    "message": "مسدود کردن"
+  },
+  "mbOn": {
+    "message": "روشن"
+  },
+  "mbOff": {
+    "message": "خاموش"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "مسدود کردن - برای مکث کلیک کنید"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "متوقف شد - برای مسدود کردن کلیک کنید"
+  },
+  "mbChipRemoveTitle": {
+    "message": "حذف میانبر از دسترسی سریع"
+  },
+  "mbChipRemoveAria": {
+    "message": "$1 را از دسترسی سریع حذف کنید"
+  },
+  "themeHeading": {
+    "message": "موضوع"
+  },
+  "resetThemeButton": {
+    "message": "بازنشانی تم"
+  },
+  "systemThemeLabel": {
+    "message": "موضوع سیستم"
+  },
+  "systemThemeHint": {
+    "message": "ترجیح دستگاه یا حالت ثابت."
+  },
+  "themeSystem": {
+    "message": "سیستم"
+  },
+  "themeLight": {
+    "message": "نور"
+  },
+  "themeDark": {
+    "message": "تاریک"
+  },
+  "themeBackground": {
+    "message": "پس زمینه"
+  },
+  "themePanel": {
+    "message": "پانل"
+  },
+  "themeBorder": {
+    "message": "مرز"
+  },
+  "themeText": {
+    "message": "متن"
+  },
+  "themeMutedText": {
+    "message": "متن خاموش"
+  },
+  "themeAccent": {
+    "message": "لهجه"
+  },
+  "cornerRadiusLabel": {
+    "message": "شعاع گوشه"
+  },
+  "popupWidthLabel": {
+    "message": "عرض پنجره"
+  },
+  "supportFooterText": {
+    "message": "اگر FitShield به شما کمک کرد تا از سفارش تحویل غیرضروری جلوگیری کنید، پشتیبانی اختیاری کمک می‌کند تا لیست‌های مسدود و اسناد حرکت کنند."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

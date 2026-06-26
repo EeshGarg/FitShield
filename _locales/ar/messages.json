@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "ملحق المتصفح FitShield الذي يساعدك على البقاء منتبهًا لتوصيل الطعام وطلب الوجبات السريعة."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "ابحث عن اسم الموقع أو عنوان URL"
+  },
+  "searchButton": {
+    "message": "بحث"
+  },
+  "clearButton": {
+    "message": "واضح"
+  },
+  "openButton": {
+    "message": "مفتوح"
+  },
+  "addButton": {
+    "message": "أضف"
+  },
+  "removeButton": {
+    "message": "إزالة"
+  },
+  "viewBlocklistButton": {
+    "message": "عرض قائمة الحظر"
+  },
+  "timerDurationLabel": {
+    "message": "مدة الموقت"
+  },
+  "timerDurationHint": {
+    "message": "اضبط العد التنازلي قبل ظهور متابعة."
+  },
+  "customSecondsLabel": {
+    "message": "ثواني مخصصة"
+  },
+  "siteOpenTimeLabel": {
+    "message": "وقت فتح الموقع"
+  },
+  "siteOpenTimeHint": {
+    "message": "اختر مدة بقاء المواقع مفتوحة بعد انتهاء المؤقت."
+  },
+  "customMinutesLabel": {
+    "message": "دقائق مخصصة"
+  },
+  "startTimeLabel": {
+    "message": "وقت البدء"
+  },
+  "endTimeLabel": {
+    "message": "وقت الانتهاء"
+  },
+  "scheduleDefaultSummary": {
+    "message": "سيتبع الحظر جدولك اليومي عند تمكينه."
+  },
+  "currentScheduleSummary": {
+    "message": "الجدول الزمني الحالي: $1."
+  },
+  "everyDaySuffix": {
+    "message": " كل يوم"
+  },
+  "scheduleRange": {
+    "message": "من $1 إلى $2"
+  },
+  "unitMinute": {
+    "message": "دقيقة"
+  },
+  "unitMinutes": {
+    "message": "دقائق"
+  },
+  "unitSite": {
+    "message": "موقع"
+  },
+  "unitSites": {
+    "message": "المواقع"
+  },
+  "popupSettingsButton": {
+    "message": "الإعدادات"
+  },
+  "popupBlockerTitle": {
+    "message": "مانع FitShield"
+  },
+  "popupBlockerSubtitle": {
+    "message": "قم بتشغيل كل قائمة الحظر أو إيقاف تشغيلها."
+  },
+  "popupMetadataLabel": {
+    "message": "حظر البلد والفئة"
+  },
+  "popupMetadataSubtitle": {
+    "message": "حظر مجموعات كاملة من المواقع حسب البلد أو فئة الطعام."
+  },
+  "popupDeliveryLabel": {
+    "message": "مواقع التوصيل"
+  },
+  "popupDeliveryDefault": {
+    "message": "مجالات طلب التسليم."
+  },
+  "popupFastFoodLabel": {
+    "message": "مواقع الوجبات السريعة"
+  },
+  "popupFastFoodDefault": {
+    "message": "مجالات ترتيب السلسلة الرئيسية."
+  },
+  "popupCustomLabel": {
+    "message": "عناوين URL المخصصة"
+  },
+  "popupCustomSubtitle": {
+    "message": "أضف مواقعك الخاصة وقم بتعطيلها بشكل فردي."
+  },
+  "popupScheduleLabel": {
+    "message": "الحظر فقط خلال الساعات المقررة"
+  },
+  "popupScheduleSubtitle": {
+    "message": "مفيد لميزانيات الوجبات أو الطلب في وقت متأخر من الليل أو ساعات العمل."
+  },
+  "statusInactive": {
+    "message": "غير نشط. جميع المواقع يمكن الوصول إليها."
+  },
+  "statusAllDisabled": {
+    "message": "أداة الحظر قيد التشغيل، ولكن كل موقع على حدة معطل. افتح الإعدادات لإعادة تشغيل بعض المواقع."
+  },
+  "statusBypassActive": {
+    "message": "المرور المؤقت نشط. يتم استئناف الحظر في $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "مانع مسلح، ولكن خارج الساعات المقررة. سيتم حظره من $1."
+  },
+  "statusShieldUp": {
+    "message": "درع يصل. $1 العد التنازلي للثواني، تمرير $2 $3."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "تم تمكين $1 لمواقع التسليم $2."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "تم تمكين $1 من مواقع الوجبات السريعة $2."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 يطابق البحث."
+  },
+  "warningPageTitle": {
+    "message": "خذ نفسا"
+  },
+  "warningEyebrow": {
+    "message": "FitShield تحقق"
+  },
+  "warningTitle": {
+    "message": "خذ دقيقة واحدة."
+  },
+  "warningIntro": {
+    "message": "تحقق قبل أن تأمر. يمكن أن تشعر بالجوع والراحة والتوتر والعادة بشكل متشابه في الوقت الحالي."
+  },
+  "warningTriggeredBy": {
+    "message": "أنت على وشك الطلب من $1."
+  },
+  "warningHintDefault": {
+    "message": "عندما ينتهي الموقت، يمكنك المتابعة إلى الموقع."
+  },
+  "warningHintLocked": {
+    "message": "عندما ينتهي المؤقت، يمكنك المتابعة إلى موقع $1 $2."
+  },
+  "warningBackButton": {
+    "message": "ارجع"
+  },
+  "warningLockedButton": {
+    "message": "مغلق"
+  },
+  "warningContinueButton": {
+    "message": "متابعة"
+  },
+  "warningOpeningButton": {
+    "message": "الافتتاح..."
+  },
+  "warningUnlockHint": {
+    "message": "يمكنك زيارة الموقع الآن. سيعود الحظر تلقائيًا بعد $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "حدث خطأ ما أثناء فتح الموقع. يرجى المحاولة مرة أخرى."
+  },
+  "settingsTitle": {
+    "message": "إعدادات FitShield"
+  },
+  "blockingOptionsHeading": {
+    "message": "خيارات الحظر"
+  },
+  "scheduledHoursLabel": {
+    "message": "الساعات المقررة"
+  },
+  "scheduledHoursHint": {
+    "message": "الحظر فقط خلال نافذة زمنية يومية."
+  },
+  "customizeBlocklistHeading": {
+    "message": "تخصيص قائمة الحظر"
+  },
+  "customizeBlocklistIntro": {
+    "message": "اختر المجموعات المضمنة النشطة، وقم بتشغيل المواقع الفردية أو إيقاف تشغيلها، وأضف المجالات الخاصة بك."
+  },
+  "deliverySitesHeading": {
+    "message": "مواقع التوصيل"
+  },
+  "fastFoodSitesHeading": {
+    "message": "مواقع الوجبات السريعة"
+  },
+  "customUrlsHeading": {
+    "message": "عناوين URL المخصصة"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "أضف المجالات الخاصة بك وقم بتعطيلها بشكل فردي."
+  },
+  "showSitesButton": {
+    "message": "إظهار المواقع"
+  },
+  "hideSitesButton": {
+    "message": "إخفاء المواقع"
+  },
+  "showUrlsButton": {
+    "message": "إظهار عناوين URL"
+  },
+  "hideUrlsButton": {
+    "message": "إخفاء عناوين URL"
+  },
+  "deliveryToggleTitle": {
+    "message": "تمكين حظر موقع التسليم"
+  },
+  "fastFoodToggleTitle": {
+    "message": "تفعيل حجب مواقع الوجبات السريعة"
+  },
+  "customToggleTitle": {
+    "message": "تمكين حظر عناوين URL المخصصة"
+  },
+  "addCustomUrlLabel": {
+    "message": "أضف عنوان URL محظورًا مخصصًا"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com أو https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "تتم تسوية الإدخالات في المجالات وحظرها في كافة الصفحات."
+  },
+  "customEmptyDefault": {
+    "message": "لم تتم إضافة أي عناوين URL مخصصة حتى الآن."
+  },
+  "customNoMatch": {
+    "message": "لا توجد عناوين URL مخصصة تتطابق مع هذا البحث."
+  },
+  "emptyDeliverySearch": {
+    "message": "لا توجد مواقع تسليم تطابق هذا البحث."
+  },
+  "emptyFastFoodSearch": {
+    "message": "لا توجد مواقع للوجبات السريعة تطابق هذا البحث."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 يطابق \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "لا يبدو عنوان URL هذا صالحًا بعد. جرب نطاقًا مثل example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 موجود بالفعل في القائمة المحظورة، لذا تمت إعادة تمكينه."
+  },
+  "addedToBlocklist": {
+    "message": "تمت إضافة $1 إلى قائمة الحظر المخصصة."
+  },
+  "removedFromBlocklist": {
+    "message": "تمت إزالة $1 من قائمة الحظر المخصصة."
+  },
+  "metadataHeading": {
+    "message": "حظر البلد والفئة"
+  },
+  "metadataIntro": {
+    "message": "قم بحظر مجموعات كاملة من المواقع حسب البلد الذي تعمل فيه العلامة التجارية أو نوع الطعام الذي تقدمه. تُضاف هذه الكتل إلى موقعك الحالي وكتل عناوين URL المخصصة."
+  },
+  "blockByCountryLabel": {
+    "message": "حظر حسب البلد"
+  },
+  "blockByCountryHint": {
+    "message": "البحث حسب اسم البلد أو رمزه، على سبيل المثال. \"المتحدة\" أو \"الولايات المتحدة\". يؤدي تمكين دولة ما إلى حظر كل علامة تجارية نشطة هناك."
+  },
+  "countrySearchPlaceholder": {
+    "message": "بحث عن الدول..."
+  },
+  "quickAccessCountries": {
+    "message": "الوصول السريع — البلدان"
+  },
+  "countryQuickEmpty": {
+    "message": "قم بتمكين الدولة من البحث لتثبيتها هنا."
+  },
+  "blockByCategoryLabel": {
+    "message": "حظر حسب الفئة"
+  },
+  "blockByCategoryHint": {
+    "message": "ابحث عن فئات مثل البرجر أو البيتزا أو القهوة. التخصصات قابلة للبحث أيضًا؛ تنطبق الكتلة حسب الفئة."
+  },
+  "categorySearchPlaceholder": {
+    "message": "فئات البحث..."
+  },
+  "quickAccessCategories": {
+    "message": "الوصول السريع – الفئات"
+  },
+  "categoryQuickEmpty": {
+    "message": "قم بتمكين فئة من البحث لتثبيتها هنا."
+  },
+  "noCountriesMatch": {
+    "message": "لا توجد بلدان تطابق هذا البحث."
+  },
+  "noCategoriesMatch": {
+    "message": "لا توجد فئات تطابق هذا البحث."
+  },
+  "languageHeading": {
+    "message": "اللغة"
+  },
+  "languageIntro": {
+    "message": "اختر اللغة التي يستخدمها FitShield لشاشاته الخاصة. يؤدي هذا إلى تجاوز لغة المتصفح الخاص بك للامتداد فقط."
+  },
+  "languageSelectLabel": {
+    "message": "لغة العرض"
+  },
+  "languageHint": {
+    "message": "ابحث عن لغة واخترها. اختر النظام الافتراضي لمتابعة متصفحك."
+  },
+  "languageSearchPlaceholder": {
+    "message": "لغات البحث..."
+  },
+  "currentLanguageHead": {
+    "message": "اللغة الحالية"
+  },
+  "languageUseButton": {
+    "message": "استخدم"
+  },
+  "languageActiveButton": {
+    "message": "نشط"
+  },
+  "languageSystem": {
+    "message": "الافتراضي للنظام"
+  },
+  "languageSystemSub": {
+    "message": "اتبع لغة المتصفح الخاص بك"
+  },
+  "languageEnglish": {
+    "message": "الإنجليزية"
+  },
+  "languageJapanese": {
+    "message": "اليابانية"
+  },
+  "languageChinese": {
+    "message": "الصينية (المبسطة)"
+  },
+  "languageFrench": {
+    "message": "الفرنسية"
+  },
+  "languageCantonese": {
+    "message": "الكانتونية"
+  },
+  "languageThai": {
+    "message": "التايلاندية"
+  },
+  "languagePunjabi": {
+    "message": "البنجابية"
+  },
+  "languageTamil": {
+    "message": "التاميل"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "الصينية (التقليدية، تايوان)"
+  },
+  "languageKorean": {
+    "message": "الكورية"
+  },
+  "languageHindi": {
+    "message": "الهندية"
+  },
+  "languageSpanishLatam": {
+    "message": "الإسبانية (أمريكا اللاتينية)"
+  },
+  "languageSpanishSpain": {
+    "message": "الإسبانية (إسبانيا)"
+  },
+  "languageAfrikaans": {
+    "message": "الأفريكانية"
+  },
+  "languageAlbanian": {
+    "message": "الألبانية"
+  },
+  "languageBasque": {
+    "message": "الباسك"
+  },
+  "languageBelarusian": {
+    "message": "البيلاروسية"
+  },
+  "languageBulgarian": {
+    "message": "البلغارية"
+  },
+  "languageCatalan": {
+    "message": "الكاتالونية"
+  },
+  "languageCroatian": {
+    "message": "الكرواتية"
+  },
+  "languageCzech": {
+    "message": "التشيكية"
+  },
+  "languageDanish": {
+    "message": "الدنماركية"
+  },
+  "languageDutch": {
+    "message": "الهولندية"
+  },
+  "languageEstonian": {
+    "message": "الإستونية"
+  },
+  "languageFinnish": {
+    "message": "الفنلندية"
+  },
+  "languageGreek": {
+    "message": "اليونانية"
+  },
+  "languageHungarian": {
+    "message": "المجرية"
+  },
+  "languageIcelandic": {
+    "message": "الأيسلندية"
+  },
+  "languageIrish": {
+    "message": "الأيرلندية"
+  },
+  "languageItalian": {
+    "message": "ايطالي"
+  },
+  "languageLatvian": {
+    "message": "لاتفيا"
+  },
+  "languageLithuanian": {
+    "message": "الليتوانية"
+  },
+  "languageMacedonian": {
+    "message": "المقدونية"
+  },
+  "languageMaltese": {
+    "message": "المالطية"
+  },
+  "languageNorwegian": {
+    "message": "النرويجية"
+  },
+  "languagePolish": {
+    "message": "البولندية"
+  },
+  "languagePortuguesePortugal": {
+    "message": "البرتغالية (البرتغال)"
+  },
+  "languageRomanian": {
+    "message": "الرومانية"
+  },
+  "languageRussian": {
+    "message": "الروسية"
+  },
+  "languageSerbian": {
+    "message": "الصربية"
+  },
+  "languageSlovak": {
+    "message": "السلوفاكية"
+  },
+  "languageSlovenian": {
+    "message": "السلوفينية"
+  },
+  "languageSwedish": {
+    "message": "السويدية"
+  },
+  "languageTurkish": {
+    "message": "تركي"
+  },
+  "languageUkrainian": {
+    "message": "الأوكرانية"
+  },
+  "languageWelsh": {
+    "message": "الويلزية"
+  },
+  "languageBengali": {
+    "message": "البنغالية"
+  },
+  "languageGujarati": {
+    "message": "الغوجاراتية"
+  },
+  "languageKannada": {
+    "message": "الكانادا"
+  },
+  "languageMalayalam": {
+    "message": "المالايالامية"
+  },
+  "languageMarathi": {
+    "message": "المهاراتية"
+  },
+  "languageNepali": {
+    "message": "النيبالية"
+  },
+  "languageOdia": {
+    "message": "أوديا"
+  },
+  "languageSinhala": {
+    "message": "السنهالية"
+  },
+  "languageTelugu": {
+    "message": "التيلجو"
+  },
+  "languageUrdu": {
+    "message": "الأردية"
+  },
+  "languageAssamese": {
+    "message": "الأسامية"
+  },
+  "languageIndonesian": {
+    "message": "الاندونيسية"
+  },
+  "languageMalay": {
+    "message": "لغة الملايو"
+  },
+  "languageVietnamese": {
+    "message": "الفيتنامية"
+  },
+  "languageKhmer": {
+    "message": "الخمير"
+  },
+  "languageLao": {
+    "message": "لاو"
+  },
+  "languageBurmese": {
+    "message": "البورمية (ميانمار)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "الفلبينية / التاغالوغية"
+  },
+  "languageJavanese": {
+    "message": "الجاوية"
+  },
+  "languageSundanese": {
+    "message": "السودانية"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "الفارسية (الفارسية)"
+  },
+  "languageHebrew": {
+    "message": "العبرية"
+  },
+  "languageArmenian": {
+    "message": "الأرمينية"
+  },
+  "languageGeorgian": {
+    "message": "الجورجية"
+  },
+  "languageKazakh": {
+    "message": "الكازاخستانية"
+  },
+  "languageKyrgyz": {
+    "message": "قيرغيزستان"
+  },
+  "languageMongolian": {
+    "message": "المنغولية"
+  },
+  "languagePashto": {
+    "message": "الباشتو"
+  },
+  "languageTajik": {
+    "message": "الطاجيكية"
+  },
+  "languageTurkmen": {
+    "message": "التركمان"
+  },
+  "languageUyghur": {
+    "message": "الأويغور"
+  },
+  "languageUzbek": {
+    "message": "الأوزبكية"
+  },
+  "noLanguagesMatch": {
+    "message": "لا توجد لغات تطابق هذا البحث."
+  },
+  "mbBlocking": {
+    "message": "الحظر"
+  },
+  "mbBlock": {
+    "message": "كتلة"
+  },
+  "mbOn": {
+    "message": "على"
+  },
+  "mbOff": {
+    "message": "إيقاف"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "الحظر — انقر للإيقاف المؤقت"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "متوقف مؤقتًا — انقر للحظر"
+  },
+  "mbChipRemoveTitle": {
+    "message": "إزالة الاختصار من الوصول السريع"
+  },
+  "mbChipRemoveAria": {
+    "message": "قم بإزالة $1 من الوصول السريع"
+  },
+  "themeHeading": {
+    "message": "الموضوع"
+  },
+  "resetThemeButton": {
+    "message": "إعادة تعيين الموضوع"
+  },
+  "systemThemeLabel": {
+    "message": "موضوع النظام"
+  },
+  "systemThemeHint": {
+    "message": "تفضيل الجهاز أو الوضع الثابت."
+  },
+  "themeSystem": {
+    "message": "النظام"
+  },
+  "themeLight": {
+    "message": "ضوء"
+  },
+  "themeDark": {
+    "message": "الظلام"
+  },
+  "themeBackground": {
+    "message": "الخلفية"
+  },
+  "themePanel": {
+    "message": "لوحة"
+  },
+  "themeBorder": {
+    "message": "الحدود"
+  },
+  "themeText": {
+    "message": "نص"
+  },
+  "themeMutedText": {
+    "message": "نص مكتوم"
+  },
+  "themeAccent": {
+    "message": "لهجة"
+  },
+  "cornerRadiusLabel": {
+    "message": "شعاع الزاوية"
+  },
+  "popupWidthLabel": {
+    "message": "عرض النافذة المنبثقة"
+  },
+  "supportFooterText": {
+    "message": "إذا ساعدتك FitShield على تجنب أمر تسليم غير ضروري، فإن الدعم الاختياري يساعدك على استمرار تحرك القوائم المحظورة والمستندات."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

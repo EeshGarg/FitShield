@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "ส่วนขยายเบราว์เซอร์ FitShield ที่ช่วยให้คุณมีสติกับการสั่งอาหารเดลิเวอรีและฟาสต์ฟู้ด"
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "ค้นหาชื่อไซต์หรือ URL"
+  },
+  "searchButton": {
+    "message": "ค้นหา"
+  },
+  "clearButton": {
+    "message": "ล้าง"
+  },
+  "openButton": {
+    "message": "เปิด"
+  },
+  "addButton": {
+    "message": "เพิ่ม"
+  },
+  "removeButton": {
+    "message": "นำออก"
+  },
+  "viewBlocklistButton": {
+    "message": "ดูรายการบล็อก"
+  },
+  "timerDurationLabel": {
+    "message": "ระยะเวลาตัวจับเวลา"
+  },
+  "timerDurationHint": {
+    "message": "ปรับเวลานับถอยหลังก่อนที่ปุ่มดำเนินการต่อจะปรากฏ"
+  },
+  "customSecondsLabel": {
+    "message": "วินาทีที่กำหนดเอง"
+  },
+  "siteOpenTimeLabel": {
+    "message": "เวลาที่ไซต์เปิดอยู่"
+  },
+  "siteOpenTimeHint": {
+    "message": "เลือกว่าจะให้ไซต์เปิดต่ออยู่นานเท่าใดหลังตัวจับเวลาสิ้นสุด"
+  },
+  "customMinutesLabel": {
+    "message": "นาทีที่กำหนดเอง"
+  },
+  "startTimeLabel": {
+    "message": "เวลาเริ่มต้น"
+  },
+  "endTimeLabel": {
+    "message": "เวลาสิ้นสุด"
+  },
+  "scheduleDefaultSummary": {
+    "message": "เมื่อเปิดใช้ การบล็อกจะทำตามตารางประจำวันของคุณ"
+  },
+  "currentScheduleSummary": {
+    "message": "ตารางปัจจุบัน: $1."
+  },
+  "everyDaySuffix": {
+    "message": " ทุกวัน"
+  },
+  "scheduleRange": {
+    "message": "$1 ถึง $2"
+  },
+  "unitMinute": {
+    "message": "นาที"
+  },
+  "unitMinutes": {
+    "message": "นาที"
+  },
+  "unitSite": {
+    "message": "ไซต์"
+  },
+  "unitSites": {
+    "message": "ไซต์"
+  },
+  "popupSettingsButton": {
+    "message": "การตั้งค่า"
+  },
+  "popupBlockerTitle": {
+    "message": "ตัวบล็อก FitShield"
+  },
+  "popupBlockerSubtitle": {
+    "message": "เปิดหรือปิดรายการบล็อกทั้งหมด"
+  },
+  "popupMetadataLabel": {
+    "message": "การบล็อกตามประเทศและหมวดหมู่"
+  },
+  "popupMetadataSubtitle": {
+    "message": "บล็อกกลุ่มไซต์ทั้งหมดตามประเทศหรือหมวดหมู่อาหาร"
+  },
+  "popupDeliveryLabel": {
+    "message": "ไซต์เดลิเวอรี"
+  },
+  "popupDeliveryDefault": {
+    "message": "โดเมนสำหรับสั่งเดลิเวอรี"
+  },
+  "popupFastFoodLabel": {
+    "message": "ไซต์ฟาสต์ฟู้ด"
+  },
+  "popupFastFoodDefault": {
+    "message": "โดเมนสั่งอาหารของเชนรายใหญ่"
+  },
+  "popupCustomLabel": {
+    "message": "URL ที่กำหนดเอง"
+  },
+  "popupCustomSubtitle": {
+    "message": "เพิ่มไซต์ของคุณเองและปิดใช้งานทีละไซต์"
+  },
+  "popupScheduleLabel": {
+    "message": "บล็อกเฉพาะในช่วงเวลาที่กำหนด"
+  },
+  "popupScheduleSubtitle": {
+    "message": "มีประโยชน์สำหรับงบอาหาร การสั่งตอนดึก หรือเวลาทำงาน"
+  },
+  "statusInactive": {
+    "message": "ไม่ทำงาน เข้าถึงไซต์ทั้งหมดได้"
+  },
+  "statusAllDisabled": {
+    "message": "ตัวบล็อกเปิดอยู่ แต่ไซต์แต่ละรายการถูกปิดใช้งานทั้งหมด เปิดการตั้งค่าเพื่อเปิดบางไซต์อีกครั้ง"
+  },
+  "statusBypassActive": {
+    "message": "บัตรผ่านชั่วคราวทำงานอยู่ การบล็อกจะกลับมาใน $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "ตัวบล็อกพร้อมทำงาน แต่ขณะนี้อยู่นอกช่วงเวลาที่กำหนด จะเริ่มบล็อกตั้งแต่ $1."
+  },
+  "statusShieldUp": {
+    "message": "เปิดเกราะแล้ว นับถอยหลัง $1 วินาที บัตรผ่าน $2 $3."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "เปิดใช้ไซต์เดลิเวอรี $1 จาก $2 ไซต์"
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "เปิดใช้ไซต์ฟาสต์ฟู้ด $1 จาก $2 ไซต์"
+  },
+  "searchMatchSuffix": {
+    "message": " $1 รายการตรงกับการค้นหา"
+  },
+  "warningPageTitle": {
+    "message": "หยุดหายใจสักครู่"
+  },
+  "warningEyebrow": {
+    "message": "การตรวจสอบของ FitShield"
+  },
+  "warningTitle": {
+    "message": "ใช้เวลาหนึ่งนาที"
+  },
+  "warningIntro": {
+    "message": "เช็กตัวเองก่อนสั่งอาหาร ความหิว ความสะดวก ความเครียด และความเคยชินอาจรู้สึกคล้ายกันในช่วงเวลานั้น"
+  },
+  "warningTriggeredBy": {
+    "message": "คุณกำลังจะสั่งจาก $1."
+  },
+  "warningHintDefault": {
+    "message": "เมื่อตัวจับเวลาสิ้นสุด คุณจะไปยังไซต์ต่อได้"
+  },
+  "warningHintLocked": {
+    "message": "เมื่อตัวจับเวลาสิ้นสุด คุณจะไปยังไซต์ต่อได้เป็นเวลา $1 $2."
+  },
+  "warningBackButton": {
+    "message": "ย้อนกลับ"
+  },
+  "warningLockedButton": {
+    "message": "ล็อกอยู่"
+  },
+  "warningContinueButton": {
+    "message": "ดำเนินการต่อ"
+  },
+  "warningOpeningButton": {
+    "message": "กำลังเปิด..."
+  },
+  "warningUnlockHint": {
+    "message": "ตอนนี้คุณเข้าไซต์ได้แล้ว ตัวบล็อกจะกลับมาอัตโนมัติหลังจาก $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "เกิดข้อผิดพลาดขณะเปิดไซต์ โปรดลองอีกครั้ง"
+  },
+  "settingsTitle": {
+    "message": "การตั้งค่า FitShield"
+  },
+  "blockingOptionsHeading": {
+    "message": "ตัวเลือกการบล็อก"
+  },
+  "scheduledHoursLabel": {
+    "message": "ช่วงเวลาที่กำหนด"
+  },
+  "scheduledHoursHint": {
+    "message": "บล็อกเฉพาะในช่วงเวลาประจำวัน"
+  },
+  "customizeBlocklistHeading": {
+    "message": "ปรับแต่งรายการบล็อก"
+  },
+  "customizeBlocklistIntro": {
+    "message": "เลือกกลุ่มในตัวที่จะใช้งาน เปิดหรือปิดไซต์ทีละรายการ และเพิ่มโดเมนของคุณเอง"
+  },
+  "deliverySitesHeading": {
+    "message": "ไซต์เดลิเวอรี"
+  },
+  "fastFoodSitesHeading": {
+    "message": "ไซต์ฟาสต์ฟู้ด"
+  },
+  "customUrlsHeading": {
+    "message": "URL ที่กำหนดเอง"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "เพิ่มโดเมนของคุณเองและปิดใช้งานทีละรายการ"
+  },
+  "showSitesButton": {
+    "message": "แสดงไซต์"
+  },
+  "hideSitesButton": {
+    "message": "ซ่อนไซต์"
+  },
+  "showUrlsButton": {
+    "message": "แสดง URL"
+  },
+  "hideUrlsButton": {
+    "message": "ซ่อน URL"
+  },
+  "deliveryToggleTitle": {
+    "message": "เปิดใช้การบล็อกไซต์เดลิเวอรี"
+  },
+  "fastFoodToggleTitle": {
+    "message": "เปิดใช้การบล็อกไซต์ฟาสต์ฟู้ด"
+  },
+  "customToggleTitle": {
+    "message": "เปิดใช้การบล็อก URL ที่กำหนดเอง"
+  },
+  "addCustomUrlLabel": {
+    "message": "เพิ่ม URL ที่กำหนดเองเพื่อบล็อก"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com หรือ https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "รายการจะถูกปรับเป็นโดเมนและถูกบล็อกในทุกหน้า"
+  },
+  "customEmptyDefault": {
+    "message": "ยังไม่มี URL ที่กำหนดเอง"
+  },
+  "customNoMatch": {
+    "message": "ไม่มี URL ที่กำหนดเองตรงกับการค้นหานี้"
+  },
+  "emptyDeliverySearch": {
+    "message": "ไม่มีไซต์เดลิเวอรีตรงกับการค้นหานี้"
+  },
+  "emptyFastFoodSearch": {
+    "message": "ไม่มีไซต์ฟาสต์ฟู้ดตรงกับการค้นหานี้"
+  },
+  "noticeMatched": {
+    "message": "$1 $2 ตรงกับ “$3”."
+  },
+  "invalidUrlNotice": {
+    "message": "URL นั้นยังดูไม่ถูกต้อง ลองใช้โดเมนอย่าง example.com"
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 อยู่ในรายการบล็อกแล้ว จึงเปิดใช้งานอีกครั้ง"
+  },
+  "addedToBlocklist": {
+    "message": "เพิ่ม $1 ในรายการบล็อกที่กำหนดเองแล้ว"
+  },
+  "removedFromBlocklist": {
+    "message": "นำ $1 ออกจากรายการบล็อกที่กำหนดเองแล้ว"
+  },
+  "metadataHeading": {
+    "message": "การบล็อกตามประเทศและหมวดหมู่"
+  },
+  "metadataIntro": {
+    "message": "บล็อกกลุ่มไซต์ทั้งหมดตามประเทศที่แบรนด์ดำเนินงานหรือประเภทอาหารที่ให้บริการ การบล็อกเหล่านี้จะเพิ่มจากการบล็อกไซต์และ URL ที่กำหนดเองที่มีอยู่"
+  },
+  "blockByCountryLabel": {
+    "message": "บล็อกตามประเทศ"
+  },
+  "blockByCountryHint": {
+    "message": "ค้นหาด้วยชื่อประเทศหรือรหัส เช่น “United” หรือ “US” การเปิดใช้ประเทศจะบล็อกทุกแบรนด์ที่ทำงานอยู่ที่นั่น"
+  },
+  "countrySearchPlaceholder": {
+    "message": "ค้นหาประเทศ…"
+  },
+  "quickAccessCountries": {
+    "message": "เข้าถึงด่วน — ประเทศ"
+  },
+  "countryQuickEmpty": {
+    "message": "เปิดใช้ประเทศจากการค้นหาเพื่อปักหมุดไว้ที่นี่"
+  },
+  "blockByCategoryLabel": {
+    "message": "บล็อกตามหมวดหมู่"
+  },
+  "blockByCategoryHint": {
+    "message": "ค้นหาหมวดหมู่อย่าง burger, pizza หรือ coffee ค้นหาเมนูเฉพาะทางได้ด้วย การบล็อกจะใช้ตามหมวดหมู่"
+  },
+  "categorySearchPlaceholder": {
+    "message": "ค้นหาหมวดหมู่…"
+  },
+  "quickAccessCategories": {
+    "message": "เข้าถึงด่วน — หมวดหมู่"
+  },
+  "categoryQuickEmpty": {
+    "message": "เปิดใช้หมวดหมู่จากการค้นหาเพื่อปักหมุดไว้ที่นี่"
+  },
+  "noCountriesMatch": {
+    "message": "ไม่มีประเทศตรงกับการค้นหานั้น"
+  },
+  "noCategoriesMatch": {
+    "message": "ไม่มีหมวดหมู่ตรงกับการค้นหานั้น"
+  },
+  "languageHeading": {
+    "message": "ภาษา"
+  },
+  "languageIntro": {
+    "message": "เลือกภาษาที่ FitShield ใช้กับหน้าจอของตัวเอง การตั้งค่านี้จะแทนที่ภาษาของเบราว์เซอร์เฉพาะส่วนขยายนี้เท่านั้น"
+  },
+  "languageSelectLabel": {
+    "message": "ภาษาที่แสดง"
+  },
+  "languageHint": {
+    "message": "ค้นหาภาษาแล้วเลือก เลือกค่าเริ่มต้นของระบบเพื่อให้ตามเบราว์เซอร์"
+  },
+  "languageSearchPlaceholder": {
+    "message": "ค้นหาภาษา…"
+  },
+  "currentLanguageHead": {
+    "message": "ภาษาปัจจุบัน"
+  },
+  "languageUseButton": {
+    "message": "ใช้"
+  },
+  "languageActiveButton": {
+    "message": "ใช้งานอยู่"
+  },
+  "languageSystem": {
+    "message": "ค่าเริ่มต้นของระบบ"
+  },
+  "languageSystemSub": {
+    "message": "ใช้ภาษาตามเบราว์เซอร์ของคุณ"
+  },
+  "languageEnglish": {
+    "message": "อังกฤษ"
+  },
+  "languageJapanese": {
+    "message": "ญี่ปุ่น"
+  },
+  "languageChinese": {
+    "message": "จีนตัวย่อ"
+  },
+  "languageFrench": {
+    "message": "ฝรั่งเศส"
+  },
+  "languageCantonese": {
+    "message": "กวางตุ้ง"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ปัญจาบ"
+  },
+  "languageTamil": {
+    "message": "ทมิฬ"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "จีนตัวเต็ม (ไต้หวัน)"
+  },
+  "languageKorean": {
+    "message": "เกาหลี"
+  },
+  "languageHindi": {
+    "message": "ฮินดี"
+  },
+  "languageSpanishLatam": {
+    "message": "สเปน (ละตินอเมริกา)"
+  },
+  "languageSpanishSpain": {
+    "message": "สเปน (สเปน)"
+  },
+  "noLanguagesMatch": {
+    "message": "ไม่มีภาษาตรงกับการค้นหานั้น"
+  },
+  "mbBlocking": {
+    "message": "กำลังบล็อก"
+  },
+  "mbBlock": {
+    "message": "บล็อก"
+  },
+  "mbOn": {
+    "message": "เปิด"
+  },
+  "mbOff": {
+    "message": "ปิด"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "กำลังบล็อก — คลิกเพื่อหยุดชั่วคราว"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "หยุดชั่วคราว — คลิกเพื่อบล็อก"
+  },
+  "mbChipRemoveTitle": {
+    "message": "นำทางลัดออกจากการเข้าถึงด่วน"
+  },
+  "mbChipRemoveAria": {
+    "message": "นำ $1 ออกจากการเข้าถึงด่วน"
+  },
+  "themeHeading": {
+    "message": "ธีม"
+  },
+  "resetThemeButton": {
+    "message": "รีเซ็ตธีม"
+  },
+  "systemThemeLabel": {
+    "message": "ธีมระบบ"
+  },
+  "systemThemeHint": {
+    "message": "ค่าที่อุปกรณ์ต้องการหรือโหมดคงที่"
+  },
+  "themeSystem": {
+    "message": "ระบบ"
+  },
+  "themeLight": {
+    "message": "สว่าง"
+  },
+  "themeDark": {
+    "message": "มืด"
+  },
+  "themeBackground": {
+    "message": "พื้นหลัง"
+  },
+  "themePanel": {
+    "message": "แผง"
+  },
+  "themeBorder": {
+    "message": "ขอบ"
+  },
+  "themeText": {
+    "message": "ข้อความ"
+  },
+  "themeMutedText": {
+    "message": "ข้อความรอง"
+  },
+  "themeAccent": {
+    "message": "สีเน้น"
+  },
+  "cornerRadiusLabel": {
+    "message": "รัศมีมุม"
+  },
+  "popupWidthLabel": {
+    "message": "ความกว้างป๊อปอัป"
+  },
+  "supportFooterText": {
+    "message": "ถ้า FitShield ช่วยให้คุณหลีกเลี่ยงการสั่งเดลิเวอรีที่ไม่จำเป็น การสนับสนุนตามสมัครใจจะช่วยให้รายการบล็อกและเอกสารเดินหน้าต่อไป"
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

@@ -44,8 +44,13 @@ function domainToKey(domain, type) {
 
 // Map a JSON blocklist entry to the site-record shape used throughout the
 // background script, preserving the metadata so it can be filtered later.
+// All supported JSON metadata is carried through: the apex domain, alternate
+// alias domains, country codes, region tags, the food category and the
+// searchable specialties.
 function entryToSiteRecord(entry) {
-  const domain = FitShieldBlocklist.normalizeHostname(entry.domain);
+  const domains = FitShieldBlocklist.getEntryDomains(entry);
+  const domain = domains[0] || FitShieldBlocklist.normalizeHostname(entry.domain);
+  const aliases = domains.slice(1);
 
   return {
     key: domainToKey(domain, entry.type),
@@ -54,6 +59,9 @@ function entryToSiteRecord(entry) {
     match: domain,
     home: `https://www.${domain}/`,
     domain,
+    // The JSON `domain` is the apex used for boundary-anchored matching.
+    apex: domain,
+    aliases,
     type: entry.type || "",
     countries: Array.isArray(entry.countries) ? entry.countries : [],
     regions: Array.isArray(entry.regions) ? entry.regions : [],
@@ -304,29 +312,41 @@ function getRuleCatalog(settings) {
 }
 
 function createRules(settings) {
-  return getRuleCatalog(settings).map((site, index) => {
+  const rules = [];
+
+  getRuleCatalog(settings).forEach((site) => {
     const warningUrl = new URL(chrome.runtime.getURL("warning.html"));
     warningUrl.searchParams.set("site", site.key);
     warningUrl.searchParams.set("timer", String(settings.timerSeconds));
     warningUrl.searchParams.set("pass", String(settings.passDurationMinutes));
 
-    return {
-      id: index + 1,
-      priority: 1,
-      action: {
-        type: "redirect",
-        redirect: {
-          url: warningUrl.toString()
+    // Block the apex domain plus any alias domains the brand owns. Each alias
+    // gets its own rule but keeps the same site key, so the warning page and
+    // the bypass flow still resolve back to one record.
+    const matchDomains = [site.match, ...(Array.isArray(site.aliases) ? site.aliases : [])]
+      .filter(Boolean);
+
+    new Set(matchDomains).forEach((matchDomain) => {
+      rules.push({
+        priority: 1,
+        action: {
+          type: "redirect",
+          redirect: {
+            url: warningUrl.toString()
+          }
+        },
+        condition: {
+          // "||" anchors to a domain-name boundary so subdomains match but
+          // look-alikes (e.g. fake-mcdonalds.com) do not.
+          urlFilter: `||${matchDomain}`,
+          resourceTypes: ["main_frame"]
         }
-      },
-      condition: {
-        // "||" anchors to a domain-name boundary so subdomains match but
-        // look-alikes (e.g. fake-mcdonalds.com) do not.
-        urlFilter: `||${site.match}`,
-        resourceTypes: ["main_frame"]
-      }
-    };
+      });
+    });
   });
+
+  // Rule IDs must be unique and stable within a single update call.
+  return rules.map((rule, index) => ({ id: index + 1, ...rule }));
 }
 
 function getDynamicRules() {
@@ -498,6 +518,59 @@ async function getBlockState() {
   };
 }
 
+// Resolve the JSON-derived site record that triggered a block from its key so
+// the warning page can show the brand it interrupted and reopen the right
+// destination. Looks across the live rule catalog first, then all branded and
+// custom sites, so it still resolves a record even when the bucket toggle that
+// produced the rule is currently off.
+async function getBlockedSiteInfo(siteKey) {
+  const settings = await getSettings();
+
+  const customRecords = settings.customSites.map((site) => ({
+    key: getCustomSiteKey(site.domain),
+    label: site.domain,
+    match: site.domain,
+    home: `https://${site.domain}/`,
+    domain: site.domain,
+    apex: site.domain,
+    aliases: [],
+    type: "custom",
+    category: "custom",
+    countries: [],
+    regions: [],
+    specialties: []
+  }));
+
+  const lookup = [
+    ...getRuleCatalog(settings),
+    ...settings.deliverySites,
+    ...settings.fastFoodSites,
+    ...customRecords
+  ];
+
+  const site = lookup.find((entry) => entry.key === siteKey);
+
+  if (!site) {
+    return { ok: true, found: false };
+  }
+
+  return {
+    ok: true,
+    found: true,
+    key: site.key,
+    label: site.label,
+    domain: site.domain || site.match,
+    apex: site.apex || site.domain || site.match,
+    aliases: Array.isArray(site.aliases) ? site.aliases : [],
+    home: site.home,
+    type: site.type || "",
+    category: site.category || "",
+    countries: Array.isArray(site.countries) ? site.countries : [],
+    regions: Array.isArray(site.regions) ? site.regions : [],
+    specialties: Array.isArray(site.specialties) ? site.specialties : []
+  };
+}
+
 chrome.runtime.onInstalled.addListener(async () => {
   const state = await chrome.storage.local.get([
     "enabled",
@@ -613,6 +686,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message?.type === "getBlockState") {
     getBlockState().then(sendResponse).catch((error) => {
       console.error("Failed to get block state:", error);
+      sendResponse({ ok: false, error: error.message });
+    });
+
+    return true;
+  }
+
+  if (message?.type === "getBlockedSiteInfo") {
+    getBlockedSiteInfo(message.site).then(sendResponse).catch((error) => {
+      console.error("Failed to get blocked site info:", error);
       sendResponse({ ok: false, error: error.message });
     });
 

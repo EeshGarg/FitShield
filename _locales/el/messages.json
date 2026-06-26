@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Αναζήτηση ιστότοπος name or URL"
+  },
+  "searchButton": {
+    "message": "Αναζήτηση"
+  },
+  "clearButton": {
+    "message": "Εκκαθάριση"
+  },
+  "openButton": {
+    "message": "Άνοιγμα"
+  },
+  "addButton": {
+    "message": "Προσθήκη"
+  },
+  "removeButton": {
+    "message": "Αφαίρεση"
+  },
+  "viewBlocklistButton": {
+    "message": "View Αποκλεισμόςlist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Συνέχεια appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long ιστότοποι stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom λεπτά"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Αποκλεισμός will follow your daily πρόγραμμα when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Τρέχον πρόγραμμα: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "λεπτό"
+  },
+  "unitMinutes": {
+    "message": "λεπτά"
+  },
+  "unitSite": {
+    "message": "ιστότοπος"
+  },
+  "unitSites": {
+    "message": "ιστότοποι"
+  },
+  "popupSettingsButton": {
+    "message": "Ρυθμίσεις"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield αποκλειστής"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every αποκλεισμός list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & κατηγορία αποκλεισμόςing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Αποκλεισμός whole groups of ιστότοποι by χώρα or food κατηγορία."
+  },
+  "popupDeliveryLabel": {
+    "message": "Ιστότοποι διανομής"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Ιστότοποι γρήγορου φαγητού"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "Προσαρμοσμένα URL"
+  },
+  "popupCustomSubtitle": {
+    "message": "Προσθήκη your own ιστότοποι and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Αποκλεισμός only during πρόγραμμαd hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Χρήσηful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All ιστότοποι are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Αποκλειστής is on, but every individual ιστότοπος is disabled. Άνοιγμα Ρυθμίσεις to turn some ιστότοποι back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Αποκλεισμός resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Αποκλειστής is armed, but outside πρόγραμμαd hours. It will αποκλεισμός from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 ιστότοποι διανομής enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 ιστότοποι γρήγορου φαγητού enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one λεπτό."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the ιστότοπος."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the ιστότοπος for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Πίσω"
+  },
+  "warningLockedButton": {
+    "message": "Κλειδωμένο"
+  },
+  "warningContinueButton": {
+    "message": "Συνέχεια"
+  },
+  "warningOpeningButton": {
+    "message": "Άνοιγμα..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the ιστότοπος now. The αποκλειστής will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the ιστότοπος. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Ρυθμίσεις"
+  },
+  "blockingOptionsHeading": {
+    "message": "Αποκλεισμός Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Προγραμματισμένες ώρες"
+  },
+  "scheduledHoursHint": {
+    "message": "Αποκλεισμός only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Αποκλεισμόςlist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual ιστότοποι on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Ιστότοποι διανομής"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Ιστότοποι γρήγορου φαγητού"
+  },
+  "customUrlsHeading": {
+    "message": "Προσαρμοσμένα URL"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Προσθήκη your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Εμφάνιση Sites"
+  },
+  "hideSitesButton": {
+    "message": "Απόκρυψη Sites"
+  },
+  "showUrlsButton": {
+    "message": "Εμφάνιση URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Απόκρυψη URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Ενεργοποίηση delivery ιστότοπος αποκλεισμόςing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Ενεργοποίηση fast food ιστότοπος αποκλεισμόςing"
+  },
+  "customToggleTitle": {
+    "message": "Ενεργοποίηση custom URL αποκλεισμόςing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Προσθήκη a custom αποκλεισμόςed URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and αποκλεισμόςed across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No προσαρμοσμένα URL added yet."
+  },
+  "customNoMatch": {
+    "message": "No προσαρμοσμένα URL match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No ιστότοποι διανομής match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No ιστότοποι γρήγορου φαγητού match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the αποκλεισμόςlist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom αποκλεισμόςlist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom αποκλεισμόςlist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Αποκλεισμός"
+  },
+  "metadataIntro": {
+    "message": "Αποκλεισμός whole groups of ιστότοποι by the χώρα a brand operates in or the kind of food it serves. These αποκλεισμόςs add to your existing ιστότοπος and custom-URL αποκλεισμόςs."
+  },
+  "blockByCountryLabel": {
+    "message": "Αποκλεισμός by χώρα"
+  },
+  "blockByCountryHint": {
+    "message": "Αναζήτηση by χώρα name or code, e.g. \"United\" or \"US\". Enabling a χώρα αποκλεισμόςs every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Αναζήτηση χώρες…"
+  },
+  "quickAccessCountries": {
+    "message": "Γρήγορη πρόσβαση — χώρες"
+  },
+  "countryQuickEmpty": {
+    "message": "Ενεργοποίηση a χώρα from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Αποκλεισμός by κατηγορία"
+  },
+  "blockByCategoryHint": {
+    "message": "Αναζήτηση κατηγορίες like burger, pizza, or coffee. Specialties are searchable too; the αποκλεισμός applies by κατηγορία."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Αναζήτηση κατηγορίες…"
+  },
+  "quickAccessCategories": {
+    "message": "Γρήγορη πρόσβαση — κατηγορίες"
+  },
+  "categoryQuickEmpty": {
+    "message": "Ενεργοποίηση a κατηγορία from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No χώρες match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No κατηγορίες match that search."
+  },
+  "languageHeading": {
+    "message": "Γλώσσα"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Αναζήτηση for a language and select it. Choose Σύστημα default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Αναζήτηση γλωσσών…"
+  },
+  "currentLanguageHead": {
+    "message": "Τρέχον language"
+  },
+  "languageUseButton": {
+    "message": "Χρήση"
+  },
+  "languageActiveButton": {
+    "message": "Ενεργό"
+  },
+  "languageSystem": {
+    "message": "Σύστημα default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Καμία γλώσσα δεν ταιριάζει με την αναζήτηση."
+  },
+  "mbBlocking": {
+    "message": "Αποκλεισμός"
+  },
+  "mbBlock": {
+    "message": "Αποκλεισμός"
+  },
+  "mbOn": {
+    "message": "Ενεργό"
+  },
+  "mbOff": {
+    "message": "Ανενεργό"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Αποκλεισμός — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to αποκλεισμός"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Αφαίρεση shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Αφαίρεση $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Θέμα"
+  },
+  "resetThemeButton": {
+    "message": "Επαναφορά Θέμα"
+  },
+  "systemThemeLabel": {
+    "message": "Σύστημα theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Σύστημα"
+  },
+  "themeLight": {
+    "message": "Φωτεινό"
+  },
+  "themeDark": {
+    "message": "Σκοτεινό"
+  },
+  "themeBackground": {
+    "message": "Φόντο"
+  },
+  "themePanel": {
+    "message": "Πίνακας"
+  },
+  "themeBorder": {
+    "message": "Περίγραμμα"
+  },
+  "themeText": {
+    "message": "Κείμενο"
+  },
+  "themeMutedText": {
+    "message": "Απαλό κείμενο"
+  },
+  "themeAccent": {
+    "message": "Έμφαση"
+  },
+  "cornerRadiusLabel": {
+    "message": "Ακτίνα γωνίας"
+  },
+  "popupWidthLabel": {
+    "message": "Πλάτος αναδυόμενου"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep αποκλεισμόςlists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

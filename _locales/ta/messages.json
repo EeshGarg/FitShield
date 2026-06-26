@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "உணவு டெலிவரி மற்றும் ஃபாஸ்ட்-ஃபுட் ஆர்டர்கள் குறித்து விழிப்புடன் இருக்க உதவும் FitShield உலாவி நீட்டிப்பு."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "தளத்தின் பெயர் அல்லது URL-ஐத் தேடுங்கள்"
+  },
+  "searchButton": {
+    "message": "தேடு"
+  },
+  "clearButton": {
+    "message": "அழி"
+  },
+  "openButton": {
+    "message": "திற"
+  },
+  "addButton": {
+    "message": "சேர்"
+  },
+  "removeButton": {
+    "message": "அகற்று"
+  },
+  "viewBlocklistButton": {
+    "message": "தடைப்பட்டியலைக் காண்க"
+  },
+  "timerDurationLabel": {
+    "message": "டைமர் கால அளவு"
+  },
+  "timerDurationHint": {
+    "message": "தொடர்க என்பது தோன்றும் முன் உள்ள கவுண்ட்டவுனைச் சரிசெய்யவும்."
+  },
+  "customSecondsLabel": {
+    "message": "தனிப்பயன் வினாடிகள்"
+  },
+  "siteOpenTimeLabel": {
+    "message": "தளம் திறந்திருக்கும் நேரம்"
+  },
+  "siteOpenTimeHint": {
+    "message": "டைமர் முடிந்த பிறகு தளங்கள் எவ்வளவு நேரம் திறந்திருப்பதைத் தேர்ந்தெடுக்கவும்."
+  },
+  "customMinutesLabel": {
+    "message": "தனிப்பயன் நிமிடங்கள்"
+  },
+  "startTimeLabel": {
+    "message": "தொடக்க நேரம்"
+  },
+  "endTimeLabel": {
+    "message": "முடிவு நேரம்"
+  },
+  "scheduleDefaultSummary": {
+    "message": "இது இயக்கப்பட்டால், தடை உங்கள் தினசரி அட்டவணையைப் பின்பற்றும்."
+  },
+  "currentScheduleSummary": {
+    "message": "தற்போதைய அட்டவணை: $1."
+  },
+  "everyDaySuffix": {
+    "message": " ஒவ்வொரு நாளும்"
+  },
+  "scheduleRange": {
+    "message": "$1 முதல் $2 வரை"
+  },
+  "unitMinute": {
+    "message": "நிமிடம்"
+  },
+  "unitMinutes": {
+    "message": "நிமிடங்கள்"
+  },
+  "unitSite": {
+    "message": "தளம்"
+  },
+  "unitSites": {
+    "message": "தளங்கள்"
+  },
+  "popupSettingsButton": {
+    "message": "அமைப்புகள்"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield தடுப்பான்"
+  },
+  "popupBlockerSubtitle": {
+    "message": "ஒவ்வொரு தடைப்பட்டியலையும் இயக்கவும் அல்லது அணைக்கவும்."
+  },
+  "popupMetadataLabel": {
+    "message": "நாடு மற்றும் வகை தடை"
+  },
+  "popupMetadataSubtitle": {
+    "message": "நாடு அல்லது உணவு வகை அடிப்படையில் தளங்களின் முழு குழுக்களையும் தடுக்கவும்."
+  },
+  "popupDeliveryLabel": {
+    "message": "டெலிவரி தளங்கள்"
+  },
+  "popupDeliveryDefault": {
+    "message": "டெலிவரி ஆர்டர் டொமைன்கள்."
+  },
+  "popupFastFoodLabel": {
+    "message": "ஃபாஸ்ட் ஃபுட் தளங்கள்"
+  },
+  "popupFastFoodDefault": {
+    "message": "முக்கிய சங்கிலி ஆர்டர் டொமைன்கள்."
+  },
+  "popupCustomLabel": {
+    "message": "தனிப்பயன் URL-கள்"
+  },
+  "popupCustomSubtitle": {
+    "message": "உங்கள் சொந்த தளங்களைச் சேர்த்து அவற்றை தனித்தனியாக முடக்கவும்."
+  },
+  "popupScheduleLabel": {
+    "message": "அட்டவணையிட்ட நேரங்களில் மட்டும் தடுக்கவும்"
+  },
+  "popupScheduleSubtitle": {
+    "message": "உணவு செலவு, இரவு நேர ஆர்டர் அல்லது வேலை நேரங்களுக்கு பயனுள்ளது."
+  },
+  "statusInactive": {
+    "message": "செயலற்றது. எல்லா தளங்களையும் அணுகலாம்."
+  },
+  "statusAllDisabled": {
+    "message": "தடுப்பான் இயக்கத்தில் உள்ளது, ஆனால் ஒவ்வொரு தனிப்பட்ட தளமும் முடக்கப்பட்டுள்ளது. சில தளங்களை மீண்டும் இயக்க அமைப்புகளைத் திறக்கவும்."
+  },
+  "statusBypassActive": {
+    "message": "தற்காலிக பாஸ் செயல்பாட்டில் உள்ளது. தடை $1-இல் மீண்டும் தொடங்கும்."
+  },
+  "statusOutsideSchedule": {
+    "message": "தடுப்பான் தயாராக உள்ளது, ஆனால் அட்டவணையிட்ட நேரத்திற்கு வெளியே உள்ளது. இது $1 முதல் தடுக்கத் தொடங்கும்."
+  },
+  "statusShieldUp": {
+    "message": "கவசம் இயக்கத்தில் உள்ளது. $1 வினாடி கவுண்ட்டவுன், $2 $3 பாஸ்."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$2 டெலிவரி தளங்களில் $1 இயக்கப்பட்டுள்ளது."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$2 ஃபாஸ்ட் ஃபுட் தளங்களில் $1 இயக்கப்பட்டுள்ளது."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 தேடலுடன் பொருந்துகின்றன."
+  },
+  "warningPageTitle": {
+    "message": "ஒரு மூச்சு விடுங்கள்"
+  },
+  "warningEyebrow": {
+    "message": "FitShield சரிபார்ப்பு"
+  },
+  "warningTitle": {
+    "message": "ஒரு நிமிடம் எடுத்துக்கொள்ளுங்கள்."
+  },
+  "warningIntro": {
+    "message": "ஆர்டர் செய்வதற்கு முன் உங்களுடன் நீங்களே பார்க்கவும். பசி, வசதி, மனஅழுத்தம், பழக்கம் ஆகியவை அந்த நேரத்தில் ஒரே மாதிரி தோன்றலாம்."
+  },
+  "warningTriggeredBy": {
+    "message": "நீங்கள் $1-இலிருந்து ஆர்டர் செய்யப் போகிறீர்கள்."
+  },
+  "warningHintDefault": {
+    "message": "டைமர் முடிந்ததும், நீங்கள் தளத்திற்குத் தொடரலாம்."
+  },
+  "warningHintLocked": {
+    "message": "டைமர் முடிந்ததும், நீங்கள் $1 $2 தளத்திற்குத் தொடரலாம்."
+  },
+  "warningBackButton": {
+    "message": "திரும்பிச் செல்"
+  },
+  "warningLockedButton": {
+    "message": "பூட்டப்பட்டது"
+  },
+  "warningContinueButton": {
+    "message": "தொடர்"
+  },
+  "warningOpeningButton": {
+    "message": "திறக்கிறது..."
+  },
+  "warningUnlockHint": {
+    "message": "இப்போது நீங்கள் தளத்தைப் பார்வையிடலாம். தடுப்பான் $1 $2 கழித்து தானாகவே திரும்பும்."
+  },
+  "warningErrorHint": {
+    "message": "தளத்தைத் திறக்கும் போது ஏதோ தவறு ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்."
+  },
+  "settingsTitle": {
+    "message": "FitShield அமைப்புகள்"
+  },
+  "blockingOptionsHeading": {
+    "message": "தடை விருப்பங்கள்"
+  },
+  "scheduledHoursLabel": {
+    "message": "அட்டவணையிட்ட நேரங்கள்"
+  },
+  "scheduledHoursHint": {
+    "message": "தினசரி நேர சாளரத்தில் மட்டும் தடுக்கவும்."
+  },
+  "customizeBlocklistHeading": {
+    "message": "தடைப்பட்டியலைத் தனிப்பயனாக்கு"
+  },
+  "customizeBlocklistIntro": {
+    "message": "எந்த உள்ளமைக்கப்பட்ட குழுக்கள் செயலில் இருக்க வேண்டும் என்பதைத் தேர்ந்தெடுத்து, தனித்தளங்களை இயக்கவும் அல்லது அணைக்கவும், உங்கள் சொந்த டொமைன்களைச் சேர்க்கவும்."
+  },
+  "deliverySitesHeading": {
+    "message": "டெலிவரி தளங்கள்"
+  },
+  "fastFoodSitesHeading": {
+    "message": "ஃபாஸ்ட் ஃபுட் தளங்கள்"
+  },
+  "customUrlsHeading": {
+    "message": "தனிப்பயன் URL-கள்"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "உங்கள் சொந்த டொமைன்களைச் சேர்த்து அவற்றை தனித்தனியாக முடக்கவும்."
+  },
+  "showSitesButton": {
+    "message": "தளங்களை காட்டு"
+  },
+  "hideSitesButton": {
+    "message": "தளங்களை மறை"
+  },
+  "showUrlsButton": {
+    "message": "URL-களை காட்டு"
+  },
+  "hideUrlsButton": {
+    "message": "URL-களை மறை"
+  },
+  "deliveryToggleTitle": {
+    "message": "டெலிவரி தளத் தடையை இயக்கு"
+  },
+  "fastFoodToggleTitle": {
+    "message": "ஃபாஸ்ட் ஃபுட் தளத் தடையை இயக்கு"
+  },
+  "customToggleTitle": {
+    "message": "தனிப்பயன் URL தடையை இயக்கு"
+  },
+  "addCustomUrlLabel": {
+    "message": "தடுக்க தனிப்பயன் URL ஒன்றைச் சேர்க்கவும்"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com அல்லது https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "உள்ளீடுகள் டொமைன்களாக இயல்பாக்கப்பட்டு எல்லா பக்கங்களிலும் தடுக்கப்படும்."
+  },
+  "customEmptyDefault": {
+    "message": "இன்னும் தனிப்பயன் URL எதுவும் சேர்க்கப்படவில்லை."
+  },
+  "customNoMatch": {
+    "message": "இந்தத் தேடலுடன் பொருந்தும் தனிப்பயன் URL இல்லை."
+  },
+  "emptyDeliverySearch": {
+    "message": "இந்தத் தேடலுடன் பொருந்தும் டெலிவரி தளங்கள் இல்லை."
+  },
+  "emptyFastFoodSearch": {
+    "message": "இந்தத் தேடலுடன் பொருந்தும் ஃபாஸ்ட் ஃபுட் தளங்கள் இல்லை."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 “$3” உடன் பொருந்தின."
+  },
+  "invalidUrlNotice": {
+    "message": "அந்த URL இன்னும் செல்லுபடியாகத் தெரியவில்லை. example.com போன்ற டொமைனை முயற்சிக்கவும்."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 ஏற்கனவே தடைப்பட்டியலில் உள்ளது, எனவே அது மீண்டும் இயக்கப்பட்டது."
+  },
+  "addedToBlocklist": {
+    "message": "$1 தனிப்பயன் தடைப்பட்டியலில் சேர்க்கப்பட்டது."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 தனிப்பயன் தடைப்பட்டியலிலிருந்து அகற்றப்பட்டது."
+  },
+  "metadataHeading": {
+    "message": "நாடு மற்றும் வகை தடை"
+  },
+  "metadataIntro": {
+    "message": "ஒரு பிராண்ட் செயல்படும் நாடு அல்லது அது வழங்கும் உணவு வகை அடிப்படையில் தளங்களின் முழு குழுக்களையும் தடுக்கவும். இந்தத் தடைகள் உங்கள் தற்போதைய தள மற்றும் தனிப்பயன்-URL தடைகளுடன் சேர்க்கப்படும்."
+  },
+  "blockByCountryLabel": {
+    "message": "நாடு அடிப்படையில் தடுக்கவும்"
+  },
+  "blockByCountryHint": {
+    "message": "நாட்டுப் பெயர் அல்லது குறியீட்டால் தேடுங்கள், எ.கா. “United” அல்லது “US”. ஒரு நாட்டை இயக்கினால் அங்கு செயலில் உள்ள ஒவ்வொரு பிராண்டும் தடுக்கப்படும்."
+  },
+  "countrySearchPlaceholder": {
+    "message": "நாடுகளைத் தேடுங்கள்…"
+  },
+  "quickAccessCountries": {
+    "message": "விரைவு அணுகல் — நாடுகள்"
+  },
+  "countryQuickEmpty": {
+    "message": "ஒரு நாட்டை இங்கே பின் செய்ய தேடலிலிருந்து அதை இயக்கவும்."
+  },
+  "blockByCategoryLabel": {
+    "message": "வகை அடிப்படையில் தடுக்கவும்"
+  },
+  "blockByCategoryHint": {
+    "message": "burger, pizza அல்லது coffee போன்ற வகைகளைத் தேடுங்கள். சிறப்புப் பொருட்களையும் தேடலாம்; தடை வகை அடிப்படையில் செயல்படும்."
+  },
+  "categorySearchPlaceholder": {
+    "message": "வகைகளைத் தேடுங்கள்…"
+  },
+  "quickAccessCategories": {
+    "message": "விரைவு அணுகல் — வகைகள்"
+  },
+  "categoryQuickEmpty": {
+    "message": "ஒரு வகையை இங்கே பின் செய்ய தேடலிலிருந்து அதை இயக்கவும்."
+  },
+  "noCountriesMatch": {
+    "message": "அந்தத் தேடலுடன் பொருந்தும் நாடுகள் இல்லை."
+  },
+  "noCategoriesMatch": {
+    "message": "அந்தத் தேடலுடன் பொருந்தும் வகைகள் இல்லை."
+  },
+  "languageHeading": {
+    "message": "மொழி"
+  },
+  "languageIntro": {
+    "message": "FitShield தனது திரைகளுக்குப் பயன்படுத்தும் மொழியைத் தேர்ந்தெடுக்கவும். இது இந்த நீட்டிப்புக்காக மட்டும் உங்கள் உலாவி மொழியை மாற்றும்."
+  },
+  "languageSelectLabel": {
+    "message": "காட்சி மொழி"
+  },
+  "languageHint": {
+    "message": "ஒரு மொழியைத் தேடி அதைத் தேர்ந்தெடுக்கவும். உங்கள் உலாவியைப் பின்பற்ற சிஸ்டம் இயல்பைத் தேர்ந்தெடுக்கவும்."
+  },
+  "languageSearchPlaceholder": {
+    "message": "மொழிகளைத் தேடுங்கள்…"
+  },
+  "currentLanguageHead": {
+    "message": "தற்போதைய மொழி"
+  },
+  "languageUseButton": {
+    "message": "பயன்படுத்து"
+  },
+  "languageActiveButton": {
+    "message": "செயலில்"
+  },
+  "languageSystem": {
+    "message": "சிஸ்டம் இயல்பு"
+  },
+  "languageSystemSub": {
+    "message": "உங்கள் உலாவி மொழியைப் பின்பற்றவும்"
+  },
+  "languageEnglish": {
+    "message": "ஆங்கிலம்"
+  },
+  "languageJapanese": {
+    "message": "ஜப்பானியம்"
+  },
+  "languageChinese": {
+    "message": "சீனம் (எளிமைப்படுத்தப்பட்டது)"
+  },
+  "languageFrench": {
+    "message": "பிரெஞ்சு"
+  },
+  "languageCantonese": {
+    "message": "கண்டோனீஸ்"
+  },
+  "languageThai": {
+    "message": "தாய்"
+  },
+  "languagePunjabi": {
+    "message": "பஞ்சாபி"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "சீனம் (பாரம்பரியம், தைவான்)"
+  },
+  "languageKorean": {
+    "message": "கொரியன்"
+  },
+  "languageHindi": {
+    "message": "இந்தி"
+  },
+  "languageSpanishLatam": {
+    "message": "ஸ்பானிஷ் (லத்தீன் அமெரிக்கா)"
+  },
+  "languageSpanishSpain": {
+    "message": "ஸ்பானிஷ் (ஸ்பெயின்)"
+  },
+  "noLanguagesMatch": {
+    "message": "அந்தத் தேடலுடன் பொருந்தும் மொழிகள் இல்லை."
+  },
+  "mbBlocking": {
+    "message": "தடுக்கிறது"
+  },
+  "mbBlock": {
+    "message": "தடு"
+  },
+  "mbOn": {
+    "message": "ஆன்"
+  },
+  "mbOff": {
+    "message": "ஆஃப்"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "தடுக்கிறது — இடைநிறுத்த கிளிக் செய்யவும்"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "இடைநிறுத்தப்பட்டது — தடுக்க கிளிக் செய்யவும்"
+  },
+  "mbChipRemoveTitle": {
+    "message": "விரைவு அணுகலிலிருந்து குறுக்குவழியை அகற்று"
+  },
+  "mbChipRemoveAria": {
+    "message": "விரைவு அணுகலிலிருந்து $1-ஐ அகற்று"
+  },
+  "themeHeading": {
+    "message": "தீம்"
+  },
+  "resetThemeButton": {
+    "message": "தீமை மீட்டமை"
+  },
+  "systemThemeLabel": {
+    "message": "சிஸ்டம் தீம்"
+  },
+  "systemThemeHint": {
+    "message": "சாதன விருப்பம் அல்லது நிலையான முறை."
+  },
+  "themeSystem": {
+    "message": "சிஸ்டம்"
+  },
+  "themeLight": {
+    "message": "வெளிச்சம்"
+  },
+  "themeDark": {
+    "message": "இருள்"
+  },
+  "themeBackground": {
+    "message": "பின்னணி"
+  },
+  "themePanel": {
+    "message": "பேனல்"
+  },
+  "themeBorder": {
+    "message": "எல்லை"
+  },
+  "themeText": {
+    "message": "உரை"
+  },
+  "themeMutedText": {
+    "message": "மெலிந்த உரை"
+  },
+  "themeAccent": {
+    "message": "உச்சரிப்பு"
+  },
+  "cornerRadiusLabel": {
+    "message": "மூலை ஆரம்"
+  },
+  "popupWidthLabel": {
+    "message": "பாப்அப் அகலம்"
+  },
+  "supportFooterText": {
+    "message": "தேவையற்ற டெலிவரி ஆர்டரைத் தவிர்க்க FitShield உங்களுக்கு உதவியிருந்தால், விருப்ப ஆதரவு தடைப்பட்டியல்களையும் ஆவணங்களையும் தொடர்ந்து நகர்த்த உதவும்."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Tafuta jina la tovuti au URL"
+  },
+  "clearButton": {
+    "message": "Wazi"
+  },
+  "searchButton": {
+    "message": "Tafuta"
+  },
+  "appDescription": {
+    "message": "Kiendelezi cha kivinjari cha FitShield ambacho hukusaidia kukumbuka utoaji wa chakula na kuagiza chakula haraka."
+  },
+  "removeButton": {
+    "message": "Ondoa"
+  },
+  "viewBlocklistButton": {
+    "message": "Tazama Orodha ya Vizuizi"
+  },
+  "timerDurationLabel": {
+    "message": "Muda wa kipima muda"
+  },
+  "addButton": {
+    "message": "Ongeza"
+  },
+  "openButton": {
+    "message": "Fungua"
+  },
+  "siteOpenTimeHint": {
+    "message": "Chagua muda ambao tovuti zitakaa wazi baada ya kipima muda kuisha."
+  },
+  "timerDurationHint": {
+    "message": "Rekebisha muda uliosalia kabla ya Endelea kuonekana."
+  },
+  "customMinutesLabel": {
+    "message": "Dakika maalum"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Wakati wa kufungua tovuti"
+  },
+  "customSecondsLabel": {
+    "message": "Sekunde maalum"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Kuzuia kutafuata ratiba yako ya kila siku wakati hii imewashwa."
+  },
+  "startTimeLabel": {
+    "message": "Wakati wa kuanza"
+  },
+  "endTimeLabel": {
+    "message": "Wakati wa mwisho"
+  },
+  "everyDaySuffix": {
+    "message": " kila siku"
+  },
+  "currentScheduleSummary": {
+    "message": "Ratiba ya sasa: $1."
+  },
+  "scheduleRange": {
+    "message": "$1 kwa $2"
+  },
+  "unitMinute": {
+    "message": "dakika"
+  },
+  "unitMinutes": {
+    "message": "dakika"
+  },
+  "unitSite": {
+    "message": "tovuti"
+  },
+  "popupSettingsButton": {
+    "message": "Mipangilio"
+  },
+  "unitSites": {
+    "message": "tovuti"
+  },
+  "popupBlockerTitle": {
+    "message": "Mtoaji wa FitShield"
+  },
+  "popupMetadataLabel": {
+    "message": "Uzuiaji wa nchi na kategoria"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Washa au zima kila orodha ya block."
+  },
+  "popupMetadataSubtitle": {
+    "message": "Zuia vikundi vizima vya tovuti kulingana na nchi au kategoria ya chakula."
+  },
+  "popupDeliveryDefault": {
+    "message": "Vikoa vya kuagiza uwasilishaji."
+  },
+  "popupFastFoodLabel": {
+    "message": "Maeneo ya chakula cha haraka"
+  },
+  "popupDeliveryLabel": {
+    "message": "Maeneo ya utoaji"
+  },
+  "popupFastFoodDefault": {
+    "message": "Vikoa kuu vya kuagiza mnyororo."
+  },
+  "popupScheduleLabel": {
+    "message": "Zuia tu wakati wa saa zilizopangwa"
+  },
+  "popupCustomLabel": {
+    "message": "URL maalum"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Inatumika kwa bajeti ya chakula, kuagiza usiku wa manane, au saa za kazi."
+  },
+  "popupCustomSubtitle": {
+    "message": "Ongeza tovuti zako na uzizima kibinafsi."
+  },
+  "statusAllDisabled": {
+    "message": "Kizuia kimewashwa, lakini kila tovuti maalum imezimwa. Fungua Mipangilio ili kuwasha tena tovuti zingine."
+  },
+  "statusBypassActive": {
+    "message": "Pasi ya muda inatumika. Kuzuia kunaendelea tena katika $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blocker ina silaha, lakini nje ya saa zilizopangwa. Itazuia kutoka $1."
+  },
+  "statusInactive": {
+    "message": "Isiyotumika. Tovuti zote zinapatikana."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 za tovuti za utoaji za $2 zimewezeshwa."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 ya tovuti za vyakula vya haraka vya $2 zimewezeshwa."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 inalingana na utaftaji."
+  },
+  "statusShieldUp": {
+    "message": "Jilinde. $1 kuhesabu sekunde, $2 $3 kupita."
+  },
+  "warningPageTitle": {
+    "message": "Vuta Pumzi"
+  },
+  "warningTitle": {
+    "message": "Chukua dakika moja."
+  },
+  "warningEyebrow": {
+    "message": "Uchunguzi wa FitShield"
+  },
+  "warningIntro": {
+    "message": "Ingia kabla ya kuagiza. Njaa, urahisi, dhiki, na tabia inaweza kuhisi sawa kwa sasa."
+  },
+  "warningHintDefault": {
+    "message": "Wakati kipima saa kinapoisha, unaweza kuendelea hadi kwenye tovuti."
+  },
+  "warningHintLocked": {
+    "message": "Kipima muda kinapoisha, unaweza kuendelea hadi kwenye tovuti ya $1 $2."
+  },
+  "warningTriggeredBy": {
+    "message": "Unakaribia kuagiza kutoka $1."
+  },
+  "warningBackButton": {
+    "message": "Rudi nyuma"
+  },
+  "warningContinueButton": {
+    "message": "Endelea"
+  },
+  "warningLockedButton": {
+    "message": "Imefungwa"
+  },
+  "settingsTitle": {
+    "message": "Mipangilio ya FitShield"
+  },
+  "warningOpeningButton": {
+    "message": "Inafungua..."
+  },
+  "warningErrorHint": {
+    "message": "Hitilafu fulani imetokea wakati wa kufungua tovuti. Tafadhali jaribu tena."
+  },
+  "warningUnlockHint": {
+    "message": "Unaweza kutembelea tovuti sasa. Kizuizi kitarudi kiotomatiki baada ya $1 $2."
+  },
+  "scheduledHoursHint": {
+    "message": "Zuia tu wakati wa dirisha la kila siku."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Blocklist"
+  },
+  "blockingOptionsHeading": {
+    "message": "Chaguzi za Kuzuia"
+  },
+  "scheduledHoursLabel": {
+    "message": "Saa zilizopangwa"
+  },
+  "customUrlsHeading": {
+    "message": "URL maalum"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Maeneo ya Chakula cha Haraka"
+  },
+  "deliverySitesHeading": {
+    "message": "Maeneo ya Uwasilishaji"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Chagua ni vikundi vipi vilivyojengewa ndani vinavyotumika, washa au uzime tovuti mahususi, na uongeze vikoa vyako mwenyewe."
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Ongeza vikoa vyako na uzime kibinafsi."
+  },
+  "hideUrlsButton": {
+    "message": "Ficha za URL"
+  },
+  "showSitesButton": {
+    "message": "Onyesha Tovuti"
+  },
+  "hideSitesButton": {
+    "message": "Ficha Maeneo"
+  },
+  "showUrlsButton": {
+    "message": "Onyesha URL"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Washa uzuiaji wa tovuti ya chakula cha haraka"
+  },
+  "addCustomUrlLabel": {
+    "message": "Ongeza URL maalum iliyozuiwa"
+  },
+  "deliveryToggleTitle": {
+    "message": "Washa uzuiaji wa tovuti ya uwasilishaji"
+  },
+  "customToggleTitle": {
+    "message": "Washa kizuizi maalum cha URL"
+  },
+  "customEmptyDefault": {
+    "message": "Bado hakuna URL maalum zilizoongezwa."
+  },
+  "customNoMatch": {
+    "message": "Hakuna URL maalum zinazolingana na utafutaji huu."
+  },
+  "customNormalizeHint": {
+    "message": "Maingizo yanarekebishwa kwa vikoa na kuzuiwa kwenye kurasa zote."
+  },
+  "customSitePlaceholder": {
+    "message": "example.com au https://example.com"
+  },
+  "invalidUrlNotice": {
+    "message": "Hiyo URL haionekani kuwa halali bado. Jaribu kikoa kama example.com."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 ililingana na \"$3\"."
+  },
+  "emptyDeliverySearch": {
+    "message": "Hakuna tovuti za uwasilishaji zinazolingana na utafutaji huu."
+  },
+  "emptyFastFoodSearch": {
+    "message": "Hakuna tovuti za vyakula vya haraka zinazolingana na utafutaji huu."
+  },
+  "addedToBlocklist": {
+    "message": "$1 iliongezwa kwenye orodha maalum ya kuzuia."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 iliondolewa kutoka kwa orodha maalum ya kuzuia."
+  },
+  "metadataHeading": {
+    "message": "Kuzuia Nchi na Aina"
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 tayari iko kwenye orodha ya waliozuiwa, kwa hivyo imewashwa tena."
+  },
+  "blockByCountryLabel": {
+    "message": "Zuia kwa nchi"
+  },
+  "countrySearchPlaceholder": {
+    "message": "Tafuta nchi..."
+  },
+  "metadataIntro": {
+    "message": "Zuia vikundi vizima vya tovuti kulingana na nchi ambayo chapa inafanyia kazi au aina ya chakula inachotoa. Vitalu hivi vinaongeza kwenye tovuti yako iliyopo na vizuizi maalum-URL."
+  },
+  "blockByCountryHint": {
+    "message": "Tafuta kwa jina la nchi au msimbo, k.m. \"United\" au \"US\". Kuwezesha nchi huzuia kila chapa inayotumika huko."
+  },
+  "countryQuickEmpty": {
+    "message": "Washa nchi kutoka kwa utafutaji ili kuibandika hapa."
+  },
+  "quickAccessCountries": {
+    "message": "Ufikiaji wa haraka - nchi"
+  },
+  "blockByCategoryLabel": {
+    "message": "Zuia kwa kategoria"
+  },
+  "categorySearchPlaceholder": {
+    "message": "Tafuta kategoria..."
+  },
+  "quickAccessCategories": {
+    "message": "Ufikiaji wa haraka - kategoria"
+  },
+  "blockByCategoryHint": {
+    "message": "Tafuta aina kama burger, pizza, au coffee. Utaalam unaweza kutafutwa pia; block inatumika kwa kategoria."
+  },
+  "noCategoriesMatch": {
+    "message": "Hakuna kategoria zinazolingana na utafutaji huo."
+  },
+  "noCountriesMatch": {
+    "message": "Hakuna nchi zinazolingana na utafutaji huo."
+  },
+  "categoryQuickEmpty": {
+    "message": "Washa aina kutoka kwa utafutaji ili kuibandika hapa."
+  },
+  "languageHeading": {
+    "message": "Lugha"
+  },
+  "languageSelectLabel": {
+    "message": "Lugha ya kuonyesha"
+  },
+  "languageHint": {
+    "message": "Tafuta lugha na uchague. Chagua chaguo-msingi ya Mfumo ili kufuata kivinjari chako."
+  },
+  "languageIntro": {
+    "message": "Chagua lugha ambayo FitShield hutumia kwa skrini zake yenyewe. Hii inabatilisha lugha ya kivinjari chako kwa kiendelezi pekee."
+  },
+  "languageUseButton": {
+    "message": "Tumia"
+  },
+  "languageSearchPlaceholder": {
+    "message": "Tafuta lugha..."
+  },
+  "currentLanguageHead": {
+    "message": "Lugha ya sasa"
+  },
+  "languageEnglish": {
+    "message": "Kiingereza"
+  },
+  "languageJapanese": {
+    "message": "Kijapani"
+  },
+  "languageSystem": {
+    "message": "Chaguomsingi ya mfumo"
+  },
+  "languageActiveButton": {
+    "message": "Inayotumika"
+  },
+  "languageFrench": {
+    "message": "Kifaransa"
+  },
+  "languageSystemSub": {
+    "message": "Fuata lugha ya kivinjari chako"
+  },
+  "languagePunjabi": {
+    "message": "Kipunjabi"
+  },
+  "languageThai": {
+    "message": "Thai"
+  },
+  "languageCantonese": {
+    "message": "Kikantoni"
+  },
+  "languageChinese": {
+    "message": "Kichina (Kilichorahisishwa)"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "Kichina (Cha Jadi, Taiwan)"
+  },
+  "languageHindi": {
+    "message": "Kihindi"
+  },
+  "languageTamil": {
+    "message": "Kitamil"
+  },
+  "languageKorean": {
+    "message": "Kikorea"
+  },
+  "languageAlbanian": {
+    "message": "Kialbeni"
+  },
+  "languageSpanishSpain": {
+    "message": "Kihispania (Uhispania)"
+  },
+  "languageAfrikaans": {
+    "message": "Kiafrikana"
+  },
+  "languageSpanishLatam": {
+    "message": "Kihispania (Amerika ya Kusini)"
+  },
+  "languageBasque": {
+    "message": "Kibasque"
+  },
+  "languageBulgarian": {
+    "message": "Kibulgaria"
+  },
+  "languageBelarusian": {
+    "message": "Kibelarusi"
+  },
+  "languageCatalan": {
+    "message": "Kikatalani"
+  },
+  "languageCroatian": {
+    "message": "Kikroeshia"
+  },
+  "languageDutch": {
+    "message": "Kiholanzi"
+  },
+  "languageCzech": {
+    "message": "Kicheki"
+  },
+  "languageDanish": {
+    "message": "Kideni"
+  },
+  "languageGreek": {
+    "message": "Kigiriki"
+  },
+  "languageFinnish": {
+    "message": "Kifini"
+  },
+  "languageEstonian": {
+    "message": "Kiestonia"
+  },
+  "languageHungarian": {
+    "message": "Kihungaria"
+  },
+  "languageItalian": {
+    "message": "Kiitaliano"
+  },
+  "languageLatvian": {
+    "message": "Kilatvia"
+  },
+  "languageIcelandic": {
+    "message": "Kiaislandi"
+  },
+  "languageIrish": {
+    "message": "Kiayalandi"
+  },
+  "languageLithuanian": {
+    "message": "Kilithuania"
+  },
+  "languagePolish": {
+    "message": "Kipolandi"
+  },
+  "languageMaltese": {
+    "message": "Kimalta"
+  },
+  "languageNorwegian": {
+    "message": "Kinorwe"
+  },
+  "languageMacedonian": {
+    "message": "Kimasedonia"
+  },
+  "languageSerbian": {
+    "message": "Kiserbia"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Kireno (Ureno)"
+  },
+  "languageRussian": {
+    "message": "Kirusi"
+  },
+  "languageRomanian": {
+    "message": "Kiromania"
+  },
+  "languageSwedish": {
+    "message": "Kiswidi"
+  },
+  "languageSlovak": {
+    "message": "Kislovakia"
+  },
+  "languageUkrainian": {
+    "message": "Kiukreni"
+  },
+  "languageTurkish": {
+    "message": "Kituruki"
+  },
+  "languageSlovenian": {
+    "message": "Kislovenia"
+  },
+  "languageKannada": {
+    "message": "Kikanada"
+  },
+  "languageWelsh": {
+    "message": "Kiwelisi"
+  },
+  "languageGujarati": {
+    "message": "Kigujarati"
+  },
+  "languageBengali": {
+    "message": "Kibengali"
+  },
+  "languageNepali": {
+    "message": "Kinepali"
+  },
+  "languageMalayalam": {
+    "message": "Kimalayalam"
+  },
+  "languageMarathi": {
+    "message": "Marathi"
+  },
+  "languageOdia": {
+    "message": "Odia"
+  },
+  "languageSinhala": {
+    "message": "Kisinhala"
+  },
+  "languageTelugu": {
+    "message": "Kitelugu"
+  },
+  "languageUrdu": {
+    "message": "Kiurdu"
+  },
+  "languageAssamese": {
+    "message": "Kiassamese"
+  },
+  "languageVietnamese": {
+    "message": "Kivietinamu"
+  },
+  "languageMalay": {
+    "message": "Kimalei"
+  },
+  "languageIndonesian": {
+    "message": "Kiindonesia"
+  },
+  "languageKhmer": {
+    "message": "Khmer"
+  },
+  "languageBurmese": {
+    "message": "Kiburma (Myanmar)"
+  },
+  "languageLao": {
+    "message": "Lao"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Kifilipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Kijava"
+  },
+  "languageHebrew": {
+    "message": "Kiebrania"
+  },
+  "languageArmenian": {
+    "message": "Kiarmenia"
+  },
+  "languageArabic": {
+    "message": "Kiarabu"
+  },
+  "languagePersian": {
+    "message": "Kiajemi (Farsi)"
+  },
+  "languageSundanese": {
+    "message": "Kisunda"
+  },
+  "languageKazakh": {
+    "message": "Kazakh"
+  },
+  "languageKyrgyz": {
+    "message": "Kirigizi"
+  },
+  "languageGeorgian": {
+    "message": "Kijojiajia"
+  },
+  "languageMongolian": {
+    "message": "Kimongolia"
+  },
+  "languageTurkmen": {
+    "message": "Waturukimeni"
+  },
+  "languagePashto": {
+    "message": "Kipashto"
+  },
+  "languageTajik": {
+    "message": "Tajiki"
+  },
+  "languageUyghur": {
+    "message": "Uyghur"
+  },
+  "languageSwahili": {
+    "message": "kiswahili"
+  },
+  "languageAmharic": {
+    "message": "Kiamhari"
+  },
+  "languageUzbek": {
+    "message": "Kiuzbeki"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Kireno (Brazili)"
+  },
+  "noLanguagesMatch": {
+    "message": "Hakuna lugha zinazolingana na utafutaji huo."
+  },
+  "mbBlocking": {
+    "message": "Kuzuia"
+  },
+  "mbOn": {
+    "message": "Washa"
+  },
+  "mbBlock": {
+    "message": "Zuia"
+  },
+  "mbOff": {
+    "message": "Imezimwa"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Imesitishwa - bofya ili kuzuia"
+  },
+  "mbChipRemoveAria": {
+    "message": "Ondoa $1 kutoka kwa ufikiaji wa haraka"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Kuzuia - bofya ili kusitisha"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Ondoa njia ya mkato kutoka kwa ufikiaji wa haraka"
+  },
+  "systemThemeHint": {
+    "message": "Upendeleo wa kifaa au hali isiyobadilika."
+  },
+  "resetThemeButton": {
+    "message": "Weka upya Mandhari"
+  },
+  "themeHeading": {
+    "message": "Mandhari"
+  },
+  "systemThemeLabel": {
+    "message": "Mandhari ya mfumo"
+  },
+  "themeLight": {
+    "message": "Mwanga"
+  },
+  "themeSystem": {
+    "message": "Mfumo"
+  },
+  "themeDark": {
+    "message": "Giza"
+  },
+  "themeBackground": {
+    "message": "Usuli"
+  },
+  "themeMutedText": {
+    "message": "Maandishi Yamezimwa"
+  },
+  "themeBorder": {
+    "message": "Mpaka"
+  },
+  "themeText": {
+    "message": "Maandishi"
+  },
+  "themePanel": {
+    "message": "Paneli"
+  },
+  "themeAccent": {
+    "message": "Lafudhi"
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "supportFooterText": {
+    "message": "Ikiwa FitShield ilikusaidia kuepuka agizo la uwasilishaji lisilo la lazima, usaidizi wa hiari husaidia kuweka orodha zilizozuiwa na hati kusonga mbele."
+  },
+  "popupWidthLabel": {
+    "message": "Upana wa Ibukizi"
+  },
+  "cornerRadiusLabel": {
+    "message": "Radi ya kona"
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Cuardaigh suíomh name or URL"
+  },
+  "searchButton": {
+    "message": "Cuardaigh"
+  },
+  "clearButton": {
+    "message": "Glan"
+  },
+  "openButton": {
+    "message": "Oscail"
+  },
+  "addButton": {
+    "message": "Cuir leis"
+  },
+  "removeButton": {
+    "message": "Bain"
+  },
+  "viewBlocklistButton": {
+    "message": "View Blocáillist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Lean ar aghaidh appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long suíomhanna stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom nóiméid"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Blocáil will follow your daily sceideal when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Reatha sceideal: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "nóiméad"
+  },
+  "unitMinutes": {
+    "message": "nóiméid"
+  },
+  "unitSite": {
+    "message": "suíomh"
+  },
+  "unitSites": {
+    "message": "suíomhanna"
+  },
+  "popupSettingsButton": {
+    "message": "Socruithe"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blocálaí"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every blocáil list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & catagóir blocáiling"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Blocáil whole groups of suíomhanna by tír or food catagóir."
+  },
+  "popupDeliveryLabel": {
+    "message": "Suíomhanna seachadta"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Suíomhanna mearbhia"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "URLanna saincheaptha"
+  },
+  "popupCustomSubtitle": {
+    "message": "Cuir leis your own suíomhanna and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Blocáil only during sceideald hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Úsáidful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All suíomhanna are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Blocálaí is on, but every individual suíomh is disabled. Oscail Socruithe to turn some suíomhanna back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Blocáil resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blocálaí is armed, but outside sceideald hours. It will blocáil from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 suíomhanna seachadta enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 suíomhanna mearbhia enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one nóiméad."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the suíomh."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the suíomh for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Téigh siar"
+  },
+  "warningLockedButton": {
+    "message": "Faoi ghlas"
+  },
+  "warningContinueButton": {
+    "message": "Lean ar aghaidh"
+  },
+  "warningOpeningButton": {
+    "message": "Ag oscailt..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the suíomh now. The blocálaí will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the suíomh. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Socruithe"
+  },
+  "blockingOptionsHeading": {
+    "message": "Blocáil Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Uaireanta sceidealta"
+  },
+  "scheduledHoursHint": {
+    "message": "Blocáil only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Blocáillist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual suíomhanna on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Suíomhanna seachadta"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Suíomhanna mearbhia"
+  },
+  "customUrlsHeading": {
+    "message": "URLanna saincheaptha"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Cuir leis your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Taispeáin Sites"
+  },
+  "hideSitesButton": {
+    "message": "Folaigh Sites"
+  },
+  "showUrlsButton": {
+    "message": "Taispeáin URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Folaigh URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Cumasaigh delivery suíomh blocáiling"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Cumasaigh fast food suíomh blocáiling"
+  },
+  "customToggleTitle": {
+    "message": "Cumasaigh custom URL blocáiling"
+  },
+  "addCustomUrlLabel": {
+    "message": "Cuir leis a custom blocáiled URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and blocáiled across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No URLanna saincheaptha added yet."
+  },
+  "customNoMatch": {
+    "message": "No URLanna saincheaptha match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No suíomhanna seachadta match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No suíomhanna mearbhia match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the blocáillist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom blocáillist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom blocáillist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Blocáil"
+  },
+  "metadataIntro": {
+    "message": "Blocáil whole groups of suíomhanna by the tír a brand operates in or the kind of food it serves. These blocáils add to your existing suíomh and custom-URL blocáils."
+  },
+  "blockByCountryLabel": {
+    "message": "Blocáil by tír"
+  },
+  "blockByCountryHint": {
+    "message": "Cuardaigh by tír name or code, e.g. \"United\" or \"US\". Enabling a tír blocáils every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Cuardaigh tíortha…"
+  },
+  "quickAccessCountries": {
+    "message": "Rochtain thapa — tíortha"
+  },
+  "countryQuickEmpty": {
+    "message": "Cumasaigh a tír from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Blocáil by catagóir"
+  },
+  "blockByCategoryHint": {
+    "message": "Cuardaigh catagóirí like burger, pizza, or coffee. Specialties are searchable too; the blocáil applies by catagóir."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Cuardaigh catagóirí…"
+  },
+  "quickAccessCategories": {
+    "message": "Rochtain thapa — catagóirí"
+  },
+  "categoryQuickEmpty": {
+    "message": "Cumasaigh a catagóir from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No tíortha match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No catagóirí match that search."
+  },
+  "languageHeading": {
+    "message": "Teanga"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Cuardaigh for a language and select it. Choose Córas default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Cuardaigh teangacha…"
+  },
+  "currentLanguageHead": {
+    "message": "Reatha language"
+  },
+  "languageUseButton": {
+    "message": "Úsáid"
+  },
+  "languageActiveButton": {
+    "message": "Gníomhach"
+  },
+  "languageSystem": {
+    "message": "Córas default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Ní mheaitseálann aon teanga an cuardach sin."
+  },
+  "mbBlocking": {
+    "message": "Blocáil"
+  },
+  "mbBlock": {
+    "message": "Blocáil"
+  },
+  "mbOn": {
+    "message": "Ar siúl"
+  },
+  "mbOff": {
+    "message": "Múchta"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Blocáil — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to blocáil"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Bain shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Bain $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Téama"
+  },
+  "resetThemeButton": {
+    "message": "Athshocraigh Téama"
+  },
+  "systemThemeLabel": {
+    "message": "Córas theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Córas"
+  },
+  "themeLight": {
+    "message": "Geal"
+  },
+  "themeDark": {
+    "message": "Dorcha"
+  },
+  "themeBackground": {
+    "message": "Cúlra"
+  },
+  "themePanel": {
+    "message": "Painéal"
+  },
+  "themeBorder": {
+    "message": "Teorainn"
+  },
+  "themeText": {
+    "message": "Téacs"
+  },
+  "themeMutedText": {
+    "message": "Téacs maolaithe"
+  },
+  "themeAccent": {
+    "message": "Béim"
+  },
+  "cornerRadiusLabel": {
+    "message": "Ga cúinne"
+  },
+  "popupWidthLabel": {
+    "message": "Leithead preabfhuinneoige"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blocáillists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

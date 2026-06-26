@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Leita síða name or URL"
+  },
+  "searchButton": {
+    "message": "Leita"
+  },
+  "clearButton": {
+    "message": "Hreinsa"
+  },
+  "openButton": {
+    "message": "Opna"
+  },
+  "addButton": {
+    "message": "Bæta við"
+  },
+  "removeButton": {
+    "message": "Fjarlægja"
+  },
+  "viewBlocklistButton": {
+    "message": "View Lokalist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Halda áfram appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long síður stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom mínútur"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Lokun will follow your daily áætlun when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Núverandi áætlun: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "mínúta"
+  },
+  "unitMinutes": {
+    "message": "mínútur"
+  },
+  "unitSite": {
+    "message": "síða"
+  },
+  "unitSites": {
+    "message": "síður"
+  },
+  "popupSettingsButton": {
+    "message": "Stillingar"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield lokari"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every loka list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & flokkur lokaing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Loka whole groups of síður by land or food flokkur."
+  },
+  "popupDeliveryLabel": {
+    "message": "Afhendingarsíður"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Skyndibitasíður"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "Sérsniðnar slóðir"
+  },
+  "popupCustomSubtitle": {
+    "message": "Bæta við your own síður and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Loka only during áætlund hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Notaful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All síður are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Lokari is on, but every individual síða is disabled. Opna Stillingar to turn some síður back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Lokun resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Lokari is armed, but outside áætlund hours. It will loka from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 afhendingarsíður enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 skyndibitasíður enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one mínúta."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the síða."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the síða for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Fara til baka"
+  },
+  "warningLockedButton": {
+    "message": "Læst"
+  },
+  "warningContinueButton": {
+    "message": "Halda áfram"
+  },
+  "warningOpeningButton": {
+    "message": "Opna..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the síða now. The lokari will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the síða. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Stillingar"
+  },
+  "blockingOptionsHeading": {
+    "message": "Lokun Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Áætlaðir tímar"
+  },
+  "scheduledHoursHint": {
+    "message": "Loka only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Lokalist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual síður on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Afhendingarsíður"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Skyndibitasíður"
+  },
+  "customUrlsHeading": {
+    "message": "Sérsniðnar slóðir"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Bæta við your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Sýna Sites"
+  },
+  "hideSitesButton": {
+    "message": "Fela Sites"
+  },
+  "showUrlsButton": {
+    "message": "Sýna URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Fela URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Virkja delivery síða lokaing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Virkja fast food síða lokaing"
+  },
+  "customToggleTitle": {
+    "message": "Virkja custom URL lokaing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Bæta við a custom lokaed URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and lokaed across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No sérsniðnar slóðir added yet."
+  },
+  "customNoMatch": {
+    "message": "No sérsniðnar slóðir match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No afhendingarsíður match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No skyndibitasíður match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the lokalist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom lokalist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom lokalist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Lokun"
+  },
+  "metadataIntro": {
+    "message": "Loka whole groups of síður by the land a brand operates in or the kind of food it serves. These lokas add to your existing síða and custom-URL lokas."
+  },
+  "blockByCountryLabel": {
+    "message": "Loka by land"
+  },
+  "blockByCountryHint": {
+    "message": "Leita by land name or code, e.g. \"United\" or \"US\". Enabling a land lokas every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Leita lönd…"
+  },
+  "quickAccessCountries": {
+    "message": "Fljótur aðgangur — lönd"
+  },
+  "countryQuickEmpty": {
+    "message": "Virkja a land from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Loka by flokkur"
+  },
+  "blockByCategoryHint": {
+    "message": "Leita flokkar like burger, pizza, or coffee. Specialties are searchable too; the loka applies by flokkur."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Leita flokkar…"
+  },
+  "quickAccessCategories": {
+    "message": "Fljótur aðgangur — flokkar"
+  },
+  "categoryQuickEmpty": {
+    "message": "Virkja a flokkur from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No lönd match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No flokkar match that search."
+  },
+  "languageHeading": {
+    "message": "Tungumál"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Leita for a language and select it. Choose Kerfi default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Leita að tungumálum…"
+  },
+  "currentLanguageHead": {
+    "message": "Núverandi language"
+  },
+  "languageUseButton": {
+    "message": "Nota"
+  },
+  "languageActiveButton": {
+    "message": "Virkt"
+  },
+  "languageSystem": {
+    "message": "Kerfi default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Engin tungumál passa við leitina."
+  },
+  "mbBlocking": {
+    "message": "Lokun"
+  },
+  "mbBlock": {
+    "message": "Loka"
+  },
+  "mbOn": {
+    "message": "Kveikt"
+  },
+  "mbOff": {
+    "message": "Slökkt"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Lokun — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to loka"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Fjarlægja shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Fjarlægja $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Þema"
+  },
+  "resetThemeButton": {
+    "message": "Endurstilla Þema"
+  },
+  "systemThemeLabel": {
+    "message": "Kerfi theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Kerfi"
+  },
+  "themeLight": {
+    "message": "Ljóst"
+  },
+  "themeDark": {
+    "message": "Dökkt"
+  },
+  "themeBackground": {
+    "message": "Bakgrunnur"
+  },
+  "themePanel": {
+    "message": "Spjald"
+  },
+  "themeBorder": {
+    "message": "Rammi"
+  },
+  "themeText": {
+    "message": "Texti"
+  },
+  "themeMutedText": {
+    "message": "Dofinn texti"
+  },
+  "themeAccent": {
+    "message": "Áhersla"
+  },
+  "cornerRadiusLabel": {
+    "message": "Hornradíus"
+  },
+  "popupWidthLabel": {
+    "message": "Breidd sprettiglugga"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep lokalists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

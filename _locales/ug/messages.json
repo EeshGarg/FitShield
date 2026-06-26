@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield توركۆرگۈنىڭ كېڭەيتىلىشى سىزنىڭ يېمەكلىك يەتكۈزۈش ۋە تېز تاماق زاكاز قىلىشنى ئەستە ساقلىشىڭىزغا ياردەم بېرىدۇ."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "تور بېكەتنىڭ ئىسمى ياكى URL نى ئىزدەڭ"
+  },
+  "searchButton": {
+    "message": "ئىزدەش"
+  },
+  "clearButton": {
+    "message": "Clear"
+  },
+  "openButton": {
+    "message": "ئېچىڭ"
+  },
+  "addButton": {
+    "message": "قوش"
+  },
+  "removeButton": {
+    "message": "ئۆچۈرۈڭ"
+  },
+  "viewBlocklistButton": {
+    "message": "Blocklist نى كۆرۈش"
+  },
+  "timerDurationLabel": {
+    "message": "ۋاقىت ۋاقتى"
+  },
+  "timerDurationHint": {
+    "message": "داۋاملاشتۇرۇش كۆرۈنۈشتىن بۇرۇن تەتۈر ساناقنى تەڭشەڭ."
+  },
+  "customSecondsLabel": {
+    "message": "ئىختىيارى سېكۇنت"
+  },
+  "siteOpenTimeLabel": {
+    "message": "بېكەت ئېچىلغان ۋاقىت"
+  },
+  "siteOpenTimeHint": {
+    "message": "ۋاقىت ئاخىرلاشقاندىن كېيىن قانچىلىك تور بېكەتنىڭ ئوچۇق ھالەتتە تۇرىدىغانلىقىنى تاللاڭ."
+  },
+  "customMinutesLabel": {
+    "message": "Custom minutes"
+  },
+  "startTimeLabel": {
+    "message": "باشلىنىش ۋاقتى"
+  },
+  "endTimeLabel": {
+    "message": "ئاخىرلىشىش ۋاقتى"
+  },
+  "scheduleDefaultSummary": {
+    "message": "چەكلەش بۇ قوزغىتىلغاندا كۈندىلىك كۈن تەرتىپىڭىزگە ئەگىشىدۇ."
+  },
+  "currentScheduleSummary": {
+    "message": "نۆۋەتتىكى ۋاقىت جەدۋىلى: $1."
+  },
+  "everyDaySuffix": {
+    "message": " ھەر كۈنى"
+  },
+  "scheduleRange": {
+    "message": "$1 دىن $2"
+  },
+  "unitMinute": {
+    "message": "مىنۇت"
+  },
+  "unitMinutes": {
+    "message": "مىنۇت"
+  },
+  "unitSite": {
+    "message": "بېكەت"
+  },
+  "unitSites": {
+    "message": "تور بېكەتلەر"
+  },
+  "popupSettingsButton": {
+    "message": "تەڭشەك"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield توسقۇچى"
+  },
+  "popupBlockerSubtitle": {
+    "message": "ھەر بىر چەكلەش تىزىملىكىنى ئېچىڭ ياكى ئېتىڭ."
+  },
+  "popupMetadataLabel": {
+    "message": "دۆلەت ۋە سەھىپىلەرنى چەكلەش"
+  },
+  "popupMetadataSubtitle": {
+    "message": "پۈتۈن گۇرۇپپىلارنى دۆلەت ياكى يېمەكلىك تۈرى بويىچە توسۇڭ."
+  },
+  "popupDeliveryLabel": {
+    "message": "يەتكۈزۈش تور بېكەتلىرى"
+  },
+  "popupDeliveryDefault": {
+    "message": "مال زاكاز قىلىش دائىرىسى."
+  },
+  "popupFastFoodLabel": {
+    "message": "تېز تاماقخانىلار"
+  },
+  "popupFastFoodDefault": {
+    "message": "ئاساسلىق زەنجىرسىمان زاكاز قىلىش دائىرىسى."
+  },
+  "popupCustomLabel": {
+    "message": "خاس URL"
+  },
+  "popupCustomSubtitle": {
+    "message": "تور بېتىڭىزنى قوشۇڭ ۋە ئۇلارنى ئايرىم چەكلەڭ."
+  },
+  "popupScheduleLabel": {
+    "message": "پەقەت پىلانلانغان ۋاقىتتىلا چەكلەڭ"
+  },
+  "popupScheduleSubtitle": {
+    "message": "تاماق خامچوتى ، كېچىدە زاكاز قىلىش ياكى خىزمەت ۋاقتى ئۈچۈن پايدىلىق."
+  },
+  "statusInactive": {
+    "message": "ھەرىكەتسىز. بارلىق تور بېكەتلەرنى زىيارەت قىلغىلى بولىدۇ."
+  },
+  "statusAllDisabled": {
+    "message": "چەكلىگۈچ ئوچۇق ، ئەمما ھەر بىر تور بېكەت چەكلەنگەن. بەزى تور بېكەتلەرنى قايتا قوزغىتىش ئۈچۈن تەڭشەكلەرنى ئېچىڭ."
+  },
+  "statusBypassActive": {
+    "message": "ۋاقىتلىق پاس ئاكتىپ. توسۇش $1 دا ئەسلىگە كېلىدۇ."
+  },
+  "statusOutsideSchedule": {
+    "message": "توسقۇچى قوراللانغان ، ئەمما پىلانلانغان ۋاقىت سىرتىدا. ئۇ $1 نى توسىدۇ."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 سېكۇنت ھېسابلاش ، $2 $3 ئۆتۈش."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 $2 يەتكۈزۈش تور بېكەتلىرى قوزغىتىلدى."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$2 تېز تاماقخانىلىرىنىڭ $1 قوزغىتىلدى."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 ئىزدەشكە ماس كېلىدۇ."
+  },
+  "warningPageTitle": {
+    "message": "نەپەس ئېلىڭ"
+  },
+  "warningEyebrow": {
+    "message": "FitShield تەكشۈرۈش"
+  },
+  "warningTitle": {
+    "message": "بىر مىنۇت ئېلىڭ."
+  },
+  "warningIntro": {
+    "message": "زاكاز قىلىشتىن بۇرۇن تەكشۈرۈپ بېقىڭ. ئاچلىق ، قۇلايلىق ، بېسىم ۋە ئادەت مۇشۇ پەيتتە ئوخشاش ھېس قىلالايدۇ."
+  },
+  "warningTriggeredBy": {
+    "message": "سىز $1 دىن زاكاز قىلماقچى بولۇۋاتىسىز."
+  },
+  "warningHintDefault": {
+    "message": "ۋاقىت چەكلىمىسى ئاخىرلاشقاندا ، تور بېكەتنى داۋاملاشتۇرالايسىز."
+  },
+  "warningHintLocked": {
+    "message": "ۋاقىت چەكلىمىسى ئاخىرلاشقاندا ، $1 $2 تور بېتىنى داۋاملاشتۇرالايسىز."
+  },
+  "warningBackButton": {
+    "message": "قايتىڭ"
+  },
+  "warningLockedButton": {
+    "message": "قۇلۇپلاندى"
+  },
+  "warningContinueButton": {
+    "message": "داۋاملاشتۇر"
+  },
+  "warningOpeningButton": {
+    "message": "ئېچىش ..."
+  },
+  "warningUnlockHint": {
+    "message": "سىز ھازىر تور بېكەتنى زىيارەت قىلالايسىز. چەكلىگۈچى $1 $2 دىن كېيىن ئاپتوماتىك قايتىپ كېلىدۇ."
+  },
+  "warningErrorHint": {
+    "message": "تور بېكەت ئاچقاندا خاتالىق كۆرۈلدى. قايتا سىناڭ."
+  },
+  "settingsTitle": {
+    "message": "FitShield تەڭشەكلىرى"
+  },
+  "blockingOptionsHeading": {
+    "message": "چەكلەش تاللانمىلىرى"
+  },
+  "scheduledHoursLabel": {
+    "message": "ۋاقىت جەدۋىلى"
+  },
+  "scheduledHoursHint": {
+    "message": "پەقەت كۈندىلىك ۋاقىت كۆزنىكىدىلا چەكلەڭ."
+  },
+  "customizeBlocklistHeading": {
+    "message": "چەكلەش تىزىملىكىنى ئىختىيارىي قىلىڭ"
+  },
+  "customizeBlocklistIntro": {
+    "message": "قايسى گۇرۇپپىلارنىڭ ئاكتىپلىقىنى تاللاڭ ، ئايرىم تور بېكەتلەرنى ئېچىڭ ياكى ئېتىڭ ، ھەمدە ئۆزىڭىزنىڭ تور نامىنى قوشۇڭ."
+  },
+  "deliverySitesHeading": {
+    "message": "يەتكۈزۈش تور بېكەتلىرى"
+  },
+  "fastFoodSitesHeading": {
+    "message": "تېز تاماقخانا"
+  },
+  "customUrlsHeading": {
+    "message": "خاس URL"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "ئۆزىڭىزنىڭ تورنامىڭىزنى قوشۇڭ ۋە ئۇلارنى چەكلەڭ."
+  },
+  "showSitesButton": {
+    "message": "بېكەتلەرنى كۆرسىتىش"
+  },
+  "hideSitesButton": {
+    "message": "تور بېكەتلەرنى يوشۇرۇش"
+  },
+  "showUrlsButton": {
+    "message": "URL نى كۆرسەت"
+  },
+  "hideUrlsButton": {
+    "message": "URL نى يوشۇرۇش"
+  },
+  "deliveryToggleTitle": {
+    "message": "يەتكۈزۈش تور بېتىنى چەكلەشنى قوزغىتىڭ"
+  },
+  "fastFoodToggleTitle": {
+    "message": "تېز تاماقخانىلارنى توسۇشنى قوزغىتىڭ"
+  },
+  "customToggleTitle": {
+    "message": "ئىختىيارى URL توسۇشنى قوزغىتىڭ"
+  },
+  "addCustomUrlLabel": {
+    "message": "ئىختىيارى توسۇلغان URL نى قوشۇڭ"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com ياكى https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "تۈرلەر دائىرە ئۈچۈن نورماللاشتۇرۇلغان ۋە بارلىق بەتلەردە چەكلەنگەن."
+  },
+  "customEmptyDefault": {
+    "message": "تېخى ئىختىيارى تور ئادرېسى قوشۇلمىدى."
+  },
+  "customNoMatch": {
+    "message": "ھېچقانداق ئىزدەش ئادرېسى بۇ ئىزدەشكە ماس كەلمەيدۇ."
+  },
+  "emptyDeliverySearch": {
+    "message": "ھېچقانداق ئىزدەش تور بېكىتى بۇ ئىزدەشكە ماس كەلمەيدۇ."
+  },
+  "emptyFastFoodSearch": {
+    "message": "تېز ئىزدەش تور بېكەتلىرى بۇ ئىزدەشكە ماس كەلمەيدۇ."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 ماسلاشتۇرۇلغان «$3»."
+  },
+  "invalidUrlNotice": {
+    "message": "ئۇ URL تېخى كۈچكە ئىگە ئەمەس. example.com غا ئوخشاش تورنامىنى سىناپ بېقىڭ."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 ئاللىقاچان چەكلەنگەن تىزىملىكتە ، شۇڭا ئۇ قايتا قوزغىتىلدى."
+  },
+  "addedToBlocklist": {
+    "message": "ئىختىيارىي تىزىملىككە $1 قوشۇلدى."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 ئىختىيارى تىزىملىكتىن ئۆچۈرۈلدى."
+  },
+  "metadataHeading": {
+    "message": "دۆلەت ۋە سەھىپىلەرنى چەكلەش"
+  },
+  "metadataIntro": {
+    "message": "بىر ماركا تىجارەت قىلىدىغان ياكى ئۇ تەمىنلەيدىغان يېمەكلىكلەرنىڭ دۆلەت تەرىپىدىن پۈتۈن گۇرۇپپىلارنى توسۇۋېلىڭ. بۇ چەكلىمىلەر سىزنىڭ بار بولغان تور بېتىڭىز ۋە خاس تور ئادرېسىڭىزغا قوشۇلىدۇ."
+  },
+  "blockByCountryLabel": {
+    "message": "دۆلەت تەرىپىدىن توسۇش"
+  },
+  "blockByCountryHint": {
+    "message": "دۆلەت ئىسمى ياكى كودى ئارقىلىق ئىزدەش ، مەسىلەن. «بىرلەشمە» ياكى «ئامېرىكا». بىر دۆلەتنى قوزغىتىش ئۇ يەردىكى ھەر بىر ماركىنى توسىدۇ."
+  },
+  "countrySearchPlaceholder": {
+    "message": "ئىزدەش دۆلەتلىرى…"
+  },
+  "quickAccessCountries": {
+    "message": "تېز زىيارەت قىلىش - دۆلەتلەر"
+  },
+  "countryQuickEmpty": {
+    "message": "بىر دۆلەتنى ئىزدەشتىن ئۇنى بۇ يەرگە باغلاڭ."
+  },
+  "blockByCategoryLabel": {
+    "message": "تۈرگە ئايرىپ توسۇش"
+  },
+  "blockByCategoryHint": {
+    "message": "ھامبۇرگ بولكىسى ، پىسا ياكى قەھۋە قاتارلىق تۈرلەرنى ئىزدەڭ. كەسىپلەرنىمۇ ئىزدىگىلى بولىدۇ بۇ بۆلەك تۈرگە ئايرىلىدۇ."
+  },
+  "categorySearchPlaceholder": {
+    "message": "ئىزدەش تۈرلىرى…"
+  },
+  "quickAccessCategories": {
+    "message": "تېز زىيارەت قىلىش - تۈرلەر"
+  },
+  "categoryQuickEmpty": {
+    "message": "ئىزدەشتىن بىر تۈرنى بۇ يەرگە باغلاڭ."
+  },
+  "noCountriesMatch": {
+    "message": "ھېچقانداق دۆلەت بۇ ئىزدەشكە ماس كەلمەيدۇ."
+  },
+  "noCategoriesMatch": {
+    "message": "ھېچقانداق ئىزدەش تۈرى ماس كەلمەيدۇ."
+  },
+  "languageHeading": {
+    "message": "تىل"
+  },
+  "languageIntro": {
+    "message": "ئۆزىنىڭ ئېكرانى ئۈچۈن ئىشلىتىدىغان FitShield تىلىنى تاللاڭ. بۇ پەقەت كېڭەيتىش ئۈچۈن توركۆرگۈ تىلىڭىزنى بېسىپ چۈشىدۇ."
+  },
+  "languageSelectLabel": {
+    "message": "تىل كۆرسىتىش"
+  },
+  "languageHint": {
+    "message": "تىل ئىزدەڭ ۋە ئۇنى تاللاڭ. توركۆرگۈڭىزگە ئەگىشىش ئۈچۈن سىستېما سۈكۈتتىكى ھالىتىنى تاللاڭ."
+  },
+  "languageSearchPlaceholder": {
+    "message": "ئىزدەش تىللىرى…"
+  },
+  "currentLanguageHead": {
+    "message": "ھازىرقى تىل"
+  },
+  "languageUseButton": {
+    "message": "ئىشلىتىش"
+  },
+  "languageActiveButton": {
+    "message": "ئاكتىپ"
+  },
+  "languageSystem": {
+    "message": "سىستېما سۈكۈتتىكى"
+  },
+  "languageSystemSub": {
+    "message": "توركۆرگۈڭىزنىڭ تىلىغا ئەگىشىڭ"
+  },
+  "languageEnglish": {
+    "message": "ئىنگىلىزچە"
+  },
+  "languageJapanese": {
+    "message": "ياپون"
+  },
+  "languageChinese": {
+    "message": "خەنزۇچە (ئاددىيلاشتۇرۇلغان)"
+  },
+  "languageFrench": {
+    "message": "فىرانسۇزچە"
+  },
+  "languageCantonese": {
+    "message": "Cantonese"
+  },
+  "languageThai": {
+    "message": "تايلاند"
+  },
+  "languagePunjabi": {
+    "message": "Punjabi"
+  },
+  "languageTamil": {
+    "message": "تامىل"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "خەنزۇچە (ئەنئەنىۋى ، تەيۋەن)"
+  },
+  "languageKorean": {
+    "message": "كورېيە"
+  },
+  "languageHindi": {
+    "message": "Hindi"
+  },
+  "languageSpanishLatam": {
+    "message": "ئىسپانچە (لاتىن ئامېرىكىسى)"
+  },
+  "languageSpanishSpain": {
+    "message": "ئىسپانىيە (ئىسپانىيە)"
+  },
+  "languageAfrikaans": {
+    "message": "ئافرىقا"
+  },
+  "languageAlbanian": {
+    "message": "ئالبانىيە"
+  },
+  "languageBasque": {
+    "message": "Basque"
+  },
+  "languageBelarusian": {
+    "message": "بېلورۇسىيە"
+  },
+  "languageBulgarian": {
+    "message": "بۇلغارىيە"
+  },
+  "languageCatalan": {
+    "message": "Catalan"
+  },
+  "languageCroatian": {
+    "message": "كىرودىيە"
+  },
+  "languageCzech": {
+    "message": "چېخ"
+  },
+  "languageDanish": {
+    "message": "Danish"
+  },
+  "languageDutch": {
+    "message": "گوللاندىيە"
+  },
+  "languageEstonian": {
+    "message": "ئېستونىيە"
+  },
+  "languageFinnish": {
+    "message": "فىنلاندىيە"
+  },
+  "languageGreek": {
+    "message": "گرېتسىيە"
+  },
+  "languageHungarian": {
+    "message": "ۋېنگرىيە"
+  },
+  "languageIcelandic": {
+    "message": "ئىسلاندىيە"
+  },
+  "languageIrish": {
+    "message": "ئىرېلاندىيە"
+  },
+  "languageItalian": {
+    "message": "Italian"
+  },
+  "languageLatvian": {
+    "message": "Latvian"
+  },
+  "languageLithuanian": {
+    "message": "لىتۋانىيە"
+  },
+  "languageMacedonian": {
+    "message": "ماكېدونىيە"
+  },
+  "languageMaltese": {
+    "message": "Maltese"
+  },
+  "languageNorwegian": {
+    "message": "نورۋېگچە"
+  },
+  "languagePolish": {
+    "message": "پولشا"
+  },
+  "languagePortuguesePortugal": {
+    "message": "پورتۇگال تىلى (پورتۇگالىيە)"
+  },
+  "languageRomanian": {
+    "message": "Romanian"
+  },
+  "languageRussian": {
+    "message": "رۇسچە"
+  },
+  "languageSerbian": {
+    "message": "سېربىيە"
+  },
+  "languageSlovak": {
+    "message": "سلوۋاكىيە"
+  },
+  "languageSlovenian": {
+    "message": "سىلوۋېنىيە"
+  },
+  "languageSwedish": {
+    "message": "شىۋىتسىيە"
+  },
+  "languageTurkish": {
+    "message": "تۈرك"
+  },
+  "languageUkrainian": {
+    "message": "ئۇكرائىنا"
+  },
+  "languageWelsh": {
+    "message": "Welsh"
+  },
+  "languageBengali": {
+    "message": "Bengali"
+  },
+  "languageGujarati": {
+    "message": "Gujarati"
+  },
+  "languageKannada": {
+    "message": "Kannada"
+  },
+  "languageMalayalam": {
+    "message": "Malayalam"
+  },
+  "languageMarathi": {
+    "message": "Marathi"
+  },
+  "languageNepali": {
+    "message": "نېپال"
+  },
+  "languageOdia": {
+    "message": "Odia"
+  },
+  "languageSinhala": {
+    "message": "Sinhala"
+  },
+  "languageTelugu": {
+    "message": "Telugu"
+  },
+  "languageUrdu": {
+    "message": "ئوردۇچە"
+  },
+  "languageAssamese": {
+    "message": "Assamese"
+  },
+  "languageIndonesian": {
+    "message": "ھىندونېزىيە"
+  },
+  "languageMalay": {
+    "message": "مالايسىيا"
+  },
+  "languageVietnamese": {
+    "message": "ۋېيتنام"
+  },
+  "languageKhmer": {
+    "message": "Khmer"
+  },
+  "languageLao": {
+    "message": "لائوس"
+  },
+  "languageBurmese": {
+    "message": "بېرما (بېرما)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "فىلىپپىنچە / تاگال تىلى"
+  },
+  "languageJavanese": {
+    "message": "Javanese"
+  },
+  "languageSundanese": {
+    "message": "Sundanese"
+  },
+  "languageArabic": {
+    "message": "ئەرەبچە"
+  },
+  "languagePersian": {
+    "message": "پارسچە (فارسىچە)"
+  },
+  "languageHebrew": {
+    "message": "ئىبرانىي تىلى"
+  },
+  "languageArmenian": {
+    "message": "ئەرمىنىيە"
+  },
+  "languageGeorgian": {
+    "message": "گرۇزىيە"
+  },
+  "languageKazakh": {
+    "message": "قازاق"
+  },
+  "languageKyrgyz": {
+    "message": "قىرغىزىستان"
+  },
+  "languageMongolian": {
+    "message": "موڭغۇل"
+  },
+  "languagePashto": {
+    "message": "پۇشتۇ"
+  },
+  "languageTajik": {
+    "message": "تاجىك"
+  },
+  "languageTurkmen": {
+    "message": "تۈركمەنلەر"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇر"
+  },
+  "languageUzbek": {
+    "message": "ئۆزبېك"
+  },
+  "noLanguagesMatch": {
+    "message": "بۇ ئىزدەشكە ھېچقانداق تىل ماس كەلمەيدۇ."
+  },
+  "mbBlocking": {
+    "message": "توسۇش"
+  },
+  "mbBlock": {
+    "message": "توسۇش"
+  },
+  "mbOn": {
+    "message": "On"
+  },
+  "mbOff": {
+    "message": "Off"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "توسۇش - چېكىڭ"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "توختاپ قالدى - چېكىڭ"
+  },
+  "mbChipRemoveTitle": {
+    "message": "تېز زىيارەتتىن تېزلەتمىنى ئېلىۋېتىڭ"
+  },
+  "mbChipRemoveAria": {
+    "message": "$1 نى تېز زىيارەت قىلىشتىن ئۆچۈرۈڭ"
+  },
+  "themeHeading": {
+    "message": "باشتېما"
+  },
+  "resetThemeButton": {
+    "message": "باشتېمىنى ئەسلىگە كەلتۈرۈش"
+  },
+  "systemThemeLabel": {
+    "message": "سىستېما تېمىسى"
+  },
+  "systemThemeHint": {
+    "message": "ئۈسكۈنىنىڭ مايىللىقى ياكى مۇقىم ھالىتى."
+  },
+  "themeSystem": {
+    "message": "سىستېما"
+  },
+  "themeLight": {
+    "message": "نۇر"
+  },
+  "themeDark": {
+    "message": "قاراڭغۇ"
+  },
+  "themeBackground": {
+    "message": "تەگلىك"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "چېگرا"
+  },
+  "themeText": {
+    "message": "تېكىست"
+  },
+  "themeMutedText": {
+    "message": "ئاۋازسىز تېكىست"
+  },
+  "themeAccent": {
+    "message": "Accent"
+  },
+  "cornerRadiusLabel": {
+    "message": "Corner Radius"
+  },
+  "popupWidthLabel": {
+    "message": "Popup Width"
+  },
+  "supportFooterText": {
+    "message": "ئەگەر FitShield سىزگە زۆرۈر بولمىغان مال يەتكۈزۈش بۇيرۇقىدىن ساقلىنىشقا ياردەم بەرگەن بولسا ، ئىختىيارى قوللاش تىزىملىك ۋە ھۆججەتلەرنىڭ يۆتكىلىشىگە ياردەم بېرىدۇ."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "フードデリバリーやファストフードの注文を意識し続けるのに役立つ FitShield ブラウザ拡張機能です。"
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "サイト名または URL で検索"
+  },
+  "searchButton": {
+    "message": "検索"
+  },
+  "clearButton": {
+    "message": "クリア"
+  },
+  "openButton": {
+    "message": "開く"
+  },
+  "addButton": {
+    "message": "追加"
+  },
+  "removeButton": {
+    "message": "削除"
+  },
+  "viewBlocklistButton": {
+    "message": "ブロックリストを表示"
+  },
+  "timerDurationLabel": {
+    "message": "タイマーの長さ"
+  },
+  "timerDurationHint": {
+    "message": "「続行」が表示されるまでのカウントダウンを調整します。"
+  },
+  "customSecondsLabel": {
+    "message": "秒数を指定"
+  },
+  "siteOpenTimeLabel": {
+    "message": "サイトを開ける時間"
+  },
+  "siteOpenTimeHint": {
+    "message": "タイマー終了後にサイトを開いておく時間を選びます。"
+  },
+  "customMinutesLabel": {
+    "message": "分数を指定"
+  },
+  "startTimeLabel": {
+    "message": "開始時刻"
+  },
+  "endTimeLabel": {
+    "message": "終了時刻"
+  },
+  "scheduleDefaultSummary": {
+    "message": "これを有効にすると、毎日のスケジュールに従ってブロックします。"
+  },
+  "currentScheduleSummary": {
+    "message": "現在のスケジュール: $1。"
+  },
+  "everyDaySuffix": {
+    "message": "（毎日）"
+  },
+  "scheduleRange": {
+    "message": "$1 ～ $2"
+  },
+  "unitMinute": {
+    "message": "分"
+  },
+  "unitMinutes": {
+    "message": "分"
+  },
+  "unitSite": {
+    "message": "件"
+  },
+  "unitSites": {
+    "message": "件"
+  },
+  "popupSettingsButton": {
+    "message": "設定"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield ブロッカー"
+  },
+  "popupBlockerSubtitle": {
+    "message": "すべてのブロックリストをまとめてオン／オフします。"
+  },
+  "popupMetadataLabel": {
+    "message": "国・カテゴリ別ブロック"
+  },
+  "popupMetadataSubtitle": {
+    "message": "国や料理のカテゴリでサイトをまとめてブロックします。"
+  },
+  "popupDeliveryLabel": {
+    "message": "デリバリーサイト"
+  },
+  "popupDeliveryDefault": {
+    "message": "デリバリー注文のドメイン。"
+  },
+  "popupFastFoodLabel": {
+    "message": "ファストフードサイト"
+  },
+  "popupFastFoodDefault": {
+    "message": "主要チェーンの注文ドメイン。"
+  },
+  "popupCustomLabel": {
+    "message": "カスタム URL"
+  },
+  "popupCustomSubtitle": {
+    "message": "独自のサイトを追加し、個別に無効化できます。"
+  },
+  "popupScheduleLabel": {
+    "message": "指定した時間帯のみブロック"
+  },
+  "popupScheduleSubtitle": {
+    "message": "食費の管理、深夜の注文、勤務時間などに便利です。"
+  },
+  "statusInactive": {
+    "message": "無効です。すべてのサイトにアクセスできます。"
+  },
+  "statusAllDisabled": {
+    "message": "ブロッカーはオンですが、個々のサイトはすべて無効です。設定を開いて一部のサイトを再度オンにしてください。"
+  },
+  "statusBypassActive": {
+    "message": "一時パスが有効です。$1 後にブロックを再開します。"
+  },
+  "statusOutsideSchedule": {
+    "message": "ブロッカーは待機中ですが、指定時間外です。$1 にブロックを開始します。"
+  },
+  "statusShieldUp": {
+    "message": "シールド作動中。カウントダウン $1 秒、パス $2 $3。"
+  },
+  "deliverySitesEnabledCount": {
+    "message": "デリバリーサイト $2 件中 $1 件が有効です。"
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "ファストフードサイト $2 件中 $1 件が有効です。"
+  },
+  "searchMatchSuffix": {
+    "message": " $1 件が検索に一致します。"
+  },
+  "warningPageTitle": {
+    "message": "ひと呼吸"
+  },
+  "warningEyebrow": {
+    "message": "FitShield チェック"
+  },
+  "warningTitle": {
+    "message": "1 分だけ立ち止まりましょう。"
+  },
+  "warningIntro": {
+    "message": "注文する前に自分の状態を確認しましょう。空腹、手軽さ、ストレス、習慣はその瞬間には似て感じられます。"
+  },
+  "warningTriggeredBy": {
+    "message": "これから $1 で注文しようとしています。"
+  },
+  "warningHintDefault": {
+    "message": "タイマーが終わると、サイトに進めます。"
+  },
+  "warningHintLocked": {
+    "message": "タイマーが終わると、$1 $2 の間サイトに進めます。"
+  },
+  "warningBackButton": {
+    "message": "戻る"
+  },
+  "warningLockedButton": {
+    "message": "ロック中"
+  },
+  "warningContinueButton": {
+    "message": "続行"
+  },
+  "warningOpeningButton": {
+    "message": "開いています..."
+  },
+  "warningUnlockHint": {
+    "message": "今すぐサイトにアクセスできます。$1 $2 後にブロッカーが自動的に戻ります。"
+  },
+  "warningErrorHint": {
+    "message": "サイトを開く際に問題が発生しました。もう一度お試しください。"
+  },
+  "settingsTitle": {
+    "message": "FitShield 設定"
+  },
+  "blockingOptionsHeading": {
+    "message": "ブロック設定"
+  },
+  "scheduledHoursLabel": {
+    "message": "スケジュール時間"
+  },
+  "scheduledHoursHint": {
+    "message": "毎日の指定した時間帯のみブロックします。"
+  },
+  "customizeBlocklistHeading": {
+    "message": "ブロックリストのカスタマイズ"
+  },
+  "customizeBlocklistIntro": {
+    "message": "有効にする組み込みグループを選び、サイトを個別にオン／オフし、独自のドメインを追加します。"
+  },
+  "deliverySitesHeading": {
+    "message": "デリバリーサイト"
+  },
+  "fastFoodSitesHeading": {
+    "message": "ファストフードサイト"
+  },
+  "customUrlsHeading": {
+    "message": "カスタム URL"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "独自のドメインを追加し、個別に無効化できます。"
+  },
+  "showSitesButton": {
+    "message": "サイトを表示"
+  },
+  "hideSitesButton": {
+    "message": "サイトを隠す"
+  },
+  "showUrlsButton": {
+    "message": "URL を表示"
+  },
+  "hideUrlsButton": {
+    "message": "URL を隠す"
+  },
+  "deliveryToggleTitle": {
+    "message": "デリバリーサイトのブロックを有効化"
+  },
+  "fastFoodToggleTitle": {
+    "message": "ファストフードサイトのブロックを有効化"
+  },
+  "customToggleTitle": {
+    "message": "カスタム URL のブロックを有効化"
+  },
+  "addCustomUrlLabel": {
+    "message": "ブロックするカスタム URL を追加"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com または https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "入力はドメインに正規化され、すべてのページでブロックされます。"
+  },
+  "customEmptyDefault": {
+    "message": "カスタム URL はまだ追加されていません。"
+  },
+  "customNoMatch": {
+    "message": "この検索に一致するカスタム URL はありません。"
+  },
+  "emptyDeliverySearch": {
+    "message": "この検索に一致するデリバリーサイトはありません。"
+  },
+  "emptyFastFoodSearch": {
+    "message": "この検索に一致するファストフードサイトはありません。"
+  },
+  "noticeMatched": {
+    "message": "$1 $2 が「$3」に一致しました。"
+  },
+  "invalidUrlNotice": {
+    "message": "その URL はまだ有効ではないようです。example.com のようなドメインを試してください。"
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 はすでにブロックリストにあるため、再度有効化されました。"
+  },
+  "addedToBlocklist": {
+    "message": "$1 をカスタムブロックリストに追加しました。"
+  },
+  "removedFromBlocklist": {
+    "message": "$1 をカスタムブロックリストから削除しました。"
+  },
+  "metadataHeading": {
+    "message": "国・カテゴリ別ブロック"
+  },
+  "metadataIntro": {
+    "message": "ブランドが展開する国や提供する料理の種類で、サイトをまとめてブロックします。これらのブロックは、既存のサイトおよびカスタム URL のブロックに追加されます。"
+  },
+  "blockByCountryLabel": {
+    "message": "国でブロック"
+  },
+  "blockByCountryHint": {
+    "message": "国名またはコードで検索します（例:「United」や「US」）。国を有効にすると、その国で展開するすべてのブランドをブロックします。"
+  },
+  "countrySearchPlaceholder": {
+    "message": "国を検索…"
+  },
+  "quickAccessCountries": {
+    "message": "クイックアクセス — 国"
+  },
+  "countryQuickEmpty": {
+    "message": "検索から国を有効にすると、ここに固定されます。"
+  },
+  "blockByCategoryLabel": {
+    "message": "カテゴリでブロック"
+  },
+  "blockByCategoryHint": {
+    "message": "burger、pizza、coffee などのカテゴリを検索します。スペシャルティも検索できますが、ブロックはカテゴリ単位で適用されます。"
+  },
+  "categorySearchPlaceholder": {
+    "message": "カテゴリを検索…"
+  },
+  "quickAccessCategories": {
+    "message": "クイックアクセス — カテゴリ"
+  },
+  "categoryQuickEmpty": {
+    "message": "検索からカテゴリを有効にすると、ここに固定されます。"
+  },
+  "noCountriesMatch": {
+    "message": "その検索に一致する国はありません。"
+  },
+  "noCategoriesMatch": {
+    "message": "その検索に一致するカテゴリはありません。"
+  },
+  "languageHeading": {
+    "message": "言語"
+  },
+  "languageIntro": {
+    "message": "FitShield の画面で使う言語を選びます。これは拡張機能に対してのみブラウザの言語を上書きします。"
+  },
+  "languageSelectLabel": {
+    "message": "表示言語"
+  },
+  "languageHint": {
+    "message": "言語を検索して選択します。ブラウザに合わせる場合は「システム既定」を選んでください。"
+  },
+  "languageSearchPlaceholder": {
+    "message": "言語を検索…"
+  },
+  "currentLanguageHead": {
+    "message": "現在の言語"
+  },
+  "languageUseButton": {
+    "message": "使用"
+  },
+  "languageActiveButton": {
+    "message": "使用中"
+  },
+  "languageSystem": {
+    "message": "システム既定"
+  },
+  "languageSystemSub": {
+    "message": "ブラウザの言語に従う"
+  },
+  "languageEnglish": {
+    "message": "英語"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "中国語（簡体字）"
+  },
+  "languageFrench": {
+    "message": "フランス語"
+  },
+  "languageCantonese": {
+    "message": "広東語"
+  },
+  "languageThai": {
+    "message": "タイ語"
+  },
+  "languagePunjabi": {
+    "message": "パンジャーブ語"
+  },
+  "languageTamil": {
+    "message": "タミル語"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "中国語（繁体字・台湾）"
+  },
+  "languageKorean": {
+    "message": "韓国語"
+  },
+  "languageHindi": {
+    "message": "ヒンディー語"
+  },
+  "languageSpanishLatam": {
+    "message": "スペイン語（ラテンアメリカ）"
+  },
+  "languageSpanishSpain": {
+    "message": "スペイン語（スペイン）"
+  },
+  "noLanguagesMatch": {
+    "message": "その検索に一致する言語はありません。"
+  },
+  "mbBlocking": {
+    "message": "ブロック中"
+  },
+  "mbBlock": {
+    "message": "ブロック"
+  },
+  "mbOn": {
+    "message": "オン"
+  },
+  "mbOff": {
+    "message": "オフ"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "ブロック中 — クリックで一時停止"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "一時停止中 — クリックでブロック"
+  },
+  "mbChipRemoveTitle": {
+    "message": "クイックアクセスからショートカットを削除"
+  },
+  "mbChipRemoveAria": {
+    "message": "$1 をクイックアクセスから削除"
+  },
+  "themeHeading": {
+    "message": "テーマ"
+  },
+  "resetThemeButton": {
+    "message": "テーマをリセット"
+  },
+  "systemThemeLabel": {
+    "message": "システムテーマ"
+  },
+  "systemThemeHint": {
+    "message": "デバイスの設定、または固定モード。"
+  },
+  "themeSystem": {
+    "message": "システム"
+  },
+  "themeLight": {
+    "message": "ライト"
+  },
+  "themeDark": {
+    "message": "ダーク"
+  },
+  "themeBackground": {
+    "message": "背景"
+  },
+  "themePanel": {
+    "message": "パネル"
+  },
+  "themeBorder": {
+    "message": "枠線"
+  },
+  "themeText": {
+    "message": "テキスト"
+  },
+  "themeMutedText": {
+    "message": "補助テキスト"
+  },
+  "themeAccent": {
+    "message": "アクセント"
+  },
+  "cornerRadiusLabel": {
+    "message": "角の丸み"
+  },
+  "popupWidthLabel": {
+    "message": "ポップアップの幅"
+  },
+  "supportFooterText": {
+    "message": "FitShield が不要なデリバリー注文を避ける助けになったなら、任意のサポートがブロックリストやドキュメントの維持に役立ちます。"
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield బ్రౌజర్ పొడిగింపు మీరు ఫుడ్ డెలివరీ మరియు ఫాస్ట్ ఫుడ్ ఆర్డర్ గురించి జాగ్రత్త వహించడంలో సహాయపడుతుంది."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "సైట్ పేరు లేదా URLని శోధించండి"
+  },
+  "searchButton": {
+    "message": "శోధించండి"
+  },
+  "clearButton": {
+    "message": "క్లియర్"
+  },
+  "openButton": {
+    "message": "తెరవండి"
+  },
+  "addButton": {
+    "message": "జోడించు"
+  },
+  "removeButton": {
+    "message": "తొలగించు"
+  },
+  "viewBlocklistButton": {
+    "message": "బ్లాక్‌లిస్ట్‌ని వీక్షించండి"
+  },
+  "timerDurationLabel": {
+    "message": "టైమర్ వ్యవధి"
+  },
+  "timerDurationHint": {
+    "message": "కొనసాగించు కనిపించడానికి ముందు కౌంట్‌డౌన్‌ను సర్దుబాటు చేయండి."
+  },
+  "customSecondsLabel": {
+    "message": "అనుకూల సెకన్లు"
+  },
+  "siteOpenTimeLabel": {
+    "message": "సైట్ తెరిచే సమయం"
+  },
+  "siteOpenTimeHint": {
+    "message": "టైమర్ ముగిసిన తర్వాత సైట్‌లు ఎంతసేపు తెరిచి ఉంటాయో ఎంచుకోండి."
+  },
+  "customMinutesLabel": {
+    "message": "అనుకూల నిమిషాలు"
+  },
+  "startTimeLabel": {
+    "message": "ప్రారంభ సమయం"
+  },
+  "endTimeLabel": {
+    "message": "ముగింపు సమయం"
+  },
+  "scheduleDefaultSummary": {
+    "message": "ఇది ప్రారంభించబడినప్పుడు బ్లాక్ చేయడం మీ రోజువారీ షెడ్యూల్‌ను అనుసరిస్తుంది."
+  },
+  "currentScheduleSummary": {
+    "message": "ప్రస్తుత షెడ్యూల్: $1."
+  },
+  "everyDaySuffix": {
+    "message": " ప్రతి రోజు"
+  },
+  "scheduleRange": {
+    "message": "$1 నుండి $2 వరకు"
+  },
+  "unitMinute": {
+    "message": "నిమిషం"
+  },
+  "unitMinutes": {
+    "message": "నిమిషాలు"
+  },
+  "unitSite": {
+    "message": "సైట్"
+  },
+  "unitSites": {
+    "message": "సైట్లు"
+  },
+  "popupSettingsButton": {
+    "message": "సెట్టింగ్‌లు"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield బ్లాకర్"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every block list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & category blocking"
+  },
+  "popupMetadataSubtitle": {
+    "message": "దేశం లేదా ఆహార వర్గం ద్వారా సైట్‌ల మొత్తం సమూహాలను బ్లాక్ చేయండి."
+  },
+  "popupDeliveryLabel": {
+    "message": "డెలివరీ సైట్లు"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Fast food sites"
+  },
+  "popupFastFoodDefault": {
+    "message": "ప్రధాన గొలుసు ఆర్డరింగ్ డొమైన్‌లు."
+  },
+  "popupCustomLabel": {
+    "message": "అనుకూల URLలు"
+  },
+  "popupCustomSubtitle": {
+    "message": "మీ స్వంత సైట్‌లను జోడించండి మరియు వాటిని ఒక్కొక్కటిగా నిలిపివేయండి."
+  },
+  "popupScheduleLabel": {
+    "message": "Block only during scheduled hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "భోజన బడ్జెట్‌లు, అర్థరాత్రి ఆర్డర్ చేయడం లేదా పని గంటల కోసం ఉపయోగపడుతుంది."
+  },
+  "statusInactive": {
+    "message": "నిష్క్రియ. అన్ని సైట్‌లు అందుబాటులో ఉన్నాయి."
+  },
+  "statusAllDisabled": {
+    "message": "బ్లాకర్ ఆన్‌లో ఉంది, కానీ ప్రతి వ్యక్తిగత సైట్ నిలిపివేయబడింది. కొన్ని సైట్‌లను తిరిగి ఆన్ చేయడానికి సెట్టింగ్‌లను తెరవండి."
+  },
+  "statusBypassActive": {
+    "message": "తాత్కాలిక పాస్ సక్రియంగా ఉంది. $1లో రెజ్యూమ్‌లను నిరోధించడం."
+  },
+  "statusOutsideSchedule": {
+    "message": "బ్లాకర్ ఆయుధాలు కలిగి ఉన్నాడు, కానీ షెడ్యూల్ చేసిన సమయాల వెలుపల. ఇది $1 నుండి బ్లాక్ చేయబడుతుంది."
+  },
+  "statusShieldUp": {
+    "message": "రక్షణ కవచం. $1 సెకన్ల కౌంట్‌డౌన్, $2 $3 పాస్."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$2 డెలివరీ సైట్‌లలో $1 ప్రారంభించబడింది."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$2 ఫాస్ట్ ఫుడ్ సైట్‌లలో $1 ప్రారంభించబడింది."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 శోధనతో సరిపోలుతుంది."
+  },
+  "warningPageTitle": {
+    "message": "ఒక శ్వాస తీసుకోండి"
+  },
+  "warningEyebrow": {
+    "message": "FitShield తనిఖీ"
+  },
+  "warningTitle": {
+    "message": "ఒక్క నిమిషం తీసుకోండి."
+  },
+  "warningIntro": {
+    "message": "మీరు ఆర్డర్ చేయడానికి ముందు చెక్ ఇన్ చేయండి. ఆకలి, సౌలభ్యం, ఒత్తిడి మరియు అలవాటు ఈ క్షణంలో ఒకేలా అనిపించవచ్చు."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "టైమర్ ముగిసినప్పుడు, మీరు సైట్‌కు కొనసాగవచ్చు."
+  },
+  "warningHintLocked": {
+    "message": "టైమర్ ముగిసినప్పుడు, మీరు $1 $2 కోసం సైట్‌కి కొనసాగవచ్చు."
+  },
+  "warningBackButton": {
+    "message": "వెనక్కి వెళ్ళు"
+  },
+  "warningLockedButton": {
+    "message": "లాక్ చేయబడింది"
+  },
+  "warningContinueButton": {
+    "message": "కొనసాగించు"
+  },
+  "warningOpeningButton": {
+    "message": "తెరుస్తోంది..."
+  },
+  "warningUnlockHint": {
+    "message": "మీరు ఇప్పుడు సైట్‌ని సందర్శించవచ్చు. $1 $2 తర్వాత బ్లాకర్ స్వయంచాలకంగా తిరిగి వస్తుంది."
+  },
+  "warningErrorHint": {
+    "message": "సైట్‌ని ఓపెన్ చేస్తున్నప్పుడు ఏదో తప్పు జరిగింది. దయచేసి మళ్లీ ప్రయత్నించండి."
+  },
+  "settingsTitle": {
+    "message": "FitShield సెట్టింగ్‌లు"
+  },
+  "blockingOptionsHeading": {
+    "message": "నిరోధించే ఎంపికలు"
+  },
+  "scheduledHoursLabel": {
+    "message": "షెడ్యూల్ చేయబడిన గంటలు"
+  },
+  "scheduledHoursHint": {
+    "message": "రోజువారీ సమయ విండోలో మాత్రమే బ్లాక్ చేయండి."
+  },
+  "customizeBlocklistHeading": {
+    "message": "బ్లాక్‌లిస్ట్‌ని అనుకూలీకరించండి"
+  },
+  "customizeBlocklistIntro": {
+    "message": "ఏ అంతర్నిర్మిత సమూహాలు సక్రియంగా ఉన్నాయో ఎంచుకోండి, వ్యక్తిగత సైట్‌లను ఆన్ లేదా ఆఫ్ చేయండి మరియు మీ స్వంత డొమైన్‌లను జోడించండి."
+  },
+  "deliverySitesHeading": {
+    "message": "డెలివరీ సైట్లు"
+  },
+  "fastFoodSitesHeading": {
+    "message": "ఫాస్ట్ ఫుడ్ సైట్లు"
+  },
+  "customUrlsHeading": {
+    "message": "అనుకూల URLలు"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "మీ స్వంత డొమైన్‌లను జోడించండి మరియు వాటిని వ్యక్తిగతంగా నిలిపివేయండి."
+  },
+  "showSitesButton": {
+    "message": "సైట్‌లను చూపించు"
+  },
+  "hideSitesButton": {
+    "message": "సైట్‌లను దాచండి"
+  },
+  "showUrlsButton": {
+    "message": "URLలను చూపు"
+  },
+  "hideUrlsButton": {
+    "message": "URLలను దాచండి"
+  },
+  "deliveryToggleTitle": {
+    "message": "డెలివరీ సైట్ నిరోధించడాన్ని ప్రారంభించండి"
+  },
+  "fastFoodToggleTitle": {
+    "message": "ఫాస్ట్ ఫుడ్ సైట్ నిరోధించడాన్ని ప్రారంభించండి"
+  },
+  "customToggleTitle": {
+    "message": "అనుకూల URL నిరోధించడాన్ని ప్రారంభించండి"
+  },
+  "addCustomUrlLabel": {
+    "message": "కస్టమ్ బ్లాక్ చేయబడిన URLని జోడించండి"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com లేదా https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "ఎంట్రీలు డొమైన్‌లకు సాధారణీకరించబడ్డాయి మరియు అన్ని పేజీలలో బ్లాక్ చేయబడ్డాయి."
+  },
+  "customEmptyDefault": {
+    "message": "ఇంకా అనుకూల URLలు ఏవీ జోడించబడలేదు."
+  },
+  "customNoMatch": {
+    "message": "ఈ శోధనకు అనుకూల URLలు ఏవీ సరిపోలలేదు."
+  },
+  "emptyDeliverySearch": {
+    "message": "ఈ శోధనకు ఏ డెలివరీ సైట్‌లు సరిపోలలేదు."
+  },
+  "emptyFastFoodSearch": {
+    "message": "ఈ శోధనకు సరిపోలే ఫాస్ట్ ఫుడ్ సైట్‌లు ఏవీ లేవు."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 \"$3\"కి సరిపోలింది."
+  },
+  "invalidUrlNotice": {
+    "message": "ఆ URL ఇంకా చెల్లుబాటు అయ్యేలా లేదు. example.com వంటి డొమైన్‌ని ప్రయత్నించండి."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 ఇప్పటికే బ్లాక్‌లిస్ట్‌లో ఉంది, కనుక ఇది మళ్లీ ప్రారంభించబడింది."
+  },
+  "addedToBlocklist": {
+    "message": "$1 అనుకూల బ్లాక్‌లిస్ట్‌కు జోడించబడింది."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 అనుకూల బ్లాక్‌లిస్ట్ నుండి తీసివేయబడింది."
+  },
+  "metadataHeading": {
+    "message": "దేశం & వర్గం నిరోధించడం"
+  },
+  "metadataIntro": {
+    "message": "బ్రాండ్ పనిచేసే దేశం లేదా అది అందించే ఆహార రకం ఆధారంగా సైట్‌ల మొత్తం సమూహాలను బ్లాక్ చేయండి. ఈ బ్లాక్‌లు మీ ప్రస్తుత సైట్ మరియు అనుకూల-URL బ్లాక్‌లకు జోడిస్తాయి."
+  },
+  "blockByCountryLabel": {
+    "message": "దేశం వారీగా బ్లాక్ చేయండి"
+  },
+  "blockByCountryHint": {
+    "message": "దేశం పేరు లేదా కోడ్ ద్వారా శోధించండి, ఉదా. \"యునైటెడ్\" లేదా \"యుఎస్\". దేశాన్ని ప్రారంభించడం వలన అక్కడ యాక్టివ్‌గా ఉన్న ప్రతి బ్రాండ్ బ్లాక్ అవుతుంది."
+  },
+  "countrySearchPlaceholder": {
+    "message": "దేశాలను వెతకండి..."
+  },
+  "quickAccessCountries": {
+    "message": "త్వరిత యాక్సెస్ — దేశాలు"
+  },
+  "countryQuickEmpty": {
+    "message": "ఇక్కడ పిన్ చేయడానికి శోధన నుండి దేశాన్ని ప్రారంభించండి."
+  },
+  "blockByCategoryLabel": {
+    "message": "వర్గం ద్వారా బ్లాక్ చేయండి"
+  },
+  "blockByCategoryHint": {
+    "message": "బర్గర్, పిజ్జా లేదా కాఫీ వంటి వర్గాలను శోధించండి. ప్రత్యేకతలు కూడా శోధించదగినవి; బ్లాక్ వర్గం ద్వారా వర్తిస్తుంది."
+  },
+  "categorySearchPlaceholder": {
+    "message": "వర్గాలను శోధించండి..."
+  },
+  "quickAccessCategories": {
+    "message": "త్వరిత యాక్సెస్ - వర్గాలు"
+  },
+  "categoryQuickEmpty": {
+    "message": "ఇక్కడ పిన్ చేయడానికి శోధన నుండి వర్గాన్ని ప్రారంభించండి."
+  },
+  "noCountriesMatch": {
+    "message": "ఆ శోధనతో ఏ దేశాలు సరిపోలడం లేదు."
+  },
+  "noCategoriesMatch": {
+    "message": "ఆ శోధనకు ఏ వర్గాలు సరిపోలలేదు."
+  },
+  "languageHeading": {
+    "message": "భాష"
+  },
+  "languageIntro": {
+    "message": "FitShield దాని స్వంత స్క్రీన్‌ల కోసం ఉపయోగించే భాషను ఎంచుకోండి. ఇది పొడిగింపు కోసం మాత్రమే మీ బ్రౌజర్ భాషను భర్తీ చేస్తుంది."
+  },
+  "languageSelectLabel": {
+    "message": "ప్రదర్శన భాష"
+  },
+  "languageHint": {
+    "message": "భాష కోసం శోధించండి మరియు దానిని ఎంచుకోండి. మీ బ్రౌజర్‌ని అనుసరించడానికి సిస్టమ్ డిఫాల్ట్‌ని ఎంచుకోండి."
+  },
+  "languageSearchPlaceholder": {
+    "message": "భాషలను వెతకండి..."
+  },
+  "currentLanguageHead": {
+    "message": "ప్రస్తుత భాష"
+  },
+  "languageUseButton": {
+    "message": "ఉపయోగించండి"
+  },
+  "languageActiveButton": {
+    "message": "చురుకుగా"
+  },
+  "languageSystem": {
+    "message": "సిస్టమ్ డిఫాల్ట్"
+  },
+  "languageSystemSub": {
+    "message": "మీ బ్రౌజర్ భాషను అనుసరించండి"
+  },
+  "languageEnglish": {
+    "message": "ఇంగ్లీష్"
+  },
+  "languageJapanese": {
+    "message": "జపనీస్"
+  },
+  "languageChinese": {
+    "message": "చైనీస్ (సరళీకృతం)"
+  },
+  "languageFrench": {
+    "message": "ఫ్రెంచ్"
+  },
+  "languageCantonese": {
+    "message": "కాంటోనీస్"
+  },
+  "languageThai": {
+    "message": "థాయ్"
+  },
+  "languagePunjabi": {
+    "message": "పంజాబీ"
+  },
+  "languageTamil": {
+    "message": "తమిళం"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "చైనీస్ (సాంప్రదాయ, తైవాన్)"
+  },
+  "languageKorean": {
+    "message": "కొరియన్"
+  },
+  "languageHindi": {
+    "message": "హిందీ"
+  },
+  "languageSpanishLatam": {
+    "message": "స్పానిష్ (లాటిన్ అమెరికా)"
+  },
+  "languageSpanishSpain": {
+    "message": "స్పానిష్ (స్పెయిన్)"
+  },
+  "languageAfrikaans": {
+    "message": "ఆఫ్రికాన్స్"
+  },
+  "languageAlbanian": {
+    "message": "అల్బేనియన్"
+  },
+  "languageBasque": {
+    "message": "బాస్క్"
+  },
+  "languageBelarusian": {
+    "message": "బెలారసియన్"
+  },
+  "languageBulgarian": {
+    "message": "బల్గేరియన్"
+  },
+  "languageCatalan": {
+    "message": "కాటలాన్"
+  },
+  "languageCroatian": {
+    "message": "క్రొయేషియన్"
+  },
+  "languageCzech": {
+    "message": "చెక్"
+  },
+  "languageDanish": {
+    "message": "డానిష్"
+  },
+  "languageDutch": {
+    "message": "డచ్"
+  },
+  "languageEstonian": {
+    "message": "ఎస్టోనియన్"
+  },
+  "languageFinnish": {
+    "message": "ఫిన్నిష్"
+  },
+  "languageGreek": {
+    "message": "గ్రీకు"
+  },
+  "languageHungarian": {
+    "message": "హంగేరియన్"
+  },
+  "languageIcelandic": {
+    "message": "ఐస్లాండిక్"
+  },
+  "languageIrish": {
+    "message": "ఐరిష్"
+  },
+  "languageItalian": {
+    "message": "ఇటాలియన్"
+  },
+  "languageLatvian": {
+    "message": "లాట్వియన్"
+  },
+  "languageLithuanian": {
+    "message": "లిథువేనియన్"
+  },
+  "languageMacedonian": {
+    "message": "మాసిడోనియన్"
+  },
+  "languageMaltese": {
+    "message": "మాల్టీస్"
+  },
+  "languageNorwegian": {
+    "message": "నార్వేజియన్"
+  },
+  "languagePolish": {
+    "message": "పోలిష్"
+  },
+  "languagePortuguesePortugal": {
+    "message": "పోర్చుగీస్ (పోర్చుగల్)"
+  },
+  "languageRomanian": {
+    "message": "రొమేనియన్"
+  },
+  "languageRussian": {
+    "message": "రష్యన్"
+  },
+  "languageSerbian": {
+    "message": "సెర్బియన్"
+  },
+  "languageSlovak": {
+    "message": "స్లోవాక్"
+  },
+  "languageSlovenian": {
+    "message": "స్లోవేనియన్"
+  },
+  "languageSwedish": {
+    "message": "స్వీడిష్"
+  },
+  "languageTurkish": {
+    "message": "టర్కిష్"
+  },
+  "languageUkrainian": {
+    "message": "ఉక్రేనియన్"
+  },
+  "languageWelsh": {
+    "message": "వెల్ష్"
+  },
+  "languageBengali": {
+    "message": "బెంగాలీ"
+  },
+  "languageGujarati": {
+    "message": "గుజరాతీ"
+  },
+  "languageKannada": {
+    "message": "కన్నడ"
+  },
+  "languageMalayalam": {
+    "message": "మలయాళం"
+  },
+  "languageMarathi": {
+    "message": "మరాఠీ"
+  },
+  "languageNepali": {
+    "message": "నేపాలీ"
+  },
+  "languageOdia": {
+    "message": "ఒడియా"
+  },
+  "languageSinhala": {
+    "message": "సింహళం"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "ఉర్దూ"
+  },
+  "languageAssamese": {
+    "message": "అస్సామీ"
+  },
+  "languageIndonesian": {
+    "message": "ఇండోనేషియన్"
+  },
+  "languageMalay": {
+    "message": "మలయ్"
+  },
+  "languageVietnamese": {
+    "message": "వియత్నామీస్"
+  },
+  "languageKhmer": {
+    "message": "ఖైమర్"
+  },
+  "languageLao": {
+    "message": "లావో"
+  },
+  "languageBurmese": {
+    "message": "బర్మీస్ (మయన్మార్)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "ఫిలిపినో / తగలోగ్"
+  },
+  "languageJavanese": {
+    "message": "జావానీస్"
+  },
+  "languageSundanese": {
+    "message": "సుండానీస్"
+  },
+  "languageArabic": {
+    "message": "అరబిక్"
+  },
+  "languagePersian": {
+    "message": "పర్షియన్ (ఫార్సీ)"
+  },
+  "languageHebrew": {
+    "message": "హిబ్రూ"
+  },
+  "languageArmenian": {
+    "message": "అర్మేనియన్"
+  },
+  "languageGeorgian": {
+    "message": "జార్జియన్"
+  },
+  "languageKazakh": {
+    "message": "కజఖ్"
+  },
+  "languageKyrgyz": {
+    "message": "కిర్గిజ్"
+  },
+  "languageMongolian": {
+    "message": "మంగోలియన్"
+  },
+  "languagePashto": {
+    "message": "పాష్టో"
+  },
+  "languageTajik": {
+    "message": "తాజిక్"
+  },
+  "languageTurkmen": {
+    "message": "తుర్క్మెన్"
+  },
+  "languageUyghur": {
+    "message": "ఉయ్ఘర్"
+  },
+  "languageUzbek": {
+    "message": "ఉజ్బెక్"
+  },
+  "noLanguagesMatch": {
+    "message": "ఆ శోధనకు ఏ భాషలూ సరిపోలలేదు."
+  },
+  "mbBlocking": {
+    "message": "నిరోధించడం"
+  },
+  "mbBlock": {
+    "message": "నిరోధించు"
+  },
+  "mbOn": {
+    "message": "ఆన్"
+  },
+  "mbOff": {
+    "message": "ఆఫ్"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "నిరోధించడం — పాజ్ చేయడానికి క్లిక్ చేయండి"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "పాజ్ చేయబడింది - నిరోధించడానికి క్లిక్ చేయండి"
+  },
+  "mbChipRemoveTitle": {
+    "message": "త్వరిత యాక్సెస్ నుండి సత్వరమార్గాన్ని తీసివేయండి"
+  },
+  "mbChipRemoveAria": {
+    "message": "త్వరిత ప్రాప్యత నుండి $1ని తీసివేయండి"
+  },
+  "themeHeading": {
+    "message": "థీమ్"
+  },
+  "resetThemeButton": {
+    "message": "థీమ్‌ని రీసెట్ చేయండి"
+  },
+  "systemThemeLabel": {
+    "message": "సిస్టమ్ థీమ్"
+  },
+  "systemThemeHint": {
+    "message": "పరికర ప్రాధాన్యత లేదా స్థిర మోడ్."
+  },
+  "themeSystem": {
+    "message": "వ్యవస్థ"
+  },
+  "themeLight": {
+    "message": "కాంతి"
+  },
+  "themeDark": {
+    "message": "చీకటి"
+  },
+  "themeBackground": {
+    "message": "నేపథ్యం"
+  },
+  "themePanel": {
+    "message": "ప్యానెల్"
+  },
+  "themeBorder": {
+    "message": "సరిహద్దు"
+  },
+  "themeText": {
+    "message": "వచనం"
+  },
+  "themeMutedText": {
+    "message": "మ్యూట్ చేయబడిన వచనం"
+  },
+  "themeAccent": {
+    "message": "ఉచ్ఛారణ"
+  },
+  "cornerRadiusLabel": {
+    "message": "మూల వ్యాసార్థం"
+  },
+  "popupWidthLabel": {
+    "message": "పాప్అప్ వెడల్పు"
+  },
+  "supportFooterText": {
+    "message": "FitShield మీకు అనవసరమైన డెలివరీ ఆర్డర్‌ను నివారించడంలో సహాయపడినట్లయితే, ఐచ్ఛిక మద్దతు బ్లాక్‌లిస్ట్‌లు మరియు డాక్స్‌లను తరలించడంలో సహాయపడుతుంది."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

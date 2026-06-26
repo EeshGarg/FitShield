@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Chwilio gwefan name or URL"
+  },
+  "searchButton": {
+    "message": "Chwilio"
+  },
+  "clearButton": {
+    "message": "Clirio"
+  },
+  "openButton": {
+    "message": "Agor"
+  },
+  "addButton": {
+    "message": "Ychwanegu"
+  },
+  "removeButton": {
+    "message": "Tynnu"
+  },
+  "viewBlocklistButton": {
+    "message": "View Rhwystrolist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Parhau appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long gwefannau stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom munudau"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Rhwystro will follow your daily amserlen when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Cyfredol amserlen: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "munud"
+  },
+  "unitMinutes": {
+    "message": "munudau"
+  },
+  "unitSite": {
+    "message": "gwefan"
+  },
+  "unitSites": {
+    "message": "gwefannau"
+  },
+  "popupSettingsButton": {
+    "message": "Gosodiadau"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield rhwystrydd"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every rhwystro list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & categori rhwystroing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Rhwystro whole groups of gwefannau by gwlad or food categori."
+  },
+  "popupDeliveryLabel": {
+    "message": "Gwefannau danfon"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Gwefannau bwyd cyflym"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "URLau personol"
+  },
+  "popupCustomSubtitle": {
+    "message": "Ychwanegu your own gwefannau and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Rhwystro only during amserlend hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Defnyddioful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All gwefannau are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Rhwystrydd is on, but every individual gwefan is disabled. Agor Gosodiadau to turn some gwefannau back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Rhwystro resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Rhwystrydd is armed, but outside amserlend hours. It will rhwystro from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 gwefannau danfon enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 gwefannau bwyd cyflym enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one munud."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the gwefan."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the gwefan for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Mynd yn ôl"
+  },
+  "warningLockedButton": {
+    "message": "Wedi'i gloi"
+  },
+  "warningContinueButton": {
+    "message": "Parhau"
+  },
+  "warningOpeningButton": {
+    "message": "Yn agor..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the gwefan now. The rhwystrydd will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the gwefan. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Gosodiadau"
+  },
+  "blockingOptionsHeading": {
+    "message": "Rhwystro Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Oriau wedi'u hamserlennu"
+  },
+  "scheduledHoursHint": {
+    "message": "Rhwystro only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Rhwystrolist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual gwefannau on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Gwefannau danfon"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Gwefannau bwyd cyflym"
+  },
+  "customUrlsHeading": {
+    "message": "URLau personol"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Ychwanegu your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Dangos Sites"
+  },
+  "hideSitesButton": {
+    "message": "Cuddio Sites"
+  },
+  "showUrlsButton": {
+    "message": "Dangos URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Cuddio URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Galluogi delivery gwefan rhwystroing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Galluogi fast food gwefan rhwystroing"
+  },
+  "customToggleTitle": {
+    "message": "Galluogi custom URL rhwystroing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Ychwanegu a custom rhwystroed URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and rhwystroed across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No URLau personol added yet."
+  },
+  "customNoMatch": {
+    "message": "No URLau personol match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No gwefannau danfon match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No gwefannau bwyd cyflym match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the rhwystrolist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom rhwystrolist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom rhwystrolist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Rhwystro"
+  },
+  "metadataIntro": {
+    "message": "Rhwystro whole groups of gwefannau by the gwlad a brand operates in or the kind of food it serves. These rhwystros add to your existing gwefan and custom-URL rhwystros."
+  },
+  "blockByCountryLabel": {
+    "message": "Rhwystro by gwlad"
+  },
+  "blockByCountryHint": {
+    "message": "Chwilio by gwlad name or code, e.g. \"United\" or \"US\". Enabling a gwlad rhwystros every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Chwilio gwledydd…"
+  },
+  "quickAccessCountries": {
+    "message": "Mynediad cyflym — gwledydd"
+  },
+  "countryQuickEmpty": {
+    "message": "Galluogi a gwlad from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Rhwystro by categori"
+  },
+  "blockByCategoryHint": {
+    "message": "Chwilio categorïau like burger, pizza, or coffee. Specialties are searchable too; the rhwystro applies by categori."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Chwilio categorïau…"
+  },
+  "quickAccessCategories": {
+    "message": "Mynediad cyflym — categorïau"
+  },
+  "categoryQuickEmpty": {
+    "message": "Galluogi a categori from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No gwledydd match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No categorïau match that search."
+  },
+  "languageHeading": {
+    "message": "Iaith"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Chwilio for a language and select it. Choose System default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Chwilio ieithoedd…"
+  },
+  "currentLanguageHead": {
+    "message": "Cyfredol language"
+  },
+  "languageUseButton": {
+    "message": "Defnyddio"
+  },
+  "languageActiveButton": {
+    "message": "Gweithredol"
+  },
+  "languageSystem": {
+    "message": "System default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Nid oes unrhyw iaith yn cyfateb i'r chwiliad."
+  },
+  "mbBlocking": {
+    "message": "Rhwystro"
+  },
+  "mbBlock": {
+    "message": "Rhwystro"
+  },
+  "mbOn": {
+    "message": "Ymlaen"
+  },
+  "mbOff": {
+    "message": "I ffwrdd"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Rhwystro — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to rhwystro"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Tynnu shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Tynnu $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Thema"
+  },
+  "resetThemeButton": {
+    "message": "Ailosod Thema"
+  },
+  "systemThemeLabel": {
+    "message": "System theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "System"
+  },
+  "themeLight": {
+    "message": "Golau"
+  },
+  "themeDark": {
+    "message": "Tywyll"
+  },
+  "themeBackground": {
+    "message": "Cefndir"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "Ffin"
+  },
+  "themeText": {
+    "message": "Testun"
+  },
+  "themeMutedText": {
+    "message": "Testun tawel"
+  },
+  "themeAccent": {
+    "message": "Acen"
+  },
+  "cornerRadiusLabel": {
+    "message": "Radiws cornel"
+  },
+  "popupWidthLabel": {
+    "message": "Lled naidlen"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep rhwystrolists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

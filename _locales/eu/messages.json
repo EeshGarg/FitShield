@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Bilatu gune name or URL"
+  },
+  "searchButton": {
+    "message": "Bilatu"
+  },
+  "clearButton": {
+    "message": "Garbitu"
+  },
+  "openButton": {
+    "message": "Ireki"
+  },
+  "addButton": {
+    "message": "Gehitu"
+  },
+  "removeButton": {
+    "message": "Kendu"
+  },
+  "viewBlocklistButton": {
+    "message": "View Blokeatulist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Jarraitu appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long guneak stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom minutu"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Blokeoa will follow your daily ordutegia when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Unekoa ordutegia: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "minutu"
+  },
+  "unitMinutes": {
+    "message": "minutu"
+  },
+  "unitSite": {
+    "message": "gune"
+  },
+  "unitSites": {
+    "message": "guneak"
+  },
+  "popupSettingsButton": {
+    "message": "Ezarpenak"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blokeatzailea"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every blokeatu list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & kategoria blokeatuing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Blokeatu whole groups of guneak by herrialdea or food kategoria."
+  },
+  "popupDeliveryLabel": {
+    "message": "Banaketa guneak"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Janari azkarreko guneak"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "URL pertsonalizatuak"
+  },
+  "popupCustomSubtitle": {
+    "message": "Gehitu your own guneak and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Blokeatu only during ordutegiad hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Erabiliful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All guneak are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Blokeatzailea is on, but every individual gune is disabled. Ireki Ezarpenak to turn some guneak back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Blokeoa resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blokeatzailea is armed, but outside ordutegiad hours. It will blokeatu from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 banaketa guneak enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 janari azkarreko guneak enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one minutu."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the gune."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the gune for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Itzuli"
+  },
+  "warningLockedButton": {
+    "message": "Blokeatuta"
+  },
+  "warningContinueButton": {
+    "message": "Jarraitu"
+  },
+  "warningOpeningButton": {
+    "message": "Irekitzen..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the gune now. The blokeatzailea will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the gune. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Ezarpenak"
+  },
+  "blockingOptionsHeading": {
+    "message": "Blokeoa Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Programatutako orduak"
+  },
+  "scheduledHoursHint": {
+    "message": "Blokeatu only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Blokeatulist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual guneak on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Banaketa guneak"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Janari azkarreko guneak"
+  },
+  "customUrlsHeading": {
+    "message": "URL pertsonalizatuak"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Gehitu your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Erakutsi Sites"
+  },
+  "hideSitesButton": {
+    "message": "Ezkutatu Sites"
+  },
+  "showUrlsButton": {
+    "message": "Erakutsi URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Ezkutatu URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Gaitu delivery gune blokeatuing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Gaitu fast food gune blokeatuing"
+  },
+  "customToggleTitle": {
+    "message": "Gaitu custom URL blokeatuing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Gehitu a custom blokeatued URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and blokeatued across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No URL pertsonalizatuak added yet."
+  },
+  "customNoMatch": {
+    "message": "No URL pertsonalizatuak match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No banaketa guneak match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No janari azkarreko guneak match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the blokeatulist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom blokeatulist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom blokeatulist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Blokeoa"
+  },
+  "metadataIntro": {
+    "message": "Blokeatu whole groups of guneak by the herrialdea a brand operates in or the kind of food it serves. These blokeatus add to your existing gune and custom-URL blokeatus."
+  },
+  "blockByCountryLabel": {
+    "message": "Blokeatu by herrialdea"
+  },
+  "blockByCountryHint": {
+    "message": "Bilatu by herrialdea name or code, e.g. \"United\" or \"US\". Enabling a herrialdea blokeatus every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Bilatu herrialdeak…"
+  },
+  "quickAccessCountries": {
+    "message": "Sarbide azkarra — herrialdeak"
+  },
+  "countryQuickEmpty": {
+    "message": "Gaitu a herrialdea from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Blokeatu by kategoria"
+  },
+  "blockByCategoryHint": {
+    "message": "Bilatu kategoriak like burger, pizza, or coffee. Specialties are searchable too; the blokeatu applies by kategoria."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Bilatu kategoriak…"
+  },
+  "quickAccessCategories": {
+    "message": "Sarbide azkarra — kategoriak"
+  },
+  "categoryQuickEmpty": {
+    "message": "Gaitu a kategoria from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No herrialdeak match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No kategoriak match that search."
+  },
+  "languageHeading": {
+    "message": "Hizkuntza"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Bilatu for a language and select it. Choose Sistema default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Bilatu hizkuntzak…"
+  },
+  "currentLanguageHead": {
+    "message": "Unekoa language"
+  },
+  "languageUseButton": {
+    "message": "Erabili"
+  },
+  "languageActiveButton": {
+    "message": "Aktibo"
+  },
+  "languageSystem": {
+    "message": "Sistema default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Ez dago bilaketarekin bat datorren hizkuntzarik."
+  },
+  "mbBlocking": {
+    "message": "Blokeoa"
+  },
+  "mbBlock": {
+    "message": "Blokeatu"
+  },
+  "mbOn": {
+    "message": "Aktibatuta"
+  },
+  "mbOff": {
+    "message": "Desaktibatuta"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Blokeoa — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to blokeatu"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Kendu shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Kendu $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Gaia"
+  },
+  "resetThemeButton": {
+    "message": "Berrezarri Gaia"
+  },
+  "systemThemeLabel": {
+    "message": "Sistema theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Sistema"
+  },
+  "themeLight": {
+    "message": "Argia"
+  },
+  "themeDark": {
+    "message": "Iluna"
+  },
+  "themeBackground": {
+    "message": "Atzeko planoa"
+  },
+  "themePanel": {
+    "message": "Panela"
+  },
+  "themeBorder": {
+    "message": "Ertza"
+  },
+  "themeText": {
+    "message": "Testua"
+  },
+  "themeMutedText": {
+    "message": "Testu apala"
+  },
+  "themeAccent": {
+    "message": "Azentua"
+  },
+  "cornerRadiusLabel": {
+    "message": "Izkinaren erradioa"
+  },
+  "popupWidthLabel": {
+    "message": "Popup zabalera"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blokeatulists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Hľadať stránka name or URL"
+  },
+  "searchButton": {
+    "message": "Hľadať"
+  },
+  "clearButton": {
+    "message": "Vymazať"
+  },
+  "openButton": {
+    "message": "Otvoriť"
+  },
+  "addButton": {
+    "message": "Pridať"
+  },
+  "removeButton": {
+    "message": "Odstrániť"
+  },
+  "viewBlocklistButton": {
+    "message": "View Blokovaťlist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Pokračovať appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long stránky stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom minúty"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Blokovanie will follow your daily plán when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Aktuálne plán: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "minúta"
+  },
+  "unitMinutes": {
+    "message": "minúty"
+  },
+  "unitSite": {
+    "message": "stránka"
+  },
+  "unitSites": {
+    "message": "stránky"
+  },
+  "popupSettingsButton": {
+    "message": "Nastavenia"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blokátor"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every blokovať list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & kategória blokovaťing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Blokovať whole groups of stránky by krajina or food kategória."
+  },
+  "popupDeliveryLabel": {
+    "message": "Doručovacie stránky"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Stránky rýchleho občerstvenia"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "Vlastné URL"
+  },
+  "popupCustomSubtitle": {
+    "message": "Pridať your own stránky and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Blokovať only during plánd hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Použiťful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All stránky are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Blokátor is on, but every individual stránka is disabled. Otvoriť Nastavenia to turn some stránky back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Blokovanie resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blokátor is armed, but outside plánd hours. It will blokovať from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 doručovacie stránky enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 stránky rýchleho občerstvenia enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one minúta."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the stránka."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the stránka for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Späť"
+  },
+  "warningLockedButton": {
+    "message": "Zamknuté"
+  },
+  "warningContinueButton": {
+    "message": "Pokračovať"
+  },
+  "warningOpeningButton": {
+    "message": "Otvára sa..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the stránka now. The blokátor will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the stránka. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Nastavenia"
+  },
+  "blockingOptionsHeading": {
+    "message": "Blokovanie Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Naplánované hodiny"
+  },
+  "scheduledHoursHint": {
+    "message": "Blokovať only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Blokovaťlist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual stránky on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Doručovacie stránky"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Stránky rýchleho občerstvenia"
+  },
+  "customUrlsHeading": {
+    "message": "Vlastné URL"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Pridať your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Zobraziť Sites"
+  },
+  "hideSitesButton": {
+    "message": "Skryť Sites"
+  },
+  "showUrlsButton": {
+    "message": "Zobraziť URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Skryť URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Povoliť delivery stránka blokovaťing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Povoliť fast food stránka blokovaťing"
+  },
+  "customToggleTitle": {
+    "message": "Povoliť custom URL blokovaťing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Pridať a custom blokovaťed URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and blokovaťed across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No vlastné URL added yet."
+  },
+  "customNoMatch": {
+    "message": "No vlastné URL match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No doručovacie stránky match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No stránky rýchleho občerstvenia match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the blokovaťlist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom blokovaťlist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom blokovaťlist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Blokovanie"
+  },
+  "metadataIntro": {
+    "message": "Blokovať whole groups of stránky by the krajina a brand operates in or the kind of food it serves. These blokovaťs add to your existing stránka and custom-URL blokovaťs."
+  },
+  "blockByCountryLabel": {
+    "message": "Blokovať by krajina"
+  },
+  "blockByCountryHint": {
+    "message": "Hľadať by krajina name or code, e.g. \"United\" or \"US\". Enabling a krajina blokovaťs every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Hľadať krajiny…"
+  },
+  "quickAccessCountries": {
+    "message": "Rýchly prístup — krajiny"
+  },
+  "countryQuickEmpty": {
+    "message": "Povoliť a krajina from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Blokovať by kategória"
+  },
+  "blockByCategoryHint": {
+    "message": "Hľadať kategórie like burger, pizza, or coffee. Specialties are searchable too; the blokovať applies by kategória."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Hľadať kategórie…"
+  },
+  "quickAccessCategories": {
+    "message": "Rýchly prístup — kategórie"
+  },
+  "categoryQuickEmpty": {
+    "message": "Povoliť a kategória from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No krajiny match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No kategórie match that search."
+  },
+  "languageHeading": {
+    "message": "Jazyk"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Hľadať for a language and select it. Choose Systém default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Hľadať jazyky…"
+  },
+  "currentLanguageHead": {
+    "message": "Aktuálne language"
+  },
+  "languageUseButton": {
+    "message": "Použiť"
+  },
+  "languageActiveButton": {
+    "message": "Aktívne"
+  },
+  "languageSystem": {
+    "message": "Systém default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Žiadny jazyk nezodpovedá hľadaniu."
+  },
+  "mbBlocking": {
+    "message": "Blokovanie"
+  },
+  "mbBlock": {
+    "message": "Blokovať"
+  },
+  "mbOn": {
+    "message": "Zapnuté"
+  },
+  "mbOff": {
+    "message": "Vypnuté"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Blokovanie — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to blokovať"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Odstrániť shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Odstrániť $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Téma"
+  },
+  "resetThemeButton": {
+    "message": "Obnoviť Téma"
+  },
+  "systemThemeLabel": {
+    "message": "Systém theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Systém"
+  },
+  "themeLight": {
+    "message": "Svetlá"
+  },
+  "themeDark": {
+    "message": "Tmavá"
+  },
+  "themeBackground": {
+    "message": "Pozadie"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "Okraj"
+  },
+  "themeText": {
+    "message": "Text"
+  },
+  "themeMutedText": {
+    "message": "Tlmený text"
+  },
+  "themeAccent": {
+    "message": "Akcent"
+  },
+  "cornerRadiusLabel": {
+    "message": "Polomer rohov"
+  },
+  "popupWidthLabel": {
+    "message": "Šírka okna"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blokovaťlists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

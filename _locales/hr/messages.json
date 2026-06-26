@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Pretraži stranica name or URL"
+  },
+  "searchButton": {
+    "message": "Pretraži"
+  },
+  "clearButton": {
+    "message": "Očisti"
+  },
+  "openButton": {
+    "message": "Otvori"
+  },
+  "addButton": {
+    "message": "Dodaj"
+  },
+  "removeButton": {
+    "message": "Ukloni"
+  },
+  "viewBlocklistButton": {
+    "message": "View Blokirajlist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Nastavi appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long stranice stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom minuta"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Blokiranje will follow your daily raspored when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Trenutni raspored: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "minuta"
+  },
+  "unitMinutes": {
+    "message": "minuta"
+  },
+  "unitSite": {
+    "message": "stranica"
+  },
+  "unitSites": {
+    "message": "stranice"
+  },
+  "popupSettingsButton": {
+    "message": "Postavke"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blokator"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every blokiraj list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & kategorija blokirajing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Blokiraj whole groups of stranice by država or food kategorija."
+  },
+  "popupDeliveryLabel": {
+    "message": "Stranice dostave"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Stranice brze hrane"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "Prilagođeni URL-ovi"
+  },
+  "popupCustomSubtitle": {
+    "message": "Dodaj your own stranice and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Blokiraj only during rasporedd hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Koristiful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All stranice are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Blokator is on, but every individual stranica is disabled. Otvori Postavke to turn some stranice back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Blokiranje resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blokator is armed, but outside rasporedd hours. It will blokiraj from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 stranice dostave enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 stranice brze hrane enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one minuta."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the stranica."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the stranica for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Natrag"
+  },
+  "warningLockedButton": {
+    "message": "Zaključano"
+  },
+  "warningContinueButton": {
+    "message": "Nastavi"
+  },
+  "warningOpeningButton": {
+    "message": "Otvaranje..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the stranica now. The blokator will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the stranica. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Postavke"
+  },
+  "blockingOptionsHeading": {
+    "message": "Blokiranje Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Zakazani sati"
+  },
+  "scheduledHoursHint": {
+    "message": "Blokiraj only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Blokirajlist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual stranice on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Stranice dostave"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Stranice brze hrane"
+  },
+  "customUrlsHeading": {
+    "message": "Prilagođeni URL-ovi"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Dodaj your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Prikaži Sites"
+  },
+  "hideSitesButton": {
+    "message": "Sakrij Sites"
+  },
+  "showUrlsButton": {
+    "message": "Prikaži URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Sakrij URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Omogući delivery stranica blokirajing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Omogući fast food stranica blokirajing"
+  },
+  "customToggleTitle": {
+    "message": "Omogući custom URL blokirajing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Dodaj a custom blokirajed URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and blokirajed across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No prilagođeni URL-ovi added yet."
+  },
+  "customNoMatch": {
+    "message": "No prilagođeni URL-ovi match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No stranice dostave match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No stranice brze hrane match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the blokirajlist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom blokirajlist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom blokirajlist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Blokiranje"
+  },
+  "metadataIntro": {
+    "message": "Blokiraj whole groups of stranice by the država a brand operates in or the kind of food it serves. These blokirajs add to your existing stranica and custom-URL blokirajs."
+  },
+  "blockByCountryLabel": {
+    "message": "Blokiraj by država"
+  },
+  "blockByCountryHint": {
+    "message": "Pretraži by država name or code, e.g. \"United\" or \"US\". Enabling a država blokirajs every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Pretraži države…"
+  },
+  "quickAccessCountries": {
+    "message": "Brzi pristup — države"
+  },
+  "countryQuickEmpty": {
+    "message": "Omogući a država from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Blokiraj by kategorija"
+  },
+  "blockByCategoryHint": {
+    "message": "Pretraži kategorije like burger, pizza, or coffee. Specialties are searchable too; the blokiraj applies by kategorija."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Pretraži kategorije…"
+  },
+  "quickAccessCategories": {
+    "message": "Brzi pristup — kategorije"
+  },
+  "categoryQuickEmpty": {
+    "message": "Omogući a kategorija from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No države match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No kategorije match that search."
+  },
+  "languageHeading": {
+    "message": "Jezik"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Pretraži for a language and select it. Choose Sustav default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Pretraži jezike…"
+  },
+  "currentLanguageHead": {
+    "message": "Trenutni language"
+  },
+  "languageUseButton": {
+    "message": "Koristi"
+  },
+  "languageActiveButton": {
+    "message": "Aktivno"
+  },
+  "languageSystem": {
+    "message": "Sustav default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Nijedan jezik ne odgovara toj pretrazi."
+  },
+  "mbBlocking": {
+    "message": "Blokiranje"
+  },
+  "mbBlock": {
+    "message": "Blokiraj"
+  },
+  "mbOn": {
+    "message": "Uključeno"
+  },
+  "mbOff": {
+    "message": "Isključeno"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Blokiranje — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to blokiraj"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Ukloni shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Ukloni $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Tema"
+  },
+  "resetThemeButton": {
+    "message": "Poništi Tema"
+  },
+  "systemThemeLabel": {
+    "message": "Sustav theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Sustav"
+  },
+  "themeLight": {
+    "message": "Svijetlo"
+  },
+  "themeDark": {
+    "message": "Tamno"
+  },
+  "themeBackground": {
+    "message": "Pozadina"
+  },
+  "themePanel": {
+    "message": "Ploča"
+  },
+  "themeBorder": {
+    "message": "Obrub"
+  },
+  "themeText": {
+    "message": "Tekst"
+  },
+  "themeMutedText": {
+    "message": "Prigušeni tekst"
+  },
+  "themeAccent": {
+    "message": "Naglasak"
+  },
+  "cornerRadiusLabel": {
+    "message": "Polumjer kuta"
+  },
+  "popupWidthLabel": {
+    "message": "Širina skočnog prozora"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blokirajlists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

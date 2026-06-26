@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield բրաուզերի ընդլայնում, որն օգնում է ձեզ ուշադիր լինել սննդի առաքման և արագ սննդի պատվիրման մասին:"
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Որոնեք կայքի անունը կամ URL-ը"
+  },
+  "searchButton": {
+    "message": "Որոնում"
+  },
+  "clearButton": {
+    "message": "Պարզ"
+  },
+  "openButton": {
+    "message": "Բաց"
+  },
+  "addButton": {
+    "message": "Ավելացնել"
+  },
+  "removeButton": {
+    "message": "Հեռացնել"
+  },
+  "viewBlocklistButton": {
+    "message": "Դիտեք արգելափակման ցուցակը"
+  },
+  "timerDurationLabel": {
+    "message": "Ժմչփի տևողությունը"
+  },
+  "timerDurationHint": {
+    "message": "Կարգավորեք հետհաշվարկը մինչև Շարունակել հայտնվի:"
+  },
+  "customSecondsLabel": {
+    "message": "Պատվերով վայրկյաններ"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Կայքի բացման ժամանակ"
+  },
+  "siteOpenTimeHint": {
+    "message": "Ընտրեք, թե որքան ժամանակ կմնան կայքերը բաց ժամաչափի ավարտից հետո:"
+  },
+  "customMinutesLabel": {
+    "message": "Պատվերով րոպեներ"
+  },
+  "startTimeLabel": {
+    "message": "Մեկնարկի ժամանակը"
+  },
+  "endTimeLabel": {
+    "message": "Ավարտի ժամանակը"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Արգելափակումը կհետևի ձեր ամենօրյա գրաֆիկին, երբ սա միացված է:"
+  },
+  "currentScheduleSummary": {
+    "message": "Ընթացիկ ժամանակացույց՝ $1:"
+  },
+  "everyDaySuffix": {
+    "message": " ամեն օր"
+  },
+  "scheduleRange": {
+    "message": "$1-ից $2"
+  },
+  "unitMinute": {
+    "message": "րոպե"
+  },
+  "unitMinutes": {
+    "message": "րոպե"
+  },
+  "unitSite": {
+    "message": "կայք"
+  },
+  "unitSites": {
+    "message": "կայքեր"
+  },
+  "popupSettingsButton": {
+    "message": "Կարգավորումներ"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield արգելափակիչ"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Միացնել կամ անջատել բոլոր արգելափակումների ցանկը:"
+  },
+  "popupMetadataLabel": {
+    "message": "Երկրի և կատեգորիայի արգելափակում"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Արգելափակել կայքերի ամբողջ խմբերն ըստ երկրի կամ սննդի կատեգորիայի:"
+  },
+  "popupDeliveryLabel": {
+    "message": "Առաքման կայքեր"
+  },
+  "popupDeliveryDefault": {
+    "message": "Առաքման պատվիրման տիրույթներ."
+  },
+  "popupFastFoodLabel": {
+    "message": "Արագ սննդի կայքեր"
+  },
+  "popupFastFoodDefault": {
+    "message": "Հիմնական շղթայի պատվիրման տիրույթներ."
+  },
+  "popupCustomLabel": {
+    "message": "Հատուկ URL-ներ"
+  },
+  "popupCustomSubtitle": {
+    "message": "Ավելացրեք ձեր սեփական կայքերը և անջատեք դրանք առանձին:"
+  },
+  "popupScheduleLabel": {
+    "message": "Արգելափակել միայն նախատեսված ժամերին"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Օգտակար է սննդի բյուջեի, ուշ գիշեր պատվիրելու կամ աշխատանքային ժամերի համար:"
+  },
+  "statusInactive": {
+    "message": "Ոչ ակտիվ: Բոլոր կայքերը հասանելի են:"
+  },
+  "statusAllDisabled": {
+    "message": "Արգելափակիչը միացված է, բայց յուրաքանչյուր առանձին կայք անջատված է: Բացեք Կարգավորումները՝ որոշ կայքեր նորից միացնելու համար:"
+  },
+  "statusBypassActive": {
+    "message": "Ժամանակավոր անցաթուղթը ակտիվ է։ Արգելափակումը վերսկսվում է $1-ում:"
+  },
+  "statusOutsideSchedule": {
+    "message": "Արգելափակիչը զինված է, բայց նախատեսված ժամերից դուրս: Այն կարգելափակվի $1-ից:"
+  },
+  "statusShieldUp": {
+    "message": "Պաշտպանեք: $1 վայրկյան հետհաշվարկ, $2 $3 անցում:"
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 $2 առաքման կայքերից միացված է:"
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 $2 արագ սննդի կայքերը միացված են:"
+  },
+  "searchMatchSuffix": {
+    "message": " $1 համապատասխանում է որոնմանը:"
+  },
+  "warningPageTitle": {
+    "message": "Շունչ քաշեք"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Ստուգեք"
+  },
+  "warningTitle": {
+    "message": "Վերցրեք մեկ րոպե:"
+  },
+  "warningIntro": {
+    "message": "Ստուգեք նախքան պատվիրելը: Քաղցը, հարմարավետությունը, սթրեսը և սովորությունը կարող են նման զգալ տվյալ պահին:"
+  },
+  "warningTriggeredBy": {
+    "message": "Դուք պատրաստվում եք պատվիրել $1-ից:"
+  },
+  "warningHintDefault": {
+    "message": "Երբ ժամաչափն ավարտվի, կարող եք շարունակել կայք:"
+  },
+  "warningHintLocked": {
+    "message": "Երբ ժամաչափն ավարտվի, կարող եք անցնել կայք $1 $2-ի համար:"
+  },
+  "warningBackButton": {
+    "message": "Վերադարձեք"
+  },
+  "warningLockedButton": {
+    "message": "Կողպված է"
+  },
+  "warningContinueButton": {
+    "message": "Շարունակեք"
+  },
+  "warningOpeningButton": {
+    "message": "Բացում..."
+  },
+  "warningUnlockHint": {
+    "message": "Այժմ կարող եք այցելել կայք: Արգելափակիչը կվերադառնա ավտոմատ կերպով $1 $2-ից հետո:"
+  },
+  "warningErrorHint": {
+    "message": "Սխալ առաջացավ կայքը բացելիս: Խնդրում ենք կրկին փորձել:"
+  },
+  "settingsTitle": {
+    "message": "FitShield Կարգավորումներ"
+  },
+  "blockingOptionsHeading": {
+    "message": "Արգելափակման ընտրանքներ"
+  },
+  "scheduledHoursLabel": {
+    "message": "Պլանավորված ժամեր"
+  },
+  "scheduledHoursHint": {
+    "message": "Արգելափակել միայն ամենօրյա ժամանակային պատուհանի ընթացքում:"
+  },
+  "customizeBlocklistHeading": {
+    "message": "Անհատականացրեք արգելափակման ցուցակը"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Ընտրեք, թե որ ներկառուցված խմբերն են ակտիվ, միացրեք կամ անջատեք առանձին կայքեր և ավելացրեք ձեր սեփական տիրույթները:"
+  },
+  "deliverySitesHeading": {
+    "message": "Առաքման կայքեր"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Արագ սննդի կայքեր"
+  },
+  "customUrlsHeading": {
+    "message": "Հատուկ URL-ներ"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Ավելացրեք ձեր սեփական տիրույթները և անջատեք դրանք առանձին:"
+  },
+  "showSitesButton": {
+    "message": "Ցույց տալ կայքերը"
+  },
+  "hideSitesButton": {
+    "message": "Թաքցնել կայքերը"
+  },
+  "showUrlsButton": {
+    "message": "Ցույց տալ URL-ները"
+  },
+  "hideUrlsButton": {
+    "message": "Թաքցնել URL-ները"
+  },
+  "deliveryToggleTitle": {
+    "message": "Միացնել առաքման կայքի արգելափակումը"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Միացնել արագ սննդի կայքի արգելափակումը"
+  },
+  "customToggleTitle": {
+    "message": "Միացնել հատուկ URL-ի արգելափակումը"
+  },
+  "addCustomUrlLabel": {
+    "message": "Ավելացրեք հատուկ արգելափակված URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com կամ https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Մուտքագրումները նորմալացվում են տիրույթներում և արգելափակվում են բոլոր էջերում:"
+  },
+  "customEmptyDefault": {
+    "message": "Հատուկ URL-ներ դեռ ավելացված չեն:"
+  },
+  "customNoMatch": {
+    "message": "Ոչ մի հատուկ URL չի համապատասխանում այս որոնմանը:"
+  },
+  "emptyDeliverySearch": {
+    "message": "Առաքման ոչ մի կայք չի համապատասխանում այս որոնմանը:"
+  },
+  "emptyFastFoodSearch": {
+    "message": "Արագ սննդի կայքեր չեն համապատասխանում այս որոնմանը:"
+  },
+  "noticeMatched": {
+    "message": "$1 $2-ը համընկնում է «$3»-ի հետ:"
+  },
+  "invalidUrlNotice": {
+    "message": "Այդ URL-ը դեռ վավերական չի թվում: Փորձեք այնպիսի տիրույթ, ինչպիսին է example.com:"
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1-ն արդեն արգելափակված ցուցակում է, ուստի այն կրկին ակտիվացվել է:"
+  },
+  "addedToBlocklist": {
+    "message": "$1-ն ավելացվել է հատուկ արգելափակման ցանկում:"
+  },
+  "removedFromBlocklist": {
+    "message": "$1-ը հեռացվել է հատուկ արգելափակման ցանկից:"
+  },
+  "metadataHeading": {
+    "message": "Երկրի և կատեգորիայի արգելափակում"
+  },
+  "metadataIntro": {
+    "message": "Արգելափակել կայքերի ամբողջ խմբերը՝ ըստ այն երկրի, որտեղ բրենդը գործում է կամ սննդամթերքի տեսակը, որը նա մատուցում է: Այս բլոկները ավելացնում են ձեր գոյություն ունեցող կայք և հատուկ URL բլոկներ:"
+  },
+  "blockByCountryLabel": {
+    "message": "Արգելափակում ըստ երկրի"
+  },
+  "blockByCountryHint": {
+    "message": "Որոնել ըստ երկրի անվան կամ ծածկագրի, օրինակ. «Միացյալ» կամ «ԱՄՆ». Երկրի ակտիվացումն արգելափակում է այնտեղ գործող յուրաքանչյուր ապրանքանիշ:"
+  },
+  "countrySearchPlaceholder": {
+    "message": "Որոնել երկրներ…"
+  },
+  "quickAccessCountries": {
+    "message": "Արագ մուտք — երկրներ"
+  },
+  "countryQuickEmpty": {
+    "message": "Ակտիվացրեք երկիր որոնումից՝ այն այստեղ ամրացնելու համար:"
+  },
+  "blockByCategoryLabel": {
+    "message": "Արգելափակել ըստ կատեգորիայի"
+  },
+  "blockByCategoryHint": {
+    "message": "Որոնեք կատեգորիաներ, ինչպիսիք են բուրգեր, պիցցա կամ սուրճ: Մասնագիտությունները նույնպես որոնելի են. բլոկը կիրառվում է ըստ կատեգորիայի:"
+  },
+  "categorySearchPlaceholder": {
+    "message": "Որոնել կատեգորիաներ…"
+  },
+  "quickAccessCategories": {
+    "message": "Արագ մուտք — կատեգորիաներ"
+  },
+  "categoryQuickEmpty": {
+    "message": "Միացրեք կատեգորիան որոնումից՝ այն այստեղ ամրացնելու համար:"
+  },
+  "noCountriesMatch": {
+    "message": "Ոչ մի երկիր չի համապատասխանում այդ որոնմանը:"
+  },
+  "noCategoriesMatch": {
+    "message": "Ոչ մի կատեգորիա չի համապատասխանում այդ որոնմանը:"
+  },
+  "languageHeading": {
+    "message": "Լեզու"
+  },
+  "languageIntro": {
+    "message": "Ընտրեք լեզուն, որն օգտագործում է FitShield-ն իր էկրանների համար: Սա անտեսում է ձեր դիտարկիչի լեզուն միայն ընդլայնման համար:"
+  },
+  "languageSelectLabel": {
+    "message": "Ցուցադրման լեզուն"
+  },
+  "languageHint": {
+    "message": "Որոնեք լեզու և ընտրեք այն: Ընտրեք Համակարգի լռելյայն՝ ձեր դիտարկիչին հետևելու համար:"
+  },
+  "languageSearchPlaceholder": {
+    "message": "Որոնել լեզուներ…"
+  },
+  "currentLanguageHead": {
+    "message": "Ընթացիկ լեզուն"
+  },
+  "languageUseButton": {
+    "message": "Օգտագործեք"
+  },
+  "languageActiveButton": {
+    "message": "Ակտիվ"
+  },
+  "languageSystem": {
+    "message": "Համակարգի լռելյայն"
+  },
+  "languageSystemSub": {
+    "message": "Հետևեք ձեր բրաուզերի լեզվին"
+  },
+  "languageEnglish": {
+    "message": "Անգլերեն"
+  },
+  "languageJapanese": {
+    "message": "ճապոներեն"
+  },
+  "languageChinese": {
+    "message": "չինարեն (պարզեցված)"
+  },
+  "languageFrench": {
+    "message": "ֆրանսերեն"
+  },
+  "languageCantonese": {
+    "message": "կանտոներեն"
+  },
+  "languageThai": {
+    "message": "թայերեն"
+  },
+  "languagePunjabi": {
+    "message": "փենջաբերեն"
+  },
+  "languageTamil": {
+    "message": "թամիլերեն"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "չինարեն (ավանդական, Թայվան)"
+  },
+  "languageKorean": {
+    "message": "կորեերեն"
+  },
+  "languageHindi": {
+    "message": "հինդի"
+  },
+  "languageSpanishLatam": {
+    "message": "իսպաներեն (Լատինական Ամերիկա)"
+  },
+  "languageSpanishSpain": {
+    "message": "իսպաներեն (Իսպանիա)"
+  },
+  "languageAfrikaans": {
+    "message": "Աֆրիկանս"
+  },
+  "languageAlbanian": {
+    "message": "ալբանացի"
+  },
+  "languageBasque": {
+    "message": "բասկերեն"
+  },
+  "languageBelarusian": {
+    "message": "բելառուս"
+  },
+  "languageBulgarian": {
+    "message": "բուլղարերեն"
+  },
+  "languageCatalan": {
+    "message": "կատալոներեն"
+  },
+  "languageCroatian": {
+    "message": "խորվաթերեն"
+  },
+  "languageCzech": {
+    "message": "չեխ"
+  },
+  "languageDanish": {
+    "message": "դանիերեն"
+  },
+  "languageDutch": {
+    "message": "հոլանդերեն"
+  },
+  "languageEstonian": {
+    "message": "էստոնական"
+  },
+  "languageFinnish": {
+    "message": "Ֆիններեն"
+  },
+  "languageGreek": {
+    "message": "հունարեն"
+  },
+  "languageHungarian": {
+    "message": "հունգարերեն"
+  },
+  "languageIcelandic": {
+    "message": "իսլանդերեն"
+  },
+  "languageIrish": {
+    "message": "իռլանդական"
+  },
+  "languageItalian": {
+    "message": "Իտալական"
+  },
+  "languageLatvian": {
+    "message": "լատվիերեն"
+  },
+  "languageLithuanian": {
+    "message": "լիտվերեն"
+  },
+  "languageMacedonian": {
+    "message": "մակեդոնական"
+  },
+  "languageMaltese": {
+    "message": "մալթերեն"
+  },
+  "languageNorwegian": {
+    "message": "նորվեգական"
+  },
+  "languagePolish": {
+    "message": "լեհ"
+  },
+  "languagePortuguesePortugal": {
+    "message": "պորտուգալերեն (Պորտուգալիա)"
+  },
+  "languageRomanian": {
+    "message": "ռումիներեն"
+  },
+  "languageRussian": {
+    "message": "ռուսերեն"
+  },
+  "languageSerbian": {
+    "message": "սերբերեն"
+  },
+  "languageSlovak": {
+    "message": "սլովակ"
+  },
+  "languageSlovenian": {
+    "message": "սլովեներեն"
+  },
+  "languageSwedish": {
+    "message": "շվեդ"
+  },
+  "languageTurkish": {
+    "message": "թուրքական"
+  },
+  "languageUkrainian": {
+    "message": "ուկրաինական"
+  },
+  "languageWelsh": {
+    "message": "Ուելս"
+  },
+  "languageBengali": {
+    "message": "Բենգալերեն"
+  },
+  "languageGujarati": {
+    "message": "գուջարաթի"
+  },
+  "languageKannada": {
+    "message": "Կաննադա"
+  },
+  "languageMalayalam": {
+    "message": "մալայալամ"
+  },
+  "languageMarathi": {
+    "message": "Մարաթի"
+  },
+  "languageNepali": {
+    "message": "Նեպալերեն"
+  },
+  "languageOdia": {
+    "message": "Օդիա"
+  },
+  "languageSinhala": {
+    "message": "Սինհալա"
+  },
+  "languageTelugu": {
+    "message": "թելուգու"
+  },
+  "languageUrdu": {
+    "message": "ուրդու"
+  },
+  "languageAssamese": {
+    "message": "Ասամերեն"
+  },
+  "languageIndonesian": {
+    "message": "Ինդոնեզերեն"
+  },
+  "languageMalay": {
+    "message": "մալայերեն"
+  },
+  "languageVietnamese": {
+    "message": "Վիետնամերեն"
+  },
+  "languageKhmer": {
+    "message": "քմեր"
+  },
+  "languageLao": {
+    "message": "Լաոս"
+  },
+  "languageBurmese": {
+    "message": "բիրմայերեն (Մյանմա)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Ֆիլիպիներեն / Տագալերեն"
+  },
+  "languageJavanese": {
+    "message": "ճավայերեն"
+  },
+  "languageSundanese": {
+    "message": "սունդաներեն"
+  },
+  "languageArabic": {
+    "message": "արաբերեն"
+  },
+  "languagePersian": {
+    "message": "պարսկերեն (ֆարսի)"
+  },
+  "languageHebrew": {
+    "message": "եբրայերեն"
+  },
+  "languageArmenian": {
+    "message": "հայկ"
+  },
+  "languageGeorgian": {
+    "message": "վրաց"
+  },
+  "languageKazakh": {
+    "message": "ղազախ"
+  },
+  "languageKyrgyz": {
+    "message": "ղրղզ"
+  },
+  "languageMongolian": {
+    "message": "Մոնղոլական"
+  },
+  "languagePashto": {
+    "message": "փուշթու"
+  },
+  "languageTajik": {
+    "message": "Տաջիկ"
+  },
+  "languageTurkmen": {
+    "message": "թուրքմեն"
+  },
+  "languageUyghur": {
+    "message": "ույղուր"
+  },
+  "languageUzbek": {
+    "message": "Ուզբեկ"
+  },
+  "noLanguagesMatch": {
+    "message": "Ոչ մի լեզու չի համապատասխանում այդ որոնմանը:"
+  },
+  "mbBlocking": {
+    "message": "Արգելափակում"
+  },
+  "mbBlock": {
+    "message": "Արգելափակել"
+  },
+  "mbOn": {
+    "message": "Միացված է"
+  },
+  "mbOff": {
+    "message": "Անջատված"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Արգելափակում — սեղմեք՝ դադարեցնելու համար"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Դադարեցված է — սեղմեք արգելափակելու համար"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Հեռացրեք դյուրանցումը արագ մուտքից"
+  },
+  "mbChipRemoveAria": {
+    "message": "Հեռացրեք $1 արագ մուտքից"
+  },
+  "themeHeading": {
+    "message": "Թեմա"
+  },
+  "resetThemeButton": {
+    "message": "Վերականգնել թեման"
+  },
+  "systemThemeLabel": {
+    "message": "Համակարգի թեմա"
+  },
+  "systemThemeHint": {
+    "message": "Սարքի նախապատվություն կամ ֆիքսված ռեժիմ:"
+  },
+  "themeSystem": {
+    "message": "Համակարգ"
+  },
+  "themeLight": {
+    "message": "Լույս"
+  },
+  "themeDark": {
+    "message": "Մութ"
+  },
+  "themeBackground": {
+    "message": "Նախապատմություն"
+  },
+  "themePanel": {
+    "message": "Վահանակ"
+  },
+  "themeBorder": {
+    "message": "Սահման"
+  },
+  "themeText": {
+    "message": "Տեքստ"
+  },
+  "themeMutedText": {
+    "message": "Անջատված տեքստ"
+  },
+  "themeAccent": {
+    "message": "Առոգանություն"
+  },
+  "cornerRadiusLabel": {
+    "message": "Անկյունի շառավիղ"
+  },
+  "popupWidthLabel": {
+    "message": "Թռուցիկ պատուհանի լայնությունը"
+  },
+  "supportFooterText": {
+    "message": "Եթե FitShield-ն օգնել է ձեզ խուսափել անհարկի առաքման պատվերից, կամընտիր աջակցությունն օգնում է պահպանել արգելափակման ցուցակներն ու փաստաթղթերը:"
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

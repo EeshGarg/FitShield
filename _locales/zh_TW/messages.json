@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield 瀏覽器擴充功能，協助你在使用外送和速食訂餐時保持覺察。"
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "搜尋網站名稱或網址"
+  },
+  "searchButton": {
+    "message": "搜尋"
+  },
+  "clearButton": {
+    "message": "清除"
+  },
+  "openButton": {
+    "message": "開啟"
+  },
+  "addButton": {
+    "message": "新增"
+  },
+  "removeButton": {
+    "message": "移除"
+  },
+  "viewBlocklistButton": {
+    "message": "查看封鎖清單"
+  },
+  "timerDurationLabel": {
+    "message": "計時器時長"
+  },
+  "timerDurationHint": {
+    "message": "調整「繼續」出現前的倒數時間。"
+  },
+  "customSecondsLabel": {
+    "message": "自訂秒數"
+  },
+  "siteOpenTimeLabel": {
+    "message": "網站開放時間"
+  },
+  "siteOpenTimeHint": {
+    "message": "選擇計時器結束後網站保持開放的時間。"
+  },
+  "customMinutesLabel": {
+    "message": "自訂分鐘"
+  },
+  "startTimeLabel": {
+    "message": "開始時間"
+  },
+  "endTimeLabel": {
+    "message": "結束時間"
+  },
+  "scheduleDefaultSummary": {
+    "message": "啟用後，封鎖會依照你的每日排程執行。"
+  },
+  "currentScheduleSummary": {
+    "message": "目前排程：$1。"
+  },
+  "everyDaySuffix": {
+    "message": "（每天）"
+  },
+  "scheduleRange": {
+    "message": "$1 至 $2"
+  },
+  "unitMinute": {
+    "message": "分鐘"
+  },
+  "unitMinutes": {
+    "message": "分鐘"
+  },
+  "unitSite": {
+    "message": "個網站"
+  },
+  "unitSites": {
+    "message": "個網站"
+  },
+  "popupSettingsButton": {
+    "message": "設定"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield 封鎖器"
+  },
+  "popupBlockerSubtitle": {
+    "message": "一次開啟或關閉所有封鎖清單。"
+  },
+  "popupMetadataLabel": {
+    "message": "依國家和類別封鎖"
+  },
+  "popupMetadataSubtitle": {
+    "message": "依國家或食物類別封鎖整組網站。"
+  },
+  "popupDeliveryLabel": {
+    "message": "外送網站"
+  },
+  "popupDeliveryDefault": {
+    "message": "外送訂餐網域。"
+  },
+  "popupFastFoodLabel": {
+    "message": "速食網站"
+  },
+  "popupFastFoodDefault": {
+    "message": "主要連鎖店訂餐網域。"
+  },
+  "popupCustomLabel": {
+    "message": "自訂 URL"
+  },
+  "popupCustomSubtitle": {
+    "message": "新增你自己的網站，並可個別停用。"
+  },
+  "popupScheduleLabel": {
+    "message": "僅在排程時段內封鎖"
+  },
+  "popupScheduleSubtitle": {
+    "message": "適合餐費預算、深夜訂餐或工作時間使用。"
+  },
+  "statusInactive": {
+    "message": "未啟用。所有網站皆可存取。"
+  },
+  "statusAllDisabled": {
+    "message": "封鎖器已開啟，但所有個別網站都已停用。開啟設定以重新開啟部分網站。"
+  },
+  "statusBypassActive": {
+    "message": "暫時通行證已啟用。封鎖將在 $1 後恢復。"
+  },
+  "statusOutsideSchedule": {
+    "message": "封鎖器已待命，但目前不在排程時段內。將於 $1 開始封鎖。"
+  },
+  "statusShieldUp": {
+    "message": "防護已啟動。倒數 $1 秒，通行 $2 $3。"
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$2 個外送網站中已啟用 $1 個。"
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$2 個速食網站中已啟用 $1 個。"
+  },
+  "searchMatchSuffix": {
+    "message": " $1 個符合搜尋。"
+  },
+  "warningPageTitle": {
+    "message": "深呼吸一下"
+  },
+  "warningEyebrow": {
+    "message": "FitShield 檢查"
+  },
+  "warningTitle": {
+    "message": "花一分鐘。"
+  },
+  "warningIntro": {
+    "message": "訂餐前先確認自己的狀態。飢餓、方便、壓力和習慣，在當下可能感覺很相似。"
+  },
+  "warningTriggeredBy": {
+    "message": "你即將從 $1 訂餐。"
+  },
+  "warningHintDefault": {
+    "message": "計時器結束後，你可以繼續前往該網站。"
+  },
+  "warningHintLocked": {
+    "message": "計時器結束後，你可以繼續前往該網站 $1 $2。"
+  },
+  "warningBackButton": {
+    "message": "返回"
+  },
+  "warningLockedButton": {
+    "message": "已鎖定"
+  },
+  "warningContinueButton": {
+    "message": "繼續"
+  },
+  "warningOpeningButton": {
+    "message": "正在開啟..."
+  },
+  "warningUnlockHint": {
+    "message": "你現在可以造訪該網站。封鎖器會在 $1 $2 後自動恢復。"
+  },
+  "warningErrorHint": {
+    "message": "開啟網站時發生問題。請再試一次。"
+  },
+  "settingsTitle": {
+    "message": "FitShield 設定"
+  },
+  "blockingOptionsHeading": {
+    "message": "封鎖選項"
+  },
+  "scheduledHoursLabel": {
+    "message": "排程時段"
+  },
+  "scheduledHoursHint": {
+    "message": "僅在每天的指定時段內封鎖。"
+  },
+  "customizeBlocklistHeading": {
+    "message": "自訂封鎖清單"
+  },
+  "customizeBlocklistIntro": {
+    "message": "選擇要啟用的內建群組、個別開關網站，並新增你自己的網域。"
+  },
+  "deliverySitesHeading": {
+    "message": "外送網站"
+  },
+  "fastFoodSitesHeading": {
+    "message": "速食網站"
+  },
+  "customUrlsHeading": {
+    "message": "自訂 URL"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "新增你自己的網域，並可個別停用。"
+  },
+  "showSitesButton": {
+    "message": "顯示網站"
+  },
+  "hideSitesButton": {
+    "message": "隱藏網站"
+  },
+  "showUrlsButton": {
+    "message": "顯示 URL"
+  },
+  "hideUrlsButton": {
+    "message": "隱藏 URL"
+  },
+  "deliveryToggleTitle": {
+    "message": "啟用外送網站封鎖"
+  },
+  "fastFoodToggleTitle": {
+    "message": "啟用速食網站封鎖"
+  },
+  "customToggleTitle": {
+    "message": "啟用自訂 URL 封鎖"
+  },
+  "addCustomUrlLabel": {
+    "message": "新增要封鎖的自訂 URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com 或 https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "項目會被正規化為網域，並在所有頁面上封鎖。"
+  },
+  "customEmptyDefault": {
+    "message": "尚未新增自訂 URL。"
+  },
+  "customNoMatch": {
+    "message": "沒有自訂 URL 符合此搜尋。"
+  },
+  "emptyDeliverySearch": {
+    "message": "沒有外送網站符合此搜尋。"
+  },
+  "emptyFastFoodSearch": {
+    "message": "沒有速食網站符合此搜尋。"
+  },
+  "noticeMatched": {
+    "message": "$1 $2 符合「$3」。"
+  },
+  "invalidUrlNotice": {
+    "message": "該 URL 看起來尚未有效。請嘗試像 example.com 這樣的網域。"
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 已在封鎖清單中，因此已重新啟用。"
+  },
+  "addedToBlocklist": {
+    "message": "$1 已加入自訂封鎖清單。"
+  },
+  "removedFromBlocklist": {
+    "message": "$1 已從自訂封鎖清單移除。"
+  },
+  "metadataHeading": {
+    "message": "依國家和類別封鎖"
+  },
+  "metadataIntro": {
+    "message": "依品牌營運所在的國家或其提供的食物類型，封鎖整組網站。這些封鎖會加到你既有的網站和自訂 URL 封鎖之上。"
+  },
+  "blockByCountryLabel": {
+    "message": "依國家封鎖"
+  },
+  "blockByCountryHint": {
+    "message": "依國家名稱或代碼搜尋，例如「United」或「US」。啟用某個國家會封鎖在該地營運的所有品牌。"
+  },
+  "countrySearchPlaceholder": {
+    "message": "搜尋國家…"
+  },
+  "quickAccessCountries": {
+    "message": "快速存取 — 國家"
+  },
+  "countryQuickEmpty": {
+    "message": "從搜尋啟用某個國家，即可將它釘選在這裡。"
+  },
+  "blockByCategoryLabel": {
+    "message": "依類別封鎖"
+  },
+  "blockByCategoryHint": {
+    "message": "搜尋 burger、pizza 或 coffee 等類別。特色品項也可搜尋；封鎖會依類別套用。"
+  },
+  "categorySearchPlaceholder": {
+    "message": "搜尋類別…"
+  },
+  "quickAccessCategories": {
+    "message": "快速存取 — 類別"
+  },
+  "categoryQuickEmpty": {
+    "message": "從搜尋啟用某個類別，即可將它釘選在這裡。"
+  },
+  "noCountriesMatch": {
+    "message": "沒有國家符合該搜尋。"
+  },
+  "noCategoriesMatch": {
+    "message": "沒有類別符合該搜尋。"
+  },
+  "languageHeading": {
+    "message": "語言"
+  },
+  "languageIntro": {
+    "message": "選擇 FitShield 自身畫面使用的語言。這只會針對此擴充功能覆寫你的瀏覽器語言。"
+  },
+  "languageSelectLabel": {
+    "message": "顯示語言"
+  },
+  "languageHint": {
+    "message": "搜尋並選擇一種語言。選擇系統預設即可跟隨你的瀏覽器。"
+  },
+  "languageSearchPlaceholder": {
+    "message": "搜尋語言…"
+  },
+  "currentLanguageHead": {
+    "message": "目前語言"
+  },
+  "languageUseButton": {
+    "message": "使用"
+  },
+  "languageActiveButton": {
+    "message": "使用中"
+  },
+  "languageSystem": {
+    "message": "系統預設"
+  },
+  "languageSystemSub": {
+    "message": "跟隨你的瀏覽器語言"
+  },
+  "languageEnglish": {
+    "message": "英文"
+  },
+  "languageJapanese": {
+    "message": "日文"
+  },
+  "languageChinese": {
+    "message": "簡體中文"
+  },
+  "languageFrench": {
+    "message": "法文"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "泰文"
+  },
+  "languagePunjabi": {
+    "message": "旁遮普文"
+  },
+  "languageTamil": {
+    "message": "泰米爾文"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "韓文"
+  },
+  "languageHindi": {
+    "message": "印度文"
+  },
+  "languageSpanishLatam": {
+    "message": "西班牙文（拉丁美洲）"
+  },
+  "languageSpanishSpain": {
+    "message": "西班牙文（西班牙）"
+  },
+  "noLanguagesMatch": {
+    "message": "沒有語言符合該搜尋。"
+  },
+  "mbBlocking": {
+    "message": "封鎖中"
+  },
+  "mbBlock": {
+    "message": "封鎖"
+  },
+  "mbOn": {
+    "message": "開"
+  },
+  "mbOff": {
+    "message": "關"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "封鎖中 — 點一下暫停"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "已暫停 — 點一下封鎖"
+  },
+  "mbChipRemoveTitle": {
+    "message": "從快速存取移除捷徑"
+  },
+  "mbChipRemoveAria": {
+    "message": "從快速存取移除 $1"
+  },
+  "themeHeading": {
+    "message": "主題"
+  },
+  "resetThemeButton": {
+    "message": "重設主題"
+  },
+  "systemThemeLabel": {
+    "message": "系統主題"
+  },
+  "systemThemeHint": {
+    "message": "裝置偏好或固定模式。"
+  },
+  "themeSystem": {
+    "message": "系統"
+  },
+  "themeLight": {
+    "message": "淺色"
+  },
+  "themeDark": {
+    "message": "深色"
+  },
+  "themeBackground": {
+    "message": "背景"
+  },
+  "themePanel": {
+    "message": "面板"
+  },
+  "themeBorder": {
+    "message": "邊框"
+  },
+  "themeText": {
+    "message": "文字"
+  },
+  "themeMutedText": {
+    "message": "淡化文字"
+  },
+  "themeAccent": {
+    "message": "強調色"
+  },
+  "cornerRadiusLabel": {
+    "message": "圓角半徑"
+  },
+  "popupWidthLabel": {
+    "message": "彈出視窗寬度"
+  },
+  "supportFooterText": {
+    "message": "如果 FitShield 幫你避免了一次不必要的外送訂單，選擇性支持可協助持續維護封鎖清單和文件。"
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

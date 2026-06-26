@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Ieškoti svetainė name or URL"
+  },
+  "searchButton": {
+    "message": "Ieškoti"
+  },
+  "clearButton": {
+    "message": "Išvalyti"
+  },
+  "openButton": {
+    "message": "Atidaryti"
+  },
+  "addButton": {
+    "message": "Pridėti"
+  },
+  "removeButton": {
+    "message": "Pašalinti"
+  },
+  "viewBlocklistButton": {
+    "message": "View Blokuotilist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Tęsti appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long svetainės stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom minutės"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Blokavimas will follow your daily tvarkaraštis when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Dabartinis tvarkaraštis: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "minutė"
+  },
+  "unitMinutes": {
+    "message": "minutės"
+  },
+  "unitSite": {
+    "message": "svetainė"
+  },
+  "unitSites": {
+    "message": "svetainės"
+  },
+  "popupSettingsButton": {
+    "message": "Nustatymai"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blokuoklis"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every blokuoti list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & kategorija blokuotiing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Blokuoti whole groups of svetainės by šalis or food kategorija."
+  },
+  "popupDeliveryLabel": {
+    "message": "Pristatymo svetainės"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Greito maisto svetainės"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "Pasirinktiniai URL"
+  },
+  "popupCustomSubtitle": {
+    "message": "Pridėti your own svetainės and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Blokuoti only during tvarkaraštisd hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Naudotiful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All svetainės are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Blokuoklis is on, but every individual svetainė is disabled. Atidaryti Nustatymai to turn some svetainės back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Blokavimas resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blokuoklis is armed, but outside tvarkaraštisd hours. It will blokuoti from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 pristatymo svetainės enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 greito maisto svetainės enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one minutė."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the svetainė."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the svetainė for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Grįžti"
+  },
+  "warningLockedButton": {
+    "message": "Užrakinta"
+  },
+  "warningContinueButton": {
+    "message": "Tęsti"
+  },
+  "warningOpeningButton": {
+    "message": "Atidaroma..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the svetainė now. The blokuoklis will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the svetainė. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Nustatymai"
+  },
+  "blockingOptionsHeading": {
+    "message": "Blokavimas Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Suplanuotos valandos"
+  },
+  "scheduledHoursHint": {
+    "message": "Blokuoti only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Blokuotilist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual svetainės on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Pristatymo svetainės"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Greito maisto svetainės"
+  },
+  "customUrlsHeading": {
+    "message": "Pasirinktiniai URL"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Pridėti your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Rodyti Sites"
+  },
+  "hideSitesButton": {
+    "message": "Slėpti Sites"
+  },
+  "showUrlsButton": {
+    "message": "Rodyti URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Slėpti URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Įjungti delivery svetainė blokuotiing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Įjungti fast food svetainė blokuotiing"
+  },
+  "customToggleTitle": {
+    "message": "Įjungti custom URL blokuotiing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Pridėti a custom blokuotied URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and blokuotied across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No pasirinktiniai URL added yet."
+  },
+  "customNoMatch": {
+    "message": "No pasirinktiniai URL match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No pristatymo svetainės match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No greito maisto svetainės match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the blokuotilist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom blokuotilist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom blokuotilist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Blokavimas"
+  },
+  "metadataIntro": {
+    "message": "Blokuoti whole groups of svetainės by the šalis a brand operates in or the kind of food it serves. These blokuotis add to your existing svetainė and custom-URL blokuotis."
+  },
+  "blockByCountryLabel": {
+    "message": "Blokuoti by šalis"
+  },
+  "blockByCountryHint": {
+    "message": "Ieškoti by šalis name or code, e.g. \"United\" or \"US\". Enabling a šalis blokuotis every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Ieškoti šalys…"
+  },
+  "quickAccessCountries": {
+    "message": "Greita prieiga — šalys"
+  },
+  "countryQuickEmpty": {
+    "message": "Įjungti a šalis from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Blokuoti by kategorija"
+  },
+  "blockByCategoryHint": {
+    "message": "Ieškoti kategorijos like burger, pizza, or coffee. Specialties are searchable too; the blokuoti applies by kategorija."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Ieškoti kategorijos…"
+  },
+  "quickAccessCategories": {
+    "message": "Greita prieiga — kategorijos"
+  },
+  "categoryQuickEmpty": {
+    "message": "Įjungti a kategorija from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No šalys match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No kategorijos match that search."
+  },
+  "languageHeading": {
+    "message": "Kalba"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Ieškoti for a language and select it. Choose Sistema default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Ieškoti kalbų…"
+  },
+  "currentLanguageHead": {
+    "message": "Dabartinis language"
+  },
+  "languageUseButton": {
+    "message": "Naudoti"
+  },
+  "languageActiveButton": {
+    "message": "Aktyvi"
+  },
+  "languageSystem": {
+    "message": "Sistema default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Nė viena kalba neatitinka paieškos."
+  },
+  "mbBlocking": {
+    "message": "Blokavimas"
+  },
+  "mbBlock": {
+    "message": "Blokuoti"
+  },
+  "mbOn": {
+    "message": "Įjungta"
+  },
+  "mbOff": {
+    "message": "Išjungta"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Blokavimas — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to blokuoti"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Pašalinti shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Pašalinti $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Tema"
+  },
+  "resetThemeButton": {
+    "message": "Atkurti Tema"
+  },
+  "systemThemeLabel": {
+    "message": "Sistema theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Sistema"
+  },
+  "themeLight": {
+    "message": "Šviesi"
+  },
+  "themeDark": {
+    "message": "Tamsi"
+  },
+  "themeBackground": {
+    "message": "Fonas"
+  },
+  "themePanel": {
+    "message": "Skydelis"
+  },
+  "themeBorder": {
+    "message": "Kraštinė"
+  },
+  "themeText": {
+    "message": "Tekstas"
+  },
+  "themeMutedText": {
+    "message": "Prislopintas tekstas"
+  },
+  "themeAccent": {
+    "message": "Akcentas"
+  },
+  "cornerRadiusLabel": {
+    "message": "Kampo spindulys"
+  },
+  "popupWidthLabel": {
+    "message": "Iššokančio lango plotis"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blokuotilists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

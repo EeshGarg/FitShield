@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield серепчи кеңейтүүсү, ал сизге тамак-аш жеткирүү жана тез тамак-ашка буйрутма берүү жөнүндө эсиңизде болууга жардам берет."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Сайттын атын же URL издөө"
+  },
+  "searchButton": {
+    "message": "Издөө"
+  },
+  "clearButton": {
+    "message": "Таза"
+  },
+  "openButton": {
+    "message": "Open"
+  },
+  "addButton": {
+    "message": "кошуу"
+  },
+  "removeButton": {
+    "message": "Алып салуу"
+  },
+  "viewBlocklistButton": {
+    "message": "Бөгөттөгөн тизмени көрүү"
+  },
+  "timerDurationLabel": {
+    "message": "Таймердин узактыгы"
+  },
+  "timerDurationHint": {
+    "message": "Улантуу пайда болгонго чейин артка санакты тууралаңыз."
+  },
+  "customSecondsLabel": {
+    "message": "Ыңгайлаштырылган секундалар"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Сайттын ачык убактысы"
+  },
+  "siteOpenTimeHint": {
+    "message": "Таймер аяктагандан кийин сайттардын канча убакыт ачык болорун тандаңыз."
+  },
+  "customMinutesLabel": {
+    "message": "Ыңгайлаштырылган мүнөттөр"
+  },
+  "startTimeLabel": {
+    "message": "Баштоо убактысы"
+  },
+  "endTimeLabel": {
+    "message": "Аяктоо убактысы"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Бул иштетилгенде, бөгөттөө күнүмдүк графигиңизге ылайык болот."
+  },
+  "currentScheduleSummary": {
+    "message": "Учурдагы график: $1."
+  },
+  "everyDaySuffix": {
+    "message": " күн сайын"
+  },
+  "scheduleRange": {
+    "message": "$1 - $2"
+  },
+  "unitMinute": {
+    "message": "мүнөт"
+  },
+  "unitMinutes": {
+    "message": "мүнөт"
+  },
+  "unitSite": {
+    "message": "сайт"
+  },
+  "unitSites": {
+    "message": "сайттар"
+  },
+  "popupSettingsButton": {
+    "message": "Орнотуулар"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield блокатору"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Ар бир бөгөттөөлөр тизмесин күйгүзүңүз же өчүрүңүз."
+  },
+  "popupMetadataLabel": {
+    "message": "Өлкө жана категория бөгөттөө"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Өлкө же тамак-аш категориясы боюнча сайттардын бүт топторун бөгөттөө."
+  },
+  "popupDeliveryLabel": {
+    "message": "Жеткирүү сайттары"
+  },
+  "popupDeliveryDefault": {
+    "message": "Домендерди жеткирүү."
+  },
+  "popupFastFoodLabel": {
+    "message": "Тез тамактануу сайттары"
+  },
+  "popupFastFoodDefault": {
+    "message": "Негизги чынжыр буйрутма домендери."
+  },
+  "popupCustomLabel": {
+    "message": "Ыңгайлаштырылган URL'дер"
+  },
+  "popupCustomSubtitle": {
+    "message": "Өзүңүздүн сайттарыңызды кошуп, аларды өзүнчө өчүрүңүз."
+  },
+  "popupScheduleLabel": {
+    "message": "Пландалган сааттарда гана бөгөттөө"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Тамактануунун бюджети, кечкисин заказ кылуу же жумуш убактысы үчүн пайдалуу."
+  },
+  "statusInactive": {
+    "message": "Жигерсиз. Бардык сайттарга жеткиликтүү."
+  },
+  "statusAllDisabled": {
+    "message": "Блоктоочу күйгүзүлгөн, бирок ар бир сайт өчүрүлгөн. Кээ бир сайттарды кайра иштетүү үчүн Жөндөөлөрдү ачыңыз."
+  },
+  "statusBypassActive": {
+    "message": "Убактылуу өтмөк активдүү. Бөгөттөө $1 ичинде улантылат."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blocker куралдуу, бирок белгиленген сааттан тышкары. Ал $1 тарабынан бөгөттөлөт."
+  },
+  "statusShieldUp": {
+    "message": "Калкан. $1 секундалык артка санак, $2 $3 өтүп кетти."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$2 жеткирүү сайттарынын $1 иштетилди."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$2 фаст-фуд сайттарынын $1 иштетилди."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 издөөгө дал келет."
+  },
+  "warningPageTitle": {
+    "message": "Дем ал"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Текшерүү"
+  },
+  "warningTitle": {
+    "message": "Бир мүнөт бөлүңүз."
+  },
+  "warningIntro": {
+    "message": "Заказ кылуудан мурун текшериңиз. Ачкачылык, ыңгайлуулук, стресс жана адат учурда окшош сезилиши мүмкүн."
+  },
+  "warningTriggeredBy": {
+    "message": "Сиз $1 буйрутма бергени жатасыз."
+  },
+  "warningHintDefault": {
+    "message": "Таймер аяктаганда, сиз сайтка уланта аласыз."
+  },
+  "warningHintLocked": {
+    "message": "Таймер аяктаганда, сиз $1 $2 сайтына өтсөңүз болот."
+  },
+  "warningBackButton": {
+    "message": "Артка кайт"
+  },
+  "warningLockedButton": {
+    "message": "Кулпуланган"
+  },
+  "warningContinueButton": {
+    "message": "Улантуу"
+  },
+  "warningOpeningButton": {
+    "message": "Ачылууда..."
+  },
+  "warningUnlockHint": {
+    "message": "Сиз азыр сайтка кире аласыз. Бөгөттөөчү $1 $2 кийин автоматтык түрдө кайтып келет."
+  },
+  "warningErrorHint": {
+    "message": "Сайтты ачып жатканда бир жерден ката кетти. Сураныч, кайра аракет кылыңыз."
+  },
+  "settingsTitle": {
+    "message": "FitShield Орнотуулар"
+  },
+  "blockingOptionsHeading": {
+    "message": "Бөгөттөө параметрлери"
+  },
+  "scheduledHoursLabel": {
+    "message": "Пландаштырылган сааттар"
+  },
+  "scheduledHoursHint": {
+    "message": "Күнүмдүк убакыт терезесинде гана бөгөттөө."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Блок тизмесин ыңгайлаштыруу"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Кайсы камтылган топтор активдүү экенин тандаңыз, жеке сайттарды күйгүзүп же өчүрүп, өз домендериңизди кошуңуз."
+  },
+  "deliverySitesHeading": {
+    "message": "Жеткирүү сайттары"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Fast Food сайттары"
+  },
+  "customUrlsHeading": {
+    "message": "Ыңгайлаштырылган URL'дер"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Өзүңүздүн домендериңизди кошуп, аларды өзүнчө өчүрүңүз."
+  },
+  "showSitesButton": {
+    "message": "Сайттарды көрсөтүү"
+  },
+  "hideSitesButton": {
+    "message": "Сайттарды жашыруу"
+  },
+  "showUrlsButton": {
+    "message": "URL'дерди көрсөтүү"
+  },
+  "hideUrlsButton": {
+    "message": "URL'дерди жашыруу"
+  },
+  "deliveryToggleTitle": {
+    "message": "Жеткирүү сайтын бөгөттөөнү иштетүү"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Тез тамактануу сайтын бөгөттөө иштетүү"
+  },
+  "customToggleTitle": {
+    "message": "Ыңгайлаштырылган URL бөгөттөөсүн иштетүү"
+  },
+  "addCustomUrlLabel": {
+    "message": "Ыңгайлаштырылган бөгөттөлгөн URL кошуңуз"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com же https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Жазуулар домендерге нормалдаштырылган жана бардык барактарда бөгөттөлгөн."
+  },
+  "customEmptyDefault": {
+    "message": "Азырынча ыңгайлаштырылган URL'дер кошулган жок."
+  },
+  "customNoMatch": {
+    "message": "Бул издөөгө эч кандай ыңгайлаштырылган URL даректери дал келбейт."
+  },
+  "emptyDeliverySearch": {
+    "message": "Бул издөөгө эч бир жеткирүү сайты дал келбейт."
+  },
+  "emptyFastFoodSearch": {
+    "message": "Бул издөөгө эч бир фастфуд сайты дал келбейт."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 \"$3\" дал келди."
+  },
+  "invalidUrlNotice": {
+    "message": "Бул URL азырынча жарактуу эмес. example.com сыяктуу доменди колдонуп көрүңүз."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 мурунтан эле бөгөттөөлөр тизмесинде, андыктан ал кайра иштетилди."
+  },
+  "addedToBlocklist": {
+    "message": "$1 ыңгайлаштырылган бөгөттөөлөр тизмесине кошулду."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 ыңгайлаштырылган бөгөттөөлөр тизмесинен алынып салынды."
+  },
+  "metadataHeading": {
+    "message": "Өлкө жана категория бөгөттөө"
+  },
+  "metadataIntro": {
+    "message": "Бренд иштеген өлкө же ал тейлеген тамактын түрү боюнча сайттардын бүтүндөй топторун бөгөттөө. Бул блоктор сиздин учурдагы сайтка жана ыңгайлаштырылган URL блокторуна кошулат."
+  },
+  "blockByCountryLabel": {
+    "message": "Өлкө боюнча бөгөттөө"
+  },
+  "blockByCountryHint": {
+    "message": "Өлкөнүн аты же коду боюнча издөө, мис. \"Бириккен\" же \"АКШ\". Өлкөнү иштетүү ал жерде активдүү болгон ар бир брендди бөгөттөйт."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Өлкөлөрдү издөө…"
+  },
+  "quickAccessCountries": {
+    "message": "Ыкчам жетүү — өлкөлөр"
+  },
+  "countryQuickEmpty": {
+    "message": "Бул жерге кадоо үчүн издөөдөн өлкөнү иштетиңиз."
+  },
+  "blockByCategoryLabel": {
+    "message": "Категория боюнча блоктоо"
+  },
+  "blockByCategoryHint": {
+    "message": "Бургер, пицца же кофе сыяктуу категорияларды издөө. Адистиктер да издөөгө болот; блок категория боюнча колдонулат."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Категорияларды издөө…"
+  },
+  "quickAccessCategories": {
+    "message": "Ыкчам жетүү — категориялар"
+  },
+  "categoryQuickEmpty": {
+    "message": "Бул жерде кадоо үчүн издөөдөн категорияны иштетиңиз."
+  },
+  "noCountriesMatch": {
+    "message": "Бул издөөгө эч бир өлкө дал келбейт."
+  },
+  "noCategoriesMatch": {
+    "message": "Бул издөөгө эч кандай категория туура келбейт."
+  },
+  "languageHeading": {
+    "message": "Тил"
+  },
+  "languageIntro": {
+    "message": "FitShield өзүнүн экрандары үчүн колдонгон тилди тандаңыз. Бул кеңейтүү үчүн гана браузериңиздин тилин жокко чыгарат."
+  },
+  "languageSelectLabel": {
+    "message": "Дисплей тили"
+  },
+  "languageHint": {
+    "message": "Тилди издеп, аны тандаңыз. Серепчиңизди ээрчүү үчүн Демейки Системаны тандаңыз."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Тилдерди издөө…"
+  },
+  "currentLanguageHead": {
+    "message": "Учурдагы тил"
+  },
+  "languageUseButton": {
+    "message": "Колдонуу"
+  },
+  "languageActiveButton": {
+    "message": "Активдүү"
+  },
+  "languageSystem": {
+    "message": "Системанын демейки"
+  },
+  "languageSystemSub": {
+    "message": "Браузериңиздин тилин ээрчиңиз"
+  },
+  "languageEnglish": {
+    "message": "Англисче"
+  },
+  "languageJapanese": {
+    "message": "япон"
+  },
+  "languageChinese": {
+    "message": "Кытай (жөнөкөйлөштүрүлгөн)"
+  },
+  "languageFrench": {
+    "message": "French"
+  },
+  "languageCantonese": {
+    "message": "Кантончо"
+  },
+  "languageThai": {
+    "message": "тай"
+  },
+  "languagePunjabi": {
+    "message": "Punjabi"
+  },
+  "languageTamil": {
+    "message": "Tamil"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "Кытай (Салттуу, Тайвань)"
+  },
+  "languageKorean": {
+    "message": "корейче"
+  },
+  "languageHindi": {
+    "message": "хинди"
+  },
+  "languageSpanishLatam": {
+    "message": "Испанча (Латын Америкасы)"
+  },
+  "languageSpanishSpain": {
+    "message": "Испанча (Испания)"
+  },
+  "languageAfrikaans": {
+    "message": "Африкаанс"
+  },
+  "languageAlbanian": {
+    "message": "албан"
+  },
+  "languageBasque": {
+    "message": "баск"
+  },
+  "languageBelarusian": {
+    "message": "белорус"
+  },
+  "languageBulgarian": {
+    "message": "болгар"
+  },
+  "languageCatalan": {
+    "message": "каталан"
+  },
+  "languageCroatian": {
+    "message": "хорват"
+  },
+  "languageCzech": {
+    "message": "чех"
+  },
+  "languageDanish": {
+    "message": "даниялык"
+  },
+  "languageDutch": {
+    "message": "голландча"
+  },
+  "languageEstonian": {
+    "message": "эстон"
+  },
+  "languageFinnish": {
+    "message": "фин"
+  },
+  "languageGreek": {
+    "message": "грек"
+  },
+  "languageHungarian": {
+    "message": "венгр"
+  },
+  "languageIcelandic": {
+    "message": "исландиялык"
+  },
+  "languageIrish": {
+    "message": "ирланд"
+  },
+  "languageItalian": {
+    "message": "Италиялык"
+  },
+  "languageLatvian": {
+    "message": "латвиялык"
+  },
+  "languageLithuanian": {
+    "message": "литвалык"
+  },
+  "languageMacedonian": {
+    "message": "македон"
+  },
+  "languageMaltese": {
+    "message": "Maltese"
+  },
+  "languageNorwegian": {
+    "message": "норвегиялык"
+  },
+  "languagePolish": {
+    "message": "поляк"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Португалча (Португалия)"
+  },
+  "languageRomanian": {
+    "message": "румын"
+  },
+  "languageRussian": {
+    "message": "орус"
+  },
+  "languageSerbian": {
+    "message": "серб"
+  },
+  "languageSlovak": {
+    "message": "словак"
+  },
+  "languageSlovenian": {
+    "message": "словен"
+  },
+  "languageSwedish": {
+    "message": "шведче"
+  },
+  "languageTurkish": {
+    "message": "түрк"
+  },
+  "languageUkrainian": {
+    "message": "украин"
+  },
+  "languageWelsh": {
+    "message": "Welsh"
+  },
+  "languageBengali": {
+    "message": "Bengali"
+  },
+  "languageGujarati": {
+    "message": "Гуджарати"
+  },
+  "languageKannada": {
+    "message": "Каннада"
+  },
+  "languageMalayalam": {
+    "message": "малаялам"
+  },
+  "languageMarathi": {
+    "message": "Marathi"
+  },
+  "languageNepali": {
+    "message": "Непалча"
+  },
+  "languageOdia": {
+    "message": "Odia"
+  },
+  "languageSinhala": {
+    "message": "Sinhala"
+  },
+  "languageTelugu": {
+    "message": "телугу"
+  },
+  "languageUrdu": {
+    "message": "урду"
+  },
+  "languageAssamese": {
+    "message": "Ассам"
+  },
+  "languageIndonesian": {
+    "message": "Индонезиялык"
+  },
+  "languageMalay": {
+    "message": "малай"
+  },
+  "languageVietnamese": {
+    "message": "вьетнамдык"
+  },
+  "languageKhmer": {
+    "message": "кхмер"
+  },
+  "languageLao": {
+    "message": "Лао"
+  },
+  "languageBurmese": {
+    "message": "Бирмача (Мьянма)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Филиппин / Тагалог"
+  },
+  "languageJavanese": {
+    "message": "Javanese"
+  },
+  "languageSundanese": {
+    "message": "сундан"
+  },
+  "languageArabic": {
+    "message": "арабча"
+  },
+  "languagePersian": {
+    "message": "Персче (Фарси)"
+  },
+  "languageHebrew": {
+    "message": "Hebrew"
+  },
+  "languageArmenian": {
+    "message": "армян"
+  },
+  "languageGeorgian": {
+    "message": "грузин"
+  },
+  "languageKazakh": {
+    "message": "казак"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргыз"
+  },
+  "languageMongolian": {
+    "message": "монгол"
+  },
+  "languagePashto": {
+    "message": "пушту"
+  },
+  "languageTajik": {
+    "message": "тажик"
+  },
+  "languageTurkmen": {
+    "message": "туркмен"
+  },
+  "languageUyghur": {
+    "message": "уйгур"
+  },
+  "languageUzbek": {
+    "message": "өзбек"
+  },
+  "noLanguagesMatch": {
+    "message": "Бул издөөгө эч бир тил дал келбейт."
+  },
+  "mbBlocking": {
+    "message": "Бөгөттөө"
+  },
+  "mbBlock": {
+    "message": "Блок"
+  },
+  "mbOn": {
+    "message": "Күйүк"
+  },
+  "mbOff": {
+    "message": "Өчүк"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Бөгөттөө — тыныгуу үчүн чыкылдатыңыз"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Тындырылды — бөгөт коюу үчүн чыкылдатыңыз"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Ыкчам мүмкүндүк алуудан кыска жолду алып салуу"
+  },
+  "mbChipRemoveAria": {
+    "message": "$1 тез жетүү мүмкүнчүлүгүн алып салыңыз"
+  },
+  "themeHeading": {
+    "message": "Тема"
+  },
+  "resetThemeButton": {
+    "message": "Теманы баштапкы абалга келтирүү"
+  },
+  "systemThemeLabel": {
+    "message": "Системанын темасы"
+  },
+  "systemThemeHint": {
+    "message": "Түзмөктүн артыкчылыктары же туруктуу режим."
+  },
+  "themeSystem": {
+    "message": "Система"
+  },
+  "themeLight": {
+    "message": "Жарык"
+  },
+  "themeDark": {
+    "message": "Караңгы"
+  },
+  "themeBackground": {
+    "message": "Фон"
+  },
+  "themePanel": {
+    "message": "Панел"
+  },
+  "themeBorder": {
+    "message": "Чек ара"
+  },
+  "themeText": {
+    "message": "Текст"
+  },
+  "themeMutedText": {
+    "message": "Үнсүз текст"
+  },
+  "themeAccent": {
+    "message": "Акцент"
+  },
+  "cornerRadiusLabel": {
+    "message": "Бурч радиусу"
+  },
+  "popupWidthLabel": {
+    "message": "Калкып чыгуучу терезенин кеңдиги"
+  },
+  "supportFooterText": {
+    "message": "Эгер FitShield сизге керексиз жеткирүү буйрутмасынан качууга жардам берсе, кошумча колдоо бөгөттөөлөр тизмелерин жана документтерди жылдырууга жардам берет."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

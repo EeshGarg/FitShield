@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Sök webbplats name or URL"
+  },
+  "searchButton": {
+    "message": "Sök"
+  },
+  "clearButton": {
+    "message": "Rensa"
+  },
+  "openButton": {
+    "message": "Öppna"
+  },
+  "addButton": {
+    "message": "Lägg till"
+  },
+  "removeButton": {
+    "message": "Ta bort"
+  },
+  "viewBlocklistButton": {
+    "message": "View Blockeralist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Fortsätt appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long webbplatser stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom minutr"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Blockeraerareing will follow your daily schema when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Aktuell schema: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "minut"
+  },
+  "unitMinutes": {
+    "message": "minutr"
+  },
+  "unitSite": {
+    "message": "webbplats"
+  },
+  "unitSites": {
+    "message": "webbplatser"
+  },
+  "popupSettingsButton": {
+    "message": "Inställningar"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blockeraerare"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every blockera list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & kategori blockeraing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Blockera whole groups of webbplatser by land or food kategori."
+  },
+  "popupDeliveryLabel": {
+    "message": "Leveranssidor"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Snabbmatsidor"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "Anpassade URL:er"
+  },
+  "popupCustomSubtitle": {
+    "message": "Lägg till your own webbplatser and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Blockera only during schemad hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Användful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All webbplatser are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Blockeraerare is on, but every individual webbplats is disabled. Öppna Inställningar to turn some webbplatser back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Blockeraerareing resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blockeraerare is armed, but outside schemad hours. It will blockera from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 leveranssidor enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 snabbmatsidor enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one minut."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the webbplats."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the webbplats for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Gå tillbaka"
+  },
+  "warningLockedButton": {
+    "message": "Låst"
+  },
+  "warningContinueButton": {
+    "message": "Fortsätt"
+  },
+  "warningOpeningButton": {
+    "message": "Öppnar..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the webbplats now. The blockeraerare will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the webbplats. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Inställningar"
+  },
+  "blockingOptionsHeading": {
+    "message": "Blockeraerareing Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Schemalagda timmar"
+  },
+  "scheduledHoursHint": {
+    "message": "Blockera only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Blockeralist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual webbplatser on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Leveranssidor"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Snabbmatsidor"
+  },
+  "customUrlsHeading": {
+    "message": "Anpassade URL:er"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Lägg till your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Visa Sites"
+  },
+  "hideSitesButton": {
+    "message": "Dölj Sites"
+  },
+  "showUrlsButton": {
+    "message": "Visa URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Dölj URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Aktivera delivery webbplats blockeraing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Aktivera fast food webbplats blockeraing"
+  },
+  "customToggleTitle": {
+    "message": "Aktivera custom URL blockeraing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Lägg till a custom blockeraed URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and blockeraed across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No anpassade URL:er added yet."
+  },
+  "customNoMatch": {
+    "message": "No anpassade URL:er match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No leveranssidor match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No snabbmatsidor match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the blockeralist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom blockeralist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom blockeralist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Blockeraerareing"
+  },
+  "metadataIntro": {
+    "message": "Blockera whole groups of webbplatser by the land a brand operates in or the kind of food it serves. These blockeras add to your existing webbplats and custom-URL blockeras."
+  },
+  "blockByCountryLabel": {
+    "message": "Blockera by land"
+  },
+  "blockByCountryHint": {
+    "message": "Sök by land name or code, e.g. \"United\" or \"US\". Enabling a land blockeras every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Sök länder…"
+  },
+  "quickAccessCountries": {
+    "message": "Snabbåtkomst — länder"
+  },
+  "countryQuickEmpty": {
+    "message": "Aktivera a land from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Blockera by kategori"
+  },
+  "blockByCategoryHint": {
+    "message": "Sök kategorier like burger, pizza, or coffee. Specialties are searchable too; the blockera applies by kategori."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Sök kategorier…"
+  },
+  "quickAccessCategories": {
+    "message": "Snabbåtkomst — kategorier"
+  },
+  "categoryQuickEmpty": {
+    "message": "Aktivera a kategori from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No länder match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No kategorier match that search."
+  },
+  "languageHeading": {
+    "message": "Språk"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Sök for a language and select it. Choose System default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Sök språk…"
+  },
+  "currentLanguageHead": {
+    "message": "Aktuell language"
+  },
+  "languageUseButton": {
+    "message": "Använd"
+  },
+  "languageActiveButton": {
+    "message": "Aktiv"
+  },
+  "languageSystem": {
+    "message": "System default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Inga språk matchar sökningen."
+  },
+  "mbBlocking": {
+    "message": "Blockeraerareing"
+  },
+  "mbBlock": {
+    "message": "Blockera"
+  },
+  "mbOn": {
+    "message": "På"
+  },
+  "mbOff": {
+    "message": "Av"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Blockeraerareing — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to blockera"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Ta bort shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Ta bort $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Tema"
+  },
+  "resetThemeButton": {
+    "message": "Återställ Tema"
+  },
+  "systemThemeLabel": {
+    "message": "System theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "System"
+  },
+  "themeLight": {
+    "message": "Ljust"
+  },
+  "themeDark": {
+    "message": "Mörkt"
+  },
+  "themeBackground": {
+    "message": "Bakgrund"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "Kant"
+  },
+  "themeText": {
+    "message": "Text"
+  },
+  "themeMutedText": {
+    "message": "Dämpad text"
+  },
+  "themeAccent": {
+    "message": "Accent"
+  },
+  "cornerRadiusLabel": {
+    "message": "Hörnradie"
+  },
+  "popupWidthLabel": {
+    "message": "Popupbredd"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blockeralists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

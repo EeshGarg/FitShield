@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "Sambungan penyemak imbas FitShield yang membantu anda sentiasa peka terhadap penghantaran makanan dan pesanan makanan segera."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Cari nama tapak atau URL"
+  },
+  "searchButton": {
+    "message": "Cari"
+  },
+  "clearButton": {
+    "message": "Jelas"
+  },
+  "openButton": {
+    "message": "Buka"
+  },
+  "addButton": {
+    "message": "Tambah"
+  },
+  "removeButton": {
+    "message": "Alih keluar"
+  },
+  "viewBlocklistButton": {
+    "message": "Lihat Senarai Sekat"
+  },
+  "timerDurationLabel": {
+    "message": "Tempoh pemasa"
+  },
+  "timerDurationHint": {
+    "message": "Laraskan kira detik sebelum Teruskan muncul."
+  },
+  "customSecondsLabel": {
+    "message": "Detik tersuai"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Waktu buka tapak"
+  },
+  "siteOpenTimeHint": {
+    "message": "Pilih berapa lama tapak kekal dibuka selepas pemasa tamat."
+  },
+  "customMinutesLabel": {
+    "message": "Minit tersuai"
+  },
+  "startTimeLabel": {
+    "message": "Masa mula"
+  },
+  "endTimeLabel": {
+    "message": "Masa tamat"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Penyekatan akan mengikut jadual harian anda apabila ini didayakan."
+  },
+  "currentScheduleSummary": {
+    "message": "Jadual semasa: $1."
+  },
+  "everyDaySuffix": {
+    "message": " setiap hari"
+  },
+  "scheduleRange": {
+    "message": "$1 kepada $2"
+  },
+  "unitMinute": {
+    "message": "minit"
+  },
+  "unitMinutes": {
+    "message": "minit"
+  },
+  "unitSite": {
+    "message": "tapak"
+  },
+  "unitSites": {
+    "message": "tapak"
+  },
+  "popupSettingsButton": {
+    "message": "tetapan"
+  },
+  "popupBlockerTitle": {
+    "message": "Penyekat FitShield"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Hidupkan atau matikan setiap senarai blok."
+  },
+  "popupMetadataLabel": {
+    "message": "Penyekatan negara & kategori"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Sekat seluruh kumpulan tapak mengikut negara atau kategori makanan."
+  },
+  "popupDeliveryLabel": {
+    "message": "Tapak penghantaran"
+  },
+  "popupDeliveryDefault": {
+    "message": "Domain pesanan penghantaran."
+  },
+  "popupFastFoodLabel": {
+    "message": "Tapak makanan segera"
+  },
+  "popupFastFoodDefault": {
+    "message": "Domain pesanan rantaian utama."
+  },
+  "popupCustomLabel": {
+    "message": "URL tersuai"
+  },
+  "popupCustomSubtitle": {
+    "message": "Tambahkan tapak anda sendiri dan lumpuhkannya secara individu."
+  },
+  "popupScheduleLabel": {
+    "message": "Sekat hanya pada waktu yang dijadualkan"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Berguna untuk belanjawan makan, pesanan lewat malam atau waktu kerja."
+  },
+  "statusInactive": {
+    "message": "Tidak aktif. Semua tapak boleh diakses."
+  },
+  "statusAllDisabled": {
+    "message": "Penyekat dihidupkan, tetapi setiap tapak individu dilumpuhkan. Buka Tetapan untuk menghidupkan semula beberapa tapak."
+  },
+  "statusBypassActive": {
+    "message": "Pas sementara aktif. Menyekat resume dalam $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Penghalang bersenjata, tetapi di luar waktu yang dijadualkan. Ia akan menyekat daripada $1."
+  },
+  "statusShieldUp": {
+    "message": "Perisai. $1 saat undur, $2 $3 lulus."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 daripada tapak penghantaran $2 didayakan."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 daripada tapak makanan segera $2 didayakan."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 sepadan dengan carian."
+  },
+  "warningPageTitle": {
+    "message": "Ambil Nafas"
+  },
+  "warningEyebrow": {
+    "message": "Semakan FitShield"
+  },
+  "warningTitle": {
+    "message": "Ambil satu minit."
+  },
+  "warningIntro": {
+    "message": "Daftar masuk sebelum anda memesan. Kelaparan, keselesaan, tekanan, dan tabiat boleh dirasakan sama pada masa ini."
+  },
+  "warningTriggeredBy": {
+    "message": "Anda akan memesan daripada $1."
+  },
+  "warningHintDefault": {
+    "message": "Apabila pemasa tamat, anda boleh terus ke tapak."
+  },
+  "warningHintLocked": {
+    "message": "Apabila pemasa tamat, anda boleh terus ke tapak untuk $1 $2."
+  },
+  "warningBackButton": {
+    "message": "pergi balik"
+  },
+  "warningLockedButton": {
+    "message": "Terkunci"
+  },
+  "warningContinueButton": {
+    "message": "teruskan"
+  },
+  "warningOpeningButton": {
+    "message": "Membuka..."
+  },
+  "warningUnlockHint": {
+    "message": "Anda boleh melawat tapak sekarang. Penyekat akan kembali secara automatik selepas $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Kesilapan telah berlaku semasa membuka tapak. Sila cuba lagi."
+  },
+  "settingsTitle": {
+    "message": "Tetapan FitShield"
+  },
+  "blockingOptionsHeading": {
+    "message": "Pilihan Menyekat"
+  },
+  "scheduledHoursLabel": {
+    "message": "Waktu yang dijadualkan"
+  },
+  "scheduledHoursHint": {
+    "message": "Sekat hanya semasa tetingkap masa harian."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Sesuaikan Senarai Sekat"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Pilih kumpulan terbina dalam yang aktif, hidupkan atau matikan tapak individu dan tambahkan domain anda sendiri."
+  },
+  "deliverySitesHeading": {
+    "message": "Tapak Penghantaran"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Tapak Makanan Segera"
+  },
+  "customUrlsHeading": {
+    "message": "URL tersuai"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Tambahkan domain anda sendiri dan lumpuhkannya secara individu."
+  },
+  "showSitesButton": {
+    "message": "Paparkan Tapak"
+  },
+  "hideSitesButton": {
+    "message": "Sembunyikan Tapak"
+  },
+  "showUrlsButton": {
+    "message": "Tunjukkan URL"
+  },
+  "hideUrlsButton": {
+    "message": "Sembunyikan URL"
+  },
+  "deliveryToggleTitle": {
+    "message": "Dayakan penyekatan tapak penghantaran"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Dayakan penyekatan tapak makanan segera"
+  },
+  "customToggleTitle": {
+    "message": "Dayakan penyekatan URL tersuai"
+  },
+  "addCustomUrlLabel": {
+    "message": "Tambahkan URL tersuai yang disekat"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com atau https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entri dinormalkan kepada domain dan disekat merentas semua halaman."
+  },
+  "customEmptyDefault": {
+    "message": "Tiada URL tersuai ditambahkan lagi."
+  },
+  "customNoMatch": {
+    "message": "Tiada URL tersuai sepadan dengan carian ini."
+  },
+  "emptyDeliverySearch": {
+    "message": "Tiada tapak penghantaran yang sepadan dengan carian ini."
+  },
+  "emptyFastFoodSearch": {
+    "message": "Tiada tapak makanan segera yang sepadan dengan carian ini."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 sepadan dengan \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "URL itu tidak kelihatan sah lagi. Cuba domain seperti example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 sudah pun berada dalam senarai sekat, jadi ia telah didayakan semula."
+  },
+  "addedToBlocklist": {
+    "message": "$1 telah ditambahkan pada senarai sekat tersuai."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 telah dialih keluar daripada senarai sekatan tersuai."
+  },
+  "metadataHeading": {
+    "message": "Penyekatan Negara & Kategori"
+  },
+  "metadataIntro": {
+    "message": "Sekat seluruh kumpulan tapak mengikut negara tempat jenama beroperasi atau jenis makanan yang dihidangkan. Blok ini menambah pada tapak sedia ada anda dan blok URL tersuai."
+  },
+  "blockByCountryLabel": {
+    "message": "Sekat mengikut negara"
+  },
+  "blockByCountryHint": {
+    "message": "Cari mengikut nama atau kod negara, mis. \"Bersatu\" atau \"AS\". Mendayakan negara menyekat setiap jenama yang aktif di sana."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Cari negara…"
+  },
+  "quickAccessCountries": {
+    "message": "Akses cepat — negara"
+  },
+  "countryQuickEmpty": {
+    "message": "Dayakan negara daripada carian untuk menyematkannya di sini."
+  },
+  "blockByCategoryLabel": {
+    "message": "Sekat mengikut kategori"
+  },
+  "blockByCategoryHint": {
+    "message": "Cari kategori seperti burger, piza atau kopi. Kepakaran juga boleh dicari; blok berkenaan mengikut kategori."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Cari kategori…"
+  },
+  "quickAccessCategories": {
+    "message": "Akses pantas — kategori"
+  },
+  "categoryQuickEmpty": {
+    "message": "Dayakan kategori daripada carian untuk menyematkannya di sini."
+  },
+  "noCountriesMatch": {
+    "message": "Tiada negara yang sepadan dengan carian itu."
+  },
+  "noCategoriesMatch": {
+    "message": "Tiada kategori yang sepadan dengan carian itu."
+  },
+  "languageHeading": {
+    "message": "Bahasa"
+  },
+  "languageIntro": {
+    "message": "Pilih bahasa yang digunakan oleh FitShield untuk skrinnya sendiri. Ini mengatasi bahasa penyemak imbas anda untuk sambungan sahaja."
+  },
+  "languageSelectLabel": {
+    "message": "Bahasa paparan"
+  },
+  "languageHint": {
+    "message": "Cari bahasa dan pilihnya. Pilih lalai Sistem untuk mengikuti penyemak imbas anda."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Cari bahasa…"
+  },
+  "currentLanguageHead": {
+    "message": "Bahasa semasa"
+  },
+  "languageUseButton": {
+    "message": "guna"
+  },
+  "languageActiveButton": {
+    "message": "Aktif"
+  },
+  "languageSystem": {
+    "message": "Sistem lalai"
+  },
+  "languageSystemSub": {
+    "message": "Ikut bahasa pelayar anda"
+  },
+  "languageEnglish": {
+    "message": "Inggeris"
+  },
+  "languageJapanese": {
+    "message": "Jepun"
+  },
+  "languageChinese": {
+    "message": "Cina (Mudah)"
+  },
+  "languageFrench": {
+    "message": "Perancis"
+  },
+  "languageCantonese": {
+    "message": "Kantonis"
+  },
+  "languageThai": {
+    "message": "Thai"
+  },
+  "languagePunjabi": {
+    "message": "Punjabi"
+  },
+  "languageTamil": {
+    "message": "bahasa Tamil"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "Cina (Tradisional, Taiwan)"
+  },
+  "languageKorean": {
+    "message": "Korea"
+  },
+  "languageHindi": {
+    "message": "Hindi"
+  },
+  "languageSpanishLatam": {
+    "message": "Sepanyol (Amerika Latin)"
+  },
+  "languageSpanishSpain": {
+    "message": "Sepanyol (Sepanyol)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "bahasa Albania"
+  },
+  "languageBasque": {
+    "message": "Basque"
+  },
+  "languageBelarusian": {
+    "message": "Belarusia"
+  },
+  "languageBulgarian": {
+    "message": "bahasa Bulgaria"
+  },
+  "languageCatalan": {
+    "message": "Catalan"
+  },
+  "languageCroatian": {
+    "message": "bahasa Croatia"
+  },
+  "languageCzech": {
+    "message": "bahasa Czech"
+  },
+  "languageDanish": {
+    "message": "Danish"
+  },
+  "languageDutch": {
+    "message": "Belanda"
+  },
+  "languageEstonian": {
+    "message": "bahasa Estonia"
+  },
+  "languageFinnish": {
+    "message": "bahasa Finland"
+  },
+  "languageGreek": {
+    "message": "bahasa Yunani"
+  },
+  "languageHungarian": {
+    "message": "bahasa Hungary"
+  },
+  "languageIcelandic": {
+    "message": "bahasa Iceland"
+  },
+  "languageIrish": {
+    "message": "Irish"
+  },
+  "languageItalian": {
+    "message": "Itali"
+  },
+  "languageLatvian": {
+    "message": "bahasa Latvia"
+  },
+  "languageLithuanian": {
+    "message": "bahasa Lithuania"
+  },
+  "languageMacedonian": {
+    "message": "Macedonia"
+  },
+  "languageMaltese": {
+    "message": "bahasa Malta"
+  },
+  "languageNorwegian": {
+    "message": "bahasa Norway"
+  },
+  "languagePolish": {
+    "message": "Poland"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Portugis (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "bahasa Romania"
+  },
+  "languageRussian": {
+    "message": "bahasa Rusia"
+  },
+  "languageSerbian": {
+    "message": "bahasa Serbia"
+  },
+  "languageSlovak": {
+    "message": "Bahasa Slovak"
+  },
+  "languageSlovenian": {
+    "message": "Bahasa Slovenia"
+  },
+  "languageSwedish": {
+    "message": "bahasa Sweden"
+  },
+  "languageTurkish": {
+    "message": "bahasa Turki"
+  },
+  "languageUkrainian": {
+    "message": "Ukraine"
+  },
+  "languageWelsh": {
+    "message": "bahasa Wales"
+  },
+  "languageBengali": {
+    "message": "Benggali"
+  },
+  "languageGujarati": {
+    "message": "Gujerat"
+  },
+  "languageKannada": {
+    "message": "Kannada"
+  },
+  "languageMalayalam": {
+    "message": "Malayalam"
+  },
+  "languageMarathi": {
+    "message": "Marathi"
+  },
+  "languageNepali": {
+    "message": "Nepal"
+  },
+  "languageOdia": {
+    "message": "Odia"
+  },
+  "languageSinhala": {
+    "message": "Sinhala"
+  },
+  "languageTelugu": {
+    "message": "Telugu"
+  },
+  "languageUrdu": {
+    "message": "bahasa Urdu"
+  },
+  "languageAssamese": {
+    "message": "Assam"
+  },
+  "languageIndonesian": {
+    "message": "Indonesia"
+  },
+  "languageMalay": {
+    "message": "Melayu"
+  },
+  "languageVietnamese": {
+    "message": "bahasa Vietnam"
+  },
+  "languageKhmer": {
+    "message": "bahasa Khmer"
+  },
+  "languageLao": {
+    "message": "Lao"
+  },
+  "languageBurmese": {
+    "message": "Burma (Myanmar)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipina / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "bahasa jawa"
+  },
+  "languageSundanese": {
+    "message": "bahasa sunda"
+  },
+  "languageArabic": {
+    "message": "bahasa arab"
+  },
+  "languagePersian": {
+    "message": "Parsi (Farsi)"
+  },
+  "languageHebrew": {
+    "message": "bahasa Ibrani"
+  },
+  "languageArmenian": {
+    "message": "bahasa Armenia"
+  },
+  "languageGeorgian": {
+    "message": "Georgian"
+  },
+  "languageKazakh": {
+    "message": "bahasa Kazakhstan"
+  },
+  "languageKyrgyz": {
+    "message": "Kyrgyz"
+  },
+  "languageMongolian": {
+    "message": "Mongolia"
+  },
+  "languagePashto": {
+    "message": "Pashto"
+  },
+  "languageTajik": {
+    "message": "bahasa Tajik"
+  },
+  "languageTurkmen": {
+    "message": "orang Turkmen"
+  },
+  "languageUyghur": {
+    "message": "Uyghur"
+  },
+  "languageUzbek": {
+    "message": "Uzbek"
+  },
+  "noLanguagesMatch": {
+    "message": "Tiada bahasa yang sepadan dengan carian itu."
+  },
+  "mbBlocking": {
+    "message": "Menyekat"
+  },
+  "mbBlock": {
+    "message": "Sekat"
+  },
+  "mbOn": {
+    "message": "hidup"
+  },
+  "mbOff": {
+    "message": "Mati"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Menyekat — klik untuk menjeda"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Dijeda — klik untuk menyekat"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Alih keluar pintasan daripada akses pantas"
+  },
+  "mbChipRemoveAria": {
+    "message": "Alih keluar $1 daripada akses pantas"
+  },
+  "themeHeading": {
+    "message": "Tema"
+  },
+  "resetThemeButton": {
+    "message": "Tetapkan Semula Tema"
+  },
+  "systemThemeLabel": {
+    "message": "Tema sistem"
+  },
+  "systemThemeHint": {
+    "message": "Pilihan peranti atau mod tetap."
+  },
+  "themeSystem": {
+    "message": "Sistem"
+  },
+  "themeLight": {
+    "message": "Cahaya"
+  },
+  "themeDark": {
+    "message": "Gelap"
+  },
+  "themeBackground": {
+    "message": "Latar belakang"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "Sempadan"
+  },
+  "themeText": {
+    "message": "Teks"
+  },
+  "themeMutedText": {
+    "message": "Teks Diredamkan"
+  },
+  "themeAccent": {
+    "message": "Loghat"
+  },
+  "cornerRadiusLabel": {
+    "message": "Jejari Sudut"
+  },
+  "popupWidthLabel": {
+    "message": "Lebar Popup"
+  },
+  "supportFooterText": {
+    "message": "Jika FitShield membantu anda mengelakkan pesanan penghantaran yang tidak perlu, sokongan pilihan membantu memastikan senarai sekat dan dokumen sentiasa bergerak."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

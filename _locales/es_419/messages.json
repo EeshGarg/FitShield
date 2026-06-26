@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "Extensión de navegador FitShield que te ayuda a mantenerte consciente de los pedidos de comida a domicilio y de comida rápida."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Buscar nombre de sitio o URL"
+  },
+  "searchButton": {
+    "message": "Buscar"
+  },
+  "clearButton": {
+    "message": "Borrar"
+  },
+  "openButton": {
+    "message": "Abrir"
+  },
+  "addButton": {
+    "message": "Agregar"
+  },
+  "removeButton": {
+    "message": "Quitar"
+  },
+  "viewBlocklistButton": {
+    "message": "Ver lista de bloqueo"
+  },
+  "timerDurationLabel": {
+    "message": "Duración del temporizador"
+  },
+  "timerDurationHint": {
+    "message": "Ajusta la cuenta regresiva antes de que aparezca Continuar."
+  },
+  "customSecondsLabel": {
+    "message": "Segundos personalizados"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Tiempo de sitio abierto"
+  },
+  "siteOpenTimeHint": {
+    "message": "Elige cuánto tiempo permanecen abiertos los sitios después de que termina el temporizador."
+  },
+  "customMinutesLabel": {
+    "message": "Minutos personalizados"
+  },
+  "startTimeLabel": {
+    "message": "Hora de inicio"
+  },
+  "endTimeLabel": {
+    "message": "Hora de fin"
+  },
+  "scheduleDefaultSummary": {
+    "message": "El bloqueo seguirá tu horario diario cuando esto esté activado."
+  },
+  "currentScheduleSummary": {
+    "message": "Horario actual: $1."
+  },
+  "everyDaySuffix": {
+    "message": " todos los días"
+  },
+  "scheduleRange": {
+    "message": "$1 a $2"
+  },
+  "unitMinute": {
+    "message": "minuto"
+  },
+  "unitMinutes": {
+    "message": "minutos"
+  },
+  "unitSite": {
+    "message": "sitio"
+  },
+  "unitSites": {
+    "message": "sitios"
+  },
+  "popupSettingsButton": {
+    "message": "Configuración"
+  },
+  "popupBlockerTitle": {
+    "message": "Bloqueador FitShield"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Activa o desactiva todas las listas de bloqueo."
+  },
+  "popupMetadataLabel": {
+    "message": "Bloqueo por país y categoría"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Bloquea grupos enteros de sitios por país o categoría de comida."
+  },
+  "popupDeliveryLabel": {
+    "message": "Sitios de entrega"
+  },
+  "popupDeliveryDefault": {
+    "message": "Dominios de pedidos a domicilio."
+  },
+  "popupFastFoodLabel": {
+    "message": "Sitios de comida rápida"
+  },
+  "popupFastFoodDefault": {
+    "message": "Dominios de pedidos de grandes cadenas."
+  },
+  "popupCustomLabel": {
+    "message": "URL personalizadas"
+  },
+  "popupCustomSubtitle": {
+    "message": "Agrega tus propios sitios y desactívalos de forma individual."
+  },
+  "popupScheduleLabel": {
+    "message": "Bloquear solo durante el horario programado"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Útil para presupuestos de comida, pedidos nocturnos u horario laboral."
+  },
+  "statusInactive": {
+    "message": "Inactivo. Todos los sitios están accesibles."
+  },
+  "statusAllDisabled": {
+    "message": "El bloqueador está activado, pero todos los sitios individuales están desactivados. Abre Configuración para volver a activar algunos sitios."
+  },
+  "statusBypassActive": {
+    "message": "El pase temporal está activo. El bloqueo se reanuda en $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "El bloqueador está listo, pero fuera del horario programado. Bloqueará a partir de $1."
+  },
+  "statusShieldUp": {
+    "message": "Escudo activado. Cuenta regresiva de $1 segundos, pase de $2 $3."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 de $2 sitios de entrega activados."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 de $2 sitios de comida rápida activados."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 coinciden con la búsqueda."
+  },
+  "warningPageTitle": {
+    "message": "Respira"
+  },
+  "warningEyebrow": {
+    "message": "Revisión de FitShield"
+  },
+  "warningTitle": {
+    "message": "Tómate un minuto."
+  },
+  "warningIntro": {
+    "message": "Haz una pausa antes de pedir. El hambre, la comodidad, el estrés y la costumbre pueden sentirse parecidos en el momento."
+  },
+  "warningTriggeredBy": {
+    "message": "Estás a punto de pedir en $1."
+  },
+  "warningHintDefault": {
+    "message": "Cuando termine el temporizador, podrás continuar al sitio."
+  },
+  "warningHintLocked": {
+    "message": "Cuando termine el temporizador, podrás continuar al sitio por $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Volver"
+  },
+  "warningLockedButton": {
+    "message": "Bloqueado"
+  },
+  "warningContinueButton": {
+    "message": "Continuar"
+  },
+  "warningOpeningButton": {
+    "message": "Abriendo..."
+  },
+  "warningUnlockHint": {
+    "message": "Ya puedes visitar el sitio. El bloqueador volverá automáticamente después de $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Ocurrió un problema al abrir el sitio. Inténtalo de nuevo."
+  },
+  "settingsTitle": {
+    "message": "Configuración de FitShield"
+  },
+  "blockingOptionsHeading": {
+    "message": "Opciones de bloqueo"
+  },
+  "scheduledHoursLabel": {
+    "message": "Horario programado"
+  },
+  "scheduledHoursHint": {
+    "message": "Bloquear solo durante una franja horaria diaria."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Personalizar lista de bloqueo"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Elige qué grupos integrados están activos, activa o desactiva sitios individuales y agrega tus propios dominios."
+  },
+  "deliverySitesHeading": {
+    "message": "Sitios de entrega"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Sitios de comida rápida"
+  },
+  "customUrlsHeading": {
+    "message": "URL personalizadas"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Agrega tus propios dominios y desactívalos de forma individual."
+  },
+  "showSitesButton": {
+    "message": "Mostrar sitios"
+  },
+  "hideSitesButton": {
+    "message": "Ocultar sitios"
+  },
+  "showUrlsButton": {
+    "message": "Mostrar URL"
+  },
+  "hideUrlsButton": {
+    "message": "Ocultar URL"
+  },
+  "deliveryToggleTitle": {
+    "message": "Activar el bloqueo de sitios de entrega"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Activar el bloqueo de sitios de comida rápida"
+  },
+  "customToggleTitle": {
+    "message": "Activar el bloqueo de URL personalizadas"
+  },
+  "addCustomUrlLabel": {
+    "message": "Agregar una URL personalizada para bloquear"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com o https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Las entradas se normalizan a dominios y se bloquean en todas las páginas."
+  },
+  "customEmptyDefault": {
+    "message": "Aún no se agregaron URL personalizadas."
+  },
+  "customNoMatch": {
+    "message": "Ninguna URL personalizada coincide con esta búsqueda."
+  },
+  "emptyDeliverySearch": {
+    "message": "Ningún sitio de entrega coincide con esta búsqueda."
+  },
+  "emptyFastFoodSearch": {
+    "message": "Ningún sitio de comida rápida coincide con esta búsqueda."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 coincidieron con \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "Esa URL aún no parece válida. Prueba con un dominio como example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 ya está en la lista de bloqueo, así que se volvió a activar."
+  },
+  "addedToBlocklist": {
+    "message": "$1 se agregó a la lista de bloqueo personalizada."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 se quitó de la lista de bloqueo personalizada."
+  },
+  "metadataHeading": {
+    "message": "Bloqueo por país y categoría"
+  },
+  "metadataIntro": {
+    "message": "Bloquea grupos enteros de sitios según el país en el que opera una marca o el tipo de comida que ofrece. Estos bloqueos se suman a tus bloqueos de sitios y de URL personalizadas existentes."
+  },
+  "blockByCountryLabel": {
+    "message": "Bloquear por país"
+  },
+  "blockByCountryHint": {
+    "message": "Busca por nombre de país o código, p. ej. \"United\" o \"US\". Activar un país bloquea todas las marcas activas allí."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Buscar países…"
+  },
+  "quickAccessCountries": {
+    "message": "Acceso rápido — países"
+  },
+  "countryQuickEmpty": {
+    "message": "Activa un país desde la búsqueda para fijarlo aquí."
+  },
+  "blockByCategoryLabel": {
+    "message": "Bloquear por categoría"
+  },
+  "blockByCategoryHint": {
+    "message": "Busca categorías como burger, pizza o coffee. Las especialidades también se pueden buscar; el bloqueo se aplica por categoría."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Buscar categorías…"
+  },
+  "quickAccessCategories": {
+    "message": "Acceso rápido — categorías"
+  },
+  "categoryQuickEmpty": {
+    "message": "Activa una categoría desde la búsqueda para fijarla aquí."
+  },
+  "noCountriesMatch": {
+    "message": "Ningún país coincide con esa búsqueda."
+  },
+  "noCategoriesMatch": {
+    "message": "Ninguna categoría coincide con esa búsqueda."
+  },
+  "languageHeading": {
+    "message": "Idioma"
+  },
+  "languageIntro": {
+    "message": "Elige el idioma que FitShield usa en sus propias pantallas. Esto anula el idioma de tu navegador solo para la extensión."
+  },
+  "languageSelectLabel": {
+    "message": "Idioma de la interfaz"
+  },
+  "languageHint": {
+    "message": "Busca un idioma y selecciónalo. Elige Predeterminado del sistema para seguir tu navegador."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Buscar idiomas…"
+  },
+  "currentLanguageHead": {
+    "message": "Idioma actual"
+  },
+  "languageUseButton": {
+    "message": "Usar"
+  },
+  "languageActiveButton": {
+    "message": "Activo"
+  },
+  "languageSystem": {
+    "message": "Predeterminado del sistema"
+  },
+  "languageSystemSub": {
+    "message": "Seguir el idioma de tu navegador"
+  },
+  "languageEnglish": {
+    "message": "Inglés"
+  },
+  "languageJapanese": {
+    "message": "Japonés"
+  },
+  "languageChinese": {
+    "message": "Chino (simplificado)"
+  },
+  "languageFrench": {
+    "message": "Francés"
+  },
+  "languageCantonese": {
+    "message": "Cantonés"
+  },
+  "languageThai": {
+    "message": "Tailandés"
+  },
+  "languagePunjabi": {
+    "message": "Panyabí"
+  },
+  "languageTamil": {
+    "message": "Tamil"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "Chino (tradicional, Taiwán)"
+  },
+  "languageKorean": {
+    "message": "Coreano"
+  },
+  "languageHindi": {
+    "message": "Hindi"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "noLanguagesMatch": {
+    "message": "Ningún idioma coincide con esa búsqueda."
+  },
+  "mbBlocking": {
+    "message": "Bloqueando"
+  },
+  "mbBlock": {
+    "message": "Bloquear"
+  },
+  "mbOn": {
+    "message": "Activado"
+  },
+  "mbOff": {
+    "message": "Desactivado"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Bloqueando: haz clic para pausar"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "En pausa: haz clic para bloquear"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Quitar el acceso directo del acceso rápido"
+  },
+  "mbChipRemoveAria": {
+    "message": "Quitar $1 del acceso rápido"
+  },
+  "themeHeading": {
+    "message": "Tema"
+  },
+  "resetThemeButton": {
+    "message": "Restablecer tema"
+  },
+  "systemThemeLabel": {
+    "message": "Tema del sistema"
+  },
+  "systemThemeHint": {
+    "message": "Preferencia del dispositivo o un modo fijo."
+  },
+  "themeSystem": {
+    "message": "Sistema"
+  },
+  "themeLight": {
+    "message": "Claro"
+  },
+  "themeDark": {
+    "message": "Oscuro"
+  },
+  "themeBackground": {
+    "message": "Fondo"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "Borde"
+  },
+  "themeText": {
+    "message": "Texto"
+  },
+  "themeMutedText": {
+    "message": "Texto atenuado"
+  },
+  "themeAccent": {
+    "message": "Acento"
+  },
+  "cornerRadiusLabel": {
+    "message": "Radio de esquina"
+  },
+  "popupWidthLabel": {
+    "message": "Ancho de la ventana emergente"
+  },
+  "supportFooterText": {
+    "message": "Si FitShield te ayudó a evitar un pedido a domicilio innecesario, el apoyo opcional ayuda a mantener las listas de bloqueo y la documentación."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

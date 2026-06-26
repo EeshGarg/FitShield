@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "Tiện ích mở rộng trình duyệt FitShield giúp bạn chú ý đến việc giao đồ ăn và đặt đồ ăn nhanh."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Tìm kiếm tên trang web hoặc URL"
+  },
+  "searchButton": {
+    "message": "Tìm kiếm"
+  },
+  "clearButton": {
+    "message": "Xóa"
+  },
+  "openButton": {
+    "message": "Mở"
+  },
+  "addButton": {
+    "message": "Thêm"
+  },
+  "removeButton": {
+    "message": "Xóa"
+  },
+  "viewBlocklistButton": {
+    "message": "Xem danh sách chặn"
+  },
+  "timerDurationLabel": {
+    "message": "Thời lượng hẹn giờ"
+  },
+  "timerDurationHint": {
+    "message": "Điều chỉnh đếm ngược trước khi Continue xuất hiện."
+  },
+  "customSecondsLabel": {
+    "message": "giây tùy chỉnh"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Thời gian mở trang web"
+  },
+  "siteOpenTimeHint": {
+    "message": "Chọn thời gian mở trang web sau khi hết giờ."
+  },
+  "customMinutesLabel": {
+    "message": "Phút tùy chỉnh"
+  },
+  "startTimeLabel": {
+    "message": "Thời gian bắt đầu"
+  },
+  "endTimeLabel": {
+    "message": "Thời gian kết thúc"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Việc chặn sẽ tuân theo lịch trình hàng ngày của bạn khi tính năng này được bật."
+  },
+  "currentScheduleSummary": {
+    "message": "Lịch trình hiện tại: $1."
+  },
+  "everyDaySuffix": {
+    "message": " mỗi ngày"
+  },
+  "scheduleRange": {
+    "message": "$1 đến $2"
+  },
+  "unitMinute": {
+    "message": "phút"
+  },
+  "unitMinutes": {
+    "message": "phút"
+  },
+  "unitSite": {
+    "message": "trang web"
+  },
+  "unitSites": {
+    "message": "trang web"
+  },
+  "popupSettingsButton": {
+    "message": "Cài đặt"
+  },
+  "popupBlockerTitle": {
+    "message": "Trình chặn FitShield"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Bật hoặc tắt mọi danh sách chặn."
+  },
+  "popupMetadataLabel": {
+    "message": "Chặn quốc gia và danh mục"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Chặn toàn bộ nhóm trang web theo quốc gia hoặc danh mục thực phẩm."
+  },
+  "popupDeliveryLabel": {
+    "message": "Địa điểm giao hàng"
+  },
+  "popupDeliveryDefault": {
+    "message": "Miền đặt hàng giao hàng."
+  },
+  "popupFastFoodLabel": {
+    "message": "Các trang web thức ăn nhanh"
+  },
+  "popupFastFoodDefault": {
+    "message": "Tên miền đặt hàng chuỗi lớn."
+  },
+  "popupCustomLabel": {
+    "message": "URL tùy chỉnh"
+  },
+  "popupCustomSubtitle": {
+    "message": "Thêm các trang web của riêng bạn và vô hiệu hóa chúng một cách riêng lẻ."
+  },
+  "popupScheduleLabel": {
+    "message": "Chỉ chặn trong giờ đã lên lịch"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Hữu ích cho ngân sách bữa ăn, đặt hàng đêm khuya hoặc giờ làm việc."
+  },
+  "statusInactive": {
+    "message": "Không hoạt động. Tất cả các trang web đều có thể truy cập được."
+  },
+  "statusAllDisabled": {
+    "message": "Trình chặn được bật nhưng mọi trang web riêng lẻ đều bị tắt. Mở Cài đặt để bật lại một số trang web."
+  },
+  "statusBypassActive": {
+    "message": "Thẻ tạm thời đang hoạt động. Chặn sơ yếu lý lịch trong $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blocker được trang bị vũ khí, nhưng ngoài giờ dự kiến. Nó sẽ chặn $1."
+  },
+  "statusShieldUp": {
+    "message": "Che chắn lại. $1 đếm ngược giây, $2 $3 vượt qua."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "Đã bật $1 của các trang web phân phối $2."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "Đã bật $1 của các trang web thức ăn nhanh $2."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 khớp với tìm kiếm."
+  },
+  "warningPageTitle": {
+    "message": "Hãy hít thở"
+  },
+  "warningEyebrow": {
+    "message": "Kiểm tra FitShield"
+  },
+  "warningTitle": {
+    "message": "Hãy dành một phút."
+  },
+  "warningIntro": {
+    "message": "Kiểm tra trước khi bạn đặt hàng. Cơn đói, sự thuận tiện, căng thẳng và thói quen có thể cảm thấy tương tự vào lúc này."
+  },
+  "warningTriggeredBy": {
+    "message": "Bạn sắp đặt hàng từ $1."
+  },
+  "warningHintDefault": {
+    "message": "Khi bộ đếm thời gian kết thúc, bạn có thể tiếp tục truy cập trang web."
+  },
+  "warningHintLocked": {
+    "message": "Khi hết giờ, bạn có thể tiếp tục truy cập trang web dành cho $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Quay lại"
+  },
+  "warningLockedButton": {
+    "message": "Đã khóa"
+  },
+  "warningContinueButton": {
+    "message": "Tiếp tục"
+  },
+  "warningOpeningButton": {
+    "message": "Khai mạc..."
+  },
+  "warningUnlockHint": {
+    "message": "Bạn có thể truy cập trang web ngay bây giờ. Trình chặn sẽ tự động quay trở lại sau $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Đã xảy ra lỗi khi mở trang web. Vui lòng thử lại."
+  },
+  "settingsTitle": {
+    "message": "Cài đặt FitShield"
+  },
+  "blockingOptionsHeading": {
+    "message": "Tùy chọn chặn"
+  },
+  "scheduledHoursLabel": {
+    "message": "Số giờ đã lên lịch"
+  },
+  "scheduledHoursHint": {
+    "message": "Chỉ chặn trong khoảng thời gian hàng ngày."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Tùy chỉnh danh sách chặn"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Chọn nhóm tích hợp nào đang hoạt động, bật hoặc tắt các trang web riêng lẻ và thêm tên miền của riêng bạn."
+  },
+  "deliverySitesHeading": {
+    "message": "Địa điểm giao hàng"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Trang web thức ăn nhanh"
+  },
+  "customUrlsHeading": {
+    "message": "URL tùy chỉnh"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Thêm tên miền của riêng bạn và vô hiệu hóa chúng riêng lẻ."
+  },
+  "showSitesButton": {
+    "message": "Hiển thị trang web"
+  },
+  "hideSitesButton": {
+    "message": "Ẩn trang web"
+  },
+  "showUrlsButton": {
+    "message": "Hiển thị URL"
+  },
+  "hideUrlsButton": {
+    "message": "Ẩn URL"
+  },
+  "deliveryToggleTitle": {
+    "message": "Bật tính năng chặn trang web giao hàng"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Kích hoạt tính năng chặn trang web thức ăn nhanh"
+  },
+  "customToggleTitle": {
+    "message": "Bật tính năng chặn URL tùy chỉnh"
+  },
+  "addCustomUrlLabel": {
+    "message": "Thêm URL bị chặn tùy chỉnh"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com hoặc https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Các mục được chuẩn hóa thành tên miền và bị chặn trên tất cả các trang."
+  },
+  "customEmptyDefault": {
+    "message": "Chưa có URL tùy chỉnh nào được thêm vào."
+  },
+  "customNoMatch": {
+    "message": "Không có URL tùy chỉnh nào phù hợp với tìm kiếm này."
+  },
+  "emptyDeliverySearch": {
+    "message": "Không có trang web giao hàng phù hợp với tìm kiếm này."
+  },
+  "emptyFastFoodSearch": {
+    "message": "Không có trang web thức ăn nhanh phù hợp với tìm kiếm này."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 khớp với \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "URL đó có vẻ chưa hợp lệ. Hãy thử một tên miền như example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 đã có trong danh sách chặn nên đã được kích hoạt lại."
+  },
+  "addedToBlocklist": {
+    "message": "$1 đã được thêm vào danh sách chặn tùy chỉnh."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 đã bị xóa khỏi danh sách chặn tùy chỉnh."
+  },
+  "metadataHeading": {
+    "message": "Chặn quốc gia và danh mục"
+  },
+  "metadataIntro": {
+    "message": "Chặn toàn bộ nhóm trang web theo quốc gia mà thương hiệu hoạt động hoặc loại thực phẩm mà thương hiệu đó phục vụ. Các khối này thêm vào trang web hiện tại của bạn và các khối URL tùy chỉnh."
+  },
+  "blockByCountryLabel": {
+    "message": "Chặn theo quốc gia"
+  },
+  "blockByCountryHint": {
+    "message": "Tìm kiếm theo tên hoặc mã quốc gia, ví dụ: \"United\" hoặc \"US\". Việc kích hoạt một quốc gia sẽ chặn mọi thương hiệu hoạt động ở đó."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Tìm kiếm quốc gia…"
+  },
+  "quickAccessCountries": {
+    "message": "Truy cập nhanh - quốc gia"
+  },
+  "countryQuickEmpty": {
+    "message": "Cho phép một quốc gia từ tìm kiếm ghim quốc gia đó vào đây."
+  },
+  "blockByCategoryLabel": {
+    "message": "Chặn theo danh mục"
+  },
+  "blockByCategoryHint": {
+    "message": "Tìm kiếm các danh mục như burger, pizza hoặc cà phê. Các chuyên ngành cũng có thể tìm kiếm được; khối áp dụng theo danh mục."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Tìm kiếm danh mục…"
+  },
+  "quickAccessCategories": {
+    "message": "Truy cập nhanh - danh mục"
+  },
+  "categoryQuickEmpty": {
+    "message": "Bật một danh mục từ tìm kiếm để ghim nó vào đây."
+  },
+  "noCountriesMatch": {
+    "message": "Không có quốc gia nào phù hợp với tìm kiếm đó."
+  },
+  "noCategoriesMatch": {
+    "message": "Không có danh mục nào phù hợp với tìm kiếm đó."
+  },
+  "languageHeading": {
+    "message": "Ngôn ngữ"
+  },
+  "languageIntro": {
+    "message": "Chọn ngôn ngữ FitShield sử dụng cho màn hình riêng của mình. Điều này sẽ ghi đè ngôn ngữ trình duyệt của bạn chỉ dành cho tiện ích mở rộng."
+  },
+  "languageSelectLabel": {
+    "message": "Ngôn ngữ hiển thị"
+  },
+  "languageHint": {
+    "message": "Tìm kiếm một ngôn ngữ và chọn nó. Chọn Mặc định hệ thống để theo dõi trình duyệt của bạn."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Tìm kiếm ngôn ngữ…"
+  },
+  "currentLanguageHead": {
+    "message": "Ngôn ngữ hiện tại"
+  },
+  "languageUseButton": {
+    "message": "sử dụng"
+  },
+  "languageActiveButton": {
+    "message": "Đang hoạt động"
+  },
+  "languageSystem": {
+    "message": "Mặc định hệ thống"
+  },
+  "languageSystemSub": {
+    "message": "Theo dõi ngôn ngữ trình duyệt của bạn"
+  },
+  "languageEnglish": {
+    "message": "Tiếng Anh"
+  },
+  "languageJapanese": {
+    "message": "tiếng Nhật"
+  },
+  "languageChinese": {
+    "message": "Tiếng Trung (Giản thể)"
+  },
+  "languageFrench": {
+    "message": "người Pháp"
+  },
+  "languageCantonese": {
+    "message": "tiếng Quảng Đông"
+  },
+  "languageThai": {
+    "message": "tiếng Thái"
+  },
+  "languagePunjabi": {
+    "message": "Tiếng Punjab"
+  },
+  "languageTamil": {
+    "message": "Tiếng Tamil"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "Tiếng Trung (Phồn thể, Đài Loan)"
+  },
+  "languageKorean": {
+    "message": "Tiếng Hàn"
+  },
+  "languageHindi": {
+    "message": "Tiếng Hindi"
+  },
+  "languageSpanishLatam": {
+    "message": "Tiếng Tây Ban Nha (Châu Mỹ Latinh)"
+  },
+  "languageSpanishSpain": {
+    "message": "Tiếng Tây Ban Nha (Tây Ban Nha)"
+  },
+  "languageAfrikaans": {
+    "message": "tiếng Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "tiếng Albania"
+  },
+  "languageBasque": {
+    "message": "Tiếng Basque"
+  },
+  "languageBelarusian": {
+    "message": "Tiếng Belarus"
+  },
+  "languageBulgarian": {
+    "message": "tiếng Bungari"
+  },
+  "languageCatalan": {
+    "message": "tiếng Catalan"
+  },
+  "languageCroatian": {
+    "message": "tiếng Croatia"
+  },
+  "languageCzech": {
+    "message": "tiếng Séc"
+  },
+  "languageDanish": {
+    "message": "tiếng Đan Mạch"
+  },
+  "languageDutch": {
+    "message": "tiếng Hà Lan"
+  },
+  "languageEstonian": {
+    "message": "tiếng Estonia"
+  },
+  "languageFinnish": {
+    "message": "tiếng Phần Lan"
+  },
+  "languageGreek": {
+    "message": "tiếng Hy Lạp"
+  },
+  "languageHungarian": {
+    "message": "tiếng Hungary"
+  },
+  "languageIcelandic": {
+    "message": "tiếng Iceland"
+  },
+  "languageIrish": {
+    "message": "người Ireland"
+  },
+  "languageItalian": {
+    "message": "người Ý"
+  },
+  "languageLatvian": {
+    "message": "tiếng Latvia"
+  },
+  "languageLithuanian": {
+    "message": "tiếng Litva"
+  },
+  "languageMacedonian": {
+    "message": "Tiếng Macedonia"
+  },
+  "languageMaltese": {
+    "message": "tiếng Malta"
+  },
+  "languageNorwegian": {
+    "message": "người Na Uy"
+  },
+  "languagePolish": {
+    "message": "tiếng Ba Lan"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Tiếng Bồ Đào Nha (Bồ Đào Nha)"
+  },
+  "languageRomanian": {
+    "message": "người Rumani"
+  },
+  "languageRussian": {
+    "message": "tiếng Nga"
+  },
+  "languageSerbian": {
+    "message": "tiếng Serbia"
+  },
+  "languageSlovak": {
+    "message": "Tiếng Slovak"
+  },
+  "languageSlovenian": {
+    "message": "tiếng Slovenia"
+  },
+  "languageSwedish": {
+    "message": "tiếng Thụy Điển"
+  },
+  "languageTurkish": {
+    "message": "tiếng Thổ Nhĩ Kỳ"
+  },
+  "languageUkrainian": {
+    "message": "tiếng Ukraina"
+  },
+  "languageWelsh": {
+    "message": "tiếng xứ Wales"
+  },
+  "languageBengali": {
+    "message": "tiếng Bengali"
+  },
+  "languageGujarati": {
+    "message": "tiếng Gujarati"
+  },
+  "languageKannada": {
+    "message": "tiếng Kannada"
+  },
+  "languageMalayalam": {
+    "message": "Mã Lai"
+  },
+  "languageMarathi": {
+    "message": "Tiếng Marathi"
+  },
+  "languageNepali": {
+    "message": "tiếng Nepal"
+  },
+  "languageOdia": {
+    "message": "Odia"
+  },
+  "languageSinhala": {
+    "message": "Sinhala"
+  },
+  "languageTelugu": {
+    "message": "tiếng Telugu"
+  },
+  "languageUrdu": {
+    "message": "tiếng Urdu"
+  },
+  "languageAssamese": {
+    "message": "Tiếng Assam"
+  },
+  "languageIndonesian": {
+    "message": "tiếng Indonesia"
+  },
+  "languageMalay": {
+    "message": "Mã Lai"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "tiếng Khmer"
+  },
+  "languageLao": {
+    "message": "tiếng Lào"
+  },
+  "languageBurmese": {
+    "message": "Miến Điện (Myanmar)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Tiếng Philippin / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "tiếng Java"
+  },
+  "languageSundanese": {
+    "message": "Tiếng Sundan"
+  },
+  "languageArabic": {
+    "message": "tiếng Ả Rập"
+  },
+  "languagePersian": {
+    "message": "Tiếng Ba Tư (tiếng Farsi)"
+  },
+  "languageHebrew": {
+    "message": "tiếng Do Thái"
+  },
+  "languageArmenian": {
+    "message": "tiếng Armenia"
+  },
+  "languageGeorgian": {
+    "message": "tiếng Gruzia"
+  },
+  "languageKazakh": {
+    "message": "Kazakhstan"
+  },
+  "languageKyrgyz": {
+    "message": "Tiếng Kyrgyzstan"
+  },
+  "languageMongolian": {
+    "message": "tiếng Mông Cổ"
+  },
+  "languagePashto": {
+    "message": "Tiếng Pa-tô"
+  },
+  "languageTajik": {
+    "message": "Tiếng Tajik"
+  },
+  "languageTurkmen": {
+    "message": "người Thổ Nhĩ Kỳ"
+  },
+  "languageUyghur": {
+    "message": "người Duy Ngô Nhĩ"
+  },
+  "languageUzbek": {
+    "message": "tiếng Uzbek"
+  },
+  "noLanguagesMatch": {
+    "message": "Không có ngôn ngữ phù hợp với tìm kiếm đó."
+  },
+  "mbBlocking": {
+    "message": "Chặn"
+  },
+  "mbBlock": {
+    "message": "Chặn"
+  },
+  "mbOn": {
+    "message": "Bật"
+  },
+  "mbOff": {
+    "message": "Tắt"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Chặn - nhấp để tạm dừng"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Đã tạm dừng - nhấp để chặn"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Xóa phím tắt khỏi truy cập nhanh"
+  },
+  "mbChipRemoveAria": {
+    "message": "Xóa $1 khỏi quyền truy cập nhanh"
+  },
+  "themeHeading": {
+    "message": "chủ đề"
+  },
+  "resetThemeButton": {
+    "message": "Đặt lại chủ đề"
+  },
+  "systemThemeLabel": {
+    "message": "Chủ đề hệ thống"
+  },
+  "systemThemeHint": {
+    "message": "Tùy chọn thiết bị hoặc chế độ cố định."
+  },
+  "themeSystem": {
+    "message": "Hệ thống"
+  },
+  "themeLight": {
+    "message": "Ánh sáng"
+  },
+  "themeDark": {
+    "message": "Tối"
+  },
+  "themeBackground": {
+    "message": "Nền"
+  },
+  "themePanel": {
+    "message": "bảng điều khiển"
+  },
+  "themeBorder": {
+    "message": "Biên giới"
+  },
+  "themeText": {
+    "message": "văn bản"
+  },
+  "themeMutedText": {
+    "message": "Văn bản bị tắt tiếng"
+  },
+  "themeAccent": {
+    "message": "Giọng"
+  },
+  "cornerRadiusLabel": {
+    "message": "Bán kính góc"
+  },
+  "popupWidthLabel": {
+    "message": "Chiều rộng cửa sổ bật lên"
+  },
+  "supportFooterText": {
+    "message": "Nếu FitShield giúp bạn tránh được lệnh giao hàng không cần thiết thì hỗ trợ tùy chọn sẽ giúp duy trì danh sách chặn và tài liệu."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

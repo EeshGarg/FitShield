@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Keresés oldal name or URL"
+  },
+  "searchButton": {
+    "message": "Keresés"
+  },
+  "clearButton": {
+    "message": "Törlés"
+  },
+  "openButton": {
+    "message": "Megnyitás"
+  },
+  "addButton": {
+    "message": "Hozzáadás"
+  },
+  "removeButton": {
+    "message": "Eltávolítás"
+  },
+  "viewBlocklistButton": {
+    "message": "View Blokkoláslist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Folytatás appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long oldalak stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom perc"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Blokkolás will follow your daily ütemezés when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Jelenlegi ütemezés: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "perc"
+  },
+  "unitMinutes": {
+    "message": "perc"
+  },
+  "unitSite": {
+    "message": "oldal"
+  },
+  "unitSites": {
+    "message": "oldalak"
+  },
+  "popupSettingsButton": {
+    "message": "Beállítások"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blokkoló"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every blokkolás list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & kategória blokkolásing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Blokkolás whole groups of oldalak by ország or food kategória."
+  },
+  "popupDeliveryLabel": {
+    "message": "Kiszállítási oldalak"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Gyorséttermi oldalak"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "Egyéni URL-ek"
+  },
+  "popupCustomSubtitle": {
+    "message": "Hozzáadás your own oldalak and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Blokkolás only during ütemezésd hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Használatful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All oldalak are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Blokkoló is on, but every individual oldal is disabled. Megnyitás Beállítások to turn some oldalak back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Blokkolás resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blokkoló is armed, but outside ütemezésd hours. It will blokkolás from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 kiszállítási oldalak enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 gyorséttermi oldalak enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one perc."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the oldal."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the oldal for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Vissza"
+  },
+  "warningLockedButton": {
+    "message": "Zárolva"
+  },
+  "warningContinueButton": {
+    "message": "Folytatás"
+  },
+  "warningOpeningButton": {
+    "message": "Megnyitás..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the oldal now. The blokkoló will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the oldal. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Beállítások"
+  },
+  "blockingOptionsHeading": {
+    "message": "Blokkolás Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Ütemezett órák"
+  },
+  "scheduledHoursHint": {
+    "message": "Blokkolás only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Blokkoláslist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual oldalak on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Kiszállítási oldalak"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Gyorséttermi oldalak"
+  },
+  "customUrlsHeading": {
+    "message": "Egyéni URL-ek"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Hozzáadás your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Megjelenítés Sites"
+  },
+  "hideSitesButton": {
+    "message": "Elrejtés Sites"
+  },
+  "showUrlsButton": {
+    "message": "Megjelenítés URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Elrejtés URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Engedélyezés delivery oldal blokkolásing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Engedélyezés fast food oldal blokkolásing"
+  },
+  "customToggleTitle": {
+    "message": "Engedélyezés custom URL blokkolásing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Hozzáadás a custom blokkolásed URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and blokkolásed across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No egyéni URL-ek added yet."
+  },
+  "customNoMatch": {
+    "message": "No egyéni URL-ek match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No kiszállítási oldalak match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No gyorséttermi oldalak match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the blokkoláslist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom blokkoláslist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom blokkoláslist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Blokkolás"
+  },
+  "metadataIntro": {
+    "message": "Blokkolás whole groups of oldalak by the ország a brand operates in or the kind of food it serves. These blokkoláss add to your existing oldal and custom-URL blokkoláss."
+  },
+  "blockByCountryLabel": {
+    "message": "Blokkolás by ország"
+  },
+  "blockByCountryHint": {
+    "message": "Keresés by ország name or code, e.g. \"United\" or \"US\". Enabling a ország blokkoláss every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Keresés országok…"
+  },
+  "quickAccessCountries": {
+    "message": "Gyors hozzáférés — országok"
+  },
+  "countryQuickEmpty": {
+    "message": "Engedélyezés a ország from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Blokkolás by kategória"
+  },
+  "blockByCategoryHint": {
+    "message": "Keresés kategóriák like burger, pizza, or coffee. Specialties are searchable too; the blokkolás applies by kategória."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Keresés kategóriák…"
+  },
+  "quickAccessCategories": {
+    "message": "Gyors hozzáférés — kategóriák"
+  },
+  "categoryQuickEmpty": {
+    "message": "Engedélyezés a kategória from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No országok match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No kategóriák match that search."
+  },
+  "languageHeading": {
+    "message": "Nyelv"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Keresés for a language and select it. Choose Rendszer default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Nyelvek keresése…"
+  },
+  "currentLanguageHead": {
+    "message": "Jelenlegi language"
+  },
+  "languageUseButton": {
+    "message": "Használat"
+  },
+  "languageActiveButton": {
+    "message": "Aktív"
+  },
+  "languageSystem": {
+    "message": "Rendszer default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Nincs a keresésnek megfelelő nyelv."
+  },
+  "mbBlocking": {
+    "message": "Blokkolás"
+  },
+  "mbBlock": {
+    "message": "Blokkolás"
+  },
+  "mbOn": {
+    "message": "Be"
+  },
+  "mbOff": {
+    "message": "Ki"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Blokkolás — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to blokkolás"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Eltávolítás shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Eltávolítás $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Téma"
+  },
+  "resetThemeButton": {
+    "message": "Visszaállítás Téma"
+  },
+  "systemThemeLabel": {
+    "message": "Rendszer theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Rendszer"
+  },
+  "themeLight": {
+    "message": "Világos"
+  },
+  "themeDark": {
+    "message": "Sötét"
+  },
+  "themeBackground": {
+    "message": "Háttér"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "Szegély"
+  },
+  "themeText": {
+    "message": "Szöveg"
+  },
+  "themeMutedText": {
+    "message": "Halvány szöveg"
+  },
+  "themeAccent": {
+    "message": "Kiemelés"
+  },
+  "cornerRadiusLabel": {
+    "message": "Saroksugár"
+  },
+  "popupWidthLabel": {
+    "message": "Felugró szélessége"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blokkoláslists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

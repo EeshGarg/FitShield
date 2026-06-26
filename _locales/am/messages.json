@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchButton": {
+    "message": "ፈልግ"
+  },
+  "openButton": {
+    "message": "ክፈት"
+  },
+  "searchSitePlaceholder": {
+    "message": "የጣቢያ ስም ወይም URL ይፈልጉ"
+  },
+  "addButton": {
+    "message": "አክል"
+  },
+  "clearButton": {
+    "message": "ግልጽ"
+  },
+  "appDescription": {
+    "message": "FitShield የአሳሽ ቅጥያ የምግብ አቅርቦት እና ፈጣን ምግብ ማዘዣን እንዲያስታውሱ ያግዝዎታል።"
+  },
+  "timerDurationHint": {
+    "message": "ቀጥል ከመታየቱ በፊት ቆጠራውን ያስተካክሉ።"
+  },
+  "timerDurationLabel": {
+    "message": "የሰዓት ቆጣሪ ቆይታ"
+  },
+  "removeButton": {
+    "message": "አስወግድ"
+  },
+  "viewBlocklistButton": {
+    "message": "የማገጃ ዝርዝሩን ይመልከቱ"
+  },
+  "customSecondsLabel": {
+    "message": "ብጁ ሰከንዶች"
+  },
+  "customMinutesLabel": {
+    "message": "ብጁ ደቂቃዎች"
+  },
+  "siteOpenTimeLabel": {
+    "message": "የጣቢያ ክፍት ጊዜ"
+  },
+  "siteOpenTimeHint": {
+    "message": "የሰዓት ቆጣሪው ካለቀ በኋላ ለምን ያህል ጊዜ ጣቢያዎች ክፍት እንደሆኑ ይምረጡ።"
+  },
+  "scheduleDefaultSummary": {
+    "message": "ይህ ሲነቃ ማገድ የእርስዎን ዕለታዊ መርሃ ግብር ይከተላል።"
+  },
+  "currentScheduleSummary": {
+    "message": "የአሁኑ የጊዜ ሰሌዳ፡ $1"
+  },
+  "everyDaySuffix": {
+    "message": " በየቀኑ"
+  },
+  "startTimeLabel": {
+    "message": "የመነሻ ጊዜ"
+  },
+  "endTimeLabel": {
+    "message": "የመጨረሻ ጊዜ"
+  },
+  "unitMinute": {
+    "message": "ደቂቃ"
+  },
+  "unitSite": {
+    "message": "ጣቢያ"
+  },
+  "scheduleRange": {
+    "message": "$1 ወደ $2"
+  },
+  "unitMinutes": {
+    "message": "ደቂቃዎች"
+  },
+  "unitSites": {
+    "message": "ጣቢያዎች"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield ማገጃ"
+  },
+  "popupSettingsButton": {
+    "message": "ቅንብሮች"
+  },
+  "popupBlockerSubtitle": {
+    "message": "እያንዳንዱን የማገጃ ዝርዝር ያብሩ ወይም ያጥፉ።"
+  },
+  "popupMetadataLabel": {
+    "message": "አገር እና ምድብ ማገድ"
+  },
+  "popupDeliveryDefault": {
+    "message": "የማዘዣ ጎራዎች የማድረስ።"
+  },
+  "popupMetadataSubtitle": {
+    "message": "ሁሉንም የጣቢያዎች ቡድን በአገር ወይም በምግብ ምድብ አግድ።"
+  },
+  "popupDeliveryLabel": {
+    "message": "የመላኪያ ጣቢያዎች"
+  },
+  "popupFastFoodLabel": {
+    "message": "ፈጣን ምግብ ጣቢያዎች"
+  },
+  "popupCustomLabel": {
+    "message": "ብጁ URLs"
+  },
+  "popupCustomSubtitle": {
+    "message": "የራስዎን ጣቢያዎች ያክሉ እና በተናጥል ያሰናክሏቸው።"
+  },
+  "popupScheduleLabel": {
+    "message": "በታቀደው ሰዓት ብቻ አግድ"
+  },
+  "popupFastFoodDefault": {
+    "message": "ዋና ሰንሰለት ማዘዣ ጎራዎች።"
+  },
+  "statusBypassActive": {
+    "message": "ጊዜያዊ ማለፊያ ንቁ ነው። ማገድ በ$1 ከቆመበት ይቀጥላል።"
+  },
+  "statusInactive": {
+    "message": "እንቅስቃሴ-አልባ ሁሉም ጣቢያዎች ተደራሽ ናቸው።"
+  },
+  "statusAllDisabled": {
+    "message": "ማገጃ በርቷል፣ ግን እያንዳንዱ ግለሰብ ጣቢያ ተሰናክሏል። አንዳንድ ጣቢያዎችን መልሰው ለማብራት ቅንብሮችን ይክፈቱ።"
+  },
+  "popupScheduleSubtitle": {
+    "message": "ለምግብ በጀት፣ ለሊት ማዘዣ ወይም ለስራ ሰአታት ጠቃሚ።"
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 የ$2 ፈጣን ምግብ ጣቢያዎች ነቅተዋል።"
+  },
+  "statusOutsideSchedule": {
+    "message": "ማገጃው የታጠቀ ነው፣ ነገር ግን ከታቀዱት ሰዓቶች ውጭ። ከ $1 ያግዳል።"
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 የ$2 ማድረሻ ጣቢያዎች ነቅተዋል።"
+  },
+  "statusShieldUp": {
+    "message": "መከታ። $1 ሰከንዶች ቆጠራ፣ $2 $3 ማለፊያ።"
+  },
+  "searchMatchSuffix": {
+    "message": " $1 ከፍለጋው ጋር ይዛመዳል።"
+  },
+  "warningEyebrow": {
+    "message": "FitShield ያረጋግጡ"
+  },
+  "warningTitle": {
+    "message": "አንድ ደቂቃ ይውሰዱ."
+  },
+  "warningPageTitle": {
+    "message": "ይተንፍሱ"
+  },
+  "warningHintLocked": {
+    "message": "ሰዓት ቆጣሪው ሲያልቅ ለ$1 $2 ወደ ጣቢያው መቀጠል ይችላሉ።"
+  },
+  "warningHintDefault": {
+    "message": "ሰዓት ቆጣሪው ሲያልቅ ወደ ጣቢያው መቀጠል ይችላሉ።"
+  },
+  "warningTriggeredBy": {
+    "message": "ከ$1 ልታዝዙ ነው።"
+  },
+  "warningIntro": {
+    "message": "ከማዘዝዎ በፊት ያረጋግጡ። ረሃብ፣ ምቾት፣ ጭንቀት እና ልማድ በዚህ ቅጽበት ተመሳሳይ ሊሰማቸው ይችላል።"
+  },
+  "warningContinueButton": {
+    "message": "ቀጥል"
+  },
+  "warningLockedButton": {
+    "message": "ተቆልፏል"
+  },
+  "warningOpeningButton": {
+    "message": "በመክፈት ላይ..."
+  },
+  "warningBackButton": {
+    "message": "ተመለስ"
+  },
+  "settingsTitle": {
+    "message": "FitShield ቅንብሮች"
+  },
+  "blockingOptionsHeading": {
+    "message": "የማገድ አማራጮች"
+  },
+  "warningErrorHint": {
+    "message": "ጣቢያውን በመክፈት ላይ ሳለ የሆነ ችግር ተፈጥሯል። እባክህ እንደገና ሞክር።"
+  },
+  "warningUnlockHint": {
+    "message": "አሁን ጣቢያውን መጎብኘት ይችላሉ። ማገጃው ከ$1 $2 በኋላ በራስ-ሰር ይመለሳል።"
+  },
+  "customizeBlocklistHeading": {
+    "message": "የማገጃ መዝገብ ያብጁ"
+  },
+  "scheduledHoursHint": {
+    "message": "በዕለታዊ መስኮት ጊዜ ብቻ አግድ።"
+  },
+  "scheduledHoursLabel": {
+    "message": "የታቀዱ ሰዓቶች"
+  },
+  "customUrlsHeading": {
+    "message": "ብጁ URLs"
+  },
+  "customizeBlocklistIntro": {
+    "message": "የትኛዎቹ አብሮገነብ ቡድኖች ንቁ እንደሆኑ ይምረጡ፣ ነጠላ ጣቢያዎችን ያብሩ ወይም ያጥፉ እና የራስዎን ጎራዎች ያክሉ።"
+  },
+  "showSitesButton": {
+    "message": "ጣቢያዎችን አሳይ"
+  },
+  "fastFoodSitesHeading": {
+    "message": "ፈጣን ምግብ ጣቢያዎች"
+  },
+  "deliverySitesHeading": {
+    "message": "የመላኪያ ጣቢያዎች"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "የራስዎን ጎራዎች ያክሉ እና በተናጥል ያሰናክሏቸው።"
+  },
+  "hideUrlsButton": {
+    "message": "URLs ደብቅ"
+  },
+  "hideSitesButton": {
+    "message": "ጣቢያዎችን ደብቅ"
+  },
+  "showUrlsButton": {
+    "message": "URLs አሳይ"
+  },
+  "deliveryToggleTitle": {
+    "message": "የመላኪያ ቦታን ማገድን አንቃ"
+  },
+  "addCustomUrlLabel": {
+    "message": "ብጁ የታገደ URL ያክሉ"
+  },
+  "fastFoodToggleTitle": {
+    "message": "ፈጣን ምግብ ጣቢያን ማገድን አንቃ"
+  },
+  "customToggleTitle": {
+    "message": "ብጁ URL እገዳን አንቃ"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com ወይም https://example.com"
+  },
+  "customNoMatch": {
+    "message": "ምንም ብጁ URLs ከዚህ ፍለጋ ጋር አይዛመድም።"
+  },
+  "emptyDeliverySearch": {
+    "message": "ምንም የመላኪያ ጣቢያዎች ከዚህ ፍለጋ ጋር አይዛመዱም።"
+  },
+  "customNormalizeHint": {
+    "message": "ግቤቶች ወደ ጎራዎች የተለመዱ ናቸው እና በሁሉም ገጾች ላይ ታግደዋል።"
+  },
+  "customEmptyDefault": {
+    "message": "እስካሁን ምንም ብጁ URLs አልተጨመረም።"
+  },
+  "noticeMatched": {
+    "message": "$1 $2 ከ\"$3\" ጋር ተዛምዷል።"
+  },
+  "emptyFastFoodSearch": {
+    "message": "ምንም ፈጣን ምግብ ጣቢያዎች ከዚህ ፍለጋ ጋር አይዛመዱም።"
+  },
+  "invalidUrlNotice": {
+    "message": "ያ URL እስካሁን የሚሰራ አይመስልም። እንደ example.com ያለ ጎራ ይሞክሩ።"
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 አስቀድሞ በብሎክ ዝርዝሩ ውስጥ አለ፣ ስለዚህ እንደገና ነቅቷል።"
+  },
+  "metadataIntro": {
+    "message": "አንድ የምርት ስም የሚሠራበትን ወይም የሚያቀርበውን የምግብ ዓይነት በአገሩ ያግዱ። እነዚህ ብሎኮች ወደ እርስዎ ጣቢያ እና ብጁ-URL ብሎኮች ይጨምራሉ።"
+  },
+  "addedToBlocklist": {
+    "message": "$1 ወደ ብጁ የማገጃ ዝርዝሩ ታክሏል።"
+  },
+  "removedFromBlocklist": {
+    "message": "$1 ከብጁ የማገጃ ዝርዝሩ ተወግዷል።"
+  },
+  "metadataHeading": {
+    "message": "አገር እና ምድብ ማገድ"
+  },
+  "countrySearchPlaceholder": {
+    "message": "አገሮችን ፈልግ…"
+  },
+  "blockByCountryLabel": {
+    "message": "በአገር አግድ"
+  },
+  "quickAccessCountries": {
+    "message": "ፈጣን መዳረሻ - አገሮች"
+  },
+  "blockByCountryHint": {
+    "message": "በአገር ስም ወይም ኮድ ይፈልጉ፣ ለምሳሌ \"United\" ወይም \"US\"። አገርን ማንቃት እዚያ የሚሠራውን እያንዳንዱን የምርት ስም ያግዳል።"
+  },
+  "categorySearchPlaceholder": {
+    "message": "ምድቦችን ይፈልጉ…"
+  },
+  "blockByCategoryLabel": {
+    "message": "በምድብ አግድ"
+  },
+  "countryQuickEmpty": {
+    "message": "አገርን ከፍለጋ አንቃ እዚህ ላይ ይሰኩት።"
+  },
+  "blockByCategoryHint": {
+    "message": "እንደ burger፣ pizza ወይም coffee ያሉ ምድቦችን ይፈልጉ። ስፔሻሊስቶችም ሊፈለጉ የሚችሉ ናቸው; እገዳው በምድብ ይተገበራል."
+  },
+  "noCountriesMatch": {
+    "message": "ከዚያ ፍለጋ ጋር የሚዛመዱ አገሮች የሉም።"
+  },
+  "noCategoriesMatch": {
+    "message": "ከዚያ ፍለጋ ጋር የሚዛመዱ ምድቦች የሉም።"
+  },
+  "quickAccessCategories": {
+    "message": "ፈጣን መዳረሻ - ምድቦች"
+  },
+  "categoryQuickEmpty": {
+    "message": "ከፍለጋ አንድ ምድብ እዚህ ላይ ለማያያዝ አንቃ።"
+  },
+  "languageIntro": {
+    "message": "FitShield ለራሱ ስክሪኖች የሚጠቀምበትን ቋንቋ ይምረጡ። ይህ የአሳሽ ቋንቋዎን ለቅጥያው ብቻ ይሽራል።"
+  },
+  "languageHeading": {
+    "message": "ቋንቋ"
+  },
+  "languageSelectLabel": {
+    "message": "ቋንቋ አሳይ"
+  },
+  "languageHint": {
+    "message": "ቋንቋ ይፈልጉ እና ይምረጡት። አሳሽዎን ለመከተል የስርዓት ነባሪውን ይምረጡ።"
+  },
+  "languageUseButton": {
+    "message": "ተጠቀም"
+  },
+  "currentLanguageHead": {
+    "message": "የአሁኑ ቋንቋ"
+  },
+  "languageSearchPlaceholder": {
+    "message": "ቋንቋዎችን ፈልግ…"
+  },
+  "languageActiveButton": {
+    "message": "ንቁ"
+  },
+  "languageEnglish": {
+    "message": "እንግሊዝኛ"
+  },
+  "languageJapanese": {
+    "message": "ጃፓንኛ"
+  },
+  "languageFrench": {
+    "message": "ፈረንሳይኛ"
+  },
+  "languageSystemSub": {
+    "message": "የአሳሽዎን ቋንቋ ይከተሉ"
+  },
+  "languageThai": {
+    "message": "ታይ"
+  },
+  "languagePunjabi": {
+    "message": "ፑንጃቢ"
+  },
+  "languageTamil": {
+    "message": "ታሚል"
+  },
+  "languageSystem": {
+    "message": "የስርዓት ነባሪ"
+  },
+  "languageCantonese": {
+    "message": "ካንቶኒዝ"
+  },
+  "languageKorean": {
+    "message": "ኮሪያኛ"
+  },
+  "languageChinese": {
+    "message": "ቻይንኛ (ቀላል)"
+  },
+  "languageHindi": {
+    "message": "ሂንዲ"
+  },
+  "languageAfrikaans": {
+    "message": "አፍሪካንስ"
+  },
+  "languageAlbanian": {
+    "message": "አልበንያኛ"
+  },
+  "languageBasque": {
+    "message": "ባስክ"
+  },
+  "languageBelarusian": {
+    "message": "ቤላሩሲያን"
+  },
+  "languageBulgarian": {
+    "message": "ቡልጋርያኛ"
+  },
+  "languageCatalan": {
+    "message": "ካታሊያን"
+  },
+  "languageSpanishLatam": {
+    "message": "ስፓኒሽ (ላቲን አሜሪካ)"
+  },
+  "languageCzech": {
+    "message": "ቼክ"
+  },
+  "languageSpanishSpain": {
+    "message": "ስፓኒሽ (ስፔን)"
+  },
+  "languageCroatian": {
+    "message": "ክሮኤሽያን"
+  },
+  "languageDanish": {
+    "message": "ዳኒሽ"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "ቻይንኛ (ባህላዊ፣ ታይዋን)"
+  },
+  "languageDutch": {
+    "message": "ደች"
+  },
+  "languageEstonian": {
+    "message": "ኢስቶኒያን"
+  },
+  "languageFinnish": {
+    "message": "ፊኒሽ"
+  },
+  "languageGreek": {
+    "message": "ግሪክኛ"
+  },
+  "languageHungarian": {
+    "message": "ሃንጋሪያን"
+  },
+  "languageIrish": {
+    "message": "አይሪሽ"
+  },
+  "languageIcelandic": {
+    "message": "አይስላንዲ ክ"
+  },
+  "languageItalian": {
+    "message": "ጣሊያንኛ"
+  },
+  "languageLatvian": {
+    "message": "ላትቪያን"
+  },
+  "languageLithuanian": {
+    "message": "ሊቱኒያን"
+  },
+  "languageMacedonian": {
+    "message": "ማስዶንያን"
+  },
+  "languageNorwegian": {
+    "message": "ኖርወይኛ"
+  },
+  "languagePolish": {
+    "message": "ፖሊሽ"
+  },
+  "languageMaltese": {
+    "message": "ማልትስ"
+  },
+  "languageRomanian": {
+    "message": "ሮማንያን"
+  },
+  "languageSerbian": {
+    "message": "ሰሪቢያን"
+  },
+  "languageSlovak": {
+    "message": "ስሎቫክ"
+  },
+  "languageSlovenian": {
+    "message": "ስሎቬንያን"
+  },
+  "languageSwedish": {
+    "message": "ስዊድንኛ"
+  },
+  "languageTurkish": {
+    "message": "ቱሪክሽ"
+  },
+  "languageUkrainian": {
+    "message": "ዩክሬንያን"
+  },
+  "languageWelsh": {
+    "message": "ዋልሽ"
+  },
+  "languageBengali": {
+    "message": "ቤንጋሊ"
+  },
+  "languageGujarati": {
+    "message": "ጉጅራቲ"
+  },
+  "languageMalayalam": {
+    "message": "ማላያላም"
+  },
+  "languageMarathi": {
+    "message": "ማራቲ"
+  },
+  "languageNepali": {
+    "message": "ኔፓሊ"
+  },
+  "languageRussian": {
+    "message": "ራሺያኛ"
+  },
+  "languageKannada": {
+    "message": "ካናዳ"
+  },
+  "languageTelugu": {
+    "message": "ተሉጉ"
+  },
+  "languageUrdu": {
+    "message": "ኡርዱ"
+  },
+  "languageOdia": {
+    "message": "ኦዲያ"
+  },
+  "languagePortuguesePortugal": {
+    "message": "ፖርቱጋልኛ (ፖርቱጋል)"
+  },
+  "languageSinhala": {
+    "message": "ሲንሃላ"
+  },
+  "languageAssamese": {
+    "message": "አሳሜሴ"
+  },
+  "languageMalay": {
+    "message": "ማላይ"
+  },
+  "languageVietnamese": {
+    "message": "ቪትናሜሴ"
+  },
+  "languageIndonesian": {
+    "message": "ኢንዶኔዥያን"
+  },
+  "languageLao": {
+    "message": "ላኦ"
+  },
+  "languageJavanese": {
+    "message": "ጃቫኒስ"
+  },
+  "languageBurmese": {
+    "message": "በርማ (ሚያንማር)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "ፊሊፒኖ / ታጋሎግ"
+  },
+  "languageSundanese": {
+    "message": "ሱዳናዊ"
+  },
+  "languageKhmer": {
+    "message": "ክመር"
+  },
+  "languageArabic": {
+    "message": "አረብኛ"
+  },
+  "languageHebrew": {
+    "message": "ሂብሩ"
+  },
+  "languageArmenian": {
+    "message": "አርመንያኛ"
+  },
+  "languageKyrgyz": {
+    "message": "ክይርግያዝ"
+  },
+  "languageGeorgian": {
+    "message": "ጆርጅያን"
+  },
+  "languageKazakh": {
+    "message": "ካዛክሀ"
+  },
+  "languageMongolian": {
+    "message": "ሞኒጎሊያን"
+  },
+  "languagePashto": {
+    "message": "ፓሽቶ"
+  },
+  "languageTurkmen": {
+    "message": "ቱሪክሜን"
+  },
+  "languageUyghur": {
+    "message": "ኡይግሁር"
+  },
+  "languageUzbek": {
+    "message": "ኡዝቤክ"
+  },
+  "languageSwahili": {
+    "message": "ስዋሕሊ"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  },
+  "languagePersian": {
+    "message": "ፋርስኛ (ፋርሲ)"
+  },
+  "languageTajik": {
+    "message": "ታጂክ"
+  },
+  "languagePortugueseBrazil": {
+    "message": "ፖርቱጋልኛ (ብራዚል)"
+  },
+  "noLanguagesMatch": {
+    "message": "ከዚያ ፍለጋ ጋር የሚዛመዱ ቋንቋዎች የሉም።"
+  },
+  "mbBlocking": {
+    "message": "ማገድ"
+  },
+  "mbBlock": {
+    "message": "አግድ"
+  },
+  "mbOff": {
+    "message": "ጠፍቷል"
+  },
+  "mbOn": {
+    "message": "በርቷል"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "በማገድ ላይ - ለአፍታ ለማቆም ጠቅ ያድርጉ"
+  },
+  "mbChipRemoveAria": {
+    "message": "$1 ከፈጣን መዳረሻ ያስወግዱ"
+  },
+  "mbChipRemoveTitle": {
+    "message": "አቋራጭን ከፈጣን መዳረሻ ያስወግዱ"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "ባለበት ቆሟል - ለማገድ ጠቅ ያድርጉ"
+  },
+  "resetThemeButton": {
+    "message": "ገጽታን ዳግም አስጀምር"
+  },
+  "themeHeading": {
+    "message": "ጭብጥ"
+  },
+  "systemThemeLabel": {
+    "message": "የስርዓት ጭብጥ"
+  },
+  "systemThemeHint": {
+    "message": "የመሣሪያ ምርጫ ወይም ቋሚ ሁነታ."
+  },
+  "themeBackground": {
+    "message": "ዳራ"
+  },
+  "themeLight": {
+    "message": "ብርሃን"
+  },
+  "themeSystem": {
+    "message": "ስርዓት"
+  },
+  "themeDark": {
+    "message": "ጨለማ"
+  },
+  "themeBorder": {
+    "message": "ድንበር"
+  },
+  "themeText": {
+    "message": "ጽሑፍ"
+  },
+  "themeMutedText": {
+    "message": "ድምጸ-ከል የተደረገ ጽሑፍ"
+  },
+  "themePanel": {
+    "message": "ፓነል"
+  },
+  "supportFooterText": {
+    "message": "FitShield አላስፈላጊ የመላኪያ ትዕዛዝ እንዲያስወግዱ ከረዳዎት፣ አማራጭ ድጋፍ የማገጃ ዝርዝሩን እና ሰነዶችን እንዲንቀሳቀሱ ይረዳል።"
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "themeAccent": {
+    "message": "ዘዬ"
+  },
+  "cornerRadiusLabel": {
+    "message": "የማዕዘን ራዲየስ"
+  },
+  "popupWidthLabel": {
+    "message": "የብቅ-ባይ ስፋት"
+  }
+}

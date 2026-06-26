@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "កម្មវិធីបន្ថែមកម្មវិធីរុករក FitShield ដែលជួយអ្នកឱ្យចងចាំពីការចែកចាយអាហារ និងការបញ្ជាទិញអាហាររហ័ស។"
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "ស្វែងរកឈ្មោះគេហទំព័រ ឬ URL"
+  },
+  "searchButton": {
+    "message": "ស្វែងរក"
+  },
+  "clearButton": {
+    "message": "ច្បាស់"
+  },
+  "openButton": {
+    "message": "បើក"
+  },
+  "addButton": {
+    "message": "បន្ថែម"
+  },
+  "removeButton": {
+    "message": "ដកចេញ"
+  },
+  "viewBlocklistButton": {
+    "message": "មើលបញ្ជីទប់ស្កាត់"
+  },
+  "timerDurationLabel": {
+    "message": "រយៈពេលកម្មវិធីកំណត់ពេលវេលា"
+  },
+  "timerDurationHint": {
+    "message": "កែតម្រូវការរាប់ថយក្រោយ មុនពេលបន្តលេចឡើង។"
+  },
+  "customSecondsLabel": {
+    "message": "វិនាទីផ្ទាល់ខ្លួន"
+  },
+  "siteOpenTimeLabel": {
+    "message": "ម៉ោងបើកគេហទំព័រ"
+  },
+  "siteOpenTimeHint": {
+    "message": "ជ្រើសរើសរយៈពេលដែលគេហទំព័របើកបន្ទាប់ពីកម្មវិធីកំណត់ម៉ោងបញ្ចប់។"
+  },
+  "customMinutesLabel": {
+    "message": "នាទីផ្ទាល់ខ្លួន"
+  },
+  "startTimeLabel": {
+    "message": "ពេលវេលាចាប់ផ្តើម"
+  },
+  "endTimeLabel": {
+    "message": "ពេលវេលាបញ្ចប់"
+  },
+  "scheduleDefaultSummary": {
+    "message": "ការទប់ស្កាត់នឹងធ្វើតាមកាលវិភាគប្រចាំថ្ងៃរបស់អ្នក នៅពេលដែលវាត្រូវបានបើក។"
+  },
+  "currentScheduleSummary": {
+    "message": "កាលវិភាគបច្ចុប្បន្ន៖ $1 ។"
+  },
+  "everyDaySuffix": {
+    "message": " ជារៀងរាល់ថ្ងៃ"
+  },
+  "scheduleRange": {
+    "message": "$1 ទៅ $2"
+  },
+  "unitMinute": {
+    "message": "នាទី"
+  },
+  "unitMinutes": {
+    "message": "នាទី"
+  },
+  "unitSite": {
+    "message": "គេហទំព័រ"
+  },
+  "unitSites": {
+    "message": "គេហទំព័រ"
+  },
+  "popupSettingsButton": {
+    "message": "ការកំណត់"
+  },
+  "popupBlockerTitle": {
+    "message": "ឧបករណ៍ទប់ស្កាត់ FitShield"
+  },
+  "popupBlockerSubtitle": {
+    "message": "បើកឬបិទបញ្ជីប្លុកនីមួយៗ។"
+  },
+  "popupMetadataLabel": {
+    "message": "ការទប់ស្កាត់ប្រទេស និងប្រភេទ"
+  },
+  "popupMetadataSubtitle": {
+    "message": "ទប់ស្កាត់ក្រុមទាំងមូលនៃគេហទំព័រតាមប្រទេស ឬប្រភេទអាហារ។"
+  },
+  "popupDeliveryLabel": {
+    "message": "កន្លែងចែកចាយ"
+  },
+  "popupDeliveryDefault": {
+    "message": "ដែនបញ្ជាទិញដឹកជញ្ជូន។"
+  },
+  "popupFastFoodLabel": {
+    "message": "គេហទំព័រអាហាររហ័ស"
+  },
+  "popupFastFoodDefault": {
+    "message": "ដែនបញ្ជាទិញខ្សែសង្វាក់សំខាន់ៗ។"
+  },
+  "popupCustomLabel": {
+    "message": "URLs ផ្ទាល់ខ្លួន"
+  },
+  "popupCustomSubtitle": {
+    "message": "បន្ថែមគេហទំព័រផ្ទាល់ខ្លួនរបស់អ្នក ហើយបិទពួកវាជាលក្ខណៈបុគ្គល។"
+  },
+  "popupScheduleLabel": {
+    "message": "ទប់ស្កាត់តែក្នុងអំឡុងពេលម៉ោងដែលបានកំណត់"
+  },
+  "popupScheduleSubtitle": {
+    "message": "មានប្រយោជន៍សម្រាប់ថវិកាអាហារ ការបញ្ជាទិញពេលយប់ ឬម៉ោងធ្វើការ។"
+  },
+  "statusInactive": {
+    "message": "អសកម្ម។ គេហទំព័រទាំងអស់អាចចូលប្រើបាន។"
+  },
+  "statusAllDisabled": {
+    "message": "កម្មវិធីទប់ស្កាត់ត្រូវបានបើក ប៉ុន្តែគេហទំព័រនីមួយៗត្រូវបានបិទ។ បើកការកំណត់ ដើម្បីបើកគេហទំព័រមួយចំនួនឡើងវិញ។"
+  },
+  "statusBypassActive": {
+    "message": "ប័ណ្ណបណ្តោះអាសន្នគឺសកម្ម។ ការទប់ស្កាត់បន្តនៅក្នុង $1 ។"
+  },
+  "statusOutsideSchedule": {
+    "message": "អ្នកទប់ស្កាត់មានប្រដាប់អាវុធ ប៉ុន្តែនៅខាងក្រៅម៉ោងដែលបានកំណត់។ វានឹងរារាំងពី $1 ។"
+  },
+  "statusShieldUp": {
+    "message": "ការពារ។ $1 រាប់វិនាទី $2 $3 ឆ្លងផុត។"
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 នៃគេហទំព័រចែកចាយ $2 ត្រូវបានបើក។"
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "បានបើកគេហទំព័រ $1 នៃ $2 ។"
+  },
+  "searchMatchSuffix": {
+    "message": " $1 ត្រូវគ្នានឹងការស្វែងរក។"
+  },
+  "warningPageTitle": {
+    "message": "ដកដង្ហើម"
+  },
+  "warningEyebrow": {
+    "message": "ពិនិត្យ FitShield"
+  },
+  "warningTitle": {
+    "message": "ចំណាយពេលមួយនាទី។"
+  },
+  "warningIntro": {
+    "message": "ពិនិត្យចូលមុនពេលអ្នកបញ្ជាទិញ។ ភាពអត់ឃ្លាន ភាពងាយស្រួល ភាពតានតឹង និងទម្លាប់អាចមានអារម្មណ៍ស្រដៀងគ្នានៅពេលនេះ។"
+  },
+  "warningTriggeredBy": {
+    "message": "អ្នកហៀបនឹងបញ្ជាទិញពី $1 ។"
+  },
+  "warningHintDefault": {
+    "message": "នៅពេលកម្មវិធីកំណត់ម៉ោងបញ្ចប់ អ្នកអាចបន្តទៅកាន់គេហទំព័រ។"
+  },
+  "warningHintLocked": {
+    "message": "នៅពេលដែលកម្មវិធីកំណត់ម៉ោងបញ្ចប់ អ្នកអាចបន្តទៅកាន់គេហទំព័រសម្រាប់ $1 $2 ។"
+  },
+  "warningBackButton": {
+    "message": "ត្រឡប់ទៅវិញ។"
+  },
+  "warningLockedButton": {
+    "message": "ចាក់សោ"
+  },
+  "warningContinueButton": {
+    "message": "បន្ត"
+  },
+  "warningOpeningButton": {
+    "message": "ការបើក..."
+  },
+  "warningUnlockHint": {
+    "message": "អ្នកអាចចូលមើលគេហទំព័រឥឡូវនេះ។ ឧបករណ៍ទប់ស្កាត់នឹងត្រលប់មកវិញដោយស្វ័យប្រវត្តិបន្ទាប់ពី $1 $2 ។"
+  },
+  "warningErrorHint": {
+    "message": "មានអ្វីមួយខុសប្រក្រតីពេលបើកគេហទំព័រ។ សូមព្យាយាមម្តងទៀត។"
+  },
+  "settingsTitle": {
+    "message": "ការកំណត់ FitShield"
+  },
+  "blockingOptionsHeading": {
+    "message": "ជម្រើសទប់ស្កាត់"
+  },
+  "scheduledHoursLabel": {
+    "message": "ម៉ោងដែលបានកំណត់"
+  },
+  "scheduledHoursHint": {
+    "message": "ទប់ស្កាត់តែក្នុងអំឡុងពេលបង្អួចម៉ោងប្រចាំថ្ងៃប៉ុណ្ណោះ។"
+  },
+  "customizeBlocklistHeading": {
+    "message": "ប្ដូរបញ្ជីប្លុកតាមបំណង"
+  },
+  "customizeBlocklistIntro": {
+    "message": "ជ្រើសរើសក្រុមដែលភ្ជាប់មកជាមួយសកម្ម បើក ឬបិទគេហទំព័រនីមួយៗ និងបន្ថែមដែនផ្ទាល់ខ្លួនរបស់អ្នក។"
+  },
+  "deliverySitesHeading": {
+    "message": "កន្លែងចែកចាយ"
+  },
+  "fastFoodSitesHeading": {
+    "message": "គេហទំព័រអាហាររហ័ស"
+  },
+  "customUrlsHeading": {
+    "message": "URLs ផ្ទាល់ខ្លួន"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "បន្ថែមដែនផ្ទាល់ខ្លួនរបស់អ្នក ហើយបិទពួកវាជាលក្ខណៈបុគ្គល។"
+  },
+  "showSitesButton": {
+    "message": "បង្ហាញគេហទំព័រ"
+  },
+  "hideSitesButton": {
+    "message": "លាក់គេហទំព័រ"
+  },
+  "showUrlsButton": {
+    "message": "បង្ហាញ URLs"
+  },
+  "hideUrlsButton": {
+    "message": "លាក់ URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "បើកការទប់ស្កាត់គេហទំព័រចែកចាយ"
+  },
+  "fastFoodToggleTitle": {
+    "message": "បើកការទប់ស្កាត់គេហទំព័រអាហាររហ័ស"
+  },
+  "customToggleTitle": {
+    "message": "បើកការទប់ស្កាត់ URL ផ្ទាល់ខ្លួន"
+  },
+  "addCustomUrlLabel": {
+    "message": "បន្ថែម URL ដែលបានទប់ស្កាត់ផ្ទាល់ខ្លួន"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com ឬ https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "ធាតុ​ត្រូវ​បាន​ធ្វើ​ឱ្យ​មាន​លក្ខណៈ​ធម្មតា​ទៅ​ក្នុង​ដែន និង​ត្រូវ​បាន​បិទ​នៅ​គ្រប់​ទំព័រ។"
+  },
+  "customEmptyDefault": {
+    "message": "មិនទាន់បានបន្ថែម URLs ផ្ទាល់ខ្លួននៅឡើយទេ។"
+  },
+  "customNoMatch": {
+    "message": "គ្មាន URL ផ្ទាល់ខ្លួនដែលត្រូវគ្នានឹងការស្វែងរកនេះទេ។"
+  },
+  "emptyDeliverySearch": {
+    "message": "គ្មានគេហទំព័រចែកចាយដែលត្រូវគ្នានឹងការស្វែងរកនេះទេ។"
+  },
+  "emptyFastFoodSearch": {
+    "message": "មិនមានគេហទំព័រអាហាររហ័សដែលត្រូវនឹងការស្វែងរកនេះទេ។"
+  },
+  "noticeMatched": {
+    "message": "$1 $2 បានផ្គូផ្គង \"$3\" ។"
+  },
+  "invalidUrlNotice": {
+    "message": "URL នោះមើលទៅមិនទាន់ត្រឹមត្រូវនៅឡើយទេ។ សាកល្បងដែនដូចជា example.com ។"
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 មានរួចហើយនៅក្នុងបញ្ជីបិទ ដូច្នេះវាត្រូវបានបើកឡើងវិញ។"
+  },
+  "addedToBlocklist": {
+    "message": "$1 ត្រូវបានបន្ថែមទៅក្នុងបញ្ជីទប់ស្កាត់ផ្ទាល់ខ្លួន។"
+  },
+  "removedFromBlocklist": {
+    "message": "$1 ត្រូវបានដកចេញពីបញ្ជីទប់ស្កាត់ផ្ទាល់ខ្លួន។"
+  },
+  "metadataHeading": {
+    "message": "ការទប់ស្កាត់ប្រទេស និងប្រភេទ"
+  },
+  "metadataIntro": {
+    "message": "រារាំងក្រុមគេហទំព័រទាំងមូលតាមប្រទេសដែលម៉ាកយីហោដំណើរការ ឬប្រភេទអាហារដែលវាបម្រើ។ ប្លុកទាំងនេះបន្ថែមទៅគេហទំព័រដែលមានស្រាប់របស់អ្នក និងប្លុក URL ផ្ទាល់ខ្លួន។"
+  },
+  "blockByCountryLabel": {
+    "message": "ទប់ស្កាត់តាមប្រទេស"
+  },
+  "blockByCountryHint": {
+    "message": "ស្វែងរកតាមឈ្មោះប្រទេស ឬលេខកូដ ឧ. \"United\" ឬ \"US\" ។ ការធ្វើឱ្យប្រទេសមួយរារាំងម៉ាកយីហោទាំងអស់ដែលសកម្មនៅទីនោះ។"
+  },
+  "countrySearchPlaceholder": {
+    "message": "ស្វែងរកប្រទេស..."
+  },
+  "quickAccessCountries": {
+    "message": "ការចូលប្រើរហ័ស — ប្រទេស"
+  },
+  "countryQuickEmpty": {
+    "message": "បើកដំណើរការប្រទេសពីការស្វែងរកដើម្បីខ្ទាស់វានៅទីនេះ។"
+  },
+  "blockByCategoryLabel": {
+    "message": "ទប់ស្កាត់តាមប្រភេទ"
+  },
+  "blockByCategoryHint": {
+    "message": "ស្វែងរកប្រភេទដូចជា ប៊ឺហ្គឺ ភីហ្សា ឬកាហ្វេ។ ឯកទេសក៏អាចស្វែងរកបានដែរ។ ប្លុកត្រូវបានអនុវត្តតាមប្រភេទ។"
+  },
+  "categorySearchPlaceholder": {
+    "message": "ស្វែងរកប្រភេទ…"
+  },
+  "quickAccessCategories": {
+    "message": "ការចូលប្រើរហ័ស - ប្រភេទ"
+  },
+  "categoryQuickEmpty": {
+    "message": "បើកប្រភេទមួយពីការស្វែងរកដើម្បីខ្ទាស់វានៅទីនេះ។"
+  },
+  "noCountriesMatch": {
+    "message": "គ្មានប្រទេសណាដែលត្រូវគ្នានឹងការស្វែងរកនោះទេ។"
+  },
+  "noCategoriesMatch": {
+    "message": "មិនមានប្រភេទដែលត្រូវគ្នានឹងការស្វែងរកនោះទេ។"
+  },
+  "languageHeading": {
+    "message": "ភាសា"
+  },
+  "languageIntro": {
+    "message": "ជ្រើសរើសភាសាដែល FitShield ប្រើសម្រាប់អេក្រង់ផ្ទាល់របស់វា។ វាបដិសេធភាសាកម្មវិធីរុករកតាមអ៊ីនធឺណិតរបស់អ្នកសម្រាប់តែផ្នែកបន្ថែមប៉ុណ្ណោះ។"
+  },
+  "languageSelectLabel": {
+    "message": "បង្ហាញភាសា"
+  },
+  "languageHint": {
+    "message": "ស្វែងរកភាសាមួយហើយជ្រើសរើសវា។ ជ្រើសរើស System default ដើម្បីធ្វើតាម browser របស់អ្នក។"
+  },
+  "languageSearchPlaceholder": {
+    "message": "ស្វែងរកភាសា..."
+  },
+  "currentLanguageHead": {
+    "message": "ភាសាបច្ចុប្បន្ន"
+  },
+  "languageUseButton": {
+    "message": "ប្រើ"
+  },
+  "languageActiveButton": {
+    "message": "សកម្ម"
+  },
+  "languageSystem": {
+    "message": "លំនាំដើមប្រព័ន្ធ"
+  },
+  "languageSystemSub": {
+    "message": "ធ្វើតាមភាសារបស់កម្មវិធីរុករកតាមអ៊ីនធឺណិតរបស់អ្នក។"
+  },
+  "languageEnglish": {
+    "message": "ភាសាអង់គ្លេស"
+  },
+  "languageJapanese": {
+    "message": "ជប៉ុន"
+  },
+  "languageChinese": {
+    "message": "ភាសាចិន (សាមញ្ញ)"
+  },
+  "languageFrench": {
+    "message": "បារាំង"
+  },
+  "languageCantonese": {
+    "message": "ភាសាកាតាំង"
+  },
+  "languageThai": {
+    "message": "ថៃ"
+  },
+  "languagePunjabi": {
+    "message": "ពុនចាប៊ី"
+  },
+  "languageTamil": {
+    "message": "តាមីល"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "ចិន (ប្រពៃណី តៃវ៉ាន់)"
+  },
+  "languageKorean": {
+    "message": "កូរ៉េ"
+  },
+  "languageHindi": {
+    "message": "ហិណ្ឌូ"
+  },
+  "languageSpanishLatam": {
+    "message": "អេស្ប៉ាញ (អាមេរិកឡាទីន)"
+  },
+  "languageSpanishSpain": {
+    "message": "អេស្ប៉ាញ (អេស្ប៉ាញ)"
+  },
+  "languageAfrikaans": {
+    "message": "អាហ្រ្វិក"
+  },
+  "languageAlbanian": {
+    "message": "អាល់បានី"
+  },
+  "languageBasque": {
+    "message": "បាស"
+  },
+  "languageBelarusian": {
+    "message": "បេឡារុស្ស"
+  },
+  "languageBulgarian": {
+    "message": "ប៊ុលហ្គារី"
+  },
+  "languageCatalan": {
+    "message": "កាតាឡាន"
+  },
+  "languageCroatian": {
+    "message": "ក្រូអាត"
+  },
+  "languageCzech": {
+    "message": "ឆេក"
+  },
+  "languageDanish": {
+    "message": "ដាណឺម៉ាក"
+  },
+  "languageDutch": {
+    "message": "ហូឡង់"
+  },
+  "languageEstonian": {
+    "message": "អេស្តូនី"
+  },
+  "languageFinnish": {
+    "message": "ហ្វាំងឡង់"
+  },
+  "languageGreek": {
+    "message": "ក្រិក"
+  },
+  "languageHungarian": {
+    "message": "ហុងគ្រី"
+  },
+  "languageIcelandic": {
+    "message": "អ៊ីស្លង់"
+  },
+  "languageIrish": {
+    "message": "អៀរឡង់"
+  },
+  "languageItalian": {
+    "message": "អ៊ីតាលី"
+  },
+  "languageLatvian": {
+    "message": "ឡាតវី"
+  },
+  "languageLithuanian": {
+    "message": "លីទុយអានី"
+  },
+  "languageMacedonian": {
+    "message": "ម៉ាសេដូនៀ"
+  },
+  "languageMaltese": {
+    "message": "ម៉ាល់តា"
+  },
+  "languageNorwegian": {
+    "message": "ន័រវេស"
+  },
+  "languagePolish": {
+    "message": "ប៉ូឡូញ"
+  },
+  "languagePortuguesePortugal": {
+    "message": "ព័រទុយហ្គាល់ (ព័រទុយហ្គាល់)"
+  },
+  "languageRomanian": {
+    "message": "រ៉ូម៉ានី"
+  },
+  "languageRussian": {
+    "message": "រុស្សី"
+  },
+  "languageSerbian": {
+    "message": "ស៊ែប៊ី"
+  },
+  "languageSlovak": {
+    "message": "ស្លូវ៉ាគី"
+  },
+  "languageSlovenian": {
+    "message": "ស្លូវេនី"
+  },
+  "languageSwedish": {
+    "message": "ស៊ុយអែត"
+  },
+  "languageTurkish": {
+    "message": "ទួរគី"
+  },
+  "languageUkrainian": {
+    "message": "អ៊ុយក្រែន"
+  },
+  "languageWelsh": {
+    "message": "វែល"
+  },
+  "languageBengali": {
+    "message": "បង់ក្លាដែស"
+  },
+  "languageGujarati": {
+    "message": "ហ្គូចារ៉ាទី"
+  },
+  "languageKannada": {
+    "message": "កាណាដា"
+  },
+  "languageMalayalam": {
+    "message": "ម៉ាឡាយ៉ាឡា"
+  },
+  "languageMarathi": {
+    "message": "ម៉ារ៉ាធី"
+  },
+  "languageNepali": {
+    "message": "នេប៉ាល់"
+  },
+  "languageOdia": {
+    "message": "អូឌីយ៉ា"
+  },
+  "languageSinhala": {
+    "message": "ស៊ីនហាឡា"
+  },
+  "languageTelugu": {
+    "message": "តេលូហ្គូ"
+  },
+  "languageUrdu": {
+    "message": "អ៊ូឌូ"
+  },
+  "languageAssamese": {
+    "message": "អាសាំ"
+  },
+  "languageIndonesian": {
+    "message": "ឥណ្ឌូនេស៊ី"
+  },
+  "languageMalay": {
+    "message": "ម៉ាឡេ"
+  },
+  "languageVietnamese": {
+    "message": "វៀតណាម"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ឡាវ"
+  },
+  "languageBurmese": {
+    "message": "ភូមា (មីយ៉ាន់ម៉ា)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "ហ្វីលីពីន / តាហ្គាឡុក"
+  },
+  "languageJavanese": {
+    "message": "ជ្វា"
+  },
+  "languageSundanese": {
+    "message": "ស៊ុនដា"
+  },
+  "languageArabic": {
+    "message": "ភាសាអារ៉ាប់"
+  },
+  "languagePersian": {
+    "message": "ពែរ្ស (ហ្វាស៊ី)"
+  },
+  "languageHebrew": {
+    "message": "ភាសាហេព្រើរ"
+  },
+  "languageArmenian": {
+    "message": "អាមេនី"
+  },
+  "languageGeorgian": {
+    "message": "ហ្សកហ្ស៊ី"
+  },
+  "languageKazakh": {
+    "message": "កាហ្សាក់ស្ថាន"
+  },
+  "languageKyrgyz": {
+    "message": "កៀហ្ស៊ីស៊ី"
+  },
+  "languageMongolian": {
+    "message": "ម៉ុងហ្គោលី"
+  },
+  "languagePashto": {
+    "message": "ប៉ាសតូ"
+  },
+  "languageTajik": {
+    "message": "តាជីក"
+  },
+  "languageTurkmen": {
+    "message": "តួកមេន"
+  },
+  "languageUyghur": {
+    "message": "អ៊ុយហ្គួ"
+  },
+  "languageUzbek": {
+    "message": "អ៊ូសបេក"
+  },
+  "noLanguagesMatch": {
+    "message": "គ្មានភាសាដែលត្រូវគ្នានឹងការស្វែងរកនោះទេ។"
+  },
+  "mbBlocking": {
+    "message": "ការទប់ស្កាត់"
+  },
+  "mbBlock": {
+    "message": "ទប់ស្កាត់"
+  },
+  "mbOn": {
+    "message": "បើក"
+  },
+  "mbOff": {
+    "message": "បិទ"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "ការទប់ស្កាត់ - ចុចដើម្បីផ្អាក"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "ផ្អាក - ចុច​ដើម្បី​ទប់ស្កាត់"
+  },
+  "mbChipRemoveTitle": {
+    "message": "ដកផ្លូវកាត់ចេញពីការចូលប្រើរហ័ស"
+  },
+  "mbChipRemoveAria": {
+    "message": "យក $1 ចេញពីការចូលប្រើរហ័ស"
+  },
+  "themeHeading": {
+    "message": "ប្រធានបទ"
+  },
+  "resetThemeButton": {
+    "message": "កំណត់រចនាប័ទ្មឡើងវិញ"
+  },
+  "systemThemeLabel": {
+    "message": "ប្រធានបទប្រព័ន្ធ"
+  },
+  "systemThemeHint": {
+    "message": "ចំណូលចិត្តឧបករណ៍ ឬរបៀបថេរ។"
+  },
+  "themeSystem": {
+    "message": "ប្រព័ន្ធ"
+  },
+  "themeLight": {
+    "message": "ពន្លឺ"
+  },
+  "themeDark": {
+    "message": "ងងឹត"
+  },
+  "themeBackground": {
+    "message": "ផ្ទៃខាងក្រោយ"
+  },
+  "themePanel": {
+    "message": "បន្ទះ"
+  },
+  "themeBorder": {
+    "message": "ព្រំដែន"
+  },
+  "themeText": {
+    "message": "អត្ថបទ"
+  },
+  "themeMutedText": {
+    "message": "អត្ថបទដែលបានបិទ"
+  },
+  "themeAccent": {
+    "message": "ការសង្កត់សំឡេង"
+  },
+  "cornerRadiusLabel": {
+    "message": "កាំជ្រុង"
+  },
+  "popupWidthLabel": {
+    "message": "ទទឹងលេចឡើង"
+  },
+  "supportFooterText": {
+    "message": "ប្រសិនបើ FitShield ជួយអ្នកឱ្យជៀសវាងការបញ្ជាទិញការដឹកជញ្ជូនដែលមិនចាំបាច់ ជំនួយជាជម្រើសជួយរក្សាបញ្ជីប្លុក និងឯកសារផ្លាស់ទី។"
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

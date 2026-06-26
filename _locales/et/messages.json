@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Otsi sait name or URL"
+  },
+  "searchButton": {
+    "message": "Otsi"
+  },
+  "clearButton": {
+    "message": "Tühjenda"
+  },
+  "openButton": {
+    "message": "Ava"
+  },
+  "addButton": {
+    "message": "Lisa"
+  },
+  "removeButton": {
+    "message": "Eemalda"
+  },
+  "viewBlocklistButton": {
+    "message": "View Blokeerilist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Jätka appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long saidid stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom minutit"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Blokeerimine will follow your daily ajakava when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Praegune ajakava: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "minut"
+  },
+  "unitMinutes": {
+    "message": "minutit"
+  },
+  "unitSite": {
+    "message": "sait"
+  },
+  "unitSites": {
+    "message": "saidid"
+  },
+  "popupSettingsButton": {
+    "message": "Seaded"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blokeerija"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every blokeeri list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & kategooria blokeeriing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Blokeeri whole groups of saidid by riik or food kategooria."
+  },
+  "popupDeliveryLabel": {
+    "message": "Kohaletoimetamise saidid"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Kiirtoidu saidid"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "Kohandatud URL-id"
+  },
+  "popupCustomSubtitle": {
+    "message": "Lisa your own saidid and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Blokeeri only during ajakavad hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Kasutaful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All saidid are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Blokeerija is on, but every individual sait is disabled. Ava Seaded to turn some saidid back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Blokeerimine resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blokeerija is armed, but outside ajakavad hours. It will blokeeri from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 kohaletoimetamise saidid enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 kiirtoidu saidid enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one minut."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the sait."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the sait for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Tagasi"
+  },
+  "warningLockedButton": {
+    "message": "Lukus"
+  },
+  "warningContinueButton": {
+    "message": "Jätka"
+  },
+  "warningOpeningButton": {
+    "message": "Avamine..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the sait now. The blokeerija will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the sait. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Seaded"
+  },
+  "blockingOptionsHeading": {
+    "message": "Blokeerimine Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Ajastatud tunnid"
+  },
+  "scheduledHoursHint": {
+    "message": "Blokeeri only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Blokeerilist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual saidid on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Kohaletoimetamise saidid"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Kiirtoidu saidid"
+  },
+  "customUrlsHeading": {
+    "message": "Kohandatud URL-id"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Lisa your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Näita Sites"
+  },
+  "hideSitesButton": {
+    "message": "Peida Sites"
+  },
+  "showUrlsButton": {
+    "message": "Näita URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Peida URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Luba delivery sait blokeeriing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Luba fast food sait blokeeriing"
+  },
+  "customToggleTitle": {
+    "message": "Luba custom URL blokeeriing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Lisa a custom blokeeried URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and blokeeried across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No kohandatud URL-id added yet."
+  },
+  "customNoMatch": {
+    "message": "No kohandatud URL-id match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No kohaletoimetamise saidid match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No kiirtoidu saidid match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the blokeerilist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom blokeerilist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom blokeerilist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Blokeerimine"
+  },
+  "metadataIntro": {
+    "message": "Blokeeri whole groups of saidid by the riik a brand operates in or the kind of food it serves. These blokeeris add to your existing sait and custom-URL blokeeris."
+  },
+  "blockByCountryLabel": {
+    "message": "Blokeeri by riik"
+  },
+  "blockByCountryHint": {
+    "message": "Otsi by riik name or code, e.g. \"United\" or \"US\". Enabling a riik blokeeris every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Otsi riigid…"
+  },
+  "quickAccessCountries": {
+    "message": "Kiirjuurdepääs — riigid"
+  },
+  "countryQuickEmpty": {
+    "message": "Luba a riik from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Blokeeri by kategooria"
+  },
+  "blockByCategoryHint": {
+    "message": "Otsi kategooriad like burger, pizza, or coffee. Specialties are searchable too; the blokeeri applies by kategooria."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Otsi kategooriad…"
+  },
+  "quickAccessCategories": {
+    "message": "Kiirjuurdepääs — kategooriad"
+  },
+  "categoryQuickEmpty": {
+    "message": "Luba a kategooria from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No riigid match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No kategooriad match that search."
+  },
+  "languageHeading": {
+    "message": "Keel"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Otsi for a language and select it. Choose Süsteem default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Otsi keeli…"
+  },
+  "currentLanguageHead": {
+    "message": "Praegune language"
+  },
+  "languageUseButton": {
+    "message": "Kasuta"
+  },
+  "languageActiveButton": {
+    "message": "Aktiivne"
+  },
+  "languageSystem": {
+    "message": "Süsteem default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Ükski keel ei vasta otsingule."
+  },
+  "mbBlocking": {
+    "message": "Blokeerimine"
+  },
+  "mbBlock": {
+    "message": "Blokeeri"
+  },
+  "mbOn": {
+    "message": "Sees"
+  },
+  "mbOff": {
+    "message": "Väljas"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Blokeerimine — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to blokeeri"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Eemalda shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Eemalda $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Teema"
+  },
+  "resetThemeButton": {
+    "message": "Lähtesta Teema"
+  },
+  "systemThemeLabel": {
+    "message": "Süsteem theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Süsteem"
+  },
+  "themeLight": {
+    "message": "Hele"
+  },
+  "themeDark": {
+    "message": "Tume"
+  },
+  "themeBackground": {
+    "message": "Taust"
+  },
+  "themePanel": {
+    "message": "Paneel"
+  },
+  "themeBorder": {
+    "message": "Ääris"
+  },
+  "themeText": {
+    "message": "Tekst"
+  },
+  "themeMutedText": {
+    "message": "Vaigistatud tekst"
+  },
+  "themeAccent": {
+    "message": "Rõhk"
+  },
+  "cornerRadiusLabel": {
+    "message": "Nurgaraadius"
+  },
+  "popupWidthLabel": {
+    "message": "Hüpikakna laius"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blokeerilists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Caută site name or URL"
+  },
+  "searchButton": {
+    "message": "Caută"
+  },
+  "clearButton": {
+    "message": "Golește"
+  },
+  "openButton": {
+    "message": "Deschide"
+  },
+  "addButton": {
+    "message": "Adaugă"
+  },
+  "removeButton": {
+    "message": "Elimină"
+  },
+  "viewBlocklistButton": {
+    "message": "View Blocheazălist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Continuă appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long site-uri stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom minut"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Blocare will follow your daily program when this is enabled."
+  },
+  "currentScheduleSummary": {
+    "message": "Curent program: $1."
+  },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
+  "scheduleRange": {
+    "message": "$1 to $2"
+  },
+  "unitMinute": {
+    "message": "minut"
+  },
+  "unitMinutes": {
+    "message": "minut"
+  },
+  "unitSite": {
+    "message": "site"
+  },
+  "unitSites": {
+    "message": "site-uri"
+  },
+  "popupSettingsButton": {
+    "message": "Setări"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blocator"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every blochează list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & categorie blocheazăing"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Blochează whole groups of site-uri by țară or food categorie."
+  },
+  "popupDeliveryLabel": {
+    "message": "Site-uri de livrare"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Site-uri fast food"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "URL-uri personalizate"
+  },
+  "popupCustomSubtitle": {
+    "message": "Adaugă your own site-uri and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Blochează only during programd hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Foloseșteful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All site-uri are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Blocator is on, but every individual site is disabled. Deschide Setări to turn some site-uri back on."
+  },
+  "statusBypassActive": {
+    "message": "Temporary pass is active. Blocare resumes in $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blocator is armed, but outside programd hours. It will blochează from $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 of $2 site-uri de livrare enabled."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 of $2 site-uri fast food enabled."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 match the search."
+  },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one minut."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
+  "warningTriggeredBy": {
+    "message": "You're about to order from $1."
+  },
+  "warningHintDefault": {
+    "message": "When the timer ends, you can continue to the site."
+  },
+  "warningHintLocked": {
+    "message": "When the timer ends, you can continue to the site for $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Înapoi"
+  },
+  "warningLockedButton": {
+    "message": "Blocat"
+  },
+  "warningContinueButton": {
+    "message": "Continuă"
+  },
+  "warningOpeningButton": {
+    "message": "Se deschide..."
+  },
+  "warningUnlockHint": {
+    "message": "You can visit the site now. The blocator will come back automatically after $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the site. Please try again."
+  },
+  "settingsTitle": {
+    "message": "FitShield Setări"
+  },
+  "blockingOptionsHeading": {
+    "message": "Blocare Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Ore programate"
+  },
+  "scheduledHoursHint": {
+    "message": "Blochează only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Blocheazălist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual site-uri on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Site-uri de livrare"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Site-uri fast food"
+  },
+  "customUrlsHeading": {
+    "message": "URL-uri personalizate"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Adaugă your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Arată Sites"
+  },
+  "hideSitesButton": {
+    "message": "Ascunde Sites"
+  },
+  "showUrlsButton": {
+    "message": "Arată URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Ascunde URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Activează delivery site blocheazăing"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Activează fast food site blocheazăing"
+  },
+  "customToggleTitle": {
+    "message": "Activează custom URL blocheazăing"
+  },
+  "addCustomUrlLabel": {
+    "message": "Adaugă a custom blocheazăed URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and blocheazăed across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No URL-uri personalizate added yet."
+  },
+  "customNoMatch": {
+    "message": "No URL-uri personalizate match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No site-uri de livrare match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No site-uri fast food match this search."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 matched \"$3\"."
+  },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 is already on the blocheazălist, so it has been re-enabled."
+  },
+  "addedToBlocklist": {
+    "message": "$1 was added to the custom blocheazălist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 was removed from the custom blocheazălist."
+  },
+  "metadataHeading": {
+    "message": "Country & Category Blocare"
+  },
+  "metadataIntro": {
+    "message": "Blochează whole groups of site-uri by the țară a brand operates in or the kind of food it serves. These blocheazăs add to your existing site and custom-URL blocheazăs."
+  },
+  "blockByCountryLabel": {
+    "message": "Blochează by țară"
+  },
+  "blockByCountryHint": {
+    "message": "Caută by țară name or code, e.g. \"United\" or \"US\". Enabling a țară blocheazăs every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Caută țări…"
+  },
+  "quickAccessCountries": {
+    "message": "Acces rapid — țări"
+  },
+  "countryQuickEmpty": {
+    "message": "Activează a țară from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Blochează by categorie"
+  },
+  "blockByCategoryHint": {
+    "message": "Caută categorii like burger, pizza, or coffee. Specialties are searchable too; the blochează applies by categorie."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Caută categorii…"
+  },
+  "quickAccessCategories": {
+    "message": "Acces rapid — categorii"
+  },
+  "categoryQuickEmpty": {
+    "message": "Activează a categorie from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No țări match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No categorii match that search."
+  },
+  "languageHeading": {
+    "message": "Limbă"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Caută for a language and select it. Choose Sistem default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Caută limbi…"
+  },
+  "currentLanguageHead": {
+    "message": "Curent language"
+  },
+  "languageUseButton": {
+    "message": "Folosește"
+  },
+  "languageActiveButton": {
+    "message": "Activ"
+  },
+  "languageSystem": {
+    "message": "Sistem default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageFrench": {
+    "message": "Français"
+  },
+  "languageCantonese": {
+    "message": "粵語"
+  },
+  "languageThai": {
+    "message": "ไทย"
+  },
+  "languagePunjabi": {
+    "message": "ਪੰਜਾਬੀ"
+  },
+  "languageTamil": {
+    "message": "தமிழ்"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "繁體中文（台灣）"
+  },
+  "languageKorean": {
+    "message": "한국어"
+  },
+  "languageHindi": {
+    "message": "हिन्दी"
+  },
+  "languageSpanishLatam": {
+    "message": "Español (Latinoamérica)"
+  },
+  "languageSpanishSpain": {
+    "message": "Español (España)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Shqip"
+  },
+  "languageBasque": {
+    "message": "Euskara"
+  },
+  "languageBelarusian": {
+    "message": "Беларуская"
+  },
+  "languageBulgarian": {
+    "message": "Български"
+  },
+  "languageCatalan": {
+    "message": "Català"
+  },
+  "languageCroatian": {
+    "message": "Hrvatski"
+  },
+  "languageCzech": {
+    "message": "Čeština"
+  },
+  "languageDanish": {
+    "message": "Dansk"
+  },
+  "languageDutch": {
+    "message": "Nederlands"
+  },
+  "languageEstonian": {
+    "message": "Eesti"
+  },
+  "languageFinnish": {
+    "message": "Suomi"
+  },
+  "languageGreek": {
+    "message": "Ελληνικά"
+  },
+  "languageHungarian": {
+    "message": "Magyar"
+  },
+  "languageIcelandic": {
+    "message": "Íslenska"
+  },
+  "languageIrish": {
+    "message": "Gaeilge"
+  },
+  "languageItalian": {
+    "message": "Italiano"
+  },
+  "languageLatvian": {
+    "message": "Latviešu"
+  },
+  "languageLithuanian": {
+    "message": "Lietuvių"
+  },
+  "languageMacedonian": {
+    "message": "Македонски"
+  },
+  "languageMaltese": {
+    "message": "Malti"
+  },
+  "languageNorwegian": {
+    "message": "Norsk"
+  },
+  "languagePolish": {
+    "message": "Polski"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Português (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Română"
+  },
+  "languageRussian": {
+    "message": "Русский"
+  },
+  "languageSerbian": {
+    "message": "Српски"
+  },
+  "languageSlovak": {
+    "message": "Slovenčina"
+  },
+  "languageSlovenian": {
+    "message": "Slovenščina"
+  },
+  "languageSwedish": {
+    "message": "Svenska"
+  },
+  "languageTurkish": {
+    "message": "Türkçe"
+  },
+  "languageUkrainian": {
+    "message": "Українська"
+  },
+  "languageWelsh": {
+    "message": "Cymraeg"
+  },
+  "noLanguagesMatch": {
+    "message": "Nicio limbă nu corespunde căutării."
+  },
+  "mbBlocking": {
+    "message": "Blocare"
+  },
+  "mbBlock": {
+    "message": "Blochează"
+  },
+  "mbOn": {
+    "message": "Pornit"
+  },
+  "mbOff": {
+    "message": "Oprit"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Blocare — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to blochează"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Elimină shortcut from quick access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Elimină $1 from quick access"
+  },
+  "themeHeading": {
+    "message": "Temă"
+  },
+  "resetThemeButton": {
+    "message": "Resetează Temă"
+  },
+  "systemThemeLabel": {
+    "message": "Sistem theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "Sistem"
+  },
+  "themeLight": {
+    "message": "Luminos"
+  },
+  "themeDark": {
+    "message": "Întunecat"
+  },
+  "themeBackground": {
+    "message": "Fundal"
+  },
+  "themePanel": {
+    "message": "Panou"
+  },
+  "themeBorder": {
+    "message": "Margine"
+  },
+  "themeText": {
+    "message": "Text"
+  },
+  "themeMutedText": {
+    "message": "Text estompat"
+  },
+  "themeAccent": {
+    "message": "Accent"
+  },
+  "cornerRadiusLabel": {
+    "message": "Raza colțului"
+  },
+  "popupWidthLabel": {
+    "message": "Lățime popup"
+  },
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blocheazălists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageBengali": {
+    "message": "বাংলা"
+  },
+  "languageGujarati": {
+    "message": "ગુજરાતી"
+  },
+  "languageKannada": {
+    "message": "ಕನ್ನಡ"
+  },
+  "languageMalayalam": {
+    "message": "മലയാളം"
+  },
+  "languageMarathi": {
+    "message": "मराठी"
+  },
+  "languageNepali": {
+    "message": "नेपाली"
+  },
+  "languageOdia": {
+    "message": "ଓଡ଼ିଆ"
+  },
+  "languageSinhala": {
+    "message": "සිංහල"
+  },
+  "languageTelugu": {
+    "message": "తెలుగు"
+  },
+  "languageUrdu": {
+    "message": "اردو"
+  },
+  "languageAssamese": {
+    "message": "অসমীয়া"
+  },
+  "languageIndonesian": {
+    "message": "Bahasa Indonesia"
+  },
+  "languageMalay": {
+    "message": "Bahasa Melayu"
+  },
+  "languageVietnamese": {
+    "message": "Tiếng Việt"
+  },
+  "languageKhmer": {
+    "message": "ខ្មែរ"
+  },
+  "languageLao": {
+    "message": "ລາວ"
+  },
+  "languageBurmese": {
+    "message": "မြန်မာ"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Basa Jawa"
+  },
+  "languageSundanese": {
+    "message": "Basa Sunda"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languagePersian": {
+    "message": "فارسی"
+  },
+  "languageHebrew": {
+    "message": "עברית"
+  },
+  "languageArmenian": {
+    "message": "Հայերեն"
+  },
+  "languageGeorgian": {
+    "message": "ქართული"
+  },
+  "languageKazakh": {
+    "message": "Қазақша"
+  },
+  "languageKyrgyz": {
+    "message": "Кыргызча"
+  },
+  "languageMongolian": {
+    "message": "Монгол"
+  },
+  "languagePashto": {
+    "message": "پښتو"
+  },
+  "languageTajik": {
+    "message": "Тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "Türkmençe"
+  },
+  "languageUyghur": {
+    "message": "ئۇيغۇرچە"
+  },
+  "languageUzbek": {
+    "message": "Oʻzbekcha"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

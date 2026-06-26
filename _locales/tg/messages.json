@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "Тамдиди браузери FitShield, ки ба шумо кӯмак мекунад, ки дар бораи интиқоли ғизо ва фармоиши зуд-фуд дар хотир нигоҳ доред."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Номи сайт ё URL-ро ҷустуҷӯ кунед"
+  },
+  "searchButton": {
+    "message": "Ҷустуҷӯ"
+  },
+  "clearButton": {
+    "message": "Тоза"
+  },
+  "openButton": {
+    "message": "Кушода"
+  },
+  "addButton": {
+    "message": "Илова"
+  },
+  "removeButton": {
+    "message": "Хориҷ кунед"
+  },
+  "viewBlocklistButton": {
+    "message": "Рӯйхати блокҳоро дидан"
+  },
+  "timerDurationLabel": {
+    "message": "Давомнокии таймер"
+  },
+  "timerDurationHint": {
+    "message": "Пеш аз пайдо шудани Идома ақибшумориро танзим кунед."
+  },
+  "customSecondsLabel": {
+    "message": "Сонияҳои фармоишӣ"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Вақти кушодани сайт"
+  },
+  "siteOpenTimeHint": {
+    "message": "Интихоб кунед, ки сайтҳо пас аз ба итмом расидани таймер чанд вақт боз хоҳанд буд."
+  },
+  "customMinutesLabel": {
+    "message": "Дақиқаҳои фармоишӣ"
+  },
+  "startTimeLabel": {
+    "message": "Вақти оғоз"
+  },
+  "endTimeLabel": {
+    "message": "Вақти анҷом"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Вақте ки ин фаъол карда мешавад, блоккунӣ ҷадвали ҳаррӯзаи шуморо риоя мекунад."
+  },
+  "currentScheduleSummary": {
+    "message": "Ҷадвали ҷорӣ: $1."
+  },
+  "everyDaySuffix": {
+    "message": " ҳар рӯз"
+  },
+  "scheduleRange": {
+    "message": "$1 ба $2"
+  },
+  "unitMinute": {
+    "message": "дақиқа"
+  },
+  "unitMinutes": {
+    "message": "дақиқа"
+  },
+  "unitSite": {
+    "message": "сайт"
+  },
+  "unitSites": {
+    "message": "сайтҳо"
+  },
+  "popupSettingsButton": {
+    "message": "Танзимотҳо"
+  },
+  "popupBlockerTitle": {
+    "message": "Блокери FitShield"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Ҳар як рӯйхати блокҳоро фаъол ё хомӯш кунед."
+  },
+  "popupMetadataLabel": {
+    "message": "Бастани кишвар ва категория"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Тамоми гурӯҳҳои сайтҳоро аз рӯи кишвар ё категорияи ғизо маҳкам кунед."
+  },
+  "popupDeliveryLabel": {
+    "message": "Пойгоҳҳои интиқол"
+  },
+  "popupDeliveryDefault": {
+    "message": "Доменҳои фармоиши интиқол."
+  },
+  "popupFastFoodLabel": {
+    "message": "Сайтҳои хӯроквории зуд"
+  },
+  "popupFastFoodDefault": {
+    "message": "Доменҳои асосии фармоиши занҷир."
+  },
+  "popupCustomLabel": {
+    "message": "URL-ҳои фармоишӣ"
+  },
+  "popupCustomSubtitle": {
+    "message": "Сайтҳои шахсии худро илова кунед ва онҳоро алоҳида хомӯш кунед."
+  },
+  "popupScheduleLabel": {
+    "message": "Танҳо дар соатҳои ба нақша гирифташуда блок кунед"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Барои буҷетҳои хӯрокхӯрӣ, фармоиши шабона ё соатҳои корӣ муфид аст."
+  },
+  "statusInactive": {
+    "message": "ғайрифаъол. Ҳама сайтҳо дастрасанд."
+  },
+  "statusAllDisabled": {
+    "message": "Blocker фаъол аст, аммо ҳар як сайти инфиродӣ ғайрифаъол аст. Танзимотҳоро кушоед, то баъзе сайтҳоро дубора фаъол созед."
+  },
+  "statusBypassActive": {
+    "message": "Тасвири муваққатӣ фаъол аст. Бастан дар $1 идома меёбад."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blocker мусаллаҳ аст, аммо берун аз соатҳои муқарраршуда. Он аз $1 баста мешавад."
+  },
+  "statusShieldUp": {
+    "message": "Сипар кунед. $1 сонияҳои ҳисоб, $2 $3 мегузарад."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 аз сайтҳои интиқоли $2 фаъол карда шудааст."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 аз сайтҳои $2 зуд ғизо фаъол аст."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 ба ҷустуҷӯ мувофиқат мекунад."
+  },
+  "warningPageTitle": {
+    "message": "Нафас гиред"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Санҷед"
+  },
+  "warningTitle": {
+    "message": "Як дақиқа гиред."
+  },
+  "warningIntro": {
+    "message": "Пеш аз фармоиш додан санҷед. Гуруснагӣ, роҳат, стресс ва одат метавонад дар айни замон якхела ҳис кунад."
+  },
+  "warningTriggeredBy": {
+    "message": "Шумо аз $1 фармоиш додан мехоҳед."
+  },
+  "warningHintDefault": {
+    "message": "Вақте ки вақтсанҷ ба охир мерасад, шумо метавонед ба сайт идома диҳед."
+  },
+  "warningHintLocked": {
+    "message": "Вақте ки вақтсанҷ ба охир мерасад, шумо метавонед ба сайти $1 $2 идома диҳед."
+  },
+  "warningBackButton": {
+    "message": "Бозгашт"
+  },
+  "warningLockedButton": {
+    "message": "Қулф карда шудааст"
+  },
+  "warningContinueButton": {
+    "message": "Давом додан"
+  },
+  "warningOpeningButton": {
+    "message": "Ифтитоҳ..."
+  },
+  "warningUnlockHint": {
+    "message": "Шумо метавонед ба сайт ҳозир шавед. Блокатор пас аз $1 $2 ба таври худкор бармегардад."
+  },
+  "warningErrorHint": {
+    "message": "Ҳангоми кушодани сайт чизе хато кард. Лутфан бори дигар кӯшиш кунед."
+  },
+  "settingsTitle": {
+    "message": "Танзимоти FitShield"
+  },
+  "blockingOptionsHeading": {
+    "message": "Имконоти басташавӣ"
+  },
+  "scheduledHoursLabel": {
+    "message": "Соатҳои ба нақша гирифташуда"
+  },
+  "scheduledHoursHint": {
+    "message": "Танҳо дар давоми равзанаи вақти ҳаррӯза блок кунед."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Рӯйхати блокҳоро танзим кунед"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Интихоб кунед, ки кадом гурӯҳҳои дарунсохт фаъоланд, сайтҳои алоҳидаро фаъол ё хомӯш кунед ва доменҳои худро илова кунед."
+  },
+  "deliverySitesHeading": {
+    "message": "Сомонаҳои интиқол"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Сомонаҳои зудфуд"
+  },
+  "customUrlsHeading": {
+    "message": "URL-ҳои фармоишӣ"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Доменҳои шахсии худро илова кунед ва онҳоро алоҳида хомӯш кунед."
+  },
+  "showSitesButton": {
+    "message": "Нишон додани сайтҳо"
+  },
+  "hideSitesButton": {
+    "message": "Пинҳон кардани сайтҳо"
+  },
+  "showUrlsButton": {
+    "message": "Нишон додани URL"
+  },
+  "hideUrlsButton": {
+    "message": "Пинҳон кардани URL"
+  },
+  "deliveryToggleTitle": {
+    "message": "Бастани сайти интиқолро фаъол созед"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Бастани сайти ғизои зудро фаъол созед"
+  },
+  "customToggleTitle": {
+    "message": "Бастани URL-и фармоиширо фаъол созед"
+  },
+  "addCustomUrlLabel": {
+    "message": "URL-и басташудаи фармоиширо илова кунед"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com ё https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Вурудҳо ба доменҳо муқаррар карда мешаванд ва дар тамоми саҳифаҳо баста мешаванд."
+  },
+  "customEmptyDefault": {
+    "message": "Ҳанӯз ягон URL-и фармоишӣ илова карда нашудааст."
+  },
+  "customNoMatch": {
+    "message": "Ягон URL-и фармоишӣ ба ин ҷустуҷӯ мувофиқат намекунад."
+  },
+  "emptyDeliverySearch": {
+    "message": "Ягон сайти интиқол ба ин ҷустуҷӯ мувофиқат намекунад."
+  },
+  "emptyFastFoodSearch": {
+    "message": "Ягон сайти ғизои зуд ба ин ҷустуҷӯ мувофиқат намекунад."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 ба \"$3\" мувофиқат кард."
+  },
+  "invalidUrlNotice": {
+    "message": "Он URL то ҳол эътибор надорад. Доменеро ба монанди example.com санҷед."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 аллакай дар рӯйхати блокҳо мавҷуд аст, бинобар ин он дубора фаъол карда шуд."
+  },
+  "addedToBlocklist": {
+    "message": "$1 ба рӯйхати бастабандии фармоишӣ илова карда шуд."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 аз рӯйхати блокҳои фармоишӣ хориҷ карда шуд."
+  },
+  "metadataHeading": {
+    "message": "Бастани кишвар ва категория"
+  },
+  "metadataIntro": {
+    "message": "Тамоми гурӯҳҳои сайтҳоро аз рӯи кишваре, ки бренд дар он фаъолият мекунад ё навъи ғизое, ки он пешкаш мекунад, маҳкам кунед. Ин блокҳо ба сайти мавҷудаи шумо ва блокҳои URL-и фармоишӣ илова мекунанд."
+  },
+  "blockByCountryLabel": {
+    "message": "Блок аз рӯи кишвар"
+  },
+  "blockByCountryHint": {
+    "message": "Ҷустуҷӯ аз рӯи номи кишвар ё код, масалан. \"Муттаҳид\" ё \"ИМА\". Фаъол кардани кишвар ҳар як бренди фаъолро дар он ҷо блок мекунад."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Ҷустуҷӯи кишварҳо…"
+  },
+  "quickAccessCountries": {
+    "message": "Дастрасии зуд — кишварҳо"
+  },
+  "countryQuickEmpty": {
+    "message": "Кишварро аз ҷустуҷӯ фаъол созед, то онро дар ин ҷо ҷойгир кунад."
+  },
+  "blockByCategoryLabel": {
+    "message": "Блок аз рӯи категория"
+  },
+  "blockByCategoryHint": {
+    "message": "Ҷустуҷӯи категорияҳо ба монанди бургер, пицца ё қаҳва. Ихтисосҳо низ қобили ҷустуҷӯ мебошанд; блок аз рӯи категория татбиқ мешавад."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Ҷустуҷӯи категорияҳо…"
+  },
+  "quickAccessCategories": {
+    "message": "Дастрасии зуд — категорияҳо"
+  },
+  "categoryQuickEmpty": {
+    "message": "Категорияро аз ҷустуҷӯ фаъол созед, то онро дар ин ҷо ҷойгир кунед."
+  },
+  "noCountriesMatch": {
+    "message": "Ягон кишвар ба ин ҷустуҷӯ мувофиқат намекунад."
+  },
+  "noCategoriesMatch": {
+    "message": "Ягон категория ба ҷустуҷӯ мувофиқат намекунад."
+  },
+  "languageHeading": {
+    "message": "Забон"
+  },
+  "languageIntro": {
+    "message": "Забонеро интихоб кунед, ки FitShield барои экранҳои худ истифода мебарад. Ин забони браузери шуморо танҳо барои васеъкунӣ бекор мекунад."
+  },
+  "languageSelectLabel": {
+    "message": "Забони намоиш"
+  },
+  "languageHint": {
+    "message": "Забонеро ҷустуҷӯ кунед ва онро интихоб кунед. Барои пайгирӣ кардани браузери худ, системаро пешфарз интихоб кунед."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Ҷустуҷӯи забонҳо…"
+  },
+  "currentLanguageHead": {
+    "message": "Забони ҳозира"
+  },
+  "languageUseButton": {
+    "message": "Истифода баред"
+  },
+  "languageActiveButton": {
+    "message": "Фаъол"
+  },
+  "languageSystem": {
+    "message": "Пешфарзи система"
+  },
+  "languageSystemSub": {
+    "message": "Забони браузери худро риоя кунед"
+  },
+  "languageEnglish": {
+    "message": "англисӣ"
+  },
+  "languageJapanese": {
+    "message": "Ҷопон"
+  },
+  "languageChinese": {
+    "message": "Чинӣ (соддашуда)"
+  },
+  "languageFrench": {
+    "message": "фаронсавӣ"
+  },
+  "languageCantonese": {
+    "message": "кантонӣ"
+  },
+  "languageThai": {
+    "message": "тай"
+  },
+  "languagePunjabi": {
+    "message": "Панҷобӣ"
+  },
+  "languageTamil": {
+    "message": "тамилӣ"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "Чин (анъанавӣ, Тайван)"
+  },
+  "languageKorean": {
+    "message": "Корея"
+  },
+  "languageHindi": {
+    "message": "ҳиндӣ"
+  },
+  "languageSpanishLatam": {
+    "message": "испанӣ (Амрикои Лотинӣ)"
+  },
+  "languageSpanishSpain": {
+    "message": "испанӣ (Испания)"
+  },
+  "languageAfrikaans": {
+    "message": "африқоӣ"
+  },
+  "languageAlbanian": {
+    "message": "албанӣ"
+  },
+  "languageBasque": {
+    "message": "баскӣ"
+  },
+  "languageBelarusian": {
+    "message": "белорус"
+  },
+  "languageBulgarian": {
+    "message": "булгорӣ"
+  },
+  "languageCatalan": {
+    "message": "каталонӣ"
+  },
+  "languageCroatian": {
+    "message": "хорватӣ"
+  },
+  "languageCzech": {
+    "message": "чех"
+  },
+  "languageDanish": {
+    "message": "Дания"
+  },
+  "languageDutch": {
+    "message": "Голландия"
+  },
+  "languageEstonian": {
+    "message": "эстонӣ"
+  },
+  "languageFinnish": {
+    "message": "финландӣ"
+  },
+  "languageGreek": {
+    "message": "юнонӣ"
+  },
+  "languageHungarian": {
+    "message": "Венгрия"
+  },
+  "languageIcelandic": {
+    "message": "исландӣ"
+  },
+  "languageIrish": {
+    "message": "ирландӣ"
+  },
+  "languageItalian": {
+    "message": "Италия"
+  },
+  "languageLatvian": {
+    "message": "латыш"
+  },
+  "languageLithuanian": {
+    "message": "литваӣ"
+  },
+  "languageMacedonian": {
+    "message": "македонӣ"
+  },
+  "languageMaltese": {
+    "message": "малтаӣ"
+  },
+  "languageNorwegian": {
+    "message": "норвегӣ"
+  },
+  "languagePolish": {
+    "message": "полякӣ"
+  },
+  "languagePortuguesePortugal": {
+    "message": "португалӣ (Португалия)"
+  },
+  "languageRomanian": {
+    "message": "руминӣ"
+  },
+  "languageRussian": {
+    "message": "русӣ"
+  },
+  "languageSerbian": {
+    "message": "сербӣ"
+  },
+  "languageSlovak": {
+    "message": "словакӣ"
+  },
+  "languageSlovenian": {
+    "message": "словенӣ"
+  },
+  "languageSwedish": {
+    "message": "шведӣ"
+  },
+  "languageTurkish": {
+    "message": "туркӣ"
+  },
+  "languageUkrainian": {
+    "message": "украинӣ"
+  },
+  "languageWelsh": {
+    "message": "Уелсӣ"
+  },
+  "languageBengali": {
+    "message": "бангалӣ"
+  },
+  "languageGujarati": {
+    "message": "Гуҷаратӣ"
+  },
+  "languageKannada": {
+    "message": "каннада"
+  },
+  "languageMalayalam": {
+    "message": "малаялам"
+  },
+  "languageMarathi": {
+    "message": "маратҳӣ"
+  },
+  "languageNepali": {
+    "message": "непалӣ"
+  },
+  "languageOdia": {
+    "message": "Одия"
+  },
+  "languageSinhala": {
+    "message": "Сингал"
+  },
+  "languageTelugu": {
+    "message": "телугу"
+  },
+  "languageUrdu": {
+    "message": "урду"
+  },
+  "languageAssamese": {
+    "message": "ассомӣ"
+  },
+  "languageIndonesian": {
+    "message": "Индонезия"
+  },
+  "languageMalay": {
+    "message": "малайӣ"
+  },
+  "languageVietnamese": {
+    "message": "Ветнами"
+  },
+  "languageKhmer": {
+    "message": "кхмер"
+  },
+  "languageLao": {
+    "message": "Лао"
+  },
+  "languageBurmese": {
+    "message": "Бирма (Мянмар)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Филиппинӣ / Тагалогӣ"
+  },
+  "languageJavanese": {
+    "message": "ёвонӣ"
+  },
+  "languageSundanese": {
+    "message": "сунданӣ"
+  },
+  "languageArabic": {
+    "message": "арабӣ"
+  },
+  "languagePersian": {
+    "message": "форсӣ (форсӣ)"
+  },
+  "languageHebrew": {
+    "message": "ибрӣ"
+  },
+  "languageArmenian": {
+    "message": "арманӣ"
+  },
+  "languageGeorgian": {
+    "message": "гурҷӣ"
+  },
+  "languageKazakh": {
+    "message": "қазоқ"
+  },
+  "languageKyrgyz": {
+    "message": "киргиз"
+  },
+  "languageMongolian": {
+    "message": "муғулӣ"
+  },
+  "languagePashto": {
+    "message": "пашту"
+  },
+  "languageTajik": {
+    "message": "тоҷикӣ"
+  },
+  "languageTurkmen": {
+    "message": "туркман"
+  },
+  "languageUyghur": {
+    "message": "уйгур"
+  },
+  "languageUzbek": {
+    "message": "узбек"
+  },
+  "noLanguagesMatch": {
+    "message": "Ягон забон ба ин ҷустуҷӯ мувофиқат намекунад."
+  },
+  "mbBlocking": {
+    "message": "Бастан"
+  },
+  "mbBlock": {
+    "message": "Блок"
+  },
+  "mbOn": {
+    "message": "Дар бораи"
+  },
+  "mbOff": {
+    "message": "Хомӯш"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Бастан — барои таваққуф клик кунед"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Таваққуф карда шуд — барои бастан клик кунед"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Миёнабурро аз дастрасии зуд хориҷ кунед"
+  },
+  "mbChipRemoveAria": {
+    "message": "$1-ро аз дастрасии зуд хориҷ кунед"
+  },
+  "themeHeading": {
+    "message": "Мавзӯъ"
+  },
+  "resetThemeButton": {
+    "message": "Аз нав танзимкунии мавзӯъ"
+  },
+  "systemThemeLabel": {
+    "message": "Мавзӯи система"
+  },
+  "systemThemeHint": {
+    "message": "Афзалияти дастгоҳ ё ҳолати собит."
+  },
+  "themeSystem": {
+    "message": "Система"
+  },
+  "themeLight": {
+    "message": "Нур"
+  },
+  "themeDark": {
+    "message": "Торик"
+  },
+  "themeBackground": {
+    "message": "Замина"
+  },
+  "themePanel": {
+    "message": "Панел"
+  },
+  "themeBorder": {
+    "message": "Сарҳад"
+  },
+  "themeText": {
+    "message": "Матн"
+  },
+  "themeMutedText": {
+    "message": "Матни хомӯшшуда"
+  },
+  "themeAccent": {
+    "message": "Аксент"
+  },
+  "cornerRadiusLabel": {
+    "message": "Радиуси кунҷ"
+  },
+  "popupWidthLabel": {
+    "message": "Паҳнои поп-ап"
+  },
+  "supportFooterText": {
+    "message": "Агар FitShield ба шумо кӯмак кунад, ки аз фармоиши интиқоли нолозим канорагирӣ кунед, дастгирии ихтиёрӣ барои нигоҳ доштани рӯйхати блокҳо ва ҳуҷҷатҳо кӯмак мекунад."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}

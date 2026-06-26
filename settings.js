@@ -5,6 +5,15 @@ const MIN_PASS_DURATION_MINUTES = 1;
 const DEFAULT_SCHEDULE_START = "18:00";
 const DEFAULT_SCHEDULE_END = "23:00";
 
+// Localization helper (i18n.js loads first). Falls back to the key when a
+// message is missing so the gap is visible rather than blank.
+const t = (key, subs) =>
+  (typeof FitShieldI18n !== "undefined" ? FitShieldI18n.t(key, subs) : key);
+
+function siteUnit(count) {
+  return t(count === 1 ? "unitSite" : "unitSites");
+}
+
 const DEFAULT_THEME = {
   bg: "#0f141b",
   panel: "#1a212b",
@@ -269,7 +278,10 @@ function formatScheduleText(start, end) {
   const endDate = new Date();
   endDate.setHours(endHour, endMinute, 0, 0);
 
-  return `${startDate.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })} to ${endDate.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`;
+  return t("scheduleRange", [
+    startDate.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }),
+    endDate.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+  ]);
 }
 
 function updateScheduleControls(scheduleEnabled) {
@@ -366,7 +378,7 @@ function createSiteRow(site, category) {
     const removeButton = document.createElement("button");
     removeButton.type = "button";
     removeButton.className = "secondary";
-    removeButton.textContent = "Remove";
+    removeButton.textContent = t("removeButton");
     removeButton.dataset.removeDomain = site.domain;
     controls.appendChild(removeButton);
   }
@@ -393,8 +405,8 @@ function renderCustomSites(customSites) {
 
   if (customSites.length === 0) {
     customSiteEmpty.textContent = currentSearch
-      ? "No custom URLs match this search."
-      : "No custom URLs added yet.";
+      ? t("customNoMatch")
+      : t("customEmptyDefault");
     customSiteEmpty.hidden = !expandedSiteLists.custom;
     return;
   }
@@ -410,7 +422,7 @@ function setListExpanded(category, expanded) {
   expandedSiteLists[category] = expanded;
 }
 
-function updateListToggle(button, category, shownText = "Show Sites", hiddenText = "Hide Sites") {
+function updateListToggle(button, category, shownText = t("showSitesButton"), hiddenText = t("hideSitesButton")) {
   const expanded = expandedSiteLists[category];
   button.textContent = expanded ? hiddenText : shownText;
   button.setAttribute("aria-expanded", String(expanded));
@@ -437,8 +449,10 @@ function updateBlockingControls(state) {
   updateScheduleControls(scheduleEnabled);
 
   scheduleSummary.textContent = scheduleEnabled
-    ? `Current schedule: ${formatScheduleText(scheduleStart, scheduleEnd)}${scheduleStart === scheduleEnd ? " every day" : ""}.`
-    : "Blocking will follow your daily schedule when this is enabled.";
+    ? t("currentScheduleSummary", [
+        formatScheduleText(scheduleStart, scheduleEnd) + (scheduleStart === scheduleEnd ? t("everyDaySuffix") : "")
+      ])
+    : t("scheduleDefaultSummary");
 }
 
 function renderBlocklist(state) {
@@ -461,11 +475,15 @@ function renderBlocklist(state) {
   deliverySitesEnabledInput.checked = deliverySitesEnabled;
   fastFoodSitesEnabledInput.checked = fastFoodSitesEnabled;
   customSitesEnabledInput.checked = customSitesEnabled;
-  deliveryCount.textContent = `${deliverySites.filter((site) => site.enabled).length} of ${deliverySites.length} delivery sites enabled.${currentSearch ? ` ${filteredDeliverySites.length} match the search.` : ""}`;
-  fastFoodCount.textContent = `${fastFoodSites.filter((site) => site.enabled).length} of ${fastFoodSites.length} fast food sites enabled.${currentSearch ? ` ${filteredFastFoodSites.length} match the search.` : ""}`;
+  const deliveryEnabledCount = deliverySites.filter((site) => site.enabled).length;
+  const fastFoodEnabledCount = fastFoodSites.filter((site) => site.enabled).length;
+  deliveryCount.textContent = t("deliverySitesEnabledCount", [String(deliveryEnabledCount), String(deliverySites.length)])
+    + (currentSearch ? t("searchMatchSuffix", [String(filteredDeliverySites.length)]) : "");
+  fastFoodCount.textContent = t("fastFoodSitesEnabledCount", [String(fastFoodEnabledCount), String(fastFoodSites.length)])
+    + (currentSearch ? t("searchMatchSuffix", [String(filteredFastFoodSites.length)]) : "");
 
-  renderSiteList(deliveryList, filteredDeliverySites, "delivery", "No delivery sites match this search.");
-  renderSiteList(fastFoodList, filteredFastFoodSites, "fastfood", "No fast food sites match this search.");
+  renderSiteList(deliveryList, filteredDeliverySites, "delivery", t("emptyDeliverySearch"));
+  renderSiteList(fastFoodList, filteredFastFoodSites, "fastfood", t("emptyFastFoodSearch"));
   renderCustomSites(filteredCustomSites);
 
   deliveryList.hidden = !expandedSiteLists.delivery;
@@ -473,11 +491,11 @@ function renderBlocklist(state) {
   customSiteList.hidden = !expandedSiteLists.custom || filteredCustomSites.length === 0;
   updateListToggle(toggleDeliveryListButton, "delivery");
   updateListToggle(toggleFastFoodListButton, "fastfood");
-  updateListToggle(toggleCustomListButton, "custom", "Show URLs", "Hide URLs");
+  updateListToggle(toggleCustomListButton, "custom", t("showUrlsButton"), t("hideUrlsButton"));
 
   if (currentSearch) {
     const matchCount = filteredDeliverySites.length + filteredFastFoodSites.length + filteredCustomSites.length;
-    setNotice(`${matchCount} site${matchCount === 1 ? "" : "s"} matched "${blocklistSearchInput.value.trim()}".`);
+    setNotice(t("noticeMatched", [String(matchCount), siteUnit(matchCount), blocklistSearchInput.value.trim()]));
   } else if (!blocklistNotice.textContent) {
     setNotice("");
   }
@@ -683,7 +701,7 @@ addCustomSiteButton.addEventListener("click", async () => {
   const domain = normalizeCustomDomain(customSiteInput.value);
 
   if (!domain) {
-    setNotice("That URL does not look valid yet. Try a domain like example.com.");
+    setNotice(t("invalidUrlNotice"));
     return;
   }
 
@@ -693,10 +711,10 @@ addCustomSiteButton.addEventListener("click", async () => {
 
   if (existingSite) {
     existingSite.enabled = true;
-    setNotice(`${domain} is already on the blocklist, so it has been re-enabled.`);
+    setNotice(t("alreadyOnBlocklist", [domain]));
   } else {
     updatedSites.push({ domain, enabled: true });
-    setNotice(`${domain} was added to the custom blocklist.`);
+    setNotice(t("addedToBlocklist", [domain]));
   }
 
   customSiteInput.value = "";
@@ -732,7 +750,7 @@ customSiteList.addEventListener("click", async (event) => {
   }
 
   const customSites = latestBlockState.customSites.filter((site) => site.domain !== button.dataset.removeDomain);
-  setNotice(`${button.dataset.removeDomain} was removed from the custom blocklist.`);
+  setNotice(t("removedFromBlocklist", [button.dataset.removeDomain]));
   await saveSettings({ customSites });
 });
 
@@ -743,8 +761,14 @@ if (initialSearch) {
   applyBlocklistSearch(initialSearch);
 }
 
+// Resolve once the stored UI language has been applied, so the first render
+// uses the right locale instead of flashing the browser default.
+const i18nReady = (typeof FitShieldI18n !== "undefined" && FitShieldI18n.ready)
+  ? FitShieldI18n.ready
+  : Promise.resolve();
+
 loadTheme();
-loadBlocklist();
+i18nReady.then(loadBlocklist);
 
 // ===========================================================================
 // Country & category blocking (metadata-driven).
@@ -790,10 +814,13 @@ function capitalize(text) {
 }
 
 function pluralizeSites(count) {
-  return `${count} site${count === 1 ? "" : "s"}`;
+  return `${count} ${siteUnit(count)}`;
 }
 
-function buildResultRow(name, sub, enabled, onToggle) {
+function buildResultRow(name, sub, enabled, onToggle, labels) {
+  const onLabel = labels && labels.onLabel ? labels.onLabel : t("mbBlocking");
+  const offLabel = labels && labels.offLabel ? labels.offLabel : t("mbBlock");
+
   const row = document.createElement("div");
   row.className = "mb-result";
 
@@ -813,7 +840,7 @@ function buildResultRow(name, sub, enabled, onToggle) {
   const button = document.createElement("button");
   button.type = "button";
   button.className = `mb-pill ${enabled ? "on" : "off"}`;
-  button.textContent = enabled ? "Blocking" : "Block";
+  button.textContent = enabled ? onLabel : offLabel;
   button.addEventListener("click", onToggle);
 
   row.append(label, button);
@@ -831,16 +858,16 @@ function buildQuickChip(label, enabled, onToggle, onRemove) {
   const toggle = document.createElement("button");
   toggle.type = "button";
   toggle.className = `mb-chip-toggle ${enabled ? "on" : "off"}`;
-  toggle.textContent = enabled ? "On" : "Off";
-  toggle.title = enabled ? "Blocking — click to pause" : "Paused — click to block";
+  toggle.textContent = enabled ? t("mbOn") : t("mbOff");
+  toggle.title = enabled ? t("mbChipToggleOnTitle") : t("mbChipToggleOffTitle");
   toggle.addEventListener("click", onToggle);
 
   const remove = document.createElement("button");
   remove.type = "button";
   remove.className = "mb-chip-remove";
   remove.textContent = "×";
-  remove.title = "Remove shortcut from quick access";
-  remove.setAttribute("aria-label", `Remove ${label} from quick access`);
+  remove.title = t("mbChipRemoveTitle");
+  remove.setAttribute("aria-label", t("mbChipRemoveAria", [label]));
   remove.addEventListener("click", onRemove);
 
   chip.append(labelEl, toggle, remove);
@@ -898,7 +925,7 @@ function renderCountryResults() {
   if (matches.length === 0) {
     const empty = document.createElement("div");
     empty.className = "mb-empty";
-    empty.textContent = "No countries match that search.";
+    empty.textContent = t("noCountriesMatch");
     countrySearchResults.appendChild(empty);
   } else {
     matches.forEach((country) => {
@@ -986,7 +1013,7 @@ function renderCategoryResults() {
   if (matches.length === 0) {
     const empty = document.createElement("div");
     empty.className = "mb-empty";
-    empty.textContent = "No categories match that search.";
+    empty.textContent = t("noCategoriesMatch");
     categorySearchResults.appendChild(empty);
   } else {
     matches.forEach((entry) => {
@@ -1059,4 +1086,220 @@ async function initMetadataBlocking() {
 countrySearchInput.addEventListener("input", renderCountryResults);
 categorySearchInput.addEventListener("input", renderCategoryResults);
 
-initMetadataBlocking();
+i18nReady.then(initMetadataBlocking);
+
+// ===========================================================================
+// Display language selector.
+// The chosen language is stored in chrome.storage.local under "uiLanguage" and
+// applied by i18n.js. Selecting "System default" clears the override and falls
+// back to Chrome's normal chrome.i18n behavior.
+// ===========================================================================
+
+const languageSearchInput = document.getElementById("languageSearchInput");
+const languageSearchResults = document.getElementById("languageSearchResults");
+const languageCurrent = document.getElementById("languageCurrent");
+
+// value: stored locale code ("" = system default). labelKey: translatable name.
+// native: shown untranslated so users always recognize their own language.
+const LANGUAGE_OPTIONS = [
+  { value: "", labelKey: "languageSystem", nativeKey: "languageSystemSub" },
+  { value: "en", labelKey: "languageEnglish", native: "English" },
+  { value: "ja", labelKey: "languageJapanese", native: "日本語" },
+  { value: "zh_CN", labelKey: "languageChinese", native: "简体中文" },
+  { value: "ko", labelKey: "languageKorean", native: "한국어" },
+  { value: "hi", labelKey: "languageHindi", native: "हिन्दी" },
+  { value: "es_419", labelKey: "languageSpanishLatam", native: "Español (Latinoamérica)" },
+  { value: "es", labelKey: "languageSpanishSpain", native: "Español (España)" },
+  { value: "fr", labelKey: "languageFrench", native: "Français" },
+  { value: "yue", labelKey: "languageCantonese", native: "粵語" },
+  { value: "th", labelKey: "languageThai", native: "ไทย" },
+  { value: "pa", labelKey: "languagePunjabi", native: "ਪੰਜਾਬੀ" },
+  { value: "ta", labelKey: "languageTamil", native: "தமிழ்" },
+  { value: "zh_TW", labelKey: "languageChineseTraditionalTaiwan", native: "繁體中文（台灣）" },
+  { value: "af", labelKey: "languageAfrikaans", native: "Afrikaans" },
+  { value: "sq", labelKey: "languageAlbanian", native: "Shqip" },
+  { value: "eu", labelKey: "languageBasque", native: "Euskara" },
+  { value: "be", labelKey: "languageBelarusian", native: "Беларуская" },
+  { value: "bg", labelKey: "languageBulgarian", native: "Български" },
+  { value: "ca", labelKey: "languageCatalan", native: "Català" },
+  { value: "hr", labelKey: "languageCroatian", native: "Hrvatski" },
+  { value: "cs", labelKey: "languageCzech", native: "Čeština" },
+  { value: "da", labelKey: "languageDanish", native: "Dansk" },
+  { value: "nl", labelKey: "languageDutch", native: "Nederlands" },
+  { value: "et", labelKey: "languageEstonian", native: "Eesti" },
+  { value: "fi", labelKey: "languageFinnish", native: "Suomi" },
+  { value: "el", labelKey: "languageGreek", native: "Ελληνικά" },
+  { value: "hu", labelKey: "languageHungarian", native: "Magyar" },
+  { value: "is", labelKey: "languageIcelandic", native: "Íslenska" },
+  { value: "ga", labelKey: "languageIrish", native: "Gaeilge" },
+  { value: "it", labelKey: "languageItalian", native: "Italiano" },
+  { value: "lv", labelKey: "languageLatvian", native: "Latviešu" },
+  { value: "lt", labelKey: "languageLithuanian", native: "Lietuvių" },
+  { value: "mk", labelKey: "languageMacedonian", native: "Македонски" },
+  { value: "mt", labelKey: "languageMaltese", native: "Malti" },
+  { value: "no", labelKey: "languageNorwegian", native: "Norsk" },
+  { value: "pl", labelKey: "languagePolish", native: "Polski" },
+  { value: "pt_PT", labelKey: "languagePortuguesePortugal", native: "Português (Portugal)" },
+  { value: "ro", labelKey: "languageRomanian", native: "Română" },
+  { value: "ru", labelKey: "languageRussian", native: "Русский" },
+  { value: "sr", labelKey: "languageSerbian", native: "Српски" },
+  { value: "sk", labelKey: "languageSlovak", native: "Slovenčina" },
+  { value: "sl", labelKey: "languageSlovenian", native: "Slovenščina" },
+  { value: "sv", labelKey: "languageSwedish", native: "Svenska" },
+  { value: "tr", labelKey: "languageTurkish", native: "Türkçe" },
+  { value: "uk", labelKey: "languageUkrainian", native: "Українська" },
+  { value: "cy", labelKey: "languageWelsh", native: "Cymraeg" },
+  { value: "bn", labelKey: "languageBengali", native: "বাংলা" },
+  { value: "gu", labelKey: "languageGujarati", native: "ગુજરાતી" },
+  { value: "kn", labelKey: "languageKannada", native: "ಕನ್ನಡ" },
+  { value: "ml", labelKey: "languageMalayalam", native: "മലയാളം" },
+  { value: "mr", labelKey: "languageMarathi", native: "मराठी" },
+  { value: "ne", labelKey: "languageNepali", native: "नेपाली" },
+  { value: "or", labelKey: "languageOdia", native: "ଓଡ଼ିଆ" },
+  { value: "si", labelKey: "languageSinhala", native: "සිංහල" },
+  { value: "te", labelKey: "languageTelugu", native: "తెలుగు" },
+  { value: "ur", labelKey: "languageUrdu", native: "اردو" },
+  { value: "as", labelKey: "languageAssamese", native: "অসমীয়া" },
+  { value: "id", labelKey: "languageIndonesian", native: "Bahasa Indonesia" },
+  { value: "ms", labelKey: "languageMalay", native: "Bahasa Melayu" },
+  { value: "vi", labelKey: "languageVietnamese", native: "Tiếng Việt" },
+  { value: "km", labelKey: "languageKhmer", native: "ខ្មែរ" },
+  { value: "lo", labelKey: "languageLao", native: "ລາວ" },
+  { value: "my", labelKey: "languageBurmese", native: "မြန်မာ" },
+  { value: "tl", labelKey: "languageFilipinoTagalog", native: "Filipino / Tagalog" },
+  { value: "jv", labelKey: "languageJavanese", native: "Basa Jawa" },
+  { value: "su", labelKey: "languageSundanese", native: "Basa Sunda" },
+  { value: "ar", labelKey: "languageArabic", native: "العربية" },
+  { value: "fa", labelKey: "languagePersian", native: "فارسی" },
+  { value: "he", labelKey: "languageHebrew", native: "עברית" },
+  { value: "hy", labelKey: "languageArmenian", native: "Հայերեն" },
+  { value: "ka", labelKey: "languageGeorgian", native: "ქართული" },
+  { value: "kk", labelKey: "languageKazakh", native: "Қазақша" },
+  { value: "ky", labelKey: "languageKyrgyz", native: "Кыргызча" },
+  { value: "mn", labelKey: "languageMongolian", native: "Монгол" },
+  { value: "ps", labelKey: "languagePashto", native: "پښتو" },
+  { value: "tg", labelKey: "languageTajik", native: "Тоҷикӣ" },
+  { value: "tk", labelKey: "languageTurkmen", native: "Türkmençe" },
+  { value: "ug", labelKey: "languageUyghur", native: "ئۇيغۇرچە" },
+  { value: "uz", labelKey: "languageUzbek", native: "Oʻzbekcha" },
+  { value: "pt_BR", labelKey: "languagePortugueseBrazil", native: "Português (Brasil)" },
+  { value: "sw", labelKey: "languageSwahili", native: "Kiswahili" },
+  { value: "am", labelKey: "languageAmharic", native: "አማርኛ" }
+];
+
+function getActiveLanguage() {
+  return (typeof FitShieldI18n !== "undefined" && FitShieldI18n.getLanguage)
+    ? FitShieldI18n.getLanguage()
+    : "";
+}
+
+async function selectLanguage(value) {
+  if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.setLanguage) {
+    await FitShieldI18n.setLanguage(value, { persist: true });
+  }
+  // i18n.js fires its change listeners after applying, which re-renders the
+  // localized views (including this list), so no extra render is needed here.
+}
+
+function languageNative(option) {
+  return option.native || t(option.nativeKey);
+}
+
+function compareLanguageOptions(a, b) {
+  if (a.value === b.value) {
+    return 0;
+  }
+
+  if (a.value === "en") {
+    return -1;
+  }
+
+  if (b.value === "en") {
+    return 1;
+  }
+
+  return t(a.labelKey).localeCompare(t(b.labelKey), undefined, { sensitivity: "base" })
+    || languageNative(a).localeCompare(languageNative(b), undefined, { sensitivity: "base" })
+    || a.value.localeCompare(b.value);
+}
+
+function renderLanguageResults() {
+  const query = languageSearchInput ? languageSearchInput.value.trim().toLowerCase() : "";
+  languageSearchResults.replaceChildren();
+
+  const active = getActiveLanguage();
+  const matches = LANGUAGE_OPTIONS
+    .filter((option) => {
+      if (!query) {
+        return true;
+      }
+
+      const haystack = `${t(option.labelKey)} ${languageNative(option)} ${option.value}`.toLowerCase();
+      return haystack.includes(query);
+    })
+    .sort(compareLanguageOptions);
+
+  if (matches.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "mb-empty";
+    empty.textContent = t("noLanguagesMatch");
+    languageSearchResults.appendChild(empty);
+    return;
+  }
+
+  matches.forEach((option) => {
+    const selected = option.value === active;
+    languageSearchResults.appendChild(
+      buildResultRow(
+        t(option.labelKey),
+        languageNative(option),
+        selected,
+        () => selectLanguage(option.value),
+        { onLabel: t("languageActiveButton"), offLabel: t("languageUseButton") }
+      )
+    );
+  });
+}
+
+function renderLanguageCurrent() {
+  languageCurrent.replaceChildren();
+
+  const active = getActiveLanguage();
+  const option = LANGUAGE_OPTIONS.find((entry) => entry.value === active) || LANGUAGE_OPTIONS[0];
+
+  const chip = document.createElement("div");
+  chip.className = "mb-chip";
+
+  const labelEl = document.createElement("span");
+  labelEl.className = "mb-chip-label";
+  labelEl.textContent = `${t(option.labelKey)} · ${languageNative(option)}`;
+
+  chip.appendChild(labelEl);
+  languageCurrent.appendChild(chip);
+}
+
+function renderLanguageViews() {
+  renderLanguageResults();
+  renderLanguageCurrent();
+}
+
+if (languageSearchInput) {
+  languageSearchInput.addEventListener("input", renderLanguageResults);
+}
+
+// Re-render every localized dynamic view when the language changes. Static
+// data-i18n elements are handled by i18n.js itself.
+if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.onChange) {
+  FitShieldI18n.onChange(() => {
+    if (latestBlockState) {
+      renderBlocklist(latestBlockState);
+    }
+    renderCountryResults();
+    renderCategoryResults();
+    renderCountryQuickAccess();
+    renderCategoryQuickAccess();
+    renderLanguageViews();
+  });
+}
+
+i18nReady.then(renderLanguageViews);

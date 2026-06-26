@@ -1,0 +1,665 @@
+{
+  "appName": {
+    "message": "FitShield"
+  },
+  "appDescription": {
+    "message": "FitShield browser extension na tumutulong sa iyong manatiling maingat sa paghahatid ng pagkain at pag-order ng fast-food."
+  },
+  "actionTitle": {
+    "message": "FitShield"
+  },
+  "searchSitePlaceholder": {
+    "message": "Hanapin ang pangalan ng site o URL"
+  },
+  "searchButton": {
+    "message": "Maghanap"
+  },
+  "clearButton": {
+    "message": "Maaliwalas"
+  },
+  "openButton": {
+    "message": "Bukas"
+  },
+  "addButton": {
+    "message": "Idagdag"
+  },
+  "removeButton": {
+    "message": "Alisin"
+  },
+  "viewBlocklistButton": {
+    "message": "Tingnan ang Blocklist"
+  },
+  "timerDurationLabel": {
+    "message": "Tagal ng timer"
+  },
+  "timerDurationHint": {
+    "message": "Ayusin ang countdown bago lumabas ang Magpatuloy."
+  },
+  "customSecondsLabel": {
+    "message": "Mga custom na segundo"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Oras ng pagbubukas ng site"
+  },
+  "siteOpenTimeHint": {
+    "message": "Piliin kung gaano katagal mananatiling bukas ang mga site pagkatapos ng timer."
+  },
+  "customMinutesLabel": {
+    "message": "Custom na minuto"
+  },
+  "startTimeLabel": {
+    "message": "Oras ng pagsisimula"
+  },
+  "endTimeLabel": {
+    "message": "Oras ng pagtatapos"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Susundan ng pag-block ang iyong pang-araw-araw na iskedyul kapag ito ay pinagana."
+  },
+  "currentScheduleSummary": {
+    "message": "Kasalukuyang iskedyul: $1."
+  },
+  "everyDaySuffix": {
+    "message": " araw-araw"
+  },
+  "scheduleRange": {
+    "message": "$1 hanggang $2"
+  },
+  "unitMinute": {
+    "message": "minuto"
+  },
+  "unitMinutes": {
+    "message": "minuto"
+  },
+  "unitSite": {
+    "message": "site"
+  },
+  "unitSites": {
+    "message": "mga site"
+  },
+  "popupSettingsButton": {
+    "message": "Mga setting"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blocker"
+  },
+  "popupBlockerSubtitle": {
+    "message": "I-on o i-off ang bawat listahan ng block."
+  },
+  "popupMetadataLabel": {
+    "message": "Pag-block ng bansa at kategorya"
+  },
+  "popupMetadataSubtitle": {
+    "message": "I-block ang buong grupo ng mga site ayon sa bansa o kategorya ng pagkain."
+  },
+  "popupDeliveryLabel": {
+    "message": "Mga site ng paghahatid"
+  },
+  "popupDeliveryDefault": {
+    "message": "Mga domain ng pag-order ng paghahatid."
+  },
+  "popupFastFoodLabel": {
+    "message": "Mga site ng fast food"
+  },
+  "popupFastFoodDefault": {
+    "message": "Mga pangunahing domain ng pag-order ng chain."
+  },
+  "popupCustomLabel": {
+    "message": "Mga custom na URL"
+  },
+  "popupCustomSubtitle": {
+    "message": "Idagdag ang iyong sariling mga site at huwag paganahin ang mga ito nang paisa-isa."
+  },
+  "popupScheduleLabel": {
+    "message": "I-block lamang sa mga naka-iskedyul na oras"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Kapaki-pakinabang para sa mga badyet ng pagkain, pag-order sa gabi, o oras ng trabaho."
+  },
+  "statusInactive": {
+    "message": "Hindi aktibo. Ang lahat ng mga site ay naa-access."
+  },
+  "statusAllDisabled": {
+    "message": "Naka-on ang blocker, ngunit ang bawat indibidwal na site ay hindi pinagana. Buksan ang Mga Setting upang i-on muli ang ilang site."
+  },
+  "statusBypassActive": {
+    "message": "Aktibo ang pansamantalang pass. Bina-block ang mga resume sa $1."
+  },
+  "statusOutsideSchedule": {
+    "message": "Ang blocker ay armado, ngunit sa labas ng naka-iskedyul na oras. Haharangan ito mula sa $1."
+  },
+  "statusShieldUp": {
+    "message": "Shield up. $1 segundo countdown, $2 $3 pass."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 ng $2 na mga site ng paghahatid ay pinagana."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 ng $2 fast food sites pinagana."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 tumugma sa paghahanap."
+  },
+  "warningPageTitle": {
+    "message": "Huminga ka"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Suriin"
+  },
+  "warningTitle": {
+    "message": "Maglaan ng isang minuto."
+  },
+  "warningIntro": {
+    "message": "Mag-check in bago ka mag-order. Ang gutom, kaginhawahan, stress, at ugali ay maaaring maging katulad sa sandaling ito."
+  },
+  "warningTriggeredBy": {
+    "message": "Mag-o-order ka mula sa $1."
+  },
+  "warningHintDefault": {
+    "message": "Kapag natapos na ang timer, maaari kang magpatuloy sa site."
+  },
+  "warningHintLocked": {
+    "message": "Kapag natapos na ang timer, maaari kang magpatuloy sa site para sa $1 $2."
+  },
+  "warningBackButton": {
+    "message": "Bumalik ka"
+  },
+  "warningLockedButton": {
+    "message": "Naka-lock"
+  },
+  "warningContinueButton": {
+    "message": "Magpatuloy"
+  },
+  "warningOpeningButton": {
+    "message": "Binubuksan..."
+  },
+  "warningUnlockHint": {
+    "message": "Maaari mong bisitahin ang site ngayon. Awtomatikong babalik ang blocker pagkatapos ng $1 $2."
+  },
+  "warningErrorHint": {
+    "message": "Nagkaproblema habang binubuksan ang site. Pakisubukang muli."
+  },
+  "settingsTitle": {
+    "message": "Mga Setting ng FitShield"
+  },
+  "blockingOptionsHeading": {
+    "message": "Mga Opsyon sa Pag-block"
+  },
+  "scheduledHoursLabel": {
+    "message": "Mga nakaiskedyul na oras"
+  },
+  "scheduledHoursHint": {
+    "message": "I-block lang sa panahon ng araw-araw na window ng oras."
+  },
+  "customizeBlocklistHeading": {
+    "message": "I-customize ang Blocklist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Piliin kung aling mga built-in na grupo ang aktibo, i-on o i-off ang mga indibidwal na site, at idagdag ang sarili mong mga domain."
+  },
+  "deliverySitesHeading": {
+    "message": "Mga Delivery Site"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Mga Fast Food Site"
+  },
+  "customUrlsHeading": {
+    "message": "Mga custom na URL"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Idagdag ang iyong sariling mga domain at i-disable ang mga ito nang paisa-isa."
+  },
+  "showSitesButton": {
+    "message": "Ipakita ang Mga Site"
+  },
+  "hideSitesButton": {
+    "message": "Itago ang Mga Site"
+  },
+  "showUrlsButton": {
+    "message": "Ipakita ang mga URL"
+  },
+  "hideUrlsButton": {
+    "message": "Itago ang mga URL"
+  },
+  "deliveryToggleTitle": {
+    "message": "Paganahin ang pagharang sa site ng paghahatid"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Paganahin ang pag-block ng site ng fast food"
+  },
+  "customToggleTitle": {
+    "message": "Paganahin ang custom na pag-block ng URL"
+  },
+  "addCustomUrlLabel": {
+    "message": "Magdagdag ng custom na naka-block na URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com o https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Na-normalize ang mga entry sa mga domain at na-block sa lahat ng page."
+  },
+  "customEmptyDefault": {
+    "message": "Wala pang naidagdag na custom na URL."
+  },
+  "customNoMatch": {
+    "message": "Walang custom na URL ang tumutugma sa paghahanap na ito."
+  },
+  "emptyDeliverySearch": {
+    "message": "Walang mga site ng paghahatid na tumutugma sa paghahanap na ito."
+  },
+  "emptyFastFoodSearch": {
+    "message": "Walang mga fast food na site ang tumutugma sa paghahanap na ito."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 tumugma sa \"$3.\""
+  },
+  "invalidUrlNotice": {
+    "message": "Mukhang hindi pa valid ang URL na iyon. Subukan ang isang domain tulad ng example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "Ang $1 ay nasa blocklist na, kaya ito ay muling pinagana."
+  },
+  "addedToBlocklist": {
+    "message": "Ang $1 ay idinagdag sa custom na blocklist."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 ay inalis mula sa custom na blocklist."
+  },
+  "metadataHeading": {
+    "message": "Pag-block ng Bansa at Kategorya"
+  },
+  "metadataIntro": {
+    "message": "I-block ang buong grupo ng mga site ayon sa bansa kung saan pinapatakbo ang isang brand o ang uri ng pagkain na inihahain nito. Ang mga bloke na ito ay nagdaragdag sa iyong umiiral na mga bloke ng site at custom-URL."
+  },
+  "blockByCountryLabel": {
+    "message": "I-block ayon sa bansa"
+  },
+  "blockByCountryHint": {
+    "message": "Maghanap ayon sa pangalan o code ng bansa, hal. \"United\" o \"US\". Ang pagpapagana sa isang bansa ay humaharang sa bawat tatak na aktibo doon."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Maghanap ng mga bansa…"
+  },
+  "quickAccessCountries": {
+    "message": "Mabilis na pag-access — mga bansa"
+  },
+  "countryQuickEmpty": {
+    "message": "Paganahin ang isang bansa mula sa paghahanap upang i-pin ito dito."
+  },
+  "blockByCategoryLabel": {
+    "message": "I-block ayon sa kategorya"
+  },
+  "blockByCategoryHint": {
+    "message": "Maghanap ng mga kategorya tulad ng burger, pizza, o kape. Mahahanap din ang mga specialty; nalalapat ang bloke ayon sa kategorya."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Maghanap ng mga kategorya…"
+  },
+  "quickAccessCategories": {
+    "message": "Mabilis na pag-access — mga kategorya"
+  },
+  "categoryQuickEmpty": {
+    "message": "Paganahin ang isang kategorya mula sa paghahanap upang i-pin ito dito."
+  },
+  "noCountriesMatch": {
+    "message": "Walang bansang tumutugma sa paghahanap na iyon."
+  },
+  "noCategoriesMatch": {
+    "message": "Walang mga kategorya ang tumutugma sa paghahanap na iyon."
+  },
+  "languageHeading": {
+    "message": "Wika"
+  },
+  "languageIntro": {
+    "message": "Piliin ang wikang ginagamit ng FitShield para sa sarili nitong mga screen. Ino-override nito ang wika ng iyong browser para sa extension lamang."
+  },
+  "languageSelectLabel": {
+    "message": "Ipakita ang wika"
+  },
+  "languageHint": {
+    "message": "Maghanap ng wika at piliin ito. Piliin ang System default upang sundin ang iyong browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Maghanap ng mga wika..."
+  },
+  "currentLanguageHead": {
+    "message": "Kasalukuyang wika"
+  },
+  "languageUseButton": {
+    "message": "Gamitin"
+  },
+  "languageActiveButton": {
+    "message": "Aktibo"
+  },
+  "languageSystem": {
+    "message": "Default ng system"
+  },
+  "languageSystemSub": {
+    "message": "Sundin ang wika ng iyong browser"
+  },
+  "languageEnglish": {
+    "message": "Ingles"
+  },
+  "languageJapanese": {
+    "message": "Hapon"
+  },
+  "languageChinese": {
+    "message": "Chinese (Pinasimple)"
+  },
+  "languageFrench": {
+    "message": "Pranses"
+  },
+  "languageCantonese": {
+    "message": "Cantonese"
+  },
+  "languageThai": {
+    "message": "Thai"
+  },
+  "languagePunjabi": {
+    "message": "Punjabi"
+  },
+  "languageTamil": {
+    "message": "Tamil"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "Chinese (Tradisyonal, Taiwan)"
+  },
+  "languageKorean": {
+    "message": "Koreano"
+  },
+  "languageHindi": {
+    "message": "Hindi"
+  },
+  "languageSpanishLatam": {
+    "message": "Espanyol (Latin America)"
+  },
+  "languageSpanishSpain": {
+    "message": "Espanyol (Espanya)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Albaniano"
+  },
+  "languageBasque": {
+    "message": "Basque"
+  },
+  "languageBelarusian": {
+    "message": "Belarusian"
+  },
+  "languageBulgarian": {
+    "message": "Bulgarian"
+  },
+  "languageCatalan": {
+    "message": "Catalan"
+  },
+  "languageCroatian": {
+    "message": "Croatian"
+  },
+  "languageCzech": {
+    "message": "Czech"
+  },
+  "languageDanish": {
+    "message": "Danish"
+  },
+  "languageDutch": {
+    "message": "Dutch"
+  },
+  "languageEstonian": {
+    "message": "Estonian"
+  },
+  "languageFinnish": {
+    "message": "Finnish"
+  },
+  "languageGreek": {
+    "message": "Griyego"
+  },
+  "languageHungarian": {
+    "message": "Hungarian"
+  },
+  "languageIcelandic": {
+    "message": "Icelandic"
+  },
+  "languageIrish": {
+    "message": "Irish"
+  },
+  "languageItalian": {
+    "message": "Italyano"
+  },
+  "languageLatvian": {
+    "message": "Latvian"
+  },
+  "languageLithuanian": {
+    "message": "Lithuanian"
+  },
+  "languageMacedonian": {
+    "message": "Macedonian"
+  },
+  "languageMaltese": {
+    "message": "Maltese"
+  },
+  "languageNorwegian": {
+    "message": "Norwegian"
+  },
+  "languagePolish": {
+    "message": "Polish"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Portuges (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Romanian"
+  },
+  "languageRussian": {
+    "message": "Ruso"
+  },
+  "languageSerbian": {
+    "message": "Serbian"
+  },
+  "languageSlovak": {
+    "message": "Slovak"
+  },
+  "languageSlovenian": {
+    "message": "Slovenian"
+  },
+  "languageSwedish": {
+    "message": "Swedish"
+  },
+  "languageTurkish": {
+    "message": "Turkish"
+  },
+  "languageUkrainian": {
+    "message": "Ukrainian"
+  },
+  "languageWelsh": {
+    "message": "Welsh"
+  },
+  "languageBengali": {
+    "message": "Bengali"
+  },
+  "languageGujarati": {
+    "message": "Gujarati"
+  },
+  "languageKannada": {
+    "message": "Kannada"
+  },
+  "languageMalayalam": {
+    "message": "Malayalam"
+  },
+  "languageMarathi": {
+    "message": "Marathi"
+  },
+  "languageNepali": {
+    "message": "Nepali"
+  },
+  "languageOdia": {
+    "message": "Odia"
+  },
+  "languageSinhala": {
+    "message": "Sinhala"
+  },
+  "languageTelugu": {
+    "message": "Telugu"
+  },
+  "languageUrdu": {
+    "message": "Urdu"
+  },
+  "languageAssamese": {
+    "message": "Assamese"
+  },
+  "languageIndonesian": {
+    "message": "Indonesian"
+  },
+  "languageMalay": {
+    "message": "Malay"
+  },
+  "languageVietnamese": {
+    "message": "Vietnamese"
+  },
+  "languageKhmer": {
+    "message": "Khmer"
+  },
+  "languageLao": {
+    "message": "Lao"
+  },
+  "languageBurmese": {
+    "message": "Burmese (Myanmar)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Javanese"
+  },
+  "languageSundanese": {
+    "message": "Sundanese"
+  },
+  "languageArabic": {
+    "message": "Arabic"
+  },
+  "languagePersian": {
+    "message": "Persian (Farsi)"
+  },
+  "languageHebrew": {
+    "message": "Hebrew"
+  },
+  "languageArmenian": {
+    "message": "Armenian"
+  },
+  "languageGeorgian": {
+    "message": "Georgian"
+  },
+  "languageKazakh": {
+    "message": "Kazakh"
+  },
+  "languageKyrgyz": {
+    "message": "Kyrgyz"
+  },
+  "languageMongolian": {
+    "message": "Mongolian"
+  },
+  "languagePashto": {
+    "message": "Pashto"
+  },
+  "languageTajik": {
+    "message": "Tajik"
+  },
+  "languageTurkmen": {
+    "message": "Turkmen"
+  },
+  "languageUyghur": {
+    "message": "Uyghur"
+  },
+  "languageUzbek": {
+    "message": "Uzbek"
+  },
+  "noLanguagesMatch": {
+    "message": "Walang mga wikang tumutugma sa paghahanap na iyon."
+  },
+  "mbBlocking": {
+    "message": "Hinaharang"
+  },
+  "mbBlock": {
+    "message": "I-block"
+  },
+  "mbOn": {
+    "message": "Naka-on"
+  },
+  "mbOff": {
+    "message": "Naka-off"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Pag-block — i-click para i-pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Naka-pause — i-click para harangan"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Alisin ang shortcut mula sa mabilis na pag-access"
+  },
+  "mbChipRemoveAria": {
+    "message": "Alisin ang $1 mula sa mabilis na pag-access"
+  },
+  "themeHeading": {
+    "message": "Tema"
+  },
+  "resetThemeButton": {
+    "message": "I-reset ang Tema"
+  },
+  "systemThemeLabel": {
+    "message": "Tema ng system"
+  },
+  "systemThemeHint": {
+    "message": "Kagustuhan sa device o isang nakapirming mode."
+  },
+  "themeSystem": {
+    "message": "Sistema"
+  },
+  "themeLight": {
+    "message": "Liwanag"
+  },
+  "themeDark": {
+    "message": "Madilim"
+  },
+  "themeBackground": {
+    "message": "Background"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "Border"
+  },
+  "themeText": {
+    "message": "Text"
+  },
+  "themeMutedText": {
+    "message": "Naka-mute na Teksto"
+  },
+  "themeAccent": {
+    "message": "Accent"
+  },
+  "cornerRadiusLabel": {
+    "message": "Corner Radius"
+  },
+  "popupWidthLabel": {
+    "message": "Lapad ng Popup"
+  },
+  "supportFooterText": {
+    "message": "Kung tinulungan ka ng FitShield na maiwasan ang hindi kinakailangang delivery order, nakakatulong ang opsyonal na suporta na panatilihing gumagalaw ang mga blocklist at doc."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Português (Brasil)"
+  },
+  "languageSwahili": {
+    "message": "Kiswahili"
+  },
+  "languageAmharic": {
+    "message": "አማርኛ"
+  }
+}
