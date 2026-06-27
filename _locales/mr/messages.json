@@ -817,5 +817,110 @@
   },
   "reorderCardLabel": {
     "message": "Reorder card: $1. Use arrow keys to move it."
+  },
+  "welcomeTitle": {
+    "message": "Welcome to FitShield"
+  },
+  "welcomeSubtitle": {
+    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+  },
+  "welcomeLangTitle": {
+    "message": "Choose your language"
+  },
+  "welcomeLangBody": {
+    "message": "This sets the language for FitShield's popup, settings, and block screen."
+  },
+  "welcomeThemeTitle": {
+    "message": "Pick a theme"
+  },
+  "welcomeThemeBody": {
+    "message": "You can fine-tune colors later in Settings."
+  },
+  "welcomeFastFoodTitle": {
+    "message": "Block fast-food ordering"
+  },
+  "welcomeFastFoodBody": {
+    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+  },
+  "welcomeRecommendedOn": {
+    "message": "Recommended on."
+  },
+  "welcomeDeliveryTitle": {
+    "message": "Block delivery apps"
+  },
+  "welcomeDeliveryBody": {
+    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+  },
+  "welcomeImportTitle": {
+    "message": "Restore a backup (optional)"
+  },
+  "welcomeImportBody": {
+    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+  },
+  "welcomeImportButton": {
+    "message": "Import settings file"
+  },
+  "welcomeHelpTitle": {
+    "message": "How FitShield helps"
+  },
+  "welcomeHelpBody": {
+    "message": "A quick tour of the main features."
+  },
+  "welcomeFeaturePauseTitle": {
+    "message": "Pause timer"
+  },
+  "welcomeFeaturePauseBody": {
+    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+  },
+  "welcomeFeatureScheduleTitle": {
+    "message": "Schedule"
+  },
+  "welcomeFeatureScheduleBody": {
+    "message": "Optionally block only during set hours, like evenings or work time."
+  },
+  "welcomeFeatureWhitelistTitle": {
+    "message": "Whitelist"
+  },
+  "welcomeFeatureWhitelistBody": {
+    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+  },
+  "welcomeFeatureRecipeTitle": {
+    "message": "Recipe ideas"
+  },
+  "welcomeFeatureRecipeBody": {
+    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+  },
+  "welcomeBack": {
+    "message": "Back"
+  },
+  "welcomeNext": {
+    "message": "Next"
+  },
+  "welcomeFinish": {
+    "message": "Finish"
+  },
+  "welcomeStepLabel": {
+    "message": "Step $1 of $2"
+  },
+  "whatsNewTitle": {
+    "message": "What's New"
+  },
+  "whatsNewSubtitle": {
+    "message": "A quick look at what changed."
+  },
+  "whatsNewOpenSettings": {
+    "message": "Open settings"
+  },
+  "whatsNewClose": {
+    "message": "Close"
+  },
+  "whatsNewEmpty": {
+    "message": "No release notes yet."
+  },
+  "whatsNewBadge": {
+    "message": "New"
+  },
+  "whatsNewVersion": {
+    "message": "Version $1"
   }
 }

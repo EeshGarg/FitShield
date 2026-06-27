@@ -145,37 +145,37 @@
 <body>
   <main class="card">
     <span class="eyebrow">FitShield</span>
-    <h1>Welcome to FitShield</h1>
-    <p class="subtitle">A few quick choices and you're set. Everything stays on your device — nothing is uploaded.</p>
+    <h1 data-i18n="welcomeTitle">Welcome to FitShield</h1>
+    <p class="subtitle" data-i18n="welcomeSubtitle">A few quick choices and you're set. Everything stays on your device — nothing is uploaded.</p>
 
     <div class="dots" id="dots"></div>
 
     <!-- Step 1: language -->
     <section class="step" data-step="1">
-      <h2>Choose your language</h2>
-      <p>This sets the language for FitShield's popup, settings, and block screen.</p>
+      <h2 data-i18n="welcomeLangTitle">Choose your language</h2>
+      <p data-i18n="welcomeLangBody">This sets the language for FitShield's popup, settings, and block screen.</p>
       <select id="languageSelect"></select>
     </section>
 
     <!-- Step 2: theme -->
     <section class="step" data-step="2">
-      <h2>Pick a theme</h2>
-      <p>You can fine-tune colors later in Settings.</p>
+      <h2 data-i18n="welcomeThemeTitle">Pick a theme</h2>
+      <p data-i18n="welcomeThemeBody">You can fine-tune colors later in Settings.</p>
       <div class="theme-options" id="themeOptions">
-        <button type="button" data-theme-mode="system">System</button>
-        <button type="button" data-theme-mode="light">Light</button>
-        <button type="button" data-theme-mode="dark">Dark</button>
+        <button type="button" data-theme-mode="system" data-i18n="themeSystem">System</button>
+        <button type="button" data-theme-mode="light" data-i18n="themeLight">Light</button>
+        <button type="button" data-theme-mode="dark" data-i18n="themeDark">Dark</button>
       </div>
     </section>
 
     <!-- Step 3: fast food -->
     <section class="step" data-step="3">
-      <h2>Block fast-food ordering</h2>
-      <p>Adds a pause screen on major fast-food chains' ordering pages.</p>
+      <h2 data-i18n="welcomeFastFoodTitle">Block fast-food ordering</h2>
+      <p data-i18n="welcomeFastFoodBody">Adds a pause screen on major fast-food chains' ordering pages.</p>
       <div class="choice-row">
         <div>
-          <div class="label">Fast food sites</div>
-          <div class="desc">Recommended on.</div>
+          <div class="label" data-i18n="popupFastFoodLabel">Fast food sites</div>
+          <div class="desc" data-i18n="welcomeRecommendedOn">Recommended on.</div>
         </div>
         <label class="toggle">
           <input id="fastFoodToggle" type="checkbox">
@@ -186,12 +186,12 @@
 
     <!-- Step 4: delivery -->
     <section class="step" data-step="4">
-      <h2>Block delivery apps</h2>
-      <p>Adds a pause screen on delivery platforms like DoorDash and Uber Eats.</p>
+      <h2 data-i18n="welcomeDeliveryTitle">Block delivery apps</h2>
+      <p data-i18n="welcomeDeliveryBody">Adds a pause screen on delivery platforms like DoorDash and Uber Eats.</p>
       <div class="choice-row">
         <div>
-          <div class="label">Delivery sites</div>
-          <div class="desc">Recommended on.</div>
+          <div class="label" data-i18n="popupDeliveryLabel">Delivery sites</div>
+          <div class="desc" data-i18n="welcomeRecommendedOn">Recommended on.</div>
         </div>
         <label class="toggle">
           <input id="deliveryToggle" type="checkbox">
@@ -202,32 +202,33 @@
 
     <!-- Step 5: import -->
     <section class="step" data-step="5">
-      <h2>Restore a backup (optional)</h2>
-      <p>Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue.</p>
-      <button id="importButton" class="btn secondary" type="button">Import settings file</button>
+      <h2 data-i18n="welcomeImportTitle">Restore a backup (optional)</h2>
+      <p data-i18n="welcomeImportBody">Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue.</p>
+      <button id="importButton" class="btn secondary" type="button" data-i18n="welcomeImportButton">Import settings file</button>
       <input id="importInput" type="file" accept="application/json,.json" hidden>
       <div class="notice" id="importNotice"></div>
     </section>
 
     <!-- Step 6: how it works -->
     <section class="step" data-step="6">
-      <h2>How FitShield helps</h2>
-      <p>A quick tour of the main features.</p>
+      <h2 data-i18n="welcomeHelpTitle">How FitShield helps</h2>
+      <p data-i18n="welcomeHelpBody">A quick tour of the main features.</p>
       <div class="explainers">
-        <div class="explainer"><b>Pause timer</b><span>When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order.</span></div>
-        <div class="explainer"><b>Schedule</b><span>Optionally block only during set hours, like evenings or work time.</span></div>
-        <div class="explainer"><b>Whitelist</b><span>Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it.</span></div>
-        <div class="explainer"><b>Recipe ideas</b><span>The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked.</span></div>
+        <div class="explainer"><b data-i18n="welcomeFeaturePauseTitle">Pause timer</b><span data-i18n="welcomeFeaturePauseBody">When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order.</span></div>
+        <div class="explainer"><b data-i18n="welcomeFeatureScheduleTitle">Schedule</b><span data-i18n="welcomeFeatureScheduleBody">Optionally block only during set hours, like evenings or work time.</span></div>
+        <div class="explainer"><b data-i18n="welcomeFeatureWhitelistTitle">Whitelist</b><span data-i18n="welcomeFeatureWhitelistBody">Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it.</span></div>
+        <div class="explainer"><b data-i18n="welcomeFeatureRecipeTitle">Recipe ideas</b><span data-i18n="welcomeFeatureRecipeBody">The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked.</span></div>
       </div>
     </section>
 
     <div class="nav">
-      <button id="back" class="btn secondary" type="button" disabled>Back</button>
+      <button id="back" class="btn secondary" type="button" disabled data-i18n="welcomeBack">Back</button>
       <span class="step-label" id="stepLabel"></span>
-      <button id="next" class="btn" type="button">Next</button>
+      <button id="next" class="btn" type="button" data-i18n="welcomeNext">Next</button>
     </div>
   </main>
 
+  <script src="ambient.js"></script>
   <script src="languages.js"></script>
   <script src="backup.js"></script>
   <script src="i18n.js"></script>

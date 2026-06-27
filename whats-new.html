@@ -112,18 +112,20 @@
   <main class="wrap">
     <header>
       <span class="eyebrow">FitShield</span>
-      <h1>What's New</h1>
-      <p id="subtitle">A quick look at what changed.</p>
+      <h1 data-i18n="whatsNewTitle">What's New</h1>
+      <p id="subtitle" data-i18n="whatsNewSubtitle">A quick look at what changed.</p>
     </header>
 
     <div id="releases"></div>
 
     <div class="actions">
-      <button id="openSettings" type="button">Open settings</button>
-      <button id="close" class="secondary" type="button">Close</button>
+      <button id="openSettings" type="button" data-i18n="whatsNewOpenSettings">Open settings</button>
+      <button id="close" class="secondary" type="button" data-i18n="whatsNewClose">Close</button>
     </div>
   </main>
 
+  <script src="ambient.js"></script>
+  <script src="i18n.js"></script>
   <script src="whats-new.js"></script>
 </body>
 </html>

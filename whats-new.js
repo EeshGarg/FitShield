@@ -1,5 +1,10 @@
 // Renders the local changelog.json. No network calls.
 
+// Localization helper (i18n.js loads first). Falls back to the key when a
+// message is missing so the gap is visible rather than blank.
+const t = (key, subs) =>
+  (typeof FitShieldI18n !== "undefined" ? FitShieldI18n.t(key, subs) : key);
+
 const DEFAULT_THEME = {
   bg: "#0d1117",
   panel: "rgba(21, 27, 35, 0.92)",
@@ -36,7 +41,7 @@ function renderReleases(entries) {
   if (!Array.isArray(entries) || entries.length === 0) {
     const empty = document.createElement("p");
     empty.className = "empty";
-    empty.textContent = "No release notes yet.";
+    empty.textContent = t("whatsNewEmpty");
     container.appendChild(empty);
     return;
   }
@@ -54,13 +59,13 @@ function renderReleases(entries) {
     const versionWrap = document.createElement("div");
     const version = document.createElement("span");
     version.className = "release-version";
-    version.textContent = `Version ${entry.version}`;
+    version.textContent = t("whatsNewVersion", [entry.version]);
     versionWrap.appendChild(version);
 
     if (entry.version === currentVersion) {
       const badge = document.createElement("span");
       badge.className = "release-badge";
-      badge.textContent = "New";
+      badge.textContent = t("whatsNewBadge");
       badge.style.marginLeft = "8px";
       versionWrap.appendChild(badge);
     }
@@ -92,6 +97,12 @@ function renderReleases(entries) {
 }
 
 async function init() {
+  // Wait until the stored UI language is applied so the page renders in the
+  // right locale instead of flashing the browser default.
+  if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.ready) {
+    await FitShieldI18n.ready;
+  }
+
   try {
     const { theme } = await chrome.storage.local.get(["theme"]);
     applyTheme(theme);

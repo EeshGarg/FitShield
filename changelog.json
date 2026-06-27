@@ -13,6 +13,7 @@
         "Added a proper FitShield extension icon.",
         "Redesigned Settings to use wide screens better: cards reflow into columns and stack cleanly on narrow windows.",
         "Added Reset options and confirmation dialogs (custom-site removal, resets, and a full factory reset), plus onboarding, local Backup & Restore, and the Chrome Web Store listing.",
+        "Finished localizing the welcome tour and What's New page, and added calm time-of-day background gradients that shift gently as you scroll.",
         "Cleaned up the repository and consolidated branding assets into a Branding/ folder."
       ]
     },

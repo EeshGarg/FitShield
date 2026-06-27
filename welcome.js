@@ -151,8 +151,18 @@ function render() {
   steps.forEach((step) => step.classList.toggle("active", Number(step.dataset.step) === currentStep));
   dotEls.forEach((dot, index) => dot.classList.toggle("active", index < currentStep));
   backButton.disabled = currentStep === 1;
-  nextButton.textContent = currentStep === totalSteps ? "Finish" : "Next";
-  stepLabel.textContent = `Step ${currentStep} of ${totalSteps}`;
+  nextButton.textContent = currentStep === totalSteps ? t("welcomeFinish") : t("welcomeNext");
+  stepLabel.textContent = t("welcomeStepLabel", [String(currentStep), String(totalSteps)]);
+}
+
+// Re-render the dynamic strings and re-translate the language list when the
+// language changes mid-onboarding (the static data-i18n text is handled by
+// i18n.js itself).
+if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.onChange) {
+  FitShieldI18n.onChange(() => {
+    populateLanguages();
+    render();
+  });
 }
 
 backButton.addEventListener("click", () => {
