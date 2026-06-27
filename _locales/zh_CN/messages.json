@@ -661,5 +661,23 @@
   },
   "languageAmharic": {
     "message": "አማርኛ"
+  },
+  "recipeSectionTitle": {
+    "message": "试试这些替代选择"
+  },
+  "recipeVegetarianLabel": {
+    "message": "素食"
+  },
+  "recipeMeatLabel": {
+    "message": "肉类与蛋白质"
+  },
+  "recipeTimeLabel": {
+    "message": "约$1分钟"
+  },
+  "recipeIngredientsLabel": {
+    "message": "食材"
+  },
+  "recipeStepsLabel": {
+    "message": "步骤"
   }
 }

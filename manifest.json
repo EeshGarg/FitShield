@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_appName__",
   "description": "__MSG_appDescription__",
-  "version": "0.49",
+  "version": "0.50",
   "default_locale": "en",
   "permissions": ["storage", "declarativeNetRequest", "alarms"],
   "host_permissions": [
@@ -16,5 +16,12 @@
   "action": {
     "default_popup": "popup.html",
     "default_title": "__MSG_actionTitle__"
-  }
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["warning.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

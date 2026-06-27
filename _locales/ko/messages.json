@@ -661,5 +661,23 @@
   },
   "languageAmharic": {
     "message": "አማርኛ"
+  },
+  "recipeSectionTitle": {
+    "message": "대신 이건 어때요"
+  },
+  "recipeVegetarianLabel": {
+    "message": "채식"
+  },
+  "recipeMeatLabel": {
+    "message": "고기 & 단백질"
+  },
+  "recipeTimeLabel": {
+    "message": "약 $1분"
+  },
+  "recipeIngredientsLabel": {
+    "message": "재료"
+  },
+  "recipeStepsLabel": {
+    "message": "만드는 법"
   }
 }

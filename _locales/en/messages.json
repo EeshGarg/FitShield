@@ -109,6 +109,16 @@
   },
   "warningErrorHint": { "message": "Something went wrong while opening the site. Please try again." },
 
+  "recipeSectionTitle": { "message": "Try this instead" },
+  "recipeVegetarianLabel": { "message": "Vegetarian" },
+  "recipeMeatLabel": { "message": "Meat & protein" },
+  "recipeTimeLabel": {
+    "message": "~$1 min",
+    "description": "$1 is the estimated time in minutes."
+  },
+  "recipeIngredientsLabel": { "message": "Ingredients" },
+  "recipeStepsLabel": { "message": "Steps" },
+
   "settingsTitle": { "message": "FitShield Settings" },
   "blockingOptionsHeading": { "message": "Blocking Options" },
   "scheduledHoursLabel": { "message": "Scheduled hours" },

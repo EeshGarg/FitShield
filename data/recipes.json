@@ -1,0 +1,259 @@
+{
+  "_license": "FitShield Data License",
+  "_schema": {
+    "description": "Lightweight at-home recipe suggestions shown on the FitShield block page.",
+    "fields": {
+      "id": "Stable unique id.",
+      "title": "Recipe name (English).",
+      "description": "One-line description (English).",
+      "timeMinutes": "Estimated total time in minutes.",
+      "ingredients": "Basic ingredient list (English).",
+      "steps": "Short ordered steps (English).",
+      "tags": "Blocking categories / specialties this recipe suits. 'fallback' marks general-purpose picks.",
+      "diet": "vegetarian or meat."
+    }
+  },
+  "_version": "1.0",
+  "recipes": [
+    {
+      "id": "black-bean-tacos",
+      "title": "Black Bean Tacos",
+      "description": "Smoky black bean tacos you can build in minutes.",
+      "timeMinutes": 15,
+      "ingredients": ["corn tortillas", "canned black beans", "cumin", "shredded cheese", "salsa", "lime"],
+      "steps": ["Warm beans with cumin and a pinch of salt.", "Heat tortillas in a dry pan.", "Fill with beans, cheese, and salsa.", "Finish with a squeeze of lime."],
+      "tags": ["taco", "mexican", "burrito", "fast_food"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "veggie-burrito-bowl",
+      "title": "Veggie Burrito Bowl",
+      "description": "Rice, beans, and veggies in one easy bowl.",
+      "timeMinutes": 20,
+      "ingredients": ["cooked rice", "black or pinto beans", "corn", "bell pepper", "avocado", "salsa"],
+      "steps": ["Add rice to a bowl as the base.", "Top with warmed beans and corn.", "Add sliced pepper and avocado.", "Spoon over salsa and serve."],
+      "tags": ["taco", "mexican", "burrito", "bowl", "delivery"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "tofu-tacos",
+      "title": "Tofu Tacos",
+      "description": "Crispy seasoned tofu tucked into warm tortillas.",
+      "timeMinutes": 20,
+      "ingredients": ["firm tofu", "taco seasoning", "corn tortillas", "cabbage", "lime", "hot sauce"],
+      "steps": ["Crumble and pan-fry tofu until golden.", "Stir in taco seasoning with a splash of water.", "Fill tortillas and top with cabbage.", "Add lime and hot sauce to taste."],
+      "tags": ["taco", "mexican"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "chicken-tacos",
+      "title": "Chicken Tacos",
+      "description": "Quick seasoned chicken tacos with fresh toppings.",
+      "timeMinutes": 20,
+      "ingredients": ["chicken breast", "taco seasoning", "corn tortillas", "onion", "cilantro", "lime"],
+      "steps": ["Dice and cook chicken with taco seasoning.", "Warm the tortillas.", "Fill with chicken, onion, and cilantro.", "Squeeze lime over the top."],
+      "tags": ["taco", "mexican", "chicken"],
+      "diet": "meat"
+    },
+    {
+      "id": "turkey-taco-bowl",
+      "title": "Turkey Taco Bowl",
+      "description": "Lean ground turkey over rice with taco fixings.",
+      "timeMinutes": 20,
+      "ingredients": ["ground turkey", "taco seasoning", "cooked rice", "corn", "lettuce", "salsa"],
+      "steps": ["Brown turkey and stir in taco seasoning.", "Layer rice in a bowl.", "Top with turkey, corn, and lettuce.", "Finish with salsa."],
+      "tags": ["taco", "mexican", "bowl", "chicken"],
+      "diet": "meat"
+    },
+    {
+      "id": "black-bean-burger",
+      "title": "Black Bean Burger",
+      "description": "Hearty homemade bean patty on a bun.",
+      "timeMinutes": 25,
+      "ingredients": ["canned black beans", "breadcrumbs", "egg", "onion", "burger bun", "lettuce"],
+      "steps": ["Mash beans with breadcrumbs, egg, and onion.", "Shape into a patty.", "Pan-fry until firm on both sides.", "Serve on a bun with lettuce."],
+      "tags": ["burger", "fast_food"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "chickpea-burger",
+      "title": "Chickpea Burger",
+      "description": "Crispy spiced chickpea patties.",
+      "timeMinutes": 25,
+      "ingredients": ["canned chickpeas", "flour", "garlic", "paprika", "burger bun", "yogurt sauce"],
+      "steps": ["Mash chickpeas with flour, garlic, and paprika.", "Form patties and pan-fry until golden.", "Toast the bun.", "Assemble with yogurt sauce."],
+      "tags": ["burger"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "turkey-burger",
+      "title": "Turkey Burger",
+      "description": "Juicy lean turkey burger off the pan.",
+      "timeMinutes": 20,
+      "ingredients": ["ground turkey", "salt and pepper", "burger bun", "tomato", "lettuce", "mustard"],
+      "steps": ["Season turkey and shape into a patty.", "Cook through on both sides.", "Toast the bun.", "Build with tomato, lettuce, and mustard."],
+      "tags": ["burger", "fast_food", "chicken"],
+      "diet": "meat"
+    },
+    {
+      "id": "grilled-chicken-burger",
+      "title": "Grilled Chicken Burger",
+      "description": "Simple grilled chicken sandwich.",
+      "timeMinutes": 20,
+      "ingredients": ["chicken breast", "olive oil", "burger bun", "lettuce", "tomato", "mayo"],
+      "steps": ["Flatten and season the chicken.", "Pan-grill until cooked through.", "Toast the bun.", "Layer with lettuce, tomato, and mayo."],
+      "tags": ["burger", "chicken", "fast_food"],
+      "diet": "meat"
+    },
+    {
+      "id": "naan-veggie-pizza",
+      "title": "Naan Veggie Pizza",
+      "description": "Personal pizza on naan, ready fast.",
+      "timeMinutes": 15,
+      "ingredients": ["naan bread", "pizza sauce", "mozzarella", "bell pepper", "mushrooms", "oregano"],
+      "steps": ["Spread sauce over the naan.", "Add cheese and chopped veggies.", "Bake or toaster-oven until melty.", "Sprinkle with oregano."],
+      "tags": ["pizza"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "veggie-pita-pizza",
+      "title": "Veggie Pita Pizza",
+      "description": "Crispy pita base with melty cheese and veg.",
+      "timeMinutes": 15,
+      "ingredients": ["pita bread", "tomato sauce", "cheese", "spinach", "olives", "red onion"],
+      "steps": ["Top the pita with sauce and cheese.", "Scatter spinach, olives, and onion.", "Bake until the edges crisp.", "Slice and serve."],
+      "tags": ["pizza"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "chicken-flatbread-pizza",
+      "title": "Chicken Flatbread Pizza",
+      "description": "Flatbread topped with chicken and cheese.",
+      "timeMinutes": 20,
+      "ingredients": ["flatbread", "pizza sauce", "cooked chicken", "mozzarella", "red onion", "basil"],
+      "steps": ["Spread sauce over the flatbread.", "Add chicken, cheese, and onion.", "Bake until the cheese melts.", "Top with fresh basil."],
+      "tags": ["pizza", "chicken"],
+      "diet": "meat"
+    },
+    {
+      "id": "protein-smoothie",
+      "title": "Protein Smoothie",
+      "description": "Cold, filling smoothie in two minutes.",
+      "timeMinutes": 5,
+      "ingredients": ["milk or plant milk", "banana", "protein powder or yogurt", "peanut butter", "ice"],
+      "steps": ["Add everything to a blender.", "Blend until smooth.", "Pour and enjoy cold."],
+      "tags": ["coffee", "cafe", "tea", "drinks"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "yogurt-parfait",
+      "title": "Yogurt Parfait",
+      "description": "Layered yogurt, fruit, and crunch.",
+      "timeMinutes": 5,
+      "ingredients": ["Greek yogurt", "granola", "berries", "honey"],
+      "steps": ["Spoon yogurt into a glass.", "Layer with granola and berries.", "Repeat the layers.", "Drizzle with honey."],
+      "tags": ["coffee", "cafe", "drinks"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "homemade-iced-coffee",
+      "title": "Homemade Iced Coffee",
+      "description": "Cafe-style iced coffee at home.",
+      "timeMinutes": 5,
+      "ingredients": ["brewed coffee, cooled", "milk or plant milk", "ice", "sweetener (optional)"],
+      "steps": ["Fill a glass with ice.", "Pour over cooled coffee.", "Top with milk.", "Stir in sweetener if you like."],
+      "tags": ["coffee", "cafe", "drinks"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "turkey-avocado-rollups",
+      "title": "Turkey & Avocado Roll-Ups",
+      "description": "Savory high-protein bite, no oven needed.",
+      "timeMinutes": 10,
+      "ingredients": ["sliced turkey", "tortilla or lettuce leaves", "avocado", "cream cheese", "spinach"],
+      "steps": ["Spread cream cheese on the wrap.", "Layer turkey, avocado, and spinach.", "Roll up tightly.", "Slice into pinwheels."],
+      "tags": ["coffee", "cafe", "snack", "protein"],
+      "diet": "meat"
+    },
+    {
+      "id": "crispy-chickpea-bowl",
+      "title": "Crispy Chickpea Bowl",
+      "description": "Crunchy roasted chickpeas over greens and grains.",
+      "timeMinutes": 25,
+      "ingredients": ["canned chickpeas", "olive oil", "paprika", "cooked rice or greens", "tahini or yogurt"],
+      "steps": ["Toss chickpeas with oil and paprika.", "Roast or pan-crisp until golden.", "Add to rice or greens.", "Drizzle with tahini or yogurt."],
+      "tags": ["chicken", "fast_food", "bowl"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "baked-chicken-tenders",
+      "title": "Baked Chicken Tenders",
+      "description": "Crispy oven tenders without the drive-thru.",
+      "timeMinutes": 25,
+      "ingredients": ["chicken strips", "breadcrumbs", "egg", "paprika", "salt"],
+      "steps": ["Dip chicken in egg, then seasoned breadcrumbs.", "Place on a lined tray.", "Bake until golden and cooked through.", "Serve with a dip."],
+      "tags": ["chicken", "fast_food"],
+      "diet": "meat"
+    },
+    {
+      "id": "caprese-sandwich",
+      "title": "Caprese Sandwich",
+      "description": "Fresh mozzarella, tomato, and basil on bread.",
+      "timeMinutes": 10,
+      "ingredients": ["crusty bread", "fresh mozzarella", "tomato", "basil", "olive oil", "balsamic"],
+      "steps": ["Slice the bread and layer mozzarella and tomato.", "Add basil leaves.", "Drizzle with oil and balsamic.", "Close and press lightly."],
+      "tags": ["sandwich", "sub"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "turkey-sandwich",
+      "title": "Turkey Sandwich",
+      "description": "Classic deli-style turkey sandwich.",
+      "timeMinutes": 10,
+      "ingredients": ["bread", "sliced turkey", "lettuce", "tomato", "cheese", "mustard or mayo"],
+      "steps": ["Lay out the bread and spread condiments.", "Layer turkey, cheese, lettuce, and tomato.", "Close the sandwich.", "Slice and serve."],
+      "tags": ["sandwich", "sub"],
+      "diet": "meat"
+    },
+    {
+      "id": "veggie-rice-bowl",
+      "title": "Veggie Rice Bowl",
+      "description": "Warm rice bowl loaded with vegetables.",
+      "timeMinutes": 20,
+      "ingredients": ["cooked rice", "mixed vegetables", "soy sauce", "sesame oil", "egg (optional)", "green onion"],
+      "steps": ["Saute the vegetables until tender.", "Add rice and a splash of soy sauce.", "Stir in sesame oil.", "Top with green onion."],
+      "tags": ["general", "delivery", "fallback", "bowl"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "lentil-bowl",
+      "title": "Lentil Bowl",
+      "description": "Protein-packed lentils over grains and greens.",
+      "timeMinutes": 25,
+      "ingredients": ["canned or cooked lentils", "cooked rice or quinoa", "spinach", "garlic", "lemon", "olive oil"],
+      "steps": ["Warm lentils with garlic and a little oil.", "Spoon over rice or quinoa.", "Add a handful of spinach.", "Finish with lemon."],
+      "tags": ["general", "delivery", "fallback", "bowl"],
+      "diet": "vegetarian"
+    },
+    {
+      "id": "chicken-rice-bowl",
+      "title": "Chicken Rice Bowl",
+      "description": "Simple seasoned chicken over rice and veg.",
+      "timeMinutes": 25,
+      "ingredients": ["chicken breast", "cooked rice", "broccoli", "soy sauce", "garlic", "sesame seeds"],
+      "steps": ["Cook diced chicken with garlic.", "Steam or saute the broccoli.", "Add both over rice.", "Drizzle soy sauce and sesame seeds."],
+      "tags": ["general", "delivery", "fallback", "bowl", "chicken"],
+      "diet": "meat"
+    },
+    {
+      "id": "tuna-wrap",
+      "title": "Tuna Wrap",
+      "description": "Quick tuna salad rolled in a tortilla.",
+      "timeMinutes": 10,
+      "ingredients": ["canned tuna", "tortilla", "yogurt or mayo", "celery", "lettuce", "lemon"],
+      "steps": ["Mix tuna with yogurt or mayo and celery.", "Add a squeeze of lemon.", "Spread over the tortilla with lettuce.", "Roll up and slice."],
+      "tags": ["general", "delivery", "fallback", "sandwich"],
+      "diet": "meat"
+    }
+  ]
+}

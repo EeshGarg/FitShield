@@ -34,14 +34,36 @@
       font-family: "Segoe UI", sans-serif;
     }
 
+    /* Three side-by-side columns: block card | vegetarian | meat.
+       Collapses to fewer columns (and finally one) on narrow screens. */
+    .board {
+      width: min(100%, 1120px);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+
     .shell {
-      width: min(100%, 420px);
       padding: 28px;
       border-radius: var(--panel-radius);
       background: var(--panel);
       border: 1px solid var(--border);
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    .block-card {
       text-align: center;
+    }
+
+    .recipe-col {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .recipe-col[hidden] {
+      display: none;
     }
 
     .eyebrow {
@@ -132,38 +154,124 @@
       cursor: not-allowed;
       transform: none;
     }
+
+    /* Recipe column content. Each recipe fills its own .shell column. */
+    .recipe-badge {
+      align-self: flex-start;
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .recipe-badge.vegetarian {
+      background: rgba(126, 240, 168, 0.14);
+      color: var(--accent);
+    }
+
+    .recipe-badge.meat {
+      background: rgba(255, 196, 120, 0.16);
+      color: #ffc478;
+    }
+
+    .recipe-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0 0 6px;
+      color: var(--text);
+    }
+
+    .recipe-meta {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .recipe-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0 0 14px;
+    }
+
+    .recipe-ingredients {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .recipe-ingredients b {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .recipe-steps {
+      margin-top: 14px;
+    }
+
+    .recipe-steps summary {
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+
+    .recipe-steps ol {
+      margin: 10px 0 0;
+      padding-left: 20px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .recipe-steps li {
+      margin-bottom: 6px;
+    }
   </style>
 </head>
 <body>
-  <main class="shell">
-    <!-- Pause screen shown before the blocked ordering site can be reopened. -->
-    <span class="eyebrow" data-i18n="warningEyebrow">FitShield Check</span>
-    <h1 data-i18n="warningTitle">Take one minute.</h1>
-    <p data-i18n="warningIntro">Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment.</p>
+  <main class="board">
+    <!-- Left column: the pause / block card. -->
+    <section class="shell block-card">
+      <!-- Pause screen shown before the blocked ordering site can be reopened. -->
+      <span class="eyebrow" data-i18n="warningEyebrow">FitShield Check</span>
+      <h1 data-i18n="warningTitle">Take one minute.</h1>
+      <p data-i18n="warningIntro">Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment.</p>
 
-    <!-- warning.js fills this with the brand the block interrupted, sourced from
-         the JSON blocklist metadata via the background service worker. -->
-    <p class="hint" id="brand" hidden></p>
+      <!-- warning.js fills this with the brand the block interrupted, sourced from
+           the JSON blocklist metadata via the background service worker. -->
+      <p class="hint" id="brand" hidden></p>
 
-    <!-- warning.js updates this timer and animates the ring as time passes. -->
-    <div class="ring" id="ring">
-      <div class="time" id="timer">60</div>
-    </div>
+      <!-- warning.js updates this timer and animates the ring as time passes. -->
+      <div class="ring" id="ring">
+        <div class="time" id="timer">60</div>
+      </div>
 
-    <!-- Hint text is managed by warning.js (it depends on lock state + pass
-         duration), so it is re-rendered on language change rather than via
-         data-i18n. -->
-    <p class="hint" id="hint">When the timer ends, you can continue to the site.</p>
+      <!-- Hint text is managed by warning.js (it depends on lock state + pass
+           duration), so it is re-rendered on language change rather than via
+           data-i18n. -->
+      <p class="hint" id="hint">When the timer ends, you can continue to the site.</p>
 
-    <!-- Continue stays locked until the countdown finishes and bypass is granted.
-         Its label is JS-managed (Locked / Continue / Opening). -->
-    <div class="actions">
-      <button id="back" class="secondary" type="button" data-i18n="warningBackButton">Go back</button>
-      <button id="continue" class="primary" type="button" disabled>Locked</button>
-    </div>
+      <!-- Continue stays locked until the countdown finishes and bypass is granted.
+           Its label is JS-managed (Locked / Continue / Opening). -->
+      <div class="actions">
+        <button id="back" class="secondary" type="button" data-i18n="warningBackButton">Go back</button>
+        <button id="continue" class="primary" type="button" disabled>Locked</button>
+      </div>
+    </section>
+
+    <!-- Middle + right columns: lightweight at-home alternatives, chosen by
+         warning.js from the local recipe catalog based on the blocked site's
+         category/metadata. Each column is hidden until its recipe is ready. -->
+    <section class="shell recipe-col" id="recipeVeg" hidden></section>
+    <section class="shell recipe-col" id="recipeMeat" hidden></section>
   </main>
 
   <script src="i18n.js"></script>
+  <script src="recipes.js"></script>
   <script src="warning.js"></script>
 </body>
 </html>

@@ -39,6 +39,8 @@ const passDurationParam = Number.parseInt(params.get("pass"), 10);
 // we have no hard-coded destination; the bypass response carries the real one.
 let destination = "";
 let siteLabel = "";
+let blockInfo = null;
+let selectedRecipes = null;
 
 // Query params are mainly for manual URL overrides; normal users fall back to stored defaults.
 let secondsLeft = Number.isFinite(timerParam) && timerParam >= 10 ? timerParam : DEFAULT_TIMER_SECONDS;
@@ -101,6 +103,92 @@ function unlock() {
   continueButton.disabled = false;
   continueButton.classList.add("ready");
   renderDynamicText();
+}
+
+// Render one recipe into its column (.shell). Labels localize; recipe content
+// is from the local catalog (English for now). Hides the column if there is no
+// recipe to show.
+function renderRecipeInto(col, recipe, diet) {
+  if (!col) {
+    return;
+  }
+
+  col.replaceChildren();
+
+  if (!recipe) {
+    col.hidden = true;
+    return;
+  }
+
+  const badge = document.createElement("span");
+  badge.className = `recipe-badge ${diet}`;
+  badge.textContent = t(diet === "vegetarian" ? "recipeVegetarianLabel" : "recipeMeatLabel");
+
+  const name = document.createElement("div");
+  name.className = "recipe-name";
+  name.textContent = recipe.title;
+
+  const meta = document.createElement("div");
+  meta.className = "recipe-meta";
+  meta.textContent = t("recipeTimeLabel", [String(recipe.timeMinutes)]);
+
+  const desc = document.createElement("p");
+  desc.className = "recipe-desc";
+  desc.textContent = recipe.description;
+
+  const ingredients = document.createElement("div");
+  ingredients.className = "recipe-ingredients";
+  const ingredientsLabel = document.createElement("b");
+  ingredientsLabel.textContent = `${t("recipeIngredientsLabel")}: `;
+  ingredients.append(ingredientsLabel, document.createTextNode((recipe.ingredients || []).join(", ")));
+
+  col.append(badge, name, meta, desc, ingredients);
+
+  if (Array.isArray(recipe.steps) && recipe.steps.length > 0) {
+    const steps = document.createElement("details");
+    steps.className = "recipe-steps";
+
+    const summary = document.createElement("summary");
+    summary.textContent = t("recipeStepsLabel");
+
+    const list = document.createElement("ol");
+    recipe.steps.forEach((step) => {
+      const item = document.createElement("li");
+      item.textContent = step;
+      list.appendChild(item);
+    });
+
+    steps.append(summary, list);
+    col.appendChild(steps);
+  }
+
+  col.hidden = false;
+}
+
+// Render the vegetarian (middle) and meat (right) columns. Safe to call
+// repeatedly (e.g. on language change) because it rebuilds from the
+// already-selected recipes.
+function renderRecipes() {
+  if (!selectedRecipes) {
+    return;
+  }
+
+  renderRecipeInto(document.getElementById("recipeVeg"), selectedRecipes.vegetarian, "vegetarian");
+  renderRecipeInto(document.getElementById("recipeMeat"), selectedRecipes.meat, "meat");
+}
+
+async function setupRecipes() {
+  if (typeof FitShieldRecipes === "undefined") {
+    return;
+  }
+
+  try {
+    const recipes = await FitShieldRecipes.loadRecipes();
+    selectedRecipes = FitShieldRecipes.selectRecipes(blockInfo || { key: siteKey }, recipes);
+    renderRecipes();
+  } catch (error) {
+    console.error("Failed to load recipe suggestions:", error);
+  }
 }
 
 let timerInterval;
@@ -166,6 +254,7 @@ async function loadBlockedSite() {
     if (info?.ok && info.found) {
       destination = info.home || destination;
       siteLabel = info.label || "";
+      blockInfo = info;
     }
   } catch (error) {
     console.error("Failed to load blocked site info:", error);
@@ -199,11 +288,18 @@ async function initializeTimer() {
   renderDynamicText();
   renderTimer();
   startTimer();
+
+  // Recipe suggestions are non-blocking; the timer runs regardless.
+  setupRecipes();
 }
 
-// Re-render JS-managed strings when the language changes mid-screen.
+// Re-render JS-managed strings (and recipe card labels) when the language
+// changes mid-screen.
 if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.onChange) {
-  FitShieldI18n.onChange(renderDynamicText);
+  FitShieldI18n.onChange(() => {
+    renderDynamicText();
+    renderRecipes();
+  });
 }
 
 // Wait until the stored UI language is applied so the screen does not flash the

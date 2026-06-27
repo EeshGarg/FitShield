@@ -661,5 +661,23 @@
   },
   "supportFooterText": {
     "message": "Se FitShield ajudou você a evitar um pedido de entrega desnecessário, o suporte opcional ajuda a manter listas de bloqueio e documentos em movimento."
+  },
+  "recipeSectionTitle": {
+    "message": "Try this instead"
+  },
+  "recipeVegetarianLabel": {
+    "message": "Vegetarian"
+  },
+  "recipeMeatLabel": {
+    "message": "Meat & protein"
+  },
+  "recipeTimeLabel": {
+    "message": "~$1 min"
+  },
+  "recipeIngredientsLabel": {
+    "message": "Ingredients"
+  },
+  "recipeStepsLabel": {
+    "message": "Steps"
   }
 }

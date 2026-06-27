@@ -311,6 +311,30 @@ function getRuleCatalog(settings) {
   return [...byDomain.values()];
 }
 
+// declarativeNetRequest urlFilter values must be ASCII. Convert IDN / unicode
+// hostnames (e.g. "saemaeul식당.com") to their punycode form so they still
+// block, and drop anything that cannot be made into a valid host. This matters
+// because a single invalid rule makes Chrome reject the ENTIRE
+// updateDynamicRules batch, which silently disables all blocking.
+function toUrlFilterHost(domain) {
+  const host = String(domain || "").trim().toLowerCase();
+
+  if (!host) {
+    return null;
+  }
+
+  if (/^[a-z0-9.-]+$/.test(host)) {
+    return host;
+  }
+
+  try {
+    const ascii = new URL(`https://${host}`).hostname;
+    return /^[a-z0-9.-]+$/.test(ascii) ? ascii : null;
+  } catch {
+    return null;
+  }
+}
+
 function createRules(settings) {
   const rules = [];
 
@@ -322,8 +346,10 @@ function createRules(settings) {
 
     // Block the apex domain plus any alias domains the brand owns. Each alias
     // gets its own rule but keeps the same site key, so the warning page and
-    // the bypass flow still resolve back to one record.
+    // the bypass flow still resolve back to one record. Hostnames are
+    // normalized to ASCII so every urlFilter is valid.
     const matchDomains = [site.match, ...(Array.isArray(site.aliases) ? site.aliases : [])]
+      .map(toUrlFilterHost)
       .filter(Boolean);
 
     new Set(matchDomains).forEach((matchDomain) => {
@@ -458,11 +484,30 @@ async function refreshBlockingState() {
     siteBypasses: getActiveBypasses(settings.siteBypasses)
   };
   const bypassedSiteKeys = new Set(Object.keys(filteredSettings.siteBypasses));
+
+  // A domain can appear in more than one bucket (e.g. doordash.com is listed as
+  // both a delivery and a fast-food brand). A temporary pass is granted for one
+  // record's key, so resolve the bypassed keys to their domains and exclude the
+  // whole domain. Otherwise the other bucket's identical rule would re-block the
+  // user the instant they continue.
+  const bypassableSites = [
+    ...filteredSettings.deliverySites,
+    ...filteredSettings.fastFoodSites,
+    ...filteredSettings.customSites.map((site) => ({ key: getCustomSiteKey(site.domain), domain: site.domain }))
+  ];
+  const bypassedDomains = new Set(
+    bypassableSites
+      .filter((site) => bypassedSiteKeys.has(site.key))
+      .map((site) => site.domain || site.match)
+      .filter(Boolean)
+  );
+
+  const notBypassed = (site) => !bypassedDomains.has(site.domain || site.match);
   const rules = createRules({
     ...filteredSettings,
-    deliverySites: filteredSettings.deliverySites.filter((site) => !bypassedSiteKeys.has(site.key)),
-    fastFoodSites: filteredSettings.fastFoodSites.filter((site) => !bypassedSiteKeys.has(site.key)),
-    customSites: filteredSettings.customSites.filter((site) => !bypassedSiteKeys.has(getCustomSiteKey(site.domain)))
+    deliverySites: filteredSettings.deliverySites.filter(notBypassed),
+    fastFoodSites: filteredSettings.fastFoodSites.filter(notBypassed),
+    customSites: filteredSettings.customSites.filter((site) => !bypassedDomains.has(site.domain))
   });
   const hasBlockingRules = rules.length > 0;
 

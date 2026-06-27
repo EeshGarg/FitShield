@@ -661,5 +661,23 @@
   },
   "languageAmharic": {
     "message": "አማርኛ"
+  },
+  "recipeSectionTitle": {
+    "message": "代わりにこちらはいかが"
+  },
+  "recipeVegetarianLabel": {
+    "message": "ベジタリアン"
+  },
+  "recipeMeatLabel": {
+    "message": "肉・タンパク質"
+  },
+  "recipeTimeLabel": {
+    "message": "約$1分"
+  },
+  "recipeIngredientsLabel": {
+    "message": "材料"
+  },
+  "recipeStepsLabel": {
+    "message": "作り方"
   }
 }

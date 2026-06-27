@@ -661,5 +661,23 @@
   },
   "languageAmharic": {
     "message": "አማርኛ"
+  },
+  "recipeSectionTitle": {
+    "message": "Prueba esto en su lugar"
+  },
+  "recipeVegetarianLabel": {
+    "message": "Vegetariano"
+  },
+  "recipeMeatLabel": {
+    "message": "Carne y proteína"
+  },
+  "recipeTimeLabel": {
+    "message": "~$1 min"
+  },
+  "recipeIngredientsLabel": {
+    "message": "Ingredientes"
+  },
+  "recipeStepsLabel": {
+    "message": "Pasos"
   }
 }

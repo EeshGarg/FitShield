@@ -661,5 +661,23 @@
   },
   "languageAmharic": {
     "message": "አማርኛ"
+  },
+  "recipeSectionTitle": {
+    "message": "इसके बजाय यह आज़माएँ"
+  },
+  "recipeVegetarianLabel": {
+    "message": "शाकाहारी"
+  },
+  "recipeMeatLabel": {
+    "message": "मांस और प्रोटीन"
+  },
+  "recipeTimeLabel": {
+    "message": "~$1 मिनट"
+  },
+  "recipeIngredientsLabel": {
+    "message": "सामग्री"
+  },
+  "recipeStepsLabel": {
+    "message": "तरीका"
   }
 }

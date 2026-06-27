@@ -661,5 +661,23 @@
   },
   "cornerRadiusLabel": {
     "message": "Radi ya kona"
+  },
+  "recipeSectionTitle": {
+    "message": "Try this instead"
+  },
+  "recipeVegetarianLabel": {
+    "message": "Vegetarian"
+  },
+  "recipeMeatLabel": {
+    "message": "Meat & protein"
+  },
+  "recipeTimeLabel": {
+    "message": "~$1 min"
+  },
+  "recipeIngredientsLabel": {
+    "message": "Ingredients"
+  },
+  "recipeStepsLabel": {
+    "message": "Steps"
   }
 }
