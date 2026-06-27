@@ -49,7 +49,7 @@ FitShield ships a single, cross-browser source tree — the same files load in b
 2. Open `about:debugging#/runtime/this-firefox` in Firefox.
 3. Click **Load Temporary Add-on…** and select the project's `manifest.json`.
 
-Requires Firefox 121 or newer. The shared manifest declares both a Chrome service worker and a Firefox background script, so each browser uses what it supports. To package a signed `.xpi` for distribution, run [`web-ext`](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/) against the project folder.
+Requires Firefox 140 or newer (142+ on Android), the versions that support the add-on's data-collection declaration. The shared manifest declares both a Chrome service worker and a Firefox background script, so each browser uses what it supports. To package a signed `.xpi` for distribution, run [`web-ext`](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/) against the project folder.
 
 
 # Ethos
