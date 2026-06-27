@@ -1,6 +1,6 @@
 
 
-<img width="480" alt="FitShield" src="Branding/fitshield%20logo%201.png" />
+<img width="820" alt="FitShield" src="Branding/fitshield%20logo%201.png" />
 
 
 # FitShield
