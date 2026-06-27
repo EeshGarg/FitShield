@@ -1,6 +1,6 @@
 
 
-<img width="820" alt="FitShield" src="Branding/fitshield%20logo%201.png" />
+<img width="1350" height="592" alt="image" src="https://github.com/user-attachments/assets/0064f3b9-a20d-4b1a-b1ac-05c46f267f4c" />
 
 
 # FitShield
