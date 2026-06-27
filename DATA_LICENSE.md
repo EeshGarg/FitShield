@@ -5,15 +5,17 @@ Copyright (c) 2026 Usha Corporation. All rights reserved.
 This license applies to curated FitShield data files. This includes, without
 limitation:
 
-- `data/`
-- `delivery.json`
-- `fast-food.json`
-- Any JSON blocklist, alias, metadata, category mapping, or related curated
-  data file, wherever located, unless that file states otherwise.
+* `data/`
+* `delivery.json`
+* `fast-food.json`
+* `recipes/`
+* Any JSON blocklist, recipe, meal plan, ingredient mapping, nutrition metadata,
+  alias, metadata, category mapping, or related curated data file, wherever
+  located, unless that file states otherwise.
 
 The repository's root software license applies to source code. It does not grant
 rights to reuse, redistribute, repackage, sell, or commercially exploit the
-curated FitShield data except as allowed below.
+curated data except as allowed below.
 
 The curated data is publicly available to promote transparency and community
 contributions while preserving ownership of the continuously maintained
@@ -25,31 +27,32 @@ service marks, trade dress, or branding.
 ## Definitions
 
 Curated Data means the FitShield-maintained collection of JSON blocklists,
-metadata, aliases, category mappings, classifications, and related datasets
+recipes, meal plans, ingredient mappings, nutrition metadata, aliases,
+category mappings, classifications, recommendations, and related datasets
 covered by this license.
 
 ## Permitted Uses
 
 You may:
 
-- View, inspect, and audit the curated data in this public repository.
-- Use the curated data as part of the official FitShield project.
-- Submit issues and pull requests to improve the curated data.
-- Fork the repository only for review, testing, or contribution back to
+* View, inspect, and audit the curated data in this public repository.
+* Use the curated data as part of the official FitShield project.
+* Submit issues and pull requests to improve the curated data.
+* Fork the repository only for review, testing, or contribution back to
   FitShield.
 
 ## Restrictions
 
 You may not, without prior written permission from Usha Corporation:
 
-- Remove or obscure copyright, license, attribution, or ownership notices from
+* Remove or obscure copyright, license, attribution, or ownership notices from
   copies of the curated data.
-- Repackage, resell, sublicense, or commercially exploit the curated data.
-- Redistribute or publish the Curated Data as a standalone dataset outside the
+* Repackage, resell, sublicense, or commercially exploit the curated data.
+* Redistribute or publish the Curated Data as a standalone dataset outside the
   permitted uses of this license.
-- Use the curated data, in whole or in substantial part, to build or improve a
-  competing browser extension, API, database, filtering product, dataset, or
-  service.
+* Use the curated data, in whole or in substantial part, to build or improve a
+  competing browser extension, API, database, filtering product, recipe
+  database, nutrition dataset, recommendation system, or service.
 
 ## Contributions
 
