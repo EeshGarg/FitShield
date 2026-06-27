@@ -237,7 +237,7 @@
     "message": "ערכים מנורמלים לדומיינים וחוסמים בכל הדפים."
   },
   "customEmptyDefault": {
-    "message": "עדיין לא נוספו כתובות אתרים מותאמות אישית."
+    "message": "אין עדיין אתרים חסומים מותאמים. הוסף למעלה דומיין כמו example.com כדי להתחיל לחסום אותו."
   },
   "customNoMatch": {
     "message": "אין כתובות אתרים מותאמות אישית שתואמות לחיפוש זה."
@@ -696,231 +696,231 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "למה אתה רואה את זה"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "אתר"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "כלל"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "קטגוריה"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "פעיל ב"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "שירות משלוחים"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "מזון מהיר"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "כלל מותאם"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 נוספים"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "הסטטיסטיקה שלך"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "הערכה פרטית במכשיר שלך של מה ש-FitShield עזר לך לדלג עליו. אלה הערכות ושום דבר לא מועלה."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "ביקורים חסומים"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "חיסכון משוער"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "עלות ארוחה ממוצעת"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "משמש להערכת הכסף שנחסך כשמדלגים על הזמנה. נשמר רק במכשיר שלך."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "איפוס ונתונים"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "מחזיר חלקים מ-FitShield לברירת המחדל. כל פעולה מבקשת אישור תחילה."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "איפוס חסימה"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "טיימרים, לוח זמנים, אתרים, כתובות URL מותאמות וחסימות לפי מדינה/קטגוריה."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "איפוס מראה"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "צבעי ערכה ומצב בהיר/כהה."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "איפוס מתכונים והעדפות"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "עלות ארוחה ממוצעת, הגדרות קלוריות והסטטיסטיקה השמורה שלך."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "איפוס להגדרות יצרן"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "מחיקת הכול והחזרת FitShield להתקנה חדשה."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "ביטול"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "אישור"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "לאפס את כל הגדרות החסימה? הערכה, השפה והסטטיסטיקה יישמרו."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "לאפס את הערכה והמראה למצב הכהה כברירת מחדל?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "לאפס את העדפות העלות והקלוריות, וגם את סטטיסטיקות החיסכון והקלוריות שנמנעו?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "לאפס את FitShield להגדרות יצרן? פעולה זו מוחקת את כל ההגדרות, האתרים המותאמים והסטטיסטיקה במכשיר הזה. אי אפשר לבטל."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "להסיר את $1 מרשימת החסימה המותאמת שלך?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "בוצע. טוען מחדש…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "~$1 קלוריות"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "אכין את זה במקום"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "נוסף לסטטיסטיקה שלך ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "בחירה טובה — נרשם בסטטיסטיקה שלך. אפשר לראות בהגדרות."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "קלוריות שנמנעו"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "קלוריות ממוצעות לארוחה"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "משמש להערכת הקלוריות שנמנעו כשבוחרים מתכון במקום. נשמר רק במכשיר שלך."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "שינוי סדר כרטיס: $1. השתמש במקשי החצים כדי להזיז."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "ברוך הבא ל-FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "כמה בחירות מהירות ואתה מוכן. הכול נשאר במכשיר שלך — שום דבר לא מועלה."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "בחר שפה"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "קובע את שפת החלון הקופץ, ההגדרות ומסך החסימה של FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "בחר ערכת נושא"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "אפשר לכוונן צבעים מאוחר יותר בהגדרות."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "חסום הזמנת מזון מהיר"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "מוסיף מסך השהיה בדפי ההזמנה של רשתות מזון מהיר גדולות."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "מומלץ פעיל."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "חסום אפליקציות משלוחים"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "מוסיף מסך השהיה בפלטפורמות משלוחים כמו DoorDash ו-Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "שחזר גיבוי (אופציונלי)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "מגיע ממכשיר אחר? ייבא קובץ הגדרות של FitShield כדי להעביר הכול. אחרת פשוט המשך."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "ייבוא קובץ הגדרות"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "איך FitShield עוזר"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "סיור מהיר בתכונות העיקריות."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "טיימר השהיה"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "באתר חסום רץ ספירה לאחור קצרה לפני שאפשר להמשיך — מספיק כדי לחשוב מחדש על ההזמנה."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "לוח זמנים"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "אפשר לחסום רק בשעות מסוימות, כמו בערב או בשעות העבודה."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "רשימה לבנה"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "כבה כל אתר, הוסף כתובות URL משלך, או תן אישור זמני כשבאמת צריך."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "רעיונות למתכונים"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "מסך החסימה מציע מתכון צמחוני ומתכון בשרי/חלבוני מהיר לפי מה שחסמת."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "חזרה"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "הבא"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "סיום"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "שלב $1 מתוך $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "מה חדש"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "מבט מהיר על מה שהשתנה."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "פתח הגדרות"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "סגור"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "עדיין אין הערות גרסה."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "חדש"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "גרסה $1"
   }
 }

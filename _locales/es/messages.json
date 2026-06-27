@@ -237,7 +237,7 @@
     "message": "Las entradas se normalizan a dominios y se bloquean en todas las páginas."
   },
   "customEmptyDefault": {
-    "message": "Aún no se agregaron URL personalizadas."
+    "message": "Aún no hay sitios bloqueados personalizados. Añade arriba un dominio como example.com para empezar a bloquearlo."
   },
   "customNoMatch": {
     "message": "Ninguna URL personalizada coincide con esta búsqueda."
@@ -696,231 +696,231 @@
     "message": "Ese archivo no es una copia de seguridad válida de FitShield."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Por qué ves esto"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Sitio"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Regla"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Categoría"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Activo en"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Servicio de entrega"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Comida rápida"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Regla personalizada"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 más"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Tus estadísticas"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Una estimación privada, en tu dispositivo, de lo que FitShield te ayudó a evitar. Son estimaciones y no se sube nada."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Visitas bloqueadas"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Ahorro estimado"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Coste medio por comida"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Sirve para estimar el dinero ahorrado al evitar un pedido. Se guarda solo en tu dispositivo."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Restablecer y datos"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Restablece partes de FitShield a sus valores predeterminados. Cada acción pide confirmación primero."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Restablecer bloqueo"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Temporizadores, horario, sitios, URLs personalizadas y bloqueos por país/categoría."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Restablecer apariencia"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Colores del tema y modo claro/oscuro."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Restablecer recetas y preferencias"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Coste medio por comida, ajustes de calorías y tus estadísticas guardadas."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Restablecer de fábrica"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Borra todo y deja FitShield como recién instalado."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Cancelar"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Confirmar"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "¿Restablecer todos los ajustes de bloqueo? Se conservan el tema, el idioma y tus estadísticas."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "¿Restablecer el tema y la apariencia al modo oscuro predeterminado?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "¿Restablecer tus preferencias de coste y calorías, además de las estadísticas de ahorro y calorías evitadas?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "¿Restablecer FitShield de fábrica? Esto borra todos los ajustes, sitios personalizados y estadísticas de este dispositivo. No se puede deshacer."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "¿Quitar $1 de tu lista de bloqueo personalizada?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Listo. Recargando…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Mejor preparo esto"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Añadido a tus estadísticas ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Buena elección: se registró en tus estadísticas. Míralo en Ajustes."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Calorías evitadas"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Calorías medias por comida"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Sirve para estimar las calorías evitadas al elegir una receta. Se guarda solo en tu dispositivo."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Reordenar tarjeta: $1. Usa las flechas para moverla."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Te damos la bienvenida a FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Unas pocas decisiones rápidas y listo. Todo queda en tu dispositivo: no se sube nada."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Elige tu idioma"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Define el idioma del popup, los ajustes y la pantalla de bloqueo de FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Elige un tema"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Puedes ajustar los colores más tarde en Ajustes."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Bloquear pedidos de comida rápida"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Añade una pantalla de pausa en las páginas de pedido de las grandes cadenas de comida rápida."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Recomendado activado."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Bloquear apps de entrega"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Añade una pantalla de pausa en plataformas de entrega como DoorDash y Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Restaurar una copia (opcional)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "¿Vienes de otro dispositivo? Importa un archivo de ajustes de FitShield para traerlo todo. Si no, simplemente continúa."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Importar archivo de ajustes"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Cómo te ayuda FitShield"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Un recorrido rápido por las funciones principales."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Temporizador de pausa"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Cuando abres un sitio bloqueado, corre una breve cuenta atrás antes de continuar: lo justo para repensar el pedido."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Horario"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Si quieres, bloquea solo en horas concretas, como las tardes o el horario laboral."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Lista blanca"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Desactiva cualquier sitio, añade tus propias URLs o concede un pase temporal cuando de verdad lo necesites."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Ideas de recetas"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "La pantalla de bloqueo sugiere una receta vegetariana y otra con carne/proteína según lo que bloqueaste."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Atrás"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Siguiente"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Finalizar"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Paso $1 de $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Novedades"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Un vistazo rápido a lo que cambió."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Abrir ajustes"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Cerrar"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Aún no hay notas de versión."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Nuevo"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Versión $1"
   }
 }

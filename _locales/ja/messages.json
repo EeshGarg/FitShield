@@ -237,7 +237,7 @@
     "message": "入力はドメインに正規化され、すべてのページでブロックされます。"
   },
   "customEmptyDefault": {
-    "message": "カスタム URL はまだ追加されていません。"
+    "message": "カスタムでブロックしたサイトはまだありません。上に example.com のようなドメインを追加してブロックを始めましょう。"
   },
   "customNoMatch": {
     "message": "この検索に一致するカスタム URL はありません。"
@@ -696,231 +696,231 @@
     "message": "そのファイルは有効な FitShield バックアップではありません。"
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "表示されている理由"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "サイト"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "ルール"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "カテゴリ"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "対象の国"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "デリバリーサービス"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "ファストフード"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "カスタムルール"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "他 $1 件"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "あなたの統計"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield が回避を手伝った内容の、端末内だけの概算です。これらは推定値であり、何もアップロードされません。"
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "ブロックした回数"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "推定節約額"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "1食あたりの平均費用"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "注文をやめたときの節約額の推定に使われます。端末内にのみ保存されます。"
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "リセットとデータ"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield の一部を初期設定に戻します。各操作は実行前に確認します。"
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "ブロック設定をリセット"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "タイマー、スケジュール、サイトの切り替え、カスタム URL、国・カテゴリのブロック。"
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "外観をリセット"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "テーマカラーとライト／ダークモード。"
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "レシピと設定をリセット"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "1食あたりの平均費用、カロリー設定、保存された統計。"
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "初期化（工場出荷時に戻す）"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "すべてを消去し、FitShield をインストール直後の状態に戻します。"
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "キャンセル"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "確認"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "すべてのブロック設定を初期値に戻しますか？テーマ、言語、保存された統計は保持されます。"
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "テーマと外観を既定のダークモードに戻しますか？"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "1食の費用とカロリーの設定、および節約額と回避カロリーの統計をリセットしますか？"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield を初期化しますか？この端末上のすべての設定、カスタムサイト、統計が消去されます。元に戻せません。"
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1 をカスタムブロックリストから削除しますか？"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "完了しました。再読み込みしています…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "約 $1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "代わりにこれを作る"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "統計に追加しました ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "いい選択です — 統計に記録しました。設定で確認できます。"
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "回避したカロリー"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "1食あたりの平均カロリー"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "代わりにレシピを選んだときの回避カロリーの推定に使われます。端末内にのみ保存されます。"
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "カードの並べ替え: $1。矢印キーで移動できます。"
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "FitShield へようこそ"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "いくつか選ぶだけで準備完了です。すべて端末内に保存され、何もアップロードされません。"
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "言語を選択"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "FitShield のポップアップ、設定、ブロック画面の言語を設定します。"
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "テーマを選択"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "色は後で設定で細かく調整できます。"
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "ファストフードの注文をブロック"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "主要なファストフードチェーンの注文ページに一時停止画面を追加します。"
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "オンを推奨。"
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "デリバリーアプリをブロック"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "DoorDash や Uber Eats などのデリバリーサービスに一時停止画面を追加します。"
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "バックアップを復元（任意）"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "別の端末から移行しますか？FitShield の設定ファイルをインポートすると、すべて引き継げます。そうでなければそのまま続けてください。"
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "設定ファイルをインポート"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield の役立て方"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "主な機能を簡単にご紹介します。"
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "一時停止タイマー"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "ブロック対象のサイトを開くと、続行できるまで短いカウントダウンが流れます。注文を考え直すのに十分な時間です。"
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "スケジュール"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "夜間や勤務時間など、指定した時間帯だけブロックすることもできます。"
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "ホワイトリスト"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "個々のサイトをオフにしたり、独自の URL を追加したり、本当に必要なときは一時的な許可を与えたりできます。"
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "レシピのアイデア"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "ブロック画面では、ブロックした内容に応じて、手軽なベジタリアンと肉・タンパク質のレシピを提案します。"
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "戻る"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "次へ"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "完了"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "ステップ $1 / $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "新着情報"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "変更点をざっと確認できます。"
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "設定を開く"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "閉じる"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "リリースノートはまだありません。"
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "新着"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "バージョン $1"
   }
 }

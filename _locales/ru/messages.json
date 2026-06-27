@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and блокироватьed across all pages."
   },
   "customEmptyDefault": {
-    "message": "No пользовательские URL added yet."
+    "message": "Пока нет своих заблокированных сайтов. Добавьте выше домен вроде example.com, чтобы начать его блокировать."
   },
   "customNoMatch": {
     "message": "No пользовательские URL match this search."
@@ -696,231 +696,231 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Почему вы это видите"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Сайт"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Правило"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Категория"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Активно в"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Служба доставки"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Фастфуд"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Своё правило"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 ещё"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Ваша статистика"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Приватная оценка на вашем устройстве того, что FitShield помог пропустить. Это оценки, и ничего не загружается."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Заблокированные визиты"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Примерная экономия"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Средняя цена приёма пищи"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Используется для оценки сэкономленных денег при отказе от заказа. Хранится только на вашем устройстве."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Сброс и данные"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Возврат частей FitShield к значениям по умолчанию. Каждое действие сначала запрашивает подтверждение."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Сбросить блокировку"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Таймеры, расписание, сайты, свои URL и блокировки по стране/категории."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Сбросить оформление"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Цвета темы и светлый/тёмный режим."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Сбросить рецепты и настройки"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Средняя цена приёма пищи, настройки калорий и сохранённая статистика."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Сброс к заводским"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Стереть всё и вернуть FitShield к новой установке."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Отмена"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Подтвердить"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Сбросить все настройки блокировки? Тема, язык и статистика сохранятся."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Сбросить тему и оформление к тёмному режиму по умолчанию?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Сбросить настройки цены и калорий, а также статистику экономии и избежанных калорий?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Сбросить FitShield к заводским настройкам? Это сотрёт все настройки, свои сайты и статистику на этом устройстве. Отменить нельзя."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Удалить $1 из вашего списка блокировки?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Готово. Перезагрузка…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "~$1 ккал"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Лучше приготовлю это"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Добавлено в статистику ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Отличный выбор — записано в вашу статистику. Смотрите в настройках."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Избежано калорий"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Средние калории на приём пищи"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Используется для оценки избежанных калорий при выборе рецепта. Хранится только на вашем устройстве."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Переместить карточку: $1. Используйте стрелки."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Добро пожаловать в FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Несколько быстрых выборов — и готово. Всё остаётся на вашем устройстве, ничего не загружается."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Выберите язык"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Задаёт язык всплывающего окна, настроек и экрана блокировки FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Выберите тему"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Цвета можно настроить позже в настройках."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Блокировать заказ фастфуда"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Добавляет экран паузы на страницах заказа крупных сетей фастфуда."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Рекомендуется включить."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Блокировать приложения доставки"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Добавляет экран паузы на платформах доставки вроде DoorDash и Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Восстановить из резервной копии (необязательно)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Переходите с другого устройства? Импортируйте файл настроек FitShield, чтобы перенести всё. Иначе просто продолжайте."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Импортировать файл настроек"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Чем помогает FitShield"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Быстрый обзор основных функций."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Таймер паузы"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "На заблокированном сайте идёт короткий отсчёт перед продолжением — достаточно, чтобы передумать о заказе."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Расписание"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "При желании блокируйте только в заданные часы — например, вечером или в рабочее время."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Белый список"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Отключите любой сайт, добавьте свои URL или дайте временный доступ, когда он действительно нужен."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Идеи рецептов"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Экран блокировки предлагает быстрый вегетарианский и мясной/белковый рецепт в зависимости от того, что вы заблокировали."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Назад"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Далее"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Готово"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Шаг $1 из $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Что нового"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Краткий обзор изменений."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Открыть настройки"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Закрыть"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Пока нет заметок о выпуске."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Новое"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Версия $1"
   }
 }

@@ -237,7 +237,7 @@
     "message": "항목은 도메인으로 정규화되어 모든 페이지에서 차단됩니다."
   },
   "customEmptyDefault": {
-    "message": "아직 추가된 사용자 지정 URL이 없습니다."
+    "message": "아직 사용자 차단 사이트가 없어요. 위에 example.com 같은 도메인을 추가해 차단을 시작하세요."
   },
   "customNoMatch": {
     "message": "이 검색과 일치하는 사용자 지정 URL이 없습니다."
@@ -696,231 +696,231 @@
     "message": "유효한 FitShield 백업 파일이 아닙니다."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "이 화면이 보이는 이유"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "사이트"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "규칙"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "카테고리"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "활성 지역"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "배달 서비스"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "패스트푸드"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "사용자 규칙"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1개 더"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "내 통계"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield가 건너뛰도록 도와준 내용을 기기 안에서만 추정한 값이에요. 추정치이며 아무것도 업로드되지 않습니다."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "차단된 방문"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "예상 절약액"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "평균 한 끼 비용"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "주문을 건너뛸 때 절약한 금액을 추정하는 데 쓰여요. 기기에만 저장됩니다."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "초기화 및 데이터"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield의 일부를 기본값으로 되돌립니다. 각 작업은 먼저 확인을 요청합니다."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "차단 설정 초기화"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "타이머, 일정, 사이트 토글, 사용자 URL, 국가/카테고리 차단."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "외관 초기화"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "테마 색상과 라이트/다크 모드."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "레시피 및 환경설정 초기화"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "평균 한 끼 비용, 칼로리 설정, 저장된 통계."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "공장 초기화"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "모두 지우고 FitShield를 새로 설치한 상태로 되돌립니다."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "취소"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "확인"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "모든 차단 설정을 기본값으로 초기화할까요? 테마, 언어, 저장된 통계는 유지됩니다."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "테마와 외관을 기본 다크 모드로 초기화할까요?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "비용 및 칼로리 환경설정과 절약액·피한 칼로리 통계를 초기화할까요?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield를 공장 초기화할까요? 이 기기의 모든 설정, 사용자 사이트, 통계가 지워집니다. 되돌릴 수 없습니다."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1을(를) 사용자 차단 목록에서 제거할까요?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "완료. 다시 불러오는 중…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "대신 이걸 만들게요"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "통계에 추가됨 ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "좋은 선택이에요 — 통계에 기록했어요. 설정에서 확인하세요."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "피한 칼로리"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "평균 한 끼 칼로리"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "대신 레시피를 고를 때 피한 칼로리를 추정하는 데 쓰여요. 기기에만 저장됩니다."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "카드 순서 변경: $1. 화살표 키로 이동하세요."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "FitShield에 오신 것을 환영합니다"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "몇 가지만 빠르게 고르면 끝이에요. 모든 것은 기기에 남고 아무것도 업로드되지 않습니다."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "언어 선택"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "FitShield의 팝업, 설정, 차단 화면의 언어를 정합니다."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "테마 선택"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "색상은 나중에 설정에서 세밀하게 조정할 수 있어요."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "패스트푸드 주문 차단"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "주요 패스트푸드 체인의 주문 페이지에 일시정지 화면을 추가합니다."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "켜는 것을 권장."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "배달 앱 차단"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "DoorDash, Uber Eats 같은 배달 플랫폼에 일시정지 화면을 추가합니다."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "백업 복원(선택)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "다른 기기에서 오셨나요? FitShield 설정 파일을 가져오면 모두 옮길 수 있어요. 아니면 그냥 계속하세요."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "설정 파일 가져오기"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield가 돕는 방법"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "주요 기능을 빠르게 둘러봅니다."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "일시정지 타이머"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "차단된 사이트에 들어가면 계속하기 전에 짧은 카운트다운이 흘러요 — 주문을 다시 생각하기에 충분합니다."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "일정"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "원하면 저녁이나 근무 시간처럼 정해진 시간에만 차단할 수 있어요."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "화이트리스트"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "개별 사이트를 끄거나, 직접 URL을 추가하거나, 정말 필요할 때 임시 허용을 줄 수 있어요."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "레시피 아이디어"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "차단 화면은 차단한 내용에 따라 빠른 채식과 고기/단백질 레시피를 추천합니다."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "뒤로"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "다음"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "완료"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "$2단계 중 $1"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "새로운 기능"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "바뀐 점을 빠르게 살펴봅니다."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "설정 열기"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "닫기"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "아직 릴리스 노트가 없어요."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "새로움"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "버전 $1"
   }
 }

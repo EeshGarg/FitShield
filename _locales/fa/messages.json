@@ -237,7 +237,7 @@
     "message": "ورودی ها به دامنه ها عادی می شوند و در تمام صفحات مسدود می شوند."
   },
   "customEmptyDefault": {
-    "message": "هنوز URL سفارشی اضافه نشده است."
+    "message": "هنوز سایت مسدودشدهٔ سفارشی‌ای نیست. برای شروع، در بالا دامنه‌ای مثل example.com اضافه کنید."
   },
   "customNoMatch": {
     "message": "هیچ نشانی اینترنتی سفارشی با این جستجو مطابقت ندارد."
@@ -696,231 +696,231 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "چرا این را می‌بینید"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "سایت"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "قاعده"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "دسته"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "فعال در"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "سرویس تحویل"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "فست‌فود"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "قاعدهٔ سفارشی"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 بیشتر"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "آمار شما"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "برآوردی خصوصی روی دستگاه شما از آنچه FitShield به شما کمک کرد از آن صرف‌نظر کنید. این‌ها تخمینی‌اند و چیزی بارگذاری نمی‌شود."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "بازدیدهای مسدودشده"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "صرفه‌جویی تخمینی"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "میانگین هزینهٔ هر وعده"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "برای تخمین پول صرفه‌جویی‌شده هنگام صرف‌نظر از سفارش به کار می‌رود. فقط روی دستگاه شما ذخیره می‌شود."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "بازنشانی و داده‌ها"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "بخش‌هایی از FitShield را به پیش‌فرض بازمی‌گرداند. هر کنش ابتدا تأیید می‌خواهد."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "بازنشانی مسدودسازی"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "زمان‌سنج‌ها، زمان‌بندی، سایت‌ها، نشانی‌های سفارشی و مسدودسازی کشور/دسته."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "بازنشانی ظاهر"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "رنگ‌های پوسته و حالت روشن/تیره."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "بازنشانی دستورها و ترجیحات"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "میانگین هزینهٔ وعده، تنظیمات کالری و آمار ذخیره‌شدهٔ شما."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "بازنشانی کارخانه"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "همه‌چیز را پاک کن و FitShield را به نصب تازه بازگردان."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "لغو"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "تأیید"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "همهٔ تنظیمات مسدودسازی به پیش‌فرض بازنشانی شود؟ پوسته، زبان و آمار شما حفظ می‌شود."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "پوسته و ظاهر به حالت تیرهٔ پیش‌فرض بازنشانی شود؟"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "ترجیحات هزینه و کالری به‌همراه آمار صرفه‌جویی و کالری اجتناب‌شده بازنشانی شود؟"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield به تنظیمات کارخانه بازنشانی شود؟ این کار همهٔ تنظیمات، سایت‌های سفارشی و آمار این دستگاه را پاک می‌کند. قابل بازگشت نیست."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1 از فهرست مسدودسازی سفارشی شما حذف شود؟"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "انجام شد. در حال بارگذاری مجدد…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "~$1 کالری"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "به‌جایش این را می‌پزم"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "به آمار شما افزوده شد ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "انتخاب خوبی بود — در آمار شما ثبت شد. در تنظیمات ببینید."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "کالری اجتناب‌شده"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "میانگین کالری هر وعده"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "برای تخمین کالری اجتناب‌شده هنگام انتخاب دستور پخت به کار می‌رود. فقط روی دستگاه شما ذخیره می‌شود."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "مرتب‌سازی کارت: $1. برای جابه‌جایی از کلیدهای جهت استفاده کنید."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "به FitShield خوش آمدید"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "چند انتخاب سریع و آماده‌اید. همه‌چیز روی دستگاه شما می‌ماند — چیزی بارگذاری نمی‌شود."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "زبان خود را انتخاب کنید"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "زبان پنجرهٔ بازشو، تنظیمات و صفحهٔ مسدودسازی FitShield را تعیین می‌کند."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "یک پوسته انتخاب کنید"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "رنگ‌ها را بعداً در تنظیمات می‌توانید تنظیم کنید."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "مسدودسازی سفارش فست‌فود"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "یک صفحهٔ مکث در صفحات سفارش زنجیره‌های بزرگ فست‌فود اضافه می‌کند."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "توصیه‌شده روشن."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "مسدودسازی اپ‌های تحویل"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "یک صفحهٔ مکث در پلتفرم‌های تحویل مانند DoorDash و Uber Eats اضافه می‌کند."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "بازیابی پشتیبان (اختیاری)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "از دستگاه دیگری می‌آیید؟ یک فایل تنظیمات FitShield را وارد کنید تا همه‌چیز منتقل شود. وگرنه ادامه دهید."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "وارد کردن فایل تنظیمات"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield چگونه کمک می‌کند"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "یک مرور سریع بر ویژگی‌های اصلی."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "زمان‌سنج مکث"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "وقتی به سایت مسدود می‌رسید، پیش از ادامه یک شمارش معکوس کوتاه اجرا می‌شود — کافی برای بازاندیشی دربارهٔ سفارش."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "زمان‌بندی"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "در صورت تمایل فقط در ساعات معین مسدود کنید، مثل شب‌ها یا ساعات کاری."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "فهرست سفید"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "هر سایتی را خاموش کنید، نشانی‌های خود را بیفزایید یا هنگام نیاز واقعی اجازهٔ موقت بدهید."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "ایده‌های دستور پخت"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "صفحهٔ مسدودسازی بر اساس آنچه مسدود کرده‌اید یک دستور گیاهی و یک دستور گوشتی/پروتئینی سریع پیشنهاد می‌دهد."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "بازگشت"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "بعدی"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "پایان"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "گام $1 از $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "تازه‌ها"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "نگاهی سریع به تغییرات."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "باز کردن تنظیمات"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "بستن"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "هنوز یادداشت انتشاری نیست."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "جدید"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "نسخهٔ $1"
   }
 }

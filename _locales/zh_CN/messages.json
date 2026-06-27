@@ -237,7 +237,7 @@
     "message": "条目会被规范化为域名，并在所有页面上屏蔽。"
   },
   "customEmptyDefault": {
-    "message": "尚未添加自定义网址。"
+    "message": "还没有自定义拦截的网站。在上方添加像 example.com 这样的域名即可开始拦截。"
   },
   "customNoMatch": {
     "message": "没有与此搜索匹配的自定义网址。"
@@ -696,231 +696,231 @@
     "message": "该文件不是有效的 FitShield 备份。"
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "为什么看到这个"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "网站"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "规则"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "类别"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "生效地区"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "外卖服务"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "快餐"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "自定义规则"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 个"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "你的统计"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "在你设备本地对 FitShield 帮你跳过内容的私密估算。这些只是估算，不会上传任何内容。"
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "已拦截的访问"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "预计省下"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "每餐平均花费"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "用于估算放弃一次下单省下的钱。仅保存在你的设备上。"
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "重置与数据"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "将 FitShield 的部分内容恢复为默认。每项操作都会先请求确认。"
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "重置拦截设置"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "计时器、计划、网站开关、自定义网址，以及国家/类别拦截。"
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "重置外观"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "主题颜色和浅色/深色模式。"
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "重置食谱与偏好"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "每餐平均花费、卡路里设置，以及已保存的统计。"
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "恢复出厂"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "清除一切，让 FitShield 回到全新安装状态。"
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "取消"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "确认"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "将所有拦截设置重置为默认？你的主题、语言和统计会保留。"
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "将主题和外观重置为默认深色模式？"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "重置花费和卡路里偏好，以及省钱和避免卡路里的统计？"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "将 FitShield 恢复出厂设置？这会清除本设备上的所有设置、自定义网站和统计。无法撤销。"
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "将 $1 从你的自定义拦截列表中移除？"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "完成。正在重新加载…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "约 $1 千卡"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "我改做这个"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "已加入你的统计 ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "不错的选择——已记入你的统计。可在设置中查看。"
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "避免的卡路里"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "每餐平均卡路里"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "用于估算改选食谱时避免的卡路里。仅保存在你的设备上。"
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "重新排序卡片：$1。用方向键移动。"
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "欢迎使用 FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "做几个快速选择就好了。一切都留在你的设备上——不会上传任何内容。"
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "选择你的语言"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "设置 FitShield 弹窗、设置和拦截页面的语言。"
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "选择主题"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "稍后可在设置中微调颜色。"
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "拦截快餐下单"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "在大型快餐连锁的下单页面加入一个暂停页面。"
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "建议开启。"
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "拦截外卖应用"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "在 DoorDash、Uber Eats 等外卖平台加入一个暂停页面。"
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "恢复备份（可选）"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "从另一台设备过来？导入 FitShield 设置文件即可带上一切。否则直接继续。"
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "导入设置文件"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield 如何帮你"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "快速浏览主要功能。"
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "暂停计时器"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "进入被拦截的网站时，会先有一段短暂倒计时才能继续——足够你重新考虑这次下单。"
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "计划"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "可选择只在设定的时段拦截，比如晚上或工作时间。"
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "白名单"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "关闭任意网站、添加你自己的网址，或在真正需要时给予临时通行。"
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "食谱灵感"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "拦截页面会根据你拦截的内容，推荐一道快手素食和一道肉类/蛋白食谱。"
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "返回"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "下一步"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "完成"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "第 $1 步，共 $2 步"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "新功能"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "快速了解有哪些变化。"
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "打开设置"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "关闭"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "还没有发布说明。"
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "新"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "版本 $1"
   }
 }

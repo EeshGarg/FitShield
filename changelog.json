@@ -13,7 +13,8 @@
         "Added a proper FitShield extension icon.",
         "Redesigned Settings to use wide screens better: cards reflow into columns and stack cleanly on narrow windows.",
         "Added Reset options and confirmation dialogs (custom-site removal, resets, and a full factory reset), plus onboarding, local Backup & Restore, and the Chrome Web Store listing.",
-        "Finished localizing the welcome tour and What's New page, and added calm time-of-day background gradients that shift gently as you scroll.",
+        "Added a living, layered background: soft color fields that drift on their own, vary subtly on each open, gain gentle parallax as you scroll, and respect reduced-motion.",
+        "Expanded translations for the new 0.51 screens across many languages (including Japanese, Spanish, French, Italian, Portuguese, Russian, Arabic, Hebrew, Hindi, Korean, Chinese, and more); the rest fall back to English.",
         "Cleaned up the repository and consolidated branding assets into a Branding/ folder."
       ]
     },

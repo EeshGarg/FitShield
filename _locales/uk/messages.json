@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and блокуватиed across all pages."
   },
   "customEmptyDefault": {
-    "message": "No користувацькі URL added yet."
+    "message": "Поки немає власних заблокованих сайтів. Додайте вище домен на кшталт example.com, щоб почати його блокувати."
   },
   "customNoMatch": {
     "message": "No користувацькі URL match this search."
@@ -696,231 +696,231 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Чому ви це бачите"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Сайт"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Правило"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Категорія"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Активно в"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Служба доставки"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Фастфуд"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Власне правило"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 ще"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Ваша статистика"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Приватна оцінка на вашому пристрої того, що FitShield допоміг пропустити. Це оцінки, і нічого не завантажується."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Заблоковані візити"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Орієнтовна економія"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Середня ціна прийому їжі"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Використовується для оцінки заощаджених грошей, коли ви відмовляєтесь від замовлення. Зберігається лише на вашому пристрої."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Скидання та дані"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Повернення частин FitShield до типових значень. Кожна дія спершу запитує підтвердження."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Скинути блокування"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Таймери, розклад, сайти, власні URL і блокування за країною/категорією."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Скинути вигляд"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Кольори теми та світлий/темний режим."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Скинути рецепти й налаштування"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Середня ціна прийому їжі, налаштування калорій і збережена статистика."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Скидання до заводських"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Стерти все й повернути FitShield до нового встановлення."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Скасувати"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Підтвердити"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Скинути всі налаштування блокування? Тема, мова й статистика залишаться."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Скинути тему та вигляд до типового темного режиму?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Скинути налаштування ціни й калорій, а також статистику економії та уникнутих калорій?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Скинути FitShield до заводських налаштувань? Це зітре всі налаштування, власні сайти й статистику на цьому пристрої. Скасувати неможливо."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Вилучити $1 з вашого списку блокування?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Готово. Перезавантаження…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "~$1 ккал"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Краще приготую це"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Додано до статистики ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Гарний вибір — записано у вашу статистику. Дивіться в налаштуваннях."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Уникнуто калорій"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Середні калорії на прийом їжі"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Використовується для оцінки уникнутих калорій, коли ви обираєте рецепт. Зберігається лише на вашому пристрої."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Перемістити картку: $1. Користуйтеся стрілками."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Ласкаво просимо до FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Кілька швидких виборів — і готово. Усе залишається на вашому пристрої, нічого не завантажується."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Виберіть мову"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Задає мову спливаючого вікна, налаштувань і екрана блокування FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Виберіть тему"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Кольори можна налаштувати пізніше в налаштуваннях."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Блокувати замовлення фастфуду"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Додає екран паузи на сторінках замовлення великих мереж фастфуду."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Рекомендовано увімкнути."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Блокувати застосунки доставки"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Додає екран паузи на платформах доставки на кшталт DoorDash і Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Відновити з резервної копії (необов'язково)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Переходите з іншого пристрою? Імпортуйте файл налаштувань FitShield, щоб перенести все. Інакше просто продовжуйте."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Імпортувати файл налаштувань"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Чим допомагає FitShield"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Швидкий огляд основних функцій."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Таймер паузи"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "На заблокованому сайті йде короткий відлік перед продовженням — досить, щоб передумати щодо замовлення."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Розклад"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "За бажання блокуйте лише у визначені години — наприклад, увечері чи в робочий час."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Білий список"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Вимкніть будь-який сайт, додайте власні URL або надайте тимчасовий доступ, коли він справді потрібен."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Ідеї рецептів"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Екран блокування пропонує швидкий вегетаріанський і м'ясний/білковий рецепт залежно від того, що ви заблокували."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Назад"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Далі"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Готово"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Крок $1 з $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Що нового"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Швидкий огляд змін."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Відкрити налаштування"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Закрити"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Поки немає нотаток до випуску."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Нове"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Версія $1"
   }
 }

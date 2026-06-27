@@ -237,7 +237,7 @@
     "message": "รายการจะถูกปรับเป็นโดเมนและถูกบล็อกในทุกหน้า"
   },
   "customEmptyDefault": {
-    "message": "ยังไม่มี URL ที่กำหนดเอง"
+    "message": "ยังไม่มีเว็บไซต์ที่กำหนดเองถูกบล็อก เพิ่มโดเมนเช่น example.com ด้านบนเพื่อเริ่มบล็อก"
   },
   "customNoMatch": {
     "message": "ไม่มี URL ที่กำหนดเองตรงกับการค้นหานี้"
@@ -696,231 +696,231 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "ทำไมคุณจึงเห็นสิ่งนี้"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "เว็บไซต์"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "กฎ"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "หมวดหมู่"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "ใช้งานใน"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "บริการเดลิเวอรี"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "ฟาสต์ฟู้ด"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "กฎที่กำหนดเอง"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 เพิ่มเติม"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "สถิติของคุณ"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "ค่าประมาณส่วนตัวบนอุปกรณ์ของคุณว่า FitShield ช่วยให้คุณข้ามอะไรไปบ้าง นี่คือค่าประมาณ และไม่มีการอัปโหลดอะไร"
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "การเข้าชมที่ถูกบล็อก"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "ประหยัดโดยประมาณ"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "ค่ามื้ออาหารเฉลี่ย"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "ใช้ประมาณเงินที่ประหยัดได้เมื่อคุณข้ามการสั่ง เก็บไว้บนอุปกรณ์ของคุณเท่านั้น"
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "รีเซ็ตและข้อมูล"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "คืนค่าบางส่วนของ FitShield เป็นค่าเริ่มต้น แต่ละการกระทำจะขอยืนยันก่อน"
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "รีเซ็ตการบล็อก"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "ตัวจับเวลา ตารางเวลา เว็บไซต์ URL ที่กำหนดเอง และการบล็อกตามประเทศ/หมวดหมู่"
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "รีเซ็ตรูปลักษณ์"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "สีธีมและโหมดสว่าง/มืด"
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "รีเซ็ตสูตรอาหารและค่ากำหนด"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "ค่ามื้ออาหารเฉลี่ย การตั้งค่าแคลอรี และสถิติที่บันทึกไว้"
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "รีเซ็ตเป็นค่าจากโรงงาน"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "ลบทุกอย่างและคืน FitShield เป็นเหมือนเพิ่งติดตั้ง"
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "ยกเลิก"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "ยืนยัน"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "รีเซ็ตการตั้งค่าการบล็อกทั้งหมดเป็นค่าเริ่มต้นไหม ธีม ภาษา และสถิติของคุณจะถูกเก็บไว้"
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "รีเซ็ตธีมและรูปลักษณ์เป็นโหมดมืดเริ่มต้นไหม"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "รีเซ็ตค่ากำหนดค่าใช้จ่ายและแคลอรี รวมถึงสถิติเงินที่ประหยัดและแคลอรีที่เลี่ยงได้ไหม"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "รีเซ็ต FitShield เป็นค่าจากโรงงานไหม การนี้จะลบการตั้งค่า เว็บไซต์ที่กำหนดเอง และสถิติทั้งหมดบนอุปกรณ์นี้ ไม่สามารถเลิกทำได้"
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "นำ $1 ออกจากรายการบล็อกที่กำหนดเองของคุณไหม"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "เสร็จแล้ว กำลังโหลดใหม่…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "~$1 แคล"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "ขอทำเมนูนี้แทน"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "เพิ่มในสถิติของคุณแล้ว ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "เลือกได้ดี — บันทึกในสถิติของคุณแล้ว ดูได้ในการตั้งค่า"
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "แคลอรีที่เลี่ยงได้"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "แคลอรีต่อมื้อเฉลี่ย"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "ใช้ประมาณแคลอรีที่เลี่ยงได้เมื่อคุณเลือกสูตรอาหารแทน เก็บไว้บนอุปกรณ์ของคุณเท่านั้น"
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "จัดเรียงการ์ดใหม่: $1 ใช้ปุ่มลูกศรเพื่อย้าย"
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "ยินดีต้อนรับสู่ FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "เลือกไม่กี่อย่างก็พร้อม ทุกอย่างอยู่บนอุปกรณ์ของคุณ — ไม่มีการอัปโหลด"
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "เลือกภาษาของคุณ"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "กำหนดภาษาสำหรับป๊อปอัป การตั้งค่า และหน้าจอบล็อกของ FitShield"
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "เลือกธีม"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "ปรับสีอย่างละเอียดได้ภายหลังในการตั้งค่า"
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "บล็อกการสั่งฟาสต์ฟู้ด"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "เพิ่มหน้าจอหยุดพักบนหน้าสั่งของเครือฟาสต์ฟู้ดรายใหญ่"
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "แนะนำให้เปิด"
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "บล็อกแอปเดลิเวอรี"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "เพิ่มหน้าจอหยุดพักบนแพลตฟอร์มเดลิเวอรีอย่าง DoorDash และ Uber Eats"
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "กู้คืนข้อมูลสำรอง (ไม่บังคับ)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "ย้ายมาจากอุปกรณ์อื่นใช่ไหม นำเข้าไฟล์การตั้งค่า FitShield เพื่อย้ายทุกอย่างมา ถ้าไม่ ก็ดำเนินการต่อได้เลย"
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "นำเข้าไฟล์การตั้งค่า"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield ช่วยอย่างไร"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "ทัวร์สั้น ๆ ของฟีเจอร์หลัก"
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "ตัวจับเวลาหยุดพัก"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "เมื่อเจอเว็บไซต์ที่ถูกบล็อก จะมีการนับถอยหลังสั้น ๆ ก่อนไปต่อ — พอให้คิดทบทวนการสั่ง"
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "ตารางเวลา"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "จะเลือกบล็อกเฉพาะบางช่วงเวลาก็ได้ เช่น ตอนเย็นหรือเวลาทำงาน"
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "ไวต์ลิสต์"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "ปิดเว็บไซต์ใดก็ได้ เพิ่ม URL ของคุณเอง หรือให้สิทธิ์ชั่วคราวเมื่อจำเป็นจริง ๆ"
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "ไอเดียสูตรอาหาร"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "หน้าจอบล็อกจะแนะนำสูตรมังสวิรัติและสูตรเนื้อ/โปรตีนแบบเร็วตามสิ่งที่คุณบล็อก"
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "ย้อนกลับ"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "ถัดไป"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "เสร็จสิ้น"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "ขั้นที่ $1 จาก $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "มีอะไรใหม่"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "ดูสิ่งที่เปลี่ยนแปลงอย่างรวดเร็ว"
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "เปิดการตั้งค่า"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "ปิด"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "ยังไม่มีบันทึกรุ่น"
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "ใหม่"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "เวอร์ชัน $1"
   }
 }

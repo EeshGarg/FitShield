@@ -237,7 +237,7 @@
     "message": "Các mục được chuẩn hóa thành tên miền và bị chặn trên tất cả các trang."
   },
   "customEmptyDefault": {
-    "message": "Chưa có URL tùy chỉnh nào được thêm vào."
+    "message": "Chưa có trang tùy chỉnh nào bị chặn. Thêm một tên miền như example.com ở trên để bắt đầu chặn."
   },
   "customNoMatch": {
     "message": "Không có URL tùy chỉnh nào phù hợp với tìm kiếm này."
@@ -696,231 +696,231 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Vì sao bạn thấy điều này"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Trang"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Quy tắc"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Danh mục"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Hoạt động tại"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Dịch vụ giao hàng"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Thức ăn nhanh"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Quy tắc tùy chỉnh"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 nữa"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Thống kê của bạn"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Ước tính riêng tư trên thiết bị của bạn về những gì FitShield giúp bạn bỏ qua. Đây là ước tính và không có gì được tải lên."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Lượt truy cập bị chặn"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Tiết kiệm ước tính"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Chi phí bữa ăn trung bình"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Dùng để ước tính số tiền tiết kiệm khi bạn bỏ một đơn. Chỉ lưu trên thiết bị của bạn."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Đặt lại & Dữ liệu"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Khôi phục một số phần của FitShield về mặc định. Mỗi thao tác hỏi xác nhận trước."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Đặt lại chặn"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Bộ hẹn giờ, lịch, trang, URL tùy chỉnh và chặn theo quốc gia/danh mục."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Đặt lại giao diện"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Màu chủ đề và chế độ sáng/tối."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Đặt lại công thức & tùy chọn"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Chi phí bữa ăn trung bình, cài đặt calo và thống kê đã lưu của bạn."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Đặt lại về mặc định gốc"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Xóa mọi thứ và đưa FitShield về như mới cài đặt."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Hủy"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Xác nhận"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Đặt lại tất cả cài đặt chặn về mặc định? Chủ đề, ngôn ngữ và thống kê của bạn được giữ lại."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Đặt lại chủ đề và giao diện về chế độ tối mặc định?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Đặt lại tùy chọn chi phí và calo, cùng thống kê tiết kiệm và calo đã tránh?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Đặt lại FitShield về mặc định gốc? Thao tác này xóa mọi cài đặt, trang tùy chỉnh và thống kê trên thiết bị này. Không thể hoàn tác."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Xóa $1 khỏi danh sách chặn tùy chỉnh của bạn?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Xong. Đang tải lại…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Thay vào đó tôi sẽ nấu món này"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Đã thêm vào thống kê của bạn ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Lựa chọn hay — đã ghi vào thống kê của bạn. Xem trong Cài đặt."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Calo đã tránh"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Calo bữa ăn trung bình"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Dùng để ước tính calo đã tránh khi bạn chọn một công thức. Chỉ lưu trên thiết bị của bạn."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Sắp xếp lại thẻ: $1. Dùng phím mũi tên để di chuyển."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Chào mừng đến với FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Vài lựa chọn nhanh là xong. Mọi thứ ở lại trên thiết bị của bạn — không có gì được tải lên."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Chọn ngôn ngữ của bạn"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Đặt ngôn ngữ cho popup, cài đặt và màn hình chặn của FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Chọn chủ đề"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Bạn có thể tinh chỉnh màu sau trong Cài đặt."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Chặn đặt thức ăn nhanh"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Thêm màn hình tạm dừng trên trang đặt hàng của các chuỗi thức ăn nhanh lớn."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Nên bật."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Chặn ứng dụng giao hàng"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Thêm màn hình tạm dừng trên các nền tảng giao hàng như DoorDash và Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Khôi phục bản sao lưu (tùy chọn)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Chuyển từ thiết bị khác? Nhập một tệp cài đặt FitShield để mang theo mọi thứ. Nếu không, cứ tiếp tục."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Nhập tệp cài đặt"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield giúp bạn thế nào"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Một vòng nhanh qua các tính năng chính."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Bộ hẹn giờ tạm dừng"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Khi vào một trang bị chặn, một đồng hồ đếm ngược ngắn chạy trước khi tiếp tục — đủ để nghĩ lại về đơn hàng."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Lịch"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Nếu muốn, chỉ chặn vào những giờ nhất định, như buổi tối hoặc giờ làm việc."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Danh sách trắng"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Tắt bất kỳ trang nào, thêm URL của riêng bạn, hoặc cấp quyền tạm thời khi thực sự cần."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Ý tưởng công thức"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Màn hình chặn gợi ý một công thức chay và một công thức thịt/đạm nhanh dựa trên những gì bạn đã chặn."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Quay lại"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Tiếp"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Hoàn tất"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Bước $1/$2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Có gì mới"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Xem nhanh những thay đổi."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Mở cài đặt"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Đóng"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Chưa có ghi chú phát hành."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Mới"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Phiên bản $1"
   }
 }
