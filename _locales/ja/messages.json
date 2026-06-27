@@ -662,9 +662,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeSectionTitle": {
-    "message": "代わりにこちらはいかが"
-  },
   "recipeVegetarianLabel": {
     "message": "ベジタリアン"
   },
@@ -679,5 +676,26 @@
   },
   "recipeStepsLabel": {
     "message": "作り方"
+  },
+  "backupHeading": {
+    "message": "バックアップと復元"
+  },
+  "backupIntro": {
+    "message": "FitShield の設定をファイルに保存したり、別のデバイスで復元したりできます。すべてデバイス内に保存され、アップロードされません。"
+  },
+  "exportSettingsButton": {
+    "message": "設定をエクスポート"
+  },
+  "importSettingsButton": {
+    "message": "設定をインポート"
+  },
+  "exportSuccessNotice": {
+    "message": "設定をエクスポートしました。"
+  },
+  "importSuccessNotice": {
+    "message": "バックアップから $1 件の設定を復元しました。"
+  },
+  "importErrorNotice": {
+    "message": "そのファイルは有効な FitShield バックアップではありません。"
   }
 }

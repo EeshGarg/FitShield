@@ -109,7 +109,6 @@
   },
   "warningErrorHint": { "message": "Something went wrong while opening the site. Please try again." },
 
-  "recipeSectionTitle": { "message": "Try this instead" },
   "recipeVegetarianLabel": { "message": "Vegetarian" },
   "recipeMeatLabel": { "message": "Meat & protein" },
   "recipeTimeLabel": {
@@ -297,6 +296,18 @@
   "themeAccent": { "message": "Accent" },
   "cornerRadiusLabel": { "message": "Corner Radius" },
   "popupWidthLabel": { "message": "Popup Width" },
+
+  "backupHeading": { "message": "Backup & Restore" },
+  "backupIntro": { "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded." },
+  "exportSettingsButton": { "message": "Export settings" },
+  "importSettingsButton": { "message": "Import settings" },
+  "exportSuccessNotice": { "message": "Settings exported." },
+  "importSuccessNotice": {
+    "message": "Restored $1 settings from the backup.",
+    "description": "$1 is the number of settings restored."
+  },
+  "importErrorNotice": { "message": "That file isn't a valid FitShield backup." },
+
   "supportFooterText": { "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blocklists and docs moving." },
   "bmcAlt": { "message": "Buy Me a Coffee" }
 }

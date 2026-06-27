@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to FitShield</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f141b;
+      --panel: #1a212b;
+      --border: #2c3644;
+      --text: #edf2f7;
+      --muted: #a9b4c2;
+      --accent: #7ef0a8;
+      --panel-radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 24px;
+      background:
+        radial-gradient(circle at top, rgba(126, 240, 168, 0.14), transparent 38%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    .card {
+      width: min(100%, 560px);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--panel-radius);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+      padding: 28px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(126, 240, 168, 0.12);
+      color: var(--accent);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 { margin: 0 0 6px; font-size: 1.5rem; }
+    .subtitle { margin: 0 0 20px; color: var(--muted); line-height: 1.5; }
+
+    .dots { display: flex; gap: 6px; margin-bottom: 22px; }
+    .dot { height: 6px; flex: 1; border-radius: 999px; background: #2c3644; transition: background 0.2s ease; }
+    .dot.active { background: var(--accent); }
+
+    .step { display: none; }
+    .step.active { display: block; }
+
+    .step h2 { margin: 0 0 6px; font-size: 1.2rem; }
+    .step p { margin: 0 0 16px; color: var(--muted); line-height: 1.55; }
+
+    select, .text-input {
+      width: 100%;
+      font: inherit;
+      color: var(--text);
+      background: #111823;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 14px;
+      outline: none;
+    }
+
+    .choice-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .choice-row + .choice-row { margin-top: 12px; }
+    .choice-row .label { font-weight: 600; }
+    .choice-row .desc { color: var(--muted); font-size: 0.88rem; margin-top: 4px; }
+
+    .theme-options { display: flex; gap: 10px; }
+    .theme-options button {
+      flex: 1;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #111823;
+      color: var(--text);
+      border-radius: 12px;
+      padding: 12px;
+      font: inherit;
+      cursor: pointer;
+    }
+    .theme-options button.active { border-color: var(--accent); color: var(--accent); }
+
+    .toggle { position: relative; width: 54px; height: 30px; flex: 0 0 auto; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; inset: 0; border-radius: 999px; background: #334155; cursor: pointer; transition: 0.2s ease; }
+    .slider::before { content: ""; position: absolute; width: 22px; height: 22px; left: 4px; top: 4px; border-radius: 50%; background: #fff; transition: 0.2s ease; }
+    input:checked + .slider { background: var(--accent); }
+    input:checked + .slider::before { transform: translateX(24px); background: #122117; }
+
+    .explainers { display: grid; gap: 12px; }
+    .explainer { padding: 12px 14px; border-radius: 12px; background: rgba(255, 255, 255, 0.03); }
+    .explainer b { display: block; margin-bottom: 2px; }
+    .explainer span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+    .notice { min-height: 20px; margin-top: 12px; color: var(--muted); font-size: 0.9rem; }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 24px; }
+    .nav .step-label { color: var(--muted); font-size: 0.85rem; }
+    button.btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 22px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--accent);
+      color: #102016;
+    }
+    button.btn.secondary { background: #293241; color: var(--text); }
+    button.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <span class="eyebrow">FitShield</span>
+    <h1>Welcome to FitShield</h1>
+    <p class="subtitle">A few quick choices and you're set. Everything stays on your device — nothing is uploaded.</p>
+
+    <div class="dots" id="dots"></div>
+
+    <!-- Step 1: language -->
+    <section class="step" data-step="1">
+      <h2>Choose your language</h2>
+      <p>This sets the language for FitShield's popup, settings, and block screen.</p>
+      <select id="languageSelect"></select>
+    </section>
+
+    <!-- Step 2: theme -->
+    <section class="step" data-step="2">
+      <h2>Pick a theme</h2>
+      <p>You can fine-tune colors later in Settings.</p>
+      <div class="theme-options" id="themeOptions">
+        <button type="button" data-theme-mode="system">System</button>
+        <button type="button" data-theme-mode="light">Light</button>
+        <button type="button" data-theme-mode="dark">Dark</button>
+      </div>
+    </section>
+
+    <!-- Step 3: fast food -->
+    <section class="step" data-step="3">
+      <h2>Block fast-food ordering</h2>
+      <p>Adds a pause screen on major fast-food chains' ordering pages.</p>
+      <div class="choice-row">
+        <div>
+          <div class="label">Fast food sites</div>
+          <div class="desc">Recommended on.</div>
+        </div>
+        <label class="toggle">
+          <input id="fastFoodToggle" type="checkbox">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Step 4: delivery -->
+    <section class="step" data-step="4">
+      <h2>Block delivery apps</h2>
+      <p>Adds a pause screen on delivery platforms like DoorDash and Uber Eats.</p>
+      <div class="choice-row">
+        <div>
+          <div class="label">Delivery sites</div>
+          <div class="desc">Recommended on.</div>
+        </div>
+        <label class="toggle">
+          <input id="deliveryToggle" type="checkbox">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Step 5: import -->
+    <section class="step" data-step="5">
+      <h2>Restore a backup (optional)</h2>
+      <p>Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue.</p>
+      <button id="importButton" class="btn secondary" type="button">Import settings file</button>
+      <input id="importInput" type="file" accept="application/json,.json" hidden>
+      <div class="notice" id="importNotice"></div>
+    </section>
+
+    <!-- Step 6: how it works -->
+    <section class="step" data-step="6">
+      <h2>How FitShield helps</h2>
+      <p>A quick tour of the main features.</p>
+      <div class="explainers">
+        <div class="explainer"><b>Pause timer</b><span>When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order.</span></div>
+        <div class="explainer"><b>Schedule</b><span>Optionally block only during set hours, like evenings or work time.</span></div>
+        <div class="explainer"><b>Whitelist</b><span>Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it.</span></div>
+        <div class="explainer"><b>Recipe ideas</b><span>The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked.</span></div>
+      </div>
+    </section>
+
+    <div class="nav">
+      <button id="back" class="btn secondary" type="button" disabled>Back</button>
+      <span class="step-label" id="stepLabel"></span>
+      <button id="next" class="btn" type="button">Next</button>
+    </div>
+  </main>
+
+  <script src="languages.js"></script>
+  <script src="backup.js"></script>
+  <script src="i18n.js"></script>
+  <script src="welcome.js"></script>
+</body>
+</html>

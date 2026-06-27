@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What's New — FitShield</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0d1117;
+      --panel: rgba(21, 27, 35, 0.92);
+      --border: rgba(126, 240, 168, 0.18);
+      --text: #f3f8fb;
+      --muted: #a8b4c3;
+      --accent: #7ef0a8;
+      --panel-radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: start center;
+      padding: 48px 24px;
+      background:
+        radial-gradient(circle at top, rgba(126, 240, 168, 0.14), transparent 36%),
+        linear-gradient(180deg, #111823 0%, #0d1117 100%);
+      color: var(--text);
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    .wrap { width: min(100%, 680px); }
+
+    header { text-align: center; margin-bottom: 28px; }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(126, 240, 168, 0.12);
+      color: var(--accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 { margin: 0 0 8px; font-size: clamp(1.6rem, 4vw, 2.2rem); }
+
+    header p { margin: 0; color: var(--muted); }
+
+    .release {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--panel-radius);
+      padding: 22px 24px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
+      margin-bottom: 16px;
+    }
+
+    .release.current { border-color: rgba(126, 240, 168, 0.5); }
+
+    .release-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .release-version { font-size: 1.15rem; font-weight: 700; }
+    .release-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      background: rgba(126, 240, 168, 0.12);
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+    .release-date { font-size: 0.82rem; color: var(--muted); }
+    .release-title { margin: 0 0 12px; color: var(--muted); font-size: 0.95rem; }
+
+    ul { margin: 0; padding-left: 20px; }
+    li { margin-bottom: 8px; line-height: 1.5; color: var(--text); }
+
+    .actions { text-align: center; margin-top: 24px; }
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 22px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--accent);
+      color: #102016;
+    }
+    button.secondary { background: #293241; color: var(--text); margin-left: 10px; }
+
+    .empty { color: var(--muted); text-align: center; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <span class="eyebrow">FitShield</span>
+      <h1>What's New</h1>
+      <p id="subtitle">A quick look at what changed.</p>
+    </header>
+
+    <div id="releases"></div>
+
+    <div class="actions">
+      <button id="openSettings" type="button">Open settings</button>
+      <button id="close" class="secondary" type="button">Close</button>
+    </div>
+  </main>
+
+  <script src="whats-new.js"></script>
+</body>
+</html>

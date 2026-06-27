@@ -662,9 +662,6 @@
   "cornerRadiusLabel": {
     "message": "Radi ya kona"
   },
-  "recipeSectionTitle": {
-    "message": "Try this instead"
-  },
   "recipeVegetarianLabel": {
     "message": "Vegetarian"
   },
@@ -679,5 +676,26 @@
   },
   "recipeStepsLabel": {
     "message": "Steps"
+  },
+  "backupHeading": {
+    "message": "Backup & Restore"
+  },
+  "backupIntro": {
+    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
+  },
+  "exportSettingsButton": {
+    "message": "Export settings"
+  },
+  "importSettingsButton": {
+    "message": "Import settings"
+  },
+  "exportSuccessNotice": {
+    "message": "Settings exported."
+  },
+  "importSuccessNotice": {
+    "message": "Restored $1 settings from the backup."
+  },
+  "importErrorNotice": {
+    "message": "That file isn't a valid FitShield backup."
   }
 }

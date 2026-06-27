@@ -616,7 +616,39 @@ async function getBlockedSiteInfo(siteKey) {
   };
 }
 
-chrome.runtime.onInstalled.addListener(async () => {
+// Open an extension page in a new tab. tabs.create does not require the "tabs"
+// permission.
+function openExtensionPage(path) {
+  try {
+    chrome.tabs.create({ url: chrome.runtime.getURL(path) });
+  } catch (error) {
+    console.error(`Failed to open ${path}:`, error);
+  }
+}
+
+async function showOnboardingOrWhatsNew(reason) {
+  const currentVersion = chrome.runtime.getManifest().version;
+
+  if (reason === "install") {
+    // First install: run the welcome tour and mark this version as seen.
+    await chrome.storage.local.set({ lastSeenVersion: currentVersion });
+    openExtensionPage("welcome.html");
+    return;
+  }
+
+  if (reason === "update") {
+    const { lastSeenVersion } = await chrome.storage.local.get(["lastSeenVersion"]);
+
+    if (lastSeenVersion !== currentVersion) {
+      // whats-new.js records lastSeenVersion on load; set it here too so the
+      // page never re-opens even if it is closed immediately.
+      await chrome.storage.local.set({ lastSeenVersion: currentVersion });
+      openExtensionPage("whats-new.html");
+    }
+  }
+}
+
+chrome.runtime.onInstalled.addListener(async (details) => {
   const state = await chrome.storage.local.get([
     "enabled",
     "bypassUntil",
@@ -663,6 +695,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   });
 
   await queueRefreshBlockingState();
+  await showOnboardingOrWhatsNew(details?.reason);
 });
 
 chrome.runtime.onStartup.addListener(() => {

@@ -662,9 +662,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeSectionTitle": {
-    "message": "대신 이건 어때요"
-  },
   "recipeVegetarianLabel": {
     "message": "채식"
   },
@@ -679,5 +676,26 @@
   },
   "recipeStepsLabel": {
     "message": "만드는 법"
+  },
+  "backupHeading": {
+    "message": "백업 및 복원"
+  },
+  "backupIntro": {
+    "message": "FitShield 설정을 파일로 저장하거나 다른 기기에서 복원하세요. 모든 정보는 기기에 보관되며 업로드되지 않습니다."
+  },
+  "exportSettingsButton": {
+    "message": "설정 내보내기"
+  },
+  "importSettingsButton": {
+    "message": "설정 가져오기"
+  },
+  "exportSuccessNotice": {
+    "message": "설정을 내보냈습니다."
+  },
+  "importSuccessNotice": {
+    "message": "백업에서 설정 $1개를 복원했습니다."
+  },
+  "importErrorNotice": {
+    "message": "유효한 FitShield 백업 파일이 아닙니다."
   }
 }

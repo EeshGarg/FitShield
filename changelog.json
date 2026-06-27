@@ -1,0 +1,36 @@
+{
+  "_note": "Local changelog rendered by whats-new.html. No network fetch — privacy-first.",
+  "entries": [
+    {
+      "version": "0.51",
+      "date": "2026-06-26",
+      "title": "Onboarding, backups & polish",
+      "changes": [
+        "Added a first-run welcome tour: pick a language and theme, turn on fast-food and delivery blocking, and optionally import settings.",
+        "Added Backup & Restore — export every setting to a single JSON file and import it on another device. Fully local.",
+        "Added this What's New page, shown only when the version changes.",
+        "Listed FitShield on the Chrome Web Store for one-click installs.",
+        "Removed unused code and consolidated the language list into a shared module."
+      ]
+    },
+    {
+      "version": "0.50",
+      "date": "2026-06-26",
+      "title": "Recipe suggestions & blocking fixes",
+      "changes": [
+        "The block page now suggests a vegetarian and a meat/protein recipe based on what you blocked.",
+        "Fixed an international domain in the blocklist that was silently disabling all blocking.",
+        "Made the block screen reliably appear and show which brand triggered it."
+      ]
+    },
+    {
+      "version": "0.49",
+      "date": "2026-06-25",
+      "title": "Localization",
+      "changes": [
+        "Added 80+ display languages with a searchable language picker and a manual override.",
+        "Moved all interface text into the standard Chrome localization system."
+      ]
+    }
+  ]
+}

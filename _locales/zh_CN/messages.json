@@ -662,9 +662,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeSectionTitle": {
-    "message": "试试这些替代选择"
-  },
   "recipeVegetarianLabel": {
     "message": "素食"
   },
@@ -679,5 +676,26 @@
   },
   "recipeStepsLabel": {
     "message": "步骤"
+  },
+  "backupHeading": {
+    "message": "备份与恢复"
+  },
+  "backupIntro": {
+    "message": "将 FitShield 设置保存为文件，或在其他设备上恢复。所有内容都保存在你的设备上，不会上传。"
+  },
+  "exportSettingsButton": {
+    "message": "导出设置"
+  },
+  "importSettingsButton": {
+    "message": "导入设置"
+  },
+  "exportSuccessNotice": {
+    "message": "设置已导出。"
+  },
+  "importSuccessNotice": {
+    "message": "已从备份恢复 $1 项设置。"
+  },
+  "importErrorNotice": {
+    "message": "该文件不是有效的 FitShield 备份。"
   }
 }

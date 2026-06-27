@@ -225,8 +225,7 @@
     ["i18nPlaceholder", (el, value) => { el.setAttribute("placeholder", value); }],
     ["i18nTitle", (el, value) => { el.setAttribute("title", value); }],
     ["i18nAriaLabel", (el, value) => { el.setAttribute("aria-label", value); }],
-    ["i18nAlt", (el, value) => { el.setAttribute("alt", value); }],
-    ["i18nValue", (el, value) => { el.setAttribute("value", value); }]
+    ["i18nAlt", (el, value) => { el.setAttribute("alt", value); }]
   ];
 
   // Walk the document (or a subtree) and localize every tagged element.

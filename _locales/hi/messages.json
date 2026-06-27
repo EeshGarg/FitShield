@@ -662,9 +662,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeSectionTitle": {
-    "message": "इसके बजाय यह आज़माएँ"
-  },
   "recipeVegetarianLabel": {
     "message": "शाकाहारी"
   },
@@ -679,5 +676,26 @@
   },
   "recipeStepsLabel": {
     "message": "तरीका"
+  },
+  "backupHeading": {
+    "message": "बैकअप और पुनर्स्थापना"
+  },
+  "backupIntro": {
+    "message": "अपनी FitShield सेटिंग्स को फ़ाइल में सहेजें, या किसी अन्य डिवाइस पर पुनर्स्थापित करें। सब कुछ आपके डिवाइस पर रहता है — कुछ भी अपलोड नहीं होता।"
+  },
+  "exportSettingsButton": {
+    "message": "सेटिंग्स निर्यात करें"
+  },
+  "importSettingsButton": {
+    "message": "सेटिंग्स आयात करें"
+  },
+  "exportSuccessNotice": {
+    "message": "सेटिंग्स निर्यात की गईं।"
+  },
+  "importSuccessNotice": {
+    "message": "बैकअप से $1 सेटिंग्स पुनर्स्थापित कीं।"
+  },
+  "importErrorNotice": {
+    "message": "वह फ़ाइल मान्य FitShield बैकअप नहीं है।"
   }
 }

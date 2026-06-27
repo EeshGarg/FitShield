@@ -941,6 +941,19 @@
       </div>
     </section>
 
+    <section class="section" id="backup-restore">
+      <h2 data-i18n="backupHeading">Backup &amp; Restore</h2>
+      <p data-i18n="backupIntro">Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded.</p>
+
+      <div class="search-controls">
+        <button id="exportSettings" class="secondary" type="button" data-i18n="exportSettingsButton">Export settings</button>
+        <button id="importSettings" class="secondary" type="button" data-i18n="importSettingsButton">Import settings</button>
+      </div>
+
+      <input id="importSettingsInput" type="file" accept="application/json,.json" hidden>
+      <div id="backupNotice" class="notice" aria-live="polite"></div>
+    </section>
+
     <footer class="support-footer">
       <p data-i18n="supportFooterText">If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blocklists and docs moving.</p>
       <a class="bmc-link" href="https://buymeacoffee.com/eeshgarg" target="_blank" rel="noopener noreferrer">
@@ -956,6 +969,8 @@
   </main>
 
   <script src="blocklist.js"></script>
+  <script src="languages.js"></script>
+  <script src="backup.js"></script>
   <script src="i18n.js"></script>
   <script src="settings.js"></script>
 </body>

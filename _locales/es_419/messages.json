@@ -662,9 +662,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeSectionTitle": {
-    "message": "Prueba esto en su lugar"
-  },
   "recipeVegetarianLabel": {
     "message": "Vegetariano"
   },
@@ -679,5 +676,26 @@
   },
   "recipeStepsLabel": {
     "message": "Pasos"
+  },
+  "backupHeading": {
+    "message": "Copia de seguridad y restauración"
+  },
+  "backupIntro": {
+    "message": "Guarda tus ajustes de FitShield en un archivo o restáuralos en otro dispositivo. Todo permanece en tu dispositivo; no se sube nada."
+  },
+  "exportSettingsButton": {
+    "message": "Exportar ajustes"
+  },
+  "importSettingsButton": {
+    "message": "Importar ajustes"
+  },
+  "exportSuccessNotice": {
+    "message": "Ajustes exportados."
+  },
+  "importSuccessNotice": {
+    "message": "Se restauraron $1 ajustes de la copia de seguridad."
+  },
+  "importErrorNotice": {
+    "message": "Ese archivo no es una copia de seguridad válida de FitShield."
   }
 }

@@ -20,7 +20,11 @@ Welcome to the FitShield public beta - A browser extension that helps you stay m
 6) Color customization.
 
 # installation
-right now you can download the source code and then load it into brave or any other chromium based browser to use FitShield, I am working on a Chrome Web Store and FireFox release so installation become one-click.
+
+**Chrome Web Store (one-click):**
+https://chromewebstore.google.com/detail/oedcadhhfcgggacgljhnochcjdibfjed?utm_source=item-share-cb
+
+**From source:** you can also download the source code and load it into Brave or any other Chromium-based browser as an unpacked extension. A Firefox release is still in the works.
 
 # Ethos
 

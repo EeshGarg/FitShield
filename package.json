@@ -1,6 +1,6 @@
 {
   "name": "fitshield",
-  "version": "0.50.0",
+  "version": "0.51.0",
   "description": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering.",
   "private": true,
   "scripts": {
