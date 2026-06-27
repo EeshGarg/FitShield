@@ -202,6 +202,54 @@ test("getBlockedSiteInfo resolves the trigger brand from a site key", async () =
   assert.equal(missing.found, false);
 });
 
+test("recordBlockedVisit increments the local counter (and starts from zero)", async () => {
+  const bg = loadBackground();
+  assert.equal(await bg.context.recordBlockedVisit(), 1);
+  assert.equal(await bg.context.recordBlockedVisit(), 2);
+  assert.equal(bg.store.blockedVisits, 2);
+});
+
+test("recordBlockedVisit only stores an integer count, never any URL or history", async () => {
+  const bg = loadBackground();
+  await bg.context.recordBlockedVisit();
+  // The only key the counter touches is the integer total.
+  assert.deepEqual(Object.keys(bg.store), ["blockedVisits"]);
+  assert.equal(typeof bg.store.blockedVisits, "number");
+});
+
+test("recordRecipeChoice adds (meal - recipe) calories using the configured meal size", async () => {
+  const bg = loadBackground();
+  Object.assign(bg.store, { avgMealCalories: 1000 });
+  const result = await bg.context.recordRecipeChoice(400);
+  assert.equal(result.added, 600);
+  assert.equal(result.caloriesAvoided, 600);
+  assert.equal(result.recipesChosen, 1);
+});
+
+test("recordRecipeChoice falls back to a default when recipe calories are unknown", async () => {
+  const bg = loadBackground();
+  // No avgMealCalories set -> default 1000; unknown recipe calories -> default 500.
+  const result = await bg.context.recordRecipeChoice(null);
+  assert.equal(result.added, 500);
+});
+
+test("recordRecipeChoice never goes negative and accumulates", async () => {
+  const bg = loadBackground();
+  Object.assign(bg.store, { avgMealCalories: 800 });
+  const first = await bg.context.recordRecipeChoice(2000); // recipe bigger than meal
+  assert.equal(first.added, 0);
+  const second = await bg.context.recordRecipeChoice(300);
+  assert.equal(second.added, 500);
+  assert.equal(second.caloriesAvoided, 500);
+  assert.equal(second.recipesChosen, 2);
+});
+
+test("recordRecipeChoice only stores aggregate numbers, never recipe or site detail", async () => {
+  const bg = loadBackground();
+  await bg.context.recordRecipeChoice(400);
+  assert.deepEqual(Object.keys(bg.store).sort(), ["caloriesAvoided", "recipesChosen"]);
+});
+
 test("JSON blocklists are fetched once and cached per worker", async () => {
   const bg = loadBackground();
   await bg.context.queueRefreshBlockingState();

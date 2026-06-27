@@ -32,10 +32,10 @@
       overflow-x: hidden;
       overflow-y: auto;
       background:
-        radial-gradient(circle at top, rgba(126, 240, 168, 0.14), transparent 42%),
+        radial-gradient(120% 70% at 50% 0%, rgba(255, 255, 255, 0.025), transparent 62%),
         var(--bg);
       color: var(--text);
-      font-family: "Segoe UI", sans-serif;
+      font-family: "Segoe UI", -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
       padding: 10px;
     }
 
@@ -43,15 +43,18 @@
       border-radius: var(--panel-radius);
       background: var(--panel);
       border: 1px solid var(--border);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      box-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.12),
+        0 10px 28px rgba(0, 0, 0, 0.2);
       overflow: hidden;
-      transition: box-shadow 0.2s ease;
+      transition: box-shadow 0.25s ease;
     }
 
+    /* "Active" indicator: a calm 1px accent ring instead of a large green halo. */
     .card.glow {
       box-shadow:
-        0 16px 44px rgba(0, 0, 0, 0.3),
-        0 0 28px var(--shadow);
+        0 10px 28px rgba(0, 0, 0, 0.22),
+        0 0 0 1px rgba(126, 240, 168, 0.28);
     }
 
     .hero,
@@ -264,12 +267,14 @@
     html.theme-light,
     html.theme-light body {
       background:
-        radial-gradient(circle at top, rgba(126, 240, 168, 0.1), transparent 42%),
+        radial-gradient(120% 70% at 50% 0%, rgba(15, 23, 42, 0.03), transparent 62%),
         var(--bg);
     }
 
     html.theme-light .card {
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14);
+      box-shadow:
+        0 1px 1px rgba(15, 23, 42, 0.04),
+        0 8px 22px rgba(15, 23, 42, 0.1);
     }
 
     html.theme-light .hero {
@@ -294,6 +299,20 @@
 
     html.theme-light .slider {
       background: #cbd5e1;
+    }
+
+    /* Visible keyboard focus for all interactive elements, including the
+       visually-hidden toggle inputs (the outline lands on their slider). */
+    button:focus-visible,
+    input:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .toggle input:focus-visible + .slider {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
   </style>
 </head>

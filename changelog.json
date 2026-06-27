@@ -3,14 +3,17 @@
   "entries": [
     {
       "version": "0.51",
-      "date": "2026-06-26",
-      "title": "Onboarding, backups & polish",
+      "date": "2026-06-27",
+      "title": "Stats, Firefox & a wider dashboard",
       "changes": [
-        "Added a first-run welcome tour: pick a language and theme, turn on fast-food and delivery blocking, and optionally import settings.",
-        "Added Backup & Restore — export every setting to a single JSON file and import it on another device. Fully local.",
-        "Added this What's New page, shown only when the version changes.",
-        "Listed FitShield on the Chrome Web Store for one-click installs.",
-        "Removed unused code and consolidated the language list into a shared module."
+        "Added a private, on-device Stats panel: blocked visits, estimated money saved, and calories avoided — with a configurable average meal cost and meal calories. No browsing history is ever stored.",
+        "On the block page, pick a suggested recipe with \"I'll make this instead\" to log the calories you avoided.",
+        "The block page now explains exactly why a site was blocked: the domain, rule type, food category, and countries.",
+        "FitShield now runs on Firefox from the same single source tree — the shared manifest works in both Chrome and Firefox.",
+        "Added a proper FitShield extension icon.",
+        "Redesigned Settings to use wide screens better: cards reflow into columns and stack cleanly on narrow windows.",
+        "Added Reset options and confirmation dialogs (custom-site removal, resets, and a full factory reset), plus onboarding, local Backup & Restore, and the Chrome Web Store listing.",
+        "Cleaned up the repository and consolidated branding assets into a Branding/ folder."
       ]
     },
     {

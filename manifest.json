@@ -9,13 +9,21 @@
     "<all_urls>"
   ],
 
+  "icons": {
+    "128": "icons/icon-128.png"
+  },
+
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "scripts": ["blocklist.js", "background.js"]
   },
 
   "action": {
     "default_popup": "popup.html",
-    "default_title": "__MSG_actionTitle__"
+    "default_title": "__MSG_actionTitle__",
+    "default_icon": {
+      "128": "icons/icon-128.png"
+    }
   },
 
   "web_accessible_resources": [
@@ -23,5 +31,12 @@
       "resources": ["warning.html"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "fitshield@usha.dev",
+      "strict_min_version": "121.0"
+    }
+  }
 }

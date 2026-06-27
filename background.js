@@ -1,4 +1,10 @@
-importScripts("blocklist.js");
+// Load the shared blocklist module. In Chrome (MV3 service worker) this runs via
+// importScripts. In Firefox the module is loaded ahead of this file through the
+// manifest's background.scripts array, so FitShieldBlocklist already exists and
+// importScripts is unavailable — guard for both so the same file runs in either.
+if (typeof FitShieldBlocklist === "undefined" && typeof importScripts === "function") {
+  importScripts("blocklist.js");
+}
 
 const BYPASS_ALARM = "temporaryBypassExpired";
 const SCHEDULE_ALARM = "scheduleBoundaryReached";
@@ -616,6 +622,47 @@ async function getBlockedSiteInfo(siteKey) {
   };
 }
 
+// Increment the local blocked-visit counter. This is the only thing FitShield
+// counts: a single integer, bumped once each time the block page is shown. No
+// URL, domain, or any browsing detail is ever stored — privacy-first by design.
+async function recordBlockedVisit() {
+  const { blockedVisits } = await chrome.storage.local.get(["blockedVisits"]);
+  const next = (Number(blockedVisits) || 0) + 1;
+  await chrome.storage.local.set({ blockedVisits: next });
+  return next;
+}
+
+// Defaults for the local-only calorie estimate. A typical fast-food / delivery
+// meal is treated as ~1000 kcal; when a chosen recipe has no calorie data we
+// assume a modest home portion. Both are estimates, configurable by the user.
+const DEFAULT_AVG_MEAL_CALORIES = 1000;
+const DEFAULT_RECIPE_CALORIES = 500;
+
+function normalizeMealCalories(value) {
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : DEFAULT_AVG_MEAL_CALORIES;
+}
+
+// Record that the user picked a home recipe instead of ordering. Adds the
+// estimated calories avoided (configured meal calories minus the recipe's, never
+// below zero) and bumps an aggregate count. Only aggregate numbers are stored —
+// never which recipe, site, or page. Falls back gracefully when recipe calories
+// are unknown.
+async function recordRecipeChoice(recipeCalories) {
+  const stored = await chrome.storage.local.get(["avgMealCalories", "caloriesAvoided", "recipesChosen"]);
+  const mealCalories = normalizeMealCalories(stored.avgMealCalories);
+  // null/undefined means the recipe has no calorie data — fall back to a default
+  // home-portion estimate. (Number(null) is 0, so guard before converting.)
+  const hasRecipeCalories = recipeCalories !== null && recipeCalories !== undefined && Number.isFinite(Number(recipeCalories));
+  const recipeCals = hasRecipeCalories ? Number(recipeCalories) : DEFAULT_RECIPE_CALORIES;
+  const added = Math.max(0, Math.round(mealCalories - recipeCals));
+  const caloriesAvoided = (Number(stored.caloriesAvoided) || 0) + added;
+  const recipesChosen = (Number(stored.recipesChosen) || 0) + 1;
+
+  await chrome.storage.local.set({ caloriesAvoided, recipesChosen });
+  return { added, caloriesAvoided, recipesChosen };
+}
+
 // Open an extension page in a new tab. tabs.create does not require the "tabs"
 // permission.
 function openExtensionPage(path) {
@@ -775,6 +822,28 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       console.error("Failed to get blocked site info:", error);
       sendResponse({ ok: false, error: error.message });
     });
+
+    return true;
+  }
+
+  if (message?.type === "recordBlockedVisit") {
+    recordBlockedVisit()
+      .then((blockedVisits) => sendResponse({ ok: true, blockedVisits }))
+      .catch((error) => {
+        console.error("Failed to record blocked visit:", error);
+        sendResponse({ ok: false, error: error.message });
+      });
+
+    return true;
+  }
+
+  if (message?.type === "recordRecipeChoice") {
+    recordRecipeChoice(message.recipeCalories)
+      .then((result) => sendResponse({ ok: true, ...result }))
+      .catch((error) => {
+        console.error("Failed to record recipe choice:", error);
+        sendResponse({ ok: false, error: error.message });
+      });
 
     return true;
   }

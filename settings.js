@@ -749,8 +749,14 @@ customSiteList.addEventListener("click", async (event) => {
     return;
   }
 
-  const customSites = latestBlockState.customSites.filter((site) => site.domain !== button.dataset.removeDomain);
-  setNotice(t("removedFromBlocklist", [button.dataset.removeDomain]));
+  const domain = button.dataset.removeDomain;
+
+  if (!(await confirmAction(t("confirmRemoveCustomSite", [domain])))) {
+    return;
+  }
+
+  const customSites = latestBlockState.customSites.filter((site) => site.domain !== domain);
+  setNotice(t("removedFromBlocklist", [domain]));
   await saveSettings({ customSites });
 });
 
@@ -1217,6 +1223,7 @@ if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.onChange) {
     renderCountryQuickAccess();
     renderCategoryQuickAccess();
     renderLanguageViews();
+    renderProtectionStatus();
   });
 }
 
@@ -1273,3 +1280,479 @@ if (importSettingsButton && importSettingsInput) {
     }
   });
 }
+
+// ===========================================================================
+// Protection Status (local-only health snapshot) + estimated savings.
+// Every value comes from data already on the device — the blocklist metadata,
+// the recipe catalog, the supported-locale list, and a local blocked-visit
+// counter. No network requests.
+// ===========================================================================
+
+const DEFAULT_AVG_MEAL_COST = 15;
+const DEFAULT_AVG_MEAL_CALORIES = 1000;
+
+const protectionStatusGrid = document.getElementById("protectionStatusGrid");
+const avgMealCostInput = document.getElementById("avgMealCost");
+const avgMealCaloriesInput = document.getElementById("avgMealCalories");
+
+const protectionData = {
+  blockedVisits: 0,
+  avgMealCost: DEFAULT_AVG_MEAL_COST,
+  avgMealCalories: DEFAULT_AVG_MEAL_CALORIES,
+  caloriesAvoided: 0
+};
+
+function normalizeMealCost(value) {
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : DEFAULT_AVG_MEAL_COST;
+}
+
+function normalizeMealCalories(value) {
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : DEFAULT_AVG_MEAL_CALORIES;
+}
+
+function formatSavings(amount) {
+  return Number.isInteger(amount) ? String(amount) : amount.toFixed(2);
+}
+
+function formatCount(amount) {
+  return (Number(amount) || 0).toLocaleString();
+}
+
+function buildStatCard(value, label) {
+  const card = document.createElement("div");
+  card.className = "stat-card";
+
+  const valueEl = document.createElement("div");
+  valueEl.className = "stat-value";
+  valueEl.textContent = value;
+
+  const labelEl = document.createElement("div");
+  labelEl.className = "stat-label";
+  labelEl.textContent = label;
+
+  card.append(valueEl, labelEl);
+  return card;
+}
+
+// Compact, Brave-style stat strip: the three numbers that actually accumulate
+// as you use FitShield. Everything is a local aggregate — no per-site history.
+function renderProtectionStatus() {
+  if (!protectionStatusGrid) {
+    return;
+  }
+
+  const savings = protectionData.blockedVisits * protectionData.avgMealCost;
+
+  const cards = [
+    buildStatCard(formatCount(protectionData.blockedVisits), t("statusBlockedVisits")),
+    buildStatCard(formatSavings(savings), t("statusEstimatedSavings")),
+    buildStatCard(formatCount(protectionData.caloriesAvoided), t("statusCaloriesAvoided"))
+  ];
+
+  protectionStatusGrid.replaceChildren(...cards);
+}
+
+async function initProtectionStatus() {
+  const stored = await chrome.storage.local.get([
+    "blockedVisits",
+    "avgMealCost",
+    "avgMealCalories",
+    "caloriesAvoided"
+  ]);
+
+  protectionData.blockedVisits = Number(stored.blockedVisits) || 0;
+  protectionData.avgMealCost = normalizeMealCost(stored.avgMealCost);
+  protectionData.avgMealCalories = normalizeMealCalories(stored.avgMealCalories);
+  protectionData.caloriesAvoided = Number(stored.caloriesAvoided) || 0;
+
+  if (avgMealCostInput) {
+    avgMealCostInput.value = protectionData.avgMealCost;
+  }
+
+  if (avgMealCaloriesInput) {
+    avgMealCaloriesInput.value = protectionData.avgMealCalories;
+  }
+
+  renderProtectionStatus();
+}
+
+if (avgMealCostInput) {
+  avgMealCostInput.addEventListener("change", async () => {
+    protectionData.avgMealCost = normalizeMealCost(avgMealCostInput.value);
+    avgMealCostInput.value = protectionData.avgMealCost;
+    await chrome.storage.local.set({ avgMealCost: protectionData.avgMealCost });
+    renderProtectionStatus();
+  });
+}
+
+if (avgMealCaloriesInput) {
+  avgMealCaloriesInput.addEventListener("change", async () => {
+    protectionData.avgMealCalories = normalizeMealCalories(avgMealCaloriesInput.value);
+    avgMealCaloriesInput.value = protectionData.avgMealCalories;
+    await chrome.storage.local.set({ avgMealCalories: protectionData.avgMealCalories });
+    renderProtectionStatus();
+  });
+}
+
+// Keep the stats live if a block or recipe choice happens (or settings are
+// restored) while this page is open.
+if (chrome.storage && chrome.storage.onChanged) {
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area !== "local") {
+      return;
+    }
+
+    if (changes.blockedVisits) {
+      protectionData.blockedVisits = Number(changes.blockedVisits.newValue) || 0;
+      renderProtectionStatus();
+    }
+
+    if (changes.caloriesAvoided) {
+      protectionData.caloriesAvoided = Number(changes.caloriesAvoided.newValue) || 0;
+      renderProtectionStatus();
+    }
+  });
+}
+
+i18nReady.then(initProtectionStatus);
+
+// ===========================================================================
+// Confirmation dialog + Reset & Data.
+// A single reusable modal guards every destructive action so an accidental
+// click never wipes settings. Resets remove the relevant keys and let the
+// background defaults repopulate, then reload so every control reflects them.
+// ===========================================================================
+
+const confirmOverlay = document.getElementById("confirmOverlay");
+const confirmMessageEl = document.getElementById("confirmMessage");
+const confirmOkButton = document.getElementById("confirmOk");
+const confirmCancelButton = document.getElementById("confirmCancel");
+const resetBlockingButton = document.getElementById("resetBlocking");
+const resetAppearanceButton = document.getElementById("resetAppearance");
+const resetPreferencesButton = document.getElementById("resetPreferences");
+const factoryResetButton = document.getElementById("factoryReset");
+const resetNotice = document.getElementById("resetNotice");
+
+// Show the modal and resolve true (confirm) or false (cancel / Escape / backdrop).
+function confirmAction(message) {
+  if (!confirmOverlay || !confirmMessageEl) {
+    return Promise.resolve(false);
+  }
+
+  return new Promise((resolve) => {
+    confirmMessageEl.textContent = message;
+    confirmOverlay.hidden = false;
+    confirmOkButton.focus();
+
+    const cleanup = (result) => {
+      confirmOverlay.hidden = true;
+      confirmOkButton.removeEventListener("click", onOk);
+      confirmCancelButton.removeEventListener("click", onCancel);
+      confirmOverlay.removeEventListener("click", onBackdrop);
+      document.removeEventListener("keydown", onKey);
+      resolve(result);
+    };
+
+    const onOk = () => cleanup(true);
+    const onCancel = () => cleanup(false);
+    const onBackdrop = (event) => {
+      if (event.target === confirmOverlay) {
+        cleanup(false);
+      }
+    };
+    const onKey = (event) => {
+      if (event.key === "Escape") {
+        cleanup(false);
+      }
+    };
+
+    confirmOkButton.addEventListener("click", onOk);
+    confirmCancelButton.addEventListener("click", onCancel);
+    confirmOverlay.addEventListener("click", onBackdrop);
+    document.addEventListener("keydown", onKey);
+  });
+}
+
+const BLOCKING_KEYS = [
+  "enabled",
+  "timerSeconds",
+  "passDurationMinutes",
+  "scheduleEnabled",
+  "scheduleStart",
+  "scheduleEnd",
+  "deliverySitesEnabled",
+  "fastFoodSitesEnabled",
+  "customSitesEnabled",
+  "disabledDeliverySiteKeys",
+  "disabledFastFoodSiteKeys",
+  "customSites",
+  "siteBypasses",
+  "enabledCountries",
+  "enabledCategories",
+  "quickAccessCountries",
+  "quickAccessCategories"
+];
+
+const APPEARANCE_KEYS = ["theme", "themeMode", "cardOrder"];
+const PREFERENCE_KEYS = ["avgMealCost", "avgMealCalories", "blockedVisits", "caloriesAvoided", "recipesChosen", "recipeFavorites"];
+
+function reloadSoon() {
+  if (resetNotice) {
+    resetNotice.textContent = t("resetDoneNotice");
+  }
+  setTimeout(() => window.location.reload(), 700);
+}
+
+async function resetKeys(keys) {
+  await chrome.storage.local.remove(keys);
+  reloadSoon();
+}
+
+if (resetBlockingButton) {
+  resetBlockingButton.addEventListener("click", async () => {
+    if (await confirmAction(t("confirmResetBlocking"))) {
+      await resetKeys(BLOCKING_KEYS);
+    }
+  });
+}
+
+if (resetAppearanceButton) {
+  resetAppearanceButton.addEventListener("click", async () => {
+    if (await confirmAction(t("confirmResetAppearance"))) {
+      await resetKeys(APPEARANCE_KEYS);
+    }
+  });
+}
+
+if (resetPreferencesButton) {
+  resetPreferencesButton.addEventListener("click", async () => {
+    if (await confirmAction(t("confirmResetPreferences"))) {
+      await resetKeys(PREFERENCE_KEYS);
+    }
+  });
+}
+
+if (factoryResetButton) {
+  factoryResetButton.addEventListener("click", async () => {
+    if (await confirmAction(t("confirmFactoryReset"))) {
+      await chrome.storage.local.clear();
+      reloadSoon();
+    }
+  });
+}
+
+// ===========================================================================
+// Dashboard cards: drag-and-drop reorder (with keyboard fallback) and a subtle,
+// damped hover tilt. The chosen order is saved locally in chrome.storage and
+// restored on load. Both are progressive enhancements: with reduced motion the
+// tilt is skipped, and the cards stay fully usable either way. No libraries.
+// ===========================================================================
+
+(function setupDashboardCards() {
+  const layout = document.querySelector(".layout");
+
+  if (!layout || typeof chrome === "undefined" || !chrome.storage) {
+    return;
+  }
+
+  const CARD_ORDER_KEY = "cardOrder";
+  const reduceMotion = typeof window.matchMedia === "function"
+    && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const getSections = () => Array.from(layout.querySelectorAll(":scope > .section"));
+
+  let draggingEl = null;
+  let pointerActive = false;
+
+  function persistOrder() {
+    const order = getSections().map((section) => section.id).filter(Boolean);
+    chrome.storage.local.set({ [CARD_ORDER_KEY]: order });
+  }
+
+  // Re-order the cards to match a saved id list. Cards not named in the saved
+  // order (e.g. a section added in a later release) keep their natural order and
+  // follow the saved ones.
+  function applyStoredOrder(order) {
+    if (!Array.isArray(order) || order.length === 0) {
+      return;
+    }
+
+    const current = getSections();
+    const saved = new Set(order);
+    const inSaved = order
+      .map((id) => current.find((section) => section.id === id))
+      .filter(Boolean);
+    const rest = current.filter((section) => !saved.has(section.id));
+
+    [...inSaved, ...rest].forEach((section) => layout.appendChild(section));
+  }
+
+  function moveSection(section, direction) {
+    const list = getSections();
+    const index = list.indexOf(section);
+    const target = index + direction;
+
+    if (target < 0 || target >= list.length) {
+      return;
+    }
+
+    if (direction < 0) {
+      layout.insertBefore(section, list[target]);
+    } else {
+      layout.insertBefore(section, list[target].nextSibling);
+    }
+
+    persistOrder();
+  }
+
+  function addHandle(section) {
+    const handle = document.createElement("button");
+    handle.type = "button";
+    handle.className = "drag-handle";
+
+    const title = (section.querySelector("h2")?.textContent || "").trim();
+    const label = t("reorderCardLabel", [title]);
+    handle.setAttribute("aria-label", label);
+    handle.title = label;
+
+    // A drag only begins from the handle: arm draggable on press, disarm after.
+    handle.addEventListener("pointerdown", () => {
+      section.setAttribute("draggable", "true");
+    });
+
+    handle.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+        event.preventDefault();
+        moveSection(section, -1);
+        handle.focus();
+      } else if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+        event.preventDefault();
+        moveSection(section, 1);
+        handle.focus();
+      }
+    });
+
+    // First in DOM order so keyboard users reach the reorder control before the
+    // card's content; it is positioned visually at the top-center via CSS.
+    section.insertBefore(handle, section.firstChild);
+  }
+
+  function onDragStart(section, event) {
+    draggingEl = section;
+    section.classList.add("dragging");
+    section.style.transform = "";
+    event.dataTransfer.effectAllowed = "move";
+
+    try {
+      event.dataTransfer.setData("text/plain", section.id);
+    } catch (error) {
+      // Some browsers restrict setData; the reorder still works without it.
+    }
+  }
+
+  function onDragEnd(section) {
+    section.classList.remove("dragging");
+    section.removeAttribute("draggable");
+    draggingEl = null;
+    persistOrder();
+  }
+
+  function onDragOver(section, event) {
+    if (!draggingEl || draggingEl === section) {
+      return;
+    }
+
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+
+    const box = section.getBoundingClientRect();
+    const insertBefore = (event.clientY - box.top) < box.height / 2;
+
+    if (insertBefore) {
+      layout.insertBefore(draggingEl, section);
+    } else {
+      layout.insertBefore(draggingEl, section.nextSibling);
+    }
+  }
+
+  function setupTilt(section) {
+    if (reduceMotion) {
+      return;
+    }
+
+    let rafId = 0;
+    let lastEvent = null;
+
+    section.addEventListener("pointermove", (event) => {
+      if (draggingEl || pointerActive || event.pointerType === "touch") {
+        return;
+      }
+
+      lastEvent = event;
+
+      if (rafId) {
+        return;
+      }
+
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+
+        if (draggingEl || pointerActive || !lastEvent) {
+          return;
+        }
+
+        const box = section.getBoundingClientRect();
+        const px = (lastEvent.clientX - box.left) / box.width - 0.5;
+        const py = (lastEvent.clientY - box.top) / box.height - 0.5;
+        const max = 2.2;
+
+        section.style.transform =
+          `perspective(900px) rotateX(${(-py * max).toFixed(2)}deg) rotateY(${(px * max).toFixed(2)}deg)`;
+      });
+    });
+
+    section.addEventListener("pointerleave", () => {
+      section.style.transform = "";
+    });
+  }
+
+  async function init() {
+    let stored = {};
+
+    try {
+      stored = await chrome.storage.local.get([CARD_ORDER_KEY]);
+    } catch (error) {
+      console.error("Failed to read card order:", error);
+    }
+
+    applyStoredOrder(stored[CARD_ORDER_KEY]);
+
+    getSections().forEach((section) => {
+      addHandle(section);
+      section.addEventListener("dragstart", (event) => onDragStart(section, event));
+      section.addEventListener("dragend", () => onDragEnd(section));
+      section.addEventListener("dragover", (event) => onDragOver(section, event));
+      setupTilt(section);
+    });
+
+    layout.addEventListener("drop", (event) => event.preventDefault());
+
+    // Flatten any tilt while the pointer is pressed so editing sliders/inputs
+    // stays stable, and never leave a card "armed" for drag after a release.
+    document.addEventListener("pointerdown", () => {
+      pointerActive = true;
+      if (!reduceMotion) {
+        getSections().forEach((section) => { section.style.transform = ""; });
+      }
+    });
+
+    document.addEventListener("pointerup", () => {
+      pointerActive = false;
+      getSections().forEach((section) => section.removeAttribute("draggable"));
+    });
+  }
+
+  i18nReady.then(init);
+})();

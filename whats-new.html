@@ -25,10 +25,10 @@
       place-items: start center;
       padding: 48px 24px;
       background:
-        radial-gradient(circle at top, rgba(126, 240, 168, 0.14), transparent 36%),
+        radial-gradient(130% 70% at 50% -5%, rgba(255, 255, 255, 0.025), transparent 60%),
         linear-gradient(180deg, #111823 0%, #0d1117 100%);
       color: var(--text);
-      font-family: "Segoe UI", sans-serif;
+      font-family: "Segoe UI", -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
     }
 
     .wrap { width: min(100%, 680px); }
@@ -101,6 +101,11 @@
     button.secondary { background: #293241; color: var(--text); margin-left: 10px; }
 
     .empty { color: var(--muted); text-align: center; }
+
+    button:focus-visible, a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
   </style>
 </head>
 <body>

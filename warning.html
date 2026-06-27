@@ -28,20 +28,21 @@
       place-items: center;
       padding: 24px;
       background:
-        radial-gradient(circle at top, rgba(126, 240, 168, 0.14), transparent 32%),
+        radial-gradient(130% 70% at 50% -5%, rgba(255, 255, 255, 0.025), transparent 60%),
         linear-gradient(180deg, #111823 0%, #0d1117 100%);
       color: var(--text);
-      font-family: "Segoe UI", sans-serif;
+      font-family: "Segoe UI", -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
     }
 
-    /* Three side-by-side columns: block card | vegetarian | meat.
-       Collapses to fewer columns (and finally one) on narrow screens. */
+    /* Three side-by-side columns: block card | vegetarian | meat. Columns size
+       to their own content (no stretching) so recipe cards stay compact, and
+       collapse to fewer columns (finally one) on narrow screens. */
     .board {
       width: min(100%, 1120px);
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
       gap: 20px;
-      align-items: stretch;
+      align-items: start;
     }
 
     .shell {
@@ -49,7 +50,9 @@
       border-radius: var(--panel-radius);
       background: var(--panel);
       border: 1px solid var(--border);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+      box-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.16),
+        0 14px 40px rgba(0, 0, 0, 0.28);
     }
 
     .block-card {
@@ -209,26 +212,154 @@
       font-weight: 600;
     }
 
+    /* Steps are always visible (no collapse), and scroll within the card if a
+       recipe is long. The scrollbar is thin and themed so it stays subtle but
+       discoverable. */
     .recipe-steps {
-      margin-top: 14px;
+      margin-top: 16px;
     }
 
-    .recipe-steps summary {
-      cursor: pointer;
-      font-size: 0.85rem;
-      color: var(--accent);
+    .recipe-steps-title {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 8px;
     }
 
-    .recipe-steps ol {
-      margin: 10px 0 0;
+    .recipe-steps-list {
+      margin: 0;
       padding-left: 20px;
       font-size: 0.85rem;
       color: var(--muted);
       line-height: 1.5;
+      max-height: 188px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(126, 240, 168, 0.32) transparent;
     }
 
-    .recipe-steps li {
+    .recipe-steps-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .recipe-steps-list::-webkit-scrollbar-thumb {
+      background: rgba(126, 240, 168, 0.28);
+      border-radius: 999px;
+    }
+
+    .recipe-steps-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .recipe-steps-list li {
       margin-bottom: 6px;
+    }
+
+    /* Compact "I'll make this instead" button near the bottom of the card — a
+       clearly-defined button, not a card-sized click zone. */
+    .recipe-choose {
+      margin-top: 18px;
+      align-self: stretch;
+      border: 1px solid rgba(126, 240, 168, 0.35);
+      border-radius: 12px;
+      padding: 11px 14px;
+      background: rgba(126, 240, 168, 0.14);
+      color: var(--accent);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+    }
+
+    .recipe-choose:hover:not(:disabled) {
+      transform: translateY(-1px);
+      background: rgba(126, 240, 168, 0.22);
+    }
+
+    .recipe-choose:disabled {
+      cursor: default;
+    }
+
+    /* The chosen recipe's button fills with accent (success); the other card's
+       button just dims. The card body stays fully visible either way. */
+    .recipe-choose.chosen {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #102016;
+    }
+
+    .recipe-choose:disabled:not(.chosen) {
+      opacity: 0.45;
+    }
+
+    .recipe-choice-note {
+      margin-top: 18px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(126, 240, 168, 0.12);
+      color: var(--accent);
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .recipe-choice-note[hidden] {
+      display: none;
+    }
+
+    /* "Why you're seeing this" panel — populated by warning.js from the JSON
+       blocklist metadata the background service worker resolves. */
+    .block-reason {
+      margin: 18px auto 0;
+      max-width: 340px;
+      text-align: left;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .block-reason[hidden] {
+      display: none;
+    }
+
+    .block-reason-heading {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .block-reason-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.85rem;
+      padding: 4px 0;
+    }
+
+    .block-reason-row + .block-reason-row {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .block-reason-label {
+      color: var(--muted);
+      flex: 0 0 auto;
+    }
+
+    .block-reason-value {
+      color: var(--text);
+      font-weight: 600;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    summary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
   </style>
 </head>
@@ -244,6 +375,10 @@
       <!-- warning.js fills this with the brand the block interrupted, sourced from
            the JSON blocklist metadata via the background service worker. -->
       <p class="hint" id="brand" hidden></p>
+
+      <!-- "Why you're seeing this" — the domain, rule type, category, and country
+           metadata that triggered the block. Populated by warning.js. -->
+      <div class="block-reason" id="blockReason" hidden></div>
 
       <!-- warning.js updates this timer and animates the ring as time passes. -->
       <div class="ring" id="ring">
@@ -261,6 +396,10 @@
         <button id="back" class="secondary" type="button" data-i18n="warningBackButton">Go back</button>
         <button id="continue" class="primary" type="button" disabled>Locked</button>
       </div>
+
+      <!-- Confirmation shown after the user picks a recipe instead of ordering.
+           warning.js manages its text and visibility. -->
+      <p class="recipe-choice-note" id="recipeChoiceNote" hidden></p>
     </section>
 
     <!-- Middle + right columns: lightweight at-home alternatives, chosen by

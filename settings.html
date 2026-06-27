@@ -25,16 +25,42 @@
       margin: 0;
       min-height: 100vh;
       background:
-        radial-gradient(circle at top, rgba(126, 240, 168, 0.14), transparent 38%),
+        radial-gradient(130% 80% at 50% -10%, rgba(255, 255, 255, 0.025), transparent 60%),
         var(--bg);
       color: var(--text);
-      font-family: "Segoe UI", sans-serif;
+      font-family: "Segoe UI", -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
       padding: 28px;
     }
 
     .wrap {
-      max-width: 920px;
+      max-width: 1240px;
       margin: 0 auto;
+    }
+
+    /* Responsive dashboard: compact sections reflow into 2+ columns on wide
+       (16:9) screens and stack on narrow ones. Content-heavy sections opt out
+       with .full so they always span the full width. */
+    .layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .layout > .full {
+      grid-column: 1 / -1;
+    }
+
+    /* The grid gap handles spacing between sections, so suppress the stacked
+       margin within the layout. */
+    .layout > .section + .section {
+      margin-top: 0;
+    }
+
+    @media (max-width: 520px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
     }
 
     .hero,
@@ -42,7 +68,76 @@
       border: 1px solid var(--border);
       border-radius: var(--panel-radius);
       background: var(--panel);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+      box-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.12),
+        0 10px 28px rgba(0, 0, 0, 0.18);
+    }
+
+    /* Reorderable cards: a subtle grabber at the top, plus a gentle, damped
+       hover tilt. Both are progressive enhancements added by settings.js; with
+       JS off (or reduced motion) the cards are plain static panels. */
+    .layout > .section {
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease, box-shadow 0.25s ease, opacity 0.2s ease;
+    }
+
+    .drag-handle {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 46px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      cursor: grab;
+      opacity: 0.35;
+      transition: opacity 0.15s ease, background 0.15s ease;
+    }
+
+    .layout > .section:hover .drag-handle {
+      opacity: 0.8;
+    }
+
+    .drag-handle:hover {
+      opacity: 1;
+      background: var(--panel-soft);
+    }
+
+    .drag-handle:focus-visible {
+      opacity: 1;
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .drag-handle:active {
+      cursor: grabbing;
+    }
+
+    .drag-handle::before {
+      content: "";
+      width: 24px;
+      height: 4px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    .section.dragging {
+      opacity: 0.5;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .layout > .section {
+        transition: box-shadow 0.2s ease, opacity 0.2s ease;
+      }
     }
 
     .hero {
@@ -56,6 +151,134 @@
 
     .section + .section {
       margin-top: 18px;
+    }
+
+    /* Protection Status dashboard — local-only health snapshot. */
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat-card {
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .stat-value.on {
+      color: var(--accent);
+    }
+
+    .stat-value.off {
+      color: var(--muted);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 4px;
+    }
+
+    .stat-settings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .savings-field {
+      margin: 0;
+    }
+
+    /* Reset & Data controls. */
+    .reset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .reset-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .reset-item small {
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .reset-item button {
+      align-self: flex-start;
+    }
+
+    .danger {
+      background: #c0485a;
+      color: #fff;
+    }
+
+    /* Confirmation dialog overlay. */
+    .confirm-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.55);
+    }
+
+    .confirm-overlay[hidden] {
+      display: none;
+    }
+
+    .confirm-dialog {
+      width: min(100%, 420px);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .confirm-message {
+      margin: 0 0 18px;
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .confirm-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .confirm-dialog button:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .toggle input:focus-visible + .slider {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     .support-footer {
@@ -120,7 +343,7 @@
     }
 
     .theme-control-grid {
-      grid-template-columns: repeat(6, minmax(110px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     }
 
     .theme-mode-field {
@@ -384,6 +607,26 @@
       white-space: nowrap;
     }
 
+    /* Shared lift on the main action buttons (the drag handle is excluded so it
+       keeps its own centering transform). */
+    .primary,
+    .secondary,
+    .danger {
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    }
+
+    .primary:hover,
+    .secondary:hover,
+    .danger:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary:active,
+    .secondary:active,
+    .danger:active {
+      transform: translateY(0);
+    }
+
     .primary {
       background: var(--accent);
       color: #102016;
@@ -392,6 +635,10 @@
     .secondary {
       background: #293241;
       color: var(--text);
+    }
+
+    .secondary:hover {
+      background: #313d4f;
     }
 
     .theme-reset-button {
@@ -602,13 +849,15 @@
     /* Light mode overrides — applied when <html> has the .theme-light class. */
     html.theme-light body {
       background:
-        radial-gradient(circle at top, rgba(126, 240, 168, 0.10), transparent 40%),
+        radial-gradient(130% 80% at 50% -10%, rgba(15, 23, 42, 0.03), transparent 60%),
         var(--bg);
     }
 
     html.theme-light .hero,
     html.theme-light .section {
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
+      box-shadow:
+        0 1px 1px rgba(15, 23, 42, 0.04),
+        0 8px 22px rgba(15, 23, 42, 0.08);
     }
 
     html.theme-light input[type="number"],
@@ -688,6 +937,26 @@
       <h1 data-i18n="settingsTitle">FitShield Settings</h1>
     </section>
 
+    <div class="layout">
+    <section id="protection-status" class="section">
+      <h2 data-i18n="protectionStatusHeading">Your Stats</h2>
+      <p data-i18n="protectionStatusIntro">A private, on-device estimate of what FitShield has helped you skip. These are estimates, and nothing here is uploaded.</p>
+      <div id="protectionStatusGrid" class="status-grid"></div>
+
+      <div class="stat-settings">
+        <div class="field savings-field">
+          <label for="avgMealCost" data-i18n="avgMealCostLabel">Average meal cost</label>
+          <input id="avgMealCost" type="number" min="0" step="1">
+          <small data-i18n="avgMealCostHint">Used to estimate money saved when you skip an order. Stored on your device only.</small>
+        </div>
+        <div class="field savings-field">
+          <label for="avgMealCalories" data-i18n="avgMealCaloriesLabel">Average meal calories</label>
+          <input id="avgMealCalories" type="number" min="0" step="50">
+          <small data-i18n="avgMealCaloriesHint">Used to estimate calories avoided when you pick a recipe instead. Stored on your device only.</small>
+        </div>
+      </div>
+    </section>
+
     <section id="blocking-options" class="section">
       <h2 data-i18n="blockingOptionsHeading">Blocking Options</h2>
 
@@ -753,7 +1022,7 @@
       </div>
     </section>
 
-    <section id="customize-blocklist" class="section">
+    <section id="customize-blocklist" class="section full">
       <h2 data-i18n="customizeBlocklistHeading">Customize Blocklist</h2>
       <p data-i18n="customizeBlocklistIntro">Choose which built-in groups are active, turn individual sites on or off, and add your own domains.</p>
 
@@ -825,7 +1094,7 @@
       </div>
     </section>
 
-    <section id="metadata-blocking" class="section">
+    <section id="metadata-blocking" class="section full">
       <h2 data-i18n="metadataHeading">Country &amp; Category Blocking</h2>
       <p data-i18n="metadataIntro">Block whole groups of sites by the country a brand operates in or the kind of food it serves. These blocks add to your existing site and custom-URL blocks.</p>
 
@@ -880,7 +1149,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section id="appearance" class="section">
       <div class="row">
         <h2 data-i18n="themeHeading">Theme</h2>
         <button id="resetTheme" class="secondary theme-reset-button" type="button" data-i18n="resetThemeButton">Reset Theme</button>
@@ -954,6 +1223,33 @@
       <div id="backupNotice" class="notice" aria-live="polite"></div>
     </section>
 
+    <section class="section" id="reset-data">
+      <h2 data-i18n="resetHeading">Reset &amp; Data</h2>
+      <p data-i18n="resetIntro">Restore parts of FitShield to their defaults. Each action asks for confirmation first.</p>
+
+      <div class="reset-grid">
+        <div class="reset-item">
+          <button id="resetBlocking" class="secondary" type="button" data-i18n="resetBlockingButton">Reset blocking settings</button>
+          <small data-i18n="resetBlockingHint">Timers, schedule, site toggles, custom URLs, and country/category blocks.</small>
+        </div>
+        <div class="reset-item">
+          <button id="resetAppearance" class="secondary" type="button" data-i18n="resetAppearanceButton">Reset appearance</button>
+          <small data-i18n="resetAppearanceHint">Theme colors and light/dark mode.</small>
+        </div>
+        <div class="reset-item">
+          <button id="resetPreferences" class="secondary" type="button" data-i18n="resetPreferencesButton">Reset recipes &amp; preferences</button>
+          <small data-i18n="resetPreferencesHint">Average meal cost, calorie settings, and your saved stats.</small>
+        </div>
+        <div class="reset-item">
+          <button id="factoryReset" class="danger" type="button" data-i18n="factoryResetButton">Factory reset</button>
+          <small data-i18n="factoryResetHint">Erase everything and return FitShield to a fresh install.</small>
+        </div>
+      </div>
+
+      <div id="resetNotice" class="notice" aria-live="polite"></div>
+    </section>
+    </div>
+
     <footer class="support-footer">
       <p data-i18n="supportFooterText">If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blocklists and docs moving.</p>
       <a class="bmc-link" href="https://buymeacoffee.com/eeshgarg" target="_blank" rel="noopener noreferrer">
@@ -967,6 +1263,16 @@
       </a>
     </footer>
   </main>
+
+  <div id="confirmOverlay" class="confirm-overlay" hidden>
+    <div class="confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirmMessage">
+      <p id="confirmMessage" class="confirm-message"></p>
+      <div class="confirm-actions">
+        <button id="confirmCancel" class="secondary" type="button" data-i18n="confirmCancelButton">Cancel</button>
+        <button id="confirmOk" class="danger" type="button" data-i18n="confirmConfirmButton">Confirm</button>
+      </div>
+    </div>
+  </div>
 
   <script src="blocklist.js"></script>
   <script src="languages.js"></script>

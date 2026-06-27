@@ -10,6 +10,44 @@ function minuteUnit(value) {
   return t(value === 1 ? "unitMinute" : "unitMinutes");
 }
 
+function capitalize(text) {
+  return text ? text.charAt(0).toUpperCase() + text.slice(1) : text;
+}
+
+// Map a blocklist rule type to a friendly, localized label.
+function blockTypeLabel(type) {
+  switch (type) {
+    case "delivery":
+      return t("blockTypeDelivery");
+    case "fast_food":
+      return t("blockTypeFastFood");
+    case "custom":
+      return t("blockTypeCustom");
+    default:
+      return "";
+  }
+}
+
+// Build the "Active in" country string from ISO codes. Shows the first few codes
+// and a "+N more" suffix so long lists stay compact.
+function formatCountryList(codes) {
+  const list = (Array.isArray(codes) ? codes : [])
+    .map((code) => String(code || "").trim().toUpperCase())
+    .filter(Boolean);
+
+  if (list.length === 0) {
+    return "";
+  }
+
+  const MAX = 6;
+
+  if (list.length <= MAX) {
+    return list.join(", ");
+  }
+
+  return `${list.slice(0, MAX).join(", ")} ${t("blockReasonMoreCountries", [String(list.length - MAX)])}`;
+}
+
 // Base styling for the warning screen before custom theme preferences load.
 const DEFAULT_THEME = {
   bg: "#0d1117",
@@ -26,6 +64,7 @@ const timerEl = document.getElementById("timer");
 const ringEl = document.getElementById("ring");
 const hintEl = document.getElementById("hint");
 const brandEl = document.getElementById("brand");
+const blockReasonEl = document.getElementById("blockReason");
 const backButton = document.getElementById("back");
 const continueButton = document.getElementById("continue");
 
@@ -41,6 +80,12 @@ let destination = "";
 let siteLabel = "";
 let blockInfo = null;
 let selectedRecipes = null;
+
+// Recipe-choice state. A user can pick one suggested recipe per block as the
+// "I'll make this instead" alternative; that records the local calories-avoided
+// stat once and locks both buttons for this page view.
+let recipeChosen = false;
+let chosenRecipeDiet = null;
 
 // Query params are mainly for manual URL overrides; normal users fall back to stored defaults.
 let secondsLeft = Number.isFinite(timerParam) && timerParam >= 10 ? timerParam : DEFAULT_TIMER_SECONDS;
@@ -77,6 +122,62 @@ function renderTimer() {
   ringEl.style.boxShadow = `0 0 ${24 + progress * 26}px rgba(126, 240, 168, 0.22)`;
 }
 
+// Append one label/value row to the "why you're seeing this" panel.
+function appendReasonRow(container, label, value) {
+  if (!value) {
+    return;
+  }
+
+  const row = document.createElement("div");
+  row.className = "block-reason-row";
+
+  const labelEl = document.createElement("span");
+  labelEl.className = "block-reason-label";
+  labelEl.textContent = label;
+
+  const valueEl = document.createElement("span");
+  valueEl.className = "block-reason-value";
+  valueEl.textContent = value;
+
+  row.append(labelEl, valueEl);
+  container.appendChild(row);
+}
+
+// Explain exactly why the site was blocked, using the JSON blocklist metadata
+// resolved by the background service worker: domain, rule type, food category,
+// and the countries the brand is active in. Hidden until that metadata loads.
+function renderBlockReason() {
+  if (!blockReasonEl) {
+    return;
+  }
+
+  blockReasonEl.replaceChildren();
+
+  if (!blockInfo || !blockInfo.found) {
+    blockReasonEl.hidden = true;
+    return;
+  }
+
+  const heading = document.createElement("div");
+  heading.className = "block-reason-heading";
+  heading.textContent = t("blockReasonHeading");
+  blockReasonEl.appendChild(heading);
+
+  const domain = blockInfo.domain || blockInfo.apex || "";
+  const typeLabel = blockTypeLabel(blockInfo.type);
+  const category = blockInfo.category && blockInfo.category !== blockInfo.type && blockInfo.category !== "custom"
+    ? capitalize(blockInfo.category)
+    : "";
+  const countries = formatCountryList(blockInfo.countries);
+
+  appendReasonRow(blockReasonEl, t("blockReasonDomain"), domain);
+  appendReasonRow(blockReasonEl, t("blockReasonType"), typeLabel);
+  appendReasonRow(blockReasonEl, t("blockReasonCategory"), category);
+  appendReasonRow(blockReasonEl, t("blockReasonCountries"), countries);
+
+  blockReasonEl.hidden = blockReasonEl.childElementCount <= 1;
+}
+
 // Render every JS-managed string based on current state. Called on load and
 // whenever the language changes, so the block screen stays consistent.
 function renderDynamicText() {
@@ -86,6 +187,9 @@ function renderDynamicText() {
   } else {
     brandEl.hidden = true;
   }
+
+  renderBlockReason();
+  renderChoiceNote();
 
   hintEl.textContent = unlocked
     ? t("warningUnlockHint", [String(passDurationMinutes), minuteUnit(passDurationMinutes)])
@@ -130,7 +234,11 @@ function renderRecipeInto(col, recipe, diet) {
 
   const meta = document.createElement("div");
   meta.className = "recipe-meta";
-  meta.textContent = t("recipeTimeLabel", [String(recipe.timeMinutes)]);
+  const metaParts = [t("recipeTimeLabel", [String(recipe.timeMinutes)])];
+  if (Number.isFinite(Number(recipe.calories))) {
+    metaParts.push(t("recipeCaloriesLabel", [String(recipe.calories)]));
+  }
+  meta.textContent = metaParts.join(" · ");
 
   const desc = document.createElement("p");
   desc.className = "recipe-desc";
@@ -144,25 +252,78 @@ function renderRecipeInto(col, recipe, diet) {
 
   col.append(badge, name, meta, desc, ingredients);
 
+  // Steps are shown in full (no collapse); the list scrolls inside the card when
+  // a recipe is long.
   if (Array.isArray(recipe.steps) && recipe.steps.length > 0) {
-    const steps = document.createElement("details");
+    const steps = document.createElement("div");
     steps.className = "recipe-steps";
 
-    const summary = document.createElement("summary");
-    summary.textContent = t("recipeStepsLabel");
+    const stepsTitle = document.createElement("div");
+    stepsTitle.className = "recipe-steps-title";
+    stepsTitle.textContent = t("recipeStepsLabel");
 
     const list = document.createElement("ol");
+    list.className = "recipe-steps-list";
     recipe.steps.forEach((step) => {
       const item = document.createElement("li");
       item.textContent = step;
       list.appendChild(item);
     });
 
-    steps.append(summary, list);
+    steps.append(stepsTitle, list);
     col.appendChild(steps);
   }
 
+  // "I'll make this instead" — a compact button that logs the local
+  // calories-avoided stat once. The chosen card's button turns into the success
+  // state; the card content stays visible.
+  const chooseButton = document.createElement("button");
+  chooseButton.type = "button";
+  chooseButton.className = "recipe-choose";
+  const isChosenOne = recipeChosen && chosenRecipeDiet === diet;
+  chooseButton.classList.toggle("chosen", isChosenOne);
+  chooseButton.textContent = isChosenOne ? t("recipeChosenButton") : t("recipeChooseButton");
+  chooseButton.disabled = recipeChosen;
+  chooseButton.setAttribute("aria-label", `${t("recipeChooseButton")}: ${recipe.title}`);
+  chooseButton.addEventListener("click", () => chooseRecipe(recipe, diet));
+  col.appendChild(chooseButton);
+
   col.hidden = false;
+}
+
+// Show or hide the "logged in your stats" confirmation under the block card.
+function renderChoiceNote() {
+  const noteEl = document.getElementById("recipeChoiceNote");
+
+  if (!noteEl) {
+    return;
+  }
+
+  noteEl.textContent = t("recipeChoiceNote");
+  noteEl.hidden = !recipeChosen;
+}
+
+// Record the chosen recipe's calories with the background (single source of
+// truth), then re-render so both buttons lock and the note appears. Guarded so
+// it only counts once per block view.
+async function chooseRecipe(recipe, diet) {
+  if (recipeChosen) {
+    return;
+  }
+
+  recipeChosen = true;
+  chosenRecipeDiet = diet;
+
+  const recipeCalories = Number.isFinite(Number(recipe?.calories)) ? Number(recipe.calories) : null;
+
+  try {
+    await chrome.runtime.sendMessage({ type: "recordRecipeChoice", recipeCalories });
+  } catch (error) {
+    console.error("Failed to record recipe choice:", error);
+  }
+
+  renderRecipes();
+  renderChoiceNote();
 }
 
 // Render the vegetarian (middle) and meat (right) columns. Safe to call
@@ -288,6 +449,10 @@ async function initializeTimer() {
   renderDynamicText();
   renderTimer();
   startTimer();
+
+  // Count this block for the local "estimated savings" stat. Fire-and-forget;
+  // the only thing recorded is a single integer counter (no URL or history).
+  chrome.runtime.sendMessage({ type: "recordBlockedVisit" }).catch(() => {});
 
   // Recipe suggestions are non-blocking; the timer runs regardless.
   setupRecipes();

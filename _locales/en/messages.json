@@ -94,7 +94,6 @@
     "message": "You're about to order from $1.",
     "description": "$1 is the blocked brand name."
   },
-  "warningHintDefault": { "message": "When the timer ends, you can continue to the site." },
   "warningHintLocked": {
     "message": "When the timer ends, you can continue to the site for $1 $2.",
     "description": "$1 pass duration, $2 minute/minutes unit."
@@ -109,6 +108,19 @@
   },
   "warningErrorHint": { "message": "Something went wrong while opening the site. Please try again." },
 
+  "blockReasonHeading": { "message": "Why you're seeing this" },
+  "blockReasonDomain": { "message": "Site" },
+  "blockReasonType": { "message": "Rule" },
+  "blockReasonCategory": { "message": "Category" },
+  "blockReasonCountries": { "message": "Active in" },
+  "blockTypeDelivery": { "message": "Delivery service" },
+  "blockTypeFastFood": { "message": "Fast food" },
+  "blockTypeCustom": { "message": "Custom rule" },
+  "blockReasonMoreCountries": {
+    "message": "+$1 more",
+    "description": "$1 is the number of additional countries not shown."
+  },
+
   "recipeVegetarianLabel": { "message": "Vegetarian" },
   "recipeMeatLabel": { "message": "Meat & protein" },
   "recipeTimeLabel": {
@@ -117,6 +129,13 @@
   },
   "recipeIngredientsLabel": { "message": "Ingredients" },
   "recipeStepsLabel": { "message": "Steps" },
+  "recipeCaloriesLabel": {
+    "message": "~$1 kcal",
+    "description": "$1 is the estimated calories for the recipe."
+  },
+  "recipeChooseButton": { "message": "I'll make this instead" },
+  "recipeChosenButton": { "message": "Added to your stats ✓" },
+  "recipeChoiceNote": { "message": "Nice choice — logged in your stats. See it in Settings." },
 
   "settingsTitle": { "message": "FitShield Settings" },
   "blockingOptionsHeading": { "message": "Blocking Options" },
@@ -138,7 +157,7 @@
   "addCustomUrlLabel": { "message": "Add a custom blocked URL" },
   "customSitePlaceholder": { "message": "example.com or https://example.com" },
   "customNormalizeHint": { "message": "Entries are normalized to domains and blocked across all pages." },
-  "customEmptyDefault": { "message": "No custom URLs added yet." },
+  "customEmptyDefault": { "message": "No custom blocked sites yet. Add a domain like example.com above to start blocking it." },
   "customNoMatch": { "message": "No custom URLs match this search." },
   "emptyDeliverySearch": { "message": "No delivery sites match this search." },
   "emptyFastFoodSearch": { "message": "No fast food sites match this search." },
@@ -307,6 +326,42 @@
     "description": "$1 is the number of settings restored."
   },
   "importErrorNotice": { "message": "That file isn't a valid FitShield backup." },
+
+  "reorderCardLabel": {
+    "message": "Reorder card: $1. Use arrow keys to move it.",
+    "description": "$1 is the card's title. Accessible label for the drag handle."
+  },
+  "protectionStatusHeading": { "message": "Your Stats" },
+  "protectionStatusIntro": { "message": "A private, on-device estimate of what FitShield has helped you skip. These are estimates, and nothing here is uploaded." },
+  "statusBlockedVisits": { "message": "Blocked visits" },
+  "statusEstimatedSavings": { "message": "Estimated savings" },
+  "statusCaloriesAvoided": { "message": "Calories avoided" },
+  "avgMealCostLabel": { "message": "Average meal cost" },
+  "avgMealCostHint": { "message": "Used to estimate money saved when you skip an order. Stored on your device only." },
+  "avgMealCaloriesLabel": { "message": "Average meal calories" },
+  "avgMealCaloriesHint": { "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only." },
+
+  "resetHeading": { "message": "Reset & Data" },
+  "resetIntro": { "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first." },
+  "resetBlockingButton": { "message": "Reset blocking settings" },
+  "resetBlockingHint": { "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks." },
+  "resetAppearanceButton": { "message": "Reset appearance" },
+  "resetAppearanceHint": { "message": "Theme colors and light/dark mode." },
+  "resetPreferencesButton": { "message": "Reset recipes & preferences" },
+  "resetPreferencesHint": { "message": "Average meal cost, calorie settings, and your saved stats." },
+  "factoryResetButton": { "message": "Factory reset" },
+  "factoryResetHint": { "message": "Erase everything and return FitShield to a fresh install." },
+  "confirmCancelButton": { "message": "Cancel" },
+  "confirmConfirmButton": { "message": "Confirm" },
+  "confirmResetBlocking": { "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept." },
+  "confirmResetAppearance": { "message": "Reset the theme and appearance to the default dark mode?" },
+  "confirmResetPreferences": { "message": "Reset your meal-cost and calorie preferences, plus the saved-money and calories-avoided stats?" },
+  "confirmFactoryReset": { "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone." },
+  "confirmRemoveCustomSite": {
+    "message": "Remove $1 from your custom blocklist?",
+    "description": "$1 is the domain being removed."
+  },
+  "resetDoneNotice": { "message": "Done. Reloading…" },
 
   "supportFooterText": { "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blocklists and docs moving." },
   "bmcAlt": { "message": "Buy Me a Coffee" }

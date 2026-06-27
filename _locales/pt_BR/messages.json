@@ -146,9 +146,6 @@
   "warningTriggeredBy": {
     "message": "Você está prestes a fazer um pedido em $1."
   },
-  "warningHintDefault": {
-    "message": "Quando o cronômetro terminar, você poderá continuar para o site."
-  },
   "warningTitle": {
     "message": "Reserve um minuto."
   },
@@ -697,5 +694,128 @@
   },
   "importErrorNotice": {
     "message": "That file isn't a valid FitShield backup."
+  },
+  "blockReasonHeading": {
+    "message": "Why you're seeing this"
+  },
+  "blockReasonDomain": {
+    "message": "Site"
+  },
+  "blockReasonType": {
+    "message": "Rule"
+  },
+  "blockReasonCategory": {
+    "message": "Category"
+  },
+  "blockReasonCountries": {
+    "message": "Active in"
+  },
+  "blockTypeDelivery": {
+    "message": "Delivery service"
+  },
+  "blockTypeFastFood": {
+    "message": "Fast food"
+  },
+  "blockTypeCustom": {
+    "message": "Custom rule"
+  },
+  "blockReasonMoreCountries": {
+    "message": "+$1 more"
+  },
+  "protectionStatusHeading": {
+    "message": "Protection Status"
+  },
+  "protectionStatusIntro": {
+    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+  },
+  "statusBlockedVisits": {
+    "message": "Blocked visits"
+  },
+  "statusEstimatedSavings": {
+    "message": "Estimated savings"
+  },
+  "avgMealCostLabel": {
+    "message": "Average meal cost"
+  },
+  "avgMealCostHint": {
+    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+  },
+  "resetHeading": {
+    "message": "Reset & Data"
+  },
+  "resetIntro": {
+    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+  },
+  "resetBlockingButton": {
+    "message": "Reset blocking settings"
+  },
+  "resetBlockingHint": {
+    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+  },
+  "resetAppearanceButton": {
+    "message": "Reset appearance"
+  },
+  "resetAppearanceHint": {
+    "message": "Theme colors and light/dark mode."
+  },
+  "resetPreferencesButton": {
+    "message": "Reset recipes & preferences"
+  },
+  "resetPreferencesHint": {
+    "message": "Average meal cost and the saved-money counter."
+  },
+  "factoryResetButton": {
+    "message": "Factory reset"
+  },
+  "factoryResetHint": {
+    "message": "Erase everything and return FitShield to a fresh install."
+  },
+  "confirmCancelButton": {
+    "message": "Cancel"
+  },
+  "confirmConfirmButton": {
+    "message": "Confirm"
+  },
+  "confirmResetBlocking": {
+    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+  },
+  "confirmResetAppearance": {
+    "message": "Reset the theme and appearance to the default dark mode?"
+  },
+  "confirmResetPreferences": {
+    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+  },
+  "confirmFactoryReset": {
+    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+  },
+  "confirmRemoveCustomSite": {
+    "message": "Remove $1 from your custom blocklist?"
+  },
+  "resetDoneNotice": {
+    "message": "Done. Reloading…"
+  },
+  "recipeCaloriesLabel": {
+    "message": "~$1 kcal"
+  },
+  "recipeChooseButton": {
+    "message": "I'll make this instead"
+  },
+  "recipeChosenButton": {
+    "message": "Added to your stats ✓"
+  },
+  "recipeChoiceNote": {
+    "message": "Nice choice — logged in your stats. See it in Settings."
+  },
+  "statusCaloriesAvoided": {
+    "message": "Calories avoided"
+  },
+  "avgMealCaloriesLabel": {
+    "message": "Average meal calories"
+  },
+  "avgMealCaloriesHint": {
+    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+  },
+  "reorderCardLabel": {
+    "message": "Reorder card: $1. Use arrow keys to move it."
   }
 }
