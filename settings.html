@@ -438,9 +438,9 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      line-height: 0;
       opacity: 0.95;
       transition: opacity 0.15s ease, transform 0.15s ease;
+      text-decoration: none;
     }
 
     .bmc-link:hover,
@@ -450,10 +450,24 @@
       outline: none;
     }
 
-    .bmc-link img {
-      width: 271.25px;
+    /* Rendered locally (no remote image) to keep the extension fully offline and
+       privacy-first — opening Settings never makes a network request. */
+    .bmc-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      background: #ffdd00;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.95rem;
       max-width: 100%;
-      height: auto;
+    }
+
+    .bmc-button .bmc-emoji {
+      font-size: 1.1rem;
+      line-height: 1;
     }
 
     h1,
@@ -1415,13 +1429,10 @@
     <footer class="support-footer">
       <p data-i18n="supportFooterText">If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blocklists and docs moving.</p>
       <a class="bmc-link" href="https://buymeacoffee.com/eeshgarg" target="_blank" rel="noopener noreferrer">
-        <img
-          src="https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=%E2%98%95&slug=eeshgarg&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"
-          alt="Buy Me a Coffee"
-          width="271"
-          height="75"
-          data-i18n-alt="bmcAlt"
-        >
+        <span class="bmc-button">
+          <span class="bmc-emoji" aria-hidden="true">☕</span>
+          <span data-i18n="bmcAlt">Buy Me a Coffee</span>
+        </span>
       </a>
     </footer>
   </main>

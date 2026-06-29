@@ -12,8 +12,9 @@
  * only). This script derives the Firefox manifest by adding `background.scripts`
  * — letting the same code run on both with no console warning on either.
  *
- *   node build.js            -> dist/ staging + FitShield-<version>.zip (Firefox/AMO)
- *                               and FitShield-<version>-chrome.zip (Chrome Web Store)
+ *   node build.js            -> dist/ staging + the packaged zips in dist/:
+ *                               dist/FitShield-<version>.zip        (Firefox/AMO)
+ *                               dist/FitShield-<version>-chrome.zip (Chrome Web Store)
  *
  * No dependencies. Zipping is done with a tiny built-in writer (Node's zlib) so
  * archive paths always use forward slashes — Windows' Compress-Archive stores
@@ -85,6 +86,16 @@ function firefoxManifest(base) {
     service_worker: "background.js",
     scripts: ["blocklist.js", "background.js"]
   };
+  return manifest;
+}
+
+// Chromium (Chrome/Brave/Edge) ignores Firefox-only keys but emits an
+// "Unrecognized manifest key 'browser_specific_settings'" warning on load. The
+// committed manifest keeps those keys as the shared base for the Firefox build;
+// strip them here so the Chrome package loads cleanly with no warnings.
+function chromeManifest(base) {
+  const manifest = JSON.parse(JSON.stringify(base));
+  delete manifest.browser_specific_settings;
   return manifest;
 }
 
@@ -210,11 +221,14 @@ function main() {
   rmrf(DIST);
   fs.mkdirSync(DIST, { recursive: true });
 
-  // --- Chrome / Chromium: the committed manifest is already correct. ----------
+  // --- Chrome / Chromium: same files, Firefox-only manifest keys removed. -----
   const chromeStage = path.join(DIST, "chrome");
   copyInto(chromeStage);
-  fs.writeFileSync(path.join(chromeStage, "manifest.json"), JSON.stringify(base, null, 2) + "\n");
-  const chromeZip = path.join(ROOT, `FitShield-${version}-chrome.zip`);
+  fs.writeFileSync(
+    path.join(chromeStage, "manifest.json"),
+    JSON.stringify(chromeManifest(base), null, 2) + "\n"
+  );
+  const chromeZip = path.join(DIST, `FitShield-${version}-chrome.zip`);
   zipDir(chromeStage, chromeZip);
 
   // --- Firefox / AMO: same files, manifest gains background.scripts. ----------
@@ -224,12 +238,12 @@ function main() {
     path.join(firefoxStage, "manifest.json"),
     JSON.stringify(firefoxManifest(base), null, 2) + "\n"
   );
-  const firefoxZip = path.join(ROOT, `FitShield-${version}.zip`);
+  const firefoxZip = path.join(DIST, `FitShield-${version}.zip`);
   zipDir(firefoxStage, firefoxZip);
 
   console.log(`\nBuilt FitShield ${version}:`);
-  console.log(`  Firefox / AMO : ${path.basename(firefoxZip)}`);
-  console.log(`  Chrome / CWS  : ${path.basename(chromeZip)}`);
+  console.log(`  Firefox / AMO : ${path.relative(ROOT, firefoxZip).split(path.sep).join("/")}`);
+  console.log(`  Chrome / CWS  : ${path.relative(ROOT, chromeZip).split(path.sep).join("/")}`);
 }
 
 main();

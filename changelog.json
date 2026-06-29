@@ -10,7 +10,8 @@
         "Backup is now \"Export Data & Settings\" / \"Import Data & Settings\" — one file already carries your settings, stats, dashboard layout, favorites, and preferences, now with versioned migration metadata so future restores stay reliable.",
         "Expanded fast-food country coverage from 14 to 56 countries across major global brands (McDonald's, KFC, Burger King, Starbucks and more), added brand aliases for better matching, and validated every entry for clean codes and no duplicates.",
         "Started a permanent changelog/ folder: every release now has its own notes, plus a living ROADMAP so the project's history and direction have a single source of truth.",
-        "Localized the new stats labels and food-category names, and kept every supported display language in sync."
+        "Localized the new stats labels and food-category names, and kept every supported display language in sync.",
+        "Made the extension fully offline: the Settings support button is now rendered locally instead of loading a third-party image, so FitShield makes no network requests at all."
       ]
     },
     {

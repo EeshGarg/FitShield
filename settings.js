@@ -821,10 +821,6 @@ function removeValue(list, value) {
   return list.filter((item) => item !== value);
 }
 
-function capitalize(text) {
-  return text ? text.charAt(0).toUpperCase() + text.slice(1) : text;
-}
-
 function pluralizeSites(count) {
   return `${count} ${siteUnit(count)}`;
 }
@@ -1037,7 +1033,7 @@ function renderCategoryResults() {
 
       categorySearchResults.appendChild(
         buildResultRow(
-          capitalize(entry.category),
+          categoryDisplayName(entry.category),
           sub,
           enabled,
           () => setCategoryEnabled(entry.category, !enabled)
@@ -1059,7 +1055,7 @@ function renderCategoryQuickAccess() {
 
     categoryQuickAccess.appendChild(
       buildQuickChip(
-        capitalize(category),
+        categoryDisplayName(category),
         enabled,
         () => setCategoryEnabled(category, !enabled),
         () => unpinCategory(category)
