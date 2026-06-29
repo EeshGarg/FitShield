@@ -199,7 +199,8 @@
       margin: 0;
     }
 
-    /* Currency picker sits inline, left of the meal-cost amount. */
+    /* Currency picker sits inline, left of the meal-cost amount. The picker
+       takes the slack (currency names are long); the amount stays compact. */
     .cost-row {
       display: flex;
       gap: 8px;
@@ -207,13 +208,25 @@
     }
 
     .cost-row select {
-      flex: 0 0 auto;
-      max-width: 46%;
+      flex: 1 1 auto;
+      min-width: 0;
+      /* Drop the native arrow and draw our own so the currency name never
+         runs into it; reserve space on the right for the chevron + ellipsis. */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      padding-right: 34px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a93a3' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 12px;
     }
 
     .cost-row input {
-      flex: 1 1 auto;
-      min-width: 0;
+      flex: 0 0 96px;
     }
 
     /* The savings number gets a slow, living gradient sheen so the stat that
@@ -933,7 +946,8 @@
     html.theme-light input[type="text"],
     html.theme-light input[type="time"],
     html.theme-light select {
-      background: #ffffff;
+      /* background-color (not the shorthand) so the select keeps its chevron. */
+      background-color: #ffffff;
       border-color: rgba(15, 23, 42, 0.18);
     }
 
