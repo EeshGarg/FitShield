@@ -13,8 +13,8 @@
  * — letting the same code run on both with no console warning on either.
  *
  *   node build.js            -> dist/ staging + the packaged zips in dist/:
- *                               dist/FitShield-<version>.zip        (Firefox/AMO)
- *                               dist/FitShield-<version>-chrome.zip (Chrome Web Store)
+ *                               dist/FitShield-<version>-firefox.zip (Firefox/AMO)
+ *                               dist/FitShield-<version>-chrome.zip  (Chrome Web Store)
  *
  * No dependencies. Zipping is done with a tiny built-in writer (Node's zlib) so
  * archive paths always use forward slashes — Windows' Compress-Archive stores
@@ -238,7 +238,7 @@ function main() {
     path.join(firefoxStage, "manifest.json"),
     JSON.stringify(firefoxManifest(base), null, 2) + "\n"
   );
-  const firefoxZip = path.join(DIST, `FitShield-${version}.zip`);
+  const firefoxZip = path.join(DIST, `FitShield-${version}-firefox.zip`);
   zipDir(firefoxStage, firefoxZip);
 
   console.log(`\nBuilt FitShield ${version}:`);
