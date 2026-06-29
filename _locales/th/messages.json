@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "ยังไม่มีการบันทึกการบล็อก"
+  },
+  "catLabelBurger": {
+    "message": "เบอร์เกอร์"
+  },
+  "catLabelPizza": {
+    "message": "พิซซ่า"
+  },
+  "catLabelChicken": {
+    "message": "ไก่"
+  },
+  "catLabelCoffee": {
+    "message": "กาแฟ"
+  },
+  "catLabelTea": {
+    "message": "ชา"
+  },
+  "catLabelDessert": {
+    "message": "ของหวาน"
+  },
+  "catLabelBakery": {
+    "message": "เบเกอรี่"
+  },
+  "catLabelSandwich": {
+    "message": "แซนด์วิช"
+  },
+  "catLabelMexican": {
+    "message": "เม็กซิกัน"
+  },
+  "catLabelAsian": {
+    "message": "เอเชีย"
+  },
+  "catLabelSeafood": {
+    "message": "อาหารทะเล"
+  },
+  "catLabelSmoothie": {
+    "message": "สมูทตี้"
+  },
+  "catLabelKoreanFood": {
+    "message": "อาหารเกาหลี"
+  },
+  "catLabelFastCasual": {
+    "message": "ฟาสต์แคชชวล"
+  },
+  "catLabelGrocery": {
+    "message": "ของชำ"
+  },
+  "catLabelCatering": {
+    "message": "จัดเลี้ยง"
+  },
+  "catLabelRestaurant": {
+    "message": "ร้านอาหาร"
   }
 }

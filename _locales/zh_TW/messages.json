@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "尚無封鎖記錄。"
+  },
+  "catLabelBurger": {
+    "message": "漢堡"
+  },
+  "catLabelPizza": {
+    "message": "披薩"
+  },
+  "catLabelChicken": {
+    "message": "炸雞"
+  },
+  "catLabelCoffee": {
+    "message": "咖啡"
+  },
+  "catLabelTea": {
+    "message": "茶飲"
+  },
+  "catLabelDessert": {
+    "message": "甜點"
+  },
+  "catLabelBakery": {
+    "message": "烘焙"
+  },
+  "catLabelSandwich": {
+    "message": "三明治"
+  },
+  "catLabelMexican": {
+    "message": "墨西哥菜"
+  },
+  "catLabelAsian": {
+    "message": "亞洲菜"
+  },
+  "catLabelSeafood": {
+    "message": "海鮮"
+  },
+  "catLabelSmoothie": {
+    "message": "冰沙"
+  },
+  "catLabelKoreanFood": {
+    "message": "韓式料理"
+  },
+  "catLabelFastCasual": {
+    "message": "快休閒餐"
+  },
+  "catLabelGrocery": {
+    "message": "雜貨"
+  },
+  "catLabelCatering": {
+    "message": "外燴"
+  },
+  "catLabelRestaurant": {
+    "message": "餐廳"
   }
 }

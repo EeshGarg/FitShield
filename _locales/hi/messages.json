@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "अभी तक कोई ब्लॉक रिकॉर्ड नहीं किया गया।"
+  },
+  "catLabelBurger": {
+    "message": "बर्गर"
+  },
+  "catLabelPizza": {
+    "message": "पिज़्ज़ा"
+  },
+  "catLabelChicken": {
+    "message": "चिकन"
+  },
+  "catLabelCoffee": {
+    "message": "कॉफ़ी"
+  },
+  "catLabelTea": {
+    "message": "चाय"
+  },
+  "catLabelDessert": {
+    "message": "मिठाई"
+  },
+  "catLabelBakery": {
+    "message": "बेकरी"
+  },
+  "catLabelSandwich": {
+    "message": "सैंडविच"
+  },
+  "catLabelMexican": {
+    "message": "मैक्सिकन"
+  },
+  "catLabelAsian": {
+    "message": "एशियाई"
+  },
+  "catLabelSeafood": {
+    "message": "समुद्री भोजन"
+  },
+  "catLabelSmoothie": {
+    "message": "स्मूदी"
+  },
+  "catLabelKoreanFood": {
+    "message": "कोरियाई भोजन"
+  },
+  "catLabelFastCasual": {
+    "message": "फ़ास्ट कैज़ुअल"
+  },
+  "catLabelGrocery": {
+    "message": "किराना"
+  },
+  "catLabelCatering": {
+    "message": "कैटरिंग"
+  },
+  "catLabelRestaurant": {
+    "message": "रेस्तरां"
   }
 }

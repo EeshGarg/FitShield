@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "تېخى چەكلەش خاتىرىلەنمىدى."
+  },
+  "catLabelBurger": {
+    "message": "Burger"
+  },
+  "catLabelPizza": {
+    "message": "Pizza"
+  },
+  "catLabelChicken": {
+    "message": "Chicken"
+  },
+  "catLabelCoffee": {
+    "message": "Coffee"
+  },
+  "catLabelTea": {
+    "message": "Tea"
+  },
+  "catLabelDessert": {
+    "message": "Dessert"
+  },
+  "catLabelBakery": {
+    "message": "Bakery"
+  },
+  "catLabelSandwich": {
+    "message": "Sandwich"
+  },
+  "catLabelMexican": {
+    "message": "Mexican"
+  },
+  "catLabelAsian": {
+    "message": "Asian"
+  },
+  "catLabelSeafood": {
+    "message": "Seafood"
+  },
+  "catLabelSmoothie": {
+    "message": "Smoothie"
+  },
+  "catLabelKoreanFood": {
+    "message": "Korean Food"
+  },
+  "catLabelFastCasual": {
+    "message": "Fast Casual"
+  },
+  "catLabelGrocery": {
+    "message": "Grocery"
+  },
+  "catLabelCatering": {
+    "message": "Catering"
+  },
+  "catLabelRestaurant": {
+    "message": "Restaurant"
   }
 }

@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "아직 차단 기록이 없습니다."
+  },
+  "catLabelBurger": {
+    "message": "버거"
+  },
+  "catLabelPizza": {
+    "message": "피자"
+  },
+  "catLabelChicken": {
+    "message": "치킨"
+  },
+  "catLabelCoffee": {
+    "message": "커피"
+  },
+  "catLabelTea": {
+    "message": "차"
+  },
+  "catLabelDessert": {
+    "message": "디저트"
+  },
+  "catLabelBakery": {
+    "message": "베이커리"
+  },
+  "catLabelSandwich": {
+    "message": "샌드위치"
+  },
+  "catLabelMexican": {
+    "message": "멕시칸"
+  },
+  "catLabelAsian": {
+    "message": "아시안"
+  },
+  "catLabelSeafood": {
+    "message": "해산물"
+  },
+  "catLabelSmoothie": {
+    "message": "스무디"
+  },
+  "catLabelKoreanFood": {
+    "message": "한식"
+  },
+  "catLabelFastCasual": {
+    "message": "패스트 캐주얼"
+  },
+  "catLabelGrocery": {
+    "message": "식료품"
+  },
+  "catLabelCatering": {
+    "message": "케이터링"
+  },
+  "catLabelRestaurant": {
+    "message": "레스토랑"
   }
 }

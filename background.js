@@ -710,10 +710,15 @@ async function recordBlockedBrand(meta) {
     ? incrementCount(stored.blockedByCategory, category, 1)
     : (stored.blockedByCategory || {});
 
-  let blockedByCountry = stored.blockedByCountry || {};
-  countries.forEach((code) => {
-    blockedByCountry = incrementCount(blockedByCountry, code, 1);
-  });
+  // Count only the brand's PRIMARY (first-listed) operating market. Many brands
+  // operate in dozens of countries (e.g. McDonald's in ~50); counting every one
+  // would let a single block inflate the whole list and drown out the signal.
+  // The primary market is the most meaningful heuristic and still uses only
+  // curated brand metadata — never the user's real location or browsing data.
+  const primaryCountry = countries[0];
+  const blockedByCountry = primaryCountry
+    ? incrementCount(stored.blockedByCountry, primaryCountry, 1)
+    : (stored.blockedByCountry || {});
 
   await chrome.storage.local.set({ blockedByDomain, blockedByCategory, blockedByCountry });
   return { ok: true, recorded: true };

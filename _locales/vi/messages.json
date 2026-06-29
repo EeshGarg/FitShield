@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "Chưa ghi nhận lần chặn nào."
+  },
+  "catLabelBurger": {
+    "message": "Burger"
+  },
+  "catLabelPizza": {
+    "message": "Pizza"
+  },
+  "catLabelChicken": {
+    "message": "Gà"
+  },
+  "catLabelCoffee": {
+    "message": "Cà phê"
+  },
+  "catLabelTea": {
+    "message": "Trà"
+  },
+  "catLabelDessert": {
+    "message": "Tráng miệng"
+  },
+  "catLabelBakery": {
+    "message": "Tiệm bánh"
+  },
+  "catLabelSandwich": {
+    "message": "Bánh mì kẹp"
+  },
+  "catLabelMexican": {
+    "message": "Món Mexico"
+  },
+  "catLabelAsian": {
+    "message": "Món Á"
+  },
+  "catLabelSeafood": {
+    "message": "Hải sản"
+  },
+  "catLabelSmoothie": {
+    "message": "Sinh tố"
+  },
+  "catLabelKoreanFood": {
+    "message": "Món Hàn"
+  },
+  "catLabelFastCasual": {
+    "message": "Fast casual"
+  },
+  "catLabelGrocery": {
+    "message": "Tạp hóa"
+  },
+  "catLabelCatering": {
+    "message": "Tiệc"
+  },
+  "catLabelRestaurant": {
+    "message": "Nhà hàng"
   }
 }

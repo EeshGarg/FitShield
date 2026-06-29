@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "Tiada sekatan direkodkan lagi."
+  },
+  "catLabelBurger": {
+    "message": "Burger"
+  },
+  "catLabelPizza": {
+    "message": "Pizza"
+  },
+  "catLabelChicken": {
+    "message": "Ayam"
+  },
+  "catLabelCoffee": {
+    "message": "Kopi"
+  },
+  "catLabelTea": {
+    "message": "Teh"
+  },
+  "catLabelDessert": {
+    "message": "Pencuci mulut"
+  },
+  "catLabelBakery": {
+    "message": "Kedai roti"
+  },
+  "catLabelSandwich": {
+    "message": "Sandwic"
+  },
+  "catLabelMexican": {
+    "message": "Mexico"
+  },
+  "catLabelAsian": {
+    "message": "Asia"
+  },
+  "catLabelSeafood": {
+    "message": "Makanan laut"
+  },
+  "catLabelSmoothie": {
+    "message": "Smoothie"
+  },
+  "catLabelKoreanFood": {
+    "message": "Masakan Korea"
+  },
+  "catLabelFastCasual": {
+    "message": "Fast casual"
+  },
+  "catLabelGrocery": {
+    "message": "Barangan runcit"
+  },
+  "catLabelCatering": {
+    "message": "Katering"
+  },
+  "catLabelRestaurant": {
+    "message": "Restoran"
   }
 }

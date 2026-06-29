@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "Nog geen blokkeringen geregistreerd."
+  },
+  "catLabelBurger": {
+    "message": "Burger"
+  },
+  "catLabelPizza": {
+    "message": "Pizza"
+  },
+  "catLabelChicken": {
+    "message": "Kip"
+  },
+  "catLabelCoffee": {
+    "message": "Koffie"
+  },
+  "catLabelTea": {
+    "message": "Thee"
+  },
+  "catLabelDessert": {
+    "message": "Dessert"
+  },
+  "catLabelBakery": {
+    "message": "Bakkerij"
+  },
+  "catLabelSandwich": {
+    "message": "Broodje"
+  },
+  "catLabelMexican": {
+    "message": "Mexicaans"
+  },
+  "catLabelAsian": {
+    "message": "Aziatisch"
+  },
+  "catLabelSeafood": {
+    "message": "Zeevruchten"
+  },
+  "catLabelSmoothie": {
+    "message": "Smoothie"
+  },
+  "catLabelKoreanFood": {
+    "message": "Koreaans"
+  },
+  "catLabelFastCasual": {
+    "message": "Fast casual"
+  },
+  "catLabelGrocery": {
+    "message": "Boodschappen"
+  },
+  "catLabelCatering": {
+    "message": "Catering"
+  },
+  "catLabelRestaurant": {
+    "message": "Restaurant"
   }
 }

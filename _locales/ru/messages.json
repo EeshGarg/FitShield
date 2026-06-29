@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "Блокировок пока нет."
+  },
+  "catLabelBurger": {
+    "message": "Бургер"
+  },
+  "catLabelPizza": {
+    "message": "Пицца"
+  },
+  "catLabelChicken": {
+    "message": "Курица"
+  },
+  "catLabelCoffee": {
+    "message": "Кофе"
+  },
+  "catLabelTea": {
+    "message": "Чай"
+  },
+  "catLabelDessert": {
+    "message": "Десерт"
+  },
+  "catLabelBakery": {
+    "message": "Пекарня"
+  },
+  "catLabelSandwich": {
+    "message": "Сэндвич"
+  },
+  "catLabelMexican": {
+    "message": "Мексиканская"
+  },
+  "catLabelAsian": {
+    "message": "Азиатская"
+  },
+  "catLabelSeafood": {
+    "message": "Морепродукты"
+  },
+  "catLabelSmoothie": {
+    "message": "Смузи"
+  },
+  "catLabelKoreanFood": {
+    "message": "Корейская кухня"
+  },
+  "catLabelFastCasual": {
+    "message": "Фаст-кэжуал"
+  },
+  "catLabelGrocery": {
+    "message": "Продукты"
+  },
+  "catLabelCatering": {
+    "message": "Кейтеринг"
+  },
+  "catLabelRestaurant": {
+    "message": "Ресторан"
   }
 }

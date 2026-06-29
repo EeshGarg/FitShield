@@ -217,7 +217,7 @@ test("recordBlockedVisit only stores an integer count, never any URL or history"
   assert.equal(typeof bg.store.blockedVisits, "number");
 });
 
-test("recordBlockedBrand aggregates by domain, food category, and countries", async () => {
+test("recordBlockedBrand aggregates by domain, food category, and primary country", async () => {
   const bg = loadBackground();
   await bg.context.recordBlockedBrand({ domain: "doordash.com", category: "delivery", countries: ["US", "CA"] });
   await bg.context.recordBlockedBrand({ domain: "dominos.com", category: "pizza", countries: ["US"] });
@@ -230,9 +230,10 @@ test("recordBlockedBrand aggregates by domain, food category, and countries", as
   // categories like pizza are.
   assert.equal(bg.store.blockedByCategory.delivery, undefined);
   assert.equal(bg.store.blockedByCategory.pizza, 1);
-  // Each operating country is counted per block.
+  // Only the PRIMARY (first) country is counted, so a multi-country brand does
+  // not inflate the whole list. CA is never a primary here, so it is absent.
   assert.equal(bg.store.blockedByCountry.US, 3);
-  assert.equal(bg.store.blockedByCountry.CA, 1);
+  assert.equal(bg.store.blockedByCountry.CA, undefined);
 });
 
 test("recordBlockedBrand stores only aggregate counts, never a URL or history", async () => {

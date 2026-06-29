@@ -5,6 +5,14 @@
   "private": true,
   "scripts": {
     "test": "node --test",
+    "validate": "node tools/validate-all.js",
+    "validate:datasets": "node tools/validate-datasets.js",
+    "validate:aliases": "node tools/alias-audit.js",
+    "validate:countries": "node tools/country-audit.js",
+    "validate:categories": "node tools/category-audit.js",
+    "validate:locales": "node tools/locale-parity.js",
+    "validate:docs": "node tools/changelog-validator.js",
+    "validate:assets": "node tools/assets-check.js",
     "build": "node build.js"
   },
   "license": "GPL-3.0-or-later"

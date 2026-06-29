@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "まだブロックの記録はありません。"
+  },
+  "catLabelBurger": {
+    "message": "バーガー"
+  },
+  "catLabelPizza": {
+    "message": "ピザ"
+  },
+  "catLabelChicken": {
+    "message": "チキン"
+  },
+  "catLabelCoffee": {
+    "message": "コーヒー"
+  },
+  "catLabelTea": {
+    "message": "ティー"
+  },
+  "catLabelDessert": {
+    "message": "デザート"
+  },
+  "catLabelBakery": {
+    "message": "ベーカリー"
+  },
+  "catLabelSandwich": {
+    "message": "サンドイッチ"
+  },
+  "catLabelMexican": {
+    "message": "メキシコ料理"
+  },
+  "catLabelAsian": {
+    "message": "アジア料理"
+  },
+  "catLabelSeafood": {
+    "message": "シーフード"
+  },
+  "catLabelSmoothie": {
+    "message": "スムージー"
+  },
+  "catLabelKoreanFood": {
+    "message": "韓国料理"
+  },
+  "catLabelFastCasual": {
+    "message": "ファストカジュアル"
+  },
+  "catLabelGrocery": {
+    "message": "食料品"
+  },
+  "catLabelCatering": {
+    "message": "ケータリング"
+  },
+  "catLabelRestaurant": {
+    "message": "レストラン"
   }
 }

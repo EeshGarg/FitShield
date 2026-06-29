@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "Блокувань ще немає."
+  },
+  "catLabelBurger": {
+    "message": "Бургер"
+  },
+  "catLabelPizza": {
+    "message": "Піца"
+  },
+  "catLabelChicken": {
+    "message": "Курятина"
+  },
+  "catLabelCoffee": {
+    "message": "Кава"
+  },
+  "catLabelTea": {
+    "message": "Чай"
+  },
+  "catLabelDessert": {
+    "message": "Десерт"
+  },
+  "catLabelBakery": {
+    "message": "Пекарня"
+  },
+  "catLabelSandwich": {
+    "message": "Сендвіч"
+  },
+  "catLabelMexican": {
+    "message": "Мексиканська"
+  },
+  "catLabelAsian": {
+    "message": "Азійська"
+  },
+  "catLabelSeafood": {
+    "message": "Морепродукти"
+  },
+  "catLabelSmoothie": {
+    "message": "Смузі"
+  },
+  "catLabelKoreanFood": {
+    "message": "Корейська кухня"
+  },
+  "catLabelFastCasual": {
+    "message": "Фаст-кежуал"
+  },
+  "catLabelGrocery": {
+    "message": "Продукти"
+  },
+  "catLabelCatering": {
+    "message": "Кейтеринг"
+  },
+  "catLabelRestaurant": {
+    "message": "Ресторан"
   }
 }

@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "لم يُسجَّل أي حظر بعد."
+  },
+  "catLabelBurger": {
+    "message": "برجر"
+  },
+  "catLabelPizza": {
+    "message": "بيتزا"
+  },
+  "catLabelChicken": {
+    "message": "دجاج"
+  },
+  "catLabelCoffee": {
+    "message": "قهوة"
+  },
+  "catLabelTea": {
+    "message": "شاي"
+  },
+  "catLabelDessert": {
+    "message": "حلوى"
+  },
+  "catLabelBakery": {
+    "message": "مخبوزات"
+  },
+  "catLabelSandwich": {
+    "message": "ساندويتش"
+  },
+  "catLabelMexican": {
+    "message": "مكسيكي"
+  },
+  "catLabelAsian": {
+    "message": "آسيوي"
+  },
+  "catLabelSeafood": {
+    "message": "مأكولات بحرية"
+  },
+  "catLabelSmoothie": {
+    "message": "سموذي"
+  },
+  "catLabelKoreanFood": {
+    "message": "طعام كوري"
+  },
+  "catLabelFastCasual": {
+    "message": "فاست كاجوال"
+  },
+  "catLabelGrocery": {
+    "message": "بقالة"
+  },
+  "catLabelCatering": {
+    "message": "تموين"
+  },
+  "catLabelRestaurant": {
+    "message": "مطعم"
   }
 }

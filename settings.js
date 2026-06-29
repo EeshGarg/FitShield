@@ -1415,6 +1415,38 @@ function brandLabelForDomain(domain) {
   return domain;
 }
 
+// Title-case a raw category id for display: "fast_casual" -> "Fast Casual".
+// Used as the universal fallback when a category has no localized name.
+function prettifyCategory(category) {
+  return String(category || "")
+    .split(/[_\s]+/)
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+// Localized display name for a category id. Core food categories have a
+// `catLabel<PascalCase>` message; anything else (or any locale missing the
+// string) falls back to the prettified id, so every category reads cleanly in
+// every language without inventing translations for niche categories.
+function categoryDisplayName(category) {
+  const pascal = String(category || "")
+    .split(/[_\s]+/)
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join("");
+  const key = pascal ? `catLabel${pascal}` : "";
+
+  if (key) {
+    const localized = t(key);
+    if (localized && localized !== key) {
+      return localized;
+    }
+  }
+
+  return prettifyCategory(category);
+}
+
 // Localized country name from an ISO code; falls back to the code when Intl has
 // no name for it (e.g. XK). Memoized via a single cached formatter per render.
 let regionNamesFormatter = null;
@@ -1513,7 +1545,7 @@ function renderMostBlocked() {
   const hasCategories = renderRankedList(
     document.getElementById("mostBlockedCategories"),
     protectionData.blockedByCategory,
-    (category) => capitalize(category)
+    (category) => categoryDisplayName(category)
   );
   const hasCountries = renderRankedList(
     document.getElementById("mostBlockedCountries"),

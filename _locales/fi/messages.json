@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "Ei vielä estoja."
+  },
+  "catLabelBurger": {
+    "message": "Burgeri"
+  },
+  "catLabelPizza": {
+    "message": "Pizza"
+  },
+  "catLabelChicken": {
+    "message": "Kana"
+  },
+  "catLabelCoffee": {
+    "message": "Kahvi"
+  },
+  "catLabelTea": {
+    "message": "Tee"
+  },
+  "catLabelDessert": {
+    "message": "Jälkiruoka"
+  },
+  "catLabelBakery": {
+    "message": "Leipomo"
+  },
+  "catLabelSandwich": {
+    "message": "Voileipä"
+  },
+  "catLabelMexican": {
+    "message": "Meksikolainen"
+  },
+  "catLabelAsian": {
+    "message": "Aasialainen"
+  },
+  "catLabelSeafood": {
+    "message": "Merenelävät"
+  },
+  "catLabelSmoothie": {
+    "message": "Smoothie"
+  },
+  "catLabelKoreanFood": {
+    "message": "Korealainen ruoka"
+  },
+  "catLabelFastCasual": {
+    "message": "Fast casual"
+  },
+  "catLabelGrocery": {
+    "message": "Ruokakauppa"
+  },
+  "catLabelCatering": {
+    "message": "Pitopalvelu"
+  },
+  "catLabelRestaurant": {
+    "message": "Ravintola"
   }
 }

@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "Zatím nebyly zaznamenány žádné blokace."
+  },
+  "catLabelBurger": {
+    "message": "Burger"
+  },
+  "catLabelPizza": {
+    "message": "Pizza"
+  },
+  "catLabelChicken": {
+    "message": "Kuře"
+  },
+  "catLabelCoffee": {
+    "message": "Káva"
+  },
+  "catLabelTea": {
+    "message": "Čaj"
+  },
+  "catLabelDessert": {
+    "message": "Dezert"
+  },
+  "catLabelBakery": {
+    "message": "Pekárna"
+  },
+  "catLabelSandwich": {
+    "message": "Sendvič"
+  },
+  "catLabelMexican": {
+    "message": "Mexická"
+  },
+  "catLabelAsian": {
+    "message": "Asijská"
+  },
+  "catLabelSeafood": {
+    "message": "Mořské plody"
+  },
+  "catLabelSmoothie": {
+    "message": "Smoothie"
+  },
+  "catLabelKoreanFood": {
+    "message": "Korejská kuchyně"
+  },
+  "catLabelFastCasual": {
+    "message": "Fast casual"
+  },
+  "catLabelGrocery": {
+    "message": "Potraviny"
+  },
+  "catLabelCatering": {
+    "message": "Catering"
+  },
+  "catLabelRestaurant": {
+    "message": "Restaurace"
   }
 }

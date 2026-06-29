@@ -194,6 +194,16 @@ function zipDir(stageDir, outputZip) {
 }
 
 function main() {
+  // Gate the build on the validators: never package broken datasets, locales,
+  // documentation, or missing assets. Warnings are allowed; errors abort.
+  const { validateAll } = require("./tools/validate-all");
+  console.log("Validating before packaging…");
+  const validation = validateAll();
+  if (!validation.ok) {
+    console.error(`\nBuild aborted: ${validation.errors} validation error(s). Fix them and re-run.`);
+    process.exit(1);
+  }
+
   const base = JSON.parse(fs.readFileSync(path.join(ROOT, "manifest.json"), "utf8"));
   const version = base.version;
 

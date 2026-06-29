@@ -937,5 +937,56 @@
   },
   "statsMostBlockedEmpty": {
     "message": "Henüz engelleme kaydı yok."
+  },
+  "catLabelBurger": {
+    "message": "Burger"
+  },
+  "catLabelPizza": {
+    "message": "Pizza"
+  },
+  "catLabelChicken": {
+    "message": "Tavuk"
+  },
+  "catLabelCoffee": {
+    "message": "Kahve"
+  },
+  "catLabelTea": {
+    "message": "Çay"
+  },
+  "catLabelDessert": {
+    "message": "Tatlı"
+  },
+  "catLabelBakery": {
+    "message": "Fırın"
+  },
+  "catLabelSandwich": {
+    "message": "Sandviç"
+  },
+  "catLabelMexican": {
+    "message": "Meksika"
+  },
+  "catLabelAsian": {
+    "message": "Asya"
+  },
+  "catLabelSeafood": {
+    "message": "Deniz ürünleri"
+  },
+  "catLabelSmoothie": {
+    "message": "Smoothie"
+  },
+  "catLabelKoreanFood": {
+    "message": "Kore mutfağı"
+  },
+  "catLabelFastCasual": {
+    "message": "Fast casual"
+  },
+  "catLabelGrocery": {
+    "message": "Market"
+  },
+  "catLabelCatering": {
+    "message": "Catering"
+  },
+  "catLabelRestaurant": {
+    "message": "Restoran"
   }
 }
