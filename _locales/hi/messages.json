@@ -681,10 +681,10 @@
     "message": "अपनी FitShield सेटिंग्स को फ़ाइल में सहेजें, या किसी अन्य डिवाइस पर पुनर्स्थापित करें। सब कुछ आपके डिवाइस पर रहता है — कुछ भी अपलोड नहीं होता।"
   },
   "exportSettingsButton": {
-    "message": "सेटिंग्स निर्यात करें"
+    "message": "डेटा और सेटिंग्स निर्यात करें"
   },
   "importSettingsButton": {
-    "message": "सेटिंग्स आयात करें"
+    "message": "डेटा और सेटिंग्स आयात करें"
   },
   "exportSuccessNotice": {
     "message": "सेटिंग्स निर्यात की गईं।"
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "जर्मन"
+  },
+  "statsMostBlockedSites": {
+    "message": "सबसे ज़्यादा ब्लॉक की गई साइटें"
+  },
+  "statsMostBlockedCategories": {
+    "message": "सबसे ज़्यादा ब्लॉक की गई श्रेणियाँ"
+  },
+  "statsMostBlockedCountries": {
+    "message": "सबसे ज़्यादा ब्लॉक किए गए देश"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "अभी तक कोई ब्लॉक रिकॉर्ड नहीं किया गया।"
   }
 }

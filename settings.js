@@ -499,6 +499,12 @@ function renderBlocklist(state) {
   } else if (!blocklistNotice.textContent) {
     setNotice("");
   }
+
+  // Now that brand records are loaded, the "most blocked sites" list can resolve
+  // domains to their display labels. Guard for the stats block not being present.
+  if (typeof renderMostBlocked === "function") {
+    renderMostBlocked();
+  }
 }
 
 async function loadBlocklist() {
@@ -1305,8 +1311,17 @@ const protectionData = {
   avgMealCalories: DEFAULT_AVG_MEAL_CALORIES,
   caloriesAvoided: 0,
   currencyChoice: "", // "" => follow the display language
-  customized: false   // true once the user edits cost or calories by hand
+  customized: false,  // true once the user edits cost or calories by hand
+  // Aggregate, local-only breakdowns of what got blocked (counts keyed by the
+  // curated brand's apex domain, food category, and operating countries). No
+  // URLs, pages, or browsing history — only the brands already on the blocklist.
+  blockedByDomain: {},
+  blockedByCategory: {},
+  blockedByCountry: {}
 };
+
+const mostBlockedContainer = document.getElementById("mostBlockedContainer");
+const MOST_BLOCKED_LIMIT = 5;
 
 // The locale the stats format against: the pinned UI language, or the browser
 // locale when "System default" is selected.
@@ -1378,6 +1393,135 @@ function renderProtectionStatus() {
   ];
 
   protectionStatusGrid.replaceChildren(...cards);
+  renderMostBlocked();
+}
+
+// BCP-47 form of the stats locale ("pt_BR" -> "pt-BR") for Intl APIs.
+function intlLocale() {
+  return statsLocale().replace(/_/g, "-");
+}
+
+// Resolve a curated brand's apex domain to its display label (e.g.
+// "doordash.com" -> "DoorDash") from the loaded blocklist. Falls back to the
+// domain itself for custom sites or anything not currently loaded.
+function brandLabelForDomain(domain) {
+  if (latestBlockState) {
+    const sites = [...(latestBlockState.deliverySites || []), ...(latestBlockState.fastFoodSites || [])];
+    const match = sites.find((site) => (site.domain || site.match) === domain);
+    if (match && match.label) {
+      return match.label;
+    }
+  }
+  return domain;
+}
+
+// Localized country name from an ISO code; falls back to the code when Intl has
+// no name for it (e.g. XK). Memoized via a single cached formatter per render.
+let regionNamesFormatter = null;
+function countryDisplayName(code) {
+  const upper = String(code || "").trim().toUpperCase();
+  if (!upper) {
+    return "";
+  }
+  try {
+    if (!regionNamesFormatter) {
+      regionNamesFormatter = new Intl.DisplayNames([intlLocale()], { type: "region" });
+    }
+    return regionNamesFormatter.of(upper) || upper;
+  } catch (error) {
+    return upper;
+  }
+}
+
+// Coerce a stored value into a clean { key: positive-number } map. Defensive
+// against junk (non-objects, arrays, NaN counts) from older or hand-edited data.
+function readCountMap(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+
+  const out = {};
+  Object.entries(value).forEach(([key, count]) => {
+    const n = Number(count);
+    if (key && Number.isFinite(n) && n > 0) {
+      out[key] = n;
+    }
+  });
+  return out;
+}
+
+// Turn a { key: count } map into the top-N [key, count] pairs, highest first,
+// breaking ties alphabetically so the list is stable.
+function topEntries(map) {
+  return Object.entries(map && typeof map === "object" ? map : {})
+    .filter(([, count]) => Number(count) > 0)
+    .sort((a, b) => (b[1] - a[1]) || a[0].localeCompare(b[0]))
+    .slice(0, MOST_BLOCKED_LIMIT);
+}
+
+// Fill one ranked list (sites / categories / countries). `nameFor` maps a raw
+// key to its display label. Shows a muted "no data yet" note when empty.
+function renderRankedList(listEl, map, nameFor) {
+  if (!listEl) {
+    return false;
+  }
+
+  const entries = topEntries(map);
+  listEl.replaceChildren();
+
+  if (entries.length === 0) {
+    const empty = document.createElement("li");
+    empty.className = "most-blocked-empty";
+    empty.textContent = t("statsMostBlockedEmpty");
+    listEl.appendChild(empty);
+    return false;
+  }
+
+  entries.forEach(([key, count]) => {
+    const item = document.createElement("li");
+
+    const name = document.createElement("span");
+    name.className = "mb-name";
+    name.textContent = nameFor(key);
+    name.title = name.textContent;
+
+    const countEl = document.createElement("span");
+    countEl.className = "mb-count";
+    countEl.textContent = `${formatCount(count)}×`;
+
+    item.append(name, countEl);
+    listEl.appendChild(item);
+  });
+
+  return true;
+}
+
+// Render the three "most blocked" lists. The whole block is hidden until at
+// least one block has been recorded, so a fresh install stays uncluttered.
+function renderMostBlocked() {
+  if (!mostBlockedContainer) {
+    return;
+  }
+
+  regionNamesFormatter = null; // rebuild per render so a language switch re-localizes.
+
+  const hasSites = renderRankedList(
+    document.getElementById("mostBlockedSites"),
+    protectionData.blockedByDomain,
+    (domain) => brandLabelForDomain(domain)
+  );
+  const hasCategories = renderRankedList(
+    document.getElementById("mostBlockedCategories"),
+    protectionData.blockedByCategory,
+    (category) => capitalize(category)
+  );
+  const hasCountries = renderRankedList(
+    document.getElementById("mostBlockedCountries"),
+    protectionData.blockedByCountry,
+    (code) => countryDisplayName(code)
+  );
+
+  mostBlockedContainer.hidden = !(hasSites || hasCategories || hasCountries);
 }
 
 // Build the currency picker: a "follow language" option (globe) plus every
@@ -1460,13 +1604,19 @@ async function initProtectionStatus() {
     "avgMealCalories",
     "caloriesAvoided",
     "currency",
-    "mealStatsCustomized"
+    "mealStatsCustomized",
+    "blockedByDomain",
+    "blockedByCategory",
+    "blockedByCountry"
   ]);
 
   protectionData.blockedVisits = Number(stored.blockedVisits) || 0;
   protectionData.caloriesAvoided = Number(stored.caloriesAvoided) || 0;
   protectionData.currencyChoice = typeof stored.currency === "string" ? stored.currency : "";
   protectionData.customized = !!stored.mealStatsCustomized;
+  protectionData.blockedByDomain = readCountMap(stored.blockedByDomain);
+  protectionData.blockedByCategory = readCountMap(stored.blockedByCategory);
+  protectionData.blockedByCountry = readCountMap(stored.blockedByCountry);
 
   // Customized values are the user's own; otherwise they get seeded from the
   // locale in refreshStats() below.
@@ -1535,6 +1685,19 @@ if (chrome.storage && chrome.storage.onChanged) {
     if (changes.caloriesAvoided) {
       protectionData.caloriesAvoided = Number(changes.caloriesAvoided.newValue) || 0;
       renderProtectionStatus();
+    }
+
+    if (changes.blockedByDomain || changes.blockedByCategory || changes.blockedByCountry) {
+      if (changes.blockedByDomain) {
+        protectionData.blockedByDomain = readCountMap(changes.blockedByDomain.newValue);
+      }
+      if (changes.blockedByCategory) {
+        protectionData.blockedByCategory = readCountMap(changes.blockedByCategory.newValue);
+      }
+      if (changes.blockedByCountry) {
+        protectionData.blockedByCountry = readCountMap(changes.blockedByCountry.newValue);
+      }
+      renderMostBlocked();
     }
   });
 }
@@ -1619,7 +1782,7 @@ const BLOCKING_KEYS = [
 ];
 
 const APPEARANCE_KEYS = ["theme", "themeMode", "cardOrder"];
-const PREFERENCE_KEYS = ["avgMealCost", "avgMealCalories", "currency", "mealStatsCustomized", "blockedVisits", "caloriesAvoided", "recipesChosen", "recipeFavorites"];
+const PREFERENCE_KEYS = ["avgMealCost", "avgMealCalories", "currency", "mealStatsCustomized", "blockedVisits", "caloriesAvoided", "recipesChosen", "recipeFavorites", "blockedByDomain", "blockedByCategory", "blockedByCountry"];
 
 function reloadSoon() {
   if (resetNotice) {

@@ -681,10 +681,10 @@
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export settings"
+    "message": "Exportar dados e configurações"
   },
   "importSettingsButton": {
-    "message": "Import settings"
+    "message": "Importar dados e configurações"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "Alemão"
+  },
+  "statsMostBlockedSites": {
+    "message": "Sites mais bloqueados"
+  },
+  "statsMostBlockedCategories": {
+    "message": "Categorias mais bloqueadas"
+  },
+  "statsMostBlockedCountries": {
+    "message": "Países mais bloqueados"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "Nenhum bloqueio registrado ainda."
   }
 }

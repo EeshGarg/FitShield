@@ -736,10 +736,10 @@
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export settings"
+    "message": "Export Data & Settings"
   },
   "importSettingsButton": {
-    "message": "Import settings"
+    "message": "Import Data & Settings"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -769,6 +769,18 @@
   },
   "statusCaloriesAvoided": {
     "message": "Calories avoided"
+  },
+  "statsMostBlockedSites": {
+    "message": "Most blocked sites"
+  },
+  "statsMostBlockedCategories": {
+    "message": "Most blocked categories"
+  },
+  "statsMostBlockedCountries": {
+    "message": "Most blocked countries"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "No blocks recorded yet."
   },
   "avgMealCostLabel": {
     "message": "Average meal cost"

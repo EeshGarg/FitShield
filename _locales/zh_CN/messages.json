@@ -681,10 +681,10 @@
     "message": "将 FitShield 设置保存为文件，或在其他设备上恢复。所有内容都保存在你的设备上，不会上传。"
   },
   "exportSettingsButton": {
-    "message": "导出设置"
+    "message": "导出数据和设置"
   },
   "importSettingsButton": {
-    "message": "导入设置"
+    "message": "导入数据和设置"
   },
   "exportSuccessNotice": {
     "message": "设置已导出。"
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "德语"
+  },
+  "statsMostBlockedSites": {
+    "message": "拦截最多的网站"
+  },
+  "statsMostBlockedCategories": {
+    "message": "拦截最多的类别"
+  },
+  "statsMostBlockedCountries": {
+    "message": "拦截最多的国家/地区"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "暂无拦截记录。"
   }
 }

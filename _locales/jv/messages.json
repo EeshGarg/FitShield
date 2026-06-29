@@ -681,10 +681,10 @@
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export settings"
+    "message": "Ekspor data lan setelan"
   },
   "importSettingsButton": {
-    "message": "Import settings"
+    "message": "Impor data lan setelan"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "German"
+  },
+  "statsMostBlockedSites": {
+    "message": "Situs sing paling akeh diblokir"
+  },
+  "statsMostBlockedCategories": {
+    "message": "Kategori sing paling akeh diblokir"
+  },
+  "statsMostBlockedCountries": {
+    "message": "Negara sing paling akeh diblokir"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "Durung ana blokir sing direkam."
   }
 }

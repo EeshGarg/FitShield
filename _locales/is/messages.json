@@ -681,10 +681,10 @@
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export settings"
+    "message": "Flytja út gögn og stillingar"
   },
   "importSettingsButton": {
-    "message": "Import settings"
+    "message": "Flytja inn gögn og stillingar"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "German"
+  },
+  "statsMostBlockedSites": {
+    "message": "Mest lokuðu vefsvæðin"
+  },
+  "statsMostBlockedCategories": {
+    "message": "Mest lokuðu flokkarnir"
+  },
+  "statsMostBlockedCountries": {
+    "message": "Mest lokuðu löndin"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "Engar lokanir skráðar enn."
   }
 }

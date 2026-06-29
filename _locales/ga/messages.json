@@ -681,10 +681,10 @@
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export settings"
+    "message": "Easpórtáil sonraí agus socruithe"
   },
   "importSettingsButton": {
-    "message": "Import settings"
+    "message": "Iompórtáil sonraí agus socruithe"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "German"
+  },
+  "statsMostBlockedSites": {
+    "message": "Suímh is mó a cuireadh bac orthu"
+  },
+  "statsMostBlockedCategories": {
+    "message": "Catagóirí is mó a cuireadh bac orthu"
+  },
+  "statsMostBlockedCountries": {
+    "message": "Tíortha is mó a cuireadh bac orthu"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "Níor taifeadadh aon bhac go fóill."
   }
 }

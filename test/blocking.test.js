@@ -217,6 +217,45 @@ test("recordBlockedVisit only stores an integer count, never any URL or history"
   assert.equal(typeof bg.store.blockedVisits, "number");
 });
 
+test("recordBlockedBrand aggregates by domain, food category, and countries", async () => {
+  const bg = loadBackground();
+  await bg.context.recordBlockedBrand({ domain: "doordash.com", category: "delivery", countries: ["US", "CA"] });
+  await bg.context.recordBlockedBrand({ domain: "dominos.com", category: "pizza", countries: ["US"] });
+  await bg.context.recordBlockedBrand({ domain: "doordash.com", category: "delivery", countries: ["US"] });
+
+  // Domains accumulate.
+  assert.equal(bg.store.blockedByDomain["doordash.com"], 2);
+  assert.equal(bg.store.blockedByDomain["dominos.com"], 1);
+  // Bucket categories (delivery/fast_food/custom) are NOT counted; real food
+  // categories like pizza are.
+  assert.equal(bg.store.blockedByCategory.delivery, undefined);
+  assert.equal(bg.store.blockedByCategory.pizza, 1);
+  // Each operating country is counted per block.
+  assert.equal(bg.store.blockedByCountry.US, 3);
+  assert.equal(bg.store.blockedByCountry.CA, 1);
+});
+
+test("recordBlockedBrand stores only aggregate counts, never a URL or history", async () => {
+  const bg = loadBackground();
+  await bg.context.recordBlockedBrand({ domain: "kfc.com", category: "chicken", countries: ["US"] });
+  // Only the three aggregate count maps are ever written.
+  assert.deepEqual(Object.keys(bg.store).sort(), ["blockedByCategory", "blockedByCountry", "blockedByDomain"]);
+  // Each map is a plain { key: number } object — no paths, timestamps, or lists.
+  for (const map of [bg.store.blockedByDomain, bg.store.blockedByCategory, bg.store.blockedByCountry]) {
+    assert.ok(map && typeof map === "object" && !Array.isArray(map));
+    for (const value of Object.values(map)) {
+      assert.equal(typeof value, "number");
+    }
+  }
+});
+
+test("recordBlockedBrand records nothing when the brand could not be resolved", async () => {
+  const bg = loadBackground();
+  const result = await bg.context.recordBlockedBrand({ domain: "", category: "", countries: [] });
+  assert.equal(result.recorded, false);
+  assert.deepEqual(Object.keys(bg.store), []);
+});
+
 test("recordRecipeChoice adds (meal - recipe) calories using the configured meal size", async () => {
   const bg = loadBackground();
   Object.assign(bg.store, { avgMealCalories: 1000 });

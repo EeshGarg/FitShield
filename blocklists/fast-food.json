@@ -6,16 +6,17 @@
     "fields": {
       "domain": "Apex domain only. No protocol, no paths, no subdomains unless absolutely required.",
       "name": "Human-readable brand name shown in UI/logging.",
+      "aliases": "Optional alternate apex domains the same brand owns (regional or legacy). Matched and blocked alongside the primary domain.",
       "type": "Broad FitShield behavior bucket. Examples: fast_food, delivery.",
-      "countries": "ISO-style country codes where this brand is active or relevant, such as US, CA, CN.",
-      "regions": "Broad region tags for future filtering. Examples: NA, EU, AS, SA, AF, OC.",
+      "countries": "ISO 3166-1 alpha-2 country codes (two uppercase letters) where this brand is active or relevant, such as US, CA, CN.",
+      "regions": "Broad region tags for future filtering. One or more of: NA, EU, AS, SA, AF, OC, AN.",
       "category": "Primary food/business category, such as burger, pizza, chicken, coffee, sandwich, delivery.",
       "specialties": "More specific foods/services the brand is known for.",
       "enabled": "Whether this entry should be active by default."
     }
   },
-  "_version": "1.0",
-  "_lastUpdated": "2026-06-24",
+  "_version": "1.1",
+  "_lastUpdated": "2026-06-29",
   "entries": [
     {
       "domain": "mcdonalds.com",

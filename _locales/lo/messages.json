@@ -681,10 +681,10 @@
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export settings"
+    "message": "ສົ່ງອອກຂໍ້ມູນ ແລະ ການຕັ້ງຄ່າ"
   },
   "importSettingsButton": {
-    "message": "Import settings"
+    "message": "ນຳເຂົ້າຂໍ້ມູນ ແລະ ການຕັ້ງຄ່າ"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "German"
+  },
+  "statsMostBlockedSites": {
+    "message": "ເວັບໄຊທີ່ຖືກບລັອກຫຼາຍທີ່ສຸດ"
+  },
+  "statsMostBlockedCategories": {
+    "message": "ໝວດໝູ່ທີ່ຖືກບລັອກຫຼາຍທີ່ສຸດ"
+  },
+  "statsMostBlockedCountries": {
+    "message": "ປະເທດທີ່ຖືກບລັອກຫຼາຍທີ່ສຸດ"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "ຍັງບໍ່ມີການບລັອກຖືກບັນທຶກເທື່ອ."
   }
 }

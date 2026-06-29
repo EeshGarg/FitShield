@@ -681,10 +681,10 @@
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export settings"
+    "message": "డేటా & సెట్టింగ్‌లను ఎగుమతి చేయండి"
   },
   "importSettingsButton": {
-    "message": "Import settings"
+    "message": "డేటా & సెట్టింగ్‌లను దిగుమతి చేయండి"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "German"
+  },
+  "statsMostBlockedSites": {
+    "message": "ఎక్కువగా బ్లాక్ చేసిన సైట్‌లు"
+  },
+  "statsMostBlockedCategories": {
+    "message": "ఎక్కువగా బ్లాక్ చేసిన వర్గాలు"
+  },
+  "statsMostBlockedCountries": {
+    "message": "ఎక్కువగా బ్లాక్ చేసిన దేశాలు"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "ఇంకా బ్లాక్‌లు రికార్డ్ కాలేదు."
   }
 }

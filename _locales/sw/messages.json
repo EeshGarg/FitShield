@@ -681,10 +681,10 @@
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export settings"
+    "message": "Hamisha data na mipangilio"
   },
   "importSettingsButton": {
-    "message": "Import settings"
+    "message": "Leta data na mipangilio"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "German"
+  },
+  "statsMostBlockedSites": {
+    "message": "Tovuti zilizozuiwa zaidi"
+  },
+  "statsMostBlockedCategories": {
+    "message": "Kategoria zilizozuiwa zaidi"
+  },
+  "statsMostBlockedCountries": {
+    "message": "Nchi zilizozuiwa zaidi"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "Hakuna vizuizi vilivyorekodiwa bado."
   }
 }

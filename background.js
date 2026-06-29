@@ -663,6 +663,62 @@ async function recordRecipeChoice(recipeCalories) {
   return { added, caloriesAvoided, recipesChosen };
 }
 
+// Bump the integer count for `key` inside a plain count-map object, returning a
+// new object so callers can store it. Junk values are coerced to a clean map.
+function incrementCount(map, key, by) {
+  const next = (map && typeof map === "object" && !Array.isArray(map)) ? { ...map } : {};
+  const cleanKey = String(key || "").trim();
+
+  if (!cleanKey) {
+    return next;
+  }
+
+  next[cleanKey] = (Number(next[cleanKey]) || 0) + (Number(by) || 1);
+  return next;
+}
+
+// Record an aggregate, local-only breakdown of WHICH curated brand triggered a
+// block, so Your Stats can show the most blocked sites, categories, and
+// countries. This stays privacy-first: it counts only the brands already on the
+// curated blocklist — by apex domain, food category, and the countries the brand
+// operates in — and never stores a URL, page, path, timestamp, or any browsing
+// history. The plain blocked-visit counter (recordBlockedVisit) deliberately
+// stays a single integer; this is the opt-in-by-design richer breakdown.
+async function recordBlockedBrand(meta) {
+  const info = meta && typeof meta === "object" ? meta : {};
+  const domain = FitShieldBlocklist.normalizeHostname(info.domain);
+  const category = String(info.category || "").trim().toLowerCase();
+  const countries = normalizeStringList(info.countries).map((code) => code.toUpperCase());
+
+  // Nothing identifiable to record (e.g. the block page could not resolve the
+  // brand). Skip silently rather than writing empty keys.
+  if (!domain && !category && countries.length === 0) {
+    return { ok: true, recorded: false };
+  }
+
+  const stored = await chrome.storage.local.get([
+    "blockedByDomain",
+    "blockedByCategory",
+    "blockedByCountry"
+  ]);
+
+  const blockedByDomain = domain ? incrementCount(stored.blockedByDomain, domain, 1) : (stored.blockedByDomain || {});
+  // "delivery"/"fast_food" are the rule buckets, already shown elsewhere; only
+  // count true food categories (pizza, coffee, …) so the breakdown is useful.
+  const isBucketCategory = category === "delivery" || category === "fast_food" || category === "custom";
+  const blockedByCategory = (category && !isBucketCategory)
+    ? incrementCount(stored.blockedByCategory, category, 1)
+    : (stored.blockedByCategory || {});
+
+  let blockedByCountry = stored.blockedByCountry || {};
+  countries.forEach((code) => {
+    blockedByCountry = incrementCount(blockedByCountry, code, 1);
+  });
+
+  await chrome.storage.local.set({ blockedByDomain, blockedByCategory, blockedByCountry });
+  return { ok: true, recorded: true };
+}
+
 // Open an extension page in a new tab. tabs.create does not require the "tabs"
 // permission.
 function openExtensionPage(path) {
@@ -831,6 +887,17 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       .then((blockedVisits) => sendResponse({ ok: true, blockedVisits }))
       .catch((error) => {
         console.error("Failed to record blocked visit:", error);
+        sendResponse({ ok: false, error: error.message });
+      });
+
+    return true;
+  }
+
+  if (message?.type === "recordBlockedBrand") {
+    recordBlockedBrand(message.meta)
+      .then((result) => sendResponse(result))
+      .catch((error) => {
+        console.error("Failed to record blocked brand:", error);
         sendResponse({ ok: false, error: error.message });
       });
 

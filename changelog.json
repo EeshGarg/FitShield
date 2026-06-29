@@ -1,6 +1,18 @@
 {
-  "_note": "Local changelog rendered by whats-new.html. No network fetch — privacy-first.",
+  "_note": "Local changelog rendered by whats-new.html. No network fetch — privacy-first. The full, canonical release history lives in changelog/*.md.",
   "entries": [
+    {
+      "version": "0.52",
+      "date": "2026-06-29",
+      "title": "Deeper insights & a documented history",
+      "changes": [
+        "Your Stats now shows your most blocked sites, categories, and countries — a private, on-device breakdown that updates as you go. Only aggregate counts of the brands you already block are kept; no URLs, pages, or browsing history are ever stored.",
+        "Backup is now \"Export Data & Settings\" / \"Import Data & Settings\" — one file already carries your settings, stats, dashboard layout, favorites, and preferences, now with versioned migration metadata so future restores stay reliable.",
+        "Refreshed the curated blocklist metadata, validated every entry for clean country codes, and removed duplicates so blocking stays accurate.",
+        "Started a permanent changelog/ folder: every release now has its own notes, plus a living ROADMAP so the project's history and direction have a single source of truth.",
+        "Localized the new stats labels and kept every supported display language in sync."
+      ]
+    },
     {
       "version": "0.51",
       "date": "2026-06-27",

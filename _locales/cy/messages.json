@@ -681,10 +681,10 @@
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export settings"
+    "message": "Allforio data a gosodiadau"
   },
   "importSettingsButton": {
-    "message": "Import settings"
+    "message": "Mewnforio data a gosodiadau"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "German"
+  },
+  "statsMostBlockedSites": {
+    "message": "Safleoedd a rwystrwyd amlaf"
+  },
+  "statsMostBlockedCategories": {
+    "message": "Categorïau a rwystrwyd amlaf"
+  },
+  "statsMostBlockedCountries": {
+    "message": "Gwledydd a rwystrwyd amlaf"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "Dim rhwystrau wedi'u cofnodi eto."
   }
 }

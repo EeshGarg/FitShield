@@ -681,10 +681,10 @@
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export settings"
+    "message": "მონაცემებისა და პარამეტრების ექსპორტი"
   },
   "importSettingsButton": {
-    "message": "Import settings"
+    "message": "მონაცემებისა და პარამეტრების იმპორტი"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "German"
+  },
+  "statsMostBlockedSites": {
+    "message": "ყველაზე ხშირად დაბლოკილი საიტები"
+  },
+  "statsMostBlockedCategories": {
+    "message": "ყველაზე ხშირად დაბლოკილი კატეგორიები"
+  },
+  "statsMostBlockedCountries": {
+    "message": "ყველაზე ხშირად დაბლოკილი ქვეყნები"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "ჯერ ბლოკირება არ დაფიქსირებულა."
   }
 }

@@ -454,6 +454,20 @@ async function initializeTimer() {
   // the only thing recorded is a single integer counter (no URL or history).
   chrome.runtime.sendMessage({ type: "recordBlockedVisit" }).catch(() => {});
 
+  // Record an aggregate, local-only breakdown (most blocked sites / categories /
+  // countries) when the brand resolved. Still privacy-first: only counts of the
+  // curated brand are kept — never a URL, page, or browsing history.
+  if (blockInfo && blockInfo.found) {
+    chrome.runtime.sendMessage({
+      type: "recordBlockedBrand",
+      meta: {
+        domain: blockInfo.domain || blockInfo.apex || "",
+        category: blockInfo.category || "",
+        countries: Array.isArray(blockInfo.countries) ? blockInfo.countries : []
+      }
+    }).catch(() => {});
+  }
+
   // Recipe suggestions are non-blocking; the timer runs regardless.
   setupRecipes();
 }

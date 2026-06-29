@@ -681,10 +681,10 @@
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export settings"
+    "message": "ส่งออกข้อมูลและการตั้งค่า"
   },
   "importSettingsButton": {
-    "message": "Import settings"
+    "message": "นำเข้าข้อมูลและการตั้งค่า"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "เยอรมัน"
+  },
+  "statsMostBlockedSites": {
+    "message": "เว็บไซต์ที่ถูกบล็อกมากที่สุด"
+  },
+  "statsMostBlockedCategories": {
+    "message": "หมวดหมู่ที่ถูกบล็อกมากที่สุด"
+  },
+  "statsMostBlockedCountries": {
+    "message": "ประเทศที่ถูกบล็อกมากที่สุด"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "ยังไม่มีการบันทึกการบล็อก"
   }
 }

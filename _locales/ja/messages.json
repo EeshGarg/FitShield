@@ -681,10 +681,10 @@
     "message": "FitShield の設定をファイルに保存したり、別のデバイスで復元したりできます。すべてデバイス内に保存され、アップロードされません。"
   },
   "exportSettingsButton": {
-    "message": "設定をエクスポート"
+    "message": "データと設定をエクスポート"
   },
   "importSettingsButton": {
-    "message": "設定をインポート"
+    "message": "データと設定をインポート"
   },
   "exportSuccessNotice": {
     "message": "設定をエクスポートしました。"
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "ドイツ語"
+  },
+  "statsMostBlockedSites": {
+    "message": "ブロックが多いサイト"
+  },
+  "statsMostBlockedCategories": {
+    "message": "ブロックが多いカテゴリ"
+  },
+  "statsMostBlockedCountries": {
+    "message": "ブロックが多い国"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "まだブロックの記録はありません。"
   }
 }

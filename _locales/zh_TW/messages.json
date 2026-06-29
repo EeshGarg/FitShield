@@ -681,10 +681,10 @@
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export settings"
+    "message": "匯出資料與設定"
   },
   "importSettingsButton": {
-    "message": "Import settings"
+    "message": "匯入資料與設定"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "德語"
+  },
+  "statsMostBlockedSites": {
+    "message": "封鎖最多的網站"
+  },
+  "statsMostBlockedCategories": {
+    "message": "封鎖最多的類別"
+  },
+  "statsMostBlockedCountries": {
+    "message": "封鎖最多的國家/地區"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "尚無封鎖記錄。"
   }
 }

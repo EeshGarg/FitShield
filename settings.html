@@ -188,6 +188,67 @@
       margin-top: 4px;
     }
 
+    /* Most blocked sites / categories / countries — a private, local breakdown.
+       Reflows into columns on wide screens and stacks on narrow windows. */
+    .most-blocked {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .most-blocked-col {
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .most-blocked-title {
+      margin: 0 0 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .most-blocked-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .most-blocked-list li {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.92rem;
+    }
+
+    .mb-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .mb-count {
+      flex: none;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+    }
+
+    .most-blocked-empty {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin: 8px 0 0;
+    }
+
     .stat-settings {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -1025,6 +1086,21 @@
       <h2 data-i18n="protectionStatusHeading">Your Stats</h2>
       <p data-i18n="protectionStatusIntro">A private, on-device estimate of what FitShield has helped you skip. These are estimates, and nothing here is uploaded.</p>
       <div id="protectionStatusGrid" class="status-grid"></div>
+
+      <div id="mostBlockedContainer" class="most-blocked" hidden>
+        <div class="most-blocked-col">
+          <h3 class="most-blocked-title" data-i18n="statsMostBlockedSites">Most blocked sites</h3>
+          <ol id="mostBlockedSites" class="most-blocked-list"></ol>
+        </div>
+        <div class="most-blocked-col">
+          <h3 class="most-blocked-title" data-i18n="statsMostBlockedCategories">Most blocked categories</h3>
+          <ol id="mostBlockedCategories" class="most-blocked-list"></ol>
+        </div>
+        <div class="most-blocked-col">
+          <h3 class="most-blocked-title" data-i18n="statsMostBlockedCountries">Most blocked countries</h3>
+          <ol id="mostBlockedCountries" class="most-blocked-list"></ol>
+        </div>
+      </div>
 
       <div class="stat-settings">
         <div class="field savings-field">

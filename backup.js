@@ -13,6 +13,12 @@
   const FILE_NAME = "fitshield-settings.json";
   const BACKUP_TYPE = "fitshield-settings-backup";
 
+  // Backup payload schema version. Bumped only when the on-disk shape changes in
+  // a way importers must account for; the importer stays tolerant of older files
+  // (it accepts both the wrapped and bare forms), so this is migration metadata
+  // for the future rather than a hard gate today.
+  const SCHEMA_VERSION = 1;
+
   function getVersion() {
     try {
       return (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getManifest)
@@ -24,10 +30,18 @@
   }
 
   // Pull every stored setting into a wrapped, self-describing backup object.
+  // chrome.storage.local.get(null) returns the COMPLETE local store, so a single
+  // file already carries everything needed to restore the extension: blocking
+  // settings, custom blocklists and whitelist (disabled-site keys), country and
+  // category selections, the dashboard card order, recipe favorites, currency
+  // and meal preferences, and every saved stat (blocked visits, calories
+  // avoided, and the most-blocked breakdowns). The wrapper adds version and
+  // schema metadata so future imports can migrate older files reliably.
   async function collectBackup() {
     const settings = await chrome.storage.local.get(null);
     return {
       _type: BACKUP_TYPE,
+      schema: SCHEMA_VERSION,
       version: getVersion(),
       exportedAt: new Date().toISOString(),
       settings
@@ -92,6 +106,7 @@
   const api = {
     FILE_NAME,
     BACKUP_TYPE,
+    SCHEMA_VERSION,
     collectBackup,
     extractSettings,
     parseBackup,

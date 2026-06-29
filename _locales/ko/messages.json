@@ -681,10 +681,10 @@
     "message": "FitShield 설정을 파일로 저장하거나 다른 기기에서 복원하세요. 모든 정보는 기기에 보관되며 업로드되지 않습니다."
   },
   "exportSettingsButton": {
-    "message": "설정 내보내기"
+    "message": "데이터 및 설정 내보내기"
   },
   "importSettingsButton": {
-    "message": "설정 가져오기"
+    "message": "데이터 및 설정 가져오기"
   },
   "exportSuccessNotice": {
     "message": "설정을 내보냈습니다."
@@ -925,5 +925,17 @@
   },
   "languageGerman": {
     "message": "독일어"
+  },
+  "statsMostBlockedSites": {
+    "message": "가장 많이 차단된 사이트"
+  },
+  "statsMostBlockedCategories": {
+    "message": "가장 많이 차단된 카테고리"
+  },
+  "statsMostBlockedCountries": {
+    "message": "가장 많이 차단된 국가"
+  },
+  "statsMostBlockedEmpty": {
+    "message": "아직 차단 기록이 없습니다."
   }
 }
