@@ -237,7 +237,7 @@
     "message": "تۈرلەر دائىرە ئۈچۈن نورماللاشتۇرۇلغان ۋە بارلىق بەتلەردە چەكلەنگەن."
   },
   "customEmptyDefault": {
-    "message": "تېخى ئىختىيارى تور ئادرېسى قوشۇلمىدى."
+    "message": "تېخى ئىختىيارى چەكلەنگەن بېكەت يوق. چەكلەشنى باشلاش ئۈچۈن يۇقىرىغا example.com دەك دائىرە قوشۇڭ."
   },
   "customNoMatch": {
     "message": "ھېچقانداق ئىزدەش ئادرېسى بۇ ئىزدەشكە ماس كەلمەيدۇ."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "بۇنى نېمە ئۈچۈن كۆرۈۋاتىسىز"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "بېكەت"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "قائىدە"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "سەھىپە"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "ئاكتىپ"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "يەتكۈزۈش مۇلازىمىتى"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "تېز تاماق"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "ئىختىيارى قائىدە"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 يەنە"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "ستاتىستىكىڭىز"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield سىزنىڭ نېمىنى ئاتلاپ ئۆتۈشىڭىزگە ياردەم بەرگەنلىكىنىڭ ئۈسكۈنىدىكى شەخسىي مۆلچەرى. بۇلار مۆلچەر بولۇپ، ھېچنېمە يۈكلەنمەيدۇ."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "چەكلەنگەن زىيارەتلەر"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "مۆلچەرلەنگەن تېجەش"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "ئوتتۇرىچە تاماق خىراجىتى"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "زاكاسنى ئاتلىغاندا تېجەلگەن پۇلنى مۆلچەرلەشكە ئىشلىتىلىدۇ. پەقەت ئۈسكۈنىڭىزدە ساقلىنىدۇ."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "ئەسلىگە كەلتۈرۈش ۋە سانلىق مەلۇمات"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield نىڭ قىسىملىرىنى كۆڭۈلدىكىگە ئەسلىگە كەلتۈرىدۇ. ھەر بىر مەشغۇلات ئالدى بىلەن جەزملەش سورايدۇ."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "چەكلەشنى ئەسلىگە كەلتۈرۈش"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "ۋاقىت ئۆلچىگۈچلەر، جەدۋەل، بېكەت ئالماشتۇرغۇچلىرى، ئىختىيارى URL ۋە دۆلەت/سەھىپە چەكلىمىلىرى."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "كۆرۈنۈشنى ئەسلىگە كەلتۈرۈش"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "ئۆرنەك رەڭلىرى ۋە يورۇق/قاراڭغۇ ھالەت."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "رېتسېپ ۋە مايىللىقلارنى ئەسلىگە كەلتۈرۈش"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "ئوتتۇرىچە تاماق خىراجىتى، كالورىيە تەڭشىكى ۋە ساقلانغان ستاتىستىكىڭىز."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "زاۋۇت ئەسلىگە كەلتۈرۈش"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "ھەممىنى ئۆچۈرۈپ FitShield نى يېڭى ئورنىتىشقا قايتۇرۇڭ."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "بىكار قىلىش"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "جەزملەش"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "بارلىق چەكلەش تەڭشەكلىرىنى كۆڭۈلدىكىگە ئەسلىگە كەلتۈرەمسىز؟ ئۆرنىكىڭىز، تىلىڭىز ۋە ستاتىستىكىڭىز ساقلىنىدۇ."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "ئۆرنەك ۋە كۆرۈنۈشنى كۆڭۈلدىكى قاراڭغۇ ھالەتكە ئەسلىگە كەلتۈرەمسىز؟"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "خىراجەت ۋە كالورىيە مايىللىقلىرىڭىزنى، شۇنداقلا تېجەش ۋە ساقلانغان كالورىيە ستاتىستىكىسىنى ئەسلىگە كەلتۈرەمسىز؟"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield نى زاۋۇت ئەسلىگە كەلتۈرەمسىز؟ بۇ مۇشۇ ئۈسكۈنىدىكى بارلىق تەڭشەك، ئىختىيارى بېكەت ۋە ستاتىستىكىنى ئۆچۈرىدۇ. قايتۇرغىلى بولمايدۇ."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1 نى ئىختىيارى چەكلەش تىزىملىكىڭىزدىن چىقىرىۋېتەمسىز؟"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "تامام. قايتا يۈكلىنىۋاتىدۇ…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "ئۇنىڭ ئورنىغا بۇنى ئېتىمەن"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "ستاتىستىكىڭىزغا قوشۇلدى ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "ياخشى تاللاش — ستاتىستىكىڭىزغا خاتىرىلەندى. تەڭشەكتىن كۆرۈڭ."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "ساقلانغان كالورىيە"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "ئوتتۇرىچە تاماق كالورىيىسى"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "ئۇنىڭ ئورنىغا رېتسېپ تاللىغاندا ساقلانغان كالورىيىنى مۆلچەرلەشكە ئىشلىتىلىدۇ. پەقەت ئۈسكۈنىڭىزدە ساقلىنىدۇ."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "كارتىنى قايتا تەرتىپلەش: $1. يۆتكەش ئۈچۈن يا ئوق كۇنۇپكىسىنى ئىشلىتىڭ."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "FitShield قا خۇش كەلدىڭىز"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "بىرنەچە تېز تاللاش بىلەن تەييار بولىسىز. ھەممىسى ئۈسكۈنىڭىزدە قالىدۇ — ھېچنېمە يۈكلەنمەيدۇ."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "تىلىڭىزنى تاللاڭ"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "بۇ FitShield نىڭ قاڭقىش كۆزنىكى، تەڭشەك ۋە چەكلەش ئېكرانىنىڭ تىلىنى بەلگىلەيدۇ."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "بىر ئۆرنەك تاللاڭ"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "رەڭلەرنى كېيىن تەڭشەكتە نازۇك تەڭشىيەلەيسىز."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "تېز تاماق زاكاسىنى چەكلەش"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "چوڭ تېز تاماق زەنجىرلىرىنىڭ زاكاس بەتلىرىگە ئارام ئېكرانى قوشىدۇ."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "ئېچىش تەۋسىيە قىلىنىدۇ."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "يەتكۈزۈش ئەپلىرىنى چەكلەش"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "DoorDash ۋە Uber Eats دەك يەتكۈزۈش سۇپىلىرىغا ئارام ئېكرانى قوشىدۇ."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "زاپاسنى ئەسلىگە كەلتۈرۈش (تاللانما)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "باشقا ئۈسكۈنىدىن كېلىۋاتامسىز؟ ھەممىنى ئېلىپ كېلىش ئۈچۈن FitShield تەڭشەك ھۆججىتىنى ئەكىرىڭ. بولمىسا داۋاملاشتۇرۇڭ."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "تەڭشەك ھۆججىتىنى ئەكىرىش"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield قانداق ياردەم بېرىدۇ"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "ئاساسلىق ئىقتىدارلارنىڭ تېز ساياھىتى."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "ئارام ۋاقىت ئۆلچىگۈچ"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "چەكلەنگەن بېكەتكە يەتكەندە، داۋاملاشتۇرۇشتىن ئىلگىرى قىسقا تەتۈر ساناش ئىجرا بولىدۇ — زاكاسنى قايتا ئويلىشىشقا يېتەرلىك."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "جەدۋەل"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "خالىسىڭىز پەقەت مەلۇم سائەتلەردە چەكلەڭ، مەسىلەن كەچتە ياكى خىزمەت ۋاقتىدا."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "ئاق تىزىملىك"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "خالىغان بېكەتنى ئېتىڭ، ئۆز URL ئادرېسلىرىڭىزنى قوشۇڭ، ياكى راستلا ئېھتىياجلىق بولغاندا ئۆزىڭىزگە ۋاقىتلىق رۇخسەت بېرىڭ."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "رېتسېپ پىكىرلىرى"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "چەكلەش ئېكرانى نېمە چەكلىگىنىڭىزگە ئاساسەن تېز كۆكتات ۋە گۆش/پروتېئىن رېتسېپى تەۋسىيە قىلىدۇ."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "قايتىش"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "كېيىنكى"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "تاماملاش"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "باسقۇچ $1 / $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "نېمە يېڭىلىق"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "ئۆزگىرىشلەرگە تېز نەزەر."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "تەڭشەكنى ئېچىش"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "ياپ"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "تېخى تارقىتىش ئىزاھاتى يوق."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "يېڭى"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "نەشرى $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

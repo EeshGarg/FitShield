@@ -237,7 +237,7 @@
     "message": "ထည့်သွင်းမှုများကို ဒိုမိန်းများတွင် ပုံမှန်ပြုလုပ်ထားပြီး စာမျက်နှာအားလုံးတွင် ပိတ်ဆို့ထားသည်။"
   },
   "customEmptyDefault": {
-    "message": "စိတ်ကြိုက် URL များ မထည့်ရသေးပါ။"
+    "message": "စိတ်ကြိုက် ပိတ်ဆို့ထားသော ဆိုက်များ မရှိသေးပါ။ ၎င်းကို စတင်ပိတ်ဆို့ရန် အပေါ်တွင် example.com ကဲ့သို့ ဒိုမိန်းတစ်ခု ထည့်ပါ။"
   },
   "customNoMatch": {
     "message": "ဤရှာဖွေမှုနှင့် ကိုက်ညီသော စိတ်ကြိုက် URL မရှိပါ။"
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "ဘာကြောင့်ဒါကိုမြင်ရတာလဲ"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "ဆိုက်"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "စည်းမျဉ်း"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "အမျိုးအစား"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "အသုံးပြုနေသည့်နေရာ"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "ပို့ဆောင်ရေးဝန်ဆောင်မှု"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "အမြန်အစားအစာ"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "စိတ်ကြိုက်စည်းမျဉ်း"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 ထပ်"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "သင့်စာရင်းအင်း"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield က သင့်ကို ကျော်သွားရန် ကူညီပေးခဲ့သည်ကို စက်ပစ္စည်းပေါ်တွင်ပင် ခန့်မှန်းထားသော သီးသန့်ခန့်မှန်းချက်။ ၎င်းတို့သည် ခန့်မှန်းချက်များဖြစ်ပြီး မည်သည့်အရာမျှ အပ်လုဒ်မလုပ်ပါ။"
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "ပိတ်ဆို့ထားသော ဝင်ရောက်မှုများ"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "ခန့်မှန်းချွေတာငွေ"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "ပျမ်းမျှ အစားအစာကုန်ကျစရိတ်"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "အော်ဒါတစ်ခုကို ကျော်လိုက်သောအခါ ချွေတာသောငွေကို ခန့်မှန်းရန် သုံးသည်။ သင့်စက်ပေါ်တွင်သာ သိမ်းဆည်းသည်။"
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "ပြန်လည်သတ်မှတ်ခြင်းနှင့် ဒေတာ"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield ၏ အစိတ်အပိုင်းများကို မူရင်းသို့ ပြန်လည်ရယူပါ။ လုပ်ဆောင်ချက်တိုင်းသည် အရင်ဆုံး အတည်ပြုချက်တောင်းသည်။"
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "ပိတ်ဆို့မှုကို ပြန်သတ်မှတ်"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "တိုင်မာများ၊ အချိန်ဇယား၊ ဆိုက်ခလုတ်များ၊ စိတ်ကြိုက် URL များနှင့် နိုင်ငံ/အမျိုးအစား ပိတ်ဆို့မှုများ။"
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "အသွင်အပြင်ကို ပြန်သတ်မှတ်"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "အပြင်အဆင်အရောင်များနှင့် အလင်း/အမှောင် မုဒ်။"
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "ချက်ပြုတ်နည်းနှင့် နှစ်သက်မှုများ ပြန်သတ်မှတ်"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "ပျမ်းမျှ အစားအစာကုန်ကျစရိတ်၊ ကယ်လိုရီဆက်တင်များနှင့် သင်သိမ်းထားသော စာရင်းအင်း။"
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "စက်ရုံပြန်သတ်မှတ်"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "အားလုံးကို ဖျက်ပြီး FitShield ကို အသစ်ထည့်သွင်းထားသကဲ့သို့ ပြန်လုပ်ပါ။"
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "ပယ်ဖျက်"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "အတည်ပြု"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "ပိတ်ဆို့မှုဆက်တင်အားလုံးကို မူရင်းသို့ ပြန်သတ်မှတ်မလား? သင့်အပြင်အဆင်၊ ဘာသာစကားနှင့် စာရင်းအင်းကို သိမ်းထားမည်။"
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "အပြင်အဆင်နှင့် အသွင်အပြင်ကို မူရင်းအမှောင်မုဒ်သို့ ပြန်သတ်မှတ်မလား?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "သင့်ကုန်ကျစရိတ်နှင့် ကယ်လိုရီနှစ်သက်မှုများအပြင် ချွေတာငွေနှင့် ရှောင်ရှား-ကယ်လိုရီ စာရင်းအင်းကို ပြန်သတ်မှတ်မလား?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield ကို စက်ရုံပြန်သတ်မှတ်မလား? ၎င်းသည် ဤစက်ပေါ်ရှိ ဆက်တင်များ၊ စိတ်ကြိုက်ဆိုက်များနှင့် စာရင်းအင်းအားလုံးကို ဖျက်သည်။ ၎င်းကို နောက်ပြန်လှည့်၍မရပါ။"
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1 ကို သင့်စိတ်ကြိုက် ပိတ်ဆို့စာရင်းမှ ဖယ်ရှားမလား?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "ပြီးပါပြီ။ ပြန်လည်ဖွင့်နေသည်…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "အဲဒါအစား ဒါကိုလုပ်မယ်"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "သင့်စာရင်းအင်းထဲ ထည့်ပြီးပါပြီ ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "ရွေးချယ်မှုကောင်းပါတယ် — သင့်စာရင်းအင်းမှာ မှတ်တမ်းတင်ပြီးပါပြီ။ ဆက်တင်များတွင် ကြည့်ပါ။"
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "ရှောင်ရှားနိုင်သော ကယ်လိုရီ"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "ပျမ်းမျှ အစားအစာကယ်လိုရီ"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "အစားထိုး ချက်ပြုတ်နည်းတစ်ခုကို ရွေးသောအခါ ရှောင်ရှားနိုင်သော ကယ်လိုရီကို ခန့်မှန်းရန် သုံးသည်။ သင့်စက်ပေါ်တွင်သာ သိမ်းဆည်းသည်။"
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "ကတ်ကို ပြန်စီပါ: $1။ ရွှေ့ရန် မြှားခလုတ်များကို သုံးပါ။"
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "FitShield မှ ကြိုဆိုပါသည်"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "အမြန်ရွေးချယ်မှုအနည်းငယ်နှင့် သင်အဆင်သင့်ဖြစ်ပါပြီ။ အရာအားလုံး သင့်စက်ပေါ်တွင် ရှိနေသည် — မည်သည့်အရာမျှ အပ်လုဒ်မလုပ်ပါ။"
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "သင့်ဘာသာစကားကို ရွေးပါ"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "၎င်းသည် FitShield ၏ ပေါ့ပ်အပ်၊ ဆက်တင်များနှင့် ပိတ်ဆို့မျက်နှာပြင်အတွက် ဘာသာစကားကို သတ်မှတ်သည်။"
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "အပြင်အဆင်တစ်ခု ရွေးပါ"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "အရောင်များကို နောက်မှ ဆက်တင်များတွင် သေသပ်စွာ ချိန်ညှိနိုင်သည်။"
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "အမြန်အစားအစာ မှာယူမှုကို ပိတ်ဆို့"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "အကြီးစား အမြန်အစားအစာ ကွင်းဆက်များ၏ မှာယူမှုစာမျက်နှာများတွင် ခေတ္တရပ်နားမျက်နှာပြင်တစ်ခု ထည့်သည်။"
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "ဖွင့်ထားရန် အကြံပြုသည်။"
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "ပို့ဆောင်ရေးအက်ပ်များကို ပိတ်ဆို့"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "DoorDash နှင့် Uber Eats ကဲ့သို့ ပို့ဆောင်ရေးပလက်ဖောင်းများတွင် ခေတ္တရပ်နားမျက်နှာပြင်တစ်ခု ထည့်သည်။"
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "အရန်ကို ပြန်လည်ရယူ (ရွေးချယ်နိုင်)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "အခြားစက်မှ လာသလား? အရာအားလုံးကို ယူဆောင်ရန် FitShield ဆက်တင်ဖိုင်တစ်ခု တင်သွင်းပါ။ မဟုတ်ပါက ဆက်လုပ်ပါ။"
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "ဆက်တင်ဖိုင် တင်သွင်း"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield ဘယ်လိုကူညီသလဲ"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "အဓိကအင်္ဂါရပ်များကို အမြန်လေ့လာခြင်း။"
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "ခေတ္တရပ်နား တိုင်မာ"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "ပိတ်ဆို့ထားသော ဆိုက်တစ်ခုသို့ ရောက်သောအခါ ဆက်မလုပ်မီ ရေတွက်ချိန်တိုတစ်ခု အလုပ်လုပ်သည် — အော်ဒါကို ပြန်စဉ်းစားရန် လုံလောက်သည်။"
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "အချိန်ဇယား"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "လိုအပ်ပါက ညနေ သို့မဟုတ် အလုပ်ချိန်ကဲ့သို့ သတ်မှတ်ထားသော နာရီများတွင်သာ ပိတ်ဆို့ပါ။"
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "ဖြူစာရင်း"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "မည်သည့်ဆိုက်ကိုမဆို ပိတ်ပါ၊ သင့်ကိုယ်ပိုင် URL များ ထည့်ပါ၊ သို့မဟုတ် တကယ်လိုအပ်သောအခါ ယာယီခွင့်ပြုချက် ပေးပါ။"
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "ချက်ပြုတ်နည်း အကြံပြုချက်များ"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "ပိတ်ဆို့မျက်နှာပြင်သည် သင်ပိတ်ဆို့ထားသည့်အပေါ် အခြေခံ၍ အမြန်သက်သတ်လွတ်နှင့် အသား/ပရိုတင်း ချက်ပြုတ်နည်းတစ်ခုစီ အကြံပြုသည်။"
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "နောက်သို့"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "ရှေ့သို့"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "ပြီးပါပြီ"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "အဆင့် $1 / $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "အသစ်များ"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "ပြောင်းလဲမှုများကို အမြန်ကြည့်ပါ။"
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "ဆက်တင်များ ဖွင့်ပါ"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "ပိတ်"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "ထွက်ရှိမှုမှတ်စုများ မရှိသေးပါ။"
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "အသစ်"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "ဗားရှင်း $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

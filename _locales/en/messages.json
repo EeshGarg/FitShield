@@ -11,55 +11,122 @@
     "message": "FitShield",
     "description": "Toolbar button tooltip."
   },
-
-  "searchSitePlaceholder": { "message": "Search site name or URL" },
-  "searchButton": { "message": "Search" },
-  "clearButton": { "message": "Clear" },
-  "openButton": { "message": "Open" },
-  "addButton": { "message": "Add" },
-  "removeButton": { "message": "Remove" },
-  "viewBlocklistButton": { "message": "View Blocklist" },
-
-  "timerDurationLabel": { "message": "Timer duration" },
-  "timerDurationHint": { "message": "Adjust the countdown before Continue appears." },
-  "customSecondsLabel": { "message": "Custom seconds" },
-  "siteOpenTimeLabel": { "message": "Site open time" },
-  "siteOpenTimeHint": { "message": "Choose how long sites stay open after the timer ends." },
-  "customMinutesLabel": { "message": "Custom minutes" },
-  "startTimeLabel": { "message": "Start time" },
-  "endTimeLabel": { "message": "End time" },
-  "scheduleDefaultSummary": { "message": "Blocking will follow your daily schedule when this is enabled." },
+  "searchSitePlaceholder": {
+    "message": "Search site name or URL"
+  },
+  "searchButton": {
+    "message": "Search"
+  },
+  "clearButton": {
+    "message": "Clear"
+  },
+  "openButton": {
+    "message": "Open"
+  },
+  "addButton": {
+    "message": "Add"
+  },
+  "removeButton": {
+    "message": "Remove"
+  },
+  "viewBlocklistButton": {
+    "message": "View Blocklist"
+  },
+  "timerDurationLabel": {
+    "message": "Timer duration"
+  },
+  "timerDurationHint": {
+    "message": "Adjust the countdown before Continue appears."
+  },
+  "customSecondsLabel": {
+    "message": "Custom seconds"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Site open time"
+  },
+  "siteOpenTimeHint": {
+    "message": "Choose how long sites stay open after the timer ends."
+  },
+  "customMinutesLabel": {
+    "message": "Custom minutes"
+  },
+  "startTimeLabel": {
+    "message": "Start time"
+  },
+  "endTimeLabel": {
+    "message": "End time"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Blocking will follow your daily schedule when this is enabled."
+  },
   "currentScheduleSummary": {
     "message": "Current schedule: $1.",
     "description": "$1 is a time range, optionally followed by ' every day'."
   },
-  "everyDaySuffix": { "message": " every day" },
+  "everyDaySuffix": {
+    "message": " every day"
+  },
   "scheduleRange": {
     "message": "$1 to $2",
     "description": "$1 start time, $2 end time."
   },
-
-  "unitMinute": { "message": "minute" },
-  "unitMinutes": { "message": "minutes" },
-  "unitSite": { "message": "site" },
-  "unitSites": { "message": "sites" },
-
-  "popupSettingsButton": { "message": "Settings" },
-  "popupBlockerTitle": { "message": "FitShield blocker" },
-  "popupBlockerSubtitle": { "message": "Turn every block list on or off." },
-  "popupMetadataLabel": { "message": "Country & category blocking" },
-  "popupMetadataSubtitle": { "message": "Block whole groups of sites by country or food category." },
-  "popupDeliveryLabel": { "message": "Delivery sites" },
-  "popupDeliveryDefault": { "message": "Delivery ordering domains." },
-  "popupFastFoodLabel": { "message": "Fast food sites" },
-  "popupFastFoodDefault": { "message": "Major chain ordering domains." },
-  "popupCustomLabel": { "message": "Custom URLs" },
-  "popupCustomSubtitle": { "message": "Add your own sites and disable them individually." },
-  "popupScheduleLabel": { "message": "Block only during scheduled hours" },
-  "popupScheduleSubtitle": { "message": "Useful for meal budgets, late-night ordering, or work hours." },
-
-  "statusInactive": { "message": "Inactive. All sites are accessible." },
-  "statusAllDisabled": { "message": "Blocker is on, but every individual site is disabled. Open Settings to turn some sites back on." },
+  "unitMinute": {
+    "message": "minute"
+  },
+  "unitMinutes": {
+    "message": "minutes"
+  },
+  "unitSite": {
+    "message": "site"
+  },
+  "unitSites": {
+    "message": "sites"
+  },
+  "popupSettingsButton": {
+    "message": "Settings"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield blocker"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Turn every block list on or off."
+  },
+  "popupMetadataLabel": {
+    "message": "Country & category blocking"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Block whole groups of sites by country or food category."
+  },
+  "popupDeliveryLabel": {
+    "message": "Delivery sites"
+  },
+  "popupDeliveryDefault": {
+    "message": "Delivery ordering domains."
+  },
+  "popupFastFoodLabel": {
+    "message": "Fast food sites"
+  },
+  "popupFastFoodDefault": {
+    "message": "Major chain ordering domains."
+  },
+  "popupCustomLabel": {
+    "message": "Custom URLs"
+  },
+  "popupCustomSubtitle": {
+    "message": "Add your own sites and disable them individually."
+  },
+  "popupScheduleLabel": {
+    "message": "Block only during scheduled hours"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Useful for meal budgets, late-night ordering, or work hours."
+  },
+  "statusInactive": {
+    "message": "Inactive. All sites are accessible."
+  },
+  "statusAllDisabled": {
+    "message": "Blocker is on, but every individual site is disabled. Open Settings to turn some sites back on."
+  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blocking resumes in $1.",
     "description": "$1 is a remaining-time string such as '4m 12s'."
@@ -72,7 +139,6 @@
     "message": "Shield up. $1 seconds countdown, $2 $3 pass.",
     "description": "$1 seconds, $2 minutes, $3 minute/minutes unit."
   },
-
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 delivery sites enabled.",
     "description": "$1 enabled count, $2 total count."
@@ -85,11 +151,18 @@
     "message": " $1 match the search.",
     "description": "$1 is the count of matching sites; appended to a count line."
   },
-
-  "warningPageTitle": { "message": "Take a Breath" },
-  "warningEyebrow": { "message": "FitShield Check" },
-  "warningTitle": { "message": "Take one minute." },
-  "warningIntro": { "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment." },
+  "warningPageTitle": {
+    "message": "Take a Breath"
+  },
+  "warningEyebrow": {
+    "message": "FitShield Check"
+  },
+  "warningTitle": {
+    "message": "Take one minute."
+  },
+  "warningIntro": {
+    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+  },
   "warningTriggeredBy": {
     "message": "You're about to order from $1.",
     "description": "$1 is the blocked brand name."
@@ -98,74 +171,161 @@
     "message": "When the timer ends, you can continue to the site for $1 $2.",
     "description": "$1 pass duration, $2 minute/minutes unit."
   },
-  "warningBackButton": { "message": "Go back" },
-  "warningLockedButton": { "message": "Locked" },
-  "warningContinueButton": { "message": "Continue" },
-  "warningOpeningButton": { "message": "Opening..." },
+  "warningBackButton": {
+    "message": "Go back"
+  },
+  "warningLockedButton": {
+    "message": "Locked"
+  },
+  "warningContinueButton": {
+    "message": "Continue"
+  },
+  "warningOpeningButton": {
+    "message": "Opening..."
+  },
   "warningUnlockHint": {
     "message": "You can visit the site now. The blocker will come back automatically after $1 $2.",
     "description": "$1 pass duration, $2 minute/minutes unit."
   },
-  "warningErrorHint": { "message": "Something went wrong while opening the site. Please try again." },
-
-  "blockReasonHeading": { "message": "Why you're seeing this" },
-  "blockReasonDomain": { "message": "Site" },
-  "blockReasonType": { "message": "Rule" },
-  "blockReasonCategory": { "message": "Category" },
-  "blockReasonCountries": { "message": "Active in" },
-  "blockTypeDelivery": { "message": "Delivery service" },
-  "blockTypeFastFood": { "message": "Fast food" },
-  "blockTypeCustom": { "message": "Custom rule" },
+  "warningErrorHint": {
+    "message": "Something went wrong while opening the site. Please try again."
+  },
+  "blockReasonHeading": {
+    "message": "Why you're seeing this"
+  },
+  "blockReasonDomain": {
+    "message": "Site"
+  },
+  "blockReasonType": {
+    "message": "Rule"
+  },
+  "blockReasonCategory": {
+    "message": "Category"
+  },
+  "blockReasonCountries": {
+    "message": "Active in"
+  },
+  "blockTypeDelivery": {
+    "message": "Delivery service"
+  },
+  "blockTypeFastFood": {
+    "message": "Fast food"
+  },
+  "blockTypeCustom": {
+    "message": "Custom rule"
+  },
   "blockReasonMoreCountries": {
     "message": "+$1 more",
     "description": "$1 is the number of additional countries not shown."
   },
-
-  "recipeVegetarianLabel": { "message": "Vegetarian" },
-  "recipeMeatLabel": { "message": "Meat & protein" },
+  "recipeVegetarianLabel": {
+    "message": "Vegetarian"
+  },
+  "recipeMeatLabel": {
+    "message": "Meat & protein"
+  },
   "recipeTimeLabel": {
     "message": "~$1 min",
     "description": "$1 is the estimated time in minutes."
   },
-  "recipeIngredientsLabel": { "message": "Ingredients" },
-  "recipeStepsLabel": { "message": "Steps" },
+  "recipeIngredientsLabel": {
+    "message": "Ingredients"
+  },
+  "recipeStepsLabel": {
+    "message": "Steps"
+  },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal",
     "description": "$1 is the estimated calories for the recipe."
   },
-  "recipeChooseButton": { "message": "I'll make this instead" },
-  "recipeChosenButton": { "message": "Added to your stats ✓" },
-  "recipeChoiceNote": { "message": "Nice choice — logged in your stats. See it in Settings." },
-
-  "settingsTitle": { "message": "FitShield Settings" },
-  "blockingOptionsHeading": { "message": "Blocking Options" },
-  "scheduledHoursLabel": { "message": "Scheduled hours" },
-  "scheduledHoursHint": { "message": "Block only during a daily time window." },
-  "customizeBlocklistHeading": { "message": "Customize Blocklist" },
-  "customizeBlocklistIntro": { "message": "Choose which built-in groups are active, turn individual sites on or off, and add your own domains." },
-  "deliverySitesHeading": { "message": "Delivery Sites" },
-  "fastFoodSitesHeading": { "message": "Fast Food Sites" },
-  "customUrlsHeading": { "message": "Custom URLs" },
-  "customUrlsSettingsSubtitle": { "message": "Add your own domains and disable them individually." },
-  "showSitesButton": { "message": "Show Sites" },
-  "hideSitesButton": { "message": "Hide Sites" },
-  "showUrlsButton": { "message": "Show URLs" },
-  "hideUrlsButton": { "message": "Hide URLs" },
-  "deliveryToggleTitle": { "message": "Enable delivery site blocking" },
-  "fastFoodToggleTitle": { "message": "Enable fast food site blocking" },
-  "customToggleTitle": { "message": "Enable custom URL blocking" },
-  "addCustomUrlLabel": { "message": "Add a custom blocked URL" },
-  "customSitePlaceholder": { "message": "example.com or https://example.com" },
-  "customNormalizeHint": { "message": "Entries are normalized to domains and blocked across all pages." },
-  "customEmptyDefault": { "message": "No custom blocked sites yet. Add a domain like example.com above to start blocking it." },
-  "customNoMatch": { "message": "No custom URLs match this search." },
-  "emptyDeliverySearch": { "message": "No delivery sites match this search." },
-  "emptyFastFoodSearch": { "message": "No fast food sites match this search." },
+  "recipeChooseButton": {
+    "message": "I'll make this instead"
+  },
+  "recipeChosenButton": {
+    "message": "Added to your stats ✓"
+  },
+  "recipeChoiceNote": {
+    "message": "Nice choice — logged in your stats. See it in Settings."
+  },
+  "settingsTitle": {
+    "message": "FitShield Settings"
+  },
+  "blockingOptionsHeading": {
+    "message": "Blocking Options"
+  },
+  "scheduledHoursLabel": {
+    "message": "Scheduled hours"
+  },
+  "scheduledHoursHint": {
+    "message": "Block only during a daily time window."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Customize Blocklist"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Choose which built-in groups are active, turn individual sites on or off, and add your own domains."
+  },
+  "deliverySitesHeading": {
+    "message": "Delivery Sites"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Fast Food Sites"
+  },
+  "customUrlsHeading": {
+    "message": "Custom URLs"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Add your own domains and disable them individually."
+  },
+  "showSitesButton": {
+    "message": "Show Sites"
+  },
+  "hideSitesButton": {
+    "message": "Hide Sites"
+  },
+  "showUrlsButton": {
+    "message": "Show URLs"
+  },
+  "hideUrlsButton": {
+    "message": "Hide URLs"
+  },
+  "deliveryToggleTitle": {
+    "message": "Enable delivery site blocking"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Enable fast food site blocking"
+  },
+  "customToggleTitle": {
+    "message": "Enable custom URL blocking"
+  },
+  "addCustomUrlLabel": {
+    "message": "Add a custom blocked URL"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com or https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Entries are normalized to domains and blocked across all pages."
+  },
+  "customEmptyDefault": {
+    "message": "No custom blocked sites yet. Add a domain like example.com above to start blocking it."
+  },
+  "customNoMatch": {
+    "message": "No custom URLs match this search."
+  },
+  "emptyDeliverySearch": {
+    "message": "No delivery sites match this search."
+  },
+  "emptyFastFoodSearch": {
+    "message": "No fast food sites match this search."
+  },
   "noticeMatched": {
     "message": "$1 $2 matched \"$3\".",
     "description": "$1 count, $2 site/sites unit, $3 the search term."
   },
-  "invalidUrlNotice": { "message": "That URL does not look valid yet. Try a domain like example.com." },
+  "invalidUrlNotice": {
+    "message": "That URL does not look valid yet. Try a domain like example.com."
+  },
   "alreadyOnBlocklist": {
     "message": "$1 is already on the blocklist, so it has been re-enabled.",
     "description": "$1 is a domain."
@@ -178,234 +338,619 @@
     "message": "$1 was removed from the custom blocklist.",
     "description": "$1 is a domain."
   },
-
-  "metadataHeading": { "message": "Country & Category Blocking" },
-  "metadataIntro": { "message": "Block whole groups of sites by the country a brand operates in or the kind of food it serves. These blocks add to your existing site and custom-URL blocks." },
-  "blockByCountryLabel": { "message": "Block by country" },
-  "blockByCountryHint": { "message": "Search by country name or code, e.g. \"United\" or \"US\". Enabling a country blocks every brand active there." },
-  "countrySearchPlaceholder": { "message": "Search countries…" },
-  "quickAccessCountries": { "message": "Quick access — countries" },
-  "countryQuickEmpty": { "message": "Enable a country from search to pin it here." },
-  "blockByCategoryLabel": { "message": "Block by category" },
-  "blockByCategoryHint": { "message": "Search categories like burger, pizza, or coffee. Specialties are searchable too; the block applies by category." },
-  "categorySearchPlaceholder": { "message": "Search categories…" },
-  "quickAccessCategories": { "message": "Quick access — categories" },
-  "categoryQuickEmpty": { "message": "Enable a category from search to pin it here." },
-  "noCountriesMatch": { "message": "No countries match that search." },
-  "noCategoriesMatch": { "message": "No categories match that search." },
-
-  "languageHeading": { "message": "Language" },
-  "languageIntro": { "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only." },
-  "languageSelectLabel": { "message": "Display language" },
-  "languageHint": { "message": "Search for a language and select it. Choose System default to follow your browser." },
-  "languageSearchPlaceholder": { "message": "Search languages…" },
-  "currentLanguageHead": { "message": "Current language" },
-  "languageUseButton": { "message": "Use" },
-  "languageActiveButton": { "message": "Active" },
-  "languageSystem": { "message": "System default" },
-  "languageSystemSub": { "message": "Follow your browser's language" },
-  "languageEnglish": { "message": "English" },
-  "languageJapanese": { "message": "Japanese" },
-  "languageChinese": { "message": "Chinese (Simplified)" },
-  "languageFrench": { "message": "French" },
-  "languageCantonese": { "message": "Cantonese" },
-  "languageThai": { "message": "Thai" },
-  "languagePunjabi": { "message": "Punjabi" },
-  "languageTamil": { "message": "Tamil" },
-  "languageChineseTraditionalTaiwan": { "message": "Chinese (Traditional, Taiwan)" },
-  "languageKorean": { "message": "Korean" },
-  "languageHindi": { "message": "Hindi" },
-  "languageSpanishLatam": { "message": "Spanish (Latin America)" },
-  "languageSpanishSpain": { "message": "Spanish (Spain)" },
-  "languageAfrikaans": { "message": "Afrikaans" },
-  "languageAlbanian": { "message": "Albanian" },
-  "languageBasque": { "message": "Basque" },
-  "languageBelarusian": { "message": "Belarusian" },
-  "languageBulgarian": { "message": "Bulgarian" },
-  "languageCatalan": { "message": "Catalan" },
-  "languageCroatian": { "message": "Croatian" },
-  "languageCzech": { "message": "Czech" },
-  "languageDanish": { "message": "Danish" },
-  "languageDutch": { "message": "Dutch" },
-  "languageEstonian": { "message": "Estonian" },
-  "languageFinnish": { "message": "Finnish" },
-  "languageGreek": { "message": "Greek" },
-  "languageHungarian": { "message": "Hungarian" },
-  "languageIcelandic": { "message": "Icelandic" },
-  "languageIrish": { "message": "Irish" },
-  "languageItalian": { "message": "Italian" },
-  "languageLatvian": { "message": "Latvian" },
-  "languageLithuanian": { "message": "Lithuanian" },
-  "languageMacedonian": { "message": "Macedonian" },
-  "languageMaltese": { "message": "Maltese" },
-  "languageNorwegian": { "message": "Norwegian" },
-  "languagePolish": { "message": "Polish" },
-  "languagePortuguesePortugal": { "message": "Portuguese (Portugal)" },
-  "languageRomanian": { "message": "Romanian" },
-  "languageRussian": { "message": "Russian" },
-  "languageSerbian": { "message": "Serbian" },
-  "languageSlovak": { "message": "Slovak" },
-  "languageSlovenian": { "message": "Slovenian" },
-  "languageSwedish": { "message": "Swedish" },
-  "languageTurkish": { "message": "Turkish" },
-  "languageUkrainian": { "message": "Ukrainian" },
-  "languageWelsh": { "message": "Welsh" },
-  "languageBengali": { "message": "Bengali" },
-  "languageGujarati": { "message": "Gujarati" },
-  "languageKannada": { "message": "Kannada" },
-  "languageMalayalam": { "message": "Malayalam" },
-  "languageMarathi": { "message": "Marathi" },
-  "languageNepali": { "message": "Nepali" },
-  "languageOdia": { "message": "Odia" },
-  "languageSinhala": { "message": "Sinhala" },
-  "languageTelugu": { "message": "Telugu" },
-  "languageUrdu": { "message": "Urdu" },
-  "languageAssamese": { "message": "Assamese" },
-  "languageIndonesian": { "message": "Indonesian" },
-  "languageMalay": { "message": "Malay" },
-  "languageVietnamese": { "message": "Vietnamese" },
-  "languageKhmer": { "message": "Khmer" },
-  "languageLao": { "message": "Lao" },
-  "languageBurmese": { "message": "Burmese (Myanmar)" },
-  "languageFilipinoTagalog": { "message": "Filipino / Tagalog" },
-  "languageJavanese": { "message": "Javanese" },
-  "languageSundanese": { "message": "Sundanese" },
-  "languageArabic": { "message": "Arabic" },
-  "languagePersian": { "message": "Persian (Farsi)" },
-  "languageHebrew": { "message": "Hebrew" },
-  "languageArmenian": { "message": "Armenian" },
-  "languageGeorgian": { "message": "Georgian" },
-  "languageKazakh": { "message": "Kazakh" },
-  "languageKyrgyz": { "message": "Kyrgyz" },
-  "languageMongolian": { "message": "Mongolian" },
-  "languagePashto": { "message": "Pashto" },
-  "languageTajik": { "message": "Tajik" },
-  "languageTurkmen": { "message": "Turkmen" },
-  "languageUyghur": { "message": "Uyghur" },
-  "languageUzbek": { "message": "Uzbek" },
-  "languagePortugueseBrazil": { "message": "Portuguese (Brazil)" },
-  "languageSwahili": { "message": "Swahili" },
-  "languageAmharic": { "message": "Amharic" },
-  "noLanguagesMatch": { "message": "No languages match that search." },
-
-  "mbBlocking": { "message": "Blocking" },
-  "mbBlock": { "message": "Block" },
-  "mbOn": { "message": "On" },
-  "mbOff": { "message": "Off" },
-  "mbChipToggleOnTitle": { "message": "Blocking — click to pause" },
-  "mbChipToggleOffTitle": { "message": "Paused — click to block" },
-  "mbChipRemoveTitle": { "message": "Remove shortcut from quick access" },
+  "metadataHeading": {
+    "message": "Country & Category Blocking"
+  },
+  "metadataIntro": {
+    "message": "Block whole groups of sites by the country a brand operates in or the kind of food it serves. These blocks add to your existing site and custom-URL blocks."
+  },
+  "blockByCountryLabel": {
+    "message": "Block by country"
+  },
+  "blockByCountryHint": {
+    "message": "Search by country name or code, e.g. \"United\" or \"US\". Enabling a country blocks every brand active there."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Search countries…"
+  },
+  "quickAccessCountries": {
+    "message": "Quick access — countries"
+  },
+  "countryQuickEmpty": {
+    "message": "Enable a country from search to pin it here."
+  },
+  "blockByCategoryLabel": {
+    "message": "Block by category"
+  },
+  "blockByCategoryHint": {
+    "message": "Search categories like burger, pizza, or coffee. Specialties are searchable too; the block applies by category."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Search categories…"
+  },
+  "quickAccessCategories": {
+    "message": "Quick access — categories"
+  },
+  "categoryQuickEmpty": {
+    "message": "Enable a category from search to pin it here."
+  },
+  "noCountriesMatch": {
+    "message": "No countries match that search."
+  },
+  "noCategoriesMatch": {
+    "message": "No categories match that search."
+  },
+  "languageHeading": {
+    "message": "Language"
+  },
+  "languageIntro": {
+    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
+  },
+  "languageSelectLabel": {
+    "message": "Display language"
+  },
+  "languageHint": {
+    "message": "Search for a language and select it. Choose System default to follow your browser."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Search languages…"
+  },
+  "currentLanguageHead": {
+    "message": "Current language"
+  },
+  "languageUseButton": {
+    "message": "Use"
+  },
+  "languageActiveButton": {
+    "message": "Active"
+  },
+  "languageSystem": {
+    "message": "System default"
+  },
+  "languageSystemSub": {
+    "message": "Follow your browser's language"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageJapanese": {
+    "message": "Japanese"
+  },
+  "languageChinese": {
+    "message": "Chinese (Simplified)"
+  },
+  "languageFrench": {
+    "message": "French"
+  },
+  "languageCantonese": {
+    "message": "Cantonese"
+  },
+  "languageThai": {
+    "message": "Thai"
+  },
+  "languagePunjabi": {
+    "message": "Punjabi"
+  },
+  "languageTamil": {
+    "message": "Tamil"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "Chinese (Traditional, Taiwan)"
+  },
+  "languageKorean": {
+    "message": "Korean"
+  },
+  "languageHindi": {
+    "message": "Hindi"
+  },
+  "languageSpanishLatam": {
+    "message": "Spanish (Latin America)"
+  },
+  "languageSpanishSpain": {
+    "message": "Spanish (Spain)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Albanian"
+  },
+  "languageBasque": {
+    "message": "Basque"
+  },
+  "languageBelarusian": {
+    "message": "Belarusian"
+  },
+  "languageBulgarian": {
+    "message": "Bulgarian"
+  },
+  "languageCatalan": {
+    "message": "Catalan"
+  },
+  "languageCroatian": {
+    "message": "Croatian"
+  },
+  "languageCzech": {
+    "message": "Czech"
+  },
+  "languageDanish": {
+    "message": "Danish"
+  },
+  "languageDutch": {
+    "message": "Dutch"
+  },
+  "languageEstonian": {
+    "message": "Estonian"
+  },
+  "languageFinnish": {
+    "message": "Finnish"
+  },
+  "languageGreek": {
+    "message": "Greek"
+  },
+  "languageHungarian": {
+    "message": "Hungarian"
+  },
+  "languageIcelandic": {
+    "message": "Icelandic"
+  },
+  "languageIrish": {
+    "message": "Irish"
+  },
+  "languageItalian": {
+    "message": "Italian"
+  },
+  "languageLatvian": {
+    "message": "Latvian"
+  },
+  "languageLithuanian": {
+    "message": "Lithuanian"
+  },
+  "languageMacedonian": {
+    "message": "Macedonian"
+  },
+  "languageMaltese": {
+    "message": "Maltese"
+  },
+  "languageNorwegian": {
+    "message": "Norwegian"
+  },
+  "languagePolish": {
+    "message": "Polish"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Portuguese (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Romanian"
+  },
+  "languageRussian": {
+    "message": "Russian"
+  },
+  "languageSerbian": {
+    "message": "Serbian"
+  },
+  "languageSlovak": {
+    "message": "Slovak"
+  },
+  "languageSlovenian": {
+    "message": "Slovenian"
+  },
+  "languageSwedish": {
+    "message": "Swedish"
+  },
+  "languageTurkish": {
+    "message": "Turkish"
+  },
+  "languageUkrainian": {
+    "message": "Ukrainian"
+  },
+  "languageWelsh": {
+    "message": "Welsh"
+  },
+  "languageBengali": {
+    "message": "Bengali"
+  },
+  "languageGujarati": {
+    "message": "Gujarati"
+  },
+  "languageKannada": {
+    "message": "Kannada"
+  },
+  "languageMalayalam": {
+    "message": "Malayalam"
+  },
+  "languageMarathi": {
+    "message": "Marathi"
+  },
+  "languageNepali": {
+    "message": "Nepali"
+  },
+  "languageOdia": {
+    "message": "Odia"
+  },
+  "languageSinhala": {
+    "message": "Sinhala"
+  },
+  "languageTelugu": {
+    "message": "Telugu"
+  },
+  "languageUrdu": {
+    "message": "Urdu"
+  },
+  "languageAssamese": {
+    "message": "Assamese"
+  },
+  "languageIndonesian": {
+    "message": "Indonesian"
+  },
+  "languageMalay": {
+    "message": "Malay"
+  },
+  "languageVietnamese": {
+    "message": "Vietnamese"
+  },
+  "languageKhmer": {
+    "message": "Khmer"
+  },
+  "languageLao": {
+    "message": "Lao"
+  },
+  "languageBurmese": {
+    "message": "Burmese (Myanmar)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Javanese"
+  },
+  "languageSundanese": {
+    "message": "Sundanese"
+  },
+  "languageArabic": {
+    "message": "Arabic"
+  },
+  "languagePersian": {
+    "message": "Persian (Farsi)"
+  },
+  "languageHebrew": {
+    "message": "Hebrew"
+  },
+  "languageArmenian": {
+    "message": "Armenian"
+  },
+  "languageGeorgian": {
+    "message": "Georgian"
+  },
+  "languageKazakh": {
+    "message": "Kazakh"
+  },
+  "languageKyrgyz": {
+    "message": "Kyrgyz"
+  },
+  "languageMongolian": {
+    "message": "Mongolian"
+  },
+  "languagePashto": {
+    "message": "Pashto"
+  },
+  "languageTajik": {
+    "message": "Tajik"
+  },
+  "languageTurkmen": {
+    "message": "Turkmen"
+  },
+  "languageUyghur": {
+    "message": "Uyghur"
+  },
+  "languageUzbek": {
+    "message": "Uzbek"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Portuguese (Brazil)"
+  },
+  "languageSwahili": {
+    "message": "Swahili"
+  },
+  "languageAmharic": {
+    "message": "Amharic"
+  },
+  "noLanguagesMatch": {
+    "message": "No languages match that search."
+  },
+  "mbBlocking": {
+    "message": "Blocking"
+  },
+  "mbBlock": {
+    "message": "Block"
+  },
+  "mbOn": {
+    "message": "On"
+  },
+  "mbOff": {
+    "message": "Off"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Blocking — click to pause"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Paused — click to block"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Remove shortcut from quick access"
+  },
   "mbChipRemoveAria": {
     "message": "Remove $1 from quick access",
     "description": "$1 is a country or category label."
   },
-
-  "themeHeading": { "message": "Theme" },
-  "resetThemeButton": { "message": "Reset Theme" },
-  "systemThemeLabel": { "message": "System theme" },
-  "systemThemeHint": { "message": "Device preference or a fixed mode." },
-  "themeSystem": { "message": "System" },
-  "themeLight": { "message": "Light" },
-  "themeDark": { "message": "Dark" },
-  "themeBackground": { "message": "Background" },
-  "themePanel": { "message": "Panel" },
-  "themeBorder": { "message": "Border" },
-  "themeText": { "message": "Text" },
-  "themeMutedText": { "message": "Muted Text" },
-  "themeAccent": { "message": "Accent" },
-  "cornerRadiusLabel": { "message": "Corner Radius" },
-  "popupWidthLabel": { "message": "Popup Width" },
-
-  "backupHeading": { "message": "Backup & Restore" },
-  "backupIntro": { "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded." },
-  "exportSettingsButton": { "message": "Export settings" },
-  "importSettingsButton": { "message": "Import settings" },
-  "exportSuccessNotice": { "message": "Settings exported." },
+  "themeHeading": {
+    "message": "Theme"
+  },
+  "resetThemeButton": {
+    "message": "Reset Theme"
+  },
+  "systemThemeLabel": {
+    "message": "System theme"
+  },
+  "systemThemeHint": {
+    "message": "Device preference or a fixed mode."
+  },
+  "themeSystem": {
+    "message": "System"
+  },
+  "themeLight": {
+    "message": "Light"
+  },
+  "themeDark": {
+    "message": "Dark"
+  },
+  "themeBackground": {
+    "message": "Background"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "Border"
+  },
+  "themeText": {
+    "message": "Text"
+  },
+  "themeMutedText": {
+    "message": "Muted Text"
+  },
+  "themeAccent": {
+    "message": "Accent"
+  },
+  "cornerRadiusLabel": {
+    "message": "Corner Radius"
+  },
+  "popupWidthLabel": {
+    "message": "Popup Width"
+  },
+  "backupHeading": {
+    "message": "Backup & Restore"
+  },
+  "backupIntro": {
+    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
+  },
+  "exportSettingsButton": {
+    "message": "Export settings"
+  },
+  "importSettingsButton": {
+    "message": "Import settings"
+  },
+  "exportSuccessNotice": {
+    "message": "Settings exported."
+  },
   "importSuccessNotice": {
     "message": "Restored $1 settings from the backup.",
     "description": "$1 is the number of settings restored."
   },
-  "importErrorNotice": { "message": "That file isn't a valid FitShield backup." },
-
+  "importErrorNotice": {
+    "message": "That file isn't a valid FitShield backup."
+  },
   "reorderCardLabel": {
     "message": "Reorder card: $1. Use arrow keys to move it.",
     "description": "$1 is the card's title. Accessible label for the drag handle."
   },
-  "protectionStatusHeading": { "message": "Your Stats" },
-  "protectionStatusIntro": { "message": "A private, on-device estimate of what FitShield has helped you skip. These are estimates, and nothing here is uploaded." },
-  "statusBlockedVisits": { "message": "Blocked visits" },
-  "statusEstimatedSavings": { "message": "Estimated savings" },
-  "statusCaloriesAvoided": { "message": "Calories avoided" },
-  "avgMealCostLabel": { "message": "Average meal cost" },
-  "avgMealCostHint": { "message": "Used to estimate money saved when you skip an order. Stored on your device only." },
-  "avgMealCaloriesLabel": { "message": "Average meal calories" },
-  "avgMealCaloriesHint": { "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only." },
-
-  "resetHeading": { "message": "Reset & Data" },
-  "resetIntro": { "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first." },
-  "resetBlockingButton": { "message": "Reset blocking settings" },
-  "resetBlockingHint": { "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks." },
-  "resetAppearanceButton": { "message": "Reset appearance" },
-  "resetAppearanceHint": { "message": "Theme colors and light/dark mode." },
-  "resetPreferencesButton": { "message": "Reset recipes & preferences" },
-  "resetPreferencesHint": { "message": "Average meal cost, calorie settings, and your saved stats." },
-  "factoryResetButton": { "message": "Factory reset" },
-  "factoryResetHint": { "message": "Erase everything and return FitShield to a fresh install." },
-  "confirmCancelButton": { "message": "Cancel" },
-  "confirmConfirmButton": { "message": "Confirm" },
-  "confirmResetBlocking": { "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept." },
-  "confirmResetAppearance": { "message": "Reset the theme and appearance to the default dark mode?" },
-  "confirmResetPreferences": { "message": "Reset your meal-cost and calorie preferences, plus the saved-money and calories-avoided stats?" },
-  "confirmFactoryReset": { "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone." },
+  "protectionStatusHeading": {
+    "message": "Your Stats"
+  },
+  "protectionStatusIntro": {
+    "message": "A private, on-device estimate of what FitShield has helped you skip. These are estimates, and nothing here is uploaded."
+  },
+  "statusBlockedVisits": {
+    "message": "Blocked visits"
+  },
+  "statusEstimatedSavings": {
+    "message": "Estimated savings"
+  },
+  "statusCaloriesAvoided": {
+    "message": "Calories avoided"
+  },
+  "avgMealCostLabel": {
+    "message": "Average meal cost"
+  },
+  "avgMealCostHint": {
+    "message": "Used to estimate money saved when you skip an order. Stored on your device only."
+  },
+  "avgMealCaloriesLabel": {
+    "message": "Average meal calories"
+  },
+  "avgMealCaloriesHint": {
+    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+  },
+  "resetHeading": {
+    "message": "Reset & Data"
+  },
+  "resetIntro": {
+    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+  },
+  "resetBlockingButton": {
+    "message": "Reset blocking settings"
+  },
+  "resetBlockingHint": {
+    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+  },
+  "resetAppearanceButton": {
+    "message": "Reset appearance"
+  },
+  "resetAppearanceHint": {
+    "message": "Theme colors and light/dark mode."
+  },
+  "resetPreferencesButton": {
+    "message": "Reset recipes & preferences"
+  },
+  "resetPreferencesHint": {
+    "message": "Average meal cost, calorie settings, and your saved stats."
+  },
+  "factoryResetButton": {
+    "message": "Factory reset"
+  },
+  "factoryResetHint": {
+    "message": "Erase everything and return FitShield to a fresh install."
+  },
+  "confirmCancelButton": {
+    "message": "Cancel"
+  },
+  "confirmConfirmButton": {
+    "message": "Confirm"
+  },
+  "confirmResetBlocking": {
+    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+  },
+  "confirmResetAppearance": {
+    "message": "Reset the theme and appearance to the default dark mode?"
+  },
+  "confirmResetPreferences": {
+    "message": "Reset your meal-cost and calorie preferences, plus the saved-money and calories-avoided stats?"
+  },
+  "confirmFactoryReset": {
+    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+  },
   "confirmRemoveCustomSite": {
     "message": "Remove $1 from your custom blocklist?",
     "description": "$1 is the domain being removed."
   },
-  "resetDoneNotice": { "message": "Done. Reloading…" },
-
-  "welcomeTitle": { "message": "Welcome to FitShield" },
-  "welcomeSubtitle": { "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded." },
-  "welcomeLangTitle": { "message": "Choose your language" },
-  "welcomeLangBody": { "message": "This sets the language for FitShield's popup, settings, and block screen." },
-  "welcomeThemeTitle": { "message": "Pick a theme" },
-  "welcomeThemeBody": { "message": "You can fine-tune colors later in Settings." },
-  "welcomeFastFoodTitle": { "message": "Block fast-food ordering" },
-  "welcomeFastFoodBody": { "message": "Adds a pause screen on major fast-food chains' ordering pages." },
-  "welcomeRecommendedOn": { "message": "Recommended on." },
-  "welcomeDeliveryTitle": { "message": "Block delivery apps" },
-  "welcomeDeliveryBody": { "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats." },
-  "welcomeImportTitle": { "message": "Restore a backup (optional)" },
-  "welcomeImportBody": { "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue." },
-  "welcomeImportButton": { "message": "Import settings file" },
-  "welcomeHelpTitle": { "message": "How FitShield helps" },
-  "welcomeHelpBody": { "message": "A quick tour of the main features." },
-  "welcomeFeaturePauseTitle": { "message": "Pause timer" },
-  "welcomeFeaturePauseBody": { "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order." },
-  "welcomeFeatureScheduleTitle": { "message": "Schedule" },
-  "welcomeFeatureScheduleBody": { "message": "Optionally block only during set hours, like evenings or work time." },
-  "welcomeFeatureWhitelistTitle": { "message": "Whitelist" },
-  "welcomeFeatureWhitelistBody": { "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it." },
-  "welcomeFeatureRecipeTitle": { "message": "Recipe ideas" },
-  "welcomeFeatureRecipeBody": { "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked." },
-  "welcomeBack": { "message": "Back" },
-  "welcomeNext": { "message": "Next" },
-  "welcomeFinish": { "message": "Finish" },
+  "resetDoneNotice": {
+    "message": "Done. Reloading…"
+  },
+  "welcomeTitle": {
+    "message": "Welcome to FitShield"
+  },
+  "welcomeSubtitle": {
+    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+  },
+  "welcomeLangTitle": {
+    "message": "Choose your language"
+  },
+  "welcomeLangBody": {
+    "message": "This sets the language for FitShield's popup, settings, and block screen."
+  },
+  "welcomeThemeTitle": {
+    "message": "Pick a theme"
+  },
+  "welcomeThemeBody": {
+    "message": "You can fine-tune colors later in Settings."
+  },
+  "welcomeFastFoodTitle": {
+    "message": "Block fast-food ordering"
+  },
+  "welcomeFastFoodBody": {
+    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+  },
+  "welcomeRecommendedOn": {
+    "message": "Recommended on."
+  },
+  "welcomeDeliveryTitle": {
+    "message": "Block delivery apps"
+  },
+  "welcomeDeliveryBody": {
+    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+  },
+  "welcomeImportTitle": {
+    "message": "Restore a backup (optional)"
+  },
+  "welcomeImportBody": {
+    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+  },
+  "welcomeImportButton": {
+    "message": "Import settings file"
+  },
+  "welcomeHelpTitle": {
+    "message": "How FitShield helps"
+  },
+  "welcomeHelpBody": {
+    "message": "A quick tour of the main features."
+  },
+  "welcomeFeaturePauseTitle": {
+    "message": "Pause timer"
+  },
+  "welcomeFeaturePauseBody": {
+    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+  },
+  "welcomeFeatureScheduleTitle": {
+    "message": "Schedule"
+  },
+  "welcomeFeatureScheduleBody": {
+    "message": "Optionally block only during set hours, like evenings or work time."
+  },
+  "welcomeFeatureWhitelistTitle": {
+    "message": "Whitelist"
+  },
+  "welcomeFeatureWhitelistBody": {
+    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+  },
+  "welcomeFeatureRecipeTitle": {
+    "message": "Recipe ideas"
+  },
+  "welcomeFeatureRecipeBody": {
+    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+  },
+  "welcomeBack": {
+    "message": "Back"
+  },
+  "welcomeNext": {
+    "message": "Next"
+  },
+  "welcomeFinish": {
+    "message": "Finish"
+  },
   "welcomeStepLabel": {
     "message": "Step $1 of $2",
     "description": "$1 is the current step number, $2 is the total."
   },
-
-  "whatsNewTitle": { "message": "What's New" },
-  "whatsNewSubtitle": { "message": "A quick look at what changed." },
-  "whatsNewOpenSettings": { "message": "Open settings" },
-  "whatsNewClose": { "message": "Close" },
-  "whatsNewEmpty": { "message": "No release notes yet." },
-  "whatsNewBadge": { "message": "New" },
+  "whatsNewTitle": {
+    "message": "What's New"
+  },
+  "whatsNewSubtitle": {
+    "message": "A quick look at what changed."
+  },
+  "whatsNewOpenSettings": {
+    "message": "Open settings"
+  },
+  "whatsNewClose": {
+    "message": "Close"
+  },
+  "whatsNewEmpty": {
+    "message": "No release notes yet."
+  },
+  "whatsNewBadge": {
+    "message": "New"
+  },
   "whatsNewVersion": {
     "message": "Version $1",
     "description": "$1 is the version number."
   },
-
-  "supportFooterText": { "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blocklists and docs moving." },
-  "bmcAlt": { "message": "Buy Me a Coffee" }
+  "supportFooterText": {
+    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep blocklists and docs moving."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageGerman": {
+    "message": "German"
+  }
 }

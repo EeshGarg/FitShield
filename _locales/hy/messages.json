@@ -237,7 +237,7 @@
     "message": "Մուտքագրումները նորմալացվում են տիրույթներում և արգելափակվում են բոլոր էջերում:"
   },
   "customEmptyDefault": {
-    "message": "Հատուկ URL-ներ դեռ ավելացված չեն:"
+    "message": "Դեռ չկան հատուկ արգելափակված կայքեր։ Արգելափակումը սկսելու համար վերևում ավելացրեք example.com-ի նման տիրույթ։"
   },
   "customNoMatch": {
     "message": "Ոչ մի հատուկ URL չի համապատասխանում այս որոնմանը:"
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Ինչու եք սա տեսնում"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Կայք"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Կանոն"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Կատեգորիա"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Ակտիվ է"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Առաքման ծառայություն"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Արագ սնունդ"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Հատուկ կանոն"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 ևս"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Ձեր վիճակագրությունը"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Սարքի վրա պահվող անձնական գնահատական այն մասին, ինչ FitShield-ն օգնել է ձեզ բաց թողնել։ Սրանք գնահատականներ են, և ոչինչ չի վերբեռնվում։"
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Արգելափակված այցեր"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Գնահատված խնայողություն"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Միջին կերակուրի արժեք"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Օգտագործվում է պատվերը բաց թողնելիս խնայված գումարը գնահատելու համար։ Պահվում է միայն ձեր սարքում։"
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Վերակայում և տվյալներ"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Վերականգնում է FitShield-ի մասերը կանխադրվածի։ Յուրաքանչյուր գործողություն նախ հաստատում է խնդրում։"
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Վերակայել արգելափակումը"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Ժամանակաչափեր, ժամանակացույց, կայքերի անջատիչներ, հատուկ URL-ներ և երկրի/կատեգորիայի արգելափակումներ։"
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Վերակայել տեսքը"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Թեմայի գույներ և լուսավոր/մուգ ռեժիմ։"
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Վերակայել բաղադրատոմսերն ու նախապատվությունները"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Միջին կերակուրի արժեք, կալորիաների կարգավորումներ և ձեր պահպանված վիճակագրությունը։"
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Գործարանային վերակայում"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Ջնջել ամեն ինչ և վերադարձնել FitShield-ը նոր տեղադրման։"
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Չեղարկել"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Հաստատել"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Վերակայե՞լ արգելափակման բոլոր կարգավորումները կանխադրվածի։ Ձեր թեման, լեզուն և վիճակագրությունը պահպանվում են։"
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Վերակայե՞լ թեման և տեսքը կանխադրված մուգ ռեժիմի։"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Վերակայե՞լ ձեր արժեքի և կալորիաների նախապատվությունները, ինչպես նաև խնայողության և խուսափված կալորիաների վիճակագրությունը։"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Գործարանայի՞ն վերակայել FitShield-ը։ Սա ջնջում է այս սարքի բոլոր կարգավորումները, հատուկ կայքերն ու վիճակագրությունը։ Հնարավոր չէ հետարկել։"
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Հեռացնե՞լ $1-ը ձեր հատուկ արգելափակման ցանկից։"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Պատրաստ է։ Վերաբեռնում…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "~$1 կկալ"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Փոխարենը կպատրաստեմ սա"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Ավելացված է ձեր վիճակագրությանը ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Լավ ընտրություն — գրանցված է ձեր վիճակագրությունում։ Տեսեք Կարգավորումներում։"
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Խուսափված կալորիաներ"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Միջին կերակուրի կալորիաներ"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Օգտագործվում է փոխարենը բաղադրատոմս ընտրելիս խուսափված կալորիաները գնահատելու համար։ Պահվում է միայն ձեր սարքում։"
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Վերադասավորել քարտը՝ $1։ Տեղափոխելու համար օգտագործեք սլաքները։"
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Բարի գալուստ FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Մի քանի արագ ընտրություն, և պատրաստ եք։ Ամեն ինչ մնում է ձեր սարքում — ոչինչ չի վերբեռնվում։"
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Ընտրեք ձեր լեզուն"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Սա սահմանում է FitShield-ի ելնող պատուհանի, կարգավորումների և արգելափակման էկրանի լեզուն։"
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Ընտրեք թեմա"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Գույները կարող եք ավելի ուշ ճշգրտել Կարգավորումներում։"
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Արգելափակել արագ սննդի պատվերը"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Ավելացնում է դադարի էկրան խոշոր արագ սննդի ցանցերի պատվերի էջերում։"
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Խորհուրդ է տրվում միացված։"
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Արգելափակել առաքման հավելվածները"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Ավելացնում է դադարի էկրան առաքման հարթակներում, ինչպիսիք են DoorDash-ը և Uber Eats-ը։"
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Վերականգնել պահուստը (ընտրովի)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Գալի՞ս եք այլ սարքից։ Ներմուծեք FitShield-ի կարգավորումների ֆայլը՝ ամեն ինչ տեղափոխելու համար։ Հակառակ դեպքում պարզապես շարունակեք։"
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Ներմուծել կարգավորումների ֆայլը"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Ինչպես է օգնում FitShield-ը"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Հիմնական գործառույթների արագ շրջայց։"
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Դադարի ժամանակաչափ"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Երբ հասնում եք արգելափակված կայք, շարունակելուց առաջ կարճ հետհաշվարկ է ընթանում — բավական է պատվերը վերանայելու համար։"
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Ժամանակացույց"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Ըստ ցանկության արգելափակեք միայն որոշակի ժամերին, օրինակ՝ երեկոյան կամ աշխատանքային ժամերին։"
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Սպիտակ ցուցակ"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Անջատեք ցանկացած կայք, ավելացրեք ձեր սեփական URL-ները կամ տվեք ձեզ ժամանակավոր թույլտվություն, երբ իսկապես անհրաժեշտ է։"
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Բաղադրատոմսի գաղափարներ"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Արգելափակման էկրանն առաջարկում է արագ բուսակերական և մսի/սպիտակուցի բաղադրատոմս՝ ըստ ձեր արգելափակածի։"
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Հետ"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Հաջորդ"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Ավարտել"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Քայլ $1 / $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Ինչ նոր է"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Արագ հայացք փոփոխություններին։"
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Բացել կարգավորումները"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Փակել"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Դեռ թողարկման նշումներ չկան։"
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Նոր"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Տարբերակ $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

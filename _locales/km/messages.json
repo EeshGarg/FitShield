@@ -237,7 +237,7 @@
     "message": "ធាតុ​ត្រូវ​បាន​ធ្វើ​ឱ្យ​មាន​លក្ខណៈ​ធម្មតា​ទៅ​ក្នុង​ដែន និង​ត្រូវ​បាន​បិទ​នៅ​គ្រប់​ទំព័រ។"
   },
   "customEmptyDefault": {
-    "message": "មិនទាន់បានបន្ថែម URLs ផ្ទាល់ខ្លួននៅឡើយទេ។"
+    "message": "មិនទាន់មានគេហទំព័រផ្ទាល់ខ្លួនដែលបានទប់ស្កាត់ទេ។ បន្ថែមដែនដូចជា example.com ខាងលើ ដើម្បីចាប់ផ្ដើមទប់ស្កាត់វា។"
   },
   "customNoMatch": {
     "message": "គ្មាន URL ផ្ទាល់ខ្លួនដែលត្រូវគ្នានឹងការស្វែងរកនេះទេ។"
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "ហេតុអ្វីបានជាអ្នកឃើញវា"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "គេហទំព័រ"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "ច្បាប់"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "ប្រភេទ"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "សកម្មនៅ"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "សេវាដឹកជញ្ជូន"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "អាហាររហ័ស"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "ច្បាប់ផ្ទាល់ខ្លួន"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 ទៀត"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "ស្ថិតិរបស់អ្នក"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "ការប៉ាន់ស្មានឯកជននៅលើឧបករណ៍អំពីអ្វីដែល FitShield បានជួយអ្នករំលង។ ទាំងនេះជាការប៉ាន់ស្មាន ហើយគ្មានអ្វីត្រូវបានផ្ទុកឡើងទេ។"
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "ការចូលមើលដែលបានទប់ស្កាត់"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "ការសន្សំប៉ាន់ស្មាន"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "តម្លៃអាហារជាមធ្យម"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "ប្រើដើម្បីប៉ាន់ប្រាក់ដែលសន្សំនៅពេលអ្នករំលងការបញ្ជាទិញ។ រក្សាទុកតែនៅលើឧបករណ៍របស់អ្នកប៉ុណ្ណោះ។"
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "កំណត់ឡើងវិញ និងទិន្នន័យ"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "ស្ដារផ្នែកនៃ FitShield ទៅលំនាំដើម។ សកម្មភាពនីមួយៗសុំការបញ្ជាក់ជាមុនសិន។"
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "កំណត់ការទប់ស្កាត់ឡើងវិញ"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "កម្មវិធីកំណត់ម៉ោង កាលវិភាគ កុងតាក់គេហទំព័រ URL ផ្ទាល់ខ្លួន និងការទប់ស្កាត់តាមប្រទេស/ប្រភេទ។"
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "កំណត់រូបរាងឡើងវិញ"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "ពណ៌ស្បែក និងរបៀបភ្លឺ/ងងឹត។"
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "កំណត់រូបមន្ត និងចំណូលចិត្តឡើងវិញ"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "តម្លៃអាហារជាមធ្យម ការកំណត់កាឡូរី និងស្ថិតិដែលបានរក្សាទុករបស់អ្នក។"
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "កំណត់ដូចចេញពីរោងចក្រ"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "លុបអ្វីៗទាំងអស់ ហើយប្ដូរ FitShield ទៅជាការដំឡើងថ្មី។"
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "បោះបង់"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "បញ្ជាក់"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "កំណត់ការកំណត់ទប់ស្កាត់ទាំងអស់ទៅលំនាំដើមឬ? ស្បែក ភាសា និងស្ថិតិរបស់អ្នកត្រូវបានរក្សាទុក។"
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "កំណត់ស្បែក និងរូបរាងទៅរបៀបងងឹតលំនាំដើមឬ?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "កំណត់ចំណូលចិត្តតម្លៃ និងកាឡូរី ព្រមទាំងស្ថិតិសន្សំ និងកាឡូរីដែលជៀសវាងឡើងវិញឬ?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "កំណត់ FitShield ដូចចេញពីរោងចក្រឬ? វាលុបការកំណត់ គេហទំព័រផ្ទាល់ខ្លួន និងស្ថិតិទាំងអស់នៅលើឧបករណ៍នេះ។ មិនអាចត្រឡប់វិញបានទេ។"
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "លុប $1 ចេញពីបញ្ជីទប់ស្កាត់ផ្ទាល់ខ្លួនរបស់អ្នកឬ?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "រួចរាល់។ កំពុងផ្ទុកឡើងវិញ…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "ខ្ញុំនឹងធ្វើមុខម្ហូបនេះជំនួសវិញ"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "បានបន្ថែមទៅស្ថិតិរបស់អ្នក ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "ជម្រើសល្អ — បានកត់ត្រាក្នុងស្ថិតិរបស់អ្នក។ មើលក្នុងការកំណត់។"
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "កាឡូរីដែលជៀសវាង"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "កាឡូរីអាហារជាមធ្យម"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "ប្រើដើម្បីប៉ាន់កាឡូរីដែលជៀសវាងនៅពេលអ្នកជ្រើសរើសរូបមន្តជំនួសវិញ។ រក្សាទុកតែនៅលើឧបករណ៍របស់អ្នកប៉ុណ្ណោះ។"
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "រៀបចំកាតឡើងវិញ៖ $1។ ប្រើគ្រាប់ចុចព្រួញដើម្បីផ្លាស់ទី។"
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "សូមស្វាគមន៍មកកាន់ FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "ជម្រើសរហ័សពីរបី ហើយអ្នករួចរាល់។ អ្វីៗទាំងអស់នៅលើឧបករណ៍របស់អ្នក — គ្មានអ្វីត្រូវបានផ្ទុកឡើងទេ។"
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "ជ្រើសរើសភាសារបស់អ្នក"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "វាកំណត់ភាសាសម្រាប់ផ្ទាំងលោត ការកំណត់ និងអេក្រង់ទប់ស្កាត់របស់ FitShield។"
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "ជ្រើសរើសស្បែក"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "អ្នកអាចកែសម្រួលពណ៌ពេលក្រោយក្នុងការកំណត់។"
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "ទប់ស្កាត់ការបញ្ជាទិញអាហាររហ័ស"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "បន្ថែមអេក្រង់ផ្អាកនៅលើទំព័របញ្ជាទិញរបស់ខ្សែសង្វាក់អាហាររហ័សធំៗ។"
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "ណែនាំឱ្យបើក។"
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "ទប់ស្កាត់កម្មវិធីដឹកជញ្ជូន"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "បន្ថែមអេក្រង់ផ្អាកនៅលើវេទិកាដឹកជញ្ជូនដូចជា DoorDash និង Uber Eats។"
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "ស្ដារការបម្រុងទុក (ស្រេចចិត្ត)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "មកពីឧបករណ៍ផ្សេងឬ? នាំចូលឯកសារការកំណត់ FitShield ដើម្បីយកអ្វីៗទាំងអស់មក។ បើមិនដូច្នេះទេ គ្រាន់តែបន្ត។"
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "នាំចូលឯកសារការកំណត់"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "របៀប FitShield ជួយ"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "ដំណើរកម្សាន្តរហ័សតាមមុខងារសំខាន់ៗ។"
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "កម្មវិធីកំណត់ម៉ោងផ្អាក"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "នៅពេលអ្នកទៅដល់គេហទំព័រដែលបានទប់ស្កាត់ ការរាប់ថយក្រោយខ្លីដំណើរការមុនពេលអ្នកអាចបន្ត — គ្រប់គ្រាន់ដើម្បីគិតឡើងវិញអំពីការបញ្ជាទិញ។"
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "កាលវិភាគ"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "ស្រេចចិត្តទប់ស្កាត់តែនៅម៉ោងកំណត់ ដូចជាពេលល្ងាច ឬម៉ោងធ្វើការ។"
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "បញ្ជីស"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "បិទគេហទំព័រណាមួយ បន្ថែម URL ផ្ទាល់ខ្លួនរបស់អ្នក ឬផ្ដល់ការអនុញ្ញាតបណ្ដោះអាសន្ននៅពេលអ្នកត្រូវការពិតប្រាកដ។"
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "គំនិតរូបមន្ត"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "អេក្រង់ទប់ស្កាត់ស្នើរូបមន្តបន្លែរហ័ស និងរូបមន្តសាច់/ប្រូតេអ៊ីន ផ្អែកលើអ្វីដែលអ្នកបានទប់ស្កាត់។"
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "ថយក្រោយ"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "បន្ទាប់"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "បញ្ចប់"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "ជំហាន $1 នៃ $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "អ្វីថ្មី"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "មើលរហ័សនូវអ្វីដែលបានផ្លាស់ប្ដូរ។"
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "បើកការកំណត់"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "បិទ"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "មិនទាន់មានកំណត់ត្រាការចេញផ្សាយទេ។"
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "ថ្មី"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "កំណែ $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

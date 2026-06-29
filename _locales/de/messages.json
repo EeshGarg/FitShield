@@ -1,0 +1,956 @@
+{
+  "appName": {
+    "message": "FitShield",
+    "description": "Extension name shown in the browser."
+  },
+  "appDescription": {
+    "message": "FitShield-Browsererweiterung, die dir hilft, bei Essenslieferungen und Fastfood-Bestellungen achtsam zu bleiben.",
+    "description": "Extension description shown in the browser."
+  },
+  "actionTitle": {
+    "message": "FitShield",
+    "description": "Toolbar button tooltip."
+  },
+  "searchSitePlaceholder": {
+    "message": "Seitenname oder URL suchen"
+  },
+  "searchButton": {
+    "message": "Suchen"
+  },
+  "clearButton": {
+    "message": "Löschen"
+  },
+  "openButton": {
+    "message": "Öffnen"
+  },
+  "addButton": {
+    "message": "Hinzufügen"
+  },
+  "removeButton": {
+    "message": "Entfernen"
+  },
+  "viewBlocklistButton": {
+    "message": "Sperrliste ansehen"
+  },
+  "timerDurationLabel": {
+    "message": "Timer-Dauer"
+  },
+  "timerDurationHint": {
+    "message": "Stelle den Countdown ein, bevor „Weiter“ erscheint."
+  },
+  "customSecondsLabel": {
+    "message": "Eigene Sekunden"
+  },
+  "siteOpenTimeLabel": {
+    "message": "Öffnungsdauer der Seite"
+  },
+  "siteOpenTimeHint": {
+    "message": "Wähle, wie lange Seiten nach Ablauf des Timers offen bleiben."
+  },
+  "customMinutesLabel": {
+    "message": "Eigene Minuten"
+  },
+  "startTimeLabel": {
+    "message": "Startzeit"
+  },
+  "endTimeLabel": {
+    "message": "Endzeit"
+  },
+  "scheduleDefaultSummary": {
+    "message": "Die Sperrung folgt deinem Tagesplan, wenn dies aktiviert ist."
+  },
+  "currentScheduleSummary": {
+    "message": "Aktueller Zeitplan: $1.",
+    "description": "$1 is a time range, optionally followed by ' every day'."
+  },
+  "everyDaySuffix": {
+    "message": " täglich"
+  },
+  "scheduleRange": {
+    "message": "$1 bis $2",
+    "description": "$1 start time, $2 end time."
+  },
+  "unitMinute": {
+    "message": "Minute"
+  },
+  "unitMinutes": {
+    "message": "Minuten"
+  },
+  "unitSite": {
+    "message": "Seite"
+  },
+  "unitSites": {
+    "message": "Seiten"
+  },
+  "popupSettingsButton": {
+    "message": "Einstellungen"
+  },
+  "popupBlockerTitle": {
+    "message": "FitShield-Blocker"
+  },
+  "popupBlockerSubtitle": {
+    "message": "Schalte jede Sperrliste ein oder aus."
+  },
+  "popupMetadataLabel": {
+    "message": "Sperrung nach Land & Kategorie"
+  },
+  "popupMetadataSubtitle": {
+    "message": "Sperre ganze Gruppen von Seiten nach Land oder Essenskategorie."
+  },
+  "popupDeliveryLabel": {
+    "message": "Lieferseiten"
+  },
+  "popupDeliveryDefault": {
+    "message": "Domains für Lieferbestellungen."
+  },
+  "popupFastFoodLabel": {
+    "message": "Fastfood-Seiten"
+  },
+  "popupFastFoodDefault": {
+    "message": "Bestelldomains großer Ketten."
+  },
+  "popupCustomLabel": {
+    "message": "Eigene URLs"
+  },
+  "popupCustomSubtitle": {
+    "message": "Füge eigene Seiten hinzu und deaktiviere sie einzeln."
+  },
+  "popupScheduleLabel": {
+    "message": "Nur während geplanter Zeiten sperren"
+  },
+  "popupScheduleSubtitle": {
+    "message": "Nützlich für Essensbudgets, nächtliches Bestellen oder Arbeitszeiten."
+  },
+  "statusInactive": {
+    "message": "Inaktiv. Alle Seiten sind erreichbar."
+  },
+  "statusAllDisabled": {
+    "message": "Der Blocker ist an, aber jede einzelne Seite ist deaktiviert. Öffne die Einstellungen, um einige wieder zu aktivieren."
+  },
+  "statusBypassActive": {
+    "message": "Temporärer Zugang aktiv. Sperrung wird in $1 fortgesetzt.",
+    "description": "$1 is a remaining-time string such as '4m 12s'."
+  },
+  "statusOutsideSchedule": {
+    "message": "Blocker ist scharf, aber außerhalb der geplanten Zeiten. Er sperrt ab $1.",
+    "description": "$1 is a time range."
+  },
+  "statusShieldUp": {
+    "message": "Schild oben. $1 Sekunden Countdown, $2 $3 Zugang.",
+    "description": "$1 seconds, $2 minutes, $3 minute/minutes unit."
+  },
+  "deliverySitesEnabledCount": {
+    "message": "$1 von $2 Lieferseiten aktiviert.",
+    "description": "$1 enabled count, $2 total count."
+  },
+  "fastFoodSitesEnabledCount": {
+    "message": "$1 von $2 Fastfood-Seiten aktiviert.",
+    "description": "$1 enabled count, $2 total count."
+  },
+  "searchMatchSuffix": {
+    "message": " $1 entsprechen der Suche.",
+    "description": "$1 is the count of matching sites; appended to a count line."
+  },
+  "warningPageTitle": {
+    "message": "Durchatmen"
+  },
+  "warningEyebrow": {
+    "message": "FitShield-Check"
+  },
+  "warningTitle": {
+    "message": "Nimm dir eine Minute."
+  },
+  "warningIntro": {
+    "message": "Check kurz, bevor du bestellst. Hunger, Bequemlichkeit, Stress und Gewohnheit fühlen sich im Moment ähnlich an."
+  },
+  "warningTriggeredBy": {
+    "message": "Du bist dabei, bei $1 zu bestellen.",
+    "description": "$1 is the blocked brand name."
+  },
+  "warningHintLocked": {
+    "message": "Wenn der Timer endet, kannst du die Seite für $1 $2 weiter besuchen.",
+    "description": "$1 pass duration, $2 minute/minutes unit."
+  },
+  "warningBackButton": {
+    "message": "Zurück"
+  },
+  "warningLockedButton": {
+    "message": "Gesperrt"
+  },
+  "warningContinueButton": {
+    "message": "Weiter"
+  },
+  "warningOpeningButton": {
+    "message": "Wird geöffnet…"
+  },
+  "warningUnlockHint": {
+    "message": "Du kannst die Seite jetzt besuchen. Der Blocker kehrt nach $1 $2 automatisch zurück.",
+    "description": "$1 pass duration, $2 minute/minutes unit."
+  },
+  "warningErrorHint": {
+    "message": "Beim Öffnen der Seite ist etwas schiefgelaufen. Bitte versuch es erneut."
+  },
+  "blockReasonHeading": {
+    "message": "Warum du das siehst"
+  },
+  "blockReasonDomain": {
+    "message": "Seite"
+  },
+  "blockReasonType": {
+    "message": "Regel"
+  },
+  "blockReasonCategory": {
+    "message": "Kategorie"
+  },
+  "blockReasonCountries": {
+    "message": "Aktiv in"
+  },
+  "blockTypeDelivery": {
+    "message": "Lieferdienst"
+  },
+  "blockTypeFastFood": {
+    "message": "Fastfood"
+  },
+  "blockTypeCustom": {
+    "message": "Eigene Regel"
+  },
+  "blockReasonMoreCountries": {
+    "message": "+$1 weitere",
+    "description": "$1 is the number of additional countries not shown."
+  },
+  "recipeVegetarianLabel": {
+    "message": "Vegetarisch"
+  },
+  "recipeMeatLabel": {
+    "message": "Fleisch & Protein"
+  },
+  "recipeTimeLabel": {
+    "message": "~$1 Min",
+    "description": "$1 is the estimated time in minutes."
+  },
+  "recipeIngredientsLabel": {
+    "message": "Zutaten"
+  },
+  "recipeStepsLabel": {
+    "message": "Schritte"
+  },
+  "recipeCaloriesLabel": {
+    "message": "~$1 kcal",
+    "description": "$1 is the estimated calories for the recipe."
+  },
+  "recipeChooseButton": {
+    "message": "Das mache ich stattdessen"
+  },
+  "recipeChosenButton": {
+    "message": "Zu deinen Statistiken hinzugefügt ✓"
+  },
+  "recipeChoiceNote": {
+    "message": "Gute Wahl – in deinen Statistiken erfasst. Sieh es in den Einstellungen."
+  },
+  "settingsTitle": {
+    "message": "FitShield-Einstellungen"
+  },
+  "blockingOptionsHeading": {
+    "message": "Sperroptionen"
+  },
+  "scheduledHoursLabel": {
+    "message": "Geplante Zeiten"
+  },
+  "scheduledHoursHint": {
+    "message": "Nur während eines täglichen Zeitfensters sperren."
+  },
+  "customizeBlocklistHeading": {
+    "message": "Sperrliste anpassen"
+  },
+  "customizeBlocklistIntro": {
+    "message": "Wähle, welche integrierten Gruppen aktiv sind, schalte einzelne Seiten ein oder aus und füge eigene Domains hinzu."
+  },
+  "deliverySitesHeading": {
+    "message": "Lieferseiten"
+  },
+  "fastFoodSitesHeading": {
+    "message": "Fastfood-Seiten"
+  },
+  "customUrlsHeading": {
+    "message": "Eigene URLs"
+  },
+  "customUrlsSettingsSubtitle": {
+    "message": "Füge eigene Domains hinzu und deaktiviere sie einzeln."
+  },
+  "showSitesButton": {
+    "message": "Seiten anzeigen"
+  },
+  "hideSitesButton": {
+    "message": "Seiten ausblenden"
+  },
+  "showUrlsButton": {
+    "message": "URLs anzeigen"
+  },
+  "hideUrlsButton": {
+    "message": "URLs ausblenden"
+  },
+  "deliveryToggleTitle": {
+    "message": "Sperrung von Lieferseiten aktivieren"
+  },
+  "fastFoodToggleTitle": {
+    "message": "Sperrung von Fastfood-Seiten aktivieren"
+  },
+  "customToggleTitle": {
+    "message": "Sperrung eigener URLs aktivieren"
+  },
+  "addCustomUrlLabel": {
+    "message": "Eigene gesperrte URL hinzufügen"
+  },
+  "customSitePlaceholder": {
+    "message": "example.com oder https://example.com"
+  },
+  "customNormalizeHint": {
+    "message": "Einträge werden zu Domains normalisiert und auf allen Seiten gesperrt."
+  },
+  "customEmptyDefault": {
+    "message": "Noch keine eigenen gesperrten Seiten. Füge oben eine Domain wie example.com hinzu, um sie zu sperren."
+  },
+  "customNoMatch": {
+    "message": "Keine eigenen URLs entsprechen dieser Suche."
+  },
+  "emptyDeliverySearch": {
+    "message": "Keine Lieferseiten entsprechen dieser Suche."
+  },
+  "emptyFastFoodSearch": {
+    "message": "Keine Fastfood-Seiten entsprechen dieser Suche."
+  },
+  "noticeMatched": {
+    "message": "$1 $2 entsprachen „$3“.",
+    "description": "$1 count, $2 site/sites unit, $3 the search term."
+  },
+  "invalidUrlNotice": {
+    "message": "Diese URL sieht noch nicht gültig aus. Versuch eine Domain wie example.com."
+  },
+  "alreadyOnBlocklist": {
+    "message": "$1 steht bereits auf der Sperrliste und wurde wieder aktiviert.",
+    "description": "$1 is a domain."
+  },
+  "addedToBlocklist": {
+    "message": "$1 wurde zur eigenen Sperrliste hinzugefügt.",
+    "description": "$1 is a domain."
+  },
+  "removedFromBlocklist": {
+    "message": "$1 wurde von der eigenen Sperrliste entfernt.",
+    "description": "$1 is a domain."
+  },
+  "metadataHeading": {
+    "message": "Sperrung nach Land & Kategorie"
+  },
+  "metadataIntro": {
+    "message": "Sperre ganze Gruppen von Seiten nach dem Land, in dem eine Marke tätig ist, oder der Art von Essen, das sie anbietet. Diese Sperren ergänzen deine bestehenden Seiten- und eigenen URL-Sperren."
+  },
+  "blockByCountryLabel": {
+    "message": "Nach Land sperren"
+  },
+  "blockByCountryHint": {
+    "message": "Suche nach Ländername oder -code, z. B. „United“ oder „US“. Ein aktiviertes Land sperrt jede dort aktive Marke."
+  },
+  "countrySearchPlaceholder": {
+    "message": "Länder suchen…"
+  },
+  "quickAccessCountries": {
+    "message": "Schnellzugriff – Länder"
+  },
+  "countryQuickEmpty": {
+    "message": "Aktiviere ein Land aus der Suche, um es hier anzuheften."
+  },
+  "blockByCategoryLabel": {
+    "message": "Nach Kategorie sperren"
+  },
+  "blockByCategoryHint": {
+    "message": "Suche Kategorien wie Burger, Pizza oder Kaffee. Auch Spezialitäten sind suchbar; die Sperre gilt pro Kategorie."
+  },
+  "categorySearchPlaceholder": {
+    "message": "Kategorien suchen…"
+  },
+  "quickAccessCategories": {
+    "message": "Schnellzugriff – Kategorien"
+  },
+  "categoryQuickEmpty": {
+    "message": "Aktiviere eine Kategorie aus der Suche, um sie hier anzuheften."
+  },
+  "noCountriesMatch": {
+    "message": "Keine Länder entsprechen dieser Suche."
+  },
+  "noCategoriesMatch": {
+    "message": "Keine Kategorien entsprechen dieser Suche."
+  },
+  "languageHeading": {
+    "message": "Sprache"
+  },
+  "languageIntro": {
+    "message": "Wähle die Sprache, die FitShield für seine eigenen Bildschirme verwendet. Dies überschreibt deine Browsersprache nur für die Erweiterung."
+  },
+  "languageSelectLabel": {
+    "message": "Anzeigesprache"
+  },
+  "languageHint": {
+    "message": "Suche eine Sprache und wähle sie aus. Wähle Systemstandard, um deinem Browser zu folgen."
+  },
+  "languageSearchPlaceholder": {
+    "message": "Sprachen suchen…"
+  },
+  "currentLanguageHead": {
+    "message": "Aktuelle Sprache"
+  },
+  "languageUseButton": {
+    "message": "Verwenden"
+  },
+  "languageActiveButton": {
+    "message": "Aktiv"
+  },
+  "languageSystem": {
+    "message": "Systemstandard"
+  },
+  "languageSystemSub": {
+    "message": "Der Sprache deines Browsers folgen"
+  },
+  "languageEnglish": {
+    "message": "Englisch"
+  },
+  "languageJapanese": {
+    "message": "Japanisch"
+  },
+  "languageChinese": {
+    "message": "Chinesisch (vereinfacht)"
+  },
+  "languageFrench": {
+    "message": "Französisch"
+  },
+  "languageCantonese": {
+    "message": "Kantonesisch"
+  },
+  "languageThai": {
+    "message": "Thailändisch"
+  },
+  "languagePunjabi": {
+    "message": "Punjabi"
+  },
+  "languageTamil": {
+    "message": "Tamil"
+  },
+  "languageChineseTraditionalTaiwan": {
+    "message": "Chinesisch (traditionell, Taiwan)"
+  },
+  "languageKorean": {
+    "message": "Koreanisch"
+  },
+  "languageHindi": {
+    "message": "Hindi"
+  },
+  "languageSpanishLatam": {
+    "message": "Spanisch (Lateinamerika)"
+  },
+  "languageSpanishSpain": {
+    "message": "Spanisch (Spanien)"
+  },
+  "languageAfrikaans": {
+    "message": "Afrikaans"
+  },
+  "languageAlbanian": {
+    "message": "Albanisch"
+  },
+  "languageBasque": {
+    "message": "Baskisch"
+  },
+  "languageBelarusian": {
+    "message": "Belarussisch"
+  },
+  "languageBulgarian": {
+    "message": "Bulgarisch"
+  },
+  "languageCatalan": {
+    "message": "Katalanisch"
+  },
+  "languageCroatian": {
+    "message": "Kroatisch"
+  },
+  "languageCzech": {
+    "message": "Tschechisch"
+  },
+  "languageDanish": {
+    "message": "Dänisch"
+  },
+  "languageDutch": {
+    "message": "Niederländisch"
+  },
+  "languageEstonian": {
+    "message": "Estnisch"
+  },
+  "languageFinnish": {
+    "message": "Finnisch"
+  },
+  "languageGreek": {
+    "message": "Griechisch"
+  },
+  "languageHungarian": {
+    "message": "Ungarisch"
+  },
+  "languageIcelandic": {
+    "message": "Isländisch"
+  },
+  "languageIrish": {
+    "message": "Irisch"
+  },
+  "languageItalian": {
+    "message": "Italienisch"
+  },
+  "languageLatvian": {
+    "message": "Lettisch"
+  },
+  "languageLithuanian": {
+    "message": "Litauisch"
+  },
+  "languageMacedonian": {
+    "message": "Mazedonisch"
+  },
+  "languageMaltese": {
+    "message": "Maltesisch"
+  },
+  "languageNorwegian": {
+    "message": "Norwegisch"
+  },
+  "languagePolish": {
+    "message": "Polnisch"
+  },
+  "languagePortuguesePortugal": {
+    "message": "Portugiesisch (Portugal)"
+  },
+  "languageRomanian": {
+    "message": "Rumänisch"
+  },
+  "languageRussian": {
+    "message": "Russisch"
+  },
+  "languageSerbian": {
+    "message": "Serbisch"
+  },
+  "languageSlovak": {
+    "message": "Slowakisch"
+  },
+  "languageSlovenian": {
+    "message": "Slowenisch"
+  },
+  "languageSwedish": {
+    "message": "Schwedisch"
+  },
+  "languageTurkish": {
+    "message": "Türkisch"
+  },
+  "languageUkrainian": {
+    "message": "Ukrainisch"
+  },
+  "languageWelsh": {
+    "message": "Walisisch"
+  },
+  "languageBengali": {
+    "message": "Bengalisch"
+  },
+  "languageGujarati": {
+    "message": "Gujarati"
+  },
+  "languageKannada": {
+    "message": "Kannada"
+  },
+  "languageMalayalam": {
+    "message": "Malayalam"
+  },
+  "languageMarathi": {
+    "message": "Marathi"
+  },
+  "languageNepali": {
+    "message": "Nepalesisch"
+  },
+  "languageOdia": {
+    "message": "Odia"
+  },
+  "languageSinhala": {
+    "message": "Singhalesisch"
+  },
+  "languageTelugu": {
+    "message": "Telugu"
+  },
+  "languageUrdu": {
+    "message": "Urdu"
+  },
+  "languageAssamese": {
+    "message": "Assamesisch"
+  },
+  "languageIndonesian": {
+    "message": "Indonesisch"
+  },
+  "languageMalay": {
+    "message": "Malaiisch"
+  },
+  "languageVietnamese": {
+    "message": "Vietnamesisch"
+  },
+  "languageKhmer": {
+    "message": "Khmer"
+  },
+  "languageLao": {
+    "message": "Laotisch"
+  },
+  "languageBurmese": {
+    "message": "Birmanisch (Myanmar)"
+  },
+  "languageFilipinoTagalog": {
+    "message": "Filipino / Tagalog"
+  },
+  "languageJavanese": {
+    "message": "Javanisch"
+  },
+  "languageSundanese": {
+    "message": "Sundanesisch"
+  },
+  "languageArabic": {
+    "message": "Arabisch"
+  },
+  "languagePersian": {
+    "message": "Persisch (Farsi)"
+  },
+  "languageHebrew": {
+    "message": "Hebräisch"
+  },
+  "languageArmenian": {
+    "message": "Armenisch"
+  },
+  "languageGeorgian": {
+    "message": "Georgisch"
+  },
+  "languageKazakh": {
+    "message": "Kasachisch"
+  },
+  "languageKyrgyz": {
+    "message": "Kirgisisch"
+  },
+  "languageMongolian": {
+    "message": "Mongolisch"
+  },
+  "languagePashto": {
+    "message": "Paschtu"
+  },
+  "languageTajik": {
+    "message": "Tadschikisch"
+  },
+  "languageTurkmen": {
+    "message": "Turkmenisch"
+  },
+  "languageUyghur": {
+    "message": "Uigurisch"
+  },
+  "languageUzbek": {
+    "message": "Usbekisch"
+  },
+  "languagePortugueseBrazil": {
+    "message": "Portugiesisch (Brasilien)"
+  },
+  "languageSwahili": {
+    "message": "Suaheli"
+  },
+  "languageAmharic": {
+    "message": "Amharisch"
+  },
+  "noLanguagesMatch": {
+    "message": "Keine Sprachen entsprechen dieser Suche."
+  },
+  "mbBlocking": {
+    "message": "Sperrung"
+  },
+  "mbBlock": {
+    "message": "Sperren"
+  },
+  "mbOn": {
+    "message": "An"
+  },
+  "mbOff": {
+    "message": "Aus"
+  },
+  "mbChipToggleOnTitle": {
+    "message": "Sperrung – zum Pausieren klicken"
+  },
+  "mbChipToggleOffTitle": {
+    "message": "Pausiert – zum Sperren klicken"
+  },
+  "mbChipRemoveTitle": {
+    "message": "Verknüpfung aus dem Schnellzugriff entfernen"
+  },
+  "mbChipRemoveAria": {
+    "message": "$1 aus dem Schnellzugriff entfernen",
+    "description": "$1 is a country or category label."
+  },
+  "themeHeading": {
+    "message": "Design"
+  },
+  "resetThemeButton": {
+    "message": "Design zurücksetzen"
+  },
+  "systemThemeLabel": {
+    "message": "Systemdesign"
+  },
+  "systemThemeHint": {
+    "message": "Geräteeinstellung oder ein fester Modus."
+  },
+  "themeSystem": {
+    "message": "System"
+  },
+  "themeLight": {
+    "message": "Hell"
+  },
+  "themeDark": {
+    "message": "Dunkel"
+  },
+  "themeBackground": {
+    "message": "Hintergrund"
+  },
+  "themePanel": {
+    "message": "Panel"
+  },
+  "themeBorder": {
+    "message": "Rahmen"
+  },
+  "themeText": {
+    "message": "Text"
+  },
+  "themeMutedText": {
+    "message": "Gedämpfter Text"
+  },
+  "themeAccent": {
+    "message": "Akzent"
+  },
+  "cornerRadiusLabel": {
+    "message": "Eckenradius"
+  },
+  "popupWidthLabel": {
+    "message": "Popup-Breite"
+  },
+  "backupHeading": {
+    "message": "Sichern & Wiederherstellen"
+  },
+  "backupIntro": {
+    "message": "Speichere deine FitShield-Einstellungen in einer Datei oder stelle sie auf einem anderen Gerät wieder her. Alles bleibt auf deinem Gerät – nichts wird hochgeladen."
+  },
+  "exportSettingsButton": {
+    "message": "Einstellungen exportieren"
+  },
+  "importSettingsButton": {
+    "message": "Einstellungen importieren"
+  },
+  "exportSuccessNotice": {
+    "message": "Einstellungen exportiert."
+  },
+  "importSuccessNotice": {
+    "message": "$1 Einstellungen aus der Sicherung wiederhergestellt.",
+    "description": "$1 is the number of settings restored."
+  },
+  "importErrorNotice": {
+    "message": "Diese Datei ist keine gültige FitShield-Sicherung."
+  },
+  "reorderCardLabel": {
+    "message": "Karte neu anordnen: $1. Mit den Pfeiltasten verschieben.",
+    "description": "$1 is the card's title. Accessible label for the drag handle."
+  },
+  "protectionStatusHeading": {
+    "message": "Deine Statistiken"
+  },
+  "protectionStatusIntro": {
+    "message": "Eine private, geräteinterne Schätzung dessen, was FitShield dir zu überspringen geholfen hat. Das sind Schätzungen, und nichts davon wird hochgeladen."
+  },
+  "statusBlockedVisits": {
+    "message": "Gesperrte Besuche"
+  },
+  "statusEstimatedSavings": {
+    "message": "Geschätzte Ersparnis"
+  },
+  "statusCaloriesAvoided": {
+    "message": "Vermiedene Kalorien"
+  },
+  "avgMealCostLabel": {
+    "message": "Durchschnittliche Mahlzeitkosten"
+  },
+  "avgMealCostHint": {
+    "message": "Dient zur Schätzung des gesparten Geldes, wenn du eine Bestellung auslässt. Wird nur auf deinem Gerät gespeichert."
+  },
+  "avgMealCaloriesLabel": {
+    "message": "Durchschnittliche Kalorien pro Mahlzeit"
+  },
+  "avgMealCaloriesHint": {
+    "message": "Dient zur Schätzung der vermiedenen Kalorien, wenn du stattdessen ein Rezept wählst. Wird nur auf deinem Gerät gespeichert."
+  },
+  "resetHeading": {
+    "message": "Zurücksetzen & Daten"
+  },
+  "resetIntro": {
+    "message": "Setze Teile von FitShield auf die Standardwerte zurück. Jede Aktion fragt zuerst nach Bestätigung."
+  },
+  "resetBlockingButton": {
+    "message": "Sperreinstellungen zurücksetzen"
+  },
+  "resetBlockingHint": {
+    "message": "Timer, Zeitplan, Seitenschalter, eigene URLs sowie Land-/Kategoriesperren."
+  },
+  "resetAppearanceButton": {
+    "message": "Darstellung zurücksetzen"
+  },
+  "resetAppearanceHint": {
+    "message": "Designfarben und Hell-/Dunkelmodus."
+  },
+  "resetPreferencesButton": {
+    "message": "Rezepte & Einstellungen zurücksetzen"
+  },
+  "resetPreferencesHint": {
+    "message": "Durchschnittliche Mahlzeitkosten, Kalorieneinstellungen und deine gespeicherten Statistiken."
+  },
+  "factoryResetButton": {
+    "message": "Auf Werkseinstellungen zurücksetzen"
+  },
+  "factoryResetHint": {
+    "message": "Alles löschen und FitShield auf eine Neuinstallation zurücksetzen."
+  },
+  "confirmCancelButton": {
+    "message": "Abbrechen"
+  },
+  "confirmConfirmButton": {
+    "message": "Bestätigen"
+  },
+  "confirmResetBlocking": {
+    "message": "Alle Sperreinstellungen auf die Standardwerte zurücksetzen? Design, Sprache und gespeicherte Statistiken bleiben erhalten."
+  },
+  "confirmResetAppearance": {
+    "message": "Design und Darstellung auf den standardmäßigen Dunkelmodus zurücksetzen?"
+  },
+  "confirmResetPreferences": {
+    "message": "Deine Kosten- und Kalorieneinstellungen sowie die Statistiken zu gespartem Geld und vermiedenen Kalorien zurücksetzen?"
+  },
+  "confirmFactoryReset": {
+    "message": "FitShield auf Werkseinstellungen zurücksetzen? Dies löscht alle Einstellungen, eigenen Seiten und Statistiken auf diesem Gerät. Das kann nicht rückgängig gemacht werden."
+  },
+  "confirmRemoveCustomSite": {
+    "message": "$1 aus deiner eigenen Sperrliste entfernen?",
+    "description": "$1 is the domain being removed."
+  },
+  "resetDoneNotice": {
+    "message": "Fertig. Wird neu geladen…"
+  },
+  "welcomeTitle": {
+    "message": "Willkommen bei FitShield"
+  },
+  "welcomeSubtitle": {
+    "message": "Ein paar schnelle Entscheidungen und du bist startklar. Alles bleibt auf deinem Gerät – nichts wird hochgeladen."
+  },
+  "welcomeLangTitle": {
+    "message": "Wähle deine Sprache"
+  },
+  "welcomeLangBody": {
+    "message": "Dies legt die Sprache für FitShields Popup, Einstellungen und Sperrbildschirm fest."
+  },
+  "welcomeThemeTitle": {
+    "message": "Wähle ein Design"
+  },
+  "welcomeThemeBody": {
+    "message": "Die Farben kannst du später in den Einstellungen feinabstimmen."
+  },
+  "welcomeFastFoodTitle": {
+    "message": "Fastfood-Bestellungen sperren"
+  },
+  "welcomeFastFoodBody": {
+    "message": "Fügt einen Pausenbildschirm auf den Bestellseiten großer Fastfood-Ketten hinzu."
+  },
+  "welcomeRecommendedOn": {
+    "message": "Empfohlen an."
+  },
+  "welcomeDeliveryTitle": {
+    "message": "Liefer-Apps sperren"
+  },
+  "welcomeDeliveryBody": {
+    "message": "Fügt einen Pausenbildschirm auf Lieferplattformen wie DoorDash und Uber Eats hinzu."
+  },
+  "welcomeImportTitle": {
+    "message": "Eine Sicherung wiederherstellen (optional)"
+  },
+  "welcomeImportBody": {
+    "message": "Kommst du von einem anderen Gerät? Importiere eine FitShield-Einstellungsdatei, um alles zu übernehmen. Andernfalls fahre einfach fort."
+  },
+  "welcomeImportButton": {
+    "message": "Einstellungsdatei importieren"
+  },
+  "welcomeHelpTitle": {
+    "message": "Wie FitShield hilft"
+  },
+  "welcomeHelpBody": {
+    "message": "Eine kurze Tour durch die wichtigsten Funktionen."
+  },
+  "welcomeFeaturePauseTitle": {
+    "message": "Pausen-Timer"
+  },
+  "welcomeFeaturePauseBody": {
+    "message": "Wenn du auf eine gesperrte Seite triffst, läuft ein kurzer Countdown, bevor du fortfahren kannst – genug, um die Bestellung zu überdenken."
+  },
+  "welcomeFeatureScheduleTitle": {
+    "message": "Zeitplan"
+  },
+  "welcomeFeatureScheduleBody": {
+    "message": "Optional nur zu bestimmten Zeiten sperren, etwa abends oder während der Arbeit."
+  },
+  "welcomeFeatureWhitelistTitle": {
+    "message": "Weiße Liste"
+  },
+  "welcomeFeatureWhitelistBody": {
+    "message": "Schalte einzelne Seiten aus, füge eigene URLs hinzu oder gewähre dir einen temporären Zugang, wenn du ihn wirklich brauchst."
+  },
+  "welcomeFeatureRecipeTitle": {
+    "message": "Rezeptideen"
+  },
+  "welcomeFeatureRecipeBody": {
+    "message": "Der Sperrbildschirm schlägt je nach Gesperrtem ein schnelles vegetarisches und ein Fleisch-/Proteinrezept vor."
+  },
+  "welcomeBack": {
+    "message": "Zurück"
+  },
+  "welcomeNext": {
+    "message": "Weiter"
+  },
+  "welcomeFinish": {
+    "message": "Fertig"
+  },
+  "welcomeStepLabel": {
+    "message": "Schritt $1 von $2",
+    "description": "$1 is the current step number, $2 is the total."
+  },
+  "whatsNewTitle": {
+    "message": "Neuigkeiten"
+  },
+  "whatsNewSubtitle": {
+    "message": "Ein kurzer Blick auf die Änderungen."
+  },
+  "whatsNewOpenSettings": {
+    "message": "Einstellungen öffnen"
+  },
+  "whatsNewClose": {
+    "message": "Schließen"
+  },
+  "whatsNewEmpty": {
+    "message": "Noch keine Versionshinweise."
+  },
+  "whatsNewBadge": {
+    "message": "Neu"
+  },
+  "whatsNewVersion": {
+    "message": "Version $1",
+    "description": "$1 is the version number."
+  },
+  "supportFooterText": {
+    "message": "Wenn FitShield dir geholfen hat, eine unnötige Lieferbestellung zu vermeiden, hilft optionale Unterstützung, Sperrlisten und Doku am Laufen zu halten."
+  },
+  "bmcAlt": {
+    "message": "Buy Me a Coffee"
+  },
+  "languageGerman": {
+    "message": "Deutsch"
+  }
+}

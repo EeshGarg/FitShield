@@ -922,5 +922,8 @@
   },
   "whatsNewVersion": {
     "message": "Versi $1"
+  },
+  "languageGerman": {
+    "message": "Jerman"
   }
 }

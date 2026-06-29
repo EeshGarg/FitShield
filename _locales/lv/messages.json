@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and bloķēted across all pages."
   },
   "customEmptyDefault": {
-    "message": "No pielāgoti URL added yet."
+    "message": "Vēl nav pielāgotu bloķētu vietņu. Pievienojiet augšā domēnu, piemēram, example.com, lai sāktu to bloķēt."
   },
   "customNoMatch": {
     "message": "No pielāgoti URL match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Kāpēc to redzat"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Vietne"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Noteikums"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Kategorija"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Aktīvs"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Piegādes pakalpojums"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Ātrā ēdināšana"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Pielāgots noteikums"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 vēl"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Jūsu statistika"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Privāts, ierīcē veikts novērtējums tam, ko FitShield palīdzējis izlaist. Tie ir aptuveni rādītāji, un nekas netiek augšupielādēts."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Bloķētie apmeklējumi"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Aplēstie ietaupījumi"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Vidējā maltītes cena"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Izmanto, lai aplēstu ietaupīto naudu, kad izlaižat pasūtījumu. Glabājas tikai jūsu ierīcē."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Atiestatīšana un dati"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Atjauno FitShield daļas uz noklusējumu. Katra darbība vispirms prasa apstiprinājumu."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Atiestatīt bloķēšanu"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Taimeri, grafiks, vietņu slēdži, pielāgoti URL un valsts/kategorijas bloķēšana."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Atiestatīt izskatu"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Motīva krāsas un gaišais/tumšais režīms."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Atiestatīt receptes un preferences"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Vidējā maltītes cena, kaloriju iestatījumi un saglabātā statistika."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Rūpnīcas atiestatīšana"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Dzēst visu un atjaunot FitShield uz jaunu instalāciju."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Atcelt"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Apstiprināt"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Atiestatīt visus bloķēšanas iestatījumus uz noklusējumu? Motīvs, valoda un statistika tiek saglabāti."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Atiestatīt motīvu un izskatu uz noklusējuma tumšo režīmu?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Atiestatīt cenas un kaloriju preferences, kā arī ietaupījumu un izvairīto kaloriju statistiku?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Atiestatīt FitShield uz rūpnīcas iestatījumiem? Tas izdzēš visus iestatījumus, pielāgotās vietnes un statistiku šajā ierīcē. To nevar atsaukt."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Noņemt $1 no jūsu pielāgotā bloķēšanas saraksta?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Pabeigts. Notiek atkārtota ielāde…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Labāk pagatavošu šo"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Pievienots statistikai ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Laba izvēle — ierakstīts statistikā. Skatiet to Iestatījumos."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Izvairītās kalorijas"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Vidējās maltītes kalorijas"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Izmanto, lai aplēstu izvairītās kalorijas, kad tā vietā izvēlaties recepti. Glabājas tikai jūsu ierīcē."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Pārkārtot kartīti: $1. Lai pārvietotu, izmantojiet bulttaustiņus."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Laipni lūdzam FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Dažas ātras izvēles, un esat gatavs. Viss paliek jūsu ierīcē — nekas netiek augšupielādēts."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Izvēlieties valodu"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Tas iestata FitShield uznirstošā loga, iestatījumu un bloķēšanas ekrāna valodu."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Izvēlieties motīvu"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Krāsas vēlāk varat precīzi pielāgot Iestatījumos."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Bloķēt ātrās ēdināšanas pasūtīšanu"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Pievieno pauzes ekrānu lielo ātrās ēdināšanas ķēžu pasūtīšanas lapās."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Ieteicams ieslēgts."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Bloķēt piegādes lietotnes"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Pievieno pauzes ekrānu piegādes platformās, piemēram, DoorDash un Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Atjaunot dublējumu (neobligāti)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Nākat no citas ierīces? Importējiet FitShield iestatījumu failu, lai pārnestu visu. Pretējā gadījumā vienkārši turpiniet."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Importēt iestatījumu failu"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Kā FitShield palīdz"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Ātrs ieskats galvenajās funkcijās."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Pauzes taimeris"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Kad nonākat bloķētā vietnē, pirms turpināšanas notiek īsa atpakaļskaitīšana — pietiekami, lai pārdomātu pasūtījumu."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Grafiks"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Pēc izvēles bloķējiet tikai noteiktās stundās, piemēram, vakaros vai darba laikā."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Baltais saraksts"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Izslēdziet jebkuru vietni, pievienojiet savus URL vai piešķiriet sev pagaidu atļauju, kad tā patiešām nepieciešama."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Recepšu idejas"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Bloķēšanas ekrāns iesaka ātru veģetāro un gaļas/olbaltumvielu recepti, balstoties uz to, ko bloķējāt."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Atpakaļ"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Tālāk"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Pabeigt"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Solis $1 no $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Kas jauns"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Ātrs ieskats izmaiņās."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Atvērt iestatījumus"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Aizvērt"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Vēl nav laidiena piezīmju."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Jauns"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Versija $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

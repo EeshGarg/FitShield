@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and lokaed across all pages."
   },
   "customEmptyDefault": {
-    "message": "No sérsniðnar slóðir added yet."
+    "message": "Engir sérsniðnir lokaðir vefir enn. Bættu við léni eins og example.com að ofan til að byrja að loka á það."
   },
   "customNoMatch": {
     "message": "No sérsniðnar slóðir match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Af hverju þú sérð þetta"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Vefur"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Regla"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Flokkur"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Virkt í"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Sendingarþjónusta"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Skyndibiti"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Sérsniðin regla"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 í viðbót"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Tölfræðin þín"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Persónulegt mat í tækinu á því sem FitShield hefur hjálpað þér að sleppa. Þetta eru áætlanir og engu er hlaðið upp."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Lokaðar heimsóknir"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Áætlaður sparnaður"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Meðalverð máltíðar"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Notað til að áætla sparaða peninga þegar þú sleppir pöntun. Vistað aðeins í tækinu þínu."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Endurstilling og gögn"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Endurheimtir hluta FitShield í sjálfgefið. Hver aðgerð biður fyrst um staðfestingu."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Endurstilla lokun"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Teljarar, áætlun, vefrofar, sérsniðnar slóðir og land-/flokkalokanir."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Endurstilla útlit"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Þemalitir og ljós/dökk stilling."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Endurstilla uppskriftir og kjörstillingar"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Meðalverð máltíðar, hitaeiningastillingar og vistuð tölfræði."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Verksmiðjuendurstilling"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Eyða öllu og setja FitShield aftur í ferska uppsetningu."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Hætta við"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Staðfesta"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Endurstilla allar lokunarstillingar í sjálfgefið? Þema, tungumál og tölfræði haldast."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Endurstilla þema og útlit í sjálfgefna dökka stillingu?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Endurstilla verð- og hitaeiningakjörstillingar ásamt sparnaðar- og forðaðra hitaeininga tölfræði?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Verksmiðjuendurstilla FitShield? Þetta eyðir öllum stillingum, sérsniðnum vefjum og tölfræði í þessu tæki. Ekki er hægt að afturkalla."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Fjarlægja $1 af sérsniðna lokunarlistanum þínum?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Lokið. Endurhleð…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Ég bý frekar til þetta"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Bætt í tölfræðina þína ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Gott val — skráð í tölfræðina þína. Sjáðu það í Stillingum."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Forðaðar hitaeiningar"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Meðalhitaeiningar máltíðar"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Notað til að áætla forðaðar hitaeiningar þegar þú velur uppskrift í staðinn. Vistað aðeins í tækinu þínu."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Endurraða spjaldi: $1. Notaðu örvalyklana til að færa það."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Velkomin í FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Nokkur snögg val og þú ert tilbúin. Allt helst í tækinu þínu — engu er hlaðið upp."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Veldu tungumál"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Þetta stillir tungumál sprettiglugga, stillinga og lokunarskjás FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Veldu þema"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Þú getur fínstillt litina síðar í Stillingum."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Loka á skyndibitapantanir"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Bætir hléskjá við pöntunarsíður stórra skyndibitakeðja."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Mælt með kveikt."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Loka á sendingarforrit"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Bætir hléskjá við sendingarvettvanga eins og DoorDash og Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Endurheimta afrit (valfrjálst)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Kemur þú úr öðru tæki? Flyttu inn FitShield-stillingaskrá til að taka allt með. Annars haltu bara áfram."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Flytja inn stillingaskrá"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Hvernig FitShield hjálpar"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Stutt yfirferð yfir helstu eiginleika."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Hlételjari"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Þegar þú lendir á lokuðum vef gengur stutt niðurtalning áður en þú getur haldið áfram — nóg til að endurhugsa pöntunina."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Áætlun"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Lokaðu valfrjálst aðeins á tilteknum tímum, eins og á kvöldin eða á vinnutíma."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Hvítlisti"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Slökktu á hvaða vef sem er, bættu við eigin slóðum eða veittu þér tímabundið leyfi þegar þú þarft þess virkilega."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Uppskriftahugmyndir"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Lokunarskjárinn stingur upp á fljótlegri grænmetis- og kjöt-/próteinuppskrift út frá því sem þú lokaðir á."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Til baka"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Áfram"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Ljúka"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Skref $1 af $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Hvað er nýtt"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Snöggt yfirlit yfir breytingar."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Opna stillingar"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Loka"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Engar útgáfunótur enn."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Nýtt"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Útgáfa $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and αποκλεισμόςed across all pages."
   },
   "customEmptyDefault": {
-    "message": "No προσαρμοσμένα URL added yet."
+    "message": "Δεν υπάρχουν ακόμη προσαρμοσμένοι αποκλεισμένοι ιστότοποι. Προσθέστε παραπάνω έναν τομέα όπως example.com για να ξεκινήσετε τον αποκλεισμό του."
   },
   "customNoMatch": {
     "message": "No προσαρμοσμένα URL match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Γιατί το βλέπετε αυτό"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Ιστότοπος"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Κανόνας"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Κατηγορία"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Ενεργό σε"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Υπηρεσία παράδοσης"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Φαστ φουντ"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Προσαρμοσμένος κανόνας"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 ακόμη"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Τα στατιστικά σας"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Μια ιδιωτική εκτίμηση στη συσκευή για το τι σας βοήθησε να παραλείψετε το FitShield. Είναι εκτιμήσεις και τίποτα δεν μεταφορτώνεται."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Αποκλεισμένες επισκέψεις"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Εκτιμώμενη εξοικονόμηση"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Μέσο κόστος γεύματος"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Χρησιμοποιείται για την εκτίμηση των χρημάτων που εξοικονομείτε όταν παραλείπετε μια παραγγελία. Αποθηκεύεται μόνο στη συσκευή σας."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Επαναφορά και δεδομένα"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Επαναφέρει τμήματα του FitShield στις προεπιλογές. Κάθε ενέργεια ζητά πρώτα επιβεβαίωση."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Επαναφορά αποκλεισμού"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Χρονόμετρα, πρόγραμμα, διακόπτες ιστότοπων, προσαρμοσμένα URL και αποκλεισμοί ανά χώρα/κατηγορία."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Επαναφορά εμφάνισης"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Χρώματα θέματος και φωτεινή/σκοτεινή λειτουργία."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Επαναφορά συνταγών και προτιμήσεων"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Μέσο κόστος γεύματος, ρυθμίσεις θερμίδων και τα αποθηκευμένα στατιστικά σας."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Επαναφορά εργοστασιακών"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Διαγραφή των πάντων και επαναφορά του FitShield σε νέα εγκατάσταση."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Άκυρο"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Επιβεβαίωση"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Επαναφορά όλων των ρυθμίσεων αποκλεισμού στις προεπιλογές; Το θέμα, η γλώσσα και τα στατιστικά διατηρούνται."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Επαναφορά θέματος και εμφάνισης στην προεπιλεγμένη σκοτεινή λειτουργία;"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Επαναφορά των προτιμήσεων κόστους και θερμίδων, καθώς και των στατιστικών εξοικονόμησης και αποφυγής θερμίδων;"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Εργοστασιακή επαναφορά του FitShield; Διαγράφει όλες τις ρυθμίσεις, τους προσαρμοσμένους ιστότοπους και τα στατιστικά σε αυτή τη συσκευή. Δεν αναιρείται."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Αφαίρεση του $1 από την προσαρμοσμένη λίστα αποκλεισμού σας;"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Έτοιμο. Επαναφόρτωση…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Θα φτιάξω αυτό αντ' αυτού"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Προστέθηκε στα στατιστικά σας ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Καλή επιλογή — καταγράφηκε στα στατιστικά σας. Δείτε το στις Ρυθμίσεις."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Θερμίδες που αποφύγατε"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Μέσες θερμίδες γεύματος"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Χρησιμοποιείται για την εκτίμηση των θερμίδων που αποφεύγετε όταν επιλέγετε μια συνταγή. Αποθηκεύεται μόνο στη συσκευή σας."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Αναδιάταξη κάρτας: $1. Χρησιμοποιήστε τα βέλη για μετακίνηση."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Καλώς ήρθατε στο FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Λίγες γρήγορες επιλογές και είστε έτοιμοι. Όλα παραμένουν στη συσκευή σας — τίποτα δεν μεταφορτώνεται."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Επιλέξτε γλώσσα"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Ορίζει τη γλώσσα για το αναδυόμενο παράθυρο, τις ρυθμίσεις και την οθόνη αποκλεισμού του FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Επιλέξτε θέμα"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Μπορείτε να ρυθμίσετε τα χρώματα αργότερα στις Ρυθμίσεις."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Αποκλεισμός παραγγελιών φαστ φουντ"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Προσθέτει μια οθόνη παύσης στις σελίδες παραγγελίας μεγάλων αλυσίδων φαστ φουντ."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Συνιστάται ενεργό."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Αποκλεισμός εφαρμογών παράδοσης"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Προσθέτει μια οθόνη παύσης σε πλατφόρμες παράδοσης όπως DoorDash και Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Επαναφορά αντιγράφου ασφαλείας (προαιρετικό)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Έρχεστε από άλλη συσκευή; Εισαγάγετε ένα αρχείο ρυθμίσεων FitShield για να μεταφέρετε τα πάντα. Διαφορετικά απλώς συνεχίστε."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Εισαγωγή αρχείου ρυθμίσεων"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Πώς βοηθά το FitShield"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Μια γρήγορη ξενάγηση στις κύριες λειτουργίες."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Χρονόμετρο παύσης"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Όταν φτάνετε σε αποκλεισμένο ιστότοπο, τρέχει μια σύντομη αντίστροφη μέτρηση πριν συνεχίσετε — αρκετή για να ξανασκεφτείτε την παραγγελία."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Πρόγραμμα"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Προαιρετικά αποκλείστε μόνο σε καθορισμένες ώρες, όπως τα βράδια ή τις ώρες εργασίας."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Λίστα επιτρεπόμενων"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Απενεργοποιήστε οποιονδήποτε ιστότοπο, προσθέστε δικά σας URL ή δώστε στον εαυτό σας προσωρινή πρόσβαση όταν τη χρειάζεστε πραγματικά."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Ιδέες συνταγών"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Η οθόνη αποκλεισμού προτείνει μια γρήγορη χορτοφαγική και μια συνταγή με κρέας/πρωτεΐνη με βάση αυτό που αποκλείσατε."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Πίσω"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Επόμενο"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Τέλος"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Βήμα $1 από $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Τι νέο υπάρχει"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Μια γρήγορη ματιά στις αλλαγές."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Άνοιγμα ρυθμίσεων"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Κλείσιμο"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Δεν υπάρχουν ακόμη σημειώσεις έκδοσης."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Νέο"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Έκδοση $1"
+  },
+  "languageGerman": {
+    "message": "Γερμανικά"
   }
 }

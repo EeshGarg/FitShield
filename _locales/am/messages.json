@@ -243,7 +243,7 @@
     "message": "ግቤቶች ወደ ጎራዎች የተለመዱ ናቸው እና በሁሉም ገጾች ላይ ታግደዋል።"
   },
   "customEmptyDefault": {
-    "message": "እስካሁን ምንም ብጁ URLs አልተጨመረም።"
+    "message": "ገና ምንም ብጁ የታገዱ ጣቢያዎች የሉም። ማገድ ለመጀመር ከላይ example.com የመሰለ ጎራ ያክሉ።"
   },
   "noticeMatched": {
     "message": "$1 $2 ከ\"$3\" ጋር ተዛምዷል።"
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "ይህን ለምን እያዩ ነው"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "ድረ-ገጽ"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "ደንብ"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "ምድብ"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "ንቁ በ"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "የማድረስ አገልግሎት"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "ፈጣን ምግብ"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "ብጁ ደንብ"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 ተጨማሪ"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "የእርስዎ ስታትስቲክስ"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield ምን እንዲዘሉ እንደረዳዎት በመሣሪያው ላይ ያለ የግል ግምት። እነዚህ ግምቶች ናቸው እና ምንም አይሰቀልም።"
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "የታገዱ ጉብኝቶች"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "የተገመተ ቁጠባ"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "አማካይ የምግብ ወጪ"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "ትዕዛዝ ሲዘሉ የተቆጠበውን ገንዘብ ለመገመት ይጠቅማል። በመሣሪያዎ ላይ ብቻ ይቀመጣል።"
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "ዳግም አስጀምር እና ውሂብ"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "የFitShield ክፍሎችን ወደ ነባሪ ይመልሱ። እያንዳንዱ እርምጃ መጀመሪያ ማረጋገጫ ይጠይቃል።"
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "ማገድን ዳግም አስጀምር"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "ቆጣሪዎች፣ መርሐ ግብር፣ የጣቢያ መቀየሪያዎች፣ ብጁ URLዎች እና የአገር/ምድብ እገዳዎች።"
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "መልክን ዳግም አስጀምር"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "የገጽታ ቀለሞች እና ብርሃን/ጨለማ ሁነታ።"
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "የምግብ አሰራሮችን እና ምርጫዎችን ዳግም አስጀምር"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "አማካይ የምግብ ወጪ፣ የካሎሪ ቅንብሮች እና የተቀመጡ ስታትስቲክስዎ።"
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "የፋብሪካ ዳግም አስጀምር"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "ሁሉንም ሰርዝ እና FitShield ወደ አዲስ ጭነት መልስ።"
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "ሰርዝ"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "አረጋግጥ"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "ሁሉንም የማገድ ቅንብሮች ወደ ነባሪ ዳግም ይጀምሩ? ገጽታዎ፣ ቋንቋዎ እና ስታትስቲክስዎ ይቆያሉ።"
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "ገጽታውን እና መልክን ወደ ነባሪ ጨለማ ሁነታ ዳግም ይጀምሩ?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "የወጪ እና የካሎሪ ምርጫዎችዎን፣ እንዲሁም የቁጠባ እና የተወገዱ-ካሎሪ ስታትስቲክስን ዳግም ይጀምሩ?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield የፋብሪካ ዳግም ይጀምሩ? ይህ በዚህ መሣሪያ ላይ ያሉትን ሁሉንም ቅንብሮች፣ ብጁ ጣቢያዎች እና ስታትስቲክስ ይሰርዛል። መቀልበስ አይቻልም።"
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1ን ከብጁ የእገዳ ዝርዝርዎ ያስወግዱ?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "ተጠናቋል። እንደገና በመጫን ላይ…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "በምትኩ ይህን እሰራለሁ"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "ወደ ስታትስቲክስዎ ታክሏል ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "ጥሩ ምርጫ — በስታትስቲክስዎ ተመዝግቧል። በቅንብሮች ውስጥ ይዩት።"
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "የተወገዱ ካሎሪዎች"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "አማካይ የምግብ ካሎሪ"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "በምትኩ የምግብ አሰራር ሲመርጡ የተወገዱ ካሎሪዎችን ለመገመት ይጠቅማል። በመሣሪያዎ ላይ ብቻ ይቀመጣል።"
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "ካርዱን እንደገና ያደራጁ፡ $1። ለማንቀሳቀስ የቀስት ቁልፎችን ይጠቀሙ።"
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "ወደ FitShield እንኳን ደህና መጡ"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "ጥቂት ፈጣን ምርጫዎች እና ዝግጁ ነዎት። ሁሉም በመሣሪያዎ ላይ ይቆያል — ምንም አይሰቀልም።"
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "ቋንቋዎን ይምረጡ"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "ይህ ለFitShield ብቅ-ባይ፣ ቅንብሮች እና የእገዳ ማያ ገጽ ቋንቋን ያዘጋጃል።"
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "ገጽታ ይምረጡ"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "ቀለሞችን በኋላ በቅንብሮች ውስጥ በጥሩ ሁኔታ ማስተካከል ይችላሉ።"
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "የፈጣን ምግብ ትዕዛዝን አግድ"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "በትላልቅ የፈጣን ምግብ ሰንሰለቶች የትዕዛዝ ገጾች ላይ የእረፍት ማያ ገጽ ይጨምራል።"
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "እንዲበራ ይመከራል።"
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "የማድረስ መተግበሪያዎችን አግድ"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "እንደ DoorDash እና Uber Eats ባሉ የማድረስ መድረኮች ላይ የእረፍት ማያ ገጽ ይጨምራል።"
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "ምትኬ ይመልሱ (አማራጭ)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "ከሌላ መሣሪያ ነው የመጡት? ሁሉንም ለማምጣት የFitShield ቅንብሮች ፋይል ያስመጡ። አለበለዚያ ይቀጥሉ።"
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "የቅንብሮች ፋይል አስመጣ"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield እንዴት እንደሚረዳ"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "የዋና ዋና ባህሪያት ፈጣን ጉብኝት።"
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "የእረፍት ቆጣሪ"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "የታገደ ጣቢያ ሲደርሱ፣ ከመቀጠልዎ በፊት አጭር ቆጠራ ይሄዳል — ትዕዛዙን እንደገና ለማሰብ በቂ።"
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "መርሐ ግብር"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "እንደ ምሽት ወይም የስራ ሰዓት ባሉ የተወሰኑ ሰዓታት ብቻ ማገድ ይችላሉ።"
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "ነጭ ዝርዝር"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "ማንኛውንም ጣቢያ ያጥፉ፣ የራስዎን URLዎች ያክሉ፣ ወይም በእውነት ሲያስፈልግዎ ጊዜያዊ ፈቃድ ይስጡ።"
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "የምግብ አሰራር ሀሳቦች"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "የእገዳ ማያ ገጹ ባገዱት መሰረት ፈጣን የአትክልት እና የስጋ/ፕሮቲን የምግብ አሰራር ይጠቁማል።"
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "ተመለስ"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "ቀጣይ"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "ጨርስ"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "ደረጃ $1 ከ $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "አዲስ ነገር"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "የተቀየረውን በፍጥነት ይመልከቱ።"
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "ቅንብሮችን ክፈት"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "ዝጋ"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "ገና የእትም ማስታወሻዎች የሉም።"
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "አዲስ"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "ስሪት $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

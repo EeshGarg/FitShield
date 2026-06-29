@@ -922,5 +922,8 @@
   },
   "whatsNewVersion": {
     "message": "Sürüm $1"
+  },
+  "languageGerman": {
+    "message": "Almanca"
   }
 }

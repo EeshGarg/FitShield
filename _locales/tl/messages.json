@@ -237,7 +237,7 @@
     "message": "Na-normalize ang mga entry sa mga domain at na-block sa lahat ng page."
   },
   "customEmptyDefault": {
-    "message": "Wala pang naidagdag na custom na URL."
+    "message": "Wala pang custom na naka-block na site. Magdagdag ng domain tulad ng example.com sa itaas para simulang i-block ito."
   },
   "customNoMatch": {
     "message": "Walang custom na URL ang tumutugma sa paghahanap na ito."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Bakit mo ito nakikita"
   },
   "blockReasonDomain": {
     "message": "Site"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Panuntunan"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Kategorya"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Aktibo sa"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Serbisyo ng paghahatid"
   },
   "blockTypeFastFood": {
     "message": "Fast food"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Custom na panuntunan"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 pa"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Iyong Stats"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Isang pribadong pagtatantya sa device ng kung ano ang natulungan kang laktawan ng FitShield. Mga tantya ito at walang ina-upload."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Na-block na pagbisita"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Tinatayang naipon"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Karaniwang halaga ng pagkain"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Ginagamit para tantyahin ang naipong pera kapag nilaktawan mo ang isang order. Naka-store lang sa device mo."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "I-reset at Data"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Ibalik ang mga bahagi ng FitShield sa default. Bawat aksyon ay humihingi muna ng kumpirmasyon."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "I-reset ang pag-block"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Mga timer, iskedyul, site toggle, custom na URL, at block kada bansa/kategorya."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "I-reset ang itsura"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Mga kulay ng tema at light/dark mode."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "I-reset ang recipe at mga kagustuhan"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Karaniwang halaga ng pagkain, mga setting ng calorie, at iyong naka-save na stats."
   },
   "factoryResetButton": {
     "message": "Factory reset"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Burahin ang lahat at ibalik ang FitShield sa bagong install."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Kanselahin"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Kumpirmahin"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "I-reset ang lahat ng setting ng pag-block sa default? Mananatili ang iyong tema, wika, at stats."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "I-reset ang tema at itsura sa default na dark mode?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "I-reset ang iyong mga kagustuhan sa halaga at calorie, pati ang stats ng naipon at naiwasang calories?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Factory reset ang FitShield? Buburahin nito ang lahat ng setting, custom na site, at stats sa device na ito. Hindi ito maibabalik."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Alisin ang $1 sa iyong custom na block list?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Tapos na. Niri-reload…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Ito na lang ang gagawin ko"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Naidagdag sa iyong stats ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Magandang pili — naitala sa iyong stats. Tingnan sa Mga Setting."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Naiwasang calories"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Karaniwang calories ng pagkain"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Ginagamit para tantyahin ang naiwasang calories kapag pumili ka ng recipe sa halip. Naka-store lang sa device mo."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Ayusin muli ang card: $1. Gamitin ang arrow keys para igalaw ito."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Maligayang pagdating sa FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Ilang mabilisang pili at handa ka na. Lahat ay nananatili sa device mo — walang ina-upload."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Piliin ang iyong wika"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Itinatakda nito ang wika para sa popup, mga setting, at block screen ng FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Pumili ng tema"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Maaari mong i-fine-tune ang mga kulay mamaya sa Mga Setting."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "I-block ang pag-order ng fast food"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Nagdadagdag ng pause screen sa mga order page ng malalaking fast food chain."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Inirerekomendang naka-on."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "I-block ang mga delivery app"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Nagdadagdag ng pause screen sa mga delivery platform tulad ng DoorDash at Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Mag-restore ng backup (opsyonal)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Galing ka sa ibang device? Mag-import ng FitShield settings file para dalhin lahat. Kung hindi, magpatuloy lang."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Mag-import ng settings file"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Paano tumutulong ang FitShield"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Mabilis na tour sa mga pangunahing feature."
   },
   "welcomeFeaturePauseTitle": {
     "message": "Pause timer"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Kapag nakarating ka sa na-block na site, may maikling countdown bago ka makatuloy — sapat para pag-isipang muli ang order."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Iskedyul"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Opsyonal na mag-block lang sa takdang oras, gaya ng gabi o oras ng trabaho."
   },
   "welcomeFeatureWhitelistTitle": {
     "message": "Whitelist"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "I-off ang anumang site, magdagdag ng sarili mong URL, o magbigay ng pansamantalang pass kapag talagang kailangan."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Mga ideya sa recipe"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Nagmumungkahi ang block screen ng mabilis na vegetarian at meat/protein recipe batay sa na-block mo."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Bumalik"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Susunod"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Tapusin"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Hakbang $1 ng $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Ano'ng Bago"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Mabilisang tingin sa mga nabago."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Buksan ang mga setting"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Isara"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Wala pang release notes."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Bago"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Bersyon $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

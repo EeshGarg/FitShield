@@ -237,7 +237,7 @@
     "message": "ඇතුළත් කිරීම් වසම් වලට සාමාන්‍යකරණය කර ඇති අතර සියලුම පිටු හරහා අවහිර කර ඇත."
   },
   "customEmptyDefault": {
-    "message": "තවමත් අභිරුචි URL එකතු කර නැත."
+    "message": "තවම අභිරුචි අවහිර කළ අඩවි නැත. අවහිර කිරීම ආරම්භ කිරීමට ඉහත example.com වැනි වසමක් එක් කරන්න."
   },
   "customNoMatch": {
     "message": "මෙම සෙවුමට ගැලපෙන අභිරුචි URL කිසිවක් නොමැත."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "ඔබ මෙය දකින්නේ ඇයි"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "අඩවිය"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "නියමය"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "කාණ්ඩය"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "සක්‍රියයි"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "බෙදාහැරීමේ සේවාව"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "ක්ෂණික ආහාර"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "අභිරුචි නියමය"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 තවත්"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "ඔබේ සංඛ්‍යාලේඛන"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield ඔබට මඟ හැරීමට උදව් කළ දේ පිළිබඳ උපාංගයේම ඇති පෞද්ගලික ඇස්තමේන්තුවක්. මේවා ඇස්තමේන්තු වන අතර කිසිවක් උඩුගත නොවේ."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "අවහිර කළ පිවිසුම්"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "ඇස්තමේන්තුගත ඉතිරිය"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "සාමාන්‍ය ආහාර වියදම"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "ඇණවුමක් මඟ හරින විට ඉතිරි කළ මුදල් ඇස්තමේන්තු කිරීමට භාවිතා වේ. ඔබේ උපාංගයේ පමණක් ගබඩා වේ."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "යළි සැකසීම සහ දත්ත"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield හි කොටස් පෙරනිමියට යළි පිහිටුවන්න. සෑම ක්‍රියාවක්ම මුලින් තහවුරු කිරීමක් අසයි."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "අවහිරය යළි සකසන්න"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "ටයිමර, කාලසටහන, අඩවි ටොගල, අභිරුචි URL, සහ රට/කාණ්ඩ අවහිර."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "පෙනුම යළි සකසන්න"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "තේමා වර්ණ සහ ආලෝක/අඳුරු ආකාරය."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "වට්ටෝරු සහ අභිප්‍රේත යළි සකසන්න"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "සාමාන්‍ය ආහාර වියදම, කැලරි සැකසීම්, සහ ඔබේ සුරැකි සංඛ්‍යාලේඛන."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "කර්මාන්තශාලා යළි සැකසීම"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "සියල්ල මකා FitShield නැවුම් ස්ථාපනයකට ගෙන එන්න."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "අවලංගු"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "තහවුරු කරන්න"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "සියලුම අවහිර සැකසීම් පෙරනිමියට යළි සකසනවාද? ඔබේ තේමාව, භාෂාව සහ සංඛ්‍යාලේඛන තබා ගැනේ."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "තේමාව සහ පෙනුම පෙරනිමි අඳුරු ආකාරයට යළි සකසනවාද?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "ඔබේ වියදම් සහ කැලරි අභිප්‍රේත, මෙන්ම ඉතිරිය සහ වැළැක්වූ-කැලරි සංඛ්‍යාලේඛන යළි සකසනවාද?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield කර්මාන්තශාලා යළි සකසනවාද? මෙය මෙම උපාංගයේ සියලුම සැකසීම්, අභිරුචි අඩවි සහ සංඛ්‍යාලේඛන මකයි. මෙය පෙරළිය නොහැක."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1 ඔබේ අභිරුචි අවහිර ලැයිස්තුවෙන් ඉවත් කරනවාද?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "අවසන්. නැවත පූරණය වෙමින්…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "ඒ වෙනුවට මම මෙය හදනවා"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "ඔබේ සංඛ්‍යාලේඛනවලට එක් කළා ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "හොඳ තේරීමක් — ඔබේ සංඛ්‍යාලේඛනවල සටහන් විය. සැකසීම්වල බලන්න."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "වැළැක්වූ කැලරි"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "සාමාන්‍ය ආහාර කැලරි"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "ඒ වෙනුවට වට්ටෝරුවක් තෝරන විට වැළැක්වූ කැලරි ඇස්තමේන්තු කිරීමට භාවිතා වේ. ඔබේ උපාංගයේ පමණක් ගබඩා වේ."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "කාඩ්පත නැවත අනුපිළිවෙළ කරන්න: $1. ගෙනයාමට ඊතල යතුරු භාවිතා කරන්න."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "FitShield වෙත සාදරයෙන් පිළිගනිමු"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "ඉක්මන් තේරීම් කිහිපයක් සහ ඔබ සූදානම්. සියල්ල ඔබේ උපාංගයේ රැඳේ — කිසිවක් උඩුගත නොවේ."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "ඔබේ භාෂාව තෝරන්න"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "මෙය FitShield හි උත්පතන, සැකසීම් සහ අවහිර තිරයේ භාෂාව සකසයි."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "තේමාවක් තෝරන්න"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "වර්ණ පසුව සැකසීම්වල මනාව සකස් කළ හැක."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "ක්ෂණික ආහාර ඇණවුම් අවහිර කරන්න"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "විශාල ක්ෂණික ආහාර දාමවල ඇණවුම් පිටුවලට විරාම තිරයක් එක් කරයි."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "ක්‍රියාත්මක කිරීම නිර්දේශිතයි."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "බෙදාහැරීමේ යෙදුම් අවහිර කරන්න"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "DoorDash සහ Uber Eats වැනි බෙදාහැරීමේ වේදිකාවලට විරාම තිරයක් එක් කරයි."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "උපස්ථයක් යළි පිහිටුවන්න (විකල්ප)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "වෙනත් උපාංගයකින්ද? සියල්ල ගෙන ඒමට FitShield සැකසීම් ගොනුවක් ආයාත කරන්න. නැතිනම් ඉදිරියට යන්න."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "සැකසීම් ගොනුව ආයාත කරන්න"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield උදව් වන ආකාරය"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "ප්‍රධාන විශේෂාංග හරහා ඉක්මන් සංචාරයක්."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "විරාම ටයිමරය"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "අවහිර අඩවියකට ළඟා වන විට, ඉදිරියට යාමට පෙර කෙටි ආපසු ගණනය වෙයි — ඇණවුම නැවත සිතා බැලීමට ප්‍රමාණවත්."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "කාලසටහන"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "කැමති නම් සවස හෝ වැඩ කරන වේලාව වැනි නියමිත පැය වලදී පමණක් අවහිර කරන්න."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "ශුද්ධ ලැයිස්තුව"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "ඕනෑම අඩවියක් අක්‍රිය කරන්න, ඔබේම URL එක් කරන්න, හෝ සැබවින්ම අවශ්‍ය විට තාවකාලික අවසරයක් දෙන්න."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "වට්ටෝරු අදහස්"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "ඔබ අවහිර කළ දේ අනුව අවහිර තිරය ඉක්මන් නිර්මාංශ සහ මස්/ප්‍රෝටීන් වට්ටෝරුවක් යෝජනා කරයි."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "ආපසු"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "ඊළඟ"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "අවසන් කරන්න"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "පියවර $1 / $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "අලුත් මොනවාද"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "වෙනස්කම් ගැන ඉක්මන් බැල්මක්."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "සැකසීම් විවෘත කරන්න"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "වසන්න"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "තවම නිකුතු සටහන් නැත."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "අලුත්"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "අනුවාදය $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

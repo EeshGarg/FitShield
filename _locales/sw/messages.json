@@ -231,7 +231,7 @@
     "message": "Washa kizuizi maalum cha URL"
   },
   "customEmptyDefault": {
-    "message": "Bado hakuna URL maalum zilizoongezwa."
+    "message": "Bado hakuna tovuti maalum zilizozuiwa. Ongeza kikoa kama example.com hapo juu ili kuanza kukizuia."
   },
   "customNoMatch": {
     "message": "Hakuna URL maalum zinazolingana na utafutaji huu."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Kwa nini unaona hili"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Tovuti"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Kanuni"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Kategoria"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Inatumika katika"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Huduma ya uwasilishaji"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Chakula cha haraka"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Kanuni maalum"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 zaidi"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Takwimu zako"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Makadirio ya faragha kwenye kifaa ya kile ambacho FitShield imekusaidia kuruka. Haya ni makadirio na hakuna kinachopakiwa."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Ziara zilizozuiwa"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Akiba inayokadiriwa"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Gharama ya wastani ya mlo"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Hutumika kukadiria pesa zilizookolewa unaporuka agizo. Huhifadhiwa kwenye kifaa chako pekee."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Weka upya na data"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Rejesha sehemu za FitShield kwa chaguo-msingi. Kila kitendo huomba uthibitisho kwanza."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Weka upya kuzuia"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Vipima muda, ratiba, swichi za tovuti, URL maalum, na vizuizi vya nchi/kategoria."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Weka upya muonekano"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Rangi za mandhari na hali ya mwanga/giza."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Weka upya mapishi na mapendeleo"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Gharama ya wastani ya mlo, mipangilio ya kalori, na takwimu zako zilizohifadhiwa."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Weka upya kiwandani"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Futa kila kitu na urejeshe FitShield kuwa usakinishaji mpya."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Ghairi"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Thibitisha"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Uweke upya mipangilio yote ya kuzuia kwa chaguo-msingi? Mandhari, lugha na takwimu zako zitabaki."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Uweke upya mandhari na muonekano kwa hali ya giza ya chaguo-msingi?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Uweke upya mapendeleo yako ya gharama na kalori, pamoja na takwimu za akiba na kalori zilizoepukwa?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Uweke upya FitShield kiwandani? Hii hufuta mipangilio yote, tovuti maalum, na takwimu kwenye kifaa hiki. Haiwezi kutenduliwa."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Uondoe $1 kutoka kwenye orodha yako maalum ya kuzuia?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Imekamilika. Inapakia upya…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Nitapika hiki badala yake"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Imeongezwa kwenye takwimu zako ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Chaguo zuri — limeandikwa kwenye takwimu zako. Liangalie katika Mipangilio."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Kalori zilizoepukwa"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Kalori za wastani za mlo"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Hutumika kukadiria kalori zilizoepukwa unapochagua mapishi badala yake. Huhifadhiwa kwenye kifaa chako pekee."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Panga upya kadi: $1. Tumia vitufe vya mishale kuihamisha."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Karibu FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Machaguo machache ya haraka na uko tayari. Kila kitu hubaki kwenye kifaa chako — hakuna kinachopakiwa."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Chagua lugha yako"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Hii huweka lugha ya kibubujiko, mipangilio na skrini ya kuzuia ya FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Chagua mandhari"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Unaweza kurekebisha rangi baadaye katika Mipangilio."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Zuia kuagiza chakula cha haraka"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Huongeza skrini ya pumziko kwenye kurasa za kuagiza za minyororo mikubwa ya chakula cha haraka."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Inapendekezwa iwashwe."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Zuia programu za uwasilishaji"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Huongeza skrini ya pumziko kwenye majukwaa ya uwasilishaji kama DoorDash na Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Rejesha nakala rudufu (hiari)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Unatoka kwenye kifaa kingine? Leta faili ya mipangilio ya FitShield ili kuhamisha kila kitu. Vinginevyo endelea tu."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Leta faili ya mipangilio"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Jinsi FitShield inavyosaidia"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Ziara ya haraka ya vipengele vikuu."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Kipima muda cha pumziko"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Unapofika kwenye tovuti iliyozuiwa, hesabu fupi ya kurudi nyuma huendeshwa kabla ya kuendelea — ya kutosha kufikiria upya agizo."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Ratiba"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Kwa hiari zuia tu wakati maalum, kama jioni au saa za kazi."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Orodha nyeupe"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Zima tovuti yoyote, ongeza URL zako mwenyewe, au jipe ruhusa ya muda unapohitaji kweli."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Mawazo ya mapishi"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Skrini ya kuzuia hupendekeza mapishi ya haraka ya mboga na ya nyama/protini kulingana na ulichozuia."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Nyuma"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Endelea"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Maliza"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Hatua $1 kati ya $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Mpya ni nini"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Mtazamo wa haraka wa yaliyobadilika."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Fungua mipangilio"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Funga"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Bado hakuna madokezo ya toleo."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Mpya"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Toleo $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

@@ -237,7 +237,7 @@
     "message": "Вурудҳо ба доменҳо муқаррар карда мешаванд ва дар тамоми саҳифаҳо баста мешаванд."
   },
   "customEmptyDefault": {
-    "message": "Ҳанӯз ягон URL-и фармоишӣ илова карда нашудааст."
+    "message": "Ҳоло сомонаҳои фармоишии басташуда нестанд. Барои оғози бастан дар боло домене мисли example.com илова кунед."
   },
   "customNoMatch": {
     "message": "Ягон URL-и фармоишӣ ба ин ҷустуҷӯ мувофиқат намекунад."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Чаро шумо инро мебинед"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Сомона"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Қоида"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Категория"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Фаъол дар"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Хидмати расонидан"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Хӯроки зуд"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Қоидаи фармоишӣ"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 боз"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Омори шумо"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Арзёбии шахсӣ дар дастгоҳ дар бораи он чизе, ки FitShield ба шумо барои гузаштан кӯмак кардааст. Инҳо арзёбианд ва ҳеҷ чиз бор карда намешавад."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Ташрифҳои басташуда"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Сарфаи тахминӣ"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Арзиши миёнаи хӯрок"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Барои арзёбии пули сарфашуда ҳангоми гузаштан аз фармоиш истифода мешавад. Танҳо дар дастгоҳи шумо нигоҳ дошта мешавад."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Барқарорсозӣ ва маълумот"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Қисмҳои FitShield-ро ба нобаёнӣ бармегардонад. Ҳар амал аввал тасдиқ мепурсад."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Бастанро барқарор кунед"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Таймерҳо, ҷадвал, гузаришҳои сомона, URL-ҳои фармоишӣ ва бастаҳои кишвар/категория."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Намудро барқарор кунед"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Рангҳои мавзӯъ ва ҳолати равшан/торик."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Дастурҳо ва афзалиятҳоро барқарор кунед"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Арзиши миёнаи хӯрок, танзимоти калория ва омори захирашудаи шумо."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Барқарорсозии заводӣ"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Ҳамаро нест кунед ва FitShield-ро ба насби нав баргардонед."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Бекор кардан"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Тасдиқ"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Ҳамаи танзимоти бастанро ба нобаёнӣ барқарор кунем? Мавзӯъ, забон ва омори шумо нигоҳ дошта мешавад."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Мавзӯъ ва намудро ба ҳолати торики нобаёнӣ барқарор кунем?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Афзалиятҳои арзиш ва калория, инчунин омори сарфа ва калорияҳои пешгиришударо барқарор кунем?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield-ро ба ҳолати заводӣ барқарор кунем? Ин ҳамаи танзимот, сомонаҳои фармоишӣ ва омори ин дастгоҳро нест мекунад. Бекор кардан мумкин нест."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1-ро аз рӯйхати бастани фармоишии шумо нест кунем?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Тайёр. Аз нав бор шуда истодааст…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "~$1 ккал"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Ба ҷояш инро мепазам"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Ба омори шумо илова шуд ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Интихоби хуб — дар омори шумо сабт шуд. Дар Танзимот бинед."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Калорияҳои пешгиришуда"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Калорияҳои миёнаи хӯрок"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Барои арзёбии калорияҳои пешгиришуда ҳангоми интихоби дастур истифода мешавад. Танҳо дар дастгоҳи шумо нигоҳ дошта мешавад."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Кортро аз нав тартиб диҳед: $1. Барои ҷойивазкунӣ тугмаҳои тирро истифода баред."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Хуш омадед ба FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Якчанд интихоби зуд ва шумо тайёред. Ҳама чиз дар дастгоҳи шумо мемонад — ҳеҷ чиз бор карда намешавад."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Забони худро интихоб кунед"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Ин забони равзанаи ҷаҳида, танзимот ва экрани бастани FitShield-ро муқаррар мекунад."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Мавзӯъ интихоб кунед"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Рангҳоро баъдтар дар Танзимот танзим карда метавонед."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Фармоиши хӯроки зудро банд кунед"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Дар саҳифаҳои фармоиши шабакаҳои калони хӯроки зуд экрани таваққуф илова мекунад."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Фаъол кардан тавсия мешавад."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Барномаҳои расониданро банд кунед"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Дар платформаҳои расонидан мисли DoorDash ва Uber Eats экрани таваққуф илова мекунад."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Нусхаи захиравиро барқарор кунед (ихтиёрӣ)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Аз дастгоҳи дигар меоед? Барои интиқоли ҳама чиз файли танзимоти FitShield-ро ворид кунед. Вагарна танҳо идома диҳед."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Файли танзимотро ворид кунед"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield чӣ гуна кӯмак мекунад"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Сайри зуд аз хусусиятҳои асосӣ."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Таймери таваққуф"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Вақте ки ба сомонаи басташуда мерасед, пеш аз идома ҳисоби кӯтоҳи баръакс меравад — барои аз нав фикр кардани фармоиш кофӣ."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Ҷадвал"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Дилхоҳ танҳо дар соатҳои муайян банд кунед, мисли бегоҳӣ ё вақти кор."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Рӯйхати сафед"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Ягон сомонаро хомӯш кунед, URL-ҳои худро илова кунед ё ҳангоми воқеан зарурӣ ба худ иҷозати муваққатӣ диҳед."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Ғояҳои дастур"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Экрани бастан вобаста ба он чӣ бастаед як дастури зуди сабзавотӣ ва як гӯшт/протеин пешниҳод мекунад."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Бозгашт"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Баъдӣ"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Анҷом"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Қадами $1 аз $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Чӣ нав аст"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Назари зуд ба тағйирот."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Танзимотро кушоед"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Пӯшидан"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Ҳоло қайдҳои нашр нестанд."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Нав"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Нусхаи $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

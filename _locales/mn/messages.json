@@ -237,7 +237,7 @@
     "message": "Бичлэгүүдийг домэйнд хэвийн болгож, бүх хуудсанд блоклодог."
   },
   "customEmptyDefault": {
-    "message": "Тусгай URL хараахан нэмээгүй байна."
+    "message": "Одоогоор захиалгат хориглосон сайт алга. Хориглож эхлэхийн тулд дээр example.com мэт домэйн нэмнэ үү."
   },
   "customNoMatch": {
     "message": "Энэ хайлтад тохирох тусгай URL байхгүй байна."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Та яагаад үүнийг харж байна вэ"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Сайт"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Дүрэм"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Ангилал"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Идэвхтэй"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Хүргэлтийн үйлчилгээ"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Түргэн хоол"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Захиалгат дүрэм"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 илүү"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Таны статистик"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield танд юу алгасахад тусалсныг төхөөрөмж дээр хадгалсан хувийн тооцоо. Эдгээр нь тооцоо бөгөөд юу ч байршуулагдахгүй."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Хориглосон зочлолтууд"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Тооцоолсон хэмнэлт"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Дундаж хоолны зардал"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Захиалга алгасахад хэмнэсэн мөнгийг тооцоход ашиглагдана. Зөвхөн таны төхөөрөмжид хадгалагдана."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Шинэчлэх ба өгөгдөл"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield-ийн хэсгүүдийг анхдагч руу сэргээнэ. Үйлдэл бүр эхлээд баталгаажуулалт асууна."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Хориглолтыг шинэчлэх"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Таймер, хуваарь, сайтын сэлгүүр, захиалгат URL болон улс/ангиллын хориг."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Харагдацыг шинэчлэх"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Загварын өнгө ба гэрэл/харанхуй горим."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Жор ба тохиргоог шинэчлэх"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Дундаж хоолны зардал, илчлэгийн тохиргоо болон хадгалсан статистик."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Үйлдвэрийн тохиргоо"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Бүгдийг устгаж FitShield-ийг шинэ суулгацад буцаа."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Цуцлах"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Баталгаажуулах"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Бүх хориглолтын тохиргоог анхдагч руу шинэчлэх үү? Загвар, хэл, статистик хадгалагдана."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Загвар, харагдацыг анхдагч харанхуй горим руу шинэчлэх үү?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Зардал, илчлэгийн тохиргоо болон хэмнэлт, зайлсхийсэн илчлэгийн статистикийг шинэчлэх үү?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield-ийг үйлдвэрийн тохиргоо руу шинэчлэх үү? Энэ нь энэ төхөөрөмж дээрх бүх тохиргоо, захиалгат сайт, статистикийг устгана. Буцаах боломжгүй."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1-г таны захиалгат хориглох жагсаалтаас хасах уу?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Дууссан. Дахин ачаалж байна…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "~$1 ккал"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Үүний оронд би үүнийг хийнэ"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Таны статистикт нэмэгдлээ ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Сайн сонголт — таны статистикт бүртгэгдлээ. Тохиргооноос харна уу."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Зайлсхийсэн илчлэг"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Дундаж хоолны илчлэг"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Оронд нь жор сонгоход зайлсхийсэн илчлэгийг тооцоход ашиглагдана. Зөвхөн таны төхөөрөмжид хадгалагдана."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Картыг дахин эрэмбэлэх: $1. Зөөхдөө сумны товчлуурыг ашиглана уу."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "FitShield-д тавтай морил"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Хэдэн хурдан сонголт хийгээд бэлэн боллоо. Бүх зүйл таны төхөөрөмж дээр үлдэнэ — юу ч байршуулагдахгүй."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Хэлээ сонгоно уу"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Энэ нь FitShield-ийн попап, тохиргоо, хориглох дэлгэцийн хэлийг тохируулна."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Загвар сонгоно уу"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Өнгийг дараа нь Тохиргооноос нарийн тохируулж болно."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Түргэн хоолны захиалгыг хориглох"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Том түргэн хоолны сүлжээний захиалгын хуудсанд завсарлагын дэлгэц нэмнэ."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Асаахыг зөвлөж байна."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Хүргэлтийн апп хориглох"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "DoorDash, Uber Eats зэрэг хүргэлтийн платформд завсарлагын дэлгэц нэмнэ."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Нөөцлөлтийг сэргээх (заавал биш)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Өөр төхөөрөмжөөс ирж байна уу? Бүгдийг авчрахын тулд FitShield тохиргооны файлыг импортлоно уу. Үгүй бол үргэлжлүүлээрэй."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Тохиргооны файл импортлох"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield хэрхэн тусалдаг вэ"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Үндсэн боломжуудын хурдан аялал."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Завсарлагын таймер"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Хориглосон сайтад хүрэхэд үргэлжлүүлэхээс өмнө богино тоолуур ажиллана — захиалгаа дахин бодоход хангалттай."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Хуваарь"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Хүсвэл зөвхөн тодорхой цагт хориглоно, жишээ нь орой эсвэл ажлын цагт."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Цагаан жагсаалт"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Аль ч сайтыг унтраа, өөрийн URL нэм, эсвэл үнэхээр хэрэгтэй үед түр зөвшөөрөл өг."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Жорын санаа"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Хориглох дэлгэц нь таны хориглосноос хамаарч хурдан цагаан хоол болон мах/уургийн жор санал болгоно."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Буцах"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Дараах"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Дуусгах"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Алхам $1 / $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Шинэ юу байна"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Өөрчлөлтүүдийг хурдан харах."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Тохиргоо нээх"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Хаах"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Одоогоор хувилбарын тэмдэглэл алга."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Шинэ"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Хувилбар $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

@@ -14,7 +14,7 @@
         "Redesigned Settings to use wide screens better: cards reflow into columns and stack cleanly on narrow windows.",
         "Added Reset options and confirmation dialogs (custom-site removal, resets, and a full factory reset), plus onboarding, local Backup & Restore, and the Chrome Web Store listing.",
         "Added a living, layered background: soft color fields that drift on their own, vary subtly on each open, gain gentle parallax as you scroll, and respect reduced-motion.",
-        "Expanded translations for the new 0.51 screens across many languages (including Japanese, Spanish, French, Italian, Portuguese, Russian, Arabic, Hebrew, Hindi, Korean, Chinese, and more); the rest fall back to English.",
+        "Translated the new 0.51 screens (stats, reset, welcome tour, What's New, block reasons, recipe choices) across every supported language, and added German as a new display language.",
         "Cleaned up the repository and consolidated branding assets into a Branding/ folder."
       ]
     },

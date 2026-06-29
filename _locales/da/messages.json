@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and blokered across all pages."
   },
   "customEmptyDefault": {
-    "message": "No brugerdefinerede URL'er added yet."
+    "message": "Ingen egne blokerede websteder endnu. Tilføj et domæne som example.com ovenfor for at begynde at blokere det."
   },
   "customNoMatch": {
     "message": "No brugerdefinerede URL'er match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Hvorfor du ser dette"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Websted"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Regel"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Kategori"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Aktiv i"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Leveringstjeneste"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Fastfood"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Egen regel"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 mere"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Din statistik"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Et privat skøn på enheden over, hvad FitShield har hjulpet dig med at springe over. Dette er skøn, og intet uploades."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Blokerede besøg"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Anslået besparelse"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Gennemsnitlig måltidspris"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Bruges til at anslå penge sparet, når du springer en bestilling over. Gemmes kun på din enhed."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Nulstil og data"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Gendan dele af FitShield til standard. Hver handling beder først om bekræftelse."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Nulstil blokering"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Timere, tidsplan, webstedskontakter, egne URL'er og land-/kategoriblokke."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Nulstil udseende"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Temafarver og lys/mørk tilstand."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Nulstil opskrifter og præferencer"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Gennemsnitlig måltidspris, kalorieindstillinger og din gemte statistik."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Fabriksnulstilling"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Slet alt, og sæt FitShield tilbage til en ny installation."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Annuller"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Bekræft"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Nulstil alle blokeringsindstillinger til standard? Dit tema, sprog og statistik bevares."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Nulstil tema og udseende til standard mørk tilstand?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Nulstil dine pris- og kaloriepræferencer samt statistik for sparede penge og undgåede kalorier?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Fabriksnulstil FitShield? Dette sletter alle indstillinger, egne websteder og statistik på denne enhed. Kan ikke fortrydes."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Fjern $1 fra din egen blokeringsliste?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Færdig. Genindlæser…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Jeg laver det her i stedet"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Føjet til din statistik ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Godt valg — registreret i din statistik. Se det i Indstillinger."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Undgåede kalorier"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Gennemsnitlige måltidskalorier"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Bruges til at anslå undgåede kalorier, når du i stedet vælger en opskrift. Gemmes kun på din enhed."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Omarranger kort: $1. Brug piletasterne til at flytte det."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Velkommen til FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Et par hurtige valg, og du er klar. Alt bliver på din enhed — intet uploades."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Vælg dit sprog"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Dette indstiller sproget for FitShields popup, indstillinger og blokeringsskærm."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Vælg et tema"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Du kan finjustere farverne senere i Indstillinger."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Bloker fastfood-bestilling"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Tilføjer en pauseskærm på bestillingssiderne hos store fastfoodkæder."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Anbefales til."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Bloker leveringsapps"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Tilføjer en pauseskærm på leveringsplatforme som DoorDash og Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Gendan en sikkerhedskopi (valgfrit)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Kommer du fra en anden enhed? Importer en FitShield-indstillingsfil for at tage alt med. Ellers fortsæt bare."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Importer indstillingsfil"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Sådan hjælper FitShield"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "En hurtig rundvisning i hovedfunktionerne."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Pausetimer"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Når du rammer et blokeret websted, kører en kort nedtælling, før du kan fortsætte — nok til at genoverveje bestillingen."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Tidsplan"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Bloker eventuelt kun i bestemte timer, som om aftenen eller i arbejdstiden."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Hvidliste"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Slå et hvilket som helst websted fra, tilføj dine egne URL'er, eller giv dig selv en midlertidig adgang, når du virkelig har brug for det."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Opskriftsidéer"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Blokeringsskærmen foreslår en hurtig vegetarisk og en kød-/proteinopskrift ud fra det, du blokerede."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Tilbage"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Næste"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Afslut"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Trin $1 af $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Nyheder"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Et hurtigt kig på ændringerne."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Åbn indstillinger"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Luk"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Ingen udgivelsesnoter endnu."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Nyt"
   },
   "whatsNewVersion": {
     "message": "Version $1"
+  },
+  "languageGerman": {
+    "message": "Tysk"
   }
 }

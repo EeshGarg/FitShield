@@ -237,7 +237,7 @@
     "message": "ການປ້ອນຂໍ້ມູນຖືກເຮັດໃຫ້ເປັນໂດເມນປົກກະຕິ ແລະຖືກບລັອກທົ່ວທຸກໜ້າ."
   },
   "customEmptyDefault": {
-    "message": "ບໍ່ມີການເພີ່ມ URL ແບບກຳນົດເອງເທື່ອ."
+    "message": "ຍັງບໍ່ມີເວັບໄຊກຳນົດເອງທີ່ຖືກບລັອກ. ເພີ່ມໂດເມນເຊັ່ນ example.com ຂ້າງເທິງເພື່ອເລີ່ມບລັອກມັນ."
   },
   "customNoMatch": {
     "message": "ບໍ່ມີ URL ແບບກຳນົດເອງທີ່ກົງກັບການຄົ້ນຫານີ້."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "ເປັນຫຍັງເຈົ້າຈຶ່ງເຫັນສິ່ງນີ້"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "ເວັບໄຊ"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "ກົດ"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "ໝວດ"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "ໃຊ້ໄດ້ໃນ"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "ບໍລິການສົ່ງ"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "ອາຫານດ່ວນ"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "ກົດກຳນົດເອງ"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 ເພີ່ມ"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "ສະຖິຕິຂອງເຈົ້າ"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "ການປະເມີນສ່ວນຕົວຢູ່ໃນອຸປະກອນກ່ຽວກັບສິ່ງທີ່ FitShield ຊ່ວຍໃຫ້ເຈົ້າຂ້າມ. ນີ້ແມ່ນການປະເມີນ ແລະ ບໍ່ມີຫຍັງຖືກອັບໂຫລດ."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "ການເຂົ້າຊົມທີ່ຖືກບລັອກ"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "ການປະຢັດໂດຍປະມານ"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "ຄ່າອາຫານສະເລ່ຍ"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "ໃຊ້ເພື່ອປະເມີນເງິນທີ່ປະຢັດເມື່ອເຈົ້າຂ້າມການສັ່ງ. ບັນທຶກຢູ່ໃນອຸປະກອນຂອງເຈົ້າເທົ່ານັ້ນ."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "ຣີເຊັດ ແລະ ຂໍ້ມູນ"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "ກູ້ຄືນບາງສ່ວນຂອງ FitShield ໄປສູ່ຄ່າເລີ່ມຕົ້ນ. ແຕ່ລະການກະທຳຈະຖາມການຢືນຢັນກ່ອນ."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "ຣີເຊັດການບລັອກ"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "ໂມງຈັບເວລາ, ຕາຕະລາງ, ສະວິດເວັບໄຊ, URL ກຳນົດເອງ, ແລະ ການບລັອກຕາມປະເທດ/ໝວດ."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "ຣີເຊັດຮູບລັກສະນະ"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "ສີຮູບແບບ ແລະ ໂໝດແຈ້ງ/ມືດ."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "ຣີເຊັດສູດ ແລະ ການຕັ້ງຄ່າ"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "ຄ່າອາຫານສະເລ່ຍ, ການຕັ້ງຄ່າແຄລໍຣີ, ແລະ ສະຖິຕິທີ່ບັນທຶກໄວ້."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "ຣີເຊັດໂຮງງານ"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "ລຶບທຸກຢ່າງ ແລະ ກັບ FitShield ໄປເປັນການຕິດຕັ້ງໃໝ່."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "ຍົກເລີກ"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "ຢືນຢັນ"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "ຣີເຊັດການຕັ້ງຄ່າການບລັອກທັງໝົດໄປສູ່ຄ່າເລີ່ມຕົ້ນບໍ? ຮູບແບບ, ພາສາ ແລະ ສະຖິຕິຂອງເຈົ້າຈະຖືກຮັກສາໄວ້."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "ຣີເຊັດຮູບແບບ ແລະ ຮູບລັກສະນະໄປສູ່ໂໝດມືດເລີ່ມຕົ້ນບໍ?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "ຣີເຊັດການຕັ້ງຄ່າຄ່າໃຊ້ຈ່າຍ ແລະ ແຄລໍຣີ, ພ້ອມທັງສະຖິຕິການປະຢັດ ແລະ ແຄລໍຣີທີ່ຫຼີກລ່ຽງບໍ?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "ຣີເຊັດໂຮງງານ FitShield ບໍ? ນີ້ຈະລຶບການຕັ້ງຄ່າ, ເວັບໄຊກຳນົດເອງ ແລະ ສະຖິຕິທັງໝົດໃນອຸປະກອນນີ້. ບໍ່ສາມາດກັບຄືນໄດ້."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "ລຶບ $1 ອອກຈາກລາຍການບລັອກກຳນົດເອງຂອງເຈົ້າບໍ?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "ສຳເລັດ. ກຳລັງໂຫລດຄືນ…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "ຂ້ອຍຈະເຮັດອັນນີ້ແທນ"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "ເພີ່ມເຂົ້າສະຖິຕິຂອງເຈົ້າແລ້ວ ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "ເລືອກໄດ້ດີ — ບັນທຶກໃນສະຖິຕິຂອງເຈົ້າແລ້ວ. ເບິ່ງໃນການຕັ້ງຄ່າ."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "ແຄລໍຣີທີ່ຫຼີກລ່ຽງ"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "ແຄລໍຣີອາຫານສະເລ່ຍ"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "ໃຊ້ເພື່ອປະເມີນແຄລໍຣີທີ່ຫຼີກລ່ຽງເມື່ອເຈົ້າເລືອກສູດແທນ. ບັນທຶກຢູ່ໃນອຸປະກອນຂອງເຈົ້າເທົ່ານັ້ນ."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "ຈັດລຳດັບບັດໃໝ່: $1. ໃຊ້ປຸ່ມລູກສອນເພື່ອຍ້າຍ."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "ຍິນດີຕ້ອນຮັບສູ່ FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "ເລືອກໄວໆບໍ່ເທົ່າໃດ ແລ້ວເຈົ້າກໍພ້ອມ. ທຸກຢ່າງຢູ່ໃນອຸປະກອນຂອງເຈົ້າ — ບໍ່ມີຫຍັງຖືກອັບໂຫລດ."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "ເລືອກພາສາຂອງເຈົ້າ"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "ນີ້ຕັ້ງພາສາສຳລັບປັອບອັບ, ການຕັ້ງຄ່າ ແລະ ໜ້າຈໍບລັອກຂອງ FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "ເລືອກຮູບແບບ"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "ເຈົ້າສາມາດປັບສີໄດ້ໃນພາຍຫຼັງໃນການຕັ້ງຄ່າ."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "ບລັອກການສັ່ງອາຫານດ່ວນ"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "ເພີ່ມໜ້າຈໍຢຸດຊົ່ວຄາວໃນໜ້າສັ່ງຂອງເຄືອຂ່າຍອາຫານດ່ວນໃຫຍ່."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "ແນະນຳໃຫ້ເປີດ."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "ບລັອກແອັບສົ່ງອາຫານ"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "ເພີ່ມໜ້າຈໍຢຸດຊົ່ວຄາວໃນແພລດຟອມສົ່ງ ເຊັ່ນ DoorDash ແລະ Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "ກູ້ຄືນຂໍ້ມູນສຳຮອງ (ທາງເລືອກ)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "ມາຈາກອຸປະກອນອື່ນບໍ? ນຳເຂົ້າໄຟລ໌ການຕັ້ງຄ່າ FitShield ເພື່ອນຳທຸກຢ່າງມາ. ຖ້າບໍ່ດັ່ງນັ້ນ ກໍສືບຕໍ່."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "ນຳເຂົ້າໄຟລ໌ການຕັ້ງຄ່າ"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield ຊ່ວຍແນວໃດ"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "ການທ່ອງຊົມໄວໆຜ່ານຄຸນສົມບັດຫຼັກ."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "ໂມງຈັບເວລາຢຸດ"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "ເມື່ອເຈົ້າໄປຮອດເວັບໄຊທີ່ຖືກບລັອກ, ການນັບຖອຍຫຼັງສັ້ນໆຈະເຮັດວຽກກ່ອນທີ່ເຈົ້າຈະສືບຕໍ່ — ພຽງພໍທີ່ຈະຄິດໃໝ່ກ່ຽວກັບການສັ່ງ."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "ຕາຕະລາງ"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "ສາມາດເລືອກບລັອກສະເພາະຊົ່ວໂມງທີ່ກຳນົດ ເຊັ່ນ ຕອນແລງ ຫຼື ເວລາເຮັດວຽກ."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "ລາຍຊື່ຂາວ"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "ປິດເວັບໄຊໃດກໍໄດ້, ເພີ່ມ URL ຂອງເຈົ້າເອງ, ຫຼື ໃຫ້ສິດຊົ່ວຄາວເມື່ອເຈົ້າຕ້ອງການແທ້ໆ."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "ແນວຄິດສູດ"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "ໜ້າຈໍບລັອກແນະນຳສູດຜັກໄວ ແລະ ສູດຊີ້ນ/ໂປຣຕີນ ໂດຍອີງໃສ່ສິ່ງທີ່ເຈົ້າບລັອກ."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "ກັບຄືນ"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "ຕໍ່ໄປ"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "ສຳເລັດ"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "ຂັ້ນຕອນ $1 ຈາກ $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "ມີຫຍັງໃໝ່"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "ເບິ່ງໄວໆວ່າມີຫຍັງປ່ຽນແປງ."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "ເປີດການຕັ້ງຄ່າ"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "ປິດ"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "ຍັງບໍ່ມີບັນທຶກການອອກເທື່ອ."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "ໃໝ່"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "ເວີຊັນ $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

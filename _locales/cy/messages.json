@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and rhwystroed across all pages."
   },
   "customEmptyDefault": {
-    "message": "No URLau personol added yet."
+    "message": "Dim safleoedd personol wedi'u rhwystro eto. Ychwanegwch barth fel example.com uchod i ddechrau ei rwystro."
   },
   "customNoMatch": {
     "message": "No URLau personol match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Pam rydych chi'n gweld hyn"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Safle"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Rheol"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Categori"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Yn weithredol yn"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Gwasanaeth danfon"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Bwyd cyflym"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Rheol bersonol"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 arall"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Eich ystadegau"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Amcangyfrif preifat, ar y ddyfais, o'r hyn mae FitShield wedi'ch helpu i'w hepgor. Amcangyfrifon yw'r rhain ac nid oes dim yn cael ei lanlwytho."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Ymweliadau wedi'u rhwystro"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Arbedion amcangyfrifedig"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Cost pryd cyfartalog"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Yn cael ei ddefnyddio i amcangyfrif arian a arbedwyd pan fyddwch yn hepgor archeb. Cedwir ar eich dyfais yn unig."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Ailosod a data"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Adfer rhannau o FitShield i'r rhagosodiadau. Mae pob gweithred yn gofyn am gadarnhad yn gyntaf."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Ailosod rhwystro"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Amseryddion, amserlen, switshys safleoedd, URLau personol, a rhwystrau gwlad/categori."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Ailosod golwg"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Lliwiau thema a modd golau/tywyll."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Ailosod ryseitiau a dewisiadau"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Cost pryd cyfartalog, gosodiadau calorïau, a'ch ystadegau wedi'u cadw."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Ailosod ffatri"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Dileu popeth a dychwelyd FitShield i osodiad newydd."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Canslo"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Cadarnhau"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Ailosod pob gosodiad rhwystro i'r rhagosodiadau? Cedwir eich thema, iaith ac ystadegau."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Ailosod y thema a'r golwg i'r modd tywyll rhagosodedig?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Ailosod eich dewisiadau cost a chalorïau, ynghyd â'r ystadegau arian a arbedwyd a chalorïau a osgowyd?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Ailosod FitShield i'r ffatri? Mae hyn yn dileu pob gosodiad, safle personol ac ystadegyn ar y ddyfais hon. Ni ellir ei ddadwneud."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Tynnu $1 o'ch rhestr rwystro bersonol?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Wedi gorffen. Aillwytho…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Gwnaf hyn yn lle"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Wedi'i ychwanegu at eich ystadegau ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Dewis da — wedi'i gofnodi yn eich ystadegau. Gwelwch e yn y Gosodiadau."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Calorïau a osgowyd"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Calorïau pryd cyfartalog"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Yn cael ei ddefnyddio i amcangyfrif calorïau a osgowyd pan fyddwch yn dewis rysáit yn lle. Cedwir ar eich dyfais yn unig."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Aildrefnu cerdyn: $1. Defnyddiwch y bysellau saeth i'w symud."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Croeso i FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Ychydig o ddewisiadau cyflym ac rydych yn barod. Mae popeth yn aros ar eich dyfais — nid oes dim yn cael ei lanlwytho."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Dewiswch eich iaith"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Mae hyn yn gosod yr iaith ar gyfer ffenestr naid, gosodiadau a sgrin rwystro FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Dewiswch thema"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Gallwch fireinio'r lliwiau yn nes ymlaen yn y Gosodiadau."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Rhwystro archebu bwyd cyflym"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Yn ychwanegu sgrin saib ar dudalennau archebu cadwyni bwyd cyflym mawr."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Argymhellir ymlaen."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Rhwystro apiau danfon"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Yn ychwanegu sgrin saib ar lwyfannau danfon fel DoorDash ac Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Adfer wrth gefn (dewisol)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Yn dod o ddyfais arall? Mewnforiwch ffeil gosodiadau FitShield i ddod â phopeth drosodd. Fel arall, parhewch."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Mewnforio ffeil gosodiadau"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Sut mae FitShield yn helpu"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Taith gyflym drwy'r prif nodweddion."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Amserydd saib"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Pan fyddwch yn taro safle wedi'i rwystro, mae cyfrif i lawr byr yn rhedeg cyn i chi allu parhau — digon i ailfeddwl am yr archeb."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Amserlen"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Yn ddewisol, rhwystro dim ond ar oriau penodol, fel gyda'r nos neu amser gwaith."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Rhestr wen"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Diffoddwch unrhyw safle, ychwanegwch eich URLau eich hun, neu rhowch ganiatâd dros dro i chi'ch hun pan fyddwch wir ei angen."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Syniadau ryseitiau"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Mae'r sgrin rwystro yn awgrymu rysáit lysieuol gyflym ac un cig/protein yn seiliedig ar yr hyn a rwystroch."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Yn ôl"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Nesaf"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Gorffen"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Cam $1 o $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Beth sy'n newydd"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Cipolwg cyflym ar yr hyn a newidiodd."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Agor gosodiadau"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Cau"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Dim nodiadau rhyddhau eto."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Newydd"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Fersiwn $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

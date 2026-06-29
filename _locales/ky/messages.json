@@ -237,7 +237,7 @@
     "message": "Жазуулар домендерге нормалдаштырылган жана бардык барактарда бөгөттөлгөн."
   },
   "customEmptyDefault": {
-    "message": "Азырынча ыңгайлаштырылган URL'дер кошулган жок."
+    "message": "Азырынча ыңгайлаштырылган бөгөттөлгөн сайттар жок. Бөгөттөөнү баштоо үчүн жогоруда example.com сыяктуу доменди кошуңуз."
   },
   "customNoMatch": {
     "message": "Бул издөөгө эч кандай ыңгайлаштырылган URL даректери дал келбейт."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Муну эмне үчүн көрүп жатасыз"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Сайт"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Эреже"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Категория"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Активдүү"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Жеткирүү кызматы"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Фастфуд"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Ыңгайлаштырылган эреже"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 дагы"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Сиздин статистикаңыз"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield сизге эмнени өткөрүп жиберүүгө жардам бергенинин түзмөктөгү жеке болжолу. Булар болжолдор, эч нерсе жүктөлбөйт."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Бөгөттөлгөн кирүүлөр"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Болжолдуу үнөмдөө"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Орточо тамак баасы"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Буйрутманы өткөрүп жибергенде үнөмдөлгөн акчаны болжолдоо үчүн колдонулат. Түзмөгүңүздө гана сакталат."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Калыбына келтирүү жана маалымат"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield бөлүктөрүн демейкиге кайтарат. Ар бир аракет адегенде ырастоону сурайт."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Бөгөттөөнү калыбына келтирүү"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Таймерлер, график, сайт которгучтары, ыңгайлаштырылган URL жана өлкө/категория бөгөттөрү."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Көрүнүшүн калыбына келтирүү"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Тема түстөрү жана ачык/караңгы режим."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Рецепттерди жана жөндөөлөрдү калыбына келтирүү"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Орточо тамак баасы, калория жөндөөлөрү жана сакталган статистикаңыз."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Заводдук калыбына келтирүү"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Баарын өчүрүп, FitShield'ди жаңы орнотууга кайтарыңыз."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Жокко чыгаруу"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Ырастоо"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Бардык бөгөттөө жөндөөлөрүн демейкиге кайтарабызбы? Темаңыз, тилиңиз жана статистикаңыз сакталат."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Теманы жана көрүнүштү демейки караңгы режимге кайтарабызбы?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Баа жана калория жөндөөлөрүн, ошондой эле үнөмдөө жана болтурбаган калория статистикасын калыбына келтиребизби?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield'ди заводдук калыбына келтиребизби? Бул бул түзмөктөгү бардык жөндөөлөрдү, ыңгайлаштырылган сайттарды жана статистиканы өчүрөт. Артка кайтарууга болбойт."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1 ыңгайлаштырылган бөгөт тизмесинен өчүрөбүзбү?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Бүттү. Кайра жүктөлүүдө…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "~$1 ккал"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Анын ордуна муну жасайм"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Статистикаңызга кошулду ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Жакшы тандоо — статистикаңызга жазылды. Жөндөөлөрдөн караңыз."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Болтурбаган калориялар"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Орточо тамак калориясы"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Анын ордуна рецепт тандаганда болтурбаган калорияларды болжолдоо үчүн колдонулат. Түзмөгүңүздө гана сакталат."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Картаны кайра иреттөө: $1. Жылдыруу үчүн жебе баскычтарын колдонуңуз."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "FitShield'ге кош келиңиз"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Бир нече тез тандоо жана даярсыз. Баары түзмөгүңүздө калат — эч нерсе жүктөлбөйт."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Тилиңизди тандаңыз"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Бул FitShield'дин калкып чыгуучу терезесинин, жөндөөлөрүнүн жана бөгөт экранынын тилин коёт."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Тема тандаңыз"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Түстөрдү кийинчерээк Жөндөөлөрдөн так баптай аласыз."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Фастфуд буйрутмасын бөгөттөө"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Чоң фастфуд тармактарынын буйрутма барактарына тыныгуу экранын кошот."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Күйгүзүү сунушталат."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Жеткирүү колдонмолорун бөгөттөө"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "DoorDash жана Uber Eats сыяктуу жеткирүү платформаларына тыныгуу экранын кошот."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Резервдик көчүрмөнү калыбына келтирүү (милдеттүү эмес)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Башка түзмөктөн келдиңизби? Баарын көчүрүү үчүн FitShield жөндөөлөр файлын импорттоңуз. Болбосо улантыңыз."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Жөндөөлөр файлын импорттоо"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield кантип жардам берет"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Негизги функциялар боюнча тез сереп."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Тыныгуу таймери"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Бөгөттөлгөн сайтка жеткенде, улантуудан мурун кыска кері эсеп жүрөт — буйрутманы кайра ойлонууга жетиштүү."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "График"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Кааласаңыз белгилүү сааттарда гана бөгөттөңүз, мисалы кечинде же иш убагында."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Ак тизме"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Каалаган сайтты өчүрүңүз, өз URL'дериңизди кошуңуз же чындап керек болгондо убактылуу уруксат бериңиз."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Рецепт идеялары"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Бөгөт экраны эмне бөгөттөгөнүңүзгө жараша тез вегетариандык жана эт/протеин рецептин сунуштайт."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Артка"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Кийинки"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Бүтүрүү"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "$2 ичинен $1-кадам"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Эмне жаңы"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Өзгөрүүлөргө тез сереп."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Жөндөөлөрдү ачуу"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Жабуу"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Азырынча чыгарылыш эскертүүлөрү жок."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Жаңы"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Версия $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

@@ -922,5 +922,8 @@
   },
   "whatsNewVersion": {
     "message": "संस्करण $1"
+  },
+  "languageGerman": {
+    "message": "जर्मन"
   }
 }

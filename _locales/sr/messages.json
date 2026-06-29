@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and блокирајed across all pages."
   },
   "customEmptyDefault": {
-    "message": "No прилагођени URL-ови added yet."
+    "message": "Још нема прилагођених блокираних сајтова. Горе додајте домен попут example.com да почнете да га блокирате."
   },
   "customNoMatch": {
     "message": "No прилагођени URL-ови match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Зашто ово видите"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Сајт"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Правило"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Категорија"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Активно у"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Услуга доставе"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Брза храна"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Прилагођено правило"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 још"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Ваша статистика"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Приватна процена на уређају о томе шта вам је FitShield помогао да прескочите. Ово су процене и ништа се не отпрема."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Блокиране посете"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Процењена уштеда"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Просечна цена оброка"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "За процену уштеђеног новца када прескочите поруџбину. Чува се само на вашем уређају."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Ресетовање и подаци"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Враћа делове FitShield-а на подразумевано. Свака радња прво тражи потврду."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Ресетуј блокирање"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Тајмери, распоред, прекидачи сајтова, прилагођени URL-ови и блокаде по земљи/категорији."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Ресетуј изглед"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Боје теме и светли/тамни режим."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Ресетуј рецепте и подешавања"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Просечна цена оброка, подешавања калорија и сачувана статистика."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Фабричко ресетовање"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Обриши све и врати FitShield на стање после инсталације."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Откажи"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Потврди"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Ресетовати сва подешавања блокирања на подразумевано? Тема, језик и статистика остају."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Ресетовати тему и изглед на подразумевани тамни режим?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Ресетовати подешавања цене и калорија, као и статистику уштеде и избегнутих калорија?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Фабрички ресетовати FitShield? Ово брише сва подешавања, прилагођене сајтове и статистику на овом уређају. Не може се опозвати."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Уклонити $1 са ваше прилагођене листе блокирања?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Готово. Поновно учитавање…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Радије ћу направити ово"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Додато у статистику ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Добар избор — забележено у статистици. Погледајте у Подешавањима."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Избегнуте калорије"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Просечне калорије оброка"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "За процену избегнутих калорија када уместо тога изаберете рецепт. Чува се само на вашем уређају."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Промени редослед картице: $1. За померање користите стрелице."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Добро дошли у FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Неколико брзих избора и спремни сте. Све остаје на вашем уређају — ништа се не отпрема."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Изаберите језик"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Поставља језик искачућег прозора, подешавања и екрана блокирања FitShield-а."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Изаберите тему"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Боје можете касније фино подесити у Подешавањима."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Блокирај наручивање брзе хране"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Додаје екран паузе на страницама за поруџбине великих ланаца брзе хране."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Препоручено укључено."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Блокирај апликације за доставу"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Додаје екран паузе на платформама за доставу попут DoorDash-а и Uber Eats-а."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Врати резервну копију (опционо)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Долазите са другог уређаја? Увезите датотеку подешавања FitShield-а да пренесете све. У супротном само наставите."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Увези датотеку подешавања"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Како FitShield помаже"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Брзи преглед главних функција."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Тајмер паузе"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Када наиђете на блокиран сајт, кратко одбројавање тече пре него што можете да наставите — довољно да преиспитате поруџбину."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Распоред"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "По жељи блокирајте само у одређено време, попут вечери или радног времена."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Бела листа"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Искључите било који сајт, додајте сопствене URL-ове или себи дајте привремену дозволу када вам заиста треба."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Идеје за рецепте"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Екран блокирања предлаже брзи вегетаријански и месни/протеински рецепт на основу онога што сте блокирали."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Назад"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Даље"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Заврши"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Корак $1 од $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Шта је ново"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Брзи поглед на промене."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Отвори подешавања"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Затвори"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Још нема белешки о издању."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Ново"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Верзија $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

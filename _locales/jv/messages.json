@@ -237,7 +237,7 @@
     "message": "Entri dinormalisasi menyang domain lan diblokir ing kabeh kaca."
   },
   "customEmptyDefault": {
-    "message": "Durung ana URL khusus sing ditambahake."
+    "message": "Durung ana situs khusus sing diblokir. Tambahake domain kaya example.com ing ndhuwur kanggo miwiti mblokir."
   },
   "customNoMatch": {
     "message": "Ora ana URL khusus sing cocog karo panelusuran iki."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Sebabe sampeyan ndeleng iki"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Situs"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Aturan"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Kategori"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Aktif ing"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Layanan pangiriman"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Panganan cepet"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Aturan khusus"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 liyane"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Statistikmu"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Prakiraan pribadi ing piranti babagan apa sing dibantu FitShield supaya dilewati. Iki prakiraan lan ora ana sing diunggah."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Kunjungan diblokir"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Tabungan prakiraan"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Rata-rata biaya panganan"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Digunakake kanggo ngira dhuwit sing kasimpen nalika sampeyan ngliwati pesenan. Kasimpen mung ing pirantimu."
   },
   "resetHeading": {
     "message": "Reset & Data"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Mulihake bagean FitShield menyang gawan. Saben tumindak njaluk konfirmasi dhisik."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Reset pamblokiran"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Timer, jadwal, ganti situs, URL khusus, lan blokir negara/kategori."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Reset tampilan"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Werna tema lan mode padhang/peteng."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Reset resep & preferensi"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Rata-rata biaya panganan, setelan kalori, lan statistik sing kasimpen."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Reset pabrik"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Busak kabeh lan balekake FitShield kaya nembe diinstal."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Batal"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Konfirmasi"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Reset kabeh setelan pamblokiran menyang gawan? Tema, basa, lan statistikmu tetep kasimpen."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Reset tema lan tampilan menyang mode peteng gawan?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Reset preferensi biaya lan kalori, plus statistik tabungan lan kalori sing dihindari?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Reset pabrik FitShield? Iki mbusak kabeh setelan, situs khusus, lan statistik ing piranti iki. Ora bisa dibatalake."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Busak $1 saka dhaptar blokir khususmu?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Rampung. Mbukak maneh…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Aku nggawe iki wae"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Ditambahake menyang statistikmu ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Pilihan apik — kacathet ing statistikmu. Deleng ing Setelan."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Kalori dihindari"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Rata-rata kalori panganan"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Digunakake kanggo ngira kalori sing dihindari nalika sampeyan milih resep. Kasimpen mung ing pirantimu."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Urutake maneh kertu: $1. Gunakake tombol panah kanggo mindhah."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Sugeng rawuh ing FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Sawetara pilihan cepet lan sampeyan siap. Kabeh tetep ing pirantimu — ora ana sing diunggah."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Pilih basamu"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Iki nyetel basa kanggo popup, setelan, lan layar blokir FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Pilih tema"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Sampeyan bisa nyetel werna mengko ing Setelan."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Blokir pesenan panganan cepet"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Nambahake layar jeda ing kaca pesenan jaringan panganan cepet gedhe."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Disaranake aktif."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Blokir aplikasi pangiriman"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Nambahake layar jeda ing platform pangiriman kaya DoorDash lan Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Pulihake cadangan (opsional)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Pindhah saka piranti liya? Impor file setelan FitShield kanggo nggawa kabeh. Yen ora, terusake wae."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Impor file setelan"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Carane FitShield mbantu"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Tur cepet babagan fitur utama."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Timer jeda"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Nalika tekan situs sing diblokir, etungan mundur cendhak mlaku sadurunge bisa nerusake — cukup kanggo mikir maneh pesenan."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Jadwal"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Yen gelem, blokir mung ing jam tartamtu, kaya bengi utawa jam kerja."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Dhaptar putih"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Pateni situs apa wae, tambahake URL-mu dhewe, utawa wenehi ijin sauntara nalika pancen butuh."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Ide resep"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Layar blokir nyaranake resep vegetarian cepet lan resep daging/protein adhedhasar apa sing diblokir."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Bali"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Sabanjure"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Rampung"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Langkah $1 saka $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Apa sing Anyar"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Deleng cepet apa sing owah."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Bukak setelan"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Tutup"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Durung ana cathetan rilis."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Anyar"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Versi $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

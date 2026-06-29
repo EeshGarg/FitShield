@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and blokkeered across all pages."
   },
   "customEmptyDefault": {
-    "message": "No pasgemaakte URL's added yet."
+    "message": "Nog geen pasgemaakte geblokte werwe nie. Voeg hierbo ’n domein soos example.com by om dit te begin blokkeer."
   },
   "customNoMatch": {
     "message": "No pasgemaakte URL's match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Hoekom jy dit sien"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Werf"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Reël"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Kategorie"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Aktief in"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Afleweringsdiens"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Kitskos"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Pasgemaakte reël"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 meer"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Jou statistiek"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "’n Private skatting op die toestel van wat FitShield jou gehelp het om oor te slaan. Dit is skattings en niks word opgelaai nie."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Geblokte besoeke"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Geskatte besparing"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Gemiddelde maaltydkoste"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Word gebruik om geld te skat wat jy spaar wanneer jy ’n bestelling oorslaan. Net op jou toestel gestoor."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Herstel en data"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Herstel dele van FitShield na verstek. Elke aksie vra eers om bevestiging."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Herstel blokkering"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Tydhouers, skedule, werfwisselaars, pasgemaakte URL’s en land-/kategorieblokke."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Herstel voorkoms"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Temakleure en lig/donker modus."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Herstel resepte en voorkeure"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Gemiddelde maaltydkoste, kalorie-instellings en jou gestoorde statistiek."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Fabriekherstel"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Vee alles uit en stel FitShield terug na ’n vars installasie."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Kanselleer"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Bevestig"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Herstel alle blokkeringinstellings na verstek? Jou tema, taal en statistiek word behou."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Herstel die tema en voorkoms na die verstek donker modus?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Herstel jou koste- en kalorievoorkeure, plus die bespaar- en vermyde-kalorie-statistiek?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Fabriekherstel FitShield? Dit vee alle instellings, pasgemaakte werwe en statistiek op hierdie toestel uit. Dit kan nie ongedaan gemaak word nie."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Verwyder $1 uit jou pasgemaakte bloklys?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Klaar. Herlaai tans…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Ek maak eerder dit"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "By jou statistiek gevoeg ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Goeie keuse — in jou statistiek aangeteken. Sien dit in Instellings."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Vermyde kalorieë"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Gemiddelde maaltydkalorieë"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Word gebruik om vermyde kalorieë te skat wanneer jy eerder ’n resep kies. Net op jou toestel gestoor."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Herrangskik kaart: $1. Gebruik die pyltjiesleutels om dit te skuif."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Welkom by FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "’n Paar vinnige keuses en jy’s reg. Alles bly op jou toestel — niks word opgelaai nie."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Kies jou taal"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Dit stel die taal vir FitShield se opspringer, instellings en blokskerm."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Kies ’n tema"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Jy kan die kleure later in Instellings fynstel."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Blokkeer kitskosbestellings"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Voeg ’n pouseskerm by op die bestelbladsye van groot kitskoskettings."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Aanbeveel aan."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Blokkeer aflewertoepassings"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Voeg ’n pouseskerm by op afleweringsplatforms soos DoorDash en Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Herstel ’n rugsteun (opsioneel)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Kom jy van ’n ander toestel af? Voer ’n FitShield-instellingslêer in om alles oor te bring. Andersins gaan net voort."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Voer instellingslêer in"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Hoe FitShield help"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "’n Vinnige toer deur die hoofkenmerke."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Pousetydhouer"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Wanneer jy ’n geblokte werf tref, loop ’n kort aftelling voordat jy kan voortgaan — genoeg om die bestelling te heroorweeg."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Skedule"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Blokkeer opsioneel net op sekere ure, soos saans of werkstyd."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Witlys"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Skakel enige werf af, voeg jou eie URL’s by, of gee jouself ’n tydelike toegang wanneer jy dit regtig nodig het."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Resepidees"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Die blokskerm stel ’n vinnige vegetariese en ’n vleis-/proteïenresep voor op grond van wat jy geblokkeer het."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Terug"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Volgende"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Voltooi"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Stap $1 van $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Wat is nuut"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "’n Vinnige blik op wat verander het."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Maak instellings oop"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Maak toe"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Nog geen vrystellingnotas nie."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Nuut"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Weergawe $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

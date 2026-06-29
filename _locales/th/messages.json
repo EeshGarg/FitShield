@@ -922,5 +922,8 @@
   },
   "whatsNewVersion": {
     "message": "เวอร์ชัน $1"
+  },
+  "languageGerman": {
+    "message": "เยอรมัน"
   }
 }

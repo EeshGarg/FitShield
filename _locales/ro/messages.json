@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and blocheazăed across all pages."
   },
   "customEmptyDefault": {
-    "message": "No URL-uri personalizate added yet."
+    "message": "Încă niciun site blocat personalizat. Adaugă mai sus un domeniu precum example.com pentru a începe să-l blochezi."
   },
   "customNoMatch": {
     "message": "No URL-uri personalizate match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "De ce vezi asta"
   },
   "blockReasonDomain": {
     "message": "Site"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Regulă"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Categorie"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Activ în"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Serviciu de livrare"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Fast-food"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Regulă personalizată"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 în plus"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Statisticile tale"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "O estimare privată, pe dispozitiv, a ceea ce FitShield te-a ajutat să eviți. Sunt estimări și nimic nu este încărcat."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Vizite blocate"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Economii estimate"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Cost mediu pe masă"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Folosit pentru a estima banii economisiți când renunți la o comandă. Stocat doar pe dispozitivul tău."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Resetare și date"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Readuce părți din FitShield la valorile implicite. Fiecare acțiune cere mai întâi confirmarea."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Resetează blocarea"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Cronometre, program, comutatoare de site, URL-uri personalizate și blocări pe țară/categorie."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Resetează aspectul"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Culorile temei și modul luminos/întunecat."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Resetează rețete și preferințe"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Cost mediu pe masă, setări de calorii și statisticile salvate."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Resetare din fabrică"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Șterge tot și readu FitShield la o instalare nouă."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Anulează"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Confirmă"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Resetezi toate setările de blocare la valorile implicite? Tema, limba și statisticile se păstrează."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Resetezi tema și aspectul la modul întunecat implicit?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Resetezi preferințele de cost și calorii, plus statisticile de economii și calorii evitate?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Resetezi FitShield din fabrică? Aceasta șterge toate setările, site-urile personalizate și statisticile de pe acest dispozitiv. Nu poate fi anulată."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Elimini $1 din lista ta de blocare personalizată?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Gata. Se reîncarcă…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Mai bine prepar asta"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Adăugat la statistici ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Alegere bună — înregistrat în statistici. Vezi în Setări."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Calorii evitate"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Calorii medii pe masă"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Folosit pentru a estima caloriile evitate când alegi o rețetă în schimb. Stocat doar pe dispozitivul tău."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Reordonează cardul: $1. Folosește săgețile pentru a-l muta."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Bun venit la FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Câteva alegeri rapide și ești gata. Totul rămâne pe dispozitivul tău — nimic nu este încărcat."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Alege-ți limba"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Setează limba pentru fereastra pop-up, setările și ecranul de blocare ale FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Alege o temă"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Poți ajusta culorile mai târziu în Setări."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Blochează comenzile fast-food"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Adaugă un ecran de pauză pe paginile de comandă ale marilor lanțuri fast-food."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Recomandat activat."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Blochează aplicațiile de livrare"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Adaugă un ecran de pauză pe platforme de livrare precum DoorDash și Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Restaurează o copie de rezervă (opțional)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Vii de pe alt dispozitiv? Importă un fișier de setări FitShield ca să aduci totul. Altfel, continuă pur și simplu."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Importă fișierul de setări"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Cum te ajută FitShield"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Un tur rapid al funcțiilor principale."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Cronometru de pauză"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Când ajungi pe un site blocat, rulează o scurtă numărătoare inversă înainte să poți continua — suficient cât să reconsideri comanda."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Program"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Opțional, blochează doar în anumite ore, precum serile sau programul de lucru."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Listă albă"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Oprește orice site, adaugă propriile URL-uri sau acordă-ți un permis temporar când chiar ai nevoie."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Idei de rețete"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Ecranul de blocare sugerează o rețetă vegetariană rapidă și una cu carne/proteine în funcție de ce ai blocat."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Înapoi"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Înainte"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Finalizează"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Pasul $1 din $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Noutăți"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "O privire rapidă asupra schimbărilor."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Deschide setările"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Închide"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Încă nu există note de lansare."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Nou"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Versiunea $1"
+  },
+  "languageGerman": {
+    "message": "Germană"
   }
 }

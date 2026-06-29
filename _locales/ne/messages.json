@@ -237,7 +237,7 @@
     "message": "प्रविष्टिहरू डोमेनहरूमा सामान्यीकृत हुन्छन् र सबै पृष्ठहरूमा रोक लगाइन्छ।"
   },
   "customEmptyDefault": {
-    "message": "कुनै पनि अनुकूलन URL हरू अझै थपिएका छैनन्।"
+    "message": "अझै कुनै अनुकूलन रोकिएको साइट छैन। रोक्न सुरु गर्न माथि example.com जस्तो डोमेन थप्नुहोस्।"
   },
   "customNoMatch": {
     "message": "कुनै पनि अनुकूलन URL यस खोजसँग मेल खाँदैन।"
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "तपाईं यो किन देख्दै हुनुहुन्छ"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "साइट"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "नियम"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "वर्ग"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "यहाँ सक्रिय"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "डेलिभरी सेवा"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "फास्ट फुड"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "अनुकूलन नियम"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 थप"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "तपाईंको तथ्याङ्क"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield ले तपाईंलाई के छोड्न मद्दत गर्‍यो भन्ने उपकरणमै रहेको निजी अनुमान। यी अनुमान हुन् र केही पनि अपलोड हुँदैन।"
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "रोकिएका भ्रमणहरू"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "अनुमानित बचत"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "औसत खाना खर्च"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "अर्डर छोड्दा बचेको पैसा अनुमान गर्न प्रयोग हुन्छ। तपाईंको उपकरणमा मात्र भण्डारण हुन्छ।"
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "रिसेट र डेटा"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield का भागहरू पूर्वनिर्धारितमा फर्काउनुहोस्। प्रत्येक कार्यले पहिले पुष्टि माग्छ।"
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "रोक्ने रिसेट गर्नुहोस्"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "टाइमर, तालिका, साइट टगल, अनुकूलन URL, र देश/वर्ग रोकहरू।"
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "रूप रिसेट गर्नुहोस्"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "थिम रङ र लाइट/डार्क मोड।"
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "रेसिपी र प्राथमिकता रिसेट गर्नुहोस्"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "औसत खाना खर्च, क्यालोरी सेटिङ, र तपाईंको सुरक्षित तथ्याङ्क।"
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "फ्याक्ट्री रिसेट"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "सबै मेटाएर FitShield लाई नयाँ इन्स्टल जस्तै बनाउनुहोस्।"
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "रद्द गर्नुहोस्"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "पुष्टि गर्नुहोस्"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "सबै रोक्ने सेटिङ पूर्वनिर्धारितमा रिसेट गर्ने? तपाईंको थिम, भाषा र तथ्याङ्क राखिन्छ।"
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "थिम र रूप पूर्वनिर्धारित डार्क मोडमा रिसेट गर्ने?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "तपाईंको खर्च र क्यालोरी प्राथमिकता, साथै बचत र बचाइएको-क्यालोरी तथ्याङ्क रिसेट गर्ने?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield फ्याक्ट्री रिसेट गर्ने? यसले यो उपकरणका सबै सेटिङ, अनुकूलन साइट र तथ्याङ्क मेटाउँछ। यो उल्टाउन सकिँदैन।"
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1 लाई तपाईंको अनुकूलन रोक सूचीबाट हटाउने?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "भयो। पुनः लोड हुँदैछ…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "साटो यो बनाउँछु"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "तपाईंको तथ्याङ्कमा थपियो ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "राम्रो छनोट — तपाईंको तथ्याङ्कमा लेखियो। सेटिङमा हेर्नुहोस्।"
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "बचाइएका क्यालोरी"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "औसत खाना क्यालोरी"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "साटो रेसिपी छनोट गर्दा बचेका क्यालोरी अनुमान गर्न प्रयोग हुन्छ। तपाईंको उपकरणमा मात्र भण्डारण हुन्छ।"
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "कार्ड पुनः क्रमबद्ध गर्नुहोस्: $1। सार्न तीर कुञ्जी प्रयोग गर्नुहोस्।"
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "FitShield मा स्वागत छ"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "केही छिटो छनोट र तपाईं तयार। सबै कुरा तपाईंको उपकरणमा रहन्छ — केही पनि अपलोड हुँदैन।"
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "आफ्नो भाषा छान्नुहोस्"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "यसले FitShield को पपअप, सेटिङ र ब्लक स्क्रिनको भाषा सेट गर्छ।"
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "थिम छान्नुहोस्"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "रङहरू पछि सेटिङमा मिलाउन सक्नुहुन्छ।"
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "फास्ट फुड अर्डर रोक्नुहोस्"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "ठूला फास्ट फुड चेनका अर्डर पृष्ठमा एउटा रोकाइ स्क्रिन थप्छ।"
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "सक्रिय राख्न सिफारिस।"
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "डेलिभरी एप रोक्नुहोस्"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "DoorDash र Uber Eats जस्ता डेलिभरी प्लेटफर्ममा एउटा रोकाइ स्क्रिन थप्छ।"
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "ब्याकअप पुनर्स्थापना (वैकल्पिक)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "अर्को उपकरणबाट आउँदै हुनुहुन्छ? सबै ल्याउन FitShield सेटिङ फाइल आयात गर्नुहोस्। अन्यथा जारी राख्नुहोस्।"
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "सेटिङ फाइल आयात गर्नुहोस्"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield कसरी मद्दत गर्छ"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "मुख्य सुविधाहरूको छिटो भ्रमण।"
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "रोकाइ टाइमर"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "रोकिएको साइटमा पुग्दा, जारी राख्नुअघि छोटो उल्टो गणना चल्छ — अर्डर पुनर्विचार गर्न पर्याप्त।"
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "तालिका"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "चाहेमा साँझ वा कामको समय जस्ता निश्चित घण्टामा मात्र रोक्नुहोस्।"
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "ह्वाइटलिस्ट"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "कुनै पनि साइट बन्द गर्नुहोस्, आफ्नै URL थप्नुहोस्, वा साँच्चै आवश्यक पर्दा अस्थायी अनुमति दिनुहोस्।"
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "रेसिपी विचार"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "तपाईंले के रोक्नुभयो त्यसको आधारमा ब्लक स्क्रिनले एउटा छिटो शाकाहारी र एउटा मासु/प्रोटिन रेसिपी सुझाव दिन्छ।"
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "पछाडि"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "अर्को"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "समाप्त"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "चरण $1 / $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "के नयाँ छ"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "के परिवर्तन भयो छिटो हेराइ।"
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "सेटिङ खोल्नुहोस्"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "बन्द गर्नुहोस्"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "अझै रिलिज नोट छैन।"
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "नयाँ"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "संस्करण $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

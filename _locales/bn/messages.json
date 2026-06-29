@@ -237,7 +237,7 @@
     "message": "এন্ট্রিগুলি ডোমেনে স্বাভাবিক করা হয় এবং সমস্ত পৃষ্ঠায় ব্লক করা হয়।"
   },
   "customEmptyDefault": {
-    "message": "এখনো কোনো কাস্টম URL যোগ করা হয়নি।"
+    "message": "এখনও কোনো কাস্টম ব্লক করা সাইট নেই। ব্লক করা শুরু করতে উপরে example.com-এর মতো একটি ডোমেইন যোগ করুন।"
   },
   "customNoMatch": {
     "message": "কোনো কাস্টম URL এই অনুসন্ধানের সাথে মেলে না।"
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "আপনি কেন এটি দেখছেন"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "সাইট"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "নিয়ম"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "বিভাগ"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "সক্রিয়"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "ডেলিভারি সেবা"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "ফাস্ট ফুড"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "কাস্টম নিয়ম"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 আরও"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "আপনার পরিসংখ্যান"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield আপনাকে যা এড়াতে সাহায্য করেছে তার ডিভাইসেই থাকা একটি ব্যক্তিগত অনুমান। এগুলো অনুমান এবং কিছুই আপলোড হয় না।"
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "ব্লক করা ভিজিট"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "আনুমানিক সাশ্রয়"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "গড় খাবারের খরচ"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "কোনো অর্ডার এড়ালে সাশ্রয় হওয়া অর্থ অনুমানে ব্যবহৃত হয়। শুধু আপনার ডিভাইসে সংরক্ষিত।"
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "রিসেট ও ডেটা"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield-এর অংশগুলো ডিফল্টে ফিরিয়ে আনুন। প্রতিটি ক্রিয়া আগে নিশ্চিতকরণ চায়।"
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "ব্লকিং রিসেট করুন"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "টাইমার, সময়সূচি, সাইট টগল, কাস্টম URL এবং দেশ/বিভাগ ব্লক।"
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "চেহারা রিসেট করুন"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "থিম রং এবং লাইট/ডার্ক মোড।"
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "রেসিপি ও পছন্দ রিসেট করুন"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "গড় খাবারের খরচ, ক্যালোরি সেটিংস এবং আপনার সংরক্ষিত পরিসংখ্যান।"
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "ফ্যাক্টরি রিসেট"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "সব মুছে FitShield-কে নতুন ইনস্টলের মতো করুন।"
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "বাতিল"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "নিশ্চিত করুন"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "সব ব্লকিং সেটিংস ডিফল্টে রিসেট করবেন? আপনার থিম, ভাষা ও পরিসংখ্যান রাখা হবে।"
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "থিম ও চেহারা ডিফল্ট ডার্ক মোডে রিসেট করবেন?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "আপনার খরচ ও ক্যালোরি পছন্দ, এবং সাশ্রয় ও এড়ানো-ক্যালোরি পরিসংখ্যান রিসেট করবেন?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield ফ্যাক্টরি রিসেট করবেন? এটি এই ডিভাইসের সব সেটিংস, কাস্টম সাইট ও পরিসংখ্যান মুছে দেবে। এটি পূর্বাবস্থায় ফেরানো যায় না।"
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1 কে আপনার কাস্টম ব্লকলিস্ট থেকে সরাবেন?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "সম্পন্ন। পুনরায় লোড হচ্ছে…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "এর বদলে এটি বানাব"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "আপনার পরিসংখ্যানে যোগ হয়েছে ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "ভালো পছন্দ — আপনার পরিসংখ্যানে লেখা হয়েছে। সেটিংসে দেখুন।"
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "এড়ানো ক্যালোরি"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "গড় খাবারের ক্যালোরি"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "এর বদলে রেসিপি বেছে নিলে এড়ানো ক্যালোরি অনুমানে ব্যবহৃত হয়। শুধু আপনার ডিভাইসে সংরক্ষিত।"
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "কার্ড পুনঃসাজান: $1। সরাতে তীর কী ব্যবহার করুন।"
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "FitShield-এ স্বাগতম"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "কয়েকটি দ্রুত পছন্দ আর আপনি প্রস্তুত। সবকিছু আপনার ডিভাইসে থাকে — কিছুই আপলোড হয় না।"
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "আপনার ভাষা বেছে নিন"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "এটি FitShield-এর পপআপ, সেটিংস ও ব্লক স্ক্রিনের ভাষা নির্ধারণ করে।"
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "একটি থিম বাছুন"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "রং পরে সেটিংসে সূক্ষ্মভাবে ঠিক করতে পারেন।"
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "ফাস্ট ফুড অর্ডার ব্লক করুন"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "বড় ফাস্ট ফুড চেইনের অর্ডার পেজে একটি বিরতি স্ক্রিন যোগ করে।"
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "চালু রাখা সুপারিশকৃত।"
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "ডেলিভারি অ্যাপ ব্লক করুন"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "DoorDash ও Uber Eats-এর মতো ডেলিভারি প্ল্যাটফর্মে একটি বিরতি স্ক্রিন যোগ করে।"
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "ব্যাকআপ পুনরুদ্ধার (ঐচ্ছিক)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "অন্য ডিভাইস থেকে আসছেন? সবকিছু আনতে একটি FitShield সেটিংস ফাইল ইম্পোর্ট করুন। নয়তো এগিয়ে যান।"
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "সেটিংস ফাইল ইম্পোর্ট করুন"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield কীভাবে সাহায্য করে"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "মূল বৈশিষ্ট্যগুলোর দ্রুত ভ্রমণ।"
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "বিরতি টাইমার"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "কোনো ব্লক করা সাইটে গেলে এগিয়ে যাওয়ার আগে একটি ছোট কাউন্টডাউন চলে — অর্ডার পুনর্বিবেচনার জন্য যথেষ্ট।"
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "সময়সূচি"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "ইচ্ছে হলে শুধু নির্দিষ্ট সময়ে ব্লক করুন, যেমন সন্ধ্যা বা কাজের সময়।"
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "হোয়াইটলিস্ট"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "যেকোনো সাইট বন্ধ করুন, নিজের URL যোগ করুন, বা সত্যিই প্রয়োজনে অস্থায়ী অনুমতি দিন।"
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "রেসিপি ধারণা"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "ব্লক স্ক্রিন আপনি যা ব্লক করেছেন তার ভিত্তিতে একটি দ্রুত নিরামিষ ও একটি মাংস/প্রোটিন রেসিপি প্রস্তাব করে।"
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "পেছনে"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "পরবর্তী"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "শেষ"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "ধাপ $1 / $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "নতুন কী"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "কী বদলেছে তার দ্রুত নজর।"
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "সেটিংস খুলুন"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "বন্ধ করুন"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "এখনও কোনো রিলিজ নোট নেই।"
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "নতুন"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "সংস্করণ $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

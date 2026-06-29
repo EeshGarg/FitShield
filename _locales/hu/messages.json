@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and blokkolásed across all pages."
   },
   "customEmptyDefault": {
-    "message": "No egyéni URL-ek added yet."
+    "message": "Még nincs egyéni letiltott webhely. Adj hozzá fent egy domaint, például example.com, hogy elkezdd letiltani."
   },
   "customNoMatch": {
     "message": "No egyéni URL-ek match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Miért látod ezt"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Webhely"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Szabály"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Kategória"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Aktív itt"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Kézbesítési szolgáltatás"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Gyorsétterem"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Egyéni szabály"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 további"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "A statisztikád"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Egy privát, az eszközön készült becslés arról, mit segített kihagyni a FitShield. Ezek becslések, és semmi nem töltődik fel."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Letiltott látogatások"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Becsült megtakarítás"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Átlagos étkezési költség"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "A megspórolt pénz becslésére, amikor kihagysz egy rendelést. Csak az eszközödön tárolódik."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Visszaállítás és adatok"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "A FitShield egyes részeit visszaállítja az alapértékekre. Minden művelet előbb megerősítést kér."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Letiltás visszaállítása"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Időzítők, ütemezés, webhelykapcsolók, egyéni URL-ek és ország/kategória letiltások."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Megjelenés visszaállítása"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Témaszínek és világos/sötét mód."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Receptek és beállítások visszaállítása"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Átlagos étkezési költség, kalóriabeállítások és a mentett statisztikák."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Gyári visszaállítás"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Mindent töröl, és a FitShieldet friss telepítésre állítja vissza."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Mégse"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Megerősítés"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Visszaállítod az összes letiltási beállítást az alapértékekre? A téma, a nyelv és a statisztikák megmaradnak."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Visszaállítod a témát és a megjelenést az alapértelmezett sötét módra?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Visszaállítod a költség- és kalóriabeállításokat, valamint a megtakarítás és elkerült kalória statisztikákat?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Gyárilag visszaállítod a FitShieldet? Ez töröl minden beállítást, egyéni webhelyet és statisztikát ezen az eszközön. Nem vonható vissza."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Eltávolítod a(z) $1 elemet az egyéni letiltási listádból?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Kész. Újratöltés…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Inkább ezt készítem el"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Hozzáadva a statisztikádhoz ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Jó választás — rögzítve a statisztikádban. Nézd meg a Beállításokban."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Elkerült kalóriák"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Átlagos étkezési kalória"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Az elkerült kalóriák becslésére, amikor inkább egy receptet választasz. Csak az eszközödön tárolódik."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Kártya átrendezése: $1. A nyílbillentyűkkel mozgathatod."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Üdvözlünk a FitShieldben"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Néhány gyors választás, és kész vagy. Minden az eszközödön marad — semmi nem töltődik fel."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Válaszd ki a nyelved"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Ez állítja be a FitShield felugró ablakának, beállításainak és letiltási képernyőjének nyelvét."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Válassz témát"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "A színeket később finomhangolhatod a Beállításokban."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Gyorséttermi rendelés letiltása"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Szünet képernyőt ad a nagy gyorsétterem-láncok rendelési oldalaihoz."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Ajánlott bekapcsolva."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Kézbesítő appok letiltása"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Szünet képernyőt ad az olyan kézbesítő platformokhoz, mint a DoorDash és az Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Biztonsági mentés visszaállítása (opcionális)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Másik eszközről jössz? Importálj egy FitShield beállításfájlt, hogy mindent áthozz. Egyébként csak folytasd."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Beállításfájl importálása"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Hogyan segít a FitShield"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Gyors körút a fő funkciókon."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Szünet-időzítő"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Amikor letiltott webhelyre érsz, rövid visszaszámlálás fut, mielőtt folytathatnád — épp elég, hogy újragondold a rendelést."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Ütemezés"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Igény szerint csak megadott órákban tilthatsz, például esténként vagy munkaidőben."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Fehérlista"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Kapcsolj ki bármelyik webhelyet, adj hozzá saját URL-eket, vagy adj magadnak ideiglenes engedélyt, ha tényleg szükséged van rá."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Receptötletek"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "A letiltási képernyő egy gyors vegetáriánus és egy hús/fehérje receptet ajánl annak alapján, amit letiltottál."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Vissza"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Tovább"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Befejezés"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "$1./$2. lépés"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Újdonságok"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Gyors pillantás a változásokra."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Beállítások megnyitása"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Bezárás"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Még nincsenek kiadási megjegyzések."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Új"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "$1 verzió"
+  },
+  "languageGerman": {
+    "message": "Német"
   }
 }

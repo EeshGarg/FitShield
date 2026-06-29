@@ -922,5 +922,8 @@
   },
   "whatsNewVersion": {
     "message": "Versie $1"
+  },
+  "languageGerman": {
+    "message": "Duits"
   }
 }

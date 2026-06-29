@@ -237,7 +237,7 @@
     "message": "Domenlere ýazgylar kadalaşdyrylýar we ähli sahypalarda bloklanýar."
   },
   "customEmptyDefault": {
-    "message": "Hususy URL-ler entek goşulmady."
+    "message": "Heniz ýörite petiklenen sahypa ýok. Petiklemäge başlamak üçin ýokarda example.com ýaly domen goşuň."
   },
   "customNoMatch": {
     "message": "Bu gözlegde hiç hili ýörite URL ýok."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Muny näme üçin görýärsiňiz"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Sahypa"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Düzgün"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Kategoriýa"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Işjeň"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Eltip beriş hyzmaty"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Çalt nahar"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Ýörite düzgün"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 ýene"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Siziň statistikaňyz"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield-iň size nämäni geçirmäge kömek edenini enjamda saklanýan şahsy çaklama. Bular çaklamalar we hiç zat ýüklenmeýär."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Petiklenen girişler"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Çak edilen tygşytlama"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Ortaça nahar bahasy"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Sargydy geçireniňizde tygşytlanan puly çaklamak üçin ulanylýar. Diňe enjamyňyzda saklanýar."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Täzeden düzmek we maglumat"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield-iň böleklerini başlangyç ýagdaýa dikeldýär. Her hereket ilki tassyklama soraýar."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Petiklemäni täzeden düz"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Taýmerler, tertip, sahypa açarlary, ýörite URL-ler we ýurt/kategoriýa petikleri."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Daşky görnüşi täzeden düz"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Tema reňkleri we açyk/garaňky režim."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Reseptleri we sazlamalary täzeden düz"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Ortaça nahar bahasy, kaloriýa sazlamalary we ýatdaky statistikaňyz."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Zawod täzeden düzmesi"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Hemmesini öçür we FitShield-i täze gurnama dikelt."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Goý bolsun"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Tassykla"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Ähli petikleme sazlamalary başlangyç ýagdaýa dikeldilsinmi? Temaňyz, diliňiz we statistikaňyz saklanýar."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Tema we daşky görnüş başlangyç garaňky režime dikeldilsinmi?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Baha we kaloriýa sazlamalaryňyz, şeýle hem tygşytlama we öňi alnan kaloriýa statistikasy dikeldilsinmi?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield zawod ýagdaýyna dikeldilsinmi? Bu bu enjamdaky ähli sazlamalary, ýörite sahypalary we statistikany öçürýär. Yzyna gaýtaryp bolmaýar."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1 ýörite petik sanawyňyzdan aýrylsynmy?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Taýýar. Täzeden ýüklenýär…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "~$1 kkal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Onuň ýerine muny taýýarlaryn"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Statistikaňyza goşuldy ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Gowy saýlaw — statistikaňyzda bellige alyndy. Sazlamalarda görüň."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Öňi alnan kaloriýalar"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Ortaça nahar kaloriýasy"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Onuň ýerine resept saýlanyňyzda öňi alnan kaloriýalary çaklamak üçin ulanylýar. Diňe enjamyňyzda saklanýar."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Karty täzeden tertiple: $1. Süýşürmek üçin ok düwmelerini ulan."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "FitShield-e hoş geldiňiz"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Birnäçe çalt saýlaw we taýýar. Hemmesi enjamyňyzda galýar — hiç zat ýüklenmeýär."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Diliňizi saýlaň"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Bu FitShield-iň açylýan penjiresiniň, sazlamalarynyň we petik ekranynyň dilini kesgitleýär."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Tema saýlaň"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Reňkleri soňra Sazlamalarda inçe sazlap bilersiňiz."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Çalt nahar sargydyny petikle"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Uly çalt nahar zynjyrlarynyň sargyt sahypalaryna arakesme ekranyny goşýar."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Açyk maslahat berilýär."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Eltip beriş programmalaryny petikle"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "DoorDash we Uber Eats ýaly eltip beriş platformalaryna arakesme ekranyny goşýar."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Ätiýaçlyk nusgany dikelt (islege bagly)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Başga enjamdan gelýärsiňizmi? Hemmesini getirmek üçin FitShield sazlama faýlyny import ediň. Bolmasa dowam ediň."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Sazlama faýlyny import et"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield nähili kömek edýär"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Esasy aýratynlyklaryň çalt synanyşygy."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Arakesme taýmeri"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Petiklenen sahypa ýeteniňizde, dowam etmezden öň gysga yzag yzlaýyş geçýär — sargydy täzeden pikirlenmäge ýeterlik."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Tertip"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Islegiňize görä diňe kesgitli sagatlarda petikläň, meselem agşam ýa-da iş wagty."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Ak sanaw"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Islendik sahypany öçüriň, öz URL-leriňizi goşuň ýa-da hakykatdan zerur bolanda özüňize wagtlaýyn rugsat beriň."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Resept pikirleri"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Petik ekrany näme petiklänligiňize görä çalt wegetarian we et/belok resept hödürleýär."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Yza"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Indiki"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Tamamla"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "$2-den $1-ädim"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Näme täzelik"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Üýtgeşmelere çalt göz aýlamak."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Sazlamalary aç"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Ýap"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Heniz çykaryş bellikleri ýok."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Täze"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Wersiýa $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

@@ -237,7 +237,7 @@
     "message": "اندراجات کو ڈومینز میں معمول بنایا جاتا ہے اور تمام صفحات پر بلاک کر دیا جاتا ہے۔"
   },
   "customEmptyDefault": {
-    "message": "ابھی تک کوئی حسب ضرورت URLs شامل نہیں کیے گئے ہیں۔"
+    "message": "ابھی کوئی حسب ضرورت مسدود سائٹ نہیں۔ اسے بلاک کرنا شروع کرنے کے لیے اوپر example.com جیسا ڈومین شامل کریں۔"
   },
   "customNoMatch": {
     "message": "کوئی حسب ضرورت URL اس تلاش سے مماثل نہیں ہے۔"
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "آپ یہ کیوں دیکھ رہے ہیں"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "سائٹ"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "اصول"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "زمرہ"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "یہاں فعال"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "ڈیلیوری سروس"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "فاسٹ فوڈ"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "حسب ضرورت اصول"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 مزید"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "آپ کے اعدادوشمار"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield نے آپ کو کیا چھوڑنے میں مدد کی، اس کا آلے ہی پر موجود نجی تخمینہ۔ یہ تخمینے ہیں اور کچھ بھی اپ لوڈ نہیں ہوتا۔"
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "مسدود دورے"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "تخمینی بچت"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "اوسط کھانے کی لاگت"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "کسی آرڈر کو چھوڑنے پر بچائے گئے پیسوں کا تخمینہ لگانے کے لیے استعمال ہوتا ہے۔ صرف آپ کے آلے پر محفوظ ہوتا ہے۔"
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "ری سیٹ اور ڈیٹا"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield کے حصوں کو طے شدہ پر بحال کریں۔ ہر عمل پہلے تصدیق مانگتا ہے۔"
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "بلاکنگ ری سیٹ کریں"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "ٹائمر، شیڈول، سائٹ ٹوگلز، حسب ضرورت URLs، اور ملک/زمرہ بلاکس۔"
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "ظاہری شکل ری سیٹ کریں"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "تھیم کے رنگ اور روشن/تاریک موڈ۔"
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "ترکیبیں اور ترجیحات ری سیٹ کریں"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "اوسط کھانے کی لاگت، کیلوری کی ترتیبات، اور آپ کے محفوظ اعدادوشمار۔"
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "فیکٹری ری سیٹ"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "سب کچھ مٹا کر FitShield کو نئی تنصیب کی طرح کر دیں۔"
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "منسوخ"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "تصدیق"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "تمام بلاکنگ ترتیبات کو طے شدہ پر ری سیٹ کریں؟ آپ کی تھیم، زبان اور اعدادوشمار محفوظ رہیں گے۔"
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "تھیم اور ظاہری شکل کو طے شدہ تاریک موڈ پر ری سیٹ کریں؟"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "اپنی لاگت اور کیلوری کی ترجیحات، نیز بچت اور بچائی گئی کیلوری کے اعدادوشمار ری سیٹ کریں؟"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield کو فیکٹری ری سیٹ کریں؟ یہ اس آلے کی تمام ترتیبات، حسب ضرورت سائٹس اور اعدادوشمار مٹا دیتا ہے۔ اسے واپس نہیں کیا جا سکتا۔"
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1 کو آپ کی حسب ضرورت بلاک لسٹ سے ہٹا دیں؟"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "ہو گیا۔ دوبارہ لوڈ ہو رہا ہے…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "اس کے بجائے میں یہ بناؤں گا"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "آپ کے اعدادوشمار میں شامل ہو گیا ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "اچھا انتخاب — آپ کے اعدادوشمار میں درج ہو گیا۔ ترتیبات میں دیکھیں۔"
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "بچائی گئی کیلوریز"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "اوسط کھانے کی کیلوریز"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "اس کے بجائے کوئی ترکیب منتخب کرنے پر بچائی گئی کیلوریز کا تخمینہ لگانے کے لیے استعمال ہوتا ہے۔ صرف آپ کے آلے پر محفوظ ہوتا ہے۔"
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "کارڈ کی ترتیب بدلیں: $1۔ منتقل کرنے کے لیے تیر کی کلیدیں استعمال کریں۔"
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "FitShield میں خوش آمدید"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "چند فوری انتخاب اور آپ تیار ہیں۔ سب کچھ آپ کے آلے پر رہتا ہے — کچھ بھی اپ لوڈ نہیں ہوتا۔"
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "اپنی زبان منتخب کریں"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "یہ FitShield کے پاپ اپ، ترتیبات اور بلاک اسکرین کی زبان طے کرتا ہے۔"
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "ایک تھیم منتخب کریں"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "رنگوں کو بعد میں ترتیبات میں باریکی سے ایڈجسٹ کر سکتے ہیں۔"
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "فاسٹ فوڈ آرڈرنگ بلاک کریں"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "بڑی فاسٹ فوڈ چینز کے آرڈر صفحات پر ایک وقفہ اسکرین شامل کرتا ہے۔"
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "آن رکھنے کی سفارش۔"
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "ڈیلیوری ایپس بلاک کریں"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "DoorDash اور Uber Eats جیسے ڈیلیوری پلیٹ فارمز پر ایک وقفہ اسکرین شامل کرتا ہے۔"
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "بیک اپ بحال کریں (اختیاری)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "کسی اور آلے سے آ رہے ہیں؟ سب کچھ لانے کے لیے FitShield کی ترتیبات فائل درآمد کریں۔ ورنہ بس جاری رکھیں۔"
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "ترتیبات فائل درآمد کریں"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield کیسے مدد کرتا ہے"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "اہم خصوصیات کا فوری دورہ۔"
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "وقفہ ٹائمر"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "جب آپ کسی مسدود سائٹ پر پہنچتے ہیں، تو جاری رکھنے سے پہلے ایک مختصر الٹی گنتی چلتی ہے — آرڈر پر دوبارہ سوچنے کے لیے کافی۔"
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "شیڈول"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "اختیاری طور پر صرف مقررہ اوقات میں بلاک کریں، جیسے شام یا کام کے اوقات۔"
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "وائٹ لسٹ"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "کسی بھی سائٹ کو بند کریں، اپنے URLs شامل کریں، یا جب واقعی ضرورت ہو تو عارضی اجازت دیں۔"
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "ترکیب کے خیالات"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "آپ نے کیا بلاک کیا اس کی بنیاد پر بلاک اسکرین ایک فوری سبزی خور اور ایک گوشت/پروٹین ترکیب تجویز کرتی ہے۔"
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "واپس"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "اگلا"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "ختم"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "مرحلہ $1 / $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "نیا کیا ہے"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "تبدیلیوں پر ایک فوری نظر۔"
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "ترتیبات کھولیں"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "بند کریں"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "ابھی کوئی ریلیز نوٹ نہیں۔"
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "نیا"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "ورژن $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

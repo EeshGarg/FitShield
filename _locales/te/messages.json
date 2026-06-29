@@ -237,7 +237,7 @@
     "message": "ఎంట్రీలు డొమైన్‌లకు సాధారణీకరించబడ్డాయి మరియు అన్ని పేజీలలో బ్లాక్ చేయబడ్డాయి."
   },
   "customEmptyDefault": {
-    "message": "ఇంకా అనుకూల URLలు ఏవీ జోడించబడలేదు."
+    "message": "ఇంకా అనుకూల నిరోధించిన సైట్‌లు లేవు. నిరోధించడం ప్రారంభించడానికి పైన example.com వంటి డొమైన్‌ను జోడించండి."
   },
   "customNoMatch": {
     "message": "ఈ శోధనకు అనుకూల URLలు ఏవీ సరిపోలలేదు."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "మీరు దీన్ని ఎందుకు చూస్తున్నారు"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "సైట్"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "నియమం"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "వర్గం"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "క్రియాశీలం"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "డెలివరీ సేవ"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "ఫాస్ట్ ఫుడ్"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "అనుకూల నియమం"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 మరిన్ని"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "మీ గణాంకాలు"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield మిమ్మల్ని వదిలేయడంలో సహాయపడిన దానిపై పరికరంలోనే ఉండే ఒక గోప్యమైన అంచనా. ఇవి అంచనాలు, ఏదీ అప్‌లోడ్ కాదు."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "నిరోధించిన సందర్శనలు"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "అంచనా పొదుపు"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "సగటు భోజన ఖర్చు"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "ఆర్డర్‌ను వదిలేసినప్పుడు ఆదా అయిన డబ్బును అంచనా వేయడానికి ఉపయోగిస్తారు. మీ పరికరంలో మాత్రమే నిల్వ చేయబడుతుంది."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "రీసెట్ & డేటా"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield భాగాలను డిఫాల్ట్‌లకు పునరుద్ధరించండి. ప్రతి చర్య మొదట నిర్ధారణను అడుగుతుంది."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "నిరోధాన్ని రీసెట్ చేయి"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "టైమర్‌లు, షెడ్యూల్, సైట్ టోగుల్‌లు, అనుకూల URL‌లు, దేశం/వర్గం నిరోధాలు."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "రూపాన్ని రీసెట్ చేయి"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "థీమ్ రంగులు మరియు లైట్/డార్క్ మోడ్."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "రెసిపీలు & ప్రాధాన్యతలను రీసెట్ చేయి"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "సగటు భోజన ఖర్చు, కేలరీ సెట్టింగ్‌లు, మీ సేవ్ చేసిన గణాంకాలు."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "ఫ్యాక్టరీ రీసెట్"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "అన్నీ తొలగించి FitShield‌ను కొత్త ఇన్‌స్టాల్‌కు తిరిగి తీసుకురండి."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "రద్దు"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "నిర్ధారించు"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "అన్ని నిరోధ సెట్టింగ్‌లను డిఫాల్ట్‌లకు రీసెట్ చేయాలా? మీ థీమ్, భాష, గణాంకాలు ఉంచబడతాయి."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "థీమ్ మరియు రూపాన్ని డిఫాల్ట్ డార్క్ మోడ్‌కు రీసెట్ చేయాలా?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "మీ ఖర్చు, కేలరీ ప్రాధాన్యతలను, అలాగే పొదుపు మరియు తప్పించిన-కేలరీ గణాంకాలను రీసెట్ చేయాలా?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield‌ను ఫ్యాక్టరీ రీసెట్ చేయాలా? ఇది ఈ పరికరంలోని అన్ని సెట్టింగ్‌లు, అనుకూల సైట్‌లు, గణాంకాలను తొలగిస్తుంది. దీన్ని తిరిగి తీసుకోలేరు."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1‌ను మీ అనుకూల నిరోధ జాబితా నుండి తీసివేయాలా?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "పూర్తయింది. మళ్లీ లోడ్ అవుతోంది…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "దానికి బదులు ఇది చేస్తాను"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "మీ గణాంకాలకు జోడించబడింది ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "మంచి ఎంపిక — మీ గణాంకాలలో నమోదైంది. సెట్టింగ్‌లలో చూడండి."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "తప్పించిన కేలరీలు"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "సగటు భోజన కేలరీలు"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "బదులుగా రెసిపీని ఎంచుకున్నప్పుడు తప్పించిన కేలరీలను అంచనా వేయడానికి ఉపయోగిస్తారు. మీ పరికరంలో మాత్రమే నిల్వ చేయబడుతుంది."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "కార్డును క్రమం మార్చండి: $1. తరలించడానికి బాణం కీలను వాడండి."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "FitShield‌కు స్వాగతం"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "కొన్ని త్వరిత ఎంపికలు, మీరు సిద్ధం. అంతా మీ పరికరంలోనే ఉంటుంది — ఏదీ అప్‌లోడ్ కాదు."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "మీ భాషను ఎంచుకోండి"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "ఇది FitShield పాప్‌అప్, సెట్టింగ్‌లు, బ్లాక్ స్క్రీన్ భాషను సెట్ చేస్తుంది."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "ఒక థీమ్‌ను ఎంచుకోండి"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "రంగులను తర్వాత సెట్టింగ్‌లలో సరిచేయవచ్చు."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "ఫాస్ట్ ఫుడ్ ఆర్డర్‌ను నిరోధించండి"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "పెద్ద ఫాస్ట్ ఫుడ్ చైన్‌ల ఆర్డర్ పేజీలలో ఒక పాజ్ స్క్రీన్‌ను జోడిస్తుంది."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "ఆన్ చేయడం సిఫార్సు."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "డెలివరీ యాప్‌లను నిరోధించండి"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "DoorDash, Uber Eats వంటి డెలివరీ ప్లాట్‌ఫారమ్‌లలో ఒక పాజ్ స్క్రీన్‌ను జోడిస్తుంది."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "బ్యాకప్‌ను పునరుద్ధరించండి (ఐచ్ఛికం)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "మరో పరికరం నుండి వస్తున్నారా? అంతా తీసుకురావడానికి FitShield సెట్టింగ్‌ల ఫైల్‌ను దిగుమతి చేయండి. లేకుంటే కొనసాగండి."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "సెట్టింగ్‌ల ఫైల్‌ను దిగుమతి చేయి"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "FitShield ఎలా సహాయపడుతుంది"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "ముఖ్య ఫీచర్‌ల త్వరిత పర్యటన."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "పాజ్ టైమర్"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "నిరోధించిన సైట్‌కు చేరినప్పుడు, కొనసాగే ముందు ఒక చిన్న కౌంట్‌డౌన్ నడుస్తుంది — ఆర్డర్‌ను మళ్లీ ఆలోచించడానికి సరిపోతుంది."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "షెడ్యూల్"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "కావాలంటే సాయంత్రం లేదా పని వేళలు వంటి నిర్దిష్ట గంటల్లో మాత్రమే నిరోధించండి."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "వైట్‌లిస్ట్"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "ఏ సైట్‌నైనా ఆఫ్ చేయండి, మీ స్వంత URL‌లను జోడించండి, లేదా నిజంగా అవసరమైనప్పుడు తాత్కాలిక అనుమతి ఇవ్వండి."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "రెసిపీ ఆలోచనలు"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "మీరు నిరోధించిన దాని ఆధారంగా బ్లాక్ స్క్రీన్ ఒక త్వరిత శాకాహార మరియు మాంసం/ప్రోటీన్ రెసిపీని సూచిస్తుంది."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "వెనుకకు"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "తదుపరి"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "ముగించు"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "దశ $1 / $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "కొత్తగా ఏమిటి"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "మార్పులపై త్వరిత చూపు."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "సెట్టింగ్‌లను తెరువు"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "మూసివేయి"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "ఇంకా విడుదల గమనికలు లేవు."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "కొత్తది"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "వెర్షన్ $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

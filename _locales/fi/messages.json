@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and estäed across all pages."
   },
   "customEmptyDefault": {
-    "message": "No mukautetut URL-osoitteet added yet."
+    "message": "Ei vielä omia estettyjä sivustoja. Lisää yllä verkkotunnus, kuten example.com, aloittaaksesi sen eston."
   },
   "customNoMatch": {
     "message": "No mukautetut URL-osoitteet match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Miksi näet tämän"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Sivusto"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Sääntö"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Luokka"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Aktiivinen alueella"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Toimituspalvelu"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Pikaruoka"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Mukautettu sääntö"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 lisää"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Tilastosi"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Yksityinen, laitteella tehty arvio siitä, mitä FitShield on auttanut sinua ohittamaan. Nämä ovat arvioita, eikä mitään ladata."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Estetyt käynnit"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Arvioidut säästöt"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Aterian keskihinta"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Käytetään arvioimaan säästetyt rahat, kun ohitat tilauksen. Tallennetaan vain laitteellesi."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Nollaus ja tiedot"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Palauttaa FitShieldin osia oletuksiin. Jokainen toiminto pyytää ensin vahvistuksen."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Nollaa esto"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Ajastimet, aikataulu, sivustokytkimet, omat URL-osoitteet sekä maa-/luokkaestot."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Nollaa ulkoasu"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Teeman värit ja vaalea/tumma tila."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Nollaa reseptit ja asetukset"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Aterian keskihinta, kaloriasetukset ja tallennetut tilastot."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Tehdasasetusten palautus"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Pyyhi kaikki ja palauta FitShield tuoreeseen asennukseen."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Peruuta"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Vahvista"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Nollataanko kaikki estoasetukset oletuksiin? Teema, kieli ja tilastot säilyvät."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Nollataanko teema ja ulkoasu oletustummaan tilaan?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Nollataanko hinta- ja kaloriasetukset sekä säästö- ja vältettyjen kaloreiden tilastot?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Palautetaanko FitShield tehdasasetuksiin? Tämä pyyhkii kaikki asetukset, omat sivustot ja tilastot tältä laitteelta. Ei voi kumota."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Poistetaanko $1 omasta estolistastasi?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Valmis. Ladataan uudelleen…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Teen mieluummin tämän"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Lisätty tilastoihisi ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Hyvä valinta — kirjattu tilastoihisi. Katso se Asetuksista."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Vältetyt kalorit"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Aterian keskikalorit"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Käytetään arvioimaan vältetyt kalorit, kun valitset reseptin sen sijaan. Tallennetaan vain laitteellesi."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Järjestä kortti uudelleen: $1. Siirrä nuolinäppäimillä."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Tervetuloa FitShieldiin"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Muutama nopea valinta ja olet valmis. Kaikki pysyy laitteellasi — mitään ei ladata."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Valitse kielesi"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Tämä asettaa FitShieldin ponnahdusikkunan, asetusten ja estonäytön kielen."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Valitse teema"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Voit hienosäätää värejä myöhemmin Asetuksissa."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Estä pikaruoan tilaaminen"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Lisää taukonäytön suurten pikaruokaketjujen tilaussivuille."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Suositellaan päälle."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Estä toimitussovellukset"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Lisää taukonäytön toimitusalustoille, kuten DoorDash ja Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Palauta varmuuskopio (valinnainen)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Tuletko toiselta laitteelta? Tuo FitShield-asetustiedosto siirtääksesi kaiken. Muuten vain jatka."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Tuo asetustiedosto"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Miten FitShield auttaa"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Nopea kierros päätoimintojen läpi."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Taukoajastin"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Kun osut estettyyn sivustoon, lyhyt laskuri käy ennen kuin voit jatkaa — tarpeeksi tilauksen uudelleenharkintaan."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Aikataulu"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Voit halutessasi estää vain tiettyinä aikoina, kuten iltaisin tai työaikana."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Sallittujen lista"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Kytke mikä tahansa sivusto pois, lisää omia URL-osoitteita tai myönnä tilapäinen lupa, kun todella tarvitset."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Reseptiehdotuksia"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Estonäyttö ehdottaa nopean kasvis- ja liha-/proteiinireseptin sen mukaan, mitä estit."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Takaisin"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Seuraava"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Valmis"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Vaihe $1/$2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Mitä uutta"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Nopea katsaus muutoksiin."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Avaa asetukset"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Sulje"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Ei vielä julkaisutietoja."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Uusi"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Versio $1"
+  },
+  "languageGerman": {
+    "message": "Saksa"
   }
 }

@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and blokovated across all pages."
   },
   "customEmptyDefault": {
-    "message": "No vlastní URL added yet."
+    "message": "Zatím žádné vlastní blokované weby. Výše přidejte doménu jako example.com a začněte ji blokovat."
   },
   "customNoMatch": {
     "message": "No vlastní URL match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Proč to vidíte"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Web"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Pravidlo"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Kategorie"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Aktivní v"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Doručovací služba"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Rychlé občerstvení"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Vlastní pravidlo"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 dalších"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Vaše statistiky"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Soukromý odhad přímo v zařízení o tom, co vám FitShield pomohl vynechat. Jsou to odhady a nic se nenahrává."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Zablokované návštěvy"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Odhadovaná úspora"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Průměrná cena jídla"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Slouží k odhadu ušetřených peněz, když vynecháte objednávku. Uloženo jen ve vašem zařízení."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Obnovení a data"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Obnoví části FitShieldu na výchozí hodnoty. Každá akce nejprve požádá o potvrzení."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Obnovit blokování"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Časovače, plán, přepínače webů, vlastní URL a bloky podle země/kategorie."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Obnovit vzhled"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Barvy motivu a světlý/tmavý režim."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Obnovit recepty a předvolby"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Průměrná cena jídla, nastavení kalorií a uložené statistiky."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Tovární nastavení"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Smazat vše a vrátit FitShield do stavu po instalaci."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Zrušit"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Potvrdit"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Obnovit všechna nastavení blokování na výchozí? Motiv, jazyk a statistiky zůstanou."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Obnovit motiv a vzhled na výchozí tmavý režim?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Obnovit předvolby ceny a kalorií a také statistiky úspor a ušetřených kalorií?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Obnovit FitShield do továrního nastavení? Smaže to všechna nastavení, vlastní weby a statistiky v tomto zařízení. Nelze vrátit zpět."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Odebrat $1 z vašeho vlastního seznamu blokování?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Hotovo. Načítání…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Udělám si raději tohle"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Přidáno do statistik ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Dobrá volba — zaznamenáno ve statistikách. Najdete to v Nastavení."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Ušetřené kalorie"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Průměrné kalorie jídla"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Slouží k odhadu ušetřených kalorií, když místo toho zvolíte recept. Uloženo jen ve vašem zařízení."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Změnit pořadí karty: $1. Pro přesun použijte šipky."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Vítejte ve FitShieldu"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Pár rychlých voleb a máte hotovo. Vše zůstává ve vašem zařízení — nic se nenahrává."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Zvolte jazyk"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Nastaví jazyk vyskakovacího okna, nastavení a blokovací obrazovky FitShieldu."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Vyberte motiv"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Barvy můžete doladit později v Nastavení."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Blokovat objednávání rychlého občerstvení"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Přidá pauzovací obrazovku na objednávkové stránky velkých řetězců rychlého občerstvení."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Doporučeno zapnuto."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Blokovat doručovací aplikace"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Přidá pauzovací obrazovku na doručovací platformy jako DoorDash a Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Obnovit zálohu (volitelné)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Přecházíte z jiného zařízení? Naimportujte soubor nastavení FitShieldu a přeneste vše. Jinak prostě pokračujte."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Importovat soubor nastavení"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Jak FitShield pomáhá"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Rychlý průvodce hlavními funkcemi."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Pauzovací časovač"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Na blokovaném webu proběhne krátké odpočítávání, než budete moci pokračovat — dost na to, abyste objednávku přehodnotili."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Plán"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Volitelně blokujte jen ve stanovených hodinách, třeba večer nebo v pracovní době."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Bílá listina"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Vypněte jakýkoli web, přidejte vlastní URL nebo si udělte dočasnou výjimku, když ji opravdu potřebujete."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Nápady na recepty"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Blokovací obrazovka navrhne rychlý vegetariánský a masitý/bílkovinný recept podle toho, co jste zablokovali."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Zpět"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Další"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Dokončit"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Krok $1 z $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Novinky"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Rychlý pohled na změny."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Otevřít nastavení"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Zavřít"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Zatím žádné poznámky k vydání."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Nové"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Verze $1"
+  },
+  "languageGerman": {
+    "message": "Němčina"
   }
 }

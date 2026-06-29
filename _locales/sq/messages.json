@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and bllokoed across all pages."
   },
   "customEmptyDefault": {
-    "message": "No URL të personalizuara added yet."
+    "message": "Ende asnjë sajt i bllokuar i personalizuar. Shtoni më sipër një domen si example.com për të filluar ta bllokoni."
   },
   "customNoMatch": {
     "message": "No URL të personalizuara match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Pse po e shihni këtë"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Sajti"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Rregull"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Kategori"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Aktiv në"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Shërbim dorëzimi"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Ushqim i shpejtë"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Rregull i personalizuar"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 të tjera"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Statistikat tuaja"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Një vlerësim privat, në pajisje, i asaj që FitShield ju ndihmoi të anashkaloni. Këto janë vlerësime dhe asgjë nuk ngarkohet."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Vizita të bllokuara"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Kursime të vlerësuara"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Kosto mesatare e vaktit"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Përdoret për të vlerësuar paratë e kursyera kur anashkaloni një porosi. Ruhet vetëm në pajisjen tuaj."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Rivendosja dhe të dhënat"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Rikthen pjesë të FitShield në parazgjedhje. Çdo veprim kërkon fillimisht konfirmim."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Rivendos bllokimin"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Kohëmatësit, orari, çelësat e sajteve, URL-të e personalizuara dhe bllokimet sipas vendit/kategorisë."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Rivendos pamjen"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Ngjyrat e temës dhe modaliteti i çelët/i errët."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Rivendos recetat dhe preferencat"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Kosto mesatare e vaktit, cilësimet e kalorive dhe statistikat e ruajtura."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Rivendosje në fabrikë"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Fshi gjithçka dhe ktheje FitShield në një instalim të ri."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Anulo"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Konfirmo"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Të rivendosen të gjitha cilësimet e bllokimit në parazgjedhje? Tema, gjuha dhe statistikat ruhen."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Të rivendosen tema dhe pamja në modalitetin e errët të parazgjedhur?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Të rivendosen preferencat e kostos dhe kalorive, plus statistikat e kursimeve dhe kalorive të shmangura?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Të rivendoset FitShield në fabrikë? Kjo fshin të gjitha cilësimet, sajtet e personalizuara dhe statistikat në këtë pajisje. Nuk mund të zhbëhet."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Të hiqet $1 nga lista juaj e personalizuar e bllokimit?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "U krye. Po ringarkohet…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Më mirë do bëj këtë"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "U shtua te statistikat tuaja ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Zgjedhje e mirë — u regjistrua te statistikat tuaja. Shihni te Cilësimet."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Kalori të shmangura"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Kalori mesatare të vaktit"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Përdoret për të vlerësuar kaloritë e shmangura kur zgjidhni një recetë. Ruhet vetëm në pajisjen tuaj."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Rirendit kartën: $1. Përdorni shigjetat për ta lëvizur."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Mirë se vini në FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Disa zgjedhje të shpejta dhe gati. Gjithçka qëndron në pajisjen tuaj — asgjë nuk ngarkohet."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Zgjidhni gjuhën tuaj"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Kjo cakton gjuhën për dritaren kërcyese, cilësimet dhe ekranin e bllokimit të FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Zgjidhni një temë"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Ngjyrat mund t'i rregulloni më vonë te Cilësimet."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Blloko porositë e ushqimit të shpejtë"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Shton një ekran pauze në faqet e porosive të zinxhirëve të mëdhenj të ushqimit të shpejtë."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Rekomandohet aktiv."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Blloko aplikacionet e dorëzimit"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Shton një ekran pauze në platformat e dorëzimit si DoorDash dhe Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Rikthe një kopje rezervë (opsionale)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Po vini nga një pajisje tjetër? Importoni një skedar cilësimesh të FitShield për të sjellë gjithçka. Përndryshe thjesht vazhdoni."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Importo skedarin e cilësimeve"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Si ju ndihmon FitShield"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Një turne i shpejtë i veçorive kryesore."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Kohëmatësi i pauzës"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Kur hasni një sajt të bllokuar, ecën një numërim mbrapsht i shkurtër para se të vazhdoni — mjaftueshëm për ta rimenduar porosinë."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Orari"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Sipas dëshirës bllokoni vetëm në orë të caktuara, si mbrëmjet ose orari i punës."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Lista e bardhë"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Çaktivizoni çdo sajt, shtoni URL-të tuaja ose jepini vetes një leje të përkohshme kur ju duhet vërtet."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Ide recetash"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Ekrani i bllokimit sugjeron një recetë të shpejtë vegjetariane dhe një me mish/proteinë sipas asaj që bllokuat."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Prapa"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Tjetra"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Përfundo"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Hapi $1 nga $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Çfarë ka të re"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Një vështrim i shpejtë te ndryshimet."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Hap cilësimet"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Mbyll"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Ende asnjë shënim versioni."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "E re"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Versioni $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

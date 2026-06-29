@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and blocáiled across all pages."
   },
   "customEmptyDefault": {
-    "message": "No URLanna saincheaptha added yet."
+    "message": "Níl aon suíomh saincheaptha bactha fós. Cuir fearann mar example.com leis thuas chun tús a chur lena bhacadh."
   },
   "customNoMatch": {
     "message": "No URLanna saincheaptha match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Cén fáth a bhfeiceann tú é seo"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Suíomh"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Riail"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Catagóir"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Gníomhach i"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Seirbhís seachadta"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Mearbhia"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Riail shaincheaptha"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 eile"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Do staitisticí"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Meastachán príobháideach ar an ngléas ar a bhfuil FitShield tar éis cabhrú leat a scipeáil. Meastacháin iad seo agus ní uaslódáiltear aon rud."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Cuairteanna bactha"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Coigilteas measta"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Meánchostas béile"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Úsáidtear é chun an t-airgead a sábháiltear a mheas nuair a scipeálann tú ordú. Stóráilte ar do ghléas amháin."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Athshocrú agus sonraí"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Athshocraíonn sé codanna de FitShield go dtí na réamhshocruithe. Iarrann gach gníomh deimhniú ar dtús."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Athshocraigh bacainn"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Amadóirí, sceideal, lasca suíomh, URLanna saincheaptha, agus bacanna tír/catagóir."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Athshocraigh cuma"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Dathanna téama agus mód geal/dorcha."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Athshocraigh oidis agus roghanna"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Meánchostas béile, socruithe calraí, agus do staitisticí sábháilte."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Athshocrú monarchan"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Scrios gach rud agus cuir FitShield ar ais go suiteáil úr."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Cealaigh"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Deimhnigh"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Athshocraigh gach socrú bactha go dtí na réamhshocruithe? Coinnítear do théama, teanga agus staitisticí."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Athshocraigh an téama agus an chuma go dtí an mód dorcha réamhshocraithe?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Athshocraigh do roghanna costais agus calraí, móide na staitisticí airgid shábháilte agus calraí a seachnaíodh?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Athshocrú monarchan FitShield? Scriosann sé seo gach socrú, suíomh saincheaptha agus staitistic ar an ngléas seo. Ní féidir é a chealú."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Bain $1 de do liosta bactha saincheaptha?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Déanta. Ag athlódáil…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Déanfaidh mé é seo ina ionad"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Curtha le do staitisticí ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Rogha mhaith — logáilte i do staitisticí. Féach é sna Socruithe."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Calraí a seachnaíodh"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Meánchalraí béile"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Úsáidtear é chun na calraí a seachnaíodh a mheas nuair a roghnaíonn tú oideas ina ionad. Stóráilte ar do ghléas amháin."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Atheagraigh cárta: $1. Úsáid na heochracha saighde chun é a bhogadh."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Fáilte go FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Cúpla rogha tapa agus tá tú réidh. Fanann gach rud ar do ghléas — ní uaslódáiltear aon rud."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Roghnaigh do theanga"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Socraíonn sé seo an teanga do phreabfhuinneog, socruithe agus scáileán bactha FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Roghnaigh téama"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Is féidir leat na dathanna a mhionchoigeartú níos déanaí sna Socruithe."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Bac ordú mearbhia"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Cuireann sé scáileán sosa le leathanaigh ordaithe slabhraí móra mearbhia."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Molta ar siúl."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Bac aipeanna seachadta"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Cuireann sé scáileán sosa le hardáin seachadta ar nós DoorDash agus Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Athchóirigh cúltaca (roghnach)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Ag teacht ó ghléas eile? Iompórtáil comhad socruithe FitShield chun gach rud a thabhairt leat. Seachas sin, lean ar aghaidh."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Iompórtáil comhad socruithe"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Conas a chabhraíonn FitShield"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Turas tapa trí na príomhghnéithe."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Amadóir sosa"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Nuair a bhuaileann tú suíomh bactha, ritheann comhaireamh síos gairid sula leanann tú ar aghaidh — go leor chun athmhachnamh a dhéanamh ar an ordú."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Sceideal"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Go roghnach, bac ach amháin ag uaireanta socraithe, mar shampla tráthnóna nó am oibre."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Liosta bán"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Múch aon suíomh, cuir do URLanna féin leis, nó tabhair pas sealadach duit féin nuair a bhíonn sé ag teastáil go géar."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Smaointe oidis"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Molann an scáileán bactha oideas glasraí tapa agus oideas feola/próitéine bunaithe ar an méid a bhac tú."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Ar ais"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Ar aghaidh"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Críochnaigh"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Céim $1 as $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Cad atá nua"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Spléachadh tapa ar na hathruithe."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Oscail socruithe"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Dún"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Gan nótaí eisiúna fós."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Nua"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Leagan $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

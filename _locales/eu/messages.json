@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and blokeatued across all pages."
   },
   "customEmptyDefault": {
-    "message": "No URL pertsonalizatuak added yet."
+    "message": "Oraindik ez dago gune blokeatu pertsonalizaturik. Gehitu goian example.com bezalako domeinu bat blokeatzen hasteko."
   },
   "customNoMatch": {
     "message": "No URL pertsonalizatuak match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Zergatik ikusten duzun hau"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Gunea"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Araua"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Kategoria"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Aktibo hemen"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Banaketa-zerbitzua"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Janari azkarra"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Arau pertsonalizatua"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 gehiago"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Zure estatistikak"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "FitShield-ek saltatzen lagundu dizunaren gailuko estimazio pribatua. Estimazioak dira eta ez da ezer igotzen."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Blokeatutako bisitak"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Aurrezki estimatua"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Otorduaren batez besteko kostua"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Eskaera bat saltatzean aurreztutako dirua estimatzeko erabiltzen da. Zure gailuan bakarrik gordetzen da."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Berrezarri eta datuak"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "FitShield-en zatiak balio lehenetsietara leheneratzen ditu. Ekintza bakoitzak baieztapena eskatzen du lehenik."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Berrezarri blokeoa"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Tenporizadoreak, ordutegia, guneen aldagailuak, URL pertsonalizatuak eta herrialde/kategoria blokeoak."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Berrezarri itxura"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Gaiaren koloreak eta modu argia/iluna."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Berrezarri errezetak eta hobespenak"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Otorduaren batez besteko kostua, kaloria ezarpenak eta gordetako estatistikak."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Fabrikako berrezartzea"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Ezabatu dena eta itzuli FitShield instalazio berri batera."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Utzi"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Baieztatu"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Blokeo-ezarpen guztiak balio lehenetsietara berrezarri? Gaia, hizkuntza eta estatistikak gordeko dira."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Gaia eta itxura modu ilun lehenetsira berrezarri?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Kostu eta kaloria hobespenak berrezarri, baita aurrezki eta saihestutako kalorien estatistikak ere?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "FitShield fabrikako balioetara berrezarri? Honek gailu honetako ezarpen, gune pertsonalizatu eta estatistika guztiak ezabatzen ditu. Ezin da desegin."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "$1 zure blokeo-zerrenda pertsonalizatutik kendu?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Eginda. Birkargatzen…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Hobe hau prestatuko dut"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Zure estatistiketan gehituta ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Aukera ona — zure estatistiketan erregistratuta. Ikus ezazu Ezarpenetan."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Saihestutako kaloriak"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Otorduaren batez besteko kaloriak"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Errezeta bat aukeratzean saihestutako kaloriak estimatzeko erabiltzen da. Zure gailuan bakarrik gordetzen da."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Berrordenatu txartela: $1. Erabili gezi-teklak mugitzeko."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Ongi etorri FitShield-era"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Aukera azkar batzuk eta prest zaude. Dena zure gailuan geratzen da — ez da ezer igotzen."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Aukeratu zure hizkuntza"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "FitShield-en laster-leihoaren, ezarpenen eta blokeo-pantailaren hizkuntza ezartzen du."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Aukeratu gai bat"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Koloreak geroago doi ditzakezu Ezarpenetan."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Blokeatu janari azkarreko eskaerak"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Etenaldi-pantaila bat gehitzen du janari azkarreko kate handien eskaera-orrietan."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Aktibatzea gomendatua."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Blokeatu banaketa-aplikazioak"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Etenaldi-pantaila bat gehitzen du DoorDash eta Uber Eats bezalako banaketa-plataformetan."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Berreskuratu babeskopia bat (aukerakoa)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Beste gailu batetik zatoz? Inportatu FitShield ezarpen-fitxategi bat dena ekartzeko. Bestela, jarraitu besterik gabe."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Inportatu ezarpen-fitxategia"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Nola laguntzen dizun FitShield-ek"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Eginbide nagusien ibilbide azkarra."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Etenaldi-tenporizadorea"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Blokeatutako gune batera iristen zarenean, atzera-kontaketa labur bat exekutatzen da jarraitu aurretik — nahikoa eskaera berriz pentsatzeko."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Ordutegia"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Nahi izanez gero, blokeatu ordu jakinetan soilik, hala nola arratsaldez edo lanorduetan."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Zerrenda zuria"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Itzali edozein gune, gehitu zure URLak edo eman zeure buruari behin-behineko baimena benetan behar duzunean."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Errezeta ideiak"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Blokeo-pantailak errezeta begetariano azkar bat eta haragi/proteina bat iradokitzen ditu blokeatutakoaren arabera."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Atzera"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Hurrengoa"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Amaitu"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "$1/$2 urratsa"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Zer berri"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Aldaketei begirada azkarra."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Ireki ezarpenak"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Itxi"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Oraindik ez dago bertsio-oharrik."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Berria"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "$1 bertsioa"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

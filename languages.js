@@ -21,6 +21,7 @@
     { value: "es_419", labelKey: "languageSpanishLatam", native: "Español (Latinoamérica)" },
     { value: "es", labelKey: "languageSpanishSpain", native: "Español (España)" },
     { value: "fr", labelKey: "languageFrench", native: "Français" },
+    { value: "de", labelKey: "languageGerman", native: "Deutsch" },
     { value: "yue", labelKey: "languageCantonese", native: "粵語" },
     { value: "th", labelKey: "languageThai", native: "ไทย" },
     { value: "pa", labelKey: "languagePunjabi", native: "ਪੰਜਾਬੀ" },

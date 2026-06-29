@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and blokuotied across all pages."
   },
   "customEmptyDefault": {
-    "message": "No pasirinktiniai URL added yet."
+    "message": "Pasirinktinių užblokuotų svetainių dar nėra. Pridėkite domeną, pvz., example.com, viršuje, kad pradėtumėte jį blokuoti."
   },
   "customNoMatch": {
     "message": "No pasirinktiniai URL match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Kodėl tai matote"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Svetainė"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Taisyklė"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Kategorija"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Aktyvu"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Pristatymo paslauga"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Greitas maistas"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Pasirinktinė taisyklė"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 daugiau"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Jūsų statistika"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Privatus, įrenginyje atliktas įvertinimas, ko FitShield padėjo jums atsisakyti. Tai sąmatos, ir nieko neįkeliama."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Užblokuoti apsilankymai"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Numatomas sutaupymas"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Vidutinė patiekalo kaina"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Naudojama įvertinti sutaupytus pinigus, kai atsisakote užsakymo. Saugoma tik jūsų įrenginyje."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Atstatymas ir duomenys"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Atkuria FitShield dalis į numatytąsias. Kiekvienas veiksmas pirma prašo patvirtinimo."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Atstatyti blokavimą"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Laikmačiai, tvarkaraštis, svetainių jungikliai, pasirinktiniai URL ir šalies/kategorijos blokai."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Atstatyti išvaizdą"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Temos spalvos ir šviesus/tamsus režimas."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Atstatyti receptus ir nuostatas"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Vidutinė patiekalo kaina, kalorijų nustatymai ir įrašyta statistika."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Gamyklinis atstatymas"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Ištrinti viską ir grąžinti FitShield į naują įdiegimą."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Atšaukti"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Patvirtinti"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Atstatyti visus blokavimo nustatymus į numatytuosius? Tema, kalba ir statistika išsaugoma."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Atstatyti temą ir išvaizdą į numatytąjį tamsų režimą?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Atstatyti kainos ir kalorijų nuostatas bei sutaupymo ir išvengtų kalorijų statistiką?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Gamykliškai atstatyti FitShield? Tai ištrins visus nustatymus, pasirinktines svetaines ir statistiką šiame įrenginyje. Negalima atšaukti."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Pašalinti $1 iš jūsų pasirinktinio blokavimo sąrašo?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Atlikta. Įkeliama iš naujo…"
   },
   "recipeCaloriesLabel": {
     "message": "~$1 kcal"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Verčiau pasigaminsiu tai"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Pridėta į jūsų statistiką ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Geras pasirinkimas — įrašyta į jūsų statistiką. Žiūrėkite Nustatymuose."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Išvengtos kalorijos"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Vidutinės patiekalo kalorijos"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Naudojama įvertinti išvengtas kalorijas, kai vietoj to pasirenkate receptą. Saugoma tik jūsų įrenginyje."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Pertvarkyti kortelę: $1. Norėdami perkelti, naudokite rodyklių klavišus."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Sveiki atvykę į FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Keli greiti pasirinkimai ir esate pasiruošę. Viskas lieka jūsų įrenginyje — nieko neįkeliama."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Pasirinkite kalbą"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Tai nustato FitShield iškylančiojo lango, nustatymų ir blokavimo ekrano kalbą."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Pasirinkite temą"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Spalvas vėliau galėsite tiksliai pritaikyti Nustatymuose."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Blokuoti greito maisto užsakymą"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Prideda pauzės ekraną didžiųjų greito maisto tinklų užsakymo puslapiuose."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Rekomenduojama įjungti."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Blokuoti pristatymo programėles"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Prideda pauzės ekraną pristatymo platformose, pavyzdžiui, DoorDash ir Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Atkurti atsarginę kopiją (nebūtina)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Atvykstate iš kito įrenginio? Importuokite FitShield nustatymų failą, kad perkeltumėte viską. Kitu atveju tiesiog tęskite."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Importuoti nustatymų failą"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Kaip FitShield padeda"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Greita pagrindinių funkcijų apžvalga."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Pauzės laikmatis"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Kai patenkate į užblokuotą svetainę, prieš tęsiant vyksta trumpas atgalinis skaičiavimas — pakanka permąstyti užsakymą."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "Tvarkaraštis"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "Pasirinktinai blokuokite tik tam tikromis valandomis, pavyzdžiui, vakarais ar darbo metu."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Baltasis sąrašas"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Išjunkite bet kurią svetainę, pridėkite savo URL arba suteikite sau laikiną leidimą, kai tikrai reikia."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Receptų idėjos"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Blokavimo ekranas pasiūlo greitą vegetarišką ir mėsos/baltymų receptą pagal tai, ką užblokavote."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Atgal"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Pirmyn"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Baigti"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "$1 žingsnis iš $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Kas naujo"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Greita pakeitimų apžvalga."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Atidaryti nustatymus"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Uždaryti"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Dar nėra leidimo pastabų."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Nauja"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Versija $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

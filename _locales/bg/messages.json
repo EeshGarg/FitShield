@@ -237,7 +237,7 @@
     "message": "Entries are normalized to domains and блокирайed across all pages."
   },
   "customEmptyDefault": {
-    "message": "No персонализирани URL адреси added yet."
+    "message": "Все още няма персонализирани блокирани сайтове. Добавете домейн като example.com по-горе, за да започнете да го блокирате."
   },
   "customNoMatch": {
     "message": "No персонализирани URL адреси match this search."
@@ -696,231 +696,234 @@
     "message": "That file isn't a valid FitShield backup."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Защо виждате това"
   },
   "blockReasonDomain": {
-    "message": "Site"
+    "message": "Сайт"
   },
   "blockReasonType": {
-    "message": "Rule"
+    "message": "Правило"
   },
   "blockReasonCategory": {
-    "message": "Category"
+    "message": "Категория"
   },
   "blockReasonCountries": {
-    "message": "Active in"
+    "message": "Активно в"
   },
   "blockTypeDelivery": {
-    "message": "Delivery service"
+    "message": "Услуга за доставка"
   },
   "blockTypeFastFood": {
-    "message": "Fast food"
+    "message": "Бързо хранене"
   },
   "blockTypeCustom": {
-    "message": "Custom rule"
+    "message": "Персонализирано правило"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 more"
+    "message": "+$1 още"
   },
   "protectionStatusHeading": {
-    "message": "Protection Status"
+    "message": "Вашата статистика"
   },
   "protectionStatusIntro": {
-    "message": "A local snapshot of what FitShield is protecting. Nothing here is uploaded."
+    "message": "Поверителна оценка в устройството за това какво FitShield ви е помогнал да пропуснете. Това са оценки и нищо не се качва."
   },
   "statusBlockedVisits": {
-    "message": "Blocked visits"
+    "message": "Блокирани посещения"
   },
   "statusEstimatedSavings": {
-    "message": "Estimated savings"
+    "message": "Очаквани спестявания"
   },
   "avgMealCostLabel": {
-    "message": "Average meal cost"
+    "message": "Средна цена на хранене"
   },
   "avgMealCostHint": {
-    "message": "Used to estimate what you've saved by skipping orders. Stored on your device only."
+    "message": "Използва се за оценка на спестените пари, когато пропуснете поръчка. Съхранява се само на вашето устройство."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Нулиране и данни"
   },
   "resetIntro": {
-    "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
+    "message": "Връща части от FitShield към стойностите по подразбиране. Всяко действие първо иска потвърждение."
   },
   "resetBlockingButton": {
-    "message": "Reset blocking settings"
+    "message": "Нулирай блокирането"
   },
   "resetBlockingHint": {
-    "message": "Timers, schedule, site toggles, custom URLs, and country/category blocks."
+    "message": "Таймери, график, превключватели на сайтове, персонализирани URL адреси и блокирания по държава/категория."
   },
   "resetAppearanceButton": {
-    "message": "Reset appearance"
+    "message": "Нулирай облика"
   },
   "resetAppearanceHint": {
-    "message": "Theme colors and light/dark mode."
+    "message": "Цветове на темата и светъл/тъмен режим."
   },
   "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+    "message": "Нулирай рецепти и предпочитания"
   },
   "resetPreferencesHint": {
-    "message": "Average meal cost and the saved-money counter."
+    "message": "Средна цена на хранене, настройки за калории и записана статистика."
   },
   "factoryResetButton": {
-    "message": "Factory reset"
+    "message": "Фабрично нулиране"
   },
   "factoryResetHint": {
-    "message": "Erase everything and return FitShield to a fresh install."
+    "message": "Изтрий всичко и върни FitShield към ново инсталиране."
   },
   "confirmCancelButton": {
-    "message": "Cancel"
+    "message": "Отказ"
   },
   "confirmConfirmButton": {
-    "message": "Confirm"
+    "message": "Потвърди"
   },
   "confirmResetBlocking": {
-    "message": "Reset all blocking settings to their defaults? Your theme, language, and saved stats are kept."
+    "message": "Да се нулират ли всички настройки за блокиране? Темата, езикът и статистиката се запазват."
   },
   "confirmResetAppearance": {
-    "message": "Reset the theme and appearance to the default dark mode?"
+    "message": "Да се нулират ли темата и обликът към тъмния режим по подразбиране?"
   },
   "confirmResetPreferences": {
-    "message": "Reset recipe preferences, the average meal cost, and the saved-money counter?"
+    "message": "Да се нулират ли предпочитанията за цена и калории, както и статистиката за спестявания и избегнати калории?"
   },
   "confirmFactoryReset": {
-    "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
+    "message": "Фабрично нулиране на FitShield? Това изтрива всички настройки, персонализирани сайтове и статистика на това устройство. Не може да се отмени."
   },
   "confirmRemoveCustomSite": {
-    "message": "Remove $1 from your custom blocklist?"
+    "message": "Да се премахне ли $1 от вашия персонализиран списък за блокиране?"
   },
   "resetDoneNotice": {
-    "message": "Done. Reloading…"
+    "message": "Готово. Презареждане…"
   },
   "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
+    "message": "~$1 ккал"
   },
   "recipeChooseButton": {
-    "message": "I'll make this instead"
+    "message": "Ще приготвя това вместо това"
   },
   "recipeChosenButton": {
-    "message": "Added to your stats ✓"
+    "message": "Добавено към статистиката ✓"
   },
   "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
+    "message": "Добър избор — записано в статистиката. Вижте го в Настройки."
   },
   "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+    "message": "Избегнати калории"
   },
   "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
+    "message": "Средни калории на хранене"
   },
   "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+    "message": "Използва се за оценка на избегнатите калории, когато вместо това изберете рецепта. Съхранява се само на вашето устройство."
   },
   "reorderCardLabel": {
-    "message": "Reorder card: $1. Use arrow keys to move it."
+    "message": "Пренареди картата: $1. Използвайте стрелките, за да я преместите."
   },
   "welcomeTitle": {
-    "message": "Welcome to FitShield"
+    "message": "Добре дошли във FitShield"
   },
   "welcomeSubtitle": {
-    "message": "A few quick choices and you're set. Everything stays on your device — nothing is uploaded."
+    "message": "Няколко бързи избора и сте готови. Всичко остава на вашето устройство — нищо не се качва."
   },
   "welcomeLangTitle": {
-    "message": "Choose your language"
+    "message": "Изберете език"
   },
   "welcomeLangBody": {
-    "message": "This sets the language for FitShield's popup, settings, and block screen."
+    "message": "Задава езика за изскачащия прозорец, настройките и екрана за блокиране на FitShield."
   },
   "welcomeThemeTitle": {
-    "message": "Pick a theme"
+    "message": "Изберете тема"
   },
   "welcomeThemeBody": {
-    "message": "You can fine-tune colors later in Settings."
+    "message": "Можете да настроите цветовете по-късно в Настройки."
   },
   "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
+    "message": "Блокирай поръчки за бързо хранене"
   },
   "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
+    "message": "Добавя екран за пауза на страниците за поръчки на големи вериги за бързо хранене."
   },
   "welcomeRecommendedOn": {
-    "message": "Recommended on."
+    "message": "Препоръчва се включено."
   },
   "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
+    "message": "Блокирай приложения за доставка"
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "Добавя екран за пауза на платформи за доставка като DoorDash и Uber Eats."
   },
   "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
+    "message": "Възстанови резервно копие (по избор)"
   },
   "welcomeImportBody": {
-    "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
+    "message": "Идвате от друго устройство? Импортирайте файл с настройки на FitShield, за да пренесете всичко. В противен случай просто продължете."
   },
   "welcomeImportButton": {
-    "message": "Import settings file"
+    "message": "Импортирай файл с настройки"
   },
   "welcomeHelpTitle": {
-    "message": "How FitShield helps"
+    "message": "Как помага FitShield"
   },
   "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
+    "message": "Бърз преглед на основните функции."
   },
   "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
+    "message": "Таймер за пауза"
   },
   "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
+    "message": "Когато попаднете на блокиран сайт, тече кратко отброяване, преди да продължите — достатъчно, за да премислите поръчката."
   },
   "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
+    "message": "График"
   },
   "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
+    "message": "По избор блокирайте само в определени часове, например вечер или в работно време."
   },
   "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
+    "message": "Бял списък"
   },
   "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
+    "message": "Изключете всеки сайт, добавете свои URL адреси или си дайте временен достъп, когато наистина ви трябва."
   },
   "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
+    "message": "Идеи за рецепти"
   },
   "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
+    "message": "Екранът за блокиране предлага бърза вегетарианска и месна/протеинова рецепта според това, което сте блокирали."
   },
   "welcomeBack": {
-    "message": "Back"
+    "message": "Назад"
   },
   "welcomeNext": {
-    "message": "Next"
+    "message": "Напред"
   },
   "welcomeFinish": {
-    "message": "Finish"
+    "message": "Готово"
   },
   "welcomeStepLabel": {
-    "message": "Step $1 of $2"
+    "message": "Стъпка $1 от $2"
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "Какво е новото"
   },
   "whatsNewSubtitle": {
-    "message": "A quick look at what changed."
+    "message": "Бърз поглед към промените."
   },
   "whatsNewOpenSettings": {
-    "message": "Open settings"
+    "message": "Отвори настройки"
   },
   "whatsNewClose": {
-    "message": "Close"
+    "message": "Затвори"
   },
   "whatsNewEmpty": {
-    "message": "No release notes yet."
+    "message": "Все още няма бележки по изданието."
   },
   "whatsNewBadge": {
-    "message": "New"
+    "message": "Ново"
   },
   "whatsNewVersion": {
-    "message": "Version $1"
+    "message": "Версия $1"
+  },
+  "languageGerman": {
+    "message": "German"
   }
 }

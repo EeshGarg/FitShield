@@ -922,5 +922,8 @@
   },
   "whatsNewVersion": {
     "message": "ਵਰਜਨ $1"
+  },
+  "languageGerman": {
+    "message": "ਜਰਮਨ"
   }
 }
