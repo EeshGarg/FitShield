@@ -77,6 +77,29 @@
     h1 {
       margin: 0;
       font-size: 1.16rem;
+      background: linear-gradient(
+        100deg,
+        var(--text) 0%,
+        var(--accent) 40%,
+        #6fd6c0 56%,
+        var(--text) 84%
+      );
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: heroSheen 13s ease-in-out infinite;
+    }
+
+    @keyframes heroSheen {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      h1 { animation: none; }
     }
 
     p {

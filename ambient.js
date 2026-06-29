@@ -147,7 +147,12 @@
     style.id = "fs-ambient-style";
     style.textContent = [
       ".fs-ambient-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;",
-      "transform:scale(var(--amb-cscale,1));transition:transform .8s cubic-bezier(.22,.61,.36,1);}",
+      "transform:scale(var(--amb-cscale,1));transition:transform .8s cubic-bezier(.22,.61,.36,1);",
+      "animation:fsHue calc(52s / var(--amb-energy,1)) ease-in-out infinite;}",
+      // Slow, global hue breathing so the whole field gently shifts color over
+      // time — the gradients feel alive even when you're not scrolling.
+      "@keyframes fsHue{0%{filter:hue-rotate(-8deg);}50%{filter:hue-rotate(10deg);}",
+      "100%{filter:hue-rotate(-8deg);}}",
       ".fs-ambient-layer{position:absolute;inset:-30%;",
       "transform:translate3d(calc(var(--amb-sx,0px)*var(--f,0)),calc(var(--amb-sy,0px)*var(--f,0)),0);",
       "will-change:transform;}",
@@ -167,7 +172,8 @@
       "@media (prefers-reduced-motion: reduce){",
       ".fs-ambient-blob{animation:none !important;}",
       ".fs-ambient-layer{transform:none !important;}",
-      ".fs-ambient-bg{transform:none !important;transition:none !important;}}"
+      ".fs-ambient-bg{transform:none !important;transition:none !important;",
+      "animation:none !important;filter:none !important;}}"
     ].join("");
     document.head.appendChild(style);
   }
@@ -182,6 +188,8 @@
     document.body.insertBefore(container, document.body.firstChild);
   }
   container.style.setProperty("--amp", energy.amp.toFixed(2));
+  // Livelier pages breathe their hue a little faster (see fsHue in the sheet).
+  container.style.setProperty("--amb-energy", energy.amp.toFixed(2));
 
   function paint() {
     const light = isLightSurface();

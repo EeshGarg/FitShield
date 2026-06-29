@@ -4,7 +4,8 @@
   "description": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering.",
   "private": true,
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "build": "node build.js"
   },
   "license": "GPL-3.0-or-later"
 }

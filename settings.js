@@ -1223,7 +1223,7 @@ if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.onChange) {
     renderCountryQuickAccess();
     renderCategoryQuickAccess();
     renderLanguageViews();
-    renderProtectionStatus();
+    refreshStats({ persist: true });
   });
 }
 
@@ -1291,16 +1291,37 @@ if (importSettingsButton && importSettingsInput) {
 const DEFAULT_AVG_MEAL_COST = 15;
 const DEFAULT_AVG_MEAL_CALORIES = 1000;
 
+const currencyApi = typeof FitShieldCurrency !== "undefined" ? FitShieldCurrency : null;
+
 const protectionStatusGrid = document.getElementById("protectionStatusGrid");
 const avgMealCostInput = document.getElementById("avgMealCost");
 const avgMealCaloriesInput = document.getElementById("avgMealCalories");
+const currencySelect = document.getElementById("currencyMode");
+const avgMealCostLabelEl = document.getElementById("avgMealCostLabel");
 
 const protectionData = {
   blockedVisits: 0,
   avgMealCost: DEFAULT_AVG_MEAL_COST,
   avgMealCalories: DEFAULT_AVG_MEAL_CALORIES,
-  caloriesAvoided: 0
+  caloriesAvoided: 0,
+  currencyChoice: "", // "" => follow the display language
+  customized: false   // true once the user edits cost or calories by hand
 };
+
+// The locale the stats format against: the pinned UI language, or the browser
+// locale when "System default" is selected.
+function statsLocale() {
+  const ui = (typeof FitShieldI18n !== "undefined" && FitShieldI18n.getLanguage)
+    ? FitShieldI18n.getLanguage()
+    : "";
+  return ui || (typeof navigator !== "undefined" && navigator.language) || "en";
+}
+
+function resolvedCurrency() {
+  return currencyApi
+    ? currencyApi.resolveCurrency(protectionData.currencyChoice, statsLocale())
+    : "USD";
+}
 
 function normalizeMealCost(value) {
   const parsed = Number.parseFloat(value);
@@ -1312,7 +1333,12 @@ function normalizeMealCalories(value) {
   return Number.isFinite(parsed) && parsed >= 0 ? parsed : DEFAULT_AVG_MEAL_CALORIES;
 }
 
+// Format the savings figure in the resolved currency ("$1,234" / "¥1,234"),
+// falling back to a bare number if Intl/the currency module is unavailable.
 function formatSavings(amount) {
+  if (currencyApi) {
+    return currencyApi.formatMoney(amount, resolvedCurrency(), statsLocale());
+  }
   return Number.isInteger(amount) ? String(amount) : amount.toFixed(2);
 }
 
@@ -1320,12 +1346,12 @@ function formatCount(amount) {
   return (Number(amount) || 0).toLocaleString();
 }
 
-function buildStatCard(value, label) {
+function buildStatCard(value, label, valueClass) {
   const card = document.createElement("div");
   card.className = "stat-card";
 
   const valueEl = document.createElement("div");
-  valueEl.className = "stat-value";
+  valueEl.className = valueClass ? `stat-value ${valueClass}` : "stat-value";
   valueEl.textContent = value;
 
   const labelEl = document.createElement("div");
@@ -1347,11 +1373,84 @@ function renderProtectionStatus() {
 
   const cards = [
     buildStatCard(formatCount(protectionData.blockedVisits), t("statusBlockedVisits")),
-    buildStatCard(formatSavings(savings), t("statusEstimatedSavings")),
+    buildStatCard(formatSavings(savings), t("statusEstimatedSavings"), "savings"),
     buildStatCard(formatCount(protectionData.caloriesAvoided), t("statusCaloriesAvoided"))
   ];
 
   protectionStatusGrid.replaceChildren(...cards);
+}
+
+// Build the currency picker: a "follow language" option (globe) plus every
+// supported currency, each shown with its localized name and symbol. No
+// translation strings needed — Intl localizes the names and symbols.
+function buildCurrencyOptions() {
+  if (!currencySelect || !currencyApi) {
+    return;
+  }
+
+  const locale = statsLocale();
+  const autoCode = currencyApi.localeDefaults(locale).currency;
+  const frag = document.createDocumentFragment();
+
+  const auto = document.createElement("option");
+  auto.value = "";
+  auto.textContent = `🌐 ${currencyApi.displayName(autoCode, locale)} (${currencyApi.symbolFor(autoCode, locale)})`;
+  frag.appendChild(auto);
+
+  currencyApi.currencyCodes().forEach((code) => {
+    const opt = document.createElement("option");
+    opt.value = code;
+    opt.textContent = `${currencyApi.displayName(code, locale)} (${currencyApi.symbolFor(code, locale)})`;
+    frag.appendChild(opt);
+  });
+
+  currencySelect.replaceChildren(frag);
+  currencySelect.value = protectionData.currencyChoice;
+}
+
+// Show the active currency symbol next to the "Average meal cost" label.
+function updateCostLabel() {
+  if (!avgMealCostLabelEl || !currencyApi) {
+    return;
+  }
+  const symbol = currencyApi.symbolFor(resolvedCurrency(), statsLocale());
+  avgMealCostLabelEl.textContent = `${t("avgMealCostLabel")} (${symbol})`;
+}
+
+// Re-seed cost & calories from the locale/currency until the user customizes
+// them, then refresh the label and the stat cards. `persist` writes the seeded
+// values so the background's calorie estimate matches what's shown here.
+async function applyCurrencyDefaults(options) {
+  const persist = !!(options && options.persist);
+
+  if (!protectionData.customized && currencyApi) {
+    const code = resolvedCurrency();
+    protectionData.avgMealCost = currencyApi.defaultCost(code);
+    protectionData.avgMealCalories = currencyApi.defaultCalories(statsLocale());
+
+    if (avgMealCostInput) {
+      avgMealCostInput.value = protectionData.avgMealCost;
+    }
+    if (avgMealCaloriesInput) {
+      avgMealCaloriesInput.value = protectionData.avgMealCalories;
+    }
+
+    if (persist) {
+      await chrome.storage.local.set({
+        avgMealCost: protectionData.avgMealCost,
+        avgMealCalories: protectionData.avgMealCalories
+      });
+    }
+  }
+
+  updateCostLabel();
+  renderProtectionStatus();
+}
+
+// Rebuild the picker (names/symbols are locale-dependent) and re-apply defaults.
+async function refreshStats(options) {
+  buildCurrencyOptions();
+  await applyCurrencyDefaults(options);
 }
 
 async function initProtectionStatus() {
@@ -1359,30 +1458,50 @@ async function initProtectionStatus() {
     "blockedVisits",
     "avgMealCost",
     "avgMealCalories",
-    "caloriesAvoided"
+    "caloriesAvoided",
+    "currency",
+    "mealStatsCustomized"
   ]);
 
   protectionData.blockedVisits = Number(stored.blockedVisits) || 0;
-  protectionData.avgMealCost = normalizeMealCost(stored.avgMealCost);
-  protectionData.avgMealCalories = normalizeMealCalories(stored.avgMealCalories);
   protectionData.caloriesAvoided = Number(stored.caloriesAvoided) || 0;
+  protectionData.currencyChoice = typeof stored.currency === "string" ? stored.currency : "";
+  protectionData.customized = !!stored.mealStatsCustomized;
 
-  if (avgMealCostInput) {
-    avgMealCostInput.value = protectionData.avgMealCost;
+  // Customized values are the user's own; otherwise they get seeded from the
+  // locale in refreshStats() below.
+  if (protectionData.customized) {
+    protectionData.avgMealCost = normalizeMealCost(stored.avgMealCost);
+    protectionData.avgMealCalories = normalizeMealCalories(stored.avgMealCalories);
+
+    if (avgMealCostInput) {
+      avgMealCostInput.value = protectionData.avgMealCost;
+    }
+    if (avgMealCaloriesInput) {
+      avgMealCaloriesInput.value = protectionData.avgMealCalories;
+    }
   }
 
-  if (avgMealCaloriesInput) {
-    avgMealCaloriesInput.value = protectionData.avgMealCalories;
-  }
+  await refreshStats({ persist: true });
+}
 
-  renderProtectionStatus();
+if (currencySelect) {
+  currencySelect.addEventListener("change", async () => {
+    protectionData.currencyChoice = currencySelect.value || "";
+    await chrome.storage.local.set({ currency: protectionData.currencyChoice });
+    await applyCurrencyDefaults({ persist: true });
+  });
 }
 
 if (avgMealCostInput) {
   avgMealCostInput.addEventListener("change", async () => {
     protectionData.avgMealCost = normalizeMealCost(avgMealCostInput.value);
     avgMealCostInput.value = protectionData.avgMealCost;
-    await chrome.storage.local.set({ avgMealCost: protectionData.avgMealCost });
+    protectionData.customized = true;
+    await chrome.storage.local.set({
+      avgMealCost: protectionData.avgMealCost,
+      mealStatsCustomized: true
+    });
     renderProtectionStatus();
   });
 }
@@ -1391,7 +1510,11 @@ if (avgMealCaloriesInput) {
   avgMealCaloriesInput.addEventListener("change", async () => {
     protectionData.avgMealCalories = normalizeMealCalories(avgMealCaloriesInput.value);
     avgMealCaloriesInput.value = protectionData.avgMealCalories;
-    await chrome.storage.local.set({ avgMealCalories: protectionData.avgMealCalories });
+    protectionData.customized = true;
+    await chrome.storage.local.set({
+      avgMealCalories: protectionData.avgMealCalories,
+      mealStatsCustomized: true
+    });
     renderProtectionStatus();
   });
 }
@@ -1496,7 +1619,7 @@ const BLOCKING_KEYS = [
 ];
 
 const APPEARANCE_KEYS = ["theme", "themeMode", "cardOrder"];
-const PREFERENCE_KEYS = ["avgMealCost", "avgMealCalories", "blockedVisits", "caloriesAvoided", "recipesChosen", "recipeFavorites"];
+const PREFERENCE_KEYS = ["avgMealCost", "avgMealCalories", "currency", "mealStatsCustomized", "blockedVisits", "caloriesAvoided", "recipesChosen", "recipeFavorites"];
 
 function reloadSoon() {
   if (resetNotice) {

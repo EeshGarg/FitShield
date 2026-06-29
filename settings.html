@@ -199,6 +199,72 @@
       margin: 0;
     }
 
+    /* Currency picker sits inline, left of the meal-cost amount. */
+    .cost-row {
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .cost-row select {
+      flex: 0 0 auto;
+      max-width: 46%;
+    }
+
+    .cost-row input {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    /* The savings number gets a slow, living gradient sheen so the stat that
+       grows as you skip orders quietly draws the eye. */
+    .stat-value.savings {
+      background: linear-gradient(
+        100deg,
+        var(--accent) 0%,
+        #5ed1a8 26%,
+        #66d0e6 52%,
+        var(--accent) 78%,
+        #5ed1a8 100%
+      );
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: statSheen 9s ease-in-out infinite;
+    }
+
+    @keyframes statSheen {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Hero title drifts through a soft brand gradient. */
+    .hero h1 {
+      background: linear-gradient(
+        100deg,
+        var(--text) 0%,
+        var(--accent) 38%,
+        #6fd6c0 55%,
+        var(--text) 82%
+      );
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: statSheen 14s ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stat-value.savings,
+      .hero h1 {
+        animation: none;
+      }
+    }
+
     /* Reset & Data controls. */
     .reset-grid {
       display: grid;
@@ -420,13 +486,15 @@
     input[type="number"],
     input[type="search"],
     input[type="text"],
-    input[type="time"] {
+    input[type="time"],
+    select {
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
       background: #111823;
       color: var(--text);
       padding: 10px 12px;
       outline: none;
+      font: inherit;
     }
 
     input[type="range"] {
@@ -863,7 +931,8 @@
     html.theme-light input[type="number"],
     html.theme-light input[type="search"],
     html.theme-light input[type="text"],
-    html.theme-light input[type="time"] {
+    html.theme-light input[type="time"],
+    html.theme-light select {
       background: #ffffff;
       border-color: rgba(15, 23, 42, 0.18);
     }
@@ -945,8 +1014,11 @@
 
       <div class="stat-settings">
         <div class="field savings-field">
-          <label for="avgMealCost" data-i18n="avgMealCostLabel">Average meal cost</label>
-          <input id="avgMealCost" type="number" min="0" step="1">
+          <label id="avgMealCostLabel" for="avgMealCost" data-i18n="avgMealCostLabel">Average meal cost</label>
+          <div class="cost-row">
+            <select id="currencyMode" aria-labelledby="avgMealCostLabel"></select>
+            <input id="avgMealCost" type="number" min="0" step="1">
+          </div>
           <small data-i18n="avgMealCostHint">Used to estimate money saved when you skip an order. Stored on your device only.</small>
         </div>
         <div class="field savings-field">
@@ -1277,6 +1349,7 @@
   <script src="ambient.js" data-energy="calm"></script>
   <script src="blocklist.js"></script>
   <script src="languages.js"></script>
+  <script src="currency.js"></script>
   <script src="backup.js"></script>
   <script src="i18n.js"></script>
   <script src="settings.js"></script>

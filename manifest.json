@@ -14,8 +14,7 @@
   },
 
   "background": {
-    "service_worker": "background.js",
-    "scripts": ["blocklist.js", "background.js"]
+    "service_worker": "background.js"
   },
 
   "action": {

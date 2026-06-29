@@ -7,9 +7,11 @@
       "title": "Stats, Firefox & a wider dashboard",
       "changes": [
         "Added a private, on-device Stats panel: blocked visits, estimated money saved, and calories avoided — with a configurable average meal cost and meal calories. No browsing history is ever stored.",
+        "Money saved now shows in your language's currency (₹, ¥, €, $ …), auto-picked from your language with country-aware default meal cost and calories — plus a manual currency override.",
+        "Backgrounds slowly shift their hue, and titles and the savings figure carry a gentle animated gradient (reduced-motion is respected).",
         "On the block page, pick a suggested recipe with \"I'll make this instead\" to log the calories you avoided.",
         "The block page now explains exactly why a site was blocked: the domain, rule type, food category, and countries.",
-        "FitShield now runs on Firefox from the same single source tree — the shared manifest works in both Chrome and Firefox.",
+        "FitShield now runs on Firefox and installs cleanly on Chromium browsers (Chrome, Brave, Edge) — a single source tree builds a clean package for each, with no 'background.scripts' manifest warning.",
         "Added a proper FitShield extension icon.",
         "Redesigned Settings to use wide screens better: cards reflow into columns and stack cleanly on narrow windows.",
         "Added Reset options and confirmation dialogs (custom-site removal, resets, and a full factory reset), plus onboarding, local Backup & Restore, and the Chrome Web Store listing.",
