@@ -155,7 +155,9 @@ function findGradle() {
   const isWin = process.platform === "win32";
   const wrapper = path.join(ANDROID_DIR, isWin ? "gradlew.bat" : "gradlew");
   if (fs.existsSync(wrapper)) {
-    return { bin: isWin ? "gradlew.bat" : "./gradlew", label: "gradle wrapper" };
+    // Invoke from the project dir; a cwd batch file/script needs an explicit
+    // "./" (or ".\") prefix so the shell resolves it.
+    return { bin: isWin ? ".\\gradlew.bat" : "./gradlew", label: "gradle wrapper" };
   }
   const probe = spawnSync("gradle -v", { shell: true });
   if (probe.status === 0) {

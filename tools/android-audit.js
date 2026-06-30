@@ -25,9 +25,10 @@ const APP_GRADLE = path.join(ANDROID_DIR, "app", "build.gradle");
 
 // The ONLY permissions the Android adapter is allowed to declare.
 const APPROVED_PERMISSIONS = new Set([
-  "android.permission.INTERNET",            // forward ALLOWED DNS queries upstream
-  "android.permission.FOREGROUND_SERVICE",  // run the VpnService as a foreground service
-  "android.permission.POST_NOTIFICATIONS"   // the required ongoing VPN notification (Android 13+)
+  "android.permission.INTERNET",                       // forward ALLOWED DNS queries upstream
+  "android.permission.FOREGROUND_SERVICE",             // run the VpnService as a foreground service
+  "android.permission.FOREGROUND_SERVICE_SPECIAL_USE", // required for the specialUse FGS type (Android 14+)
+  "android.permission.POST_NOTIFICATIONS"              // the required ongoing VPN notification (Android 13+)
 ]);
 
 // Permissions/components that must NEVER appear (checked against the manifest
