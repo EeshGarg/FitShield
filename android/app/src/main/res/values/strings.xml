@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FitShield</string>
+    <string name="status_ready">Ready — %1$d blocked hosts loaded (generated from canonical FitShield data).</string>
+    <string name="status_running">FitShield DNS filter running. Local and on-device.</string>
+    <string name="enable">Enable FitShield</string>
+    <string name="disable">Disable FitShield</string>
+</resources>

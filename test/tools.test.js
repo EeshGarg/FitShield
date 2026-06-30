@@ -7,8 +7,8 @@ const assert = require("node:assert/strict");
 
 const { validateAll } = require("../tools/validate-all");
 
-test("validate-all passes with no errors", () => {
-  const result = validateAll({ quiet: true });
+test("validate-all passes with no errors", async () => {
+  const result = await validateAll({ quiet: true });
   const failing = result.reporters
     .filter((r) => !r.ok)
     .map((r) => `${r.name}: ${r.errors.join("; ")}`)
@@ -16,12 +16,13 @@ test("validate-all passes with no errors", () => {
   assert.equal(result.errors, 0, `validators reported errors:\n${failing}`);
 });
 
-test("each individual audit is runnable and returns a reporter", () => {
+test("each individual audit is runnable and returns a reporter", async () => {
   const audits = [
     "../tools/validate-datasets",
     "../tools/alias-audit",
     "../tools/country-audit",
     "../tools/category-audit",
+    "../tools/android-audit",
     "../tools/locale-parity",
     "../tools/changelog-validator",
     "../tools/assets-check"
@@ -29,7 +30,7 @@ test("each individual audit is runnable and returns a reporter", () => {
   for (const mod of audits) {
     const audit = require(mod);
     assert.equal(typeof audit, "function", `${mod} should export a function`);
-    const reporter = audit();
+    const reporter = await audit(); // sync audits return a Reporter; async ones a Promise
     assert.ok(Array.isArray(reporter.errors), `${mod} should return a Reporter`);
     assert.equal(typeof reporter.ok, "boolean");
   }

@@ -1,2 +1,14 @@
 *.zip
 dist/
+
+# Local-only Claude Code workflow (agents, commands, templates). Personal dev
+# tooling — never committed. Generic, shareable guidance lives in CONTRIBUTING.md.
+.claude/
+
+# Android build artifacts (the project scaffolding is tracked; build output is not).
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+*.apk

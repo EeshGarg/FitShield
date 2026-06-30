@@ -23,6 +23,13 @@ _Last updated: 2026-06-29 (0.52)_
 
 Themes under consideration for the next release (subject to change):
 
+- **Native Android APK (preview → real).** The `android/` adapter foundation
+  exists: a local DNS-filtering `VpnService` driven by rules **generated from the
+  canonical engine/data** (no fork), with validation + an on-device parity test.
+  Next: complete and harden the VpnService DNS I/O (response synthesis, upstream
+  forwarding, IPv6/DoH handling), add a committed Gradle wrapper + signed release,
+  and verify on a real device. See [`docs/ANDROID.md`](../docs/ANDROID.md).
+- **Verify Firefox for Android** on-device (extension DNR path).
 - **Finish category localization.** 28 languages now have localized food-category
   names; extend native translations to the remaining locales (they currently use
   a clean English fallback).

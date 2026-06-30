@@ -6,9 +6,12 @@
  * Two entry points:
  *   - CLI:        `node tools/validate-all.js`  (prints all reports, exits 1 on
  *                 any error so it can gate CI and releases)
- *   - Programmatic: `require("./tools/validate-all").validateAll()` returns
- *                 { ok, errors, warnings, reporters } without exiting, so
+ *   - Programmatic: `await require("./tools/validate-all").validateAll()` resolves
+ *                 to { ok, errors, warnings, reporters } without exiting, so
  *                 build.js can decide whether to package.
+ *
+ * Audits may be sync (return a Reporter) or async (return a Promise<Reporter>),
+ * so the runner awaits each one.
  */
 
 const { TICK, WARN, CROSS } = require("./lib/report");
@@ -18,14 +21,18 @@ const AUDITS = [
   require("./alias-audit"),
   require("./country-audit"),
   require("./category-audit"),
+  require("./android-audit"),
   require("./locale-parity"),
   require("./changelog-validator"),
   require("./assets-check")
 ];
 
-function validateAll(options) {
+async function validateAll(options) {
   const opts = options || {};
-  const reporters = AUDITS.map((audit) => audit());
+  const reporters = [];
+  for (const audit of AUDITS) {
+    reporters.push(await audit());
+  }
 
   if (!opts.quiet) {
     reporters.forEach((r) => r.print());
@@ -44,8 +51,12 @@ function validateAll(options) {
 }
 
 if (require.main === module) {
-  const result = validateAll();
-  process.exit(result.ok ? 0 : 1);
+  validateAll()
+    .then((result) => process.exit(result.ok ? 0 : 1))
+    .catch((error) => {
+      console.error("validate-all failed:", error);
+      process.exit(1);
+    });
 }
 
 module.exports = { validateAll };

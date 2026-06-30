@@ -1,0 +1,47 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+// versionName is injected by tools/build-android.js from the canonical
+// manifest.json so all platform outputs share one version. Defaults are only
+// used for a bare `gradlew` invocation.
+def fitshieldVersion = project.findProperty('fitshieldVersionName') ?: '0.52'
+
+android {
+    namespace 'com.usha.fitshield'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.usha.fitshield'
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName fitshieldVersion
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+
+    buildTypes {
+        release {
+            // No minification/obfuscation — source stays readable (project ethos).
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    // No analytics/telemetry/crash-reporting dependencies — enforced by
+    // tools/android-audit.js. org.json ships with the Android platform.
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test:runner:1.6.1'
+}

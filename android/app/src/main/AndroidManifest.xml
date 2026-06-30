@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  FitShield Android adapter manifest.
+
+  Minimal permissions by design (enforced by tools/android-audit.js):
+    INTERNET             - forward ALLOWED DNS queries to the upstream resolver.
+    FOREGROUND_SERVICE   - a VPN runs as a foreground service.
+    POST_NOTIFICATIONS   - the required ongoing VPN notification (Android 13+).
+
+  Deliberately NOT requested: RECEIVE_BOOT_COMPLETED (no boot startup),
+  BIND_ACCESSIBILITY_SERVICE (no accessibility service), PACKAGE_USAGE_STATS
+  (no usage access), QUERY_ALL_PACKAGES (no package visibility), device admin.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:allowBackup="false"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FitShield">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+          Local DNS-filtering VPN. Guarded by BIND_VPN_SERVICE (the OS enforces
+          that only the system can bind a VpnService). This is NOT a tunnel and
+          performs NO traffic inspection — it only sinkholes DNS for blocked
+          domains and forwards everything else. See docs/ANDROID.md.
+        -->
+        <service
+            android:name=".FitShieldVpnService"
+            android:exported="false"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:foregroundServiceType="specialUse">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Local on-device DNS content filtering for mindful food-ordering blocking" />
+        </service>
+    </application>
+</manifest>

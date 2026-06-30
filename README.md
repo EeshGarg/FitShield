@@ -19,9 +19,10 @@ Welcome to the FitShield public beta — a browser extension that helps you stay
 5. Adjustable post-timer access duration.
 6. Scheduled blocking hours (synced to your device's time settings).
 7. At-home recipe suggestions on the block screen.
-8. Backup & restore — export every setting to one local JSON file and import it on another device.
-9. 80+ display languages with a searchable picker.
-10. Full color and theme customization (system / light / dark).
+8. Private, on-device stats — blocked visits, estimated money saved, calories avoided, and your most blocked sites, categories, and countries. Only aggregate counts are stored; no URLs or browsing history.
+9. Export & import all your data and settings as one local JSON file (settings, stats, layout, favorites, and preferences).
+10. 80+ display languages with a searchable picker.
+11. Full color and theme customization (system / light / dark).
 
 
 # Installation
@@ -32,24 +33,38 @@ https://chromewebstore.google.com/detail/oedcadhhfcgggacgljhnochcjdibfjed?utm_so
 
 This is the easiest way to install FitShield and keeps it updated automatically.
 
+FitShield builds from a single source tree. A tiny, dependency-free script
+(`node build.js`, requires Node.js 18+) packages it for each engine into `dist/`,
+because Manifest V3 background handling differs: Chromium uses a service worker,
+while Firefox uses an event page (`background.scripts`). Build once, then load the
+matching `dist/` folder.
+
 **Manual installation — Chrome / Brave / Chromium (for developers):**
 
 1. Download or clone this repository.
-2. Open `chrome://extensions` in Chrome, Brave, or any Chromium-based browser.
-3. Enable **Developer mode** (top-right toggle).
-4. Click **Load unpacked** and select the project folder.
+2. Run `node build.js` (creates `dist/chrome/` and the store zip).
+3. Open `chrome://extensions` in Chrome, Brave, or any Chromium-based browser.
+4. Enable **Developer mode** (top-right toggle).
+5. Click **Load unpacked** and select the **`dist/chrome`** folder.
 
-The Chromium build loads directly from source — there is no build step.
+(For a quick test you can load the repository root directly; Chromium will work but show a harmless "Unrecognized manifest key `browser_specific_settings`" warning, since the root manifest is the shared base for the Firefox build.)
 
 **Manual installation — Firefox:**
 
-FitShield ships a single, cross-browser source tree — the same files load in both Chrome and Firefox, no build step:
-
 1. Download or clone this repository.
-2. Open `about:debugging#/runtime/this-firefox` in Firefox.
-3. Click **Load Temporary Add-on…** and select the project's `manifest.json`.
+2. Run `node build.js` (creates `dist/firefox/` with the Firefox event-page manifest).
+3. Open `about:debugging#/runtime/this-firefox` in Firefox.
+4. Click **Load Temporary Add-on…** and select **`dist/firefox/manifest.json`**.
 
-Requires Firefox 140 or newer (142+ on Android), the versions that support the add-on's data-collection declaration. The shared manifest declares both a Chrome service worker and a Firefox background script, so each browser uses what it supports. To package a signed `.xpi` for distribution, run [`web-ext`](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/) against the project folder.
+Requires Firefox 140 or newer (142+ on Android), the versions that support the add-on's data-collection declaration. Load `dist/firefox` rather than the repository root — the root manifest is the Chromium form (service worker only) and won't start Firefox's background script. For a signed `.xpi`, submit `dist/FitShield-<version>-firefox.zip` to [AMO](https://addons.mozilla.org/) (or use [`web-ext`](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/) against `dist/firefox`).
+
+
+# Development & Docs
+
+- **Contributing:** see [`CONTRIBUTING.md`](CONTRIBUTING.md) — how to add brands, countries, categories, recipes, and locales, plus validate / build / release steps.
+- **Android:** see [`docs/ANDROID.md`](docs/ANDROID.md) — FitShield reaches Android two ways: the same extension on **Firefox for Android** (`declarativeNetRequest`), and a **preview native APK** with a local DNS-filtering `VpnService`. Both ride the same canonical engine and data; the native adapter's rules are **generated** from canonical data (never a fork), and the VPN is for local DNS filtering only — no tunneling, no HTTPS inspection, no certificates, no telemetry.
+- **Release history:** the canonical, per-release notes live in [`changelog/`](changelog/); the roadmap is [`changelog/ROADMAP.md`](changelog/ROADMAP.md).
+- **Validate & build:** `npm test`, `npm run validate`, then `node build.js`. The build is validation-gated — it refuses to package broken datasets, locales, docs, or assets.
 
 
 # Ethos

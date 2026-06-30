@@ -13,7 +13,10 @@
     "validate:locales": "node tools/locale-parity.js",
     "validate:docs": "node tools/changelog-validator.js",
     "validate:assets": "node tools/assets-check.js",
-    "build": "node build.js"
+    "validate:android": "node tools/android-audit.js",
+    "generate:android": "node tools/generate-android-rules.js",
+    "build": "node build.js",
+    "build:android": "node tools/build-android.js"
   },
   "license": "GPL-3.0-or-later"
 }

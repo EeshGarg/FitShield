@@ -204,12 +204,13 @@ function zipDir(stageDir, outputZip) {
   fs.writeFileSync(outputZip, Buffer.concat([...localParts, centralBuf, end]));
 }
 
-function main() {
+async function main() {
   // Gate the build on the validators: never package broken datasets, locales,
-  // documentation, or missing assets. Warnings are allowed; errors abort.
+  // documentation, missing assets, or an Android ruleset that has drifted from
+  // the canonical engine. Warnings are allowed; errors abort.
   const { validateAll } = require("./tools/validate-all");
   console.log("Validating before packaging…");
-  const validation = validateAll();
+  const validation = await validateAll();
   if (!validation.ok) {
     console.error(`\nBuild aborted: ${validation.errors} validation error(s). Fix them and re-run.`);
     process.exit(1);
@@ -218,8 +219,11 @@ function main() {
   const base = JSON.parse(fs.readFileSync(path.join(ROOT, "manifest.json"), "utf8"));
   const version = base.version;
 
-  rmrf(DIST);
+  // Clean only the browser stages/zips — leave any dist/android (built by the
+  // separate Android step) untouched.
   fs.mkdirSync(DIST, { recursive: true });
+  rmrf(path.join(DIST, "chrome"));
+  rmrf(path.join(DIST, "firefox"));
 
   // --- Chrome / Chromium: same files, Firefox-only manifest keys removed. -----
   const chromeStage = path.join(DIST, "chrome");
@@ -244,6 +248,10 @@ function main() {
   console.log(`\nBuilt FitShield ${version}:`);
   console.log(`  Firefox / AMO : ${path.relative(ROOT, firefoxZip).split(path.sep).join("/")}`);
   console.log(`  Chrome / CWS  : ${path.relative(ROOT, chromeZip).split(path.sep).join("/")}`);
+  console.log(`  Android APK   : run \`npm run build:android\` (requires the Android SDK/Gradle)`);
 }
 
-main();
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
