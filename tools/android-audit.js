@@ -143,6 +143,7 @@ function androidAudit() {
     ["languages.js", "languages.js"],
     ["currency.js", "currency.js"],
     ["ambient.js", "ambient.js"],
+    ["recipes.js", "recipes.js"],
     [path.join("icons", "icon-128.png"), "icon-128.png"],
     [path.join("data", "recipes.json"), path.join("data", "recipes.json")]
   ];

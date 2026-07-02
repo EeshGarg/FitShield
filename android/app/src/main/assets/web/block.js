@@ -108,20 +108,38 @@
       : "Blocking is on whenever app blocking is enabled.";
   }
 
-  async function renderRecipe() {
-    let recipes = [];
-    try { recipes = await fs.recipes.load(); } catch (e) {}
-    if (!recipes.length) return;
-    // deterministic pick so it doesn't flicker on reload
-    const r = recipes[(recipes.length && Number((info().brandId || "").length)) % recipes.length] || recipes[0];
-    const wrap = $("recipeList");
+  function recipeCard(r) {
     const card = el("div", "recipe");
     card.appendChild(el("h4", null, r.title));
     const meta = [t("recipeTimeLabel", [String(r.timeMinutes)])];
     if (Number.isFinite(Number(r.calories))) meta.push(t("recipeCaloriesLabel", [String(r.calories)]));
     card.appendChild(el("div", "m", meta.join(" · ")));
     if (r.description) card.appendChild(el("div", "note", r.description));
-    wrap.replaceChildren(card);
+    return card;
+  }
+
+  async function renderRecipe() {
+    let recipes = [];
+    try { recipes = await fs.recipes.load(); } catch (e) {}
+    if (!recipes.length) return;
+    const meta = info();
+
+    // Category-aware selection — the SAME shared module + heuristic as the
+    // extension block page: a vegetarian and a meat/protein idea matched to the
+    // blocked brand's category. Pass the catalog explicitly, because
+    // FitShieldRecipes' own loader assumes chrome.*/fs (neither exists here).
+    let picks = [];
+    const R = self.FitShieldRecipes;
+    if (R && R.selectRecipes) {
+      const sel = R.selectRecipes({ category: meta.category, key: meta.brandId }, recipes);
+      picks = [sel.vegetarian, sel.meat].filter(Boolean);
+    }
+    // Fallback: deterministic single pick if the selector is unavailable.
+    if (!picks.length) {
+      picks = [recipes[Number((meta.brandId || "").length) % recipes.length] || recipes[0]].filter(Boolean);
+    }
+
+    $("recipeList").replaceChildren(...picks.map(recipeCard));
     $("recipeWrap").hidden = false;
   }
 
