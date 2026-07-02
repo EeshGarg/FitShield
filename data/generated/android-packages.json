@@ -20,10 +20,10 @@
   ],
   "counts": {
     "brands": 2582,
-    "packages": 859,
-    "needsReview": 1723
+    "packages": 864,
+    "needsReview": 1718
   },
-  "sha256": "217887b201a891cdccf31bec2649dfd9f1520de1360fa445aea66c5a3ceaddc0",
+  "sha256": "1045708eefab76f6f81952b8a45436c53350156f6df2be766cc5b379b9132e4c",
   "packages": {
     "ai.goparrot.android.melting.pot": {
       "brandId": "meltingpot.com",
@@ -894,6 +894,11 @@
       "brandId": "culvers.com",
       "displayName": "Culver's",
       "category": "fast_food"
+    },
+    "com.customer_silverlife.magokorocare": {
+      "brandId": "silver-life.co.jp",
+      "displayName": "Silver Life",
+      "category": "delivery"
     },
     "com.dangelos.app": {
       "brandId": "dangelos.com",
@@ -2450,6 +2455,11 @@
       "displayName": "Pizza Hut Korea",
       "category": "delivery"
     },
+    "com.pizzahut.app": {
+      "brandId": "pizzahut.com.hk",
+      "displayName": "Pizza Hut Hong Kong",
+      "category": "delivery"
+    },
     "com.pizzahut.app.vn": {
       "brandId": "pizzahut.vn",
       "displayName": "Pizza Hut.vn",
@@ -3315,6 +3325,11 @@
       "displayName": "Village Inn",
       "category": "dessert"
     },
+    "com.voltmobi.yakitoriya": {
+      "brandId": "yakitoriya.ru",
+      "displayName": "Yakitoriya",
+      "category": "delivery"
+    },
     "com.wagamama.androidapp": {
       "brandId": "wagamama.com",
       "displayName": "Wagamama",
@@ -3795,6 +3810,11 @@
       "displayName": "Rairaitei",
       "category": "fast_food"
     },
+    "jp.co.rakuten.delivery": {
+      "brandId": "rakuten-delivery.com",
+      "displayName": "Rakuten Delivery",
+      "category": "delivery"
+    },
     "jp.co.reins.gyukaku": {
       "brandId": "gyukaku.ne.jp",
       "displayName": "Gyu-Kaku",
@@ -3959,6 +3979,11 @@
       "brandId": "ootoya.com",
       "displayName": "Ootoya",
       "category": "fast_food"
+    },
+    "li.yapp.appEBBED457": {
+      "brandId": "shokutakubin.com",
+      "displayName": "Shokutakubin",
+      "category": "delivery"
     },
     "lozi.loship_user": {
       "brandId": "loship.vn",
@@ -42315,8 +42340,10 @@
       "brandId": "pizzahut.com.hk",
       "displayName": "Pizza Hut Hong Kong",
       "category": "delivery",
-      "packageStatus": "needs_review",
-      "packageIds": [],
+      "packageStatus": "active",
+      "packageIds": [
+        "com.pizzahut.app"
+      ],
       "domains": [
         "pizzahut.com.hk"
       ],
@@ -44170,8 +44197,10 @@
       "brandId": "rakuten-delivery.com",
       "displayName": "Rakuten Delivery",
       "category": "delivery",
-      "packageStatus": "needs_review",
-      "packageIds": [],
+      "packageStatus": "active",
+      "packageIds": [
+        "jp.co.rakuten.delivery"
+      ],
       "domains": [
         "rakuten-delivery.com"
       ],
@@ -47410,8 +47439,10 @@
       "brandId": "shokutakubin.com",
       "displayName": "Shokutakubin",
       "category": "delivery",
-      "packageStatus": "needs_review",
-      "packageIds": [],
+      "packageStatus": "active",
+      "packageIds": [
+        "li.yapp.appEBBED457"
+      ],
       "domains": [
         "shokutakubin.com"
       ],
@@ -47589,8 +47620,10 @@
       "brandId": "silver-life.co.jp",
       "displayName": "Silver Life",
       "category": "delivery",
-      "packageStatus": "needs_review",
-      "packageIds": [],
+      "packageStatus": "active",
+      "packageIds": [
+        "com.customer_silverlife.magokorocare"
+      ],
       "domains": [
         "silver-life.co.jp"
       ],
@@ -56307,8 +56340,10 @@
       "brandId": "yakitoriya.ru",
       "displayName": "Yakitoriya",
       "category": "delivery",
-      "packageStatus": "needs_review",
-      "packageIds": [],
+      "packageStatus": "active",
+      "packageIds": [
+        "com.voltmobi.yakitoriya"
+      ],
       "domains": [
         "yakitoriya.ru"
       ],

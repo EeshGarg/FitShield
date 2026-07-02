@@ -5,8 +5,8 @@
   "generator": "tools/generate-android-packages.js",
   "counts": {
     "brands": 2582,
-    "packages": 859,
-    "needsReview": 1723
+    "packages": 864,
+    "needsReview": 1718
   },
   "packages": {
     "ai.goparrot.android.melting.pot": {
@@ -878,6 +878,11 @@
       "brandId": "culvers.com",
       "displayName": "Culver's",
       "category": "fast_food"
+    },
+    "com.customer_silverlife.magokorocare": {
+      "brandId": "silver-life.co.jp",
+      "displayName": "Silver Life",
+      "category": "delivery"
     },
     "com.dangelos.app": {
       "brandId": "dangelos.com",
@@ -2434,6 +2439,11 @@
       "displayName": "Pizza Hut Korea",
       "category": "delivery"
     },
+    "com.pizzahut.app": {
+      "brandId": "pizzahut.com.hk",
+      "displayName": "Pizza Hut Hong Kong",
+      "category": "delivery"
+    },
     "com.pizzahut.app.vn": {
       "brandId": "pizzahut.vn",
       "displayName": "Pizza Hut.vn",
@@ -3299,6 +3309,11 @@
       "displayName": "Village Inn",
       "category": "dessert"
     },
+    "com.voltmobi.yakitoriya": {
+      "brandId": "yakitoriya.ru",
+      "displayName": "Yakitoriya",
+      "category": "delivery"
+    },
     "com.wagamama.androidapp": {
       "brandId": "wagamama.com",
       "displayName": "Wagamama",
@@ -3779,6 +3794,11 @@
       "displayName": "Rairaitei",
       "category": "fast_food"
     },
+    "jp.co.rakuten.delivery": {
+      "brandId": "rakuten-delivery.com",
+      "displayName": "Rakuten Delivery",
+      "category": "delivery"
+    },
     "jp.co.reins.gyukaku": {
       "brandId": "gyukaku.ne.jp",
       "displayName": "Gyu-Kaku",
@@ -3943,6 +3963,11 @@
       "brandId": "ootoya.com",
       "displayName": "Ootoya",
       "category": "fast_food"
+    },
+    "li.yapp.appEBBED457": {
+      "brandId": "shokutakubin.com",
+      "displayName": "Shokutakubin",
+      "category": "delivery"
     },
     "lozi.loship_user": {
       "brandId": "loship.vn",
