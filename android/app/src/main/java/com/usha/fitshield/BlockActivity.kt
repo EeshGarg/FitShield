@@ -164,7 +164,9 @@ class BlockActivity : AppCompatActivity() {
     private fun timerSeconds(): Int {
         val raw = getSharedPreferences("fitshield", MODE_PRIVATE)
             .getString("timerSeconds", null)?.trim('"')
-        return (raw?.toDoubleOrNull()?.toInt() ?: 15).coerceIn(0, 300)
+        // Default 60s to match the extension's reflection timer and the value the
+        // dashboard shows when the user hasn't customized it.
+        return (raw?.toDoubleOrNull()?.toInt() ?: 60).coerceIn(0, 300)
     }
 
     companion object {
