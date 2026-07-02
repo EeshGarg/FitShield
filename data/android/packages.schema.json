@@ -25,9 +25,9 @@
       "required": ["brandId", "packageIds"],
       "properties": {
         "brandId": {
-          "description": "The brand's canonical source domain in blocklists/*.json (e.g. \"doordash.com\"). Must map to exactly one blocklist entry.",
+          "description": "The brand's canonical source domain in blocklists/*.json (e.g. \"doordash.com\"). Must map to exactly one blocklist entry. Internationalized (IDN / non-ASCII) domains are permitted — this pattern mirrors the enforced BRAND_ID_RE in tools/validate-android-packages.js (a dotted host with no whitespace or URL delimiters).",
           "type": "string",
-          "pattern": "^[a-z0-9.-]+\\.[a-z]{2,}$"
+          "pattern": "^[^\\s/:?#@]+\\.[^\\s/:?#@]+$"
         },
         "packageIds": {
           "description": "Android application IDs for this brand (e.g. \"com.dd.doordash\"). May be empty ONLY when packageStatus is \"needs_review\".",

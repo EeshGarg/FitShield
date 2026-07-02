@@ -13,6 +13,8 @@
  *    "needs_review" requires empty packageIds; "active" requires ≥1 package)
  *  - non-deterministic / stale generation: data/generated/android-packages.json
  *    differs from a fresh generation (run npm run generate:android-packages)
+ *  - stale bundled APK asset: android/app/src/main/assets/android-packages.json
+ *    differs from a fresh bundle() (run npm run build:android)
  *  - missing source blocklist
  *
  * Guarantees every Android package maps back to exactly one blocklist brand and
@@ -156,6 +158,26 @@ function androidPackagesAudit() {
           JSON.stringify(committed.brands) !== JSON.stringify(fresh.brands)) {
         reporter.fail("generated android-packages.json is STALE/DRIFTED — run npm run generate:android-packages");
       }
+    }
+  }
+
+  // Bundled APK asset (the SLIM subset actually shipped in the APK) must match a
+  // fresh bundle() — the same drift guarantee as the generated file, so the
+  // committed asset can't silently go stale vs the source data. Compared as
+  // parsed JSON so working-tree line-ending normalization can't cause a false
+  // failure.
+  const bundledPath = path.join(load.ROOT, "android", "app", "src", "main", "assets", "android-packages.json");
+  if (!fs.existsSync(bundledPath)) {
+    reporter.fail("bundled APK asset missing: android/app/src/main/assets/android-packages.json (run npm run build:android)");
+  } else {
+    let committedBundle;
+    try {
+      committedBundle = JSON.parse(fs.readFileSync(bundledPath, "utf8"));
+    } catch (error) {
+      reporter.fail(`bundled android-packages.json invalid JSON: ${error.message}`);
+    }
+    if (committedBundle && JSON.stringify(committedBundle) !== JSON.stringify(gen.bundle())) {
+      reporter.fail("bundled android/app/src/main/assets/android-packages.json is STALE/DRIFTED — run npm run build:android");
     }
   }
 
