@@ -4,24 +4,41 @@ Living documentation of where FitShield is and where it's heading. This file is
 meant to evolve with the project — update it whenever direction changes. It
 avoids speculative promises; "Future ideas" are candidates, not commitments.
 
-_Last updated: 2026-06-29 (0.52)_
+_Last updated: 2026-07-02 (0.53)_
 
 ## Current version
 
-**0.52 — Data expansion, insights & documentation infrastructure.** See
-[0.52.md](0.52.md). Highlights:
+**0.53 — The native Android app.** See [0.53.md](0.53.md). Highlights:
 
-- Most blocked sites / categories / countries (private, on-device), with the
-  country stat counting the brand's primary market.
-- Fast-food country coverage expanded from 14 to 56 countries across 27 global
-  brands; aliases and specialty metadata enriched; datasets validated clean.
-- Localized food-category display names (28 languages + clean English fallback).
-- "Export / Import Data & Settings" with versioned backups.
-- This `changelog/` folder and roadmap as the canonical project history.
+- Native Android app (preview): the extension's web UI verbatim in a WebView
+  behind the `fitshield.*` platform abstraction — one product, two platforms.
+- System-wide website blocking via a local TLS-SNI/HTTP-Host connection filter
+  (works with strict Private DNS / NextDNS; no DNS interception, no tunneling).
+- Opt-in native app blocking (AccessibilityService, foreground package name
+  only) with a full-parity block screen; **870 verified** app→package mappings
+  generated from canonical data (never guessed; the rest stay `needs_review`).
+- Play Store groundwork: API 35, signed AAB pipeline, debug-gated logging
+  (audit-enforced), and the launch document pack (release checklist,
+  privacy/data-safety notes, store listing draft).
+- Extension: block page honors reduced-motion; both block screens link to
+  fitshield.net (localized).
 
-## Next planned version
+## Next planned version (0.54)
 
-Themes under consideration for the next release (subject to change):
+Themes under consideration (subject to change):
+
+- **Google Play launch.** Upload keystore + Play App Signing, Console
+  declarations (Data safety, VpnService, AccessibilityService, foreground
+  services), listing assets (screenshots, feature graphic), internal → closed →
+  staged production rollout per
+  [PLAY_STORE_RELEASE_CHECKLIST.md](../PLAY_STORE_RELEASE_CHECKLIST.md).
+- **Android hardening.** IPv6 support in the connection filter (instead of
+  drop), broader device/OEM testing, instrumented-test runs in CI.
+- **App-blocking data growth.** Human review of the `needs_review` tail;
+  per-brand confirmations beyond the 870 verified mappings.
+- **Verify Firefox for Android** on-device (extension DNR path).
+
+## Earlier milestone detail (0.53 Android steps)
 
 - **Native Android APK — shipped in steps.**
   - *Step 1 (UI first, done):* WebView shell on the shared `fitshield.*` platform
@@ -63,10 +80,12 @@ Themes under consideration for the next release (subject to change):
     and temporary unlock. Verified on-device: detection → block, loop-safe
     Not-now/unlock/re-block, non-blocked apps ignored, VPN coexists. See
     [`docs/ANDROID.md`](../docs/ANDROID.md) §3b.
-- **Verify Firefox for Android** on-device (extension DNR path).
+
+## Carried-forward themes (not yet scheduled)
+
 - **Finish category localization.** 28 languages now have localized food-category
   names; extend native translations to the remaining locales (they currently use
-  a clean English fallback).
+  a clean English fallback). Same for the Android block screen's category copy.
 - **Continue country coverage.** Expand beyond the 27 global brands to confident
   major regional chains, and broaden delivery coverage where accurate. Maintain
   ISO 3166-1 alpha-2 standards; never invent unsupported regions.
@@ -101,6 +120,11 @@ sprawl.
 
 ## Completed milestones
 
+- **0.53** — Native Android app (preview): WebView UI on the `fitshield.*`
+  abstraction, TLS-SNI/HTTP-Host connection filter (Private-DNS-safe), opt-in
+  AccessibilityService app blocking with a parity block screen, 870 verified
+  app→package mappings, edge-to-edge One UI styling, Play Store groundwork
+  (API 35, signed AAB, debug-gated logging, launch document pack).
 - **0.52** — Most-blocked insights (primary-country heuristic), fast-food country
   coverage 14 → 56, localized food categories, Data & Settings backup,
   validation-gated build with a `tools/` audit suite, `CONTRIBUTING.md`,

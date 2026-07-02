@@ -1,6 +1,6 @@
 # FitShield on Android
 
-_Accurate as of FitShield 0.52. Update this file in the same change as any
+_Accurate as of FitShield 0.53. Update this file in the same change as any
 behavior it describes._
 
 > **Native blocking summary (read this first):** the APK blocks *websites* with a

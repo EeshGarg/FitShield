@@ -2,6 +2,20 @@
   "_note": "Local changelog rendered by whats-new.html. No network fetch — privacy-first. The full, canonical release history lives in changelog/*.md.",
   "entries": [
     {
+      "version": "0.53",
+      "date": "2026-07-02",
+      "title": "FitShield goes native on Android",
+      "changes": [
+        "FitShield is now a real Android app (preview): the same dashboard, stats, recipes, themes, and all 83 languages — reusing the exact web code the extension runs, so both platforms stay one product.",
+        "Blocks food-delivery and fast-food websites system-wide on Android with a local, on-device connection filter that works even with strict Private DNS (NextDNS) enabled. No traffic ever leaves your device to any FitShield server, DNS is untouched, and HTTPS is never decrypted.",
+        "Blocks food apps too: opt in, and opening a blocked app shows a FitShield pause screen with your stats, a matched recipe idea, a reflection timer, and an honest \"open anyway\" — 870+ verified app mappings generated from the same curated data, never guessed.",
+        "The block screens on both platforms now share the full experience: category-aware recipe suggestions, block reason, schedule status, and a localized \"Learn more\" link to fitshield.net.",
+        "The extension's block page now respects your system's reduced-motion setting, matching the rest of FitShield.",
+        "Android extras, all optional and off by default: \"display over other apps\" for a more reliable pause screen, an \"extra reliability\" background keep-alive, and battery-optimization guidance — each explained in plain language before you turn it on.",
+        "Groundwork for the Play Store: Android 15 target, release builds with no debug logging (no hostnames ever hit the log), and public privacy documentation of exactly what the app does — nothing collected, nothing transmitted."
+      ]
+    },
+    {
       "version": "0.52",
       "date": "2026-06-29",
       "title": "Deeper insights & a documented history",

@@ -21,6 +21,7 @@ browser-compatibility notes.
 
 | Version | Date | Theme |
 | --- | --- | --- |
+| [0.53](0.53.md) | 2026-07-02 | The native Android app |
 | [0.52](0.52.md) | 2026-06-29 | Data expansion, insights & documentation infrastructure |
 | [0.51](0.51.md) | 2026-06-27 | Stats, Firefox & a wider dashboard |
 | [0.50](0.50.md) | 2026-06-26 | Recipe suggestions & blocking fixes |
