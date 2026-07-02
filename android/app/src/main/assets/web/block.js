@@ -146,16 +146,19 @@
   // ---- timer + actions ------------------------------------------------------
   function startTimer(seconds, unlockMinutes, appName) {
     const btn = $("openAnyway");
+    const open = t("openButton");   // reuse the extension's already-translated "Open"
     const enable = () => {
       btn.disabled = false;
-      btn.textContent = `Open ${appName} for ${unlockMinutes} min`;
+      btn.textContent = `${open} ${appName}`;
     };
     if (reduceMotion || !seconds || seconds <= 0) { enable(); return; }
     let left = seconds;
     btn.disabled = true;
     const tick = () => {
       if (left <= 0) { enable(); return; }
-      btn.textContent = `Open ${appName} in ${left}s`;
+      // Countdown lives in the button label (there is no separate ring); the
+      // verb is localized and the app name / seconds stay verbatim.
+      btn.textContent = `${open} ${appName} · ${left}s`;
       left -= 1;
       setTimeout(tick, 1000);
     };
@@ -177,6 +180,11 @@
     renderSchedule();
     renderRecipe();
     startTimer(Number(meta.timerSeconds), Number(meta.unlockMinutes) || 5, name);
+
+    // Localized button labels — reuse the extension's already-translated keys, so
+    // non-English users get real translations with no Android-only locale strings.
+    $("notNow").textContent = t("warningBackButton");
+    $("openFs").textContent = `${t("openButton")} FitShield`;
 
     $("notNow").addEventListener("click", () => { if (AB) AB.leave(); });
     $("openAnyway").addEventListener("click", () => { if (AB && !$("openAnyway").disabled) AB.unlock(Number(meta.unlockMinutes) || 5); });
