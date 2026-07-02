@@ -341,7 +341,7 @@
     {"brandId":"koubei.taobao.com","packageIds":[],"packageStatus":"needs_review"},
     {"brandId":"kunefood.com","packageIds":[],"packageStatus":"needs_review"},
     {"brandId":"kungfu.com.cn","packageIds":[],"packageStatus":"needs_review"},
-    {"brandId":"kyochon.com","packageIds":[],"packageStatus":"needs_review"},
+    {"brandId":"kyochon.com","packageIds":["com.order.kyochonchicken"]},
     {"brandId":"lavka.yandex.ru","packageIds":[],"packageStatus":"needs_review"},
     {"brandId":"licious.in","packageIds":["com.licious"]},
     {"brandId":"lieferando.at","packageIds":["at.lieferservice.android"]},

@@ -20,10 +20,10 @@
   ],
   "counts": {
     "brands": 2582,
-    "packages": 864,
-    "needsReview": 1718
+    "packages": 870,
+    "needsReview": 1712
   },
-  "sha256": "1045708eefab76f6f81952b8a45436c53350156f6df2be766cc5b379b9132e4c",
+  "sha256": "8da55767a7bb3b75523e25804c3b1e285b436da5d8ecc8af1528bc1883e114ac",
   "packages": {
     "ai.goparrot.android.melting.pot": {
       "brandId": "meltingpot.com",
@@ -54,6 +54,11 @@
       "brandId": "foodora.at",
       "displayName": "foodora Austria",
       "category": "delivery"
+    },
+    "au.com.crust.mobile": {
+      "brandId": "crust.com.au",
+      "displayName": "Crust.com.au",
+      "category": "fast_food"
     },
     "au.com.dominos.olo.android.app": {
       "brandId": "dominos.com.au",
@@ -149,6 +154,11 @@
       "brandId": "deliverymuch.com.br",
       "displayName": "Delivery Much",
       "category": "delivery"
+    },
+    "br.com.dominos.mobile": {
+      "brandId": "dominos.com.br",
+      "displayName": "Dominos.com.br",
+      "category": "fast_food"
     },
     "br.com.tonolucro.delivery": {
       "brandId": "tonolucro.com",
@@ -369,6 +379,11 @@
       "brandId": "assai.com.br",
       "displayName": "Assai.com.br",
       "category": "fast_food"
+    },
+    "com.atlantabread.atlantabread.android.app": {
+      "brandId": "atlantabread.com",
+      "displayName": "Atlanta Bread Company",
+      "category": "dessert"
     },
     "com.auchan.android": {
       "brandId": "auchan.fr",
@@ -1655,6 +1670,11 @@
       "displayName": "Long John Silver's",
       "category": "fast_food"
     },
+    "com.llaollao.app": {
+      "brandId": "llaollaoweb.com",
+      "displayName": "Llaollaoweb",
+      "category": "fast_food"
+    },
     "com.logans.app": {
       "brandId": "logansroadhouse.com",
       "displayName": "Logan's Roadhouse",
@@ -2219,6 +2239,11 @@
       "brandId": "chopstop.com",
       "displayName": "Chop Stop",
       "category": "fast_food"
+    },
+    "com.order.kyochonchicken": {
+      "brandId": "kyochon.com",
+      "displayName": "Kyochon Chicken",
+      "category": "delivery"
     },
     "com.ordermunch.app": {
       "brandId": "munch.africa",
@@ -4053,6 +4078,11 @@
     "no.peppes.mobile": {
       "brandId": "peppes.no",
       "displayName": "Peppes.no",
+      "category": "fast_food"
+    },
+    "nz.burgerking.kingfinder": {
+      "brandId": "burgerking.co.nz",
+      "displayName": "Burger King.co.nz",
       "category": "fast_food"
     },
     "nz.co.delivereasy": {
@@ -6540,8 +6570,10 @@
       "brandId": "atlantabread.com",
       "displayName": "Atlanta Bread Company",
       "category": "dessert",
-      "packageStatus": "needs_review",
-      "packageIds": [],
+      "packageStatus": "active",
+      "packageIds": [
+        "com.atlantabread.atlantabread.android.app"
+      ],
       "domains": [
         "atlantabread.com"
       ],
@@ -10694,8 +10726,10 @@
       "brandId": "burgerking.co.nz",
       "displayName": "Burger King.co.nz",
       "category": "fast_food",
-      "packageStatus": "needs_review",
-      "packageIds": [],
+      "packageStatus": "active",
+      "packageIds": [
+        "nz.burgerking.kingfinder"
+      ],
       "domains": [
         "burgerking.co.nz"
       ],
@@ -16044,8 +16078,10 @@
       "brandId": "crust.com.au",
       "displayName": "Crust.com.au",
       "category": "fast_food",
-      "packageStatus": "needs_review",
-      "packageIds": [],
+      "packageStatus": "active",
+      "packageIds": [
+        "au.com.crust.mobile"
+      ],
       "domains": [
         "crust.com.au"
       ],
@@ -17901,8 +17937,10 @@
       "brandId": "dominos.com.br",
       "displayName": "Dominos.com.br",
       "category": "fast_food",
-      "packageStatus": "needs_review",
-      "packageIds": [],
+      "packageStatus": "active",
+      "packageIds": [
+        "br.com.dominos.mobile"
+      ],
       "domains": [
         "dominos.com.br"
       ],
@@ -32086,8 +32124,10 @@
       "brandId": "kyochon.com",
       "displayName": "Kyochon Chicken",
       "category": "delivery",
-      "packageStatus": "needs_review",
-      "packageIds": [],
+      "packageStatus": "active",
+      "packageIds": [
+        "com.order.kyochonchicken"
+      ],
       "domains": [
         "kyochon.com"
       ],
@@ -33254,8 +33294,10 @@
       "brandId": "llaollaoweb.com",
       "displayName": "Llaollaoweb",
       "category": "fast_food",
-      "packageStatus": "needs_review",
-      "packageIds": [],
+      "packageStatus": "active",
+      "packageIds": [
+        "com.llaollao.app"
+      ],
       "domains": [
         "llaollaoweb.com"
       ],

@@ -5,8 +5,8 @@
   "generator": "tools/generate-android-packages.js",
   "counts": {
     "brands": 2582,
-    "packages": 864,
-    "needsReview": 1718
+    "packages": 870,
+    "needsReview": 1712
   },
   "packages": {
     "ai.goparrot.android.melting.pot": {
@@ -38,6 +38,11 @@
       "brandId": "foodora.at",
       "displayName": "foodora Austria",
       "category": "delivery"
+    },
+    "au.com.crust.mobile": {
+      "brandId": "crust.com.au",
+      "displayName": "Crust.com.au",
+      "category": "fast_food"
     },
     "au.com.dominos.olo.android.app": {
       "brandId": "dominos.com.au",
@@ -133,6 +138,11 @@
       "brandId": "deliverymuch.com.br",
       "displayName": "Delivery Much",
       "category": "delivery"
+    },
+    "br.com.dominos.mobile": {
+      "brandId": "dominos.com.br",
+      "displayName": "Dominos.com.br",
+      "category": "fast_food"
     },
     "br.com.tonolucro.delivery": {
       "brandId": "tonolucro.com",
@@ -353,6 +363,11 @@
       "brandId": "assai.com.br",
       "displayName": "Assai.com.br",
       "category": "fast_food"
+    },
+    "com.atlantabread.atlantabread.android.app": {
+      "brandId": "atlantabread.com",
+      "displayName": "Atlanta Bread Company",
+      "category": "dessert"
     },
     "com.auchan.android": {
       "brandId": "auchan.fr",
@@ -1639,6 +1654,11 @@
       "displayName": "Long John Silver's",
       "category": "fast_food"
     },
+    "com.llaollao.app": {
+      "brandId": "llaollaoweb.com",
+      "displayName": "Llaollaoweb",
+      "category": "fast_food"
+    },
     "com.logans.app": {
       "brandId": "logansroadhouse.com",
       "displayName": "Logan's Roadhouse",
@@ -2203,6 +2223,11 @@
       "brandId": "chopstop.com",
       "displayName": "Chop Stop",
       "category": "fast_food"
+    },
+    "com.order.kyochonchicken": {
+      "brandId": "kyochon.com",
+      "displayName": "Kyochon Chicken",
+      "category": "delivery"
     },
     "com.ordermunch.app": {
       "brandId": "munch.africa",
@@ -4037,6 +4062,11 @@
     "no.peppes.mobile": {
       "brandId": "peppes.no",
       "displayName": "Peppes.no",
+      "category": "fast_food"
+    },
+    "nz.burgerking.kingfinder": {
+      "brandId": "burgerking.co.nz",
+      "displayName": "Burger King.co.nz",
       "category": "fast_food"
     },
     "nz.co.delivereasy": {
