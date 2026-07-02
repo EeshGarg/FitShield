@@ -1,0 +1,178 @@
+{
+  "_generated": true,
+  "_doNotEdit": "GENERATED (bundled subset) by tools/generate-android-packages.js. Only the packageId → brand map is shipped; the full ported record lives in data/generated/android-packages.json. Do NOT hand-edit.",
+  "schema": 1,
+  "generator": "tools/generate-android-packages.js",
+  "counts": {
+    "brands": 2582,
+    "packages": 33,
+    "needsReview": 2549
+  },
+  "packages": {
+    "br.com.brainweb.ifood": {
+      "brandId": "ifood.com.br",
+      "displayName": "iFood Brazil",
+      "category": "delivery"
+    },
+    "com.application.zomato": {
+      "brandId": "zomato.com",
+      "displayName": "Zomato",
+      "category": "delivery"
+    },
+    "com.bolt.deliveryclient": {
+      "brandId": "boltfood.com",
+      "displayName": "Bolt Food",
+      "category": "delivery"
+    },
+    "com.careem.acma": {
+      "brandId": "careem.com",
+      "displayName": "Careem",
+      "category": "delivery"
+    },
+    "com.chickfila.cfaflagship": {
+      "brandId": "chick-fil-a.com",
+      "displayName": "Chick-fil-A",
+      "category": "fast_food"
+    },
+    "com.chipotle.ordering": {
+      "brandId": "chipotle.com",
+      "displayName": "Chipotle",
+      "category": "fast_food"
+    },
+    "com.dd.doordash": {
+      "brandId": "doordash.com",
+      "displayName": "DoorDash",
+      "category": "delivery"
+    },
+    "com.deliveroo.orderapp": {
+      "brandId": "deliveroo.co.uk",
+      "displayName": "Deliveroo UK",
+      "category": "delivery"
+    },
+    "com.dominospizza": {
+      "brandId": "dominos.com",
+      "displayName": "Domino's",
+      "category": "fast_food"
+    },
+    "com.dunkinbrands.otgo": {
+      "brandId": "dunkindonuts.com",
+      "displayName": "Dunkin'",
+      "category": "coffee"
+    },
+    "com.emn8.mobilem8.nativeapp.bk": {
+      "brandId": "burgerking.com",
+      "displayName": "Burger King",
+      "category": "fast_food"
+    },
+    "com.global.foodpanda.android": {
+      "brandId": "foodpanda.com",
+      "displayName": "foodpanda",
+      "category": "delivery"
+    },
+    "com.glovo": {
+      "brandId": "glovoapp.com",
+      "displayName": "Glovo",
+      "category": "delivery"
+    },
+    "com.gojek.app": {
+      "brandId": "gojek.com",
+      "displayName": "Gojek",
+      "category": "delivery"
+    },
+    "com.grability.rappi": {
+      "brandId": "rappi.com",
+      "displayName": "Rappi",
+      "category": "delivery"
+    },
+    "com.grabtaxi.passenger": {
+      "brandId": "grab.com",
+      "displayName": "Grab",
+      "category": "delivery"
+    },
+    "com.grubhub.android": {
+      "brandId": "grubhub.com",
+      "displayName": "Grubhub",
+      "category": "delivery"
+    },
+    "com.hungerstation.android": {
+      "brandId": "hungerstation.com",
+      "displayName": "HungerStation",
+      "category": "delivery"
+    },
+    "com.justeat.app.uk": {
+      "brandId": "just-eat.co.uk",
+      "displayName": "Just Eat UK",
+      "category": "delivery"
+    },
+    "com.mcdonalds.app": {
+      "brandId": "mcdonalds.com",
+      "displayName": "McDonald's",
+      "category": "fast_food"
+    },
+    "com.papajohns.android": {
+      "brandId": "papajohns.com",
+      "displayName": "Papa Johns",
+      "category": "fast_food"
+    },
+    "com.postmates.android": {
+      "brandId": "postmates.com",
+      "displayName": "Postmates",
+      "category": "delivery"
+    },
+    "com.starbucks.mobilecard": {
+      "brandId": "starbucks.com",
+      "displayName": "Starbucks",
+      "category": "coffee"
+    },
+    "com.subway.mobile.subwayapp": {
+      "brandId": "subway.com",
+      "displayName": "Subway",
+      "category": "fast_food"
+    },
+    "com.tacobell.ordering": {
+      "brandId": "tacobell.com",
+      "displayName": "Taco Bell",
+      "category": "fast_food"
+    },
+    "com.talabat.talabat": {
+      "brandId": "talabat.com",
+      "displayName": "Talabat",
+      "category": "delivery"
+    },
+    "com.trycaviar.customer": {
+      "brandId": "caviar.com",
+      "displayName": "Caviar",
+      "category": "delivery"
+    },
+    "com.ubercab.eats": {
+      "brandId": "ubereats.com",
+      "displayName": "Uber Eats",
+      "category": "delivery"
+    },
+    "com.wingstop.ordering": {
+      "brandId": "wingstop.com",
+      "displayName": "Wingstop",
+      "category": "fast_food"
+    },
+    "com.wolt.android": {
+      "brandId": "wolt.com",
+      "displayName": "Wolt",
+      "category": "delivery"
+    },
+    "com.yum.kfc": {
+      "brandId": "kfc.com",
+      "displayName": "KFC",
+      "category": "fast_food"
+    },
+    "ee.mtakso.client": {
+      "brandId": "bolt.eu",
+      "displayName": "Bolt",
+      "category": "delivery"
+    },
+    "in.swiggy.android": {
+      "brandId": "swiggy.com",
+      "displayName": "Swiggy",
+      "category": "delivery"
+    }
+  }
+}

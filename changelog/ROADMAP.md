@@ -23,12 +23,46 @@ _Last updated: 2026-06-29 (0.52)_
 
 Themes under consideration for the next release (subject to change):
 
-- **Native Android APK (preview → real).** The `android/` adapter foundation
-  exists: a local DNS-filtering `VpnService` driven by rules **generated from the
-  canonical engine/data** (no fork), with validation + an on-device parity test.
-  Next: complete and harden the VpnService DNS I/O (response synthesis, upstream
-  forwarding, IPv6/DoH handling), add a committed Gradle wrapper + signed release,
-  and verify on a real device. See [`docs/ANDROID.md`](../docs/ANDROID.md).
+- **Native Android APK — shipped in steps.**
+  - *Step 1 (UI first, done):* WebView shell on the shared `fitshield.*` platform
+    abstraction (`platform/storage/i18n/blocking/stats`), reusing the real web UI
+    building blocks; polished preview screen; installable debug APK. Neutral
+    Private DNS messaging (no detection/pressure).
+  - *Step 1b (visual + feature parity, done):* full FitShield look on mobile —
+    the living `ambient.js` gradient background, translucent Aero/One-UI glass
+    panels, animated gradient title + savings sheen, and press-tilt tiles (all
+    reduced-motion aware). Feature parity: currency picker (reusing `currency.js`),
+    most-blocked **categories + countries** (recorded on-device via a per-host
+    `meta` map in the generated asset, same primary-market heuristic as the
+    extension), full theme colour customization + corner radius, searchable
+    language picker, settings **import** via the document picker (export already
+    shipped), an optional Buy Me a Coffee link, and a one-time welcome overlay.
+    Verified on-device (Samsung, Android 14).
+  - *Step 2 (enforcement — connection filtering, done):* blocking now works by
+    **TLS SNI / HTTP Host at the connection layer**, not DNS (`Tun2Filter.kt`).
+    FitShield routes all traffic through a local userspace filter, reads the
+    destination host the client sends in the clear, **resets** blocked connections
+    (DoorDash, Uber Eats, …) and transparently relays everything else via
+    `protect()`ed sockets. This works **with strict Private DNS / NextDNS on** —
+    DNS is never intercepted or altered, so the encrypted provider is completely
+    untouched (verified on-device: delivery/fast-food blocked, normal browsing +
+    internet unaffected, no visited hostnames logged). No HTTPS block page (that
+    would need MITM, which FitShield refuses) — blocked sites simply fail to
+    connect. Remaining: IPv6 handling (currently dropped to force IPv4), an
+    optional in-app block confirmation, and broader device/network testing. See
+    [`docs/ANDROID.md`](../docs/ANDROID.md).
+  - *Step 3 (native app blocking, done):* an **AccessibilityService** shows a
+    native FitShield intervention screen (`BlockActivity`) when a blocked
+    delivery/fast-food *app* is opened — the counterpart of the VPN, which covers
+    websites/network traffic. The app→brand mapping is a new **generated dataset**
+    (`data/android/*-apps.json` + blocklists → `data/generated/android-packages.json`,
+    deterministic, validated: no orphans/dupes, packageStatus rules, drift) — no
+    duplicated metadata, built to scale to thousands of packages. The block screen
+    reuses the shared design system (`fitshield.css`), i18n, stats, recipes and
+    Aero glass, with a reflection timer, per-category toggles, schedule awareness
+    and temporary unlock. Verified on-device: detection → block, loop-safe
+    Not-now/unlock/re-block, non-blocked apps ignored, VPN coexists. See
+    [`docs/ANDROID.md`](../docs/ANDROID.md) §3b.
 - **Verify Firefox for Android** on-device (extension DNR path).
 - **Finish category localization.** 28 languages now have localized food-category
   names; extend native translations to the remaining locales (they currently use

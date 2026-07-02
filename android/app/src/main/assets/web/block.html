@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--
+  FitShield native block screen (WebView, hosted by BlockActivity). Shown by the
+  AccessibilityService when a blocked delivery / fast-food app is opened. Reuses
+  the SAME shared design system (fitshield.css), ambient background, i18n and
+  currency modules as the dashboard, so it mirrors the browser extension's block
+  page. Block-specific data + actions come from the `AndroidBlock` bridge.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>FitShield</title>
+  <link rel="stylesheet" href="fitshield.css">
+  <style>
+    body.block { display:flex; min-height:100vh; align-items:center; }
+    .wrap { width:100%; }
+    .card { max-width:520px; margin:0 auto; }
+    .bhead { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+    .bhead img { width:44px; height:44px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,.4), 0 0 0 1px var(--border); }
+    .brandline { font-weight:800; font-size:1.05rem; }
+    .card h1 { margin:6px 0 8px; font-size:1.5rem; line-height:1.2;
+      background:linear-gradient(100deg,var(--text) 0%,var(--accent) 46%,#6fd6c0 60%,var(--text) 88%);
+      background-size:220% 100%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+      animation:statSheen 14s ease-in-out infinite; }
+    .message { color:var(--muted); margin:0 0 14px; font-size:.98rem; }
+    .stats { margin-bottom:12px; }
+    #recipeWrap .l { font-size:.74rem; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px; }
+    .actions { display:flex; flex-direction:column; gap:10px; margin-top:16px; }
+    .actions button { width:100%; }
+    .linkbtn { background:none; box-shadow:none; color:var(--muted); font-weight:600; width:100%; margin-top:6px; padding:8px; }
+    .linkbtn:active { transform:none; filter:none; box-shadow:none; }
+    .learn-more { margin-top:16px; padding-top:14px; border-top:1px solid var(--border); font-size:.82rem; color:var(--muted); line-height:1.5; }
+    .learn-more a { display:inline-block; margin-top:4px; color:var(--accent); font-weight:600; text-decoration:none; }
+    .learn-more a:active { text-decoration:underline; }
+  </style>
+</head>
+<body class="block">
+  <div id="accentGlow" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <div class="panel card" data-tilt>
+      <div class="bhead">
+        <img src="icon-128.png" alt="FitShield">
+        <div>
+          <div class="brandline">FitShield</div>
+          <div class="sub" id="catLabel" style="margin:0">Mindful pause</div>
+        </div>
+      </div>
+
+      <h1 id="title">Pause before you order</h1>
+      <p class="message" id="message">Take a breath. This craving will pass.</p>
+      <p class="reason muted" id="reason" style="font-size:.82rem;margin:0 0 6px"></p>
+      <p class="sched muted" id="sched" hidden style="font-size:.82rem;margin:0 0 12px"></p>
+
+      <div class="grid stats">
+        <div class="stat"><div class="v" id="visits">0</div><div class="l" data-i18n="statusBlockedVisits">Blocked visits</div></div>
+        <div class="stat"><div class="v savings" id="savings">—</div><div class="l" data-i18n="statusEstimatedSavings">Estimated savings</div></div>
+        <div class="stat"><div class="v" id="calories">0</div><div class="l" data-i18n="statusCaloriesAvoided">Calories avoided</div></div>
+      </div>
+
+      <div id="recipeWrap" hidden>
+        <div class="l muted" data-i18n="welcomeFeatureRecipeTitle">A quick alternative</div>
+        <div id="recipeList"></div>
+      </div>
+
+      <div class="actions">
+        <button id="notNow" class="secondary">Not now — I'll skip it</button>
+        <button id="openAnyway" disabled>Open anyway</button>
+      </div>
+      <button id="openFs" class="linkbtn">Open FitShield</button>
+
+      <p class="learn-more">
+        <span data-i18n="learnMoreBody">Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net.</span><br>
+        <a href="https://fitshield.net" id="learnMore" data-i18n="learnMoreLink">Visit fitshield.net</a>
+      </p>
+    </div>
+  </main>
+
+  <script src="ambient.js" data-energy="block"></script>
+  <script src="android-shim.js"></script>
+  <script src="i18n.js"></script>
+  <script src="languages.js"></script>
+  <script src="currency.js"></script>
+  <script src="theme.js"></script>
+  <script src="block.js"></script>
+</body>
+</html>

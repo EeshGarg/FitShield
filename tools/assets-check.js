@@ -19,7 +19,7 @@ const REQUIRED_FILES = [
   "manifest.json", "background.js", "blocklist.js", "popup.html", "popup.js",
   "settings.html", "settings.js", "warning.html", "warning.js",
   "welcome.html", "welcome.js", "whats-new.html", "whats-new.js",
-  "i18n.js", "currency.js", "recipes.js", "backup.js", "changelog.json"
+  "i18n.js", "currency.js", "recipes.js", "backup.js", "browser-shim.js", "changelog.json"
 ];
 const REQUIRED_DIRS = ["_locales", "_locales/en", "blocklists", "data", "icons"];
 const REQUIRED_DATA = ["blocklists/fast-food.json", "blocklists/delivery.json", "data/recipes.json", "_locales/en/messages.json"];

@@ -20,10 +20,41 @@ const { spawnSync } = require("child_process");
 
 const load = require("./lib/load");
 const gen = require("./generate-android-rules");
+const genPackages = require("./generate-android-packages");
 const androidAudit = require("./android-audit");
 
 const ANDROID_DIR = path.join(load.ROOT, "android");
 const DIST_ANDROID = path.join(load.ROOT, "dist", "android");
+const WEB_DIR = path.join(ANDROID_DIR, "app", "src", "main", "assets", "web");
+
+// Canonical web files reused verbatim in the Android WebView, copied (not
+// hand-maintained) so they can never fork. tools/android-audit.js fails on drift.
+// index.html / app.js are Android-authored entry files and stay in WEB_DIR.
+const WEB_COPIES = [
+  ["android-shim.js", "android-shim.js"],
+  ["i18n.js", "i18n.js"],
+  ["languages.js", "languages.js"],
+  ["currency.js", "currency.js"],
+  ["ambient.js", "ambient.js"],
+  [path.join("icons", "icon-128.png"), "icon-128.png"],
+  [path.join("data", "recipes.json"), path.join("data", "recipes.json")]
+];
+// Whole directories copied recursively (all 83 locales for real localization).
+const WEB_DIR_COPIES = [["_locales", "_locales"]];
+
+function bundleWeb() {
+  WEB_COPIES.forEach(([src, dest]) => {
+    const to = path.join(WEB_DIR, dest);
+    fs.mkdirSync(path.dirname(to), { recursive: true });
+    fs.copyFileSync(path.join(load.ROOT, src), to);
+  });
+  WEB_DIR_COPIES.forEach(([src, dest]) => {
+    const to = path.join(WEB_DIR, dest);
+    fs.rmSync(to, { recursive: true, force: true });
+    fs.cpSync(path.join(load.ROOT, src), to, { recursive: true });
+  });
+  console.log(`Bundled ${WEB_COPIES.length} files + ${WEB_DIR_COPIES.length} dir(s) of canonical web assets.`);
+}
 
 async function main() {
   const version = load.manifest().version;
@@ -32,6 +63,17 @@ async function main() {
   // 1. Regenerate from canonical data via the separated engine.
   const { asset } = await gen.generate();
   console.log(`Generated ${asset.count} hosts from ${asset.engine} (canonical data v${Object.values(asset.datasetVersions).join("/")}).`);
+
+  // 1b. Refresh the reused web files (no fork).
+  bundleWeb();
+
+  // 1c. Regenerate + bundle the Android app-package dataset (for the
+  // AccessibilityService). Compiled from data/android/*-apps.json + blocklists.
+  const packages = await Promise.resolve(genPackages.generate());
+  const packagesAsset = path.join(WEB_DIR, "..", "android-packages.json");
+  // Ship only the slim package map (the ~2.5k-brand ported record stays in-repo).
+  fs.writeFileSync(packagesAsset, JSON.stringify(genPackages.bundle(), null, 2) + "\n");
+  console.log(`Ported ${packages.counts.brands} brands; bundled ${packages.counts.packages} app packages (${packages.counts.needsReview} needs_review).`);
 
   // 2. Validate the adapter (drift, fork, permissions).
   const reporter = await androidAudit();
@@ -117,15 +159,14 @@ function writeBuildTxt({ version, apkName, built, hasGradle, asset }) {
     `  adb install -r dist/android/${apkName}`,
     "",
     "KNOWN PREVIEW LIMITATIONS",
-    "  - PREVIEW/TEST quality; not built or run on a device in this repository.",
-    "  - IPv4 + UDP/53 DNS only. IPv6 DNS and DNS-over-HTTPS/TLS are NOT handled",
-    "    and can bypass filtering.",
-    "  - Only the system DNS path is filtered (apps with hardcoded resolvers/DoH",
-    "    may bypass).",
-    "  - Allowed DNS is forwarded to a public resolver (1.1.1.1) in this preview;",
-    "    no queries go to FitShield. A future version may use the system resolver.",
+    "  - PREVIEW/TEST quality.",
+    "  - Blocks by TLS SNI (443) / HTTP Host (80) at the connection layer, NOT DNS.",
+    "    Works with Private DNS / NextDNS on; DNS is never intercepted or altered.",
+    "  - No HTTPS block page (no MITM) — blocked sites fail to connect (RST).",
+    "  - IPv6 is captured and dropped to force IPv4 fallback; IPv6-only networks",
+    "    are not yet supported. QUIC (UDP/443) is dropped to force TCP (SNI-visible).",
+    "  - TLS with Encrypted Client Hello (ECH) hides the SNI and can bypass.",
     "  - One active VPN at a time (conflicts with another VPN app).",
-    "  - UDP checksum is set to 0 (valid for IPv4) rather than computed.",
     "",
     "MANUAL DEVICE TESTING CHECKLIST",
     "  [ ] APK installs (adb install -r ...)",
@@ -133,18 +174,19 @@ function writeBuildTxt({ version, apkName, built, hasGradle, asset }) {
     "  [ ] Tapping Enable triggers the system VPN-consent dialog",
     "  [ ] After consent, the VPN starts and the OS VPN key/indicator appears",
     "  [ ] Foreground notification is shown and understandable",
-    "  [ ] doordash.com is blocked (does not resolve)",
+    "  [ ] doordash.com is blocked (ERR_CONNECTION_RESET), WITH Private DNS on",
     "  [ ] ubereats.com is blocked",
     "  [ ] grubhub.com is blocked",
-    "  [ ] Normal sites still resolve (e.g. wikipedia.org, github.com)",
-    "  [ ] Disabling stops filtering (sites resolve again)",
+    "  [ ] Normal sites load fine (e.g. wikipedia.org, github.com)",
+    "  [ ] Internet + DNS unaffected; Private DNS setting unchanged",
+    "  [ ] Disabling stops filtering (blocked sites load again)",
     "  [ ] Uninstalling stops filtering",
     "  [ ] No startup on boot",
     "  [ ] No accessibility permission requested",
     "  [ ] No usage-access requested",
     "  [ ] No location / contacts / phone / SMS / storage permission requested",
     "  [ ] Small-screen UI is usable",
-    "  [ ] No unexpected network calls beyond DNS forwarding",
+    "  [ ] No unexpected network; no visited hostnames in logcat",
     "  [ ] (optional) ./gradlew connectedAndroidTest passes the engine-parity test",
     ""
   ];

@@ -35,6 +35,7 @@ const ROOT_FILES = [
   "background.js",
   "backup.js",
   "blocklist.js",
+  "browser-shim.js",
   "currency.js",
   "i18n.js",
   "languages.js",

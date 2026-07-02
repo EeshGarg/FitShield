@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!--
+  FitShield Android UI (WebView). Reuses the SAME web building blocks as the
+  browser extension — i18n.js + all _locales (via fitshield.* / android-shim.js),
+  currency.js, the canonical recipes data, engine-derived filter metadata, and
+  the FitShield visual language. UI-parity pass (0.53); DNS-provider hardening is
+  a later step. Blocking-config controls are stored locally and marked where
+  enforcement is pending a later step.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title data-i18n="appName">FitShield</title>
+  <!-- Shared FitShield design system (glass + lighting + motion), used by both
+       the dashboard and the block screen so the visual language never forks. -->
+  <link rel="stylesheet" href="fitshield.css">
+  <style>
+    /* index.html-specific layout only. The design system lives in fitshield.css. */
+    .swatches { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:6px; }
+    #welcome { position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center; padding:20px;
+      background:rgba(3,6,10,.5); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); animation:fadeIn var(--dur-3) var(--ease) both; }
+    #welcome[hidden] { display:none; }
+    .welcome-card { max-width:440px; width:100%; text-align:center; animation:pop var(--dur-3) var(--ease-spring) both; }
+    .welcome-card img { width:64px; height:64px; border-radius:16px; box-shadow:0 8px 24px rgba(0,0,0,.4), 0 0 0 1px var(--border); }
+    .welcome-card h2 { margin:12px 0 6px; }
+    .welcome-card .limits { text-align:left; margin-top:10px; }
+    .welcome-card button { margin-top:14px; width:100%; }
+    .support { text-align:center; margin:18px 0 8px; }
+    .support p { color:var(--muted); font-size:.84rem; margin:0 0 10px; }
+    .bmc { display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:12px;
+      background:linear-gradient(180deg,#ffe867,#ffd400); color:#3a2f00; font-weight:800;
+      border:1px solid rgba(0,0,0,.14); box-shadow:inset 0 1px 0 rgba(255,255,255,.55), 0 8px 20px -6px rgba(255,205,0,.5); cursor:pointer;
+      transition:transform var(--dur-1) var(--ease-spring), box-shadow var(--dur-2) var(--ease); }
+    .bmc:active { transform:translateY(1px) scale(.98); }
+  </style>
+</head>
+<body>
+  <!-- Context-aware accent lighting layer (warms up when filtering is On) -->
+  <div id="accentGlow" aria-hidden="true"></div>
+
+  <!-- First-run welcome (shown once; dismissal stored on device) -->
+  <div id="welcome" hidden>
+    <div class="welcome-card panel" data-tilt>
+      <img src="icon-128.png" alt="FitShield">
+      <h2>Welcome to FitShield</h2>
+      <p class="note">A local-first nudge against impulse food-delivery and fast-food ordering. No accounts, no cloud, no tracking — everything stays on your device.</p>
+      <ul class="limits">
+        <li>Turn on FitShield to block delivery &amp; fast-food sites; optionally block their apps too.</li>
+        <li>Watch your blocked visits, savings and calories avoided add up.</li>
+        <li>Make it yours: theme colors, language, currency and more below.</li>
+      </ul>
+      <button id="welcomeGo">Get started</button>
+    </div>
+  </div>
+
+  <header>
+    <img src="icon-128.png" alt="FitShield">
+    <h1 data-i18n="appName">FitShield</h1>
+    <span class="badge">Android preview</span>
+  </header>
+  <p class="sub" data-i18n="appDescription">Stay mindful of food delivery and fast-food ordering.</p>
+
+  <!-- Dashboard / status -->
+  <div class="panel" data-tilt>
+    <div class="toggle-row">
+      <span class="status" id="status"><span class="dot"></span><span id="statusText">…</span></span>
+      <button id="toggle">Enable FitShield</button>
+    </div>
+    <div class="meta" id="meta"></div>
+    <p class="note" id="dnsNote" hidden></p>
+  </div>
+
+  <!-- Stats -->
+  <div class="panel">
+    <h2 data-i18n="protectionStatusHeading">Your Stats</h2>
+    <div class="grid">
+      <div class="stat"><div class="v" id="visits">0</div><div class="l" data-i18n="statusBlockedVisits">Blocked visits</div></div>
+      <div class="stat"><div class="v savings" id="savings">—</div><div class="l" data-i18n="statusEstimatedSavings">Estimated savings</div></div>
+      <div class="stat"><div class="v" id="calories">0</div><div class="l" data-i18n="statusCaloriesAvoided">Calories avoided</div></div>
+    </div>
+    <label id="mealCostLabel" data-i18n="avgMealCostLabel" for="mealCost">Average meal cost</label>
+    <div class="row">
+      <select id="currency" aria-labelledby="mealCostLabel" style="flex:1.6"></select>
+      <input id="mealCost" type="number" min="0" step="1" inputmode="numeric" style="flex:1">
+    </div>
+    <label data-i18n="avgMealCaloriesLabel" for="mealCalories">Average meal calories</label>
+    <input id="mealCalories" type="number" min="0" step="10" inputmode="numeric">
+    <p class="note" data-i18n="avgMealCostHint">Used to estimate money saved when you skip an order. Stored on your device only.</p>
+    <div id="mostBlockedWrap" hidden style="margin-top:12px">
+      <div class="l muted" data-i18n="statsMostBlockedSites" style="font-size:.78rem;text-transform:uppercase;letter-spacing:.04em">Most blocked sites</div>
+      <ol class="list" id="mostBlocked"></ol>
+    </div>
+    <div id="mostBlockedCatWrap" hidden style="margin-top:12px">
+      <div class="l muted" data-i18n="statsMostBlockedCategories" style="font-size:.78rem;text-transform:uppercase;letter-spacing:.04em">Most blocked categories</div>
+      <ol class="list" id="mostBlockedCat"></ol>
+    </div>
+    <div id="mostBlockedCountryWrap" hidden style="margin-top:12px">
+      <div class="l muted" data-i18n="statsMostBlockedCountries" style="font-size:.78rem;text-transform:uppercase;letter-spacing:.04em">Most blocked countries</div>
+      <ol class="list" id="mostBlockedCountry"></ol>
+    </div>
+    <div id="mostBlockedAppsWrap" hidden style="margin-top:12px">
+      <div class="l muted" style="font-size:.78rem;text-transform:uppercase;letter-spacing:.04em">Most blocked apps</div>
+      <ol class="list" id="mostBlockedApps"></ol>
+    </div>
+  </div>
+
+  <!-- App blocking (native, via AccessibilityService) -->
+  <details class="panel" id="appBlockPanel" hidden><summary>Block apps on this phone</summary><div class="body">
+    <!-- Live status of the three blocking mechanisms. -->
+    <div id="appStatus" style="display:flex;flex-direction:column;gap:7px;margin-bottom:10px">
+      <span class="status" id="stAccessibility"><span class="dot"></span><span class="t">Accessibility service</span></span>
+      <span class="status" id="stVpn"><span class="dot"></span><span class="t">Site blocking (VPN)</span></span>
+      <span class="status" id="stOverlay"><span class="dot"></span><span class="t">Display over other apps</span></span>
+    </div>
+    <p class="note" id="a11yStatus">Checking accessibility status…</p>
+    <button class="secondary" id="a11yOpen" hidden style="margin-top:8px">Open Accessibility settings</button>
+    <!-- Optional overlay permission (shown only when missing). -->
+    <div id="overlayCard" hidden style="margin-top:10px">
+      <p class="note">Optional: allow <strong>Display over other apps</strong> so the FitShield pause reliably appears over a blocked app. FitShield uses this only to show the block screen for the food apps you choose — it never reads your screen, messages, or other content.</p>
+      <button class="secondary" id="overlayOpen" style="margin-top:6px">Allow display over other apps</button>
+    </div>
+    <label style="margin-top:14px"><input type="checkbox" id="appBlockingEnabled"> <span>Enable app blocking</span></label>
+    <p class="note" id="appBlockCount"></p>
+    <div style="margin-top:10px">
+      <div class="l muted" style="font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Block which apps</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <button class="pill" data-cat="delivery">Delivery</button>
+        <button class="pill" data-cat="fast_food">Fast food</button>
+        <button class="pill" data-cat="restaurant">Restaurant</button>
+        <button class="pill" data-cat="coffee">Coffee</button>
+        <button class="pill" data-cat="dessert">Dessert</button>
+        <button class="pill" data-cat="grocery">Grocery</button>
+        <button class="pill" data-cat="convenience">Convenience</button>
+        <button class="pill" data-cat="meal_kit">Meal kit</button>
+      </div>
+    </div>
+    <label for="appUnlockMinutes" style="margin-top:12px">Temporary unlock (minutes)</label>
+    <input id="appUnlockMinutes" type="number" min="1" max="240" step="1" inputmode="numeric">
+    <p class="note">Opening a blocked app shows a FitShield pause screen. “Open anyway” unlocks that app for this many minutes. The schedule in Blocking Options applies here too.</p>
+    <details style="margin-top:8px"><summary class="muted" style="font-size:.9rem">Choose specific apps</summary><div class="body">
+      <p class="note">Turn individual apps off even if their category is on.</p>
+      <input id="appSearch" type="text" placeholder="Search apps…">
+      <ul class="list" id="appList"></ul>
+    </div></details>
+  </div></details>
+
+  <!-- Country filter -->
+  <details class="panel"><summary data-i18n="blockByCountryLabel">Block by country</summary><div class="body">
+    <p class="pending">Saved on device — country enforcement lands in a later step.</p>
+    <input id="countrySearch" type="text" data-i18n-placeholder="countrySearchPlaceholder" placeholder="Search countries…">
+    <ul class="list" id="countryResults"></ul>
+  </div></details>
+
+  <!-- Category filter -->
+  <details class="panel"><summary data-i18n="blockByCategoryLabel">Block by category</summary><div class="body">
+    <p class="pending">Saved on device — category enforcement lands in a later step.</p>
+    <input id="categorySearch" type="text" data-i18n-placeholder="categorySearchPlaceholder" placeholder="Search categories…">
+    <ul class="list" id="categoryResults"></ul>
+  </div></details>
+
+  <!-- Custom blocklist -->
+  <details class="panel"><summary data-i18n="customUrlsHeading">Custom URLs</summary><div class="body">
+    <div class="row">
+      <input id="customInput" type="text" data-i18n-placeholder="customSitePlaceholder" placeholder="example.com">
+      <button class="secondary" id="customAdd" data-i18n="addButton">Add</button>
+    </div>
+    <ul class="list" id="customList"></ul>
+  </div></details>
+
+  <!-- Allowed domains (Android-adapted whitelist) -->
+  <details class="panel"><summary>Always-allow domains</summary><div class="body">
+    <p class="note">Android equivalent of the extension's per-site whitelist: domains here are never blocked.</p>
+    <div class="row">
+      <input id="allowInput" type="text" placeholder="example.com">
+      <button class="secondary" id="allowAdd" data-i18n="addButton">Add</button>
+    </div>
+    <ul class="list" id="allowList"></ul>
+  </div></details>
+
+  <!-- Timer / schedule / post-timer -->
+  <details class="panel"><summary data-i18n="blockingOptionsHeading">Blocking Options</summary><div class="body">
+    <p class="pending">Saved on device — timing enforcement lands in a later step.</p>
+    <label data-i18n="timerDurationLabel" for="timerSeconds">Timer duration</label>
+    <input id="timerSeconds" type="number" min="10" step="5" inputmode="numeric">
+    <label data-i18n="siteOpenTimeLabel" for="passMinutes">Site open time</label>
+    <input id="passMinutes" type="number" min="1" step="1" inputmode="numeric">
+    <label><input type="checkbox" id="scheduleEnabled"> <span data-i18n="popupScheduleLabel">Block only during scheduled hours</span></label>
+    <div class="row" style="margin-top:8px">
+      <div style="flex:1"><label data-i18n="startTimeLabel" for="scheduleStart">Start time</label><input id="scheduleStart" type="time"></div>
+      <div style="flex:1"><label data-i18n="endTimeLabel" for="scheduleEnd">End time</label><input id="scheduleEnd" type="time"></div>
+    </div>
+  </div></details>
+
+  <!-- Recipes -->
+  <details class="panel"><summary data-i18n="welcomeFeatureRecipeTitle">Recipe ideas</summary><div class="body">
+    <div id="recipeList"></div>
+  </div></details>
+
+  <!-- Test a domain -->
+  <details class="panel"><summary>Test a domain</summary><div class="body">
+    <div class="row"><input id="checkInput" type="text" inputmode="url" autocapitalize="off" autocorrect="off" placeholder="e.g. doordash.com"><button class="secondary" id="checkBtn">Check</button></div>
+    <div id="checkResult" class="note"></div>
+  </div></details>
+
+  <!-- Language -->
+  <details class="panel"><summary data-i18n="languageHeading">Language</summary><div class="body">
+    <p class="note" data-i18n="languageHint">Choose the language FitShield uses.</p>
+    <input id="langSearch" type="text" data-i18n-placeholder="languageSearchPlaceholder" placeholder="Search languages…">
+    <ul class="list" id="langResults"></ul>
+  </div></details>
+
+  <!-- Theme -->
+  <details class="panel"><summary data-i18n="themeHeading">Theme</summary><div class="body">
+    <label data-i18n="systemThemeLabel" for="themeMode">System theme</label>
+    <select id="themeMode">
+      <option value="system" data-i18n="themeSystem">System</option>
+      <option value="light" data-i18n="themeLight">Light</option>
+      <option value="dark" data-i18n="themeDark">Dark</option>
+    </select>
+    <div class="swatches">
+      <div><label data-i18n="themeBackground" for="bgColor">Background</label><input id="bgColor" type="color"></div>
+      <div><label data-i18n="themePanel" for="panelColor">Panel</label><input id="panelColor" type="color"></div>
+      <div><label data-i18n="themeText" for="textColor">Text</label><input id="textColor" type="color"></div>
+      <div><label data-i18n="themeAccent" for="accentColor">Accent</label><input id="accentColor" type="color"></div>
+    </div>
+    <label for="radiusRange">Corner radius (<span id="radiusValue">16</span>px)</label>
+    <input id="radiusRange" type="range" min="0" max="28" step="1" style="width:100%">
+    <button class="secondary" id="resetTheme" data-i18n="resetThemeButton" style="margin-top:10px">Reset theme</button>
+  </div></details>
+
+  <!-- Reset -->
+  <details class="panel"><summary data-i18n="resetHeading">Reset &amp; Data</summary><div class="body">
+    <p class="note" data-i18n="resetIntro">Restore parts of FitShield to their defaults.</p>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button class="secondary" id="resetStats" data-i18n="resetPreferencesButton">Reset stats</button>
+      <button class="secondary" id="resetSettings" data-i18n="resetBlockingButton">Reset settings</button>
+      <button class="secondary" id="factoryReset" data-i18n="factoryResetButton">Factory reset</button>
+    </div>
+    <div id="resetNote" class="note"></div>
+  </div></details>
+
+  <!-- Backup -->
+  <details class="panel"><summary data-i18n="backupHeading">Backup &amp; Restore</summary><div class="body">
+    <p class="note" data-i18n="backupIntro">Save your FitShield settings to a file. Everything stays on your device.</p>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button class="secondary" id="exportBtn" data-i18n="exportSettingsButton">Export Data &amp; Settings</button>
+      <button class="secondary" id="importBtn" data-i18n="importSettingsButton">Import Data &amp; Settings</button>
+    </div>
+    <p class="note">Choose a FitShield backup file. Settings in the file are merged into your device.</p>
+  </div></details>
+
+  <!-- About / privacy -->
+  <div class="panel">
+    <h2>Privacy &amp; about</h2>
+    <p class="note">Local-first. No accounts, no cloud, no sync, no telemetry, no analytics. FitShield does not upload your browsing history, and never logs the sites or apps you open.</p>
+    <p class="note">On Android, FitShield blocks in two independent ways: a <strong>local</strong> VPN that resets connections to blocked sites by the name in the connection (TLS SNI) — no traffic tunnelling to any server, no HTTPS inspection, no certificates, no content inspection, and <strong>DNS is never intercepted or changed</strong>; and an optional <strong>app blocker</strong> that reads only which app is in the foreground (never screen content) to show a mindful pause.</p>
+    <ul class="limits" style="margin-top:8px">
+      <li>This Android build is <strong>preview quality</strong>. Site blocking works alongside encrypted / Private DNS. There is no custom block page for HTTPS sites (that would require interception FitShield won't do) — blocked sites simply fail to connect.</li>
+      <li>Timing, and country/category selections above are saved on device; wiring them into the connection filter is a later step.</li>
+    </ul>
+    <details style="margin-top:8px"><summary class="muted">How to test this preview</summary><ol class="limits">
+      <li>Enable and approve the one-time VPN consent dialog.</li>
+      <li>Open doordash.com — it should fail to load; open wikipedia.org — it should load normally.</li>
+      <li>For app blocking, turn it on above and enable the FitShield accessibility service, then open a blocked app.</li>
+      <li>Disable to stop filtering. Uninstalling also stops it.</li>
+    </ol></details>
+  </div>
+
+  <!-- Optional support -->
+  <div class="support">
+    <p>FitShield is free and local-first. If it has saved you an order or two, a coffee is always appreciated — never required.</p>
+    <button class="bmc" id="bmcBtn"><span aria-hidden="true">☕</span><span>Buy me a coffee</span></button>
+  </div>
+
+  <footer><span id="footerVersion"></span> · local-only · Android preview</footer>
+
+  <script src="ambient.js" data-energy="calm"></script>
+  <script src="android-shim.js"></script>
+  <script src="i18n.js"></script>
+  <script src="languages.js"></script>
+  <script src="currency.js"></script>
+  <script src="theme.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

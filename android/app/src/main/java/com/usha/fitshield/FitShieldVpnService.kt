@@ -5,41 +5,100 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.net.VpnService
+import android.provider.Settings
 import android.os.Build
 import android.os.ParcelFileDescriptor
 import android.util.Log
+import org.json.JSONObject
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.net.DatagramPacket
 import java.net.DatagramSocket
-import java.net.InetAddress
+import java.net.Socket
 
 /**
- * Local DNS-filtering VpnService — PREVIEW / TEST QUALITY.
+ * Local connection-filtering VpnService — PREVIEW / TEST QUALITY.
  *
- * Smallest working local DNS filter: it captures the device's DNS queries via a
- * local VpnService, checks each requested domain against the engine-derived
- * [RuleEngine], answers NXDOMAIN for blocked domains, and forwards allowed
- * queries to an upstream resolver. IPv4 + UDP/53 only.
+ * FitShield blocks food-delivery / fast-food connections by the destination host
+ * the client sends in the clear (TLS SNI on 443, HTTP Host on 80), NOT by DNS.
+ * This is what makes blocking work even under strict Private DNS / NextDNS, where
+ * all DNS is encrypted and never reaches us. The actual packet handling lives in
+ * [Tun2Filter]; this service owns the tunnel lifecycle, notification and stats.
  *
- * What it is NOT: not a commercial VPN, no tunneling of web traffic to any
- * server, no HTTPS inspection, no decryption, no certificates, no content
- * inspection, no telemetry. Only the DNS question name is read; nothing leaves
- * the device except allowed DNS queries to the upstream resolver. See
+ * What it is NOT: not a commercial VPN, no tunnelling of traffic to any FitShield
+ * server, no HTTPS interception, no decryption, no certificates, no MITM, no
+ * content inspection, no telemetry. DNS is never intercepted or altered — the
+ * system resolver / Private DNS keeps working exactly as configured. Allowed
+ * connections are relayed byte-for-byte to the same IP the client chose. See
  * docs/ANDROID.md.
- *
- * PREVIEW: implemented and reviewable, but NOT built or run on a device in this
- * repository. IPv6 and DNS-over-HTTPS/TLS are intentionally out of scope (see
- * limitations in docs/ANDROID.md).
  */
 class FitShieldVpnService : VpnService() {
 
     private var tunnel: ParcelFileDescriptor? = null
     private var worker: Thread? = null
+    private var filter: Tun2Filter? = null
     @Volatile private var active = false
     private lateinit var rules: RuleEngine
+
+    // Local, on-device stats — written to the SAME SharedPreferences the web UI
+    // reads through android-shim.js (fitshield.storage). Values are JSON-encoded
+    // strings so they round-trip with the shim. A short per-apex dedupe avoids
+    // over-counting the many connections a single page triggers.
+    private val prefs by lazy { getSharedPreferences("fitshield", Context.MODE_PRIVATE) }
+    private val lastBlocked = HashMap<String, Long>()
+
+    private fun readObj(key: String): JSONObject = try {
+        JSONObject(prefs.getString(key, "{}") ?: "{}")
+    } catch (e: Exception) {
+        JSONObject()
+    }
+
+    private fun recordBlock(apex: String) {
+        val now = System.currentTimeMillis()
+        synchronized(lastBlocked) {
+            if (now - (lastBlocked[apex] ?: 0L) < DEDUPE_MS) return
+            lastBlocked[apex] = now
+        }
+        synchronized(prefs) {
+            val visits = (prefs.getString("blockedVisits", "0")?.toIntOrNull() ?: 0) + 1
+            val byDomain = readObj("blockedByDomain")
+            byDomain.put(apex, byDomain.optInt(apex, 0) + 1)
+
+            // Same private breakdown the extension keeps (curated brand metadata
+            // only): most-blocked category (excluding the delivery/fast_food/custom
+            // buckets) and primary operating country. Plus calories avoided, seeded
+            // from the user's average-meal-calories value stored by the web UI.
+            val meta = rules.metaFor(apex)
+            val editor = prefs.edit()
+                .putString("blockedVisits", visits.toString())
+                .putString("blockedByDomain", byDomain.toString())
+
+            val category = meta?.category ?: ""
+            if (category.isNotEmpty() && category != "delivery" && category != "fast_food" && category != "custom") {
+                val byCategory = readObj("blockedByCategory")
+                byCategory.put(category, byCategory.optInt(category, 0) + 1)
+                editor.putString("blockedByCategory", byCategory.toString())
+            }
+
+            val country = meta?.country ?: ""
+            if (country.isNotEmpty()) {
+                val byCountry = readObj("blockedByCountry")
+                byCountry.put(country, byCountry.optInt(country, 0) + 1)
+                editor.putString("blockedByCountry", byCountry.toString())
+            }
+
+            val mealCalories = prefs.getString("avgMealCalories", null)
+                ?.trim('"')?.toDoubleOrNull()?.toInt() ?: 0
+            if (mealCalories > 0) {
+                val calories = (prefs.getString("caloriesAvoided", "0")?.trim('"')?.toIntOrNull() ?: 0) + mealCalories
+                editor.putString("caloriesAvoided", calories.toString())
+            }
+
+            editor.apply()
+        }
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -60,15 +119,22 @@ class FitShieldVpnService : VpnService() {
         if (active) return
         startForeground(NOTIF_ID, buildNotification())
 
-        val pfd = Builder()
-            .setSession("FitShield DNS filter")
+        // Detect Private DNS only to describe it neutrally in the UI. Blocking now
+        // works at the CONNECTION layer (TLS SNI / HTTP Host), so it is effective
+        // regardless of Private DNS — and FitShield never touches the encrypted DNS
+        // path: DNS keeps flowing to the user's provider untouched.
+        privateDnsActive = isPrivateDnsActive()
+
+        val builder = Builder()
+            .setSession("FitShield")
+            .setMtu(MTU)
             .addAddress(TUN_ADDRESS, 32)
-            // Route ONLY our virtual DNS server through the tunnel: the system
-            // sends DNS here, but no other traffic is captured.
-            .addDnsServer(TUN_DNS)
-            .addRoute(TUN_DNS, 32)
+            .addRoute("0.0.0.0", 0)                 // capture all IPv4 → filter by SNI/Host
+            .addAddress(TUN_ADDRESS6, 128)
+            .addRoute("::", 0)                       // capture IPv6 (dropped → forces IPv4 fallback)
             .setBlocking(true)
-            .establish()
+        // Deliberately NO addDnsServer: FitShield does not intercept or change DNS.
+        val pfd = builder.establish()
 
         if (pfd == null) {
             Log.e(TAG, "establish() returned null (VPN consent not granted?)")
@@ -79,12 +145,43 @@ class FitShieldVpnService : VpnService() {
         tunnel = pfd
         active = true
         isRunning = true
-        worker = Thread({ pump(pfd) }, "fitshield-dns").also { it.start() }
+        worker = Thread({ run(pfd) }, "fitshield-filter").also { it.start() }
+    }
+
+    private fun run(pfd: ParcelFileDescriptor) {
+        val f = Tun2Filter(
+            this,
+            rules,
+            FileInputStream(pfd.fileDescriptor),
+            FileOutputStream(pfd.fileDescriptor)
+        ) { apex -> recordBlock(apex) }
+        filter = f
+        try {
+            f.loop()
+        } catch (e: Exception) {
+            if (active) Log.e(TAG, "filter loop stopped", e)
+        }
+    }
+
+    /** Exposed to [Tun2Filter] so relayed upstream sockets bypass our own tunnel. */
+    fun protectSocket(s: Socket): Boolean = protect(s)
+    fun protectSocket(s: DatagramSocket): Boolean = protect(s)
+
+    /** True when the system has Private DNS set to Automatic or a hostname. */
+    private fun isPrivateDnsActive(): Boolean {
+        return try {
+            val mode = Settings.Global.getString(contentResolver, "private_dns_mode")
+            mode != null && mode != "off"
+        } catch (e: Exception) {
+            false
+        }
     }
 
     private fun stop() {
         active = false
         isRunning = false
+        filter?.shutdown()
+        filter = null
         worker?.interrupt()
         worker = null
         try { tunnel?.close() } catch (_: Exception) {}
@@ -96,156 +193,6 @@ class FitShieldVpnService : VpnService() {
     override fun onDestroy() {
         stop()
         super.onDestroy()
-    }
-
-    // ---- DNS pump ------------------------------------------------------------
-
-    private fun pump(pfd: ParcelFileDescriptor) {
-        val input = FileInputStream(pfd.fileDescriptor)
-        val output = FileOutputStream(pfd.fileDescriptor)
-        val packet = ByteArray(MAX_PACKET)
-
-        try {
-            while (active) {
-                val length = input.read(packet)
-                if (length <= 0) continue
-                try {
-                    handlePacket(packet, length, output)
-                } catch (e: Exception) {
-                    Log.w(TAG, "packet handling error", e)
-                }
-            }
-        } catch (e: Exception) {
-            if (active) Log.e(TAG, "DNS pump stopped", e)
-        }
-    }
-
-    /** Handle one IPv4/UDP/53 DNS query packet. Non-DNS/IPv6 packets are ignored
-     *  (they do not reach the tun because only the IPv4 DNS server is routed). */
-    private fun handlePacket(packet: ByteArray, length: Int, output: FileOutputStream) {
-        if (length < 28) return
-        val version = (packet[0].toInt() ushr 4) and 0xF
-        if (version != 4) return                                  // IPv4 only (preview)
-        val ihl = (packet[0].toInt() and 0xF) * 4
-        if (ihl < 20 || ihl + 8 > length) return
-        if ((packet[9].toInt() and 0xFF) != 17) return            // UDP
-        val udp = ihl
-        val dstPort = port(packet, udp + 2)
-        if (dstPort != 53) return                                 // DNS only
-        val dns = udp + 8
-        if (dns + 12 > length) return
-
-        val q = parseQuestion(packet, dns, length) ?: return
-        val blocked = rules.isBlocked(q.name)
-        Log.d(TAG, "${if (blocked) "BLOCK" else "allow"} ${q.name}")
-
-        val dnsResponse = if (blocked) {
-            synthesizeNxdomain(packet, dns, q.questionEnd)
-        } else {
-            forwardUpstream(packet, dns, length)
-        } ?: return
-
-        output.write(buildIpv4Udp(packet, ihl, dnsResponse))
-        output.flush()
-    }
-
-    /** Forward the DNS query payload to the upstream resolver over a protected
-     *  socket (so it leaves via the real network, not back through the VPN). */
-    private fun forwardUpstream(packet: ByteArray, dns: Int, length: Int): ByteArray? {
-        val query = packet.copyOfRange(dns, length)
-        DatagramSocket().use { socket ->
-            if (!protect(socket)) {
-                Log.w(TAG, "could not protect upstream socket")
-                return null
-            }
-            socket.soTimeout = UPSTREAM_TIMEOUT_MS
-            val upstream = InetAddress.getByName(UPSTREAM_DNS)
-            socket.send(DatagramPacket(query, query.size, upstream, 53))
-            val buf = ByteArray(4096)
-            val reply = DatagramPacket(buf, buf.size)
-            socket.receive(reply)
-            return buf.copyOfRange(0, reply.length)
-        }
-    }
-
-    /** Build a minimal NXDOMAIN reply from the query: keep the question, set
-     *  QR=1, RA=1, RCODE=3, and zero all answer/authority/additional counts. */
-    private fun synthesizeNxdomain(packet: ByteArray, dns: Int, questionEnd: Int): ByteArray {
-        // Response = DNS header + question only (drop any EDNS/OPT additionals).
-        val out = packet.copyOfRange(dns, questionEnd)
-        out[2] = (out[2].toInt() or 0x80).toByte()   // QR = 1 (response)
-        out[3] = 0x83.toByte()                        // RA = 1, RCODE = 3 (NXDOMAIN)
-        // QDCOUNT (4..5) kept; zero ANCOUNT/NSCOUNT/ARCOUNT (6..11).
-        for (i in 6..11) out[i] = 0
-        return out
-    }
-
-    /** Wrap a DNS payload in an IPv4/UDP packet addressed back to the client
-     *  (swap src/dst + ports, recompute IP checksum; UDP checksum 0 is valid). */
-    private fun buildIpv4Udp(original: ByteArray, ihl: Int, dnsPayload: ByteArray): ByteArray {
-        val total = ihl + 8 + dnsPayload.size
-        val out = ByteArray(total)
-        System.arraycopy(original, 0, out, 0, ihl)             // copy IP header
-
-        // IP: total length, TTL, clear options-derived checksum, swap addresses.
-        out[2] = (total ushr 8).toByte(); out[3] = total.toByte()
-        out[8] = 64                                            // TTL
-        out[10] = 0; out[11] = 0                               // checksum (recomputed)
-        System.arraycopy(original, 16, out, 12, 4)             // src = original dst
-        System.arraycopy(original, 12, out, 16, 4)             // dst = original src
-        val ipSum = checksum(out, 0, ihl)
-        out[10] = (ipSum ushr 8).toByte(); out[11] = ipSum.toByte()
-
-        // UDP: swap ports, set length, checksum 0 (optional for IPv4).
-        val u = ihl
-        System.arraycopy(original, ihl + 2, out, u, 2)         // srcPort = original dstPort (53)
-        System.arraycopy(original, ihl, out, u + 2, 2)         // dstPort = original srcPort
-        val udpLen = 8 + dnsPayload.size
-        out[u + 4] = (udpLen ushr 8).toByte(); out[u + 5] = udpLen.toByte()
-        out[u + 6] = 0; out[u + 7] = 0
-        System.arraycopy(dnsPayload, 0, out, u + 8, dnsPayload.size)
-        return out
-    }
-
-    // ---- DNS / IP parsing helpers -------------------------------------------
-
-    private class Question(val name: String, val questionEnd: Int)
-
-    /** Parse the first question's QNAME and return it plus the offset just past
-     *  QTYPE+QCLASS. Rejects compression pointers (not used in questions). */
-    private fun parseQuestion(packet: ByteArray, dns: Int, length: Int): Question? {
-        var pos = dns + 12
-        val sb = StringBuilder()
-        while (pos < length) {
-            val len = packet[pos].toInt() and 0xFF
-            if (len == 0) { pos++; break }
-            if (len and 0xC0 != 0) return null                 // compression pointer
-            pos++
-            if (pos + len > length) return null
-            if (sb.isNotEmpty()) sb.append('.')
-            for (i in 0 until len) sb.append((packet[pos + i].toInt() and 0xFF).toChar())
-            pos += len
-        }
-        val questionEnd = pos + 4                               // QTYPE(2) + QCLASS(2)
-        if (questionEnd > length || sb.isEmpty()) return null
-        return Question(sb.toString().lowercase(), questionEnd)
-    }
-
-    private fun port(buf: ByteArray, off: Int): Int =
-        ((buf[off].toInt() and 0xFF) shl 8) or (buf[off + 1].toInt() and 0xFF)
-
-    /** 16-bit one's-complement checksum (IPv4 header). */
-    private fun checksum(buf: ByteArray, off: Int, len: Int): Int {
-        var sum = 0L
-        var i = off
-        var remaining = len
-        while (remaining > 1) {
-            sum += (((buf[i].toInt() and 0xFF) shl 8) or (buf[i + 1].toInt() and 0xFF)).toLong()
-            i += 2; remaining -= 2
-        }
-        if (remaining == 1) sum += ((buf[i].toInt() and 0xFF) shl 8).toLong()
-        while ((sum shr 16) != 0L) sum = (sum and 0xFFFFL) + (sum shr 16)
-        return (sum.inv() and 0xFFFFL).toInt()
     }
 
     // ---- Foreground notification --------------------------------------------
@@ -261,8 +208,8 @@ class FitShieldVpnService : VpnService() {
             this, 0, Intent(this, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE
         )
         return Notification.Builder(this, channelId)
-            .setContentTitle("FitShield is filtering DNS")
-            .setContentText("Local and on-device. No traffic leaves your device except DNS.")
+            .setContentTitle("FitShield is on")
+            .setContentText("Blocking delivery & fast-food connections locally. DNS is untouched.")
             .setSmallIcon(android.R.drawable.ic_lock_lock)
             .setContentIntent(open)
             .setOngoing(true)
@@ -278,14 +225,15 @@ class FitShieldVpnService : VpnService() {
         @Volatile var isRunning = false
             private set
 
+        /** True when the last enable ran with Private DNS active. FitShield does
+         *  not touch DNS; surfaced neutrally in the UI. */
+        @Volatile var privateDnsActive = false
+            private set
+
         private const val NOTIF_ID = 1
-        private const val MAX_PACKET = 32767
+        private const val DEDUPE_MS = 30000L
+        private const val MTU = 1500
         private const val TUN_ADDRESS = "10.111.222.1"
-        private const val TUN_DNS = "10.111.222.2"
-        // Allowed DNS is forwarded to a public resolver in this preview. No
-        // queries go to FitShield; a future version may use the system resolver
-        // (would require ACCESS_NETWORK_STATE). Documented in docs/ANDROID.md.
-        private const val UPSTREAM_DNS = "1.1.1.1"
-        private const val UPSTREAM_TIMEOUT_MS = 5000
+        private const val TUN_ADDRESS6 = "fd00:f175:1::1"
     }
 }

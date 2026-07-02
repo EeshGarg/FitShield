@@ -7,9 +7,14 @@
  * Errors:
  *  - generated rules asset missing, unmarked, or DRIFTED from the engine output
  *  - a hand-maintained Android blocklist exists (any rules JSON not marked generated)
- *  - AndroidManifest uses a non-approved permission, a boot receiver, an
- *    accessibility service, usage-access, or package-visibility
+ *  - AndroidManifest uses a non-approved permission, a boot receiver,
+ *    usage-access, or package-visibility
+ *  - the bundled app-package dataset drifts from the generated output
  *  - analytics/telemetry dependency in the Android build
+ *
+ * NOTE: an AccessibilityService IS allowed (the opt-in app-blocking feature).
+ * It is configured read-only for the foreground package name
+ * (canRetrieveWindowContent="false") — see res/xml/accessibility_service_config.xml.
  * Notes: host count, hash, dataset versions.
  */
 
@@ -18,6 +23,7 @@ const path = require("path");
 const { Reporter, runCli } = require("./lib/report");
 const load = require("./lib/load");
 const gen = require("./generate-android-rules");
+const genPackages = require("./generate-android-packages");
 
 const ANDROID_DIR = path.join(load.ROOT, "android");
 const MANIFEST = path.join(ANDROID_DIR, "app", "src", "main", "AndroidManifest.xml");
@@ -28,7 +34,8 @@ const APPROVED_PERMISSIONS = new Set([
   "android.permission.INTERNET",                       // forward ALLOWED DNS queries upstream
   "android.permission.FOREGROUND_SERVICE",             // run the VpnService as a foreground service
   "android.permission.FOREGROUND_SERVICE_SPECIAL_USE", // required for the specialUse FGS type (Android 14+)
-  "android.permission.POST_NOTIFICATIONS"              // the required ongoing VPN notification (Android 13+)
+  "android.permission.POST_NOTIFICATIONS",             // the required ongoing VPN notification (Android 13+)
+  "android.permission.SYSTEM_ALERT_WINDOW"             // "display over other apps": reliably show the block screen over a blocked app (user-granted, optional)
 ]);
 
 // Permissions/components that must NEVER appear (checked against the manifest
@@ -36,7 +43,6 @@ const APPROVED_PERMISSIONS = new Set([
 const FORBIDDEN = [
   ["boot startup (RECEIVE_BOOT_COMPLETED)", /RECEIVE_BOOT_COMPLETED/],
   ["BOOT_COMPLETED receiver", /android\.intent\.action\.BOOT_COMPLETED/],
-  ["accessibility service", /accessibilityservice|BIND_ACCESSIBILITY_SERVICE/i],
   ["usage access", /PACKAGE_USAGE_STATS/],
   ["package visibility", /QUERY_ALL_PACKAGES/],
   ["device admin", /BIND_DEVICE_ADMIN|device_admin/i],
@@ -123,6 +129,70 @@ function androidAudit() {
     reporter.note(`manifest permissions: ${declared.join(", ") || "(none)"}`);
   }
 
+  // 3b. Reused web bundle: authored entries present + copied files match
+  // canonical (no fork/drift). Mirrors the rules-asset drift guarantee.
+  const webDir = path.join(ANDROID_DIR, "app", "src", "main", "assets", "web");
+  ["index.html", "app.js"].forEach((f) => {
+    if (!fs.existsSync(path.join(webDir, f))) {
+      reporter.fail(`web entry missing: android/app/src/main/assets/web/${f}`);
+    }
+  });
+  const WEB_COPIES = [
+    ["android-shim.js", "android-shim.js"],
+    ["i18n.js", "i18n.js"],
+    ["languages.js", "languages.js"],
+    ["currency.js", "currency.js"],
+    ["ambient.js", "ambient.js"],
+    [path.join("icons", "icon-128.png"), "icon-128.png"],
+    [path.join("data", "recipes.json"), path.join("data", "recipes.json")]
+  ];
+  WEB_COPIES.forEach(([src, dest]) => {
+    const canonical = path.join(load.ROOT, src);
+    const bundled = path.join(webDir, dest);
+    if (!fs.existsSync(bundled)) {
+      reporter.fail(`web bundle missing ${dest} (run npm run build:android)`);
+    } else if (!fs.readFileSync(canonical).equals(fs.readFileSync(bundled))) {
+      reporter.fail(`web bundle ${dest} drifted from canonical (run npm run build:android)`);
+    }
+  });
+
+  // All locales are reused (copied) — verify the bundled tree matches canonical
+  // exactly, so there is no Android-only locale fork.
+  const localeDrift = compareTree(load.LOCALES_DIR, path.join(webDir, "_locales"));
+  if (localeDrift === null) {
+    reporter.fail("web bundle missing _locales (run npm run build:android)");
+  } else if (localeDrift > 0) {
+    reporter.fail(`web bundle _locales drifted from canonical in ${localeDrift} file(s) (run npm run build:android)`);
+  } else {
+    reporter.note(`reused web assets: i18n, currency, recipes, icon + ${load.localeDirs().length} locales (copied from canonical, no fork)`);
+  }
+
+  // 3c. App-package dataset: the bundled asset must match the generated output
+  // (which is compiled from data/android/*-apps.json + blocklists). No fork.
+  const pkgAsset = path.join(ANDROID_DIR, "app", "src", "main", "assets", "android-packages.json");
+  if (!fs.existsSync(pkgAsset)) {
+    reporter.fail("bundled android-packages.json missing (run npm run build:android)");
+  } else {
+    let bundled;
+    try {
+      bundled = JSON.parse(fs.readFileSync(pkgAsset, "utf8"));
+    } catch (error) {
+      reporter.fail(`android-packages.json invalid JSON: ${error.message}`);
+    }
+    if (bundled) {
+      // The bundled asset is the SLIM subset (package map only); the full ported
+      // record is data/generated/android-packages.json. Compare the package maps.
+      const fresh = genPackages.derive();
+      if (bundled._generated !== true) {
+        reporter.fail("android-packages.json is not marked _generated:true");
+      } else if (JSON.stringify(bundled.packages) !== JSON.stringify(fresh.packages)) {
+        reporter.fail("bundled android-packages.json DRIFTED from the generated dataset (run npm run build:android)");
+      } else {
+        reporter.note(`${fresh.counts.packages} app packages bundled; ${fresh.counts.brands} brands ported (${fresh.counts.needsReview} needs_review)`);
+      }
+    }
+  }
+
   // 4. No analytics/telemetry dependency.
   if (fs.existsSync(APP_GRADLE)) {
     const gradle = fs.readFileSync(APP_GRADLE, "utf8");
@@ -132,6 +202,30 @@ function androidAudit() {
   }
 
   return reporter;
+}
+
+// Compare a canonical dir against a bundled copy. Returns the count of
+// differing/missing files, or null if the bundled dir is absent entirely.
+function compareTree(canonicalDir, bundledDir) {
+  if (!fs.existsSync(bundledDir)) {
+    return null;
+  }
+  let diffs = 0;
+  (function walk(rel) {
+    const here = path.join(canonicalDir, rel);
+    for (const entry of fs.readdirSync(here, { withFileTypes: true })) {
+      const childRel = path.join(rel, entry.name);
+      if (entry.isDirectory()) {
+        walk(childRel);
+      } else if (entry.isFile()) {
+        const bundled = path.join(bundledDir, childRel);
+        if (!fs.existsSync(bundled) || !fs.readFileSync(path.join(canonicalDir, childRel)).equals(fs.readFileSync(bundled))) {
+          diffs += 1;
+        }
+      }
+    }
+  })("");
+  return diffs;
 }
 
 function walkJson(dir, out = []) {

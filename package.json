@@ -14,7 +14,10 @@
     "validate:docs": "node tools/changelog-validator.js",
     "validate:assets": "node tools/assets-check.js",
     "validate:android": "node tools/android-audit.js",
+    "validate:android-packages": "node tools/validate-android-packages.js",
     "generate:android": "node tools/generate-android-rules.js",
+    "generate:android-packages": "node tools/generate-android-packages.js",
+    "port:android-apps": "node tools/port-android-apps.js",
     "build": "node build.js",
     "build:android": "node tools/build-android.js"
   },

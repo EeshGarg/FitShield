@@ -68,12 +68,34 @@ async function derive() {
 
   const hosts = [...hostSet].sort();
 
+  // Engine-derived filter metadata so the Android UI can show the SAME country
+  // and category pickers as the extension without bundling the full datasets.
+  const countries = engine.getAvailableCountries(entries).map((c) => ({ code: c.code, count: c.count }));
+  const categories = engine.getAvailableCategories(entries).map((c) => ({ id: c.category, count: c.count }));
+
+  // Per-host block metadata so the native DNS filter can record the SAME
+  // "most blocked category / country" breakdown as the extension: category is
+  // the entry's food category, country is the brand's PRIMARY (first-listed)
+  // operating market. Deterministic (sorted by host). Uses only curated brand
+  // metadata — never the user's location or browsing data.
+  const hostMeta = new Map();
+  enabled.forEach((entry) => {
+    const primaryCountry = (Array.isArray(entry.countries) && entry.countries[0])
+      ? String(entry.countries[0]).trim().toUpperCase() : "";
+    const category = (entry && typeof entry.category === "string") ? entry.category.trim().toLowerCase() : "";
+    engine.getEntryDomains(entry).forEach((host) => {
+      if (host) hostMeta.set(host, { c: primaryCountry, k: category });
+    });
+  });
+  const meta = {};
+  [...hostMeta.keys()].sort().forEach((host) => { meta[host] = hostMeta.get(host); });
+
   return {
     _generated: true,
     _doNotEdit:
       "GENERATED from canonical FitShield data (blocklists/*.json) via the separated engine (blocklist.js). " +
       "Run `npm run generate:android` to regenerate. Do NOT hand-edit — tools/android-audit.js fails the build on drift.",
-    schema: 1,
+    schema: 2,
     engine: "blocklist.js",
     source: engine.BLOCKLIST_FILES.slice(),
     datasetVersions: datasetVersions(),
@@ -84,6 +106,9 @@ async function derive() {
     matching: "apex-or-subdomain",
     count: hosts.length,
     sha256: sha256(JSON.stringify(hosts)),
+    countries,
+    categories,
+    meta,
     hosts
   };
 }

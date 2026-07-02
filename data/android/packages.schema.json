@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://fitshield.local/schemas/android-apps.json",
+  "title": "FitShield Android app-package dataset",
+  "description": "Android application → brand mappings. Brand metadata (display name, domains, countries, tags) is NOT stored here — it is generated from blocklists/*.json via `brandId` (the brand's canonical source domain). This file only records which Android package IDs belong to a brand.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["_schema", "defaultCategory", "apps"],
+  "properties": {
+    "_schema": { "const": "fitshield-android-apps/1" },
+    "_note": { "type": "string" },
+    "defaultCategory": {
+      "description": "App-grouping category applied to every entry that does not override it (finer categories like coffee/dessert/grocery are derived from source metadata). Drives the Settings toggles.",
+      "enum": ["delivery", "fast_food", "restaurant", "grocery", "convenience", "coffee", "dessert", "meal_kit"]
+    },
+    "apps": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/app" }
+    }
+  },
+  "definitions": {
+    "app": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["brandId", "packageIds"],
+      "properties": {
+        "brandId": {
+          "description": "The brand's canonical source domain in blocklists/*.json (e.g. \"doordash.com\"). Must map to exactly one blocklist entry.",
+          "type": "string",
+          "pattern": "^[a-z0-9.-]+\\.[a-z]{2,}$"
+        },
+        "packageIds": {
+          "description": "Android application IDs for this brand (e.g. \"com.dd.doordash\"). May be empty ONLY when packageStatus is \"needs_review\".",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)+$"
+          },
+          "uniqueItems": true
+        },
+        "packageStatus": {
+          "description": "\"active\" (default) requires at least one packageId. \"needs_review\" is for known brands whose package ID is not yet confirmed — packageIds must be empty. Never guess a package ID.",
+          "enum": ["active", "needs_review"]
+        },
+        "category": {
+          "description": "Optional per-app override of the derived category.",
+          "enum": ["delivery", "fast_food", "restaurant", "grocery", "convenience", "coffee", "dessert", "meal_kit"]
+        }
+      }
+    }
+  }
+}

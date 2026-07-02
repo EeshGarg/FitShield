@@ -115,6 +115,26 @@
       font-size: 0.95rem;
     }
 
+    .learn-more {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid var(--accent-dim);
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .learn-more a {
+      display: inline-block;
+      margin-top: 4px;
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .learn-more a:hover,
+    .learn-more a:focus-visible {
+      text-decoration: underline;
+    }
+
     .actions {
       display: flex;
       gap: 12px;
@@ -400,6 +420,13 @@
       <!-- Confirmation shown after the user picks a recipe instead of ordering.
            warning.js manages its text and visibility. -->
       <p class="recipe-choice-note" id="recipeChoiceNote" hidden></p>
+
+      <!-- Learn more: points to the site for privacy, blocking behavior, setup.
+           A plain link opens fitshield.net in a new browser tab (safe: noopener). -->
+      <p class="learn-more">
+        <span data-i18n="learnMoreBody">Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net.</span><br>
+        <a href="https://fitshield.net" target="_blank" rel="noopener noreferrer" data-i18n="learnMoreLink">Visit fitshield.net</a>
+      </p>
     </section>
 
     <!-- Middle + right columns: lightweight at-home alternatives, chosen by
@@ -410,6 +437,7 @@
   </main>
 
   <script src="ambient.js" data-energy="block"></script>
+  <script src="browser-shim.js"></script>
   <script src="i18n.js"></script>
   <script src="recipes.js"></script>
   <script src="warning.js"></script>

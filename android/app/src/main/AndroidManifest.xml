@@ -6,10 +6,21 @@
     INTERNET             - forward ALLOWED DNS queries to the upstream resolver.
     FOREGROUND_SERVICE   - a VPN runs as a foreground service.
     POST_NOTIFICATIONS   - the required ongoing VPN notification (Android 13+).
+    SYSTEM_ALERT_WINDOW  - "display over other apps": lets the app-block screen
+                           reliably appear over a blocked food app (background
+                           activity-launch exemption). User-granted; optional —
+                           blocking still works without it on most devices. Used
+                           ONLY to show the block screen for selected food apps;
+                           FitShield never reads screen/message content.
+
+  App-blocking uses an AccessibilityService (guarded by BIND_ACCESSIBILITY_SERVICE
+  on the <service>, which the OS grants). It is configured to read ONLY the
+  foreground package name (canRetrieveWindowContent="false") — never screen
+  content — and is a user opt-in enabled from system Accessibility settings.
 
   Deliberately NOT requested: RECEIVE_BOOT_COMPLETED (no boot startup),
-  BIND_ACCESSIBILITY_SERVICE (no accessibility service), PACKAGE_USAGE_STATS
-  (no usage access), QUERY_ALL_PACKAGES (no package visibility), device admin.
+  PACKAGE_USAGE_STATS (no usage access), QUERY_ALL_PACKAGES (no package
+  visibility), device admin.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -19,6 +30,10 @@
          type "specialUse" — the type the VpnService declares below. -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Optional "display over other apps": makes the block screen launch reliably
+         over a blocked app. Used only to show the FitShield block screen for
+         selected food apps; no screen/message content is ever read. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:allowBackup="false"
@@ -53,5 +68,38 @@
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Local on-device DNS content filtering for mindful food-ordering blocking" />
         </service>
+
+        <!--
+          App-blocking AccessibilityService. Detects when a blocked food app comes
+          to the foreground and shows the FitShield intervention (BlockActivity).
+          It reads ONLY the foreground package name (config sets
+          canRetrieveWindowContent="false") — no screen content — and nothing
+          leaves the device. User opt-in via system Accessibility settings.
+        -->
+        <service
+            android:name=".FitShieldAccessibilityService"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <!--
+          Native block/intervention screen (WebView), launched over a blocked app.
+          Own task + excluded from recents so dismissing it never lands the user
+          back inside the blocked app (see BlockActivity.goHome()).
+        -->
+        <activity
+            android:name=".BlockActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.FitShield" />
     </application>
 </manifest>

@@ -35,11 +35,20 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
+
+    androidResources {
+        // aapt's default ignore pattern drops directories starting with "_"
+        // (the "<dir>_*" rule), which would silently exclude the bundled
+        // _locales/ from the APK. Re-list the defaults without that rule so the
+        // reused localization files ship.
+        ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+    }
 }
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.webkit:webkit:1.11.0'
     // No analytics/telemetry/crash-reporting dependencies — enforced by
     // tools/android-audit.js. org.json ships with the Android platform.
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
