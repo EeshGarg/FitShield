@@ -2,6 +2,8 @@ package com.usha.fitshield
 
 import android.accessibilityservice.AccessibilityService
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
 import android.os.SystemClock
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
@@ -22,6 +24,7 @@ class FitShieldAccessibilityService : AccessibilityService() {
 
     private var matcher: PackageBlocklist? = null
     private val self by lazy { packageName }
+    private val handler = Handler(Looper.getMainLooper())
 
     // Loop/duplication guards: don't re-launch the block screen for the same app
     // within the cooldown, and never react to our own windows.
@@ -60,14 +63,26 @@ class FitShieldAccessibilityService : AccessibilityService() {
     }
 
     private fun intervene(brand: PackageBlocklist.Brand) {
+        // A blocked app that is already running re-launches its OWN activity
+        // (BAL_ALLOW_FOREGROUND) the instant we cover it, burying a block screen
+        // we start over it — so the screen just flashes and vanishes. First send
+        // the blocked app to the background (home): a backgrounded app can't win
+        // the foreground race. Then show the block screen over the launcher.
+        // BlockActivity re-opens the app itself if the user taps "Open anyway".
+        performGlobalAction(GLOBAL_ACTION_HOME)
+
         val intent = Intent(this, BlockActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             .putExtra(BlockActivity.EXTRA_BRAND_ID, brand.brandId)
             .putExtra(BlockActivity.EXTRA_DISPLAY_NAME, brand.displayName)
             .putExtra(BlockActivity.EXTRA_CATEGORY, brand.category)
             .putExtra(BlockActivity.EXTRA_PACKAGE_ID, brand.packageId)
-        runCatching { startActivity(intent) }
-            .onFailure { Log.w(TAG, "could not show block screen") }
+        // Let the home transition settle first, otherwise the block screen can
+        // land beneath the launcher mid-transition.
+        handler.postDelayed({
+            runCatching { startActivity(intent) }
+                .onFailure { Log.w(TAG, "could not show block screen") }
+        }, LAUNCH_DELAY_MS)
     }
 
     override fun onInterrupt() {}
@@ -75,5 +90,6 @@ class FitShieldAccessibilityService : AccessibilityService() {
     companion object {
         private const val TAG = "FitShieldA11y"
         private const val COOLDOWN_MS = 1500L
+        private const val LAUNCH_DELAY_MS = 300L   // let the home transition settle
     }
 }

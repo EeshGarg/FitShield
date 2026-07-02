@@ -124,11 +124,22 @@ class BlockActivity : AppCompatActivity() {
             .put("timerSeconds", timerSeconds())
             .toString()
 
-        /** "Open anyway": grant a temporary unlock and return to the app. */
+        /** "Open anyway": grant a temporary unlock and open the app. */
         @JavascriptInterface
         fun unlock(minutes: Int) {
             AppBlockPolicy.unlock(this@BlockActivity, brandId, minutes)
-            runOnUiThread { finish() }   // return to the (now-unlocked) app behind us
+            runOnUiThread {
+                // The blocked app was sent to the background before this screen
+                // was shown, so re-open it explicitly rather than relying on it
+                // sitting behind us. The temporary unlock keeps the service from
+                // immediately re-blocking it.
+                val launch = runCatching { packageManager.getLaunchIntentForPackage(packageId) }.getOrNull()
+                if (launch != null) {
+                    launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    runCatching { startActivity(launch) }
+                }
+                finish()
+            }
         }
 
         /** "Not now": go to the home screen. */

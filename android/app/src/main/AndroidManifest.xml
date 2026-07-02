@@ -19,8 +19,9 @@
   content — and is a user opt-in enabled from system Accessibility settings.
 
   Deliberately NOT requested: RECEIVE_BOOT_COMPLETED (no boot startup),
-  PACKAGE_USAGE_STATS (no usage access), QUERY_ALL_PACKAGES (no package
-  visibility), device admin.
+  PACKAGE_USAGE_STATS (no usage access), QUERY_ALL_PACKAGES (a narrowly
+  scoped <queries> for launchable apps is used instead — see below),
+  device admin.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -34,6 +35,20 @@
          over a blocked app. Used only to show the FitShield block screen for
          selected food apps; no screen/message content is ever read. -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!--
+      Package visibility (Android 11+). The block screen sends the blocked app to
+      the background before it appears, so "Open anyway" must re-open the app by
+      its launch intent. This scoped <queries> makes launchable apps resolvable
+      via getLaunchIntentForPackage — it is NOT QUERY_ALL_PACKAGES and grants no
+      access to any app's data, only the ability to start its launcher activity.
+    -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="false"
