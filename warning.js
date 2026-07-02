@@ -113,9 +113,17 @@ function applyTheme(theme = {}) {
   root.style.setProperty("--panel-radius", `${mergedTheme.radius}px`);
 }
 
+// Respect the OS "reduce motion" setting: the countdown number still updates,
+// but the ring's growing scale/glow is frozen. Mirrors the Android block screen.
+const prefersReducedMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
 function renderTimer() {
   // Updates the visible countdown and the subtle progress animation around it.
   timerEl.textContent = String(secondsLeft);
+
+  if (prefersReducedMotion) {
+    return;
+  }
 
   const progress = (totalSeconds - secondsLeft) / totalSeconds;
   ringEl.style.transform = `scale(${1 + progress * 0.08})`;
