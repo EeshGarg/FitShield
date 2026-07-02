@@ -83,7 +83,11 @@
       list: () => Promise.resolve([]),
       overlayEnabled: () => Promise.resolve(false),
       openOverlaySettings: () => Promise.resolve(),
-      vpnEnabled: () => Promise.resolve(false)
+      vpnEnabled: () => Promise.resolve(false),
+      keepAliveEnabled: () => Promise.resolve(false),
+      setKeepAlive: () => Promise.resolve(),
+      batteryUnrestricted: () => Promise.resolve(false),
+      openBatterySettings: () => Promise.resolve()
     },
 
     // Domain-oriented surfaces (the shape the UI targets). On the browser,

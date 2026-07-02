@@ -128,7 +128,13 @@
       // "Display over other apps" — makes the block screen launch reliably.
       overlayEnabled: () => Promise.resolve(!!(A.overlayEnabled && A.overlayEnabled())),
       openOverlaySettings: () => { if (A.openOverlaySettings) A.openOverlaySettings(); return Promise.resolve(); },
-      vpnEnabled: () => Promise.resolve(!!(A.vpnEnabled && A.vpnEnabled()))
+      vpnEnabled: () => Promise.resolve(!!(A.vpnEnabled && A.vpnEnabled())),
+      // Optional "background protection": an opt-in keep-alive foreground service
+      // + battery-optimization exemption, for devices that freeze idle apps.
+      keepAliveEnabled: () => Promise.resolve(!!(A.keepAliveEnabled && A.keepAliveEnabled())),
+      setKeepAlive: (on) => { if (A.setKeepAlive) A.setKeepAlive(!!on); return Promise.resolve(); },
+      batteryUnrestricted: () => Promise.resolve(!!(A.batteryUnrestricted && A.batteryUnrestricted())),
+      openBatterySettings: () => { if (A.openBatterySettings) A.openBatterySettings(); return Promise.resolve(); }
     },
 
     // Domain-oriented surfaces — same shape as browser-shim.js. On Android,

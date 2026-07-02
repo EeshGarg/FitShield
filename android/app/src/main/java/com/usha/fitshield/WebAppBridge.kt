@@ -146,6 +146,52 @@ class WebAppBridge(private val activity: AppCompatActivity) {
         out.toString()
     }.getOrDefault("[]")
 
+    // ---- optional "background protection" keep-alive (opt-in, off by default) --
+
+    /** True when the opt-in background keep-alive service is enabled. */
+    @JavascriptInterface
+    fun keepAliveEnabled(): Boolean = prefs.getString("keepAliveEnabled", null)?.trim('"') == "true"
+
+    /** Enable/disable the background keep-alive foreground service and persist it. */
+    @JavascriptInterface
+    fun setKeepAlive(on: Boolean) {
+        prefs.edit().putString("keepAliveEnabled", on.toString()).apply()
+        activity.runOnUiThread {
+            runCatching {
+                if (on) AppBlockKeepAliveService.start(context) else AppBlockKeepAliveService.stop(context)
+            }
+        }
+    }
+
+    /** True when the user has exempted FitShield from battery optimization.
+     *  Read-only; needs no permission. */
+    @JavascriptInterface
+    fun batteryUnrestricted(): Boolean = runCatching {
+        val pm = context.getSystemService(Context.POWER_SERVICE) as android.os.PowerManager
+        pm.isIgnoringBatteryOptimizations(context.packageName)
+    }.getOrDefault(false)
+
+    /** Open the battery-optimization settings so the user can set FitShield to
+     *  unrestricted. Uses the permission-free settings list (never the one-tap
+     *  ACTION_REQUEST_… dialog, which would require an extra permission). */
+    @JavascriptInterface
+    fun openBatterySettings() {
+        activity.runOnUiThread {
+            runCatching {
+                activity.startActivity(
+                    Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
+            }.onFailure {
+                runCatching {
+                    activity.startActivity(
+                        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:${context.packageName}"))
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    )
+                }
+            }
+        }
+    }
+
     @JavascriptInterface
     fun openUrl(url: String) {
         activity.runOnUiThread {

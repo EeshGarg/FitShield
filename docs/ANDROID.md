@@ -379,16 +379,26 @@ data/generated/android-packages.json  ── bundled ──▶  assets/android-p
 2. `PackageBlocklist.match(pkg)` looks up the brand; `AppBlockPolicy` checks the
    opt-in enable flag, the per-category toggle, the schedule window, and any
    active temporary unlock.
-3. If it should block, `BlockActivity` (a WebView on the shared design system)
-   shows the pause screen — mirroring the extension's block page: FitShield
-   branding, the blocked brand name, a **block reason**, category-aware message,
-   **schedule status**, savings/calories stats, a quick recipe, a reflection
-   countdown, a localized **"Learn more" link to fitshield.net** (opens in an
-   external browser), and **Not now** / **Open anyway** / **Open FitShield**.
-4. **Not now** sends the user to the launcher (never back into the app) and
+3. If it should block, the service first sends the blocked app to the background
+   (`performGlobalAction(GLOBAL_ACTION_HOME)`) and then launches `BlockActivity`.
+   This is essential: a blocked app that is already running re-launches its own
+   activity (`BAL_ALLOW_FOREGROUND`) the instant a block screen covers it and
+   steals the foreground back — so the screen would just flash and vanish. A
+   backgrounded app can't win that race, so the pause screen stays put.
+4. `BlockActivity` (a WebView on the shared design system) shows the pause screen —
+   mirroring the extension's block page: FitShield branding, the blocked brand
+   name, a **block reason**, category-aware message, **schedule status**,
+   savings/calories stats, a quick recipe, a reflection countdown, a localized
+   **"Learn more" link to fitshield.net** (opens in an external browser), and
+   **Not now** / **Open anyway** / **Open FitShield**.
+5. **Not now** sends the user to the launcher (never back into the app) and
    records an avoided open (blocked visits, calories, and the private
    "most-blocked apps" breakdown). **Open anyway** grants a temporary unlock
-   (minutes) and returns to the app — and records nothing (they proceeded).
+   (minutes) and **re-opens the app by its launch intent** (it was sent to the
+   background in step 3, so it is no longer behind the screen) — recording
+   nothing (they proceeded). A narrowly scoped `<queries>` (MAIN/LAUNCHER only,
+   **not** `QUERY_ALL_PACKAGES`) lets `getLaunchIntentForPackage` resolve the app
+   to re-open; it grants no access to any app's data.
 
 **Controls:** per-category toggles (Delivery / Fast food / Restaurant / Coffee /
 Dessert / Grocery / Convenience / Meal kit), a searchable **per-app** allow list
@@ -418,6 +428,20 @@ Site blocking (VPN), and Display over other apps — and, when overlay is missin
 a card that explains (privacy: *used only to show the block screen for the food
 apps you choose; never reads screen or message content*) with a button that opens
 `ACTION_MANAGE_OVERLAY_PERMISSION`. Status refreshes when returning from settings.
+
+**Background protection (opt-in hardening, OFF by default):** the accessibility
+service is system-bound and self-recovering (it survives its process being killed —
+the OS rebinds it), so app blocking already runs in the background without help.
+For phones that aggressively freeze idle apps, the app-blocking panel offers an
+opt-in **"Extra reliability"** toggle that starts `AppBlockKeepAliveService` — a
+`START_STICKY` `specialUse` foreground service that runs only a quiet
+`IMPORTANCE_MIN` notification to keep the process resident. It does no work and
+reads nothing. The same card surfaces the **battery-optimization** status and an
+"Allow unrestricted battery" button that opens
+`ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS` (the permission-free settings list —
+never the one-tap `ACTION_REQUEST_…` dialog, which would need an extra permission).
+No new manifest permission is added (the service reuses `FOREGROUND_SERVICE` /
+`FOREGROUND_SERVICE_SPECIAL_USE` / `POST_NOTIFICATIONS`).
 
 **Cross-platform "Learn more":** both the extension block page (`warning.html`)
 and the Android block screen (`block.html`) show a localized "Learn more" pointer

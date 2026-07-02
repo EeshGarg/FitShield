@@ -120,6 +120,14 @@
       <p class="note">Optional: allow <strong>Display over other apps</strong> so the FitShield pause reliably appears over a blocked app. FitShield uses this only to show the block screen for the food apps you choose — it never reads your screen, messages, or other content.</p>
       <button class="secondary" id="overlayOpen" style="margin-top:6px">Allow display over other apps</button>
     </div>
+    <!-- Optional "background protection" (opt-in hardening). App blocking already
+         works without this; it helps on phones that aggressively pause idle apps. -->
+    <div id="keepAliveCard" style="margin-top:10px">
+      <label><input type="checkbox" id="keepAliveEnabled"> <span>Extra reliability: keep blocking active in the background</span></label>
+      <p class="note" id="keepAliveNote">Optional. Runs a quiet always-on notification so your phone won't pause app blocking after long idle. Turn this on if blocking ever stops working when FitShield has been closed for a while.</p>
+      <p class="note" id="batteryStatus" style="margin-top:6px"></p>
+      <button class="secondary" id="batteryOpen" style="margin-top:6px">Allow unrestricted battery</button>
+    </div>
     <label style="margin-top:14px"><input type="checkbox" id="appBlockingEnabled"> <span>Enable app blocking</span></label>
     <p class="note" id="appBlockCount"></p>
     <div style="margin-top:10px">

@@ -105,6 +105,22 @@
         </service>
 
         <!--
+          Optional "background protection" foreground service (opt-in, OFF by
+          default). Runs only a quiet ongoing notification to keep the process
+          resident so OEM battery managers don't pause app blocking after long
+          idle. Does no work and reads nothing. Reuses FOREGROUND_SERVICE /
+          FOREGROUND_SERVICE_SPECIAL_USE / POST_NOTIFICATIONS (already declared).
+        -->
+        <service
+            android:name=".AppBlockKeepAliveService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Keeps on-device food-app blocking responsive in the background" />
+        </service>
+
+        <!--
           Native block/intervention screen (WebView), launched over a blocked app.
           Own task + excluded from recents so dismissing it never lands the user
           back inside the blocked app (see BlockActivity.goHome()).

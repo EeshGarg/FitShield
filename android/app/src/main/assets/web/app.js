@@ -442,10 +442,29 @@
         : "Turn on the FitShield accessibility service to block apps. It only reads which app comes to the front — never screen content.";
       $("a11yOpen").hidden = a11y;
       $("overlayCard").hidden = overlay;   // shown only when the permission is missing
+      // Optional background-protection status (battery-optimization exemption).
+      if ($("batteryStatus") && ab.batteryUnrestricted) {
+        let unrestricted = false;
+        try { unrestricted = await ab.batteryUnrestricted(); } catch (e) {}
+        $("batteryStatus").textContent = unrestricted
+          ? "Battery: unrestricted — the background service won't be paused."
+          : "Battery: optimized. For best reliability, set FitShield to unrestricted.";
+        $("batteryOpen").hidden = unrestricted;
+      }
     }
     const refreshA11y = refreshStatuses;   // (name kept for the toggle handler below)
     $("a11yOpen").addEventListener("click", () => ab.openSettings());
     $("overlayOpen").addEventListener("click", () => ab.openOverlaySettings());
+    // Optional "background protection" keep-alive toggle + battery exemption.
+    if ($("keepAliveEnabled") && ab.keepAliveEnabled) {
+      try { $("keepAliveEnabled").checked = await ab.keepAliveEnabled(); } catch (e) {}
+      $("keepAliveEnabled").addEventListener("change", () => {
+        if (ab.setKeepAlive) ab.setKeepAlive($("keepAliveEnabled").checked);
+      });
+    }
+    if ($("batteryOpen") && ab.openBatterySettings) {
+      $("batteryOpen").addEventListener("click", () => ab.openBatterySettings());
+    }
     // Re-check when returning from a system settings screen.
     document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshStatuses(); });
 
