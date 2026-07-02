@@ -249,6 +249,38 @@ Most-blocked category/country recording reuses the extension's exact heuristic
 generated rules asset (host → `{c: primaryCountry, k: category}`), produced by
 `tools/generate-android-rules.js` from the same engine — no second data source.
 
+### Intentional Android deviations from the extension
+
+Documented so parity audits don't re-flag them; none change blocking behavior:
+
+- **Countdown presentation** — the extension's block page shows a prominent
+  ring + number; the Android block screen shows the countdown inside the
+  primary button label ("Open DoorDash · 58s"). Compact-by-design for phones;
+  the timer semantics and default (60s) are identical.
+- **Category-copy language** — the block screen's category-specific
+  motivational copy (titles/messages per delivery/fast_food/coffee/…) is inline
+  English on Android; action buttons ARE localized via the extension's existing
+  translated keys. Localizing the category copy would add English-only keys to
+  all 83 locales (mechanism without translations), so it's deferred until real
+  translations exist.
+- **Theme controls** — Android exposes background/panel/text/accent + radius;
+  the extension additionally exposes border + muted-text colors and popup width
+  (popup width is meaningless in a full-screen WebView). Same `theme.js`
+  variables underneath.
+- **Reset granularity** — Android groups resets as stats/settings/factory (3);
+  the extension as blocking/appearance/preferences/factory (4). Same storage
+  keys; different grouping for a smaller settings surface.
+- **Enforcement wiring** — timer/schedule/post-timer/custom-list/whitelist
+  settings are shared and persisted identically, but on Android the *website*
+  path enforces via the SNI connection filter (no per-request page redirect is
+  possible without MITM), so "warning page for websites" is replaced by a
+  connection reset; the *app* path (BlockActivity) carries the full block-page
+  experience instead.
+- **Platform-only surfaces** — VPN status/consent, Accessibility status,
+  overlay ("display over other apps"), keep-alive toggle, and battery guidance
+  exist only on Android; the browser shim stubs them (`appBlocking.available =
+  false`) so the shared UI hides them on the extension.
+
 ## 2d. Manual UI test checklist (device)
 
 - [ ] APK installs; app launches; dashboard renders with the living gradient +
