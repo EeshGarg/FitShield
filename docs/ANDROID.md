@@ -3,6 +3,15 @@
 _Accurate as of FitShield 0.52. Update this file in the same change as any
 behavior it describes._
 
+> **Native blocking summary (read this first):** the APK blocks *websites* with a
+> local, on-device `VpnService` that filters by the destination host the client
+> already sends in the clear — **TLS SNI / HTTP Host, never DNS** — and blocks
+> *native apps* with an **opt-in AccessibilityService** that reads only the
+> foreground package name. The two run together and are **additive**; app blocking
+> never replaces the connection filter. No DNS is intercepted, no traffic is
+> tunnelled to any server, no TLS is decrypted, and no screen/message content is
+> read.
+
 FitShield is **one product** with **one canonical dataset** and **one separated
 engine**. Browsers and Android are **platform adapters** on top of that shared
 core — not separate products and not forks:
@@ -15,9 +24,9 @@ core — not separate products and not forks:
         ┌─────────────────┼──────────────────────────┐
         ▼                 ▼                           ▼
   browser adapter   browser adapter            android adapter
-  (background.js,   (Firefox for Android,      (native APK:
-   Chrome/Brave/    same extension via          VpnService local
-   Edge via DNR)    declarativeNetRequest)      DNS filtering)
+  (background.js,   (Firefox for Android,      (native APK: VpnService
+   Chrome/Brave/    same extension via          TLS-SNI/HTTP-Host filter
+   Edge via DNR)    declarativeNetRequest)      + opt-in app blocking)
 ```
 
 FitShield reaches Android **two** ways, both riding the same engine/data:
@@ -25,7 +34,7 @@ FitShield reaches Android **two** ways, both riding the same engine/data:
 | Path | What it is | Blocking mechanism | Status |
 | --- | --- | --- | --- |
 | **A. Extension on Firefox for Android** | the exact same WebExtension as desktop | `declarativeNetRequest` (in-browser) | declared (manifest `gecko_android` 142+); on-device DNR not yet verified |
-| **B. Native Android APK** | a thin native adapter | local `VpnService` DNS filtering (in this app) | **PREVIEW** — scaffolding generated + validated; not built/run on a device here |
+| **B. Native Android APK** | a native adapter (WebView UI + Kotlin) | local `VpnService` **TLS-SNI/HTTP-Host** connection filter (websites) **+** opt-in **AccessibilityService** app blocking | built and verified on-device (Samsung, Android 14); still preview-quality (debug-signed, no store release) |
 
 > **The single most important rule:** Android does **not** have its own
 > blocklist or matcher. Its rules are **generated from the canonical data via
@@ -86,28 +95,39 @@ android/
   settings.gradle, build.gradle, gradle.properties
   app/build.gradle
   app/src/main/AndroidManifest.xml
-  app/src/main/assets/fitshield-rules.json          (GENERATED from canonical data)
+  app/src/main/assets/fitshield-rules.json          (GENERATED — SNI/host rules)
+  app/src/main/assets/android-packages.json         (GENERATED — slim app→brand map)
+  app/src/main/assets/web/                           (the shared web UI + copied modules)
   app/src/main/java/com/usha/fitshield/
-      RuleEngine.kt             (asset-only matcher, engine semantics)
-      FitShieldVpnService.kt    (local DNS filter — PREVIEW)
-      MainActivity.kt           (minimal UI: consent + start/stop)
-  app/src/main/res/...          (strings, theme, layout)
-  app/src/androidTest/.../SemanticsParityTest.kt
-  app/src/androidTest/assets/semantics-fixture.json (GENERATED)
+      RuleEngine.kt                 (asset-only host matcher, engine semantics)
+      FitShieldVpnService.kt        (foreground VpnService; tun lifecycle)
+      Tun2Filter.kt                 (userspace TLS-SNI/HTTP-Host connection filter)
+      FitShieldAccessibilityService.kt (opt-in app blocking; foreground pkg only)
+      AppBlockPolicy.kt             (enable/category/schedule/unlock decision)
+      PackageBlocklist.kt           (packageId → brand, O(1), from generated asset)
+      BlockActivity.kt              (native intervention screen; WebView block.html)
+      AppBlockKeepAliveService.kt   (OPTIONAL keep-alive FGS; off by default)
+      WebAppBridge.kt               (the narrow `Android` @JavascriptInterface bridge)
+      MainActivity.kt               (WebView host: consent, import, VPN control)
+  app/src/main/res/xml/accessibility_service_config.xml
+  app/src/main/res/...              (strings, theme)
+  app/src/androidTest/.../SemanticsParityTest.kt     (Kotlin matcher == engine)
+  app/src/androidTest/.../PackageMatcherTest.kt      (packageId → brand parity)
+  app/src/androidTest/assets/semantics-fixture.json  (GENERATED)
 ```
 
 **What the adapter adds (only what the browser cannot):** Android project
-scaffolding, the `VpnService` DNS adapter, a minimal UI, the manifest, the
-build/export step, Android-specific validation, and this documentation.
-Everything else is shared.
+scaffolding, the `VpnService` **TLS-SNI/HTTP-Host connection filter**, the opt-in
+**AccessibilityService** app blocker, the WebView UI reusing the shared web
+modules, the manifest, the build/export step, Android-specific validation, and
+this documentation. Everything else is shared.
 
-**Preview status:** the smallest working DNS filter is now implemented — tunnel
-setup, the engine-backed block/allow decision, IPv4/UDP DNS QNAME parsing,
-**NXDOMAIN synthesis for blocked domains**, and **upstream forwarding for allowed
-domains** (over a `protect()`-ed socket). It is reviewable but **has NOT been
-built or run on a device in this repository** (no Android SDK here). IPv6 and
-DNS-over-HTTPS/TLS are intentionally out of scope. This is a test-quality
-foundation, not Android 1.0 — see the limitations in §7.
+**Status:** the native adapter is **implemented and verified on-device** (Samsung,
+Android 14): the connection filter blocks delivery/fast-food sites (works with
+strict Private DNS / NextDNS on), and the opt-in app blocker shows the native
+intervention screen for blocked apps. It is still **preview-quality** — debug-
+signed, no store release, IPv6 currently dropped (see §7). Both mechanisms are
+**additive**: the app blocker never replaces the connection filter.
 
 ---
 
@@ -148,15 +168,18 @@ migrating off `chrome.*` onto a platform-agnostic **`fitshield.*`** API:
   fails the build if any copy drifts. (Note: `androidResources.ignoreAssetsPattern`
   is overridden so `_locales` — an underscore dir aapt ignores by default — ships.)
 
-**0.53 is shipped in steps:**
+**The native app shipped in steps** (full list in
+[`../changelog/ROADMAP.md`](../changelog/ROADMAP.md)):
 
-- **Step 1 — UI first (this pass):** the Android UI shell, the shared
-  `fitshield.*` platform abstraction, and an installable APK preview.
-- **Step 2 — DNS later:** DNS behavior hardening, Private DNS / NextDNS
-  compatibility research, a DNS-provider abstraction, and on-device testing.
-  *No DNS-provider work is done in step 1.*
+- **Step 1 — UI first:** the Android UI shell, the shared `fitshield.*` platform
+  abstraction, and an installable APK preview.
+- **Step 2 — enforcement:** the **TLS-SNI / HTTP-Host connection filter** for
+  websites, which works with strict Private DNS on — it is **not** a DNS filter
+  (see §3).
+- **Step 3 — native app blocking:** the opt-in AccessibilityService intervention
+  (see §3b), **additive** to the connection filter.
 
-**Step 1 status:**
+**UI-migration status (step 1):**
 
 - ✅ `fitshield.*` abstraction (`platform/storage/i18n/blocking/stats` + supporting
   `runtime/tabs`) + `browser-shim.js` + `android-shim.js`.
@@ -182,7 +205,7 @@ migrating off `chrome.*` onto a platform-agnostic **`fitshield.*`** API:
 > (browser behavior preserved 1:1 by `browser-shim.js`) and verified on each
 > platform, rather than risking a big-bang rewrite.
 
-## 2c. Feature parity (0.53 UI + visual pass)
+## 2c. Feature parity (UI + visual pass)
 
 The Android UI is an **adapted** reuse of the shared building blocks (engine,
 all 83 locales, recipes data, currency, `ambient.js`, visual language), not the
@@ -465,13 +488,13 @@ Identical posture to the rest of FitShield — local-first, on both Android path
   never logged). Allowed traffic is relayed opaquely; TLS payloads are never read.
 - ✅ No hidden background services beyond the foreground `VpnService` the user
   explicitly starts (with the system VPN-consent dialog).
-- ✅ **No data sent to FitShield.** There are no FitShield servers. The native
-  adapter forwards *allowed* DNS queries to a **public resolver
-  (`1.1.1.1`, Cloudflare) in this preview** — never to FitShield, and never any
-  data beyond the DNS query itself. (A future version may use the system
-  resolver instead; that would require `ACCESS_NETWORK_STATE`.) The browser
-  extension makes zero network requests. No analytics dependency is allowed in
-  the Android build (enforced by `tools/android-audit.js`).
+- ✅ **No data sent to FitShield.** There are no FitShield servers. The adapter
+  **never forwards DNS anywhere** — DNS stays entirely with the system resolver /
+  Private DNS, untouched. Allowed connections are relayed opaquely to the exact
+  destination IP the client already chose, over a `protect()`ed socket — never to
+  any FitShield server, and never inspected. The browser extension makes zero
+  network requests. No analytics dependency is allowed in the Android build
+  (enforced by `tools/android-audit.js`).
 
 ---
 
@@ -481,19 +504,23 @@ Identical posture to the rest of FitShield — local-first, on both Android path
 
 | Permission | Why it exists | Depends on it | If denied |
 | --- | --- | --- | --- |
-| `INTERNET` | forward **allowed** DNS queries to the upstream resolver | DNS pass-through | allowed lookups fail |
-| `FOREGROUND_SERVICE` | a VPN runs as a foreground service | the filter staying active | service can't run |
-| `POST_NOTIFICATIONS` | the required ongoing VPN notification (Android 13+) | user-visible "filtering on" state | no status notification |
-| `BIND_VPN_SERVICE` (on the `<service>`) | the OS gate for any `VpnService` | starting the filter at all | (OS-enforced; not user-grantable) |
+| `INTERNET` | relay **allowed** connections to the destination IP the client already chose | any allowed site loading | allowed sites can't load |
+| `FOREGROUND_SERVICE` + `FOREGROUND_SERVICE_SPECIAL_USE` | run the `VpnService` (and the optional keep-alive) as a foreground service; Android 14 requires the `specialUse` type | the filter / keep-alive staying alive | service can't run |
+| `POST_NOTIFICATIONS` | the required ongoing foreground-service notification (Android 13+) | user-visible "on" state | notification suppressed (the service still runs) |
+| `SYSTEM_ALERT_WINDOW` (optional, user-granted) | "display over other apps" so the app-block screen launches reliably; used **only** to show the block screen for the food apps you choose | more reliable app-block launch | app blocking still works on most devices |
+| `BIND_VPN_SERVICE` (on the `<service>`) | the OS gate for any `VpnService` | starting the site filter | (OS-enforced; not user-grantable) |
+| `BIND_ACCESSIBILITY_SERVICE` (on the `<service>`) | the OS gate for the **opt-in** app-blocking AccessibilityService; the user enables it in system Accessibility settings. Reads **only** the foreground package name (`canRetrieveWindowContent="false"`) — never screen/message content | native app blocking | app blocking off (websites still filtered) |
 
 Plus the runtime **VPN consent dialog** Android shows before any VpnService
 starts — the user must explicitly approve.
 
 **Intentionally NOT requested (enforced by `tools/android-audit.js`):**
-`RECEIVE_BOOT_COMPLETED` (no boot startup), `BIND_ACCESSIBILITY_SERVICE` (no
-accessibility service), `PACKAGE_USAGE_STATS` (no usage access),
-`QUERY_ALL_PACKAGES` (no package visibility), device admin. There is no boot
-receiver and no accessibility service.
+`RECEIVE_BOOT_COMPLETED` (no boot startup), `PACKAGE_USAGE_STATS` (no usage
+access), `QUERY_ALL_PACKAGES` (a narrowly scoped `<queries>` for launchable apps
+is used instead, so "Open anyway" can re-open the app — see §3b), device admin,
+and any location / contacts / phone / SMS / broad-storage permission. The single
+AccessibilityService is a **deliberate, user opt-in** (foreground-package-name
+only) — not a hidden capability; the audit allows exactly that one service.
 
 ### Browser path
 The Firefox-for-Android extension uses only WebExtension permissions
@@ -552,14 +579,23 @@ A copy of this ships in `dist/android/BUILD.txt`:
 - [ ] APK installs (`adb install -r …`); app opens and shows the loaded host count
 - [ ] Enable triggers the VPN-consent dialog; after consent the VPN starts and
       the OS VPN indicator + foreground notification appear
-- [ ] `doordash.com`, `ubereats.com`, `grubhub.com` are blocked (don't resolve)
-- [ ] Normal sites still resolve (e.g. `wikipedia.org`, `github.com`)
+- [ ] `doordash.com`, `ubereats.com`, `grubhub.com` are blocked (connection reset
+      / `ERR_CONNECTION_RESET`) — **even though DNS still resolves normally**
+- [ ] Normal sites load fine (e.g. `wikipedia.org`, `github.com`); works with
+      strict Private DNS / NextDNS still on
 - [ ] Disabling stops filtering; uninstalling stops filtering
-- [ ] No boot startup; no accessibility / usage-access / location / contacts /
-      phone / SMS / storage permission requested
-- [ ] Small-screen UI is usable; no unexpected network calls beyond DNS forwarding
+- [ ] (app blocking) enable the opt-in AccessibilityService → opening a blocked
+      food app shows the FitShield pause screen; a non-food app is ignored
+- [ ] (app blocking) "Open anyway" re-opens the app for the unlock window; "Not
+      now" returns to the launcher; no loop
+- [ ] "Extra reliability" keep-alive is OFF by default; turning it on adds the
+      quiet foreground notification and turning it off removes it
+- [ ] No boot startup; no usage-access / location / contacts / phone / SMS /
+      storage permission requested. Accessibility is a user opt-in, not automatic
+- [ ] Small-screen UI is usable; no unexpected network calls (allowed traffic is
+      relayed to its real destination; no DNS is forwarded anywhere)
 - [ ] (optional) `./gradlew connectedAndroidTest` passes `SemanticsParityTest`
-      (Kotlin matcher == engine fixture)
+      (Kotlin matcher == engine) and `PackageMatcherTest` (packageId → brand)
 
 ---
 
@@ -572,19 +608,26 @@ not designed to stop a determined user.
 **Trust assumptions.** The OS enforces `VpnService` correctly; the device/profile
 are the user's; the curated datasets are accurate (validated) but not exhaustive.
 
-**DNS interception model (native path).** A local `VpnService` reads only DNS
-queries, decides via engine-derived rules, sinkholes blocked names, and forwards
-the rest. No traffic is tunnelled to a server; nothing but DNS is read.
+**Connection-filter model (native path).** A local `VpnService` routes traffic
+through a userspace filter that reads **only the cleartext destination host** the
+client already sends — the TLS SNI (443) or HTTP Host (80). Blocked hosts get a
+TCP **RST**; everything else is relayed byte-for-byte to the IP the client chose
+over a `protect()`ed socket. **DNS is never read, intercepted, or altered**; no
+traffic is tunnelled to any server; TLS payloads are never decrypted. A separate,
+opt-in AccessibilityService blocks native *apps* by their foreground package name
+(§3b) — additive to, never a replacement for, the connection filter.
 
 **Limitations — be honest.**
 
-- **Native path is PREVIEW and unverified on-device** — the IPv4/UDP DNS filter
-  (NXDOMAIN + upstream forwarding) is implemented but has not been built or run
-  on a device here; do not ship it as working until verified. The outbound UDP
-  checksum is set to 0 (valid for IPv4) rather than computed.
-- **Cooperative, not enforced** — a user can stop the VPN, uninstall, or change
-  DNS; DoH/DoT or hardcoded resolvers can bypass a DNS filter.
-- **Curated coverage** — only domains the engine derives are blocked.
+- **Preview-quality** — implemented and verified on-device (Samsung, Android 14),
+  but debug-signed with no store release; treat it as a preview, not a 1.0.
+- **IPv6 dropped** — the filter currently drops IPv6 to force IPv4 fallback (where
+  the SNI/Host is visible); IPv6-only networks are not yet supported. QUIC
+  (UDP/443) is dropped so browsers fall back to TCP.
+- **Cooperative, not enforced** — a user can stop the VPN, disable the
+  AccessibilityService, uninstall, or use a browser/protocol that hides the SNI.
+- **Curated coverage** — only hosts the engine derives are filtered; app blocking
+  covers the curated package map (more brands added over time).
 - **No traffic protection** — FitShield provides no encryption/anonymity; it is
   not a privacy VPN and makes no such claim.
 - **Browser path** blocks only inside Firefox for Android, and its on-device DNR
@@ -594,13 +637,15 @@ the rest. No traffic is tunnelled to a server; nothing but DNS is read.
 conflicts with another VPN app); foreground-service and notification policies
 vary by OS version; encrypted DNS can route around a local filter.
 
-**Known unsupported / unverified cases.** IPv6 and DNS-over-HTTPS/TLS handling in
-the preview filter; on-device DNR on Firefox for Android; any non-Firefox Android
-browser for the extension path.
+**Known unsupported / unverified cases.** IPv6-only networks (IPv6 is dropped);
+Encrypted ClientHello (ECH) would hide the SNI and bypass the host filter;
+on-device DNR on Firefox for Android; any non-Firefox Android browser for the
+extension path. (Encrypted DNS — DoH/DoT/Private DNS — is *not* a problem: the
+filter reads the connection host, not DNS, so it works with Private DNS on.)
 
-**Future improvements.** Complete and harden the VpnService I/O (response
-synthesis, upstream forwarding, IPv6, DoH handling), add a signed release/wrapper,
-and verify both paths on real devices.
+**Future improvements.** Add IPv6 support (instead of dropping it), broaden
+device/network testing, add a signed release build, and verify the Firefox-for-
+Android DNR path on-device.
 
 ---
 
@@ -616,8 +661,9 @@ summarized in `changelog.json`. For Android, each release should answer:
 - **What platforms were tested?** — state Chrome/Firefox desktop, and explicitly
   whether Firefox for Android (extension) and the native APK were tested
   **on-device** or only built/validated.
-- **What still requires manual verification?** — currently: native VpnService DNS
-  filtering on-device, and on-device DNR on Firefox for Android.
+- **What still requires manual verification?** — currently: on-device DNR on
+  Firefox for Android, IPv6-only networks, and broader device/OS coverage for the
+  native connection filter + app blocker (verified so far on Samsung, Android 14).
 
 > Maintainer note: the Android rules asset is **generated** — never hand-edit it.
 > If canonical data changes, run `npm run generate:android` (and the audit/tests
