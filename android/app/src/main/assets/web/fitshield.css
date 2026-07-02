@@ -28,7 +28,10 @@ html[data-theme="light"] { --bg:#f5f7fa; --panel:rgba(255,255,255,0.66); --panel
 }
 * { box-sizing: border-box; }
 body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,Roboto,"Segoe UI",system-ui,sans-serif;
-  padding:16px; max-width:680px; margin-inline:auto; line-height:1.45; -webkit-tap-highlight-color:transparent;
+  /* Edge-to-edge: the app draws behind the transparent status/nav bars; keep
+     content clear of them with the OS safe-area insets (viewport-fit=cover). */
+  padding:calc(16px + env(safe-area-inset-top,0px)) calc(16px + env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) calc(16px + env(safe-area-inset-left,0px));
+  max-width:680px; margin-inline:auto; line-height:1.45; -webkit-tap-highlight-color:transparent;
   animation:fadeIn .45s ease both; }
 /* Context-aware accent lighting: a soft accent bloom that warms up when On. */
 #accentGlow { position:fixed; left:50%; top:-12%; width:130vw; height:62vh; transform:translateX(-50%);

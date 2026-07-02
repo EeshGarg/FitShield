@@ -1,6 +1,7 @@
 package com.usha.fitshield
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.webkit.ConsoleMessage
@@ -10,6 +11,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.webkit.WebViewAssetLoader
 import androidx.webkit.WebViewClientCompat
 import org.json.JSONObject
@@ -32,6 +34,12 @@ class BlockActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Edge-to-edge: draw the block screen's gradient behind the status/nav
+        // bars and make both transparent (One UI weather style). Content clears
+        // the bars via CSS safe-area insets (block.html sets viewport-fit=cover).
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.statusBarColor = Color.TRANSPARENT
+        window.navigationBarColor = Color.TRANSPARENT
         readExtras(intent)
 
         val assetLoader = WebViewAssetLoader.Builder()
@@ -40,6 +48,7 @@ class BlockActivity : AppCompatActivity() {
 
         WebView.setWebContentsDebuggingEnabled(true)
         webView = WebView(this)
+        webView.setBackgroundColor(Color.TRANSPARENT)   // let the app gradient show behind the bars
         setContentView(webView)
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
