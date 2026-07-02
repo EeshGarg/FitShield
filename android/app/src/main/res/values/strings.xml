@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">FitShield</string>
-    <string name="status_ready">Ready — %1$d blocked hosts loaded (generated from canonical FitShield data).</string>
-    <string name="status_running">FitShield DNS filter running. Local and on-device.</string>
-    <string name="enable">Enable FitShield</string>
-    <string name="disable">Disable FitShield</string>
     <string name="accessibility_summary">Pause before opening blocked food-delivery &amp; fast-food apps</string>
     <string name="accessibility_description">FitShield shows a mindful pause when you open a food-delivery or fast-food app you chose to block. It only reads which app comes to the foreground — never screen content, text, messages, or passwords — and nothing leaves your device.</string>
 </resources>

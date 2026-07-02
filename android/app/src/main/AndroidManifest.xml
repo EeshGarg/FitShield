@@ -3,9 +3,12 @@
   FitShield Android adapter manifest.
 
   Minimal permissions by design (enforced by tools/android-audit.js):
-    INTERNET             - forward ALLOWED DNS queries to the upstream resolver.
-    FOREGROUND_SERVICE   - a VPN runs as a foreground service.
-    POST_NOTIFICATIONS   - the required ongoing VPN notification (Android 13+).
+    INTERNET             - relay ALLOWED connections to the destination IP the
+                           client already chose (no DNS is forwarded anywhere).
+    FOREGROUND_SERVICE   - the VpnService (and the optional keep-alive) run as
+                           foreground services.
+    POST_NOTIFICATIONS   - the required ongoing foreground-service notification
+                           (Android 13+).
     SYSTEM_ALERT_WINDOW  - "display over other apps": lets the app-block screen
                            reliably appear over a blocked food app (background
                            activity-launch exemption). User-granted; optional —
@@ -66,10 +69,12 @@
         </activity>
 
         <!--
-          Local DNS-filtering VPN. Guarded by BIND_VPN_SERVICE (the OS enforces
-          that only the system can bind a VpnService). This is NOT a tunnel and
-          performs NO traffic inspection — it only sinkholes DNS for blocked
-          domains and forwards everything else. See docs/ANDROID.md.
+          Local connection-filter VPN. Guarded by BIND_VPN_SERVICE (the OS
+          enforces that only the system can bind a VpnService). This is NOT a
+          tunnel to any server and does NOT decrypt traffic — it reads only the
+          cleartext destination host (TLS SNI / HTTP Host), resets blocked
+          connections, and relays the rest to the client's chosen IP. DNS is
+          never intercepted or forwarded. See docs/ANDROID.md.
         -->
         <service
             android:name=".FitShieldVpnService"
@@ -81,7 +86,7 @@
             </intent-filter>
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="Local on-device DNS content filtering for mindful food-ordering blocking" />
+                android:value="Local on-device TLS-SNI/HTTP-Host connection filtering for mindful food-ordering blocking" />
         </service>
 
         <!--
