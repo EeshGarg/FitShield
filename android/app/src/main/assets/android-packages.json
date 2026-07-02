@@ -5,29 +5,599 @@
   "generator": "tools/generate-android-packages.js",
   "counts": {
     "brands": 2582,
-    "packages": 33,
-    "needsReview": 2549
+    "packages": 672,
+    "needsReview": 1910
   },
   "packages": {
+    "ai.goparrot.android.melting.pot": {
+      "brandId": "meltingpot.com",
+      "displayName": "Meltingpot",
+      "category": "fast_food"
+    },
+    "ai.goparrot.android.nickthegreek": {
+      "brandId": "nickthegreek.com",
+      "displayName": "Nick The Greek",
+      "category": "fast_food"
+    },
+    "at.helloagain.losteria": {
+      "brandId": "losteria.net",
+      "displayName": "Losteria",
+      "category": "fast_food"
+    },
+    "au.com.dominos.olo.android.app": {
+      "brandId": "dominos.com.au",
+      "displayName": "Dominos.com.au",
+      "category": "fast_food"
+    },
+    "au.com.dominos.olo.android.app.nz": {
+      "brandId": "dominos.co.nz",
+      "displayName": "Dominos.co.nz",
+      "category": "fast_food"
+    },
+    "au.com.fuel7eleven": {
+      "brandId": "7eleven.com.au",
+      "displayName": "7eleven.com.au",
+      "category": "fast_food"
+    },
+    "au.com.redcat.burgerurge": {
+      "brandId": "burgerurge.com.au",
+      "displayName": "Burger Urge.com.au",
+      "category": "fast_food"
+    },
+    "au.com.redcat.chatime": {
+      "brandId": "chatime.com.au",
+      "displayName": "Chatime.com.au",
+      "category": "fast_food"
+    },
+    "au.com.redcat.gongcha": {
+      "brandId": "gongcha.com.au",
+      "displayName": "Gongcha.com.au",
+      "category": "fast_food"
+    },
+    "au.com.redcat.oakberry": {
+      "brandId": "oakberry.com.au",
+      "displayName": "Oakberry.com.au",
+      "category": "fast_food"
+    },
+    "au.com.redcat.sharetea": {
+      "brandId": "sharetea.com.au",
+      "displayName": "Sharetea .com.au",
+      "category": "fast_food"
+    },
+    "au.com.subcard.app": {
+      "brandId": "subway.com.au",
+      "displayName": "Subway.com.au",
+      "category": "fast_food"
+    },
+    "au.thecoffeeclub": {
+      "brandId": "thecoffeeclub.com.au",
+      "displayName": "Thecoffee Club.com.au",
+      "category": "coffee"
+    },
+    "be.burgerbrandsbelgium.quick": {
+      "brandId": "quick.be",
+      "displayName": "Quick.be",
+      "category": "fast_food"
+    },
+    "be.carrefour.singleapp": {
+      "brandId": "carrefour.be",
+      "displayName": "Carrefour.be",
+      "category": "fast_food"
+    },
+    "be.lvlp.Quick": {
+      "brandId": "quick.fr",
+      "displayName": "Quick.fr",
+      "category": "fast_food"
+    },
+    "br.com.atacadao.b2c.app": {
+      "brandId": "atacadao.com.br",
+      "displayName": "Atacadao.com.br",
+      "category": "fast_food"
+    },
     "br.com.brainweb.ifood": {
       "brandId": "ifood.com.br",
       "displayName": "iFood Brazil",
       "category": "delivery"
+    },
+    "br.com.carrefour": {
+      "brandId": "carrefour.com.br",
+      "displayName": "Carrefour.com.br",
+      "category": "fast_food"
+    },
+    "burgerking.com.br.appandroid": {
+      "brandId": "burgerking.com.br",
+      "displayName": "Burger King.com.br",
+      "category": "fast_food"
+    },
+    "ca.dominospizza": {
+      "brandId": "dominos.ca",
+      "displayName": "Domino's Canada",
+      "category": "fast_food"
+    },
+    "cl.com.papajohns": {
+      "brandId": "papajohns.cl",
+      "displayName": "Papajohns.cl",
+      "category": "fast_food"
+    },
+    "cl.dominospizza.dominoschile": {
+      "brandId": "dominospizza.cl",
+      "displayName": "Dominospizza .cl",
+      "category": "fast_food"
+    },
+    "cl.walmart.liderapp": {
+      "brandId": "lider.cl",
+      "displayName": "Lider.cl",
+      "category": "fast_food"
+    },
+    "co.crmb.android_clhjbcfpf000ms60dqb2ncjhf_waffle_love": {
+      "brandId": "wafflelove.com",
+      "displayName": "Waffle Love",
+      "category": "dessert"
+    },
+    "coffee.fore2.fore": {
+      "brandId": "fore.coffee",
+      "displayName": "Fore.coffee",
+      "category": "coffee"
+    },
+    "com.ABR.Swensens": {
+      "brandId": "swensens.com.sg",
+      "displayName": "Swensens.com.sg",
+      "category": "fast_food"
+    },
+    "com.PolloTropical.pt": {
+      "brandId": "pollotropical.com",
+      "displayName": "Pollo Tropical",
+      "category": "fast_food"
+    },
+    "com.abacus.newonlineorderingMosBurger": {
+      "brandId": "mosburgerthailand.com",
+      "displayName": "Mosburger Thailand",
+      "category": "fast_food"
+    },
+    "com.aigens.bksg": {
+      "brandId": "burgerking.com.sg",
+      "displayName": "Burger King.com.sg",
+      "category": "fast_food"
+    },
+    "com.aigens.subwaysg": {
+      "brandId": "subway.com.sg",
+      "displayName": "Subway.com.sg",
+      "category": "fast_food"
+    },
+    "com.ak.app.firehouse.activity": {
+      "brandId": "firehousesubs.com",
+      "displayName": "Firehouse Subs",
+      "category": "fast_food"
+    },
+    "com.ak.app.fuzzy.activity": {
+      "brandId": "fuzzystacoshop.com",
+      "displayName": "Fuzzy's Taco Shop",
+      "category": "fast_food"
+    },
+    "com.andpizza.andpizza.android.app": {
+      "brandId": "andpizza.com",
+      "displayName": "&pizza",
+      "category": "fast_food"
+    },
+    "com.apegroup.mcdonaldsrussia": {
+      "brandId": "vkusno-i-tochka.ru",
+      "displayName": "Vkusno I Tochka.ru",
+      "category": "fast_food"
+    },
+    "com.app.dom": {
+      "brandId": "dominos.com.tw",
+      "displayName": "Dominos.com.tw",
+      "category": "fast_food"
+    },
+    "com.app.dominos.vfbs": {
+      "brandId": "dominos.vn",
+      "displayName": "Dominos.vn",
+      "category": "fast_food"
+    },
+    "com.app.oldchangkeerewards": {
+      "brandId": "oldchangkee.com",
+      "displayName": "Oldchangkee",
+      "category": "fast_food"
+    },
+    "com.app.plk": {
+      "brandId": "popeyesbrasil.com.br",
+      "displayName": "Popeyesbrasil.com.br",
+      "category": "fast_food"
+    },
+    "com.app.ritas": {
+      "brandId": "ritasice.com",
+      "displayName": "Rita's Italian Ice",
+      "category": "dessert"
+    },
+    "com.app.uengage.bikanervala": {
+      "brandId": "bikanervala.com",
+      "displayName": "Bikanervala",
+      "category": "fast_food"
+    },
+    "com.app.uengage.dindigulthalappakatti": {
+      "brandId": "thalappakatti.com",
+      "displayName": "Thalappakatti",
+      "category": "fast_food"
+    },
+    "com.app.uengage.lapinoz": {
+      "brandId": "lapinozpizza.in",
+      "displayName": "Lapinozpizza .in",
+      "category": "fast_food"
+    },
+    "com.app.uengage.theobroma": {
+      "brandId": "theobroma.in",
+      "displayName": "Theobroma.in",
+      "category": "fast_food"
+    },
+    "com.app_palioscafe.layout": {
+      "brandId": "paliospizza.com",
+      "displayName": "Palio's Pizza Cafe",
+      "category": "fast_food"
+    },
+    "com.app_pattyandbun.layout": {
+      "brandId": "pattyandbun.co.uk",
+      "displayName": "Pattyandbun",
+      "category": "fast_food"
+    },
+    "com.app_wingz.layout": {
+      "brandId": "wingzone.com",
+      "displayName": "Wing Zone",
+      "category": "fast_food"
     },
     "com.application.zomato": {
       "brandId": "zomato.com",
       "displayName": "Zomato",
       "category": "delivery"
     },
+    "com.appsmyth.mobile.smoothieking": {
+      "brandId": "smoothieking.com",
+      "displayName": "Smoothie King",
+      "category": "fast_food"
+    },
+    "com.arbys.android.arbysapp": {
+      "brandId": "arbys.com",
+      "displayName": "Arby's",
+      "category": "fast_food"
+    },
+    "com.asda.android": {
+      "brandId": "asda.com",
+      "displayName": "Asda",
+      "category": "fast_food"
+    },
+    "com.assai.app": {
+      "brandId": "assai.com.br",
+      "displayName": "Assai.com.br",
+      "category": "fast_food"
+    },
+    "com.auchan.android": {
+      "brandId": "auchan.fr",
+      "displayName": "Auchan.fr",
+      "category": "fast_food"
+    },
+    "com.auchan.smi": {
+      "brandId": "auchan.pl",
+      "displayName": "Auchan.pl",
+      "category": "fast_food"
+    },
+    "com.auntieannes.pretzelperks": {
+      "brandId": "auntieannes.com",
+      "displayName": "Auntie Anne's",
+      "category": "dessert"
+    },
+    "com.azzurri.askloyalty": {
+      "brandId": "askitalian.co.uk",
+      "displayName": "Askitalian",
+      "category": "fast_food"
+    },
+    "com.azzurri.zizziloyalty": {
+      "brandId": "zizzi.co.uk",
+      "displayName": "Zizzi",
+      "category": "fast_food"
+    },
+    "com.bachhoaxanh": {
+      "brandId": "bachhoaxanh.com",
+      "displayName": "Bachhoaxanh",
+      "category": "fast_food"
+    },
+    "com.bakersburgers.app": {
+      "brandId": "bakersdrivethru.com",
+      "displayName": "Baker's Drive-Thru",
+      "category": "fast_food"
+    },
+    "com.barberitos.app": {
+      "brandId": "barberitos.com",
+      "displayName": "Barberitos",
+      "category": "fast_food"
+    },
+    "com.baskinrobbins.app": {
+      "brandId": "baskinrobbins.com",
+      "displayName": "Baskin-Robbins",
+      "category": "dessert"
+    },
+    "com.bawarchibiryanis.app": {
+      "brandId": "bawarchibiryani.com",
+      "displayName": "Bawarchibiryani",
+      "category": "fast_food"
+    },
+    "com.beanstalkdata.tacocabanaordering": {
+      "brandId": "tacocabana.com",
+      "displayName": "Taco Cabana",
+      "category": "fast_food"
+    },
+    "com.beaverworksinc.smartorder.issac": {
+      "brandId": "isaactoast.com",
+      "displayName": "Isaactoast",
+      "category": "fast_food"
+    },
+    "com.beefobrady.app": {
+      "brandId": "beefobradys.com",
+      "displayName": "Beef 'O' Brady's",
+      "category": "fast_food"
+    },
+    "com.bertuccis.bertuccisapp": {
+      "brandId": "bertuccis.com",
+      "displayName": "Bertucci's",
+      "category": "fast_food"
+    },
+    "com.bibibop.mobile.punchh": {
+      "brandId": "bibibop.com",
+      "displayName": "BIBIBOP Asian Grill",
+      "category": "fast_food"
+    },
+    "com.biggby.app": {
+      "brandId": "biggby.com",
+      "displayName": "BIGGBY Coffee",
+      "category": "coffee"
+    },
+    "com.bikkuridonkeyRenewal": {
+      "brandId": "bikkuri-donkey.com",
+      "displayName": "Bikkuri Donkey",
+      "category": "fast_food"
+    },
+    "com.biryaniblues.app": {
+      "brandId": "biryaniblues.com",
+      "displayName": "Biryaniblues",
+      "category": "fast_food"
+    },
+    "com.biscuitville.android.app": {
+      "brandId": "biscuitville.com",
+      "displayName": "Biscuitville",
+      "category": "dessert"
+    },
+    "com.blackbird.orderhouse.osmows": {
+      "brandId": "osmows.com",
+      "displayName": "Osmows",
+      "category": "fast_food"
+    },
+    "com.bluebottlecoffee.bbcandroid": {
+      "brandId": "bluebottlecoffee.jp",
+      "displayName": "Blue Bottle Coffee Japan",
+      "category": "coffee"
+    },
     "com.bolt.deliveryclient": {
       "brandId": "boltfood.com",
       "displayName": "Bolt Food",
       "category": "delivery"
     },
+    "com.bostonpizza.bostonpizza": {
+      "brandId": "bostonpizza.com",
+      "displayName": "Boston Pizza",
+      "category": "fast_food"
+    },
+    "com.br.bobsbrasil": {
+      "brandId": "bobs.com.br",
+      "displayName": "Bobs.com.br",
+      "category": "fast_food"
+    },
+    "com.brinker.chilis": {
+      "brandId": "chilis.com",
+      "displayName": "Chili's",
+      "category": "fast_food"
+    },
+    "com.brinker.maggianos": {
+      "brandId": "maggianos.com",
+      "displayName": "Maggiano's Little Italy",
+      "category": "fast_food"
+    },
+    "com.buffalowildwings.blazinrewards": {
+      "brandId": "buffalowildwings.com",
+      "displayName": "Buffalo Wild Wings",
+      "category": "fast_food"
+    },
+    "com.burgerking.morocco": {
+      "brandId": "burgerking.ma",
+      "displayName": "Burger King.ma",
+      "category": "fast_food"
+    },
+    "com.burgerkingpl": {
+      "brandId": "burgerking.pl",
+      "displayName": "Burger King.pl",
+      "category": "fast_food"
+    },
+    "com.burgersingh.android": {
+      "brandId": "burgersingh.com",
+      "displayName": "Burger Singh",
+      "category": "fast_food"
+    },
+    "com.bzbs.burgerking": {
+      "brandId": "burgerkingthailand.com",
+      "displayName": "Burger Kingthailand",
+      "category": "fast_food"
+    },
+    "com.cafejavas": {
+      "brandId": "cafejavas.com",
+      "displayName": "Cafe Javas",
+      "category": "coffee"
+    },
+    "com.cafezupasres.co": {
+      "brandId": "cafezupas.com",
+      "displayName": "Cafe Zupas",
+      "category": "fast_food"
+    },
+    "com.caprabo.app": {
+      "brandId": "caprabo.com",
+      "displayName": "Caprabo",
+      "category": "fast_food"
+    },
+    "com.cara.eastsidemarios": {
+      "brandId": "eastsidemarios.com",
+      "displayName": "East Side Mario's",
+      "category": "fast_food"
+    },
+    "com.cara.harveys": {
+      "brandId": "harveys.ca",
+      "displayName": "Harvey's",
+      "category": "fast_food"
+    },
+    "com.cara.sthubert": {
+      "brandId": "st-hubert.com",
+      "displayName": "St-Hubert",
+      "category": "fast_food"
+    },
+    "com.cara.swisschalet": {
+      "brandId": "swisschalet.com",
+      "displayName": "Swiss Chalet",
+      "category": "fast_food"
+    },
     "com.careem.acma": {
       "brandId": "careem.com",
       "displayName": "Careem",
       "category": "delivery"
+    },
+    "com.caribou.caribouapp": {
+      "brandId": "cariboucoffee.com",
+      "displayName": "Caribou Coffee",
+      "category": "coffee"
+    },
+    "com.carlsjr.ordering": {
+      "brandId": "carlsjr.com",
+      "displayName": "Carl's Jr.",
+      "category": "fast_food"
+    },
+    "com.carrefour.carrefourapp": {
+      "brandId": "carrefour.com.tw",
+      "displayName": "Carrefour.com.tw",
+      "category": "fast_food"
+    },
+    "com.carrefour.fid.android": {
+      "brandId": "carrefour.fr",
+      "displayName": "Carrefour.fr",
+      "category": "fast_food"
+    },
+    "com.ccd.app.global": {
+      "brandId": "cafecoffeeday.com",
+      "displayName": "Cafe Coffee Day",
+      "category": "coffee"
+    },
+    "com.cdc.cdcmember": {
+      "brandId": "cafedecoral.com.hk",
+      "displayName": "Cafe de Coral",
+      "category": "fast_food"
+    },
+    "com.ce.android.brand.badasscoffee": {
+      "brandId": "badasscoffee.com",
+      "displayName": "Bad Ass Coffee",
+      "category": "coffee"
+    },
+    "com.ce.android.brand.copperbranch": {
+      "brandId": "copperbranch.com",
+      "displayName": "Copperbranch",
+      "category": "fast_food"
+    },
+    "com.ce.android.brand.curritonew": {
+      "brandId": "currito.com",
+      "displayName": "Currito",
+      "category": "fast_food"
+    },
+    "com.ce.android.brand.greekxpress": {
+      "brandId": "greekxpress.com",
+      "displayName": "Greek Xpress",
+      "category": "fast_food"
+    },
+    "com.ce.android.brand.naplesflatbread": {
+      "brandId": "naplesflatbread.com",
+      "displayName": "Naplesflat Bread",
+      "category": "dessert"
+    },
+    "com.ce.android.brand.paramount": {
+      "brandId": "paramountfinefoods.com",
+      "displayName": "Paramount Fine Foods",
+      "category": "fast_food"
+    },
+    "com.ce.android.brand.pepperjaxgrills": {
+      "brandId": "pepperjaxgrill.com",
+      "displayName": "PepperJax Grill",
+      "category": "fast_food"
+    },
+    "com.ce.android.brand.phohoa": {
+      "brandId": "phohoa.com",
+      "displayName": "Phohoa",
+      "category": "fast_food"
+    },
+    "com.ce.android.brand.presotea": {
+      "brandId": "presotea.com",
+      "displayName": "Presotea",
+      "category": "fast_food"
+    },
+    "com.ce.android.brand.rotolos": {
+      "brandId": "rotolos.com",
+      "displayName": "Rotolo's",
+      "category": "fast_food"
+    },
+    "com.ce.android.brand.twistedrootburger": {
+      "brandId": "twistedrootburgerco.com",
+      "displayName": "Twisted Root Burger Co.",
+      "category": "fast_food"
+    },
+    "com.ce.android.brand.urbanbrickspizza": {
+      "brandId": "urbanbricks.com",
+      "displayName": "Urbanbricks",
+      "category": "fast_food"
+    },
+    "com.ce.android.brand.zankouchickenapp": {
+      "brandId": "zankouchicken.com",
+      "displayName": "Zankou Chicken",
+      "category": "fast_food"
+    },
+    "com.cencosud.cl.jumboahora": {
+      "brandId": "jumbo.cl",
+      "displayName": "Jumbo.cl",
+      "category": "fast_food"
+    },
+    "com.cencosud.pe.metro": {
+      "brandId": "metro.pe",
+      "displayName": "Metro.pe",
+      "category": "fast_food"
+    },
+    "com.chaayos": {
+      "brandId": "chaayos.com",
+      "displayName": "Chaayos",
+      "category": "fast_food"
+    },
+    "com.chaipoint.chaipointblack": {
+      "brandId": "chaipoint.com",
+      "displayName": "Chaipoint",
+      "category": "fast_food"
+    },
+    "com.charleys.app": {
+      "brandId": "charleys.com",
+      "displayName": "Charleys Cheesesteaks",
+      "category": "fast_food"
+    },
+    "com.cheesecakefactory.app": {
+      "brandId": "cheesecakefactory.com",
+      "displayName": "The Cheesecake Factory",
+      "category": "dessert"
+    },
+    "com.cheetahloyalty.cobs": {
+      "brandId": "cobsbread.com",
+      "displayName": "COBS Bread",
+      "category": "dessert"
+    },
+    "com.chepri.mrbeastburger": {
+      "brandId": "mrbeastburger.com",
+      "displayName": "MrBeast Burger",
+      "category": "fast_food"
     },
     "com.chickfila.cfaflagship": {
       "brandId": "chick-fil-a.com",
@@ -39,19 +609,189 @@
       "displayName": "Chipotle",
       "category": "fast_food"
     },
+    "com.chowbus.branded.sharetea": {
+      "brandId": "sharetea.com",
+      "displayName": "Sharetea",
+      "category": "fast_food"
+    },
+    "com.chownow.burgerimtogo": {
+      "brandId": "burgerim.com",
+      "displayName": "Burger Im",
+      "category": "fast_food"
+    },
+    "com.chownow.dosbros": {
+      "brandId": "dosbros.com",
+      "displayName": "Dos Bros Fresh Mexican Grill",
+      "category": "fast_food"
+    },
+    "com.chownow.earlskitchenbar": {
+      "brandId": "earls.ca",
+      "displayName": "Earls Kitchen + Bar",
+      "category": "fast_food"
+    },
+    "com.chownow.gandolfosdelicatessen": {
+      "brandId": "gandolfosdeli.com",
+      "displayName": "Gandolfo's New York Deli",
+      "category": "fast_food"
+    },
+    "com.chownow.pokebros": {
+      "brandId": "pokebros.com",
+      "displayName": "Pokebros",
+      "category": "fast_food"
+    },
+    "com.cinnfocus.app": {
+      "brandId": "cinnabon.com",
+      "displayName": "Cinnabon",
+      "category": "dessert"
+    },
+    "com.cleanjuicebar.cleanjuice.android.app": {
+      "brandId": "cleanjuice.com",
+      "displayName": "Clean Juice",
+      "category": "fast_food"
+    },
+    "com.cloverfoodlab.cloverapp": {
+      "brandId": "cloverfoodlab.com",
+      "displayName": "Clover Food Lab",
+      "category": "fast_food"
+    },
+    "com.cntt.lotteria": {
+      "brandId": "lotteria.co.kr",
+      "displayName": "Lotteria.co.kr",
+      "category": "fast_food"
+    },
+    "com.cntt.vt.lotteria": {
+      "brandId": "lotteria.vn",
+      "displayName": "Lotteria.vn",
+      "category": "fast_food"
+    },
+    "com.cocobambu.cupdescprod": {
+      "brandId": "cocobambu.com",
+      "displayName": "Cocobambu",
+      "category": "fast_food"
+    },
+    "com.coffee.love_coffee": {
+      "brandId": "zuscoffee.com",
+      "displayName": "Zuscoffee",
+      "category": "coffee"
+    },
+    "com.coffeebean.apps.production": {
+      "brandId": "coffeebean.com",
+      "displayName": "The Coffee Bean & Tea Leaf",
+      "category": "coffee"
+    },
+    "com.coldbeers.android.app": {
+      "brandId": "coldbeersandcheeseburgers.com",
+      "displayName": "Cold Beers & Cheeseburgers",
+      "category": "fast_food"
+    },
+    "com.colonygrill.engage": {
+      "brandId": "colonygrill.com",
+      "displayName": "Colony Grill",
+      "category": "fast_food"
+    },
+    "com.como.prod1144120260127": {
+      "brandId": "tommysburgers.com",
+      "displayName": "Original Tommy's",
+      "category": "fast_food"
+    },
+    "com.como.prod985620240326": {
+      "brandId": "kingtaco.com",
+      "displayName": "King Taco",
+      "category": "fast_food"
+    },
+    "com.companyname.Tubbys": {
+      "brandId": "tubbys.com",
+      "displayName": "Tubby's",
+      "category": "fast_food"
+    },
+    "com.condadotacos.app": {
+      "brandId": "condadotacos.com",
+      "displayName": "Condado Tacos",
+      "category": "fast_food"
+    },
+    "com.connectme.runza": {
+      "brandId": "runza.com",
+      "displayName": "Runza",
+      "category": "fast_food"
+    },
+    "com.coopershawkwinery.mobileapp": {
+      "brandId": "coopershawk.com",
+      "displayName": "Coopershawk",
+      "category": "fast_food"
+    },
+    "com.crazycake.burgerkingchile": {
+      "brandId": "burgerking.cl",
+      "displayName": "Burger King.cl",
+      "category": "fast_food"
+    },
+    "com.culvers.mobile": {
+      "brandId": "culvers.com",
+      "displayName": "Culver's",
+      "category": "fast_food"
+    },
+    "com.dangelos.app": {
+      "brandId": "dangelos.com",
+      "displayName": "D'Angelo Grilled Sandwiches",
+      "category": "fast_food"
+    },
+    "com.darden.mobile.cheddars": {
+      "brandId": "cheddars.com",
+      "displayName": "Cheddar's Scratch Kitchen",
+      "category": "fast_food"
+    },
     "com.dd.doordash": {
       "brandId": "doordash.com",
       "displayName": "DoorDash",
       "category": "delivery"
+    },
+    "com.deananddavid.android": {
+      "brandId": "deananddavid.com",
+      "displayName": "Deananddavid",
+      "category": "fast_food"
     },
     "com.deliveroo.orderapp": {
       "brandId": "deliveroo.co.uk",
       "displayName": "Deliveroo UK",
       "category": "delivery"
     },
+    "com.delivery.yellowcab.app": {
+      "brandId": "yellowcabpizza.com",
+      "displayName": "Yellowcabpizza",
+      "category": "fast_food"
+    },
+    "com.devmaker.havanna": {
+      "brandId": "havanna.com.br",
+      "displayName": "Havanna.com.br",
+      "category": "fast_food"
+    },
+    "com.dineengine.goodtimes": {
+      "brandId": "goodtimesburgers.com",
+      "displayName": "Good Times Burgers & Frozen Custard",
+      "category": "fast_food"
+    },
+    "com.domdomhamburgerapp": {
+      "brandId": "domdom.jp",
+      "displayName": "Dom Dom Hamburger",
+      "category": "fast_food"
+    },
+    "com.dominos.ng": {
+      "brandId": "dominos.ng",
+      "displayName": "Dominos.ng",
+      "category": "fast_food"
+    },
+    "com.dominos.ph": {
+      "brandId": "dominos.com.ph",
+      "displayName": "Dominos.com.ph",
+      "category": "fast_food"
+    },
     "com.dominospizza": {
       "brandId": "dominos.com",
       "displayName": "Domino's",
+      "category": "fast_food"
+    },
+    "com.donatos.phoenix": {
+      "brandId": "donatospizza.com",
+      "displayName": "Donatos Pizza",
       "category": "fast_food"
     },
     "com.dunkinbrands.otgo": {
@@ -59,9 +799,144 @@
       "displayName": "Dunkin'",
       "category": "coffee"
     },
+    "com.dunkindonuts.android": {
+      "brandId": "dunkinindia.com",
+      "displayName": "Dunkinindia",
+      "category": "fast_food"
+    },
+    "com.dwider.ddukddakQUIZ": {
+      "brandId": "quiznos.co.kr",
+      "displayName": "Quiznos.co.kr",
+      "category": "fast_food"
+    },
+    "com.eegees.app": {
+      "brandId": "eegees.com",
+      "displayName": "Eegees",
+      "category": "dessert"
+    },
     "com.emn8.mobilem8.nativeapp.bk": {
       "brandId": "burgerking.com",
       "displayName": "Burger King",
+      "category": "fast_food"
+    },
+    "com.emn8.mobilem8.nativeapp.bkuk": {
+      "brandId": "burgerking.co.uk",
+      "displayName": "Burger King",
+      "category": "fast_food"
+    },
+    "com.emn8.mobilem8.nativeapp.popeyes": {
+      "brandId": "popeyes.com",
+      "displayName": "Popeyes",
+      "category": "fast_food"
+    },
+    "com.eurogarages.leonuk": {
+      "brandId": "leon.co",
+      "displayName": "Leon.co",
+      "category": "fast_food"
+    },
+    "com.everbowl.app": {
+      "brandId": "everbowl.com",
+      "displayName": "Everbowl",
+      "category": "fast_food"
+    },
+    "com.fairwood.app": {
+      "brandId": "fairwood.com.hk",
+      "displayName": "Fairwood",
+      "category": "fast_food"
+    },
+    "com.fishbowl.firebirds": {
+      "brandId": "firebirdsrestaurants.com",
+      "displayName": "Firebirds Restaurant S",
+      "category": "fast_food"
+    },
+    "com.fiveguys.fiveguysuk": {
+      "brandId": "fiveguys.co.uk",
+      "displayName": "Fiveguys",
+      "category": "fast_food"
+    },
+    "com.fiveguys.olo.android": {
+      "brandId": "fiveguys.com",
+      "displayName": "Five Guys",
+      "category": "fast_food"
+    },
+    "com.flamebroiler": {
+      "brandId": "flamebroiler.com",
+      "displayName": "The Flame Broiler",
+      "category": "fast_food"
+    },
+    "com.flashcoffee": {
+      "brandId": "flashcoffee.com",
+      "displayName": "Flashcoffee",
+      "category": "coffee"
+    },
+    "com.foodtec.bolis": {
+      "brandId": "pizzabolis.com",
+      "displayName": "Pizza Bolis",
+      "category": "fast_food"
+    },
+    "com.foodtec.luce": {
+      "brandId": "pizzaluce.com",
+      "displayName": "Pizza Luce",
+      "category": "fast_food"
+    },
+    "com.foodtec.marcos": {
+      "brandId": "marcos.com",
+      "displayName": "Marco's Pizza",
+      "category": "fast_food"
+    },
+    "com.foodtec.sarpinosusaandroid": {
+      "brandId": "sarpinos.com",
+      "displayName": "Sarpinos",
+      "category": "fast_food"
+    },
+    "com.freshbrothers": {
+      "brandId": "freshbrothers.com",
+      "displayName": "Freshbrothers",
+      "category": "fast_food"
+    },
+    "com.freshii.freshii": {
+      "brandId": "freshii.com",
+      "displayName": "Freshii",
+      "category": "fast_food"
+    },
+    "com.gabrielpizza.app": {
+      "brandId": "gabrielpizza.com",
+      "displayName": "Gabriel Pizza",
+      "category": "fast_food"
+    },
+    "com.garbanzo.app": {
+      "brandId": "garbanzomediterraneanfresh.com",
+      "displayName": "Garbanzo Mediterranean Fresh",
+      "category": "fast_food"
+    },
+    "com.gfg.msc": {
+      "brandId": "marbleslab.com",
+      "displayName": "Marble Slab Creamery",
+      "category": "dessert"
+    },
+    "com.gfg.pm": {
+      "brandId": "pretzelmaker.com",
+      "displayName": "Pretzel Maker",
+      "category": "dessert"
+    },
+    "com.givex.cws5.barburrito": {
+      "brandId": "barburrito.ca",
+      "displayName": "barBURRITO",
+      "category": "fast_food"
+    },
+    "com.givex.cws5.eggsmart": {
+      "brandId": "eggsmart.com",
+      "displayName": "Eggsmart",
+      "category": "fast_food"
+    },
+    "com.givex.cws5.fatbastard": {
+      "brandId": "fatbastardburrito.ca",
+      "displayName": "Fat Bastard Burrito",
+      "category": "fast_food"
+    },
+    "com.givex.cws5.symposiumcafe": {
+      "brandId": "symposiumcafe.com",
+      "displayName": "Symposium Cafe",
       "category": "fast_food"
     },
     "com.global.foodpanda.android": {
@@ -74,10 +949,30 @@
       "displayName": "Glovo",
       "category": "delivery"
     },
+    "com.godfathers.app": {
+      "brandId": "godfathers.com",
+      "displayName": "Godfather's Pizza",
+      "category": "fast_food"
+    },
+    "com.gogoalsoft.pacificcoffee": {
+      "brandId": "pacificcoffee.com",
+      "displayName": "Pacific Coffee",
+      "category": "coffee"
+    },
     "com.gojek.app": {
       "brandId": "gojek.com",
       "displayName": "Gojek",
       "category": "delivery"
+    },
+    "com.goldstarchili.app": {
+      "brandId": "goldstarchili.com",
+      "displayName": "Gold Star Chili",
+      "category": "fast_food"
+    },
+    "com.gourmetburgerkitchen.app": {
+      "brandId": "gourmetburgerkitchen.com",
+      "displayName": "Gourmetburger Kitchen",
+      "category": "fast_food"
     },
     "com.grability.rappi": {
       "brandId": "rappi.com",
@@ -89,29 +984,1039 @@
       "displayName": "Grab",
       "category": "delivery"
     },
+    "com.gratittude.rodilla": {
+      "brandId": "rodilla.es",
+      "displayName": "Rodilla.es",
+      "category": "fast_food"
+    },
+    "com.grilld.grilld": {
+      "brandId": "grilld.com.au",
+      "displayName": "Grilld.com.au",
+      "category": "fast_food"
+    },
+    "com.grsthrive.westshorepizza": {
+      "brandId": "westshorepizza.com",
+      "displayName": "Westshore Pizza",
+      "category": "fast_food"
+    },
     "com.grubhub.android": {
       "brandId": "grubhub.com",
       "displayName": "Grubhub",
       "category": "delivery"
+    },
+    "com.gruden.oporto": {
+      "brandId": "oporto.com.au",
+      "displayName": "Oporto.com.au",
+      "category": "fast_food"
+    },
+    "com.gruden.redrooster": {
+      "brandId": "redrooster.com.au",
+      "displayName": "Redrooster.com.au",
+      "category": "fast_food"
+    },
+    "com.gtf.carvel": {
+      "brandId": "carvel.com",
+      "displayName": "Carvel",
+      "category": "dessert"
+    },
+    "com.gyg.gomex": {
+      "brandId": "guzmanygomez.com",
+      "displayName": "Guzmanygomez",
+      "category": "fast_food"
+    },
+    "com.habit.mobile": {
+      "brandId": "habitburger.com",
+      "displayName": "The Habit Burger Grill",
+      "category": "fast_food"
+    },
+    "com.haidilao.intl": {
+      "brandId": "haidilao.com",
+      "displayName": "Haidilao",
+      "category": "fast_food"
+    },
+    "com.hanamaruudon.official": {
+      "brandId": "hanamaruudon.com",
+      "displayName": "Hanamaru Udon",
+      "category": "fast_food"
+    },
+    "com.happy.joe": {
+      "brandId": "happyjoes.com",
+      "displayName": "Happy Joe's Pizza",
+      "category": "fast_food"
+    },
+    "com.hardees.ordering": {
+      "brandId": "hardees.com",
+      "displayName": "Hardee's",
+      "category": "fast_food"
+    },
+    "com.herfy.order": {
+      "brandId": "herfy.com",
+      "displayName": "Herfy",
+      "category": "fast_food"
+    },
+    "com.hotelchocolat.hotelchocolat": {
+      "brandId": "hotelchocolat.com",
+      "displayName": "Hotelchocolat",
+      "category": "fast_food"
+    },
+    "com.hotheadburritos.app": {
+      "brandId": "hotheadburritos.com",
+      "displayName": "Hot Head Burritos",
+      "category": "fast_food"
+    },
+    "com.hungerrush.barrospizza": {
+      "brandId": "barrospizza.com",
+      "displayName": "Barro's Pizza",
+      "category": "fast_food"
+    },
+    "com.hungerrush.gioninos": {
+      "brandId": "gioninos.com",
+      "displayName": "Gioninos",
+      "category": "fast_food"
+    },
+    "com.hungerrush.hungryhowies": {
+      "brandId": "hungryhowies.com",
+      "displayName": "Hungry Howie's",
+      "category": "fast_food"
     },
     "com.hungerstation.android": {
       "brandId": "hungerstation.com",
       "displayName": "HungerStation",
       "category": "delivery"
     },
+    "com.hw.blaze": {
+      "brandId": "blazepizza.com",
+      "displayName": "Blaze Pizza",
+      "category": "fast_food"
+    },
+    "com.iceland.android": {
+      "brandId": "iceland.co.uk",
+      "displayName": "Iceland",
+      "category": "fast_food"
+    },
+    "com.icemobile.albertheijn": {
+      "brandId": "ah.nl",
+      "displayName": "Ah.nl",
+      "category": "fast_food"
+    },
+    "com.icemobile.jumboclient": {
+      "brandId": "jumbo.com",
+      "displayName": "Jumbo",
+      "category": "fast_food"
+    },
+    "com.ideostudios.goldilocksdelivery": {
+      "brandId": "goldilocks.com.ph",
+      "displayName": "Goldilocks.com.ph",
+      "category": "fast_food"
+    },
+    "com.il.mcdelivery": {
+      "brandId": "mcdonaldsindia.com",
+      "displayName": "Mcdonaldsindia",
+      "category": "fast_food"
+    },
+    "com.imc.pizzahut": {
+      "brandId": "pizzahut.com.br",
+      "displayName": "Pizza Hut.com.br",
+      "category": "fast_food"
+    },
+    "com.ippudo.app.ippudo": {
+      "brandId": "ippudo.com",
+      "displayName": "Ippudo",
+      "category": "fast_food"
+    },
+    "com.jackintheboxinc.JackMobileApp": {
+      "brandId": "jackinthebox.com",
+      "displayName": "Jack in the Box",
+      "category": "fast_food"
+    },
+    "com.jamhub.barbeque": {
+      "brandId": "barbequenation.com",
+      "displayName": "Barbequenation",
+      "category": "fast_food"
+    },
+    "com.jasonsdeli.app": {
+      "brandId": "jasonsdeli.com",
+      "displayName": "Jason's Deli",
+      "category": "fast_food"
+    },
+    "com.jeremiahsice.app": {
+      "brandId": "jeremiahsice.com",
+      "displayName": "Jeremiah's Italian Ice",
+      "category": "dessert"
+    },
+    "com.jetspizza.ordering": {
+      "brandId": "jetspizza.com",
+      "displayName": "Jet's Pizza",
+      "category": "fast_food"
+    },
+    "com.jimmyjohns": {
+      "brandId": "jimmyjohns.com",
+      "displayName": "Jimmy John's",
+      "category": "fast_food"
+    },
+    "com.jiwa.jiwagroup": {
+      "brandId": "janjijiwa.com",
+      "displayName": "Janjijiwa",
+      "category": "fast_food"
+    },
+    "com.joejuice.joeloyalty": {
+      "brandId": "joejuice.com",
+      "displayName": "Joejuice",
+      "category": "fast_food"
+    },
+    "com.jollibee": {
+      "brandId": "jollibee.com",
+      "displayName": "Jollibee",
+      "category": "fast_food"
+    },
+    "com.juiceitup.juiceitup.android.app": {
+      "brandId": "juiceitup.com",
+      "displayName": "Juice It Up!",
+      "category": "fast_food"
+    },
     "com.justeat.app.uk": {
       "brandId": "just-eat.co.uk",
       "displayName": "Just Eat UK",
       "category": "delivery"
+    },
+    "com.kahala.tacotime": {
+      "brandId": "tacotime.com",
+      "displayName": "Taco Time",
+      "category": "fast_food"
+    },
+    "com.kaufland.Kaufland": {
+      "brandId": "kaufland.de",
+      "displayName": "Kaufland.de",
+      "category": "fast_food"
+    },
+    "com.kfc_kenya": {
+      "brandId": "kfc.ke",
+      "displayName": "Kfc.ke",
+      "category": "fast_food"
+    },
+    "com.kfc_polska": {
+      "brandId": "kfc.pl",
+      "displayName": "Kfc.pl",
+      "category": "fast_food"
+    },
+    "com.kfcaus.ordering": {
+      "brandId": "kfc.com.au",
+      "displayName": "Kfc.com.au",
+      "category": "fast_food"
+    },
+    "com.kfcecuador.kfc": {
+      "brandId": "kfc.cl",
+      "displayName": "Kfc.cl",
+      "category": "fast_food"
+    },
+    "com.kfchk.app.and2021": {
+      "brandId": "kfc.com.hk",
+      "displayName": "KFC",
+      "category": "fast_food"
+    },
+    "com.kfcnz.orderserv": {
+      "brandId": "kfc.co.nz",
+      "displayName": "Kfc.co.nz",
+      "category": "fast_food"
+    },
+    "com.kfteausa.mobile": {
+      "brandId": "kungfutea.com",
+      "displayName": "Kung Fu Tea",
+      "category": "fast_food"
+    },
+    "com.knapp.netwerkapp.tripleo": {
+      "brandId": "tripleos.com",
+      "displayName": "Triple O's",
+      "category": "fast_food"
+    },
+    "com.koala.mobile.willys": {
+      "brandId": "willys.com",
+      "displayName": "Willy's",
+      "category": "fast_food"
+    },
+    "com.kobe.cacaushow": {
+      "brandId": "cacaushow.com.br",
+      "displayName": "Cacaushow.com.br",
+      "category": "fast_food"
+    },
+    "com.kopikenangan": {
+      "brandId": "kopikenangan.com",
+      "displayName": "Kopikenangan",
+      "category": "fast_food"
+    },
+    "com.krispykreme.HotLights": {
+      "brandId": "krispykreme.com",
+      "displayName": "Krispy Kreme",
+      "category": "dessert"
+    },
+    "com.krystal": {
+      "brandId": "krystal.com",
+      "displayName": "Krystal",
+      "category": "fast_food"
+    },
+    "com.l70c581bb5f4.www": {
+      "brandId": "greatwraps.com",
+      "displayName": "Great Wraps",
+      "category": "fast_food"
+    },
+    "com.labelvie.fid": {
+      "brandId": "carrefour.ma",
+      "displayName": "Carrefour.ma",
+      "category": "fast_food"
+    },
+    "com.larosas.mobile": {
+      "brandId": "larosas.com",
+      "displayName": "LaRosa's Pizzeria",
+      "category": "fast_food"
+    },
+    "com.leesfamous.app": {
+      "brandId": "leeschicken.com",
+      "displayName": "Lee's Famous Recipe Chicken",
+      "category": "fast_food"
+    },
+    "com.lepainquotidien": {
+      "brandId": "lepainquotidien.com",
+      "displayName": "Lepainquotidien",
+      "category": "fast_food"
+    },
+    "com.lidl.eci.lidlplus": {
+      "brandId": "lidl.co.uk",
+      "displayName": "Lidl",
+      "category": "fast_food"
+    },
+    "com.littlecaesars": {
+      "brandId": "littlecaesars.com",
+      "displayName": "Little Caesars",
+      "category": "fast_food"
+    },
+    "com.ljsilvers": {
+      "brandId": "ljsilvers.com",
+      "displayName": "Long John Silver's",
+      "category": "fast_food"
+    },
+    "com.logans.app": {
+      "brandId": "logansroadhouse.com",
+      "displayName": "Logan's Roadhouse",
+      "category": "fast_food"
+    },
+    "com.lotuss.oneapp": {
+      "brandId": "lotuss.com",
+      "displayName": "Lotuss",
+      "category": "fast_food"
+    },
+    "com.loyalty3.krispykreme": {
+      "brandId": "krispykreme.co.uk",
+      "displayName": "Krispykreme",
+      "category": "fast_food"
+    },
+    "com.loyaltyplant.partner.cousinsmainelobster": {
+      "brandId": "cousinsmainelobster.com",
+      "displayName": "Cousins Maine Lobster",
+      "category": "fast_food"
+    },
+    "com.madgreens.app": {
+      "brandId": "madgreens.com",
+      "displayName": "MAD Greens",
+      "category": "fast_food"
+    },
+    "com.marbleslabcanada.order": {
+      "brandId": "marbleslab.ca",
+      "displayName": "Marble Slab Creamery Canada",
+      "category": "dessert"
+    },
+    "com.marjane.app": {
+      "brandId": "marjane.ma",
+      "displayName": "Marjane.ma",
+      "category": "fast_food"
+    },
+    "com.marrybrown": {
+      "brandId": "marrybrown.com",
+      "displayName": "Marrybrown",
+      "category": "fast_food"
+    },
+    "com.mbplc.allbarone": {
+      "brandId": "allbarone.co.uk",
+      "displayName": "Allbarone",
+      "category": "fast_food"
+    },
+    "com.mbplc.browns": {
+      "brandId": "browns-restaurants.co.uk",
+      "displayName": "Browns Restaurants",
+      "category": "fast_food"
+    },
+    "com.mbplc.harvester": {
+      "brandId": "harvester.co.uk",
+      "displayName": "Harvester",
+      "category": "fast_food"
+    },
+    "com.mbplc.vintageinns": {
+      "brandId": "vintageinn.co.uk",
+      "displayName": "Vintageinn",
+      "category": "fast_food"
+    },
+    "com.mcdo.mcdonalds": {
+      "brandId": "mcdonalds.cl",
+      "displayName": "Mcdonalds.cl",
+      "category": "fast_food"
     },
     "com.mcdonalds.app": {
       "brandId": "mcdonalds.com",
       "displayName": "McDonald's",
       "category": "fast_food"
     },
+    "com.mcdonalds.app.uk": {
+      "brandId": "mcdonalds.co.uk",
+      "displayName": "Mcdonalds",
+      "category": "fast_food"
+    },
+    "com.mcdonalds.au.gma": {
+      "brandId": "mcdonalds.com.au",
+      "displayName": "Mcdonalds.com.au",
+      "category": "fast_food"
+    },
+    "com.mcdonalds.gma.hongkong": {
+      "brandId": "mcdonalds.com.hk",
+      "displayName": "Mcdonalds",
+      "category": "fast_food"
+    },
+    "com.meltshop": {
+      "brandId": "meltshop.com",
+      "displayName": "Meltshop",
+      "category": "fast_food"
+    },
+    "com.merqueo": {
+      "brandId": "merqueo.com",
+      "displayName": "Merqueo",
+      "category": "fast_food"
+    },
+    "com.meuoutback": {
+      "brandId": "outback.com.br",
+      "displayName": "Outback.com.br",
+      "category": "fast_food"
+    },
+    "com.microworks.weborder.grecopizza": {
+      "brandId": "greco.ca",
+      "displayName": "Greco Pizza",
+      "category": "fast_food"
+    },
+    "com.minor.pizzacompany": {
+      "brandId": "thepizzacompany.com",
+      "displayName": "Thepizza Company",
+      "category": "fast_food"
+    },
+    "com.missiontacojoint.android.app": {
+      "brandId": "missiontaco.com",
+      "displayName": "Mission Taco",
+      "category": "fast_food"
+    },
+    "com.mobihq.teriyakiexperience": {
+      "brandId": "teriyakiexperience.com",
+      "displayName": "Teriyaki Experience",
+      "category": "fast_food"
+    },
+    "com.mobile.potbelly": {
+      "brandId": "potbelly.com",
+      "displayName": "Potbelly",
+      "category": "fast_food"
+    },
+    "com.mobile5.greggs": {
+      "brandId": "greggs.co.uk",
+      "displayName": "Greggs",
+      "category": "fast_food"
+    },
+    "com.mobivending.espressohouse": {
+      "brandId": "espressohouse.com",
+      "displayName": "Espressohouse",
+      "category": "dessert"
+    },
+    "com.moduurn.wokbox": {
+      "brandId": "wokbox.com",
+      "displayName": "Wokbox",
+      "category": "fast_food"
+    },
+    "com.monginisbakery": {
+      "brandId": "monginis.net",
+      "displayName": "Monginis",
+      "category": "fast_food"
+    },
+    "com.munrodev.crfmobile": {
+      "brandId": "carrefour.es",
+      "displayName": "Carrefour.es",
+      "category": "fast_food"
+    },
+    "com.mytidyapp.chargrillcharlies": {
+      "brandId": "chargrillcharlies.com.au",
+      "displayName": "Chargrillcharlies.com.au",
+      "category": "fast_food"
+    },
+    "com.mytidyapp.yakunkayatoast": {
+      "brandId": "yakun.com",
+      "displayName": "Yakun",
+      "category": "fast_food"
+    },
+    "com.ncr.bigchicken": {
+      "brandId": "bigchicken.com",
+      "displayName": "Big Chicken",
+      "category": "fast_food"
+    },
+    "com.ncr.huddlehouse": {
+      "brandId": "huddlehouse.com",
+      "displayName": "Huddle House",
+      "category": "fast_food"
+    },
+    "com.ncr.islands": {
+      "brandId": "islandsrestaurants.com",
+      "displayName": "Islands Restaurants",
+      "category": "fast_food"
+    },
+    "com.newtonmobile.eatnpark": {
+      "brandId": "eatnpark.com",
+      "displayName": "Eat'n Park",
+      "category": "fast_food"
+    },
+    "com.newuplink.chain.tac905994": {
+      "brandId": "tenya.co.jp",
+      "displayName": "Tenya",
+      "category": "fast_food"
+    },
+    "com.nordsee.de.app": {
+      "brandId": "nordsee.com",
+      "displayName": "Nordsee",
+      "category": "fast_food"
+    },
+    "com.oakberry.superapp.consumer": {
+      "brandId": "oakberry.com",
+      "displayName": "Oakberry",
+      "category": "fast_food"
+    },
+    "com.olo.abuelos": {
+      "brandId": "abuelos.com",
+      "displayName": "Abuelo's",
+      "category": "fast_food"
+    },
+    "com.olo.anotherbrokenegg": {
+      "brandId": "anotherbrokeneggcafe.com",
+      "displayName": "Another Broken Egg Cafe",
+      "category": "fast_food"
+    },
+    "com.olo.applebees": {
+      "brandId": "applebees.com",
+      "displayName": "Applebee's",
+      "category": "fast_food"
+    },
+    "com.olo.aubonpain": {
+      "brandId": "aubonpain.com",
+      "displayName": "Au Bon Pain",
+      "category": "dessert"
+    },
+    "com.olo.awrestaurantsinc": {
+      "brandId": "awrestaurants.com",
+      "displayName": "A&W Restaurants",
+      "category": "fast_food"
+    },
+    "com.olo.benihana": {
+      "brandId": "benihana.com",
+      "displayName": "Benihana",
+      "category": "fast_food"
+    },
+    "com.olo.blackbeardiner": {
+      "brandId": "blackbeardiner.com",
+      "displayName": "Black Bear Diner",
+      "category": "fast_food"
+    },
+    "com.olo.blimpiesubs": {
+      "brandId": "blimpie.com",
+      "displayName": "Blimpie",
+      "category": "fast_food"
+    },
+    "com.olo.boosterjuice": {
+      "brandId": "boosterjuice.com",
+      "displayName": "Booster Juice",
+      "category": "fast_food"
+    },
+    "com.olo.burgerfi": {
+      "brandId": "burgerfi.com",
+      "displayName": "BurgerFi",
+      "category": "fast_food"
+    },
+    "com.olo.burgerlounge": {
+      "brandId": "burgerlounge.com",
+      "displayName": "Burger Lounge",
+      "category": "fast_food"
+    },
+    "com.olo.burgerville": {
+      "brandId": "burgerville.com",
+      "displayName": "Burgerville",
+      "category": "fast_food"
+    },
+    "com.olo.californiachickencafe": {
+      "brandId": "califchickencafe.com",
+      "displayName": "California Chicken Cafe",
+      "category": "fast_food"
+    },
+    "com.olo.chebahut": {
+      "brandId": "chebahut.com",
+      "displayName": "Cheba Hut",
+      "category": "fast_food"
+    },
+    "com.olo.chowking": {
+      "brandId": "chowking.com",
+      "displayName": "Chowking",
+      "category": "fast_food"
+    },
+    "com.olo.coldstone": {
+      "brandId": "coldstonecreamery.com",
+      "displayName": "Cold Stone Creamery",
+      "category": "dessert"
+    },
+    "com.olo.cornerbakery": {
+      "brandId": "cornerbakerycafe.com",
+      "displayName": "Corner Bakery Cafe",
+      "category": "dessert"
+    },
+    "com.olo.cottonpatch": {
+      "brandId": "cottonpatch.com",
+      "displayName": "Cotton Patch Cafe",
+      "category": "fast_food"
+    },
+    "com.olo.cousins": {
+      "brandId": "cousinssubs.com",
+      "displayName": "Cousins Subs",
+      "category": "fast_food"
+    },
+    "com.olo.dairyqueen.production": {
+      "brandId": "dq.com",
+      "displayName": "Dairy Queen",
+      "category": "dessert"
+    },
+    "com.olo.deltaco": {
+      "brandId": "deltaco.com",
+      "displayName": "Del Taco",
+      "category": "fast_food"
+    },
+    "com.olo.elpolloloco": {
+      "brandId": "elpolloloco.com",
+      "displayName": "El Pollo Loco",
+      "category": "fast_food"
+    },
+    "com.olo.foosacklys": {
+      "brandId": "foosacklys.net",
+      "displayName": "Foosackly's",
+      "category": "fast_food"
+    },
+    "com.olo.gochickengo": {
+      "brandId": "gochickengo.com",
+      "displayName": "Go Chicken Go",
+      "category": "fast_food"
+    },
+    "com.olo.greatsteak": {
+      "brandId": "greatsteak.com",
+      "displayName": "Great Steak",
+      "category": "fast_food"
+    },
+    "com.olo.ihopcanada": {
+      "brandId": "ihop.ca",
+      "displayName": "IHOP Canada",
+      "category": "fast_food"
+    },
+    "com.olo.jambajuice": {
+      "brandId": "jamba.com",
+      "displayName": "Jamba",
+      "category": "fast_food"
+    },
+    "com.olo.johnnyrockets": {
+      "brandId": "johnnyrockets.com",
+      "displayName": "Johnny Rockets",
+      "category": "fast_food"
+    },
+    "com.olo.lionschoice": {
+      "brandId": "lionchoice.com",
+      "displayName": "Lion's Choice",
+      "category": "fast_food"
+    },
+    "com.olo.mooyah": {
+      "brandId": "mooyah.com",
+      "displayName": "MOOYAH Burgers",
+      "category": "fast_food"
+    },
+    "com.olo.newks": {
+      "brandId": "newks.com",
+      "displayName": "Newk's Eatery",
+      "category": "fast_food"
+    },
+    "com.olo.noodles": {
+      "brandId": "noodles.com",
+      "displayName": "Noodles & Company",
+      "category": "fast_food"
+    },
+    "com.olo.papamurphys": {
+      "brandId": "papamurphys.com",
+      "displayName": "Papa Murphy's",
+      "category": "fast_food"
+    },
+    "com.olo.piefivepizza": {
+      "brandId": "piefivepizza.com",
+      "displayName": "Pie Five Pizza",
+      "category": "fast_food"
+    },
+    "com.olo.portillos": {
+      "brandId": "portillos.com",
+      "displayName": "Portillo's",
+      "category": "fast_food"
+    },
+    "com.olo.portofsubs": {
+      "brandId": "portofsubs.com",
+      "displayName": "Port of Subs",
+      "category": "fast_food"
+    },
+    "com.olo.pterrysburgerstand": {
+      "brandId": "pterrys.com",
+      "displayName": "P. Terry's Burger Stand",
+      "category": "fast_food"
+    },
+    "com.olo.redribbon": {
+      "brandId": "redribbonbakeshop.com",
+      "displayName": "Redribbonbakeshop",
+      "category": "dessert"
+    },
+    "com.olo.robeks": {
+      "brandId": "robeks.com",
+      "displayName": "Robeks",
+      "category": "fast_food"
+    },
+    "com.olo.rushbowls": {
+      "brandId": "rushbowls.com",
+      "displayName": "Rush Bowls",
+      "category": "fast_food"
+    },
+    "com.olo.stonefiregrill": {
+      "brandId": "stonefiregrill.com",
+      "displayName": "Stonefire Grill",
+      "category": "fast_food"
+    },
+    "com.olo.superchix": {
+      "brandId": "superchix.com",
+      "displayName": "Super Chix",
+      "category": "fast_food"
+    },
+    "com.olo.sweetfrog": {
+      "brandId": "sweetfrog.com",
+      "displayName": "sweetFrog",
+      "category": "dessert"
+    },
+    "com.olo.tokyojoes": {
+      "brandId": "tokyojoes.com",
+      "displayName": "Tokyojoes",
+      "category": "fast_food"
+    },
+    "com.olo.velvettaco": {
+      "brandId": "velvettaco.com",
+      "displayName": "Velvet Taco",
+      "category": "fast_food"
+    },
+    "com.olo.whichwich": {
+      "brandId": "whichwich.com",
+      "displayName": "Which Wich",
+      "category": "fast_food"
+    },
+    "com.olo.wienerschnitzel": {
+      "brandId": "weinerschnitzel.com",
+      "displayName": "Wienerschnitzel",
+      "category": "fast_food"
+    },
+    "com.olo.wingsetc": {
+      "brandId": "wingsetc.com",
+      "displayName": "Wingsetc",
+      "category": "fast_food"
+    },
+    "com.olodickeysapp": {
+      "brandId": "dickeys.com",
+      "displayName": "Dickey's Barbecue Pit",
+      "category": "fast_food"
+    },
+    "com.onosys.chopstopordering": {
+      "brandId": "chopstop.com",
+      "displayName": "Chop Stop",
+      "category": "fast_food"
+    },
+    "com.outback.tampa": {
+      "brandId": "outback.com",
+      "displayName": "Outback Steakhouse",
+      "category": "fast_food"
+    },
+    "com.panagomobile": {
+      "brandId": "panago.com",
+      "displayName": "Panago Pizza",
+      "category": "fast_food"
+    },
+    "com.pandaexpress.app": {
+      "brandId": "pandaexpress.com",
+      "displayName": "Panda Express",
+      "category": "fast_food"
+    },
+    "com.panera.bread": {
+      "brandId": "panerabread.com",
+      "displayName": "Panera Bread",
+      "category": "dessert"
+    },
     "com.papajohns.android": {
       "brandId": "papajohns.com",
       "displayName": "Papa Johns",
+      "category": "fast_food"
+    },
+    "com.paulbakery.paul": {
+      "brandId": "paul-uk.com",
+      "displayName": "Paul Uk",
+      "category": "fast_food"
+    },
+    "com.paymentez.jv_amigos": {
+      "brandId": "juanvaldez.com",
+      "displayName": "Juanvaldez",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.burritobeach": {
+      "brandId": "burritobeach.com",
+      "displayName": "Burritobeach",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.californiatortilla": {
+      "brandId": "californiatortilla.com",
+      "displayName": "California Tortilla",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.checkersandrallys": {
+      "brandId": "checkers.com",
+      "displayName": "Checkers",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.chopshop": {
+      "brandId": "originalchopshop.com",
+      "displayName": "Original ChopShop",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.claimjumper": {
+      "brandId": "claimjumper.com",
+      "displayName": "Claim Jumper",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.cpk": {
+      "brandId": "californiapizzakitchen.com",
+      "displayName": "California Pizza Kitchen",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.eltoritoxrg": {
+      "brandId": "eltorito.com",
+      "displayName": "El Torito",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.goldenchick": {
+      "brandId": "goldenchick.com",
+      "displayName": "Golden Chick",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.grimaldis": {
+      "brandId": "grimaldispizzeria.com",
+      "displayName": "Grimaldi's Pizzeria",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.hawaiianbros": {
+      "brandId": "hawaiianbros.com",
+      "displayName": "Hawaiianbros",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.hwy55": {
+      "brandId": "hwy55.com",
+      "displayName": "Hwy 55 Burgers Shakes & Fries",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.mendocinofarms": {
+      "brandId": "mendocinofarms.com",
+      "displayName": "Mendocino Farms",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.mightytaco": {
+      "brandId": "mightytaco.com",
+      "displayName": "Mighty Taco",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.oldchicago": {
+      "brandId": "oldchicago.com",
+      "displayName": "Oldchicago",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.ontheborder": {
+      "brandId": "ontheborder.com",
+      "displayName": "On The Border",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.pizzaranch": {
+      "brandId": "pizzaranch.com",
+      "displayName": "Pizza Ranch",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.redmango": {
+      "brandId": "redmango.com",
+      "displayName": "Redmango",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.redssavoy": {
+      "brandId": "redsavoy.com",
+      "displayName": "Red's Savoy Pizza",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.salata": {
+      "brandId": "salata.com",
+      "displayName": "Salata",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.shipleydonuts": {
+      "brandId": "shipleydonuts.com",
+      "displayName": "Shipley Do-Nuts",
+      "category": "dessert"
+    },
+    "com.paytronix.client.android.app.silverdinerapp": {
+      "brandId": "silverdiner.com",
+      "displayName": "Silver Diner",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.tacomac": {
+      "brandId": "tacomacs.com",
+      "displayName": "Taco Mac",
+      "category": "fast_food"
+    },
+    "com.paytronix.client.android.app.unochicagogrill": {
+      "brandId": "unos.com",
+      "displayName": "Unos",
+      "category": "fast_food"
+    },
+    "com.pepperhq.tenants.itsu": {
+      "brandId": "itsu.com",
+      "displayName": "Itsu",
+      "category": "fast_food"
+    },
+    "com.percoid.blenz": {
+      "brandId": "blenz.com",
+      "displayName": "Blenz Coffee",
+      "category": "coffee"
+    },
+    "com.percoid.ctusa": {
+      "brandId": "chronictacos.com",
+      "displayName": "Chronic Tacos",
+      "category": "fast_food"
+    },
+    "com.percoid.quesada": {
+      "brandId": "quesada.ca",
+      "displayName": "Quesada",
+      "category": "fast_food"
+    },
+    "com.philseven.loyalty": {
+      "brandId": "7-eleven.com.ph",
+      "displayName": "7 Eleven.com.ph",
+      "category": "fast_food"
+    },
+    "com.pieology.app": {
+      "brandId": "pieology.com",
+      "displayName": "Pieology",
+      "category": "fast_food"
+    },
+    "com.pitapit.app": {
+      "brandId": "pitapit.ca",
+      "displayName": "Pita Pit Canada",
+      "category": "fast_food"
+    },
+    "com.pizza73": {
+      "brandId": "pizza73.com",
+      "displayName": "Pizza 73",
+      "category": "fast_food"
+    },
+    "com.pizzaexpress.appv2": {
+      "brandId": "pizzaexpress.com",
+      "displayName": "Pizza Express",
+      "category": "fast_food"
+    },
+    "com.pizzafactory.app": {
+      "brandId": "pizzafactory.com",
+      "displayName": "Pizza Factory",
+      "category": "fast_food"
+    },
+    "com.pizzahut.app.vn": {
+      "brandId": "pizzahut.vn",
+      "displayName": "Pizza Hut.vn",
+      "category": "fast_food"
+    },
+    "com.pizzahut.canada": {
+      "brandId": "pizzahut.ca",
+      "displayName": "Pizza Hut Canada",
+      "category": "fast_food"
+    },
+    "com.pizzahut.morocco": {
+      "brandId": "pizzahut.ma",
+      "displayName": "Pizza Hut.ma",
+      "category": "fast_food"
+    },
+    "com.pizzahut.ng": {
+      "brandId": "pizzahut.ng",
+      "displayName": "Pizza Hut.ng",
+      "category": "fast_food"
+    },
+    "com.pizzahut.ph": {
+      "brandId": "pizzahut.com.ph",
+      "displayName": "Pizza Hut.com.ph",
+      "category": "fast_food"
+    },
+    "com.pizzahutau": {
+      "brandId": "pizzahut.com.au",
+      "displayName": "Pizza Hut.com.au",
+      "category": "fast_food"
+    },
+    "com.pizzahutpl": {
+      "brandId": "pizzahut.pl",
+      "displayName": "Pizza Hut.pl",
+      "category": "fast_food"
+    },
+    "com.pizzahutuk.orderingApp": {
+      "brandId": "pizzahut.co.uk",
+      "displayName": "Pizza Hut",
+      "category": "fast_food"
+    },
+    "com.pizzanova.ui": {
+      "brandId": "pizzanova.com",
+      "displayName": "Pizza Nova",
+      "category": "fast_food"
+    },
+    "com.pizzapatron.app": {
+      "brandId": "pizzapatron.com",
+      "displayName": "Pizza Patron",
+      "category": "fast_food"
+    },
+    "com.pizzapizza.production": {
+      "brandId": "pizzapizza.ca",
+      "displayName": "Pizza Pizza",
+      "category": "fast_food"
+    },
+    "com.pizzaville.pizzaville": {
+      "brandId": "pizzaville.ca",
+      "displayName": "Pizzaville",
+      "category": "fast_food"
+    },
+    "com.planetsmoothiebykahala.mobile": {
+      "brandId": "planetsmoothie.com",
+      "displayName": "Planet Smoothie",
+      "category": "fast_food"
+    },
+    "com.pluckers.wingbar": {
+      "brandId": "pluckers.com",
+      "displayName": "Pluckers Wing Bar",
+      "category": "fast_food"
+    },
+    "com.pokeworks.app": {
+      "brandId": "pokeworks.com",
+      "displayName": "Pokeworks",
+      "category": "fast_food"
+    },
+    "com.polloscopacabana": {
+      "brandId": "polloscopacabana.com",
+      "displayName": "Polloscopacabana",
       "category": "fast_food"
     },
     "com.postmates.android": {
@@ -119,14 +2024,454 @@
       "displayName": "Postmates",
       "category": "delivery"
     },
+    "com.presto.restaurant.nirulas": {
+      "brandId": "nirulas.com",
+      "displayName": "Nirulas",
+      "category": "fast_food"
+    },
+    "com.primohoagies2": {
+      "brandId": "primoshoagies.com",
+      "displayName": "Primoshoagies",
+      "category": "fast_food"
+    },
+    "com.punchh.burger21": {
+      "brandId": "burger21.com",
+      "displayName": "Burger 21",
+      "category": "fast_food"
+    },
+    "com.punchh.caferio": {
+      "brandId": "caferio.com",
+      "displayName": "Cafe Rio",
+      "category": "fast_food"
+    },
+    "com.punchh.capriottis": {
+      "brandId": "capriottis.com",
+      "displayName": "Capriotti's Sandwich Shop",
+      "category": "fast_food"
+    },
+    "com.punchh.citybbq": {
+      "brandId": "citybbq.com",
+      "displayName": "City Barbeque",
+      "category": "fast_food"
+    },
+    "com.punchh.crispers": {
+      "brandId": "crispers.com",
+      "displayName": "Crispers",
+      "category": "fast_food"
+    },
+    "com.punchh.farmerboys": {
+      "brandId": "farmerboys.com",
+      "displayName": "Farmer Boys",
+      "category": "fast_food"
+    },
+    "com.punchh.fazolis": {
+      "brandId": "fazolis.com",
+      "displayName": "Fazoli's",
+      "category": "fast_food"
+    },
+    "com.punchh.leeannchin": {
+      "brandId": "leeannchin.com",
+      "displayName": "Leeann Chin",
+      "category": "fast_food"
+    },
+    "com.punchh.mod": {
+      "brandId": "modpizza.com",
+      "displayName": "MOD Pizza",
+      "category": "fast_food"
+    },
+    "com.punchh.moes": {
+      "brandId": "moes.com",
+      "displayName": "Moe's Southwest Grill",
+      "category": "fast_food"
+    },
+    "com.punchh.nativegrill": {
+      "brandId": "nativegrillandwings.com",
+      "displayName": "Native Grill & Wings",
+      "category": "fast_food"
+    },
+    "com.punchh.pancheros": {
+      "brandId": "pancheros.com",
+      "displayName": "Pancheros Mexican Grill",
+      "category": "fast_food"
+    },
+    "com.punchh.pizzainn": {
+      "brandId": "pizzainn.com",
+      "displayName": "Pizza Inn",
+      "category": "fast_food"
+    },
+    "com.punchh.primanti": {
+      "brandId": "primantibros.com",
+      "displayName": "Primanti Bros.",
+      "category": "fast_food"
+    },
+    "com.punchh.quiznos": {
+      "brandId": "quiznos.com",
+      "displayName": "Quiznos",
+      "category": "fast_food"
+    },
+    "com.punchh.schlotzskys": {
+      "brandId": "schlotzskys.com",
+      "displayName": "Schlotzsky's",
+      "category": "fast_food"
+    },
+    "com.punchh.slimchickens": {
+      "brandId": "slimchickens.com",
+      "displayName": "Slim Chickens",
+      "category": "fast_food"
+    },
+    "com.punchh.smashburger": {
+      "brandId": "smashburger.com",
+      "displayName": "Smashburger",
+      "category": "fast_food"
+    },
+    "com.punchh.tacojohns": {
+      "brandId": "tacojohns.com",
+      "displayName": "Taco John's",
+      "category": "fast_food"
+    },
+    "com.qdoba.android": {
+      "brandId": "qdoba.com",
+      "displayName": "Qdoba",
+      "category": "fast_food"
+    },
+    "com.raisingcanes.ordering": {
+      "brandId": "raisingcanes.com",
+      "displayName": "Raising Cane's",
+      "category": "fast_food"
+    },
+    "com.redcat.BoostApp": {
+      "brandId": "boostjuice.com.au",
+      "displayName": "Boostjuice.com.au",
+      "category": "fast_food"
+    },
+    "com.redcat.PeriPerks": {
+      "brandId": "nandos.com.au",
+      "displayName": "Nandos.com.au",
+      "category": "fast_food"
+    },
+    "com.redrobin.appstore": {
+      "brandId": "redrobin.com",
+      "displayName": "Red Robin",
+      "category": "fast_food"
+    },
+    "com.redswanpizzaapp.android": {
+      "brandId": "redswanpizza.ca",
+      "displayName": "Red Swan Pizza",
+      "category": "fast_food"
+    },
+    "com.relevantmobile.royrogers": {
+      "brandId": "royrogersrestaurants.com",
+      "displayName": "Roy Rogers Restaurants",
+      "category": "fast_food"
+    },
+    "com.relevantmobile.starbird": {
+      "brandId": "starbirdchicken.com",
+      "displayName": "Starbird Chicken",
+      "category": "fast_food"
+    },
+    "com.relevantmobile.texasroadhouse": {
+      "brandId": "texasroadhouse.com",
+      "displayName": "Texas Roadhouse",
+      "category": "fast_food"
+    },
+    "com.retailzoo.bettysburgers": {
+      "brandId": "bettysburgers.com.au",
+      "displayName": "Bettysburger S.com.au",
+      "category": "fast_food"
+    },
+    "com.rfg.donutking": {
+      "brandId": "donutking.com.au",
+      "displayName": "Donut King.com.au",
+      "category": "dessert"
+    },
+    "com.richeese.id": {
+      "brandId": "richeesefactory.com",
+      "displayName": "Richeesefactory",
+      "category": "fast_food"
+    },
+    "com.rosatispizza.rosatispizza": {
+      "brandId": "rosatis.com",
+      "displayName": "Rosatis",
+      "category": "fast_food"
+    },
+    "com.rossopomodoro.app": {
+      "brandId": "rossopomodoro.it",
+      "displayName": "Rossopomodoro.it",
+      "category": "fast_food"
+    },
+    "com.roundtablepizza.app": {
+      "brandId": "roundtablepizza.com",
+      "displayName": "Round Table Pizza",
+      "category": "fast_food"
+    },
+    "com.rt7mobilereward.app.benspretzel": {
+      "brandId": "benssoftpretzels.com",
+      "displayName": "Ben's Soft Pretzels",
+      "category": "dessert"
+    },
+    "com.s4d.papajohns_ca.prd": {
+      "brandId": "papajohns.ca",
+      "displayName": "Papa Johns Canada",
+      "category": "fast_food"
+    },
+    "com.s4d.telepizza_es.prd": {
+      "brandId": "telepizza.es",
+      "displayName": "Telepizza .es",
+      "category": "fast_food"
+    },
+    "com.saboten.app": {
+      "brandId": "saboten.com",
+      "displayName": "Saboten",
+      "category": "fast_food"
+    },
+    "com.salsaritas.app": {
+      "brandId": "salsaritas.com",
+      "displayName": "Salsaritas",
+      "category": "fast_food"
+    },
+    "com.satoshogo.louisacoffee": {
+      "brandId": "louisacoffee.co",
+      "displayName": "Louisacoffee .co",
+      "category": "coffee"
+    },
+    "com.sbarro.mobileapp": {
+      "brandId": "sbarro.com",
+      "displayName": "Sbarro",
+      "category": "fast_food"
+    },
+    "com.seattleapplab.jerseymikes": {
+      "brandId": "jerseymikes.com",
+      "displayName": "Jersey Mike's",
+      "category": "fast_food"
+    },
+    "com.secondcup.mobile": {
+      "brandId": "secondcup.com",
+      "displayName": "Second Cup",
+      "category": "coffee"
+    },
+    "com.shakeshack.android": {
+      "brandId": "shakeshack.com",
+      "displayName": "Shake Shack",
+      "category": "fast_food"
+    },
+    "com.skoop.olo.menchies.a": {
+      "brandId": "menchies.com",
+      "displayName": "Menchie's Frozen Yogurt",
+      "category": "dessert"
+    },
+    "com.slapfishseafood.slapfishseafood.android.app": {
+      "brandId": "slapfish.com",
+      "displayName": "Slapfish",
+      "category": "fast_food"
+    },
+    "com.smoothpay.MaryBrowns": {
+      "brandId": "marybrowns.com",
+      "displayName": "Mary Brown's Chicken",
+      "category": "fast_food"
+    },
+    "com.smoothpay.ToppersPizza": {
+      "brandId": "toppers.ca",
+      "displayName": "Toppers Pizza",
+      "category": "fast_food"
+    },
+    "com.snapfinger.mobile.mcalisters": {
+      "brandId": "mcalistersdeli.com",
+      "displayName": "McAlister's Deli",
+      "category": "fast_food"
+    },
+    "com.snapfinger.mobile.zaxbys": {
+      "brandId": "zaxbys.com",
+      "displayName": "Zaxby's",
+      "category": "fast_food"
+    },
+    "com.snooze.app": {
+      "brandId": "snoozeeatery.com",
+      "displayName": "Snooze A.M. Eatery",
+      "category": "fast_food"
+    },
+    "com.sonic.sonicdrivein": {
+      "brandId": "sonicdrivein.com",
+      "displayName": "Sonic Drive-In",
+      "category": "fast_food"
+    },
+    "com.sourceapp.bru": {
+      "brandId": "brueggers.com",
+      "displayName": "Bruegger's Bagels",
+      "category": "dessert"
+    },
+    "com.sourceapp.ebb": {
+      "brandId": "einsteinbros.com",
+      "displayName": "Einstein Bros. Bagels",
+      "category": "dessert"
+    },
+    "com.splickit.goodcentssubs": {
+      "brandId": "goodcentssubs.com",
+      "displayName": "Goodcents",
+      "category": "fast_food"
+    },
+    "com.splickit.pitapit": {
+      "brandId": "pitapitusa.com",
+      "displayName": "Pita Pit USA",
+      "category": "fast_food"
+    },
+    "com.spoonity.cafemartinez2": {
+      "brandId": "cafemartinez.com",
+      "displayName": "Cafe Martinez",
+      "category": "coffee"
+    },
+    "com.spoonity.wavescoffee": {
+      "brandId": "wavescoffee.com",
+      "displayName": "Waves Coffee",
+      "category": "coffee"
+    },
+    "com.spoton.olo.asianbox": {
+      "brandId": "asianbox.com",
+      "displayName": "Asian Box",
+      "category": "fast_food"
+    },
+    "com.spoton.olo.picklemans": {
+      "brandId": "picklemans.com",
+      "displayName": "Pickleman's Gourmet Cafe",
+      "category": "fast_food"
+    },
+    "com.starbucks.au": {
+      "brandId": "starbucks.com.au",
+      "displayName": "Starbucks.com.au",
+      "category": "coffee"
+    },
+    "com.starbucks.br": {
+      "brandId": "starbucks.com.br",
+      "displayName": "Starbucks.com.br",
+      "category": "coffee"
+    },
+    "com.starbucks.cee": {
+      "brandId": "starbucks.pl",
+      "displayName": "Starbucks.pl",
+      "category": "coffee"
+    },
+    "com.starbucks.cl": {
+      "brandId": "starbucks.cl",
+      "displayName": "Starbucks.cl",
+      "category": "coffee"
+    },
+    "com.starbucks.co": {
+      "brandId": "starbucks.co.kr",
+      "displayName": "Starbucks.co.kr",
+      "category": "coffee"
+    },
+    "com.starbucks.hk": {
+      "brandId": "starbucks.com.hk",
+      "displayName": "Starbucks",
+      "category": "coffee"
+    },
+    "com.starbucks.in": {
+      "brandId": "starbucks.in",
+      "displayName": "Starbucks.in",
+      "category": "coffee"
+    },
+    "com.starbucks.jp": {
+      "brandId": "starbucks.co.jp",
+      "displayName": "Starbucks Japan",
+      "category": "coffee"
+    },
     "com.starbucks.mobilecard": {
       "brandId": "starbucks.com",
       "displayName": "Starbucks",
       "category": "coffee"
     },
+    "com.starbucks.ph": {
+      "brandId": "starbucks.ph",
+      "displayName": "Starbucks.ph",
+      "category": "coffee"
+    },
+    "com.starbucks.uk": {
+      "brandId": "starbucks.co.uk",
+      "displayName": "Starbucks",
+      "category": "coffee"
+    },
+    "com.storefrontconsumer.bbq.chicken": {
+      "brandId": "bbqchicken.com",
+      "displayName": "bb.q Chicken",
+      "category": "fast_food"
+    },
+    "com.storefrontconsumer.beard.papas": {
+      "brandId": "beardpapas.com",
+      "displayName": "Beard Papa's",
+      "category": "dessert"
+    },
+    "com.storefrontconsumer.bill.miller.bar.b.q": {
+      "brandId": "billmillersbbq.com",
+      "displayName": "Bill Miller Bar-B-Q",
+      "category": "fast_food"
+    },
+    "com.storefrontconsumer.chicken.express": {
+      "brandId": "chickenexpress.com",
+      "displayName": "Chicken Express",
+      "category": "fast_food"
+    },
+    "com.storefrontconsumer.frischs.big.boy": {
+      "brandId": "frischs.com",
+      "displayName": "Frisch's Big Boy",
+      "category": "fast_food"
+    },
+    "com.subway.mobile.emea.tuki": {
+      "brandId": "subway.co.uk",
+      "displayName": "Subway",
+      "category": "fast_food"
+    },
     "com.subway.mobile.subwayapp": {
       "brandId": "subway.com",
       "displayName": "Subway",
+      "category": "fast_food"
+    },
+    "com.sulbing.mobile.app": {
+      "brandId": "sulbing.com",
+      "displayName": "Sulbing",
+      "category": "fast_food"
+    },
+    "com.sushi.sushimemberapp": {
+      "brandId": "sushiexpress.com.tw",
+      "displayName": "Sushi Express.com.tw",
+      "category": "fast_food"
+    },
+    "com.sushimaster.ru": {
+      "brandId": "sushimaster.ru",
+      "displayName": "Sushi Master.ru",
+      "category": "fast_food"
+    },
+    "com.sw.trungnguyenlegend": {
+      "brandId": "trungnguyenlegend.com",
+      "displayName": "Trungnguyenlegend",
+      "category": "fast_food"
+    },
+    "com.swensens1112.swensens": {
+      "brandId": "swensens1112.com",
+      "displayName": "Swensens1112",
+      "category": "fast_food"
+    },
+    "com.syn_inc.gindaco": {
+      "brandId": "gindaco.com",
+      "displayName": "Gindaco",
+      "category": "fast_food"
+    },
+    "com.syn_inc.go_go_curry": {
+      "brandId": "gogocurry.com",
+      "displayName": "Gogocurry",
+      "category": "fast_food"
+    },
+    "com.tacitinnovations.bonapp": {
+      "brandId": "thaiexpress.ca",
+      "displayName": "Thai Express",
+      "category": "fast_food"
+    },
+    "com.tacitinnovations.manchuwok": {
+      "brandId": "manchuwok.com",
+      "displayName": "Manchu Wok",
+      "category": "fast_food"
+    },
+    "com.tacitinnovations.tahinisrestaurants": {
+      "brandId": "tahinis.com",
+      "displayName": "Tahini's",
       "category": "fast_food"
     },
     "com.tacobell.ordering": {
@@ -139,15 +2484,250 @@
       "displayName": "Talabat",
       "category": "delivery"
     },
+    "com.tamjai.android": {
+      "brandId": "tamjaimixian.com",
+      "displayName": "TamJai Mixian",
+      "category": "fast_food"
+    },
+    "com.tapmango.rockymountain": {
+      "brandId": "rockychoc.com",
+      "displayName": "Rocky Mountain Chocolate",
+      "category": "dessert"
+    },
+    "com.tazikis.ordering": {
+      "brandId": "tazikis.com",
+      "displayName": "Taziki's Mediterranean Cafe",
+      "category": "fast_food"
+    },
+    "com.tcpos.oldwildwest": {
+      "brandId": "oldwildwest.it",
+      "displayName": "Oldwildwest.it",
+      "category": "dessert"
+    },
+    "com.teremok.keys": {
+      "brandId": "teremok.ru",
+      "displayName": "Teremok.ru",
+      "category": "fast_food"
+    },
+    "com.teriyaki.app": {
+      "brandId": "teriyakimadness.com",
+      "displayName": "Teriyaki Madness",
+      "category": "fast_food"
+    },
+    "com.thanx.Cupbop": {
+      "brandId": "cupbop.com",
+      "displayName": "Cupbop",
+      "category": "fast_food"
+    },
+    "com.thanx.bubbakoos": {
+      "brandId": "bubbakoos.com",
+      "displayName": "Bubbakoo's Burritos",
+      "category": "fast_food"
+    },
+    "com.thanx.doghaus": {
+      "brandId": "doghaus.com",
+      "displayName": "Dog Haus",
+      "category": "fast_food"
+    },
+    "com.thanx.giordano": {
+      "brandId": "giordanos.com",
+      "displayName": "Giordanos",
+      "category": "fast_food"
+    },
+    "com.thanx.hopdoddy": {
+      "brandId": "hopdoddy.com",
+      "displayName": "Hopdoddy",
+      "category": "fast_food"
+    },
+    "com.thanx.loumalnatis": {
+      "brandId": "loumalnatis.com",
+      "displayName": "Lou Malnati's",
+      "category": "fast_food"
+    },
+    "com.thanx.tacobueno": {
+      "brandId": "tacobueno.com",
+      "displayName": "Taco Bueno",
+      "category": "fast_food"
+    },
+    "com.thanx.tupelohoney": {
+      "brandId": "tupelohoneycafe.com",
+      "displayName": "Tupelo Honey",
+      "category": "fast_food"
+    },
+    "com.thecoffeehouse.guestapp": {
+      "brandId": "thecoffeehouse.com",
+      "displayName": "Thecoffee House",
+      "category": "coffee"
+    },
+    "com.thehalalguys.app": {
+      "brandId": "thehalalguys.com",
+      "displayName": "The Halal Guys",
+      "category": "fast_food"
+    },
+    "com.thehumanbean.thehumanbean.android.app": {
+      "brandId": "thehumanbean.com",
+      "displayName": "The Human Bean",
+      "category": "coffee"
+    },
+    "com.thekoi.sg": {
+      "brandId": "koi.com.sg",
+      "displayName": "Koi.com.sg",
+      "category": "fast_food"
+    },
+    "com.thesimplegreek.app": {
+      "brandId": "thesimplegreek.com",
+      "displayName": "Thesimplegreek",
+      "category": "fast_food"
+    },
+    "com.threespos.sales.apps.loyalty.Kaspas": {
+      "brandId": "kaspas.co.uk",
+      "displayName": "Kaspas",
+      "category": "fast_food"
+    },
+    "com.tillster.frd_us_mobile": {
+      "brandId": "freddys.com",
+      "displayName": "Freddy's Frozen Custard & Steakburgers",
+      "category": "fast_food"
+    },
+    "com.toasttab.slimhuskys": {
+      "brandId": "slimandhuskys.com",
+      "displayName": "Slim & Husky's",
+      "category": "fast_food"
+    },
+    "com.togoorder.moesoriginalbbq": {
+      "brandId": "moesoriginalbbq.com",
+      "displayName": "Moe's Original BBQ",
+      "category": "fast_food"
+    },
+    "com.togoorder.tacomayo": {
+      "brandId": "tacomayo.com",
+      "displayName": "Taco Mayo",
+      "category": "fast_food"
+    },
+    "com.tokyotokyo.orderapp": {
+      "brandId": "tokyotokyo.com.ph",
+      "displayName": "Tokyotokyo.com.ph",
+      "category": "fast_food"
+    },
+    "com.toppers.app": {
+      "brandId": "topperspizza.com",
+      "displayName": "Toppers Pizza",
+      "category": "fast_food"
+    },
+    "com.torchystacos.app": {
+      "brandId": "torchys.com",
+      "displayName": "Torchy's Tacos",
+      "category": "fast_food"
+    },
+    "com.toridoll.marugame.android": {
+      "brandId": "marugame-seimen.com",
+      "displayName": "Marugame Seimen",
+      "category": "fast_food"
+    },
+    "com.tortilla.app": {
+      "brandId": "tortilla.co.uk",
+      "displayName": "Tortilla",
+      "category": "fast_food"
+    },
+    "com.tropicalsmoothie.tropicalsmoothiecafe.android.app": {
+      "brandId": "tropicalsmoothiecafe.com",
+      "displayName": "Tropical Smoothie Cafe",
+      "category": "fast_food"
+    },
     "com.trycaviar.customer": {
       "brandId": "caviar.com",
       "displayName": "Caviar",
       "category": "delivery"
     },
+    "com.tryperdiem.franchise.planetsub": {
+      "brandId": "planetsub.com",
+      "displayName": "Planetsub",
+      "category": "fast_food"
+    },
+    "com.tryperdiem.franchise.shanesribshack": {
+      "brandId": "shanesribshack.com",
+      "displayName": "Shane's Rib Shack",
+      "category": "fast_food"
+    },
+    "com.tts.gueststar": {
+      "brandId": "churchs.com",
+      "displayName": "Church's Texas Chicken",
+      "category": "fast_food"
+    },
+    "com.twoergo.podifi.android.client.whitelabel.tobycarvery": {
+      "brandId": "tobycarvery.co.uk",
+      "displayName": "Tobycarvery",
+      "category": "fast_food"
+    },
     "com.ubercab.eats": {
       "brandId": "ubereats.com",
       "displayName": "Uber Eats",
       "category": "delivery"
+    },
+    "com.urbanpiper.uspizza": {
+      "brandId": "uspizza.in",
+      "displayName": "Uspizza .in",
+      "category": "fast_food"
+    },
+    "com.urbanplates.urbanplates": {
+      "brandId": "urbanplates.com",
+      "displayName": "Urbanplates",
+      "category": "fast_food"
+    },
+    "com.uspizza.user": {
+      "brandId": "uspizza.my",
+      "displayName": "Uspizza .my",
+      "category": "fast_food"
+    },
+    "com.ust.sheetzretapp": {
+      "brandId": "sheetz.com",
+      "displayName": "Sheetz",
+      "category": "fast_food"
+    },
+    "com.villageinn.app": {
+      "brandId": "villageinn.com",
+      "displayName": "Village Inn",
+      "category": "dessert"
+    },
+    "com.wagamama.androidapp": {
+      "brandId": "wagamama.com",
+      "displayName": "Wagamama",
+      "category": "fast_food"
+    },
+    "com.waybackburgers.waybackburgers.android.app": {
+      "brandId": "waybackburgers.com",
+      "displayName": "Wayback Burgers",
+      "category": "fast_food"
+    },
+    "com.webbytes.chatimecanada": {
+      "brandId": "chatime.com",
+      "displayName": "Chatime",
+      "category": "fast_food"
+    },
+    "com.webbytes.tealive": {
+      "brandId": "tealive.asia",
+      "displayName": "Tea Live.asia",
+      "category": "fast_food"
+    },
+    "com.webling.hungryjacks": {
+      "brandId": "hungryjacks.com.au",
+      "displayName": "Hungryjacks.com.au",
+      "category": "fast_food"
+    },
+    "com.weecreation.shop.sushiexpresssg": {
+      "brandId": "sushiexpress.com.sg",
+      "displayName": "Sushi Express.com.sg",
+      "category": "fast_food"
+    },
+    "com.wendys.nutritiontool": {
+      "brandId": "wendys.com",
+      "displayName": "Wendy's",
+      "category": "fast_food"
+    },
+    "com.wetzels.app": {
+      "brandId": "wetzels.com",
+      "displayName": "Wetzel's Pretzels",
+      "category": "dessert"
     },
     "com.wingstop.ordering": {
       "brandId": "wingstop.com",
@@ -159,9 +2739,114 @@
       "displayName": "Wolt",
       "category": "delivery"
     },
+    "com.woodyspizza.com": {
+      "brandId": "woodyspizza.com",
+      "displayName": "Woodys Pizza",
+      "category": "fast_food"
+    },
+    "com.wowbao.android.app": {
+      "brandId": "wowbao.com",
+      "displayName": "Wow Bao",
+      "category": "fast_food"
+    },
+    "com.wowprimeapp.app": {
+      "brandId": "wowprime.com",
+      "displayName": "Wowprime",
+      "category": "fast_food"
+    },
+    "com.yogen": {
+      "brandId": "yogenfruz.com",
+      "displayName": "Yogen Fruz",
+      "category": "dessert"
+    },
+    "com.yogurtland.production": {
+      "brandId": "yogurtland.com",
+      "displayName": "Yogurtland",
+      "category": "dessert"
+    },
+    "com.yoshinoya.android.yoshinoya_official": {
+      "brandId": "yoshinoya.com",
+      "displayName": "Yoshinoya",
+      "category": "fast_food"
+    },
+    "com.yoshinoya.app": {
+      "brandId": "yoshinoyaamerica.com",
+      "displayName": "Yoshinoya America",
+      "category": "fast_food"
+    },
+    "com.yoyowallet.caffenero": {
+      "brandId": "caffenero.com",
+      "displayName": "Caffenero",
+      "category": "fast_food"
+    },
+    "com.yum.colonelsclub": {
+      "brandId": "kfc.co.uk",
+      "displayName": "KFC",
+      "category": "fast_food"
+    },
     "com.yum.kfc": {
       "brandId": "kfc.com",
       "displayName": "KFC",
+      "category": "fast_food"
+    },
+    "com.yum.pizzahut": {
+      "brandId": "pizzahut.com",
+      "displayName": "Pizza Hut",
+      "category": "fast_food"
+    },
+    "com.zambrero.ordering.app": {
+      "brandId": "zambrero.com.au",
+      "displayName": "Zambrero.com.au",
+      "category": "fast_food"
+    },
+    "com.zarraffas.loyalty": {
+      "brandId": "zarraffas.com",
+      "displayName": "Zarraffas",
+      "category": "fast_food"
+    },
+    "com.zipscene.mobile.sns": {
+      "brandId": "steaknshake.com",
+      "displayName": "Steak 'n Shake",
+      "category": "fast_food"
+    },
+    "com.zoup.app": {
+      "brandId": "zoup.com",
+      "displayName": "Zoup!",
+      "category": "fast_food"
+    },
+    "de.aldiNord.android": {
+      "brandId": "aldi-nord.de",
+      "displayName": "Aldi Nord.de",
+      "category": "fast_food"
+    },
+    "de.apptiv.business.android.aldi_au": {
+      "brandId": "aldi.com.au",
+      "displayName": "Aldi.com.au",
+      "category": "fast_food"
+    },
+    "de.apptiv.business.android.aldi_de": {
+      "brandId": "aldi-sued.de",
+      "displayName": "Aldi Sued.de",
+      "category": "fast_food"
+    },
+    "de.apptiv.business.android.aldi_uk": {
+      "brandId": "aldi.co.uk",
+      "displayName": "Aldi",
+      "category": "fast_food"
+    },
+    "de.pizzamax": {
+      "brandId": "pizza-max.de",
+      "displayName": "Pizza Max.de",
+      "category": "fast_food"
+    },
+    "digital.rbi.timhortons": {
+      "brandId": "timhortons.com",
+      "displayName": "Tim Hortons",
+      "category": "coffee"
+    },
+    "ee.maxima": {
+      "brandId": "maxima.ee",
+      "displayName": "Maxima.ee",
       "category": "fast_food"
     },
     "ee.mtakso.client": {
@@ -169,10 +2854,520 @@
       "displayName": "Bolt",
       "category": "delivery"
     },
+    "eg.mcdonalds.delivery": {
+      "brandId": "mcdonalds.eg",
+      "displayName": "Mcdonalds.eg",
+      "category": "fast_food"
+    },
+    "es.mercadona.tienda": {
+      "brandId": "mercadona.es",
+      "displayName": "Mercadona.es",
+      "category": "fast_food"
+    },
+    "fi.hesburger.app": {
+      "brandId": "hesburger.com",
+      "displayName": "Hesburger",
+      "category": "fast_food"
+    },
+    "fi.kotipizza.app": {
+      "brandId": "kotipizza.fi",
+      "displayName": "Kotipizza .fi",
+      "category": "fast_food"
+    },
+    "fi.ruokakesko.k_ruoka": {
+      "brandId": "k-ruoka.fi",
+      "displayName": "K Ruoka.fi",
+      "category": "fast_food"
+    },
+    "fr.monoprix.ocommerce": {
+      "brandId": "monoprix.fr",
+      "displayName": "Monoprix.fr",
+      "category": "fast_food"
+    },
+    "fun.picks.picksapp.subway.android": {
+      "brandId": "subway.co.jp",
+      "displayName": "Subway Japan",
+      "category": "fast_food"
+    },
+    "gng.gonogomo.gonogo.mobileordering.com.shawarmapress": {
+      "brandId": "shawarmapress.com",
+      "displayName": "Shawarma Press",
+      "category": "fast_food"
+    },
+    "go.bolay.app": {
+      "brandId": "bolay.com",
+      "displayName": "Bolay",
+      "category": "fast_food"
+    },
+    "in.bbk.android": {
+      "brandId": "biryanibykilo.com",
+      "displayName": "Biryanibykilo",
+      "category": "fast_food"
+    },
+    "in.burgerking.android": {
+      "brandId": "burgerking.in",
+      "displayName": "Burger King.in",
+      "category": "fast_food"
+    },
+    "in.fudr.gopizza": {
+      "brandId": "gopizza.in",
+      "displayName": "Gopizza .in",
+      "category": "fast_food"
+    },
     "in.swiggy.android": {
       "brandId": "swiggy.com",
       "displayName": "Swiggy",
       "category": "delivery"
+    },
+    "io.appropo.gongcha": {
+      "brandId": "gongcha.co.nz",
+      "displayName": "Gongcha.co.nz",
+      "category": "fast_food"
+    },
+    "io.gosnappy.freshslice": {
+      "brandId": "freshslice.com",
+      "displayName": "Freshslice Pizza",
+      "category": "fast_food"
+    },
+    "io.ueat.countrystyle": {
+      "brandId": "countrystyle.com",
+      "displayName": "Country Style",
+      "category": "coffee"
+    },
+    "io.ueat.culturesapp": {
+      "brandId": "culturesrestaurants.com",
+      "displayName": "Cultures",
+      "category": "fast_food"
+    },
+    "io.ueat.extremepita": {
+      "brandId": "extremepita.com",
+      "displayName": "Extreme Pita",
+      "category": "fast_food"
+    },
+    "io.ueat.muchoburrito": {
+      "brandId": "muchoburrito.com",
+      "displayName": "Mucho Burrito",
+      "category": "fast_food"
+    },
+    "io.ueat.rotisseriescores": {
+      "brandId": "scores.ca",
+      "displayName": "Scores Rotisserie",
+      "category": "fast_food"
+    },
+    "io.ueat.tacotimecanada": {
+      "brandId": "tacotimecanada.com",
+      "displayName": "TacoTime Canada",
+      "category": "fast_food"
+    },
+    "io.ueat.villamadina": {
+      "brandId": "villa-madina.com",
+      "displayName": "Villa Madina",
+      "category": "fast_food"
+    },
+    "io.vmos.honestburgers": {
+      "brandId": "honestburgers.co.uk",
+      "displayName": "Honestburger S",
+      "category": "fast_food"
+    },
+    "it.carrefour.mycarrefour": {
+      "brandId": "carrefour.it",
+      "displayName": "Carrefour.it",
+      "category": "fast_food"
+    },
+    "itogo_beardpapaapp_android.itogo.jp.beardpapaapp_app": {
+      "brandId": "beardpapa.jp",
+      "displayName": "Beard Papa's Japan",
+      "category": "dessert"
+    },
+    "jp.co.botejyu.app": {
+      "brandId": "botejyu.co.jp",
+      "displayName": "Botejyu",
+      "category": "fast_food"
+    },
+    "jp.co.burgerkingjapan": {
+      "brandId": "burgerking.co.jp",
+      "displayName": "Burger King Japan",
+      "category": "fast_food"
+    },
+    "jp.co.chateraise.android.members": {
+      "brandId": "chateraise.co.jp",
+      "displayName": "Chateraise",
+      "category": "dessert"
+    },
+    "jp.co.firstkitchen.app": {
+      "brandId": "first-kitchen.co.jp",
+      "displayName": "First Kitchen",
+      "category": "fast_food"
+    },
+    "jp.co.freshnessburger.app.freshness": {
+      "brandId": "freshnessburger.co.jp",
+      "displayName": "Freshness Burger",
+      "category": "fast_food"
+    },
+    "jp.co.komeda.ua.android": {
+      "brandId": "komeda.co.jp",
+      "displayName": "Komeda's Coffee",
+      "category": "coffee"
+    },
+    "jp.co.kourakuen.app.kourakuen": {
+      "brandId": "kourakuen.co.jp",
+      "displayName": "Kourakuen",
+      "category": "fast_food"
+    },
+    "jp.co.mcdonalds.android": {
+      "brandId": "mcdonalds.co.jp",
+      "displayName": "McDonald's Japan",
+      "category": "fast_food"
+    },
+    "jp.co.mos.MosBurger": {
+      "brandId": "mos.jp",
+      "displayName": "MOS Burger",
+      "category": "fast_food"
+    },
+    "jp.co.rairaitei.app.apprairaitei": {
+      "brandId": "rairaitei.co.jp",
+      "displayName": "Rairaitei",
+      "category": "fast_food"
+    },
+    "jp.co.reins.gyukaku": {
+      "brandId": "gyukaku.ne.jp",
+      "displayName": "Gyu-Kaku",
+      "category": "fast_food"
+    },
+    "jp.co.torikizoku": {
+      "brandId": "torikizoku.co.jp",
+      "displayName": "Torikizoku",
+      "category": "fast_food"
+    },
+    "jp.co.unerry.BBCouponAppJoyfull": {
+      "brandId": "joyfull.co.jp",
+      "displayName": "Joyfull",
+      "category": "fast_food"
+    },
+    "jp.co.zensho.sukiyamoap": {
+      "brandId": "sukiya.jp",
+      "displayName": "Sukiya",
+      "category": "fast_food"
+    },
+    "jp.digitallab.santouka": {
+      "brandId": "santouka.co.jp",
+      "displayName": "Ramen Santouka",
+      "category": "fast_food"
+    },
+    "jp.dominos.android.orderapp": {
+      "brandId": "dominos.jp",
+      "displayName": "Domino's Japan",
+      "category": "fast_food"
+    },
+    "jp.gmoc.shoppass.genkisushi": {
+      "brandId": "genkisushi.co.jp",
+      "displayName": "Genki Sushi",
+      "category": "fast_food"
+    },
+    "jp.kappasushi.app": {
+      "brandId": "kappasushi.jp",
+      "displayName": "Kappa Sushi",
+      "category": "fast_food"
+    },
+    "jp.krispykreme.app": {
+      "brandId": "krispykreme.jp",
+      "displayName": "Krispy Kreme Japan",
+      "category": "dessert"
+    },
+    "jp.lotteria": {
+      "brandId": "lotteria.jp",
+      "displayName": "Lotteria",
+      "category": "fast_food"
+    },
+    "jp.osakaohsho.eatandapp": {
+      "brandId": "osaka-ohsho.com",
+      "displayName": "Osaka Ohsho",
+      "category": "fast_food"
+    },
+    "jp.pizzahut.aorder": {
+      "brandId": "pizzahut.jp",
+      "displayName": "Pizza Hut Japan",
+      "category": "fast_food"
+    },
+    "jp.royalhost.app2": {
+      "brandId": "royalhost.jp",
+      "displayName": "Royal Host",
+      "category": "fast_food"
+    },
+    "jp.sugakico.app": {
+      "brandId": "sugakico.co.jp",
+      "displayName": "Sugakiya",
+      "category": "fast_food"
+    },
+    "jp.yakiniku.king": {
+      "brandId": "yakiniku-king.jp",
+      "displayName": "Yakiniku King",
+      "category": "fast_food"
+    },
+    "kr.co.momstouch.moms": {
+      "brandId": "momstouch.com",
+      "displayName": "Momstouch",
+      "category": "fast_food"
+    },
+    "li.yapp.app04D251BC": {
+      "brandId": "hachiban.jp",
+      "displayName": "Hachiban",
+      "category": "fast_food"
+    },
+    "li.yapp.app750BCBF7": {
+      "brandId": "ootoya.com",
+      "displayName": "Ootoya",
+      "category": "fast_food"
+    },
+    "lt.iki.app": {
+      "brandId": "iki.lt",
+      "displayName": "Iki.lt",
+      "category": "fast_food"
+    },
+    "lt.maxima.aciu": {
+      "brandId": "maxima.lt",
+      "displayName": "Maxima.lt",
+      "category": "fast_food"
+    },
+    "lv.maxima": {
+      "brandId": "maxima.lv",
+      "displayName": "Maxima.lv",
+      "category": "fast_food"
+    },
+    "mk.restaurant": {
+      "brandId": "mkrestaurant.com",
+      "displayName": "Mkrestaurant",
+      "category": "fast_food"
+    },
+    "mobile.ezchow.com.flanigans": {
+      "brandId": "flanigans.net",
+      "displayName": "Flanigan's",
+      "category": "fast_food"
+    },
+    "nandos.android.app": {
+      "brandId": "nandos.co.uk",
+      "displayName": "Nandos",
+      "category": "fast_food"
+    },
+    "nl.dominos.android": {
+      "brandId": "dominos.nl",
+      "displayName": "Dominos.nl",
+      "category": "fast_food"
+    },
+    "no.norgesgruppen.apps.meny": {
+      "brandId": "meny.no",
+      "displayName": "Meny.no",
+      "category": "fast_food"
+    },
+    "no.peppes.mobile": {
+      "brandId": "peppes.no",
+      "displayName": "Peppes.no",
+      "category": "fast_food"
+    },
+    "nz.co.pizzahut": {
+      "brandId": "pizzahut.co.nz",
+      "displayName": "Pizza Hut.co.nz",
+      "category": "fast_food"
+    },
+    "nz.co.subcard.app": {
+      "brandId": "subway.co.nz",
+      "displayName": "Subway.co.nz",
+      "category": "fast_food"
+    },
+    "org.captaindsmobile": {
+      "brandId": "captainds.com",
+      "displayName": "Captain D's",
+      "category": "fast_food"
+    },
+    "org.pleinair.bojanglesmobile": {
+      "brandId": "bojangles.com",
+      "displayName": "Bojangles",
+      "category": "fast_food"
+    },
+    "pe.pardoschicken.pardosapp": {
+      "brandId": "pardoschicken.pe",
+      "displayName": "Pardoschicken .pe",
+      "category": "fast_food"
+    },
+    "ph.burgerking": {
+      "brandId": "burgerking.com.ph",
+      "displayName": "Burger King.com.ph",
+      "category": "fast_food"
+    },
+    "ph.com.greenwich.order": {
+      "brandId": "greenwich.com.ph",
+      "displayName": "Greenwich.com.ph",
+      "category": "fast_food"
+    },
+    "ph.mobext.mcdelivery": {
+      "brandId": "mcdonalds.com.ph",
+      "displayName": "Mcdonalds.com.ph",
+      "category": "fast_food"
+    },
+    "ph.shakeyspizza.shakeysapp": {
+      "brandId": "shakeyspizza.ph",
+      "displayName": "Shakeyspizza .ph",
+      "category": "fast_food"
+    },
+    "pl.carrefour.carrefourmobile": {
+      "brandId": "carrefour.pl",
+      "displayName": "Carrefour.pl",
+      "category": "fast_food"
+    },
+    "pl.itcraft.makroapp": {
+      "brandId": "makro.pl",
+      "displayName": "Makro.pl",
+      "category": "fast_food"
+    },
+    "pl.jmpolska.clos0.mojabiedronka": {
+      "brandId": "biedronka.pl",
+      "displayName": "Biedronka.pl",
+      "category": "fast_food"
+    },
+    "pl.m4x.sphinx_customer_android_mobile_app_v2": {
+      "brandId": "sfinks.pl",
+      "displayName": "Sfinks.pl",
+      "category": "fast_food"
+    },
+    "pl.northfood.northfish": {
+      "brandId": "northfish.pl",
+      "displayName": "Northfish.pl",
+      "category": "fast_food"
+    },
+    "place.order.red.ribbon": {
+      "brandId": "redribbon.ph",
+      "displayName": "Redribbon.ph",
+      "category": "fast_food"
+    },
+    "pt.auchan.ecommerce": {
+      "brandId": "auchan.pt",
+      "displayName": "Auchan.pt",
+      "category": "fast_food"
+    },
+    "ru.devcluster.sushiwok": {
+      "brandId": "sushiwok.ru",
+      "displayName": "Sushi Wok.ru",
+      "category": "fast_food"
+    },
+    "ru.kfc.kfc_delivery": {
+      "brandId": "rostics.ru",
+      "displayName": "Rostics.ru",
+      "category": "fast_food"
+    },
+    "ru.lenta.lentochka": {
+      "brandId": "lenta.com",
+      "displayName": "Lenta",
+      "category": "fast_food"
+    },
+    "ru.tander.magnit": {
+      "brandId": "magnit.ru",
+      "displayName": "Magnit.ru",
+      "category": "fast_food"
+    },
+    "ruby.tuesday.app": {
+      "brandId": "rubytuesday.com",
+      "displayName": "Ruby Tuesday",
+      "category": "fast_food"
+    },
+    "se.caspeco.bstl.waynes": {
+      "brandId": "waynescoffee.se",
+      "displayName": "Waynescoffee .se",
+      "category": "coffee"
+    },
+    "se.ica.handla": {
+      "brandId": "ica.se",
+      "displayName": "Ica.se",
+      "category": "fast_food"
+    },
+    "se.max.android.locator": {
+      "brandId": "max.se",
+      "displayName": "Max.se",
+      "category": "fast_food"
+    },
+    "sg.co.akindo_sushiro.sushiroapp": {
+      "brandId": "sushiro.com.sg",
+      "displayName": "Sushi Ro.com.sg",
+      "category": "fast_food"
+    },
+    "sg.com.mcdelivery": {
+      "brandId": "mcdonalds.com.sg",
+      "displayName": "Mcdonalds.com.sg",
+      "category": "fast_food"
+    },
+    "tw.co.akindo_sushiro.sushiroapp": {
+      "brandId": "sushiro.com.tw",
+      "displayName": "Sushi Ro.com.tw",
+      "category": "fast_food"
+    },
+    "tw.com.mcddaily": {
+      "brandId": "mcdonalds.com.tw",
+      "displayName": "Mcdonalds.com.tw",
+      "category": "fast_food"
+    },
+    "tw.com.pizzahut.webapp": {
+      "brandId": "pizzahut.com.tw",
+      "displayName": "Pizza Hut.com.tw",
+      "category": "fast_food"
+    },
+    "tw.net.pic.m.openpoint": {
+      "brandId": "7-11.com.tw",
+      "displayName": "7 11.com.tw",
+      "category": "fast_food"
+    },
+    "uk.co.bagelfactory": {
+      "brandId": "bagelfactory.co.uk",
+      "displayName": "Bagelfactory",
+      "category": "fast_food"
+    },
+    "uk.co.club.costa.costa": {
+      "brandId": "costa.co.uk",
+      "displayName": "Costa",
+      "category": "fast_food"
+    },
+    "uk.co.dominos.android": {
+      "brandId": "dominos.co.uk",
+      "displayName": "Dominos",
+      "category": "fast_food"
+    },
+    "uk.co.gailsbread.order.vmos": {
+      "brandId": "gailsbread.co.uk",
+      "displayName": "Gailsbread",
+      "category": "dessert"
+    },
+    "uk.co.papajohns.ppjqg": {
+      "brandId": "papajohns.co.uk",
+      "displayName": "Papajohns",
+      "category": "fast_food"
+    },
+    "vn.mcdonalds.delivery": {
+      "brandId": "mcdonalds.vn",
+      "displayName": "Mcdonalds.vn",
+      "category": "fast_food"
+    },
+    "vn.sevensystem.rewards": {
+      "brandId": "7-eleven.vn",
+      "displayName": "7 Eleven.vn",
+      "category": "fast_food"
+    },
+    "wb.mobile.cx.client.droid": {
+      "brandId": "whataburger.com",
+      "displayName": "Whataburger",
+      "category": "fast_food"
+    },
+    "whitecastle.ordering": {
+      "brandId": "whitecastle.com",
+      "displayName": "White Castle",
+      "category": "fast_food"
+    },
+    "wingsnob.appfront.ai": {
+      "brandId": "wingsnob.com",
+      "displayName": "Wing Snob",
+      "category": "fast_food"
+    },
+    "za.co.wigroup.vidacafe": {
+      "brandId": "vidaecaffe.com",
+      "displayName": "Vidaecaffe",
+      "category": "fast_food"
     }
   }
 }
