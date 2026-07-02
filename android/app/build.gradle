@@ -4,28 +4,68 @@ plugins {
 }
 
 // versionName is injected by tools/build-android.js from the canonical
-// manifest.json so all platform outputs share one version. Defaults are only
-// used for a bare `gradlew` invocation.
+// manifest.json so all platform outputs share one version. versionCode is
+// injected per Play release and must strictly increase (see
+// PLAY_STORE_RELEASE_CHECKLIST.md). Defaults are only used for a bare `gradlew`.
 def fitshieldVersion = project.findProperty('fitshieldVersionName') ?: '0.52'
+def fitshieldVersionCode = ((project.findProperty('fitshieldVersionCode') ?: '1') as String) as Integer
+
+// Release signing is loaded from keystore.properties (gitignored) OR -P / env
+// properties, so no keystore, password, or upload key is ever committed. If none
+// is provided the release build is left UNSIGNED (fine for a local "does it
+// assemble" check); a Play upload requires the properties. See
+// PLAY_STORE_RELEASE_CHECKLIST.md for the exact keys.
+def keystorePropsFile = rootProject.file('keystore.properties')
+def keystoreProps = new Properties()
+if (keystorePropsFile.exists()) {
+    keystoreProps.load(new FileInputStream(keystorePropsFile))
+}
+def relStoreFile = keystoreProps['storeFile'] ?: project.findProperty('FITSHIELD_STORE_FILE') ?: System.getenv('FITSHIELD_STORE_FILE')
+def relStorePassword = keystoreProps['storePassword'] ?: project.findProperty('FITSHIELD_STORE_PASSWORD') ?: System.getenv('FITSHIELD_STORE_PASSWORD')
+def relKeyAlias = keystoreProps['keyAlias'] ?: project.findProperty('FITSHIELD_KEY_ALIAS') ?: System.getenv('FITSHIELD_KEY_ALIAS')
+def relKeyPassword = keystoreProps['keyPassword'] ?: project.findProperty('FITSHIELD_KEY_PASSWORD') ?: System.getenv('FITSHIELD_KEY_PASSWORD')
+def hasReleaseSigning = relStoreFile != null
 
 android {
     namespace 'com.usha.fitshield'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId 'com.usha.fitshield'
         minSdk 26
-        targetSdk 34
-        versionCode 1
+        targetSdk 35
+        versionCode fitshieldVersionCode
         versionName fitshieldVersion
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
+    signingConfigs {
+        release {
+            if (hasReleaseSigning) {
+                storeFile file(relStoreFile)
+                storePassword relStorePassword
+                keyAlias relKeyAlias
+                keyPassword relKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // No minification/obfuscation — source stays readable (project ethos).
+            // No minification/obfuscation — the source stays readable (project
+            // ethos: FitShield is auditable, no hidden behavior).
             minifyEnabled false
+            // Signed only when a real keystore is supplied (never a committed
+            // secret); otherwise the release AAB is left unsigned.
+            signingConfig hasReleaseSigning ? signingConfigs.release : null
         }
+    }
+
+    buildFeatures {
+        // BuildConfig.DEBUG gates dev-only behavior (WebView remote debugging and
+        // verbose console / per-connection logging) so none of it ships in a
+        // release build. See MainActivity / BlockActivity / Tun2Filter.
+        buildConfig true
     }
 
     compileOptions {

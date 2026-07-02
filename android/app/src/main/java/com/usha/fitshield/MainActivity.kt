@@ -48,10 +48,9 @@ class MainActivity : AppCompatActivity() {
             .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(this))
             .build()
 
-        // Preview build: allow chrome://inspect remote debugging + surface JS
-        // console/asset errors to logcat (tag "FitShieldWeb"), so the WebView UI
-        // is debuggable instead of failing silently.
-        WebView.setWebContentsDebuggingEnabled(true)
+        // Debug builds only: allow chrome://inspect remote WebView debugging so
+        // the UI is inspectable during development. Never enabled in release.
+        if (BuildConfig.DEBUG) WebView.setWebContentsDebuggingEnabled(true)
 
         webView = WebView(this)
         webView.setBackgroundColor(Color.TRANSPARENT)   // let the app gradient show behind the bars
@@ -67,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
         webView.webChromeClient = object : WebChromeClient() {
             override fun onConsoleMessage(m: ConsoleMessage): Boolean {
-                Log.d("FitShieldWeb", "${m.messageLevel()} ${m.message()} @${m.sourceId()}:${m.lineNumber()}")
+                if (BuildConfig.DEBUG) Log.d("FitShieldWeb", "${m.messageLevel()} ${m.message()} @${m.sourceId()}:${m.lineNumber()}")
                 return true
             }
         }

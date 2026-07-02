@@ -296,7 +296,9 @@ class Tun2Filter(
         private fun sendFin() { send(FLAG_ACK or FLAG_FIN, withMss = false, payload = null); sndNxt += 1 }
         private fun sendRst() {
             if (closed) return
-            Log.d(TAG, "RST $key (sndNxt=$sndNxt rcvNxt=$rcvNxt)")
+            // Debug builds only: a blocked connection is a filtering decision, and
+            // FitShield never writes those (or hostnames) to logcat in release.
+            if (BuildConfig.DEBUG) Log.d(TAG, "RST $key (sndNxt=$sndNxt rcvNxt=$rcvNxt)")
             send(FLAG_RST or FLAG_ACK, withMss = false, payload = null)
         }
         private fun ackOnly() { send(FLAG_ACK, withMss = false, payload = null) }

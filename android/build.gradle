@@ -1,7 +1,7 @@
-// Root Gradle file for the FitShield Android adapter.
-// PREVIEW: this scaffolding builds an APK when the Android SDK/Gradle are
-// available. It has not been built or run on a device in this repository.
+// Root Gradle file for the FitShield Android adapter. Builds a debug APK or a
+// release AAB when the Android SDK (API 35) + Gradle are available. Verified
+// on-device (Samsung, Android 14). AGP 8.6 + Gradle 8.7 target compileSdk 35.
 plugins {
-    id 'com.android.application' version '8.5.2' apply false
+    id 'com.android.application' version '8.6.0' apply false
     id 'org.jetbrains.kotlin.android' version '1.9.24' apply false
 }

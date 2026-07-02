@@ -46,7 +46,7 @@ class BlockActivity : AppCompatActivity() {
             .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(this))
             .build()
 
-        WebView.setWebContentsDebuggingEnabled(true)
+        if (BuildConfig.DEBUG) WebView.setWebContentsDebuggingEnabled(true)
         webView = WebView(this)
         webView.setBackgroundColor(Color.TRANSPARENT)   // let the app gradient show behind the bars
         setContentView(webView)
@@ -58,7 +58,7 @@ class BlockActivity : AppCompatActivity() {
         }
         webView.webChromeClient = object : WebChromeClient() {
             override fun onConsoleMessage(m: ConsoleMessage): Boolean {
-                Log.d("FitShieldWeb", "${m.messageLevel()} ${m.message()} @${m.sourceId()}:${m.lineNumber()}")
+                if (BuildConfig.DEBUG) Log.d("FitShieldWeb", "${m.messageLevel()} ${m.message()} @${m.sourceId()}:${m.lineNumber()}")
                 return true
             }
         }

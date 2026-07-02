@@ -202,7 +202,46 @@ function androidAudit() {
     }
   }
 
+  // 5. Play-release readiness: API level + no dev-only flags in a release build.
+  if (fs.existsSync(APP_GRADLE)) {
+    const gradle = fs.readFileSync(APP_GRADLE, "utf8");
+    const compileSdk = Number((gradle.match(/compileSdk\s+(\d+)/) || [])[1] || 0);
+    const targetSdk = Number((gradle.match(/targetSdk\s+(\d+)/) || [])[1] || 0);
+    if (compileSdk < 35) reporter.fail(`compileSdk must be >= 35 for Google Play (found ${compileSdk || "none"})`);
+    if (targetSdk < 35) reporter.fail(`targetSdk must be >= 35 for Google Play (found ${targetSdk || "none"})`);
+    if (compileSdk >= 35 && targetSdk >= 35) reporter.note(`Play API level: compileSdk ${compileSdk}, targetSdk ${targetSdk}`);
+  }
+  // WebView remote debugging (setWebContentsDebuggingEnabled) must be gated to
+  // debug builds — never unconditional, or it ships in release.
+  kotlinSources().forEach((file) => {
+    fs.readFileSync(file, "utf8").split(/\r?\n/).forEach((line) => {
+      if (/setWebContentsDebuggingEnabled\s*\(\s*true\s*\)/.test(line) && !/BuildConfig\.DEBUG/.test(line)) {
+        reporter.fail(`${path.basename(file)}: setWebContentsDebuggingEnabled(true) must be guarded by BuildConfig.DEBUG`);
+      }
+    });
+  });
+  // The manifest must never force debuggable on (AGP sets it per build type).
+  if (fs.existsSync(MANIFEST) && /android:debuggable\s*=\s*"true"/.test(fs.readFileSync(MANIFEST, "utf8"))) {
+    reporter.fail("manifest forces android:debuggable=\"true\" — must not ship in a release build");
+  }
+  reporter.note("release readiness: API 35, WebView debugging + console/RST logging gated to debug, not force-debuggable");
+
   return reporter;
+}
+
+// All Kotlin sources under the app's main source set.
+function kotlinSources() {
+  const root = path.join(ANDROID_DIR, "app", "src", "main", "java");
+  const out = [];
+  if (!fs.existsSync(root)) return out;
+  (function walk(dir) {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (e.isFile() && p.endsWith(".kt")) out.push(p);
+    }
+  })(root);
+  return out;
 }
 
 // Compare a canonical dir against a bundled copy. Returns the count of

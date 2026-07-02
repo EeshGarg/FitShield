@@ -12,3 +12,10 @@ android/app/build/
 android/local.properties
 android/.idea/
 *.apk
+*.aab
+
+# Release signing — NEVER commit keystores or their passwords.
+keystore.properties
+android/keystore.properties
+*.jks
+*.keystore
