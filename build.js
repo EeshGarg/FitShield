@@ -1,6 +1,13 @@
 #!/usr/bin/env node
 /**
- * FitShield packager — builds the store-ready zips from this single source tree.
+ * FitShield packager — builds the store-ready zips from the split source tree:
+ *   extension/  browser-extension source (manifest, UI, shims, page scripts)
+ *   engine/     shared canonical engine + data (blocklist.js, blocklists/, data/)
+ *   changelog.json (repo root)
+ * The staged package is FLAT — identical to the historical zip layout
+ * (manifest.json, all js/html, blocklists/, data/, _locales/, icons/ at the zip
+ * root) — because runtime code fetches those relative paths and the store
+ * listings expect them. Only the repo layout changed; the artifact did not.
  *
  * Why a build step at all: Manifest V3 background handling differs by engine.
  *   - Chrome / Brave / Edge (Chromium) only support `background.service_worker`
@@ -8,9 +15,10 @@
  *     if `scripts` is present.
  *   - Firefox only supports `background.scripts` (an event page); it has no
  *     background service worker in release.
- * So the committed manifest.json is the clean Chromium form (service_worker
- * only). This script derives the Firefox manifest by adding `background.scripts`
- * — letting the same code run on both with no console warning on either.
+ * So the committed extension/manifest.json is the clean Chromium form
+ * (service_worker only). This script derives the Firefox manifest by adding
+ * `background.scripts` — letting the same code run on both with no console
+ * warning on either.
  *
  *   node build.js            -> dist/ staging + the packaged zips in dist/:
  *                               dist/FitShield-<version>-firefox.zip (Firefox/AMO)
@@ -27,33 +35,43 @@ const path = require("path");
 const zlib = require("zlib");
 
 const ROOT = __dirname;
+const EXTENSION_DIR = path.join(ROOT, "extension");
+const ENGINE_DIR = path.join(ROOT, "engine");
 const DIST = path.join(ROOT, "dist");
 
-// Extension runtime files only — dev/build/docs assets are deliberately excluded.
-const ROOT_FILES = [
-  "ambient.js",
-  "background.js",
-  "backup.js",
-  "blocklist.js",
-  "browser-shim.js",
-  "currency.js",
-  "i18n.js",
-  "languages.js",
-  "popup.js",
-  "recipes.js",
-  "settings.js",
-  "warning.js",
-  "welcome.js",
-  "whats-new.js",
-  "popup.html",
-  "settings.html",
-  "warning.html",
-  "welcome.html",
-  "whats-new.html",
-  "changelog.json"
+// Extension runtime files only — dev/build/docs assets are deliberately
+// excluded. Each entry is [sourceDir, name]; every file lands at the STAGE
+// ROOT under `name`, preserving the flat packaged layout.
+const FILES = [
+  [EXTENSION_DIR, "ambient.js"],
+  [EXTENSION_DIR, "background.js"],
+  [EXTENSION_DIR, "backup.js"],
+  [ENGINE_DIR, "blocklist.js"],
+  [EXTENSION_DIR, "browser-shim.js"],
+  [EXTENSION_DIR, "currency.js"],
+  [EXTENSION_DIR, "i18n.js"],
+  [EXTENSION_DIR, "languages.js"],
+  [EXTENSION_DIR, "popup.js"],
+  [EXTENSION_DIR, "recipes.js"],
+  [EXTENSION_DIR, "settings.js"],
+  [EXTENSION_DIR, "warning.js"],
+  [EXTENSION_DIR, "welcome.js"],
+  [EXTENSION_DIR, "whats-new.js"],
+  [EXTENSION_DIR, "popup.html"],
+  [EXTENSION_DIR, "settings.html"],
+  [EXTENSION_DIR, "warning.html"],
+  [EXTENSION_DIR, "welcome.html"],
+  [EXTENSION_DIR, "whats-new.html"],
+  [ROOT, "changelog.json"]
 ];
 
-const DIRS = ["_locales", "blocklists", "data", "icons"];
+// [sourceDir, name] — each dir lands at the stage root under `name`.
+const DIRS = [
+  [EXTENSION_DIR, "_locales"],
+  [ENGINE_DIR, "blocklists"],
+  [ENGINE_DIR, "data"],
+  [EXTENSION_DIR, "icons"]
+];
 
 function rmrf(target) {
   fs.rmSync(target, { recursive: true, force: true });
@@ -62,18 +80,18 @@ function rmrf(target) {
 function copyInto(stageDir) {
   fs.mkdirSync(stageDir, { recursive: true });
 
-  for (const file of ROOT_FILES) {
-    const src = path.join(ROOT, file);
+  for (const [srcDir, file] of FILES) {
+    const src = path.join(srcDir, file);
     if (!fs.existsSync(src)) {
-      throw new Error(`Missing required file: ${file}`);
+      throw new Error(`Missing required file: ${path.relative(ROOT, src)}`);
     }
     fs.copyFileSync(src, path.join(stageDir, file));
   }
 
-  for (const dir of DIRS) {
-    const src = path.join(ROOT, dir);
+  for (const [srcDir, dir] of DIRS) {
+    const src = path.join(srcDir, dir);
     if (!fs.existsSync(src)) {
-      throw new Error(`Missing required directory: ${dir}`);
+      throw new Error(`Missing required directory: ${path.relative(ROOT, src)}`);
     }
     fs.cpSync(src, path.join(stageDir, dir), { recursive: true });
   }
@@ -217,7 +235,7 @@ async function main() {
     process.exit(1);
   }
 
-  const base = JSON.parse(fs.readFileSync(path.join(ROOT, "manifest.json"), "utf8"));
+  const base = JSON.parse(fs.readFileSync(path.join(EXTENSION_DIR, "manifest.json"), "utf8"));
   const version = base.version;
 
   // Clean only the browser stages/zips — leave any dist/android (built by the

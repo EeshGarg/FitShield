@@ -1,10 +1,18 @@
 /**
  * FitShield platform shim — ANDROID (native APK / WebView).
  *
- * Implements the SAME `fitshield.*` contract as browser-shim.js, but delegates
- * to a native bridge object (`Android`, an @JavascriptInterface) backed by
- * SharedPreferences + the FitShieldVpnService. This keeps the web UI identical
- * across platforms; only this shim and the native bridge are Android-specific.
+ * Implements the SAME `fitshield.*` contract as extension/browser-shim.js, but
+ * delegates to a native bridge object (`Android`, an @JavascriptInterface)
+ * backed by SharedPreferences + the FitShieldVpnService. This keeps the web UI
+ * identical across platforms; only this shim and the native bridge are
+ * Android-specific.
+ *
+ * LOCATION: this file lives in android/web-src/ (not extension/) because it is
+ * Android-authored and consumed ONLY by the Android WebView bundle — it never
+ * ships in the browser packages. tools/build-android.js copies it into
+ * android/app/src/main/assets/web/, and tools/android-audit.js fails the build
+ * if that bundled copy ever drifts from this canonical source — the same
+ * no-fork/drift guarantee as the files reused from extension/.
  *
  * The native `Android` bridge (see WebAppBridge.kt) exposes synchronous methods;
  * this shim wraps them to match the Promise-based fitshield.storage contract.

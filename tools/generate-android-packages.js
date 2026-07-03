@@ -2,8 +2,9 @@
 "use strict";
 /**
  * Compile the Android app-package dataset from the hand-authored app files
- * (data/android/*-apps.json) enriched with brand metadata from the CANONICAL
- * blocklists (blocklists/*.json), into data/generated/android-packages.json.
+ * (engine/data/android/*-apps.json) enriched with brand metadata from the
+ * CANONICAL blocklists (engine/blocklists/*.json), into
+ * engine/data/generated/android-packages.json.
  *
  * The app files are intentionally minimal: they map a brand (by its canonical
  * source domain, `brandId`) to Android package IDs. ALL display metadata —
@@ -23,8 +24,8 @@ const path = require("path");
 const crypto = require("crypto");
 const load = require("./lib/load");
 
-const ANDROID_DIR = path.join(load.ROOT, "data", "android");
-const GENERATED_DIR = path.join(load.ROOT, "data", "generated");
+const ANDROID_DIR = path.join(load.DATA_DIR, "android");
+const GENERATED_DIR = path.join(load.DATA_DIR, "generated");
 const OUTPUT_PATH = path.join(GENERATED_DIR, "android-packages.json");
 
 // Each app file + the app-grouping category it defaults its entries to.
@@ -155,11 +156,11 @@ function derive() {
   return {
     _generated: true,
     _doNotEdit:
-      "GENERATED from data/android/*-apps.json + blocklists/*.json by tools/generate-android-packages.js. " +
+      "GENERATED from engine/data/android/*-apps.json + engine/blocklists/*.json by tools/generate-android-packages.js. " +
       "Run `npm run generate:android-packages` to regenerate. Do NOT hand-edit — the validator fails the build on drift.",
     schema: 1,
     generator: "tools/generate-android-packages.js",
-    source: ["data/android/delivery-apps.json", "data/android/fast-food-apps.json", "blocklists/*.json"],
+    source: ["engine/data/android/delivery-apps.json", "engine/data/android/fast-food-apps.json", "engine/blocklists/*.json"],
     categories: APP_CATEGORIES,
     counts: {
       brands: brandList.length,
@@ -182,15 +183,15 @@ function generate() {
 
 // The SLIM subset bundled into the APK. The AccessibilityService only needs the
 // packageId → brand map, so the ~2.5k-brand ported record (with domains,
-// countries, tags) stays in data/generated and is NOT shipped — only the small
-// package map is. Keeps the APK lean while the full port is preserved in-repo.
+// countries, tags) stays in engine/data/generated and is NOT shipped — only the
+// small package map is. Keeps the APK lean while the full port is preserved in-repo.
 function bundle() {
   const full = derive();
   return {
     _generated: true,
     _doNotEdit:
       "GENERATED (bundled subset) by tools/generate-android-packages.js. Only the packageId → brand map is shipped; " +
-      "the full ported record lives in data/generated/android-packages.json. Do NOT hand-edit.",
+      "the full ported record lives in engine/data/generated/android-packages.json. Do NOT hand-edit.",
     schema: full.schema,
     generator: full.generator,
     counts: full.counts,

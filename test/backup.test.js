@@ -5,7 +5,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 
-const backup = require("../backup.js");
+const backup = require("../extension/backup.js");
 const { parseBackup, extractSettings } = backup;
 
 test("extractSettings accepts the wrapped backup shape", () => {
@@ -39,7 +39,7 @@ test("extractSettings falls back to a bare object when .settings is not an objec
 });
 
 test("changelog.json is valid and lists the current version", () => {
-  const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "manifest.json"), "utf8"));
+  const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "extension", "manifest.json"), "utf8"));
   const changelog = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "changelog.json"), "utf8"));
 
   assert.ok(Array.isArray(changelog.entries) && changelog.entries.length > 0);

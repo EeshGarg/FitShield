@@ -5,8 +5,8 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 
-// _locales lives at the extension root.
-const localesDir = path.join(__dirname, "..", "_locales");
+// _locales lives in the browser-extension source tree (packaged at the zip root).
+const localesDir = path.join(__dirname, "..", "extension", "_locales");
 const enKeys = Object.keys(JSON.parse(fs.readFileSync(path.join(localesDir, "en", "messages.json"), "utf8"))).sort();
 const dirs = fs.readdirSync(localesDir).filter((d) => fs.existsSync(path.join(localesDir, d, "messages.json")));
 

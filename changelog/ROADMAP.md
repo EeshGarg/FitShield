@@ -31,7 +31,7 @@ Themes under consideration (subject to change):
   declarations (Data safety, VpnService, AccessibilityService, foreground
   services), listing assets (screenshots, feature graphic), internal → closed →
   staged production rollout per
-  [PLAY_STORE_RELEASE_CHECKLIST.md](../PLAY_STORE_RELEASE_CHECKLIST.md).
+  [PLAY_STORE_RELEASE_CHECKLIST.md](../docs/PLAY_STORE_RELEASE_CHECKLIST.md).
 - **Android hardening.** IPv6 support in the connection filter (instead of
   drop), broader device/OEM testing, instrumented-test runs in CI.
 - **App-blocking data growth.** Human review of the `needs_review` tail;

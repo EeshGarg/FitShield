@@ -29,19 +29,23 @@ const WEB_DIR = path.join(ANDROID_DIR, "app", "src", "main", "assets", "web");
 
 // Canonical web files reused verbatim in the Android WebView, copied (not
 // hand-maintained) so they can never fork. tools/android-audit.js fails on drift.
-// index.html / app.js are Android-authored entry files and stay in WEB_DIR.
+// Sources: extension/ (shared web UI modules), engine/ (canonical data), and
+// android/web-src/ (the Android-authored shim). Destinations keep the historic
+// flat bundle layout inside assets/web/. index.html / app.js are
+// Android-authored entry files and stay in WEB_DIR.
+// KEEP IN SYNC with the WEB_COPIES list in tools/android-audit.js.
 const WEB_COPIES = [
-  ["android-shim.js", "android-shim.js"],
-  ["i18n.js", "i18n.js"],
-  ["languages.js", "languages.js"],
-  ["currency.js", "currency.js"],
-  ["ambient.js", "ambient.js"],
-  ["recipes.js", "recipes.js"],
-  [path.join("icons", "icon-128.png"), "icon-128.png"],
-  [path.join("data", "recipes.json"), path.join("data", "recipes.json")]
+  [path.join("android", "web-src", "android-shim.js"), "android-shim.js"],
+  [path.join("extension", "i18n.js"), "i18n.js"],
+  [path.join("extension", "languages.js"), "languages.js"],
+  [path.join("extension", "currency.js"), "currency.js"],
+  [path.join("extension", "ambient.js"), "ambient.js"],
+  [path.join("extension", "recipes.js"), "recipes.js"],
+  [path.join("extension", "icons", "icon-128.png"), "icon-128.png"],
+  [path.join("engine", "data", "recipes.json"), path.join("data", "recipes.json")]
 ];
 // Whole directories copied recursively (all 83 locales for real localization).
-const WEB_DIR_COPIES = [["_locales", "_locales"]];
+const WEB_DIR_COPIES = [[path.join("extension", "_locales"), "_locales"]];
 
 function bundleWeb() {
   WEB_COPIES.forEach(([src, dest]) => {

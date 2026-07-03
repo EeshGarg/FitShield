@@ -33,11 +33,14 @@ https://chromewebstore.google.com/detail/oedcadhhfcgggacgljhnochcjdibfjed?utm_so
 
 This is the easiest way to install FitShield and keeps it updated automatically.
 
-FitShield builds from a single source tree. A tiny, dependency-free script
-(`node build.js`, requires Node.js 18+) packages it for each engine into `dist/`,
-because Manifest V3 background handling differs: Chromium uses a service worker,
-while Firefox uses an event page (`background.scripts`). Build once, then load the
-matching `dist/` folder.
+FitShield builds from a single source tree, split into `engine/` (the shared
+blocking engine + datasets, also reused by the Android app) and `extension/`
+(the browser-extension source). A tiny, dependency-free script (`node build.js`,
+requires Node.js 18+) flattens them and packages the result for each engine into
+`dist/`, because Manifest V3 background handling differs: Chromium uses a
+service worker, while Firefox uses an event page (`background.scripts`). Build
+once, then load the matching `dist/` folder — the repository root itself is not
+a loadable unpacked extension.
 
 **Manual installation — Chrome / Brave / Chromium (for developers):**
 
@@ -47,7 +50,7 @@ matching `dist/` folder.
 4. Enable **Developer mode** (top-right toggle).
 5. Click **Load unpacked** and select the **`dist/chrome`** folder.
 
-(For a quick test you can load the repository root directly; Chromium will work but show a harmless "Unrecognized manifest key `browser_specific_settings`" warning, since the root manifest is the shared base for the Firefox build.)
+(The repository root is not loadable directly — the source is split between `extension/` and `engine/`. Always run `node build.js` and load `dist/chrome`.)
 
 **Manual installation — Firefox:**
 
@@ -56,7 +59,7 @@ matching `dist/` folder.
 3. Open `about:debugging#/runtime/this-firefox` in Firefox.
 4. Click **Load Temporary Add-on…** and select **`dist/firefox/manifest.json`**.
 
-Requires Firefox 140 or newer (142+ on Android), the versions that support the add-on's data-collection declaration. Load `dist/firefox` rather than the repository root — the root manifest is the Chromium form (service worker only) and won't start Firefox's background script. For a signed `.xpi`, submit `dist/FitShield-<version>-firefox.zip` to [AMO](https://addons.mozilla.org/) (or use [`web-ext`](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/) against `dist/firefox`).
+Requires Firefox 140 or newer (142+ on Android), the versions that support the add-on's data-collection declaration. Load `dist/firefox` rather than the repository root — the repo is not a loadable extension, and the committed `extension/manifest.json` is the Chromium form (service worker only), which won't start Firefox's background script. For a signed `.xpi`, submit `dist/FitShield-<version>-firefox.zip` to [AMO](https://addons.mozilla.org/) (or use [`web-ext`](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/) against `dist/firefox`).
 
 
 # Development & Docs

@@ -6,7 +6,7 @@ plugins {
 // versionName is injected by tools/build-android.js from the canonical
 // manifest.json so all platform outputs share one version. versionCode is
 // injected per Play release and must strictly increase (see
-// PLAY_STORE_RELEASE_CHECKLIST.md). Defaults are only used for a bare `gradlew`.
+// docs/PLAY_STORE_RELEASE_CHECKLIST.md). Defaults are only used for a bare `gradlew`.
 def fitshieldVersion = project.findProperty('fitshieldVersionName') ?: '0.52'
 def fitshieldVersionCode = ((project.findProperty('fitshieldVersionCode') ?: '1') as String) as Integer
 
@@ -14,7 +14,7 @@ def fitshieldVersionCode = ((project.findProperty('fitshieldVersionCode') ?: '1'
 // properties, so no keystore, password, or upload key is ever committed. If none
 // is provided the release build is left UNSIGNED (fine for a local "does it
 // assemble" check); a Play upload requires the properties. See
-// PLAY_STORE_RELEASE_CHECKLIST.md for the exact keys.
+// docs/PLAY_STORE_RELEASE_CHECKLIST.md for the exact keys.
 def keystorePropsFile = rootProject.file('keystore.properties')
 def keystoreProps = new Properties()
 if (keystorePropsFile.exists()) {

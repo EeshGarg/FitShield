@@ -6,12 +6,12 @@
  * Fails on:
  *  - malformed app file / schema violation (bad brandId or packageId shape,
  *    unknown category, wrong _schema)
- *  - orphaned entry: a brandId with no matching brand in blocklists/*.json
+ *  - orphaned entry: a brandId with no matching brand in engine/blocklists/*.json
  *  - duplicate brandId (across all app files)
  *  - duplicate packageId (across all app files / brands)
  *  - packageStatus rule violation (empty packageIds require "needs_review", and
  *    "needs_review" requires empty packageIds; "active" requires ≥1 package)
- *  - non-deterministic / stale generation: data/generated/android-packages.json
+ *  - non-deterministic / stale generation: engine/data/generated/android-packages.json
  *    differs from a fresh generation (run npm run generate:android-packages)
  *  - stale bundled APK asset: android/app/src/main/assets/android-packages.json
  *    differs from a fresh bundle() (run npm run build:android)
@@ -96,7 +96,7 @@ function androidPackagesAudit() {
 
       // Orphan / missing source brand.
       if (!index.has(app.brandId)) {
-        reporter.fail(`${where}: orphaned brandId "${app.brandId}" — not an enabled brand in blocklists/*.json`);
+        reporter.fail(`${where}: orphaned brandId "${app.brandId}" — not an enabled brand in engine/blocklists/*.json`);
       }
 
       // Category (override) must be known.

@@ -17,9 +17,9 @@ engine**. Browsers and Android are **platform adapters** on top of that shared
 core — not separate products and not forks:
 
 ```
-                 canonical data  (blocklists/*.json)
+                 canonical data  (engine/blocklists/*.json)
                           │
-              separated engine  (blocklist.js)
+              separated engine  (engine/blocklist.js)
                           │
         ┌─────────────────┼──────────────────────────┐
         ▼                 ▼                           ▼
@@ -45,12 +45,13 @@ FitShield reaches Android **two** ways, both riding the same engine/data:
 
 ## 1. Shared engine & canonical data (no fork)
 
-- **Canonical data:** `blocklists/fast-food.json`, `blocklists/delivery.json`.
-- **Separated engine:** `blocklist.js` — dataset loading + the matching
+- **Canonical data:** `engine/blocklists/fast-food.json`,
+  `engine/blocklists/delivery.json`.
+- **Separated engine:** `engine/blocklist.js` — dataset loading + the matching
   semantics (`normalizeHostname`, `domainMatches`, `getEntryDomains`,
   `getEnabledEntries`, `isBlockedHost`). It runs unchanged in the browser
   (service worker / event page) **and** in Node (tools/tests).
-- **Browser adapter:** `background.js` turns the engine's output into
+- **Browser adapter:** `extension/background.js` turns the engine's output into
   `declarativeNetRequest` redirect rules.
 - **Android adapter:** the native app consumes a **generated** host list (below)
   and applies the engine's exact match rule.
@@ -59,7 +60,7 @@ Because the APK is native (Kotlin) it cannot execute the JavaScript engine
 directly. The canonical pipeline bridges this **without** duplicating logic:
 
 ```
-blocklists/*.json ──▶ blocklist.js (engine) ──▶ tools/generate-android-rules.js
+engine/blocklists/*.json ──▶ engine/blocklist.js ──▶ tools/generate-android-rules.js
                                                         │
                                                         ▼
                               android/app/src/main/assets/fitshield-rules.json
@@ -74,8 +75,8 @@ blocklists/*.json ──▶ blocklist.js (engine) ──▶ tools/generate-andro
   `getEntryDomains`) over the **canonical data** and emits a deterministic,
   hash-stamped asset of every blockable apex/alias host (2,585 hosts at 0.52).
 - `RuleEngine.kt` loads **only** that generated asset and implements the same
-  contract as `blocklist.js` `domainMatches`: a host is blocked iff it equals an
-  apex or is a subdomain of one. No second semantics.
+  contract as `engine/blocklist.js` `domainMatches`: a host is blocked iff it
+  equals an apex or is a subdomain of one. No second semantics.
 - **Rule consistency is enforced, not hoped for:** `tools/android-audit.js`
   re-derives the host set from the engine and fails if the committed asset's
   hash/host-list differs. A generated `semantics-fixture.json` (also engine-
@@ -93,6 +94,8 @@ Repository layout (`android/`, tracked; build output gitignored):
 ```
 android/
   settings.gradle, build.gradle, gradle.properties
+  web-src/android-shim.js           (Android-authored `fitshield.*` shim — the
+                                     canonical source copied into assets/web/)
   app/build.gradle
   app/src/main/AndroidManifest.xml
   app/src/main/assets/fitshield-rules.json          (GENERATED — SNI/host rules)
@@ -162,9 +165,10 @@ migrating off `chrome.*` onto a platform-agnostic **`fitshield.*`** API:
 - **WebView serving:** assets load from `https://appassets.androidplatform.net/`
   via `WebViewAssetLoader`, so `fetch()` of the bundled `_locales` works under a
   normal https origin.
-- **No fork:** the reused web files (`i18n.js`, `currency.js`, the `_locales`
-  strings, `android-shim.js`) are **copied from canonical** into the APK at build
-  time (`tools/build-android.js` → `bundleWeb`), and `tools/android-audit.js`
+- **No fork:** the reused web files (`extension/i18n.js`, `extension/currency.js`,
+  the `extension/_locales` strings, `android/web-src/android-shim.js`) are
+  **copied from canonical** into the APK at build time
+  (`tools/build-android.js` → `bundleWeb`), and `tools/android-audit.js`
   fails the build if any copy drifts. (Note: `androidResources.ignoreAssetsPattern`
   is overridden so `_locales` — an underscore dir aapt ignores by default — ships.)
 
@@ -393,13 +397,13 @@ run together; neither depends on the other.
 **Data pipeline (one source of truth, no duplication):**
 
 ```
-blocklists/*.json  (canonical brands: name, domain, type, countries, …)
+engine/blocklists/*.json  (canonical brands: name, domain, type, countries, …)
         +
-data/android/delivery-apps.json + fast-food-apps.json
+engine/data/android/delivery-apps.json + fast-food-apps.json
         (minimal: brandId → packageIds only; NO duplicated metadata)
         │  tools/generate-android-packages.js  (deterministic)
         ▼
-data/generated/android-packages.json  ── bundled ──▶  assets/android-packages.json
+engine/data/generated/android-packages.json ── bundled ──▶ assets/android-packages.json
         │                                                       │
         │ tools/validate-android-packages.js                    │ PackageBlocklist.kt
         ▼ (in validate-all: schema, orphans, dup brand/package, ▼ (packageId → brand,
@@ -416,8 +420,8 @@ data/generated/android-packages.json  ── bundled ──▶  assets/android-p
 - **Additive port:** `tools/port-android-apps.js` (`npm run port:android-apps`)
   mirrors EVERY enabled brand from the blocklists into the app files (one entry
   per brand), preserving confirmed package IDs across runs. The full ported
-  record (all ~2.5k brands + metadata) lives in `data/generated/`; only the small
-  package map is bundled into the APK.
+  record (all ~2.5k brands + metadata) lives in `engine/data/generated/`; only
+  the small package map is bundled into the APK.
 - **Categories** are derived from each brand's authoritative source `category`
   (coffee / dessert / grocery / convenience / meal_kit, else the file default —
   delivery / fast_food), never guessed from specialties. They drive the
@@ -601,8 +605,9 @@ The Firefox-for-Android extension uses only WebExtension permissions
       BUILD.txt
       FitShield-<version>-debug.apk   (only when built with the SDK/Gradle)
   ```
-- **Version:** all outputs use the single `manifest.json` version (`build-android`
-  injects `-PfitshieldVersionName`), so the three platforms never diverge.
+- **Version:** all outputs use the single `extension/manifest.json` version
+  (`build-android` injects `-PfitshieldVersionName`), so the three platforms
+  never diverge.
 - **Debug signing only** — uses Android's default debug keystore. No release
   signing/keystores are configured or committed.
 

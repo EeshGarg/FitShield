@@ -3,8 +3,8 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 
-const currency = require("../currency.js");
-const languageOptions = require("../languages.js");
+const currency = require("../extension/currency.js");
+const languageOptions = require("../extension/languages.js");
 
 // Every display language (except the "" system entry) must resolve to a default
 // currency that actually exists in the cost table, so the picker and the

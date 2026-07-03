@@ -7,11 +7,17 @@
 const fs = require("fs");
 const path = require("path");
 
+// Repo layout: the shared engine (blocklist.js + blocklists/ + data/) lives in
+// engine/, the browser-extension source (manifest, UI, _locales, icons) in
+// extension/. build.js flattens both back into the packaged zip root.
 const ROOT = path.join(__dirname, "..", "..");
-const BLOCKLISTS_DIR = path.join(ROOT, "blocklists");
-const LOCALES_DIR = path.join(ROOT, "_locales");
+const ENGINE_DIR = path.join(ROOT, "engine");
+const EXTENSION_DIR = path.join(ROOT, "extension");
+const BLOCKLISTS_DIR = path.join(ENGINE_DIR, "blocklists");
+const DATA_DIR = path.join(ENGINE_DIR, "data");
+const LOCALES_DIR = path.join(EXTENSION_DIR, "_locales");
 const CHANGELOG_DIR = path.join(ROOT, "changelog");
-const ICONS_DIR = path.join(ROOT, "icons");
+const ICONS_DIR = path.join(EXTENSION_DIR, "icons");
 const BRANDING_DIR = path.join(ROOT, "Branding");
 
 const DATASET_FILES = ["fast-food.json", "delivery.json"];
@@ -61,7 +67,7 @@ function loadLocale(code) {
 }
 
 function manifest() {
-  return readJson(path.join(ROOT, "manifest.json"));
+  return readJson(path.join(EXTENSION_DIR, "manifest.json"));
 }
 
 function pkg() {
@@ -140,7 +146,8 @@ const COUNTRY_REGION = {
 };
 
 module.exports = {
-  ROOT, BLOCKLISTS_DIR, LOCALES_DIR, CHANGELOG_DIR, ICONS_DIR, BRANDING_DIR,
+  ROOT, ENGINE_DIR, EXTENSION_DIR, BLOCKLISTS_DIR, DATA_DIR,
+  LOCALES_DIR, CHANGELOG_DIR, ICONS_DIR, BRANDING_DIR,
   DATASET_FILES,
   readJson, loadDataset, loadDatasets, localeDirs, loadLocale, manifest, pkg, exists,
   isApexDomain, ISO_COUNTRIES, KNOWN_REGIONS, COUNTRY_REGION

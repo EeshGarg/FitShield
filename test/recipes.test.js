@@ -5,10 +5,10 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 
-const recipesModule = require("../recipes.js");
+const recipesModule = require("../extension/recipes.js");
 const { loadRecipes, selectRecipes } = recipesModule;
 
-const data = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "data", "recipes.json"), "utf8"));
+const data = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "engine", "data", "recipes.json"), "utf8"));
 const RECIPES = data.recipes;
 
 test("recipes.json has a valid recipes array", () => {

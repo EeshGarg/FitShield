@@ -2,12 +2,13 @@
 "use strict";
 /**
  * Port EVERY eligible brand from the canonical blocklists into the Android app
- * datasets (data/android/*-apps.json). This is ADDITIVE: the blocklists stay the
- * authoritative source of truth and are never modified — this only mirrors their
- * brand list into the Android structure, adding Android package fields on top.
+ * datasets (engine/data/android/*-apps.json). This is ADDITIVE: the blocklists
+ * stay the authoritative source of truth and are never modified — this only
+ * mirrors their brand list into the Android structure, adding Android package
+ * fields on top.
  *
- *   blocklists/delivery.json   → data/android/delivery-apps.json   (defaultCategory delivery)
- *   blocklists/fast-food.json  → data/android/fast-food-apps.json  (defaultCategory fast_food)
+ *   engine/blocklists/delivery.json   → engine/data/android/delivery-apps.json   (defaultCategory delivery)
+ *   engine/blocklists/fast-food.json  → engine/data/android/fast-food-apps.json  (defaultCategory fast_food)
  *
  * Rules:
  *   - one Android app entry per enabled brand (keyed by its canonical domain =
@@ -27,7 +28,7 @@ const fs = require("fs");
 const path = require("path");
 const load = require("./lib/load");
 
-const ANDROID_DIR = path.join(load.ROOT, "data", "android");
+const ANDROID_DIR = path.join(load.DATA_DIR, "android");
 const FILES = [
   { blocklist: "delivery.json", app: "delivery-apps.json", category: "delivery" },
   { blocklist: "fast-food.json", app: "fast-food-apps.json", category: "fast_food" }
@@ -84,7 +85,7 @@ function port() {
     const body =
       "{\n" +
       `  "_schema": "fitshield-android-apps/1",\n` +
-      `  "_note": "PORTED from blocklists/${blocklist} by tools/port-android-apps.js (additive; the blocklist stays authoritative). One entry per brand; brandId is the brand's canonical domain and all display metadata is generated from the blocklists. Confirmed packageIds are preserved on re-run; unknown ones stay needs_review — never guess a package ID.",\n` +
+      `  "_note": "PORTED from engine/blocklists/${blocklist} by tools/port-android-apps.js (additive; the blocklist stays authoritative). One entry per brand; brandId is the brand's canonical domain and all display metadata is generated from the blocklists. Confirmed packageIds are preserved on re-run; unknown ones stay needs_review — never guess a package ID.",\n` +
       `  "defaultCategory": "${category}",\n` +
       `  "apps": [\n${lines.join(",\n")}\n  ]\n}\n`;
 

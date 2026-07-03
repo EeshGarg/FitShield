@@ -8,6 +8,21 @@ const vm = require("node:vm");
 
 const ROOT = path.join(__dirname, "..");
 
+// The sandboxed worker requests PACKAGED (zip-root-relative) paths — e.g.
+// "blocklist.js", "blocklists/delivery.json" — exactly as the shipped extension
+// does. In the repo those sources are split between extension/ (browser source)
+// and engine/ (shared engine + data); build.js flattens them back together.
+// Resolve a packaged path to its source location.
+function srcPath(rel) {
+  for (const dir of ["extension", "engine"]) {
+    const candidate = path.join(ROOT, dir, rel);
+    if (fs.existsSync(candidate)) {
+      return candidate;
+    }
+  }
+  return path.join(ROOT, rel); // root files (e.g. changelog.json)
+}
+
 // Load background.js into an isolated sandbox with a stubbed chrome + fetch so
 // the real blocking pipeline (JSON load -> rule catalog -> dynamic rules) can be
 // exercised without a browser.
@@ -50,7 +65,7 @@ function loadBackground() {
   const fetchImpl = async (url) => {
     fetchCount += 1;
     const rel = url.replace("chrome-extension://test/", "");
-    const json = JSON.parse(fs.readFileSync(path.join(ROOT, rel), "utf8"));
+    const json = JSON.parse(fs.readFileSync(srcPath(rel), "utf8"));
     return { ok: true, status: 200, json: async () => json };
   };
 
@@ -60,9 +75,9 @@ function loadBackground() {
 
   const context = vm.createContext(sandbox);
   sandbox.importScripts = (file) =>
-    vm.runInContext(fs.readFileSync(path.join(ROOT, file), "utf8"), context, { filename: file });
+    vm.runInContext(fs.readFileSync(srcPath(file), "utf8"), context, { filename: file });
 
-  vm.runInContext(fs.readFileSync(path.join(ROOT, "background.js"), "utf8"), context, { filename: "background.js" });
+  vm.runInContext(fs.readFileSync(srcPath("background.js"), "utf8"), context, { filename: "background.js" });
 
   return {
     context,

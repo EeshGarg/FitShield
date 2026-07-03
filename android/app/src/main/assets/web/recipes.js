@@ -32,9 +32,17 @@
       return response.json();
     }
 
+    // Node.js fallback (tests / tooling). In the packaged extension data/ sits
+    // next to this file (zip root); in the repo the catalog lives in
+    // engine/data/ while this file is extension/recipes.js — try both.
     const fs = require("fs");
     const path = require("path");
-    return JSON.parse(fs.readFileSync(path.join(__dirname, RECIPE_FILE), "utf8"));
+    const candidates = [
+      path.join(__dirname, RECIPE_FILE),
+      path.join(__dirname, "..", "engine", RECIPE_FILE)
+    ];
+    const file = candidates.find((p) => fs.existsSync(p)) || candidates[0];
+    return JSON.parse(fs.readFileSync(file, "utf8"));
   }
 
   // Load and cache the recipe catalog. Reads only the `recipes` array.

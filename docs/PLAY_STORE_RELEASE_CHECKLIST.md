@@ -2,7 +2,7 @@
 
 _Android app: `com.usha.fitshield`. This file is the operational checklist for
 cutting a Play Store build. Keep it in sync with `android/app/build.gradle`,
-`AndroidManifest.xml`, [docs/ANDROID.md](docs/ANDROID.md), and
+`AndroidManifest.xml`, [ANDROID.md](ANDROID.md), and
 [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md)._
 
 Status legend: ✅ done in-repo · ⚙️ requires the release operator (keystore /
@@ -160,7 +160,7 @@ Requirements: Android SDK **API 35** platform + build-tools 35, Gradle 8.7, JDK 
 
 ## Known non-blockers / follow-ups
 - IPv6-only networks: the connection filter currently drops IPv6 (forces IPv4).
-  Documented in [docs/ANDROID.md](docs/ANDROID.md) §7.
+  Documented in [ANDROID.md](ANDROID.md) §7.
 - Reboot VPN auto-restart is intentionally manual (no `RECEIVE_BOOT_COMPLETED`).
 - App-blocking package coverage grows over time (see the dataset in
-  `data/android/` — 870+ verified mappings, the rest `needs_review`).
+  `engine/data/android/` — 870+ verified mappings, the rest `needs_review`).

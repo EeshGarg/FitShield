@@ -13,16 +13,25 @@ const path = require("path");
 const { Reporter, runCli } = require("./lib/report");
 const load = require("./lib/load");
 
-// Critical runtime files that must ship (mirrors build.js ROOT_FILES/DIRS at a
+// Critical runtime files that must ship (mirrors build.js FILES/DIRS at a
 // high level — the entrypoints whose absence would break the extension).
+// Paths are repo-relative source locations; build.js flattens extension/* and
+// engine/* into the packaged zip root.
 const REQUIRED_FILES = [
-  "manifest.json", "background.js", "blocklist.js", "popup.html", "popup.js",
-  "settings.html", "settings.js", "warning.html", "warning.js",
-  "welcome.html", "welcome.js", "whats-new.html", "whats-new.js",
-  "i18n.js", "currency.js", "recipes.js", "backup.js", "browser-shim.js", "changelog.json"
+  "extension/manifest.json", "extension/background.js", "engine/blocklist.js",
+  "extension/popup.html", "extension/popup.js",
+  "extension/settings.html", "extension/settings.js", "extension/warning.html", "extension/warning.js",
+  "extension/welcome.html", "extension/welcome.js", "extension/whats-new.html", "extension/whats-new.js",
+  "extension/i18n.js", "extension/currency.js", "extension/recipes.js", "extension/backup.js",
+  "extension/browser-shim.js", "changelog.json"
 ];
-const REQUIRED_DIRS = ["_locales", "_locales/en", "blocklists", "data", "icons"];
-const REQUIRED_DATA = ["blocklists/fast-food.json", "blocklists/delivery.json", "data/recipes.json", "_locales/en/messages.json"];
+const REQUIRED_DIRS = [
+  "extension/_locales", "extension/_locales/en", "engine/blocklists", "engine/data", "extension/icons"
+];
+const REQUIRED_DATA = [
+  "engine/blocklists/fast-food.json", "engine/blocklists/delivery.json",
+  "engine/data/recipes.json", "extension/_locales/en/messages.json"
+];
 
 function assetsCheck() {
   const reporter = new Reporter("Build assets");
@@ -47,8 +56,10 @@ function assetsCheck() {
   if (manifest.action && manifest.action.default_icon) {
     Object.values(manifest.action.default_icon).forEach((p) => iconPaths.add(p));
   }
+  // Manifest icon paths are package-relative (zip root); the sources live in
+  // extension/, which build.js flattens into the stage root.
   iconPaths.forEach((p) => {
-    if (!load.exists(p)) {
+    if (!fs.existsSync(path.join(load.EXTENSION_DIR, p))) {
       reporter.fail(`manifest references missing icon "${p}"`);
     }
   });

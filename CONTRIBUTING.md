@@ -18,18 +18,26 @@ tools in [`tools/`](tools/).
 
 ## Project layout
 
+The repo separates the shared engine from the browser-extension source; the
+packaged zip stays flat (`build.js` composes it from `extension/*` +
+`engine/blocklists` + `engine/data` + the root `changelog.json`). The repository
+root is **not** a loadable unpacked extension — build first, then load
+`dist/chrome` or `dist/firefox` (see below).
+
 | Path | What it is |
 | --- | --- |
-| `manifest.json` | Chromium MV3 manifest (Firefox manifest is derived by `build.js`) |
-| `background.js` | Service worker: rules, bypasses, stats recording |
-| `blocklist.js` | Shared dataset loader + matching helpers (browser + Node) |
-| `blocklists/*.json` | Curated datasets (`fast-food.json`, `delivery.json`) |
-| `data/recipes.json` | Local recipe catalog for the block screen |
-| `popup / settings / warning / welcome / whats-new` | UI surfaces (`.html` + `.js`) |
-| `currency.js`, `i18n.js`, `languages.js`, `recipes.js`, `backup.js` | Shared modules |
-| `_locales/<code>/messages.json` | Translations (83 locales, English is the source) |
+| `engine/blocklist.js` | Shared dataset loader + matching helpers (browser + Node + Android) |
+| `engine/blocklists/*.json` | Curated datasets (`fast-food.json`, `delivery.json`) |
+| `engine/data/recipes.json` | Local recipe catalog for the block screen |
+| `engine/data/android/` | Android app-package mappings (brandId → packageIds) |
+| `extension/manifest.json` | Chromium MV3 manifest (Firefox manifest is derived by `build.js`) |
+| `extension/background.js` | Service worker: rules, bypasses, stats recording |
+| `extension/popup / settings / warning / welcome / whats-new` | UI surfaces (`.html` + `.js`) |
+| `extension/currency.js`, `i18n.js`, `languages.js`, `recipes.js`, `backup.js` | Shared web modules |
+| `extension/_locales/<code>/messages.json` | Translations (83 locales, English is the source) |
+| `android/` | Native Android adapter (see `docs/ANDROID.md`); `android/web-src/` holds the Android-authored shim |
 | `changelog/` | Canonical release history + `ROADMAP.md` |
-| `tools/` | Developer validators (not shipped) |
+| `tools/` | Developer validators + generators (not shipped) |
 | `test/` | `node --test` suites |
 
 ## Common tasks
@@ -46,8 +54,8 @@ Run a single audit with `npm run validate:datasets`, `:aliases`, `:countries`,
 
 ### Add a brand
 
-Edit `blocklists/fast-food.json` or `blocklists/delivery.json`. Add an entry to
-`entries`:
+Edit `engine/blocklists/fast-food.json` or `engine/blocklists/delivery.json`.
+Add an entry to `entries`:
 
 ```json
 {
@@ -89,7 +97,7 @@ clean, title-cased version of the id, so localization is optional but nice.
 
 ### Add a recipe
 
-Edit `data/recipes.json`:
+Edit `engine/data/recipes.json`:
 
 ```json
 {
@@ -110,10 +118,10 @@ brand's category. `npm test` covers recipe selection.
 
 ### Add a locale
 
-1. Create `_locales/<code>/messages.json` with **exactly** the same keys as
-   `_locales/en/messages.json` (English is the source of truth).
-2. Add `<code>` to `SUPPORTED_LOCALES` in [`i18n.js`](i18n.js) so it can be
-   picked at runtime.
+1. Create `extension/_locales/<code>/messages.json` with **exactly** the same
+   keys as `extension/_locales/en/messages.json` (English is the source of truth).
+2. Add `<code>` to `SUPPORTED_LOCALES` in [`extension/i18n.js`](extension/i18n.js)
+   so it can be picked at runtime.
 3. Keep positional placeholders (`$1`, `$2`) identical to English and never use
    `$name$` placeholders.
 4. `npm run validate:locales` enforces all of this.
@@ -124,17 +132,24 @@ brand's category. `npm test` covers recipe selection.
 npm run build        # validates, then writes dist/ + the store zips
 ```
 
-`build.js` validates first and **aborts on any error**. It produces:
+`build.js` validates first and **aborts on any error**. It flattens
+`extension/*`, `engine/blocklists`, `engine/data`, and the root `changelog.json`
+into the same package layout as always (manifest + js/html at the zip root),
+then produces:
 
-- `FitShield-<version>.zip` — Firefox / AMO (manifest gains `background.scripts`)
-- `FitShield-<version>-chrome.zip` — Chrome Web Store (committed manifest as-is)
+- `FitShield-<version>-firefox.zip` — Firefox / AMO (manifest gains `background.scripts`)
+- `FitShield-<version>-chrome.zip` — Chrome Web Store (committed manifest, gecko keys stripped)
+
+To develop against a real browser, load the **staged folder**, not the repo
+root: `node build.js`, then *Load unpacked* → `dist/chrome` (Chromium) or *Load
+Temporary Add-on* → `dist/firefox/manifest.json` (Firefox).
 
 > Always build with `node build.js`. Don't zip by hand — the built-in writer
 > forces forward-slash archive paths, which Windows' `Compress-Archive` breaks.
 
 ### Cut a release
 
-1. Bump the version in `manifest.json` and `package.json` (keep them in sync).
+1. Bump the version in `extension/manifest.json` and `package.json` (keep them in sync).
 2. Add an entry to `changelog.json` (the in-extension *What's New*).
 3. Add `changelog/<version>.md` and update `changelog/ROADMAP.md`.
 4. `npm test && npm run validate && npm run build`.
