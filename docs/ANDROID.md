@@ -73,7 +73,7 @@ engine/blocklists/*.json ──▶ engine/blocklist.js ──▶ tools/generate-
 
 - `tools/generate-android-rules.js` calls the **engine** (`getEnabledEntries` +
   `getEntryDomains`) over the **canonical data** and emits a deterministic,
-  hash-stamped asset of every blockable apex/alias host (2,585 hosts at 0.52).
+  hash-stamped asset of every blockable apex/alias host (2,575 hosts at 0.54).
 - `RuleEngine.kt` loads **only** that generated asset and implements the same
   contract as `engine/blocklist.js` `domainMatches`: a host is blocked iff it
   equals an apex or is a subdomain of one. No second semantics.
@@ -415,6 +415,12 @@ engine/data/generated/android-packages.json ── bundled ──▶ assets/andr
   All display metadata is generated from the blocklists — never re-authored.
 - Package IDs that are not confidently known use `packageStatus:"needs_review"`
   with empty `packageIds` (**never guessed**); the validator enforces this.
+  Research resolves each brand to a verified terminal status: `active`
+  (confirmed packages), `no_app` (verified no official Android app), or
+  `shared_app` (the brand's official app is another blocked brand's package —
+  e.g. a platform's country storefront — recorded once on the owning brand so
+  every package ID maps to exactly one brand). As of 0.54: 1,545 packages
+  across 1,474 brands; 777 no_app; 283 shared_app; 38 needs_review.
 - Designed to scale to thousands of packages: add entries to the app files and
   rebuild; everything flows through the generated dataset (no hardcoded checks).
 - **Additive port:** `tools/port-android-apps.js` (`npm run port:android-apps`)

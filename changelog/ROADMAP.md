@@ -4,38 +4,41 @@ Living documentation of where FitShield is and where it's heading. This file is
 meant to evolve with the project — update it whenever direction changes. It
 avoids speculative promises; "Future ideas" are candidates, not commitments.
 
-_Last updated: 2026-07-02 (0.53)_
+_Last updated: 2026-07-03 (0.54)_
 
 ## Current version
 
-**0.53 — The native Android app.** See [0.53.md](0.53.md). Highlights:
+**0.54 — Play-ready, with complete app coverage.** See [0.54.md](0.54.md).
+Highlights:
 
-- Native Android app (preview): the extension's web UI verbatim in a WebView
-  behind the `fitshield.*` platform abstraction — one product, two platforms.
-- System-wide website blocking via a local TLS-SNI/HTTP-Host connection filter
-  (works with strict Private DNS / NextDNS; no DNS interception, no tunneling).
-- Opt-in native app blocking (AccessibilityService, foreground package name
-  only) with a full-parity block screen; **870 verified** app→package mappings
-  generated from canonical data (never guessed; the rest stay `needs_review`).
-- Play Store groundwork: API 35, signed AAB pipeline, debug-gated logging
-  (audit-enforced), and the launch document pack (release checklist,
-  privacy/data-safety notes, store listing draft).
-- Extension: block page honors reduced-motion; both block screens link to
-  fitshield.net (localized).
+- **Complete app-coverage research:** every tracked brand now has a verified
+  Android app status — **1,545 verified packages covering 1,474 brands**, 777
+  brands verified `no_app`, 283 `shared_app` platform storefronts, only 38
+  still `needs_review` (never guessed; every ID confirmed on a live store
+  listing).
+- **Accuracy cleanup:** 10 corrupted blocklist imports removed, including
+  registry namespaces (`com.ao`, `uk.com`, …) that could have over-blocked
+  entire country domain spaces. Fast-food dataset v1.2; 2,575 generated hosts.
+- **Repo separation:** shared engine in `engine/`, browser extension in
+  `extension/`, Android app in `android/` — shipped packages byte-identical in
+  structure; the root is no longer a loadable unpacked extension (build first).
+- **First Play-upload build:** signed AAB at `versionName 0.54` /
+  `versionCode 1`, with the launch paperwork finalized under `docs/`.
 
-## Next planned version (0.54)
+## Next planned version (0.55)
 
 Themes under consideration (subject to change):
 
-- **Google Play launch.** Upload keystore + Play App Signing, Console
-  declarations (Data safety, VpnService, AccessibilityService, foreground
-  services), listing assets (screenshots, feature graphic), internal → closed →
-  staged production rollout per
+- **Google Play rollout.** Console-side execution: account + declarations
+  (Data safety, VpnService, AccessibilityService, foreground services),
+  listing assets (screenshots, feature graphic), internal → closed → staged
+  production rollout per
   [PLAY_STORE_RELEASE_CHECKLIST.md](../docs/PLAY_STORE_RELEASE_CHECKLIST.md).
 - **Android hardening.** IPv6 support in the connection filter (instead of
   drop), broader device/OEM testing, instrumented-test runs in CI.
-- **App-blocking data growth.** Human review of the `needs_review` tail;
-  per-brand confirmations beyond the 870 verified mappings.
+- **Data quality pass.** Resolve the 38-brand `needs_review` tail; audit the
+  wrong-country metadata cluster the 0.54 sweep flagged (many entries tagged
+  `["JP"]` that are not Japanese); periodic re-verification of delisted apps.
 - **Verify Firefox for Android** on-device (extension DNR path).
 
 ## Earlier milestone detail (0.53 Android steps)
@@ -72,7 +75,7 @@ Themes under consideration (subject to change):
     native FitShield intervention screen (`BlockActivity`) when a blocked
     delivery/fast-food *app* is opened — the counterpart of the VPN, which covers
     websites/network traffic. The app→brand mapping is a new **generated dataset**
-    (`data/android/*-apps.json` + blocklists → `data/generated/android-packages.json`,
+    (`engine/data/android/*-apps.json` + blocklists → `engine/data/generated/android-packages.json`,
     deterministic, validated: no orphans/dupes, packageStatus rules, drift) — no
     duplicated metadata, built to scale to thousands of packages. The block screen
     reuses the shared design system (`fitshield.css`), i18n, stats, recipes and
@@ -120,6 +123,11 @@ sprawl.
 
 ## Completed milestones
 
+- **0.54** — Play-ready release: complete app-coverage research (1,545
+  verified packages / 1,474 brands; verified `no_app` and `shared_app`
+  terminal statuses; 38-brand tail), 10 corrupted blocklist imports removed,
+  engine/extension/android repo separation, first signed Play-upload build
+  (0.54 ↔ versionCode 1).
 - **0.53** — Native Android app (preview): WebView UI on the `fitshield.*`
   abstraction, TLS-SNI/HTTP-Host connection filter (Private-DNS-safe), opt-in
   AccessibilityService app blocking with a parity block screen, 870 verified

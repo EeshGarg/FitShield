@@ -162,5 +162,7 @@ Requirements: Android SDK **API 35** platform + build-tools 35, Gradle 8.7, JDK 
 - IPv6-only networks: the connection filter currently drops IPv6 (forces IPv4).
   Documented in [ANDROID.md](ANDROID.md) §7.
 - Reboot VPN auto-restart is intentionally manual (no `RECEIVE_BOOT_COMPLETED`).
-- App-blocking package coverage grows over time (see the dataset in
-  `engine/data/android/` — 870+ verified mappings, the rest `needs_review`).
+- App-blocking package coverage is fully researched as of 0.54 (see the
+  dataset in `engine/data/android/` — 1,545 verified packages covering 1,474
+  brands; 777 brands verified `no_app`; 283 `shared_app` platform storefronts;
+  only 38 still `needs_review`).

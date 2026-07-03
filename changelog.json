@@ -2,6 +2,18 @@
   "_note": "Local changelog rendered by whats-new.html. No network fetch — privacy-first. The full, canonical release history lives in changelog/*.md.",
   "entries": [
     {
+      "version": "0.54",
+      "date": "2026-07-03",
+      "title": "Play-ready, with complete app coverage",
+      "changes": [
+        "Every tracked brand now has a researched, verified Android app status. All 1,280 remaining unconfirmed brands were checked against their official store listings — 243 new verified app mappings (now 1,545 packages covering 1,474 brands), 777 brands confirmed to have no official app, and 283 country storefronts of platform apps (Glovo, PedidosYa, Deliveroo, Wolt and friends) recorded on the brand that owns the app. Nothing is ever guessed.",
+        "Removed 10 corrupted blocklist entries the research exposed — including non-food sites that never belonged (a game publisher, a newspaper, a blood-donation service) and registry namespaces that could have over-blocked every site in an entire country domain space. FitShield should block precisely, and now it does.",
+        "The Android app is Play-Store-ready: this release builds the first signed bundle intended for upload, with the launch paperwork (release checklist, privacy and data-safety notes, store listing) finalized in the repository.",
+        "Under the hood, the project was reorganized into a clean engine / extension / android layout so contributors can find things — with shipped packages verified byte-for-byte identical in structure, so nothing changes for you.",
+        "Datasets bumped: fast-food v1.2 (2,111 entries), 2,575 blockable hosts generated for Android from the same canonical data the extension uses."
+      ]
+    },
+    {
       "version": "0.53",
       "date": "2026-07-02",
       "title": "FitShield goes native on Android",
