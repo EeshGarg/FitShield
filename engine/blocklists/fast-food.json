@@ -15,8 +15,8 @@
       "enabled": "Whether this entry should be active by default."
     }
   },
-  "_version": "1.1",
-  "_lastUpdated": "2026-06-29",
+  "_version": "1.2",
+  "_lastUpdated": "2026-07-03",
   "entries": [
     {
       "domain": "mcdonalds.com",
@@ -6239,24 +6239,6 @@
         "sandwiches",
         "burgers",
         "salads"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "fishwindow.com",
-      "name": "Fishwindow",
-      "type": "fast_food",
-      "countries": [
-        "US"
-      ],
-      "regions": [
-        "NA"
-      ],
-      "category": "seafood",
-      "specialties": [
-        "fish",
-        "shrimp",
-        "fries"
       ],
       "enabled": true
     },
@@ -19143,24 +19125,6 @@
       "enabled": true
     },
     {
-      "domain": "bbqnation.com",
-      "name": "Bbqnation",
-      "type": "fast_food",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "fast_casual",
-      "specialties": [
-        "rice dishes",
-        "set meals",
-        "sides"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "bbqplaza.com",
       "name": "Bbqplaza",
       "type": "fast_food",
@@ -21375,24 +21339,6 @@
       "enabled": true
     },
     {
-      "domain": "cheesecakelabs.com",
-      "name": "Cheesecake Labs",
-      "type": "fast_food",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "dessert",
-      "specialties": [
-        "cakes",
-        "sweets",
-        "desserts"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "cheesiano.com",
       "name": "Cheesiano",
       "type": "fast_food",
@@ -22145,42 +22091,6 @@
         "coffee",
         "espresso",
         "pastries"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "com.ao",
-      "name": "Com.ao",
-      "type": "fast_food",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "fast_casual",
-      "specialties": [
-        "rice dishes",
-        "set meals",
-        "sides"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "com.ls",
-      "name": "Com.ls",
-      "type": "fast_food",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "fast_casual",
-      "specialties": [
-        "rice dishes",
-        "set meals",
-        "sides"
       ],
       "enabled": true
     },
@@ -23491,24 +23401,6 @@
     {
       "domain": "e.leclerc",
       "name": "E.leclerc",
-      "type": "fast_food",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "fast_casual",
-      "specialties": [
-        "rice dishes",
-        "set meals",
-        "sides"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "ea.com",
-      "name": "Ea",
       "type": "fast_food",
       "countries": [
         "JP"
@@ -25901,24 +25793,6 @@
       "enabled": true
     },
     {
-      "domain": "haema.de",
-      "name": "Haema.de",
-      "type": "fast_food",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "fast_casual",
-      "specialties": [
-        "rice dishes",
-        "set meals",
-        "sides"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "haldiram.com",
       "name": "Haldiram",
       "type": "fast_food",
@@ -27394,24 +27268,6 @@
     {
       "domain": "jollibee.com.sg",
       "name": "Jollibee.com.sg",
-      "type": "fast_food",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "fast_casual",
-      "specialties": [
-        "rice dishes",
-        "set meals",
-        "sides"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "joongang.co.kr",
-      "name": "Joongang.co.kr",
       "type": "fast_food",
       "countries": [
         "JP"
@@ -35920,24 +35776,6 @@
       "enabled": true
     },
     {
-      "domain": "ta.com",
-      "name": "Ta",
-      "type": "fast_food",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "fast_casual",
-      "specialties": [
-        "rice dishes",
-        "set meals",
-        "sides"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "taiwanfresh.com.tw",
       "name": "Taiwanfresh.com.tw",
       "type": "fast_food",
@@ -37230,24 +37068,6 @@
         "ramen",
         "noodles",
         "gyoza"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "uk.com",
-      "name": "Uk",
-      "type": "fast_food",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "fast_casual",
-      "specialties": [
-        "rice dishes",
-        "set meals",
-        "sides"
       ],
       "enabled": true
     },

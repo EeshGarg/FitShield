@@ -165,7 +165,9 @@ function derive() {
     counts: {
       brands: brandList.length,
       packages: Object.keys(orderedPackages).length,
-      needsReview: brandList.filter((b) => b.packageStatus === "needs_review").length
+      needsReview: brandList.filter((b) => b.packageStatus === "needs_review").length,
+      noApp: brandList.filter((b) => b.packageStatus === "no_app").length,
+      sharedApp: brandList.filter((b) => b.packageStatus === "shared_app").length
     },
     // Hash over the meaningful payload only (order-independent of formatting).
     sha256: sha256(JSON.stringify({ packages: orderedPackages, brands: brandList })),
@@ -204,7 +206,8 @@ if (require.main === module) {
   console.log(
     `Generated ${path.relative(load.ROOT, OUTPUT_PATH).split(path.sep).join("/")}: ` +
     `${asset.counts.brands} brands, ${asset.counts.packages} packages, ` +
-    `${asset.counts.needsReview} needs_review (sha256 ${asset.sha256.slice(0, 12)}…)`
+    `${asset.counts.needsReview} needs_review, ${asset.counts.noApp} no_app, ` +
+    `${asset.counts.sharedApp} shared_app (sha256 ${asset.sha256.slice(0, 12)}…)`
   );
 }
 

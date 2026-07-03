@@ -78,7 +78,7 @@ async function main() {
   const packagesAsset = path.join(WEB_DIR, "..", "android-packages.json");
   // Ship only the slim package map (the ~2.5k-brand ported record stays in-repo).
   fs.writeFileSync(packagesAsset, JSON.stringify(genPackages.bundle(), null, 2) + "\n");
-  console.log(`Ported ${packages.counts.brands} brands; bundled ${packages.counts.packages} app packages (${packages.counts.needsReview} needs_review).`);
+  console.log(`Ported ${packages.counts.brands} brands; bundled ${packages.counts.packages} app packages (${packages.counts.needsReview} needs_review, ${packages.counts.noApp} no_app, ${packages.counts.sharedApp} shared_app).`);
 
   // 2. Validate the adapter (drift, fork, permissions).
   const reporter = await androidAudit();

@@ -70,12 +70,14 @@ test("package IDs are globally unique and well-formed", () => {
   }
 });
 
-test("packageStatus rules: empty packageIds iff needs_review", () => {
+test("packageStatus rules: empty packageIds iff a non-active status", () => {
+  const emptyStatuses = new Set(["needs_review", "no_app", "shared_app"]);
   for (const { file, app } of appEntries()) {
     const status = app.packageStatus || "active";
-    if (status === "needs_review") {
-      assert.equal((app.packageIds || []).length, 0, `${file}: ${app.brandId} needs_review must be empty`);
+    if (emptyStatuses.has(status)) {
+      assert.equal((app.packageIds || []).length, 0, `${file}: ${app.brandId} ${status} must be empty`);
     } else {
+      assert.equal(status, "active", `${file}: ${app.brandId} unknown packageStatus ${status}`);
       assert.ok((app.packageIds || []).length > 0, `${file}: ${app.brandId} active must have a package`);
     }
   }

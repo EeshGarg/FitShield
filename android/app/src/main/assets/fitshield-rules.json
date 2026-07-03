@@ -8,13 +8,13 @@
     "blocklists/delivery.json"
   ],
   "datasetVersions": {
-    "fast-food": "1.1",
+    "fast-food": "1.2",
     "delivery": "1.1"
   },
   "appVersion": "0.53",
   "matching": "apex-or-subdomain",
-  "count": 2585,
-  "sha256": "9cc3f8074aa7a3e4233ac03bcac3c129b97fd02a729e01a926f101a117e9ce81",
+  "count": 2575,
+  "sha256": "7c7440e3bfd8f94eb1e020103036ac041389159398b17c5c1c2d32adb9f3610d",
   "countries": [
     {
       "code": "AD",
@@ -210,7 +210,7 @@
     },
     {
       "code": "JP",
-      "count": 1287
+      "count": 1278
     },
     {
       "code": "JM",
@@ -430,7 +430,7 @@
     },
     {
       "code": "US",
-      "count": 670
+      "count": 669
     },
     {
       "code": "UY",
@@ -500,7 +500,7 @@
     },
     {
       "id": "dessert",
-      "count": 87
+      "count": 86
     },
     {
       "id": "ecommerce_marketplace",
@@ -508,7 +508,7 @@
     },
     {
       "id": "fast_casual",
-      "count": 1061
+      "count": 1053
     },
     {
       "id": "fast_food",
@@ -592,7 +592,7 @@
     },
     {
       "id": "seafood",
-      "count": 18
+      "count": 17
     },
     {
       "id": "smoothie",
@@ -1301,10 +1301,6 @@
       "k": "chicken"
     },
     "bbqmall.co.kr": {
-      "c": "JP",
-      "k": "fast_casual"
-    },
-    "bbqnation.com": {
       "c": "JP",
       "k": "fast_casual"
     },
@@ -2336,10 +2332,6 @@
       "c": "US",
       "k": "dessert"
     },
-    "cheesecakelabs.com": {
-      "c": "JP",
-      "k": "dessert"
-    },
     "cheesiano.com": {
       "c": "JP",
       "k": "fast_casual"
@@ -2675,14 +2667,6 @@
     "columbuscafe.com": {
       "c": "JP",
       "k": "coffee"
-    },
-    "com.ao": {
-      "c": "JP",
-      "k": "fast_casual"
-    },
-    "com.ls": {
-      "c": "JP",
-      "k": "fast_casual"
     },
     "comebuy2002.com.tw": {
       "c": "JP",
@@ -3408,10 +3392,6 @@
       "c": "JP",
       "k": "fast_casual"
     },
-    "ea.com": {
-      "c": "JP",
-      "k": "fast_casual"
-    },
     "each-a-cup.com": {
       "c": "JP",
       "k": "fast_casual"
@@ -3825,10 +3805,6 @@
       "k": "burger"
     },
     "fishandchick.com": {
-      "c": "US",
-      "k": "seafood"
-    },
-    "fishwindow.com": {
       "c": "US",
       "k": "seafood"
     },
@@ -4732,10 +4708,6 @@
       "c": "JP",
       "k": "fast_casual"
     },
-    "haema.de": {
-      "c": "JP",
-      "k": "fast_casual"
-    },
     "haidilao.com": {
       "c": "CN",
       "k": "asian"
@@ -5477,10 +5449,6 @@
       "k": "chicken"
     },
     "jonathan.co.jp": {
-      "c": "JP",
-      "k": "fast_casual"
-    },
-    "joongang.co.kr": {
       "c": "JP",
       "k": "fast_casual"
     },
@@ -9524,10 +9492,6 @@
       "c": "CA",
       "k": "fast_casual"
     },
-    "ta.com": {
-      "c": "JP",
-      "k": "fast_casual"
-    },
     "tabling.co.kr": {
       "c": "KR",
       "k": "restaurant_discovery"
@@ -10159,10 +10123,6 @@
     "udon.com": {
       "c": "JP",
       "k": "asian"
-    },
-    "uk.com": {
-      "c": "JP",
-      "k": "fast_casual"
     },
     "unclejohns.ph": {
       "c": "JP",
@@ -11127,7 +11087,6 @@
     "bbq.co.kr",
     "bbqchicken.com",
     "bbqmall.co.kr",
-    "bbqnation.com",
     "bbqplaza.com",
     "beachhutdeli.com",
     "beand.cn",
@@ -11385,7 +11344,6 @@
     "cheeburger.com",
     "cheeseburgerbobbys.com",
     "cheesecakefactory.com",
-    "cheesecakelabs.com",
     "cheesiano.com",
     "cheesiano.in",
     "chefexpress.it",
@@ -11470,8 +11428,6 @@
     "colowide.co.jp",
     "colruyt.be",
     "columbuscafe.com",
-    "com.ao",
-    "com.ls",
     "comebuy2002.com.tw",
     "comebuytea.com",
     "composecoffee.com",
@@ -11653,7 +11609,6 @@
     "duyichu.com",
     "dzg.com.cn",
     "e.leclerc",
-    "ea.com",
     "each-a-cup.com",
     "eagleboys.com.au",
     "earls.ca",
@@ -11758,7 +11713,6 @@
     "firezza.com",
     "first-kitchen.co.jp",
     "fishandchick.com",
-    "fishwindow.com",
     "fitfoodhome.jp",
     "fiveguys.co.uk",
     "fiveguys.com",
@@ -11984,7 +11938,6 @@
     "habitburger.com",
     "habitburgergrill.com",
     "hachiban.jp",
-    "haema.de",
     "haidilao.com",
     "haldiram.com",
     "haloburger.com",
@@ -12171,7 +12124,6 @@
     "jollibee.com.sg",
     "jollibeefoods.com",
     "jonathan.co.jp",
-    "joongang.co.kr",
     "jordbaerpikene.no",
     "joyfull.co.jp",
     "jtexpress.com.cn",
@@ -13182,7 +13134,6 @@
     "swisschalet.com",
     "syabuyo.com.tw",
     "symposiumcafe.com",
-    "ta.com",
     "tabling.co.kr",
     "tacobell.com",
     "tacobell.com.cn",
@@ -13341,7 +13292,6 @@
     "uber.com",
     "ubereats.com",
     "udon.com",
-    "uk.com",
     "unclejohns.ph",
     "unimarc.cl",
     "uno.dz",

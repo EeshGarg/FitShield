@@ -9,8 +9,8 @@
  *  - orphaned entry: a brandId with no matching brand in engine/blocklists/*.json
  *  - duplicate brandId (across all app files)
  *  - duplicate packageId (across all app files / brands)
- *  - packageStatus rule violation (empty packageIds require "needs_review", and
- *    "needs_review" requires empty packageIds; "active" requires ≥1 package)
+ *  - packageStatus rule violation ("active" requires ≥1 package; the resolved
+ *    statuses "needs_review" / "no_app" / "shared_app" require empty packageIds)
  *  - non-deterministic / stale generation: engine/data/generated/android-packages.json
  *    differs from a fresh generation (run npm run generate:android-packages)
  *  - stale bundled APK asset: android/app/src/main/assets/android-packages.json
@@ -63,7 +63,7 @@ function androidPackagesAudit() {
   const seenPackage = new Map();    // packageId -> "brandId (file)"
   let brandCount = 0;
   let packageCount = 0;
-  let needsReview = 0;
+  const statusCounts = { needs_review: 0, no_app: 0, shared_app: 0 };
 
   for (const { file, data } of files) {
     if (!data || data._schema !== "fitshield-android-apps/1") {
@@ -106,20 +106,20 @@ function androidPackagesAudit() {
 
       // packageStatus rules.
       const status = app.packageStatus === undefined ? "active" : app.packageStatus;
-      if (!["active", "needs_review"].includes(status)) {
+      if (!["active", "needs_review", "no_app", "shared_app"].includes(status)) {
         reporter.fail(`${where}: invalid packageStatus ${JSON.stringify(app.packageStatus)}`);
       }
       if (!Array.isArray(app.packageIds)) {
         reporter.fail(`${where}: packageIds must be an array`);
         return;
       }
-      if (status === "needs_review") {
-        needsReview += 1;
+      if (status !== "active") {
+        if (status in statusCounts) statusCounts[status] += 1;
         if (app.packageIds.length !== 0) {
-          reporter.fail(`${where}: "needs_review" must have empty packageIds (found ${app.packageIds.length})`);
+          reporter.fail(`${where}: "${status}" must have empty packageIds (found ${app.packageIds.length})`);
         }
       } else if (app.packageIds.length === 0) {
-        reporter.fail(`${where}: empty packageIds require packageStatus "needs_review" (${app.brandId})`);
+        reporter.fail(`${where}: empty packageIds require packageStatus "needs_review", "no_app" or "shared_app" (${app.brandId})`);
       }
 
       // Package ID shape + global uniqueness.
@@ -186,7 +186,10 @@ function androidPackagesAudit() {
     reporter.fail("generation is non-deterministic (two runs differ)");
   }
 
-  reporter.note(`${brandCount} app entries → ${packageCount} package(s), ${needsReview} needs_review`);
+  reporter.note(
+    `${brandCount} app entries → ${packageCount} package(s), ` +
+    `${statusCounts.needs_review} needs_review, ${statusCounts.no_app} no_app, ${statusCounts.shared_app} shared_app`
+  );
   reporter.note(`every packageId maps to exactly one of ${index.size} enabled brands (sha256 ${fresh.sha256.slice(0, 12)}…)`);
   return reporter;
 }

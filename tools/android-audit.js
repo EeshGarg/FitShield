@@ -192,7 +192,7 @@ function androidAudit() {
       } else if (JSON.stringify(bundled.packages) !== JSON.stringify(fresh.packages)) {
         reporter.fail("bundled android-packages.json DRIFTED from the generated dataset (run npm run build:android)");
       } else {
-        reporter.note(`${fresh.counts.packages} app packages bundled; ${fresh.counts.brands} brands ported (${fresh.counts.needsReview} needs_review)`);
+        reporter.note(`${fresh.counts.packages} app packages bundled; ${fresh.counts.brands} brands ported (${fresh.counts.needsReview} needs_review, ${fresh.counts.noApp} no_app, ${fresh.counts.sharedApp} shared_app)`);
       }
     }
   }

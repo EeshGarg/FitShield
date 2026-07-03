@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://fitshield.local/schemas/android-apps.json",
   "title": "FitShield Android app-package dataset",
-  "description": "Android application → brand mappings. Brand metadata (display name, domains, countries, tags) is NOT stored here — it is generated from blocklists/*.json via `brandId` (the brand's canonical source domain). This file only records which Android package IDs belong to a brand.",
+  "description": "Android application → brand mappings. Brand metadata (display name, domains, countries, tags) is NOT stored here — it is generated from engine/blocklists/*.json via `brandId` (the brand's canonical source domain). This file only records which Android package IDs belong to a brand.",
   "type": "object",
   "additionalProperties": false,
   "required": ["_schema", "defaultCategory", "apps"],
@@ -25,12 +25,12 @@
       "required": ["brandId", "packageIds"],
       "properties": {
         "brandId": {
-          "description": "The brand's canonical source domain in blocklists/*.json (e.g. \"doordash.com\"). Must map to exactly one blocklist entry. Internationalized (IDN / non-ASCII) domains are permitted — this pattern mirrors the enforced BRAND_ID_RE in tools/validate-android-packages.js (a dotted host with no whitespace or URL delimiters).",
+          "description": "The brand's canonical source domain in engine/blocklists/*.json (e.g. \"doordash.com\"). Must map to exactly one blocklist entry. Internationalized (IDN / non-ASCII) domains are permitted — this pattern mirrors the enforced BRAND_ID_RE in tools/validate-android-packages.js (a dotted host with no whitespace or URL delimiters).",
           "type": "string",
           "pattern": "^[^\\s/:?#@]+\\.[^\\s/:?#@]+$"
         },
         "packageIds": {
-          "description": "Android application IDs for this brand (e.g. \"com.dd.doordash\"). May be empty ONLY when packageStatus is \"needs_review\".",
+          "description": "Android application IDs for this brand (e.g. \"com.dd.doordash\"). May be empty ONLY when packageStatus is \"needs_review\", \"no_app\", or \"shared_app\".",
           "type": "array",
           "items": {
             "type": "string",
@@ -39,8 +39,8 @@
           "uniqueItems": true
         },
         "packageStatus": {
-          "description": "\"active\" (default) requires at least one packageId. \"needs_review\" is for known brands whose package ID is not yet confirmed — packageIds must be empty. Never guess a package ID.",
-          "enum": ["active", "needs_review"]
+          "description": "\"active\" (default) requires at least one packageId. \"needs_review\" is for brands whose package ID is not yet confirmed. \"no_app\" records a VERIFIED determination that the brand has no official Android app (so it is never re-researched). \"shared_app\" means the brand's official app is another blocked brand's package (e.g. a country storefront of a platform app) — the package is recorded once, on the owning brand, so every packageId maps to exactly one brand. All three non-active statuses require empty packageIds. Never guess a package ID.",
+          "enum": ["active", "needs_review", "no_app", "shared_app"]
         },
         "category": {
           "description": "Optional per-app override of the derived category.",
