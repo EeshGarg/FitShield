@@ -143,6 +143,18 @@
     .hero {
       padding: 24px;
       margin-bottom: 18px;
+      position: relative;
+    }
+
+    /* Soft gradient hairline along the hero's lower edge — theme-aware, static. */
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-dim, rgba(110, 231, 183, 0.35)), transparent);
     }
 
     .section {
@@ -650,7 +662,9 @@
     }
 
     input:checked + .slider {
-      background: var(--accent);
+      /* Gentle top-light gradient over the accent — same glass bloom the
+         primary buttons use. */
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 60%), var(--accent);
     }
 
     input:checked + .slider::before {

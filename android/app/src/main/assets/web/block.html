@@ -18,7 +18,12 @@
     .card { max-width:520px; margin:0 auto; }
     .bhead { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
     .bhead img { width:44px; height:44px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,.4), 0 0 0 1px var(--border); }
-    .brandline { font-weight:800; font-size:1.05rem; }
+    .brandline { font-weight:800; font-size:1.05rem;
+      /* FitShield wordmark carries the same slow brand gradient as the titles. */
+      background:linear-gradient(100deg,var(--text) 0%,var(--accent) 44%,#6fd6c0 58%,var(--text) 86%);
+      background-size:220% 100%; -webkit-background-clip:text; background-clip:text;
+      -webkit-text-fill-color:transparent; color:transparent;
+      animation:statSheen 16s ease-in-out infinite; }
     .card h1 { margin:6px 0 8px; font-size:1.5rem; line-height:1.2;
       background:linear-gradient(100deg,var(--text) 0%,var(--accent) 46%,#6fd6c0 60%,var(--text) 88%);
       background-size:220% 100%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
@@ -26,7 +31,10 @@
     .message { color:var(--muted); margin:0 0 14px; font-size:.98rem; }
     .stats { margin-bottom:12px; }
     #recipeWrap .l { font-size:.74rem; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px; }
-    .actions { display:flex; flex-direction:column; gap:10px; margin-top:16px; }
+    .actions { display:flex; flex-direction:column; gap:10px; margin-top:16px; position:relative; padding-top:14px; }
+    /* Soft gradient hairline above the actions — separates reflection from decision. */
+    .actions::before { content:""; position:absolute; top:0; left:8%; right:8%; height:1px;
+      background:linear-gradient(90deg, transparent, var(--accent-soft), transparent); }
     .actions button { width:100%; }
     .linkbtn { background:none; box-shadow:none; color:var(--muted); font-weight:600; width:100%; margin-top:6px; padding:8px; }
     .linkbtn:active { transform:none; filter:none; box-shadow:none; }

@@ -64,6 +64,19 @@
 
     .hero {
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+
+    /* Soft gradient hairline along the hero edge — same theme-aware accent
+       language as the settings dividers. */
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-dim, rgba(110, 231, 183, 0.35)), transparent);
     }
 
     .header-row,
@@ -151,7 +164,9 @@
     }
 
     input:checked + .slider {
-      background: var(--accent);
+      /* Gentle top-light gradient over the accent — same glass bloom the
+         primary buttons use. */
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 60%), var(--accent);
     }
 
     input:checked + .slider::before {
