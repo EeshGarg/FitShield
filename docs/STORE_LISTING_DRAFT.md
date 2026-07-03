@@ -108,6 +108,20 @@ order", "Your stats stay on-device".
 - [ ] 512×512 PNG, matches the launcher icon (green "F" on white / adaptive)
 - [ ] Consistent with extension branding (icon-128.png lineage)
 
+## Release notes — "What's new" (500 chars max per entry)
+
+**versionCode 1 · versionName 0.54 (first upload):**
+
+> First release of FitShield for Android.
+> • Blocks food-delivery & fast-food websites with a local, on-device filter — no traffic ever leaves your phone
+> • Optional app blocking with a mindful pause screen, stats, and recipe ideas
+> • 2,500+ curated brands, every app mapping verified by hand
+> • 83 languages, dark/light themes
+> • No account, no ads, no analytics — everything stays on your device
+
+(431 chars. Add each future upload's notes above this line, newest first, and
+record the versionName↔versionCode pair in `changelog/<version>.md`.)
+
 ## Play Console declaration notes
 
 (Details in [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md).)
