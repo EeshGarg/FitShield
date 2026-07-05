@@ -318,13 +318,18 @@ async function main() {
   console.log(`  Android APK   : run \`npm run build:android\` (requires the Android SDK/Gradle)`);
 }
 
+// Exported for the test suite and tools/extension-audit.js: bundleEngine so
+// test/engine-bundle.test.js can prove the bundled browser artifact exposes the
+// exact same API as require("./FS Engine"); FILES/DIRS so the audit can verify
+// package-graph closure without building; the manifest derivations so the
+// per-browser forms stay a checked contract. Assigned BEFORE main() may run —
+// the audit is reached from main() via validate-all, and a later assignment
+// would hand that circular require an empty exports object.
+module.exports = { bundleEngine, ENGINE_MODULES, FILES, DIRS, chromeManifest, firefoxManifest };
+
 if (require.main === module) {
   main().catch((error) => {
     console.error(error);
     process.exit(1);
   });
 }
-
-// bundleEngine is exported so test/engine-bundle.test.js can prove the bundled
-// browser artifact exposes the exact same API as require("./FS Engine").
-module.exports = { bundleEngine, ENGINE_MODULES };

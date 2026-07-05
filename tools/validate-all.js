@@ -25,7 +25,8 @@ const AUDITS = [
   require("./validate-android-packages"),
   require("./locale-parity"),
   require("./changelog-validator"),
-  require("./assets-check")
+  require("./assets-check"),
+  require("./extension-audit")
 ];
 
 async function validateAll(options) {
