@@ -1,6 +1,6 @@
 {
   "_generated": true,
-  "_doNotEdit": "GENERATED (bundled subset) by tools/generate-android-packages.js. Only the packageId → brand map is shipped; the full ported record lives in engine/data/generated/android-packages.json. Do NOT hand-edit.",
+  "_doNotEdit": "GENERATED (bundled subset) by tools/generate-android-packages.js. Only the packageId → brand map is shipped; the full ported record lives in data/generated/android-packages.json. Do NOT hand-edit.",
   "schema": 1,
   "generator": "tools/generate-android-packages.js",
   "counts": {

@@ -1,12 +1,12 @@
 {
   "_generated": true,
-  "_doNotEdit": "GENERATED from engine/data/android/*-apps.json + engine/blocklists/*.json by tools/generate-android-packages.js. Run `npm run generate:android-packages` to regenerate. Do NOT hand-edit — the validator fails the build on drift.",
+  "_doNotEdit": "GENERATED from data/android/*-apps.json + data/blocklists/*.json by tools/generate-android-packages.js. Run `npm run generate:android-packages` to regenerate. Do NOT hand-edit — the validator fails the build on drift.",
   "schema": 1,
   "generator": "tools/generate-android-packages.js",
   "source": [
-    "engine/data/android/delivery-apps.json",
-    "engine/data/android/fast-food-apps.json",
-    "engine/blocklists/*.json"
+    "data/android/delivery-apps.json",
+    "data/android/fast-food-apps.json",
+    "data/blocklists/*.json"
   ],
   "categories": [
     "delivery",

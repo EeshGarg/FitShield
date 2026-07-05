@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 /**
  * FitShield packager — builds the store-ready zips from the split source tree:
+ *   FS Engine/  the blocking engine, code only (see its README for the API)
+ *   data/       canonical datasets (blocklists/, recipes.json, android/, generated/)
  *   extension/  browser-extension source (manifest, UI, shims, page scripts)
- *   engine/     shared canonical engine + data (blocklist.js, blocklists/, data/)
  *   changelog.json (repo root)
  * The staged package is FLAT — identical to the historical zip layout
  * (manifest.json, all js/html, blocklists/, data/, _locales/, icons/ at the zip
  * root) — because runtime code fetches those relative paths and the store
- * listings expect them. Only the repo layout changed; the artifact did not.
+ * listings expect them. The engine modules are bundled into the packaged
+ * blocklist.js (see bundleEngine below). Only the repo layout changed over the
+ * releases; the artifact did not.
  *
  * Why a build step at all: Manifest V3 background handling differs by engine.
  *   - Chrome / Brave / Edge (Chromium) only support `background.service_worker`
@@ -36,42 +39,84 @@ const zlib = require("zlib");
 
 const ROOT = __dirname;
 const EXTENSION_DIR = path.join(ROOT, "extension");
-const ENGINE_DIR = path.join(ROOT, "engine");
+const ENGINE_DIR = path.join(ROOT, "FS Engine");
+const DATA_DIR = path.join(ROOT, "data");
 const DIST = path.join(ROOT, "dist");
 
 // Extension runtime files only — dev/build/docs assets are deliberately
-// excluded. Each entry is [sourceDir, name]; every file lands at the STAGE
-// ROOT under `name`, preserving the flat packaged layout.
+// excluded. Each entry is [absolute source, stage-relative destination];
+// the destinations preserve the flat packaged layout the runtime expects.
 const FILES = [
-  [EXTENSION_DIR, "ambient.js"],
-  [EXTENSION_DIR, "background.js"],
-  [EXTENSION_DIR, "backup.js"],
-  [ENGINE_DIR, "blocklist.js"],
-  [EXTENSION_DIR, "browser-shim.js"],
-  [EXTENSION_DIR, "currency.js"],
-  [EXTENSION_DIR, "i18n.js"],
-  [EXTENSION_DIR, "languages.js"],
-  [EXTENSION_DIR, "popup.js"],
-  [EXTENSION_DIR, "recipes.js"],
-  [EXTENSION_DIR, "settings.js"],
-  [EXTENSION_DIR, "warning.js"],
-  [EXTENSION_DIR, "welcome.js"],
-  [EXTENSION_DIR, "whats-new.js"],
-  [EXTENSION_DIR, "popup.html"],
-  [EXTENSION_DIR, "settings.html"],
-  [EXTENSION_DIR, "warning.html"],
-  [EXTENSION_DIR, "welcome.html"],
-  [EXTENSION_DIR, "whats-new.html"],
-  [ROOT, "changelog.json"]
+  [path.join(EXTENSION_DIR, "ambient.js"), "ambient.js"],
+  [path.join(EXTENSION_DIR, "background.js"), "background.js"],
+  [path.join(EXTENSION_DIR, "backup.js"), "backup.js"],
+  [path.join(EXTENSION_DIR, "browser-shim.js"), "browser-shim.js"],
+  [path.join(EXTENSION_DIR, "currency.js"), "currency.js"],
+  [path.join(EXTENSION_DIR, "i18n.js"), "i18n.js"],
+  [path.join(EXTENSION_DIR, "languages.js"), "languages.js"],
+  [path.join(EXTENSION_DIR, "popup.js"), "popup.js"],
+  [path.join(EXTENSION_DIR, "recipes.js"), "recipes.js"],
+  [path.join(EXTENSION_DIR, "settings.js"), "settings.js"],
+  [path.join(EXTENSION_DIR, "warning.js"), "warning.js"],
+  [path.join(EXTENSION_DIR, "welcome.js"), "welcome.js"],
+  [path.join(EXTENSION_DIR, "whats-new.js"), "whats-new.js"],
+  [path.join(EXTENSION_DIR, "popup.html"), "popup.html"],
+  [path.join(EXTENSION_DIR, "settings.html"), "settings.html"],
+  [path.join(EXTENSION_DIR, "warning.html"), "warning.html"],
+  [path.join(EXTENSION_DIR, "welcome.html"), "welcome.html"],
+  [path.join(EXTENSION_DIR, "whats-new.html"), "whats-new.html"],
+  [path.join(ROOT, "changelog.json"), "changelog.json"],
+  [path.join(DATA_DIR, "recipes.json"), path.join("data", "recipes.json")]
 ];
 
-// [sourceDir, name] — each dir lands at the stage root under `name`.
+// [absolute source dir, stage-relative destination]. data/blocklists is
+// remapped to the package root's blocklists/ (the runtime fetch path); the
+// rest of data/ keeps its data/ prefix.
 const DIRS = [
-  [EXTENSION_DIR, "_locales"],
-  [ENGINE_DIR, "blocklists"],
-  [ENGINE_DIR, "data"],
-  [EXTENSION_DIR, "icons"]
+  [path.join(EXTENSION_DIR, "_locales"), "_locales"],
+  [path.join(DATA_DIR, "blocklists"), "blocklists"],
+  [path.join(DATA_DIR, "android"), path.join("data", "android")],
+  [path.join(DATA_DIR, "generated"), path.join("data", "generated")],
+  [path.join(EXTENSION_DIR, "icons"), "icons"]
 ];
+
+// ---- FS Engine bundler --------------------------------------------------------
+// The engine is authored as CommonJS modules in "FS Engine/" (see its README),
+// but the extension loads ONE classic script: importScripts("blocklist.js") in
+// the Chromium service worker, background.scripts in Firefox. This wraps each
+// module in a registry entry and emits a deterministic single file. index.js
+// sets the FitShieldBlocklist global itself, so the footer only requires it.
+const ENGINE_MODULES = ["hostnames.js", "entries.js", "metadata.js", "loader.js", "index.js"];
+
+function bundleEngine() {
+  const parts = [
+    '/* GENERATED single-file browser bundle of "FS Engine/" — built by build.js.',
+    " * Do not edit: change the engine sources and rebuild (node build.js).",
+    ' * API reference: "FS Engine/README.md". */',
+    "(function () {",
+    '"use strict";',
+    "var __modules = Object.create(null), __cache = Object.create(null);",
+    "function __require(id) {",
+    "  if (__cache[id]) return __cache[id].exports;",
+    '  if (!__modules[id]) throw new Error("FS Engine bundle: module not bundled: " + id);',
+    "  var m = { exports: {} };",
+    "  __cache[id] = m;",
+    "  __modules[id].call(m.exports, m, m.exports, __require);",
+    "  return m.exports;",
+    "}"
+  ];
+
+  for (const name of ENGINE_MODULES) {
+    const src = fs.readFileSync(path.join(ENGINE_DIR, name), "utf8");
+    parts.push(`__modules["./${name}"] = function (module, exports, require) {`);
+    parts.push(src.replace(/\r\n/g, "\n").replace(/\n+$/, ""));
+    parts.push("};");
+  }
+
+  parts.push('__require("./index.js");');
+  parts.push("})();");
+  return parts.join("\n") + "\n";
+}
 
 function rmrf(target) {
   fs.rmSync(target, { recursive: true, force: true });
@@ -80,21 +125,24 @@ function rmrf(target) {
 function copyInto(stageDir) {
   fs.mkdirSync(stageDir, { recursive: true });
 
-  for (const [srcDir, file] of FILES) {
-    const src = path.join(srcDir, file);
+  for (const [src, dest] of FILES) {
     if (!fs.existsSync(src)) {
       throw new Error(`Missing required file: ${path.relative(ROOT, src)}`);
     }
-    fs.copyFileSync(src, path.join(stageDir, file));
+    const target = path.join(stageDir, dest);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.copyFileSync(src, target);
   }
 
-  for (const [srcDir, dir] of DIRS) {
-    const src = path.join(srcDir, dir);
+  for (const [src, dest] of DIRS) {
     if (!fs.existsSync(src)) {
       throw new Error(`Missing required directory: ${path.relative(ROOT, src)}`);
     }
-    fs.cpSync(src, path.join(stageDir, dir), { recursive: true });
+    fs.cpSync(src, path.join(stageDir, dest), { recursive: true });
   }
+
+  // The engine ships as one generated classic script (see bundleEngine above).
+  fs.writeFileSync(path.join(stageDir, "blocklist.js"), bundleEngine());
 }
 
 // Firefox needs an event page (background.scripts). blocklist.js must load
@@ -270,7 +318,13 @@ async function main() {
   console.log(`  Android APK   : run \`npm run build:android\` (requires the Android SDK/Gradle)`);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
+
+// bundleEngine is exported so test/engine-bundle.test.js can prove the bundled
+// browser artifact exposes the exact same API as require("./FS Engine").
+module.exports = { bundleEngine, ENGINE_MODULES };

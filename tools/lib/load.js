@@ -7,14 +7,16 @@
 const fs = require("fs");
 const path = require("path");
 
-// Repo layout: the shared engine (blocklist.js + blocklists/ + data/) lives in
-// engine/, the browser-extension source (manifest, UI, _locales, icons) in
-// extension/. build.js flattens both back into the packaged zip root.
+// Repo layout: the blocking engine (code only) lives in "FS Engine/", every
+// canonical dataset in data/ (blocklists/, recipes.json, android/, generated/),
+// and the browser-extension source (manifest, UI, _locales, icons) in
+// extension/. build.js flattens all of it back into the packaged zip root and
+// bundles the engine modules into the shipped blocklist.js.
 const ROOT = path.join(__dirname, "..", "..");
-const ENGINE_DIR = path.join(ROOT, "engine");
+const ENGINE_DIR = path.join(ROOT, "FS Engine");
 const EXTENSION_DIR = path.join(ROOT, "extension");
-const BLOCKLISTS_DIR = path.join(ENGINE_DIR, "blocklists");
-const DATA_DIR = path.join(ENGINE_DIR, "data");
+const DATA_DIR = path.join(ROOT, "data");
+const BLOCKLISTS_DIR = path.join(DATA_DIR, "blocklists");
 const LOCALES_DIR = path.join(EXTENSION_DIR, "_locales");
 const CHANGELOG_DIR = path.join(ROOT, "changelog");
 const ICONS_DIR = path.join(EXTENSION_DIR, "icons");

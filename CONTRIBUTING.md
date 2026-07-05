@@ -18,18 +18,20 @@ tools in [`tools/`](tools/).
 
 ## Project layout
 
-The repo separates the shared engine from the browser-extension source; the
-packaged zip stays flat (`build.js` composes it from `extension/*` +
-`engine/blocklists` + `engine/data` + the root `changelog.json`). The repository
+The repo separates the blocking engine (`FS Engine/`, code only), the
+canonical datasets (`data/`), and the browser-extension source (`extension/`);
+the packaged zip stays flat (`build.js` composes it from `extension/*` +
+`data/*` + the root `changelog.json`, and bundles the engine modules into the
+shipped `blocklist.js`). The repository
 root is **not** a loadable unpacked extension — build first, then load
 `dist/chrome` or `dist/firefox` (see below).
 
 | Path | What it is |
 | --- | --- |
-| `engine/blocklist.js` | Shared dataset loader + matching helpers (browser + Node + Android) |
-| `engine/blocklists/*.json` | Curated datasets (`fast-food.json`, `delivery.json`) |
-| `engine/data/recipes.json` | Local recipe catalog for the block screen |
-| `engine/data/android/` | Android app-package mappings (brandId → packageIds) |
+| `FS Engine/` | The blocking engine (`index.js` API + modules; see its README for the full API reference). Shipped to browsers as a generated single-file `blocklist.js` |
+| `data/blocklists/*.json` | Curated datasets (`fast-food.json`, `delivery.json`) |
+| `data/recipes.json` | Local recipe catalog for the block screen |
+| `data/android/` | Android app-package mappings (brandId → packageIds) |
 | `extension/manifest.json` | Chromium MV3 manifest (Firefox manifest is derived by `build.js`) |
 | `extension/background.js` | Service worker: rules, bypasses, stats recording |
 | `extension/popup / settings / warning / welcome / whats-new` | UI surfaces (`.html` + `.js`) |
@@ -54,7 +56,7 @@ Run a single audit with `npm run validate:datasets`, `:aliases`, `:countries`,
 
 ### Add a brand
 
-Edit `engine/blocklists/fast-food.json` or `engine/blocklists/delivery.json`.
+Edit `data/blocklists/fast-food.json` or `data/blocklists/delivery.json`.
 Add an entry to `entries`:
 
 ```json
@@ -97,7 +99,7 @@ clean, title-cased version of the id, so localization is optional but nice.
 
 ### Add a recipe
 
-Edit `engine/data/recipes.json`:
+Edit `data/recipes.json`:
 
 ```json
 {
@@ -133,9 +135,10 @@ npm run build        # validates, then writes dist/ + the store zips
 ```
 
 `build.js` validates first and **aborts on any error**. It flattens
-`extension/*`, `engine/blocklists`, `engine/data`, and the root `changelog.json`
-into the same package layout as always (manifest + js/html at the zip root),
-then produces:
+`extension/*`, `data/*`, and the root `changelog.json` into the same package
+layout as always (manifest + js/html at the zip root, `data/blocklists` at the
+zip root as `blocklists/`), bundles `FS Engine/` into the packaged
+`blocklist.js`, then produces:
 
 - `FitShield-<version>-firefox.zip` — Firefox / AMO (manifest gains `background.scripts`)
 - `FitShield-<version>-chrome.zip` — Chrome Web Store (committed manifest, gecko keys stripped)

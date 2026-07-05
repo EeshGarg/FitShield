@@ -19,8 +19,8 @@ Highlights:
 - **Accuracy cleanup:** 10 corrupted blocklist imports removed, including
   registry namespaces (`com.ao`, `uk.com`, …) that could have over-blocked
   entire country domain spaces. Fast-food dataset v1.2; 2,575 generated hosts.
-- **Repo separation:** shared engine in `engine/`, browser extension in
-  `extension/`, Android app in `android/` — shipped packages byte-identical in
+- **Repo separation:** shared engine in `FS Engine/` (code) + `data/`
+  (canonical datasets), browser extension in `extension/`, Android app in `android/` — shipped packages byte-identical in
   structure; the root is no longer a loadable unpacked extension (build first).
 - **First Play-upload build:** signed AAB at `versionName 0.54` /
   `versionCode 1`, with the launch paperwork finalized under `docs/`.
@@ -75,7 +75,7 @@ Themes under consideration (subject to change):
     native FitShield intervention screen (`BlockActivity`) when a blocked
     delivery/fast-food *app* is opened — the counterpart of the VPN, which covers
     websites/network traffic. The app→brand mapping is a new **generated dataset**
-    (`engine/data/android/*-apps.json` + blocklists → `engine/data/generated/android-packages.json`,
+    (`data/android/*-apps.json` + blocklists → `data/generated/android-packages.json`,
     deterministic, validated: no orphans/dupes, packageStatus rules, drift) — no
     duplicated metadata, built to scale to thousands of packages. The block screen
     reuses the shared design system (`fitshield.css`), i18n, stats, recipes and

@@ -16,9 +16,11 @@ const load = require("./lib/load");
 // Critical runtime files that must ship (mirrors build.js FILES/DIRS at a
 // high level — the entrypoints whose absence would break the extension).
 // Paths are repo-relative source locations; build.js flattens extension/* and
-// engine/* into the packaged zip root.
+// "FS Engine"/data/extension sources into the packaged zip root.
 const REQUIRED_FILES = [
-  "extension/manifest.json", "extension/background.js", "engine/blocklist.js",
+  "extension/manifest.json", "extension/background.js",
+  "FS Engine/index.js", "FS Engine/hostnames.js", "FS Engine/entries.js",
+  "FS Engine/metadata.js", "FS Engine/loader.js",
   "extension/popup.html", "extension/popup.js",
   "extension/settings.html", "extension/settings.js", "extension/warning.html", "extension/warning.js",
   "extension/welcome.html", "extension/welcome.js", "extension/whats-new.html", "extension/whats-new.js",
@@ -26,11 +28,11 @@ const REQUIRED_FILES = [
   "extension/browser-shim.js", "changelog.json"
 ];
 const REQUIRED_DIRS = [
-  "extension/_locales", "extension/_locales/en", "engine/blocklists", "engine/data", "extension/icons"
+  "extension/_locales", "extension/_locales/en", "data/blocklists", "data", "extension/icons"
 ];
 const REQUIRED_DATA = [
-  "engine/blocklists/fast-food.json", "engine/blocklists/delivery.json",
-  "engine/data/recipes.json", "extension/_locales/en/messages.json"
+  "data/blocklists/fast-food.json", "data/blocklists/delivery.json",
+  "data/recipes.json", "extension/_locales/en/messages.json"
 ];
 
 function assetsCheck() {

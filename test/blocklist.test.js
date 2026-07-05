@@ -3,7 +3,7 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 
-const blocklist = require("../engine/blocklist.js");
+const blocklist = require("../FS Engine");
 const {
   loadBlocklists,
   normalizeHostname,

@@ -33,9 +33,10 @@ https://chromewebstore.google.com/detail/oedcadhhfcgggacgljhnochcjdibfjed?utm_so
 
 This is the easiest way to install FitShield and keeps it updated automatically.
 
-FitShield builds from a single source tree, split into `engine/` (the shared
-blocking engine + datasets, also reused by the Android app) and `extension/`
-(the browser-extension source). A tiny, dependency-free script (`node build.js`,
+FitShield builds from a single source tree, split into `FS Engine/` (the
+blocking engine — see its README for the full API, also reused by the Android
+app), `data/` (the curated datasets), and `extension/` (the browser-extension
+source). A tiny, dependency-free script (`node build.js`,
 requires Node.js 18+) flattens them and packages the result for each engine into
 `dist/`, because Manifest V3 background handling differs: Chromium uses a
 service worker, while Firefox uses an event page (`background.scripts`). Build
@@ -50,7 +51,7 @@ a loadable unpacked extension.
 4. Enable **Developer mode** (top-right toggle).
 5. Click **Load unpacked** and select the **`dist/chrome`** folder.
 
-(The repository root is not loadable directly — the source is split between `extension/` and `engine/`. Always run `node build.js` and load `dist/chrome`.)
+(The repository root is not loadable directly — the source is split between `FS Engine/`, `data/`, and `extension/`. Always run `node build.js` and load `dist/chrome`.)
 
 **Manual installation — Firefox:**
 

@@ -2,7 +2,7 @@
 "use strict";
 /**
  * Android adapter audit. Proves the native Android target is a thin adapter on
- * the SAME canonical engine/data as the browser — not a fork.
+ * the SAME canonical data as the browser — not a fork.
  *
  * Errors:
  *  - generated rules asset missing, unmarked, or DRIFTED from the engine output
@@ -137,7 +137,7 @@ function androidAudit() {
       reporter.fail(`web entry missing: android/app/src/main/assets/web/${f}`);
     }
   });
-  // Canonical sources: extension/ (shared web UI modules), engine/ (canonical
+  // Canonical sources: extension/ (shared web UI modules), data/ (canonical
   // data), android/web-src/ (the Android-authored shim). KEEP IN SYNC with the
   // WEB_COPIES list in tools/build-android.js.
   const WEB_COPIES = [
@@ -148,7 +148,7 @@ function androidAudit() {
     [path.join("extension", "ambient.js"), "ambient.js"],
     [path.join("extension", "recipes.js"), "recipes.js"],
     [path.join("extension", "icons", "icon-128.png"), "icon-128.png"],
-    [path.join("engine", "data", "recipes.json"), path.join("data", "recipes.json")]
+    [path.join("data", "recipes.json"), path.join("data", "recipes.json")]
   ];
   WEB_COPIES.forEach(([src, dest]) => {
     const canonical = path.join(load.ROOT, src);
@@ -172,7 +172,7 @@ function androidAudit() {
   }
 
   // 3c. App-package dataset: the bundled asset must match the generated output
-  // (which is compiled from engine/data/android/*-apps.json + engine/blocklists). No fork.
+  // (which is compiled from data/android/*-apps.json + data/blocklists). No fork.
   const pkgAsset = path.join(ANDROID_DIR, "app", "src", "main", "assets", "android-packages.json");
   if (!fs.existsSync(pkgAsset)) {
     reporter.fail("bundled android-packages.json missing (run npm run build:android)");
@@ -185,7 +185,7 @@ function androidAudit() {
     }
     if (bundled) {
       // The bundled asset is the SLIM subset (package map only); the full ported
-      // record is engine/data/generated/android-packages.json. Compare the package maps.
+      // record is data/generated/android-packages.json. Compare the package maps.
       const fresh = genPackages.derive();
       if (bundled._generated !== true) {
         reporter.fail("android-packages.json is not marked _generated:true");

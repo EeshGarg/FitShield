@@ -163,6 +163,6 @@ Requirements: Android SDK **API 35** platform + build-tools 35, Gradle 8.7, JDK 
   Documented in [ANDROID.md](ANDROID.md) §7.
 - Reboot VPN auto-restart is intentionally manual (no `RECEIVE_BOOT_COMPLETED`).
 - App-blocking package coverage is fully researched as of 0.54 (see the
-  dataset in `engine/data/android/` — 1,545 verified packages covering 1,474
+  dataset in `data/android/` — 1,545 verified packages covering 1,474
   brands; 777 brands verified `no_app`; 283 `shared_app` platform storefronts;
   only 38 still `needs_review`).

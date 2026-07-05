@@ -17,9 +17,9 @@ engine**. Browsers and Android are **platform adapters** on top of that shared
 core — not separate products and not forks:
 
 ```
-                 canonical data  (engine/blocklists/*.json)
+                 canonical data  (data/blocklists/*.json)
                           │
-              separated engine  (engine/blocklist.js)
+              separated engine  (FS Engine/)
                           │
         ┌─────────────────┼──────────────────────────┐
         ▼                 ▼                           ▼
@@ -29,7 +29,7 @@ core — not separate products and not forks:
    Edge via DNR)    declarativeNetRequest)      + opt-in app blocking)
 ```
 
-FitShield reaches Android **two** ways, both riding the same engine/data:
+FitShield reaches Android **two** ways, both riding the same data:
 
 | Path | What it is | Blocking mechanism | Status |
 | --- | --- | --- | --- |
@@ -45,9 +45,9 @@ FitShield reaches Android **two** ways, both riding the same engine/data:
 
 ## 1. Shared engine & canonical data (no fork)
 
-- **Canonical data:** `engine/blocklists/fast-food.json`,
-  `engine/blocklists/delivery.json`.
-- **Separated engine:** `engine/blocklist.js` — dataset loading + the matching
+- **Canonical data:** `data/blocklists/fast-food.json`,
+  `data/blocklists/delivery.json`.
+- **Separated engine:** `FS Engine/` — dataset loading + the matching
   semantics (`normalizeHostname`, `domainMatches`, `getEntryDomains`,
   `getEnabledEntries`, `isBlockedHost`). It runs unchanged in the browser
   (service worker / event page) **and** in Node (tools/tests).
@@ -60,7 +60,7 @@ Because the APK is native (Kotlin) it cannot execute the JavaScript engine
 directly. The canonical pipeline bridges this **without** duplicating logic:
 
 ```
-engine/blocklists/*.json ──▶ engine/blocklist.js ──▶ tools/generate-android-rules.js
+data/blocklists/*.json ──▶ FS Engine/ ──▶ tools/generate-android-rules.js
                                                         │
                                                         ▼
                               android/app/src/main/assets/fitshield-rules.json
@@ -75,7 +75,7 @@ engine/blocklists/*.json ──▶ engine/blocklist.js ──▶ tools/generate-
   `getEntryDomains`) over the **canonical data** and emits a deterministic,
   hash-stamped asset of every blockable apex/alias host (2,575 hosts at 0.54).
 - `RuleEngine.kt` loads **only** that generated asset and implements the same
-  contract as `engine/blocklist.js` `domainMatches`: a host is blocked iff it
+  contract as the engine's `domainMatches` (`FS Engine/hostnames.js`): a host is blocked iff it
   equals an apex or is a subdomain of one. No second semantics.
 - **Rule consistency is enforced, not hoped for:** `tools/android-audit.js`
   re-derives the host set from the engine and fails if the committed asset's
@@ -220,7 +220,7 @@ connection filter), **deferred**, **N/A**.
 
 | Extension feature | Android status |
 | --- | --- |
-| Blocking engine | **shared** — rules generated from the one engine/dataset |
+| Blocking engine | **shared** — rules generated from the one dataset |
 | Enable / disable | **ported** — local VpnService + consent |
 | Enforcement (web) | **ported** — system-wide **TLS SNI / HTTP Host** connection filter (works with Private DNS on) |
 | App blocking (native apps) | **ported** — AccessibilityService detects blocked apps → native BlockActivity intervention (opt-in); dataset generated from the blocklists |
@@ -397,13 +397,13 @@ run together; neither depends on the other.
 **Data pipeline (one source of truth, no duplication):**
 
 ```
-engine/blocklists/*.json  (canonical brands: name, domain, type, countries, …)
+data/blocklists/*.json  (canonical brands: name, domain, type, countries, …)
         +
-engine/data/android/delivery-apps.json + fast-food-apps.json
+data/android/delivery-apps.json + fast-food-apps.json
         (minimal: brandId → packageIds only; NO duplicated metadata)
         │  tools/generate-android-packages.js  (deterministic)
         ▼
-engine/data/generated/android-packages.json ── bundled ──▶ assets/android-packages.json
+data/generated/android-packages.json ── bundled ──▶ assets/android-packages.json
         │                                                       │
         │ tools/validate-android-packages.js                    │ PackageBlocklist.kt
         ▼ (in validate-all: schema, orphans, dup brand/package, ▼ (packageId → brand,
@@ -426,7 +426,7 @@ engine/data/generated/android-packages.json ── bundled ──▶ assets/andr
 - **Additive port:** `tools/port-android-apps.js` (`npm run port:android-apps`)
   mirrors EVERY enabled brand from the blocklists into the app files (one entry
   per brand), preserving confirmed package IDs across runs. The full ported
-  record (all ~2.5k brands + metadata) lives in `engine/data/generated/`; only
+  record (all ~2.5k brands + metadata) lives in `data/generated/`; only
   the small package map is bundled into the APK.
 - **Categories** are derived from each brand's authoritative source `category`
   (coffee / dessert / grocery / convenience / meal_kit, else the file default —

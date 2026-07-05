@@ -1,8 +1,8 @@
 {
   "_generated": true,
-  "_doNotEdit": "GENERATED from canonical FitShield data (engine/blocklists/*.json) via the separated engine (engine/blocklist.js). Run `npm run generate:android` to regenerate. Do NOT hand-edit — tools/android-audit.js fails the build on drift.",
+  "_doNotEdit": "GENERATED from canonical FitShield data (data/blocklists/*.json) via the separated engine (FS Engine). Run `npm run generate:android` to regenerate. Do NOT hand-edit — tools/android-audit.js fails the build on drift.",
   "schema": 2,
-  "engine": "engine/blocklist.js",
+  "engine": "FS Engine",
   "source": [
     "blocklists/fast-food.json",
     "blocklists/delivery.json"

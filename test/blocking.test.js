@@ -10,17 +10,32 @@ const ROOT = path.join(__dirname, "..");
 
 // The sandboxed worker requests PACKAGED (zip-root-relative) paths — e.g.
 // "blocklist.js", "blocklists/delivery.json" — exactly as the shipped extension
-// does. In the repo those sources are split between extension/ (browser source)
-// and engine/ (shared engine + data); build.js flattens them back together.
-// Resolve a packaged path to its source location.
-function srcPath(rel) {
-  for (const dir of ["extension", "engine"]) {
-    const candidate = path.join(ROOT, dir, rel);
-    if (fs.existsSync(candidate)) {
-      return candidate;
-    }
+// does. In the repo those sources live in extension/ (browser source) and
+// data/ (canonical datasets); build.js flattens them back together and BUNDLES
+// "FS Engine/" into the packaged blocklist.js. Resolve a packaged path to its
+// source — for blocklist.js that means materializing the real bundle, so this
+// suite exercises the exact artifact the extension ships.
+let engineBundlePath = null;
+function bundledEngine() {
+  if (!engineBundlePath) {
+    const { bundleEngine } = require("../build.js");
+    const dir = fs.mkdtempSync(path.join(require("node:os").tmpdir(), "fs-engine-bundle-"));
+    engineBundlePath = path.join(dir, "blocklist.js");
+    fs.writeFileSync(engineBundlePath, bundleEngine());
   }
-  return path.join(ROOT, rel); // root files (e.g. changelog.json)
+  return engineBundlePath;
+}
+
+function srcPath(rel) {
+  if (rel === "blocklist.js") {
+    return bundledEngine();
+  }
+  const candidates = [
+    path.join(ROOT, "extension", rel), // browser source (js/html, _locales, icons)
+    path.join(ROOT, "data", rel),      // packaged blocklists/ -> repo data/blocklists/
+    path.join(ROOT, rel)               // packaged data/*, root files (changelog.json)
+  ];
+  return candidates.find((candidate) => fs.existsSync(candidate)) || candidates[2];
 }
 
 // Load background.js into an isolated sandbox with a stubbed chrome + fetch so
