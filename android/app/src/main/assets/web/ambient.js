@@ -88,13 +88,16 @@
     if (hour >= 17 && hour < 21) return "evening";
     return "night";
   }
-  // Gentle daily rhythm: a per-family alpha bias by time of day. Mornings lean
-  // cool (cyan/green), evenings/nights lean warm. Stays subtle.
+  // Daily rhythm: a per-family alpha bias by time of day. Mornings lean cool
+  // (cyan/green), afternoons stay neutral, evenings warm to amber, nights go
+  // deep and warm-neutral. Tuned to be gently perceptible across a day without
+  // ever overpowering the content — every product stays well under the 0.26
+  // alpha clamp in colorFor(), even at the liveliest page energy.
   const PERIOD_BIAS = {
-    morning:   { neutral: 1.0, green: 1.05, cyan: 1.15, warm: 0.85, yellow: 0.9 },
-    afternoon: { neutral: 1.0, green: 1.0,  cyan: 1.0,  warm: 1.0,  yellow: 1.05 },
-    evening:   { neutral: 1.05, green: 0.95, cyan: 0.85, warm: 1.2, yellow: 1.15 },
-    night:     { neutral: 1.1, green: 0.95, cyan: 0.9,  warm: 1.05, yellow: 0.8 }
+    morning:   { neutral: 1.0,  green: 1.10, cyan: 1.30, warm: 0.68, yellow: 0.82 },
+    afternoon: { neutral: 1.0,  green: 1.05, cyan: 1.05, warm: 1.0,  yellow: 1.18 },
+    evening:   { neutral: 1.06, green: 0.90, cyan: 0.68, warm: 1.42, yellow: 1.30 },
+    night:     { neutral: 1.16, green: 0.92, cyan: 0.85, warm: 1.12, yellow: 0.66 }
   };
 
   function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }

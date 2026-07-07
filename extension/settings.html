@@ -37,12 +37,21 @@
       margin: 0 auto;
     }
 
-    /* Responsive dashboard: compact sections reflow into 2+ columns on wide
-       (16:9) screens and stack on narrow ones. Content-heavy sections opt out
-       with .full so they always span the full width. */
+    /* On large 16:9 desktops the shell widens so the compact cards fill three
+       columns instead of leaving wide empty gutters; full-width sections simply
+       gain more room for their inner grids. */
+    @media (min-width: 1440px) {
+      .wrap {
+        max-width: 1480px;
+      }
+    }
+
+    /* Responsive dashboard: compact sections reflow up to three columns on wide
+       (16:9) screens, two on mid widths, and stack on narrow ones. Content-heavy
+       sections opt out with .full so they always span the full width. */
     .layout {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
       gap: 18px;
       align-items: start;
     }
