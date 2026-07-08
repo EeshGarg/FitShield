@@ -87,9 +87,17 @@ anywhere (the MV3 default CSP is kept), and version agreement between
 npm test                     # full suite (node --test) — includes every audit
 npm run validate             # all audits, human-readable report
 npm run validate:extension   # just the extension package audit
+npm run validate:sw          # just the service-worker ↔ engine linkage audit
 node build.js                # validation-gated packaging (refuses on errors)
 ```
 
+- `tools/service-worker-audit.js` guards the MV3 worker's engine linkage:
+  `background.js` must load the engine with `importScripts("blocklist.js")` (the
+  generated bundle) and **never** the raw `FS Engine/` CommonJS modules (which
+  throw `require is not defined` as classic worker scripts); no hand-authored
+  `extension/blocklist.js` may shadow the bundle; and the bundle, evaluated as a
+  classic script with no `require`/`module`/`importScripts`, must define
+  `FitShieldBlocklist` with every function `background.js` calls.
 - `tools/extension-audit.js` checks the manifest correctness above **and the
   package graph**: it recomputes the staged file set from `build.js`'s own
   FILES/DIRS mapping and verifies every `<script src>`/`<link>`/`<img>` in the
@@ -123,6 +131,16 @@ worker over `runtime.sendMessage` (the worker is the only holder of engine
 state). So a broken block page almost always traces to one of a few links in
 that chain. Work through them in order:
 
+0. **"Service worker registration failed" / the extension won't load at all.**
+   You are almost certainly loading the wrong folder. **`extension/` is not a
+   loadable extension** — it has no `blocklist.js`, no `blocklists/`, no `data/`,
+   no `changelog.json`. Run `node build.js` and Load Unpacked from **`dist/chrome/`**
+   (or `dist/firefox/manifest.json`). `background.js`'s `importScripts("blocklist.js")`
+   resolves to the generated engine bundle that only exists in the built output.
+   Do **not** try to "fix" this by pointing `importScripts` at the `FS Engine/`
+   sources — they are CommonJS and throw `require is not defined` in a worker;
+   `npm run validate:sw` fails the build if anyone does. See §How the extension
+   consumes the engine above.
 1. **The page renders blank / raw keys / no recipes.** First run
    `node --test test/block-page.test.js` — the render smoke test drives the real
    worker + page scripts and will localize the failure (brand, block reason,

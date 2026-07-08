@@ -26,7 +26,8 @@ test("each individual audit is runnable and returns a reporter", async () => {
     "../tools/locale-parity",
     "../tools/changelog-validator",
     "../tools/assets-check",
-    "../tools/extension-audit"
+    "../tools/extension-audit",
+    "../tools/service-worker-audit"
   ];
   for (const mod of audits) {
     const audit = require(mod);

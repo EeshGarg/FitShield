@@ -26,7 +26,8 @@ const AUDITS = [
   require("./locale-parity"),
   require("./changelog-validator"),
   require("./assets-check"),
-  require("./extension-audit")
+  require("./extension-audit"),
+  require("./service-worker-audit")
 ];
 
 async function validateAll(options) {
