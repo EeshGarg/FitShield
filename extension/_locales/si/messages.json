@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "අභිරුචි URL අවහිර කිරීම සබල කරන්න"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "අභිරුචි අවහිර කළ URL එකක් එක් කරන්න"
   },

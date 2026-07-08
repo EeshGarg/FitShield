@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": " |\nକଷ୍ଟମ୍ URL ଅବରୋଧକୁ ସକ୍ଷମ କରନ୍ତୁ |"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": " |\nଏକ କଷ୍ଟମ୍ ଅବରୋଧିତ URL ଯୋଡନ୍ତୁ |"
   },

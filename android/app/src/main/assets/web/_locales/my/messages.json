@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "စိတ်ကြိုက် URL ပိတ်ဆို့ခြင်းကို ဖွင့်ပါ။"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "စိတ်ကြိုက်ပိတ်ဆို့ထားသော URL ကိုထည့်ပါ။"
   },

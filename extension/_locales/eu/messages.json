@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "Gaitu custom URL blokeatuing"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "Gehitu a custom blokeatued URL"
   },

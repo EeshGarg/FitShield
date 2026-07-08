@@ -1231,6 +1231,25 @@
         <button id="clearBlocklistSearch" class="secondary" type="button" data-i18n="clearButton">Clear</button>
       </div>
 
+      <!-- Master toggle: flips all three built-in groups at once. Its handler
+           mirrors the change onto the delivery / fast-food / custom toggles and
+           persists them together; renderBlocklist keeps it in sync (checked when
+           all on, indeterminate when the groups are mixed). -->
+      <div class="category-card master-card">
+        <div class="row stack-row">
+          <div>
+            <h2 data-i18n="allBlocklistsHeading">All Blocklists</h2>
+            <p data-i18n="allBlocklistsHint">Turn every built-in group on or off at once.</p>
+          </div>
+          <div class="category-actions">
+            <label class="toggle" title="Enable or disable all blocklists" data-i18n-title="allBlocklistsToggleTitle">
+              <input id="allBlocklistsEnabled" type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
       <div class="category-card">
         <div class="row stack-row">
           <div>
@@ -1472,6 +1491,7 @@
 
   <script src="ambient.js" data-energy="calm"></script>
   <script src="blocklist.js"></script>
+  <script src="blocklist-records.js"></script>
   <script src="languages.js"></script>
   <script src="currency.js"></script>
   <script src="backup.js"></script>

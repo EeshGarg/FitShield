@@ -224,6 +224,15 @@
   "customToggleTitle": {
     "message": "Habilitar bloqueio URL personalizado"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "deliveryToggleTitle": {
     "message": "Ativar bloqueio de site de entrega"
   },

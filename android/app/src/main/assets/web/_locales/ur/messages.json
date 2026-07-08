@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "حسب ضرورت یو آر ایل کو مسدود کرنے کو فعال کریں۔"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "ایک حسب ضرورت مسدود URL شامل کریں۔"
   },

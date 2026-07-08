@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "అనుకూల URL నిరోధించడాన్ని ప్రారంభించండి"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "కస్టమ్ బ్లాక్ చేయబడిన URLని జోడించండి"
   },

@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "사용자 지정 URL 차단 사용"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "차단할 사용자 지정 URL 추가"
   },

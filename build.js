@@ -50,6 +50,7 @@ const FILES = [
   [path.join(EXTENSION_DIR, "ambient.js"), "ambient.js"],
   [path.join(EXTENSION_DIR, "background.js"), "background.js"],
   [path.join(EXTENSION_DIR, "backup.js"), "backup.js"],
+  [path.join(EXTENSION_DIR, "blocklist-records.js"), "blocklist-records.js"],
   [path.join(EXTENSION_DIR, "browser-shim.js"), "browser-shim.js"],
   [path.join(EXTENSION_DIR, "currency.js"), "currency.js"],
   [path.join(EXTENSION_DIR, "i18n.js"), "i18n.js"],

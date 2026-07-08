@@ -230,6 +230,15 @@
   "customToggleTitle": {
     "message": "ብጁ URL እገዳን አንቃ"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "customSitePlaceholder": {
     "message": "example.com ወይም https://example.com"
   },

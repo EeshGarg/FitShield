@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "Aktiver custom URL blokkering"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "Legg til a custom blokkered URL"
   },

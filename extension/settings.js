@@ -75,6 +75,7 @@ const scheduleSummary = document.getElementById("scheduleSummary");
 const passDurationSlider = document.getElementById("passDurationSlider");
 const passDurationDisplay = document.getElementById("passDurationDisplay");
 const passDurationMinutesInput = document.getElementById("passDurationMinutes");
+const allBlocklistsEnabledInput = document.getElementById("allBlocklistsEnabled");
 const deliverySitesEnabledInput = document.getElementById("deliverySitesEnabled");
 const fastFoodSitesEnabledInput = document.getElementById("fastFoodSitesEnabled");
 const customSitesEnabledInput = document.getElementById("customSitesEnabled");
@@ -455,6 +456,26 @@ function updateBlockingControls(state) {
     : t("scheduleDefaultSummary");
 }
 
+// Keep the "All Blocklists" master toggle in sync with the three group toggles:
+// checked when all three are on, cleared when all off, and indeterminate (the
+// dash state) when they are mixed.
+function updateMasterBlocklistToggle() {
+  if (!allBlocklistsEnabledInput) {
+    return;
+  }
+
+  const states = [
+    deliverySitesEnabledInput.checked,
+    fastFoodSitesEnabledInput.checked,
+    customSitesEnabledInput.checked
+  ];
+  const allOn = states.every(Boolean);
+  const allOff = states.every((on) => !on);
+
+  allBlocklistsEnabledInput.checked = allOn;
+  allBlocklistsEnabledInput.indeterminate = !allOn && !allOff;
+}
+
 function renderBlocklist(state) {
   latestBlockState = state;
   updateBlockingControls(state);
@@ -475,6 +496,7 @@ function renderBlocklist(state) {
   deliverySitesEnabledInput.checked = deliverySitesEnabled;
   fastFoodSitesEnabledInput.checked = fastFoodSitesEnabled;
   customSitesEnabledInput.checked = customSitesEnabled;
+  updateMasterBlocklistToggle();
   const deliveryEnabledCount = deliverySites.filter((site) => site.enabled).length;
   const fastFoodEnabledCount = fastFoodSites.filter((site) => site.enabled).length;
   deliveryCount.textContent = t("deliverySitesEnabledCount", [String(deliveryEnabledCount), String(deliverySites.length)])
@@ -507,11 +529,93 @@ function renderBlocklist(state) {
   }
 }
 
+// Rebuild the block state directly from chrome.storage.local + the loaded engine
+// when the background worker can't answer getBlockState (it is asleep/evicted,
+// or the folder was loaded unbuilt so blocklist.js/the worker is missing).
+// Without this, that section would render its unchecked HTML defaults and look
+// like every saved toggle "reset". Uses the shared FitShieldBlocklistRecords
+// key/record logic so the site keys match what the worker writes.
+async function buildLocalBlockState() {
+  const stored = await chrome.storage.local.get([
+    "enabled",
+    "timerSeconds",
+    "passDurationMinutes",
+    "scheduleEnabled",
+    "scheduleStart",
+    "scheduleEnd",
+    "deliverySitesEnabled",
+    "fastFoodSitesEnabled",
+    "customSitesEnabled",
+    "disabledDeliverySiteKeys",
+    "disabledFastFoodSiteKeys",
+    "customSites"
+  ]);
+
+  let deliverySites = [];
+  let fastFoodSites = [];
+
+  if (typeof FitShieldBlocklist !== "undefined" && typeof FitShieldBlocklistRecords !== "undefined") {
+    try {
+      const entries = await FitShieldBlocklist.loadBlocklists();
+      const records = FitShieldBlocklistRecords.buildSiteRecords(entries, FitShieldBlocklist);
+      deliverySites = FitShieldBlocklistRecords.mergeEnabledState(
+        records.filter((record) => record.type === "delivery"),
+        stored.disabledDeliverySiteKeys
+      );
+      fastFoodSites = FitShieldBlocklistRecords.mergeEnabledState(
+        records.filter((record) => record.type === "fast_food"),
+        stored.disabledFastFoodSiteKeys
+      );
+    } catch (error) {
+      console.error("Failed to build local site lists:", error);
+    }
+  }
+
+  const customSites = Array.isArray(stored.customSites)
+    ? stored.customSites
+        .map((site) => (site && typeof site === "object" && site.domain
+          ? { domain: String(site.domain), enabled: site.enabled !== false }
+          : null))
+        .filter(Boolean)
+    : [];
+
+  return {
+    ok: true,
+    enabled: stored.enabled ?? true,
+    timerSeconds: normalizeTimerSeconds(stored.timerSeconds),
+    passDurationMinutes: normalizePassDurationMinutes(stored.passDurationMinutes),
+    scheduleEnabled: stored.scheduleEnabled ?? false,
+    scheduleStart: stored.scheduleStart ?? DEFAULT_SCHEDULE_START,
+    scheduleEnd: stored.scheduleEnd ?? DEFAULT_SCHEDULE_END,
+    deliverySitesEnabled: stored.deliverySitesEnabled ?? true,
+    fastFoodSitesEnabled: stored.fastFoodSitesEnabled ?? true,
+    customSitesEnabled: stored.customSitesEnabled ?? true,
+    deliverySites,
+    fastFoodSites,
+    customSites,
+    local: true
+  };
+}
+
 async function loadBlocklist() {
-  const response = await chrome.runtime.sendMessage({ type: "getBlockState" });
+  let response = null;
+
+  try {
+    response = await chrome.runtime.sendMessage({ type: "getBlockState" });
+  } catch (error) {
+    // No receiver (worker not registered/awake) — fall through to the local
+    // rebuild so saved settings still display instead of snapping to defaults.
+  }
 
   if (response?.ok) {
     renderBlocklist(response);
+    return;
+  }
+
+  try {
+    renderBlocklist(await buildLocalBlockState());
+  } catch (error) {
+    console.error("Failed to load block state:", error);
   }
 }
 
@@ -610,6 +714,24 @@ scheduleEndInput.addEventListener("change", async () => {
     scheduleEnd: scheduleEndInput.value || DEFAULT_SCHEDULE_END
   });
 });
+
+if (allBlocklistsEnabledInput) {
+  allBlocklistsEnabledInput.addEventListener("change", async () => {
+    // Master toggle: move all three group toggles to match, immediately (so the
+    // UI responds before the async save), then persist them together.
+    const enabled = allBlocklistsEnabledInput.checked;
+    allBlocklistsEnabledInput.indeterminate = false;
+    deliverySitesEnabledInput.checked = enabled;
+    fastFoodSitesEnabledInput.checked = enabled;
+    customSitesEnabledInput.checked = enabled;
+
+    await saveSettings({
+      deliverySitesEnabled: enabled,
+      fastFoodSitesEnabled: enabled,
+      customSitesEnabled: enabled
+    });
+  });
+}
 
 deliverySitesEnabledInput.addEventListener("change", async () => {
   await saveSettings({ deliverySitesEnabled: deliverySitesEnabledInput.checked });

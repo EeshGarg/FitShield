@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "Ενεργοποίηση custom URL αποκλεισμόςing"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "Προσθήκη a custom αποκλεισμόςed URL"
   },

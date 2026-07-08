@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "تمكين حظر عناوين URL المخصصة"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "أضف عنوان URL محظورًا مخصصًا"
   },

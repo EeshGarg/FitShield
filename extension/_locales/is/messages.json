@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "Virkja custom URL lokaing"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "Bæta við a custom lokaed URL"
   },

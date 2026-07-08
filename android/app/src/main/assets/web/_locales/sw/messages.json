@@ -230,6 +230,15 @@
   "customToggleTitle": {
     "message": "Washa kizuizi maalum cha URL"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "customEmptyDefault": {
     "message": "Bado hakuna tovuti maalum zilizozuiwa. Ongeza kikoa kama example.com hapo juu ili kuanza kukizuia."
   },

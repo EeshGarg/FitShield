@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "ഇഷ്‌ടാനുസൃത URL തടയൽ പ്രവർത്തനക്ഷമമാക്കുക"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "ഇഷ്‌ടാനുസൃത ബ്ലോക്ക് ചെയ്‌ത URL ചേർക്കുക"
   },

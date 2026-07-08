@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "Ippermetti custom URL imblokkaing"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "Żid a custom imblokkaed URL"
   },

@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "કસ્ટમ URL અવરોધિત કરવાનું સક્ષમ કરો"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "કસ્ટમ અવરોધિત URL ઉમેરો"
   },

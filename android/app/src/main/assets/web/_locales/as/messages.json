@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "স্বনিৰ্বাচিত URL ব্লক সামৰ্থবান কৰক"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "এটা স্বনিৰ্বাচিত ব্লক কৰা URL যোগ কৰক"
   },

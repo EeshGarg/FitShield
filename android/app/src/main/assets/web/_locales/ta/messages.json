@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "தனிப்பயன் URL தடையை இயக்கு"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "தடுக்க தனிப்பயன் URL ஒன்றைச் சேர்க்கவும்"
   },

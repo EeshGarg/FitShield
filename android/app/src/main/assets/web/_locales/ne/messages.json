@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "अनुकूलन URL अवरुद्ध सक्षम गर्नुहोस्"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "आफू अनुकूल अवरुद्ध URL थप्नुहोस्"
   },

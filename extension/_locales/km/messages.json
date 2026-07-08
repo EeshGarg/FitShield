@@ -227,6 +227,15 @@
   "customToggleTitle": {
     "message": "បើកការទប់ស្កាត់ URL ផ្ទាល់ខ្លួន"
   },
+  "allBlocklistsHeading": {
+    "message": "All Blocklists"
+  },
+  "allBlocklistsHint": {
+    "message": "Turn every built-in group on or off at once."
+  },
+  "allBlocklistsToggleTitle": {
+    "message": "Enable or disable all blocklists"
+  },
   "addCustomUrlLabel": {
     "message": "បន្ថែម URL ដែលបានទប់ស្កាត់ផ្ទាល់ខ្លួន"
   },
