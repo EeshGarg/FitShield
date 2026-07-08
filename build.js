@@ -143,6 +143,55 @@ function copyInto(stageDir) {
 
   // The engine ships as one generated classic script (see bundleEngine above).
   fs.writeFileSync(path.join(stageDir, "blocklist.js"), bundleEngine());
+
+  verifyStage(stageDir);
+}
+
+// Fail the build LOUDLY if the packaged output is missing anything the block
+// page (warning.html) needs to render. copyInto already throws when a *source*
+// FILE/DIR is absent; this instead re-reads the STAGED package and proves the
+// block page's own dependency graph is closed inside it — the exact failure
+// mode ("block page broke after the engine moved") this guards against:
+//   1. warning.html itself, plus every local asset it <script>/<link>/<img>s
+//      (ambient.js, browser-shim.js, i18n.js, recipes.js, warning.js, …),
+//   2. the generated engine runtime bundle (blocklist.js) and the datasets it
+//      fetches at runtime (blocklists/*.json), and the recipe catalog the
+//      block page's alternative columns load (data/recipes.json).
+// The page's asset list is derived FROM warning.html, so adding a <script> to
+// the block page without staging it fails here rather than in production.
+// test/block-page.test.js exercises the same graph plus a full render.
+function verifyStage(stageDir) {
+  const has = (rel) => fs.existsSync(path.join(stageDir, rel));
+  const missing = [];
+
+  // (1) The block page and each same-origin asset it loads.
+  const warningHtmlPath = path.join(stageDir, "warning.html");
+  if (!fs.existsSync(warningHtmlPath)) {
+    throw new Error("Block page dependency check failed: warning.html was not staged.");
+  }
+  const warningHtml = fs.readFileSync(warningHtmlPath, "utf8");
+  for (const tag of warningHtml.match(/<(?:script|link|img)\b[^>]*>/g) || []) {
+    const ref = /\s(?:src|href)="([^"]+)"/.exec(tag);
+    if (ref && !/^(https?:|data:|#|mailto:)/.test(ref[1]) && !has(ref[1])) {
+      missing.push(`warning.html references "${ref[1]}"`);
+    }
+  }
+
+  // (2) The engine runtime bundle, its datasets, and the recipe catalog.
+  const engineDatasets = require("./FS Engine").BLOCKLIST_FILES;
+  for (const rel of ["blocklist.js", "data/recipes.json", ...engineDatasets]) {
+    if (!has(rel)) {
+      missing.push(rel);
+    }
+  }
+
+  if (missing.length > 0) {
+    throw new Error(
+      "Block page dependency check failed — the staged package is missing:\n  " +
+        missing.join("\n  ") +
+        "\nThe block page would render blank. Fix build.js FILES/DIRS or the FS Engine bundle."
+    );
+  }
 }
 
 // Firefox needs an event page (background.scripts). blocklist.js must load
@@ -325,7 +374,7 @@ async function main() {
 // per-browser forms stay a checked contract. Assigned BEFORE main() may run —
 // the audit is reached from main() via validate-all, and a later assignment
 // would hand that circular require an empty exports object.
-module.exports = { bundleEngine, ENGINE_MODULES, FILES, DIRS, chromeManifest, firefoxManifest };
+module.exports = { bundleEngine, ENGINE_MODULES, FILES, DIRS, copyInto, verifyStage, chromeManifest, firefoxManifest };
 
 if (require.main === module) {
   main().catch((error) => {
