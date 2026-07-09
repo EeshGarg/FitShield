@@ -15,6 +15,7 @@
     "validate:assets": "node tools/assets-check.js",
     "validate:extension": "node tools/extension-audit.js",
     "validate:sw": "node tools/service-worker-audit.js",
+    "verify:unpacked": "node tools/verify-unpacked.js",
     "validate:android": "node tools/android-audit.js",
     "validate:android-packages": "node tools/validate-android-packages.js",
     "generate:android": "node tools/generate-android-rules.js",

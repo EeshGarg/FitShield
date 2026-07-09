@@ -1,9 +1,71 @@
-// Load the shared blocklist module. In Chrome (MV3 service worker) this runs via
-// importScripts. In Firefox the module is loaded ahead of this file through the
-// manifest's background.scripts array, so FitShieldBlocklist already exists and
-// importScripts is unavailable — guard for both so the same file runs in either.
+// Runtime diagnostics. A single in-memory record of WHY blocking is (or isn't)
+// active, surfaced to diagnostics.html and the popup via the getDiagnostics
+// message, and echoed to the service-worker console with a [FitShield] prefix.
+// This exists so the classic failure — "nothing blocks and there's no obvious
+// error" — becomes a readable state instead of a white screen.
+const FS_DIAG = {
+  engineLoaded: false,
+  bootError: null,
+  blocklistCount: 0,
+  deliveryCount: 0,
+  fastFoodCount: 0,
+  lastRuleCount: 0,
+  lastDecision: "not-yet-evaluated",
+  lastError: null
+};
+
+function fsLog(...args) {
+  console.log("[FitShield]", ...args);
+}
+
+function fsError(message, error) {
+  FS_DIAG.lastError = {
+    message: String(message),
+    detail: error ? String(error && error.message ? error.message : error) : "",
+    at: Date.now()
+  };
+  console.error("[FitShield]", message, error || "");
+}
+
+// Load the shared blocklist engine bundle. In Chrome (MV3 service worker) this
+// runs via importScripts. In Firefox the module is loaded ahead of this file
+// through the manifest's background.scripts array, so FitShieldBlocklist already
+// exists and importScripts is unavailable — guard for both so the same file runs
+// in either. If the bundle is missing, the worker would otherwise die at
+// registration with a cryptic error and block NOTHING. That is the signature of
+// loading a SOURCE folder (repo root or extension/) instead of the built
+// dist/chrome — so catch it and fail LOUDLY with an actionable message.
 if (typeof FitShieldBlocklist === "undefined" && typeof importScripts === "function") {
-  importScripts("blocklist.js");
+  try {
+    importScripts("blocklist.js");
+  } catch (error) {
+    FS_DIAG.bootError =
+      'Could not load "blocklist.js" (the generated FS Engine bundle). This almost ' +
+      "always means an UNBUILT source folder was loaded. Fix: run `node build.js`, " +
+      "then Load unpacked from dist/chrome — never the repository root or extension/.";
+    console.error("[FitShield] FATAL:", FS_DIAG.bootError, error);
+  }
+}
+
+if (typeof FitShieldBlocklist !== "undefined") {
+  FS_DIAG.engineLoaded = true;
+} else if (!FS_DIAG.bootError) {
+  // Firefox path where background.scripts should have defined the global, or any
+  // other reason the engine is absent without importScripts throwing.
+  FS_DIAG.bootError =
+    "FS Engine global (FitShieldBlocklist) is undefined — the engine bundle did not " +
+    "load. Build with `node build.js` and load dist/chrome (or dist/firefox).";
+  console.error("[FitShield] FATAL:", FS_DIAG.bootError);
+}
+
+fsLog(
+  `service worker booted · engine ${FS_DIAG.engineLoaded ? "loaded" : "MISSING"}` +
+    (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getManifest
+      ? ` · v${chrome.runtime.getManifest().version}`
+      : "")
+);
+if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getURL) {
+  fsLog("diagnostics page:", chrome.runtime.getURL("diagnostics.html"));
 }
 
 const BYPASS_ALARM = "temporaryBypassExpired";
@@ -82,6 +144,13 @@ async function ensureBlocklistsLoaded() {
     return;
   }
 
+  // The engine bundle must have loaded (see the boot guard). Without it there is
+  // nothing to match against — surface the actionable boot error rather than a
+  // "Cannot read properties of undefined" deep in the load chain.
+  if (typeof FitShieldBlocklist === "undefined") {
+    throw new Error(FS_DIAG.bootError || "FS Engine bundle (blocklist.js) is not loaded.");
+  }
+
   if (!blocklistLoadPromise) {
     blocklistLoadPromise = FitShieldBlocklist.loadBlocklists()
       .then((entries) => {
@@ -99,9 +168,16 @@ async function ensureBlocklistsLoaded() {
         DELIVERY_SITES = records.filter((record) => record.type === "delivery");
         FAST_FOOD_SITES = records.filter((record) => record.type === "fast_food");
         blocklistsLoaded = true;
+        FS_DIAG.blocklistCount = records.length;
+        FS_DIAG.deliveryCount = DELIVERY_SITES.length;
+        FS_DIAG.fastFoodCount = FAST_FOOD_SITES.length;
+        fsLog(
+          `blocklists loaded — ${DELIVERY_SITES.length} delivery + ` +
+            `${FAST_FOOD_SITES.length} fast-food brands (${records.length} total)`
+        );
       })
       .catch((error) => {
-        console.error("Failed to load blocklists:", error);
+        fsError("Failed to load blocklists", error);
         blocklistLoadPromise = null;
         throw error;
       });
@@ -518,12 +594,25 @@ async function refreshBlockingState() {
   const hasBlockingRules = rules.length > 0;
 
   if (!settings.enabled || !scheduleActive || !hasActiveSites || !hasBlockingRules) {
+    const reason = !settings.enabled
+      ? "master switch off"
+      : !scheduleActive
+        ? "outside the active schedule window"
+        : !hasActiveSites
+          ? "no blocklists or toggles enabled"
+          : "no matching redirect rules";
+    FS_DIAG.lastRuleCount = 0;
+    FS_DIAG.lastDecision = `inactive — ${reason}`;
+    fsLog("blocking inactive —", reason);
     await updateDynamicRules([]);
     await chrome.storage.local.set({ siteBypasses: filteredSettings.siteBypasses });
     await syncAlarms(filteredSettings);
     return;
   }
 
+  FS_DIAG.lastRuleCount = rules.length;
+  FS_DIAG.lastDecision = `active — ${rules.length} redirect rule(s)`;
+  fsLog(`blocking active — ${rules.length} redirect rule(s)`);
   await updateDynamicRules(rules);
   await chrome.storage.local.set({ siteBypasses: filteredSettings.siteBypasses });
   await syncAlarms(filteredSettings);
@@ -567,6 +656,57 @@ async function getBlockState() {
       ? isScheduleActive(settings.scheduleStart, settings.scheduleEnd)
       : true
   };
+}
+
+// Snapshot of the runtime for diagnostics.html and the popup: whether the engine
+// bundle loaded, how many brands are in the blocklist, how many redirect rules
+// are live in Chrome right now, the last blocking decision + error, and the
+// block-page URL. Passing a domain also runs it through the engine so a user can
+// confirm a specific site is (or is not) blocked without visiting it.
+async function getDiagnostics(testDomain) {
+  const manifest = chrome.runtime.getManifest();
+
+  let dynamicRuleCount = null;
+  let dynamicRuleError = null;
+  try {
+    dynamicRuleCount = (await getDynamicRules()).length;
+  } catch (error) {
+    dynamicRuleError = String(error && error.message ? error.message : error);
+  }
+
+  const result = {
+    ok: true,
+    manifestVersion: manifest.version,
+    manifestName: manifest.name,
+    engineLoaded: FS_DIAG.engineLoaded,
+    bootError: FS_DIAG.bootError,
+    blocklistCount: FS_DIAG.blocklistCount,
+    deliveryCount: FS_DIAG.deliveryCount,
+    fastFoodCount: FS_DIAG.fastFoodCount,
+    dynamicRuleCount,
+    dynamicRuleError,
+    lastRuleCount: FS_DIAG.lastRuleCount,
+    lastDecision: FS_DIAG.lastDecision,
+    lastError: FS_DIAG.lastError,
+    blockPageUrl: chrome.runtime.getURL("warning.html")
+  };
+
+  const domain = String(testDomain || "").trim();
+  if (domain) {
+    if (!FS_DIAG.engineLoaded) {
+      result.test = { input: domain, error: "engine not loaded" };
+    } else {
+      try {
+        await ensureBlocklistsLoaded();
+        const host = FitShieldBlocklist.normalizeHostname(domain);
+        result.test = { input: domain, host, blocked: FitShieldBlocklist.isBlockedHost(host) };
+      } catch (error) {
+        result.test = { input: domain, error: String(error && error.message ? error.message : error) };
+      }
+    }
+  }
+
+  return result;
 }
 
 // Resolve the JSON-derived site record that triggered a block from its key so
@@ -808,7 +948,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
 
 chrome.runtime.onStartup.addListener(() => {
   queueRefreshBlockingState().catch((error) => {
-    console.error("Failed to refresh blocking state on startup:", error);
+    fsError("Failed to refresh blocking state on startup", error);
   });
 });
 
@@ -835,7 +975,7 @@ chrome.storage.onChanged.addListener((changes, area) => {
     changes.enabledCategories
   ) {
     queueRefreshBlockingState().catch((error) => {
-      console.error("Failed to refresh blocking state:", error);
+      fsError("Failed to refresh blocking state", error);
     });
   }
 });
@@ -872,6 +1012,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message?.type === "getBlockState") {
     getBlockState().then(sendResponse).catch((error) => {
       console.error("Failed to get block state:", error);
+      sendResponse({ ok: false, error: error.message });
+    });
+
+    return true;
+  }
+
+  if (message?.type === "getDiagnostics") {
+    getDiagnostics(message.domain).then(sendResponse).catch((error) => {
+      fsError("Failed to build diagnostics", error);
       sendResponse({ ok: false, error: error.message });
     });
 
