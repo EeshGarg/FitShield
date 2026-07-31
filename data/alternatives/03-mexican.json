@@ -1,0 +1,363 @@
+{
+  "recipes": [
+    {
+      "id": "chicken-tacos",
+      "title": "Skillet Chicken Tacos",
+      "description": "Seasoned chicken, charred tortillas, and fresh toppings in twenty minutes.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 350, "unit": "g", "item": "chicken breast or thigh", "note": "diced into 1.5 cm pieces" },
+        { "quantity": 1, "unit": "tbsp", "item": "neutral oil" },
+        { "quantity": 1, "unit": "tsp", "item": "ground cumin" },
+        { "quantity": 1, "unit": "tsp", "item": "smoked paprika" },
+        { "quantity": 0.5, "unit": "tsp", "item": "garlic powder" },
+        { "quantity": 0.75, "unit": "tsp", "item": "salt" },
+        { "quantity": 6, "unit": "piece", "item": "corn tortillas" },
+        { "quantity": 0.5, "unit": "piece", "item": "red onion", "note": "finely diced", "optional": true },
+        { "quantity": 2, "unit": "tbsp", "item": "chopped coriander", "optional": true },
+        { "quantity": 1, "unit": "piece", "item": "lime", "note": "cut into wedges" }
+      ],
+      "steps": [
+        "Toss the diced chicken with the cumin, paprika, garlic powder, and salt.",
+        "Heat the oil in a frying pan over medium-high heat until it shimmers.",
+        "Add the chicken in a single layer and leave it undisturbed for 3 minutes to brown, then stir and cook 4-5 minutes more.",
+        "It is done when no piece shows pink inside and the juices run clear — 74 C / 165 F if you have a thermometer.",
+        "Warm the tortillas 20 seconds per side in a dry pan until they puff slightly and smell toasted.",
+        "Fill with chicken, onion, and coriander, and squeeze lime over each one."
+      ],
+      "totalMinutes": 20,
+      "activeMinutes": 18,
+      "prepMinutes": 8,
+      "cookMinutes": 12,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "quick-cook",
+      "diet": "omnivore",
+      "allergens": [],
+      "substitutions": [
+        { "for": "corn tortillas", "use": "flour tortillas, or lettuce leaves for a lighter version" },
+        { "for": "chicken breast or thigh", "use": "prawns (3-4 minutes total) or firm tofu cubes" }
+      ],
+      "storage": "The chicken keeps 3 days in the fridge and reheats well in a pan.",
+      "categories": ["mexican", "fast_food", "fast_casual"],
+      "cravings": ["taco", "high-protein"],
+      "region": "latin-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": false,
+      "calorieRange": [450, 570],
+      "dataVersion": 2
+    },
+    {
+      "id": "black-bean-tacos",
+      "title": "Smoky Black Bean Tacos",
+      "description": "Cheap, fast, and genuinely good — tinned beans cooked down until they are thick and smoky.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 400, "unit": "g", "item": "canned black beans", "note": "one tin, drained" },
+        { "quantity": 1, "unit": "tbsp", "item": "olive oil" },
+        { "quantity": 1, "unit": "tsp", "item": "ground cumin" },
+        { "quantity": 0.5, "unit": "tsp", "item": "smoked paprika" },
+        { "quantity": 0.5, "unit": "tsp", "item": "salt" },
+        { "quantity": 3, "unit": "tbsp", "item": "water" },
+        { "quantity": 6, "unit": "piece", "item": "corn tortillas" },
+        { "quantity": 0.5, "unit": "cup", "item": "shredded cheese", "optional": true },
+        { "quantity": 4, "unit": "tbsp", "item": "salsa" },
+        { "quantity": 1, "unit": "piece", "item": "lime", "note": "cut into wedges" }
+      ],
+      "steps": [
+        "Heat the oil in a small pan over medium heat, add the cumin and paprika, and stir for 30 seconds until they smell toasted.",
+        "Add the beans, salt, and water. Cook 5-6 minutes, mashing about a third of the beans against the pan, until the mixture is thick enough to hold a line when you drag a spoon through it.",
+        "Warm the tortillas 20 seconds per side in a dry pan.",
+        "Fill with beans, cheese, and salsa, and finish with a squeeze of lime."
+      ],
+      "totalMinutes": 15,
+      "activeMinutes": 12,
+      "prepMinutes": 4,
+      "cookMinutes": 8,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "quick-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "shredded cheese", "use": "sliced avocado or a dairy-free shred — leave it out entirely and the recipe is vegan" },
+        { "for": "canned black beans", "use": "pinto or kidney beans" }
+      ],
+      "storage": "The bean mix keeps 4 days and freezes well.",
+      "categories": ["mexican", "fast_food"],
+      "cravings": ["taco", "burrito"],
+      "region": "latin-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [390, 500],
+      "dataVersion": 2
+    },
+    {
+      "id": "bean-rice-burrito",
+      "title": "Bean and Rice Burrito",
+      "description": "A proper full-size burrito built from pantry staples and folded so it does not fall apart.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 2, "unit": "piece", "item": "large flour tortillas" },
+        { "quantity": 1.5, "unit": "cup", "item": "cooked rice", "note": "warm" },
+        { "quantity": 400, "unit": "g", "item": "canned black or pinto beans", "note": "drained and warmed" },
+        { "quantity": 0.5, "unit": "cup", "item": "shredded cheese" },
+        { "quantity": 4, "unit": "tbsp", "item": "salsa" },
+        { "quantity": 1, "unit": "tsp", "item": "ground cumin" },
+        { "quantity": 0.5, "unit": "tsp", "item": "salt" },
+        { "quantity": 2, "unit": "tbsp", "item": "sour cream", "optional": true },
+        { "quantity": 0.5, "unit": "piece", "item": "avocado", "note": "sliced", "optional": true }
+      ],
+      "steps": [
+        "Stir the cumin and salt through the warm beans.",
+        "Warm each tortilla for 20-30 seconds in a dry pan until soft and pliable — a cold tortilla will split when rolled.",
+        "Pile the filling in a line across the lower third of the tortilla, leaving 5 cm clear at each side. Do not overfill.",
+        "Fold the two sides in, then roll the bottom edge up and over the filling, pulling back gently to tighten as you roll.",
+        "Toast the finished burrito seam-side down in a dry pan over medium heat for 2 minutes per side, until the outside is golden and sealed."
+      ],
+      "totalMinutes": 15,
+      "activeMinutes": 12,
+      "prepMinutes": 8,
+      "cookMinutes": 6,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "assembly",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "cooked rice", "use": "a microwave rice pouch, or leave the rice out and use more beans" },
+        { "for": "shredded cheese", "use": "a dairy-free shred; skip the sour cream and this is vegan" }
+      ],
+      "storage": "Wrap in foil and refrigerate up to 3 days, or freeze for 2 months. Reheat wrapped in the oven at 180 C / 350 F for 20 minutes.",
+      "categories": ["mexican", "fast_casual", "delivery"],
+      "cravings": ["burrito", "rice-bowl"],
+      "region": "latin-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [560, 700],
+      "dataVersion": 2
+    },
+    {
+      "id": "breakfast-burrito",
+      "title": "Breakfast Burrito",
+      "description": "Eggs, cheese, and potato in a tortilla — filling, cheap, and freezes for later.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 4, "unit": "piece", "item": "eggs" },
+        { "quantity": 2, "unit": "piece", "item": "large flour tortillas" },
+        { "quantity": 1, "unit": "cup", "item": "frozen diced potatoes or hash browns" },
+        { "quantity": 0.5, "unit": "cup", "item": "shredded cheese" },
+        { "quantity": 1, "unit": "tbsp", "item": "butter or oil" },
+        { "quantity": 0.5, "unit": "tsp", "item": "salt" },
+        { "quantity": 3, "unit": "tbsp", "item": "salsa or hot sauce", "optional": true }
+      ],
+      "steps": [
+        "Cook the frozen potatoes in a dry non-stick pan over medium-high heat for 6-8 minutes without stirring much, until browned and crisp at the edges. Tip onto a plate.",
+        "Lower the heat to medium-low, melt the butter, and add the eggs beaten with the salt.",
+        "Stir slowly and constantly with a spatula for 2-3 minutes, until the egg forms soft curds that hold their shape and are no longer runny. Take them off while they still look slightly wet — they finish cooking in the pan's heat.",
+        "Warm the tortillas 20 seconds per side, then fill with potato, egg, cheese, and salsa.",
+        "Fold the sides in and roll tightly, then toast seam-side down for 2 minutes."
+      ],
+      "totalMinutes": 18,
+      "activeMinutes": 15,
+      "prepMinutes": 5,
+      "cookMinutes": 13,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "one-pan",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy", "egg"],
+      "substitutions": [
+        { "for": "frozen diced potatoes or hash browns", "use": "a tin of black beans, drained, warmed with cumin" },
+        { "for": "butter or oil", "use": "any cooking oil" }
+      ],
+      "storage": "Wrap in foil and freeze up to 2 months. Reheat from frozen in the microwave for 3 minutes, turning once.",
+      "categories": ["mexican", "coffee", "bakery"],
+      "cravings": ["burrito", "breakfast"],
+      "region": "latin-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [520, 650],
+      "dataVersion": 2
+    },
+    {
+      "id": "tofu-tacos",
+      "title": "Crispy Tofu Tacos",
+      "description": "Crumbled tofu browned hard until it has real texture, then seasoned like taco meat.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 400, "unit": "g", "item": "firm tofu", "note": "pressed dry and crumbled" },
+        { "quantity": 2, "unit": "tbsp", "item": "neutral oil" },
+        { "quantity": 1.5, "unit": "tsp", "item": "ground cumin" },
+        { "quantity": 1, "unit": "tsp", "item": "smoked paprika" },
+        { "quantity": 1, "unit": "tbsp", "item": "soy sauce" },
+        { "quantity": 0.5, "unit": "tsp", "item": "salt" },
+        { "quantity": 6, "unit": "piece", "item": "corn tortillas" },
+        { "quantity": 1, "unit": "cup", "item": "shredded cabbage" },
+        { "quantity": 1, "unit": "piece", "item": "lime", "note": "cut into wedges" },
+        { "quantity": 2, "unit": "tsp", "item": "hot sauce", "optional": true }
+      ],
+      "steps": [
+        "Wrap the tofu in a tea towel and press under something heavy for 10 minutes, then crumble it into rough pieces.",
+        "Heat the oil in a frying pan over medium-high heat and add the tofu in one layer.",
+        "Cook 8-10 minutes, stirring only every 2-3 minutes. Wait until the pieces are golden and firm rather than pale and soft — this is the whole difference.",
+        "Add the cumin, paprika, soy sauce, and salt and toss for 1 minute more.",
+        "Warm the tortillas, then fill with tofu, cabbage, lime, and hot sauce."
+      ],
+      "totalMinutes": 25,
+      "activeMinutes": 15,
+      "prepMinutes": 12,
+      "cookMinutes": 12,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "quick-cook",
+      "diet": "vegan",
+      "allergens": ["soy", "gluten"],
+      "substitutions": [
+        { "for": "firm tofu", "use": "a tin of drained, dried chickpeas, roughly crushed" },
+        { "for": "soy sauce", "use": "tamari for a gluten-free version, or 0.25 tsp extra salt" }
+      ],
+      "storage": "Keeps 3 days; re-crisp in a hot dry pan.",
+      "categories": ["mexican", "asian", "fast_casual"],
+      "cravings": ["taco", "high-protein"],
+      "region": "latin-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [420, 530],
+      "dataVersion": 2
+    }
+  ],
+  "quickAlternatives": [
+    {
+      "id": "microwave-rice-beans-salsa",
+      "title": "Microwave Rice, Beans, and Salsa",
+      "description": "A hot, filling bowl in four minutes using only a microwave and three tins or pouches.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 1, "unit": "pouch", "item": "microwave rice", "note": "250 g" },
+        { "quantity": 200, "unit": "g", "item": "canned black beans", "note": "half a tin, drained" },
+        { "quantity": 3, "unit": "tbsp", "item": "salsa" },
+        { "quantity": 0.5, "unit": "tsp", "item": "ground cumin", "optional": true },
+        { "quantity": 3, "unit": "tbsp", "item": "shredded cheese", "optional": true }
+      ],
+      "steps": [
+        "Microwave the rice pouch for the time on the packet, usually 2 minutes.",
+        "Tip it into a bowl with the beans, salsa, and cumin and stir.",
+        "Microwave the bowl 90 seconds more, stir again, and check it is steaming hot throughout before adding the cheese."
+      ],
+      "totalMinutes": 5,
+      "activeMinutes": 3,
+      "difficulty": "easy",
+      "equipment": ["microwave"],
+      "method": "microwave",
+      "diet": "vegetarian",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "microwave rice", "use": "any leftover cooked rice, or instant couscous made with boiling water" },
+        { "for": "shredded cheese", "use": "leave it out for a vegan bowl" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["mexican", "fast_casual", "grocery"],
+      "cravings": ["rice-bowl", "burrito", "late-night"],
+      "region": "latin-american",
+      "noCook": false,
+      "microwave": true,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "cheese-quesadilla",
+      "title": "Cheese Quesadilla",
+      "description": "Two ingredients, one pan, six minutes — the reliable answer to almost any craving.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 1, "unit": "piece", "item": "large flour tortilla" },
+        { "quantity": 0.75, "unit": "cup", "item": "shredded cheese" },
+        { "quantity": 2, "unit": "tbsp", "item": "salsa", "optional": true },
+        { "quantity": 3, "unit": "tbsp", "item": "canned beans", "note": "drained", "optional": true }
+      ],
+      "steps": [
+        "Put a dry frying pan on medium heat and lay the tortilla in flat.",
+        "Scatter the cheese over one half only, add any extras, and fold the empty half over.",
+        "Cook 2-3 minutes per side, pressing gently with a spatula, until both sides have golden patches and the cheese is fully melted.",
+        "Slide out, wait 1 minute so the cheese sets, then cut into wedges."
+      ],
+      "totalMinutes": 6,
+      "activeMinutes": 6,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "assembly",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "shredded cheese", "use": "a dairy-free shred, or refried beans alone" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["mexican", "fast_food"],
+      "cravings": ["taco", "late-night", "comfort"],
+      "region": "latin-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "microwave-nachos",
+      "title": "Microwave Nachos",
+      "description": "The late-night one. Three minutes, one plate, no oven.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 60, "unit": "g", "item": "corn tortilla chips" },
+        { "quantity": 0.5, "unit": "cup", "item": "shredded cheese" },
+        { "quantity": 4, "unit": "tbsp", "item": "canned beans", "note": "drained", "optional": true },
+        { "quantity": 3, "unit": "tbsp", "item": "salsa" },
+        { "quantity": 2, "unit": "tbsp", "item": "sliced jalapenos", "optional": true }
+      ],
+      "steps": [
+        "Spread the chips in a single overlapping layer on a microwave-safe plate — piled chips steam and go soft.",
+        "Scatter the cheese and beans evenly over the top.",
+        "Microwave 45-60 seconds, until the cheese has just melted. Stop as soon as it does; longer makes the chips chewy.",
+        "Spoon over the salsa and jalapenos."
+      ],
+      "totalMinutes": 4,
+      "activeMinutes": 3,
+      "difficulty": "easy",
+      "equipment": ["microwave"],
+      "method": "microwave",
+      "diet": "vegetarian",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "shredded cheese", "use": "a dairy-free shred for a vegan plate" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["mexican", "fast_food", "grocery"],
+      "cravings": ["late-night", "convenience", "comfort"],
+      "region": "latin-american",
+      "noCook": false,
+      "microwave": true,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    }
+  ]
+}

@@ -18,6 +18,7 @@ const { TICK, WARN, CROSS } = require("./lib/report");
 
 const AUDITS = [
   require("./validate-datasets"),
+  require("./alternatives-audit"),
   require("./alias-audit"),
   require("./country-audit"),
   require("./category-audit"),
@@ -27,7 +28,8 @@ const AUDITS = [
   require("./changelog-validator"),
   require("./assets-check"),
   require("./extension-audit"),
-  require("./service-worker-audit")
+  require("./service-worker-audit"),
+  require("./sync-audit")
 ];
 
 async function validateAll(options) {

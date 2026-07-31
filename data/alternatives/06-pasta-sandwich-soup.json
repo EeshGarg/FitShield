@@ -1,0 +1,354 @@
+{
+  "recipes": [
+    {
+      "id": "garlic-butter-spaghetti",
+      "title": "Garlic Butter Spaghetti",
+      "description": "Four ingredients, ten minutes, and a sauce that clings because of the pasta water.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 200, "unit": "g", "item": "spaghetti" },
+        { "quantity": 4, "unit": "tbsp", "item": "butter" },
+        { "quantity": 4, "unit": "clove", "item": "garlic", "note": "thinly sliced" },
+        { "quantity": 0.5, "unit": "tsp", "item": "chilli flakes", "optional": true },
+        { "quantity": 0.5, "unit": "cup", "item": "grated parmesan", "optional": true },
+        { "quantity": 1, "unit": "tsp", "item": "salt", "note": "for the pasta water" },
+        { "quantity": 2, "unit": "tbsp", "item": "chopped parsley", "optional": true }
+      ],
+      "steps": [
+        "Boil the spaghetti in well-salted water for the time on the packet, and scoop out a mugful of the water before draining.",
+        "While it boils, melt the butter in a wide pan over medium-low heat and add the garlic and chilli flakes.",
+        "Cook the garlic gently for 2-3 minutes until it is pale gold and smells sweet. If it browns it will taste bitter, so keep the heat low.",
+        "Add the drained pasta and 0.5 cup of the pasta water to the pan and toss hard over medium heat for 60-90 seconds.",
+        "The sauce is ready when it turns glossy and coats the strands instead of pooling. Add more pasta water a splash at a time if it looks dry.",
+        "Take off the heat, stir in the parmesan and parsley, and serve immediately."
+      ],
+      "totalMinutes": 12,
+      "activeMinutes": 10,
+      "prepMinutes": 3,
+      "cookMinutes": 10,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "quick-cook",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "butter", "use": "olive oil, which makes it vegan if you also skip the parmesan" },
+        { "for": "grated parmesan", "use": "any hard cheese, or nutritional yeast" }
+      ],
+      "storage": "Best fresh. Keeps 2 days; reheat with a splash of water.",
+      "categories": ["delivery", "restaurant", "fast_casual"],
+      "cravings": ["pasta", "comfort", "late-night"],
+      "region": "european",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "calorieRange": [590, 730],
+      "dataVersion": 2
+    },
+    {
+      "id": "one-pan-tomato-pasta",
+      "title": "One-Pan Tomato Pasta",
+      "description": "Pasta cooked directly in the sauce — one pan, no colander, and a thicker result.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 200, "unit": "g", "item": "short pasta", "note": "penne, fusilli, or similar" },
+        { "quantity": 400, "unit": "g", "item": "canned chopped tomatoes", "note": "one tin" },
+        { "quantity": 2, "unit": "cup", "item": "water" },
+        { "quantity": 3, "unit": "clove", "item": "garlic", "note": "chopped" },
+        { "quantity": 2, "unit": "tbsp", "item": "olive oil" },
+        { "quantity": 1, "unit": "tsp", "item": "dried oregano" },
+        { "quantity": 1, "unit": "tsp", "item": "salt" },
+        { "quantity": 0.5, "unit": "cup", "item": "grated cheese", "optional": true },
+        { "quantity": 6, "unit": "leaf", "item": "basil", "optional": true }
+      ],
+      "steps": [
+        "Heat the oil in a wide deep pan over medium heat and cook the garlic for 45 seconds until fragrant.",
+        "Add the tomatoes, water, oregano, salt, and the dry pasta. Stir well and bring to the boil.",
+        "Simmer uncovered for 12-14 minutes, stirring every 2 minutes so nothing sticks to the bottom.",
+        "It is done when the pasta is tender with a slight bite and the liquid has reduced to a sauce that clings. Add a splash of water if it thickens too fast.",
+        "Take off the heat, stir in the cheese, and tear the basil over the top."
+      ],
+      "totalMinutes": 20,
+      "activeMinutes": 10,
+      "prepMinutes": 4,
+      "cookMinutes": 16,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "one-pan",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "canned chopped tomatoes", "use": "1.5 cups of tomato pasta sauce with 1.5 cups water" },
+        { "for": "grated cheese", "use": "leave it out for a vegan pan" }
+      ],
+      "storage": "Keeps 3 days. It thickens cold; loosen with water when reheating.",
+      "categories": ["delivery", "restaurant", "fast_casual", "pizza"],
+      "cravings": ["pasta", "comfort"],
+      "region": "european",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [520, 660],
+      "dataVersion": 2
+    },
+    {
+      "id": "grilled-cheese-tomato-soup",
+      "title": "Grilled Cheese and Tomato Soup",
+      "description": "The most reliable comfort meal there is, done properly: low heat, real browning.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 4, "unit": "slice", "item": "bread" },
+        { "quantity": 1, "unit": "cup", "item": "shredded cheese", "note": "cheddar or a melting blend" },
+        { "quantity": 2, "unit": "tbsp", "item": "butter", "note": "softened" },
+        { "quantity": 400, "unit": "g", "item": "canned tomato soup", "substituteGroup": "soup" },
+        { "quantity": 0.25, "unit": "tsp", "item": "black pepper", "optional": true }
+      ],
+      "steps": [
+        "Butter the outside face of each slice of bread, right to the edges.",
+        "Build two sandwiches with the cheese inside and the buttered sides facing out.",
+        "Put them in a cold frying pan, then turn the heat to medium-LOW. Starting cold is what lets the cheese melt before the bread burns.",
+        "Cook 4-5 minutes per side, pressing gently, until each side is evenly deep golden and the cheese is visibly molten at the edges.",
+        "Heat the soup in a saucepan over medium heat for 4-5 minutes, stirring, until steaming.",
+        "Cut the sandwiches diagonally and serve with the soup."
+      ],
+      "totalMinutes": 15,
+      "activeMinutes": 13,
+      "prepMinutes": 4,
+      "cookMinutes": 11,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "quick-cook",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "canned tomato soup", "use": "any tinned soup, or tinned tomatoes blitzed with a pinch of sugar and salt" },
+        { "for": "butter", "use": "mayonnaise on the outside — it browns beautifully — or a dairy-free spread" }
+      ],
+      "storage": "Eat the sandwich straight away; leftover soup keeps 3 days.",
+      "categories": ["sandwich", "delivery", "fast_casual"],
+      "cravings": ["sandwich", "soup", "comfort", "late-night"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [620, 780],
+      "dataVersion": 2
+    },
+    {
+      "id": "caprese-sandwich",
+      "title": "Caprese Sandwich",
+      "description": "Mozzarella, tomato, and basil pressed into good bread. Nothing is cooked.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 1, "unit": "piece", "item": "crusty bread roll", "note": "split" },
+        { "quantity": 100, "unit": "g", "item": "fresh mozzarella", "note": "sliced" },
+        { "quantity": 1, "unit": "piece", "item": "tomato", "note": "sliced" },
+        { "quantity": 6, "unit": "leaf", "item": "basil" },
+        { "quantity": 1, "unit": "tbsp", "item": "olive oil" },
+        { "quantity": 1, "unit": "tsp", "item": "balsamic vinegar", "optional": true },
+        { "quantity": 1, "unit": "pinch", "item": "salt and pepper" }
+      ],
+      "steps": [
+        "Salt the tomato slices lightly and leave them on kitchen paper for 2 minutes, then pat dry — this stops the bread going soggy.",
+        "Drizzle the cut faces of the roll with olive oil.",
+        "Layer mozzarella, tomato, and basil, then season with salt, pepper, and balsamic.",
+        "Close the sandwich and press down firmly with your palm for 10 seconds before cutting."
+      ],
+      "totalMinutes": 8,
+      "activeMinutes": 8,
+      "prepMinutes": 8,
+      "cookMinutes": 0,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "fresh mozzarella", "use": "any soft cheese, or sliced avocado for a vegan sandwich" },
+        { "for": "crusty bread roll", "use": "ciabatta, sourdough, or a baguette section" }
+      ],
+      "storage": "Eat within a couple of hours; it does not keep well.",
+      "categories": ["sandwich", "bakery", "fast_casual"],
+      "cravings": ["sandwich", "mediterranean"],
+      "region": "mediterranean",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": false,
+      "calorieRange": [480, 610],
+      "dataVersion": 2
+    },
+    {
+      "id": "greek-salad-pita",
+      "title": "Greek Salad Pita",
+      "description": "A crunchy, salty, no-cook pita that eats like a proper meal.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 2, "unit": "piece", "item": "pita bread" },
+        { "quantity": 1, "unit": "piece", "item": "cucumber", "note": "diced" },
+        { "quantity": 2, "unit": "piece", "item": "tomatoes", "note": "diced" },
+        { "quantity": 0.25, "unit": "piece", "item": "red onion", "note": "thinly sliced" },
+        { "quantity": 100, "unit": "g", "item": "feta", "note": "crumbled" },
+        { "quantity": 3, "unit": "tbsp", "item": "olives", "optional": true },
+        { "quantity": 2, "unit": "tbsp", "item": "olive oil" },
+        { "quantity": 1, "unit": "tbsp", "item": "lemon juice" },
+        { "quantity": 0.5, "unit": "tsp", "item": "dried oregano" }
+      ],
+      "steps": [
+        "Toss the cucumber, tomato, onion, and olives with the olive oil, lemon juice, and oregano.",
+        "Let it sit 3 minutes so the vegetables release a little juice and the dressing loosens.",
+        "Warm the pitas for 20 seconds each side in a dry pan or toaster so they open without tearing.",
+        "Stir the feta through the salad, then stuff the pitas, spooning a little of the dressing in last."
+      ],
+      "totalMinutes": 10,
+      "activeMinutes": 10,
+      "prepMinutes": 10,
+      "cookMinutes": 0,
+      "difficulty": "easy",
+      "equipment": ["toaster"],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "feta", "use": "a firm dairy-free cheese, or a tin of drained chickpeas for a vegan pita" },
+        { "for": "pita bread", "use": "a tortilla wrap, or eat it as a salad with no bread at all" }
+      ],
+      "storage": "The salad keeps 2 days undressed; assemble the pitas fresh.",
+      "categories": ["sandwich", "fast_casual", "delivery"],
+      "cravings": ["mediterranean", "salad", "sandwich"],
+      "region": "mediterranean",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": false,
+      "calorieRange": [430, 550],
+      "dataVersion": 2
+    }
+  ],
+  "quickAlternatives": [
+    {
+      "id": "soup-and-toastie",
+      "title": "Tinned Soup and Toast",
+      "description": "The lowest-effort hot meal in the house — five minutes, one pan, one toaster.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 400, "unit": "g", "item": "canned soup", "note": "one tin" },
+        { "quantity": 2, "unit": "slice", "item": "bread" },
+        { "quantity": 1, "unit": "tbsp", "item": "butter" },
+        { "quantity": 3, "unit": "tbsp", "item": "shredded cheese", "optional": true }
+      ],
+      "steps": [
+        "Heat the soup in a saucepan over medium heat for 4-5 minutes, stirring, until it is steaming hot throughout.",
+        "Toast the bread and butter it while it is hot.",
+        "Stir the cheese into the soup off the heat if you want it richer."
+      ],
+      "totalMinutes": 6,
+      "activeMinutes": 4,
+      "difficulty": "easy",
+      "equipment": ["stove", "toaster"],
+      "method": "assembly",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "canned soup", "use": "any tinned or carton soup; check the label if you need it vegetarian" },
+        { "for": "stove", "use": "microwave the soup in a bowl for 2-3 minutes, stirring halfway" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["grocery", "delivery", "sandwich"],
+      "cravings": ["soup", "comfort", "convenience", "late-night"],
+      "region": "global",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "turkey-club-sandwich",
+      "title": "Deli Turkey Sandwich",
+      "description": "A cold sandwich built properly, in four minutes, with nothing switched on.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 2, "unit": "slice", "item": "bread" },
+        { "quantity": 80, "unit": "g", "item": "sliced turkey or ham" },
+        { "quantity": 1, "unit": "slice", "item": "cheese" },
+        { "quantity": 1, "unit": "tbsp", "item": "mayonnaise" },
+        { "quantity": 1, "unit": "tsp", "item": "mustard", "optional": true },
+        { "quantity": 2, "unit": "leaf", "item": "lettuce", "optional": true },
+        { "quantity": 3, "unit": "slice", "item": "tomato", "optional": true }
+      ],
+      "steps": [
+        "Spread mayonnaise on both slices — it is a moisture barrier as much as a condiment.",
+        "Layer cheese first, then the meat, then lettuce and tomato so the wet ingredients sit away from the bread.",
+        "Add mustard, close, press gently, and cut diagonally."
+      ],
+      "totalMinutes": 4,
+      "activeMinutes": 4,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "omnivore",
+      "allergens": ["gluten", "dairy", "egg"],
+      "substitutions": [
+        { "for": "sliced turkey or ham", "use": "hummus and grated carrot, or sliced halloumi, for a vegetarian sandwich" }
+      ],
+      "storage": "Eat within a few hours; keep refrigerated.",
+      "categories": ["sandwich", "fast_casual", "grocery"],
+      "cravings": ["sandwich", "convenience", "high-protein"],
+      "region": "north-american",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": false,
+      "dataVersion": 2
+    },
+    {
+      "id": "pesto-pasta-frozen-veg",
+      "title": "Pesto Pasta with Frozen Veg",
+      "description": "One pot, two ingredients you already have, and a green vegetable that cooks itself.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 200, "unit": "g", "item": "pasta" },
+        { "quantity": 4, "unit": "tbsp", "item": "pesto" },
+        { "quantity": 1.5, "unit": "cup", "item": "frozen peas or green beans" },
+        { "quantity": 2, "unit": "tbsp", "item": "grated cheese", "optional": true }
+      ],
+      "steps": [
+        "Boil the pasta over high heat for the time on the packet, adding the frozen vegetables for the last 3 minutes, until the pasta is tender and the vegetables are hot right through.",
+        "Reserve half a cup of the cooking water, then drain.",
+        "Return everything to the pot off the heat, stir in the pesto and 3 tbsp of the water, and toss until glossy and coated.",
+        "Add cheese if you want it richer."
+      ],
+      "totalMinutes": 13,
+      "activeMinutes": 5,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "assembly",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy", "tree-nut"],
+      "substitutions": [
+        { "for": "pesto", "use": "a nut-free or vegan pesto; check the label, as most contain pine nuts and cheese" }
+      ],
+      "storage": "Keeps 2 days; good cold as a pasta salad.",
+      "categories": ["delivery", "restaurant", "fast_casual"],
+      "cravings": ["pasta", "comfort"],
+      "region": "european",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    }
+  ]
+}

@@ -7,6 +7,7 @@
     "test": "node --test",
     "validate": "node tools/validate-all.js",
     "validate:datasets": "node tools/validate-datasets.js",
+    "validate:alternatives": "node tools/alternatives-audit.js",
     "validate:aliases": "node tools/alias-audit.js",
     "validate:countries": "node tools/country-audit.js",
     "validate:categories": "node tools/category-audit.js",
@@ -15,6 +16,9 @@
     "validate:assets": "node tools/assets-check.js",
     "validate:extension": "node tools/extension-audit.js",
     "validate:sw": "node tools/service-worker-audit.js",
+    "validate:sync": "node tools/sync-audit.js",
+    "sync": "node tools/sync-extension.js",
+    "generate:alternatives": "node tools/build-alternatives.js",
     "verify:unpacked": "node tools/verify-unpacked.js",
     "validate:android": "node tools/android-audit.js",
     "validate:android-packages": "node tools/validate-android-packages.js",
@@ -22,7 +26,9 @@
     "generate:android-packages": "node tools/generate-android-packages.js",
     "port:android-apps": "node tools/port-android-apps.js",
     "build": "node build.js",
-    "build:android": "node tools/build-android.js"
+    "build:android": "node tools/build-android.js",
+    "build:safari": "node tools/build-safari.js",
+    "build:all": "node build.js && node tools/build-android.js"
   },
   "license": "GPL-3.0-or-later"
 }

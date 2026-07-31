@@ -1,0 +1,349 @@
+{
+  "recipes": [
+    {
+      "id": "naan-pizza",
+      "title": "Naan Pizza",
+      "description": "A personal pizza on naan with a properly crisp base, out of the oven in fifteen minutes.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 2, "unit": "piece", "item": "naan bread", "substituteGroup": "flatbread" },
+        { "quantity": 0.5, "unit": "cup", "item": "tomato pasta sauce" },
+        { "quantity": 1.5, "unit": "cup", "item": "shredded mozzarella" },
+        { "quantity": 0.5, "unit": "cup", "item": "sliced mushrooms", "optional": true },
+        { "quantity": 0.5, "unit": "piece", "item": "bell pepper", "note": "thinly sliced", "optional": true },
+        { "quantity": 1, "unit": "tbsp", "item": "olive oil" },
+        { "quantity": 0.5, "unit": "tsp", "item": "dried oregano" }
+      ],
+      "steps": [
+        "Heat the oven to 230 C / 450 F and put a baking tray in while it heats.",
+        "Brush the edges of each naan with olive oil and spread 1/4 cup of sauce over each, leaving a 1 cm border.",
+        "Scatter the mozzarella and any toppings evenly, then sprinkle with oregano.",
+        "Slide the naans onto the hot tray and bake 8-10 minutes, until the cheese is fully melted with a few browned spots and the edges are firm and dry to the touch.",
+        "Rest 2 minutes before slicing so the cheese sets."
+      ],
+      "totalMinutes": 15,
+      "activeMinutes": 6,
+      "prepMinutes": 5,
+      "cookMinutes": 10,
+      "difficulty": "easy",
+      "equipment": ["oven"],
+      "method": "quick-cook",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "naan bread", "use": "pita, a flour tortilla, or a split English muffin — reduce baking to 6-8 minutes for thinner bases" },
+        { "for": "tomato pasta sauce", "use": "passata or crushed tinned tomatoes with a pinch of salt" }
+      ],
+      "storage": "Best eaten straight away. Leftovers keep 2 days covered in the fridge; re-crisp in a dry pan rather than a microwave.",
+      "categories": ["pizza", "delivery", "fast_food"],
+      "cravings": ["pizza"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [470, 610],
+      "dataVersion": 2
+    },
+    {
+      "id": "tortilla-pizza",
+      "title": "Crispy Tortilla Pizza",
+      "description": "The fastest pizza-shaped thing you can make — thin, crisp, and done in a frying pan.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 1, "unit": "piece", "item": "large flour tortilla", "substituteGroup": "flatbread" },
+        { "quantity": 3, "unit": "tbsp", "item": "tomato pasta sauce" },
+        { "quantity": 0.75, "unit": "cup", "item": "shredded mozzarella" },
+        { "quantity": 1, "unit": "tsp", "item": "olive oil" },
+        { "quantity": 0.25, "unit": "tsp", "item": "dried oregano", "optional": true }
+      ],
+      "steps": [
+        "Put a dry frying pan on medium heat for 1 minute, then add the olive oil and swirl to coat.",
+        "Lay the tortilla in flat and spread the sauce over it, leaving a 1 cm border.",
+        "Scatter the cheese over the sauce and cover the pan with a lid or a plate.",
+        "Cook 4-6 minutes without moving it. It is ready when the cheese is fully melted and the underside is golden brown — lift an edge with a spatula to check.",
+        "Slide onto a board, sprinkle with oregano, and cut into quarters."
+      ],
+      "totalMinutes": 8,
+      "activeMinutes": 4,
+      "prepMinutes": 2,
+      "cookMinutes": 6,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "quick-cook",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "large flour tortilla", "use": "pita bread or a wrap; corn tortillas work but crisp faster, so check at 3 minutes" },
+        { "for": "shredded mozzarella", "use": "any melting cheese — cheddar, gouda, or a dairy-free shred" }
+      ],
+      "storage": "Eat immediately; it softens as it cools.",
+      "categories": ["pizza", "fast_food"],
+      "cravings": ["pizza", "late-night"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [380, 480],
+      "dataVersion": 2
+    },
+    {
+      "id": "smash-burger",
+      "title": "Stovetop Smash Burger",
+      "description": "Thin, deeply browned patties with crisp edges — the part of a drive-thru burger that is actually good.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 250, "unit": "g", "item": "ground beef", "note": "roughly 80/20 for the best crust" },
+        { "quantity": 2, "unit": "piece", "item": "burger buns" },
+        { "quantity": 2, "unit": "slice", "item": "cheddar or American cheese" },
+        { "quantity": 0.5, "unit": "tsp", "item": "salt" },
+        { "quantity": 0.25, "unit": "tsp", "item": "black pepper" },
+        { "quantity": 1, "unit": "tsp", "item": "neutral oil" },
+        { "quantity": 2, "unit": "tbsp", "item": "sliced pickles", "optional": true },
+        { "quantity": 2, "unit": "tbsp", "item": "burger sauce or mayo and ketchup mixed", "optional": true }
+      ],
+      "steps": [
+        "Divide the beef into 4 loose balls. Do not season yet and do not compact them.",
+        "Toast the cut sides of the buns in a dry pan for 1 minute until golden, then set aside.",
+        "Put the same pan on high heat with the oil until it shimmers — about 2 minutes.",
+        "Add 2 beef balls and immediately press each flat with a spatula to about 1 cm thick. Season the tops with half the salt and pepper.",
+        "Cook 2 minutes without moving, until the edges are deep brown and lacy. Flip, add a slice of cheese, and cook 1 more minute.",
+        "Repeat with the remaining 2 balls. Cook ground beef right through — no pink in the middle.",
+        "Stack two patties per bun and add pickles and sauce."
+      ],
+      "totalMinutes": 15,
+      "activeMinutes": 15,
+      "prepMinutes": 5,
+      "cookMinutes": 8,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "quick-cook",
+      "diet": "omnivore",
+      "allergens": ["gluten", "dairy", "egg"],
+      "substitutions": [
+        { "for": "ground beef", "use": "ground turkey or chicken — cook until no longer pink and the juices run clear" },
+        { "for": "burger buns", "use": "any bread roll, a folded flatbread, or toast" }
+      ],
+      "storage": "Cooked patties keep 2 days in the fridge. Reheat in a pan, not a microwave, to keep the crust.",
+      "categories": ["burger", "fast_food"],
+      "cravings": ["burger"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": false,
+      "calorieRange": [560, 720],
+      "dataVersion": 2
+    },
+    {
+      "id": "black-bean-burger",
+      "title": "Black Bean Burger",
+      "description": "A firm, savoury bean patty that holds together properly — the fix for most homemade veggie burgers.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 400, "unit": "g", "item": "canned black beans", "note": "one tin, drained and rinsed" },
+        { "quantity": 0.5, "unit": "cup", "item": "dried breadcrumbs" },
+        { "quantity": 1, "unit": "piece", "item": "egg" },
+        { "quantity": 0.25, "unit": "cup", "item": "finely chopped onion" },
+        { "quantity": 1, "unit": "tsp", "item": "ground cumin" },
+        { "quantity": 0.5, "unit": "tsp", "item": "smoked paprika" },
+        { "quantity": 0.5, "unit": "tsp", "item": "salt" },
+        { "quantity": 1, "unit": "tbsp", "item": "olive oil" },
+        { "quantity": 2, "unit": "piece", "item": "burger buns" },
+        { "quantity": 2, "unit": "leaf", "item": "lettuce", "optional": true }
+      ],
+      "steps": [
+        "Pat the drained beans dry with a tea towel — wet beans are why bean burgers fall apart.",
+        "Mash about three quarters of them to a paste in a bowl, leaving the rest whole for texture.",
+        "Mix in the breadcrumbs, egg, onion, cumin, paprika, and salt until it holds together when squeezed. If it still feels wet, add breadcrumbs a tablespoon at a time.",
+        "Shape into 2 patties about 2 cm thick and chill them for 5 minutes if you have time.",
+        "Heat the oil in a frying pan over medium heat and cook the patties 4-5 minutes per side, until a firm dark crust forms and they no longer feel soft in the centre.",
+        "Serve in toasted buns with lettuce."
+      ],
+      "totalMinutes": 25,
+      "activeMinutes": 15,
+      "prepMinutes": 12,
+      "cookMinutes": 10,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "quick-cook",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "egg"],
+      "substitutions": [
+        { "for": "egg", "use": "2 tbsp ground flaxseed mixed with 3 tbsp water, left 5 minutes — makes it vegan" },
+        { "for": "dried breadcrumbs", "use": "rolled oats blitzed briefly, or crushed crackers" },
+        { "for": "canned black beans", "use": "kidney beans or brown lentils, drained well" }
+      ],
+      "storage": "Uncooked patties freeze well for 2 months. Cooked patties keep 3 days in the fridge.",
+      "categories": ["burger", "fast_food"],
+      "cravings": ["burger"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [430, 550],
+      "dataVersion": 2
+    },
+    {
+      "id": "air-fryer-potato-wedges",
+      "title": "Air Fryer Potato Wedges",
+      "description": "Crisp outside, fluffy inside, with the seasoning you actually wanted from the drive-thru.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 500, "unit": "g", "item": "potatoes", "note": "about 2 large, skin on" },
+        { "quantity": 1, "unit": "tbsp", "item": "olive oil" },
+        { "quantity": 0.75, "unit": "tsp", "item": "salt" },
+        { "quantity": 0.5, "unit": "tsp", "item": "smoked paprika" },
+        { "quantity": 0.25, "unit": "tsp", "item": "garlic powder", "optional": true }
+      ],
+      "steps": [
+        "Cut the potatoes into wedges about 2 cm thick at the widest point so they cook evenly.",
+        "Rinse the wedges in cold water and dry them thoroughly — surface starch and water both stop them crisping.",
+        "Toss with the oil, salt, paprika, and garlic powder until every piece is coated.",
+        "Air fry at 200 C / 400 F for 18-20 minutes, shaking the basket at the halfway point.",
+        "They are done when the outsides are deep golden and a knife slides into the thickest wedge with no resistance."
+      ],
+      "totalMinutes": 25,
+      "activeMinutes": 8,
+      "prepMinutes": 7,
+      "cookMinutes": 20,
+      "difficulty": "easy",
+      "equipment": ["air fryer"],
+      "method": "air-fryer",
+      "diet": "vegan",
+      "allergens": [],
+      "substitutions": [
+        { "for": "air fryer", "use": "a hot oven at 220 C / 425 F on a tray for 30-35 minutes, turning once" }
+      ],
+      "storage": "Keeps 2 days; re-crisp in the air fryer for 4 minutes.",
+      "categories": ["burger", "fast_food", "chicken"],
+      "cravings": ["fries"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": true,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [290, 370],
+      "dataVersion": 2
+    }
+  ],
+  "quickAlternatives": [
+    {
+      "id": "frozen-pizza-upgrade",
+      "title": "Frozen Pizza, Made Better",
+      "description": "The lowest-effort pizza there is, with two small changes that close most of the gap.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 1, "unit": "piece", "item": "frozen pizza" },
+        { "quantity": 0.5, "unit": "cup", "item": "shredded mozzarella", "optional": true },
+        { "quantity": 1, "unit": "tbsp", "item": "olive oil", "optional": true },
+        { "quantity": 0.5, "unit": "tsp", "item": "dried oregano", "optional": true }
+      ],
+      "steps": [
+        "Heat the oven 25 C / 50 F hotter than the box says and put the shelf in the lowest position.",
+        "Add the extra cheese, then bake for the time on the box, checking 3 minutes early. It is ready when the cheese is bubbling and the crust edge is golden and firm.",
+        "Brush the crust edge with olive oil and sprinkle oregano over the top as it comes out."
+      ],
+      "totalMinutes": 16,
+      "activeMinutes": 3,
+      "difficulty": "easy",
+      "equipment": ["oven"],
+      "method": "assembly",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [],
+      "storage": "Leftovers keep 2 days; reheat in a dry pan with a lid.",
+      "categories": ["pizza", "delivery", "fast_food"],
+      "cravings": ["pizza", "late-night", "comfort"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "frozen-patty-cheeseburger",
+      "title": "Frozen Patty Cheeseburger",
+      "description": "Freezer to plate in ten minutes with no defrosting and no shaping.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 1, "unit": "piece", "item": "frozen beef or plant burger patty" },
+        { "quantity": 1, "unit": "piece", "item": "burger bun" },
+        { "quantity": 1, "unit": "slice", "item": "cheese" },
+        { "quantity": 1, "unit": "tbsp", "item": "burger sauce or mayo and ketchup mixed", "optional": true },
+        { "quantity": 2, "unit": "tbsp", "item": "sliced pickles", "optional": true }
+      ],
+      "steps": [
+        "Cook the patty straight from frozen in a dry pan over medium heat, 5-6 minutes per side. Beef must be cooked right through with no pink in the middle.",
+        "Add the cheese for the last minute and cover the pan so it melts.",
+        "Toast the bun cut-side down in the same pan for 1 minute, then build with sauce and pickles."
+      ],
+      "totalMinutes": 12,
+      "activeMinutes": 5,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "assembly",
+      "diet": "omnivore",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "frozen beef or plant burger patty", "use": "a plant-based patty makes this vegetarian; check the packet cooking time" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["burger", "fast_food"],
+      "cravings": ["burger", "late-night"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "english-muffin-pizzas",
+      "title": "English Muffin Pizzas",
+      "description": "Four small pizzas under the grill while the kettle is still boiling.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 2, "unit": "piece", "item": "English muffins", "note": "split in half" },
+        { "quantity": 4, "unit": "tbsp", "item": "tomato pasta sauce" },
+        { "quantity": 0.75, "unit": "cup", "item": "shredded mozzarella" },
+        { "quantity": 0.25, "unit": "tsp", "item": "dried oregano", "optional": true }
+      ],
+      "steps": [
+        "Toast the split muffins lightly so the bases stay firm.",
+        "Spread 1 tbsp of sauce on each half and top with cheese.",
+        "Grill or bake at 220 C / 425 F for 5-6 minutes, until the cheese is bubbling with browned spots."
+      ],
+      "totalMinutes": 9,
+      "activeMinutes": 4,
+      "difficulty": "easy",
+      "equipment": ["oven", "toaster"],
+      "method": "assembly",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "English muffins", "use": "bagel halves, crumpets, or thick sliced bread" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["pizza", "bakery"],
+      "cravings": ["pizza", "late-night", "breakfast"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    }
+  ]
+}

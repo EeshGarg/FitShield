@@ -1,0 +1,380 @@
+{
+  "recipes": [
+    {
+      "id": "scrambled-eggs-toast",
+      "title": "Soft Scrambled Eggs on Toast",
+      "description": "Five minutes, two ingredients, and the one technique that separates creamy from rubbery.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 3, "unit": "piece", "item": "eggs" },
+        { "quantity": 2, "unit": "slice", "item": "bread" },
+        { "quantity": 1, "unit": "tbsp", "item": "butter" },
+        { "quantity": 0.25, "unit": "tsp", "item": "salt" },
+        { "quantity": 1, "unit": "pinch", "item": "black pepper" }
+      ],
+      "steps": [
+        "Beat the eggs with the salt until no streaks of white remain.",
+        "Put the toast on.",
+        "Melt the butter in a non-stick pan over LOW heat — low is the whole trick.",
+        "Pour in the eggs and stir slowly and constantly with a spatula, scraping the base every few seconds.",
+        "After 2-3 minutes they will start forming soft curds. Take the pan off the heat while they still look slightly wet and glossy; the residual heat finishes them.",
+        "Pile onto the toast and grind pepper over."
+      ],
+      "totalMinutes": 6,
+      "activeMinutes": 6,
+      "prepMinutes": 2,
+      "cookMinutes": 4,
+      "difficulty": "easy",
+      "equipment": ["stove", "toaster"],
+      "method": "quick-cook",
+      "diet": "vegetarian",
+      "allergens": ["egg", "gluten", "dairy"],
+      "substitutions": [
+        { "for": "butter", "use": "olive oil or any spread" },
+        { "for": "bread", "use": "a tortilla, a bagel, or nothing at all" }
+      ],
+      "storage": "Eat immediately; scrambled eggs do not keep well.",
+      "categories": ["coffee", "bakery", "fast_casual"],
+      "cravings": ["breakfast", "high-protein", "comfort"],
+      "region": "global",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [420, 530],
+      "dataVersion": 2
+    },
+    {
+      "id": "overnight-oats",
+      "title": "Overnight Oats",
+      "description": "Two minutes tonight, breakfast handled tomorrow. Nothing is cooked.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 0.5, "unit": "cup", "item": "rolled oats" },
+        { "quantity": 0.5, "unit": "cup", "item": "milk or plant milk" },
+        { "quantity": 3, "unit": "tbsp", "item": "yogurt", "optional": true },
+        { "quantity": 1, "unit": "tsp", "item": "honey or maple syrup", "optional": true },
+        { "quantity": 0.5, "unit": "cup", "item": "fruit", "note": "berries or sliced banana" },
+        { "quantity": 1, "unit": "tbsp", "item": "peanut butter", "optional": true }
+      ],
+      "steps": [
+        "Stir the oats, milk, yogurt, and sweetener together in a jar or bowl.",
+        "The mixture should look far too wet — the oats absorb most of it overnight.",
+        "Cover and refrigerate at least 4 hours, ideally overnight.",
+        "In the morning, stir, add a splash more milk if it is stiff, and top with fruit and peanut butter."
+      ],
+      "totalMinutes": 245,
+      "activeMinutes": 4,
+      "prepMinutes": 4,
+      "cookMinutes": 0,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy", "peanut"],
+      "substitutions": [
+        { "for": "milk or plant milk", "use": "any plant milk, which makes it vegan if you also skip the yogurt and honey" },
+        { "for": "peanut butter", "use": "any seed butter, or leave it out" }
+      ],
+      "storage": "Keeps 3 days in the fridge, so make several at once.",
+      "categories": ["coffee", "bakery", "smoothie"],
+      "cravings": ["breakfast", "convenience"],
+      "region": "global",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "calorieRange": [340, 460],
+      "dataVersion": 2
+    },
+    {
+      "id": "iced-latte",
+      "title": "Iced Latte",
+      "description": "The coffee-shop drink, at home, for the price of the beans.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 60, "unit": "ml", "item": "strong brewed coffee", "note": "cooled, or 2 shots of espresso" },
+        { "quantity": 180, "unit": "ml", "item": "milk or plant milk", "note": "cold" },
+        { "quantity": 1, "unit": "cup", "item": "ice" },
+        { "quantity": 2, "unit": "tsp", "item": "sugar or syrup", "optional": true },
+        { "quantity": 0.25, "unit": "tsp", "item": "vanilla extract", "optional": true }
+      ],
+      "steps": [
+        "If you are sweetening it, stir the sugar into the hot coffee first — it will not dissolve once the drink is cold.",
+        "Cool the coffee: either brew it ahead, or pour it over 3-4 ice cubes and stir for 20 seconds, then discard those cubes.",
+        "Fill a tall glass with fresh ice and pour the milk in.",
+        "Pour the cooled coffee slowly over the back of a spoon so it layers, then stir before drinking."
+      ],
+      "totalMinutes": 5,
+      "activeMinutes": 5,
+      "prepMinutes": 5,
+      "cookMinutes": 0,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "milk or plant milk", "use": "oat milk froths best of the plant milks and keeps this vegan" },
+        { "for": "strong brewed coffee", "use": "1 tbsp instant coffee dissolved in 60 ml hot water" }
+      ],
+      "storage": "Brew a jug of coffee and keep it in the fridge for 3 days to make this a 60-second drink.",
+      "categories": ["coffee", "tea"],
+      "cravings": ["coffee"],
+      "region": "global",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "calorieRange": [90, 180],
+      "dataVersion": 2
+    },
+    {
+      "id": "blended-mocha-frappe",
+      "title": "Blended Mocha",
+      "description": "The thick, sweet, blended coffee drink — made in a blender in three minutes.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 60, "unit": "ml", "item": "strong brewed coffee", "note": "cooled" },
+        { "quantity": 120, "unit": "ml", "item": "milk or plant milk" },
+        { "quantity": 1.5, "unit": "cup", "item": "ice" },
+        { "quantity": 1.5, "unit": "tbsp", "item": "cocoa powder" },
+        { "quantity": 2, "unit": "tsp", "item": "sugar" },
+        { "quantity": 1, "unit": "pinch", "item": "salt" }
+      ],
+      "steps": [
+        "Whisk the cocoa, sugar, and salt into the warm coffee until completely smooth — cocoa will not blend out of lumps later.",
+        "Let it cool for a minute, then add it to the blender with the milk and ice.",
+        "Blend on high for 30-45 seconds, until there are no ice shards left and the drink pours thickly.",
+        "If it is too thin, add 3-4 more ice cubes and blend 10 seconds more."
+      ],
+      "totalMinutes": 5,
+      "activeMinutes": 5,
+      "prepMinutes": 5,
+      "cookMinutes": 0,
+      "difficulty": "easy",
+      "equipment": ["blender"],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "milk or plant milk", "use": "any plant milk for a vegan drink" },
+        { "for": "cocoa powder", "use": "2 tbsp drinking chocolate, and drop the sugar to 1 tsp" }
+      ],
+      "storage": "Drink immediately; it separates as it melts.",
+      "categories": ["coffee", "dessert", "smoothie", "tea"],
+      "cravings": ["sweet-drink", "coffee", "dessert"],
+      "region": "global",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "calorieRange": [180, 280],
+      "dataVersion": 2
+    },
+    {
+      "id": "berry-protein-smoothie",
+      "title": "Berry Protein Smoothie",
+      "description": "A thick, cold smoothie that actually fills you up. This is a drink, not a coffee substitute.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 1, "unit": "cup", "item": "frozen berries" },
+        { "quantity": 1, "unit": "piece", "item": "banana", "note": "fresh or frozen" },
+        { "quantity": 200, "unit": "ml", "item": "milk or plant milk" },
+        { "quantity": 1, "unit": "scoop", "item": "protein powder", "optional": true, "substituteGroup": "protein" },
+        { "quantity": 3, "unit": "tbsp", "item": "yogurt", "optional": true, "substituteGroup": "protein" },
+        { "quantity": 1, "unit": "tbsp", "item": "peanut butter", "optional": true }
+      ],
+      "steps": [
+        "Put the liquid in the blender first — this is what stops the blades jamming on frozen fruit.",
+        "Add the banana, then the frozen berries, then the protein powder or yogurt on top.",
+        "Blend 45-60 seconds until completely smooth with no visible fruit pieces.",
+        "If the blender stalls, stop and stir the mixture down rather than adding more liquid."
+      ],
+      "totalMinutes": 5,
+      "activeMinutes": 5,
+      "prepMinutes": 5,
+      "cookMinutes": 0,
+      "difficulty": "easy",
+      "equipment": ["blender"],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy", "peanut"],
+      "substitutions": [
+        { "for": "protein powder", "use": "3 tbsp yogurt, or 2 tbsp oats for body" },
+        { "for": "milk or plant milk", "use": "any plant milk, making it vegan if you skip the yogurt" }
+      ],
+      "storage": "Drink fresh. Pre-bag the fruit in the freezer to make this a 90-second job.",
+      "categories": ["smoothie", "grocery"],
+      "cravings": ["smoothie", "breakfast", "high-protein"],
+      "region": "global",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "calorieRange": [280, 420],
+      "dataVersion": 2
+    }
+  ],
+  "quickAlternatives": [
+    {
+      "id": "yogurt-fruit-granola",
+      "title": "Yogurt, Fruit, and Granola",
+      "description": "Three things in a bowl. Two minutes, no appliances, no cooking.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 1, "unit": "cup", "item": "yogurt" },
+        { "quantity": 0.5, "unit": "cup", "item": "fruit", "note": "berries, banana, or tinned peaches" },
+        { "quantity": 0.33, "unit": "cup", "item": "granola or cereal" },
+        { "quantity": 1, "unit": "tsp", "item": "honey", "optional": true }
+      ],
+      "steps": [
+        "Spoon the yogurt into a bowl or glass.",
+        "Add the fruit, then the granola last so it stays crunchy.",
+        "Drizzle with honey if you want it sweeter."
+      ],
+      "totalMinutes": 3,
+      "activeMinutes": 3,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy", "gluten", "tree-nut"],
+      "substitutions": [
+        { "for": "yogurt", "use": "a plant yogurt, with maple syrup instead of honey, for a vegan bowl" },
+        { "for": "granola or cereal", "use": "crushed digestive biscuits, or plain oats" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["coffee", "bakery", "smoothie", "grocery"],
+      "cravings": ["breakfast", "dessert", "convenience", "high-protein"],
+      "region": "global",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "homemade-iced-coffee",
+      "title": "Two-Minute Iced Coffee",
+      "description": "Instant coffee, ice, milk. The fastest possible answer to a coffee-shop craving.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 1.5, "unit": "tsp", "item": "instant coffee" },
+        { "quantity": 3, "unit": "tbsp", "item": "hot water" },
+        { "quantity": 200, "unit": "ml", "item": "milk or plant milk", "note": "cold" },
+        { "quantity": 1, "unit": "cup", "item": "ice" },
+        { "quantity": 1, "unit": "tsp", "item": "sugar", "optional": true }
+      ],
+      "steps": [
+        "Dissolve the coffee and sugar in the hot water and stir hard for 20 seconds.",
+        "Fill a glass with ice and pour in the milk.",
+        "Pour the coffee over and stir."
+      ],
+      "totalMinutes": 2,
+      "activeMinutes": 2,
+      "difficulty": "easy",
+      "equipment": ["kettle"],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "milk or plant milk", "use": "any plant milk for a vegan drink" }
+      ],
+      "storage": "Drink straight away.",
+      "categories": ["coffee", "tea"],
+      "cravings": ["coffee", "sweet-drink"],
+      "region": "global",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "iced-matcha-milk",
+      "title": "Iced Matcha or Chai Milk",
+      "description": "The non-coffee tea-shop drink, without the queue or the sugar load.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 1, "unit": "tsp", "item": "matcha powder or 1 chai teabag", "substituteGroup": "tea" },
+        { "quantity": 60, "unit": "ml", "item": "hot water" },
+        { "quantity": 200, "unit": "ml", "item": "milk or plant milk", "note": "cold" },
+        { "quantity": 1, "unit": "cup", "item": "ice" },
+        { "quantity": 2, "unit": "tsp", "item": "honey or sugar", "optional": true }
+      ],
+      "steps": [
+        "For matcha: whisk the powder into the hot water for 20 seconds until no lumps remain and a light foam forms. For chai: steep the teabag in the hot water for 4 minutes, then remove it.",
+        "Stir in the sweetener while the liquid is still hot.",
+        "Fill a glass with ice, pour in the cold milk, then pour the tea over the top and stir."
+      ],
+      "totalMinutes": 5,
+      "activeMinutes": 4,
+      "difficulty": "easy",
+      "equipment": ["kettle"],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "matcha powder or 1 chai teabag", "use": "any strong tea — black, jasmine, or rooibos" },
+        { "for": "milk or plant milk", "use": "oat milk, for a vegan drink with sugar instead of honey" }
+      ],
+      "storage": "Drink straight away.",
+      "categories": ["tea", "coffee"],
+      "cravings": ["sweet-drink", "coffee"],
+      "region": "east-asian",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "peanut-butter-toast-banana",
+      "title": "Peanut Butter and Banana Toast",
+      "description": "Three minutes, three ingredients, and enough substance to stop a craving.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 2, "unit": "slice", "item": "bread" },
+        { "quantity": 2, "unit": "tbsp", "item": "peanut butter" },
+        { "quantity": 1, "unit": "piece", "item": "banana", "note": "sliced" },
+        { "quantity": 1, "unit": "pinch", "item": "ground cinnamon", "optional": true },
+        { "quantity": 1, "unit": "tsp", "item": "honey", "optional": true }
+      ],
+      "steps": [
+        "Toast the bread for 2-3 minutes, until firm and golden enough to hold the topping.",
+        "Spread the peanut butter while the toast is hot so it softens and spreads thinly.",
+        "Lay the banana slices over and finish with cinnamon and honey."
+      ],
+      "totalMinutes": 3,
+      "activeMinutes": 3,
+      "difficulty": "easy",
+      "equipment": ["toaster"],
+      "method": "assembly",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "peanut"],
+      "substitutions": [
+        { "for": "peanut butter", "use": "any seed or nut butter, for a peanut-free version" },
+        { "for": "honey", "use": "maple syrup, which makes it vegan" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["bakery", "coffee", "grocery"],
+      "cravings": ["breakfast", "late-night", "convenience", "dessert"],
+      "region": "global",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    }
+  ]
+}

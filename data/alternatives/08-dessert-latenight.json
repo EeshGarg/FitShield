@@ -1,0 +1,426 @@
+{
+  "recipes": [
+    {
+      "id": "microwave-mug-brownie",
+      "title": "Microwave Mug Brownie",
+      "description": "A single warm, fudgy brownie in ninety seconds, with no oven and nothing left over.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 4, "unit": "tbsp", "item": "plain flour" },
+        { "quantity": 4, "unit": "tbsp", "item": "sugar" },
+        { "quantity": 2, "unit": "tbsp", "item": "cocoa powder" },
+        { "quantity": 1, "unit": "pinch", "item": "salt" },
+        { "quantity": 3, "unit": "tbsp", "item": "milk or plant milk" },
+        { "quantity": 2, "unit": "tbsp", "item": "neutral oil" },
+        { "quantity": 0.25, "unit": "tsp", "item": "vanilla extract", "optional": true }
+      ],
+      "steps": [
+        "Mix the flour, sugar, cocoa, and salt in a large microwave-safe mug with a fork until no cocoa streaks remain.",
+        "Add the milk, oil, and vanilla and stir until smooth, scraping the bottom corners of the mug where dry flour hides.",
+        "Microwave on full power for 60 seconds, then check: the top should look set and matt but the very centre should still be soft.",
+        "If it is still wet on top, give it 10-second bursts. Stop as soon as the top is set — overcooking by even 20 seconds turns it rubbery.",
+        "Let it stand 2 minutes before eating; it is extremely hot straight out."
+      ],
+      "totalMinutes": 5,
+      "activeMinutes": 4,
+      "prepMinutes": 3,
+      "cookMinutes": 2,
+      "difficulty": "easy",
+      "equipment": ["microwave"],
+      "method": "microwave",
+      "diet": "vegan",
+      "allergens": ["gluten"],
+      "substitutions": [
+        { "for": "milk or plant milk", "use": "water works, though it is less rich" },
+        { "for": "plain flour", "use": "a gluten-free flour blend, cooked 15 seconds longer" }
+      ],
+      "storage": "Eat immediately; it goes dense once cold.",
+      "categories": ["dessert", "bakery", "delivery"],
+      "cravings": ["dessert", "late-night", "comfort", "bakery"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": true,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [420, 520],
+      "dataVersion": 2
+    },
+    {
+      "id": "banana-nice-cream",
+      "title": "Banana Ice Cream",
+      "description": "Two frozen bananas blended into something genuinely like soft-serve. One ingredient, no churning.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 3, "unit": "piece", "item": "bananas", "note": "sliced and frozen at least 3 hours" },
+        { "quantity": 2, "unit": "tbsp", "item": "milk or plant milk", "note": "only if the blender needs help" },
+        { "quantity": 1, "unit": "tbsp", "item": "cocoa powder", "optional": true },
+        { "quantity": 1, "unit": "tbsp", "item": "peanut butter", "optional": true }
+      ],
+      "steps": [
+        "Take the frozen banana out and let it sit for 3-4 minutes — rock-hard fruit will stall a blender.",
+        "Blend on high. It will go through a crumbly stage that looks wrong; keep going.",
+        "After 45-90 seconds it suddenly turns smooth, thick, and glossy. That is the point to stop.",
+        "Only add milk a teaspoon at a time if the blender genuinely cannot move; too much makes it a smoothie.",
+        "Blend in the cocoa or peanut butter for 10 seconds and serve straight away, or freeze 30 minutes for a firmer scoop."
+      ],
+      "totalMinutes": 8,
+      "activeMinutes": 6,
+      "prepMinutes": 6,
+      "cookMinutes": 0,
+      "difficulty": "easy",
+      "equipment": ["blender"],
+      "method": "no-cook",
+      "diet": "vegan",
+      "allergens": ["peanut"],
+      "substitutions": [
+        { "for": "bananas", "use": "frozen mango chunks, blended the same way, with a splash more liquid" },
+        { "for": "peanut butter", "use": "any nut or seed butter, or leave it out" }
+      ],
+      "storage": "Freezes solid; let it soften 10 minutes before scooping again.",
+      "categories": ["dessert", "smoothie"],
+      "cravings": ["ice-cream", "dessert", "sweet-drink", "smoothie"],
+      "region": "global",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "calorieRange": [140, 260],
+      "dataVersion": 2
+    },
+    {
+      "id": "cinnamon-sugar-toast",
+      "title": "Cinnamon Sugar Toast",
+      "description": "A bakery-counter craving answered with bread, butter, and sugar under the grill.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 2, "unit": "slice", "item": "bread", "note": "thick-cut if you have it" },
+        { "quantity": 2, "unit": "tbsp", "item": "butter", "note": "softened" },
+        { "quantity": 2, "unit": "tbsp", "item": "sugar" },
+        { "quantity": 0.75, "unit": "tsp", "item": "ground cinnamon" }
+      ],
+      "steps": [
+        "Heat the grill or a toaster oven to high.",
+        "Mix the sugar and cinnamon together in a small bowl.",
+        "Spread the butter thickly right to the edges of the bread, then press the cinnamon sugar evenly over the top.",
+        "Grill 2-3 minutes, watching it the whole time. It is ready when the sugar has melted, bubbled, and just begun to darken at the edges.",
+        "Let it cool 1 minute — melted sugar is dangerously hot — then cut into fingers."
+      ],
+      "totalMinutes": 6,
+      "activeMinutes": 5,
+      "prepMinutes": 3,
+      "cookMinutes": 3,
+      "difficulty": "easy",
+      "equipment": ["oven", "toaster"],
+      "method": "quick-cook",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "dairy"],
+      "substitutions": [
+        { "for": "butter", "use": "a dairy-free spread, which makes it vegan" },
+        { "for": "oven", "use": "a dry frying pan, butter-side down, over medium heat for 2-3 minutes" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["bakery", "dessert", "coffee"],
+      "cravings": ["bakery", "dessert", "late-night"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [380, 470],
+      "dataVersion": 2
+    },
+    {
+      "id": "salmon-patties",
+      "title": "Tinned Salmon Patties",
+      "description": "Crisp, savoury fish cakes from a tin and a few pantry things — ready in twenty minutes.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 210, "unit": "g", "item": "canned salmon", "note": "one tin, drained well" },
+        { "quantity": 1, "unit": "piece", "item": "egg" },
+        { "quantity": 0.5, "unit": "cup", "item": "dried breadcrumbs" },
+        { "quantity": 2, "unit": "piece", "item": "spring onions", "note": "finely sliced" },
+        { "quantity": 1, "unit": "tbsp", "item": "lemon juice" },
+        { "quantity": 0.5, "unit": "tsp", "item": "salt" },
+        { "quantity": 0.25, "unit": "tsp", "item": "black pepper" },
+        { "quantity": 2, "unit": "tbsp", "item": "neutral oil" },
+        { "quantity": 2, "unit": "tbsp", "item": "mayonnaise", "optional": true }
+      ],
+      "steps": [
+        "Drain the salmon thoroughly and flake it with a fork, breaking up any soft bones — they are edible and add calcium.",
+        "Mix with the egg, breadcrumbs, spring onions, lemon juice, salt, and pepper until it holds together when pressed.",
+        "Shape into 4 patties about 2 cm thick and rest them 5 minutes so the breadcrumbs absorb the moisture.",
+        "Heat the oil in a frying pan over medium heat and cook 3-4 minutes per side, until a firm golden crust forms and they are hot right through.",
+        "Serve with mayonnaise and a lemon wedge."
+      ],
+      "totalMinutes": 20,
+      "activeMinutes": 14,
+      "prepMinutes": 12,
+      "cookMinutes": 8,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "quick-cook",
+      "diet": "pescatarian",
+      "allergens": ["fish", "egg", "gluten"],
+      "substitutions": [
+        { "for": "canned salmon", "use": "two tins of tuna, drained very well" },
+        { "for": "dried breadcrumbs", "use": "crushed crackers, instant mashed potato, or rolled oats" }
+      ],
+      "storage": "Keeps 2 days in the fridge; reheat in a pan to keep the crust.",
+      "categories": ["seafood", "fast_casual", "grocery"],
+      "cravings": ["seafood", "high-protein", "comfort"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [420, 530],
+      "dataVersion": 2
+    },
+    {
+      "id": "loaded-chopped-salad",
+      "title": "Loaded Chopped Salad",
+      "description": "A salad with enough protein and crunch to actually be dinner, dressed in the bowl.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 4, "unit": "cup", "item": "salad leaves or shredded cabbage", "note": "chopped small" },
+        { "quantity": 400, "unit": "g", "item": "canned chickpeas or beans", "note": "drained" },
+        { "quantity": 1, "unit": "piece", "item": "cucumber", "note": "diced" },
+        { "quantity": 1, "unit": "piece", "item": "tomato", "note": "diced" },
+        { "quantity": 80, "unit": "g", "item": "feta or hard cheese", "note": "crumbled", "optional": true },
+        { "quantity": 3, "unit": "tbsp", "item": "olive oil" },
+        { "quantity": 1.5, "unit": "tbsp", "item": "lemon juice or vinegar" },
+        { "quantity": 1, "unit": "tsp", "item": "mustard" },
+        { "quantity": 0.5, "unit": "tsp", "item": "salt" },
+        { "quantity": 0.25, "unit": "cup", "item": "croutons or toasted nuts", "optional": true }
+      ],
+      "steps": [
+        "Whisk the olive oil, lemon juice, mustard, and salt in the bottom of a large bowl until it thickens slightly and stops separating.",
+        "Add the chickpeas and the diced cucumber and tomato and toss — the firm things go in first so they take the dressing.",
+        "Chop the leaves smaller than feels necessary; a chopped salad works because every forkful gets everything.",
+        "Add the leaves and cheese and toss just before serving so nothing wilts.",
+        "Top with croutons or nuts for crunch."
+      ],
+      "totalMinutes": 12,
+      "activeMinutes": 12,
+      "prepMinutes": 12,
+      "cookMinutes": 0,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy", "gluten", "tree-nut"],
+      "substitutions": [
+        { "for": "feta or hard cheese", "use": "leave it out and add half an avocado, for a vegan salad" },
+        { "for": "canned chickpeas or beans", "use": "leftover cooked chicken, or a tin of tuna" }
+      ],
+      "storage": "Keeps 2 days undressed. Dress only what you are eating now.",
+      "categories": ["fast_casual", "delivery", "grocery"],
+      "cravings": ["salad", "high-protein", "mediterranean"],
+      "region": "mediterranean",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "calorieRange": [430, 560],
+      "dataVersion": 2
+    }
+  ],
+  "quickAlternatives": [
+    {
+      "id": "yogurt-frozen-fruit-swirl",
+      "title": "Frozen Fruit Yogurt Swirl",
+      "description": "Two minutes to something cold and sweet, using a tub of yogurt and the freezer.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 0.75, "unit": "cup", "item": "yogurt", "note": "thick or Greek-style" },
+        { "quantity": 0.75, "unit": "cup", "item": "frozen berries" },
+        { "quantity": 1, "unit": "tsp", "item": "honey or maple syrup", "optional": true },
+        { "quantity": 1, "unit": "tbsp", "item": "granola", "optional": true }
+      ],
+      "steps": [
+        "Stir the frozen berries straight into the cold yogurt — they firm it up as they thaw.",
+        "Mash a few against the side of the bowl to streak it pink, then stop stirring so it stays swirled.",
+        "Drizzle with honey and scatter granola over."
+      ],
+      "totalMinutes": 3,
+      "activeMinutes": 3,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy", "gluten"],
+      "substitutions": [
+        { "for": "yogurt", "use": "a thick plant yogurt with maple syrup, for a vegan bowl" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["dessert", "smoothie", "grocery"],
+      "cravings": ["ice-cream", "dessert", "convenience"],
+      "region": "global",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "chocolate-oat-bites",
+      "title": "No-Bake Chocolate Oat Bites",
+      "description": "Stirred together in one bowl, no oven, and they keep for a week.",
+      "servings": 6,
+      "ingredients": [
+        { "quantity": 1, "unit": "cup", "item": "rolled oats" },
+        { "quantity": 0.5, "unit": "cup", "item": "peanut butter" },
+        { "quantity": 3, "unit": "tbsp", "item": "honey or maple syrup" },
+        { "quantity": 2, "unit": "tbsp", "item": "cocoa powder" },
+        { "quantity": 1, "unit": "pinch", "item": "salt" }
+      ],
+      "steps": [
+        "Stir everything together in a bowl until no dry oats remain. It should be stiff but hold together when squeezed.",
+        "If it crumbles, add honey a teaspoon at a time; if it is sticky, add more oats.",
+        "Roll into 12 balls and chill 20 minutes to firm up."
+      ],
+      "totalMinutes": 25,
+      "activeMinutes": 8,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["gluten", "peanut"],
+      "substitutions": [
+        { "for": "peanut butter", "use": "any nut or seed butter" },
+        { "for": "honey or maple syrup", "use": "maple syrup makes these vegan" }
+      ],
+      "storage": "Keeps a week in the fridge and freezes for 2 months.",
+      "categories": ["dessert", "bakery", "grocery"],
+      "cravings": ["dessert", "convenience", "late-night"],
+      "region": "global",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "cheese-crackers-fruit",
+      "title": "Cheese, Crackers, and Fruit",
+      "description": "A convenience-store shaped plate assembled at home in two minutes.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 80, "unit": "g", "item": "cheese", "note": "sliced or cubed" },
+        { "quantity": 10, "unit": "piece", "item": "crackers" },
+        { "quantity": 1, "unit": "piece", "item": "apple or pear", "note": "sliced" },
+        { "quantity": 2, "unit": "tbsp", "item": "nuts", "optional": true },
+        { "quantity": 2, "unit": "tbsp", "item": "olives or pickles", "optional": true }
+      ],
+      "steps": [
+        "Slice the cheese and fruit and arrange everything on one plate.",
+        "Eat with your hands. That is the whole recipe."
+      ],
+      "totalMinutes": 3,
+      "activeMinutes": 3,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy", "gluten", "tree-nut"],
+      "substitutions": [
+        { "for": "cheese", "use": "hummus or a dairy-free cheese, for a vegan plate" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["grocery", "fast_casual", "delivery"],
+      "cravings": ["convenience", "late-night", "salad"],
+      "region": "global",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "microwave-baked-potato",
+      "title": "Microwave Baked Potato",
+      "description": "A whole hot meal from one potato and whatever is in the fridge, in about ten minutes.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 1, "unit": "piece", "item": "large potato", "note": "about 300 g, scrubbed" },
+        { "quantity": 1, "unit": "tbsp", "item": "butter" },
+        { "quantity": 0.5, "unit": "cup", "item": "shredded cheese", "optional": true },
+        { "quantity": 200, "unit": "g", "item": "canned beans", "note": "drained and warmed", "optional": true },
+        { "quantity": 1, "unit": "pinch", "item": "salt and pepper" }
+      ],
+      "steps": [
+        "Prick the potato all over with a fork — at least eight times, or it can burst.",
+        "Microwave on full power for 5 minutes, turn it over, and microwave 3-5 minutes more.",
+        "It is done when a knife slides into the centre with no resistance. Give it 1-minute bursts if it is still firm.",
+        "Cut a cross in the top, squeeze the sides to open it, and add butter, salt, pepper, cheese, and beans."
+      ],
+      "totalMinutes": 11,
+      "activeMinutes": 4,
+      "difficulty": "easy",
+      "equipment": ["microwave"],
+      "method": "microwave",
+      "diet": "vegetarian",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "butter", "use": "olive oil or a dairy-free spread; skip the cheese for a vegan potato" },
+        { "for": "canned beans", "use": "tinned tuna, leftover chilli, or nothing at all" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["grocery", "delivery", "fast_casual"],
+      "cravings": ["comfort", "late-night", "convenience"],
+      "region": "european",
+      "noCook": false,
+      "microwave": true,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "cottage-cheese-protein-bowl",
+      "title": "Cottage Cheese Protein Bowl",
+      "description": "High protein, no cooking, three minutes — savoury or sweet depending on what you add.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 1, "unit": "cup", "item": "cottage cheese" },
+        { "quantity": 0.5, "unit": "cup", "item": "fruit or diced tomato and cucumber" },
+        { "quantity": 1, "unit": "tbsp", "item": "olive oil or honey", "note": "oil for savoury, honey for sweet" },
+        { "quantity": 2, "unit": "tbsp", "item": "nuts or seeds", "optional": true },
+        { "quantity": 1, "unit": "pinch", "item": "salt and pepper", "optional": true }
+      ],
+      "steps": [
+        "Spoon the cottage cheese into a bowl and flatten the top.",
+        "For savoury: add tomato and cucumber, olive oil, salt, and pepper. For sweet: add fruit and honey.",
+        "Scatter nuts or seeds over for texture."
+      ],
+      "totalMinutes": 3,
+      "activeMinutes": 3,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy", "tree-nut"],
+      "substitutions": [
+        { "for": "cottage cheese", "use": "thick Greek yogurt, or a plant yogurt for a vegan bowl with maple syrup" }
+      ],
+      "storage": "Eat straight away; keep cottage cheese refrigerated.",
+      "categories": ["grocery", "smoothie", "fast_casual", "meal_delivery"],
+      "cravings": ["high-protein", "breakfast", "convenience", "salad"],
+      "region": "global",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    }
+  ]
+}

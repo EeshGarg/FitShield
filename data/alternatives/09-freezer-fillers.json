@@ -1,0 +1,162 @@
+{
+  "recipes": [],
+  "quickAlternatives": [
+    {
+      "id": "frozen-wings-air-fryer",
+      "title": "Frozen Wings in the Air Fryer",
+      "description": "Straight from the freezer to crisp wings, with a sauce stirred together while they cook.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 600, "unit": "g", "item": "frozen chicken wings" },
+        { "quantity": 3, "unit": "tbsp", "item": "hot sauce" },
+        { "quantity": 1, "unit": "tbsp", "item": "butter" },
+        { "quantity": 1, "unit": "tsp", "item": "honey", "optional": true }
+      ],
+      "steps": [
+        "Air fry the wings from frozen at 180 C / 350 F for 12 minutes to thaw them, shaking once.",
+        "Turn the heat to 200 C / 400 F and cook 10-12 minutes more, until the skin is deep golden and crisp and the thickest wing reads 74 C / 165 F.",
+        "Melt the butter with the hot sauce and honey, then toss the hot wings through it."
+      ],
+      "totalMinutes": 26,
+      "activeMinutes": 6,
+      "difficulty": "easy",
+      "equipment": ["air fryer"],
+      "method": "assembly",
+      "diet": "omnivore",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "air fryer", "use": "oven at 220 C / 425 F on a wire rack for 40-45 minutes, turning twice" },
+        { "for": "butter", "use": "olive oil or a dairy-free spread" }
+      ],
+      "storage": "Best fresh; re-crisp leftovers at 200 C / 400 F for 5 minutes.",
+      "categories": ["chicken", "fast_food", "korean_food", "grocery"],
+      "cravings": ["wings", "fried-chicken", "late-night"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": true,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "frozen-fries-done-right",
+      "title": "Frozen Fries, Done Right",
+      "description": "The bag you already have, cooked hot enough and spread thin enough to actually go crisp.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 400, "unit": "g", "item": "frozen fries" },
+        { "quantity": 0.5, "unit": "tsp", "item": "salt" },
+        { "quantity": 0.5, "unit": "tsp", "item": "smoked paprika", "optional": true },
+        { "quantity": 2, "unit": "tbsp", "item": "shredded cheese", "optional": true }
+      ],
+      "steps": [
+        "Air fry at 200 C / 400 F for 14-16 minutes, or oven-bake at 220 C / 425 F for 20-22 minutes.",
+        "Spread them in one layer with gaps — a heaped basket steams instead of crisping — and shake once at the halfway point.",
+        "They are done when the outsides are deep golden and rigid rather than bendy.",
+        "Salt them the second they come out, while the surface is still hot enough for it to stick."
+      ],
+      "totalMinutes": 18,
+      "activeMinutes": 4,
+      "difficulty": "easy",
+      "equipment": ["air fryer", "oven"],
+      "method": "assembly",
+      "diet": "vegan",
+      "allergens": [],
+      "substitutions": [
+        { "for": "frozen fries", "use": "frozen potato wedges or hash browns, adding 3-4 minutes" },
+        { "for": "shredded cheese", "use": "leave it out to keep this vegan" }
+      ],
+      "storage": "Eat straight away; reheated fries never recover.",
+      "categories": ["burger", "fast_food", "chicken", "grocery"],
+      "cravings": ["fries", "late-night", "convenience"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": true,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "coconut-curry-noodle-bowl",
+      "title": "Coconut Curry Noodle Bowl",
+      "description": "A simplified, Thai-inspired noodle broth from a tin of coconut milk and a spoon of curry paste.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 200, "unit": "g", "item": "rice noodles", "substituteGroup": "noodle" },
+        { "quantity": 400, "unit": "ml", "item": "coconut milk", "note": "one tin" },
+        { "quantity": 2, "unit": "tbsp", "item": "curry paste", "substituteGroup": "paste" },
+        { "quantity": 1.5, "unit": "cup", "item": "frozen vegetables" },
+        { "quantity": 1, "unit": "cup", "item": "water" },
+        { "quantity": 1, "unit": "tbsp", "item": "lime juice" },
+        { "quantity": 1, "unit": "tsp", "item": "sugar", "optional": true }
+      ],
+      "steps": [
+        "Fry the curry paste in a dry saucepan over medium heat for 60 seconds, until it darkens and smells fragrant.",
+        "Pour in the coconut milk and water, bring to a simmer, and add the frozen vegetables. Cook 5 minutes until they are tender and the broth is steaming hot.",
+        "Add the noodles and cook for the time on the packet, usually 3-4 minutes, until tender.",
+        "Take off the heat and stir in the lime juice and sugar."
+      ],
+      "totalMinutes": 15,
+      "activeMinutes": 10,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "one-pan",
+      "diet": "vegan",
+      "allergens": [],
+      "substitutions": [
+        { "for": "curry paste", "use": "1 tbsp curry powder with 1 tsp tomato paste; check the label, as many red and green pastes contain shrimp" },
+        { "for": "rice noodles", "use": "any dried noodle, or leave them out and serve the broth over rice" }
+      ],
+      "storage": "Keeps 2 days, though the noodles soften. Store the broth separately if you can.",
+      "categories": ["asian", "delivery", "fast_casual"],
+      "cravings": ["thai", "noodles", "soup", "comfort"],
+      "region": "southeast-asian",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "microwave-steamed-dumplings",
+      "title": "Microwave Steamed Dumplings",
+      "description": "Frozen dumplings with no pan and no stove — a bowl, a plate, and four minutes.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 8, "unit": "piece", "item": "frozen dumplings" },
+        { "quantity": 3, "unit": "tbsp", "item": "water" },
+        { "quantity": 1, "unit": "tbsp", "item": "soy sauce" },
+        { "quantity": 1, "unit": "tsp", "item": "rice vinegar", "optional": true },
+        { "quantity": 0.5, "unit": "tsp", "item": "chilli oil", "optional": true }
+      ],
+      "steps": [
+        "Arrange the frozen dumplings in a single layer in a microwave-safe bowl and add the water.",
+        "Cover with a plate and microwave 3 minutes, then check one: it is ready when the wrapper is translucent and the filling is piping hot right through. Give it 30-second bursts if not.",
+        "Mix the soy sauce, vinegar, and chilli oil for dipping."
+      ],
+      "totalMinutes": 5,
+      "activeMinutes": 3,
+      "difficulty": "easy",
+      "equipment": ["microwave"],
+      "method": "microwave",
+      "diet": "omnivore",
+      "allergens": ["gluten", "soy"],
+      "substitutions": [
+        { "for": "frozen dumplings", "use": "vegetable dumplings, gyoza, or momos — check the packet if you need them vegetarian" }
+      ],
+      "storage": "Eat straight away.",
+      "categories": ["asian", "grocery", "delivery"],
+      "cravings": ["dumplings", "chinese", "late-night", "convenience"],
+      "region": "east-asian",
+      "noCook": false,
+      "microwave": true,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    }
+  ]
+}
