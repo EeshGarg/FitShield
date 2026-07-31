@@ -30,12 +30,13 @@ root is **not** a loadable unpacked extension — build first, then load
 | --- | --- |
 | `FS Engine/` | The blocking engine (`index.js` API + modules; see its README for the full API reference). Shipped to browsers as a generated single-file `blocklist.js` |
 | `data/blocklists/*.json` | Curated datasets (`fast-food.json`, `delivery.json`) |
-| `data/recipes.json` | Local recipe catalog for the block screen |
+| `data/alternatives-taxonomy.json`, `data/alternatives/*.json` | The alternatives catalog (source). Generated into `data/recipes.json`. |
 | `data/android/` | Android app-package mappings (brandId → packageIds) |
 | `extension/manifest.json` | Chromium MV3 manifest (Firefox manifest is derived by `build.js`) |
 | `extension/background.js` | Service worker: rules, bypasses, stats recording |
 | `extension/popup / settings / warning / welcome / whats-new` | UI surfaces (`.html` + `.js`) |
-| `extension/currency.js`, `i18n.js`, `languages.js`, `recipes.js`, `backup.js` | Shared web modules |
+| `extension/fitshield-core.js` | Storage schema, migrations, schedules, passes, statistics — shared by the worker, every page, and the tests |
+| `extension/currency.js`, `i18n.js`, `languages.js`, `recipes.js`, `preferences.js`, `backup.js` | Shared web modules |
 | `extension/_locales/<code>/messages.json` | Translations (83 locales, English is the source) |
 | `android/` | Native Android adapter (see `docs/ANDROID.md`); `android/web-src/` holds the Android-authored shim |
 | `changelog/` | Canonical release history + `ROADMAP.md` |
@@ -101,31 +102,99 @@ to **every** locale (English is the source). Without one it falls back to a
 clean, title-cased version of the id, so localization is optional but nice.
 `npm run validate:categories` reports coverage.
 
-### Add a recipe
+### Add an alternative (recipe or quick fix)
 
-Edit `data/recipes.json`:
+**Do not edit `data/recipes.json` — it is generated.** Add your entry to the
+matching file in `data/alternatives/`, then run:
 
-```json
+```bash
+npm run generate:alternatives   # rebuilds data/recipes.json
+npm run validate:alternatives   # the full audit, with a human-readable report
+npm run sync                    # refresh the committed copy in extension/
+```
+
+Two kinds share one shape. A **recipe** goes in the `recipes` array and needs the
+full detail below. A **quick alternative** goes in `quickAlternatives`, may skip
+`prepMinutes`/`cookMinutes`, and is capped at four steps — if it needs more than
+four, it is a recipe.
+
+```jsonc
 {
-  "id": "kebab-case-id",
-  "title": "Dish Name",
-  "description": "One friendly sentence.",
-  "timeMinutes": 15,
-  "calories": 380,
-  "ingredients": ["…"],
-  "steps": ["…"],
-  "tags": ["taco", "mexican"],
-  "diet": "vegetarian"
+  "id": "kebab-case-id",             // stable forever; never reused or renumbered
+  "title": "Naan Pizza",
+  "description": "One line saying what it is.",
+  "servings": 2,                     // what the quantities below actually produce
+  "ingredients": [
+    { "quantity": 2, "unit": "piece", "item": "naan bread", "substituteGroup": "flatbread" },
+    { "quantity": 0.5, "unit": "cup", "item": "sliced mushrooms", "optional": true },
+    { "quantity": 1, "unit": "piece", "item": "onion", "note": "finely chopped" }
+  ],
+  "steps": ["Heat the oven to 230 C / 450 F…", "…"],
+  "totalMinutes": 15,                // start to eating
+  "activeMinutes": 6,                // hands-on only; must be <= totalMinutes
+  "prepMinutes": 5,                  // recipes only
+  "cookMinutes": 10,                 // recipes only
+  "difficulty": "easy",              // easy | medium
+  "equipment": ["oven"],             // [] means none at all
+  "method": "quick-cook",            // assembly | no-cook | microwave | quick-cook | air-fryer | one-pan | regular
+  "diet": "vegetarian",              // the STRICTEST it satisfies: vegan | vegetarian | pescatarian | omnivore
+  "allergens": ["gluten", "dairy"],  // from the nine tracked allergens
+  "substitutions": [{ "for": "naan bread", "use": "pita or a flour tortilla" }],
+  "storage": "Keeps 2 days; re-crisp in a dry pan.",
+  "categories": ["pizza", "delivery"],   // blocked categories this answers
+  "cravings": ["pizza"],                 // craving types this answers
+  "region": "north-american",
+  "noCook": false, "microwave": false, "airFryer": false,
+  "onePan": true, "pantryFriendly": true,
+  "calorieRange": [470, 610],        // OPTIONAL, and a range — never a single number
+  "dataVersion": 2
 }
 ```
 
-`diet` is `vegetarian` or `meat`; `tags` help match the recipe to the blocked
-brand's category. `npm test` covers recipe selection.
+Every vocabulary (`method`, `equipment`, `diet`, `allergens`, `region`,
+`cravings`, `categories`) is defined in `data/alternatives-taxonomy.json`, along
+with the blocked-category and specialty maps that decide when your entry is
+offered. Adding a new craving means adding at least **two** entries that answer
+it, or the "show another" button has nothing to show.
+
+The audit will reject an entry that is not genuinely executable. In particular:
+
+- every ingredient needs a **quantity and a unit** — "some cumin" fails;
+- any step that applies heat needs a **duration**, a **temperature or heat
+  level**, and a **doneness cue the cook can check**. "Bake until done" fails;
+  "Bake 8–10 minutes, until the cheese is fully melted with browned spots"
+  passes;
+- baking or air-frying needs a **numeric** temperature;
+- raw meat or fish needs an explicit **food-safety cue** — a probe temperature,
+  "no pink", "juices run clear", or "cooked through";
+- a `vegan` entry may not require an animal product, and a `vegetarian` entry may
+  not require meat or fish. This is checked against the ingredient names, so
+  "chickpeas" is never read as "chicken";
+- every allergen implied by a required ingredient must be **declared**;
+- an entry that depends on an uncommon ingredient must offer a **substitution**;
+- a `calorieRange` narrower than 20 kcal is rejected as false precision.
+
+Warnings (near-duplicate titles, an ingredient that looks unreferenced, a craving
+with no fast option) are printed but never fail the build — they are word
+matching, and a guess should not be able to stop a release.
+
+Two semantic rules exist because these mistakes actually happened: a plant dish
+may answer a chicken craving only if it says it is a substitute, and a smoothie
+may not be tagged or categorised as coffee.
+
+### Report a data problem without writing code
+
+Settings → **Report a problem** composes the report locally, shows you verbatim
+what it would say, strips paths and query strings down to a bare domain, and then
+lets you copy it or open a mail draft. Nothing is transmitted by FitShield.
 
 ### Add a locale
 
-1. Create `extension/_locales/<code>/messages.json` with **exactly** the same
-   keys as `extension/_locales/en/messages.json` (English is the source of truth).
+1. Create `extension/_locales/<code>/messages.json`. English is the source of
+   truth and must be complete; other locales may be partial. A key you leave out
+   falls back to English at runtime (both via `chrome.i18n` and via `i18n.js`),
+   so a partial translation renders correctly rather than blank. A key English
+   does NOT have is an error, because it can never be shown.
 2. Add `<code>` to `SUPPORTED_LOCALES` in [`extension/i18n.js`](extension/i18n.js)
    so it can be picked at runtime.
 3. Keep positional placeholders (`$1`, `$2`) identical to English and never use

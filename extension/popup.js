@@ -467,7 +467,7 @@ async function saveSettings(partialState) {
 }
 
 function openSettings(path = "settings.html") {
-  window.open(chrome.runtime.getURL(path), "_blank");
+  window.open(chrome.runtime.getURL(path), "_blank", "noopener");
 }
 
 function openBlocklistSettings(searchTerm = "") {
@@ -479,7 +479,7 @@ function openBlocklistSettings(searchTerm = "") {
   }
 
   url.hash = "customize-blocklist";
-  window.open(url.toString(), "_blank");
+  window.open(url.toString(), "_blank", "noopener");
 }
 
 toggle.addEventListener("change", async () => {

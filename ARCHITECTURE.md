@@ -7,12 +7,59 @@ extension and the Android app, and neither ships a copy of the other's code.
 
 ```
 FS Engine/   the blocking engine — CODE ONLY, zero data, zero deps
-data/        the canonical datasets — blocklists, recipes, android app maps
+data/        the canonical datasets — blocklists, alternatives, android app maps
 extension/   the Chrome/Firefox extension shell — manifest, pages, shims, _locales, icons
 android/     the Android app — reuses the engine's rules + the shared web assets
 
 build.js     recombines FS Engine + data + extension  →  dist/<browser>/ + zips
 ```
+
+## The two runtime globals
+
+Everything in the extension talks to exactly two shared modules, and never to
+each other's internals:
+
+| Global | File | Owns |
+| --- | --- | --- |
+| `FitShieldBlocklist` | `blocklist.js` (generated from `FS Engine/`) | *Should this host be interrupted?* Hostname normalization, entry matching, country/category policy. |
+| `FitShieldCore` | `extension/fitshield-core.js` (hand-authored) | *What should happen around that?* Storage schema and migrations, friction profiles, schedule evaluation, temporary-pass scopes and expiry, repeat-access friction, the statistics vocabulary, and validation of anything the user typed. |
+
+`FitShieldCore` is deliberately pure — no DOM, no `chrome.*`, no network, and no
+clock read it was not handed — because the same file runs in four places: the
+Chromium service worker (`importScripts`), the Firefox event page
+(`background.scripts`), every extension page (`<script src>`), and Node under
+`node --test`. That is what makes a schedule, a pass expiry, or a migration
+testable without a browser, and what stops the popup and the worker disagreeing
+about what "evenings" or "until tomorrow" means.
+
+Load order matters and is enforced: `background.js` references both globals, so
+it is imported last in the Firefox `background.scripts` array
+(`tools/extension-audit.js`) and importScripts only those two files
+(`tools/service-worker-audit.js`).
+
+## The alternatives catalog
+
+`data/recipes.json` keeps its historical name and `recipes` array (the Android
+WebView and older readers still fetch it), but it is now **generated**:
+
+```
+data/alternatives-taxonomy.json   vocabularies + blocked-category → craving maps
+data/alternatives/*.json          the authored entries, grouped by craving
+        ↓  npm run generate:alternatives   (tools/build-alternatives.js)
+data/recipes.json                 one file, fetched in one request by the block page
+```
+
+Authored in parts because a 69-entry file is unreviewable in a diff; shipped as
+one file because the block page must load everything it needs before a countdown
+that may only last twenty seconds. `tools/alternatives-audit.js` runs in
+`npm run validate` and `npm test`, and separates decidable **errors** (a missing
+quantity, a vegan entry containing dairy, heat with no temperature or doneness
+cue, an unknown tag) from fuzzy **warnings** (near-duplicate titles, an
+ingredient that looks unreferenced) — a natural-language guess can never fail a
+build. It also fails if `data/recipes.json` is stale relative to its sources.
+
+Matching lives in `extension/recipes.js` (page-side, `FitShieldRecipes`), not in
+`FS Engine/`: the engine stays code-only and blocking-only.
 
 Deep dives: **[FS Engine/README.md](FS%20Engine/README.md)** (engine API + data
 contract) and **[docs/EXTENSION.md](docs/EXTENSION.md)** (build, engine linkage,
@@ -24,7 +71,9 @@ them together.
 | Concern | Source of truth (edit here) | Generated (never hand-edit) |
 | --- | --- | --- |
 | Blocking logic | `FS Engine/*.js` | `extension/blocklist.js` (synced), `dist/*/blocklist.js` |
-| Datasets | `data/blocklists/*.json`, `data/recipes.json` | `data/generated/*`, `extension/blocklists/`, `extension/data/`, `dist/*/data/`, `dist/*/blocklists/` |
+| Decision layer | `extension/fitshield-core.js` | — (hand-authored, copied verbatim by the build) |
+| Blocklists | `data/blocklists/*.json` | `data/generated/*`, `extension/blocklists/`, `dist/*/blocklists/` |
+| Alternatives | `data/alternatives-taxonomy.json`, `data/alternatives/*.json` | `data/recipes.json`, `extension/data/`, `dist/*/data/` |
 | Changelog | `changelog.json` (root) | `extension/changelog.json` (synced) |
 | Extension shell | `extension/` (hand-authored js/html/manifest) | `dist/chrome/`, `dist/firefox/`, `dist/apple/`, `dist/*.zip` |
 | Manifests | `extension/manifest.json` (Chromium base) | `dist/chrome/manifest.json`, `dist/firefox/manifest.json`, `dist/apple/extension/manifest.json` (Safari, nightly) |
@@ -83,14 +132,29 @@ depends on the engine *transitively* through the worker. The chain:
 blocked site
   → declarativeNetRequest redirect  (background.js, rules built from the engine)
   → warning.html  (web_accessible_resource; the DNR redirect target)
-      loads: ambient.js, browser-shim.js, i18n.js, recipes.js, warning.js
-      fetches: data/recipes.json  (recipe alternatives),
+      loads: ambient.js, browser-shim.js, i18n.js, fitshield-core.js,
+             recipes.js, warning.js
+      fetches: data/recipes.json  (the alternatives catalog),
                _locales/<lang>/messages.json  (localization)
   → warning.js  messages the worker:
-      getBlockState · getBlockedSiteInfo · recordBlockedVisit ·
-      recordBlockedBrand · recordRecipeChoice · startTemporaryBypass
-  → background.js resolves each against FitShieldBlocklist + blocklists/*.json
+      getBlockContext  ← ONE round trip: brand, pause length (including any
+                          repeat-visit addition and why), pass options, and the
+                          user's matching preferences
+      then, as the user acts:
+      recordInterruption · recordBlockedBrand · recordAlternativeShown ·
+      recordAlternativeSelected · recordAlternativeDismissed · recordLeft ·
+      grantPass
+  → background.js resolves each against FitShieldBlocklist + FitShieldCore
 ```
+
+`getBlockContext` is deliberately one message rather than six: the page has to
+render before a countdown that may only be twenty seconds long, and every extra
+round trip to an MV3 worker can pay a cold-start cost.
+
+Every recording path takes the same `preview` flag. `warning.html?preview=1`
+runs the identical flow and records nothing — no interruption counted, no
+rotation history written, no pass granted, no site unblocked. That is what
+Settings → Preview and onboarding's "Show me" both open.
 
 Every hop is guarded so a future path/layout change fails loudly instead of
 shipping a blank page:
