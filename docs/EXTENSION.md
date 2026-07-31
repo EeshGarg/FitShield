@@ -22,20 +22,29 @@ Because of that split, **`extension/` is not directly loadable** — it has no
 and load the staged folder:
 
 ```
+npm run sync         # refresh extension/'s committed runtime artifacts (dev loading)
 node build.js        # validates everything, then stages + zips both browsers
 ```
 
 | Browser | Load unpacked from | Store artifact |
 | --- | --- | --- |
-| Chrome / Brave / Edge | `dist/chrome/` | `dist/FitShield-<version>-chrome.zip` |
+| Chrome / Brave / Edge (dev, no build) | `extension/` | — |
+| Chrome / Brave / Edge (store-shaped) | `dist/chrome/` | `dist/FitShield-<version>-chrome.zip` |
 | Firefox (about:debugging → Load Temporary Add-on) | `dist/firefox/manifest.json` | `dist/FitShield-<version>-firefox.zip` (AMO) |
+
+`extension/` loads directly because its runtime artifacts (`blocklist.js`,
+`blocklists/`, `data/recipes.json`, `changelog.json`) are committed there,
+synced from canonical `FS Engine/` + `data/` by `npm run sync`. Firefox still
+needs the build (its manifest gains `background.scripts`, derived by `build.js`).
 
 ## How the extension consumes the engine
 
 The engine is authored as CommonJS modules in `FS Engine/` and is **never
-duplicated** in the extension. `build.js` (`bundleEngine`) wraps the modules in
+hand-copied** in the extension. `build.js` (`bundleEngine`) wraps the modules in
 a tiny module registry and emits one deterministic classic script,
-**`blocklist.js`**, at the package root. Loading it defines the
+**`blocklist.js`**. That bundle is committed at `extension/blocklist.js` by
+`npm run sync` (dev loading) and written to the package root by `build.js`
+(store artifact) — both from the one `bundleEngine`. Loading it defines the
 `FitShieldBlocklist` global — the same API as `require("./FS Engine")`
 (byte-for-byte the same logic; `test/engine-bundle.test.js` proves the parity).
 
@@ -132,15 +141,19 @@ state). So a broken block page almost always traces to one of a few links in
 that chain. Work through them in order:
 
 0. **"Service worker registration failed" / the extension won't load at all.**
-   You are almost certainly loading the wrong folder. **`extension/` is not a
-   loadable extension** — it has no `blocklist.js`, no `blocklists/`, no `data/`,
-   no `changelog.json`. Run `node build.js` and Load Unpacked from **`dist/chrome/`**
-   (or `dist/firefox/manifest.json`). `background.js`'s `importScripts("blocklist.js")`
-   resolves to the generated engine bundle that only exists in the built output.
+   The loaded folder is missing the engine bundle. `extension/` normally carries
+   committed `blocklist.js`, `blocklists/`, `data/recipes.json`, and
+   `changelog.json` (synced from canonical), so it loads directly — but if those
+   are stale or absent, run **`npm run sync`** and reload `extension/`. Or build
+   and Load Unpacked from **`dist/chrome/`** (`node build.js`; Firefox uses
+   `dist/firefox/manifest.json`). Either way `background.js`'s
+   `importScripts("blocklist.js")` must resolve to the generated engine bundle.
    Do **not** try to "fix" this by pointing `importScripts` at the `FS Engine/`
    sources — they are CommonJS and throw `require is not defined` in a worker;
-   `npm run validate:sw` fails the build if anyone does. See §How the extension
-   consumes the engine above.
+   `npm run validate:sw` fails the build if anyone does. If `extension/`'s
+   committed copies drift from canonical, `npm run validate:sync` /
+   `npm test` fail with a `npm run sync` fix. See §How the extension consumes the
+   engine above.
 1. **The page renders blank / raw keys / no recipes.** First run
    `node --test test/block-page.test.js` — the render smoke test drives the real
    worker + page scripts and will localize the failure (brand, block reason,

@@ -23,23 +23,40 @@ them together.
 
 | Concern | Source of truth (edit here) | Generated (never hand-edit) |
 | --- | --- | --- |
-| Blocking logic | `FS Engine/*.js` | `dist/*/blocklist.js` (bundled by `build.js`) |
-| Datasets | `data/blocklists/*.json`, `data/recipes.json` | `data/generated/*`, `dist/*/data/`, `dist/*/blocklists/` |
-| Extension shell | `extension/` | `dist/chrome/`, `dist/firefox/`, `dist/*.zip` |
-| Manifests | `extension/manifest.json` (Chromium base) | `dist/chrome/manifest.json`, `dist/firefox/manifest.json` |
+| Blocking logic | `FS Engine/*.js` | `extension/blocklist.js` (synced), `dist/*/blocklist.js` |
+| Datasets | `data/blocklists/*.json`, `data/recipes.json` | `data/generated/*`, `extension/blocklists/`, `extension/data/`, `dist/*/data/`, `dist/*/blocklists/` |
+| Changelog | `changelog.json` (root) | `extension/changelog.json` (synced) |
+| Extension shell | `extension/` (hand-authored js/html/manifest) | `dist/chrome/`, `dist/firefox/`, `dist/apple/`, `dist/*.zip` |
+| Manifests | `extension/manifest.json` (Chromium base) | `dist/chrome/manifest.json`, `dist/firefox/manifest.json`, `dist/apple/extension/manifest.json` (Safari, nightly) |
+
+`node build.js` compiles **every browser target** on each run — Chrome, Firefox,
+and Apple/Safari (macOS + iOS/iPadOS, **nightly**, staged to `dist/apple/` and
+wrapped into an Xcode app on macOS via `tools/build-safari.js`). All three are
+the same payload with a per-browser manifest derivation (`chromeManifest` /
+`firefoxManifest` / `safariManifest` in `build.js`). Android is a separate native
+pipeline (`npm run build:android`); `npm run build:all` runs everything.
 
 `dist/` is git-ignored — it is entirely reproducible with `node build.js`.
-**The repo root is not a loadable extension**; always build and load
-`dist/chrome/` or `dist/firefox/`.
+**The `extension/` folder loads directly as an unpacked extension**: the runtime
+artifacts it fetches (`blocklist.js`, `blocklists/`, `data/recipes.json`,
+`changelog.json`) are committed there, generated/copied from canonical
+`FS Engine/` + `data/` by `npm run sync`. After editing the engine or data, run
+`npm run sync`; `tools/sync-audit.js` (in `npm run validate`) and
+`test/extension-synced.test.js` (in `npm test`) fail if a committed copy drifts.
+The repo *root* is still not loadable — load `extension/` (fastest) or the built
+`dist/chrome/` / `dist/firefox/` (store-shaped).
 
 ## How the extension consumes the engine
 
 The engine is authored as CommonJS modules in `FS Engine/` and is **never
-duplicated** into the extension. At build time `build.js` (`bundleEngine`) wraps
-those modules into one deterministic classic script — **`blocklist.js`** at the
-package root — whose only public surface is the `FitShieldBlocklist` global.
-`test/engine-bundle.test.js` proves that global is byte-for-byte the same API as
-`require("./FS Engine")`.
+hand-copied** into the extension. `build.js` (`bundleEngine`) wraps those modules
+into one deterministic classic script — **`blocklist.js`** — whose only public
+surface is the `FitShieldBlocklist` global. That same bundle is committed at
+`extension/blocklist.js` by `npm run sync` (so the source folder loads unpacked)
+and written to the package root by `build.js` (so the store artifact ships it);
+both come from the one `bundleEngine`, and `tools/sync-audit.js` proves the
+committed copy equals it. `test/engine-bundle.test.js` proves the global is
+byte-for-byte the same API as `require("./FS Engine")`.
 
 That global **is the stable adapter boundary.** Nothing in the extension reaches
 into engine internals by relative path:

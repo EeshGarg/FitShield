@@ -7,8 +7,13 @@
  * everything is stateless — the entry list is always explicit.
  */
 
-// Minimal ISO code -> display name map for the codes used in the blocklists.
-// Unknown codes fall back to the code itself, so adding new codes never breaks.
+// Curated display names. These pin common markets to stable, short English
+// forms (and cover any runtime lacking a full-ICU Intl.DisplayNames). Anything
+// NOT here is resolved by Intl.DisplayNames — complete for every ISO 3166-1
+// alpha-2 code in modern browsers (Chrome/Firefox/Safari) and Node 18+ — before
+// finally echoing the raw code. So the engine names every country the datasets
+// use (111+ and counting) while staying dependency-free. HK is overridden
+// because Intl's "Hong Kong SAR China" is too verbose for the picker.
 const COUNTRY_NAMES = {
   US: "United States",
   CA: "Canada",
@@ -24,11 +29,63 @@ const COUNTRY_NAMES = {
   AU: "Australia",
   NZ: "New Zealand",
   IT: "Italy",
-  ES: "Spain"
+  ES: "Spain",
+  HK: "Hong Kong"
 };
 
-function getCountryName(code) {
+// Memoized Intl.DisplayNames (region type) per locale. Guarded so a runtime
+// without Intl.DisplayNames just falls back to the curated map / raw code.
+const regionNamerCache = new Map();
+
+function regionNamer(locale) {
+  const key = locale || "en";
+
+  if (regionNamerCache.has(key)) {
+    return regionNamerCache.get(key);
+  }
+
+  let namer = null;
+  try {
+    if (typeof Intl !== "undefined" && typeof Intl.DisplayNames === "function") {
+      namer = new Intl.DisplayNames([key], { type: "region" });
+    }
+  } catch (error) {
+    namer = null;
+  }
+
+  regionNamerCache.set(key, namer);
+  return namer;
+}
+
+// Display name for an ISO 3166-1 alpha-2 code. English by default (curated short
+// forms win); pass a BCP-47 `locale` to localize via Intl. Unknown codes echo.
+function getCountryName(code, locale) {
   const normalized = String(code || "").trim().toUpperCase();
+
+  if (!normalized) {
+    return "";
+  }
+
+  const wantLocale = locale || "en";
+
+  // English: curated short forms win (stable, test-pinned); other locales prefer
+  // Intl so the name is actually localized.
+  if (wantLocale === "en" && COUNTRY_NAMES[normalized]) {
+    return COUNTRY_NAMES[normalized];
+  }
+
+  const namer = regionNamer(wantLocale);
+  if (namer) {
+    try {
+      const name = namer.of(normalized);
+      if (name && name !== normalized) {
+        return name;
+      }
+    } catch (error) {
+      // Invalid code for Intl — fall through to the curated map / raw code.
+    }
+  }
+
   return COUNTRY_NAMES[normalized] || normalized;
 }
 
@@ -50,8 +107,9 @@ const toUpper = (value) => value.toUpperCase();
 const toLower = (value) => value.toLowerCase();
 
 // Discover the distinct country codes present in the blocklist metadata.
-// Returns [{ code, name, count }] sorted by display name.
-function getAvailableCountries(entries) {
+// Returns [{ code, name, count }] sorted by display name. Pass a BCP-47 `locale`
+// to localize the names (defaults to English).
+function getAvailableCountries(entries, locale) {
   const source = Array.isArray(entries) ? entries : [];
   const counts = new Map();
 
@@ -68,7 +126,7 @@ function getAvailableCountries(entries) {
   });
 
   return [...counts.entries()]
-    .map(([code, count]) => ({ code, count, name: getCountryName(code) }))
+    .map(([code, count]) => ({ code, count, name: getCountryName(code, locale) }))
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 

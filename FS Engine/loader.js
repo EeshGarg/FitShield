@@ -21,14 +21,23 @@ const BLOCKLIST_FILES = ["blocklists/fast-food.json", "blocklists/delivery.json"
 // Cache of the most recently loaded entries (see getLoadedEntries / index.js).
 let loadedEntries = [];
 
-const isExtension =
-  typeof chrome !== "undefined" &&
-  chrome.runtime &&
-  typeof chrome.runtime.getURL === "function";
+// Resolve the WebExtension runtime from whichever namespace the engine is loaded
+// under: `chrome` (Chrome/Brave/Edge, and also exposed by Safari and Firefox) or
+// `browser` (the WebExtension standard, some Firefox contexts). Either lets the
+// engine fetch its datasets by extension-relative URL, so the same bundle runs
+// on every supported browser; in Node both are absent and we read from disk.
+const webextRuntime =
+  (typeof chrome !== "undefined" && chrome.runtime && typeof chrome.runtime.getURL === "function")
+    ? chrome.runtime
+    : (typeof browser !== "undefined" && browser.runtime && typeof browser.runtime.getURL === "function")
+      ? browser.runtime
+      : null;
+
+const isExtension = webextRuntime !== null;
 
 async function readBlocklistFile(relativePath, options) {
   if (isExtension) {
-    const response = await fetch(chrome.runtime.getURL(relativePath));
+    const response = await fetch(webextRuntime.getURL(relativePath));
 
     if (!response.ok) {
       throw new Error(`Failed to load ${relativePath}: ${response.status}`);

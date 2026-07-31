@@ -36,22 +36,31 @@ This is the easiest way to install FitShield and keeps it updated automatically.
 FitShield builds from a single source tree, split into `FS Engine/` (the
 blocking engine — see its README for the full API, also reused by the Android
 app), `data/` (the curated datasets), and `extension/` (the browser-extension
-source). A tiny, dependency-free script (`node build.js`,
-requires Node.js 18+) flattens them and packages the result for each engine into
-`dist/`, because Manifest V3 background handling differs: Chromium uses a
-service worker, while Firefox uses an event page (`background.scripts`). Build
+source). A tiny, dependency-free script (`node build.js`, requires Node.js 18+)
+flattens them and, on every run, packages **all** browser targets into `dist/`:
+`dist/chrome/` (Chromium service worker), `dist/firefox/` (event-page
+`background.scripts`), and `dist/apple/` (Safari for macOS / iOS / iPadOS —
+**nightly**, wrapped into an Xcode app on macOS). Android is a separate native
+pipeline (`npm run build:android`); `npm run build:all` runs everything. Build
 once, then load the matching `dist/` folder — the repository root itself is not
 a loadable unpacked extension.
 
 **Manual installation — Chrome / Brave / Chromium (for developers):**
 
 1. Download or clone this repository.
-2. Run `node build.js` (creates `dist/chrome/` and the store zip).
-3. Open `chrome://extensions` in Chrome, Brave, or any Chromium-based browser.
-4. Enable **Developer mode** (top-right toggle).
-5. Click **Load unpacked** and select the **`dist/chrome`** folder.
+2. Open `chrome://extensions` in Chrome, Brave, or any Chromium-based browser.
+3. Enable **Developer mode** (top-right toggle).
+4. Click **Load unpacked** and select the **`extension/`** folder.
 
-(The repository root is not loadable directly — the source is split between `FS Engine/`, `data/`, and `extension/`. Always run `node build.js` and load `dist/chrome`.)
+The `extension/` folder loads directly — it ships the committed runtime
+artifacts (the engine bundle, blocklists, recipes, changelog) that Chrome
+fetches. If you edit `FS Engine/` or `data/`, run `npm run sync` to refresh
+those committed copies (a stale copy fails `npm run validate` / `npm test`).
+
+For a store-shaped package instead, run `node build.js` and load the generated
+**`dist/chrome/`** folder. (The repository *root* is not loadable — the source
+is split between `FS Engine/`, `data/`, and `extension/`; load `extension/` or
+`dist/chrome`, never the root.)
 
 **Manual installation — Firefox:**
 
@@ -62,6 +71,19 @@ a loadable unpacked extension.
 
 Requires Firefox 140 or newer (142+ on Android), the versions that support the add-on's data-collection declaration. Load `dist/firefox` rather than the repository root — the repo is not a loadable extension, and the committed `extension/manifest.json` is the Chromium form (service worker only), which won't start Firefox's background script. For a signed `.xpi`, submit `dist/FitShield-<version>-firefox.zip` to [AMO](https://addons.mozilla.org/) (or use [`web-ext`](https://extensionworkshop.com/documentation/develop/web-ext-command-reference/) against `dist/firefox`).
 
+**Installation — Safari (macOS / iOS / iPadOS / visionOS) — nightly:**
+
+Safari support is a **nightly / experimental** preview — unsigned, not on the App Store, and Safari's blocking APIs are narrower than Chromium's. It ships the **same feature payload** as the Chrome build (a byte-for-byte parity test enforces this); only the manifest is Safari-flavored. Safari Web Extensions run inside a native app built with Apple's converter + **Xcode**, which are **macOS-only**.
+
+*One-click (recommended, on a Mac):* double-click **[`scripts/install-safari.command`](scripts/install-safari.command)** in Finder — it checks your setup, builds + validates the payload, runs Apple's converter, and opens the Xcode project ready to Run. (First time: `chmod +x scripts/install-safari.command`, or just run `bash scripts/install-safari.command`.) Then press **Run** in Xcode and enable **FitShield Nightly** in Safari → Settings → Extensions.
+
+*Manual build:*
+
+1. `node build.js` (any OS) stages the Apple payload to `dist/apple/extension/`, zips it, and writes `dist/apple/BUILD.txt` alongside the Chrome and Firefox outputs — every build. (`npm run build:safari` does just the Apple target; `npm run build:all` also builds Android.)
+2. On a Mac, `npm run build:safari` additionally runs Apple's `safari-web-extension-converter` and writes the Xcode project to `dist/apple/xcode/`. Open it (`open dist/apple/xcode/*/*.xcodeproj`), **Run** the macOS or iOS scheme (the iOS app runs on iPhone, iPad, and visionOS), then enable **FitShield Nightly** in Safari's Extensions settings.
+
+The exact converter command, per-platform run steps, and known limitations are in [`docs/SAFARI.md`](docs/SAFARI.md).
+
 
 # Development & Docs
 
@@ -69,6 +91,7 @@ Requires Firefox 140 or newer (142+ on Android), the versions that support the a
 - **Architecture map:** see [`ARCHITECTURE.md`](ARCHITECTURE.md) — the four separated compartments (`FS Engine/`, `data/`, `extension/`, `android/`), what is source-of-truth vs. generated, and the block-page dependency chain that ties them together.
 - **Extension build & engine linkage:** see [`docs/EXTENSION.md`](docs/EXTENSION.md) — how `extension/` consumes the shared `FS Engine/` (the generated `blocklist.js` bundle), the per-browser manifest derivations, how to build/test/load the unpacked extension, and a runbook for debugging block-page failures.
 - **Android:** see [`docs/ANDROID.md`](docs/ANDROID.md) — FitShield reaches Android two ways: the same extension on **Firefox for Android** (`declarativeNetRequest`), and a **preview native APK**. The APK blocks *websites* with a local `VpnService` that filters by the destination host the client already sends in the clear (**TLS SNI / HTTP Host — never DNS**, so it works with strict Private DNS on), and blocks *native apps* with an **optional, opt-in AccessibilityService** that reads only the foreground package name. Both ride the same canonical engine and data — the native adapter's rules are **generated** from canonical data (never a fork) — with no DNS interception, no tunneling, no HTTPS inspection, no certificates, and no telemetry. App blocking is additive to the connection filter, never a replacement.
+- **Safari (nightly):** see [`docs/SAFARI.md`](docs/SAFARI.md) — the **nightly / experimental** macOS + iOS/iPadOS build. `npm run build:safari` stages the same web-extension payload (nightly-labeled manifest) on any OS and, on a Mac, wraps it into an Xcode app via Apple's `safari-web-extension-converter`. No code or data fork — it reuses the shared engine bundle and datasets; only the manifest differs. Blocking on Safari is experimental (narrower `declarativeNetRequest` support).
 - **Release history:** the canonical, per-release notes live in [`changelog/`](changelog/); the roadmap is [`changelog/ROADMAP.md`](changelog/ROADMAP.md).
 - **Validate & build:** `npm test`, `npm run validate`, then `node build.js`. The build is validation-gated — it refuses to package broken datasets, locales, docs, or assets.
 

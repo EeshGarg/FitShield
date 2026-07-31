@@ -5,51 +5,64 @@ Brave / Edge install and in a production build.
 
 ## TL;DR — the one thing that matters
 
-**Load `dist/chrome`, not `extension/` and not the repo root.**
+**Load `extension/` directly, or `dist/chrome` from a build. Both work.**
 
 The repo is split into three source folders — `extension/` (UI + service worker),
-`FS Engine/` (the blocking engine), and `data/` (blocklists + recipes). Chrome
-cannot load any of them directly: the service worker does
-`importScripts("blocklist.js")`, and `blocklist.js` is *generated* by the build
-from `FS Engine/`, alongside the `blocklists/` and `data/` the runtime fetches.
-Loading a source folder means the service worker never registers and **nothing
-blocks** — previously with no visible error.
+`FS Engine/` (the blocking engine), and `data/` (blocklists + recipes). The
+service worker does `importScripts("blocklist.js")`, and the pages fetch
+`blocklists/*.json`, `data/recipes.json`, and `changelog.json` at runtime. Those
+runtime artifacts are **committed into `extension/`** (generated/copied from the
+canonical `FS Engine/` + `data/` by `npm run sync`), so Chrome can load
+`extension/` with no build step:
+
+```
+# chrome://extensions → Developer mode → Load unpacked → select extension/
+```
+
+For a store-shaped package (and Firefox), build it:
 
 ```
 node build.js            # validates, then writes dist/chrome (+ dist/firefox + zips)
 # chrome://extensions → Developer mode → Load unpacked → select dist/chrome
 ```
 
-If a source folder is ever loaded now, the service worker console prints a loud,
-actionable error instead of failing silently (see “Diagnostics” below).
+The committed `extension/` copies can't silently drift from canonical: after any
+edit to `FS Engine/` or `data/`, run `npm run sync`. A stale copy fails
+`npm run validate` (the build gate) and `npm test` with a one-line fix. If a
+folder is ever loaded without the engine bundle, the service worker console
+prints a loud, actionable error instead of failing silently (see “Diagnostics”).
 
 ---
 
 ## Automated proof (run these first)
 
 ```bash
-npm test                 # 92 tests incl. block-page render + engine bundle
-npm run validate         # 11 audits: manifest, permissions, SW↔engine linkage, CSP…
-npm run build            # validation-gated packaging → dist/chrome + dist/firefox
-npm run verify:unpacked  # DYNAMIC: build a package, load its engine, block a real domain
+npm run sync                 # regenerate extension/'s committed runtime artifacts
+npm test                     # tests incl. block-page render, engine bundle, sync freshness
+npm run validate             # audits: manifest, permissions, SW↔engine linkage, sync, CSP…
+npm run build                # validation-gated packaging → dist/chrome + dist/firefox
+npm run verify:unpacked          # DYNAMIC: build a package, load its engine, block a real domain
+npm run verify:unpacked extension  # same, but against the extension/ source folder directly
 ```
 
 `verify:unpacked` is the closest automated stand-in for the manual test: it
-builds the package, evaluates the packaged `blocklist.js` as a worker script,
-fetches the packaged `blocklists/*.json`, and asserts a real curated brand
-(e.g. `order.mcdonalds.com`) is blocked while a guaranteed-absent host is not.
+evaluates the target folder's `blocklist.js` as a worker script, fetches its
+`blocklists/*.json`, and asserts a real curated brand (e.g. `order.mcdonalds.com`)
+is blocked while a guaranteed-absent host is not. Pass `extension` to prove the
+source folder loads unpacked; pass nothing to build a temp package and prove that.
 
 ---
 
 ## Manual browser test (the real success condition)
 
-1. **Build**
-   - [ ] `node build.js` completes with `validate-all: PASS` and prints
-         `dist/chrome`.
+1. **Pick a folder to load**
+   - [ ] Fastest: `npm run sync`, then load **`extension/`** directly (no build).
+   - [ ] Store-shaped: `node build.js` completes with `validate-all: PASS` and
+         prints `dist/chrome`; load **`dist/chrome`**.
 
 2. **Load unpacked**
    - [ ] `chrome://extensions` → enable **Developer mode**.
-   - [ ] **Load unpacked** → select the **`dist/chrome`** folder.
+   - [ ] **Load unpacked** → select **`extension/`** (or **`dist/chrome`**).
    - [ ] The FitShield card appears with **no errors** on the card.
 
 3. **Check for load / service-worker errors**

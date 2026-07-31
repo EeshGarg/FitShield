@@ -42,7 +42,11 @@ engine.domainMatches("fake-mcdonalds.com", "mcdonalds.com");    // false (label-
 The packager (`../build.js`) bundles these modules into a single classic
 script, shipped as **`blocklist.js`** at the package root. Loading it (via
 `importScripts("blocklist.js")` in the service worker, or ahead of
-`background.js` in Firefox's `background.scripts`) defines the global:
+`background.js` in Firefox's `background.scripts`) defines the global. The
+loader resolves its datasets through whichever WebExtension namespace is
+present — `chrome.runtime.getURL` (Chrome/Brave/Edge, and also exposed by Safari
+and Firefox) or `browser.runtime.getURL` — so the same bundle runs on every
+supported browser, including the Safari (macOS/iOS/iPadOS) build:
 
 ```js
 importScripts("blocklist.js");
@@ -132,8 +136,8 @@ an optional entry list and fall back to the most recently loaded datasets.
 
 | | |
 | --- | --- |
-| `getCountryName(code)` | `string` — display name for an ISO code; unknown codes echo back. |
-| `getAvailableCountries(entries?)` | `[{ code, name, count }]` sorted by name — distinct countries in the data. **[defaults to cache]** |
+| `getCountryName(code, locale?)` | `string` — display name for an ISO 3166-1 alpha-2 code. Curated short forms win for English; otherwise resolved via `Intl.DisplayNames` (complete for every ISO code in modern browsers + Node 18+), falling back to the raw code. Pass a BCP-47 `locale` to localize. |
+| `getAvailableCountries(entries?, locale?)` | `[{ code, name, count }]` sorted by name — distinct countries in the data, named via `getCountryName`. **[defaults to cache]** |
 | `getAvailableCategories(entries?)` | `[{ category, count, specialties }]` sorted by category. **[defaults to cache]** |
 | `shouldBlockByCountry(entry, enabledCountries)` | `boolean` — entry is active in ANY enabled country. Empty/missing either side ⇒ `false`. |
 | `shouldBlockByCategory(entry, enabledCategories)` | `boolean` — entry's primary `category` is enabled (specialties deliberately don't match). |

@@ -13,7 +13,9 @@ const {
   filterEntries,
   isBlockedHost,
   shouldBlockByCountry,
-  shouldBlockByCategory
+  shouldBlockByCategory,
+  getCountryName,
+  getAvailableCountries
 } = blocklist;
 
 const FIXTURE = [
@@ -88,4 +90,36 @@ test("loadBlocklists reads both real JSON files and caches results", async () =>
   assert.equal(isBlockedHost("order.doordash.com"), true);
   assert.equal(isBlockedHost("example.com"), false);
   assert.equal(b.length, a.length);
+});
+
+test("getCountryName names every ISO code the datasets use (Intl-backed, complete)", async () => {
+  // Curated short forms.
+  assert.equal(getCountryName("US"), "United States");
+  assert.equal(getCountryName("KR"), "South Korea");
+  assert.equal(getCountryName("HK"), "Hong Kong"); // short-form override of Intl's verbose name
+  // Filled by Intl.DisplayNames — codes NOT in the curated map still resolve.
+  assert.equal(getCountryName("SG"), "Singapore");
+  assert.equal(getCountryName("XK"), "Kosovo");
+  assert.notEqual(getCountryName("VN"), "VN");
+  // Normalization + empty handling.
+  assert.equal(getCountryName(" kr "), "South Korea");
+  assert.equal(getCountryName(""), "");
+
+  // Contract: no country present in the real data echoes its raw code.
+  const entries = await loadBlocklists();
+  const codes = new Set();
+  entries.forEach((e) => (Array.isArray(e.countries) ? e.countries : []).forEach((c) => codes.add(String(c).toUpperCase())));
+  const unnamed = [...codes].filter((code) => getCountryName(code) === code);
+  assert.deepEqual(unnamed, [], `engine cannot name: ${unnamed.join(", ")}`);
+});
+
+test("getAvailableCountries returns named, sorted, counted countries", async () => {
+  const entries = await loadBlocklists();
+  const countries = getAvailableCountries(entries);
+  assert.ok(countries.length > 50);
+  assert.ok(countries.every((c) => c.name && c.name !== c.code));
+  assert.ok(countries.every((c) => c.count > 0));
+  // Sorted by display name.
+  const names = countries.map((c) => c.name);
+  assert.deepEqual(names, [...names].sort((a, b) => a.localeCompare(b)));
 });

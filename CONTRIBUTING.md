@@ -47,12 +47,15 @@ root is **not** a loadable unpacked extension — build first, then load
 ### Validate
 
 ```bash
-npm run validate     # all audits (datasets, locales, docs, assets)
+npm run sync         # refresh extension/'s committed runtime artifacts (after engine/data edits)
+npm run validate     # all audits (datasets, locales, docs, assets, extension sync)
 npm test             # unit tests + validators
 ```
 
 Run a single audit with `npm run validate:datasets`, `:aliases`, `:countries`,
-`:categories`, `:locales`, `:docs`, or `:assets`. See [`tools/README.md`](tools/README.md).
+`:categories`, `:locales`, `:docs`, `:assets`, `:extension`, `:sw`, or `:sync`.
+See [`tools/README.md`](tools/README.md). `:sync` fails if `extension/`'s
+committed artifacts have drifted from canonical — fix with `npm run sync`.
 
 ### Add a brand
 
@@ -80,7 +83,8 @@ Add an entry to `entries`:
 - `regions` — must match the continents implied by `countries`.
 - `category` — one primary id (see below); put extra descriptors in
   `specialties` (searchable, not used for blocking).
-- Then run `npm run validate:datasets` and `npm run validate:aliases`.
+- Then run `npm run validate:datasets` and `npm run validate:aliases`, and
+  `npm run sync` so `extension/`'s committed blocklists pick up the new brand.
 
 ### Add / change a country
 
@@ -143,9 +147,13 @@ zip root as `blocklists/`), bundles `FS Engine/` into the packaged
 - `FitShield-<version>-firefox.zip` — Firefox / AMO (manifest gains `background.scripts`)
 - `FitShield-<version>-chrome.zip` — Chrome Web Store (committed manifest, gecko keys stripped)
 
-To develop against a real browser, load the **staged folder**, not the repo
-root: `node build.js`, then *Load unpacked* → `dist/chrome` (Chromium) or *Load
-Temporary Add-on* → `dist/firefox/manifest.json` (Firefox).
+To develop against a real browser, load **`extension/`** directly (Chromium) —
+it carries committed runtime artifacts (`blocklist.js`, `blocklists/`,
+`data/recipes.json`, `changelog.json`) synced from canonical `FS Engine/` +
+`data/`. After editing the engine or data, run `npm run sync` to refresh them
+(`npm run validate` / `npm test` fail on a stale copy). For a store-shaped
+package or Firefox, `node build.js`, then *Load unpacked* → `dist/chrome`, or
+*Load Temporary Add-on* → `dist/firefox/manifest.json`. Never load the repo root.
 
 > Always build with `node build.js`. Don't zip by hand — the built-in writer
 > forces forward-slash archive paths, which Windows' `Compress-Archive` breaks.

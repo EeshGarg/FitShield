@@ -1,0 +1,82 @@
+{
+  "_note": "Local changelog rendered by whats-new.html. No network fetch — privacy-first. The full, canonical release history lives in changelog/*.md.",
+  "entries": [
+    {
+      "version": "0.54",
+      "date": "2026-07-03",
+      "title": "Play-ready, with complete app coverage",
+      "changes": [
+        "Every tracked brand now has a researched, verified Android app status. All 1,280 remaining unconfirmed brands were checked against their official store listings — 243 new verified app mappings (now 1,545 packages covering 1,474 brands), 777 brands confirmed to have no official app, and 283 country storefronts of platform apps (Glovo, PedidosYa, Deliveroo, Wolt and friends) recorded on the brand that owns the app. Nothing is ever guessed.",
+        "Removed 10 corrupted blocklist entries the research exposed — including non-food sites that never belonged (a game publisher, a newspaper, a blood-donation service) and registry namespaces that could have over-blocked every site in an entire country domain space. FitShield should block precisely, and now it does.",
+        "The Android app is Play-Store-ready: this release builds the first signed bundle intended for upload, with the launch paperwork (release checklist, privacy and data-safety notes, store listing) finalized in the repository.",
+        "Under the hood, the project was reorganized into a clean engine / extension / android layout so contributors can find things — with shipped packages verified byte-for-byte identical in structure, so nothing changes for you.",
+        "Datasets bumped: fast-food v1.2 (2,111 entries), 2,575 blockable hosts generated for Android from the same canonical data the extension uses."
+      ]
+    },
+    {
+      "version": "0.53",
+      "date": "2026-07-02",
+      "title": "FitShield goes native on Android",
+      "changes": [
+        "FitShield is now a real Android app (preview): the same dashboard, stats, recipes, themes, and all 83 languages — reusing the exact web code the extension runs, so both platforms stay one product.",
+        "Blocks food-delivery and fast-food websites system-wide on Android with a local, on-device connection filter that works even with strict Private DNS (NextDNS) enabled. No traffic ever leaves your device to any FitShield server, DNS is untouched, and HTTPS is never decrypted.",
+        "Blocks food apps too: opt in, and opening a blocked app shows a FitShield pause screen with your stats, a matched recipe idea, a reflection timer, and an honest \"open anyway\" — 870+ verified app mappings generated from the same curated data, never guessed.",
+        "The block screens on both platforms now share the full experience: category-aware recipe suggestions, block reason, schedule status, and a localized \"Learn more\" link to fitshield.net.",
+        "The extension's block page now respects your system's reduced-motion setting, matching the rest of FitShield.",
+        "Android extras, all optional and off by default: \"display over other apps\" for a more reliable pause screen, an \"extra reliability\" background keep-alive, and battery-optimization guidance — each explained in plain language before you turn it on.",
+        "Groundwork for the Play Store: Android 15 target, release builds with no debug logging (no hostnames ever hit the log), and public privacy documentation of exactly what the app does — nothing collected, nothing transmitted."
+      ]
+    },
+    {
+      "version": "0.52",
+      "date": "2026-06-29",
+      "title": "Deeper insights & a documented history",
+      "changes": [
+        "Your Stats now shows your most blocked sites, categories, and countries — a private, on-device breakdown that updates as you go. Only aggregate counts of the brands you already block are kept; no URLs, pages, or browsing history are ever stored.",
+        "Backup is now \"Export Data & Settings\" / \"Import Data & Settings\" — one file already carries your settings, stats, dashboard layout, favorites, and preferences, now with versioned migration metadata so future restores stay reliable.",
+        "Expanded fast-food country coverage from 14 to 56 countries across major global brands (McDonald's, KFC, Burger King, Starbucks and more), added brand aliases for better matching, and validated every entry for clean codes and no duplicates.",
+        "Started a permanent changelog/ folder: every release now has its own notes, plus a living ROADMAP so the project's history and direction have a single source of truth.",
+        "Localized the new stats labels and food-category names, and kept every supported display language in sync.",
+        "Made the extension fully offline: the Settings support button is now rendered locally instead of loading a third-party image, so FitShield makes no network requests at all."
+      ]
+    },
+    {
+      "version": "0.51",
+      "date": "2026-06-27",
+      "title": "Stats, Firefox & a wider dashboard",
+      "changes": [
+        "Added a private, on-device Stats panel: blocked visits, estimated money saved, and calories avoided — with a configurable average meal cost and meal calories. No browsing history is ever stored.",
+        "Money saved now shows in your language's currency (₹, ¥, €, $ …), auto-picked from your language with country-aware default meal cost and calories — plus a manual currency override.",
+        "Backgrounds slowly shift their hue, and titles and the savings figure carry a gentle animated gradient (reduced-motion is respected).",
+        "On the block page, pick a suggested recipe with \"I'll make this instead\" to log the calories you avoided.",
+        "The block page now explains exactly why a site was blocked: the domain, rule type, food category, and countries.",
+        "FitShield now runs on Firefox and installs cleanly on Chromium browsers (Chrome, Brave, Edge) — a single source tree builds a clean package for each, with no 'background.scripts' manifest warning.",
+        "Added a proper FitShield extension icon.",
+        "Redesigned Settings to use wide screens better: cards reflow into columns and stack cleanly on narrow windows.",
+        "Added Reset options and confirmation dialogs (custom-site removal, resets, and a full factory reset), plus onboarding, local Backup & Restore, and the Chrome Web Store listing.",
+        "Added a living, layered background: soft color fields that drift on their own, vary subtly on each open, gain gentle parallax as you scroll, and respect reduced-motion.",
+        "Translated the new 0.51 screens (stats, reset, welcome tour, What's New, block reasons, recipe choices) across every supported language, and added German as a new display language.",
+        "Cleaned up the repository and consolidated branding assets into a Branding/ folder."
+      ]
+    },
+    {
+      "version": "0.50",
+      "date": "2026-06-26",
+      "title": "Recipe suggestions & blocking fixes",
+      "changes": [
+        "The block page now suggests a vegetarian and a meat/protein recipe based on what you blocked.",
+        "Fixed an international domain in the blocklist that was silently disabling all blocking.",
+        "Made the block screen reliably appear and show which brand triggered it."
+      ]
+    },
+    {
+      "version": "0.49",
+      "date": "2026-06-25",
+      "title": "Localization",
+      "changes": [
+        "Added 80+ display languages with a searchable language picker and a manual override.",
+        "Moved all interface text into the standard Chrome localization system."
+      ]
+    }
+  ]
+}

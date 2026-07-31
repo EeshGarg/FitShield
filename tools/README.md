@@ -25,6 +25,12 @@ runs this automatically before packaging, and `npm test` runs it too.
 | `npm run validate:locales`    | `locale-parity.js`       | identical key sets, empty messages, `$name$` placeholders, positional-placeholder parity, duplicate keys |
 | `npm run validate:docs`       | `changelog-validator.js` | manifest↔package version sync, `changelog.json` current entry, `changelog/<version>.md` + `ROADMAP.md` presence |
 | `npm run validate:assets`     | `assets-check.js`        | manifest keys, referenced icons exist, required runtime files/dirs present |
+| `npm run validate:sync`       | `sync-audit.js`          | `extension/`'s committed runtime artifacts (engine bundle, blocklists, recipes, changelog) match canonical `FS Engine/` + `data/` so the source folder loads unpacked; stale copy → `npm run sync` |
+
+Not a validator, but related: **`npm run sync`** (`sync-extension.js`)
+regenerates those committed `extension/` artifacts. Run it after editing
+`FS Engine/` or `data/`; `validate:sync` (in `npm run validate`) and
+`test/extension-synced.test.js` (in `npm test`) fail if you forget.
 
 Each tool is also a module: `require("./tools/alias-audit")()` returns a
 `Reporter` (`.ok`, `.errors`, `.warnings`, `.notes`) without exiting.

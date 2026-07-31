@@ -48,7 +48,7 @@ const api = {
 
   // Metadata & block policies (metadata.js)
   getCountryName: metadata.getCountryName,
-  getAvailableCountries: (list) => metadata.getAvailableCountries(withDefault(list)),
+  getAvailableCountries: (list, locale) => metadata.getAvailableCountries(withDefault(list), locale),
   getAvailableCategories: (list) => metadata.getAvailableCategories(withDefault(list)),
   shouldBlockByCountry: metadata.shouldBlockByCountry,
   shouldBlockByCategory: metadata.shouldBlockByCategory

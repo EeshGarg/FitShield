@@ -11,6 +11,7 @@
 
 const { Reporter, runCli } = require("./lib/report");
 const load = require("./lib/load");
+const engine = require("../FS Engine");
 
 function expectedRegions(countries) {
   const set = new Set();
@@ -81,7 +82,25 @@ function countryAudit() {
     });
   });
 
-  reporter.note(`${allCodes.size} distinct country codes; ${malformed} malformed, ${unknown} unknown, ${regionWarnings} region inconsistencies`);
+  // Every valid ISO code the data uses must resolve to a display name in the FS
+  // Engine (getCountryName), so the country picker in every FitShield build shows
+  // a real name, not a raw code. This ties the engine's country coverage to the
+  // data across all versions (browser bundle + Android reuse the same engine).
+  let unnamed = 0;
+  [...allCodes].forEach((code) => {
+    if (load.ISO_COUNTRIES.has(code) && engine.getCountryName(code) === code) {
+      unnamed += 1;
+      reporter.fail(
+        `FS Engine cannot name ISO country "${code}" (getCountryName echoes the code) — ` +
+          "extend the curated names in FS Engine/metadata.js"
+      );
+    }
+  });
+
+  reporter.note(
+    `${allCodes.size} distinct country codes; ${malformed} malformed, ${unknown} unknown, ` +
+      `${regionWarnings} region inconsistencies, ${unnamed} unnamed by engine`
+  );
   return reporter;
 }
 
