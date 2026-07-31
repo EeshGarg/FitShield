@@ -155,13 +155,13 @@
     "message": "Take a Breath"
   },
   "warningEyebrow": {
-    "message": "FitShield Check"
+    "message": "FitShield"
   },
   "warningTitle": {
-    "message": "Take one minute."
+    "message": "Take a moment."
   },
   "warningIntro": {
-    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
+    "message": "Hunger, habit, stress, and convenience all feel the same in the moment. Here is one thing you could make instead."
   },
   "warningTriggeredBy": {
     "message": "You're about to order from $1.",
@@ -175,10 +175,10 @@
     "message": "Go back"
   },
   "warningLockedButton": {
-    "message": "Locked"
+    "message": "Continue (locked)"
   },
   "warningContinueButton": {
-    "message": "Continue"
+    "message": "Continue anyway"
   },
   "warningOpeningButton": {
     "message": "Opening..."
@@ -191,7 +191,7 @@
     "message": "Something went wrong while opening the site. Please try again."
   },
   "blockReasonHeading": {
-    "message": "Why you're seeing this"
+    "message": "Why was this interrupted?"
   },
   "blockReasonDomain": {
     "message": "Site"
@@ -1029,6 +1029,204 @@
     "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
-    "message": "Visit fitshield.net"
+    "message": "About FitShield"
+  },
+  "unitSecond": {
+    "message": "second"
+  },
+  "unitSeconds": {
+    "message": "seconds"
+  },
+  "timerRemainingAnnounce": {
+    "message": "$1 seconds left in the pause."
+  },
+  "timerDoneAnnounce": {
+    "message": "The pause is over. You can continue if you choose to."
+  },
+  "warningTriggeredByPrefix": {
+    "message": "You opened"
+  },
+  "warningLockedHint": {
+    "message": "Continuing unlocks when the pause ends."
+  },
+  "warningUnlockedHint": {
+    "message": "You can continue whenever you want to."
+  },
+  "repeatFrictionNote": {
+    "message": "You continued to this site recently, so this pause is $1 seconds longer. It goes back to normal after $2 minutes, and you can switch this off in settings."
+  },
+  "previewBanner": {
+    "message": "Preview. This is what a real interruption looks like. Nothing here is recorded and no site is blocked."
+  },
+  "previewPassNote": {
+    "message": "In a real interruption this would open the site. Nothing was changed."
+  },
+  "intentQuestion": {
+    "message": "What brought you here?"
+  },
+  "intentSubtitle": {
+    "message": "Optional. This only shapes what you are shown right now — it is not saved."
+  },
+  "intentSkip": {
+    "message": "Skip"
+  },
+  "intentHungry": {
+    "message": "I'm hungry"
+  },
+  "intentSpecific": {
+    "message": "I want something specific"
+  },
+  "intentBrowsing": {
+    "message": "Just browsing"
+  },
+  "intentLegitimate": {
+    "message": "I need to place a real order"
+  },
+  "intentSomeoneElse": {
+    "message": "Ordering for someone else"
+  },
+  "intentBrowsingAnnounce": {
+    "message": "Alternatives hidden. Go back is the first action."
+  },
+  "kindRecipe": {
+    "message": "Recipe"
+  },
+  "kindQuick": {
+    "message": "Quick fix"
+  },
+  "kindCustom": {
+    "message": "Yours"
+  },
+  "alternativeChooseButton": {
+    "message": "I'll make this"
+  },
+  "alternativeChosenButton": {
+    "message": "Chosen"
+  },
+  "alternativeAnotherButton": {
+    "message": "Show another"
+  },
+  "alternativeFavoriteLabel": {
+    "message": "Save as a favourite"
+  },
+  "alternativeFiltersLabel": {
+    "message": "Filter alternatives"
+  },
+  "alternativeChosenNote": {
+    "message": "Noted as your plan. FitShield has not recorded a meal — you can confirm you made it from the popup later, if you want to."
+  },
+  "alternativeAnnounce": {
+    "message": "$1, $2 minutes. Option $3 of $4."
+  },
+  "noAlternativeFound": {
+    "message": "No alternative matched. Try clearing a filter."
+  },
+  "filterClosest": {
+    "message": "Closest"
+  },
+  "filterFastest": {
+    "message": "Fastest"
+  },
+  "filterNoCook": {
+    "message": "No cooking"
+  },
+  "filterMicrowave": {
+    "message": "Microwave"
+  },
+  "timeMinutes": {
+    "message": "$1 min"
+  },
+  "timeHours": {
+    "message": "$1 h"
+  },
+  "timeHoursMinutes": {
+    "message": "$1 h $2 min"
+  },
+  "activeEffort": {
+    "message": "$1 min hands-on"
+  },
+  "servings": {
+    "message": "Serves $1"
+  },
+  "containsAllergens": {
+    "message": "Contains: $1"
+  },
+  "optionalIngredient": {
+    "message": "optional"
+  },
+  "substitutionsLabel": {
+    "message": "Swaps"
+  },
+  "diet_vegan": {
+    "message": "Vegan"
+  },
+  "diet_vegetarian": {
+    "message": "Vegetarian"
+  },
+  "diet_pescatarian": {
+    "message": "Fish"
+  },
+  "whyCraving": {
+    "message": "Matches $1"
+  },
+  "whyPantry": {
+    "message": "Uses $1 things you keep"
+  },
+  "whyFavorite": {
+    "message": "One of your favourites"
+  },
+  "whyCustom": {
+    "message": "Your own alternative"
+  },
+  "relaxedEquipment": {
+    "message": "No exact match for your equipment — closest option shown"
+  },
+  "relaxedTime": {
+    "message": "Nothing matched that time limit — closest option shown"
+  },
+  "relaxedFastest": {
+    "message": "No fast option matched — closest option shown"
+  },
+  "relaxedNoCook": {
+    "message": "No no-cook option matched — closest option shown"
+  },
+  "relaxedMicrowave": {
+    "message": "No microwave-only option matched — closest option shown"
+  },
+  "passTitle": {
+    "message": "Continue to this site"
+  },
+  "passSubtitle": {
+    "message": "Choose how long. FitShield stays on for everything else."
+  },
+  "passCancel": {
+    "message": "Never mind"
+  },
+  "passOpening": {
+    "message": "Opening…"
+  },
+  "passOnce": {
+    "message": "Just this once"
+  },
+  "passTenMinutes": {
+    "message": "For 10 minutes"
+  },
+  "passThirtyMinutes": {
+    "message": "For 30 minutes"
+  },
+  "passUntilTabCloses": {
+    "message": "Until I close this tab"
+  },
+  "passAllThirtyMinutes": {
+    "message": "Pause everything for 30 minutes"
+  },
+  "passAllUntilTomorrow": {
+    "message": "Pause everything until tomorrow"
+  },
+  "passScopeSite": {
+    "message": "This site only"
+  },
+  "passScopeAll": {
+    "message": "All blocking"
   }
 }

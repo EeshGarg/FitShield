@@ -15,468 +15,544 @@
       --accent: #7ef0a8;
       --accent-dim: #243228;
       --panel-radius: 24px;
+      /* Minimum comfortable touch target. Every interactive element uses it. */
+      --tap: 44px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       min-height: 100vh;
       display: grid;
       place-items: center;
-      padding: 24px;
+      padding: 20px;
       background:
         radial-gradient(130% 70% at 50% -5%, rgba(255, 255, 255, 0.025), transparent 60%),
         linear-gradient(180deg, #111823 0%, #0d1117 100%);
       color: var(--text);
       font-family: "Segoe UI", -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
+      line-height: 1.5;
     }
 
-    /* Three side-by-side columns: block card | vegetarian | meat. Columns size
-       to their own content (no stretching) so recipe cards stay compact, and
-       collapse to fewer columns (finally one) on narrow screens. */
+    /* One column. The block moment is a decision, not a dashboard: the pause,
+       one alternative, and the three ways out — nothing competing for the eye. */
     .board {
-      width: min(100%, 1120px);
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 20px;
-      align-items: start;
+      width: min(100%, 560px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     .shell {
-      padding: 28px;
+      padding: 24px;
       border-radius: var(--panel-radius);
       background: var(--panel);
       border: 1px solid var(--border);
-      box-shadow:
-        0 1px 1px rgba(0, 0, 0, 0.16),
-        0 14px 40px rgba(0, 0, 0, 0.28);
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.16), 0 14px 40px rgba(0, 0, 0, 0.28);
     }
 
-    .block-card {
-      text-align: center;
-    }
-
-    .recipe-col {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-    }
-
-    .recipe-col[hidden] {
-      display: none;
-    }
+    .block-card { text-align: center; }
 
     .eyebrow {
       display: inline-block;
-      margin-bottom: 14px;
-      padding: 6px 10px;
+      margin-bottom: 10px;
+      padding: 5px 10px;
       border-radius: 999px;
       background: rgba(126, 240, 168, 0.12);
       color: var(--accent);
-      font-size: 0.8rem;
-      letter-spacing: 0.04em;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
+      font-weight: 600;
     }
 
     h1 {
-      margin: 0 0 12px;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      /* Same living gradient the dashboard titles use — slow, theme-aware. */
-      background: linear-gradient(
-        100deg,
-        var(--text) 0%,
-        var(--accent) 40%,
-        #6fd6c0 56%,
-        var(--text) 84%
-      );
-      background-size: 220% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-      animation: titleSheen 14s ease-in-out infinite;
+      margin: 0 0 8px;
+      font-size: clamp(1.5rem, 4.5vw, 2rem);
+      line-height: 1.2;
     }
 
-    @keyframes titleSheen {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    h2 {
+      margin: 0 0 4px;
+      font-size: 1.05rem;
+      line-height: 1.3;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      h1 { animation: none; }
-    }
+    p { margin: 0; color: var(--muted); }
 
-    p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
+    .brand-line {
+      font-size: 0.95rem;
+      margin-top: 6px;
     }
+    .brand-line strong { color: var(--text); }
+
+    /* --- countdown ------------------------------------------------------- */
 
     .ring {
-      width: 148px;
-      height: 148px;
-      margin: 28px auto 18px;
+      width: 116px;
+      height: 116px;
+      margin: 18px auto 12px;
       border-radius: 50%;
       border: 3px solid rgba(126, 240, 168, 0.45);
       display: grid;
       place-items: center;
-      box-shadow: 0 0 24px rgba(126, 240, 168, 0.18);
+      box-shadow: 0 0 20px rgba(126, 240, 168, 0.15);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .time {
-      font-size: 3rem;
+      font-size: 2.4rem;
       font-weight: 700;
       line-height: 1;
+      font-variant-numeric: tabular-nums;
     }
 
-    .hint {
-      margin-top: 10px;
-      font-size: 0.95rem;
-    }
-
-    .learn-more {
-      margin-top: 22px;
-      padding-top: 16px;
-      border-top: 1px solid var(--accent-dim);
-      font-size: 0.85rem;
+    .time-unit {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       color: var(--muted);
-      line-height: 1.5;
-    }
-    .learn-more a {
-      display: inline-block;
       margin-top: 4px;
-      color: var(--accent);
+    }
+
+    .hint { font-size: 0.9rem; margin-top: 6px; }
+
+    .repeat-note {
+      margin: 12px auto 0;
+      max-width: 380px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255, 196, 120, 0.1);
+      border: 1px solid rgba(255, 196, 120, 0.28);
+      color: #ffd7a3;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+    .repeat-note[hidden] { display: none; }
+
+    /* --- buttons --------------------------------------------------------- */
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      min-height: var(--tap);
+      padding: 12px 16px;
+      font: inherit;
       font-weight: 600;
-      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
     }
-    .learn-more a:hover,
-    .learn-more a:focus-visible {
-      text-decoration: underline;
-    }
+
+    /* No animation may delay a press: transforms are cosmetic only. */
+    button:hover:not(:disabled) { transform: translateY(-1px); }
+    button:disabled { cursor: not-allowed; transform: none; }
 
     .actions {
       display: flex;
-      gap: 12px;
-      margin-top: 26px;
-      position: relative;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
       padding-top: 16px;
+      position: relative;
     }
-
-    /* Soft gradient hairline above the actions — separates reflection from
-       decision without a hard border. */
     .actions::before {
       content: "";
       position: absolute;
-      top: 0;
-      left: 8%;
-      right: 8%;
+      top: 0; left: 8%; right: 8%;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
     }
+    .actions button { flex: 1 1 160px; }
 
-    button {
-      flex: 1;
-      border: 0;
-      border-radius: 12px;
-      padding: 14px 16px;
-      font: inherit;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+    .primary { background: var(--accent); color: #102016; }
+    .secondary { background: #293241; color: var(--text); }
+
+    /* "Continue" is deliberately the quiet option: available, never hidden,
+       never dressed up as the thing to press. */
+    .tertiary {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--accent-dim);
     }
+    .tertiary:disabled { opacity: 0.5; }
+    .tertiary.ready { color: var(--text); border-color: rgba(255, 255, 255, 0.2); }
 
-    button:hover {
-      transform: translateY(-1px);
+    /* --- intent prompt --------------------------------------------------- */
+
+    .intent[hidden] { display: none; }
+    .intent-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .intent-sub { font-size: 0.82rem; margin-bottom: 12px; }
+
+    .intent-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
-
-    .secondary {
-      background: #293241;
+    .intent-options button {
+      flex: 1 1 auto;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--accent-dim);
       color: var(--text);
+      font-weight: 500;
+      font-size: 0.88rem;
+      padding: 10px 14px;
     }
-
-    .primary {
-      background: var(--accent);
-      color: #102016;
-      opacity: 0.45;
-      box-shadow: none;
-    }
-
-    .primary.ready {
-      opacity: 1;
-      box-shadow: 0 10px 30px rgba(126, 240, 168, 0.25);
-    }
-
-    .primary:disabled {
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* Recipe column content. Each recipe fills its own .shell column. */
-    .recipe-badge {
-      align-self: flex-start;
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 4px 10px;
-      border-radius: 999px;
-      margin-bottom: 12px;
-    }
-
-    .recipe-badge.vegetarian {
-      background: rgba(126, 240, 168, 0.14);
-      color: var(--accent);
-    }
-
-    .recipe-badge.meat {
-      background: rgba(255, 196, 120, 0.16);
-      color: #ffc478;
-    }
-
-    .recipe-name {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin: 0 0 6px;
-      color: var(--text);
-    }
-
-    .recipe-meta {
+    .intent-options button:hover { background: rgba(126, 240, 168, 0.1); }
+    .intent-skip {
+      margin-top: 10px;
+      background: transparent;
+      color: var(--muted);
       font-size: 0.82rem;
-      color: var(--muted);
-      margin-bottom: 12px;
+      font-weight: 500;
+      padding: 8px 0;
+      min-height: auto;
+      text-decoration: underline;
     }
 
-    .recipe-desc {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.5;
-      margin: 0 0 14px;
+    /* --- alternative card ------------------------------------------------ */
+
+    .alt[hidden] { display: none; }
+
+    .alt-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
     }
 
-    .recipe-ingredients {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .recipe-ingredients b {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    /* Steps are always visible (no collapse), and scroll within the card if a
-       recipe is long. The scrollbar is thin and themed so it stays subtle but
-       discoverable. */
-    .recipe-steps {
-      margin-top: 16px;
-    }
-
-    .recipe-steps-title {
-      font-size: 0.74rem;
+    .alt-kind {
+      flex: 0 0 auto;
+      font-size: 0.68rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-
-    .recipe-steps-list {
-      margin: 0;
-      padding-left: 20px;
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.5;
-      max-height: 188px;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(126, 240, 168, 0.32) transparent;
-    }
-
-    .recipe-steps-list::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .recipe-steps-list::-webkit-scrollbar-thumb {
-      background: rgba(126, 240, 168, 0.28);
+      padding: 4px 9px;
       border-radius: 999px;
+      background: rgba(126, 240, 168, 0.13);
+      color: var(--accent);
+      white-space: nowrap;
     }
 
-    .recipe-steps-list::-webkit-scrollbar-track {
-      background: transparent;
+    .alt-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
     }
 
-    .recipe-steps-list li {
+    /* Facts carry a text label as well as a colour, so nothing here depends on
+       colour alone to be understood. */
+    .chip {
+      font-size: 0.76rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .chip.strong { background: rgba(126, 240, 168, 0.13); color: var(--accent); }
+
+    .alt-desc { font-size: 0.9rem; margin-bottom: 12px; }
+
+    .alt-why {
+      font-size: 0.82rem;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .alt-why[hidden] { display: none; }
+
+    .alt-section { margin-top: 14px; }
+    .alt-section-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
       margin-bottom: 6px;
     }
 
-    /* Compact "I'll make this instead" button near the bottom of the card — a
-       clearly-defined button, not a card-sized click zone. */
-    .recipe-choose {
-      margin-top: 18px;
-      align-self: stretch;
-      border: 1px solid rgba(126, 240, 168, 0.35);
-      border-radius: 12px;
-      padding: 11px 14px;
+    .alt-ingredients,
+    .alt-steps {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .alt-ingredients li,
+    .alt-steps li { margin-bottom: 5px; }
+    .alt-ingredients .optional { opacity: 0.75; }
+
+    /* Long recipes scroll inside the card. The container is focusable so a
+       keyboard user can actually reach and scroll it. */
+    .alt-scroll {
+      max-height: 220px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(126, 240, 168, 0.3) transparent;
+    }
+    .alt-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .alt-scroll::-webkit-scrollbar { width: 6px; }
+    .alt-scroll::-webkit-scrollbar-thumb { background: rgba(126, 240, 168, 0.28); border-radius: 999px; }
+
+    .alt-note {
+      margin-top: 12px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .alt-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .alt-actions .choose { flex: 2 1 180px; background: var(--accent); color: #102016; }
+    .alt-actions .another { flex: 1 1 130px; background: #293241; color: var(--text); }
+    .alt-actions .fav {
+      flex: 0 0 var(--tap);
+      min-width: var(--tap);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+      border: 1px solid var(--accent-dim);
+      font-size: 1rem;
+    }
+    .alt-actions .fav[aria-pressed="true"] { background: rgba(126, 240, 168, 0.16); color: var(--accent); }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--accent-dim);
+    }
+    .filters button {
+      flex: 0 1 auto;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 9px 12px;
+      min-height: 38px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid transparent;
+      color: var(--muted);
+    }
+    .filters button[aria-pressed="true"] {
       background: rgba(126, 240, 168, 0.14);
       color: var(--accent);
-      font: inherit;
+      border-color: var(--border);
       font-weight: 700;
-      cursor: pointer;
-      transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
     }
 
-    .recipe-choose:hover:not(:disabled) {
-      transform: translateY(-1px);
-      background: rgba(126, 240, 168, 0.22);
-    }
-
-    .recipe-choose:disabled {
-      cursor: default;
-    }
-
-    /* The chosen recipe's button fills with accent (success); the other card's
-       button just dims. The card body stays fully visible either way. */
-    .recipe-choose.chosen {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #102016;
-    }
-
-    .recipe-choose:disabled:not(.chosen) {
-      opacity: 0.45;
-    }
-
-    .recipe-choice-note {
-      margin-top: 18px;
+    .chosen-note {
+      margin-top: 14px;
       padding: 10px 12px;
       border-radius: 12px;
       background: rgba(126, 240, 168, 0.12);
       color: var(--accent);
-      font-size: 0.9rem;
-      line-height: 1.4;
+      font-size: 0.88rem;
     }
+    .chosen-note[hidden] { display: none; }
 
-    .recipe-choice-note[hidden] {
-      display: none;
-    }
+    /* --- pass chooser ---------------------------------------------------- */
 
-    /* "Why you're seeing this" panel — populated by warning.js from the JSON
-       blocklist metadata the background service worker resolves. */
-    .block-reason {
-      margin: 18px auto 0;
-      max-width: 340px;
+    .pass[hidden] { display: none; }
+    .pass-title { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .pass-sub { font-size: 0.84rem; margin-bottom: 12px; }
+    .pass-options { display: flex; flex-direction: column; gap: 8px; }
+    .pass-options button {
       text-align: left;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px 14px;
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--accent-dim);
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.9rem;
     }
+    .pass-options button:hover { background: rgba(126, 240, 168, 0.1); }
+    .pass-options .scope { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
 
-    .block-reason[hidden] {
-      display: none;
+    /* --- why panel ------------------------------------------------------- */
+
+    details.reason {
+      margin-top: 16px;
+      border-top: 1px solid var(--accent-dim);
+      padding-top: 12px;
+      text-align: left;
     }
-
-    .block-reason-heading {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    details.reason summary {
+      cursor: pointer;
+      font-size: 0.85rem;
       color: var(--muted);
-      margin-bottom: 8px;
+      list-style: none;
+      padding: 6px 0;
+      min-height: 32px;
     }
+    details.reason summary::-webkit-details-marker { display: none; }
+    details.reason summary::before { content: "▸ "; }
+    details.reason[open] summary::before { content: "▾ "; }
 
-    .block-reason-row {
+    .reason-row {
       display: flex;
       justify-content: space-between;
       gap: 12px;
-      font-size: 0.85rem;
-      padding: 4px 0;
+      font-size: 0.84rem;
+      padding: 5px 0;
     }
+    .reason-row + .reason-row { border-top: 1px solid rgba(255, 255, 255, 0.05); }
+    .reason-label { color: var(--muted); flex: 0 0 auto; }
+    .reason-value { color: var(--text); font-weight: 600; text-align: right; word-break: break-word; }
 
-    .block-reason-row + .block-reason-row {
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .block-reason-label {
+    .learn-more {
+      margin-top: 14px;
+      font-size: 0.82rem;
       color: var(--muted);
-      flex: 0 0 auto;
+    }
+    .learn-more a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    .learn-more a:hover, .learn-more a:focus-visible { text-decoration: underline; }
+
+    .preview-banner {
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(126, 240, 168, 0.1);
+      border: 1px dashed var(--border);
+      font-size: 0.86rem;
+      color: var(--accent);
+    }
+    .preview-banner[hidden] { display: none; }
+
+    /* Screen-reader-only announcements (the countdown, filter results). */
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
     }
 
-    .block-reason-value {
-      color: var(--text);
-      font-weight: 600;
-      text-align: right;
-      word-break: break-word;
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      button:hover:not(:disabled) { transform: none; }
     }
 
-    button:focus-visible,
-    a:focus-visible,
-    summary:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+    @media (max-width: 420px) {
+      body { padding: 12px; }
+      .shell { padding: 18px; }
+      .ring { width: 96px; height: 96px; }
+      .time { font-size: 2rem; }
+      .actions button, .alt-actions button { flex-basis: 100%; }
     }
   </style>
 </head>
 <body>
   <main class="board">
-    <!-- Left column: the pause / block card. -->
-    <section class="shell block-card">
-      <!-- Pause screen shown before the blocked ordering site can be reopened. -->
-      <span class="eyebrow" data-i18n="warningEyebrow">FitShield Check</span>
-      <h1 data-i18n="warningTitle">Take one minute.</h1>
-      <p data-i18n="warningIntro">Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment.</p>
+    <!-- Shown only in preview mode, so it is always obvious when nothing is
+         being recorded. -->
+    <p class="preview-banner" id="previewBanner" hidden></p>
 
-      <!-- warning.js fills this with the brand the block interrupted, sourced from
-           the JSON blocklist metadata via the background service worker. -->
-      <p class="hint" id="brand" hidden></p>
+    <!-- The pause. -->
+    <section class="shell block-card" aria-labelledby="pauseTitle">
+      <span class="eyebrow" data-i18n="warningEyebrow">FitShield</span>
+      <h1 id="pauseTitle" data-i18n="warningTitle">Take a moment.</h1>
+      <p data-i18n="warningIntro">Hunger, habit, stress, and convenience feel the same in the moment. Here is one thing you could make instead.</p>
+      <p class="brand-line" id="brand" hidden></p>
 
-      <!-- "Why you're seeing this" — the domain, rule type, category, and country
-           metadata that triggered the block. Populated by warning.js. -->
-      <div class="block-reason" id="blockReason" hidden></div>
-
-      <!-- warning.js updates this timer and animates the ring as time passes. -->
+      <!-- The number itself is not a live region: announcing every second would
+           make a screen reader unusable. warning.js posts milestone updates to
+           #timerAnnounce instead. -->
       <div class="ring" id="ring">
-        <div class="time" id="timer">60</div>
+        <div>
+          <div class="time" id="timer" role="timer" aria-hidden="true">60</div>
+          <span class="time-unit" id="timerUnit" aria-hidden="true">seconds</span>
+        </div>
       </div>
+      <p class="sr-only" id="timerAnnounce" role="status" aria-live="polite"></p>
 
-      <!-- Hint text is managed by warning.js (it depends on lock state + pass
-           duration), so it is re-rendered on language change rather than via
-           data-i18n. -->
-      <p class="hint" id="hint">When the timer ends, you can continue to the site.</p>
+      <p class="hint" id="hint"></p>
 
-      <!-- Continue stays locked until the countdown finishes and bypass is granted.
-           Its label is JS-managed (Locked / Continue / Opening). -->
+      <!-- Explains any extra pause added for a repeat visit. Never hidden
+           behaviour: if friction changed, it says so. -->
+      <p class="repeat-note" id="repeatNote" hidden></p>
+
       <div class="actions">
-        <button id="back" class="secondary" type="button" data-i18n="warningBackButton">Go back</button>
-        <button id="continue" class="primary" type="button" disabled>Locked</button>
+        <button id="back" class="primary" type="button" data-i18n="warningBackButton">Go back</button>
+        <button id="continue" class="tertiary" type="button" disabled aria-describedby="hint"></button>
       </div>
 
-      <!-- Confirmation shown after the user picks a recipe instead of ordering.
-           warning.js manages its text and visibility. -->
-      <p class="recipe-choice-note" id="recipeChoiceNote" hidden></p>
+      <details class="reason" id="reasonPanel" hidden>
+        <summary id="reasonSummary" data-i18n="blockReasonHeading">Why was this interrupted?</summary>
+        <div id="reasonBody"></div>
+      </details>
 
-      <!-- Learn more: points to the site for privacy, blocking behavior, setup.
-           A plain link opens fitshield.net in a new browser tab (safe: noopener). -->
       <p class="learn-more">
-        <span data-i18n="learnMoreBody">Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net.</span><br>
-        <a href="https://fitshield.net" target="_blank" rel="noopener noreferrer" data-i18n="learnMoreLink">Visit fitshield.net</a>
+        <a href="https://fitshield.net" target="_blank" rel="noopener noreferrer" data-i18n="learnMoreLink">About FitShield</a>
       </p>
     </section>
 
-    <!-- Middle + right columns: lightweight at-home alternatives, chosen by
-         warning.js from the local recipe catalog based on the blocked site's
-         category/metadata. Each column is hidden until its recipe is ready. -->
-    <section class="shell recipe-col" id="recipeVeg" hidden></section>
-    <section class="shell recipe-col" id="recipeMeat" hidden></section>
+    <!-- Optional, skippable. Never a required questionnaire. -->
+    <section class="shell intent" id="intentPanel" hidden aria-labelledby="intentTitle">
+      <div class="intent-title" id="intentTitle" data-i18n="intentQuestion">What brought you here?</div>
+      <p class="intent-sub" data-i18n="intentSubtitle">Optional. This only shapes what you are shown right now — it is not saved.</p>
+      <div class="intent-options" id="intentOptions" role="group" aria-labelledby="intentTitle"></div>
+      <button class="intent-skip" id="intentSkip" type="button" data-i18n="intentSkip">Skip</button>
+    </section>
+
+    <!-- One alternative at a time. -->
+    <section class="shell alt" id="altPanel" hidden aria-labelledby="altTitle">
+      <div class="alt-head">
+        <h2 id="altTitle"></h2>
+        <span class="alt-kind" id="altKind"></span>
+      </div>
+      <div class="alt-meta" id="altMeta"></div>
+      <p class="alt-why" id="altWhy" hidden></p>
+      <p class="alt-desc" id="altDesc"></p>
+
+      <div class="alt-section">
+        <div class="alt-section-title" id="ingredientsLabel" data-i18n="recipeIngredientsLabel">Ingredients</div>
+        <ul class="alt-ingredients" id="altIngredients" aria-labelledby="ingredientsLabel"></ul>
+      </div>
+
+      <div class="alt-section">
+        <div class="alt-section-title" id="stepsLabel" data-i18n="recipeStepsLabel">Steps</div>
+        <div class="alt-scroll" id="altStepsScroll" tabindex="0" role="group" aria-labelledby="stepsLabel">
+          <ol class="alt-steps" id="altSteps"></ol>
+        </div>
+      </div>
+
+      <p class="alt-note" id="altNote"></p>
+
+      <div class="alt-actions">
+        <button class="choose" id="chooseAlt" type="button" data-i18n="alternativeChooseButton">I'll make this</button>
+        <button class="another" id="anotherAlt" type="button" data-i18n="alternativeAnotherButton">Show another</button>
+        <button class="fav" id="favAlt" type="button" aria-pressed="false" data-i18n-aria-label="alternativeFavoriteLabel" title="Favourite">★</button>
+      </div>
+
+      <div class="filters" id="filters" role="group" data-i18n-aria-label="alternativeFiltersLabel"></div>
+
+      <p class="chosen-note" id="chosenNote" hidden></p>
+      <p class="sr-only" id="altAnnounce" role="status" aria-live="polite"></p>
+    </section>
+
+    <!-- Shown when the user chooses to continue: an explicit, scoped decision. -->
+    <section class="shell pass" id="passPanel" hidden aria-labelledby="passTitle">
+      <div class="pass-title" id="passTitle" data-i18n="passTitle">Continue to this site</div>
+      <p class="pass-sub" id="passSub" data-i18n="passSubtitle">Choose how long. FitShield stays on for everything else.</p>
+      <div class="pass-options" id="passOptions" role="group" aria-labelledby="passTitle"></div>
+      <div class="actions">
+        <button id="passCancel" class="secondary" type="button" data-i18n="passCancel">Never mind</button>
+      </div>
+    </section>
   </main>
 
   <script src="ambient.js" data-energy="block"></script>
   <script src="browser-shim.js"></script>
   <script src="i18n.js"></script>
+  <script src="fitshield-core.js"></script>
   <script src="recipes.js"></script>
   <script src="warning.js"></script>
 </body>

@@ -40,20 +40,24 @@ function loadBackground(seed) {
       onInstalled: { addListener: () => {} },
       onStartup: { addListener: () => {} },
       onMessage: { addListener: () => {} },
+      getManifest: () => ({ version: "0.55" }),
       lastError: null
     },
     storage: {
       local: {
         get: async (keys) => {
+          if (keys === null || keys === undefined) return { ...store };
           const out = {};
           (Array.isArray(keys) ? keys : [keys]).forEach((k) => { if (k in store) out[k] = store[k]; });
           return out;
         },
-        set: async (obj) => { Object.assign(store, obj); }
+        set: async (obj) => { Object.assign(store, obj); },
+        remove: async (keys) => { (Array.isArray(keys) ? keys : [keys]).forEach((k) => delete store[k]); }
       },
       onChanged: { addListener: () => {} }
     },
     alarms: { clear: async () => {}, create: async () => {}, onAlarm: { addListener: () => {} } },
+    tabs: { create: () => {}, query: async () => [], onRemoved: { addListener: () => {} } },
     declarativeNetRequest: {
       _rules: [],
       getDynamicRules: (cb) => cb([]),
@@ -64,7 +68,7 @@ function loadBackground(seed) {
     ok: true, status: 200,
     json: async () => JSON.parse(fs.readFileSync(srcPath(url.replace("chrome-extension://test/", "")), "utf8"))
   });
-  const sandbox = { chrome, console, fetch: fetchImpl, setTimeout, URL, Math, Date };
+  const sandbox = { chrome, console, fetch: fetchImpl, setTimeout, URL, Math, Date, JSON, Promise };
   sandbox.self = sandbox; sandbox.globalThis = sandbox;
   const context = vm.createContext(sandbox);
   sandbox.importScripts = (f) => vm.runInContext(fs.readFileSync(srcPath(f), "utf8"), context, { filename: f });

@@ -138,9 +138,33 @@ function checkDerivedManifests(reporter, manifest) {
 
   const firefox = build.firefoxManifest(manifest);
   const scripts = (firefox.background || {}).scripts || [];
+  const expected = build.BACKGROUND_SCRIPTS;
   reporter.check(
-    scripts.length === 2 && scripts[0] === "blocklist.js" && scripts[1] === "background.js",
-    `firefox manifest derivation must load ["blocklist.js", "background.js"] (got ${JSON.stringify(scripts)})`
+    scripts.length === expected.length && scripts.every((script, index) => script === expected[index]),
+    `firefox manifest derivation must load ${JSON.stringify(expected)} (got ${JSON.stringify(scripts)})`
+  );
+  // background.js is last on purpose: it references the globals the earlier
+  // files define, so a reordering here would break Firefox at load time.
+  reporter.check(
+    scripts[scripts.length - 1] === "background.js",
+    "background.js must be the LAST firefox background script (it depends on the others)"
+  );
+
+  // Safari (nightly): Chromium form (gecko stripped, service worker path) plus
+  // the two nightly markers so the wrapped app is unmistakably a nightly build.
+  const safari = build.safariManifest(manifest);
+  reporter.check(!("browser_specific_settings" in safari), "safari manifest derivation must strip browser_specific_settings");
+  reporter.check(
+    safari.name === build.SAFARI_NIGHTLY_NAME,
+    `safari manifest derivation must set a nightly name "${build.SAFARI_NIGHTLY_NAME}" (got ${JSON.stringify(safari.name)})`
+  );
+  reporter.check(
+    safari.version_name === `${manifest.version}-nightly`,
+    `safari manifest derivation must set version_name "${manifest.version}-nightly" (got ${JSON.stringify(safari.version_name)})`
+  );
+  reporter.check(
+    (safari.background || {}).service_worker === "background.js" && !(safari.background || {}).scripts,
+    "safari manifest derivation must use the service-worker background (no background.scripts)"
   );
 }
 
@@ -202,6 +226,13 @@ function checkRuntimeTargets(reporter, staged) {
   }
 }
 
+// Generated/synced artifacts that live in extension/ but are NOT hand-authored
+// sources build.js copies verbatim: blocklist.js is the engine bundle written by
+// bundleEngine (build.js) and mirrored into extension/ by `npm run sync` so the
+// source folder loads unpacked. It is exempt from the orphan check; its presence
+// and freshness are owned by tools/sync-audit.js.
+const GENERATED_SOURCES = new Set(["blocklist.js"]);
+
 // No orphaned runtime sources: every js/html file in extension/ must be staged
 // by build.js — a file that exists but never ships is dead code or a packaging
 // bug waiting to be found in production.
@@ -209,7 +240,7 @@ function checkNoOrphans(reporter) {
   const shipped = new Set(build.FILES.map(([src]) => posix(path.relative(load.EXTENSION_DIR, src))));
   const sources = fs
     .readdirSync(load.EXTENSION_DIR)
-    .filter((name) => name.endsWith(".js") || name.endsWith(".html"));
+    .filter((name) => (name.endsWith(".js") || name.endsWith(".html")) && !GENERATED_SOURCES.has(name));
   for (const name of sources) {
     reporter.check(shipped.has(name), `extension/${name} is not staged by build.js — ship it or delete it`);
   }

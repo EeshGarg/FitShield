@@ -1,20 +1,192 @@
-const DEFAULT_TIMER_SECONDS = 60;
-const DEFAULT_PASS_DURATION_MINUTES = 5;
+/**
+ * FitShield block page.
+ *
+ * The whole product narrows to this screen, so it answers exactly four things
+ * and nothing else:
+ *
+ *   1. why this page was interrupted,
+ *   2. how much of the pause is left,
+ *   3. one thing you could make instead — with a way to see another,
+ *   4. the three ways out: leave, choose the alternative, or continue on purpose.
+ *
+ * Every string that comes from data (a brand name, a recipe title, an ingredient
+ * the user typed themselves) is written with textContent or a text node. Nothing
+ * on this page is ever assigned to innerHTML, so no catalog entry, blocklist
+ * label, or user-authored alternative can introduce markup.
+ */
 
-// Localization helper (i18n.js loads first). Falls back to the key so missing
-// strings stay visible rather than blank.
-const t = (key, subs) =>
-  (typeof FitShieldI18n !== "undefined" ? FitShieldI18n.t(key, subs) : key);
+const t = (key, subs) => (typeof FitShieldI18n !== "undefined" ? FitShieldI18n.t(key, subs) : key);
 
-function minuteUnit(value) {
-  return t(value === 1 ? "unitMinute" : "unitMinutes");
+const params = new URLSearchParams(window.location.search);
+const siteKey = params.get("site") || "";
+// Preview mode is opt-in through the settings page and is loudly labelled; it
+// runs the identical flow but records nothing.
+const isPreview = params.get("preview") === "1";
+
+const DEFAULT_THEME = {
+  bg: "#0d1117",
+  panel: "rgba(21, 27, 35, 0.92)",
+  border: "rgba(126, 240, 168, 0.18)",
+  text: "#f3f8fb",
+  muted: "#a8b4c3",
+  accent: "#7ef0a8",
+  accentDim: "#243228",
+  radius: 24
+};
+
+const el = (id) => document.getElementById(id);
+
+const ui = {
+  brand: el("brand"),
+  ring: el("ring"),
+  timer: el("timer"),
+  timerUnit: el("timerUnit"),
+  timerAnnounce: el("timerAnnounce"),
+  hint: el("hint"),
+  repeatNote: el("repeatNote"),
+  back: el("back"),
+  continue: el("continue"),
+  reasonPanel: el("reasonPanel"),
+  reasonBody: el("reasonBody"),
+  previewBanner: el("previewBanner"),
+  intentPanel: el("intentPanel"),
+  intentOptions: el("intentOptions"),
+  intentSkip: el("intentSkip"),
+  altPanel: el("altPanel"),
+  altTitle: el("altTitle"),
+  altKind: el("altKind"),
+  altMeta: el("altMeta"),
+  altWhy: el("altWhy"),
+  altDesc: el("altDesc"),
+  altIngredients: el("altIngredients"),
+  altSteps: el("altSteps"),
+  altNote: el("altNote"),
+  chooseAlt: el("chooseAlt"),
+  anotherAlt: el("anotherAlt"),
+  favAlt: el("favAlt"),
+  filters: el("filters"),
+  chosenNote: el("chosenNote"),
+  altAnnounce: el("altAnnounce"),
+  passPanel: el("passPanel"),
+  passOptions: el("passOptions"),
+  passCancel: el("passCancel")
+};
+
+// ---------------------------------------------------------------------------
+// State
+// ---------------------------------------------------------------------------
+
+const state = {
+  context: null,
+  info: null,
+  preferences: {},
+  secondsLeft: 60,
+  totalSeconds: 60,
+  unlocked: false,
+  rotation: 0,
+  filter: "all",
+  intent: null,
+  current: null,
+  chosen: false,
+  favorites: []
+};
+
+const prefersReducedMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+// ---------------------------------------------------------------------------
+// Messaging
+// ---------------------------------------------------------------------------
+
+// Fire-and-forget recording. The block page must render and count down even if
+// the worker is slow to wake, so nothing here is awaited on the render path.
+function send(type, payload) {
+  return chrome.runtime.sendMessage({ type, preview: isPreview, ...payload }).catch((error) => {
+    console.error(`FitShield: "${type}" failed`, error);
+    return null;
+  });
 }
+
+// ---------------------------------------------------------------------------
+// Theme
+// ---------------------------------------------------------------------------
+
+function applyTheme(theme) {
+  const merged = { ...DEFAULT_THEME, ...(theme || {}) };
+  const root = document.documentElement;
+
+  root.style.setProperty("--bg", merged.bg);
+  root.style.setProperty("--panel", merged.panel);
+  root.style.setProperty("--border", merged.border);
+  root.style.setProperty("--text", merged.text);
+  root.style.setProperty("--muted", merged.muted);
+  root.style.setProperty("--accent", merged.accent);
+  root.style.setProperty("--accent-dim", merged.accentDim);
+  root.style.setProperty("--panel-radius", `${merged.radius}px`);
+}
+
+// ---------------------------------------------------------------------------
+// Countdown
+// ---------------------------------------------------------------------------
+
+// A screen reader must not be told the number every second. Milestones only.
+const ANNOUNCE_AT = new Set([60, 30, 10, 5, 0]);
+
+function renderTimer() {
+  ui.timer.textContent = String(state.secondsLeft);
+  ui.timerUnit.textContent = t(state.secondsLeft === 1 ? "unitSecond" : "unitSeconds");
+
+  if (ANNOUNCE_AT.has(state.secondsLeft)) {
+    ui.timerAnnounce.textContent =
+      state.secondsLeft === 0
+        ? t("timerDoneAnnounce")
+        : t("timerRemainingAnnounce", [String(state.secondsLeft)]);
+  }
+
+  if (prefersReducedMotion) {
+    return;
+  }
+
+  const progress = (state.totalSeconds - state.secondsLeft) / state.totalSeconds;
+  ui.ring.style.transform = `scale(${1 + progress * 0.06})`;
+  ui.ring.style.boxShadow = `0 0 ${20 + progress * 22}px rgba(126, 240, 168, 0.2)`;
+}
+
+let timerInterval = null;
+
+function startTimer() {
+  if (state.secondsLeft <= 0) {
+    unlock();
+    return;
+  }
+
+  timerInterval = window.setInterval(() => {
+    state.secondsLeft -= 1;
+
+    if (state.secondsLeft <= 0) {
+      state.secondsLeft = 0;
+      window.clearInterval(timerInterval);
+      unlock();
+    }
+
+    renderTimer();
+  }, 1000);
+}
+
+function unlock() {
+  state.unlocked = true;
+  ui.continue.disabled = false;
+  ui.continue.classList.add("ready");
+  renderStaticText();
+}
+
+// ---------------------------------------------------------------------------
+// Why this was interrupted
+// ---------------------------------------------------------------------------
 
 function capitalize(text) {
   return text ? text.charAt(0).toUpperCase() + text.slice(1) : text;
 }
 
-// Map a blocklist rule type to a friendly, localized label.
 function blockTypeLabel(type) {
   switch (type) {
     case "delivery":
@@ -28,8 +200,6 @@ function blockTypeLabel(type) {
   }
 }
 
-// Build the "Active in" country string from ISO codes. Shows the first few codes
-// and a "+N more" suffix so long lists stay compact.
 function formatCountryList(codes) {
   const list = (Array.isArray(codes) ? codes : [])
     .map((code) => String(code || "").trim().toUpperCase())
@@ -40,459 +210,609 @@ function formatCountryList(codes) {
   }
 
   const MAX = 6;
-
-  if (list.length <= MAX) {
-    return list.join(", ");
-  }
-
-  return `${list.slice(0, MAX).join(", ")} ${t("blockReasonMoreCountries", [String(list.length - MAX)])}`;
+  return list.length <= MAX
+    ? list.join(", ")
+    : `${list.slice(0, MAX).join(", ")} ${t("blockReasonMoreCountries", [String(list.length - MAX)])}`;
 }
 
-// Base styling for the warning screen before custom theme preferences load.
-const DEFAULT_THEME = {
-  bg: "#0d1117",
-  panel: "rgba(21, 27, 35, 0.92)",
-  border: "rgba(126, 240, 168, 0.18)",
-  text: "#f3f8fb",
-  muted: "#a8b4c3",
-  accent: "#7ef0a8",
-  accentDim: "#243228",
-  radius: 24
-};
-
-const timerEl = document.getElementById("timer");
-const ringEl = document.getElementById("ring");
-const hintEl = document.getElementById("hint");
-const brandEl = document.getElementById("brand");
-const blockReasonEl = document.getElementById("blockReason");
-const backButton = document.getElementById("back");
-const continueButton = document.getElementById("continue");
-
-const params = new URLSearchParams(window.location.search);
-const siteKey = params.get("site") || "";
-const timerParam = Number.parseInt(params.get("timer"), 10);
-const passDurationParam = Number.parseInt(params.get("pass"), 10);
-
-// The site that triggered the block is resolved from the JSON blocklist metadata
-// by the background service worker (see getBlockedSiteInfo). Until that resolves
-// we have no hard-coded destination; the bypass response carries the real one.
-let destination = "";
-let siteLabel = "";
-let blockInfo = null;
-let selectedRecipes = null;
-
-// Recipe-choice state. A user can pick one suggested recipe per block as the
-// "I'll make this instead" alternative; that records the local calories-avoided
-// stat once and locks both buttons for this page view.
-let recipeChosen = false;
-let chosenRecipeDiet = null;
-
-// Query params are mainly for manual URL overrides; normal users fall back to stored defaults.
-let secondsLeft = Number.isFinite(timerParam) && timerParam >= 10 ? timerParam : DEFAULT_TIMER_SECONDS;
-let totalSeconds = secondsLeft;
-let passDurationMinutes = Number.isFinite(passDurationParam) && passDurationParam >= 1
-  ? passDurationParam
-  : DEFAULT_PASS_DURATION_MINUTES;
-let unlocked = false;
-
-function applyTheme(theme = {}) {
-  // Accept partial theme overrides from storage without requiring every value.
-  const mergedTheme = {
-    ...DEFAULT_THEME,
-    ...theme
-  };
-  const root = document.documentElement;
-
-  root.style.setProperty("--bg", mergedTheme.bg);
-  root.style.setProperty("--panel", mergedTheme.panel);
-  root.style.setProperty("--border", mergedTheme.border);
-  root.style.setProperty("--text", mergedTheme.text);
-  root.style.setProperty("--muted", mergedTheme.muted);
-  root.style.setProperty("--accent", mergedTheme.accent);
-  root.style.setProperty("--accent-dim", mergedTheme.accentDim);
-  root.style.setProperty("--panel-radius", `${mergedTheme.radius}px`);
-}
-
-// Respect the OS "reduce motion" setting: the countdown number still updates,
-// but the ring's growing scale/glow is frozen. Mirrors the Android block screen.
-const prefersReducedMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-
-function renderTimer() {
-  // Updates the visible countdown and the subtle progress animation around it.
-  timerEl.textContent = String(secondsLeft);
-
-  if (prefersReducedMotion) {
-    return;
-  }
-
-  const progress = (totalSeconds - secondsLeft) / totalSeconds;
-  ringEl.style.transform = `scale(${1 + progress * 0.08})`;
-  ringEl.style.boxShadow = `0 0 ${24 + progress * 26}px rgba(126, 240, 168, 0.22)`;
-}
-
-// Append one label/value row to the "why you're seeing this" panel.
-function appendReasonRow(container, label, value) {
+function appendReasonRow(label, value) {
   if (!value) {
     return;
   }
 
   const row = document.createElement("div");
-  row.className = "block-reason-row";
+  row.className = "reason-row";
 
   const labelEl = document.createElement("span");
-  labelEl.className = "block-reason-label";
+  labelEl.className = "reason-label";
   labelEl.textContent = label;
 
   const valueEl = document.createElement("span");
-  valueEl.className = "block-reason-value";
+  valueEl.className = "reason-value";
   valueEl.textContent = value;
 
   row.append(labelEl, valueEl);
-  container.appendChild(row);
+  ui.reasonBody.appendChild(row);
 }
 
-// Explain exactly why the site was blocked, using the JSON blocklist metadata
-// resolved by the background service worker: domain, rule type, food category,
-// and the countries the brand is active in. Hidden until that metadata loads.
-function renderBlockReason() {
-  if (!blockReasonEl) {
+function renderReason() {
+  ui.reasonBody.replaceChildren();
+
+  const info = state.info;
+
+  if (!info) {
+    ui.reasonPanel.hidden = true;
     return;
   }
 
-  blockReasonEl.replaceChildren();
+  const category =
+    info.category && info.category !== info.type && info.category !== "custom" ? capitalize(info.category) : "";
 
-  if (!blockInfo || !blockInfo.found) {
-    blockReasonEl.hidden = true;
-    return;
-  }
+  appendReasonRow(t("blockReasonDomain"), info.domain || "");
+  appendReasonRow(t("blockReasonType"), blockTypeLabel(info.type));
+  appendReasonRow(t("blockReasonCategory"), category);
+  appendReasonRow(t("blockReasonCountries"), formatCountryList(info.countries));
 
-  const heading = document.createElement("div");
-  heading.className = "block-reason-heading";
-  heading.textContent = t("blockReasonHeading");
-  blockReasonEl.appendChild(heading);
-
-  const domain = blockInfo.domain || blockInfo.apex || "";
-  const typeLabel = blockTypeLabel(blockInfo.type);
-  const category = blockInfo.category && blockInfo.category !== blockInfo.type && blockInfo.category !== "custom"
-    ? capitalize(blockInfo.category)
-    : "";
-  const countries = formatCountryList(blockInfo.countries);
-
-  appendReasonRow(blockReasonEl, t("blockReasonDomain"), domain);
-  appendReasonRow(blockReasonEl, t("blockReasonType"), typeLabel);
-  appendReasonRow(blockReasonEl, t("blockReasonCategory"), category);
-  appendReasonRow(blockReasonEl, t("blockReasonCountries"), countries);
-
-  blockReasonEl.hidden = blockReasonEl.childElementCount <= 1;
+  ui.reasonPanel.hidden = ui.reasonBody.childElementCount === 0;
 }
 
-// Render every JS-managed string based on current state. Called on load and
-// whenever the language changes, so the block screen stays consistent.
-function renderDynamicText() {
-  if (siteLabel) {
-    brandEl.textContent = t("warningTriggeredBy", [siteLabel]);
-    brandEl.hidden = false;
+// ---------------------------------------------------------------------------
+// Static / stateful copy
+// ---------------------------------------------------------------------------
+
+function minuteUnit(value) {
+  return t(value === 1 ? "unitMinute" : "unitMinutes");
+}
+
+function renderStaticText() {
+  if (state.info && state.info.label) {
+    ui.brand.replaceChildren();
+    const strong = document.createElement("strong");
+    strong.textContent = state.info.label;
+    ui.brand.append(document.createTextNode(`${t("warningTriggeredByPrefix")} `), strong);
+    ui.brand.hidden = false;
   } else {
-    brandEl.hidden = true;
+    ui.brand.hidden = true;
   }
 
-  renderBlockReason();
-  renderChoiceNote();
+  ui.hint.textContent = state.unlocked ? t("warningUnlockedHint") : t("warningLockedHint");
+  ui.continue.textContent = state.unlocked ? t("warningContinueButton") : t("warningLockedButton");
 
-  hintEl.textContent = unlocked
-    ? t("warningUnlockHint", [String(passDurationMinutes), minuteUnit(passDurationMinutes)])
-    : t("warningHintLocked", [String(passDurationMinutes), minuteUnit(passDurationMinutes)]);
-
-  // Leave the button alone while it is mid-navigation ("Opening…").
-  if (continueButton.dataset.state !== "opening") {
-    continueButton.textContent = unlocked ? t("warningContinueButton") : t("warningLockedButton");
+  if (isPreview) {
+    ui.previewBanner.textContent = t("previewBanner");
+    ui.previewBanner.hidden = false;
   }
+
+  renderReason();
 }
 
-function unlock() {
-  // Unlocking enables the one-click temporary bypass flow.
-  unlocked = true;
-  continueButton.disabled = false;
-  continueButton.classList.add("ready");
-  renderDynamicText();
-}
+function renderRepeatNote() {
+  const repeat = state.context && state.context.repeat;
 
-// Render one recipe into its column (.shell). Labels localize; recipe content
-// is from the local catalog (English for now). Hides the column if there is no
-// recipe to show.
-function renderRecipeInto(col, recipe, diet) {
-  if (!col) {
+  if (!repeat || !repeat.repeat) {
+    ui.repeatNote.hidden = true;
     return;
   }
 
-  col.replaceChildren();
+  ui.repeatNote.textContent = t("repeatFrictionNote", [
+    String(repeat.extraSeconds),
+    String(repeat.windowMinutes)
+  ]);
+  ui.repeatNote.hidden = false;
+}
 
-  if (!recipe) {
-    col.hidden = true;
+// ---------------------------------------------------------------------------
+// Intent
+// ---------------------------------------------------------------------------
+
+// The answer shapes THIS screen only. It is held in a local variable and is
+// never written to storage, so nothing about why someone opened a page is kept.
+const INTENTS = [
+  { id: "hungry", labelKey: "intentHungry" },
+  { id: "specific", labelKey: "intentSpecific" },
+  { id: "browsing", labelKey: "intentBrowsing" },
+  { id: "legitimate", labelKey: "intentLegitimate" },
+  { id: "someone-else", labelKey: "intentSomeoneElse" }
+];
+
+function renderIntentOptions() {
+  ui.intentOptions.replaceChildren();
+
+  INTENTS.forEach((intent) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = t(intent.labelKey);
+    button.addEventListener("click", () => applyIntent(intent.id));
+    ui.intentOptions.appendChild(button);
+  });
+}
+
+function applyIntent(intentId) {
+  state.intent = intentId;
+  ui.intentPanel.hidden = true;
+
+  if (intentId === "legitimate" || intentId === "someone-else") {
+    // A real order is a legitimate reason to be here. Offer the scoped pass
+    // straight away rather than making the user sit out a countdown for
+    // something FitShield was never meant to prevent.
+    showPassChooser();
     return;
   }
 
-  const badge = document.createElement("span");
-  badge.className = `recipe-badge ${diet}`;
-  badge.textContent = t(diet === "vegetarian" ? "recipeVegetarianLabel" : "recipeMeatLabel");
-
-  const name = document.createElement("div");
-  name.className = "recipe-name";
-  name.textContent = recipe.title;
-
-  const meta = document.createElement("div");
-  meta.className = "recipe-meta";
-  const metaParts = [t("recipeTimeLabel", [String(recipe.timeMinutes)])];
-  if (Number.isFinite(Number(recipe.calories))) {
-    metaParts.push(t("recipeCaloriesLabel", [String(recipe.calories)]));
+  if (intentId === "browsing") {
+    // Nothing here should make food more appealing to someone who is not
+    // actually hungry, so the alternative is collapsed and leaving is the focus.
+    ui.altPanel.hidden = true;
+    ui.altAnnounce.textContent = t("intentBrowsingAnnounce");
+    ui.back.focus();
+    return;
   }
-  meta.textContent = metaParts.join(" · ");
 
-  const desc = document.createElement("p");
-  desc.className = "recipe-desc";
-  desc.textContent = recipe.description;
+  state.rotation = 0;
+  state.filter = intentId === "hungry" ? "fastest" : "all";
+  renderFilters();
+  showAlternative({ announce: true });
+  ui.altPanel.hidden = false;
+}
 
-  const ingredients = document.createElement("div");
-  ingredients.className = "recipe-ingredients";
-  const ingredientsLabel = document.createElement("b");
-  ingredientsLabel.textContent = `${t("recipeIngredientsLabel")}: `;
-  ingredients.append(ingredientsLabel, document.createTextNode((recipe.ingredients || []).join(", ")));
+// ---------------------------------------------------------------------------
+// Alternatives
+// ---------------------------------------------------------------------------
 
-  col.append(badge, name, meta, desc, ingredients);
+const FILTERS = [
+  { id: "all", labelKey: "filterClosest" },
+  { id: "fastest", labelKey: "filterFastest" },
+  { id: "no-cook", labelKey: "filterNoCook" },
+  { id: "microwave", labelKey: "filterMicrowave" }
+];
 
-  // Steps are shown in full (no collapse); the list scrolls inside the card when
-  // a recipe is long.
-  if (Array.isArray(recipe.steps) && recipe.steps.length > 0) {
-    const steps = document.createElement("div");
-    steps.className = "recipe-steps";
+function renderFilters() {
+  ui.filters.replaceChildren();
 
-    const stepsTitle = document.createElement("div");
-    stepsTitle.className = "recipe-steps-title";
-    stepsTitle.textContent = t("recipeStepsLabel");
-
-    const list = document.createElement("ol");
-    list.className = "recipe-steps-list";
-    recipe.steps.forEach((step) => {
-      const item = document.createElement("li");
-      item.textContent = step;
-      list.appendChild(item);
+  FILTERS.forEach((filter) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = t(filter.labelKey);
+    button.setAttribute("aria-pressed", String(state.filter === filter.id));
+    button.addEventListener("click", () => {
+      state.filter = state.filter === filter.id ? "all" : filter.id;
+      state.rotation = 0;
+      renderFilters();
+      showAlternative({ announce: true });
     });
-
-    steps.append(stepsTitle, list);
-    col.appendChild(steps);
-  }
-
-  // "I'll make this instead" — a compact button that logs the local
-  // calories-avoided stat once. The chosen card's button turns into the success
-  // state; the card content stays visible.
-  const chooseButton = document.createElement("button");
-  chooseButton.type = "button";
-  chooseButton.className = "recipe-choose";
-  const isChosenOne = recipeChosen && chosenRecipeDiet === diet;
-  chooseButton.classList.toggle("chosen", isChosenOne);
-  chooseButton.textContent = isChosenOne ? t("recipeChosenButton") : t("recipeChooseButton");
-  chooseButton.disabled = recipeChosen;
-  chooseButton.setAttribute("aria-label", `${t("recipeChooseButton")}: ${recipe.title}`);
-  chooseButton.addEventListener("click", () => chooseRecipe(recipe, diet));
-  col.appendChild(chooseButton);
-
-  col.hidden = false;
+    ui.filters.appendChild(button);
+  });
 }
 
-// Show or hide the "logged in your stats" confirmation under the block card.
-function renderChoiceNote() {
-  const noteEl = document.getElementById("recipeChoiceNote");
+function formatTime(minutes) {
+  const value = Number(minutes) || 0;
 
-  if (!noteEl) {
+  if (value < 60) {
+    return t("timeMinutes", [String(value)]);
+  }
+
+  const hours = Math.floor(value / 60);
+  const rest = value % 60;
+  return rest === 0 ? t("timeHours", [String(hours)]) : t("timeHoursMinutes", [String(hours), String(rest)]);
+}
+
+function formatIngredient(ingredient) {
+  if (!ingredient || typeof ingredient !== "object") {
+    return String(ingredient || "");
+  }
+
+  const parts = [];
+
+  if (Number.isFinite(Number(ingredient.quantity)) && ingredient.unit) {
+    parts.push(`${ingredient.quantity} ${ingredient.unit}`);
+  }
+
+  parts.push(String(ingredient.item || ""));
+
+  let text = parts.filter(Boolean).join(" ");
+
+  if (ingredient.note) {
+    text += ` (${ingredient.note})`;
+  }
+
+  return text;
+}
+
+function addChip(container, text, strong) {
+  if (!text) {
     return;
   }
 
-  noteEl.textContent = t("recipeChoiceNote");
-  noteEl.hidden = !recipeChosen;
+  const chip = document.createElement("span");
+  chip.className = strong ? "chip strong" : "chip";
+  chip.textContent = text;
+  container.appendChild(chip);
 }
 
-// Record the chosen recipe's calories with the background (single source of
-// truth), then re-render so both buttons lock and the note appears. Guarded so
-// it only counts once per block view.
-async function chooseRecipe(recipe, diet) {
-  if (recipeChosen) {
-    return;
-  }
+function reasonText(reasons, relaxed) {
+  const parts = [];
 
-  recipeChosen = true;
-  chosenRecipeDiet = diet;
+  (reasons || []).forEach((reason) => {
+    if (reason.key === "craving" && reason.value) {
+      parts.push(t("whyCraving", [reason.value.replace(/-/g, " ")]));
+    } else if (reason.key === "pantry") {
+      parts.push(t("whyPantry", [reason.value]));
+    } else if (reason.key === "favorite") {
+      parts.push(t("whyFavorite"));
+    } else if (reason.key === "custom") {
+      parts.push(t("whyCustom"));
+    }
+  });
 
-  const recipeCalories = Number.isFinite(Number(recipe?.calories)) ? Number(recipe.calories) : null;
+  // If a constraint had to be dropped, say so plainly rather than quietly
+  // showing something that does not meet what was asked for.
+  const RELAXED_LABELS = {
+    equipment: "relaxedEquipment",
+    time: "relaxedTime",
+    fastest: "relaxedFastest",
+    "no-cook": "relaxedNoCook",
+    microwave: "relaxedMicrowave"
+  };
 
-  try {
-    await chrome.runtime.sendMessage({ type: "recordRecipeChoice", recipeCalories });
-  } catch (error) {
-    console.error("Failed to record recipe choice:", error);
-  }
+  (relaxed || []).forEach((constraint) => {
+    const key = RELAXED_LABELS[constraint];
 
-  renderRecipes();
-  renderChoiceNote();
+    if (key) {
+      parts.push(t(key));
+    }
+  });
+
+  return parts.join(" · ");
 }
 
-// Render the vegetarian (middle) and meat (right) columns. Safe to call
-// repeatedly (e.g. on language change) because it rebuilds from the
-// already-selected recipes.
-function renderRecipes() {
-  if (!selectedRecipes) {
-    return;
+function renderAlternative(entry, reasons, relaxed, position) {
+  ui.altTitle.textContent = entry.title || "";
+  ui.altKind.textContent = t(entry.kind === "quick" ? "kindQuick" : entry.kind === "custom" ? "kindCustom" : "kindRecipe");
+
+  ui.altMeta.replaceChildren();
+  addChip(ui.altMeta, formatTime(entry.totalMinutes), true);
+
+  if (Number(entry.activeMinutes) && Number(entry.activeMinutes) < Number(entry.totalMinutes)) {
+    addChip(ui.altMeta, t("activeEffort", [String(entry.activeMinutes)]));
   }
 
-  renderRecipeInto(document.getElementById("recipeVeg"), selectedRecipes.vegetarian, "vegetarian");
-  renderRecipeInto(document.getElementById("recipeMeat"), selectedRecipes.meat, "meat");
+  if (entry.servings) {
+    addChip(ui.altMeta, t("servings", [String(entry.servings)]));
+  }
+
+  if (entry.diet && entry.diet !== "omnivore") {
+    addChip(ui.altMeta, t(`diet_${entry.diet}`));
+  }
+
+  (Array.isArray(entry.equipment) ? entry.equipment : []).forEach((item) => addChip(ui.altMeta, item));
+
+  if (Array.isArray(entry.allergens) && entry.allergens.length > 0) {
+    addChip(ui.altMeta, t("containsAllergens", [entry.allergens.join(", ")]));
+  }
+
+  const why = reasonText(reasons, relaxed);
+  ui.altWhy.textContent = why;
+  ui.altWhy.hidden = !why;
+
+  ui.altDesc.textContent = entry.description || "";
+
+  ui.altIngredients.replaceChildren();
+  (Array.isArray(entry.ingredients) ? entry.ingredients : []).forEach((ingredient) => {
+    const item = document.createElement("li");
+    item.textContent = formatIngredient(ingredient);
+
+    if (ingredient && ingredient.optional) {
+      item.className = "optional";
+      item.append(document.createTextNode(` — ${t("optionalIngredient")}`));
+    }
+
+    ui.altIngredients.appendChild(item);
+  });
+
+  ui.altSteps.replaceChildren();
+  (Array.isArray(entry.steps) ? entry.steps : []).forEach((step) => {
+    const item = document.createElement("li");
+    item.textContent = step;
+    ui.altSteps.appendChild(item);
+  });
+
+  const notes = [];
+  if (entry.storage) {
+    notes.push(entry.storage);
+  }
+  if (Array.isArray(entry.substitutions) && entry.substitutions.length > 0) {
+    notes.push(
+      `${t("substitutionsLabel")}: ` +
+        entry.substitutions.map((swap) => `${swap.for} → ${swap.use}`).join("; ")
+    );
+  }
+  ui.altNote.textContent = notes.join(" ");
+
+  const isFavorite = state.favorites.includes(entry.id);
+  ui.favAlt.setAttribute("aria-pressed", String(isFavorite));
+
+  ui.chooseAlt.textContent = state.chosen ? t("alternativeChosenButton") : t("alternativeChooseButton");
+  ui.chooseAlt.disabled = state.chosen;
+
+  ui.altAnnounce.textContent = t("alternativeAnnounce", [
+    entry.title || "",
+    String(entry.totalMinutes || 0),
+    String(position.index + 1),
+    String(position.count)
+  ]);
 }
 
-async function setupRecipes() {
+function showAlternative(options) {
+  const opts = options || {};
+
   if (typeof FitShieldRecipes === "undefined") {
     return;
   }
 
-  try {
-    const recipes = await FitShieldRecipes.loadRecipes();
-    selectedRecipes = FitShieldRecipes.selectRecipes(blockInfo || { key: siteKey }, recipes);
-    renderRecipes();
-  } catch (error) {
-    console.error("Failed to load recipe suggestions:", error);
-  }
-}
+  const selection = FitShieldRecipes.selectAlternative(state.info || { key: siteKey }, state.preferences, {
+    filter: state.filter,
+    rotation: state.rotation,
+    intent: state.intent,
+    seed: siteKey
+  });
 
-let timerInterval;
-
-function startTimer() {
-  // Counts down once per second until the user is allowed to continue.
-  timerInterval = window.setInterval(() => {
-    secondsLeft -= 1;
-
-    if (secondsLeft <= 0) {
-      secondsLeft = 0;
-      window.clearInterval(timerInterval);
-      unlock();
-    }
-
-    renderTimer();
-  }, 1000);
-}
-
-backButton.addEventListener("click", () => {
-  window.history.back();
-});
-
-continueButton.addEventListener("click", async () => {
-  // The background script owns bypass state so the warning page just requests it.
-  if (!unlocked) {
+  if (!selection.entry) {
+    ui.altPanel.hidden = true;
+    ui.altAnnounce.textContent = t("noAlternativeFound");
     return;
   }
 
-  continueButton.disabled = true;
-  continueButton.dataset.state = "opening";
-  continueButton.textContent = t("warningOpeningButton");
+  state.current = selection.entry;
+  state.chosen = false;
+  ui.chosenNote.hidden = true;
 
-  try {
-    const response = await chrome.runtime.sendMessage({
-      type: "startTemporaryBypass",
-      site: siteKey
-    });
+  renderAlternative(selection.entry, selection.reasons, selection.relaxed, selection);
+  ui.altPanel.hidden = false;
 
-    if (!response?.ok) {
-      throw new Error(response?.error || "Temporary bypass failed.");
-    }
+  send("recordAlternativeShown", { id: selection.entry.id });
 
-    window.location.href = response.destination || destination || "about:blank";
-  } catch (error) {
-    console.error(error);
-    delete continueButton.dataset.state;
-    continueButton.disabled = false;
-    continueButton.textContent = t("warningContinueButton");
-    hintEl.textContent = t("warningErrorHint");
-  }
-});
-
-async function loadBlockedSite() {
-  // Pull the brand + destination for the site key from the JSON-backed catalog.
-  if (!siteKey) {
-    return;
-  }
-
-  try {
-    const info = await chrome.runtime.sendMessage({ type: "getBlockedSiteInfo", site: siteKey });
-
-    if (info?.ok && info.found) {
-      destination = info.home || destination;
-      siteLabel = info.label || "";
-      blockInfo = info;
-    }
-  } catch (error) {
-    console.error("Failed to load blocked site info:", error);
+  if (opts.focus) {
+    ui.altTitle.setAttribute("tabindex", "-1");
+    ui.altTitle.focus();
   }
 }
 
-async function initializeTimer() {
-  try {
-    // Pull the latest theme and timer values so this page matches extension settings.
-    const { theme } = await chrome.storage.local.get(["theme"]);
-    applyTheme(theme);
+// ---------------------------------------------------------------------------
+// Pass chooser
+// ---------------------------------------------------------------------------
 
-    const response = await chrome.runtime.sendMessage({ type: "getBlockState" });
-    const configuredSeconds = Number.parseInt(response?.timerSeconds, 10);
-    const configuredPassMinutes = Number.parseInt(response?.passDurationMinutes, 10);
+const PASS_OPTIONS = [
+  { presetId: "once", labelKey: "passOnce", scopeKey: "passScopeSite" },
+  { presetId: "site10", labelKey: "passTenMinutes", scopeKey: "passScopeSite" },
+  { presetId: "site30", labelKey: "passThirtyMinutes", scopeKey: "passScopeSite" },
+  { presetId: "tab", labelKey: "passUntilTabCloses", scopeKey: "passScopeSite" },
+  { presetId: "all30", labelKey: "passAllThirtyMinutes", scopeKey: "passScopeAll" },
+  { presetId: "allTomorrow", labelKey: "passAllUntilTomorrow", scopeKey: "passScopeAll" }
+];
 
-    if (!Number.isFinite(timerParam) && Number.isFinite(configuredSeconds) && configuredSeconds >= 10) {
-      secondsLeft = configuredSeconds;
-      totalSeconds = configuredSeconds;
-    }
+function renderPassOptions() {
+  ui.passOptions.replaceChildren();
 
-    if (!Number.isFinite(passDurationParam) && Number.isFinite(configuredPassMinutes) && configuredPassMinutes >= 1) {
-      passDurationMinutes = configuredPassMinutes;
-    }
-  } catch (error) {
-    console.error("Failed to load timer settings:", error);
-  }
+  PASS_OPTIONS.forEach((option) => {
+    const button = document.createElement("button");
+    button.type = "button";
 
-  await loadBlockedSite();
+    const label = document.createElement("span");
+    label.textContent = t(option.labelKey);
 
-  renderDynamicText();
-  renderTimer();
-  startTimer();
+    const scope = document.createElement("span");
+    scope.className = "scope";
+    scope.textContent = t(option.scopeKey);
 
-  // Count this block for the local "estimated savings" stat. Fire-and-forget;
-  // the only thing recorded is a single integer counter (no URL or history).
-  chrome.runtime.sendMessage({ type: "recordBlockedVisit" }).catch(() => {});
-
-  // Record an aggregate, local-only breakdown (most blocked sites / categories /
-  // countries) when the brand resolved. Still privacy-first: only counts of the
-  // curated brand are kept — never a URL, page, or browsing history.
-  if (blockInfo && blockInfo.found) {
-    chrome.runtime.sendMessage({
-      type: "recordBlockedBrand",
-      meta: {
-        domain: blockInfo.domain || blockInfo.apex || "",
-        category: blockInfo.category || "",
-        countries: Array.isArray(blockInfo.countries) ? blockInfo.countries : []
-      }
-    }).catch(() => {});
-  }
-
-  // Recipe suggestions are non-blocking; the timer runs regardless.
-  setupRecipes();
-}
-
-// Re-render JS-managed strings (and recipe card labels) when the language
-// changes mid-screen.
-if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.onChange) {
-  FitShieldI18n.onChange(() => {
-    renderDynamicText();
-    renderRecipes();
+    button.append(label, scope);
+    button.addEventListener("click", () => grantPass(option.presetId, button));
+    ui.passOptions.appendChild(button);
   });
 }
 
-// Wait until the stored UI language is applied so the screen does not flash the
-// browser default, then start the countdown.
-const i18nReady = (typeof FitShieldI18n !== "undefined" && FitShieldI18n.ready)
-  ? FitShieldI18n.ready
-  : Promise.resolve();
+function showPassChooser() {
+  renderPassOptions();
+  ui.passPanel.hidden = false;
+  const first = ui.passOptions.querySelector("button");
+  if (first) {
+    first.focus();
+  }
+}
 
-i18nReady.then(initializeTimer);
+async function grantPass(presetId, button) {
+  button.disabled = true;
+  const original = button.textContent;
+  button.textContent = t("passOpening");
+
+  if (isPreview) {
+    ui.altAnnounce.textContent = t("previewPassNote");
+    button.disabled = false;
+    button.textContent = original;
+    return;
+  }
+
+  const response = await send("grantPass", { site: siteKey, presetId, intent: state.intent });
+
+  if (!response || !response.ok) {
+    button.disabled = false;
+    button.textContent = original;
+    ui.hint.textContent = t("warningErrorHint");
+    return;
+  }
+
+  window.location.href = response.destination || "about:blank";
+}
+
+// ---------------------------------------------------------------------------
+// Wiring
+// ---------------------------------------------------------------------------
+
+ui.back.addEventListener("click", () => {
+  send("recordLeft", {});
+
+  // history.back() does nothing when the blocked page was the first navigation
+  // in the tab, which would leave the user stuck on the block screen.
+  const returned = window.history.length > 1;
+  if (returned) {
+    window.history.back();
+    // If the navigation did not actually happen, fall through to a blank page.
+    window.setTimeout(() => {
+      if (!document.hidden) {
+        window.location.href = "about:blank";
+      }
+    }, 400);
+  } else {
+    window.location.href = "about:blank";
+  }
+});
+
+ui.continue.addEventListener("click", () => {
+  if (!state.unlocked) {
+    return;
+  }
+
+  showPassChooser();
+});
+
+ui.passCancel.addEventListener("click", () => {
+  ui.passPanel.hidden = true;
+  ui.continue.focus();
+});
+
+ui.anotherAlt.addEventListener("click", () => {
+  if (state.current) {
+    send("recordAlternativeDismissed", { id: state.current.id });
+  }
+
+  state.rotation += 1;
+  showAlternative({ focus: true });
+});
+
+ui.chooseAlt.addEventListener("click", () => {
+  if (!state.current || state.chosen) {
+    return;
+  }
+
+  state.chosen = true;
+  ui.chooseAlt.disabled = true;
+  ui.chooseAlt.textContent = t("alternativeChosenButton");
+
+  // "Chose" is an intention, not a completed meal. Confirming it was actually
+  // made is a separate, optional action in the popup — the page says so rather
+  // than implying anything happened.
+  ui.chosenNote.textContent = t("alternativeChosenNote");
+  ui.chosenNote.hidden = false;
+
+  send("recordAlternativeSelected", { id: state.current.id });
+});
+
+ui.favAlt.addEventListener("click", async () => {
+  if (!state.current) {
+    return;
+  }
+
+  const id = state.current.id;
+  const next = state.favorites.includes(id)
+    ? state.favorites.filter((item) => item !== id)
+    : [...state.favorites, id];
+
+  state.favorites = next;
+  state.preferences.alternativeFavorites = next;
+  ui.favAlt.setAttribute("aria-pressed", String(next.includes(id)));
+
+  if (!isPreview) {
+    try {
+      await chrome.storage.local.set({ alternativeFavorites: next });
+    } catch (error) {
+      console.error("FitShield: could not save favourite", error);
+    }
+  }
+});
+
+ui.intentSkip.addEventListener("click", () => {
+  ui.intentPanel.hidden = true;
+  ui.altPanel.hidden = false;
+  ui.back.focus();
+});
+
+// ---------------------------------------------------------------------------
+// Boot
+// ---------------------------------------------------------------------------
+
+async function initialize() {
+  try {
+    const { theme } = await chrome.storage.local.get(["theme"]);
+    applyTheme(theme);
+  } catch (error) {
+    applyTheme(null);
+  }
+
+  const context = await send("getBlockContext", { site: siteKey });
+
+  if (context && context.ok) {
+    state.context = context;
+    state.info = context.site;
+    state.preferences = context.preferences || {};
+    state.favorites = Array.isArray(state.preferences.alternativeFavorites)
+      ? state.preferences.alternativeFavorites.slice()
+      : [];
+    state.secondsLeft = Number(context.timerSeconds) || 60;
+    state.totalSeconds = state.secondsLeft;
+  }
+
+  renderStaticText();
+  renderRepeatNote();
+  renderTimer();
+  startTimer();
+
+  // Counted once per interruption, and never in preview mode.
+  send("recordInterruption", {});
+
+  if (state.info) {
+    send("recordBlockedBrand", {
+      meta: {
+        domain: state.info.domain || "",
+        category: state.info.category || "",
+        countries: Array.isArray(state.info.countries) ? state.info.countries : []
+      }
+    });
+  }
+
+  // Alternatives are non-blocking: the countdown and the exits work regardless
+  // of whether the catalog loads.
+  try {
+    await FitShieldRecipes.loadCatalog();
+    renderFilters();
+
+    if (state.context && state.context.askIntent) {
+      renderIntentOptions();
+      ui.intentPanel.hidden = false;
+      ui.altPanel.hidden = true;
+      showAlternative({});
+      ui.altPanel.hidden = true;
+    } else {
+      showAlternative({});
+    }
+  } catch (error) {
+    console.error("FitShield: could not load alternatives", error);
+    ui.altPanel.hidden = true;
+  }
+}
+
+if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.onChange) {
+  FitShieldI18n.onChange(() => {
+    renderStaticText();
+    renderRepeatNote();
+    renderFilters();
+    renderIntentOptions();
+
+    if (state.current) {
+      showAlternative({});
+    }
+  });
+}
+
+const i18nReady =
+  typeof FitShieldI18n !== "undefined" && FitShieldI18n.ready ? FitShieldI18n.ready : Promise.resolve();
+
+i18nReady.then(initialize);

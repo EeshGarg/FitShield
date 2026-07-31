@@ -4,9 +4,26 @@
  * Locale parity audit. A superset of test/locales.test.js with extra checks and
  * human-readable output.
  *
- * Errors: missing base locale, key set differing from English, empty message,
- * unsafe $name$ placeholder, positional-placeholder mismatch vs English,
- * duplicate key in the raw JSON. Notes: stats + category localization coverage.
+ * ERRORS (these break something):
+ *   - the English base locale is missing or invalid,
+ *   - a locale defines a key English does not have — a dead string that can
+ *     never be shown, and usually a rename that was only half-applied,
+ *   - a duplicate key in the raw JSON (JSON.parse silently keeps the last one),
+ *   - an empty message, an unsafe $name$ placeholder, or a positional
+ *     placeholder set that differs from English for a key the locale DOES have.
+ *
+ * WARNINGS (translation debt, not breakage):
+ *   - a locale is missing an English key. This is reported as a per-locale
+ *     coverage figure rather than an error because BOTH runtime paths already
+ *     fall back to English for a missing key: chrome.i18n falls back to
+ *     default_locale, and i18n.js falls back to its cached English map. An
+ *     untranslated string therefore renders in English, which is the intended
+ *     behaviour — it does not render blank and it does not throw.
+ *
+ * This is deliberately different from an exact-parity gate. Exact parity forces
+ * every new English string to be machine-translated into 80+ languages before it
+ * can ship, which produces confident-sounding nonsense; measuring the debt
+ * instead keeps the gap visible and honest.
  */
 
 const { Reporter, runCli } = require("./lib/report");
@@ -46,6 +63,7 @@ function localeParity() {
   const statsKeys = enKeys.filter((k) => k.startsWith("statsMostBlocked"));
   const catKeys = enKeys.filter((k) => k.startsWith("catLabel"));
   let fullyLocalizedCats = 0;
+  const coverage = [];
 
   for (const code of dirs) {
     const loc = load.loadLocale(code);
@@ -57,9 +75,18 @@ function localeParity() {
     const keys = Object.keys(loc.data).sort();
     const keySet = new Set(keys);
 
-    if (keys.length !== enKeys.length || keys.some((k, i) => k !== enKeys[i])) {
-      enKeys.filter((k) => !keySet.has(k)).forEach((k) => reporter.fail(`${code}: missing key "${k}"`));
-      keys.filter((k) => !enSet.has(k)).forEach((k) => reporter.fail(`${code}: extra key "${k}"`));
+    // A key English does not have can never be displayed: it is dead weight and
+    // almost always a half-finished rename. That is an error.
+    keys.filter((k) => !enSet.has(k)).forEach((k) => reporter.fail(`${code}: extra key "${k}" (not in English)`));
+
+    // A key English HAS but this locale does not simply falls back to English.
+    const missing = enKeys.filter((k) => !keySet.has(k));
+    if (code !== "en" && missing.length > 0) {
+      const percent = Math.round(((enKeys.length - missing.length) / enKeys.length) * 100);
+      coverage.push({ code, missing: missing.length, percent });
+      reporter.warn(
+        `${code}: ${missing.length} untranslated key(s) — ${percent}% translated (these render in English)`
+      );
     }
 
     duplicateKeys(loc.raw).forEach((k) => reporter.fail(`${code}: duplicate key "${k}"`));
@@ -92,7 +119,16 @@ function localeParity() {
     }
   }
 
-  reporter.note(`${dirs.length} locales, ${enKeys.length} keys each`);
+  const fullyTranslated = dirs.length - coverage.length;
+  const averagePercent = coverage.length
+    ? Math.round(coverage.reduce((sum, item) => sum + item.percent, 0) / coverage.length)
+    : 100;
+
+  reporter.note(`${dirs.length} locales · ${enKeys.length} English keys`);
+  reporter.note(
+    `${fullyTranslated}/${dirs.length} locales fully translated · ` +
+      `${coverage.length} partial (average ${averagePercent}% — the rest render in English)`
+  );
   reporter.note(`stats keys: ${statsKeys.length}, category keys: ${catKeys.length}`);
   reporter.note(`categories localized in ${fullyLocalizedCats + 1}/${dirs.length} locales (rest use clean English fallback)`);
   return reporter;

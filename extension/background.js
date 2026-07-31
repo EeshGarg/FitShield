@@ -1,17 +1,20 @@
 // Runtime diagnostics. A single in-memory record of WHY blocking is (or isn't)
 // active, surfaced to diagnostics.html and the popup via the getDiagnostics
 // message, and echoed to the service-worker console with a [FitShield] prefix.
-// This exists so the classic failure — "nothing blocks and there's no obvious
+// This exists so the classic problem — "nothing blocks and there's no obvious
 // error" — becomes a readable state instead of a white screen.
 const FS_DIAG = {
   engineLoaded: false,
+  coreLoaded: false,
   bootError: null,
   blocklistCount: 0,
   deliveryCount: 0,
   fastFoodCount: 0,
   lastRuleCount: 0,
   lastDecision: "not-yet-evaluated",
-  lastError: null
+  lastError: null,
+  schemaVersion: null,
+  migration: null
 };
 
 function fsLog(...args) {
@@ -27,22 +30,32 @@ function fsError(message, error) {
   console.error("[FitShield]", message, error || "");
 }
 
-// Load the shared blocklist engine bundle. In Chrome (MV3 service worker) this
-// runs via importScripts. In Firefox the module is loaded ahead of this file
-// through the manifest's background.scripts array, so FitShieldBlocklist already
-// exists and importScripts is unavailable — guard for both so the same file runs
-// in either. If the bundle is missing, the worker would otherwise die at
-// registration with a cryptic error and block NOTHING. That is the signature of
-// loading a SOURCE folder (repo root or extension/) instead of the built
-// dist/chrome — so catch it and fail LOUDLY with an actionable message.
-if (typeof FitShieldBlocklist === "undefined" && typeof importScripts === "function") {
+// Load the shared modules. In Chrome (MV3 service worker) this runs via
+// importScripts. In Firefox they are loaded ahead of this file through the
+// manifest's background.scripts array, so the globals already exist and
+// importScripts is unavailable — guard for both so the same file runs in either.
+//
+// blocklist.js is the generated FS Engine bundle; fitshield-core.js is the
+// shared decision layer (schema, schedules, passes, stats). Both are committed
+// artifacts, so loading extension/ OR dist/chrome unpacked finds them. If either
+// is missing the worker would otherwise die at registration with a cryptic error
+// and block NOTHING — the signature of an out-of-sync folder — so catch it and
+// fail LOUDLY with an actionable message.
+if (typeof importScripts === "function") {
   try {
-    importScripts("blocklist.js");
+    if (typeof FitShieldBlocklist === "undefined") {
+      importScripts("blocklist.js");
+    }
+
+    if (typeof FitShieldCore === "undefined") {
+      importScripts("fitshield-core.js");
+    }
   } catch (error) {
     FS_DIAG.bootError =
-      'Could not load "blocklist.js" (the generated FS Engine bundle). This almost ' +
-      "always means an UNBUILT source folder was loaded. Fix: run `node build.js`, " +
-      "then Load unpacked from dist/chrome — never the repository root or extension/.";
+      'Could not load "blocklist.js" (the FS Engine bundle) and/or "fitshield-core.js" ' +
+      "(the shared decision layer). The loaded folder is missing a runtime file. " +
+      "Fix: run `npm run sync` (regenerates extension/blocklist.js) or `node build.js`, " +
+      "then Load unpacked from extension/ or dist/chrome.";
     console.error("[FitShield] FATAL:", FS_DIAG.bootError, error);
   }
 }
@@ -50,16 +63,24 @@ if (typeof FitShieldBlocklist === "undefined" && typeof importScripts === "funct
 if (typeof FitShieldBlocklist !== "undefined") {
   FS_DIAG.engineLoaded = true;
 } else if (!FS_DIAG.bootError) {
-  // Firefox path where background.scripts should have defined the global, or any
-  // other reason the engine is absent without importScripts throwing.
   FS_DIAG.bootError =
     "FS Engine global (FitShieldBlocklist) is undefined — the engine bundle did not " +
-    "load. Build with `node build.js` and load dist/chrome (or dist/firefox).";
+    "load. Run `npm run sync` (or `node build.js`) and load extension/ or dist/chrome.";
+  console.error("[FitShield] FATAL:", FS_DIAG.bootError);
+}
+
+if (typeof FitShieldCore !== "undefined") {
+  FS_DIAG.coreLoaded = true;
+} else if (!FS_DIAG.bootError) {
+  FS_DIAG.bootError =
+    "FitShieldCore is undefined — fitshield-core.js did not load. Schedules, passes, " +
+    "and statistics all depend on it. Run `npm run sync` and reload the extension.";
   console.error("[FitShield] FATAL:", FS_DIAG.bootError);
 }
 
 fsLog(
   `service worker booted · engine ${FS_DIAG.engineLoaded ? "loaded" : "MISSING"}` +
+    ` · core ${FS_DIAG.coreLoaded ? "loaded" : "MISSING"}` +
     (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getManifest
       ? ` · v${chrome.runtime.getManifest().version}`
       : "")
@@ -68,27 +89,64 @@ if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getURL) {
   fsLog("diagnostics page:", chrome.runtime.getURL("diagnostics.html"));
 }
 
-const BYPASS_ALARM = "temporaryBypassExpired";
+const PASS_ALARM = "temporaryPassExpired";
 const SCHEDULE_ALARM = "scheduleBoundaryReached";
-const DEFAULT_TIMER_SECONDS = 60;
-const MIN_TIMER_SECONDS = 10;
-const DEFAULT_PASS_DURATION_MINUTES = 5;
-const MIN_PASS_DURATION_MINUTES = 1;
-const DEFAULT_SCHEDULE_START = "18:00";
-const DEFAULT_SCHEDULE_END = "23:00";
 
-// The legacy delivery/fast-food site lists are now sourced from the JSON
-// blocklists. They are populated on demand by ensureBlocklistsLoaded() and keep
-// the same { key, label, match, home, ... } shape the rest of the code expects.
+// Storage keys the worker reads. Kept explicit rather than get(null) so the
+// worker never depends on unrelated keys existing.
+const SETTINGS_KEYS = [
+  "schemaVersion",
+  "enabled",
+  "timerSeconds",
+  "passDurationMinutes",
+  "frictionProfile",
+  "askIntent",
+  "repeatFrictionEnabled",
+  "repeatExtraSeconds",
+  "repeatWindowMinutes",
+  "settingsDelaySeconds",
+  "schedule",
+  "scheduleEnabled",
+  "scheduleStart",
+  "scheduleEnd",
+  "deliverySitesEnabled",
+  "fastFoodSitesEnabled",
+  "customSitesEnabled",
+  "disabledDeliverySiteKeys",
+  "disabledFastFoodSiteKeys",
+  "customSites",
+  "passes",
+  "siteBypasses",
+  "repeatHistory",
+  "enabledCountries",
+  "enabledCategories",
+  "quickAccessCountries",
+  "quickAccessCategories",
+  "dietPreference",
+  "pantry",
+  "equipment",
+  "avoidAllergens",
+  "alternativeFavorites",
+  "recentAlternatives",
+  "dismissedAlternatives",
+  "customAlternatives",
+  "stats",
+  "showEstimates",
+  "recapEnabled",
+  "recapDismissedFor"
+];
+
+// The legacy delivery/fast-food site lists are sourced from the JSON blocklists.
+// They are populated on demand by ensureBlocklistsLoaded() and keep the
+// { key, label, match, home, ... } shape the rest of the code expects.
 let DELIVERY_SITES = [];
 let FAST_FOOD_SITES = [];
 let blocklistsLoaded = false;
 let blocklistLoadPromise = null;
 
 // Legacy keys stripped the TLD, which caused regional domains to collide
-// ("mcdonalds.com" and "mcdonalds.cl" both became "mcdonalds"). Keep this only
-// so existing saved disabled-site preferences still apply after the safer key
-// format below.
+// ("mcdonalds.com" and "mcdonalds.cl" both became "mcdonalds"). Kept only so
+// existing saved disabled-site preferences still apply.
 function legacyDomainToKey(domain) {
   return String(domain || "")
     .toLowerCase()
@@ -96,7 +154,6 @@ function legacyDomainToKey(domain) {
     .replace(/[^a-z0-9]/g, "");
 }
 
-// Derive a stable, collision-resistant key from the full hostname and bucket.
 function domainToKey(domain, type) {
   const bucket = String(type || "site")
     .toLowerCase()
@@ -110,11 +167,6 @@ function domainToKey(domain, type) {
   return `${bucket}-${host}`;
 }
 
-// Map a JSON blocklist entry to the site-record shape used throughout the
-// background script, preserving the metadata so it can be filtered later.
-// All supported JSON metadata is carried through: the apex domain, alternate
-// alias domains, country codes, region tags, the food category and the
-// searchable specialties.
 function entryToSiteRecord(entry) {
   const domains = FitShieldBlocklist.getEntryDomains(entry);
   const domain = domains[0] || FitShieldBlocklist.normalizeHostname(entry.domain);
@@ -127,7 +179,6 @@ function entryToSiteRecord(entry) {
     match: domain,
     home: `https://www.${domain}/`,
     domain,
-    // The JSON `domain` is the apex used for boundary-anchored matching.
     apex: domain,
     aliases,
     type: entry.type || "",
@@ -144,9 +195,6 @@ async function ensureBlocklistsLoaded() {
     return;
   }
 
-  // The engine bundle must have loaded (see the boot guard). Without it there is
-  // nothing to match against — surface the actionable boot error rather than a
-  // "Cannot read properties of undefined" deep in the load chain.
   if (typeof FitShieldBlocklist === "undefined") {
     throw new Error(FS_DIAG.bootError || "FS Engine bundle (blocklist.js) is not loaded.");
   }
@@ -186,76 +234,66 @@ async function ensureBlocklistsLoaded() {
   await blocklistLoadPromise;
 }
 
-let refreshChain = Promise.resolve();
+// ---------------------------------------------------------------------------
+// Storage: migration + normalized reads
+// ---------------------------------------------------------------------------
 
-function normalizeTimerSeconds(value) {
-  const parsed = Number.parseInt(value, 10);
-  return Number.isFinite(parsed) ? Math.max(MIN_TIMER_SECONDS, parsed) : DEFAULT_TIMER_SECONDS;
-}
+let migrationPromise = null;
 
-function normalizePassDurationMinutes(value) {
-  const parsed = Number.parseInt(value, 10);
-  return Number.isFinite(parsed) ? Math.max(MIN_PASS_DURATION_MINUTES, parsed) : DEFAULT_PASS_DURATION_MINUTES;
-}
+// Bring storage up to the current schema exactly once per worker generation.
+// An MV3 worker can be torn down at any moment, so this must be safe to run
+// again on the next wake-up — migrateState is idempotent, which is what makes
+// that safe.
+async function ensureMigrated() {
+  if (!migrationPromise) {
+    migrationPromise = (async () => {
+      const raw = await chrome.storage.local.get(null);
+      const result = FitShieldCore.migrateState(raw);
 
-function getActiveBypasses(siteBypasses) {
-  const now = Date.now();
-  const activeBypasses = {};
+      FS_DIAG.schemaVersion = result.to;
 
-  Object.entries(siteBypasses || {}).forEach(([siteKey, expiresAt]) => {
-    if (typeof expiresAt === "number" && expiresAt > now) {
-      activeBypasses[siteKey] = expiresAt;
-    }
-  });
+      if (result.error) {
+        // A failed migration leaves storage untouched. Blocking still works off
+        // the legacy keys, so this degrades rather than breaks.
+        FS_DIAG.migration = `failed: ${result.error}`;
+        fsError("Storage migration failed — the profile was left untouched", result.error);
+        return;
+      }
 
-  return activeBypasses;
-}
-
-function parseTimeString(timeString) {
-  const [hour = 0, minute = 0] = (timeString || "").split(":").map(Number);
-  return {
-    hour: Number.isFinite(hour) ? hour : 0,
-    minute: Number.isFinite(minute) ? minute : 0
-  };
-}
-
-function getMinutesFromTime(timeString) {
-  const { hour, minute } = parseTimeString(timeString);
-  return (hour * 60) + minute;
-}
-
-function isScheduleActive(scheduleStart, scheduleEnd, now = new Date()) {
-  const currentMinutes = (now.getHours() * 60) + now.getMinutes();
-  const startMinutes = getMinutesFromTime(scheduleStart);
-  const endMinutes = getMinutesFromTime(scheduleEnd);
-
-  if (startMinutes === endMinutes) {
-    return true;
+      if (result.changed) {
+        await chrome.storage.local.set(result.state);
+        FS_DIAG.migration = result.notes.join("; ");
+        fsLog(`storage migrated: ${result.notes.join("; ")}`);
+      } else {
+        FS_DIAG.migration = "up to date";
+      }
+    })().catch((error) => {
+      migrationPromise = null;
+      throw error;
+    });
   }
 
-  if (startMinutes < endMinutes) {
-    return currentMinutes >= startMinutes && currentMinutes < endMinutes;
-  }
-
-  return currentMinutes >= startMinutes || currentMinutes < endMinutes;
+  return migrationPromise;
 }
 
-function getNextOccurrence(timeString, now = new Date()) {
-  const { hour, minute } = parseTimeString(timeString);
-  const next = new Date(now);
-  next.setHours(hour, minute, 0, 0);
-
-  if (next <= now) {
-    next.setDate(next.getDate() + 1);
+// Tabs that currently exist, for tab-scoped passes. chrome.tabs.query and the
+// onRemoved event both work without the "tabs" permission (that permission only
+// gates reading a tab's URL), so this adds no new permission.
+async function openTabIds() {
+  try {
+    const tabs = await chrome.tabs.query({});
+    return tabs.map((tab) => tab.id).filter((id) => Number.isInteger(id));
+  } catch (error) {
+    return null;
   }
-
-  return next;
 }
 
-function getNextScheduleBoundary(scheduleStart, scheduleEnd, now = new Date()) {
-  const startBoundary = getNextOccurrence(scheduleStart, now);
-  const endBoundary = getNextOccurrence(scheduleEnd, now);
-  return startBoundary < endBoundary ? startBoundary : endBoundary;
+function mergeSitesWithEnabledState(sites, disabledKeys) {
+  const disabledSet = new Set(disabledKeys || []);
+  return sites.map((site) => ({
+    ...site,
+    enabled: !disabledSet.has(site.key) && !disabledSet.has(site.legacyKey)
+  }));
 }
 
 function normalizeCustomDomain(value) {
@@ -286,57 +324,43 @@ function createCustomSiteRecord(entry) {
   }
 
   const domain = normalizeCustomDomain(entry.domain);
-
-  if (!domain) {
-    return null;
-  }
-
-  return {
-    domain,
-    enabled: entry.enabled !== false
-  };
+  return domain ? { domain, enabled: entry.enabled !== false } : null;
 }
 
 function getCustomSiteKey(domain) {
   return `custom-${domain.replace(/[^a-z0-9]+/g, "-")}`;
 }
 
-function mergeSitesWithEnabledState(sites, disabledKeys) {
-  const disabledSet = new Set(disabledKeys || []);
-  return sites.map((site) => ({
-    ...site,
-    enabled: !disabledSet.has(site.key) && !disabledSet.has(site.legacyKey)
-  }));
+async function getSettings() {
+  await ensureMigrated();
+  await ensureBlocklistsLoaded();
+
+  const raw = await chrome.storage.local.get(SETTINGS_KEYS);
+  const settings = FitShieldCore.readSettings(raw);
+  const customSites = Array.isArray(raw.customSites)
+    ? raw.customSites.map(createCustomSiteRecord).filter(Boolean)
+    : [];
+
+  return {
+    ...settings,
+    deliverySites: mergeSitesWithEnabledState(DELIVERY_SITES, settings.disabledDeliverySiteKeys),
+    fastFoodSites: mergeSitesWithEnabledState(FAST_FOOD_SITES, settings.disabledFastFoodSiteKeys),
+    customSites: [...new Map(customSites.map((site) => [site.domain, site])).values()]
+  };
 }
 
-// Normalize a stored list of codes/categories into a clean, de-duplicated array
-// of trimmed strings. Defensive against non-array / junk values.
+// ---------------------------------------------------------------------------
+// Rule building
+// ---------------------------------------------------------------------------
+
 function normalizeStringList(value) {
-  if (!Array.isArray(value)) {
-    return [];
-  }
-
-  const seen = new Set();
-  const result = [];
-
-  value.forEach((item) => {
-    const text = String(item || "").trim();
-
-    if (text && !seen.has(text)) {
-      seen.add(text);
-      result.push(text);
-    }
-  });
-
-  return result;
+  return FitShieldCore.toStringList(value, 5000);
 }
 
 // Build the de-duplicated set of sites to block. The catalog is the UNION of:
 //   1. existing toggle behavior  (delivery / fast-food buckets + custom URLs)
 //   2. metadata country blocks   (any enabled country in the entry's countries)
 //   3. metadata category blocks  (the entry's category is enabled)
-// Country/category blocks are additive, so they can block sites even when a
-// bucket toggle is off. Per-site bypasses are already filtered out upstream.
 function getRuleCatalog(settings) {
   const byDomain = new Map();
 
@@ -348,17 +372,12 @@ function getRuleCatalog(settings) {
     }
   };
 
-  // 1. Existing toggle behavior.
   if (settings.deliverySitesEnabled) {
-    settings.deliverySites
-      .filter((site) => site.enabled)
-      .forEach((site) => addSite(site, "delivery"));
+    settings.deliverySites.filter((site) => site.enabled).forEach((site) => addSite(site, "delivery"));
   }
 
   if (settings.fastFoodSitesEnabled) {
-    settings.fastFoodSites
-      .filter((site) => site.enabled)
-      .forEach((site) => addSite(site, "fastfood"));
+    settings.fastFoodSites.filter((site) => site.enabled).forEach((site) => addSite(site, "fastfood"));
   }
 
   if (settings.customSitesEnabled) {
@@ -378,7 +397,6 @@ function getRuleCatalog(settings) {
       );
   }
 
-  // 2 + 3. Metadata-driven country / category blocks across all branded entries.
   const brandedSites = [...settings.deliverySites, ...settings.fastFoodSites];
 
   brandedSites.forEach((site) => {
@@ -394,9 +412,8 @@ function getRuleCatalog(settings) {
 }
 
 // declarativeNetRequest urlFilter values must be ASCII. Convert IDN / unicode
-// hostnames (e.g. "saemaeul식당.com") to their punycode form so they still
-// block, and drop anything that cannot be made into a valid host. This matters
-// because a single invalid rule makes Chrome reject the ENTIRE
+// hostnames to punycode so they still block, and drop anything that cannot be
+// made into a valid host — a single invalid rule makes Chrome reject the ENTIRE
 // updateDynamicRules batch, which silently disables all blocking.
 function toUrlFilterHost(domain) {
   const host = String(domain || "").trim().toLowerCase();
@@ -423,13 +440,7 @@ function createRules(settings) {
   getRuleCatalog(settings).forEach((site) => {
     const warningUrl = new URL(chrome.runtime.getURL("warning.html"));
     warningUrl.searchParams.set("site", site.key);
-    warningUrl.searchParams.set("timer", String(settings.timerSeconds));
-    warningUrl.searchParams.set("pass", String(settings.passDurationMinutes));
 
-    // Block the apex domain plus any alias domains the brand owns. Each alias
-    // gets its own rule but keeps the same site key, so the warning page and
-    // the bypass flow still resolve back to one record. Hostnames are
-    // normalized to ASCII so every urlFilter is valid.
     const matchDomains = [site.match, ...(Array.isArray(site.aliases) ? site.aliases : [])]
       .map(toUrlFilterHost)
       .filter(Boolean);
@@ -437,12 +448,7 @@ function createRules(settings) {
     new Set(matchDomains).forEach((matchDomain) => {
       rules.push({
         priority: 1,
-        action: {
-          type: "redirect",
-          redirect: {
-            url: warningUrl.toString()
-          }
-        },
+        action: { type: "redirect", redirect: { url: warningUrl.toString() } },
         condition: {
           // "||" anchors to a domain-name boundary so subdomains match but
           // look-alikes (e.g. fake-mcdonalds.com) do not.
@@ -453,7 +459,6 @@ function createRules(settings) {
     });
   });
 
-  // Rule IDs must be unique and stable within a single update call.
   return rules.map((rule, index) => ({ id: index + 1, ...rule }));
 }
 
@@ -468,145 +473,84 @@ async function updateDynamicRules(addRules) {
   const removeRuleIds = currentRules.map((rule) => rule.id);
 
   return new Promise((resolve, reject) => {
-    chrome.declarativeNetRequest.updateDynamicRules(
-      {
-        removeRuleIds,
-        addRules
-      },
-      () => {
-        if (chrome.runtime.lastError) {
-          reject(new Error(chrome.runtime.lastError.message));
-          return;
-        }
-
-        resolve();
+    chrome.declarativeNetRequest.updateDynamicRules({ removeRuleIds, addRules }, () => {
+      if (chrome.runtime.lastError) {
+        reject(new Error(chrome.runtime.lastError.message));
+        return;
       }
-    );
+      resolve();
+    });
   });
 }
 
-async function syncAlarms({ bypassUntil, scheduleEnabled, scheduleStart, scheduleEnd }) {
-  await chrome.alarms.clear(BYPASS_ALARM);
+async function syncAlarms(settings) {
+  await chrome.alarms.clear(PASS_ALARM);
   await chrome.alarms.clear(SCHEDULE_ALARM);
 
-  if (bypassUntil > Date.now()) {
-    await chrome.alarms.create(BYPASS_ALARM, {
-      when: bypassUntil
-    });
+  const nextPassExpiry = settings.passes
+    .map((pass) => pass.expiresAt)
+    .filter((expiry) => expiry > Date.now())
+    .sort((a, b) => a - b)[0];
+
+  if (nextPassExpiry) {
+    await chrome.alarms.create(PASS_ALARM, { when: nextPassExpiry });
   }
 
-  if (scheduleEnabled) {
-    const nextBoundary = getNextScheduleBoundary(scheduleStart, scheduleEnd);
-    await chrome.alarms.create(SCHEDULE_ALARM, {
-      when: nextBoundary.getTime()
-    });
+  const boundary = FitShieldCore.nextScheduleBoundary(settings.schedule);
+
+  if (boundary) {
+    await chrome.alarms.create(SCHEDULE_ALARM, { when: boundary });
   }
 }
 
-async function getSettings() {
-  await ensureBlocklistsLoaded();
-
-  const state = await chrome.storage.local.get([
-    "enabled",
-    "bypassUntil",
-    "timerSeconds",
-    "passDurationMinutes",
-    "scheduleEnabled",
-    "scheduleStart",
-    "scheduleEnd",
-    "deliverySitesEnabled",
-    "fastFoodSitesEnabled",
-    "customSitesEnabled",
-    "disabledDeliverySiteKeys",
-    "disabledFastFoodSiteKeys",
-    "customSites",
-    "siteBypasses",
-    "enabledCountries",
-    "enabledCategories",
-    "quickAccessCountries",
-    "quickAccessCategories"
-  ]);
-
-  const customSites = Array.isArray(state.customSites)
-    ? state.customSites.map(createCustomSiteRecord).filter(Boolean)
-    : [];
-  const siteBypasses = getActiveBypasses(state.siteBypasses);
-  const bypassUntilValues = Object.values(siteBypasses);
-
-  return {
-    enabled: state.enabled ?? true,
-    bypassUntil: bypassUntilValues.length > 0 ? Math.max(...bypassUntilValues) : 0,
-    timerSeconds: normalizeTimerSeconds(state.timerSeconds),
-    passDurationMinutes: normalizePassDurationMinutes(state.passDurationMinutes),
-    scheduleEnabled: state.scheduleEnabled ?? false,
-    scheduleStart: state.scheduleStart ?? DEFAULT_SCHEDULE_START,
-    scheduleEnd: state.scheduleEnd ?? DEFAULT_SCHEDULE_END,
-    deliverySitesEnabled: state.deliverySitesEnabled ?? true,
-    fastFoodSitesEnabled: state.fastFoodSitesEnabled ?? true,
-    customSitesEnabled: state.customSitesEnabled ?? true,
-    deliverySites: mergeSitesWithEnabledState(DELIVERY_SITES, state.disabledDeliverySiteKeys),
-    fastFoodSites: mergeSitesWithEnabledState(FAST_FOOD_SITES, state.disabledFastFoodSiteKeys),
-    customSites: [...new Map(customSites.map((site) => [site.domain, site])).values()],
-    siteBypasses,
-    enabledCountries: normalizeStringList(state.enabledCountries),
-    enabledCategories: normalizeStringList(state.enabledCategories),
-    quickAccessCountries: normalizeStringList(state.quickAccessCountries),
-    quickAccessCategories: normalizeStringList(state.quickAccessCategories)
-  };
-}
+let refreshChain = Promise.resolve();
 
 async function refreshBlockingState() {
   const settings = await getSettings();
-  const scheduleActive = settings.scheduleEnabled
-    ? isScheduleActive(settings.scheduleStart, settings.scheduleEnd)
-    : true;
+  const schedule = FitShieldCore.evaluateSchedule(settings.schedule);
+  const tabs = await openTabIds();
+  const activePasses = FitShieldCore.activePasses(settings.passes, Date.now(), { openTabIds: tabs });
   const hasActiveSites = getRuleCatalog(settings).length > 0;
-  const filteredSettings = {
-    ...settings,
-    siteBypasses: getActiveBypasses(settings.siteBypasses)
-  };
-  const bypassedSiteKeys = new Set(Object.keys(filteredSettings.siteBypasses));
 
-  // A domain can appear in more than one bucket (e.g. doordash.com is listed as
-  // both a delivery and a fast-food brand). A temporary pass is granted for one
-  // record's key, so resolve the bypassed keys to their domains and exclude the
-  // whole domain. Otherwise the other bucket's identical rule would re-block the
-  // user the instant they continue.
-  const bypassableSites = [
-    ...filteredSettings.deliverySites,
-    ...filteredSettings.fastFoodSites,
-    ...filteredSettings.customSites.map((site) => ({ key: getCustomSiteKey(site.domain), domain: site.domain }))
-  ];
-  const bypassedDomains = new Set(
-    bypassableSites
-      .filter((site) => bypassedSiteKeys.has(site.key))
-      .map((site) => site.domain || site.match)
-      .filter(Boolean)
-  );
+  // A domain can appear in more than one bucket (doordash.com is listed as both
+  // delivery and fast-food). A pass is granted for a domain, so exclude by
+  // DOMAIN — otherwise the other bucket's identical rule re-blocks the user the
+  // instant they continue.
+  const passCovers = (site) =>
+    !!FitShieldCore.findCoveringPass(
+      activePasses,
+      { domain: site.domain || site.match, category: site.category },
+      Date.now(),
+      { openTabIds: tabs }
+    );
 
-  const notBypassed = (site) => !bypassedDomains.has(site.domain || site.match);
   const rules = createRules({
-    ...filteredSettings,
-    deliverySites: filteredSettings.deliverySites.filter(notBypassed),
-    fastFoodSites: filteredSettings.fastFoodSites.filter(notBypassed),
-    customSites: filteredSettings.customSites.filter((site) => !bypassedDomains.has(site.domain))
+    ...settings,
+    deliverySites: settings.deliverySites.filter((site) => !passCovers(site)),
+    fastFoodSites: settings.fastFoodSites.filter((site) => !passCovers(site)),
+    customSites: settings.customSites.filter((site) => !passCovers({ domain: site.domain, category: "custom" }))
   });
-  const hasBlockingRules = rules.length > 0;
 
-  if (!settings.enabled || !scheduleActive || !hasActiveSites || !hasBlockingRules) {
+  const hasBlockingRules = rules.length > 0;
+  const globalPause = activePasses.some((pass) => pass.scope === "all");
+
+  if (!settings.enabled || !schedule.active || globalPause || !hasActiveSites || !hasBlockingRules) {
     const reason = !settings.enabled
       ? "master switch off"
-      : !scheduleActive
+      : !schedule.active
         ? "outside the active schedule window"
-        : !hasActiveSites
-          ? "no blocklists or toggles enabled"
-          : "no matching redirect rules";
+        : globalPause
+          ? "all blocking is paused by a temporary pass"
+          : !hasActiveSites
+            ? "no blocklists or toggles enabled"
+            : "no matching redirect rules";
+
     FS_DIAG.lastRuleCount = 0;
     FS_DIAG.lastDecision = `inactive — ${reason}`;
     fsLog("blocking inactive —", reason);
     await updateDynamicRules([]);
-    await chrome.storage.local.set({ siteBypasses: filteredSettings.siteBypasses });
-    await syncAlarms(filteredSettings);
+    await chrome.storage.local.set({ passes: activePasses });
+    await syncAlarms({ ...settings, passes: activePasses });
     return;
   }
 
@@ -614,55 +558,361 @@ async function refreshBlockingState() {
   FS_DIAG.lastDecision = `active — ${rules.length} redirect rule(s)`;
   fsLog(`blocking active — ${rules.length} redirect rule(s)`);
   await updateDynamicRules(rules);
-  await chrome.storage.local.set({ siteBypasses: filteredSettings.siteBypasses });
-  await syncAlarms(filteredSettings);
+  await chrome.storage.local.set({ passes: activePasses });
+  await syncAlarms({ ...settings, passes: activePasses });
 }
 
 function queueRefreshBlockingState() {
-  refreshChain = refreshChain
-    .catch(() => {})
-    .then(() => refreshBlockingState());
-
+  refreshChain = refreshChain.catch(() => {}).then(() => refreshBlockingState());
   return refreshChain;
 }
 
-async function startTemporaryBypass(siteKey) {
-  const settings = await getSettings();
-  const site = getRuleCatalog(settings).find((entry) => entry.key === siteKey) || DELIVERY_SITES[0];
-  const bypassDurationMs = settings.passDurationMinutes * 60 * 1000;
-  const bypassUntil = Date.now() + bypassDurationMs;
-  const nextSiteBypasses = {
-    ...settings.siteBypasses,
-    [site.key]: bypassUntil
-  };
+// ---------------------------------------------------------------------------
+// Block-page support
+// ---------------------------------------------------------------------------
 
-  await chrome.storage.local.set({ enabled: true, siteBypasses: nextSiteBypasses });
+function customRecordsFor(settings) {
+  return settings.customSites.map((site) => ({
+    key: getCustomSiteKey(site.domain),
+    label: site.domain,
+    match: site.domain,
+    home: `https://${site.domain}/`,
+    domain: site.domain,
+    apex: site.domain,
+    aliases: [],
+    type: "custom",
+    category: "custom",
+    countries: [],
+    regions: [],
+    specialties: []
+  }));
+}
+
+function findSite(settings, siteKey) {
+  const lookup = [
+    ...getRuleCatalog(settings),
+    ...settings.deliverySites,
+    ...settings.fastFoodSites,
+    ...customRecordsFor(settings)
+  ];
+
+  return lookup.find((entry) => entry.key === siteKey) || null;
+}
+
+async function getBlockedSiteInfo(siteKey) {
+  const settings = await getSettings();
+  const site = findSite(settings, siteKey);
+
+  if (!site) {
+    return { ok: true, found: false };
+  }
+
+  return {
+    ok: true,
+    found: true,
+    key: site.key,
+    label: site.label,
+    domain: site.domain || site.match,
+    apex: site.apex || site.domain || site.match,
+    aliases: Array.isArray(site.aliases) ? site.aliases : [],
+    home: site.home,
+    type: site.type || "",
+    category: site.category || "",
+    countries: Array.isArray(site.countries) ? site.countries : [],
+    regions: Array.isArray(site.regions) ? site.regions : [],
+    specialties: Array.isArray(site.specialties) ? site.specialties : []
+  };
+}
+
+/**
+ * Everything the block page needs, in ONE round trip: which brand was
+ * interrupted, how long the pause is (including any repeat-access addition and
+ * why), which pass options are offered, and the user's own matching preferences.
+ *
+ * One message rather than six matters here: the page has to render before a
+ * countdown that may only be twenty seconds long, and every extra round trip to
+ * an MV3 worker can pay a wake-up cost.
+ */
+async function getBlockContext(siteKey, options) {
+  const opts = options && typeof options === "object" ? options : {};
+  const settings = await getSettings();
+  const site = findSite(settings, siteKey);
+  const domain = site ? site.domain || site.match : "";
+
+  const repeat = FitShieldCore.repeatFrictionFor(settings.repeatHistory, domain, settings, Date.now());
+  const baseSeconds = settings.timerSeconds;
+  const timerSeconds = Math.min(FitShieldCore.MAX_TIMER_SECONDS, baseSeconds + repeat.extraSeconds);
+
+  return {
+    ok: true,
+    preview: opts.preview === true,
+    found: !!site,
+    site: site
+      ? {
+          key: site.key,
+          label: site.label,
+          domain,
+          home: site.home,
+          type: site.type || "",
+          category: site.category || "",
+          countries: Array.isArray(site.countries) ? site.countries : [],
+          specialties: Array.isArray(site.specialties) ? site.specialties : []
+        }
+      : null,
+    timerSeconds,
+    baseTimerSeconds: baseSeconds,
+    repeat,
+    passDurationMinutes: settings.passDurationMinutes,
+    frictionProfile: settings.frictionProfile,
+    askIntent: settings.askIntent,
+    preferences: {
+      dietPreference: settings.dietPreference,
+      pantry: settings.pantry,
+      equipment: settings.equipment,
+      avoidAllergens: settings.avoidAllergens,
+      alternativeFavorites: settings.alternativeFavorites,
+      recentAlternatives: settings.recentAlternatives,
+      dismissedAlternatives: settings.dismissedAlternatives,
+      customAlternatives: settings.customAlternatives
+    }
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Statistics — see fitshield-core.js for what each event means.
+// ---------------------------------------------------------------------------
+
+// Preview mode must be able to exercise the whole flow without touching real
+// numbers, so every recording path takes the same `preview` escape hatch.
+async function recordEvent(event, options) {
+  const opts = options && typeof options === "object" ? options : {};
+
+  if (opts.preview === true) {
+    return { ok: true, recorded: false, preview: true };
+  }
+
+  await ensureMigrated();
+  const { stats } = await chrome.storage.local.get(["stats"]);
+  const next = FitShieldCore.applyStatEvent(stats, event, Date.now());
+  await chrome.storage.local.set({ stats: next });
+
+  return { ok: true, recorded: true, totals: next.totals };
+}
+
+function incrementCount(map, key, by) {
+  const next = map && typeof map === "object" && !Array.isArray(map) ? { ...map } : {};
+  const cleanKey = String(key || "").trim();
+
+  if (!cleanKey || cleanKey === "__proto__") {
+    return next;
+  }
+
+  next[cleanKey] = (Number(next[cleanKey]) || 0) + (Number(by) || 1);
+  return next;
+}
+
+// Record an aggregate, local-only breakdown of WHICH curated brand was
+// interrupted, so the stats panel can show the most interrupted sites,
+// categories, and countries. This counts only brands already on the curated
+// blocklist and never stores a URL, path, timestamp, or browsing history.
+async function recordBlockedBrand(meta, options) {
+  const opts = options && typeof options === "object" ? options : {};
+
+  if (opts.preview === true) {
+    return { ok: true, recorded: false, preview: true };
+  }
+
+  const info = meta && typeof meta === "object" ? meta : {};
+  const domain = FitShieldBlocklist.normalizeHostname(info.domain);
+  const category = String(info.category || "").trim().toLowerCase();
+  const countries = normalizeStringList(info.countries).map((code) => code.toUpperCase());
+
+  if (!domain && !category && countries.length === 0) {
+    return { ok: true, recorded: false };
+  }
+
+  const stored = await chrome.storage.local.get(["blockedByDomain", "blockedByCategory", "blockedByCountry"]);
+
+  const blockedByDomain = domain ? incrementCount(stored.blockedByDomain, domain, 1) : stored.blockedByDomain || {};
+  const isBucketCategory = category === "delivery" || category === "fast_food" || category === "custom";
+  const blockedByCategory =
+    category && !isBucketCategory
+      ? incrementCount(stored.blockedByCategory, category, 1)
+      : stored.blockedByCategory || {};
+
+  // Count only the brand's PRIMARY (first-listed) operating market. Many brands
+  // operate in dozens of countries; counting every one would let a single block
+  // inflate the whole list. This still uses only curated brand metadata — never
+  // the user's real location.
+  const primaryCountry = countries[0];
+  const blockedByCountry = primaryCountry
+    ? incrementCount(stored.blockedByCountry, primaryCountry, 1)
+    : stored.blockedByCountry || {};
+
+  await chrome.storage.local.set({ blockedByDomain, blockedByCategory, blockedByCountry });
+  return { ok: true, recorded: true };
+}
+
+// Remember what was shown so "show another" can move on, and what was dismissed
+// so it stops coming back for a while. Local ids only.
+async function recordAlternativeShown(id, options) {
+  const opts = options && typeof options === "object" ? options : {};
+
+  if (opts.preview === true) {
+    return { ok: true, recorded: false, preview: true };
+  }
+
+  await ensureMigrated();
+  const { recentAlternatives } = await chrome.storage.local.get(["recentAlternatives"]);
+  await chrome.storage.local.set({ recentAlternatives: FitShieldCore.pushRecent(recentAlternatives, id) });
+  return recordEvent("alternativesViewed", opts);
+}
+
+async function recordAlternativeDismissed(id, options) {
+  const opts = options && typeof options === "object" ? options : {};
+
+  if (opts.preview === true) {
+    return { ok: true, recorded: false, preview: true };
+  }
+
+  await ensureMigrated();
+  const { dismissedAlternatives } = await chrome.storage.local.get(["dismissedAlternatives"]);
+  await chrome.storage.local.set({
+    dismissedAlternatives: FitShieldCore.pushRecent(dismissedAlternatives, id)
+  });
+  return { ok: true, recorded: true };
+}
+
+// "I'll make this" is an INTENT. It does not claim a meal happened, and it does
+// not touch any calorie figure. Confirming it was actually made is a separate,
+// voluntary action (markAlternativeMade) taken later from the popup.
+async function recordAlternativeSelected(id, options) {
+  const opts = options && typeof options === "object" ? options : {};
+
+  if (opts.preview === true) {
+    return { ok: true, recorded: false, preview: true };
+  }
+
+  await ensureMigrated();
+  const { pendingAlternatives } = await chrome.storage.local.get(["pendingAlternatives"]);
+  const pending = Array.isArray(pendingAlternatives) ? pendingAlternatives : [];
+  const cleanId = String(id || "").slice(0, 64);
+
+  if (cleanId) {
+    await chrome.storage.local.set({
+      pendingAlternatives: [
+        ...pending.filter((item) => item && item.id !== cleanId),
+        { id: cleanId, at: Date.now() }
+      ].slice(-10)
+    });
+  }
+
+  return recordEvent("alternativesSelected", opts);
+}
+
+async function markAlternativeMade(id) {
+  await ensureMigrated();
+  const { pendingAlternatives } = await chrome.storage.local.get(["pendingAlternatives"]);
+  const pending = Array.isArray(pendingAlternatives) ? pendingAlternatives : [];
+  const cleanId = String(id || "").slice(0, 64);
+
+  await chrome.storage.local.set({
+    pendingAlternatives: pending.filter((item) => item && item.id !== cleanId)
+  });
+
+  return recordEvent("alternativesMade");
+}
+
+// ---------------------------------------------------------------------------
+// Temporary passes
+// ---------------------------------------------------------------------------
+
+/**
+ * Grant a scoped temporary pass. Scope comes from a named preset so the UI and
+ * the worker can never disagree about what "once" or "until tomorrow" means.
+ */
+async function grantPass(request) {
+  const input = request && typeof request === "object" ? request : {};
+
+  if (input.preview === true) {
+    return { ok: true, granted: false, preview: true, destination: "" };
+  }
+
+  const settings = await getSettings();
+  const site = findSite(settings, input.site);
+
+  // A site key that does not resolve must NOT fall back to some other brand —
+  // that would grant access to a site the user never asked about.
+  if (!site && input.presetId !== "all30" && input.presetId !== "allTomorrow") {
+    return { ok: false, error: "Unknown site." };
+  }
+
+  const domain = site ? site.domain || site.match : "";
+  const presetId = FitShieldCore.PASS_PRESET_IDS.includes(input.presetId) ? input.presetId : "site10";
+  const preset = FitShieldCore.PASS_PRESETS[presetId];
+
+  const pass = FitShieldCore.createPass({
+    presetId,
+    target: preset.scope === "category" ? site && site.category : domain,
+    minutes: preset.minutes === undefined ? settings.passDurationMinutes : preset.minutes,
+    tabId: input.tabId,
+    now: Date.now(),
+    reason: String(input.intent || "")
+  });
+
+  const tabs = await openTabIds();
+  const passes = [...FitShieldCore.activePasses(settings.passes, Date.now(), { openTabIds: tabs }), pass];
+
+  const repeatHistory = domain
+    ? FitShieldCore.recordContinue(settings.repeatHistory, domain, Date.now())
+    : settings.repeatHistory;
+
+  await chrome.storage.local.set({ enabled: true, passes, repeatHistory });
+  await recordEvent("passesUsed");
+  await recordEvent("continued");
   await queueRefreshBlockingState();
 
   return {
-    bypassUntil,
-    destination: site.home,
-    label: site.label,
-    passDurationMinutes: settings.passDurationMinutes
+    ok: true,
+    granted: true,
+    pass,
+    destination: site ? site.home : "",
+    label: site ? site.label : "",
+    expiresAt: pass.expiresAt
   };
 }
+
+async function revokeAllPasses() {
+  await ensureMigrated();
+  await chrome.storage.local.set({ passes: [] });
+  await queueRefreshBlockingState();
+  return { ok: true };
+}
+
+// ---------------------------------------------------------------------------
+// State + diagnostics
+// ---------------------------------------------------------------------------
 
 async function getBlockState() {
   const settings = await getSettings();
+  const schedule = FitShieldCore.evaluateSchedule(settings.schedule);
+  const tabs = await openTabIds();
+  const passes = FitShieldCore.activePasses(settings.passes, Date.now(), { openTabIds: tabs });
+
   return {
     ok: true,
     ...settings,
-    scheduleActive: settings.scheduleEnabled
-      ? isScheduleActive(settings.scheduleStart, settings.scheduleEnd)
-      : true
+    passes,
+    scheduleActive: schedule.active,
+    scheduleReason: schedule.reason,
+    // Kept for older UI code and the popup's "paused" message.
+    bypassUntil: passes.length > 0 ? Math.max(...passes.map((pass) => pass.expiresAt)) : 0,
+    recap: FitShieldCore.weeklyRecap(settings.stats, Date.now(), {
+      blockedByCategory: (await chrome.storage.local.get(["blockedByCategory"])).blockedByCategory
+    })
   };
 }
 
-// Snapshot of the runtime for diagnostics.html and the popup: whether the engine
-// bundle loaded, how many brands are in the blocklist, how many redirect rules
-// are live in Chrome right now, the last blocking decision + error, and the
-// block-page URL. Passing a domain also runs it through the engine so a user can
-// confirm a specific site is (or is not) blocked without visiting it.
 async function getDiagnostics(testDomain) {
   const manifest = chrome.runtime.getManifest();
 
@@ -679,6 +929,9 @@ async function getDiagnostics(testDomain) {
     manifestVersion: manifest.version,
     manifestName: manifest.name,
     engineLoaded: FS_DIAG.engineLoaded,
+    coreLoaded: FS_DIAG.coreLoaded,
+    schemaVersion: FS_DIAG.schemaVersion,
+    migration: FS_DIAG.migration,
     bootError: FS_DIAG.bootError,
     blocklistCount: FS_DIAG.blocklistCount,
     deliveryCount: FS_DIAG.deliveryCount,
@@ -709,163 +962,10 @@ async function getDiagnostics(testDomain) {
   return result;
 }
 
-// Resolve the JSON-derived site record that triggered a block from its key so
-// the warning page can show the brand it interrupted and reopen the right
-// destination. Looks across the live rule catalog first, then all branded and
-// custom sites, so it still resolves a record even when the bucket toggle that
-// produced the rule is currently off.
-async function getBlockedSiteInfo(siteKey) {
-  const settings = await getSettings();
+// ---------------------------------------------------------------------------
+// Lifecycle
+// ---------------------------------------------------------------------------
 
-  const customRecords = settings.customSites.map((site) => ({
-    key: getCustomSiteKey(site.domain),
-    label: site.domain,
-    match: site.domain,
-    home: `https://${site.domain}/`,
-    domain: site.domain,
-    apex: site.domain,
-    aliases: [],
-    type: "custom",
-    category: "custom",
-    countries: [],
-    regions: [],
-    specialties: []
-  }));
-
-  const lookup = [
-    ...getRuleCatalog(settings),
-    ...settings.deliverySites,
-    ...settings.fastFoodSites,
-    ...customRecords
-  ];
-
-  const site = lookup.find((entry) => entry.key === siteKey);
-
-  if (!site) {
-    return { ok: true, found: false };
-  }
-
-  return {
-    ok: true,
-    found: true,
-    key: site.key,
-    label: site.label,
-    domain: site.domain || site.match,
-    apex: site.apex || site.domain || site.match,
-    aliases: Array.isArray(site.aliases) ? site.aliases : [],
-    home: site.home,
-    type: site.type || "",
-    category: site.category || "",
-    countries: Array.isArray(site.countries) ? site.countries : [],
-    regions: Array.isArray(site.regions) ? site.regions : [],
-    specialties: Array.isArray(site.specialties) ? site.specialties : []
-  };
-}
-
-// Increment the local blocked-visit counter. This is the only thing FitShield
-// counts: a single integer, bumped once each time the block page is shown. No
-// URL, domain, or any browsing detail is ever stored — privacy-first by design.
-async function recordBlockedVisit() {
-  const { blockedVisits } = await chrome.storage.local.get(["blockedVisits"]);
-  const next = (Number(blockedVisits) || 0) + 1;
-  await chrome.storage.local.set({ blockedVisits: next });
-  return next;
-}
-
-// Defaults for the local-only calorie estimate. A typical fast-food / delivery
-// meal is treated as ~1000 kcal; when a chosen recipe has no calorie data we
-// assume a modest home portion. Both are estimates, configurable by the user.
-const DEFAULT_AVG_MEAL_CALORIES = 1000;
-const DEFAULT_RECIPE_CALORIES = 500;
-
-function normalizeMealCalories(value) {
-  const parsed = Number.parseFloat(value);
-  return Number.isFinite(parsed) && parsed >= 0 ? parsed : DEFAULT_AVG_MEAL_CALORIES;
-}
-
-// Record that the user picked a home recipe instead of ordering. Adds the
-// estimated calories avoided (configured meal calories minus the recipe's, never
-// below zero) and bumps an aggregate count. Only aggregate numbers are stored —
-// never which recipe, site, or page. Falls back gracefully when recipe calories
-// are unknown.
-async function recordRecipeChoice(recipeCalories) {
-  const stored = await chrome.storage.local.get(["avgMealCalories", "caloriesAvoided", "recipesChosen"]);
-  const mealCalories = normalizeMealCalories(stored.avgMealCalories);
-  // null/undefined means the recipe has no calorie data — fall back to a default
-  // home-portion estimate. (Number(null) is 0, so guard before converting.)
-  const hasRecipeCalories = recipeCalories !== null && recipeCalories !== undefined && Number.isFinite(Number(recipeCalories));
-  const recipeCals = hasRecipeCalories ? Number(recipeCalories) : DEFAULT_RECIPE_CALORIES;
-  const added = Math.max(0, Math.round(mealCalories - recipeCals));
-  const caloriesAvoided = (Number(stored.caloriesAvoided) || 0) + added;
-  const recipesChosen = (Number(stored.recipesChosen) || 0) + 1;
-
-  await chrome.storage.local.set({ caloriesAvoided, recipesChosen });
-  return { added, caloriesAvoided, recipesChosen };
-}
-
-// Bump the integer count for `key` inside a plain count-map object, returning a
-// new object so callers can store it. Junk values are coerced to a clean map.
-function incrementCount(map, key, by) {
-  const next = (map && typeof map === "object" && !Array.isArray(map)) ? { ...map } : {};
-  const cleanKey = String(key || "").trim();
-
-  if (!cleanKey) {
-    return next;
-  }
-
-  next[cleanKey] = (Number(next[cleanKey]) || 0) + (Number(by) || 1);
-  return next;
-}
-
-// Record an aggregate, local-only breakdown of WHICH curated brand triggered a
-// block, so Your Stats can show the most blocked sites, categories, and
-// countries. This stays privacy-first: it counts only the brands already on the
-// curated blocklist — by apex domain, food category, and the countries the brand
-// operates in — and never stores a URL, page, path, timestamp, or any browsing
-// history. The plain blocked-visit counter (recordBlockedVisit) deliberately
-// stays a single integer; this is the opt-in-by-design richer breakdown.
-async function recordBlockedBrand(meta) {
-  const info = meta && typeof meta === "object" ? meta : {};
-  const domain = FitShieldBlocklist.normalizeHostname(info.domain);
-  const category = String(info.category || "").trim().toLowerCase();
-  const countries = normalizeStringList(info.countries).map((code) => code.toUpperCase());
-
-  // Nothing identifiable to record (e.g. the block page could not resolve the
-  // brand). Skip silently rather than writing empty keys.
-  if (!domain && !category && countries.length === 0) {
-    return { ok: true, recorded: false };
-  }
-
-  const stored = await chrome.storage.local.get([
-    "blockedByDomain",
-    "blockedByCategory",
-    "blockedByCountry"
-  ]);
-
-  const blockedByDomain = domain ? incrementCount(stored.blockedByDomain, domain, 1) : (stored.blockedByDomain || {});
-  // "delivery"/"fast_food" are the rule buckets, already shown elsewhere; only
-  // count true food categories (pizza, coffee, …) so the breakdown is useful.
-  const isBucketCategory = category === "delivery" || category === "fast_food" || category === "custom";
-  const blockedByCategory = (category && !isBucketCategory)
-    ? incrementCount(stored.blockedByCategory, category, 1)
-    : (stored.blockedByCategory || {});
-
-  // Count only the brand's PRIMARY (first-listed) operating market. Many brands
-  // operate in dozens of countries (e.g. McDonald's in ~50); counting every one
-  // would let a single block inflate the whole list and drown out the signal.
-  // The primary market is the most meaningful heuristic and still uses only
-  // curated brand metadata — never the user's real location or browsing data.
-  const primaryCountry = countries[0];
-  const blockedByCountry = primaryCountry
-    ? incrementCount(stored.blockedByCountry, primaryCountry, 1)
-    : (stored.blockedByCountry || {});
-
-  await chrome.storage.local.set({ blockedByDomain, blockedByCategory, blockedByCountry });
-  return { ok: true, recorded: true };
-}
-
-// Open an extension page in a new tab. tabs.create does not require the "tabs"
-// permission.
 function openExtensionPage(path) {
   try {
     chrome.tabs.create({ url: chrome.runtime.getURL(path) });
@@ -878,7 +978,6 @@ async function showOnboardingOrWhatsNew(reason) {
   const currentVersion = chrome.runtime.getManifest().version;
 
   if (reason === "install") {
-    // First install: run the welcome tour and mark this version as seen.
     await chrome.storage.local.set({ lastSeenVersion: currentVersion });
     openExtensionPage("welcome.html");
     return;
@@ -888,8 +987,6 @@ async function showOnboardingOrWhatsNew(reason) {
     const { lastSeenVersion } = await chrome.storage.local.get(["lastSeenVersion"]);
 
     if (lastSeenVersion !== currentVersion) {
-      // whats-new.js records lastSeenVersion on load; set it here too so the
-      // page never re-opens even if it is closed immediately.
       await chrome.storage.local.set({ lastSeenVersion: currentVersion });
       openExtensionPage("whats-new.html");
     }
@@ -897,83 +994,97 @@ async function showOnboardingOrWhatsNew(reason) {
 }
 
 chrome.runtime.onInstalled.addListener(async (details) => {
-  const state = await chrome.storage.local.get([
-    "enabled",
-    "bypassUntil",
-    "timerSeconds",
-    "passDurationMinutes",
-    "scheduleEnabled",
-    "scheduleStart",
-    "scheduleEnd",
-    "deliverySitesEnabled",
-    "fastFoodSitesEnabled",
-    "customSitesEnabled",
-    "disabledDeliverySiteKeys",
-    "disabledFastFoodSiteKeys",
-    "customSites",
-    "siteBypasses",
-    "enabledCountries",
-    "enabledCategories",
-    "quickAccessCountries",
-    "quickAccessCategories"
-  ]);
+  try {
+    await ensureMigrated();
 
-  const customSites = Array.isArray(state.customSites)
-    ? state.customSites.map(createCustomSiteRecord).filter(Boolean)
-    : [];
+    // Seed anything a brand-new profile needs, without overwriting an existing
+    // one: every value is read first and only defaulted when absent.
+    const raw = await chrome.storage.local.get(SETTINGS_KEYS);
+    const settings = FitShieldCore.readSettings(raw);
 
-  await chrome.storage.local.set({
-    enabled: state.enabled ?? true,
-    timerSeconds: normalizeTimerSeconds(state.timerSeconds),
-    passDurationMinutes: normalizePassDurationMinutes(state.passDurationMinutes),
-    scheduleEnabled: state.scheduleEnabled ?? false,
-    scheduleStart: state.scheduleStart ?? DEFAULT_SCHEDULE_START,
-    scheduleEnd: state.scheduleEnd ?? DEFAULT_SCHEDULE_END,
-    deliverySitesEnabled: state.deliverySitesEnabled ?? true,
-    fastFoodSitesEnabled: state.fastFoodSitesEnabled ?? true,
-    customSitesEnabled: state.customSitesEnabled ?? true,
-    disabledDeliverySiteKeys: Array.isArray(state.disabledDeliverySiteKeys) ? state.disabledDeliverySiteKeys : [],
-    disabledFastFoodSiteKeys: Array.isArray(state.disabledFastFoodSiteKeys) ? state.disabledFastFoodSiteKeys : [],
-    customSites: [...new Map(customSites.map((site) => [site.domain, site])).values()],
-    siteBypasses: getActiveBypasses(state.siteBypasses),
-    enabledCountries: normalizeStringList(state.enabledCountries),
-    enabledCategories: normalizeStringList(state.enabledCategories),
-    quickAccessCountries: normalizeStringList(state.quickAccessCountries),
-    quickAccessCategories: normalizeStringList(state.quickAccessCategories)
-  });
+    await chrome.storage.local.set({
+      [FitShieldCore.SCHEMA_KEY]: FitShieldCore.SCHEMA_VERSION,
+      enabled: settings.enabled,
+      timerSeconds: settings.timerSeconds,
+      passDurationMinutes: settings.passDurationMinutes,
+      frictionProfile: settings.frictionProfile,
+      schedule: settings.schedule,
+      deliverySitesEnabled: settings.deliverySitesEnabled,
+      fastFoodSitesEnabled: settings.fastFoodSitesEnabled,
+      customSitesEnabled: settings.customSitesEnabled,
+      disabledDeliverySiteKeys: settings.disabledDeliverySiteKeys,
+      disabledFastFoodSiteKeys: settings.disabledFastFoodSiteKeys,
+      customSites: Array.isArray(raw.customSites)
+        ? [...new Map(raw.customSites.map(createCustomSiteRecord).filter(Boolean).map((site) => [site.domain, site])).values()]
+        : [],
+      passes: settings.passes,
+      enabledCountries: settings.enabledCountries,
+      enabledCategories: settings.enabledCategories,
+      quickAccessCountries: settings.quickAccessCountries,
+      quickAccessCategories: settings.quickAccessCategories,
+      pantry: settings.pantry,
+      equipment: settings.equipment,
+      dietPreference: settings.dietPreference,
+      stats: settings.stats
+    });
 
-  await queueRefreshBlockingState();
-  await showOnboardingOrWhatsNew(details?.reason);
+    await queueRefreshBlockingState();
+    await showOnboardingOrWhatsNew(details && details.reason);
+  } catch (error) {
+    fsError("onInstalled setup failed", error);
+  }
 });
 
 chrome.runtime.onStartup.addListener(() => {
+  // A browser restart is exactly when stale passes must disappear:
+  // refreshBlockingState re-reads them through activePasses, which drops
+  // anything already expired.
   queueRefreshBlockingState().catch((error) => {
     fsError("Failed to refresh blocking state on startup", error);
   });
 });
+
+// Tab-scoped passes end when their tab does.
+chrome.tabs.onRemoved.addListener((tabId) => {
+  chrome.storage.local
+    .get(["passes"])
+    .then(({ passes }) => {
+      const list = Array.isArray(passes) ? passes : [];
+
+      if (!list.some((pass) => pass && pass.tabId === tabId)) {
+        return null;
+      }
+
+      return chrome.storage.local.set({ passes: list.filter((pass) => !pass || pass.tabId !== tabId) });
+    })
+    .catch((error) => fsError("Failed to clear tab-scoped passes", error));
+});
+
+const REFRESH_KEYS = [
+  "enabled",
+  "timerSeconds",
+  "passDurationMinutes",
+  "schedule",
+  "scheduleEnabled",
+  "scheduleStart",
+  "scheduleEnd",
+  "deliverySitesEnabled",
+  "fastFoodSitesEnabled",
+  "customSitesEnabled",
+  "disabledDeliverySiteKeys",
+  "disabledFastFoodSiteKeys",
+  "customSites",
+  "passes",
+  "enabledCountries",
+  "enabledCategories"
+];
 
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area !== "local") {
     return;
   }
 
-  if (
-    changes.enabled ||
-    changes.timerSeconds ||
-    changes.passDurationMinutes ||
-    changes.scheduleEnabled ||
-    changes.scheduleStart ||
-    changes.scheduleEnd ||
-    changes.deliverySitesEnabled ||
-    changes.fastFoodSitesEnabled ||
-    changes.customSitesEnabled ||
-    changes.disabledDeliverySiteKeys ||
-    changes.disabledFastFoodSiteKeys ||
-    changes.customSites ||
-    changes.siteBypasses ||
-    changes.enabledCountries ||
-    changes.enabledCategories
-  ) {
+  if (REFRESH_KEYS.some((key) => changes[key])) {
     queueRefreshBlockingState().catch((error) => {
       fsError("Failed to refresh blocking state", error);
     });
@@ -981,93 +1092,51 @@ chrome.storage.onChanged.addListener((changes, area) => {
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === BYPASS_ALARM) {
-    chrome.storage.local.get(["siteBypasses"]).then(({ siteBypasses }) => {
-      return chrome.storage.local.set({ siteBypasses: getActiveBypasses(siteBypasses) });
-    }).catch((error) => {
-      console.error("Failed to clear temporary bypasses:", error);
-    });
-    return;
-  }
-
-  if (alarm.name === SCHEDULE_ALARM) {
+  if (alarm.name === PASS_ALARM || alarm.name === SCHEDULE_ALARM) {
     queueRefreshBlockingState().catch((error) => {
-      console.error("Failed to refresh scheduled blocking:", error);
+      fsError(`Failed to refresh after ${alarm.name}`, error);
     });
   }
 });
 
+// ---------------------------------------------------------------------------
+// Messaging
+// ---------------------------------------------------------------------------
+
+// Every handler resolves to a response object; the table keeps the listener flat
+// and makes the message surface readable in one place.
+const HANDLERS = {
+  getBlockState: () => getBlockState(),
+  getBlockedSiteInfo: (message) => getBlockedSiteInfo(message.site),
+  getBlockContext: (message) => getBlockContext(message.site, message),
+  getDiagnostics: (message) => getDiagnostics(message.domain),
+  grantPass: (message, sender) =>
+    grantPass({ ...message, tabId: message.tabId ?? (sender && sender.tab && sender.tab.id) }),
+  revokeAllPasses: () => revokeAllPasses(),
+  recordInterruption: (message) => recordEvent("interruptions", message),
+  recordLeft: (message) => recordEvent("left", message),
+  recordBlockedBrand: (message) => recordBlockedBrand(message.meta, message),
+  recordAlternativeShown: (message) => recordAlternativeShown(message.id, message),
+  recordAlternativeSelected: (message) => recordAlternativeSelected(message.id, message),
+  recordAlternativeDismissed: (message) => recordAlternativeDismissed(message.id, message),
+  markAlternativeMade: (message) => markAlternativeMade(message.id),
+  refreshBlocking: () => queueRefreshBlockingState().then(() => ({ ok: true }))
+};
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message?.type === "startTemporaryBypass") {
-    startTemporaryBypass(message.site)
-      .then((result) => sendResponse({ ok: true, ...result }))
-      .catch((error) => {
-        console.error("Failed to start temporary bypass:", error);
-        sendResponse({ ok: false, error: error.message });
-      });
+  const handler = message && HANDLERS[message.type];
 
-    return true;
+  if (!handler) {
+    return false;
   }
 
-  if (message?.type === "getBlockState") {
-    getBlockState().then(sendResponse).catch((error) => {
-      console.error("Failed to get block state:", error);
-      sendResponse({ ok: false, error: error.message });
+  Promise.resolve()
+    .then(() => handler(message, sender))
+    .then((result) => sendResponse(result || { ok: true }))
+    .catch((error) => {
+      fsError(`Message "${message.type}" failed`, error);
+      sendResponse({ ok: false, error: String(error && error.message ? error.message : error) });
     });
 
-    return true;
-  }
-
-  if (message?.type === "getDiagnostics") {
-    getDiagnostics(message.domain).then(sendResponse).catch((error) => {
-      fsError("Failed to build diagnostics", error);
-      sendResponse({ ok: false, error: error.message });
-    });
-
-    return true;
-  }
-
-  if (message?.type === "getBlockedSiteInfo") {
-    getBlockedSiteInfo(message.site).then(sendResponse).catch((error) => {
-      console.error("Failed to get blocked site info:", error);
-      sendResponse({ ok: false, error: error.message });
-    });
-
-    return true;
-  }
-
-  if (message?.type === "recordBlockedVisit") {
-    recordBlockedVisit()
-      .then((blockedVisits) => sendResponse({ ok: true, blockedVisits }))
-      .catch((error) => {
-        console.error("Failed to record blocked visit:", error);
-        sendResponse({ ok: false, error: error.message });
-      });
-
-    return true;
-  }
-
-  if (message?.type === "recordBlockedBrand") {
-    recordBlockedBrand(message.meta)
-      .then((result) => sendResponse(result))
-      .catch((error) => {
-        console.error("Failed to record blocked brand:", error);
-        sendResponse({ ok: false, error: error.message });
-      });
-
-    return true;
-  }
-
-  if (message?.type === "recordRecipeChoice") {
-    recordRecipeChoice(message.recipeCalories)
-      .then((result) => sendResponse({ ok: true, ...result }))
-      .catch((error) => {
-        console.error("Failed to record recipe choice:", error);
-        sendResponse({ ok: false, error: error.message });
-      });
-
-    return true;
-  }
-
-  return false;
+  return true;
 });

@@ -154,9 +154,15 @@ test("packaged block page: both browser manifests are valid and point at package
   assert.equal(chrome.background.service_worker, "background.js");
   assert.ok(!("browser_specific_settings" in chrome), "chrome manifest must strip browser_specific_settings");
 
-  // Firefox: the engine bundle must load BEFORE background.js (which references
-  // the FitShieldBlocklist global) — the exact ordering the split depends on.
-  assert.deepEqual(firefox.background.scripts, ["blocklist.js", "background.js"]);
+  // Firefox: the shared runtime files must load BEFORE background.js (which
+  // references the FitShieldBlocklist and FitShieldCore globals) — the exact
+  // ordering the compartment split depends on.
+  assert.deepEqual(firefox.background.scripts, build.BACKGROUND_SCRIPTS);
+  assert.equal(
+    firefox.background.scripts[firefox.background.scripts.length - 1],
+    "background.js",
+    "background.js must load last"
+  );
   for (const script of firefox.background.scripts) {
     assert.ok(staged(script), `firefox background script "${script}" must be packaged`);
   }
@@ -170,28 +176,31 @@ test("packaged block page: both browser manifests are valid and point at package
 // fetch, backed by the real engine bundle and the real JSON datasets.
 function loadBackground() {
   const store = {};
+  const listeners = {};
   const chrome = {
     runtime: {
       getURL: (p) => "chrome-extension://test/" + p,
       onInstalled: { addListener: () => {} },
       onStartup: { addListener: () => {} },
-      onMessage: { addListener: () => {} },
-      getManifest: () => ({ version: "0.54" }),
+      onMessage: { addListener: (fn) => { listeners.message = fn; } },
+      getManifest: () => ({ version: "0.55" }),
       lastError: null
     },
     storage: {
       local: {
         get: async (keys) => {
+          if (keys === null || keys === undefined) return { ...store };
           const out = {};
           (Array.isArray(keys) ? keys : [keys]).forEach((k) => { if (k in store) out[k] = store[k]; });
           return out;
         },
-        set: async (obj) => { Object.assign(store, obj); }
+        set: async (obj) => { Object.assign(store, obj); },
+        remove: async (keys) => { (Array.isArray(keys) ? keys : [keys]).forEach((k) => delete store[k]); }
       },
       onChanged: { addListener: () => {} }
     },
     alarms: { clear: async () => {}, create: async () => {}, onAlarm: { addListener: () => {} } },
-    tabs: { create: () => {} },
+    tabs: { create: () => {}, query: async () => [{ id: 1 }], onRemoved: { addListener: () => {} } },
     declarativeNetRequest: {
       _rules: [],
       getDynamicRules: (cb) => cb(chrome.declarativeNetRequest._rules),
@@ -202,33 +211,30 @@ function loadBackground() {
     const rel = url.replace("chrome-extension://test/", "");
     return { ok: true, status: 200, json: async () => JSON.parse(fs.readFileSync(srcPath(rel), "utf8")) };
   };
-  const sandbox = { chrome, console, fetch: fetchImpl, setTimeout, URL, Math, Date };
+  const sandbox = { chrome, console, fetch: fetchImpl, setTimeout, URL, Math, Date, JSON, Promise };
   sandbox.self = sandbox; sandbox.globalThis = sandbox;
   const context = vm.createContext(sandbox);
   sandbox.importScripts = (f) => vm.runInContext(fs.readFileSync(srcPath(f), "utf8"), context, { filename: f });
   vm.runInContext(fs.readFileSync(srcPath("background.js"), "utf8"), context, { filename: "background.js" });
-  return { context, store };
+  return { context, store, listeners };
 }
 
-// The message contract the block page speaks to the worker (mirrors the real
-// chrome.runtime.onMessage dispatch in background.js).
+// Route through the worker's REAL onMessage listener, so the page and the worker
+// are tested against the same message contract the browser would use — not a
+// hand-maintained copy of it that can drift.
 function dispatchToBackground(bg, msg) {
-  switch (msg.type) {
-    case "getBlockedSiteInfo": return bg.context.getBlockedSiteInfo(msg.site);
-    case "getBlockState": return bg.context.getBlockState();
-    case "recordBlockedVisit": return bg.context.recordBlockedVisit().then((v) => ({ ok: true, blockedVisits: v }));
-    case "recordBlockedBrand": return bg.context.recordBlockedBrand(msg.meta);
-    case "recordRecipeChoice": return bg.context.recordRecipeChoice(msg.recipeCalories).then((r) => ({ ok: true, ...r }));
-    case "startTemporaryBypass": return bg.context.startTemporaryBypass(msg.site).then((r) => ({ ok: true, ...r }));
-    default: return Promise.resolve({ ok: false });
-  }
+  return new Promise((resolve) => {
+    const handled = bg.listeners.message(msg, {}, resolve);
+    if (!handled) resolve({ ok: false });
+  });
 }
 
 // Render the block page (browser-shim.js, i18n.js, recipes.js, warning.js) for
 // `siteKey` against a compact DOM, routing runtime.sendMessage to `bg`. ambient.js
 // is intentionally excluded — it is purely decorative, self-guards on the DOM,
 // and Part A already proves it ships. Returns { getById, messages }.
-function renderBlockPage(bg, siteKey) {
+function renderBlockPage(bg, siteKey, options) {
+  const opts = options || {};
   const doc = buildDocument(srcPath("warning.html"));
 
   const chrome = {
@@ -254,21 +260,23 @@ function renderBlockPage(bg, siteKey) {
     const rel = url.replace("chrome-extension://test/", "");
     return { ok: true, status: 200, json: async () => JSON.parse(fs.readFileSync(srcPath(rel), "utf8")) };
   };
+  const search = `?site=${siteKey}${opts.preview ? "&preview=1" : ""}`;
   const win = {
-    location: { search: `?site=${siteKey}`, href: "" },
+    location: { search, href: "" },
     matchMedia: () => ({ matches: false }),
     setInterval: () => 0, clearInterval: () => {},
-    history: { back: () => {} }
+    setTimeout: () => 0,
+    history: { back: () => {}, length: 1 }
   };
   const sandbox = {
-    chrome, document: doc.document, window: win, fetch: fetchImpl, console,
+    chrome, document: Object.assign(doc.document, { hidden: false }), window: win, fetch: fetchImpl, console,
     URL, URLSearchParams, Math, Date, Number, String, Array, Object, JSON, Promise,
     setInterval: () => 0, clearInterval: () => {}, setTimeout,
     location: win.location, matchMedia: win.matchMedia
   };
   sandbox.self = sandbox; sandbox.globalThis = sandbox;
   const ctx = vm.createContext(sandbox);
-  for (const f of ["browser-shim.js", "i18n.js", "recipes.js", "warning.js"]) {
+  for (const f of ["browser-shim.js", "i18n.js", "fitshield-core.js", "recipes.js", "warning.js"]) {
     vm.runInContext(fs.readFileSync(srcPath(f), "utf8"), ctx, { filename: f });
   }
   return doc;
@@ -283,63 +291,173 @@ async function waitFor(predicate, timeoutMs = 2000) {
   return false;
 }
 
-test("render smoke: the block page renders the trigger brand and block reason", async () => {
+test("render smoke: the block page names the interrupted brand and explains why", async () => {
   const bg = loadBackground();
   bg.store.uiLanguage = "en";                      // force the _locales override path
   bg.store.theme = { accent: "#7ef0a8" };          // the block page reads `theme`
+  bg.store.askIntent = false;                      // go straight to the alternative
   await bg.context.queueRefreshBlockingState();
 
   const doc = renderBlockPage(bg, "delivery-doordash-com");
   const brand = () => doc.getById("brand");
-  assert.ok(await waitFor(() => brand() && brand().hidden === false && brand().textContent.length > 0),
-    "the brand line should resolve and become visible");
+  assert.ok(
+    await waitFor(() => brand() && brand().hidden === false && brand().textContent.length > 0),
+    "the brand line should resolve and become visible"
+  );
 
-  assert.match(brand().textContent, /DoorDash/, "brand line names the interrupted site");
+  assert.match(brand().textContent, /DoorDash/, "the brand line names the interrupted site");
 
-  const reason = doc.getById("blockReason");
-  assert.equal(reason.hidden, false, "the block reason panel should be shown");
-  assert.match(reason.textContent, /doordash\.com/, "block reason includes the domain");
-  assert.ok(reason.textContent.length > "doordash.com".length, "block reason has more than just the domain");
+  const reason = doc.getById("reasonPanel");
+  assert.equal(reason.hidden, false, "the why-panel should be shown");
+  assert.match(doc.getById("reasonBody").textContent, /doordash\.com/, "the reason includes the domain");
 
-  // Timer + continue button are present and locked at first paint.
-  assert.equal(doc.getById("timer").textContent, "60");
-  assert.ok(doc.getById("continue"), "continue button exists");
+  // The pause and both exits exist at first paint.
+  assert.ok(Number(doc.getById("timer").textContent) > 0, "the countdown renders a number");
+  assert.ok(doc.getById("back"), "Go back exists");
+  assert.ok(doc.getById("continue").disabled, "Continue is locked while the pause runs");
 });
 
-test("render smoke: recipe alternatives load (one vegetarian, one meat)", async () => {
+test("render smoke: one alternative is shown, with ingredients and steps", async () => {
   const bg = loadBackground();
+  bg.store.askIntent = false;
   await bg.context.queueRefreshBlockingState();
   const doc = renderBlockPage(bg, "delivery-doordash-com");
 
-  const veg = () => doc.getById("recipeVeg");
-  const meat = () => doc.getById("recipeMeat");
-  assert.ok(await waitFor(() => veg() && veg().hidden === false && meat() && meat().hidden === false),
-    "both recipe columns should populate");
-  assert.ok(veg().textContent.length > 0 && meat().textContent.length > 0, "recipe cards have content");
+  const panel = () => doc.getById("altPanel");
+  assert.ok(await waitFor(() => panel() && panel().hidden === false), "the alternative panel should populate");
+
+  assert.ok(doc.getById("altTitle").textContent.length > 0, "it has a title");
+  assert.ok(doc.getById("altIngredients").childElementCount > 0, "it lists ingredients");
+  assert.ok(doc.getById("altSteps").childElementCount > 0, "it lists steps");
+  assert.ok(doc.getById("altMeta").childElementCount > 0, "it shows time and effort");
+  assert.ok(doc.getById("filters").childElementCount >= 4, "the fastest / no-cook filters are offered");
 });
 
-test("render smoke: stats update through the worker without throwing", async () => {
+test("render smoke: ONE alternative at a time, not a wall of them", async () => {
   const bg = loadBackground();
+  bg.store.askIntent = false;
   await bg.context.queueRefreshBlockingState();
   const doc = renderBlockPage(bg, "delivery-doordash-com");
 
-  // recordBlockedVisit + recordBlockedBrand fire from initializeTimer.
-  assert.ok(await waitFor(() => bg.store.blockedVisits === 1), "a single blocked visit is counted");
-  assert.ok(await waitFor(() => bg.store.blockedByDomain && bg.store.blockedByDomain["doordash.com"] === 1),
-    "the trigger brand is aggregated by domain");
-  assert.ok(doc.messages.includes("getBlockState"), "the page asked the worker for block state");
-  assert.ok(doc.messages.includes("getBlockedSiteInfo"), "the page asked the worker to resolve the brand");
+  await waitFor(() => doc.getById("altPanel") && doc.getById("altPanel").hidden === false);
+
+  // The decision must stay legible: exactly one titled alternative on screen.
+  assert.equal(doc.getById("altTitle").children.length, 0, "the title is a single string, not a list");
+  assert.ok(doc.getById("chooseAlt"), "there is one way to choose it");
+  assert.ok(doc.getById("anotherAlt"), "and one way to see another");
+});
+
+test("render smoke: show another moves to a different alternative", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+  const doc = renderBlockPage(bg, "delivery-doordash-com");
+
+  await waitFor(() => doc.getById("altPanel") && doc.getById("altPanel").hidden === false);
+  const first = doc.getById("altTitle").textContent;
+
+  doc.getById("anotherAlt").click();
+  assert.ok(await waitFor(() => doc.getById("altTitle").textContent !== first), "a different alternative is shown");
+});
+
+test("render smoke: statistics move through the worker with the new event names", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+  const doc = renderBlockPage(bg, "delivery-doordash-com");
+
+  assert.ok(
+    await waitFor(() => bg.store.stats && bg.store.stats.totals.interruptions === 1),
+    "the interruption is counted exactly once"
+  );
+  assert.ok(
+    await waitFor(() => bg.store.blockedByDomain && bg.store.blockedByDomain["doordash.com"] === 1),
+    "the trigger brand is aggregated by domain"
+  );
+  assert.ok(doc.messages.includes("getBlockContext"), "the page asked the worker for its context");
+
+  // Nothing claims a meal happened just because the page rendered.
+  assert.equal(bg.store.stats.totals.alternativesSelected, 0);
+  assert.equal(bg.store.stats.totals.alternativesMade, 0);
+});
+
+test("render smoke: choosing an alternative records intent, not a meal", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+  const doc = renderBlockPage(bg, "delivery-doordash-com");
+
+  await waitFor(() => doc.getById("altPanel") && doc.getById("altPanel").hidden === false);
+  doc.getById("chooseAlt").click();
+
+  assert.ok(
+    await waitFor(() => bg.store.stats && bg.store.stats.totals.alternativesSelected === 1),
+    "the choice is recorded"
+  );
+  assert.equal(bg.store.stats.totals.alternativesMade, 0, "but nothing says it was made");
+  assert.equal(doc.getById("chosenNote").hidden, false, "and the page says so explicitly");
+});
+
+test("render smoke: going back records leaving", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+  const doc = renderBlockPage(bg, "delivery-doordash-com");
+
+  await waitFor(() => doc.getById("altPanel") && doc.getById("altPanel").hidden === false);
+  doc.getById("back").click();
+
+  assert.ok(await waitFor(() => bg.store.stats && bg.store.stats.totals.left === 1), "leaving is its own event");
+});
+
+test("render smoke: the intent prompt is offered and is skippable", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = true;
+  await bg.context.queueRefreshBlockingState();
+  const doc = renderBlockPage(bg, "delivery-doordash-com");
+
+  const panel = () => doc.getById("intentPanel");
+  assert.ok(await waitFor(() => panel() && panel().hidden === false), "the prompt appears");
+  assert.ok(doc.getById("intentOptions").childElementCount >= 5, "every intent is offered");
+
+  doc.getById("intentSkip").click();
+  assert.equal(panel().hidden, true, "it can be dismissed without answering");
 });
 
 test("render smoke: an unresolved site key degrades gracefully (no throw, no brand)", async () => {
   const bg = loadBackground();
+  bg.store.askIntent = false;
   await bg.context.queueRefreshBlockingState();
   const doc = renderBlockPage(bg, "does-not-exist");
 
-  // Timer still renders; brand + reason stay hidden; nothing throws.
-  assert.ok(await waitFor(() => doc.getById("timer").textContent === "60"));
+  assert.ok(await waitFor(() => Number(doc.getById("timer").textContent) > 0), "the pause still renders");
   assert.equal(doc.getById("brand").hidden, true, "no brand line for an unknown key");
-  assert.equal(doc.getById("blockReason").hidden, true, "no block reason for an unknown key");
+  assert.equal(doc.getById("reasonPanel").hidden, true, "no reason panel for an unknown key");
+});
+
+test("render smoke: preview mode records nothing", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+  const doc = renderBlockPage(bg, "delivery-doordash-com", { preview: true });
+
+  await waitFor(() => doc.getById("altPanel") && doc.getById("altPanel").hidden === false);
+  doc.getById("chooseAlt").click();
+  await new Promise((resolve) => setTimeout(resolve, 50));
+
+  const totals = bg.store.stats ? bg.store.stats.totals : {};
+  assert.equal(totals.interruptions || 0, 0, "preview must not count an interruption");
+  assert.equal(totals.alternativesSelected || 0, 0, "preview must not count a choice");
+  assert.equal(bg.store.recentAlternatives, undefined, "preview must not write rotation history");
+  assert.equal(doc.getById("previewBanner").hidden, false, "and it says so on screen");
+});
+
+test("the block page never assigns user or catalog text to innerHTML", () => {
+  const source = fs.readFileSync(srcPath("warning.js"), "utf8");
+
+  assert.ok(!/\.innerHTML\s*=/.test(source), "warning.js must not assign innerHTML");
+  assert.ok(!/insertAdjacentHTML/.test(source), "warning.js must not use insertAdjacentHTML");
+  assert.ok(!/document\.write/.test(source), "warning.js must not use document.write");
 });
 
 // ===========================================================================
@@ -421,6 +539,7 @@ class El {
   setAttribute(n, v) {
     this.attributes[n] = String(v);
     if (n === "hidden") this.hidden = true;
+    if (n === "disabled") this.disabled = true;
     if (n.startsWith("data-")) {
       const key = n.slice(5).replace(/-([a-z])/g, (_, c) => c.toUpperCase());
       this.dataset[key] = String(v);
@@ -437,6 +556,11 @@ class El {
     return node;
   }
   addEventListener(type, fn) { (this._listeners[type] = this._listeners[type] || []).push(fn); }
+  // Dispatch a click the way a user would, so the tests exercise the page's real
+  // handlers rather than reaching into its internals.
+  click() { (this._listeners.click || []).forEach((fn) => fn({ preventDefault() {} })); }
+  focus() { this.ownerDocumentFocus = true; }
+  querySelector(sel) { return this.query(sel)[0] || null; }
   get firstChild() { return this.children[0] || null; }
   get childElementCount() { return this.children.filter((c) => c instanceof El).length; }
   set textContent(v) { this.children = []; this._text = String(v); }

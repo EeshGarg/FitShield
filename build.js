@@ -23,9 +23,16 @@
  * `background.scripts` — letting the same code run on both with no console
  * warning on either.
  *
- *   node build.js            -> dist/ staging + the packaged zips in dist/:
- *                               dist/FitShield-<version>-firefox.zip (Firefox/AMO)
- *                               dist/FitShield-<version>-chrome.zip  (Chrome Web Store)
+ *   node build.js            -> dist/ staging + the packaged zips in dist/, for
+ *                               EVERY browser target on each run:
+ *                               dist/chrome/  + dist/FitShield-<version>-chrome.zip  (Chrome Web Store)
+ *                               dist/firefox/ + dist/FitShield-<version>-firefox.zip (Firefox/AMO)
+ *                               dist/apple/   + dist/FitShield-<version>-nightly-safari.zip
+ *                                             (Safari macOS/iOS/iPadOS — NIGHTLY; the
+ *                                              Xcode wrap runs only on macOS, see
+ *                                              tools/build-safari.js + docs/SAFARI.md)
+ *                               Android is a separate native pipeline: npm run build:android
+ *                               (or `npm run build:all` to do browsers + Android in one go).
  *
  * No dependencies. Zipping is done with a tiny built-in writer (Node's zlib) so
  * archive paths always use forward slashes — Windows' Compress-Archive stores
@@ -54,6 +61,7 @@ const FILES = [
   [path.join(EXTENSION_DIR, "browser-shim.js"), "browser-shim.js"],
   [path.join(EXTENSION_DIR, "currency.js"), "currency.js"],
   [path.join(EXTENSION_DIR, "diagnostics.js"), "diagnostics.js"],
+  [path.join(EXTENSION_DIR, "fitshield-core.js"), "fitshield-core.js"],
   [path.join(EXTENSION_DIR, "i18n.js"), "i18n.js"],
   [path.join(EXTENSION_DIR, "languages.js"), "languages.js"],
   [path.join(EXTENSION_DIR, "popup.js"), "popup.js"],
@@ -197,13 +205,17 @@ function verifyStage(stageDir) {
   }
 }
 
-// Firefox needs an event page (background.scripts). blocklist.js must load
-// before background.js, which references FitShieldBlocklist.
+// Firefox needs an event page (background.scripts). Order matters: background.js
+// references both FitShieldBlocklist (the engine bundle) and FitShieldCore (the
+// shared decision layer), so both must be evaluated first. On Chromium the same
+// two files are pulled in by background.js's own importScripts call.
+const BACKGROUND_SCRIPTS = ["blocklist.js", "fitshield-core.js", "background.js"];
+
 function firefoxManifest(base) {
   const manifest = JSON.parse(JSON.stringify(base));
   manifest.background = {
     service_worker: "background.js",
-    scripts: ["blocklist.js", "background.js"]
+    scripts: BACKGROUND_SCRIPTS.slice()
   };
   return manifest;
 }
@@ -215,6 +227,24 @@ function firefoxManifest(base) {
 function chromeManifest(base) {
   const manifest = JSON.parse(JSON.stringify(base));
   delete manifest.browser_specific_settings;
+  return manifest;
+}
+
+// Safari (macOS / iOS / iPadOS) web extension — NIGHTLY / experimental.
+// Safari is MV3 and supports the same service worker + importScripts("blocklist.js")
+// path as Chromium, so the Safari payload is the Chromium form (Firefox-only
+// gecko keys stripped) with two nightly markers so the build is unmistakable in
+// Safari's Extensions pane, the wrapper app, and every locale:
+//   - name        -> literal "FitShield Nightly" (overrides __MSG_appName__)
+//   - version_name -> "<version>-nightly"
+// Apple's `safari-web-extension-converter` (macOS + Xcode only) wraps this folder
+// into the macOS + iOS/iPadOS app — see tools/build-safari.js and docs/SAFARI.md.
+const SAFARI_NIGHTLY_NAME = "FitShield Nightly";
+
+function safariManifest(base) {
+  const manifest = chromeManifest(base);
+  manifest.name = SAFARI_NIGHTLY_NAME;
+  manifest.version_name = `${manifest.version}-nightly`;
   return manifest;
 }
 
@@ -364,9 +394,22 @@ async function main() {
   const firefoxZip = path.join(DIST, `FitShield-${version}-firefox.zip`);
   zipDir(firefoxStage, firefoxZip);
 
-  console.log(`\nBuilt FitShield ${version}:`);
-  console.log(`  Firefox / AMO : ${path.relative(ROOT, firefoxZip).split(path.sep).join("/")}`);
+  // --- Apple / Safari (macOS + iOS/iPadOS) — NIGHTLY. Same payload, Safari
+  //     manifest; staged + zipped into dist/apple on EVERY build. The Xcode wrap
+  //     runs only on macOS (handled inside run()); off-Mac it stages + writes
+  //     BUILD.txt. validate:false — validateAll already ran above; announce:false
+  //     — the combined summary below reports it. Required lazily to avoid a
+  //     require cycle (build-safari.js requires this module).
+  const apple = await require("./tools/build-safari").run({ validate: false, announce: false });
+  const appleZipRel = path.relative(ROOT, apple.zipPath).split(path.sep).join("/");
+
+  console.log(`\nBuilt FitShield ${version} — all browser targets in dist/:`);
   console.log(`  Chrome / CWS  : ${path.relative(ROOT, chromeZip).split(path.sep).join("/")}`);
+  console.log(`  Firefox / AMO : ${path.relative(ROOT, firefoxZip).split(path.sep).join("/")}`);
+  console.log(
+    `  Apple / Safari: ${appleZipRel} (nightly)` +
+      (apple.converted ? " + dist/apple/xcode" : " — run on macOS for the Xcode app (dist/apple/BUILD.txt)")
+  );
   console.log(`  Android APK   : run \`npm run build:android\` (requires the Android SDK/Gradle)`);
 }
 
@@ -377,7 +420,7 @@ async function main() {
 // per-browser forms stay a checked contract. Assigned BEFORE main() may run —
 // the audit is reached from main() via validate-all, and a later assignment
 // would hand that circular require an empty exports object.
-module.exports = { bundleEngine, ENGINE_MODULES, FILES, DIRS, copyInto, verifyStage, chromeManifest, firefoxManifest };
+module.exports = { bundleEngine, ENGINE_MODULES, FILES, DIRS, BACKGROUND_SCRIPTS, copyInto, verifyStage, zipDir, chromeManifest, firefoxManifest, safariManifest, SAFARI_NIGHTLY_NAME };
 
 if (require.main === module) {
   main().catch((error) => {
