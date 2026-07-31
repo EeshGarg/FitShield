@@ -286,6 +286,59 @@ test("every major blocked category reaches an answer", () => {
   });
 });
 
+test("every craving has a vegetarian answer", () => {
+  const missing = [];
+
+  data.taxonomy.cravings.forEach((craving) => {
+    const matches = ALL.filter((entry) => entry.cravings.includes(craving));
+    const vegetarian = matches.filter((entry) => ["vegan", "vegetarian"].includes(entry.diet));
+
+    if (vegetarian.length === 0) {
+      missing.push(craving);
+    }
+  });
+
+  assert.deepEqual(missing, [], `cravings with nothing a vegetarian can eat: ${missing.join(", ")}`);
+});
+
+test("every craving has an answer that needs no stove or oven, except the fried ones", () => {
+  // You cannot make a burger, fried chicken, wings, or chips in a microwave.
+  // Pretending otherwise would be the kind of invented answer this catalog
+  // exists to avoid, so these four are documented exceptions rather than gaps.
+  // The matcher relaxes the equipment filter for them and says that it did.
+  const CANNOT_BE_DONE_WITHOUT_HEAT = ["burger", "fried-chicken", "wings", "fries"];
+  const missing = [];
+
+  data.taxonomy.cravings.forEach((craving) => {
+    if (CANNOT_BE_DONE_WITHOUT_HEAT.includes(craving)) {
+      return;
+    }
+
+    const matches = ALL.filter((entry) => entry.cravings.includes(craving));
+    const stoveFree = matches.filter(
+      (entry) => entry.noCook || entry.equipment.every((item) => ["microwave", "kettle", "toaster"].includes(item))
+    );
+
+    if (stoveFree.length === 0) {
+      missing.push(craving);
+    }
+  });
+
+  assert.deepEqual(missing, [], `cravings a microwave-only kitchen cannot answer: ${missing.join(", ")}`);
+});
+
+test("a plant answer to a chicken or wings craving says that it is a substitute", () => {
+  ALL.filter((entry) => entry.cravings.some((c) => ["fried-chicken", "chicken-sandwich", "wings"].includes(c)))
+    .filter((entry) => !entry.ingredients.some((i) => /\bchicken\b/i.test(i.item)))
+    .forEach((entry) => {
+      assert.match(
+        `${entry.title} ${entry.description}`,
+        /substitute|alternative|instead of|plant/i,
+        `${entry.id} answers a chicken craving without saying it is a stand-in`
+      );
+    });
+});
+
 test("a vegetarian, a vegan, and a microwave-only kitchen all have real choice", () => {
   const vegetarian = ALL.filter((entry) => ["vegan", "vegetarian"].includes(entry.diet));
   const vegan = ALL.filter((entry) => entry.diet === "vegan");

@@ -68,6 +68,7 @@ const ALLERGEN_WORDS = {
 const ALLERGEN_EXCEPTIONS = {
   gluten: [/\bcorn\b/i, /gluten-free/i, /\brice noodles\b/i],
   dairy: [/\b(peanut|nut|seed|almond|cashew|sunflower)\s+butter\b/i, /\bcocoa butter\b/i],
+  egg: [/\b(vegan|eggless|egg-free|plant)\b/i],
   "tree-nut": [/\bnut-free\b/i],
   soy: [/\bsoy-free\b/i]
 };
@@ -395,8 +396,10 @@ function checkDietAndAllergens(reporter, entry) {
 
   const meat = hasAny(requiredText, MEAT_WORDS);
   const fish = hasAny(requiredText, FISH_WORDS);
+  // Both go through allergenApplies so the same exceptions hold: peanut butter
+  // is not dairy, and vegan mayonnaise is not egg.
   const dairy = requiredText.some((text) => allergenApplies("dairy", text));
-  const egg = hasAny(requiredText, EGG_WORDS);
+  const egg = requiredText.some((text) => allergenApplies("egg", text));
   const honey = hasAny(requiredText, HONEY_WORDS);
 
   if (entry.diet === "vegetarian" && meat) {

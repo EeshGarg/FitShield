@@ -30,7 +30,7 @@ browsing history collection.
 
 **Then offer something to do**
 
-6. 69 alternatives — 40 full recipes and 29 quick fixes — with exact quantities, servings, temperatures, timings, equipment, allergens, and substitutions.
+6. 81 alternatives — 43 full recipes and 38 quick fixes — with exact quantities, servings, temperatures, timings, equipment, allergens, and substitutions.
 7. Deterministic local matching against the blocked brand's own category and specialties, your diet, allergens, pantry, equipment, and available time.
 8. Show another, plus Closest / Fastest / No cooking / Microwave filters.
 9. Your own custom alternatives, stored locally and included in your backup.
