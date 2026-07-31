@@ -1,5 +1,22 @@
 # FitShield — Google Play Store Listing Draft
 
+> [!WARNING]
+> **This draft is stale as of 0.55 and must not be submitted as written.**
+>
+> It describes the pre-0.55 product: two fixed recipe cards, a single
+> all-or-nothing bypass, and "calories avoided" as a headline figure. None of
+> those exist any more. The listing rewrite is a separate task and is
+> deliberately not done here.
+>
+> Verified facts to write the new copy from are in
+> [`../README.md`](../README.md) (what it does), [`STORAGE.md`](STORAGE.md)
+> (what is and is not stored — the source for any data-safety disclosure), and
+> [`../changelog/0.55.md`](../changelog/0.55.md) (what changed).
+>
+> The claims guardrail below still stands, and 0.55 tightens it: FitShield must
+> not claim a prevented order, avoided calories, money saved, or any weight
+> outcome, because it cannot observe any of them.
+
 _Draft copy + asset checklists for the Play Console listing. Pairs with
 [PLAY_STORE_RELEASE_CHECKLIST.md](PLAY_STORE_RELEASE_CHECKLIST.md) (build/process)
 and [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md)

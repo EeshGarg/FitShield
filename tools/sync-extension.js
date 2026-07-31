@@ -98,6 +98,23 @@ function writeArtifacts() {
   return written;
 }
 
+// The Android app bundles the SAME canonical web assets (i18n, currency,
+// recipes, the recipe catalog, all 83 locales). They are copied by
+// tools/build-android.js, which also needs the Android SDK — so before this,
+// every ordinary locale or catalog edit left the Android bundle stale and failed
+// `npm run validate` until someone ran a full Android build. Copying the assets
+// here keeps both in step from one command; the SDK is still only needed to
+// produce an APK.
+function syncAndroidWebAssets() {
+  try {
+    require("./build-android.js").bundleWeb();
+    return true;
+  } catch (error) {
+    console.warn(`Could not refresh the Android web assets: ${error.message}`);
+    return false;
+  }
+}
+
 if (require.main === module) {
   if (process.argv.includes("--check")) {
     const stale = staleArtifacts();
@@ -115,6 +132,7 @@ if (require.main === module) {
 
   const written = writeArtifacts();
   console.log("Synced " + written.length + " artifact(s) into extension/:\n  " + written.join("\n  "));
+  syncAndroidWebAssets();
 }
 
-module.exports = { COPIES, GENERATED_BUNDLE, expectedArtifacts, staleArtifacts, writeArtifacts, EXTENSION_DIR };
+module.exports = { COPIES, GENERATED_BUNDLE, expectedArtifacts, staleArtifacts, writeArtifacts, syncAndroidWebAssets, EXTENSION_DIR };

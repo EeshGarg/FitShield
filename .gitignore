@@ -19,3 +19,6 @@ keystore.properties
 android/keystore.properties
 *.jks
 *.keystore
+
+# Translator worklists written by tools/locale-status.js --todo
+translations/

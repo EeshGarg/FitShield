@@ -135,6 +135,64 @@ test("a missing translation falls back to English rather than rendering blank", 
   assert.equal(i18n.t(""), "");
 });
 
+test("the translator worklist tool reports the real gap", () => {
+  const localeStatus = require("../tools/locale-status.js");
+  const { enKeys, rows } = localeStatus.status();
+
+  assert.equal(enKeys.length, Object.keys(en).length);
+  assert.equal(rows.length, dirs.length - 1, "every non-English locale is reported");
+
+  rows.forEach((row) => {
+    assert.equal(row.translated + row.missing, enKeys.length, `${row.code} accounting does not add up`);
+    assert.ok(row.percent >= 0 && row.percent <= 100);
+  });
+});
+
+test("a merged translation cannot drop or invent a placeholder", () => {
+  // This is the failure that renders a string with a hole in it, so the merge
+  // refuses it rather than writing it. Exercised against a temp copy so the real
+  // locale files are untouched.
+  const os = require("node:os");
+  const localeStatus = require("../tools/locale-status.js");
+
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "fs-locale-"));
+  const file = path.join(dir, "worklist.json");
+
+  // Pick a real English key that takes a placeholder.
+  const key = Object.keys(en).find((name) => /\$1/.test(en[name].message));
+  assert.ok(key, "the English locale should have at least one placeholder string");
+
+  fs.writeFileSync(
+    file,
+    JSON.stringify({
+      locale: "de",
+      strings: {
+        [key]: { english: en[key].message, translation: "no placeholder here" },
+        notARealKey: { english: "x", translation: "y" }
+      }
+    })
+  );
+
+  const before = fs.readFileSync(path.join(localesDir, "de", "messages.json"), "utf8");
+  const errors = [];
+  const originalError = console.error;
+  const originalLog = console.log;
+  console.error = (...args) => errors.push(args.join(" "));
+  console.log = () => {};
+
+  try {
+    localeStatus.merge("de", file);
+  } finally {
+    console.error = originalError;
+    console.log = originalLog;
+  }
+
+  const after = fs.readFileSync(path.join(localesDir, "de", "messages.json"), "utf8");
+  assert.equal(after, before, "a rejected worklist must not modify the locale file");
+  assert.ok(errors.some((line) => /placeholders differ/.test(line)), "the placeholder loss is reported");
+  assert.ok(errors.some((line) => /not an English key/.test(line)), "an unknown key is reported");
+});
+
 test("locale coverage is reported, not silently ignored", () => {
   // The audit must surface untranslated keys as warnings so the debt is visible.
   const localeParity = require("../tools/locale-parity.js");

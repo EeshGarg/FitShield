@@ -79,20 +79,35 @@ source folder loads unpacked; pass nothing to build a temp package and prove tha
 5. **Confirm the redirect + block screen renders**
    - [ ] The navigation is redirected to the FitShield block page
          (`chrome-extension://…/warning.html?...`).
-   - [ ] The page shows the “Take one minute” card, the brand it interrupted,
-         the “Why you’re seeing this” panel (domain / type / category / country),
-         a countdown timer, and two recipe alternative columns.
+   - [ ] The page shows the “Take a moment” card, the brand it interrupted, a
+         countdown, and **one** alternative with its ingredients and steps.
+   - [ ] Expanding “Why was this interrupted?” shows domain / type / category /
+         countries.
+   - [ ] **Show another** changes the alternative; the Closest / Fastest /
+         No cooking / Microwave filters each change it too.
    - [ ] No CSP or module errors in the block page’s DevTools console.
 
-6. **Confirm stats increment**
-   - [ ] Open the popup (or settings → stats). The blocked-visits count went up
+6. **Confirm the statistics move, and only the right ones**
+   - [ ] Open settings → Protection Status. “Ordering pages interrupted” went up
          by one after the block page showed.
-   - [ ] Pick “I’ll make this instead” on a recipe → the calories-avoided /
-         recipes-chosen stats increment.
+   - [ ] Pick **I’ll make this** → “Alternatives you chose” increments and the
+         page says it has recorded an intention, not a meal.
+   - [ ] “Alternatives you marked as made” stays at its previous value until you
+         confirm it yourself from the popup.
 
 7. **Confirm the continue flow**
-   - [ ] When the timer reaches 0, **Continue** unlocks; clicking it opens the
-         brand’s site and does not immediately re-block (temporary pass works).
+   - [ ] When the countdown reaches 0, **Continue anyway** unlocks.
+   - [ ] Clicking it offers the pass options (once / 10 min / 30 min / until the
+         tab closes / pause everything). Choosing one opens the brand’s site and
+         does not immediately re-block.
+   - [ ] Returning to the same brand soon afterwards shows a slightly longer
+         pause **with an on-screen explanation of why**.
+
+7b. **Confirm preview mode records nothing**
+   - [ ] Settings → Preview and test → **Preview the block page**. The banner
+         says nothing is recorded.
+   - [ ] Use it fully (show another, choose one, open the pass options). None of
+         the statistics in settings change, and the real site stays blocked.
 
 8. **No console errors anywhere**
    - [ ] Service worker console: clean.

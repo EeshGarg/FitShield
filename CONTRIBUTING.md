@@ -48,7 +48,7 @@ root is **not** a loadable unpacked extension — build first, then load
 ### Validate
 
 ```bash
-npm run sync         # refresh extension/'s committed runtime artifacts (after engine/data edits)
+npm run sync         # refresh extension/ AND the Android bundle after engine/data/locale edits
 npm run validate     # all audits (datasets, locales, docs, assets, extension sync)
 npm test             # unit tests + validators
 ```
@@ -188,7 +188,12 @@ Settings → **Report a problem** composes the report locally, shows you verbati
 what it would say, strips paths and query strings down to a bare domain, and then
 lets you copy it or open a mail draft. Nothing is transmitted by FitShield.
 
-### Add a locale
+### Add or extend a locale
+
+See [`docs/LOCALIZATION.md`](docs/LOCALIZATION.md) for the full workflow —
+`npm run locales:status` shows what is missing, and
+`node tools/locale-status.js --todo <locale>` writes a translator worklist you
+can fill in and merge back safely.
 
 1. Create `extension/_locales/<code>/messages.json`. English is the source of
    truth and must be complete; other locales may be partial. A key you leave out

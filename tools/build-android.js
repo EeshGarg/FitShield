@@ -226,7 +226,15 @@ function newestApk(dir) {
   return found.sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0] || null;
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+// bundleWeb is exported so `npm run sync` can refresh the Android web assets
+// too. They are copied from the same canonical sources as the browser build, so
+// leaving them to the (heavyweight, SDK-dependent) Android build meant the audit
+// failed on drift after every ordinary data or locale edit.
+module.exports = { bundleWeb, WEB_COPIES, WEB_DIR_COPIES, WEB_DIR };
+
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
