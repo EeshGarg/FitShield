@@ -352,6 +352,44 @@
       outline: 2px solid var(--accent);
       outline-offset: 2px;
     }
+    /* ---- Weekly recap + the optional "did you make it?" follow-up ---- */
+
+    .made-prompt {
+      margin: 10px 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--panel-soft);
+    }
+    .made-prompt[hidden] { display: none; }
+    .made-prompt-text { font-size: 0.88rem; margin-bottom: 10px; }
+    .made-prompt-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .made-prompt-actions .button { flex: 1 1 auto; min-height: 40px; }
+
+    .popup-recap {
+      margin: 10px 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--panel-soft);
+    }
+    .popup-recap[hidden] { display: none; }
+    .popup-recap-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .popup-recap-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4px 12px;
+      margin: 0;
+      font-size: 0.86rem;
+    }
+    .popup-recap-grid dt { color: var(--muted); margin: 0; }
+    .popup-recap-grid dd { margin: 0; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
   </style>
 </head>
 <body>
@@ -376,11 +414,28 @@
       </div>
 
       <div class="search-row">
-        <input id="popupSearchInput" class="text-input" type="search" placeholder="Search site name or URL" data-i18n-placeholder="searchSitePlaceholder">
+        <input id="popupSearchInput" class="text-input" type="search" placeholder="Search site name or URL" aria-label="Search site name or URL" data-i18n-placeholder="searchSitePlaceholder" data-i18n-aria-label="searchSitePlaceholder">
         <button id="popupSearchButton" class="button secondary" type="button" data-i18n="searchButton">Search</button>
       </div>
 
       <div id="status" class="status" aria-live="polite"></div>
+
+      <!-- A voluntary follow-up on something the user said they would make.
+           Shown once, dismissible, never nagging: it appears only when there is
+           a pending choice, and "Not this time" removes it without judgement. -->
+      <div id="madePrompt" class="made-prompt" hidden>
+        <div class="made-prompt-text" id="madePromptText"></div>
+        <div class="made-prompt-actions">
+          <button id="markMade" class="button" type="button" data-i18n="popupMarkMadeButton">Yes, I made it</button>
+          <button id="dismissMade" class="button secondary" type="button" data-i18n="popupMarkMadeDismiss">Not this time</button>
+        </div>
+      </div>
+
+      <!-- Local, optional, counts only. -->
+      <div id="popupRecap" class="popup-recap" hidden>
+        <div class="popup-recap-title" data-i18n="popupRecapTitle">Last 7 days</div>
+        <dl class="popup-recap-grid" id="popupRecapGrid"></dl>
+      </div>
 
       <div class="field">
         <div class="row">

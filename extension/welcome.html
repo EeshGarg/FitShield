@@ -140,6 +140,44 @@
       outline: 2px solid var(--accent);
       outline-offset: 2px;
     }
+    /* Onboarding answer buttons. Selection is carried by aria-pressed and a
+       visible check mark, never by colour alone. */
+    .onboard-choices {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .onboard-choices button {
+      min-height: 52px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.98rem;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .onboard-choices button:hover { background: rgba(255, 255, 255, 0.07); }
+    .onboard-choices button[aria-pressed="true"] {
+      border-color: var(--accent);
+      background: rgba(126, 240, 168, 0.14);
+      font-weight: 600;
+    }
+    .onboard-choices button[aria-pressed="true"]::before { content: "✓ "; }
+    .onboard-choices .sub {
+      display: block;
+      margin-top: 3px;
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .onboard-choices button { transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -154,7 +192,7 @@
     <section class="step" data-step="1">
       <h2 data-i18n="welcomeLangTitle">Choose your language</h2>
       <p data-i18n="welcomeLangBody">This sets the language for FitShield's popup, settings, and block screen.</p>
-      <select id="languageSelect"></select>
+      <select id="languageSelect" aria-label="Language" data-i18n-aria-label="languageSelectLabel"></select>
     </section>
 
     <!-- Step 2: theme -->
@@ -168,57 +206,39 @@
       </div>
     </section>
 
-    <!-- Step 3: fast food -->
+    <!-- Step 3: what to interrupt. One question instead of two toggles. -->
     <section class="step" data-step="3">
-      <h2 data-i18n="welcomeFastFoodTitle">Block fast-food ordering</h2>
-      <p data-i18n="welcomeFastFoodBody">Adds a pause screen on major fast-food chains' ordering pages.</p>
-      <div class="choice-row">
-        <div>
-          <div class="label" data-i18n="popupFastFoodLabel">Fast food sites</div>
-          <div class="desc" data-i18n="welcomeRecommendedOn">Recommended on.</div>
-        </div>
-        <label class="toggle">
-          <input id="fastFoodToggle" type="checkbox">
-          <span class="slider"></span>
-        </label>
-      </div>
+      <h2 id="interruptTitle" data-i18n="onboardingInterruptQuestion">What should FitShield interrupt?</h2>
+      <p data-i18n="welcomeDeliveryBody">A short pause screen replaces the ordering page, with something you could make instead.</p>
+      <div class="onboard-choices" id="interruptChoices" role="group" aria-labelledby="interruptTitle"></div>
     </section>
 
-    <!-- Step 4: delivery -->
+    <!-- Step 4: when. -->
     <section class="step" data-step="4">
-      <h2 data-i18n="welcomeDeliveryTitle">Block delivery apps</h2>
-      <p data-i18n="welcomeDeliveryBody">Adds a pause screen on delivery platforms like DoorDash and Uber Eats.</p>
-      <div class="choice-row">
-        <div>
-          <div class="label" data-i18n="popupDeliveryLabel">Delivery sites</div>
-          <div class="desc" data-i18n="welcomeRecommendedOn">Recommended on.</div>
-        </div>
-        <label class="toggle">
-          <input id="deliveryToggle" type="checkbox">
-          <span class="slider"></span>
-        </label>
-      </div>
+      <h2 id="whenTitle" data-i18n="onboardingWhenQuestion">When should FitShield step in?</h2>
+      <p data-i18n="scheduleIntro">Times follow your device clock, so they keep their meaning across daylight-saving changes.</p>
+      <div class="onboard-choices" id="whenChoices" role="group" aria-labelledby="whenTitle"></div>
     </section>
 
-    <!-- Step 5: import -->
+    <!-- Step 5: how much friction. -->
     <section class="step" data-step="5">
-      <h2 data-i18n="welcomeImportTitle">Restore a backup (optional)</h2>
-      <p data-i18n="welcomeImportBody">Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue.</p>
-      <button id="importButton" class="btn secondary" type="button" data-i18n="welcomeImportButton">Import settings file</button>
-      <input id="importInput" type="file" accept="application/json,.json" hidden>
-      <div class="notice" id="importNotice"></div>
+      <h2 id="frictionTitle" data-i18n="onboardingFrictionQuestion">How much friction do you want?</h2>
+      <p data-i18n="frictionIntro">Pick a starting point. You can change any value afterwards — doing so simply moves you to Custom.</p>
+      <div class="onboard-choices" id="frictionChoices" role="group" aria-labelledby="frictionTitle"></div>
     </section>
 
-    <!-- Step 6: how it works -->
+    <!-- Step 6: see it, and optionally restore a backup. -->
     <section class="step" data-step="6">
-      <h2 data-i18n="welcomeHelpTitle">How FitShield helps</h2>
-      <p data-i18n="welcomeHelpBody">A quick tour of the main features.</p>
-      <div class="explainers">
-        <div class="explainer"><b data-i18n="welcomeFeaturePauseTitle">Pause timer</b><span data-i18n="welcomeFeaturePauseBody">When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order.</span></div>
-        <div class="explainer"><b data-i18n="welcomeFeatureScheduleTitle">Schedule</b><span data-i18n="welcomeFeatureScheduleBody">Optionally block only during set hours, like evenings or work time.</span></div>
-        <div class="explainer"><b data-i18n="welcomeFeatureWhitelistTitle">Whitelist</b><span data-i18n="welcomeFeatureWhitelistBody">Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it.</span></div>
-        <div class="explainer"><b data-i18n="welcomeFeatureRecipeTitle">Recipe ideas</b><span data-i18n="welcomeFeatureRecipeBody">The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked.</span></div>
-      </div>
+      <h2 data-i18n="onboardingPreviewTitle">This is what happens</h2>
+      <p data-i18n="onboardingPreviewBody">When you open one of those sites, FitShield replaces the page with a short pause and one thing you could make instead. You can always go back, or continue on purpose.</p>
+      <button id="previewButton" class="btn" type="button" data-i18n="onboardingPreviewButton">Show me</button>
+
+      <p class="desc" data-i18n="welcomeImportBody">Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue.</p>
+      <button id="importButton" class="btn secondary" type="button" data-i18n="welcomeImportButton">Import settings file</button>
+      <input id="importInput" type="file" accept="application/json,.json" aria-label="Import settings" data-i18n-aria-label="welcomeImportButton" hidden>
+      <div class="notice" id="importNotice"></div>
+
+      <p class="desc" data-i18n="onboardingAdvancedNote">Everything else — countries, categories, individual sites, your kitchen, and your own alternatives — is in settings whenever you want it.</p>
     </section>
 
     <div class="nav">
@@ -233,6 +253,7 @@
   <script src="backup.js"></script>
   <script src="browser-shim.js"></script>
   <script src="i18n.js"></script>
+  <script src="fitshield-core.js"></script>
   <script src="welcome.js"></script>
 </body>
 </html>

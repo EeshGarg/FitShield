@@ -776,6 +776,25 @@
     return totals;
   }
 
+  // A { key: positive integer } map, defensively rebuilt. Junk keys and values
+  // are dropped rather than carried into the stats panel.
+  function normalizeCountMap(value) {
+    const source = safeObject(value);
+    const out = {};
+
+    Object.keys(source)
+      .slice(0, 2000)
+      .forEach((key) => {
+        const count = Number(source[key]);
+
+        if (key.trim() && Number.isFinite(count) && count > 0) {
+          out[key] = Math.floor(count);
+        }
+      });
+
+    return out;
+  }
+
   function normalizeStatHistory(value) {
     return (Array.isArray(value) ? value : [])
       .map((entry) => {
@@ -1009,6 +1028,39 @@
       .map((entry, index) => sanitizeCustomAlternative(entry, { seq: index }))
       .filter((result) => result.ok)
       .map((result) => result.value);
+  }
+
+  // ===========================================================================
+  // Problem reports
+  // ===========================================================================
+  //
+  // A report is composed locally and only ever leaves the device if the user
+  // sends it themselves. This reduces whatever they typed to the smallest thing
+  // that is still useful to a maintainer: a bare hostname. Paths, query strings,
+  // fragments, ports, and credentials are all discarded, because those are the
+  // parts that can carry an order id, a search term, or a session token.
+
+  function redactReportSubject(value) {
+    const text = String(value == null ? "" : value).trim();
+
+    if (!text) {
+      return "";
+    }
+
+    try {
+      const url = new URL(text.includes("://") ? text : `https://${text}`);
+      const host = url.hostname.replace(/^www\./, "").toLowerCase();
+
+      // A bare word parses as a hostname too; only accept something that looks
+      // like a domain, otherwise fall through to plain text.
+      if (/^[a-z0-9.-]+\.[a-z]{2,}$/.test(host)) {
+        return host;
+      }
+    } catch (error) {
+      // Not a URL — fall through and treat it as a plain label.
+    }
+
+    return cleanText(text, 120);
   }
 
   // ===========================================================================
@@ -1316,6 +1368,12 @@
         history: normalizeStatHistory(safeObject(get("stats")).history)
       },
 
+      // Aggregate brand breakdowns. Counts only, keyed by curated blocklist
+      // metadata — never a URL, path, or anything from the user's history.
+      blockedByDomain: normalizeCountMap(get("blockedByDomain")),
+      blockedByCategory: normalizeCountMap(get("blockedByCategory")),
+      blockedByCountry: normalizeCountMap(get("blockedByCountry")),
+
       showEstimates: get("showEstimates") === true,
       recapEnabled: get("recapEnabled") !== false,
       recapDismissedFor: String(get("recapDismissedFor") || "").slice(0, 16)
@@ -1379,6 +1437,7 @@
     STAT_EVENTS,
     emptyStatTotals,
     normalizeStatTotals,
+    normalizeCountMap,
     normalizeStatHistory,
     applyStatEvent,
     weeklyRecap,
@@ -1395,6 +1454,7 @@
 
     // custom alternatives
     CUSTOM_LIMITS,
+    redactReportSubject,
     sanitizeCustomAlternative,
     normalizeCustomAlternatives,
 

@@ -1110,6 +1110,162 @@
         justify-content: flex-start;
       }
     }
+    /* ---- Preference sections (friction, schedule, kitchen, custom
+       alternatives, recap, preview, reporting). Reuses the page's existing
+       tokens so these read as part of the same settings page. ---- */
+
+    .pref-choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    /* Selectable chip. State is carried by aria-pressed AND a visible check
+       mark, so it is never signalled by colour alone. */
+    .pref-chip {
+      min-height: 40px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--panel-soft, rgba(255, 255, 255, 0.03));
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .pref-chip:hover { background: var(--panel-strong, rgba(255, 255, 255, 0.06)); }
+    .pref-chip[aria-pressed="true"] {
+      background: color-mix(in srgb, var(--accent) 16%, transparent);
+      border-color: var(--accent);
+      color: var(--text);
+      font-weight: 600;
+    }
+    .pref-chip[aria-pressed="true"]::before { content: "✓ "; }
+
+    .pref-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-top: 1px solid var(--border);
+    }
+    .pref-row:first-of-type { border-top: 0; }
+    .pref-row button { min-height: 40px; }
+
+    .pref-field { margin: 14px 0; }
+    .pref-field select,
+    .pref-field input[type="text"],
+    .pref-field input[type="number"],
+    .pref-field textarea {
+      width: 100%;
+      min-height: 40px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel-soft, rgba(255, 255, 255, 0.03));
+      color: var(--text);
+      font: inherit;
+    }
+    .pref-field textarea { resize: vertical; }
+    .pref-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .pref-note {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin: 8px 0 0;
+      line-height: 1.5;
+    }
+
+    .pref-list { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
+    .pref-item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--panel-soft, rgba(255, 255, 255, 0.03));
+    }
+    .pref-item-main { flex: 1 1 200px; }
+    .pref-item-title { font-weight: 600; }
+    .pref-item-sub { font-size: 0.82rem; color: var(--muted); }
+    .pref-item-actions { display: flex; gap: 8px; }
+    .pref-item-actions button { min-height: 38px; padding: 8px 12px; font-size: 0.85rem; }
+
+    .pref-window {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .pref-window .days { display: flex; flex-wrap: wrap; gap: 4px; }
+    .pref-window .day {
+      min-width: 40px;
+      min-height: 38px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .pref-window .day[aria-pressed="true"] {
+      background: color-mix(in srgb, var(--accent) 20%, transparent);
+      border-color: var(--accent);
+      color: var(--text);
+      font-weight: 700;
+    }
+    .pref-window input[type="time"] {
+      min-height: 38px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel-soft, rgba(255, 255, 255, 0.03));
+      color: var(--text);
+      font: inherit;
+    }
+
+    .pref-form { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+
+    .pref-preview {
+      margin: 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--panel-soft, rgba(255, 255, 255, 0.03));
+      color: var(--muted);
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 220px;
+      overflow: auto;
+    }
+
+    .toggle-inline { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+
+    .recap-figure { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; }
+    .recap-figure + .recap-figure { border-top: 1px solid var(--border); }
+    .recap-value { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pref-chip { transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -1221,12 +1377,197 @@
       </div>
     </section>
 
+    <!-- How much friction. Presets write into the same values below, so choosing
+         one is a starting point rather than a mode you get locked into. -->
+    <section id="friction" class="section">
+      <h2 data-i18n="frictionHeading">How much friction</h2>
+      <p data-i18n="frictionIntro">Pick a starting point. You can change any value afterwards — doing so simply moves you to Custom.</p>
+      <div class="pref-choices" id="frictionPresets" role="group" data-i18n-aria-label="frictionHeading"></div>
+      <p class="pref-note" id="frictionCurrent"></p>
+
+      <div class="pref-row">
+        <div>
+          <label for="askIntentToggle" data-i18n="askIntentLabel">Ask what brought me here</label>
+          <small data-i18n="askIntentHint">A short, skippable question on the block page. The answer is never saved.</small>
+        </div>
+        <label class="toggle"><input id="askIntentToggle" type="checkbox"><span class="slider"></span></label>
+      </div>
+
+      <div class="pref-row">
+        <div>
+          <label for="repeatFrictionToggle" data-i18n="repeatFrictionLabel">Longer pause on repeat visits</label>
+          <small data-i18n="repeatFrictionHint">Adds one small, fixed amount of extra pause if you come back to the same site soon after continuing. It never grows beyond that, and the block page always says why.</small>
+        </div>
+        <label class="toggle"><input id="repeatFrictionToggle" type="checkbox"><span class="slider"></span></label>
+      </div>
+    </section>
+
+    <!-- Schedule: presets first, the full editor behind a disclosure. -->
+    <section id="schedule" class="section full">
+      <h2 data-i18n="scheduleHeading">When FitShield is on</h2>
+      <p data-i18n="scheduleIntro">Times follow your device clock, so they keep their meaning across daylight-saving changes.</p>
+
+      <div class="pref-choices" id="schedulePresets" role="group" data-i18n-aria-label="scheduleHeading"></div>
+      <p class="pref-note" id="scheduleStatus" role="status"></p>
+
+      <div class="pref-row">
+        <button id="blockUntilTomorrow" class="secondary" type="button" data-i18n="blockUntilTomorrow">Block until tomorrow</button>
+        <button id="clearScheduleOverride" class="secondary" type="button" hidden data-i18n="clearScheduleOverride">Cancel that</button>
+      </div>
+
+      <details id="scheduleAdvanced">
+        <summary data-i18n="scheduleAdvancedSummary">Advanced: set your own windows</summary>
+        <div id="scheduleWindows" class="pref-list"></div>
+        <div class="pref-row">
+          <button id="addScheduleWindow" class="secondary" type="button" data-i18n="addScheduleWindow">Add a window</button>
+        </div>
+        <p class="pref-note" data-i18n="scheduleOvernightHint">A window whose end time is earlier than its start crosses midnight, and belongs to the day it starts on.</p>
+      </details>
+    </section>
+
+    <!-- Kitchen preferences. Ranking input, never an inventory: no quantities,
+         no dates, no shopping history. -->
+    <section id="kitchen" class="section full">
+      <h2 data-i18n="kitchenHeading">Your kitchen</h2>
+      <p data-i18n="kitchenIntro">Optional. This only changes the order alternatives are suggested in — nothing is ever hidden from you, and no quantities, dates, or shopping history are stored.</p>
+
+      <div class="pref-field">
+        <label for="dietSelect" data-i18n="dietLabel">Diet</label>
+        <select id="dietSelect"></select>
+        <small data-i18n="dietHint">A stricter diet is a hard filter: you will never be shown something that breaks it.</small>
+      </div>
+
+      <div class="pref-field">
+        <span class="pref-label" id="allergenLabel" data-i18n="allergenLabel">Allergens to avoid</span>
+        <div class="pref-choices" id="allergenChips" role="group" aria-labelledby="allergenLabel"></div>
+        <small data-i18n="allergenHint">Also a hard filter. FitShield uses the declared allergens in its own catalog and cannot check what you cook.</small>
+      </div>
+
+      <div class="pref-field">
+        <span class="pref-label" id="equipmentLabel" data-i18n="equipmentLabel">What you can cook with</span>
+        <div class="pref-choices" id="equipmentChips" role="group" aria-labelledby="equipmentLabel"></div>
+      </div>
+
+      <div class="pref-field">
+        <span class="pref-label" id="pantryLabel" data-i18n="pantryLabel">Things you usually keep in</span>
+        <div class="pref-choices" id="pantryChips" role="group" aria-labelledby="pantryLabel"></div>
+      </div>
+    </section>
+
+    <!-- The user's own emergency meals. -->
+    <section id="custom-alternatives" class="section full">
+      <h2 data-i18n="customAltHeading">Your own alternatives</h2>
+      <p data-i18n="customAltIntro">Add the things you actually make. They appear alongside the built-in suggestions, stay on this device, and are included in your backup.</p>
+
+      <div id="customAltList" class="pref-list"></div>
+      <p class="pref-note" id="customAltEmpty" data-i18n="customAltEmpty">You have not added any yet.</p>
+
+      <form id="customAltForm" class="pref-form">
+        <div class="pref-field">
+          <label for="customAltName" data-i18n="customAltNameLabel">Name</label>
+          <input id="customAltName" type="text" maxlength="80" required>
+        </div>
+        <div class="pref-field">
+          <label for="customAltDescription" data-i18n="customAltDescriptionLabel">One line about it (optional)</label>
+          <input id="customAltDescription" type="text" maxlength="200">
+        </div>
+        <div class="pref-field">
+          <label for="customAltIngredients" data-i18n="customAltIngredientsLabel">Ingredients, one per line</label>
+          <textarea id="customAltIngredients" rows="4"></textarea>
+        </div>
+        <div class="pref-field">
+          <label for="customAltSteps" data-i18n="customAltStepsLabel">Steps, one per line</label>
+          <textarea id="customAltSteps" rows="4" required></textarea>
+        </div>
+        <div class="pref-field">
+          <label for="customAltMinutes" data-i18n="customAltMinutesLabel">About how many minutes</label>
+          <input id="customAltMinutes" type="number" min="1" max="1440" value="10">
+        </div>
+        <div class="pref-field">
+          <label for="customAltDiet" data-i18n="customAltDietLabel">Diet</label>
+          <select id="customAltDiet"></select>
+        </div>
+        <div class="pref-field">
+          <span class="pref-label" id="customAltEquipLabel" data-i18n="customAltEquipmentLabel">Equipment it needs</span>
+          <div class="pref-choices" id="customAltEquipment" role="group" aria-labelledby="customAltEquipLabel"></div>
+        </div>
+        <div class="pref-field">
+          <span class="pref-label" id="customAltCravingLabel" data-i18n="customAltCravingsLabel">When should it be suggested?</span>
+          <div class="pref-choices" id="customAltCravings" role="group" aria-labelledby="customAltCravingLabel"></div>
+        </div>
+        <div class="pref-row">
+          <button id="customAltSave" class="primary" type="submit" data-i18n="customAltSave">Save alternative</button>
+          <button id="customAltCancel" class="secondary" type="button" hidden data-i18n="customAltCancel">Cancel edit</button>
+        </div>
+        <p class="pref-note" id="customAltNotice" role="status"></p>
+      </form>
+    </section>
+
+    <!-- A restrained, local, entirely optional weekly summary. -->
+    <section id="weekly-recap" class="section">
+      <h2 data-i18n="recapHeading">This week</h2>
+      <div id="recapBody" class="pref-list"></div>
+      <div class="pref-row">
+        <label class="toggle-inline">
+          <input id="recapEnabled" type="checkbox">
+          <span data-i18n="recapEnabledLabel">Show this summary</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- See exactly what an interruption looks like, without visiting a real
+         ordering service and without touching any real number. -->
+    <section id="preview-test" class="section">
+      <h2 data-i18n="previewHeading">Preview and test</h2>
+      <p data-i18n="previewIntro">Open a simulated interruption so you can see the block page, the countdown, an alternative, and the pass options.</p>
+      <div class="pref-field">
+        <label for="previewCategory" data-i18n="previewCategoryLabel">Pretend it was a</label>
+        <select id="previewCategory"></select>
+      </div>
+      <div class="pref-row">
+        <button id="openPreview" class="primary" type="button" data-i18n="previewOpen">Preview the block page</button>
+        <button id="openDiagnostics" class="secondary" type="button" data-i18n="previewDiagnostics">Check FitShield is working</button>
+      </div>
+      <p class="pref-note" data-i18n="previewRecordsNothing">In preview nothing is recorded: no interruption is counted, no alternative is added to your history, no pass is granted, and no site is unblocked.</p>
+    </section>
+
+    <!-- Corrections. Local-first: nothing is transmitted unless you send it. -->
+    <section id="report" class="section full">
+      <h2 data-i18n="reportHeading">Report a problem</h2>
+      <p data-i18n="reportIntro">FitShield never sends anything on its own. Fill this in, see exactly what it would say, then copy it or open a pre-filled message yourself.</p>
+
+      <div class="pref-field">
+        <label for="reportType" data-i18n="reportTypeLabel">What is wrong?</label>
+        <select id="reportType"></select>
+      </div>
+      <div class="pref-field">
+        <label for="reportSubject" data-i18n="reportSubjectLabel">Which site or alternative?</label>
+        <input id="reportSubject" type="text" maxlength="120" placeholder="example.com" data-i18n-placeholder="reportSubjectPlaceholder">
+      </div>
+      <div class="pref-field">
+        <label for="reportDetails" data-i18n="reportDetailsLabel">Anything else (optional)</label>
+        <textarea id="reportDetails" rows="3" maxlength="800"></textarea>
+      </div>
+
+      <div class="pref-field">
+        <span class="pref-label" id="reportPreviewLabel" data-i18n="reportPreviewLabel">Exactly what would be sent</span>
+        <pre id="reportPreview" class="pref-preview" tabindex="0" aria-labelledby="reportPreviewLabel"></pre>
+      </div>
+
+      <div class="pref-row">
+        <button id="reportCopy" class="primary" type="button" data-i18n="reportCopy">Copy this report</button>
+        <button id="reportMail" class="secondary" type="button" data-i18n="reportMail">Open an email draft</button>
+      </div>
+      <p class="pref-note" id="reportNotice" role="status"></p>
+      <p class="pref-note" data-i18n="reportPrivacyNote">Query strings are stripped and only the domain is included. Your browsing history, page contents, settings, and statistics are never part of a report.</p>
+    </section>
+
     <section id="customize-blocklist" class="section full">
       <h2 data-i18n="customizeBlocklistHeading">Customize Blocklist</h2>
       <p data-i18n="customizeBlocklistIntro">Choose which built-in groups are active, turn individual sites on or off, and add your own domains.</p>
 
       <div class="search-controls">
-        <input id="blocklistSearchInput" type="search" placeholder="Search site name or URL" data-i18n-placeholder="searchSitePlaceholder">
+        <input id="blocklistSearchInput" type="search" placeholder="Search site name or URL" aria-label="Search site name or URL" data-i18n-placeholder="searchSitePlaceholder" data-i18n-aria-label="searchSitePlaceholder">
         <button id="blocklistSearchButton" class="secondary" type="button" data-i18n="searchButton">Search</button>
         <button id="clearBlocklistSearch" class="secondary" type="button" data-i18n="clearButton">Clear</button>
       </div>
@@ -1437,7 +1778,7 @@
         <button id="importSettings" class="secondary" type="button" data-i18n="importSettingsButton">Import settings</button>
       </div>
 
-      <input id="importSettingsInput" type="file" accept="application/json,.json" hidden>
+      <input id="importSettingsInput" type="file" accept="application/json,.json" aria-label="Import settings" data-i18n-aria-label="importSettingsButton" hidden>
       <div id="backupNotice" class="notice" aria-live="polite"></div>
     </section>
 
@@ -1497,6 +1838,8 @@
   <script src="backup.js"></script>
   <script src="browser-shim.js"></script>
   <script src="i18n.js"></script>
+  <script src="fitshield-core.js"></script>
   <script src="settings.js"></script>
+  <script src="preferences.js"></script>
 </body>
 </html>

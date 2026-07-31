@@ -1228,5 +1228,410 @@
   },
   "passScopeAll": {
     "message": "All blocking"
+  },
+  "frictionHeading": {
+    "message": "How much friction"
+  },
+  "frictionIntro": {
+    "message": "Pick a starting point. You can change any value afterwards — doing so simply moves you to Custom."
+  },
+  "frictionLight": {
+    "message": "Light"
+  },
+  "frictionStandard": {
+    "message": "Standard"
+  },
+  "frictionStrict": {
+    "message": "Strict"
+  },
+  "frictionSummary": {
+    "message": "$1-second pause, then the site stays open for $2 minutes."
+  },
+  "frictionCustomSummary": {
+    "message": "Custom: $1-second pause, then the site stays open for $2 minutes."
+  },
+  "askIntentLabel": {
+    "message": "Ask what brought me here"
+  },
+  "askIntentHint": {
+    "message": "A short, skippable question on the block page. The answer is never saved."
+  },
+  "repeatFrictionLabel": {
+    "message": "Longer pause on repeat visits"
+  },
+  "repeatFrictionHint": {
+    "message": "Adds one small, fixed amount of extra pause if you come back to the same site soon after continuing. It never grows beyond that, and the block page always says why."
+  },
+  "scheduleHeading": {
+    "message": "When FitShield is on"
+  },
+  "scheduleIntro": {
+    "message": "Times follow your device clock, so they keep their meaning across daylight-saving changes."
+  },
+  "schedulePresetAlways": {
+    "message": "Always"
+  },
+  "schedulePresetEvenings": {
+    "message": "Evenings"
+  },
+  "schedulePresetLateNight": {
+    "message": "Late night"
+  },
+  "schedulePresetWorkdayLunch": {
+    "message": "Workday lunch"
+  },
+  "schedulePresetEveningsWeekends": {
+    "message": "Evenings and weekends"
+  },
+  "scheduleAlwaysSummary": {
+    "message": "FitShield is on all the time."
+  },
+  "scheduleWindowsSummary": {
+    "message": "$1 time window(s) set."
+  },
+  "scheduleOverrideActive": {
+    "message": "Blocking everything until tomorrow."
+  },
+  "scheduleAdvancedSummary": {
+    "message": "Advanced: set your own windows"
+  },
+  "addScheduleWindow": {
+    "message": "Add a window"
+  },
+  "scheduleOvernightHint": {
+    "message": "A window whose end time is earlier than its start crosses midnight, and belongs to the day it starts on."
+  },
+  "scheduleDaysLabel": {
+    "message": "Days this window applies to"
+  },
+  "scheduleCopyToAll": {
+    "message": "Copy to every day"
+  },
+  "scheduleRemoveWindow": {
+    "message": "Remove window $1"
+  },
+  "blockUntilTomorrow": {
+    "message": "Block until tomorrow"
+  },
+  "clearScheduleOverride": {
+    "message": "Cancel that"
+  },
+  "daySun": {
+    "message": "Sun"
+  },
+  "dayMon": {
+    "message": "Mon"
+  },
+  "dayTue": {
+    "message": "Tue"
+  },
+  "dayWed": {
+    "message": "Wed"
+  },
+  "dayThu": {
+    "message": "Thu"
+  },
+  "dayFri": {
+    "message": "Fri"
+  },
+  "daySat": {
+    "message": "Sat"
+  },
+  "kitchenHeading": {
+    "message": "Your kitchen"
+  },
+  "kitchenIntro": {
+    "message": "Optional. This only changes the order alternatives are suggested in — nothing is ever hidden from you, and no quantities, dates, or shopping history are stored."
+  },
+  "dietLabel": {
+    "message": "Diet"
+  },
+  "dietHint": {
+    "message": "A stricter diet is a hard filter: you will never be shown something that breaks it."
+  },
+  "dietOption_omnivore": {
+    "message": "No restriction"
+  },
+  "dietOption_vegetarian": {
+    "message": "Vegetarian"
+  },
+  "dietOption_vegan": {
+    "message": "Vegan"
+  },
+  "dietOption_pescatarian": {
+    "message": "Pescatarian"
+  },
+  "allergenLabel": {
+    "message": "Allergens to avoid"
+  },
+  "allergenHint": {
+    "message": "Also a hard filter. FitShield uses the declared allergens in its own catalog and cannot check what you cook."
+  },
+  "allergen_gluten": {
+    "message": "Gluten"
+  },
+  "allergen_dairy": {
+    "message": "Dairy"
+  },
+  "allergen_egg": {
+    "message": "Egg"
+  },
+  "allergen_peanut": {
+    "message": "Peanut"
+  },
+  "allergen_treenut": {
+    "message": "Tree nuts"
+  },
+  "allergen_soy": {
+    "message": "Soy"
+  },
+  "allergen_fish": {
+    "message": "Fish"
+  },
+  "allergen_shellfish": {
+    "message": "Shellfish"
+  },
+  "allergen_sesame": {
+    "message": "Sesame"
+  },
+  "equipmentLabel": {
+    "message": "What you can cook with"
+  },
+  "pantryLabel": {
+    "message": "Things you usually keep in"
+  },
+  "customAltHeading": {
+    "message": "Your own alternatives"
+  },
+  "customAltIntro": {
+    "message": "Add the things you actually make. They appear alongside the built-in suggestions, stay on this device, and are included in your backup."
+  },
+  "customAltEmpty": {
+    "message": "You have not added any yet."
+  },
+  "customAltNameLabel": {
+    "message": "Name"
+  },
+  "customAltDescriptionLabel": {
+    "message": "One line about it (optional)"
+  },
+  "customAltIngredientsLabel": {
+    "message": "Ingredients, one per line"
+  },
+  "customAltStepsLabel": {
+    "message": "Steps, one per line"
+  },
+  "customAltMinutesLabel": {
+    "message": "About how many minutes"
+  },
+  "customAltDietLabel": {
+    "message": "Diet"
+  },
+  "customAltEquipmentLabel": {
+    "message": "Equipment it needs"
+  },
+  "customAltCravingsLabel": {
+    "message": "When should it be suggested?"
+  },
+  "customAltSave": {
+    "message": "Save alternative"
+  },
+  "customAltUpdate": {
+    "message": "Update alternative"
+  },
+  "customAltCancel": {
+    "message": "Cancel edit"
+  },
+  "customAltSaved": {
+    "message": "Saved “$1”."
+  },
+  "customAltSummary": {
+    "message": "$1 min · $2 ingredients · $3 steps"
+  },
+  "customAltErrorName": {
+    "message": "Give it a name."
+  },
+  "customAltErrorSteps": {
+    "message": "Add at least one step."
+  },
+  "editButton": {
+    "message": "Edit"
+  },
+  "recapHeading": {
+    "message": "This week"
+  },
+  "recapEnabledLabel": {
+    "message": "Show this summary"
+  },
+  "recapHidden": {
+    "message": "The weekly summary is switched off."
+  },
+  "recapNoActivity": {
+    "message": "Nothing to summarise for the last seven days."
+  },
+  "recapInterrupted": {
+    "message": "Ordering pages interrupted"
+  },
+  "recapLeft": {
+    "message": "Times you left"
+  },
+  "recapContinued": {
+    "message": "Times you continued"
+  },
+  "recapPasses": {
+    "message": "Temporary passes used"
+  },
+  "recapSelected": {
+    "message": "Alternatives you chose"
+  },
+  "recapMade": {
+    "message": "Alternatives you marked as made"
+  },
+  "recapTopCategory": {
+    "message": "Most interrupted category"
+  },
+  "previewHeading": {
+    "message": "Preview and test"
+  },
+  "previewIntro": {
+    "message": "Open a simulated interruption so you can see the block page, the countdown, an alternative, and the pass options."
+  },
+  "previewCategoryLabel": {
+    "message": "Pretend it was a"
+  },
+  "previewOpen": {
+    "message": "Preview the block page"
+  },
+  "previewDiagnostics": {
+    "message": "Check FitShield is working"
+  },
+  "previewRecordsNothing": {
+    "message": "In preview nothing is recorded: no interruption is counted, no alternative is added to your history, no pass is granted, and no site is unblocked."
+  },
+  "previewDelivery": {
+    "message": "Delivery app"
+  },
+  "previewPizza": {
+    "message": "Pizza chain"
+  },
+  "previewChicken": {
+    "message": "Fried chicken chain"
+  },
+  "previewCoffee": {
+    "message": "Coffee shop"
+  },
+  "reportHeading": {
+    "message": "Report a problem"
+  },
+  "reportIntro": {
+    "message": "FitShield never sends anything on its own. Fill this in, see exactly what it would say, then copy it or open a pre-filled message yourself."
+  },
+  "reportTypeLabel": {
+    "message": "What is wrong?"
+  },
+  "reportSubjectLabel": {
+    "message": "Which site or alternative?"
+  },
+  "reportSubjectPlaceholder": {
+    "message": "example.com"
+  },
+  "reportDetailsLabel": {
+    "message": "Anything else (optional)"
+  },
+  "reportPreviewLabel": {
+    "message": "Exactly what would be sent"
+  },
+  "reportCopy": {
+    "message": "Copy this report"
+  },
+  "reportMail": {
+    "message": "Open an email draft"
+  },
+  "reportCopied": {
+    "message": "Copied. Nothing has been sent — paste it wherever you want to."
+  },
+  "reportCopyFailed": {
+    "message": "Could not reach the clipboard. The report is shown above; select and copy it."
+  },
+  "reportMailOpened": {
+    "message": "Opening a draft in your email app. Nothing is sent until you send it."
+  },
+  "reportPrivacyNote": {
+    "message": "Query strings are stripped and only the domain is included. Your browsing history, page contents, settings, and statistics are never part of a report."
+  },
+  "reportMissingSite": {
+    "message": "A site that should be interrupted is not"
+  },
+  "reportFalsePositive": {
+    "message": "A site is interrupted that should not be"
+  },
+  "reportWrongCategory": {
+    "message": "A site is in the wrong category"
+  },
+  "reportBrokenAlternative": {
+    "message": "An alternative does not work"
+  },
+  "reportWrongDiet": {
+    "message": "An alternative has the wrong diet label"
+  },
+  "reportWrongAllergen": {
+    "message": "An alternative has the wrong allergen label"
+  },
+  "reportBadInstructions": {
+    "message": "The instructions are unclear or wrong"
+  },
+  "reportSuggestAlternative": {
+    "message": "I want to suggest an alternative"
+  },
+  "popupPausedFor": {
+    "message": "Paused for $1"
+  },
+  "popupRecapTitle": {
+    "message": "Last 7 days"
+  },
+  "popupMarkMade": {
+    "message": "Did you make it?"
+  },
+  "popupMarkMadeButton": {
+    "message": "Yes, I made it"
+  },
+  "popupMarkMadeDismiss": {
+    "message": "Not this time"
+  },
+  "onboardingInterruptQuestion": {
+    "message": "What should FitShield interrupt?"
+  },
+  "onboardingInterruptDelivery": {
+    "message": "Delivery services"
+  },
+  "onboardingInterruptFastFood": {
+    "message": "Fast-food ordering"
+  },
+  "onboardingInterruptBoth": {
+    "message": "Both"
+  },
+  "onboardingInterruptManual": {
+    "message": "Let me choose later"
+  },
+  "onboardingWhenQuestion": {
+    "message": "When should FitShield step in?"
+  },
+  "onboardingFrictionQuestion": {
+    "message": "How much friction do you want?"
+  },
+  "onboardingPreviewTitle": {
+    "message": "This is what happens"
+  },
+  "onboardingPreviewBody": {
+    "message": "When you open one of those sites, FitShield replaces the page with a short pause and one thing you could make instead. You can always go back, or continue on purpose."
+  },
+  "onboardingPreviewButton": {
+    "message": "Show me"
+  },
+  "onboardingAdvancedNote": {
+    "message": "Everything else — countries, categories, individual sites, your kitchen, and your own alternatives — is in settings whenever you want it."
+  },
+  "onboardingRegionNote": {
+    "message": "Suggested from your browser language. FitShield does not detect your location."
   }
 }

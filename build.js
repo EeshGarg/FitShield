@@ -65,6 +65,7 @@ const FILES = [
   [path.join(EXTENSION_DIR, "i18n.js"), "i18n.js"],
   [path.join(EXTENSION_DIR, "languages.js"), "languages.js"],
   [path.join(EXTENSION_DIR, "popup.js"), "popup.js"],
+  [path.join(EXTENSION_DIR, "preferences.js"), "preferences.js"],
   [path.join(EXTENSION_DIR, "recipes.js"), "recipes.js"],
   [path.join(EXTENSION_DIR, "settings.js"), "settings.js"],
   [path.join(EXTENSION_DIR, "warning.js"), "warning.js"],

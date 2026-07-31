@@ -292,6 +292,106 @@ function refreshStatusOnly() {
   status.textContent = getStatusMessage(latestState);
 }
 
+// ---------------------------------------------------------------------------
+// Weekly recap + the voluntary "did you make it?" follow-up
+// ---------------------------------------------------------------------------
+
+const madePrompt = document.getElementById("madePrompt");
+const madePromptText = document.getElementById("madePromptText");
+const markMadeButton = document.getElementById("markMade");
+const dismissMadeButton = document.getElementById("dismissMade");
+const popupRecap = document.getElementById("popupRecap");
+const popupRecapGrid = document.getElementById("popupRecapGrid");
+
+// Counts only — no score, no streak, no ranking, no projection.
+const RECAP_FIGURES = [
+  ["interruptions", "recapInterrupted"],
+  ["left", "recapLeft"],
+  ["continued", "recapContinued"],
+  ["alternativesSelected", "recapSelected"],
+  ["alternativesMade", "recapMade"]
+];
+
+function renderRecap(state) {
+  if (!popupRecap || !popupRecapGrid) {
+    return;
+  }
+
+  const recap = state && state.recap;
+
+  if (!recap || !recap.hasActivity || state.recapEnabled === false) {
+    popupRecap.hidden = true;
+    return;
+  }
+
+  popupRecapGrid.replaceChildren();
+
+  RECAP_FIGURES.forEach(([event, labelKey]) => {
+    const label = document.createElement("dt");
+    label.textContent = t(labelKey);
+
+    const value = document.createElement("dd");
+    value.textContent = String(recap.totals[event] || 0);
+
+    popupRecapGrid.append(label, value);
+  });
+
+  popupRecap.hidden = false;
+}
+
+// Shown only when there is something pending, and only ever asked once per
+// choice: answering either way clears it. FitShield never chases the user for
+// an answer and never sends a notification about it.
+async function renderMadePrompt() {
+  if (!madePrompt) {
+    return;
+  }
+
+  const { pendingAlternatives } = await chrome.storage.local.get(["pendingAlternatives"]);
+  const pending = Array.isArray(pendingAlternatives) ? pendingAlternatives : [];
+  const latest = pending[pending.length - 1];
+
+  if (!latest || !latest.id) {
+    madePrompt.hidden = true;
+    return;
+  }
+
+  madePromptText.textContent = t("popupMarkMade");
+  madePrompt.dataset.alternativeId = latest.id;
+  madePrompt.hidden = false;
+}
+
+async function clearPending(id) {
+  const { pendingAlternatives } = await chrome.storage.local.get(["pendingAlternatives"]);
+  const pending = Array.isArray(pendingAlternatives) ? pendingAlternatives : [];
+  await chrome.storage.local.set({ pendingAlternatives: pending.filter((item) => item && item.id !== id) });
+}
+
+if (markMadeButton) {
+  markMadeButton.addEventListener("click", async () => {
+    const id = madePrompt.dataset.alternativeId;
+    madePrompt.hidden = true;
+
+    try {
+      await chrome.runtime.sendMessage({ type: "markAlternativeMade", id });
+    } catch (error) {
+      console.error("Failed to record that the alternative was made:", error);
+    }
+
+    await loadState();
+  });
+}
+
+if (dismissMadeButton) {
+  dismissMadeButton.addEventListener("click", async () => {
+    // Dismissing records nothing at all. Not making it is not a failure and is
+    // not something FitShield keeps a number for.
+    const id = madePrompt.dataset.alternativeId;
+    madePrompt.hidden = true;
+    await clearPending(id);
+  });
+}
+
 function updateUI(state) {
   latestState = state;
 
@@ -349,6 +449,7 @@ function updateUI(state) {
 
   card.classList.toggle("glow", enabled && activeSiteCount > 0 && (scheduleActive || !scheduleEnabled) && !bypassActive);
 
+  renderRecap(state);
   refreshStatusOnly();
 }
 
@@ -479,7 +580,7 @@ const i18nReady = (typeof FitShieldI18n !== "undefined" && FitShieldI18n.ready)
   ? FitShieldI18n.ready
   : Promise.resolve();
 
-i18nReady.then(loadState);
+i18nReady.then(loadState).then(renderMadePrompt);
 loadTheme();
 setInterval(refreshStatusOnly, 1000);
 

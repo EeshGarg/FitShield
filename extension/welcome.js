@@ -80,24 +80,164 @@ themeButtons.forEach((button) => {
   });
 });
 
-// --- Blocking toggles (steps 3 & 4) ---
+// --- The three questions (steps 3, 4, 5) ---
+//
+// Onboarding asks the minimum needed to be useful on the first blocked page.
+// Countries, categories, individual sites, the kitchen, and custom alternatives
+// are all reachable from settings afterwards and are deliberately not asked
+// about here.
 
-const fastFoodToggle = document.getElementById("fastFoodToggle");
-const deliveryToggle = document.getElementById("deliveryToggle");
+const core = typeof FitShieldCore !== "undefined" ? FitShieldCore : null;
 
-async function loadToggles() {
-  const state = await chrome.storage.local.get(["fastFoodSitesEnabled", "deliverySitesEnabled"]);
-  fastFoodToggle.checked = state.fastFoodSitesEnabled ?? true;
-  deliveryToggle.checked = state.deliverySitesEnabled ?? true;
+// Each answer is a plain settings write, so nothing here is a mode the user has
+// to escape later.
+const QUESTIONS = [
+  {
+    container: "interruptChoices",
+    key: "interrupt",
+    options: [
+      { value: "both", labelKey: "onboardingInterruptBoth", settings: { deliverySitesEnabled: true, fastFoodSitesEnabled: true } },
+      { value: "delivery", labelKey: "onboardingInterruptDelivery", settings: { deliverySitesEnabled: true, fastFoodSitesEnabled: false } },
+      { value: "fastFood", labelKey: "onboardingInterruptFastFood", settings: { deliverySitesEnabled: false, fastFoodSitesEnabled: true } },
+      { value: "manual", labelKey: "onboardingInterruptManual", settings: { deliverySitesEnabled: false, fastFoodSitesEnabled: false } }
+    ]
+  },
+  {
+    container: "whenChoices",
+    key: "when",
+    options: [
+      { value: "always", labelKey: "schedulePresetAlways", preset: "always" },
+      { value: "evenings", labelKey: "schedulePresetEvenings", preset: "evenings" },
+      { value: "lateNight", labelKey: "schedulePresetLateNight", preset: "lateNight" },
+      { value: "workdayLunch", labelKey: "schedulePresetWorkdayLunch", preset: "workdayLunch" }
+    ]
+  },
+  {
+    container: "frictionChoices",
+    key: "friction",
+    options: [
+      { value: "light", labelKey: "frictionLight", friction: "light" },
+      { value: "standard", labelKey: "frictionStandard", friction: "standard" },
+      { value: "strict", labelKey: "frictionStrict", friction: "strict" }
+    ]
+  }
+];
+
+const answers = { interrupt: "both", when: "always", friction: "standard" };
+
+function describeOption(option) {
+  if (option.friction && core) {
+    const values = core.FRICTION_PROFILES[option.friction];
+    return t("frictionSummary", [String(values.timerSeconds), String(values.passDurationMinutes)]);
+  }
+
+  return "";
 }
 
-fastFoodToggle.addEventListener("change", () => {
-  chrome.storage.local.set({ fastFoodSitesEnabled: fastFoodToggle.checked });
-});
+async function applyOption(question, option) {
+  answers[question.key] = option.value;
 
-deliveryToggle.addEventListener("change", () => {
-  chrome.storage.local.set({ deliverySitesEnabled: deliveryToggle.checked });
-});
+  if (option.settings) {
+    await chrome.storage.local.set(option.settings);
+  }
+
+  if (option.preset && core) {
+    const schedule = core.schedulePresetValues(option.preset);
+    const single = schedule.windows.length === 1 ? schedule.windows[0] : null;
+
+    await chrome.storage.local.set({
+      schedule,
+      // Keep the three flat keys in step so the popup's simple controls agree.
+      scheduleEnabled: schedule.mode === "windows",
+      scheduleStart: single ? single.start : "18:00",
+      scheduleEnd: single ? single.end : "23:00"
+    });
+  }
+
+  if (option.friction && core) {
+    await chrome.storage.local.set(core.frictionProfileValues(option.friction));
+  }
+
+  renderQuestions();
+}
+
+function renderQuestions() {
+  QUESTIONS.forEach((question) => {
+    const container = document.getElementById(question.container);
+
+    if (!container) {
+      return;
+    }
+
+    container.replaceChildren();
+
+    question.options.forEach((option) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.setAttribute("aria-pressed", String(answers[question.key] === option.value));
+
+      const label = document.createElement("span");
+      label.textContent = t(option.labelKey);
+      button.appendChild(label);
+
+      const sub = describeOption(option);
+      if (sub) {
+        const subEl = document.createElement("span");
+        subEl.className = "sub";
+        subEl.textContent = sub;
+        button.appendChild(subEl);
+      }
+
+      button.addEventListener("click", () => applyOption(question, option));
+      container.appendChild(button);
+    });
+  });
+}
+
+// Reflect whatever is already stored (a re-run, or a restored backup) so the
+// wizard never claims a choice the profile does not actually have.
+async function loadAnswers() {
+  const state = await chrome.storage.local.get([
+    "deliverySitesEnabled",
+    "fastFoodSitesEnabled",
+    "schedule",
+    "frictionProfile"
+  ]);
+
+  const delivery = state.deliverySitesEnabled !== false;
+  const fastFood = state.fastFoodSitesEnabled !== false;
+  answers.interrupt = delivery && fastFood ? "both" : delivery ? "delivery" : fastFood ? "fastFood" : "manual";
+
+  if (core) {
+    const schedule = core.normalizeSchedule(state.schedule);
+    const match = core.SCHEDULE_PRESET_IDS.find((id) => {
+      const preset = core.normalizeSchedule(core.schedulePresetValues(id));
+      return preset.mode === schedule.mode && JSON.stringify(preset.windows) === JSON.stringify(schedule.windows);
+    });
+    answers.when = match || "always";
+  }
+
+  answers.friction = core && core.FRICTION_PROFILE_IDS.includes(state.frictionProfile)
+    ? state.frictionProfile
+    : "standard";
+
+  renderQuestions();
+}
+
+// --- Preview (step 6) ---
+
+const previewButton = document.getElementById("previewButton");
+
+if (previewButton) {
+  previewButton.addEventListener("click", () => {
+    // The real block page against a real brand, with ?preview=1 so nothing is
+    // recorded and no site is unblocked.
+    const url = new URL(chrome.runtime.getURL("warning.html"));
+    url.searchParams.set("site", "delivery-doordash-com");
+    url.searchParams.set("preview", "1");
+    window.open(url.toString(), "_blank", "noopener");
+  });
+}
 
 // --- Import step ---
 
@@ -121,7 +261,7 @@ importInput.addEventListener("change", async () => {
     // Reflect restored values in the wizard controls.
     populateLanguages();
     await loadThemeMode();
-    await loadToggles();
+    await loadAnswers();
   } catch (error) {
     console.error("Failed to import settings:", error);
     importNotice.textContent = t("importErrorNotice");
@@ -161,6 +301,7 @@ function render() {
 if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.onChange) {
   FitShieldI18n.onChange(() => {
     populateLanguages();
+    renderQuestions();
     render();
   });
 }
@@ -189,7 +330,7 @@ async function init() {
   await i18nReady;
   await loadThemeMode();
   populateLanguages();
-  await loadToggles();
+  await loadAnswers();
   render();
 }
 

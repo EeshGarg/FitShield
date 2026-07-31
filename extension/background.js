@@ -1079,9 +1079,30 @@ const REFRESH_KEYS = [
   "enabledCategories"
 ];
 
+// The popup still writes the three flat schedule keys, and older builds only
+// understood those. Whenever they change, rebuild the structured schedule from
+// them so there is exactly one effective source of truth. Guarded against
+// looping: it only writes when the rebuilt schedule actually differs.
+async function syncLegacySchedule() {
+  const raw = await chrome.storage.local.get(["schedule", "scheduleEnabled", "scheduleStart", "scheduleEnd"]);
+  const rebuilt = FitShieldCore.normalizeSchedule(FitShieldCore.scheduleFromLegacy(raw));
+  const current = FitShieldCore.normalizeSchedule(raw.schedule);
+
+  // A temporary override lives only on the structured form; preserve it.
+  rebuilt.until = current.until;
+
+  if (JSON.stringify(rebuilt) !== JSON.stringify(current)) {
+    await chrome.storage.local.set({ schedule: rebuilt });
+  }
+}
+
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area !== "local") {
     return;
+  }
+
+  if (changes.scheduleEnabled || changes.scheduleStart || changes.scheduleEnd) {
+    syncLegacySchedule().catch((error) => fsError("Failed to sync the legacy schedule keys", error));
   }
 
   if (REFRESH_KEYS.some((key) => changes[key])) {
