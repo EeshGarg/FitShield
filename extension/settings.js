@@ -666,23 +666,38 @@ passDurationMinutesInput.addEventListener("change", async () => {
   await saveSettings({ passDurationMinutes });
 });
 
+// These three inputs are the SIMPLE view of the schedule: one window, every day.
+// The structured `schedule` object is what actually decides blocking, and it is
+// what readSettings prefers whenever it exists — which, after the v1 -> v2
+// migration, is always. Writing only the three flat keys therefore changed
+// nothing, so every one of these controls was visible and dead.
+//
+// Each edit now rebuilds the structured schedule from the flat trio (the same
+// derivation the migration uses) and stores both, so the simple view, the
+// advanced editor in preferences.js, and Android — which still reads the flat
+// keys — cannot disagree about when blocking is on.
+async function saveScheduleFromSimpleControls(partial) {
+  const flat = {
+    scheduleEnabled: scheduleEnabledInput.checked,
+    scheduleStart: scheduleStartInput.value || DEFAULT_SCHEDULE_START,
+    scheduleEnd: scheduleEndInput.value || DEFAULT_SCHEDULE_END,
+    ...partial
+  };
+
+  await saveSettings({ ...flat, schedule: core.scheduleFromLegacy(flat) });
+}
+
 scheduleEnabledInput.addEventListener("change", async () => {
   updateScheduleControls(scheduleEnabledInput.checked);
-  await saveSettings({
-    scheduleEnabled: scheduleEnabledInput.checked
-  });
+  await saveScheduleFromSimpleControls({ scheduleEnabled: scheduleEnabledInput.checked });
 });
 
 scheduleStartInput.addEventListener("change", async () => {
-  await saveSettings({
-    scheduleStart: scheduleStartInput.value || DEFAULT_SCHEDULE_START
-  });
+  await saveScheduleFromSimpleControls({ scheduleStart: scheduleStartInput.value || DEFAULT_SCHEDULE_START });
 });
 
 scheduleEndInput.addEventListener("change", async () => {
-  await saveSettings({
-    scheduleEnd: scheduleEndInput.value || DEFAULT_SCHEDULE_END
-  });
+  await saveScheduleFromSimpleControls({ scheduleEnd: scheduleEndInput.value || DEFAULT_SCHEDULE_END });
 });
 
 if (allBlocklistsEnabledInput) {
@@ -1818,6 +1833,23 @@ if (chrome.storage && chrome.storage.onChanged) {
         protectionData.blockedByCountry = readCountMap(changes.blockedByCountry.newValue);
       }
       renderMostBlocked();
+    }
+
+    // The advanced schedule editor (preferences.js) is on this same page and
+    // writes the flat mirror alongside the structured schedule. Without this the
+    // simple inputs above would keep showing the pre-edit window until reload —
+    // two controls for one setting, visibly disagreeing.
+    if (changes.scheduleEnabled || changes.scheduleStart || changes.scheduleEnd) {
+      if (changes.scheduleEnabled) {
+        scheduleEnabledInput.checked = changes.scheduleEnabled.newValue === true;
+        updateScheduleControls(scheduleEnabledInput.checked);
+      }
+      if (changes.scheduleStart) {
+        scheduleStartInput.value = changes.scheduleStart.newValue || DEFAULT_SCHEDULE_START;
+      }
+      if (changes.scheduleEnd) {
+        scheduleEndInput.value = changes.scheduleEnd.newValue || DEFAULT_SCHEDULE_END;
+      }
     }
   });
 }

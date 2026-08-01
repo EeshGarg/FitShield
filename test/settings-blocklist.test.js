@@ -154,6 +154,46 @@ test("toggling the master All Blocklists switch moves and persists all three gro
   assert.equal(master.indeterminate, false, "master is no longer indeterminate once all are on");
 });
 
+// The three simple schedule inputs used to write ONLY the flat scheduleEnabled /
+// scheduleStart / scheduleEnd keys. readSettings prefers the structured
+// `schedule` object whenever it exists — and after the v1 -> v2 migration it
+// always exists — so the flat keys were read by nobody and all three controls
+// were visible and inert. Assert the effect, not the key: what matters is that
+// setting a window actually stops blocking outside it.
+test("the simple schedule controls actually change when blocking is active", async () => {
+  const core = require("../extension/fitshield-core.js");
+
+  // A migrated profile: `schedule` is present, so the flat keys alone are dead.
+  const store = { ...core.migrateState({ timerSeconds: 30 }).state, uiLanguage: "en" };
+  assert.equal(store.schedule.mode, "always", "precondition: a migrated profile blocks around the clock");
+
+  const doc = renderSettings(store, undefined);
+  assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
+
+  const enabled = doc.getById("scheduleEnabled");
+  const start = doc.getById("scheduleStart");
+  const end = doc.getById("scheduleEnd");
+
+  start.value = "18:00";
+  end.value = "23:00";
+  enabled.checked = true;
+  await Promise.all((enabled._listeners.change || []).map((fn) => fn({})));
+  await waitFor(() => store.scheduleEnabled === true);
+
+  assert.equal(store.scheduleEnabled, true, "the flat mirror is still written, for Android and older builds");
+  assert.equal(store.schedule.mode, "windows", "the structured schedule — the one that decides — was updated");
+
+  // 09:00 Wednesday is outside 18:00-23:00: blocking must now be off.
+  const settings = core.readSettings(store);
+  const nineAm = new Date(2026, 2, 4, 9, 0, 0);
+  const eightPm = new Date(2026, 2, 4, 20, 0, 0);
+
+  assert.equal(core.evaluateSchedule(settings.schedule, nineAm).active, false,
+    "outside the chosen window blocking must be off — otherwise the control did nothing");
+  assert.equal(core.evaluateSchedule(settings.schedule, eightPm).active, true,
+    "inside the chosen window blocking must be on");
+});
+
 // ===========================================================================
 // Compact DOM + HTML parser — enough for the settings page scripts. Superset of
 // the block-page test's DOM (adds querySelector, input .value, and document
