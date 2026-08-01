@@ -525,8 +525,10 @@ function checkTags(reporter, entry, taxonomy) {
     reporter.fail(`${id}: a smoothie is categorised as coffee without containing coffee`);
   }
 
-  // Dessert tags must not leak onto savoury food.
-  const dessertish = /sugar|cocoa|chocolate|honey|syrup|banana|berries|fruit|granola|yogurt|ice/i;
+  // Dessert tags must not leak onto savoury food. Word-bounded on purpose:
+  // an unbounded /ice/ matches inside "rice", "juice", and "spice", which let a
+  // savoury rice dish pass as a dessert.
+  const dessertish = /\b(sugar|cocoa|chocolate|honey|syrup|banana|bananas|berries|berry|fruit|granola|yogurt|ice|ice cream|maple|jam|cinnamon)\b/i;
   if (cravings.includes("dessert") || cravings.includes("ice-cream")) {
     const looksSweet = requiredText.some((text) => dessertish.test(text));
 
@@ -760,15 +762,27 @@ function checkDuplicates(reporter, entries) {
   }
 }
 
-function alternativesAudit() {
+/**
+ * @param {object} [catalogOverride] an in-memory catalog to audit instead of
+ *   data/recipes.json. Used by test/validator-contract.test.js to feed the audit
+ *   a deliberately-broken entry per documented rule and prove the rule is really
+ *   enforced — otherwise the documentation and the implementation can only be
+ *   compared by reading them, which is how they drift.
+ */
+function alternativesAudit(catalogOverride) {
   const reporter = new Reporter("Alternatives catalog (recipes + quick alternatives)");
 
   let catalog;
-  try {
-    catalog = JSON.parse(fs.readFileSync(CATALOG_FILE, "utf8"));
-  } catch (error) {
-    reporter.fail(`data/recipes.json is unreadable or invalid JSON: ${error.message}`);
-    return reporter;
+
+  if (catalogOverride) {
+    catalog = catalogOverride;
+  } else {
+    try {
+      catalog = JSON.parse(fs.readFileSync(CATALOG_FILE, "utf8"));
+    } catch (error) {
+      reporter.fail(`data/recipes.json is unreadable or invalid JSON: ${error.message}`);
+      return reporter;
+    }
   }
 
   if (catalog._version !== SCHEMA_VERSION) {
@@ -833,10 +847,11 @@ function alternativesAudit() {
   checkDuplicates(reporter, entries);
   checkCoverage(reporter, entries, taxonomy);
 
-  // The generated file must match its sources.
+  // The generated file must match its sources. Skipped when auditing an
+  // in-memory catalog, which by definition is not the generated file.
   try {
     const generator = require("./build-alternatives");
-    if (generator.isStale()) {
+    if (!catalogOverride && generator.isStale()) {
       reporter.fail("data/recipes.json is stale — run `npm run generate:alternatives`");
     }
   } catch (error) {
