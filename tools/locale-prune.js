@@ -64,12 +64,9 @@ function staleExemptions() {
   return DYNAMIC_PREFIXES.filter((entry) => !blob.includes("`" + entry.prefix)).map((entry) => entry.prefix);
 }
 
-function localeCodes() {
-  return fs
-    .readdirSync(LOCALES_DIR)
-    .filter((code) => fs.existsSync(path.join(LOCALES_DIR, code, "messages.json")))
-    .sort();
-}
+// The locale set every locale tool walks. Shared so two tools can never
+// disagree about which locales exist.
+const localeCodes = require("./lib/load.js").localeDirs;
 
 function prune(keys) {
   let touched = 0;
