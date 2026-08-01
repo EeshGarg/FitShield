@@ -117,7 +117,7 @@
         { "quantity": 0.5, "unit": "tsp", "item": "chilli powder", "optional": true },
         { "quantity": 0.75, "unit": "tsp", "item": "salt" },
         { "quantity": 2, "unit": "tbsp", "item": "chopped coriander", "optional": true },
-        { "quantity": 4, "unit": "piece", "item": "roti or flatbread", "optional": true }
+        { "quantity": 4, "unit": "piece", "item": "rotis or flatbreads", "optional": true }
       ],
       "steps": [
         "Heat the oil in a frying pan over medium heat and cook the onion 5 minutes until soft and translucent.",
@@ -217,7 +217,7 @@
         { "quantity": 0.75, "unit": "tsp", "item": "salt" },
         { "quantity": 3, "unit": "tbsp", "item": "olive oil" },
         { "quantity": 3, "unit": "tbsp", "item": "hummus", "optional": true },
-        { "quantity": 2, "unit": "piece", "item": "pita bread", "optional": true }
+        { "quantity": 2, "unit": "piece", "item": "pita breads", "optional": true }
       ],
       "steps": [
         "Dry the chickpeas properly in a tea towel. Wet chickpeas make a paste that will not hold.",

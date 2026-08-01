@@ -6,7 +6,7 @@
       "description": "A personal pizza on naan with a properly crisp base, out of the oven in fifteen minutes.",
       "servings": 2,
       "ingredients": [
-        { "quantity": 2, "unit": "piece", "item": "naan bread", "substituteGroup": "flatbread" },
+        { "quantity": 2, "unit": "piece", "item": "naan breads", "substituteGroup": "flatbread" },
         { "quantity": 0.5, "unit": "cup", "item": "tomato pasta sauce" },
         { "quantity": 1.5, "unit": "cup", "item": "shredded mozzarella" },
         { "quantity": 0.5, "unit": "cup", "item": "sliced mushrooms", "optional": true },

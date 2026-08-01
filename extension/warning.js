@@ -396,20 +396,43 @@ function formatTime(minutes) {
   return rest === 0 ? t("timeHours", [String(hours)]) : t("timeHoursMinutes", [String(hours), String(rest)]);
 }
 
+// "piece" is a bare counter, not a measure — it exists in the data so every
+// ingredient has a unit, but printing it gives "2 piece naan breads". It is
+// dropped on the way to the screen.
+const FILLER_UNIT = "piece";
+
+// Countable units read naturally with "of" and need pluralising: "2 cloves of
+// garlic", "1 pinch of salt". Measures (tbsp, cup, g, ml) do not: "2 tbsp oil".
+const COUNTABLE_UNITS = {
+  slice: "slices",
+  clove: "cloves",
+  leaf: "leaves",
+  pinch: "pinches",
+  pouch: "pouches",
+  packet: "packets",
+  scoop: "scoops"
+};
+
 function formatIngredient(ingredient) {
   if (!ingredient || typeof ingredient !== "object") {
     return String(ingredient || "");
   }
 
-  const parts = [];
+  const item = String(ingredient.item || "");
+  const quantity = Number(ingredient.quantity);
+  const unit = String(ingredient.unit || "");
+  let text = item;
 
-  if (Number.isFinite(Number(ingredient.quantity)) && ingredient.unit) {
-    parts.push(`${ingredient.quantity} ${ingredient.unit}`);
+  if (Number.isFinite(quantity) && unit) {
+    if (unit === FILLER_UNIT) {
+      text = `${quantity} ${item}`;
+    } else if (COUNTABLE_UNITS[unit]) {
+      const word = quantity === 1 ? unit : COUNTABLE_UNITS[unit];
+      text = `${quantity} ${word} of ${item}`;
+    } else {
+      text = `${quantity} ${unit} ${item}`;
+    }
   }
-
-  parts.push(String(ingredient.item || ""));
-
-  let text = parts.filter(Boolean).join(" ");
 
   if (ingredient.note) {
     text += ` (${ingredient.note})`;

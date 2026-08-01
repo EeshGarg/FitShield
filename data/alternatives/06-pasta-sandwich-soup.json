@@ -191,7 +191,7 @@
       "description": "A crunchy, salty, no-cook pita that eats like a proper meal.",
       "servings": 2,
       "ingredients": [
-        { "quantity": 2, "unit": "piece", "item": "pita bread" },
+        { "quantity": 2, "unit": "piece", "item": "pita breads" },
         { "quantity": 1, "unit": "piece", "item": "cucumber", "note": "diced" },
         { "quantity": 2, "unit": "piece", "item": "tomatoes", "note": "diced" },
         { "quantity": 0.25, "unit": "piece", "item": "red onion", "note": "thinly sliced" },

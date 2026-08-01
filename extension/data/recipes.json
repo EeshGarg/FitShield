@@ -687,7 +687,7 @@
         {
           "quantity": 2,
           "unit": "piece",
-          "item": "naan bread",
+          "item": "naan breads",
           "substituteGroup": "flatbread"
         },
         {
@@ -1383,7 +1383,7 @@
         {
           "quantity": 2,
           "unit": "piece",
-          "item": "chicken breast",
+          "item": "chicken breasts",
           "note": "flattened to even 1.5 cm thickness"
         },
         {
@@ -2628,7 +2628,7 @@
       ],
       "steps": [
         "Heat the oil in a large pan over medium-high heat and cook the chopped kimchi for 3 minutes until the edges start to caramelise and it smells sweeter than raw.",
-        "Stir in the gochujang and kimchi juice and cook 30 seconds.",
+        "Stir in the kimchi juice, and the gochujang if you are using it, and cook 30 seconds.",
         "Add the cold rice, breaking up clumps, and press it flat. Leave 1 minute, toss, and repeat for about 4 minutes until heated through with crisp patches.",
         "Stir through the sesame oil and take off the heat.",
         "If using eggs, fry them separately for 2-3 minutes until the whites are fully set, and slide one on top of each bowl."
@@ -2740,7 +2740,7 @@
       "steps": [
         "Boil the noodles over high heat for the time on the packet, usually 4-6 minutes, until tender with a slight bite. Reserve half a cup of the water before draining.",
         "Whisk the peanut butter, soy sauce, vinegar, sugar, and garlic in a large bowl. It will seize and look wrong at first.",
-        "Add the hot noodle water 1 tbsp at a time, whisking, until the sauce becomes smooth and pourable — like single cream.",
+        "Add the hot noodle water 1 tbsp at a time, whisking, until the sauce becomes smooth and just thin enough to pour.",
         "Toss the drained noodles through the sauce until every strand is coated.",
         "Top with the shredded vegetables and chilli flakes."
       ],
@@ -3093,7 +3093,7 @@
         {
           "quantity": 4,
           "unit": "piece",
-          "item": "roti or flatbread",
+          "item": "rotis or flatbreads",
           "optional": true
         }
       ],
@@ -3331,7 +3331,7 @@
         {
           "quantity": 2,
           "unit": "piece",
-          "item": "pita bread",
+          "item": "pita breads",
           "optional": true
         }
       ],
@@ -3804,7 +3804,7 @@
         {
           "quantity": 2,
           "unit": "piece",
-          "item": "pita bread"
+          "item": "pita breads"
         },
         {
           "quantity": 1,
@@ -6040,7 +6040,7 @@
       "steps": [
         "Heat the rice pouch in the microwave for the time on the packet, usually 2 minutes, until steaming hot, then tip into a bowl.",
         "Mix the drained tuna with the mayonnaise, soy sauce, and sriracha.",
-        "Spoon over the rice, add the cucumber, and scatter with sesame seeds."
+        "Spoon over the rice, then add the cucumber and sesame seeds if you have them."
       ],
       "totalMinutes": 5,
       "activeMinutes": 5,
@@ -7722,7 +7722,7 @@
         {
           "quantity": 2,
           "unit": "tbsp",
-          "item": "tortilla chips",
+          "item": "corn tortilla chips",
           "note": "crushed",
           "optional": true
         }
@@ -8011,7 +8011,7 @@
         "Put the miso in a mug or bowl and add 3 tbsp of the hot water. Mash it with a spoon until completely smooth — miso will not dissolve once the bowl is full.",
         "Add the rest of the water, the tofu, and the frozen vegetables.",
         "Microwave 90 seconds, or leave it 2 minutes if the water came from a kettle. It is ready when it is steaming hot right through and the tofu has warmed.",
-        "Stir in the sesame oil and scatter the spring onion over. Do not boil it — miso turns harsh and grainy above a simmer."
+        "Stir in the sesame oil if you have it, and scatter the spring onion over. Do not boil it — miso turns harsh and grainy above a simmer."
       ],
       "totalMinutes": 5,
       "activeMinutes": 4,

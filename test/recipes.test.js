@@ -286,6 +286,74 @@ test("every major blocked category reaches an answer", () => {
   });
 });
 
+test("ingredient names read correctly with the quantity in front of them", () => {
+  // The block page drops the bare "piece" counter, so a count greater than one
+  // must read naturally on its own: "2 naan breads", never "2 naan bread".
+  const wrong = [];
+
+  ALL.forEach((entry) => {
+    entry.ingredients.forEach((ingredient) => {
+      if (ingredient.unit !== "piece" || ingredient.quantity <= 1) {
+        return;
+      }
+
+      // "roti or flatbread"-style alternatives are plural if either side is.
+      const looksPlural = ingredient.item.split(" or ").every((part) => /s$/.test(part.trim()));
+
+      if (!looksPlural) {
+        wrong.push(`${entry.id}: "${ingredient.quantity} ${ingredient.item}"`);
+      }
+    });
+  });
+
+  assert.deepEqual(wrong, [], `singular ingredient names used with a plural count:\n  ${wrong.join("\n  ")}`);
+});
+
+test("one ingredient concept has one name across the catalog", () => {
+  // Divergent names for the same thing break both the pantry match and the
+  // allergen exceptions (the corn form is what makes tortilla chips gluten-free).
+  const names = new Set();
+  ALL.forEach((entry) => entry.ingredients.forEach((ingredient) => names.add(ingredient.item.toLowerCase())));
+
+  const CANONICAL = [
+    { pattern: /tortilla chips?$/, expect: "corn tortilla chips" }
+  ];
+
+  CANONICAL.forEach(({ pattern, expect }) => {
+    const variants = [...names].filter((name) => pattern.test(name));
+    assert.deepEqual(variants, [expect], `expected one name for ${expect}, found: ${variants.join(", ")}`);
+  });
+});
+
+test("no step treats an optional ingredient as required", () => {
+  const problems = [];
+
+  ALL.forEach((entry) => {
+    const steps = entry.steps.join(" ").toLowerCase();
+
+    entry.ingredients
+      .filter((ingredient) => ingredient.optional)
+      .forEach((ingredient) => {
+        const word = ingredient.item.toLowerCase().split(" ").find((part) => part.length > 4);
+
+        if (!word) {
+          return;
+        }
+
+        // Flag an unconditional imperative; a step that says "if you have it",
+        // "if using", or "optional" is fine.
+        const unconditional = new RegExp(`\\b(add|stir in|mix in|whisk in) the ${word}\\b`).test(steps);
+        const hedged = /if you (are using|have|want)|if using|optional/.test(steps);
+
+        if (unconditional && !hedged) {
+          problems.push(`${entry.id}: "${ingredient.item}"`);
+        }
+      });
+  });
+
+  assert.deepEqual(problems, [], `optional ingredients used unconditionally:\n  ${problems.join("\n  ")}`);
+});
+
 test("every craving has a vegetarian answer", () => {
   const missing = [];
 

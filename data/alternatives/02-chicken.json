@@ -103,7 +103,7 @@
       "description": "A hot, crunchy chicken sandwich built the way the chains build it — pickles, sauce, soft bun.",
       "servings": 2,
       "ingredients": [
-        { "quantity": 2, "unit": "piece", "item": "chicken breast", "note": "flattened to even 1.5 cm thickness" },
+        { "quantity": 2, "unit": "piece", "item": "chicken breasts", "note": "flattened to even 1.5 cm thickness" },
         { "quantity": 0.5, "unit": "cup", "item": "plain flour" },
         { "quantity": 1, "unit": "piece", "item": "egg", "note": "beaten" },
         { "quantity": 1, "unit": "cup", "item": "panko breadcrumbs" },

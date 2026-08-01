@@ -245,7 +245,7 @@
         { "quantity": 0.5, "unit": "tsp", "item": "ground cumin" },
         { "quantity": 1, "unit": "tbsp", "item": "lime juice" },
         { "quantity": 0.5, "unit": "piece", "item": "avocado", "note": "sliced", "optional": true },
-        { "quantity": 2, "unit": "tbsp", "item": "tortilla chips", "note": "crushed", "optional": true }
+        { "quantity": 2, "unit": "tbsp", "item": "corn tortilla chips", "note": "crushed", "optional": true }
       ],
       "steps": [
         "Mash about a third of the beans with the cumin and lime juice so the mixture holds together, then stir the rest through whole.",
@@ -375,7 +375,7 @@
         "Put the miso in a mug or bowl and add 3 tbsp of the hot water. Mash it with a spoon until completely smooth — miso will not dissolve once the bowl is full.",
         "Add the rest of the water, the tofu, and the frozen vegetables.",
         "Microwave 90 seconds, or leave it 2 minutes if the water came from a kettle. It is ready when it is steaming hot right through and the tofu has warmed.",
-        "Stir in the sesame oil and scatter the spring onion over. Do not boil it — miso turns harsh and grainy above a simmer."
+        "Stir in the sesame oil if you have it, and scatter the spring onion over. Do not boil it — miso turns harsh and grainy above a simmer."
       ],
       "totalMinutes": 5,
       "activeMinutes": 4,
