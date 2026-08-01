@@ -43,10 +43,14 @@ npm run locales:status              # coverage table + what to translate first
 node tools/locale-status.js --locale de   # exactly what German is missing
 ```
 
-As of 0.55: **536 English keys**, 82 other locales at **63%**. The 201
-untranslated keys are the strings added by the decision-flow work — the block
-page's new controls, the settings surfaces, onboarding, and the recap. Everything
-that existed before 0.55 is fully translated everywhere.
+As of 0.55: **508 English keys**, 82 other locales at **61%** (309 translated,
+199 missing each). The untranslated keys are the strings added by the
+decision-flow work — the block page's new controls, the settings surfaces,
+onboarding, and the recap. Everything that existed before 0.55 is fully
+translated everywhere.
+
+These numbers come from `npm run locales:status`, which is the authority; if this
+paragraph and the tool disagree, the tool is right and this paragraph is stale.
 
 The report groups the gap by surface, because that is the order worth fixing it
 in. The block page is the highest-value surface: it is the one a user sees at the

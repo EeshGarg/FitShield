@@ -389,3 +389,34 @@ test("the block page's static fallbacks quote the same strings the script sets",
     );
   });
 });
+
+// ARCHITECTURE.md states the rule that keeps the load-order bug from recurring:
+// on every page, fitshield-core.js is listed before anything that uses
+// FitShieldCore. The chain-evaluation tests above catch a missing global; this
+// catches the narrower, quieter case where the tag order is wrong but the page
+// still happens to evaluate — the shape the backup.js bug actually had.
+test("every page loads fitshield-core.js before any script that uses it", () => {
+  const pages = fs.readdirSync(EXT).filter((file) => file.endsWith(".html"));
+  const violations = [];
+
+  pages.forEach((page) => {
+    const html = fs.readFileSync(path.join(EXT, page), "utf8");
+    const order = [...html.matchAll(/<script src="([^"]+)"/g)].map((m) => m[1]);
+    const coreAt = order.indexOf("fitshield-core.js");
+
+    order.forEach((script, index) => {
+      if (script === "fitshield-core.js") return;
+      const file = path.join(EXT, script);
+      if (!fs.existsSync(file)) return;
+      if (!/\bFitShieldCore\b/.test(fs.readFileSync(file, "utf8"))) return;
+
+      if (coreAt === -1) {
+        violations.push(`${page}: ${script} uses FitShieldCore but the page never loads it`);
+      } else if (index < coreAt) {
+        violations.push(`${page}: ${script} is loaded before fitshield-core.js`);
+      }
+    });
+  });
+
+  assert.deepEqual(violations, [], violations.join("\n"));
+});

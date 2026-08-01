@@ -222,6 +222,24 @@ New files: `test/schema-migration.test.js`, `test/schedule.test.js`,
 `test/block-page-flow.test.js`. Extended: `test/block-page.test.js`,
 `test/recipes.test.js`, `test/backup.test.js`, `test/locales.test.js`.
 
+> **As built.** Several of these landed under different names. Do not go looking
+> for the ones above that no longer appear here — they were never written under
+> that name, not deleted:
+>
+> | Planned | As built |
+> | --- | --- |
+> | `test/schema-migration.test.js` | `test/core-schema.test.js` |
+> | `test/alternatives-data.test.js` | `test/recipes.test.js` |
+> | `test/alternatives-match.test.js` | `test/matching.test.js` |
+> | `test/custom-alternatives.test.js` | `test/preferences.test.js` |
+> | `test/backup-roundtrip.test.js` | `test/backup.test.js` |
+> | `test/block-page-flow.test.js` | `test/block-page.test.js`, `test/scenarios.test.js` |
+> | `tools/recipe-audit.js` (§12.2) | `tools/alternatives-audit.js` |
+>
+> Added afterwards, beyond this plan: `test/validator-contract.test.js`,
+> `test/page-scripts.test.js`, `test/resilience.test.js`, and the shared
+> `test/helpers/background-harness.js`.
+
 ## 12. Implementation order
 
 1. Audit (this document) + schema/migration module + tests.

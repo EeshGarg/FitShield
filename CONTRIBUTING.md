@@ -53,10 +53,12 @@ npm run validate     # all audits (datasets, locales, docs, assets, extension sy
 npm test             # unit tests + validators
 ```
 
-Run a single audit with `npm run validate:datasets`, `:aliases`, `:countries`,
-`:categories`, `:locales`, `:docs`, `:assets`, `:extension`, `:sw`, or `:sync`.
-See [`tools/README.md`](tools/README.md). `:sync` fails if `extension/`'s
-committed artifacts have drifted from canonical — fix with `npm run sync`.
+Run a single audit with `npm run validate:datasets`, `:alternatives`, `:aliases`,
+`:countries`, `:categories`, `:android`, `:android-packages`, `:locales`,
+`:docs`, `:assets`, `:extension`, `:sw`, or `:sync` — the same thirteen
+`npm run validate` runs. See [`tools/README.md`](tools/README.md). `:sync` fails
+if `extension/`'s committed artifacts have drifted from canonical — fix with
+`npm run sync`.
 
 ### Add a brand
 

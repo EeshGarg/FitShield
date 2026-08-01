@@ -37,6 +37,28 @@ it is imported last in the Firefox `background.scripts` array
 (`tools/extension-audit.js`) and importScripts only those two files
 (`tools/service-worker-audit.js`).
 
+The same rule applies to the **pages**, and is easier to get wrong there. These
+are classic scripts sharing one global scope, so a `<script>` that captures
+`FitShieldCore` at load time silently gets `undefined` if its tag sits above
+`fitshield-core.js` — no error, just a module that quietly stops validating.
+That exact bug shipped in `backup.js` and made restored backups skip clamping
+and re-validation.
+
+The enforced rule is ordering: every page lists `fitshield-core.js` before any
+consumer, and `test/page-scripts.test.js` evaluates each page's real script chain
+in document order, failing on a `ReferenceError` or on a shared constant nothing
+in the chain declares. `backup.js` additionally resolves the global **lazily, on
+first use**, and throws rather than continuing without it — it is the one path
+where a missing validator degraded *silently* instead of failing, which is worse
+than a crash. Other consumers bind at load and use `core.*` directly, so a broken
+order throws immediately; that is acceptable precisely because the order is
+tested.
+
+`FitShieldCore` is shared across the extension's own surfaces — **not** with the
+Android app, which does not bundle it and re-implements the subset it needs in
+Kotlin. Every resulting behavioral difference is enumerated and classified in
+[`docs/ANDROID.md`](docs/ANDROID.md) §2e.
+
 ## The alternatives catalog
 
 `data/recipes.json` keeps its historical name and `recipes` array (the Android
