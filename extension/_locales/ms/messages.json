@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "Anda akan memesan daripada $1."
   },
-  "warningHintLocked": {
-    "message": "Apabila pemasa tamat, anda boleh terus ke tapak untuk $1 $2."
-  },
   "warningBackButton": {
     "message": "pergi balik"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "teruskan"
-  },
-  "warningOpeningButton": {
-    "message": "Membuka..."
-  },
-  "warningUnlockHint": {
-    "message": "Anda boleh melawat tapak sekarang. Penyekat akan kembali secara automatik selepas $1 $2."
   },
   "warningErrorHint": {
     "message": "Kesilapan telah berlaku semasa membuka tapak. Sila cuba lagi."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Selesai. Memuat semula…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kkal"
-  },
-  "recipeChooseButton": {
-    "message": "Saya masak ini sahaja"
-  },
-  "recipeChosenButton": {
-    "message": "Ditambah ke statistik anda ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Pilihan baik — direkod dalam statistik anda. Lihat dalam Tetapan."
-  },
   "statusCaloriesAvoided": {
     "message": "Kalori dielak"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Anda boleh perhalusi warna kemudian dalam Tetapan."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Sekat pesanan makanan segera"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Menambah skrin jeda pada halaman pesanan rangkaian makanan segera besar."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Disyorkan hidup."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Sekat aplikasi penghantaran"
-  },
   "welcomeDeliveryBody": {
     "message": "Menambah skrin jeda pada platform penghantaran seperti DoorDash dan Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Pulihkan sandaran (pilihan)"
   },
   "welcomeImportBody": {
     "message": "Datang dari peranti lain? Import fail tetapan FitShield untuk membawa semuanya. Jika tidak, teruskan sahaja."
   },
   "welcomeImportButton": {
     "message": "Import fail tetapan"
-  },
-  "welcomeHelpTitle": {
-    "message": "Bagaimana FitShield membantu"
-  },
-  "welcomeHelpBody": {
-    "message": "Lawatan pantas ciri-ciri utama."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Pemasa jeda"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Pada tapak disekat, kira detik pendek berjalan sebelum anda teruskan — cukup untuk memikirkan semula pesanan."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Jadual"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Jika mahu, sekat hanya pada waktu tertentu, seperti waktu malam atau waktu kerja."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Senarai putih"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Matikan mana-mana tapak, tambah URL anda sendiri, atau beri pas sementara apabila betul-betul perlu."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Idea resipi"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Skrin sekatan mencadangkan resipi vegetarian dan daging/protein pantas berdasarkan apa yang anda sekat."
   },
   "welcomeBack": {
     "message": "Kembali"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restoran"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

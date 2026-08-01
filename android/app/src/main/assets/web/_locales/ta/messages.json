@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "நீங்கள் $1-இலிருந்து ஆர்டர் செய்யப் போகிறீர்கள்."
   },
-  "warningHintLocked": {
-    "message": "டைமர் முடிந்ததும், நீங்கள் $1 $2 தளத்திற்குத் தொடரலாம்."
-  },
   "warningBackButton": {
     "message": "திரும்பிச் செல்"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "தொடர்"
-  },
-  "warningOpeningButton": {
-    "message": "திறக்கிறது..."
-  },
-  "warningUnlockHint": {
-    "message": "இப்போது நீங்கள் தளத்தைப் பார்வையிடலாம். தடுப்பான் $1 $2 கழித்து தானாகவே திரும்பும்."
   },
   "warningErrorHint": {
     "message": "தளத்தைத் திறக்கும் போது ஏதோ தவறு ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "முடிந்தது. மீண்டும் ஏற்றுகிறது…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "இதற்குப் பதிலாக இதைச் செய்வேன்"
-  },
-  "recipeChosenButton": {
-    "message": "உங்கள் புள்ளிவிவரத்தில் சேர்க்கப்பட்டது ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "நல்ல தேர்வு — உங்கள் புள்ளிவிவரத்தில் பதிவாகியது. அமைப்புகளில் பாருங்கள்."
-  },
   "statusCaloriesAvoided": {
     "message": "தவிர்க்கப்பட்ட கலோரிகள்"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "நிறங்களை பின்னர் அமைப்புகளில் சரிசெய்யலாம்."
   },
-  "welcomeFastFoodTitle": {
-    "message": "துரித உணவு ஆர்டரைத் தடு"
-  },
-  "welcomeFastFoodBody": {
-    "message": "பெரிய துரித உணவு சங்கிலிகளின் ஆர்டர் பக்கங்களில் ஒரு இடைநிறுத்தத் திரையைச் சேர்க்கிறது."
-  },
-  "welcomeRecommendedOn": {
-    "message": "இயக்கம் பரிந்துரைக்கப்படுகிறது."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "டெலிவரி ஆப்களைத் தடு"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash மற்றும் Uber Eats போன்ற டெலிவரி தளங்களில் ஒரு இடைநிறுத்தத் திரையைச் சேர்க்கிறது."
-  },
-  "welcomeImportTitle": {
-    "message": "காப்புப்பிரதியை மீட்டெடு (விருப்பத்திற்குரியது)"
   },
   "welcomeImportBody": {
     "message": "வேறு சாதனத்திலிருந்து வருகிறீர்களா? எல்லாவற்றையும் கொண்டுவர FitShield அமைப்புக் கோப்பை இறக்குமதி செய்யுங்கள். இல்லையெனில் தொடருங்கள்."
   },
   "welcomeImportButton": {
     "message": "அமைப்புக் கோப்பை இறக்குமதி செய்"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield எப்படி உதவுகிறது"
-  },
-  "welcomeHelpBody": {
-    "message": "முக்கிய அம்சங்களின் விரைவுச் சுற்று."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "இடைநிறுத்த டைமர்"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "தடுக்கப்பட்ட தளத்தை அடைந்தால், தொடர்வதற்கு முன் ஒரு குறுகிய எண்ணிக்கை இயங்கும் — ஆர்டரை மறுபரிசீலனை செய்ய போதுமானது."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "அட்டவணை"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "விரும்பினால் மாலை அல்லது வேலை நேரம் போன்ற குறிப்பிட்ட நேரங்களில் மட்டும் தடுக்கவும்."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "வெள்ளைப் பட்டியல்"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "எந்தத் தளத்தையும் அணைக்கவும், உங்கள் URL-களைச் சேர்க்கவும், அல்லது உண்மையில் தேவைப்படும்போது தற்காலிக அனுமதி அளிக்கவும்."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "செய்முறை யோசனைகள்"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "நீங்கள் தடுத்ததின் அடிப்படையில் தடுப்புத் திரை ஒரு விரைவான சைவ மற்றும் இறைச்சி/புரத செய்முறையைப் பரிந்துரைக்கிறது."
   },
   "welcomeBack": {
     "message": "பின்"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

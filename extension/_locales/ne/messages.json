@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "तपाईं $1 बाट अर्डर गर्न लाग्दै हुनुहुन्छ।"
   },
-  "warningHintLocked": {
-    "message": "जब टाइमर समाप्त हुन्छ, तपाईं $1 $2 को लागि साइटमा जारी राख्न सक्नुहुन्छ।"
-  },
   "warningBackButton": {
     "message": "फिर्ता जानुहोस्"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "जारी राख्नुहोस्"
-  },
-  "warningOpeningButton": {
-    "message": "खोल्दै..."
-  },
-  "warningUnlockHint": {
-    "message": "तपाईं अब साइट भ्रमण गर्न सक्नुहुन्छ। $1 $2 पछि अवरोधक स्वतः फिर्ता आउनेछ।"
   },
   "warningErrorHint": {
     "message": "साइट खोल्दा केही गडबड भयो। कृपया पुन: प्रयास गर्नुहोस्।"
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "भयो। पुनः लोड हुँदैछ…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "साटो यो बनाउँछु"
-  },
-  "recipeChosenButton": {
-    "message": "तपाईंको तथ्याङ्कमा थपियो ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "राम्रो छनोट — तपाईंको तथ्याङ्कमा लेखियो। सेटिङमा हेर्नुहोस्।"
-  },
   "statusCaloriesAvoided": {
     "message": "बचाइएका क्यालोरी"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "रङहरू पछि सेटिङमा मिलाउन सक्नुहुन्छ।"
   },
-  "welcomeFastFoodTitle": {
-    "message": "फास्ट फुड अर्डर रोक्नुहोस्"
-  },
-  "welcomeFastFoodBody": {
-    "message": "ठूला फास्ट फुड चेनका अर्डर पृष्ठमा एउटा रोकाइ स्क्रिन थप्छ।"
-  },
-  "welcomeRecommendedOn": {
-    "message": "सक्रिय राख्न सिफारिस।"
-  },
-  "welcomeDeliveryTitle": {
-    "message": "डेलिभरी एप रोक्नुहोस्"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash र Uber Eats जस्ता डेलिभरी प्लेटफर्ममा एउटा रोकाइ स्क्रिन थप्छ।"
-  },
-  "welcomeImportTitle": {
-    "message": "ब्याकअप पुनर्स्थापना (वैकल्पिक)"
   },
   "welcomeImportBody": {
     "message": "अर्को उपकरणबाट आउँदै हुनुहुन्छ? सबै ल्याउन FitShield सेटिङ फाइल आयात गर्नुहोस्। अन्यथा जारी राख्नुहोस्।"
   },
   "welcomeImportButton": {
     "message": "सेटिङ फाइल आयात गर्नुहोस्"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield कसरी मद्दत गर्छ"
-  },
-  "welcomeHelpBody": {
-    "message": "मुख्य सुविधाहरूको छिटो भ्रमण।"
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "रोकाइ टाइमर"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "रोकिएको साइटमा पुग्दा, जारी राख्नुअघि छोटो उल्टो गणना चल्छ — अर्डर पुनर्विचार गर्न पर्याप्त।"
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "तालिका"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "चाहेमा साँझ वा कामको समय जस्ता निश्चित घण्टामा मात्र रोक्नुहोस्।"
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "ह्वाइटलिस्ट"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "कुनै पनि साइट बन्द गर्नुहोस्, आफ्नै URL थप्नुहोस्, वा साँच्चै आवश्यक पर्दा अस्थायी अनुमति दिनुहोस्।"
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "रेसिपी विचार"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "तपाईंले के रोक्नुभयो त्यसको आधारमा ब्लक स्क्रिनले एउटा छिटो शाकाहारी र एउटा मासु/प्रोटिन रेसिपी सुझाव दिन्छ।"
   },
   "welcomeBack": {
     "message": "पछाडि"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the suíomh for $1 $2."
-  },
   "warningBackButton": {
     "message": "Téigh siar"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Lean ar aghaidh"
-  },
-  "warningOpeningButton": {
-    "message": "Ag oscailt..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the suíomh now. The blocálaí will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the suíomh. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Déanta. Ag athlódáil…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Déanfaidh mé é seo ina ionad"
-  },
-  "recipeChosenButton": {
-    "message": "Curtha le do staitisticí ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Rogha mhaith — logáilte i do staitisticí. Féach é sna Socruithe."
-  },
   "statusCaloriesAvoided": {
     "message": "Calraí a seachnaíodh"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Is féidir leat na dathanna a mhionchoigeartú níos déanaí sna Socruithe."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Bac ordú mearbhia"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Cuireann sé scáileán sosa le leathanaigh ordaithe slabhraí móra mearbhia."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Molta ar siúl."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Bac aipeanna seachadta"
-  },
   "welcomeDeliveryBody": {
     "message": "Cuireann sé scáileán sosa le hardáin seachadta ar nós DoorDash agus Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Athchóirigh cúltaca (roghnach)"
   },
   "welcomeImportBody": {
     "message": "Ag teacht ó ghléas eile? Iompórtáil comhad socruithe FitShield chun gach rud a thabhairt leat. Seachas sin, lean ar aghaidh."
   },
   "welcomeImportButton": {
     "message": "Iompórtáil comhad socruithe"
-  },
-  "welcomeHelpTitle": {
-    "message": "Conas a chabhraíonn FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Turas tapa trí na príomhghnéithe."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Amadóir sosa"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Nuair a bhuaileann tú suíomh bactha, ritheann comhaireamh síos gairid sula leanann tú ar aghaidh — go leor chun athmhachnamh a dhéanamh ar an ordú."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Sceideal"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Go roghnach, bac ach amháin ag uaireanta socraithe, mar shampla tráthnóna nó am oibre."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Liosta bán"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Múch aon suíomh, cuir do URLanna féin leis, nó tabhair pas sealadach duit féin nuair a bhíonn sé ag teastáil go géar."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Smaointe oidis"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Molann an scáileán bactha oideas glasraí tapa agus oideas feola/próitéine bunaithe ar an méid a bhac tú."
   },
   "welcomeBack": {
     "message": "Ar ais"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

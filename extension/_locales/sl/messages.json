@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the spletno mesto for $1 $2."
-  },
   "warningBackButton": {
     "message": "Nazaj"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Nadaljuj"
-  },
-  "warningOpeningButton": {
-    "message": "Odpiranje..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the spletno mesto now. The blokator will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the spletno mesto. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Končano. Ponovno nalaganje…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Raje bom naredil to"
-  },
-  "recipeChosenButton": {
-    "message": "Dodano v statistiko ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Dobra izbira — zabeleženo v statistiki. Oglejte si v Nastavitvah."
-  },
   "statusCaloriesAvoided": {
     "message": "Prihranjene kalorije"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Barve lahko pozneje natančno prilagodite v Nastavitvah."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Blokiraj naročanje hitre prehrane"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Doda zaslon premora na naročilnih straneh velikih verig hitre prehrane."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Priporočeno vklopljeno."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Blokiraj dostavne aplikacije"
-  },
   "welcomeDeliveryBody": {
     "message": "Doda zaslon premora na dostavnih platformah, kot sta DoorDash in Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Obnovi varnostno kopijo (izbirno)"
   },
   "welcomeImportBody": {
     "message": "Prihajate iz druge naprave? Uvozite datoteko nastavitev FitShielda in prenesite vse. Sicer preprosto nadaljujte."
   },
   "welcomeImportButton": {
     "message": "Uvozi datoteko nastavitev"
-  },
-  "welcomeHelpTitle": {
-    "message": "Kako FitShield pomaga"
-  },
-  "welcomeHelpBody": {
-    "message": "Hiter ogled glavnih funkcij."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Časovnik premora"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Ko zadenete blokirano mesto, teče kratko odštevanje, preden lahko nadaljujete — dovolj, da premislite o naročilu."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Urnik"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Po želji blokirajte le ob določenih urah, kot so večeri ali delovni čas."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Beli seznam"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Izklopite katero koli mesto, dodajte svoje URL-je ali si dodelite začasno dovoljenje, ko ga res potrebujete."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Ideje za recepte"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Zaslon blokiranja predlaga hiter vegetarijanski in mesni/beljakovinski recept glede na to, kaj ste blokirali."
   },
   "welcomeBack": {
     "message": "Nazaj"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

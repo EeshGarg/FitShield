@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the ιστότοπος for $1 $2."
-  },
   "warningBackButton": {
     "message": "Πίσω"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Συνέχεια"
-  },
-  "warningOpeningButton": {
-    "message": "Άνοιγμα..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the ιστότοπος now. The αποκλειστής will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the ιστότοπος. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Έτοιμο. Επαναφόρτωση…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Θα φτιάξω αυτό αντ' αυτού"
-  },
-  "recipeChosenButton": {
-    "message": "Προστέθηκε στα στατιστικά σας ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Καλή επιλογή — καταγράφηκε στα στατιστικά σας. Δείτε το στις Ρυθμίσεις."
-  },
   "statusCaloriesAvoided": {
     "message": "Θερμίδες που αποφύγατε"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Μπορείτε να ρυθμίσετε τα χρώματα αργότερα στις Ρυθμίσεις."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Αποκλεισμός παραγγελιών φαστ φουντ"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Προσθέτει μια οθόνη παύσης στις σελίδες παραγγελίας μεγάλων αλυσίδων φαστ φουντ."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Συνιστάται ενεργό."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Αποκλεισμός εφαρμογών παράδοσης"
-  },
   "welcomeDeliveryBody": {
     "message": "Προσθέτει μια οθόνη παύσης σε πλατφόρμες παράδοσης όπως DoorDash και Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Επαναφορά αντιγράφου ασφαλείας (προαιρετικό)"
   },
   "welcomeImportBody": {
     "message": "Έρχεστε από άλλη συσκευή; Εισαγάγετε ένα αρχείο ρυθμίσεων FitShield για να μεταφέρετε τα πάντα. Διαφορετικά απλώς συνεχίστε."
   },
   "welcomeImportButton": {
     "message": "Εισαγωγή αρχείου ρυθμίσεων"
-  },
-  "welcomeHelpTitle": {
-    "message": "Πώς βοηθά το FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Μια γρήγορη ξενάγηση στις κύριες λειτουργίες."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Χρονόμετρο παύσης"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Όταν φτάνετε σε αποκλεισμένο ιστότοπο, τρέχει μια σύντομη αντίστροφη μέτρηση πριν συνεχίσετε — αρκετή για να ξανασκεφτείτε την παραγγελία."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Πρόγραμμα"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Προαιρετικά αποκλείστε μόνο σε καθορισμένες ώρες, όπως τα βράδια ή τις ώρες εργασίας."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Λίστα επιτρεπόμενων"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Απενεργοποιήστε οποιονδήποτε ιστότοπο, προσθέστε δικά σας URL ή δώστε στον εαυτό σας προσωρινή πρόσβαση όταν τη χρειάζεστε πραγματικά."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Ιδέες συνταγών"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Η οθόνη αποκλεισμού προτείνει μια γρήγορη χορτοφαγική και μια συνταγή με κρέας/πρωτεΐνη με βάση αυτό που αποκλείσατε."
   },
   "welcomeBack": {
     "message": "Πίσω"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

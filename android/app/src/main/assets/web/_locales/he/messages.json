@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "אתה עומד להזמין מ-$1."
   },
-  "warningHintLocked": {
-    "message": "כאשר הטיימר מסתיים, תוכל להמשיך לאתר עבור $1 $2."
-  },
   "warningBackButton": {
     "message": "תחזור אחורה"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "המשך"
-  },
-  "warningOpeningButton": {
-    "message": "פותח..."
-  },
-  "warningUnlockHint": {
-    "message": "אתה יכול לבקר באתר עכשיו. החוסם יחזור אוטומטית לאחר $1 $2."
   },
   "warningErrorHint": {
     "message": "משהו השתבש במהלך פתיחת האתר. אנא נסה שוב."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "בוצע. טוען מחדש…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 קלוריות"
-  },
-  "recipeChooseButton": {
-    "message": "אכין את זה במקום"
-  },
-  "recipeChosenButton": {
-    "message": "נוסף לסטטיסטיקה שלך ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "בחירה טובה — נרשם בסטטיסטיקה שלך. אפשר לראות בהגדרות."
-  },
   "statusCaloriesAvoided": {
     "message": "קלוריות שנמנעו"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "אפשר לכוונן צבעים מאוחר יותר בהגדרות."
   },
-  "welcomeFastFoodTitle": {
-    "message": "חסום הזמנת מזון מהיר"
-  },
-  "welcomeFastFoodBody": {
-    "message": "מוסיף מסך השהיה בדפי ההזמנה של רשתות מזון מהיר גדולות."
-  },
-  "welcomeRecommendedOn": {
-    "message": "מומלץ פעיל."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "חסום אפליקציות משלוחים"
-  },
   "welcomeDeliveryBody": {
     "message": "מוסיף מסך השהיה בפלטפורמות משלוחים כמו DoorDash ו-Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "שחזר גיבוי (אופציונלי)"
   },
   "welcomeImportBody": {
     "message": "מגיע ממכשיר אחר? ייבא קובץ הגדרות של FitShield כדי להעביר הכול. אחרת פשוט המשך."
   },
   "welcomeImportButton": {
     "message": "ייבוא קובץ הגדרות"
-  },
-  "welcomeHelpTitle": {
-    "message": "איך FitShield עוזר"
-  },
-  "welcomeHelpBody": {
-    "message": "סיור מהיר בתכונות העיקריות."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "טיימר השהיה"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "באתר חסום רץ ספירה לאחור קצרה לפני שאפשר להמשיך — מספיק כדי לחשוב מחדש על ההזמנה."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "לוח זמנים"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "אפשר לחסום רק בשעות מסוימות, כמו בערב או בשעות העבודה."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "רשימה לבנה"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "כבה כל אתר, הוסף כתובות URL משלך, או תן אישור זמני כשבאמת צריך."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "רעיונות למתכונים"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "מסך החסימה מציע מתכון צמחוני ומתכון בשרי/חלבוני מהיר לפי מה שחסמת."
   },
   "welcomeBack": {
     "message": "חזרה"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

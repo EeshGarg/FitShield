@@ -13,6 +13,7 @@
     "validate:categories": "node tools/category-audit.js",
     "validate:locales": "node tools/locale-parity.js",
     "locales:status": "node tools/locale-status.js",
+    "locales:prune": "node tools/locale-prune.js",
     "validate:docs": "node tools/changelog-validator.js",
     "validate:assets": "node tools/assets-check.js",
     "validate:extension": "node tools/extension-audit.js",

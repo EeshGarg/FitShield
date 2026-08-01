@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "သင် $1 မှ မှာယူပါတော့မည်။"
   },
-  "warningHintLocked": {
-    "message": "အချိန်တိုင်းကိရိယာ ပြီးဆုံးသောအခါ၊ သင်သည် $1 $2 အတွက် ဝဘ်ဆိုက်သို့ ဆက်သွားနိုင်ပါသည်။"
-  },
   "warningBackButton": {
     "message": "ပြန်သွားပါ။"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "ဆက်ရန်"
-  },
-  "warningOpeningButton": {
-    "message": "ဖွင့်လှစ်ခြင်း..."
-  },
-  "warningUnlockHint": {
-    "message": "သင်ယခုဆိုက်ကိုသွားရောက်ကြည့်ရှုနိုင်ပါတယ်။ $1 $2 ပြီးနောက် blocker သည် အလိုအလျောက်ပြန်လာပါမည်။"
   },
   "warningErrorHint": {
     "message": "ဆိုက်ကိုဖွင့်စဉ် တစ်ခုခုမှားသွားသည်။ ထပ်စမ်းကြည့်ပါ။"
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "ပြီးပါပြီ။ ပြန်လည်ဖွင့်နေသည်…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "အဲဒါအစား ဒါကိုလုပ်မယ်"
-  },
-  "recipeChosenButton": {
-    "message": "သင့်စာရင်းအင်းထဲ ထည့်ပြီးပါပြီ ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "ရွေးချယ်မှုကောင်းပါတယ် — သင့်စာရင်းအင်းမှာ မှတ်တမ်းတင်ပြီးပါပြီ။ ဆက်တင်များတွင် ကြည့်ပါ။"
-  },
   "statusCaloriesAvoided": {
     "message": "ရှောင်ရှားနိုင်သော ကယ်လိုရီ"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "အရောင်များကို နောက်မှ ဆက်တင်များတွင် သေသပ်စွာ ချိန်ညှိနိုင်သည်။"
   },
-  "welcomeFastFoodTitle": {
-    "message": "အမြန်အစားအစာ မှာယူမှုကို ပိတ်ဆို့"
-  },
-  "welcomeFastFoodBody": {
-    "message": "အကြီးစား အမြန်အစားအစာ ကွင်းဆက်များ၏ မှာယူမှုစာမျက်နှာများတွင် ခေတ္တရပ်နားမျက်နှာပြင်တစ်ခု ထည့်သည်။"
-  },
-  "welcomeRecommendedOn": {
-    "message": "ဖွင့်ထားရန် အကြံပြုသည်။"
-  },
-  "welcomeDeliveryTitle": {
-    "message": "ပို့ဆောင်ရေးအက်ပ်များကို ပိတ်ဆို့"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash နှင့် Uber Eats ကဲ့သို့ ပို့ဆောင်ရေးပလက်ဖောင်းများတွင် ခေတ္တရပ်နားမျက်နှာပြင်တစ်ခု ထည့်သည်။"
-  },
-  "welcomeImportTitle": {
-    "message": "အရန်ကို ပြန်လည်ရယူ (ရွေးချယ်နိုင်)"
   },
   "welcomeImportBody": {
     "message": "အခြားစက်မှ လာသလား? အရာအားလုံးကို ယူဆောင်ရန် FitShield ဆက်တင်ဖိုင်တစ်ခု တင်သွင်းပါ။ မဟုတ်ပါက ဆက်လုပ်ပါ။"
   },
   "welcomeImportButton": {
     "message": "ဆက်တင်ဖိုင် တင်သွင်း"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield ဘယ်လိုကူညီသလဲ"
-  },
-  "welcomeHelpBody": {
-    "message": "အဓိကအင်္ဂါရပ်များကို အမြန်လေ့လာခြင်း။"
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "ခေတ္တရပ်နား တိုင်မာ"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "ပိတ်ဆို့ထားသော ဆိုက်တစ်ခုသို့ ရောက်သောအခါ ဆက်မလုပ်မီ ရေတွက်ချိန်တိုတစ်ခု အလုပ်လုပ်သည် — အော်ဒါကို ပြန်စဉ်းစားရန် လုံလောက်သည်။"
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "အချိန်ဇယား"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "လိုအပ်ပါက ညနေ သို့မဟုတ် အလုပ်ချိန်ကဲ့သို့ သတ်မှတ်ထားသော နာရီများတွင်သာ ပိတ်ဆို့ပါ။"
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "ဖြူစာရင်း"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "မည်သည့်ဆိုက်ကိုမဆို ပိတ်ပါ၊ သင့်ကိုယ်ပိုင် URL များ ထည့်ပါ၊ သို့မဟုတ် တကယ်လိုအပ်သောအခါ ယာယီခွင့်ပြုချက် ပေးပါ။"
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "ချက်ပြုတ်နည်း အကြံပြုချက်များ"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "ပိတ်ဆို့မျက်နှာပြင်သည် သင်ပိတ်ဆို့ထားသည့်အပေါ် အခြေခံ၍ အမြန်သက်သတ်လွတ်နှင့် အသား/ပရိုတင်း ချက်ပြုတ်နည်းတစ်ခုစီ အကြံပြုသည်။"
   },
   "welcomeBack": {
     "message": "နောက်သို့"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

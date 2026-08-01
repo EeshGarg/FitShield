@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the strona for $1 $2."
-  },
   "warningBackButton": {
     "message": "Wróć"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Kontynuuj"
-  },
-  "warningOpeningButton": {
-    "message": "Otwieranie..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the strona now. The blokada will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the strona. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Gotowe. Ponowne ładowanie…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Zrobię to zamiast tego"
-  },
-  "recipeChosenButton": {
-    "message": "Dodano do statystyk ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Dobry wybór — zapisano w statystykach. Zobacz w Ustawieniach."
-  },
   "statusCaloriesAvoided": {
     "message": "Uniknięte kalorie"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Kolory dostroisz później w Ustawieniach."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Blokuj zamawianie fast foodów"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Dodaje ekran pauzy na stronach zamówień dużych sieci fast food."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Zalecane włączone."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Blokuj aplikacje dostawcze"
-  },
   "welcomeDeliveryBody": {
     "message": "Dodaje ekran pauzy na platformach dostaw, takich jak DoorDash i Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Przywróć kopię zapasową (opcjonalnie)"
   },
   "welcomeImportBody": {
     "message": "Przechodzisz z innego urządzenia? Zaimportuj plik ustawień FitShield, aby przenieść wszystko. W przeciwnym razie po prostu kontynuuj."
   },
   "welcomeImportButton": {
     "message": "Importuj plik ustawień"
-  },
-  "welcomeHelpTitle": {
-    "message": "Jak pomaga FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Szybki przegląd głównych funkcji."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Licznik pauzy"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Na zablokowanej witrynie biegnie krótkie odliczanie przed kontynuacją — wystarczy, by przemyśleć zamówienie."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Harmonogram"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "W razie potrzeby blokuj tylko w wybranych godzinach, np. wieczorami lub w pracy."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Biała lista"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Wyłącz dowolną witrynę, dodaj własne adresy URL lub przyznaj tymczasowy dostęp, gdy naprawdę go potrzebujesz."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Pomysły na przepisy"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Ekran blokady proponuje szybki przepis wegetariański i mięsny/białkowy w zależności od tego, co zablokowałeś."
   },
   "welcomeBack": {
     "message": "Wstecz"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restauracja"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

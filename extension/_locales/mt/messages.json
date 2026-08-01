@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the sit for $1 $2."
-  },
   "warningBackButton": {
     "message": "Mur lura"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Kompli"
-  },
-  "warningOpeningButton": {
-    "message": "Qed jinfetaħ..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the sit now. The imblokkatur will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the sit. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Lest. Qed jerġa' jitgħabba…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Nagħmel dan minflok"
-  },
-  "recipeChosenButton": {
-    "message": "Miżjud mal-istatistika tiegħek ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Għażla tajba — irreġistrat fl-istatistika tiegħek. Arah fl-Issettjar."
-  },
   "statusCaloriesAvoided": {
     "message": "Kaloriji evitati"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Tista' tirfina l-kuluri aktar tard fl-Issettjar."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Imblokka l-ordnijiet tal-ikel mgħaġġel"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Iżid skrin ta' pawża fuq il-paġni tal-ordni tal-katini l-kbar tal-ikel mgħaġġel."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Rakkomandat mixgħul."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Imblokka l-apps tal-kunsinna"
-  },
   "welcomeDeliveryBody": {
     "message": "Iżid skrin ta' pawża fuq pjattaformi tal-kunsinna bħal DoorDash u Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Irrestawra backup (mhux obbligatorju)"
   },
   "welcomeImportBody": {
     "message": "Ġej minn tagħmir ieħor? Importa fajl tas-settings ta' FitShield biex iġġib kollox. Inkella sempliċement kompli."
   },
   "welcomeImportButton": {
     "message": "Importa fajl tas-settings"
-  },
-  "welcomeHelpTitle": {
-    "message": "Kif jgħin FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Ġirja mgħaġġla mill-karatteristiċi ewlenin."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Timer tal-pawża"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Meta tilħaq sit imblukkat, jaħdem countdown qasir qabel ma tkun tista' tkompli — biżżejjed biex terġa' taħseb dwar l-ordni."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Skeda"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Jekk trid, imblokka biss f'ħinijiet stabbiliti, bħal filgħaxija jew il-ħin tax-xogħol."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Lista bajda"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Itfi kwalunkwe sit, żid l-URLs tiegħek, jew agħti lilek innifsek permess temporanju meta tabilħaqq teħtieġu."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Ideat ta' riċetti"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "L-iskrin tal-imblukkar jissuġġerixxi riċetta veġetarjana mgħaġġla u waħda bil-laħam/proteina skont dak li mblukkajt."
   },
   "welcomeBack": {
     "message": "Lura"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

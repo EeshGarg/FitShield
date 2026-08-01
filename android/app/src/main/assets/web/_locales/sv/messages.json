@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the webbplats for $1 $2."
-  },
   "warningBackButton": {
     "message": "Gå tillbaka"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Fortsätt"
-  },
-  "warningOpeningButton": {
-    "message": "Öppnar..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the webbplats now. The blockeraerare will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the webbplats. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Klart. Läser om…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Jag lagar det här istället"
-  },
-  "recipeChosenButton": {
-    "message": "Tillagt i din statistik ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Bra val — loggat i din statistik. Se det i Inställningar."
-  },
   "statusCaloriesAvoided": {
     "message": "Undvikna kalorier"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Du kan finjustera färgerna senare i Inställningar."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Blockera snabbmatsbeställning"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Lägger till en pausskärm på beställningssidorna för stora snabbmatskedjor."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Rekommenderas på."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Blockera leveransappar"
-  },
   "welcomeDeliveryBody": {
     "message": "Lägger till en pausskärm på leveransplattformar som DoorDash och Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Återställ en säkerhetskopia (valfritt)"
   },
   "welcomeImportBody": {
     "message": "Kommer du från en annan enhet? Importera en FitShield-inställningsfil för att ta med allt. Annars är det bara att fortsätta."
   },
   "welcomeImportButton": {
     "message": "Importera inställningsfil"
-  },
-  "welcomeHelpTitle": {
-    "message": "Så hjälper FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "En snabb rundtur bland huvudfunktionerna."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Paustimer"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "När du når en blockerad webbplats körs en kort nedräkning innan du kan fortsätta — nog för att tänka om kring beställningen."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Schema"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Blockera valfritt endast under vissa timmar, som kvällar eller arbetstid."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Vitlista"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Stäng av valfri webbplats, lägg till egna URL:er eller ge dig själv en tillfällig passersedel när du verkligen behöver."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Receptidéer"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Blockeringsskärmen föreslår ett snabbt vegetariskt och ett kött-/proteinrecept utifrån vad du blockerade."
   },
   "welcomeBack": {
     "message": "Tillbaka"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurang"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

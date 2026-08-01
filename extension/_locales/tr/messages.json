@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the site for $1 $2."
-  },
   "warningBackButton": {
     "message": "Geri dön"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Devam et"
-  },
-  "warningOpeningButton": {
-    "message": "Açılıyor..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the site now. The engelleyici will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the site. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Tamam. Yeniden yükleniyor…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Bunun yerine bunu yapayım"
-  },
-  "recipeChosenButton": {
-    "message": "İstatistiklerine eklendi ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Güzel seçim — istatistiklerine kaydedildi. Ayarlar'da görebilirsin."
-  },
   "statusCaloriesAvoided": {
     "message": "Önlenen kalori"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Renkleri daha sonra Ayarlar'da ince ayar yapabilirsin."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Fast food siparişini engelle"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Büyük fast food zincirlerinin sipariş sayfalarına bir mola ekranı ekler."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Açık olması önerilir."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Teslimat uygulamalarını engelle"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash ve Uber Eats gibi teslimat platformlarına bir mola ekranı ekler."
-  },
-  "welcomeImportTitle": {
-    "message": "Bir yedeği geri yükle (isteğe bağlı)"
   },
   "welcomeImportBody": {
     "message": "Başka bir cihazdan mı geliyorsun? Her şeyi taşımak için bir FitShield ayar dosyası içe aktar. Değilse devam et."
   },
   "welcomeImportButton": {
     "message": "Ayar dosyasını içe aktar"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield nasıl yardımcı olur"
-  },
-  "welcomeHelpBody": {
-    "message": "Ana özelliklere hızlı bir tur."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Mola zamanlayıcısı"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Engellenen bir siteye girince, devam etmeden önce kısa bir geri sayım çalışır — siparişi yeniden düşünmeye yetecek kadar."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Program"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "İstersen yalnızca belirli saatlerde engelle, örneğin akşamları veya iş saatlerinde."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Beyaz liste"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "İstediğin siteyi kapat, kendi URL'lerini ekle veya gerçekten gerektiğinde geçici izin ver."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Tarif fikirleri"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Engelleme ekranı, engellediğine göre hızlı bir vejetaryen ve bir et/protein tarifi önerir."
   },
   "welcomeBack": {
     "message": "Geri"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restoran"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

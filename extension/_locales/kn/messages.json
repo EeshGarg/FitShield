@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "ನೀವು $1 ನಿಂದ ಆರ್ಡರ್ ಮಾಡಲಿರುವಿರಿ."
   },
-  "warningHintLocked": {
-    "message": "ಟೈಮರ್ ಕೊನೆಗೊಂಡಾಗ, ನೀವು $1 $2 ಗಾಗಿ ಸೈಟ್‌ಗೆ ಮುಂದುವರಿಯಬಹುದು."
-  },
   "warningBackButton": {
     "message": "ಹಿಂತಿರುಗಿ"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "ಮುಂದುವರಿಸಿ"
-  },
-  "warningOpeningButton": {
-    "message": "ತೆರೆಯಲಾಗುತ್ತಿದೆ..."
-  },
-  "warningUnlockHint": {
-    "message": "ನೀವು ಈಗ ಸೈಟ್‌ಗೆ ಭೇಟಿ ನೀಡಬಹುದು. $1 $2 ನಂತರ ಬ್ಲಾಕರ್ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಹಿಂತಿರುಗುತ್ತದೆ."
   },
   "warningErrorHint": {
     "message": "ಸೈಟ್ ತೆರೆಯುವಾಗ ಏನೋ ತಪ್ಪಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "ಮುಗಿದಿದೆ. ಮರುಲೋಡ್ ಆಗುತ್ತಿದೆ…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "ಬದಲಿಗೆ ಇದನ್ನು ಮಾಡುತ್ತೇನೆ"
-  },
-  "recipeChosenButton": {
-    "message": "ನಿಮ್ಮ ಅಂಕಿಅಂಶಗಳಿಗೆ ಸೇರಿಸಲಾಗಿದೆ ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "ಉತ್ತಮ ಆಯ್ಕೆ — ನಿಮ್ಮ ಅಂಕಿಅಂಶಗಳಲ್ಲಿ ದಾಖಲಾಗಿದೆ. ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ನೋಡಿ."
-  },
   "statusCaloriesAvoided": {
     "message": "ತಪ್ಪಿಸಿದ ಕ್ಯಾಲೊರಿಗಳು"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "ಬಣ್ಣಗಳನ್ನು ನಂತರ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಸೂಕ್ಷ್ಮವಾಗಿ ಹೊಂದಿಸಬಹುದು."
   },
-  "welcomeFastFoodTitle": {
-    "message": "ಫಾಸ್ಟ್ ಫುಡ್ ಆರ್ಡರ್ ನಿರ್ಬಂಧಿಸಿ"
-  },
-  "welcomeFastFoodBody": {
-    "message": "ದೊಡ್ಡ ಫಾಸ್ಟ್ ಫುಡ್ ಸರಣಿಗಳ ಆರ್ಡರ್ ಪುಟಗಳಲ್ಲಿ ಒಂದು ವಿರಾಮ ಸ್ಕ್ರೀನ್ ಸೇರಿಸುತ್ತದೆ."
-  },
-  "welcomeRecommendedOn": {
-    "message": "ಆನ್ ಮಾಡಲು ಶಿಫಾರಸು."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "ಡೆಲಿವರಿ ಆ್ಯಪ್‌ಗಳನ್ನು ನಿರ್ಬಂಧಿಸಿ"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash ಮತ್ತು Uber Eats ನಂತಹ ಡೆಲಿವರಿ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್‌ಗಳಲ್ಲಿ ಒಂದು ವಿರಾಮ ಸ್ಕ್ರೀನ್ ಸೇರಿಸುತ್ತದೆ."
-  },
-  "welcomeImportTitle": {
-    "message": "ಬ್ಯಾಕಪ್ ಮರುಸ್ಥಾಪಿಸಿ (ಐಚ್ಛಿಕ)"
   },
   "welcomeImportBody": {
     "message": "ಬೇರೆ ಸಾಧನದಿಂದ ಬರುತ್ತಿದ್ದೀರಾ? ಎಲ್ಲವನ್ನೂ ತರಲು FitShield ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಫೈಲ್ ಆಮದು ಮಾಡಿ. ಇಲ್ಲದಿದ್ದರೆ ಮುಂದುವರಿಯಿರಿ."
   },
   "welcomeImportButton": {
     "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಫೈಲ್ ಆಮದು ಮಾಡಿ"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield ಹೇಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ"
-  },
-  "welcomeHelpBody": {
-    "message": "ಮುಖ್ಯ ವೈಶಿಷ್ಟ್ಯಗಳ ತ್ವರಿತ ಪ್ರವಾಸ."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "ವಿರಾಮ ಟೈಮರ್"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "ನಿರ್ಬಂಧಿತ ಸೈಟ್ ತಲುಪಿದಾಗ, ಮುಂದುವರಿಯುವ ಮೊದಲು ಒಂದು ಸಣ್ಣ ಕೌಂಟ್‌ಡೌನ್ ಚಲಿಸುತ್ತದೆ — ಆರ್ಡರ್ ಬಗ್ಗೆ ಮರುಪರಿಶೀಲಿಸಲು ಸಾಕು."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "ವೇಳಾಪಟ್ಟಿ"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "ಬೇಕಿದ್ದರೆ ಸಂಜೆ ಅಥವಾ ಕೆಲಸದ ಸಮಯದಂತಹ ನಿರ್ದಿಷ್ಟ ಗಂಟೆಗಳಲ್ಲಿ ಮಾತ್ರ ನಿರ್ಬಂಧಿಸಿ."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "ವೈಟ್‌ಲಿಸ್ಟ್"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "ಯಾವುದೇ ಸೈಟ್ ಆಫ್ ಮಾಡಿ, ನಿಮ್ಮ ಸ್ವಂತ URL ಸೇರಿಸಿ, ಅಥವಾ ನಿಜವಾಗಿಯೂ ಬೇಕಾದಾಗ ತಾತ್ಕಾಲಿಕ ಅನುಮತಿ ನೀಡಿ."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "ರೆಸಿಪಿ ಆಲೋಚನೆಗಳು"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "ನೀವು ನಿರ್ಬಂಧಿಸಿದ ಆಧಾರದ ಮೇಲೆ ಬ್ಲಾಕ್ ಸ್ಕ್ರೀನ್ ಒಂದು ತ್ವರಿತ ಸಸ್ಯಾಹಾರಿ ಮತ್ತು ಮಾಂಸ/ಪ್ರೋಟೀನ್ ರೆಸಿಪಿ ಸೂಚಿಸುತ್ತದೆ."
   },
   "welcomeBack": {
     "message": "ಹಿಂದೆ"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

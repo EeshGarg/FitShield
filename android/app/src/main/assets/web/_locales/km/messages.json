@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "អ្នកហៀបនឹងបញ្ជាទិញពី $1 ។"
   },
-  "warningHintLocked": {
-    "message": "នៅពេលដែលកម្មវិធីកំណត់ម៉ោងបញ្ចប់ អ្នកអាចបន្តទៅកាន់គេហទំព័រសម្រាប់ $1 $2 ។"
-  },
   "warningBackButton": {
     "message": "ត្រឡប់ទៅវិញ។"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "បន្ត"
-  },
-  "warningOpeningButton": {
-    "message": "ការបើក..."
-  },
-  "warningUnlockHint": {
-    "message": "អ្នកអាចចូលមើលគេហទំព័រឥឡូវនេះ។ ឧបករណ៍ទប់ស្កាត់នឹងត្រលប់មកវិញដោយស្វ័យប្រវត្តិបន្ទាប់ពី $1 $2 ។"
   },
   "warningErrorHint": {
     "message": "មានអ្វីមួយខុសប្រក្រតីពេលបើកគេហទំព័រ។ សូមព្យាយាមម្តងទៀត។"
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "រួចរាល់។ កំពុងផ្ទុកឡើងវិញ…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "ខ្ញុំនឹងធ្វើមុខម្ហូបនេះជំនួសវិញ"
-  },
-  "recipeChosenButton": {
-    "message": "បានបន្ថែមទៅស្ថិតិរបស់អ្នក ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "ជម្រើសល្អ — បានកត់ត្រាក្នុងស្ថិតិរបស់អ្នក។ មើលក្នុងការកំណត់។"
-  },
   "statusCaloriesAvoided": {
     "message": "កាឡូរីដែលជៀសវាង"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "អ្នកអាចកែសម្រួលពណ៌ពេលក្រោយក្នុងការកំណត់។"
   },
-  "welcomeFastFoodTitle": {
-    "message": "ទប់ស្កាត់ការបញ្ជាទិញអាហាររហ័ស"
-  },
-  "welcomeFastFoodBody": {
-    "message": "បន្ថែមអេក្រង់ផ្អាកនៅលើទំព័របញ្ជាទិញរបស់ខ្សែសង្វាក់អាហាររហ័សធំៗ។"
-  },
-  "welcomeRecommendedOn": {
-    "message": "ណែនាំឱ្យបើក។"
-  },
-  "welcomeDeliveryTitle": {
-    "message": "ទប់ស្កាត់កម្មវិធីដឹកជញ្ជូន"
-  },
   "welcomeDeliveryBody": {
     "message": "បន្ថែមអេក្រង់ផ្អាកនៅលើវេទិកាដឹកជញ្ជូនដូចជា DoorDash និង Uber Eats។"
-  },
-  "welcomeImportTitle": {
-    "message": "ស្ដារការបម្រុងទុក (ស្រេចចិត្ត)"
   },
   "welcomeImportBody": {
     "message": "មកពីឧបករណ៍ផ្សេងឬ? នាំចូលឯកសារការកំណត់ FitShield ដើម្បីយកអ្វីៗទាំងអស់មក។ បើមិនដូច្នេះទេ គ្រាន់តែបន្ត។"
   },
   "welcomeImportButton": {
     "message": "នាំចូលឯកសារការកំណត់"
-  },
-  "welcomeHelpTitle": {
-    "message": "របៀប FitShield ជួយ"
-  },
-  "welcomeHelpBody": {
-    "message": "ដំណើរកម្សាន្តរហ័សតាមមុខងារសំខាន់ៗ។"
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "កម្មវិធីកំណត់ម៉ោងផ្អាក"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "នៅពេលអ្នកទៅដល់គេហទំព័រដែលបានទប់ស្កាត់ ការរាប់ថយក្រោយខ្លីដំណើរការមុនពេលអ្នកអាចបន្ត — គ្រប់គ្រាន់ដើម្បីគិតឡើងវិញអំពីការបញ្ជាទិញ។"
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "កាលវិភាគ"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "ស្រេចចិត្តទប់ស្កាត់តែនៅម៉ោងកំណត់ ដូចជាពេលល្ងាច ឬម៉ោងធ្វើការ។"
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "បញ្ជីស"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "បិទគេហទំព័រណាមួយ បន្ថែម URL ផ្ទាល់ខ្លួនរបស់អ្នក ឬផ្ដល់ការអនុញ្ញាតបណ្ដោះអាសន្ននៅពេលអ្នកត្រូវការពិតប្រាកដ។"
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "គំនិតរូបមន្ត"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "អេក្រង់ទប់ស្កាត់ស្នើរូបមន្តបន្លែរហ័ស និងរូបមន្តសាច់/ប្រូតេអ៊ីន ផ្អែកលើអ្វីដែលអ្នកបានទប់ស្កាត់។"
   },
   "welcomeBack": {
     "message": "ថយក្រោយ"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

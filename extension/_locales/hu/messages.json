@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the oldal for $1 $2."
-  },
   "warningBackButton": {
     "message": "Vissza"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Folytatás"
-  },
-  "warningOpeningButton": {
-    "message": "Megnyitás..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the oldal now. The blokkoló will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the oldal. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Kész. Újratöltés…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Inkább ezt készítem el"
-  },
-  "recipeChosenButton": {
-    "message": "Hozzáadva a statisztikádhoz ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Jó választás — rögzítve a statisztikádban. Nézd meg a Beállításokban."
-  },
   "statusCaloriesAvoided": {
     "message": "Elkerült kalóriák"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "A színeket később finomhangolhatod a Beállításokban."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Gyorséttermi rendelés letiltása"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Szünet képernyőt ad a nagy gyorsétterem-láncok rendelési oldalaihoz."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Ajánlott bekapcsolva."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Kézbesítő appok letiltása"
-  },
   "welcomeDeliveryBody": {
     "message": "Szünet képernyőt ad az olyan kézbesítő platformokhoz, mint a DoorDash és az Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Biztonsági mentés visszaállítása (opcionális)"
   },
   "welcomeImportBody": {
     "message": "Másik eszközről jössz? Importálj egy FitShield beállításfájlt, hogy mindent áthozz. Egyébként csak folytasd."
   },
   "welcomeImportButton": {
     "message": "Beállításfájl importálása"
-  },
-  "welcomeHelpTitle": {
-    "message": "Hogyan segít a FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Gyors körút a fő funkciókon."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Szünet-időzítő"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Amikor letiltott webhelyre érsz, rövid visszaszámlálás fut, mielőtt folytathatnád — épp elég, hogy újragondold a rendelést."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Ütemezés"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Igény szerint csak megadott órákban tilthatsz, például esténként vagy munkaidőben."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Fehérlista"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Kapcsolj ki bármelyik webhelyet, adj hozzá saját URL-eket, vagy adj magadnak ideiglenes engedélyt, ha tényleg szükséged van rá."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Receptötletek"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "A letiltási képernyő egy gyors vegetáriánus és egy hús/fehérje receptet ajánl annak alapján, amit letiltottál."
   },
   "welcomeBack": {
     "message": "Vissza"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

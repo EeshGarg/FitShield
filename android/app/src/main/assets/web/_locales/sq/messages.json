@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the faqe for $1 $2."
-  },
   "warningBackButton": {
     "message": "Kthehu"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Vazhdo"
-  },
-  "warningOpeningButton": {
-    "message": "Po hapet..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the faqe now. The bllokuesi will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the faqe. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "U krye. Po ringarkohet…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Më mirë do bëj këtë"
-  },
-  "recipeChosenButton": {
-    "message": "U shtua te statistikat tuaja ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Zgjedhje e mirë — u regjistrua te statistikat tuaja. Shihni te Cilësimet."
-  },
   "statusCaloriesAvoided": {
     "message": "Kalori të shmangura"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Ngjyrat mund t'i rregulloni më vonë te Cilësimet."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Blloko porositë e ushqimit të shpejtë"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Shton një ekran pauze në faqet e porosive të zinxhirëve të mëdhenj të ushqimit të shpejtë."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Rekomandohet aktiv."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Blloko aplikacionet e dorëzimit"
-  },
   "welcomeDeliveryBody": {
     "message": "Shton një ekran pauze në platformat e dorëzimit si DoorDash dhe Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Rikthe një kopje rezervë (opsionale)"
   },
   "welcomeImportBody": {
     "message": "Po vini nga një pajisje tjetër? Importoni një skedar cilësimesh të FitShield për të sjellë gjithçka. Përndryshe thjesht vazhdoni."
   },
   "welcomeImportButton": {
     "message": "Importo skedarin e cilësimeve"
-  },
-  "welcomeHelpTitle": {
-    "message": "Si ju ndihmon FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Një turne i shpejtë i veçorive kryesore."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Kohëmatësi i pauzës"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Kur hasni një sajt të bllokuar, ecën një numërim mbrapsht i shkurtër para se të vazhdoni — mjaftueshëm për ta rimenduar porosinë."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Orari"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Sipas dëshirës bllokoni vetëm në orë të caktuara, si mbrëmjet ose orari i punës."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Lista e bardhë"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Çaktivizoni çdo sajt, shtoni URL-të tuaja ose jepini vetes një leje të përkohshme kur ju duhet vërtet."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Ide recetash"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Ekrani i bllokimit sugjeron një recetë të shpejtë vegjetariane dhe një me mish/proteinë sipas asaj që bllokuat."
   },
   "welcomeBack": {
     "message": "Prapa"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

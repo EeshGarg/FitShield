@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the lloc for $1 $2."
-  },
   "warningBackButton": {
     "message": "Torna"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Continua"
-  },
-  "warningOpeningButton": {
-    "message": "S'està obrint..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the lloc now. The bloquejador will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the lloc. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Fet. Tornant a carregar…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Millor faré això"
-  },
-  "recipeChosenButton": {
-    "message": "Afegit a les teves estadístiques ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Bona elecció — registrat a les teves estadístiques. Mira-ho a Configuració."
-  },
   "statusCaloriesAvoided": {
     "message": "Calories evitades"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Pots ajustar els colors més tard a Configuració."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Bloqueja comandes de menjar ràpid"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Afegeix una pantalla de pausa a les pàgines de comanda de grans cadenes de menjar ràpid."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Recomanat activat."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Bloqueja apps de lliurament"
-  },
   "welcomeDeliveryBody": {
     "message": "Afegeix una pantalla de pausa a plataformes de lliurament com DoorDash i Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Restaura una còpia de seguretat (opcional)"
   },
   "welcomeImportBody": {
     "message": "Véns d'un altre dispositiu? Importa un fitxer de configuració de FitShield per portar-ho tot. Si no, simplement continua."
   },
   "welcomeImportButton": {
     "message": "Importa el fitxer de configuració"
-  },
-  "welcomeHelpTitle": {
-    "message": "Com t'ajuda FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Un recorregut ràpid per les funcions principals."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Temporitzador de pausa"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Quan arribes a un lloc bloquejat, corre un compte enrere breu abans de continuar — prou per repensar la comanda."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Horari"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Opcionalment bloqueja només en hores concretes, com les tardes o l'horari laboral."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Llista blanca"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Desactiva qualsevol lloc, afegeix els teus URL o dona't un permís temporal quan realment ho necessitis."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Idees de receptes"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "La pantalla de bloqueig suggereix una recepta vegetariana i una de carn/proteïna ràpides segons el que has bloquejat."
   },
   "welcomeBack": {
     "message": "Enrere"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

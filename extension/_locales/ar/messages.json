@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "أنت على وشك الطلب من $1."
   },
-  "warningHintLocked": {
-    "message": "عندما ينتهي المؤقت، يمكنك المتابعة إلى موقع $1 $2."
-  },
   "warningBackButton": {
     "message": "ارجع"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "متابعة"
-  },
-  "warningOpeningButton": {
-    "message": "الافتتاح..."
-  },
-  "warningUnlockHint": {
-    "message": "يمكنك زيارة الموقع الآن. سيعود الحظر تلقائيًا بعد $1 $2."
   },
   "warningErrorHint": {
     "message": "حدث خطأ ما أثناء فتح الموقع. يرجى المحاولة مرة أخرى."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "تم. إعادة التحميل…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 سعرة"
-  },
-  "recipeChooseButton": {
-    "message": "سأطبخ هذا بدلاً من ذلك"
-  },
-  "recipeChosenButton": {
-    "message": "تمت الإضافة إلى إحصاءاتك ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "اختيار جيد — سُجِّل في إحصاءاتك. يمكنك رؤيته في الإعدادات."
-  },
   "statusCaloriesAvoided": {
     "message": "السعرات المتجنَّبة"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "يمكنك ضبط الألوان لاحقًا في الإعدادات."
   },
-  "welcomeFastFoodTitle": {
-    "message": "حظر طلب الوجبات السريعة"
-  },
-  "welcomeFastFoodBody": {
-    "message": "يضيف شاشة توقّف على صفحات الطلب لسلاسل الوجبات السريعة الكبرى."
-  },
-  "welcomeRecommendedOn": {
-    "message": "يُوصى بتفعيله."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "حظر تطبيقات التوصيل"
-  },
   "welcomeDeliveryBody": {
     "message": "يضيف شاشة توقّف على منصات التوصيل مثل DoorDash و Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "استعادة نسخة احتياطية (اختياري)"
   },
   "welcomeImportBody": {
     "message": "قادم من جهاز آخر؟ استورد ملف إعدادات FitShield لنقل كل شيء. وإلا فتابع فحسب."
   },
   "welcomeImportButton": {
     "message": "استيراد ملف الإعدادات"
-  },
-  "welcomeHelpTitle": {
-    "message": "كيف يساعدك FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "جولة سريعة في الميزات الرئيسية."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "مؤقّت التوقّف"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "عند فتح موقع محظور، يبدأ عدّ تنازلي قصير قبل المتابعة — يكفي لإعادة التفكير في الطلب."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "الجدول"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "يمكنك الحظر فقط في ساعات محددة، مثل المساء أو ساعات العمل."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "القائمة البيضاء"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "أوقف أي موقع، أو أضف عناوين URL خاصة بك، أو امنح تصريحًا مؤقتًا عند الحاجة الفعلية."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "أفكار وصفات"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "تقترح شاشة الحظر وصفة نباتية وأخرى باللحم/البروتين حسب ما حظرته."
   },
   "welcomeBack": {
     "message": "رجوع"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "مطعم"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

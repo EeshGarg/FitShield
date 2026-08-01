@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "ਤੁਸੀਂ $1 ਤੋਂ ਆਰਡਰ ਕਰਨ ਵਾਲੇ ਹੋ।"
   },
-  "warningHintLocked": {
-    "message": "ਜਦੋਂ ਟਾਈਮਰ ਖਤਮ ਹੋਵੇਗਾ, ਤੁਸੀਂ $1 $2 ਲਈ ਸਾਈਟ ਤੇ ਜਾਰੀ ਰੱਖ ਸਕੋਗੇ।"
-  },
   "warningBackButton": {
     "message": "ਵਾਪਸ ਜਾਓ"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "ਜਾਰੀ ਰੱਖੋ"
-  },
-  "warningOpeningButton": {
-    "message": "ਖੁੱਲ੍ਹ ਰਿਹਾ ਹੈ..."
-  },
-  "warningUnlockHint": {
-    "message": "ਹੁਣ ਤੁਸੀਂ ਸਾਈਟ ਤੇ ਜਾ ਸਕਦੇ ਹੋ। ਬਲਾਕਰ $1 $2 ਬਾਅਦ ਆਪਣੇ ਆਪ ਵਾਪਸ ਆ ਜਾਵੇਗਾ।"
   },
   "warningErrorHint": {
     "message": "ਸਾਈਟ ਖੋਲ੍ਹਣ ਵੇਲੇ ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "ਹੋ ਗਿਆ। ਮੁੜ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "ਇਸ ਦੀ ਥਾਂ ਇਹ ਬਣਾਵਾਂਗਾ"
-  },
-  "recipeChosenButton": {
-    "message": "ਤੁਹਾਡੇ ਅੰਕੜਿਆਂ ਵਿੱਚ ਜੋੜਿਆ ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "ਵਧੀਆ ਚੋਣ — ਤੁਹਾਡੇ ਅੰਕੜਿਆਂ ਵਿੱਚ ਦਰਜ ਹੋ ਗਿਆ। ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਦੇਖੋ।"
-  },
   "statusCaloriesAvoided": {
     "message": "ਬਚਾਈਆਂ ਕੈਲੋਰੀਆਂ"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "ਰੰਗ ਬਾਅਦ ਵਿੱਚ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਠੀਕ ਕਰ ਸਕਦੇ ਹੋ।"
   },
-  "welcomeFastFoodTitle": {
-    "message": "ਫਾਸਟ ਫੂਡ ਆਰਡਰਿੰਗ ਬਲਾਕ ਕਰੋ"
-  },
-  "welcomeFastFoodBody": {
-    "message": "ਵੱਡੀਆਂ ਫਾਸਟ ਫੂਡ ਚੇਨਾਂ ਦੇ ਆਰਡਰ ਪੇਜਾਂ ਉੱਤੇ ਇੱਕ ਪੌਜ਼ ਸਕ੍ਰੀਨ ਜੋੜਦਾ ਹੈ।"
-  },
-  "welcomeRecommendedOn": {
-    "message": "ਚਾਲੂ ਰੱਖਣ ਦੀ ਸਿਫ਼ਾਰਸ਼।"
-  },
-  "welcomeDeliveryTitle": {
-    "message": "ਡਿਲੀਵਰੀ ਐਪਾਂ ਬਲਾਕ ਕਰੋ"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash ਅਤੇ Uber Eats ਵਰਗੇ ਡਿਲੀਵਰੀ ਪਲੇਟਫਾਰਮਾਂ ਉੱਤੇ ਇੱਕ ਪੌਜ਼ ਸਕ੍ਰੀਨ ਜੋੜਦਾ ਹੈ।"
-  },
-  "welcomeImportTitle": {
-    "message": "ਬੈਕਅੱਪ ਬਹਾਲ ਕਰੋ (ਚੋਣਵਾਂ)"
   },
   "welcomeImportBody": {
     "message": "ਕਿਸੇ ਹੋਰ ਡਿਵਾਈਸ ਤੋਂ ਆ ਰਹੇ ਹੋ? ਸਭ ਕੁਝ ਲਿਆਉਣ ਲਈ FitShield ਸੈਟਿੰਗ ਫਾਈਲ ਆਯਾਤ ਕਰੋ। ਨਹੀਂ ਤਾਂ ਜਾਰੀ ਰੱਖੋ।"
   },
   "welcomeImportButton": {
     "message": "ਸੈਟਿੰਗ ਫਾਈਲ ਆਯਾਤ ਕਰੋ"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield ਕਿਵੇਂ ਮਦਦ ਕਰਦਾ ਹੈ"
-  },
-  "welcomeHelpBody": {
-    "message": "ਮੁੱਖ ਫੀਚਰਾਂ ਦੀ ਇੱਕ ਤੇਜ਼ ਝਲਕ।"
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "ਪੌਜ਼ ਟਾਈਮਰ"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "ਰੋਕੀ ਸਾਈਟ ਉੱਤੇ ਜਾਰੀ ਰੱਖਣ ਤੋਂ ਪਹਿਲਾਂ ਇੱਕ ਛੋਟਾ ਕਾਊਂਟਡਾਊਨ ਚੱਲਦਾ ਹੈ — ਆਰਡਰ ਬਾਰੇ ਮੁੜ ਸੋਚਣ ਲਈ ਕਾਫ਼ੀ।"
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "ਸ਼ਡਿਊਲ"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "ਚਾਹੋ ਤਾਂ ਸਿਰਫ਼ ਤੈਅ ਘੰਟਿਆਂ ਵਿੱਚ ਬਲਾਕ ਕਰੋ, ਜਿਵੇਂ ਸ਼ਾਮ ਜਾਂ ਕੰਮ ਦੇ ਸਮੇਂ।"
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "ਵ੍ਹਾਈਟਲਿਸਟ"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "ਕੋਈ ਵੀ ਸਾਈਟ ਬੰਦ ਕਰੋ, ਆਪਣੇ URL ਜੋੜੋ, ਜਾਂ ਸੱਚਮੁੱਚ ਲੋੜ ਪੈਣ ਤੇ ਅਸਥਾਈ ਪਾਸ ਦਿਓ।"
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "ਰੈਸਿਪੀ ਵਿਚਾਰ"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "ਬਲਾਕ ਸਕ੍ਰੀਨ ਤੁਹਾਡੇ ਬਲਾਕ ਮੁਤਾਬਕ ਇੱਕ ਝਟਪਟ ਸ਼ਾਕਾਹਾਰੀ ਤੇ ਇੱਕ ਮੀਟ/ਪ੍ਰੋਟੀਨ ਰੈਸਿਪੀ ਸੁਝਾਉਂਦੀ ਹੈ।"
   },
   "welcomeBack": {
     "message": "ਪਿੱਛੇ"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

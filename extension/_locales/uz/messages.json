@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "Siz $1 dan buyurtma bermoqchisiz."
   },
-  "warningHintLocked": {
-    "message": "Taymer tugagach, siz $1 $2 saytiga o‘tishingiz mumkin."
-  },
   "warningBackButton": {
     "message": "Orqaga qayt"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Davom eting"
-  },
-  "warningOpeningButton": {
-    "message": "Ochilyapti..."
-  },
-  "warningUnlockHint": {
-    "message": "Saytga hozir tashrif buyurishingiz mumkin. Bloklovchi $1 $2 dan keyin avtomatik ravishda qaytadi."
   },
   "warningErrorHint": {
     "message": "Saytni ochishda nimadir xato ketdi. Iltimos, qayta urinib koʻring."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Tayyor. Qayta yuklanmoqda…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kkal"
-  },
-  "recipeChooseButton": {
-    "message": "Buning o'rniga buni tayyorlayman"
-  },
-  "recipeChosenButton": {
-    "message": "Statistikangizga qo'shildi ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Yaxshi tanlov — statistikangizga yozildi. Sozlamalarda ko'ring."
-  },
   "statusCaloriesAvoided": {
     "message": "Oldi olingan kaloriyalar"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Ranglarni keyinroq Sozlamalarda aniq sozlashingiz mumkin."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Tez ovqat buyurtmasini bloklash"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Yirik tez ovqat tarmoqlarining buyurtma sahifalariga pauza ekranini qo'shadi."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Yoqish tavsiya etiladi."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Yetkazib berish ilovalarini bloklash"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash va Uber Eats kabi yetkazib berish platformalariga pauza ekranini qo'shadi."
-  },
-  "welcomeImportTitle": {
-    "message": "Zaxira nusxani tiklash (ixtiyoriy)"
   },
   "welcomeImportBody": {
     "message": "Boshqa qurilmadan kelyapsizmi? Hammasini ko'chirish uchun FitShield sozlamalar faylini import qiling. Aks holda davom eting."
   },
   "welcomeImportButton": {
     "message": "Sozlamalar faylini import qilish"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield qanday yordam beradi"
-  },
-  "welcomeHelpBody": {
-    "message": "Asosiy funksiyalar bo'ylab tezkor sayohat."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Pauza taymeri"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Bloklangan saytga yetganingizda, davom etishdan oldin qisqa teskari sanoq ishlaydi — buyurtmani qayta o'ylash uchun yetarli."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Jadval"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Xohlasangiz faqat belgilangan soatlarda bloklang, masalan kechqurun yoki ish vaqtida."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Oq ro'yxat"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Istalgan saytni o'chiring, o'z URL'laringizni qo'shing yoki haqiqatan kerak bo'lganda o'zingizga vaqtinchalik ruxsat bering."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Retsept g'oyalari"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Bloklash ekrani nimani bloklaganingizga qarab tezkor vegetarian va go'sht/oqsil retseptini taklif qiladi."
   },
   "welcomeBack": {
     "message": "Orqaga"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

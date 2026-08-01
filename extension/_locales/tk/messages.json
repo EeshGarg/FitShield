@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "$1 zakaz etjek bolýarsyňyz."
   },
-  "warningHintLocked": {
-    "message": "Hasaplaýjy gutaransoň, $1 $2 üçin sahypa girip bilersiňiz."
-  },
   "warningBackButton": {
     "message": "Yzyňa dolan"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Dowam et"
-  },
-  "warningOpeningButton": {
-    "message": "Açmak ..."
-  },
-  "warningUnlockHint": {
-    "message": "Sahypa indi girip bilersiňiz. Bloklaýjy $1 $2-den soň awtomatiki ýagdaýda gaýdyp geler."
   },
   "warningErrorHint": {
     "message": "Sahypany açanda bir zat ýalňyşdy. Gaýtadan synanyşmagyňyzy haýyş edýäris."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Taýýar. Täzeden ýüklenýär…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kkal"
-  },
-  "recipeChooseButton": {
-    "message": "Onuň ýerine muny taýýarlaryn"
-  },
-  "recipeChosenButton": {
-    "message": "Statistikaňyza goşuldy ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Gowy saýlaw — statistikaňyzda bellige alyndy. Sazlamalarda görüň."
-  },
   "statusCaloriesAvoided": {
     "message": "Öňi alnan kaloriýalar"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Reňkleri soňra Sazlamalarda inçe sazlap bilersiňiz."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Çalt nahar sargydyny petikle"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Uly çalt nahar zynjyrlarynyň sargyt sahypalaryna arakesme ekranyny goşýar."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Açyk maslahat berilýär."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Eltip beriş programmalaryny petikle"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash we Uber Eats ýaly eltip beriş platformalaryna arakesme ekranyny goşýar."
-  },
-  "welcomeImportTitle": {
-    "message": "Ätiýaçlyk nusgany dikelt (islege bagly)"
   },
   "welcomeImportBody": {
     "message": "Başga enjamdan gelýärsiňizmi? Hemmesini getirmek üçin FitShield sazlama faýlyny import ediň. Bolmasa dowam ediň."
   },
   "welcomeImportButton": {
     "message": "Sazlama faýlyny import et"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield nähili kömek edýär"
-  },
-  "welcomeHelpBody": {
-    "message": "Esasy aýratynlyklaryň çalt synanyşygy."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Arakesme taýmeri"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Petiklenen sahypa ýeteniňizde, dowam etmezden öň gysga yzag yzlaýyş geçýär — sargydy täzeden pikirlenmäge ýeterlik."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Tertip"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Islegiňize görä diňe kesgitli sagatlarda petikläň, meselem agşam ýa-da iş wagty."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Ak sanaw"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Islendik sahypany öçüriň, öz URL-leriňizi goşuň ýa-da hakykatdan zerur bolanda özüňize wagtlaýyn rugsat beriň."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Resept pikirleri"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Petik ekrany näme petiklänligiňize görä çalt wegetarian we et/belok resept hödürleýär."
   },
   "welcomeBack": {
     "message": "Yza"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

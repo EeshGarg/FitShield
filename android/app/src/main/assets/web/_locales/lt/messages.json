@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the svetainė for $1 $2."
-  },
   "warningBackButton": {
     "message": "Grįžti"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Tęsti"
-  },
-  "warningOpeningButton": {
-    "message": "Atidaroma..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the svetainė now. The blokuoklis will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the svetainė. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Atlikta. Įkeliama iš naujo…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Verčiau pasigaminsiu tai"
-  },
-  "recipeChosenButton": {
-    "message": "Pridėta į jūsų statistiką ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Geras pasirinkimas — įrašyta į jūsų statistiką. Žiūrėkite Nustatymuose."
-  },
   "statusCaloriesAvoided": {
     "message": "Išvengtos kalorijos"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Spalvas vėliau galėsite tiksliai pritaikyti Nustatymuose."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Blokuoti greito maisto užsakymą"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Prideda pauzės ekraną didžiųjų greito maisto tinklų užsakymo puslapiuose."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Rekomenduojama įjungti."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Blokuoti pristatymo programėles"
-  },
   "welcomeDeliveryBody": {
     "message": "Prideda pauzės ekraną pristatymo platformose, pavyzdžiui, DoorDash ir Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Atkurti atsarginę kopiją (nebūtina)"
   },
   "welcomeImportBody": {
     "message": "Atvykstate iš kito įrenginio? Importuokite FitShield nustatymų failą, kad perkeltumėte viską. Kitu atveju tiesiog tęskite."
   },
   "welcomeImportButton": {
     "message": "Importuoti nustatymų failą"
-  },
-  "welcomeHelpTitle": {
-    "message": "Kaip FitShield padeda"
-  },
-  "welcomeHelpBody": {
-    "message": "Greita pagrindinių funkcijų apžvalga."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Pauzės laikmatis"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Kai patenkate į užblokuotą svetainę, prieš tęsiant vyksta trumpas atgalinis skaičiavimas — pakanka permąstyti užsakymą."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Tvarkaraštis"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Pasirinktinai blokuokite tik tam tikromis valandomis, pavyzdžiui, vakarais ar darbo metu."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Baltasis sąrašas"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Išjunkite bet kurią svetainę, pridėkite savo URL arba suteikite sau laikiną leidimą, kai tikrai reikia."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Receptų idėjos"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Blokavimo ekranas pasiūlo greitą vegetarišką ir mėsos/baltymų receptą pagal tai, ką užblokavote."
   },
   "welcomeBack": {
     "message": "Atgal"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

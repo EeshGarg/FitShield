@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "თქვენ აპირებთ შეკვეთას $1-დან."
   },
-  "warningHintLocked": {
-    "message": "როდესაც ტაიმერი დასრულდება, შეგიძლიათ გააგრძელოთ საიტზე $1 $2."
-  },
   "warningBackButton": {
     "message": "დაბრუნდი"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "განაგრძეთ"
-  },
-  "warningOpeningButton": {
-    "message": "გახსნა..."
-  },
-  "warningUnlockHint": {
-    "message": "ახლავე შეგიძლიათ ეწვიოთ საიტს. ბლოკერი ავტომატურად დაბრუნდება $1 $2-ის შემდეგ."
   },
   "warningErrorHint": {
     "message": "საიტის გახსნისას მოხდა რაღაც შეცდომა. გთხოვთ, სცადოთ ხელახლა."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "დასრულდა. ხელახლა იტვირთება…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "სანაცვლოდ ამას მოვამზადებ"
-  },
-  "recipeChosenButton": {
-    "message": "დაემატა თქვენს სტატისტიკას ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "კარგი არჩევანი — ჩაიწერა თქვენს სტატისტიკაში. იხილეთ პარამეტრებში."
-  },
   "statusCaloriesAvoided": {
     "message": "თავიდან აცილებული კალორიები"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "ფერების დაზუსტება მოგვიანებით პარამეტრებში შეგიძლიათ."
   },
-  "welcomeFastFoodTitle": {
-    "message": "სწრაფი კვების შეკვეთის დაბლოკვა"
-  },
-  "welcomeFastFoodBody": {
-    "message": "ამატებს პაუზის ეკრანს მსხვილი სწრაფი კვების ქსელების შეკვეთის გვერდებზე."
-  },
-  "welcomeRecommendedOn": {
-    "message": "რეკომენდებულია ჩართვა."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "მიწოდების აპების დაბლოკვა"
-  },
   "welcomeDeliveryBody": {
     "message": "ამატებს პაუზის ეკრანს მიწოდების პლატფორმებზე, როგორიცაა DoorDash და Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "სარეზერვო ასლის აღდგენა (არასავალდებულო)"
   },
   "welcomeImportBody": {
     "message": "სხვა მოწყობილობიდან მოდიხართ? ყველაფრის გადასატანად შემოიტანეთ FitShield-ის პარამეტრების ფაილი. წინააღმდეგ შემთხვევაში უბრალოდ გააგრძელეთ."
   },
   "welcomeImportButton": {
     "message": "პარამეტრების ფაილის შემოტანა"
-  },
-  "welcomeHelpTitle": {
-    "message": "როგორ გეხმარებათ FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "ძირითადი ფუნქციების სწრაფი მიმოხილვა."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "პაუზის ტაიმერი"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "როცა დაბლოკილ საიტს მიადგებით, გაგრძელებამდე მოკლე ათვლა მიდის — საკმარისი შეკვეთის გადასახედად."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "განრიგი"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "სურვილისამებრ დაბლოკეთ მხოლოდ გარკვეულ საათებში, მაგ. საღამოს ან სამუშაო დროს."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "თეთრი სია"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "გამორთეთ ნებისმიერი საიტი, დაამატეთ საკუთარი URL-ები ან მიეცით თავს დროებითი ნებართვა, როცა ნამდვილად გჭირდებათ."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "რეცეპტის იდეები"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "ბლოკის ეკრანი გთავაზობთ სწრაფ ვეგეტარიანულ და ხორცის/ცილის რეცეპტს იმის მიხედვით, რა დაბლოკეთ."
   },
   "welcomeBack": {
     "message": "უკან"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

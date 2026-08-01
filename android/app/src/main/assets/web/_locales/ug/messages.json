@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "سىز $1 دىن زاكاز قىلماقچى بولۇۋاتىسىز."
   },
-  "warningHintLocked": {
-    "message": "ۋاقىت چەكلىمىسى ئاخىرلاشقاندا ، $1 $2 تور بېتىنى داۋاملاشتۇرالايسىز."
-  },
   "warningBackButton": {
     "message": "قايتىڭ"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "داۋاملاشتۇر"
-  },
-  "warningOpeningButton": {
-    "message": "ئېچىش ..."
-  },
-  "warningUnlockHint": {
-    "message": "سىز ھازىر تور بېكەتنى زىيارەت قىلالايسىز. چەكلىگۈچى $1 $2 دىن كېيىن ئاپتوماتىك قايتىپ كېلىدۇ."
   },
   "warningErrorHint": {
     "message": "تور بېكەت ئاچقاندا خاتالىق كۆرۈلدى. قايتا سىناڭ."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "تامام. قايتا يۈكلىنىۋاتىدۇ…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "ئۇنىڭ ئورنىغا بۇنى ئېتىمەن"
-  },
-  "recipeChosenButton": {
-    "message": "ستاتىستىكىڭىزغا قوشۇلدى ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "ياخشى تاللاش — ستاتىستىكىڭىزغا خاتىرىلەندى. تەڭشەكتىن كۆرۈڭ."
-  },
   "statusCaloriesAvoided": {
     "message": "ساقلانغان كالورىيە"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "رەڭلەرنى كېيىن تەڭشەكتە نازۇك تەڭشىيەلەيسىز."
   },
-  "welcomeFastFoodTitle": {
-    "message": "تېز تاماق زاكاسىنى چەكلەش"
-  },
-  "welcomeFastFoodBody": {
-    "message": "چوڭ تېز تاماق زەنجىرلىرىنىڭ زاكاس بەتلىرىگە ئارام ئېكرانى قوشىدۇ."
-  },
-  "welcomeRecommendedOn": {
-    "message": "ئېچىش تەۋسىيە قىلىنىدۇ."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "يەتكۈزۈش ئەپلىرىنى چەكلەش"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash ۋە Uber Eats دەك يەتكۈزۈش سۇپىلىرىغا ئارام ئېكرانى قوشىدۇ."
-  },
-  "welcomeImportTitle": {
-    "message": "زاپاسنى ئەسلىگە كەلتۈرۈش (تاللانما)"
   },
   "welcomeImportBody": {
     "message": "باشقا ئۈسكۈنىدىن كېلىۋاتامسىز؟ ھەممىنى ئېلىپ كېلىش ئۈچۈن FitShield تەڭشەك ھۆججىتىنى ئەكىرىڭ. بولمىسا داۋاملاشتۇرۇڭ."
   },
   "welcomeImportButton": {
     "message": "تەڭشەك ھۆججىتىنى ئەكىرىش"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield قانداق ياردەم بېرىدۇ"
-  },
-  "welcomeHelpBody": {
-    "message": "ئاساسلىق ئىقتىدارلارنىڭ تېز ساياھىتى."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "ئارام ۋاقىت ئۆلچىگۈچ"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "چەكلەنگەن بېكەتكە يەتكەندە، داۋاملاشتۇرۇشتىن ئىلگىرى قىسقا تەتۈر ساناش ئىجرا بولىدۇ — زاكاسنى قايتا ئويلىشىشقا يېتەرلىك."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "جەدۋەل"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "خالىسىڭىز پەقەت مەلۇم سائەتلەردە چەكلەڭ، مەسىلەن كەچتە ياكى خىزمەت ۋاقتىدا."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "ئاق تىزىملىك"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "خالىغان بېكەتنى ئېتىڭ، ئۆز URL ئادرېسلىرىڭىزنى قوشۇڭ، ياكى راستلا ئېھتىياجلىق بولغاندا ئۆزىڭىزگە ۋاقىتلىق رۇخسەت بېرىڭ."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "رېتسېپ پىكىرلىرى"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "چەكلەش ئېكرانى نېمە چەكلىگىنىڭىزگە ئاساسەن تېز كۆكتات ۋە گۆش/پروتېئىن رېتسېپى تەۋسىيە قىلىدۇ."
   },
   "welcomeBack": {
     "message": "قايتىش"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

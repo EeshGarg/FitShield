@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "तुम्ही $1 वरून ऑर्डर करणार आहात."
   },
-  "warningHintLocked": {
-    "message": "टाइमर संपल्यावर, तुम्ही $1 $2 साठी साइटवर सुरू ठेवू शकता."
-  },
   "warningBackButton": {
     "message": "परत जा"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "चालू ठेवा"
-  },
-  "warningOpeningButton": {
-    "message": "उघडत आहे..."
-  },
-  "warningUnlockHint": {
-    "message": "तुम्ही आता साइटला भेट देऊ शकता. ब्लॉकर $1 $2 नंतर स्वयंचलितपणे परत येईल."
   },
   "warningErrorHint": {
     "message": "साइट उघडताना काहीतरी चूक झाली. कृपया पुन्हा प्रयत्न करा."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "पूर्ण झाले. पुन्हा लोड होत आहे…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "त्याऐवजी हे बनवीन"
-  },
-  "recipeChosenButton": {
-    "message": "तुमच्या आकडेवारीत जोडले ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "छान निवड — तुमच्या आकडेवारीत नोंदले. सेटिंग्जमध्ये पाहा."
-  },
   "statusCaloriesAvoided": {
     "message": "टाळलेल्या कॅलरी"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "रंग नंतर सेटिंग्जमध्ये सूक्ष्मपणे जुळवू शकता."
   },
-  "welcomeFastFoodTitle": {
-    "message": "फास्ट फूड ऑर्डर अवरोधित करा"
-  },
-  "welcomeFastFoodBody": {
-    "message": "मोठ्या फास्ट फूड साखळ्यांच्या ऑर्डर पृष्ठांवर एक विराम स्क्रीन जोडते."
-  },
-  "welcomeRecommendedOn": {
-    "message": "चालू ठेवण्याची शिफारस."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "वितरण अॅप्स अवरोधित करा"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash आणि Uber Eats सारख्या वितरण प्लॅटफॉर्मवर एक विराम स्क्रीन जोडते."
-  },
-  "welcomeImportTitle": {
-    "message": "बॅकअप पुनर्संचयित करा (पर्यायी)"
   },
   "welcomeImportBody": {
     "message": "दुसऱ्या डिव्हाइसवरून येत आहात? सर्वकाही आणण्यासाठी FitShield सेटिंग्ज फाइल आयात करा. अन्यथा फक्त सुरू ठेवा."
   },
   "welcomeImportButton": {
     "message": "सेटिंग्ज फाइल आयात करा"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield कशी मदत करते"
-  },
-  "welcomeHelpBody": {
-    "message": "मुख्य वैशिष्ट्यांचा जलद फेरफटका."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "विराम टायमर"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "अवरोधित साइटवर पोहोचल्यावर, सुरू ठेवण्यापूर्वी एक लहान काउंटडाउन चालते — ऑर्डरचा पुनर्विचार करण्यासाठी पुरेसे."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "वेळापत्रक"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "हवे असल्यास फक्त ठरावीक वेळेत अवरोधित करा, जसे संध्याकाळ किंवा कामाचा वेळ."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "व्हाइटलिस्ट"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "कोणतीही साइट बंद करा, तुमचे स्वतःचे URL जोडा, किंवा खरोखर गरज असताना तात्पुरती परवानगी द्या."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "रेसिपी कल्पना"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "तुम्ही काय अवरोधित केले त्यानुसार ब्लॉक स्क्रीन एक जलद शाकाहारी आणि एक मांस/प्रथिने रेसिपी सुचवते."
   },
   "welcomeBack": {
     "message": "मागे"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

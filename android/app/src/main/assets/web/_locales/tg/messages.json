@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "Шумо аз $1 фармоиш додан мехоҳед."
   },
-  "warningHintLocked": {
-    "message": "Вақте ки вақтсанҷ ба охир мерасад, шумо метавонед ба сайти $1 $2 идома диҳед."
-  },
   "warningBackButton": {
     "message": "Бозгашт"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Давом додан"
-  },
-  "warningOpeningButton": {
-    "message": "Ифтитоҳ..."
-  },
-  "warningUnlockHint": {
-    "message": "Шумо метавонед ба сайт ҳозир шавед. Блокатор пас аз $1 $2 ба таври худкор бармегардад."
   },
   "warningErrorHint": {
     "message": "Ҳангоми кушодани сайт чизе хато кард. Лутфан бори дигар кӯшиш кунед."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Тайёр. Аз нав бор шуда истодааст…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 ккал"
-  },
-  "recipeChooseButton": {
-    "message": "Ба ҷояш инро мепазам"
-  },
-  "recipeChosenButton": {
-    "message": "Ба омори шумо илова шуд ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Интихоби хуб — дар омори шумо сабт шуд. Дар Танзимот бинед."
-  },
   "statusCaloriesAvoided": {
     "message": "Калорияҳои пешгиришуда"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Рангҳоро баъдтар дар Танзимот танзим карда метавонед."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Фармоиши хӯроки зудро банд кунед"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Дар саҳифаҳои фармоиши шабакаҳои калони хӯроки зуд экрани таваққуф илова мекунад."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Фаъол кардан тавсия мешавад."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Барномаҳои расониданро банд кунед"
-  },
   "welcomeDeliveryBody": {
     "message": "Дар платформаҳои расонидан мисли DoorDash ва Uber Eats экрани таваққуф илова мекунад."
-  },
-  "welcomeImportTitle": {
-    "message": "Нусхаи захиравиро барқарор кунед (ихтиёрӣ)"
   },
   "welcomeImportBody": {
     "message": "Аз дастгоҳи дигар меоед? Барои интиқоли ҳама чиз файли танзимоти FitShield-ро ворид кунед. Вагарна танҳо идома диҳед."
   },
   "welcomeImportButton": {
     "message": "Файли танзимотро ворид кунед"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield чӣ гуна кӯмак мекунад"
-  },
-  "welcomeHelpBody": {
-    "message": "Сайри зуд аз хусусиятҳои асосӣ."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Таймери таваққуф"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Вақте ки ба сомонаи басташуда мерасед, пеш аз идома ҳисоби кӯтоҳи баръакс меравад — барои аз нав фикр кардани фармоиш кофӣ."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Ҷадвал"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Дилхоҳ танҳо дар соатҳои муайян банд кунед, мисли бегоҳӣ ё вақти кор."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Рӯйхати сафед"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Ягон сомонаро хомӯш кунед, URL-ҳои худро илова кунед ё ҳангоми воқеан зарурӣ ба худ иҷозати муваққатӣ диҳед."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Ғояҳои дастур"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Экрани бастан вобаста ба он чӣ бастаед як дастури зуди сабзавотӣ ва як гӯшт/протеин пешниҳод мекунад."
   },
   "welcomeBack": {
     "message": "Бозгашт"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

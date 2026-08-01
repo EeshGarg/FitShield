@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "지금 $1에서 주문하려고 합니다."
   },
-  "warningHintLocked": {
-    "message": "타이머가 끝나면 $1 $2 동안 사이트로 계속 이동할 수 있습니다."
-  },
   "warningBackButton": {
     "message": "뒤로"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "계속"
-  },
-  "warningOpeningButton": {
-    "message": "여는 중..."
-  },
-  "warningUnlockHint": {
-    "message": "이제 사이트를 방문할 수 있습니다. $1 $2 후에 차단기가 자동으로 다시 켜집니다."
   },
   "warningErrorHint": {
     "message": "사이트를 여는 중 문제가 발생했습니다. 다시 시도해 주세요."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "채식"
-  },
-  "recipeMeatLabel": {
-    "message": "고기 & 단백질"
-  },
-  "recipeTimeLabel": {
-    "message": "약 $1분"
-  },
   "recipeIngredientsLabel": {
     "message": "재료"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "완료. 다시 불러오는 중…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "대신 이걸 만들게요"
-  },
-  "recipeChosenButton": {
-    "message": "통계에 추가됨 ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "좋은 선택이에요 — 통계에 기록했어요. 설정에서 확인하세요."
-  },
   "statusCaloriesAvoided": {
     "message": "피한 칼로리"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "색상은 나중에 설정에서 세밀하게 조정할 수 있어요."
   },
-  "welcomeFastFoodTitle": {
-    "message": "패스트푸드 주문 차단"
-  },
-  "welcomeFastFoodBody": {
-    "message": "주요 패스트푸드 체인의 주문 페이지에 일시정지 화면을 추가합니다."
-  },
-  "welcomeRecommendedOn": {
-    "message": "켜는 것을 권장."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "배달 앱 차단"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash, Uber Eats 같은 배달 플랫폼에 일시정지 화면을 추가합니다."
-  },
-  "welcomeImportTitle": {
-    "message": "백업 복원(선택)"
   },
   "welcomeImportBody": {
     "message": "다른 기기에서 오셨나요? FitShield 설정 파일을 가져오면 모두 옮길 수 있어요. 아니면 그냥 계속하세요."
   },
   "welcomeImportButton": {
     "message": "설정 파일 가져오기"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield가 돕는 방법"
-  },
-  "welcomeHelpBody": {
-    "message": "주요 기능을 빠르게 둘러봅니다."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "일시정지 타이머"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "차단된 사이트에 들어가면 계속하기 전에 짧은 카운트다운이 흘러요 — 주문을 다시 생각하기에 충분합니다."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "일정"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "원하면 저녁이나 근무 시간처럼 정해진 시간에만 차단할 수 있어요."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "화이트리스트"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "개별 사이트를 끄거나, 직접 URL을 추가하거나, 정말 필요할 때 임시 허용을 줄 수 있어요."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "레시피 아이디어"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "차단 화면은 차단한 내용에 따라 빠른 채식과 고기/단백질 레시피를 추천합니다."
   },
   "welcomeBack": {
     "message": "뒤로"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "레스토랑"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

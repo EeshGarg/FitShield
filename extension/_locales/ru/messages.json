@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the сайт for $1 $2."
-  },
   "warningBackButton": {
     "message": "Назад"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Продолжить"
-  },
-  "warningOpeningButton": {
-    "message": "Открытие..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the сайт now. The блокировщик will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the сайт. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Готово. Перезагрузка…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 ккал"
-  },
-  "recipeChooseButton": {
-    "message": "Лучше приготовлю это"
-  },
-  "recipeChosenButton": {
-    "message": "Добавлено в статистику ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Отличный выбор — записано в вашу статистику. Смотрите в настройках."
-  },
   "statusCaloriesAvoided": {
     "message": "Избежано калорий"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Цвета можно настроить позже в настройках."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Блокировать заказ фастфуда"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Добавляет экран паузы на страницах заказа крупных сетей фастфуда."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Рекомендуется включить."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Блокировать приложения доставки"
-  },
   "welcomeDeliveryBody": {
     "message": "Добавляет экран паузы на платформах доставки вроде DoorDash и Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Восстановить из резервной копии (необязательно)"
   },
   "welcomeImportBody": {
     "message": "Переходите с другого устройства? Импортируйте файл настроек FitShield, чтобы перенести всё. Иначе просто продолжайте."
   },
   "welcomeImportButton": {
     "message": "Импортировать файл настроек"
-  },
-  "welcomeHelpTitle": {
-    "message": "Чем помогает FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Быстрый обзор основных функций."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Таймер паузы"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "На заблокированном сайте идёт короткий отсчёт перед продолжением — достаточно, чтобы передумать о заказе."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Расписание"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "При желании блокируйте только в заданные часы — например, вечером или в рабочее время."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Белый список"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Отключите любой сайт, добавьте свои URL или дайте временный доступ, когда он действительно нужен."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Идеи рецептов"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Экран блокировки предлагает быстрый вегетарианский и мясной/белковый рецепт в зависимости от того, что вы заблокировали."
   },
   "welcomeBack": {
     "message": "Назад"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Ресторан"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

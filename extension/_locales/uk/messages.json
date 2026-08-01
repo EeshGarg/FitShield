@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the сайт for $1 $2."
-  },
   "warningBackButton": {
     "message": "Назад"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Продовжити"
-  },
-  "warningOpeningButton": {
-    "message": "Відкриття..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the сайт now. The блокувальник will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the сайт. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Готово. Перезавантаження…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 ккал"
-  },
-  "recipeChooseButton": {
-    "message": "Краще приготую це"
-  },
-  "recipeChosenButton": {
-    "message": "Додано до статистики ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Гарний вибір — записано у вашу статистику. Дивіться в налаштуваннях."
-  },
   "statusCaloriesAvoided": {
     "message": "Уникнуто калорій"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Кольори можна налаштувати пізніше в налаштуваннях."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Блокувати замовлення фастфуду"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Додає екран паузи на сторінках замовлення великих мереж фастфуду."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Рекомендовано увімкнути."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Блокувати застосунки доставки"
-  },
   "welcomeDeliveryBody": {
     "message": "Додає екран паузи на платформах доставки на кшталт DoorDash і Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Відновити з резервної копії (необов'язково)"
   },
   "welcomeImportBody": {
     "message": "Переходите з іншого пристрою? Імпортуйте файл налаштувань FitShield, щоб перенести все. Інакше просто продовжуйте."
   },
   "welcomeImportButton": {
     "message": "Імпортувати файл налаштувань"
-  },
-  "welcomeHelpTitle": {
-    "message": "Чим допомагає FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Швидкий огляд основних функцій."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Таймер паузи"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "На заблокованому сайті йде короткий відлік перед продовженням — досить, щоб передумати щодо замовлення."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Розклад"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "За бажання блокуйте лише у визначені години — наприклад, увечері чи в робочий час."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Білий список"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Вимкніть будь-який сайт, додайте власні URL або надайте тимчасовий доступ, коли він справді потрібен."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Ідеї рецептів"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Екран блокування пропонує швидкий вегетаріанський і м'ясний/білковий рецепт залежно від того, що ви заблокували."
   },
   "welcomeBack": {
     "message": "Назад"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Ресторан"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

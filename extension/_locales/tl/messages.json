@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "Mag-o-order ka mula sa $1."
   },
-  "warningHintLocked": {
-    "message": "Kapag natapos na ang timer, maaari kang magpatuloy sa site para sa $1 $2."
-  },
   "warningBackButton": {
     "message": "Bumalik ka"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Magpatuloy"
-  },
-  "warningOpeningButton": {
-    "message": "Binubuksan..."
-  },
-  "warningUnlockHint": {
-    "message": "Maaari mong bisitahin ang site ngayon. Awtomatikong babalik ang blocker pagkatapos ng $1 $2."
   },
   "warningErrorHint": {
     "message": "Nagkaproblema habang binubuksan ang site. Pakisubukang muli."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Tapos na. Niri-reload…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Ito na lang ang gagawin ko"
-  },
-  "recipeChosenButton": {
-    "message": "Naidagdag sa iyong stats ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Magandang pili — naitala sa iyong stats. Tingnan sa Mga Setting."
-  },
   "statusCaloriesAvoided": {
     "message": "Naiwasang calories"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Maaari mong i-fine-tune ang mga kulay mamaya sa Mga Setting."
   },
-  "welcomeFastFoodTitle": {
-    "message": "I-block ang pag-order ng fast food"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Nagdadagdag ng pause screen sa mga order page ng malalaking fast food chain."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Inirerekomendang naka-on."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "I-block ang mga delivery app"
-  },
   "welcomeDeliveryBody": {
     "message": "Nagdadagdag ng pause screen sa mga delivery platform tulad ng DoorDash at Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Mag-restore ng backup (opsyonal)"
   },
   "welcomeImportBody": {
     "message": "Galing ka sa ibang device? Mag-import ng FitShield settings file para dalhin lahat. Kung hindi, magpatuloy lang."
   },
   "welcomeImportButton": {
     "message": "Mag-import ng settings file"
-  },
-  "welcomeHelpTitle": {
-    "message": "Paano tumutulong ang FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Mabilis na tour sa mga pangunahing feature."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Kapag nakarating ka sa na-block na site, may maikling countdown bago ka makatuloy — sapat para pag-isipang muli ang order."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Iskedyul"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Opsyonal na mag-block lang sa takdang oras, gaya ng gabi o oras ng trabaho."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "I-off ang anumang site, magdagdag ng sarili mong URL, o magbigay ng pansamantalang pass kapag talagang kailangan."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Mga ideya sa recipe"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Nagmumungkahi ang block screen ng mabilis na vegetarian at meat/protein recipe batay sa na-block mo."
   },
   "welcomeBack": {
     "message": "Bumalik"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

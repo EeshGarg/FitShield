@@ -48,8 +48,8 @@
     return JSON.parse(fs.readFileSync(file, "utf8"));
   }
 
-  // The catalog is parsed once per page and indexed once, so a 69-entry dataset
-  // costs one parse rather than a scan per interaction.
+  // The catalog is parsed once per page and indexed once, so the dataset costs
+  // one parse rather than a scan per interaction.
   function indexCatalog(data) {
     const taxonomy = (data && data.taxonomy) || {};
     const entries = [
@@ -522,11 +522,6 @@
     return (catalog && catalog.byId.get(String(id))) || null;
   }
 
-  // Test seam: drop the parsed catalog so a suite can load a fixture.
-  function _setCatalog(data) {
-    catalog = data ? indexCatalog(data) : null;
-    loadPromise = null;
-  }
 
   const api = {
     RECIPE_FILE,
@@ -544,8 +539,7 @@
     selectAlternative,
     selectTrio,
     getEntry,
-    getCatalog: () => catalog,
-    _setCatalog
+    getCatalog: () => catalog
   };
 
   global.FitShieldRecipes = api;

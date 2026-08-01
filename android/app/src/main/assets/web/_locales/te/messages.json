@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "టైమర్ ముగిసినప్పుడు, మీరు $1 $2 కోసం సైట్‌కి కొనసాగవచ్చు."
-  },
   "warningBackButton": {
     "message": "వెనక్కి వెళ్ళు"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "కొనసాగించు"
-  },
-  "warningOpeningButton": {
-    "message": "తెరుస్తోంది..."
-  },
-  "warningUnlockHint": {
-    "message": "మీరు ఇప్పుడు సైట్‌ని సందర్శించవచ్చు. $1 $2 తర్వాత బ్లాకర్ స్వయంచాలకంగా తిరిగి వస్తుంది."
   },
   "warningErrorHint": {
     "message": "సైట్‌ని ఓపెన్ చేస్తున్నప్పుడు ఏదో తప్పు జరిగింది. దయచేసి మళ్లీ ప్రయత్నించండి."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "పూర్తయింది. మళ్లీ లోడ్ అవుతోంది…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "దానికి బదులు ఇది చేస్తాను"
-  },
-  "recipeChosenButton": {
-    "message": "మీ గణాంకాలకు జోడించబడింది ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "మంచి ఎంపిక — మీ గణాంకాలలో నమోదైంది. సెట్టింగ్‌లలో చూడండి."
-  },
   "statusCaloriesAvoided": {
     "message": "తప్పించిన కేలరీలు"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "రంగులను తర్వాత సెట్టింగ్‌లలో సరిచేయవచ్చు."
   },
-  "welcomeFastFoodTitle": {
-    "message": "ఫాస్ట్ ఫుడ్ ఆర్డర్‌ను నిరోధించండి"
-  },
-  "welcomeFastFoodBody": {
-    "message": "పెద్ద ఫాస్ట్ ఫుడ్ చైన్‌ల ఆర్డర్ పేజీలలో ఒక పాజ్ స్క్రీన్‌ను జోడిస్తుంది."
-  },
-  "welcomeRecommendedOn": {
-    "message": "ఆన్ చేయడం సిఫార్సు."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "డెలివరీ యాప్‌లను నిరోధించండి"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash, Uber Eats వంటి డెలివరీ ప్లాట్‌ఫారమ్‌లలో ఒక పాజ్ స్క్రీన్‌ను జోడిస్తుంది."
-  },
-  "welcomeImportTitle": {
-    "message": "బ్యాకప్‌ను పునరుద్ధరించండి (ఐచ్ఛికం)"
   },
   "welcomeImportBody": {
     "message": "మరో పరికరం నుండి వస్తున్నారా? అంతా తీసుకురావడానికి FitShield సెట్టింగ్‌ల ఫైల్‌ను దిగుమతి చేయండి. లేకుంటే కొనసాగండి."
   },
   "welcomeImportButton": {
     "message": "సెట్టింగ్‌ల ఫైల్‌ను దిగుమతి చేయి"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield ఎలా సహాయపడుతుంది"
-  },
-  "welcomeHelpBody": {
-    "message": "ముఖ్య ఫీచర్‌ల త్వరిత పర్యటన."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "పాజ్ టైమర్"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "నిరోధించిన సైట్‌కు చేరినప్పుడు, కొనసాగే ముందు ఒక చిన్న కౌంట్‌డౌన్ నడుస్తుంది — ఆర్డర్‌ను మళ్లీ ఆలోచించడానికి సరిపోతుంది."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "షెడ్యూల్"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "కావాలంటే సాయంత్రం లేదా పని వేళలు వంటి నిర్దిష్ట గంటల్లో మాత్రమే నిరోధించండి."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "వైట్‌లిస్ట్"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "ఏ సైట్‌నైనా ఆఫ్ చేయండి, మీ స్వంత URL‌లను జోడించండి, లేదా నిజంగా అవసరమైనప్పుడు తాత్కాలిక అనుమతి ఇవ్వండి."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "రెసిపీ ఆలోచనలు"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "మీరు నిరోధించిన దాని ఆధారంగా బ్లాక్ స్క్రీన్ ఒక త్వరిత శాకాహార మరియు మాంసం/ప్రోటీన్ రెసిపీని సూచిస్తుంది."
   },
   "welcomeBack": {
     "message": "వెనుకకు"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

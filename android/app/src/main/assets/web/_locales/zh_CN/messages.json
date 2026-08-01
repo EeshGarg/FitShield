@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "你正打算在 $1 点单。"
   },
-  "warningHintLocked": {
-    "message": "计时结束后，你可以继续前往该网站 $1 $2。"
-  },
   "warningBackButton": {
     "message": "返回"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "继续"
-  },
-  "warningOpeningButton": {
-    "message": "正在打开..."
-  },
-  "warningUnlockHint": {
-    "message": "你现在可以访问该网站。屏蔽器将在 $1 $2 后自动恢复。"
   },
   "warningErrorHint": {
     "message": "打开网站时出现问题。请重试。"
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "素食"
-  },
-  "recipeMeatLabel": {
-    "message": "肉类与蛋白质"
-  },
-  "recipeTimeLabel": {
-    "message": "约$1分钟"
-  },
   "recipeIngredientsLabel": {
     "message": "食材"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "完成。正在重新加载…"
   },
-  "recipeCaloriesLabel": {
-    "message": "约 $1 千卡"
-  },
-  "recipeChooseButton": {
-    "message": "我改做这个"
-  },
-  "recipeChosenButton": {
-    "message": "已加入你的统计 ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "不错的选择——已记入你的统计。可在设置中查看。"
-  },
   "statusCaloriesAvoided": {
     "message": "避免的卡路里"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "稍后可在设置中微调颜色。"
   },
-  "welcomeFastFoodTitle": {
-    "message": "拦截快餐下单"
-  },
-  "welcomeFastFoodBody": {
-    "message": "在大型快餐连锁的下单页面加入一个暂停页面。"
-  },
-  "welcomeRecommendedOn": {
-    "message": "建议开启。"
-  },
-  "welcomeDeliveryTitle": {
-    "message": "拦截外卖应用"
-  },
   "welcomeDeliveryBody": {
     "message": "在 DoorDash、Uber Eats 等外卖平台加入一个暂停页面。"
-  },
-  "welcomeImportTitle": {
-    "message": "恢复备份（可选）"
   },
   "welcomeImportBody": {
     "message": "从另一台设备过来？导入 FitShield 设置文件即可带上一切。否则直接继续。"
   },
   "welcomeImportButton": {
     "message": "导入设置文件"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield 如何帮你"
-  },
-  "welcomeHelpBody": {
-    "message": "快速浏览主要功能。"
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "暂停计时器"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "进入被拦截的网站时，会先有一段短暂倒计时才能继续——足够你重新考虑这次下单。"
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "计划"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "可选择只在设定的时段拦截，比如晚上或工作时间。"
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "白名单"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "关闭任意网站、添加你自己的网址，或在真正需要时给予临时通行。"
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "食谱灵感"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "拦截页面会根据你拦截的内容，推荐一道快手素食和一道肉类/蛋白食谱。"
   },
   "welcomeBack": {
     "message": "返回"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "餐厅"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

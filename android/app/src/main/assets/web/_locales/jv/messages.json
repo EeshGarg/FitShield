@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "Sampeyan arep supaya saka $1."
   },
-  "warningHintLocked": {
-    "message": "Nalika wektu ends, sampeyan bisa terus menyang situs kanggo $1 $2."
-  },
   "warningBackButton": {
     "message": "mulih"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Terusake"
-  },
-  "warningOpeningButton": {
-    "message": "Bukak..."
-  },
-  "warningUnlockHint": {
-    "message": "Sampeyan bisa ngunjungi situs saiki. Pamblokir bakal bali kanthi otomatis sawise $1 $2."
   },
   "warningErrorHint": {
     "message": "Ana sing salah nalika mbukak situs kasebut. Coba maneh."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Rampung. Mbukak maneh…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Aku nggawe iki wae"
-  },
-  "recipeChosenButton": {
-    "message": "Ditambahake menyang statistikmu ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Pilihan apik — kacathet ing statistikmu. Deleng ing Setelan."
-  },
   "statusCaloriesAvoided": {
     "message": "Kalori dihindari"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Sampeyan bisa nyetel werna mengko ing Setelan."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Blokir pesenan panganan cepet"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Nambahake layar jeda ing kaca pesenan jaringan panganan cepet gedhe."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Disaranake aktif."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Blokir aplikasi pangiriman"
-  },
   "welcomeDeliveryBody": {
     "message": "Nambahake layar jeda ing platform pangiriman kaya DoorDash lan Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Pulihake cadangan (opsional)"
   },
   "welcomeImportBody": {
     "message": "Pindhah saka piranti liya? Impor file setelan FitShield kanggo nggawa kabeh. Yen ora, terusake wae."
   },
   "welcomeImportButton": {
     "message": "Impor file setelan"
-  },
-  "welcomeHelpTitle": {
-    "message": "Carane FitShield mbantu"
-  },
-  "welcomeHelpBody": {
-    "message": "Tur cepet babagan fitur utama."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Timer jeda"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Nalika tekan situs sing diblokir, etungan mundur cendhak mlaku sadurunge bisa nerusake — cukup kanggo mikir maneh pesenan."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Jadwal"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Yen gelem, blokir mung ing jam tartamtu, kaya bengi utawa jam kerja."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Dhaptar putih"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Pateni situs apa wae, tambahake URL-mu dhewe, utawa wenehi ijin sauntara nalika pancen butuh."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Ide resep"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Layar blokir nyaranake resep vegetarian cepet lan resep daging/protein adhedhasar apa sing diblokir."
   },
   "welcomeBack": {
     "message": "Bali"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

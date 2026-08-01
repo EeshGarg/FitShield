@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "ທ່ານກຳລັງຈະສັ່ງຈາກ $1."
   },
-  "warningHintLocked": {
-    "message": "ເມື່ອໂມງຈັບເວລາສິ້ນສຸດລົງ, ທ່ານສາມາດສືບຕໍ່ໄປຫາເວັບໄຊທ໌ $1 $2."
-  },
   "warningBackButton": {
     "message": "ກັບຄືນ"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "ສືບຕໍ່"
-  },
-  "warningOpeningButton": {
-    "message": "ກຳລັງເປີດ..."
-  },
-  "warningUnlockHint": {
-    "message": "ທ່ານສາມາດໄປຢ້ຽມຢາມເວັບໄຊທ໌ໄດ້ໃນປັດຈຸບັນ. ຕົວບລັອກຈະກັບຄືນມາໂດຍອັດຕະໂນມັດຫຼັງຈາກ $1 $2."
   },
   "warningErrorHint": {
     "message": "ມີບາງຢ່າງຜິດພາດໃນຂະນະທີ່ເປີດເວັບໄຊ. ກະລຸນາລອງອີກຄັ້ງ."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "ສຳເລັດ. ກຳລັງໂຫລດຄືນ…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "ຂ້ອຍຈະເຮັດອັນນີ້ແທນ"
-  },
-  "recipeChosenButton": {
-    "message": "ເພີ່ມເຂົ້າສະຖິຕິຂອງເຈົ້າແລ້ວ ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "ເລືອກໄດ້ດີ — ບັນທຶກໃນສະຖິຕິຂອງເຈົ້າແລ້ວ. ເບິ່ງໃນການຕັ້ງຄ່າ."
-  },
   "statusCaloriesAvoided": {
     "message": "ແຄລໍຣີທີ່ຫຼີກລ່ຽງ"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "ເຈົ້າສາມາດປັບສີໄດ້ໃນພາຍຫຼັງໃນການຕັ້ງຄ່າ."
   },
-  "welcomeFastFoodTitle": {
-    "message": "ບລັອກການສັ່ງອາຫານດ່ວນ"
-  },
-  "welcomeFastFoodBody": {
-    "message": "ເພີ່ມໜ້າຈໍຢຸດຊົ່ວຄາວໃນໜ້າສັ່ງຂອງເຄືອຂ່າຍອາຫານດ່ວນໃຫຍ່."
-  },
-  "welcomeRecommendedOn": {
-    "message": "ແນະນຳໃຫ້ເປີດ."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "ບລັອກແອັບສົ່ງອາຫານ"
-  },
   "welcomeDeliveryBody": {
     "message": "ເພີ່ມໜ້າຈໍຢຸດຊົ່ວຄາວໃນແພລດຟອມສົ່ງ ເຊັ່ນ DoorDash ແລະ Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "ກູ້ຄືນຂໍ້ມູນສຳຮອງ (ທາງເລືອກ)"
   },
   "welcomeImportBody": {
     "message": "ມາຈາກອຸປະກອນອື່ນບໍ? ນຳເຂົ້າໄຟລ໌ການຕັ້ງຄ່າ FitShield ເພື່ອນຳທຸກຢ່າງມາ. ຖ້າບໍ່ດັ່ງນັ້ນ ກໍສືບຕໍ່."
   },
   "welcomeImportButton": {
     "message": "ນຳເຂົ້າໄຟລ໌ການຕັ້ງຄ່າ"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield ຊ່ວຍແນວໃດ"
-  },
-  "welcomeHelpBody": {
-    "message": "ການທ່ອງຊົມໄວໆຜ່ານຄຸນສົມບັດຫຼັກ."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "ໂມງຈັບເວລາຢຸດ"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "ເມື່ອເຈົ້າໄປຮອດເວັບໄຊທີ່ຖືກບລັອກ, ການນັບຖອຍຫຼັງສັ້ນໆຈະເຮັດວຽກກ່ອນທີ່ເຈົ້າຈະສືບຕໍ່ — ພຽງພໍທີ່ຈະຄິດໃໝ່ກ່ຽວກັບການສັ່ງ."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "ຕາຕະລາງ"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "ສາມາດເລືອກບລັອກສະເພາະຊົ່ວໂມງທີ່ກຳນົດ ເຊັ່ນ ຕອນແລງ ຫຼື ເວລາເຮັດວຽກ."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "ລາຍຊື່ຂາວ"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "ປິດເວັບໄຊໃດກໍໄດ້, ເພີ່ມ URL ຂອງເຈົ້າເອງ, ຫຼື ໃຫ້ສິດຊົ່ວຄາວເມື່ອເຈົ້າຕ້ອງການແທ້ໆ."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "ແນວຄິດສູດ"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "ໜ້າຈໍບລັອກແນະນຳສູດຜັກໄວ ແລະ ສູດຊີ້ນ/ໂປຣຕີນ ໂດຍອີງໃສ່ສິ່ງທີ່ເຈົ້າບລັອກ."
   },
   "welcomeBack": {
     "message": "ກັບຄືນ"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

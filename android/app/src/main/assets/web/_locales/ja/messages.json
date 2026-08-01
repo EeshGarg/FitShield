@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "これから $1 で注文しようとしています。"
   },
-  "warningHintLocked": {
-    "message": "タイマーが終わると、$1 $2 の間サイトに進めます。"
-  },
   "warningBackButton": {
     "message": "戻る"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "続行"
-  },
-  "warningOpeningButton": {
-    "message": "開いています..."
-  },
-  "warningUnlockHint": {
-    "message": "今すぐサイトにアクセスできます。$1 $2 後にブロッカーが自動的に戻ります。"
   },
   "warningErrorHint": {
     "message": "サイトを開く際に問題が発生しました。もう一度お試しください。"
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "ベジタリアン"
-  },
-  "recipeMeatLabel": {
-    "message": "肉・タンパク質"
-  },
-  "recipeTimeLabel": {
-    "message": "約$1分"
-  },
   "recipeIngredientsLabel": {
     "message": "材料"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "完了しました。再読み込みしています…"
   },
-  "recipeCaloriesLabel": {
-    "message": "約 $1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "代わりにこれを作る"
-  },
-  "recipeChosenButton": {
-    "message": "統計に追加しました ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "いい選択です — 統計に記録しました。設定で確認できます。"
-  },
   "statusCaloriesAvoided": {
     "message": "回避したカロリー"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "色は後で設定で細かく調整できます。"
   },
-  "welcomeFastFoodTitle": {
-    "message": "ファストフードの注文をブロック"
-  },
-  "welcomeFastFoodBody": {
-    "message": "主要なファストフードチェーンの注文ページに一時停止画面を追加します。"
-  },
-  "welcomeRecommendedOn": {
-    "message": "オンを推奨。"
-  },
-  "welcomeDeliveryTitle": {
-    "message": "デリバリーアプリをブロック"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash や Uber Eats などのデリバリーサービスに一時停止画面を追加します。"
-  },
-  "welcomeImportTitle": {
-    "message": "バックアップを復元（任意）"
   },
   "welcomeImportBody": {
     "message": "別の端末から移行しますか？FitShield の設定ファイルをインポートすると、すべて引き継げます。そうでなければそのまま続けてください。"
   },
   "welcomeImportButton": {
     "message": "設定ファイルをインポート"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield の役立て方"
-  },
-  "welcomeHelpBody": {
-    "message": "主な機能を簡単にご紹介します。"
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "一時停止タイマー"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "ブロック対象のサイトを開くと、続行できるまで短いカウントダウンが流れます。注文を考え直すのに十分な時間です。"
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "スケジュール"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "夜間や勤務時間など、指定した時間帯だけブロックすることもできます。"
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "ホワイトリスト"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "個々のサイトをオフにしたり、独自の URL を追加したり、本当に必要なときは一時的な許可を与えたりできます。"
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "レシピのアイデア"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "ブロック画面では、ブロックした内容に応じて、手軽なベジタリアンと肉・タンパク質のレシピを提案します。"
   },
   "welcomeBack": {
     "message": "戻る"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "レストラン"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

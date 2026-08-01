@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the sivusto for $1 $2."
-  },
   "warningBackButton": {
     "message": "Palaa"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Jatka"
-  },
-  "warningOpeningButton": {
-    "message": "Avataan..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the sivusto now. The estäjä will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the sivusto. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Valmis. Ladataan uudelleen…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Teen mieluummin tämän"
-  },
-  "recipeChosenButton": {
-    "message": "Lisätty tilastoihisi ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Hyvä valinta — kirjattu tilastoihisi. Katso se Asetuksista."
-  },
   "statusCaloriesAvoided": {
     "message": "Vältetyt kalorit"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Voit hienosäätää värejä myöhemmin Asetuksissa."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Estä pikaruoan tilaaminen"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Lisää taukonäytön suurten pikaruokaketjujen tilaussivuille."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Suositellaan päälle."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Estä toimitussovellukset"
-  },
   "welcomeDeliveryBody": {
     "message": "Lisää taukonäytön toimitusalustoille, kuten DoorDash ja Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Palauta varmuuskopio (valinnainen)"
   },
   "welcomeImportBody": {
     "message": "Tuletko toiselta laitteelta? Tuo FitShield-asetustiedosto siirtääksesi kaiken. Muuten vain jatka."
   },
   "welcomeImportButton": {
     "message": "Tuo asetustiedosto"
-  },
-  "welcomeHelpTitle": {
-    "message": "Miten FitShield auttaa"
-  },
-  "welcomeHelpBody": {
-    "message": "Nopea kierros päätoimintojen läpi."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Taukoajastin"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Kun osut estettyyn sivustoon, lyhyt laskuri käy ennen kuin voit jatkaa — tarpeeksi tilauksen uudelleenharkintaan."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Aikataulu"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Voit halutessasi estää vain tiettyinä aikoina, kuten iltaisin tai työaikana."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Sallittujen lista"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Kytke mikä tahansa sivusto pois, lisää omia URL-osoitteita tai myönnä tilapäinen lupa, kun todella tarvitset."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Reseptiehdotuksia"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Estonäyttö ehdottaa nopean kasvis- ja liha-/proteiinireseptin sen mukaan, mitä estit."
   },
   "welcomeBack": {
     "message": "Takaisin"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Ravintola"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

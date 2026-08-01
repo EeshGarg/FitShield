@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "Сиз $1 буйрутма бергени жатасыз."
   },
-  "warningHintLocked": {
-    "message": "Таймер аяктаганда, сиз $1 $2 сайтына өтсөңүз болот."
-  },
   "warningBackButton": {
     "message": "Артка кайт"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Улантуу"
-  },
-  "warningOpeningButton": {
-    "message": "Ачылууда..."
-  },
-  "warningUnlockHint": {
-    "message": "Сиз азыр сайтка кире аласыз. Бөгөттөөчү $1 $2 кийин автоматтык түрдө кайтып келет."
   },
   "warningErrorHint": {
     "message": "Сайтты ачып жатканда бир жерден ката кетти. Сураныч, кайра аракет кылыңыз."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Бүттү. Кайра жүктөлүүдө…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 ккал"
-  },
-  "recipeChooseButton": {
-    "message": "Анын ордуна муну жасайм"
-  },
-  "recipeChosenButton": {
-    "message": "Статистикаңызга кошулду ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Жакшы тандоо — статистикаңызга жазылды. Жөндөөлөрдөн караңыз."
-  },
   "statusCaloriesAvoided": {
     "message": "Болтурбаган калориялар"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Түстөрдү кийинчерээк Жөндөөлөрдөн так баптай аласыз."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Фастфуд буйрутмасын бөгөттөө"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Чоң фастфуд тармактарынын буйрутма барактарына тыныгуу экранын кошот."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Күйгүзүү сунушталат."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Жеткирүү колдонмолорун бөгөттөө"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash жана Uber Eats сыяктуу жеткирүү платформаларына тыныгуу экранын кошот."
-  },
-  "welcomeImportTitle": {
-    "message": "Резервдик көчүрмөнү калыбына келтирүү (милдеттүү эмес)"
   },
   "welcomeImportBody": {
     "message": "Башка түзмөктөн келдиңизби? Баарын көчүрүү үчүн FitShield жөндөөлөр файлын импорттоңуз. Болбосо улантыңыз."
   },
   "welcomeImportButton": {
     "message": "Жөндөөлөр файлын импорттоо"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield кантип жардам берет"
-  },
-  "welcomeHelpBody": {
-    "message": "Негизги функциялар боюнча тез сереп."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Тыныгуу таймери"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Бөгөттөлгөн сайтка жеткенде, улантуудан мурун кыска кері эсеп жүрөт — буйрутманы кайра ойлонууга жетиштүү."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "График"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Кааласаңыз белгилүү сааттарда гана бөгөттөңүз, мисалы кечинде же иш убагында."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Ак тизме"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Каалаган сайтты өчүрүңүз, өз URL'дериңизди кошуңуз же чындап керек болгондо убактылуу уруксат бериңиз."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Рецепт идеялары"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Бөгөт экраны эмне бөгөттөгөнүңүзгө жараша тез вегетариандык жана эт/протеин рецептин сунуштайт."
   },
   "welcomeBack": {
     "message": "Артка"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the gwefan for $1 $2."
-  },
   "warningBackButton": {
     "message": "Mynd yn ôl"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Parhau"
-  },
-  "warningOpeningButton": {
-    "message": "Yn agor..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the gwefan now. The rhwystrydd will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the gwefan. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Wedi gorffen. Aillwytho…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Gwnaf hyn yn lle"
-  },
-  "recipeChosenButton": {
-    "message": "Wedi'i ychwanegu at eich ystadegau ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Dewis da — wedi'i gofnodi yn eich ystadegau. Gwelwch e yn y Gosodiadau."
-  },
   "statusCaloriesAvoided": {
     "message": "Calorïau a osgowyd"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Gallwch fireinio'r lliwiau yn nes ymlaen yn y Gosodiadau."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Rhwystro archebu bwyd cyflym"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Yn ychwanegu sgrin saib ar dudalennau archebu cadwyni bwyd cyflym mawr."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Argymhellir ymlaen."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Rhwystro apiau danfon"
-  },
   "welcomeDeliveryBody": {
     "message": "Yn ychwanegu sgrin saib ar lwyfannau danfon fel DoorDash ac Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Adfer wrth gefn (dewisol)"
   },
   "welcomeImportBody": {
     "message": "Yn dod o ddyfais arall? Mewnforiwch ffeil gosodiadau FitShield i ddod â phopeth drosodd. Fel arall, parhewch."
   },
   "welcomeImportButton": {
     "message": "Mewnforio ffeil gosodiadau"
-  },
-  "welcomeHelpTitle": {
-    "message": "Sut mae FitShield yn helpu"
-  },
-  "welcomeHelpBody": {
-    "message": "Taith gyflym drwy'r prif nodweddion."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Amserydd saib"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Pan fyddwch yn taro safle wedi'i rwystro, mae cyfrif i lawr byr yn rhedeg cyn i chi allu parhau — digon i ailfeddwl am yr archeb."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Amserlen"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Yn ddewisol, rhwystro dim ond ar oriau penodol, fel gyda'r nos neu amser gwaith."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Rhestr wen"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Diffoddwch unrhyw safle, ychwanegwch eich URLau eich hun, neu rhowch ganiatâd dros dro i chi'ch hun pan fyddwch wir ei angen."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Syniadau ryseitiau"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Mae'r sgrin rwystro yn awgrymu rysáit lysieuol gyflym ac un cig/protein yn seiliedig ar yr hyn a rwystroch."
   },
   "welcomeBack": {
     "message": "Yn ôl"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

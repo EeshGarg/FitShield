@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": " |\nଆପଣ $1 ରୁ ଅର୍ଡର କରିବାକୁ ଯାଉଛନ୍ତି |"
   },
-  "warningHintLocked": {
-    "message": " |\nଯେତେବେଳେ ଟାଇମର୍ ସମାପ୍ତ ହୁଏ, ଆପଣ $1 $2 ପାଇଁ ସାଇଟକୁ ଜାରି ରଖିପାରିବେ |"
-  },
   "warningBackButton": {
     "message": " |\nଫେରିଯାଅ |"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": " |\nଜାରି ରଖ |"
-  },
-  "warningOpeningButton": {
-    "message": " |\nଖୋଲୁଛି ..."
-  },
-  "warningUnlockHint": {
-    "message": " |\nଆପଣ ବର୍ତ୍ତମାନ ସାଇଟ୍ ପରିଦର୍ଶନ କରିପାରିବେ | $1 $2 ପରେ ଅବରୋଧକାରୀ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଫେରି ଆସିବ |"
   },
   "warningErrorHint": {
     "message": " |\nସାଇଟ୍ ଖୋଲିବାବେଳେ କିଛି ଭୁଲ୍ ହୋଇଗଲା | ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ |"
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "ସମ୍ପନ୍ନ। ପୁଣି ଲୋଡ୍ ହେଉଛି…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "ଏହା ବଦଳରେ ମୁଁ ଏହା ବନାଇବି"
-  },
-  "recipeChosenButton": {
-    "message": "ଆପଣଙ୍କ ପରିସଂଖ୍ୟାନରେ ଯୋଡ଼ାଗଲା ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "ଭଲ ବାଛିବା — ଆପଣଙ୍କ ପରିସଂଖ୍ୟାନରେ ଲେଖାଗଲା। ସେଟିଂସରେ ଦେଖନ୍ତୁ।"
-  },
   "statusCaloriesAvoided": {
     "message": "ଏଡ଼ାଯାଇଥିବା କ୍ୟାଲୋରୀ"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "ରଙ୍ଗ ପରେ ସେଟିଂସରେ ସୂକ୍ଷ୍ମ ଭାବେ ସଜାଇ ପାରିବେ।"
   },
-  "welcomeFastFoodTitle": {
-    "message": "ଫାଷ୍ଟ ଫୁଡ୍ ଅର୍ଡର ଅବରୋଧ କରନ୍ତୁ"
-  },
-  "welcomeFastFoodBody": {
-    "message": "ବଡ଼ ଫାଷ୍ଟ ଫୁଡ୍ ଚେନର ଅର୍ଡର ପୃଷ୍ଠାରେ ଏକ ବିରତି ସ୍କ୍ରିନ ଯୋଡ଼େ।"
-  },
-  "welcomeRecommendedOn": {
-    "message": "ଅନ୍ ରଖିବାକୁ ସୁପାରିଶ।"
-  },
-  "welcomeDeliveryTitle": {
-    "message": "ଡେଲିଭରୀ ଆପ୍ ଅବରୋଧ କରନ୍ତୁ"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash ଓ Uber Eats ପରି ଡେଲିଭରୀ ପ୍ଲାଟଫର୍ମରେ ଏକ ବିରତି ସ୍କ୍ରିନ ଯୋଡ଼େ।"
-  },
-  "welcomeImportTitle": {
-    "message": "ଏକ ବ୍ୟାକଅପ୍ ପୁନଃସ୍ଥାପନ (ବୈକଳ୍ପିକ)"
   },
   "welcomeImportBody": {
     "message": "ଅନ୍ୟ ଡିଭାଇସରୁ ଆସୁଛନ୍ତି? ସବୁକିଛି ଆଣିବାକୁ ଏକ FitShield ସେଟିଂସ ଫାଇଲ ଆମଦାନୀ କରନ୍ତୁ। ନ ହେଲେ ଜାରି ରଖନ୍ତୁ।"
   },
   "welcomeImportButton": {
     "message": "ସେଟିଂସ ଫାଇଲ ଆମଦାନୀ କରନ୍ତୁ"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield କିପରି ସାହାଯ୍ୟ କରେ"
-  },
-  "welcomeHelpBody": {
-    "message": "ମୁଖ୍ୟ ବୈଶିଷ୍ଟ୍ୟଗୁଡ଼ିକର ଶୀଘ୍ର ଭ୍ରମଣ।"
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "ବିରତି ଟାଇମର"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "ଏକ ଅବରୋଧିତ ସାଇଟରେ ପହଞ୍ଚିଲେ, ଜାରି ରଖିବା ପୂର୍ବରୁ ଏକ ଛୋଟ କାଉଣ୍ଟଡାଉନ ଚାଲେ — ଅର୍ଡର ପୁନର୍ବିଚାର କରିବାକୁ ଯଥେଷ୍ଟ।"
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "ସମୟସୂଚୀ"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "ଇଚ୍ଛା କଲେ କେବଳ ନିର୍ଦ୍ଦିଷ୍ଟ ସମୟରେ ଅବରୋଧ କରନ୍ତୁ, ଯେପରି ସନ୍ଧ୍ୟା କିମ୍ବା କାମ ସମୟ।"
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "ହ୍ୱାଇଟଲିଷ୍ଟ"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "ଯେକୌଣସି ସାଇଟ ବନ୍ଦ କରନ୍ତୁ, ନିଜର URL ଯୋଡ଼ନ୍ତୁ, କିମ୍ବା ପ୍ରକୃତରେ ଆବଶ୍ୟକ ହେଲେ ଅସ୍ଥାୟୀ ଅନୁମତି ଦିଅନ୍ତୁ।"
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "ରେସିପି ଧାରଣା"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "ଆପଣ କଣ ଅବରୋଧ କଲେ ତାହା ଆଧାରରେ ବ୍ଲକ୍ ସ୍କ୍ରିନ ଏକ ଶୀଘ୍ର ଶାକାହାରୀ ଓ ଏକ ମାଂସ/ପ୍ରୋଟିନ ରେସିପି ପ୍ରସ୍ତାବ ଦିଏ।"
   },
   "welcomeBack": {
     "message": "ପଛକୁ"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

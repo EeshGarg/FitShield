@@ -167,10 +167,6 @@
     "message": "You're about to order from $1.",
     "description": "$1 is the blocked brand name."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the site for $1 $2.",
-    "description": "$1 pass duration, $2 minute/minutes unit."
-  },
   "warningBackButton": {
     "message": "Go back"
   },
@@ -179,13 +175,6 @@
   },
   "warningContinueButton": {
     "message": "Continue anyway"
-  },
-  "warningOpeningButton": {
-    "message": "Opening..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the site now. The blocker will come back automatically after $1 $2.",
-    "description": "$1 pass duration, $2 minute/minutes unit."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the site. Please try again."
@@ -218,34 +207,11 @@
     "message": "+$1 more",
     "description": "$1 is the number of additional countries not shown."
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min",
-    "description": "$1 is the estimated time in minutes."
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
   "recipeStepsLabel": {
     "message": "Steps"
-  },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal",
-    "description": "$1 is the estimated calories for the recipe."
-  },
-  "recipeChooseButton": {
-    "message": "I'll make this instead"
-  },
-  "recipeChosenButton": {
-    "message": "Added to your stats ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Nice choice — logged in your stats. See it in Settings."
   },
   "settingsTitle": {
     "message": "FitShield Settings"
@@ -927,59 +893,14 @@
   "welcomeThemeBody": {
     "message": "You can fine-tune colors later in Settings."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Block fast-food ordering"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Adds a pause screen on major fast-food chains' ordering pages."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Recommended on."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Block delivery apps"
-  },
   "welcomeDeliveryBody": {
     "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Restore a backup (optional)"
   },
   "welcomeImportBody": {
     "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
   },
   "welcomeImportButton": {
     "message": "Import settings file"
-  },
-  "welcomeHelpTitle": {
-    "message": "How FitShield helps"
-  },
-  "welcomeHelpBody": {
-    "message": "A quick tour of the main features."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Pause timer"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "When you hit a blocked site, a short countdown runs before you can continue — enough to rethink the order."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Schedule"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Optionally block only during set hours, like evenings or work time."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Turn off any individual site, add your own custom URLs, or grant a temporary pass when you really need it."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Recipe ideas"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "The block screen suggests a quick vegetarian and a meat/protein recipe based on what you blocked."
   },
   "welcomeBack": {
     "message": "Back"
@@ -1024,9 +945,6 @@
   },
   "languageGerman": {
     "message": "German"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "About FitShield"
@@ -1583,9 +1501,6 @@
   "reportSuggestAlternative": {
     "message": "I want to suggest an alternative"
   },
-  "popupPausedFor": {
-    "message": "Paused for $1"
-  },
   "popupRecapTitle": {
     "message": "Last 7 days"
   },
@@ -1630,8 +1545,5 @@
   },
   "onboardingAdvancedNote": {
     "message": "Everything else — countries, categories, individual sites, your kitchen, and your own alternatives — is in settings whenever you want it."
-  },
-  "onboardingRegionNote": {
-    "message": "Suggested from your browser language. FitShield does not detect your location."
   }
 }

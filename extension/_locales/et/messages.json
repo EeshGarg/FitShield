@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the sait for $1 $2."
-  },
   "warningBackButton": {
     "message": "Tagasi"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Jätka"
-  },
-  "warningOpeningButton": {
-    "message": "Avamine..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the sait now. The blokeerija will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the sait. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Valmis. Laaditakse uuesti…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Teen pigem selle"
-  },
-  "recipeChosenButton": {
-    "message": "Lisatud sinu statistikasse ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Hea valik — salvestatud statistikasse. Vaata seda Seadetes."
-  },
   "statusCaloriesAvoided": {
     "message": "Välditud kalorid"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Värve saad hiljem Seadetes peenhäälestada."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Blokeeri kiirtoidu tellimine"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Lisab pausiekraani suurte kiirtoiduketide tellimislehtedele."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Soovitatav sees."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Blokeeri kohaletoimetamisrakendused"
-  },
   "welcomeDeliveryBody": {
     "message": "Lisab pausiekraani kohaletoimetamisplatvormidele nagu DoorDash ja Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Taasta varukoopia (valikuline)"
   },
   "welcomeImportBody": {
     "message": "Tuled teisest seadmest? Impordi FitShieldi seadete fail, et kõik kaasa võtta. Vastasel juhul lihtsalt jätka."
   },
   "welcomeImportButton": {
     "message": "Impordi seadete fail"
-  },
-  "welcomeHelpTitle": {
-    "message": "Kuidas FitShield aitab"
-  },
-  "welcomeHelpBody": {
-    "message": "Kiire ülevaade põhifunktsioonidest."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Pausitaimer"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Kui satud blokeeritud saidile, jookseb enne jätkamist lühike loendur — piisav, et tellimus ümber mõelda."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Ajakava"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Soovi korral blokeeri ainult kindlatel tundidel, näiteks õhtuti või tööajal."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Valge nimekiri"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Lülita välja mis tahes sait, lisa oma URL-id või anna endale ajutine luba, kui seda tõesti vajad."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Retseptiideed"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Blokeerimisekraan pakub kiire taimetoidu- ja liha-/valguretsepti selle järgi, mida blokeerisid."
   },
   "welcomeBack": {
     "message": "Tagasi"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

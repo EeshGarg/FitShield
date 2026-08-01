@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the сајт for $1 $2."
-  },
   "warningBackButton": {
     "message": "Назад"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Продолжи"
-  },
-  "warningOpeningButton": {
-    "message": "Се отвора..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the сајт now. The блокатор will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the сајт. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Готово. Се вчитува повторно…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Подобро ќе го направам ова"
-  },
-  "recipeChosenButton": {
-    "message": "Додадено во статистиката ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Добар избор — забележано во статистиката. Видете го во Поставки."
-  },
   "statusCaloriesAvoided": {
     "message": "Избегнати калории"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Боите можете да ги дотерате подоцна во Поставки."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Блокирај нарачки за брза храна"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Додава екран за пауза на страниците за нарачка на големи синџири за брза храна."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Препорачано вклучено."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Блокирај апликации за достава"
-  },
   "welcomeDeliveryBody": {
     "message": "Додава екран за пауза на платформи за достава како DoorDash и Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Врати резервна копија (изборно)"
   },
   "welcomeImportBody": {
     "message": "Доаѓате од друг уред? Увезете датотека со поставки на FitShield за да пренесете сѐ. Инаку само продолжете."
   },
   "welcomeImportButton": {
     "message": "Увези датотека со поставки"
-  },
-  "welcomeHelpTitle": {
-    "message": "Како помага FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Брз преглед на главните функции."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Тајмер за пауза"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Кога ќе наидете на блокиран сајт, тече кратко одбројување пред да продолжите — доволно за да ја преиспитате нарачката."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Распоред"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "По избор блокирајте само во определени часови, како вечер или работно време."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Бела листа"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Исклучете кој било сајт, додадете свои URL или дајте си привремена дозвола кога навистина ви треба."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Идеи за рецепти"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Екранот за блокирање предлага брз вегетаријански и месен/протеински рецепт според тоа што блокиравте."
   },
   "welcomeBack": {
     "message": "Назад"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

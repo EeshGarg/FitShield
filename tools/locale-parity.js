@@ -119,6 +119,25 @@ function localeParity() {
     }
   }
 
+  // A key nothing can display is still shipped in all 83 files and still lands
+  // in translator worklists, so it is surfaced here rather than left to be found
+  // by accident. Reported as a warning: the fix is a data edit, not a breakage.
+  try {
+    const prune = require("./locale-prune");
+
+    prune.staleExemptions().forEach((prefix) => {
+      reporter.fail(
+        `dynamic-key prefix "${prefix}" is exempted from the unused-key check but no code builds it any more`
+      );
+    });
+
+    prune.unusedKeys().forEach((key) => {
+      reporter.warn(`"${key}" exists in every locale but no source references it (node tools/locale-prune.js --apply)`);
+    });
+  } catch (error) {
+    reporter.warn(`could not check for unreferenced keys: ${error.message}`);
+  }
+
   const fullyTranslated = dirs.length - coverage.length;
   const averagePercent = coverage.length
     ? Math.round(coverage.reduce((sum, item) => sum + item.percent, 0) / coverage.length)

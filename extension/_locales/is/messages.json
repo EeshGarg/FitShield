@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the síða for $1 $2."
-  },
   "warningBackButton": {
     "message": "Fara til baka"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Halda áfram"
-  },
-  "warningOpeningButton": {
-    "message": "Opna..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the síða now. The lokari will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the síða. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Lokið. Endurhleð…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Ég bý frekar til þetta"
-  },
-  "recipeChosenButton": {
-    "message": "Bætt í tölfræðina þína ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Gott val — skráð í tölfræðina þína. Sjáðu það í Stillingum."
-  },
   "statusCaloriesAvoided": {
     "message": "Forðaðar hitaeiningar"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Þú getur fínstillt litina síðar í Stillingum."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Loka á skyndibitapantanir"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Bætir hléskjá við pöntunarsíður stórra skyndibitakeðja."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Mælt með kveikt."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Loka á sendingarforrit"
-  },
   "welcomeDeliveryBody": {
     "message": "Bætir hléskjá við sendingarvettvanga eins og DoorDash og Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Endurheimta afrit (valfrjálst)"
   },
   "welcomeImportBody": {
     "message": "Kemur þú úr öðru tæki? Flyttu inn FitShield-stillingaskrá til að taka allt með. Annars haltu bara áfram."
   },
   "welcomeImportButton": {
     "message": "Flytja inn stillingaskrá"
-  },
-  "welcomeHelpTitle": {
-    "message": "Hvernig FitShield hjálpar"
-  },
-  "welcomeHelpBody": {
-    "message": "Stutt yfirferð yfir helstu eiginleika."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Hlételjari"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Þegar þú lendir á lokuðum vef gengur stutt niðurtalning áður en þú getur haldið áfram — nóg til að endurhugsa pöntunina."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Áætlun"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Lokaðu valfrjálst aðeins á tilteknum tímum, eins og á kvöldin eða á vinnutíma."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Hvítlisti"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Slökktu á hvaða vef sem er, bættu við eigin slóðum eða veittu þér tímabundið leyfi þegar þú þarft þess virkilega."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Uppskriftahugmyndir"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Lokunarskjárinn stingur upp á fljótlegri grænmetis- og kjöt-/próteinuppskrift út frá því sem þú lokaðir á."
   },
   "welcomeBack": {
     "message": "Til baka"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

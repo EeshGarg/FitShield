@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the сайт for $1 $2."
-  },
   "warningBackButton": {
     "message": "Назад"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Працягнуць"
-  },
-  "warningOpeningButton": {
-    "message": "Адкрыццё..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the сайт now. The блакіроўшчык will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the сайт. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Гатова. Перазагрузка…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 ккал"
-  },
-  "recipeChooseButton": {
-    "message": "Лепш прыгатую гэта"
-  },
-  "recipeChosenButton": {
-    "message": "Дададзена ў статыстыку ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Добры выбар — запісана ў вашу статыстыку. Глядзіце ў Наладах."
-  },
   "statusCaloriesAvoided": {
     "message": "Пазбегнутыя калорыі"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Колеры можна наладзіць пазней у Наладах."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Блакіраваць замову фастфуду"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Дадае экран паўзы на старонках замовы буйных сетак фастфуду."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Рэкамендуецца ўключыць."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Блакіраваць праграмы дастаўкі"
-  },
   "welcomeDeliveryBody": {
     "message": "Дадае экран паўзы на платформах дастаўкі накшталт DoorDash і Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Аднавіць рэзервовую копію (неабавязкова)"
   },
   "welcomeImportBody": {
     "message": "Пераходзіце з іншай прылады? Імпартуйце файл налад FitShield, каб перанесці ўсё. Інакш проста працягвайце."
   },
   "welcomeImportButton": {
     "message": "Імпартаваць файл налад"
-  },
-  "welcomeHelpTitle": {
-    "message": "Як дапамагае FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Хуткі агляд асноўных функцый."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Таймер паўзы"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Калі вы трапляеце на заблакіраваны сайт, перад працягам ідзе кароткі адлік — дастаткова, каб перадумаць наконт замовы."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Расклад"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Пры жаданні блакіруйце толькі ў пэўныя гадзіны, напрыклад увечары або ў працоўны час."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Белы спіс"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Адключыце любы сайт, дадайце ўласныя URL або дайце сабе часовы дазвол, калі ён сапраўды патрэбны."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Ідэі рэцэптаў"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Экран блакіроўкі прапануе хуткі вегетарыянскі і мясны/бялковы рэцэпт паводле таго, што вы заблакіравалі."
   },
   "welcomeBack": {
     "message": "Назад"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

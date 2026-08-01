@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "আপুনি $1 ৰ পৰা অৰ্ডাৰ দিবলৈ ওলাইছে।"
   },
-  "warningHintLocked": {
-    "message": "যেতিয়া টাইমাৰ শেষ হয়, আপুনি $1 $2 ৰ বাবে চাইটলৈ যাব পাৰিব।"
-  },
   "warningBackButton": {
     "message": "উভতি যাওক"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "আগবাঢ়ি যাওক"
-  },
-  "warningOpeningButton": {
-    "message": "খোলা..."
-  },
-  "warningUnlockHint": {
-    "message": "আপুনি এতিয়াই চাইটটো চাব পাৰিব। $1 $2 ৰ পিছত ব্লকাৰ স্বয়ংক্ৰিয়ভাৱে ঘূৰি আহিব।"
   },
   "warningErrorHint": {
     "message": "চাইটটো খুলি থাকোঁতে কিবা এটা ভুল হ’ল৷ অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।"
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "সম্পূৰ্ণ হ’ল। পুনৰ ল’ড হৈ আছে…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "তাৰ সলনি মই ই বনাম"
-  },
-  "recipeChosenButton": {
-    "message": "আপোনাৰ পৰিসংখ্যাত যোগ হ’ল ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "ভাল বাছনি — আপোনাৰ পৰিসংখ্যাত লিপিবদ্ধ হ’ল। ছেটিংছত চাওক।"
-  },
   "statusCaloriesAvoided": {
     "message": "এৰাই চলা কেলৰি"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "ৰংবোৰ পিছত ছেটিংছত সূক্ষ্মভাৱে মিলাব পাৰি।"
   },
-  "welcomeFastFoodTitle": {
-    "message": "ফাষ্ট ফুড অৰ্ডাৰ অৱৰোধ কৰক"
-  },
-  "welcomeFastFoodBody": {
-    "message": "ডাঙৰ ফাষ্ট ফুড শৃংখলৰ অৰ্ডাৰ পৃষ্ঠাত এটা বিৰতি স্ক্ৰীন যোগ কৰে।"
-  },
-  "welcomeRecommendedOn": {
-    "message": "অন কৰি ৰখাৰ পৰামৰ্শ।"
-  },
-  "welcomeDeliveryTitle": {
-    "message": "ডেলিভাৰী এপ অৱৰোধ কৰক"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash আৰু Uber Eats-ৰ দৰে ডেলিভাৰী প্লেটফৰ্মত এটা বিৰতি স্ক্ৰীন যোগ কৰে।"
-  },
-  "welcomeImportTitle": {
-    "message": "বেকআপ পুনৰুদ্ধাৰ কৰক (ঐচ্ছিক)"
   },
   "welcomeImportBody": {
     "message": "আন এটা ডিভাইচৰ পৰা আহিছেনে? সকলো আনিবলৈ এটা FitShield ছেটিং ফাইল ইম্পৰ্ট কৰক। নহ’লে আগবাঢ়ক।"
   },
   "welcomeImportButton": {
     "message": "ছেটিং ফাইল ইম্পৰ্ট কৰক"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield-এ কেনেকৈ সহায় কৰে"
-  },
-  "welcomeHelpBody": {
-    "message": "মুখ্য বৈশিষ্ট্যৰ দ্ৰুত ভ্ৰমণ।"
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "বিৰতি টাইমাৰ"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "এটা অৱৰোধিত ছাইটত পালে, আগবঢ়াৰ আগতে এটা চুটি কাউণ্টডাউন চলে — অৰ্ডাৰ পুনৰ ভাবিবলৈ যথেষ্ট।"
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "সময়সূচী"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "ইচ্ছা কৰিলে কেৱল নিৰ্দিষ্ট সময়ত অৱৰোধ কৰক, যেনে সন্ধিয়া বা কামৰ সময়।"
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "হোৱাইটলিষ্ট"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "যিকোনো ছাইট বন্ধ কৰক, নিজৰ URL যোগ কৰক, বা সঁচাকৈ প্ৰয়োজন হ’লে অস্থায়ী অনুমতি দিয়ক।"
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "ৰেচিপি ধাৰণা"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "আপুনি কি অৱৰোধ কৰিলে তাৰ ওপৰত ভিত্তি কৰি ব্লক স্ক্ৰীনে এটা দ্ৰুত নিৰামিষ আৰু এটা মাংস/প্ৰ’টিন ৰেচিপি প্ৰস্তাৱ কৰে।"
   },
   "welcomeBack": {
     "message": "পিছলৈ"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

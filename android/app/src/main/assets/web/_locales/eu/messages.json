@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the gune for $1 $2."
-  },
   "warningBackButton": {
     "message": "Itzuli"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Jarraitu"
-  },
-  "warningOpeningButton": {
-    "message": "Irekitzen..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the gune now. The blokeatzailea will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the gune. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Eginda. Birkargatzen…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Hobe hau prestatuko dut"
-  },
-  "recipeChosenButton": {
-    "message": "Zure estatistiketan gehituta ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Aukera ona — zure estatistiketan erregistratuta. Ikus ezazu Ezarpenetan."
-  },
   "statusCaloriesAvoided": {
     "message": "Saihestutako kaloriak"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Koloreak geroago doi ditzakezu Ezarpenetan."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Blokeatu janari azkarreko eskaerak"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Etenaldi-pantaila bat gehitzen du janari azkarreko kate handien eskaera-orrietan."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Aktibatzea gomendatua."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Blokeatu banaketa-aplikazioak"
-  },
   "welcomeDeliveryBody": {
     "message": "Etenaldi-pantaila bat gehitzen du DoorDash eta Uber Eats bezalako banaketa-plataformetan."
-  },
-  "welcomeImportTitle": {
-    "message": "Berreskuratu babeskopia bat (aukerakoa)"
   },
   "welcomeImportBody": {
     "message": "Beste gailu batetik zatoz? Inportatu FitShield ezarpen-fitxategi bat dena ekartzeko. Bestela, jarraitu besterik gabe."
   },
   "welcomeImportButton": {
     "message": "Inportatu ezarpen-fitxategia"
-  },
-  "welcomeHelpTitle": {
-    "message": "Nola laguntzen dizun FitShield-ek"
-  },
-  "welcomeHelpBody": {
-    "message": "Eginbide nagusien ibilbide azkarra."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Etenaldi-tenporizadorea"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Blokeatutako gune batera iristen zarenean, atzera-kontaketa labur bat exekutatzen da jarraitu aurretik — nahikoa eskaera berriz pentsatzeko."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Ordutegia"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Nahi izanez gero, blokeatu ordu jakinetan soilik, hala nola arratsaldez edo lanorduetan."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Zerrenda zuria"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Itzali edozein gune, gehitu zure URLak edo eman zeure buruari behin-behineko baimena benetan behar duzunean."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Errezeta ideiak"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Blokeo-pantailak errezeta begetariano azkar bat eta haragi/proteina bat iradokitzen ditu blokeatutakoaren arabera."
   },
   "welcomeBack": {
     "message": "Atzera"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

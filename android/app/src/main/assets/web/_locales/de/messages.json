@@ -167,10 +167,6 @@
     "message": "Du bist dabei, bei $1 zu bestellen.",
     "description": "$1 is the blocked brand name."
   },
-  "warningHintLocked": {
-    "message": "Wenn der Timer endet, kannst du die Seite für $1 $2 weiter besuchen.",
-    "description": "$1 pass duration, $2 minute/minutes unit."
-  },
   "warningBackButton": {
     "message": "Zurück"
   },
@@ -179,13 +175,6 @@
   },
   "warningContinueButton": {
     "message": "Weiter"
-  },
-  "warningOpeningButton": {
-    "message": "Wird geöffnet…"
-  },
-  "warningUnlockHint": {
-    "message": "Du kannst die Seite jetzt besuchen. Der Blocker kehrt nach $1 $2 automatisch zurück.",
-    "description": "$1 pass duration, $2 minute/minutes unit."
   },
   "warningErrorHint": {
     "message": "Beim Öffnen der Seite ist etwas schiefgelaufen. Bitte versuch es erneut."
@@ -218,34 +207,11 @@
     "message": "+$1 weitere",
     "description": "$1 is the number of additional countries not shown."
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarisch"
-  },
-  "recipeMeatLabel": {
-    "message": "Fleisch & Protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 Min",
-    "description": "$1 is the estimated time in minutes."
-  },
   "recipeIngredientsLabel": {
     "message": "Zutaten"
   },
   "recipeStepsLabel": {
     "message": "Schritte"
-  },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal",
-    "description": "$1 is the estimated calories for the recipe."
-  },
-  "recipeChooseButton": {
-    "message": "Das mache ich stattdessen"
-  },
-  "recipeChosenButton": {
-    "message": "Zu deinen Statistiken hinzugefügt ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Gute Wahl – in deinen Statistiken erfasst. Sieh es in den Einstellungen."
   },
   "settingsTitle": {
     "message": "FitShield-Einstellungen"
@@ -864,59 +830,14 @@
   "welcomeThemeBody": {
     "message": "Die Farben kannst du später in den Einstellungen feinabstimmen."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Fastfood-Bestellungen sperren"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Fügt einen Pausenbildschirm auf den Bestellseiten großer Fastfood-Ketten hinzu."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Empfohlen an."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Liefer-Apps sperren"
-  },
   "welcomeDeliveryBody": {
     "message": "Fügt einen Pausenbildschirm auf Lieferplattformen wie DoorDash und Uber Eats hinzu."
-  },
-  "welcomeImportTitle": {
-    "message": "Eine Sicherung wiederherstellen (optional)"
   },
   "welcomeImportBody": {
     "message": "Kommst du von einem anderen Gerät? Importiere eine FitShield-Einstellungsdatei, um alles zu übernehmen. Andernfalls fahre einfach fort."
   },
   "welcomeImportButton": {
     "message": "Einstellungsdatei importieren"
-  },
-  "welcomeHelpTitle": {
-    "message": "Wie FitShield hilft"
-  },
-  "welcomeHelpBody": {
-    "message": "Eine kurze Tour durch die wichtigsten Funktionen."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Pausen-Timer"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Wenn du auf eine gesperrte Seite triffst, läuft ein kurzer Countdown, bevor du fortfahren kannst – genug, um die Bestellung zu überdenken."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Zeitplan"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Optional nur zu bestimmten Zeiten sperren, etwa abends oder während der Arbeit."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Weiße Liste"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Schalte einzelne Seiten aus, füge eigene URLs hinzu oder gewähre dir einen temporären Zugang, wenn du ihn wirklich brauchst."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Rezeptideen"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Der Sperrbildschirm schlägt je nach Gesperrtem ein schnelles vegetarisches und ein Fleisch-/Proteinrezept vor."
   },
   "welcomeBack": {
     "message": "Zurück"
@@ -1024,9 +945,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "ඔබ $1 වෙතින් ඇණවුම් කිරීමට සූදානම් වේ."
   },
-  "warningHintLocked": {
-    "message": "ටයිමරය අවසන් වූ විට, ඔබට $1 $2 සඳහා අඩවියට යා හැක."
-  },
   "warningBackButton": {
     "message": "ආපසු යන්න"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "දිගටම කරගෙන යන්න"
-  },
-  "warningOpeningButton": {
-    "message": "විවෘත කරමින්..."
-  },
-  "warningUnlockHint": {
-    "message": "ඔබට දැන් වෙබ් අඩවියට පිවිසිය හැකිය. අවහිර කරන්නා $1 $2 ට පසු ස්වයංක්‍රීයව නැවත පැමිණේ."
   },
   "warningErrorHint": {
     "message": "අඩවිය විවෘත කිරීමේදී යම් දෙයක් වැරදී ඇත. කරුණාකර නැවත උත්සාහ කරන්න."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "අවසන්. නැවත පූරණය වෙමින්…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "ඒ වෙනුවට මම මෙය හදනවා"
-  },
-  "recipeChosenButton": {
-    "message": "ඔබේ සංඛ්‍යාලේඛනවලට එක් කළා ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "හොඳ තේරීමක් — ඔබේ සංඛ්‍යාලේඛනවල සටහන් විය. සැකසීම්වල බලන්න."
-  },
   "statusCaloriesAvoided": {
     "message": "වැළැක්වූ කැලරි"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "වර්ණ පසුව සැකසීම්වල මනාව සකස් කළ හැක."
   },
-  "welcomeFastFoodTitle": {
-    "message": "ක්ෂණික ආහාර ඇණවුම් අවහිර කරන්න"
-  },
-  "welcomeFastFoodBody": {
-    "message": "විශාල ක්ෂණික ආහාර දාමවල ඇණවුම් පිටුවලට විරාම තිරයක් එක් කරයි."
-  },
-  "welcomeRecommendedOn": {
-    "message": "ක්‍රියාත්මක කිරීම නිර්දේශිතයි."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "බෙදාහැරීමේ යෙදුම් අවහිර කරන්න"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash සහ Uber Eats වැනි බෙදාහැරීමේ වේදිකාවලට විරාම තිරයක් එක් කරයි."
-  },
-  "welcomeImportTitle": {
-    "message": "උපස්ථයක් යළි පිහිටුවන්න (විකල්ප)"
   },
   "welcomeImportBody": {
     "message": "වෙනත් උපාංගයකින්ද? සියල්ල ගෙන ඒමට FitShield සැකසීම් ගොනුවක් ආයාත කරන්න. නැතිනම් ඉදිරියට යන්න."
   },
   "welcomeImportButton": {
     "message": "සැකසීම් ගොනුව ආයාත කරන්න"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield උදව් වන ආකාරය"
-  },
-  "welcomeHelpBody": {
-    "message": "ප්‍රධාන විශේෂාංග හරහා ඉක්මන් සංචාරයක්."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "විරාම ටයිමරය"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "අවහිර අඩවියකට ළඟා වන විට, ඉදිරියට යාමට පෙර කෙටි ආපසු ගණනය වෙයි — ඇණවුම නැවත සිතා බැලීමට ප්‍රමාණවත්."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "කාලසටහන"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "කැමති නම් සවස හෝ වැඩ කරන වේලාව වැනි නියමිත පැය වලදී පමණක් අවහිර කරන්න."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "ශුද්ධ ලැයිස්තුව"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "ඕනෑම අඩවියක් අක්‍රිය කරන්න, ඔබේම URL එක් කරන්න, හෝ සැබවින්ම අවශ්‍ය විට තාවකාලික අවසරයක් දෙන්න."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "වට්ටෝරු අදහස්"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "ඔබ අවහිර කළ දේ අනුව අවහිර තිරය ඉක්මන් නිර්මාංශ සහ මස්/ප්‍රෝටීන් වට්ටෝරුවක් යෝජනා කරයි."
   },
   "welcomeBack": {
     "message": "ආපසු"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

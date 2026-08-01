@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "আপনি $1 থেকে অর্ডার করতে চলেছেন৷"
   },
-  "warningHintLocked": {
-    "message": "টাইমার শেষ হলে, আপনি $1 $2-এর জন্য সাইটে চালিয়ে যেতে পারেন।"
-  },
   "warningBackButton": {
     "message": "ফিরে যান"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "চালিয়ে যান"
-  },
-  "warningOpeningButton": {
-    "message": "খোলা হচ্ছে..."
-  },
-  "warningUnlockHint": {
-    "message": "আপনি এখন সাইট পরিদর্শন করতে পারেন. ব্লকার $1 $2 পরে স্বয়ংক্রিয়ভাবে ফিরে আসবে।"
   },
   "warningErrorHint": {
     "message": "সাইটটি খোলার সময় কিছু ভুল হয়েছে৷ আবার চেষ্টা করুন."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "সম্পন্ন। পুনরায় লোড হচ্ছে…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "এর বদলে এটি বানাব"
-  },
-  "recipeChosenButton": {
-    "message": "আপনার পরিসংখ্যানে যোগ হয়েছে ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "ভালো পছন্দ — আপনার পরিসংখ্যানে লেখা হয়েছে। সেটিংসে দেখুন।"
-  },
   "statusCaloriesAvoided": {
     "message": "এড়ানো ক্যালোরি"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "রং পরে সেটিংসে সূক্ষ্মভাবে ঠিক করতে পারেন।"
   },
-  "welcomeFastFoodTitle": {
-    "message": "ফাস্ট ফুড অর্ডার ব্লক করুন"
-  },
-  "welcomeFastFoodBody": {
-    "message": "বড় ফাস্ট ফুড চেইনের অর্ডার পেজে একটি বিরতি স্ক্রিন যোগ করে।"
-  },
-  "welcomeRecommendedOn": {
-    "message": "চালু রাখা সুপারিশকৃত।"
-  },
-  "welcomeDeliveryTitle": {
-    "message": "ডেলিভারি অ্যাপ ব্লক করুন"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash ও Uber Eats-এর মতো ডেলিভারি প্ল্যাটফর্মে একটি বিরতি স্ক্রিন যোগ করে।"
-  },
-  "welcomeImportTitle": {
-    "message": "ব্যাকআপ পুনরুদ্ধার (ঐচ্ছিক)"
   },
   "welcomeImportBody": {
     "message": "অন্য ডিভাইস থেকে আসছেন? সবকিছু আনতে একটি FitShield সেটিংস ফাইল ইম্পোর্ট করুন। নয়তো এগিয়ে যান।"
   },
   "welcomeImportButton": {
     "message": "সেটিংস ফাইল ইম্পোর্ট করুন"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield কীভাবে সাহায্য করে"
-  },
-  "welcomeHelpBody": {
-    "message": "মূল বৈশিষ্ট্যগুলোর দ্রুত ভ্রমণ।"
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "বিরতি টাইমার"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "কোনো ব্লক করা সাইটে গেলে এগিয়ে যাওয়ার আগে একটি ছোট কাউন্টডাউন চলে — অর্ডার পুনর্বিবেচনার জন্য যথেষ্ট।"
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "সময়সূচি"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "ইচ্ছে হলে শুধু নির্দিষ্ট সময়ে ব্লক করুন, যেমন সন্ধ্যা বা কাজের সময়।"
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "হোয়াইটলিস্ট"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "যেকোনো সাইট বন্ধ করুন, নিজের URL যোগ করুন, বা সত্যিই প্রয়োজনে অস্থায়ী অনুমতি দিন।"
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "রেসিপি ধারণা"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "ব্লক স্ক্রিন আপনি যা ব্লক করেছেন তার ভিত্তিতে একটি দ্রুত নিরামিষ ও একটি মাংস/প্রোটিন রেসিপি প্রস্তাব করে।"
   },
   "welcomeBack": {
     "message": "পেছনে"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

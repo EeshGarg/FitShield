@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the sito for $1 $2."
-  },
   "warningBackButton": {
     "message": "Indietro"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Continua"
-  },
-  "warningOpeningButton": {
-    "message": "Apertura..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the sito now. The blocco will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the sito. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Fatto. Ricaricamento…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Preparo questo invece"
-  },
-  "recipeChosenButton": {
-    "message": "Aggiunto alle tue statistiche ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Ottima scelta — registrato nelle tue statistiche. Lo vedi nelle Impostazioni."
-  },
   "statusCaloriesAvoided": {
     "message": "Calorie evitate"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Potrai regolare i colori più tardi nelle Impostazioni."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Blocca gli ordini di fast food"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Aggiunge una schermata di pausa sulle pagine d'ordine delle grandi catene di fast food."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Consigliato attivo."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Blocca le app di consegna"
-  },
   "welcomeDeliveryBody": {
     "message": "Aggiunge una schermata di pausa su piattaforme di consegna come DoorDash e Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Ripristina un backup (facoltativo)"
   },
   "welcomeImportBody": {
     "message": "Arrivi da un altro dispositivo? Importa un file di impostazioni FitShield per portare tutto con te. Altrimenti continua pure."
   },
   "welcomeImportButton": {
     "message": "Importa file impostazioni"
-  },
-  "welcomeHelpTitle": {
-    "message": "Come ti aiuta FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Un rapido giro tra le funzioni principali."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Timer di pausa"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Su un sito bloccato parte un breve conto alla rovescia prima di continuare — il tempo per ripensare l'ordine."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Programmazione"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Se vuoi, blocca solo in certe ore, come la sera o l'orario di lavoro."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Whitelist"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Disattiva qualsiasi sito, aggiungi i tuoi URL o concedi un permesso temporaneo quando serve davvero."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Idee di ricette"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "La schermata di blocco suggerisce una ricetta vegetariana e una con carne/proteine in base a cosa hai bloccato."
   },
   "welcomeBack": {
     "message": "Indietro"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Ristorante"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

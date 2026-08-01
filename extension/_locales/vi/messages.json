@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "Bạn sắp đặt hàng từ $1."
   },
-  "warningHintLocked": {
-    "message": "Khi hết giờ, bạn có thể tiếp tục truy cập trang web dành cho $1 $2."
-  },
   "warningBackButton": {
     "message": "Quay lại"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Tiếp tục"
-  },
-  "warningOpeningButton": {
-    "message": "Khai mạc..."
-  },
-  "warningUnlockHint": {
-    "message": "Bạn có thể truy cập trang web ngay bây giờ. Trình chặn sẽ tự động quay trở lại sau $1 $2."
   },
   "warningErrorHint": {
     "message": "Đã xảy ra lỗi khi mở trang web. Vui lòng thử lại."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Xong. Đang tải lại…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Thay vào đó tôi sẽ nấu món này"
-  },
-  "recipeChosenButton": {
-    "message": "Đã thêm vào thống kê của bạn ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Lựa chọn hay — đã ghi vào thống kê của bạn. Xem trong Cài đặt."
-  },
   "statusCaloriesAvoided": {
     "message": "Calo đã tránh"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Bạn có thể tinh chỉnh màu sau trong Cài đặt."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Chặn đặt thức ăn nhanh"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Thêm màn hình tạm dừng trên trang đặt hàng của các chuỗi thức ăn nhanh lớn."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Nên bật."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Chặn ứng dụng giao hàng"
-  },
   "welcomeDeliveryBody": {
     "message": "Thêm màn hình tạm dừng trên các nền tảng giao hàng như DoorDash và Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Khôi phục bản sao lưu (tùy chọn)"
   },
   "welcomeImportBody": {
     "message": "Chuyển từ thiết bị khác? Nhập một tệp cài đặt FitShield để mang theo mọi thứ. Nếu không, cứ tiếp tục."
   },
   "welcomeImportButton": {
     "message": "Nhập tệp cài đặt"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield giúp bạn thế nào"
-  },
-  "welcomeHelpBody": {
-    "message": "Một vòng nhanh qua các tính năng chính."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Bộ hẹn giờ tạm dừng"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Khi vào một trang bị chặn, một đồng hồ đếm ngược ngắn chạy trước khi tiếp tục — đủ để nghĩ lại về đơn hàng."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Lịch"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Nếu muốn, chỉ chặn vào những giờ nhất định, như buổi tối hoặc giờ làm việc."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Danh sách trắng"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Tắt bất kỳ trang nào, thêm URL của riêng bạn, hoặc cấp quyền tạm thời khi thực sự cần."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Ý tưởng công thức"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Màn hình chặn gợi ý một công thức chay và một công thức thịt/đạm nhanh dựa trên những gì bạn đã chặn."
   },
   "welcomeBack": {
     "message": "Quay lại"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Nhà hàng"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

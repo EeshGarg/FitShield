@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "شما در شرف سفارش از $1 هستید."
   },
-  "warningHintLocked": {
-    "message": "وقتی تایمر به پایان رسید، می توانید به سایت برای $1 $2 ادامه دهید."
-  },
   "warningBackButton": {
     "message": "به عقب برگرد"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "ادامه دهید"
-  },
-  "warningOpeningButton": {
-    "message": "باز شدن..."
-  },
-  "warningUnlockHint": {
-    "message": "اکنون می توانید به سایت مراجعه کنید. مسدود کننده به طور خودکار پس از $1 $2 برمی گردد."
   },
   "warningErrorHint": {
     "message": "هنگام باز کردن سایت مشکلی پیش آمد. لطفا دوباره امتحان کنید."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "انجام شد. در حال بارگذاری مجدد…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 کالری"
-  },
-  "recipeChooseButton": {
-    "message": "به‌جایش این را می‌پزم"
-  },
-  "recipeChosenButton": {
-    "message": "به آمار شما افزوده شد ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "انتخاب خوبی بود — در آمار شما ثبت شد. در تنظیمات ببینید."
-  },
   "statusCaloriesAvoided": {
     "message": "کالری اجتناب‌شده"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "رنگ‌ها را بعداً در تنظیمات می‌توانید تنظیم کنید."
   },
-  "welcomeFastFoodTitle": {
-    "message": "مسدودسازی سفارش فست‌فود"
-  },
-  "welcomeFastFoodBody": {
-    "message": "یک صفحهٔ مکث در صفحات سفارش زنجیره‌های بزرگ فست‌فود اضافه می‌کند."
-  },
-  "welcomeRecommendedOn": {
-    "message": "توصیه‌شده روشن."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "مسدودسازی اپ‌های تحویل"
-  },
   "welcomeDeliveryBody": {
     "message": "یک صفحهٔ مکث در پلتفرم‌های تحویل مانند DoorDash و Uber Eats اضافه می‌کند."
-  },
-  "welcomeImportTitle": {
-    "message": "بازیابی پشتیبان (اختیاری)"
   },
   "welcomeImportBody": {
     "message": "از دستگاه دیگری می‌آیید؟ یک فایل تنظیمات FitShield را وارد کنید تا همه‌چیز منتقل شود. وگرنه ادامه دهید."
   },
   "welcomeImportButton": {
     "message": "وارد کردن فایل تنظیمات"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield چگونه کمک می‌کند"
-  },
-  "welcomeHelpBody": {
-    "message": "یک مرور سریع بر ویژگی‌های اصلی."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "زمان‌سنج مکث"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "وقتی به سایت مسدود می‌رسید، پیش از ادامه یک شمارش معکوس کوتاه اجرا می‌شود — کافی برای بازاندیشی دربارهٔ سفارش."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "زمان‌بندی"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "در صورت تمایل فقط در ساعات معین مسدود کنید، مثل شب‌ها یا ساعات کاری."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "فهرست سفید"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "هر سایتی را خاموش کنید، نشانی‌های خود را بیفزایید یا هنگام نیاز واقعی اجازهٔ موقت بدهید."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "ایده‌های دستور پخت"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "صفحهٔ مسدودسازی بر اساس آنچه مسدود کرده‌اید یک دستور گیاهی و یک دستور گوشتی/پروتئینی سریع پیشنهاد می‌دهد."
   },
   "welcomeBack": {
     "message": "بازگشت"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

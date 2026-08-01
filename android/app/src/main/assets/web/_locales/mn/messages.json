@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "Та $1-с захиалах гэж байна."
   },
-  "warningHintLocked": {
-    "message": "Цаг хэмжигч дуусахад та $1 $2 сайт руу үргэлжлүүлж болно."
-  },
   "warningBackButton": {
     "message": "Буцах"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Үргэлжлүүлэх"
-  },
-  "warningOpeningButton": {
-    "message": "Нээх..."
-  },
-  "warningUnlockHint": {
-    "message": "Та одоо сайтад зочилж болно. Блоклогч нь $1 $2 дараа автоматаар буцаж ирнэ."
   },
   "warningErrorHint": {
     "message": "Сайтыг нээх явцад алдаа гарлаа. Дахин оролдоно уу."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Дууссан. Дахин ачаалж байна…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 ккал"
-  },
-  "recipeChooseButton": {
-    "message": "Үүний оронд би үүнийг хийнэ"
-  },
-  "recipeChosenButton": {
-    "message": "Таны статистикт нэмэгдлээ ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Сайн сонголт — таны статистикт бүртгэгдлээ. Тохиргооноос харна уу."
-  },
   "statusCaloriesAvoided": {
     "message": "Зайлсхийсэн илчлэг"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Өнгийг дараа нь Тохиргооноос нарийн тохируулж болно."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Түргэн хоолны захиалгыг хориглох"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Том түргэн хоолны сүлжээний захиалгын хуудсанд завсарлагын дэлгэц нэмнэ."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Асаахыг зөвлөж байна."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Хүргэлтийн апп хориглох"
-  },
   "welcomeDeliveryBody": {
     "message": "DoorDash, Uber Eats зэрэг хүргэлтийн платформд завсарлагын дэлгэц нэмнэ."
-  },
-  "welcomeImportTitle": {
-    "message": "Нөөцлөлтийг сэргээх (заавал биш)"
   },
   "welcomeImportBody": {
     "message": "Өөр төхөөрөмжөөс ирж байна уу? Бүгдийг авчрахын тулд FitShield тохиргооны файлыг импортлоно уу. Үгүй бол үргэлжлүүлээрэй."
   },
   "welcomeImportButton": {
     "message": "Тохиргооны файл импортлох"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield хэрхэн тусалдаг вэ"
-  },
-  "welcomeHelpBody": {
-    "message": "Үндсэн боломжуудын хурдан аялал."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Завсарлагын таймер"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Хориглосон сайтад хүрэхэд үргэлжлүүлэхээс өмнө богино тоолуур ажиллана — захиалгаа дахин бодоход хангалттай."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Хуваарь"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Хүсвэл зөвхөн тодорхой цагт хориглоно, жишээ нь орой эсвэл ажлын цагт."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Цагаан жагсаалт"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Аль ч сайтыг унтраа, өөрийн URL нэм, эсвэл үнэхээр хэрэгтэй үед түр зөвшөөрөл өг."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Жорын санаа"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Хориглох дэлгэц нь таны хориглосноос хамаарч хурдан цагаан хоол болон мах/уургийн жор санал болгоно."
   },
   "welcomeBack": {
     "message": "Буцах"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

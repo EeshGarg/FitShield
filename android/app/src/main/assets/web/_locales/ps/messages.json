@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "تاسو د $1 څخه د امر کولو په حال کې یاست."
   },
-  "warningHintLocked": {
-    "message": "کله چې ټایمر پای ته ورسیږي، تاسو کولی شئ د $1 $2 سایټ ته دوام ورکړئ."
-  },
   "warningBackButton": {
     "message": "بیرته لاړ شه"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "ادامه ورکړئ"
-  },
-  "warningOpeningButton": {
-    "message": "پرانیستل..."
-  },
-  "warningUnlockHint": {
-    "message": "تاسو کولی شئ اوس سایټ څخه لیدنه وکړئ. بلاکر به د $1 $2 وروسته په اوتومات ډول بیرته راشي."
   },
   "warningErrorHint": {
     "message": "د سایټ د پرانیستلو په وخت کې یو څه غلط شو. مهرباني وکړئ بیا هڅه وکړئ."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "بشپړ شو. بیا لوډ کیږي…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "پر ځای یې دا جوړوم"
-  },
-  "recipeChosenButton": {
-    "message": "ستاسو احصایو ته اضافه شو ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "ښه انتخاب — ستاسو احصایو کې ثبت شو. په ترتیباتو کې یې وګورئ."
-  },
   "statusCaloriesAvoided": {
     "message": "مخنیوي شوي کالوري"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "رنګونه وروسته په ترتیباتو کې سم کولی شئ."
   },
-  "welcomeFastFoodTitle": {
-    "message": "د چټک خوراک امر بند کړئ"
-  },
-  "welcomeFastFoodBody": {
-    "message": "د لویو چټک خوراک شبکو د امر پاڼو کې د ځنډ سکرین اضافه کوي."
-  },
-  "welcomeRecommendedOn": {
-    "message": "فعالول وړاندیز کیږي."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "د رسولو اپلیکیشنونه بند کړئ"
-  },
   "welcomeDeliveryBody": {
     "message": "د DoorDash او Uber Eats په څیر د رسولو پلیټ فارمونو کې د ځنډ سکرین اضافه کوي."
-  },
-  "welcomeImportTitle": {
-    "message": "بیک اپ بیرته راولئ (اختیاري)"
   },
   "welcomeImportBody": {
     "message": "له بل وسیلې راځئ؟ د هرڅه راوړلو لپاره د FitShield ترتیباتو فایل وارد کړئ. که نه نو دوام ورکړئ."
   },
   "welcomeImportButton": {
     "message": "د ترتیباتو فایل وارد کړئ"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield څنګه مرسته کوي"
-  },
-  "welcomeHelpBody": {
-    "message": "د اصلي ځانګړتیاوو چټک سفر."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "د ځنډ ټایمر"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "کله چې بند شوي سایټ ته ورسیږئ، له دوام مخکې یو لنډ شمیرنه روانیږي — د امر بیا فکر کولو لپاره کافي."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "مهالویش"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "که غواړئ یوازې په ټاکلو ساعتونو کې بند کړئ، لکه ماښام یا د کار وخت."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "سپین لیست"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "هر سایټ بند کړئ، خپل URL اضافه کړئ، یا کله چې واقعیا اړتیا وي ځان ته لنډمهاله اجازه ورکړئ."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "د ترکیب نظرونه"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "د بندولو سکرین ستاسو د بند شوي پر بنسټ یو چټک سبزي او یو غوښه/پروټین ترکیب وړاندیز کوي."
   },
   "welcomeBack": {
     "message": "شاته"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

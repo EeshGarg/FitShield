@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the site for $1 $2."
-  },
   "warningBackButton": {
     "message": "Terug"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Doorgaan"
-  },
-  "warningOpeningButton": {
-    "message": "Openenen..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the site now. The blokkeerder will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the site. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Klaar. Opnieuw laden…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Ik maak dit liever"
-  },
-  "recipeChosenButton": {
-    "message": "Toegevoegd aan je stats ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Goede keuze — vastgelegd in je stats. Bekijk het in Instellingen."
-  },
   "statusCaloriesAvoided": {
     "message": "Vermeden calorieën"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Je kunt de kleuren later in Instellingen verfijnen."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Fastfood-bestellen blokkeren"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Voegt een pauzescherm toe op de bestelpagina's van grote fastfoodketens."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Aanbevolen aan."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Bezorg-apps blokkeren"
-  },
   "welcomeDeliveryBody": {
     "message": "Voegt een pauzescherm toe op bezorgplatforms zoals DoorDash en Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Een back-up herstellen (optioneel)"
   },
   "welcomeImportBody": {
     "message": "Kom je van een ander apparaat? Importeer een FitShield-instellingenbestand om alles over te zetten. Anders ga je gewoon verder."
   },
   "welcomeImportButton": {
     "message": "Instellingenbestand importeren"
-  },
-  "welcomeHelpTitle": {
-    "message": "Hoe FitShield helpt"
-  },
-  "welcomeHelpBody": {
-    "message": "Een snelle rondleiding langs de belangrijkste functies."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Pauzetimer"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Op een geblokkeerde site loopt een korte aftelling voordat je verdergaat — genoeg om de bestelling te heroverwegen."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Schema"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Blokkeer desgewenst alleen op vaste tijden, zoals 's avonds of tijdens werk."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Witte lijst"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Zet een site uit, voeg je eigen URL's toe of geef jezelf tijdelijk toegang wanneer het echt nodig is."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Recept-ideeën"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Het blokkeerscherm stelt een snel vegetarisch en een vlees/eiwit-recept voor op basis van wat je blokkeerde."
   },
   "welcomeBack": {
     "message": "Terug"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

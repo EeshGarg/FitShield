@@ -149,9 +149,6 @@
   "warningPageTitle": {
     "message": "ይተንፍሱ"
   },
-  "warningHintLocked": {
-    "message": "ሰዓት ቆጣሪው ሲያልቅ ለ$1 $2 ወደ ጣቢያው መቀጠል ይችላሉ።"
-  },
   "warningTriggeredBy": {
     "message": "ከ$1 ልታዝዙ ነው።"
   },
@@ -164,9 +161,6 @@
   "warningLockedButton": {
     "message": "ተቆልፏል"
   },
-  "warningOpeningButton": {
-    "message": "በመክፈት ላይ..."
-  },
   "warningBackButton": {
     "message": "ተመለስ"
   },
@@ -178,9 +172,6 @@
   },
   "warningErrorHint": {
     "message": "ጣቢያውን በመክፈት ላይ ሳለ የሆነ ችግር ተፈጥሯል። እባክህ እንደገና ሞክር።"
-  },
-  "warningUnlockHint": {
-    "message": "አሁን ጣቢያውን መጎብኘት ይችላሉ። ማገጃው ከ$1 $2 በኋላ በራስ-ሰር ይመለሳል።"
   },
   "customizeBlocklistHeading": {
     "message": "የማገጃ መዝገብ ያብጁ"
@@ -668,15 +659,6 @@
   "popupWidthLabel": {
     "message": "የብቅ-ባይ ስፋት"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "ተጠናቋል። እንደገና በመጫን ላይ…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "በምትኩ ይህን እሰራለሁ"
-  },
-  "recipeChosenButton": {
-    "message": "ወደ ስታትስቲክስዎ ታክሏል ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "ጥሩ ምርጫ — በስታትስቲክስዎ ተመዝግቧል። በቅንብሮች ውስጥ ይዩት።"
-  },
   "statusCaloriesAvoided": {
     "message": "የተወገዱ ካሎሪዎች"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "ቀለሞችን በኋላ በቅንብሮች ውስጥ በጥሩ ሁኔታ ማስተካከል ይችላሉ።"
   },
-  "welcomeFastFoodTitle": {
-    "message": "የፈጣን ምግብ ትዕዛዝን አግድ"
-  },
-  "welcomeFastFoodBody": {
-    "message": "በትላልቅ የፈጣን ምግብ ሰንሰለቶች የትዕዛዝ ገጾች ላይ የእረፍት ማያ ገጽ ይጨምራል።"
-  },
-  "welcomeRecommendedOn": {
-    "message": "እንዲበራ ይመከራል።"
-  },
-  "welcomeDeliveryTitle": {
-    "message": "የማድረስ መተግበሪያዎችን አግድ"
-  },
   "welcomeDeliveryBody": {
     "message": "እንደ DoorDash እና Uber Eats ባሉ የማድረስ መድረኮች ላይ የእረፍት ማያ ገጽ ይጨምራል።"
-  },
-  "welcomeImportTitle": {
-    "message": "ምትኬ ይመልሱ (አማራጭ)"
   },
   "welcomeImportBody": {
     "message": "ከሌላ መሣሪያ ነው የመጡት? ሁሉንም ለማምጣት የFitShield ቅንብሮች ፋይል ያስመጡ። አለበለዚያ ይቀጥሉ።"
   },
   "welcomeImportButton": {
     "message": "የቅንብሮች ፋይል አስመጣ"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield እንዴት እንደሚረዳ"
-  },
-  "welcomeHelpBody": {
-    "message": "የዋና ዋና ባህሪያት ፈጣን ጉብኝት።"
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "የእረፍት ቆጣሪ"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "የታገደ ጣቢያ ሲደርሱ፣ ከመቀጠልዎ በፊት አጭር ቆጠራ ይሄዳል — ትዕዛዙን እንደገና ለማሰብ በቂ።"
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "መርሐ ግብር"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "እንደ ምሽት ወይም የስራ ሰዓት ባሉ የተወሰኑ ሰዓታት ብቻ ማገድ ይችላሉ።"
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "ነጭ ዝርዝር"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "ማንኛውንም ጣቢያ ያጥፉ፣ የራስዎን URLዎች ያክሉ፣ ወይም በእውነት ሲያስፈልግዎ ጊዜያዊ ፈቃድ ይስጡ።"
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "የምግብ አሰራር ሀሳቦች"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "የእገዳ ማያ ገጹ ባገዱት መሰረት ፈጣን የአትክልት እና የስጋ/ፕሮቲን የምግብ አሰራር ይጠቁማል።"
   },
   "welcomeBack": {
     "message": "ተመለስ"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

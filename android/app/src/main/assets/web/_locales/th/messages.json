@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "คุณกำลังจะสั่งจาก $1."
   },
-  "warningHintLocked": {
-    "message": "เมื่อตัวจับเวลาสิ้นสุด คุณจะไปยังไซต์ต่อได้เป็นเวลา $1 $2."
-  },
   "warningBackButton": {
     "message": "ย้อนกลับ"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "ดำเนินการต่อ"
-  },
-  "warningOpeningButton": {
-    "message": "กำลังเปิด..."
-  },
-  "warningUnlockHint": {
-    "message": "ตอนนี้คุณเข้าไซต์ได้แล้ว ตัวบล็อกจะกลับมาอัตโนมัติหลังจาก $1 $2."
   },
   "warningErrorHint": {
     "message": "เกิดข้อผิดพลาดขณะเปิดไซต์ โปรดลองอีกครั้ง"
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "เสร็จแล้ว กำลังโหลดใหม่…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 แคล"
-  },
-  "recipeChooseButton": {
-    "message": "ขอทำเมนูนี้แทน"
-  },
-  "recipeChosenButton": {
-    "message": "เพิ่มในสถิติของคุณแล้ว ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "เลือกได้ดี — บันทึกในสถิติของคุณแล้ว ดูได้ในการตั้งค่า"
-  },
   "statusCaloriesAvoided": {
     "message": "แคลอรีที่เลี่ยงได้"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "ปรับสีอย่างละเอียดได้ภายหลังในการตั้งค่า"
   },
-  "welcomeFastFoodTitle": {
-    "message": "บล็อกการสั่งฟาสต์ฟู้ด"
-  },
-  "welcomeFastFoodBody": {
-    "message": "เพิ่มหน้าจอหยุดพักบนหน้าสั่งของเครือฟาสต์ฟู้ดรายใหญ่"
-  },
-  "welcomeRecommendedOn": {
-    "message": "แนะนำให้เปิด"
-  },
-  "welcomeDeliveryTitle": {
-    "message": "บล็อกแอปเดลิเวอรี"
-  },
   "welcomeDeliveryBody": {
     "message": "เพิ่มหน้าจอหยุดพักบนแพลตฟอร์มเดลิเวอรีอย่าง DoorDash และ Uber Eats"
-  },
-  "welcomeImportTitle": {
-    "message": "กู้คืนข้อมูลสำรอง (ไม่บังคับ)"
   },
   "welcomeImportBody": {
     "message": "ย้ายมาจากอุปกรณ์อื่นใช่ไหม นำเข้าไฟล์การตั้งค่า FitShield เพื่อย้ายทุกอย่างมา ถ้าไม่ ก็ดำเนินการต่อได้เลย"
   },
   "welcomeImportButton": {
     "message": "นำเข้าไฟล์การตั้งค่า"
-  },
-  "welcomeHelpTitle": {
-    "message": "FitShield ช่วยอย่างไร"
-  },
-  "welcomeHelpBody": {
-    "message": "ทัวร์สั้น ๆ ของฟีเจอร์หลัก"
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "ตัวจับเวลาหยุดพัก"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "เมื่อเจอเว็บไซต์ที่ถูกบล็อก จะมีการนับถอยหลังสั้น ๆ ก่อนไปต่อ — พอให้คิดทบทวนการสั่ง"
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "ตารางเวลา"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "จะเลือกบล็อกเฉพาะบางช่วงเวลาก็ได้ เช่น ตอนเย็นหรือเวลาทำงาน"
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "ไวต์ลิสต์"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "ปิดเว็บไซต์ใดก็ได้ เพิ่ม URL ของคุณเอง หรือให้สิทธิ์ชั่วคราวเมื่อจำเป็นจริง ๆ"
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "ไอเดียสูตรอาหาร"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "หน้าจอบล็อกจะแนะนำสูตรมังสวิรัติและสูตรเนื้อ/โปรตีนแบบเร็วตามสิ่งที่คุณบล็อก"
   },
   "welcomeBack": {
     "message": "ย้อนกลับ"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "ร้านอาหาร"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

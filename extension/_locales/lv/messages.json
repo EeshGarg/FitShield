@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the vietne for $1 $2."
-  },
   "warningBackButton": {
     "message": "Atpakaļ"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Turpināt"
-  },
-  "warningOpeningButton": {
-    "message": "Atver..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the vietne now. The bloķētājs will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the vietne. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Pabeigts. Notiek atkārtota ielāde…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Labāk pagatavošu šo"
-  },
-  "recipeChosenButton": {
-    "message": "Pievienots statistikai ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Laba izvēle — ierakstīts statistikā. Skatiet to Iestatījumos."
-  },
   "statusCaloriesAvoided": {
     "message": "Izvairītās kalorijas"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Krāsas vēlāk varat precīzi pielāgot Iestatījumos."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Bloķēt ātrās ēdināšanas pasūtīšanu"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Pievieno pauzes ekrānu lielo ātrās ēdināšanas ķēžu pasūtīšanas lapās."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Ieteicams ieslēgts."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Bloķēt piegādes lietotnes"
-  },
   "welcomeDeliveryBody": {
     "message": "Pievieno pauzes ekrānu piegādes platformās, piemēram, DoorDash un Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Atjaunot dublējumu (neobligāti)"
   },
   "welcomeImportBody": {
     "message": "Nākat no citas ierīces? Importējiet FitShield iestatījumu failu, lai pārnestu visu. Pretējā gadījumā vienkārši turpiniet."
   },
   "welcomeImportButton": {
     "message": "Importēt iestatījumu failu"
-  },
-  "welcomeHelpTitle": {
-    "message": "Kā FitShield palīdz"
-  },
-  "welcomeHelpBody": {
-    "message": "Ātrs ieskats galvenajās funkcijās."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Pauzes taimeris"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Kad nonākat bloķētā vietnē, pirms turpināšanas notiek īsa atpakaļskaitīšana — pietiekami, lai pārdomātu pasūtījumu."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Grafiks"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Pēc izvēles bloķējiet tikai noteiktās stundās, piemēram, vakaros vai darba laikā."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Baltais saraksts"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Izslēdziet jebkuru vietni, pievienojiet savus URL vai piešķiriet sev pagaidu atļauju, kad tā patiešām nepieciešama."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Recepšu idejas"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Bloķēšanas ekrāns iesaka ātru veģetāro un gaļas/olbaltumvielu recepti, balstoties uz to, ko bloķējāt."
   },
   "welcomeBack": {
     "message": "Atpakaļ"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

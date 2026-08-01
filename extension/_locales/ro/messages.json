@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the site for $1 $2."
-  },
   "warningBackButton": {
     "message": "Înapoi"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Continuă"
-  },
-  "warningOpeningButton": {
-    "message": "Se deschide..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the site now. The blocator will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the site. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Gata. Se reîncarcă…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Mai bine prepar asta"
-  },
-  "recipeChosenButton": {
-    "message": "Adăugat la statistici ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Alegere bună — înregistrat în statistici. Vezi în Setări."
-  },
   "statusCaloriesAvoided": {
     "message": "Calorii evitate"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Poți ajusta culorile mai târziu în Setări."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Blochează comenzile fast-food"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Adaugă un ecran de pauză pe paginile de comandă ale marilor lanțuri fast-food."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Recomandat activat."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Blochează aplicațiile de livrare"
-  },
   "welcomeDeliveryBody": {
     "message": "Adaugă un ecran de pauză pe platforme de livrare precum DoorDash și Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Restaurează o copie de rezervă (opțional)"
   },
   "welcomeImportBody": {
     "message": "Vii de pe alt dispozitiv? Importă un fișier de setări FitShield ca să aduci totul. Altfel, continuă pur și simplu."
   },
   "welcomeImportButton": {
     "message": "Importă fișierul de setări"
-  },
-  "welcomeHelpTitle": {
-    "message": "Cum te ajută FitShield"
-  },
-  "welcomeHelpBody": {
-    "message": "Un tur rapid al funcțiilor principale."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Cronometru de pauză"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Când ajungi pe un site blocat, rulează o scurtă numărătoare inversă înainte să poți continua — suficient cât să reconsideri comanda."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Program"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Opțional, blochează doar în anumite ore, precum serile sau programul de lucru."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Listă albă"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Oprește orice site, adaugă propriile URL-uri sau acordă-ți un permis temporar când chiar ai nevoie."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Idei de rețete"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Ecranul de blocare sugerează o rețetă vegetariană rapidă și una cu carne/proteine în funcție de ce ai blocat."
   },
   "welcomeBack": {
     "message": "Înapoi"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

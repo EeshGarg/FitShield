@@ -152,9 +152,6 @@
   "warningIntro": {
     "message": "Ingia kabla ya kuagiza. Njaa, urahisi, dhiki, na tabia inaweza kuhisi sawa kwa sasa."
   },
-  "warningHintLocked": {
-    "message": "Kipima muda kinapoisha, unaweza kuendelea hadi kwenye tovuti ya $1 $2."
-  },
   "warningTriggeredBy": {
     "message": "Unakaribia kuagiza kutoka $1."
   },
@@ -170,14 +167,8 @@
   "settingsTitle": {
     "message": "Mipangilio ya FitShield"
   },
-  "warningOpeningButton": {
-    "message": "Inafungua..."
-  },
   "warningErrorHint": {
     "message": "Hitilafu fulani imetokea wakati wa kufungua tovuti. Tafadhali jaribu tena."
-  },
-  "warningUnlockHint": {
-    "message": "Unaweza kutembelea tovuti sasa. Kizuizi kitarudi kiotomatiki baada ya $1 $2."
   },
   "scheduledHoursHint": {
     "message": "Zuia tu wakati wa dirisha la kila siku."
@@ -668,15 +659,6 @@
   "cornerRadiusLabel": {
     "message": "Radi ya kona"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Imekamilika. Inapakia upya…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Nitapika hiki badala yake"
-  },
-  "recipeChosenButton": {
-    "message": "Imeongezwa kwenye takwimu zako ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Chaguo zuri — limeandikwa kwenye takwimu zako. Liangalie katika Mipangilio."
-  },
   "statusCaloriesAvoided": {
     "message": "Kalori zilizoepukwa"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Unaweza kurekebisha rangi baadaye katika Mipangilio."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Zuia kuagiza chakula cha haraka"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Huongeza skrini ya pumziko kwenye kurasa za kuagiza za minyororo mikubwa ya chakula cha haraka."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Inapendekezwa iwashwe."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Zuia programu za uwasilishaji"
-  },
   "welcomeDeliveryBody": {
     "message": "Huongeza skrini ya pumziko kwenye majukwaa ya uwasilishaji kama DoorDash na Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Rejesha nakala rudufu (hiari)"
   },
   "welcomeImportBody": {
     "message": "Unatoka kwenye kifaa kingine? Leta faili ya mipangilio ya FitShield ili kuhamisha kila kitu. Vinginevyo endelea tu."
   },
   "welcomeImportButton": {
     "message": "Leta faili ya mipangilio"
-  },
-  "welcomeHelpTitle": {
-    "message": "Jinsi FitShield inavyosaidia"
-  },
-  "welcomeHelpBody": {
-    "message": "Ziara ya haraka ya vipengele vikuu."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Kipima muda cha pumziko"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Unapofika kwenye tovuti iliyozuiwa, hesabu fupi ya kurudi nyuma huendeshwa kabla ya kuendelea — ya kutosha kufikiria upya agizo."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Ratiba"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Kwa hiari zuia tu wakati maalum, kama jioni au saa za kazi."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Orodha nyeupe"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Zima tovuti yoyote, ongeza URL zako mwenyewe, au jipe ruhusa ya muda unapohitaji kweli."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Mawazo ya mapishi"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Skrini ya kuzuia hupendekeza mapishi ya haraka ya mboga na ya nyama/protini kulingana na ulichozuia."
   },
   "welcomeBack": {
     "message": "Nyuma"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"

@@ -155,9 +155,6 @@
   "warningTriggeredBy": {
     "message": "You're about to order from $1."
   },
-  "warningHintLocked": {
-    "message": "When the timer ends, you can continue to the web for $1 $2."
-  },
   "warningBackButton": {
     "message": "Zpět"
   },
@@ -166,12 +163,6 @@
   },
   "warningContinueButton": {
     "message": "Pokračovat"
-  },
-  "warningOpeningButton": {
-    "message": "Otevírání..."
-  },
-  "warningUnlockHint": {
-    "message": "You can visit the web now. The blokátor will come back automatically after $1 $2."
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the web. Please try again."
@@ -668,15 +659,6 @@
   "languageAmharic": {
     "message": "አማርኛ"
   },
-  "recipeVegetarianLabel": {
-    "message": "Vegetarian"
-  },
-  "recipeMeatLabel": {
-    "message": "Meat & protein"
-  },
-  "recipeTimeLabel": {
-    "message": "~$1 min"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -803,18 +785,6 @@
   "resetDoneNotice": {
     "message": "Hotovo. Načítání…"
   },
-  "recipeCaloriesLabel": {
-    "message": "~$1 kcal"
-  },
-  "recipeChooseButton": {
-    "message": "Udělám si raději tohle"
-  },
-  "recipeChosenButton": {
-    "message": "Přidáno do statistik ✓"
-  },
-  "recipeChoiceNote": {
-    "message": "Dobrá volba — zaznamenáno ve statistikách. Najdete to v Nastavení."
-  },
   "statusCaloriesAvoided": {
     "message": "Ušetřené kalorie"
   },
@@ -845,59 +815,14 @@
   "welcomeThemeBody": {
     "message": "Barvy můžete doladit později v Nastavení."
   },
-  "welcomeFastFoodTitle": {
-    "message": "Blokovat objednávání rychlého občerstvení"
-  },
-  "welcomeFastFoodBody": {
-    "message": "Přidá pauzovací obrazovku na objednávkové stránky velkých řetězců rychlého občerstvení."
-  },
-  "welcomeRecommendedOn": {
-    "message": "Doporučeno zapnuto."
-  },
-  "welcomeDeliveryTitle": {
-    "message": "Blokovat doručovací aplikace"
-  },
   "welcomeDeliveryBody": {
     "message": "Přidá pauzovací obrazovku na doručovací platformy jako DoorDash a Uber Eats."
-  },
-  "welcomeImportTitle": {
-    "message": "Obnovit zálohu (volitelné)"
   },
   "welcomeImportBody": {
     "message": "Přecházíte z jiného zařízení? Naimportujte soubor nastavení FitShieldu a přeneste vše. Jinak prostě pokračujte."
   },
   "welcomeImportButton": {
     "message": "Importovat soubor nastavení"
-  },
-  "welcomeHelpTitle": {
-    "message": "Jak FitShield pomáhá"
-  },
-  "welcomeHelpBody": {
-    "message": "Rychlý průvodce hlavními funkcemi."
-  },
-  "welcomeFeaturePauseTitle": {
-    "message": "Pauzovací časovač"
-  },
-  "welcomeFeaturePauseBody": {
-    "message": "Na blokovaném webu proběhne krátké odpočítávání, než budete moci pokračovat — dost na to, abyste objednávku přehodnotili."
-  },
-  "welcomeFeatureScheduleTitle": {
-    "message": "Plán"
-  },
-  "welcomeFeatureScheduleBody": {
-    "message": "Volitelně blokujte jen ve stanovených hodinách, třeba večer nebo v pracovní době."
-  },
-  "welcomeFeatureWhitelistTitle": {
-    "message": "Bílá listina"
-  },
-  "welcomeFeatureWhitelistBody": {
-    "message": "Vypněte jakýkoli web, přidejte vlastní URL nebo si udělte dočasnou výjimku, když ji opravdu potřebujete."
-  },
-  "welcomeFeatureRecipeTitle": {
-    "message": "Nápady na recepty"
-  },
-  "welcomeFeatureRecipeBody": {
-    "message": "Blokovací obrazovka navrhne rychlý vegetariánský a masitý/bílkovinný recept podle toho, co jste zablokovali."
   },
   "welcomeBack": {
     "message": "Zpět"
@@ -997,9 +922,6 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurace"
-  },
-  "learnMoreBody": {
-    "message": "Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net."
   },
   "learnMoreLink": {
     "message": "Visit fitshield.net"
