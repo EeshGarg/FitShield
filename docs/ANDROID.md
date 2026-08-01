@@ -1,6 +1,6 @@
 # FitShield on Android
 
-_Accurate as of FitShield 0.53. Update this file in the same change as any
+_Accurate as of FitShield 0.55. Update this file in the same change as any
 behavior it describes._
 
 > **Native blocking summary (read this first):** the APK blocks *websites* with a
@@ -73,7 +73,7 @@ data/blocklists/*.json ──▶ FS Engine/ ──▶ tools/generate-android-rul
 
 - `tools/generate-android-rules.js` calls the **engine** (`getEnabledEntries` +
   `getEntryDomains`) over the **canonical data** and emits a deterministic,
-  hash-stamped asset of every blockable apex/alias host (2,575 hosts at 0.54).
+  hash-stamped asset of every blockable apex/alias host (2,575 hosts at 0.55).
 - `RuleEngine.kt` loads **only** that generated asset and implements the same
   contract as the engine's `domainMatches` (`FS Engine/hostnames.js`): a host is blocked iff it
   equals an apex or is a subdomain of one. No second semantics.
@@ -316,6 +316,54 @@ Documented so parity audits don't re-flag them; none change blocking behavior:
 - [ ] No telemetry / unexpected network; no visited hostnames in logcat.
 - [ ] Browser extension still works (smoke-test a localized screen).
 
+## 2e. Behavioral parity — every difference, classified
+
+The table in §2c says what *ships* on each platform. This section says where the
+two platforms **decide differently**, which is the thing that can surprise a
+user. Every entry was read off both implementations (`extension/fitshield-core.js`
+vs `AppBlockPolicy.kt` / `android-shim.js`) at 0.55.
+
+**The one structural fact behind most of this row set:** the browser extension
+routes every decision through `extension/fitshield-core.js` — the shared layer
+that owns the storage schema, migrations, schedule evaluation, passes, friction,
+and statistics. **`fitshield-core.js` is not bundled into the APK.** Android
+re-implements the subset it needs in Kotlin (`AppBlockPolicy`) and reads raw
+SharedPreferences from JS. So "one engine, one dataset" is exact for *matching*
+(`RuleEngine.kt` is fixture-tested against the engine) and exact for *data*, but
+the **decision layer is not shared**. Everything below follows from that.
+
+Classification: **intentional** — a deliberate platform choice, will not change;
+**temporary** — parity is wanted, not built yet; **bug** — the platforms
+disagree in a way neither design intends.
+
+| # | Difference | Class | Detail |
+| --- | --- | --- | --- |
+| 1 | Decision layer not shared — no `fitshield-core.js` in the APK | **temporary** | Matching and data are shared and enforced; schedule/pass/stat *semantics* are a Kotlin re-implementation. Every bug below is a symptom of this. |
+| 2 | No storage schema or migrations on Android | **temporary** | Android writes no `schemaVersion` and runs no migration. An extension backup imported on Android is stored as-is; an Android profile carries no version marker, so a future shape change has nothing to migrate from. |
+| 3 | Android reads the **flat** schedule keys, the extension reads the **structured** one | **intentional (with a caveat)** | `scheduleEnabled` / `scheduleStart` / `scheduleEnd` are deliberately kept in step by both schedule editors, precisely so Android keeps working. Caveat: only a **single** window can be mirrored, so a multi-window advanced schedule reaches Android as whichever single window was last mirrored. |
+| 4 | `start == end` means **all day** on the extension, **one minute** on Android | **bug** | Core: `startMinutes === endMinutes` → the whole day. Kotlin: `now in start..end` → true only during that exact minute. Directly opposite outcomes for the same saved value. Fix: special-case `start == end` in `withinSchedule` before the range test. |
+| 5 | Window end is **exclusive** on the extension, **inclusive** on Android | **bug** | Core evaluates `minutes < endMinutes`; Kotlin `now in start..end`. Android blocks for one extra minute at the end of every window. Fix: `now >= start && now < end` (and `now >= start \|\| now < end` overnight). |
+| 6 | Per-day windows are ignored on Android | **bug** | Core windows carry a `days` array; `AppBlockPolicy.withinSchedule` has no day-of-week concept, so a weekday-only schedule is enforced on weekends too. Reaching Android at all depends on row 3's mirror. |
+| 7 | The temporary schedule override (`schedule.until`) has no Android equivalent | **temporary** | "Block until tomorrow" is extension-only; it is not mirrored into the flat keys, so Android ignores it entirely. |
+| 8 | Passes vs unlocks | **intentional** | The extension has scoped passes (domain / category / all, optionally tab-scoped) with a `maxDurationMs` ceiling. Android has a flat per-brand unlock map clamped to 1–240 minutes. Both use absolute expiry timestamps, so neither is defeated by moving the clock back. |
+| 9 | Friction profiles, the intent prompt, and repeat-access friction are extension-only | **temporary** | `frictionProfile`, `askIntent`, `repeatFrictionEnabled` appear in no Android source. The Android block screen shows a fixed countdown. |
+| 10 | Weekly recap, custom alternatives, diet/allergen filtering | **temporary** | `recapEnabled` and `customAlternatives` are unread on Android; `dietPreference` / `avoidAllergens` are stored but do not filter the Android recipe list. |
+| 11 | No block page for HTTPS websites | **intentional** | A redirect to a block page would require MITM, which FitShield refuses (§3). Blocked sites get a TCP RST; the full block-page experience exists on the *app* path via `BlockActivity`. |
+| 12 | Countdown presentation, category copy, theme controls, reset grouping | **intentional** | Documented in §2c under "Intentional Android deviations"; none affect whether something is blocked. |
+| 13 | Enforcement scope | **intentional** | The VPN filter is system-wide; the extension only covers its own browser. |
+
+**Rows 4, 5, and 6 are open bugs, deliberately not patched in this pass.** No
+Android toolchain is available in this environment, so a Kotlin edit could not be
+compiled, let alone run against `SemanticsParityTest`. Shipping an unbuildable
+`AppBlockPolicy.kt` would be a worse outcome than a documented one-minute
+boundary difference. The exact fix for each is written above; they belong in a
+change that can be built and device-tested.
+
+The durable fix for rows 1, 2, 4, 5, and 6 together is to feed the Kotlin policy
+from a **generated schedule fixture** the way `RuleEngine` is already fed by
+`semantics-fixture.json` — then the schedule semantics stop being a second
+implementation that can drift, and `SemanticsParityTest` fails when it does.
+
 ## 3. VPN design — local connection filtering (TLS SNI)
 
 The native app uses Android's `VpnService` as a **local, on-device connection
@@ -419,7 +467,7 @@ data/generated/android-packages.json ── bundled ──▶ assets/android-pac
   (confirmed packages), `no_app` (verified no official Android app), or
   `shared_app` (the brand's official app is another blocked brand's package —
   e.g. a platform's country storefront — recorded once on the owning brand so
-  every package ID maps to exactly one brand). As of 0.54: 1,545 packages
+  every package ID maps to exactly one brand). As of 0.55: 1,545 packages
   across 1,474 brands; 777 no_app; 283 shared_app; 38 needs_review.
 - Designed to scale to thousands of packages: add entries to the app files and
   rebuild; everything flows through the generated dataset (no hardcoded checks).
