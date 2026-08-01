@@ -1002,8 +1002,18 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     const raw = await chrome.storage.local.get(SETTINGS_KEYS);
     const settings = FitShieldCore.readSettings(raw);
 
+    // Never stamp a newer profile backwards. If the user has downgraded (or runs
+    // two channels against one profile), rewriting the stamp to OUR version
+    // would make the next migration replay steps against data that is already
+    // past them. migrateState deliberately leaves a future profile alone; this
+    // keeps the install path from undoing that protection.
+    const schemaVersion = Math.max(
+      FitShieldCore.storedVersion(raw),
+      FitShieldCore.SCHEMA_VERSION
+    );
+
     await chrome.storage.local.set({
-      [FitShieldCore.SCHEMA_KEY]: FitShieldCore.SCHEMA_VERSION,
+      [FitShieldCore.SCHEMA_KEY]: schemaVersion,
       enabled: settings.enabled,
       timerSeconds: settings.timerSeconds,
       passDurationMinutes: settings.passDurationMinutes,

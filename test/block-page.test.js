@@ -40,27 +40,7 @@ const engine = require("../FS Engine");
 // it) to its repo source. blocklist.js is materialized from the real bundle so
 // the tests exercise the exact artifact the extension ships.
 // ---------------------------------------------------------------------------
-let engineBundlePath = null;
-function bundledEnginePath() {
-  if (!engineBundlePath) {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "fs-engine-bundle-"));
-    engineBundlePath = path.join(dir, "blocklist.js");
-    fs.writeFileSync(engineBundlePath, build.bundleEngine());
-  }
-  return engineBundlePath;
-}
-
-function srcPath(rel) {
-  if (rel === "blocklist.js") {
-    return bundledEnginePath();
-  }
-  const candidates = [
-    path.join(ROOT, "extension", rel),
-    path.join(ROOT, "data", rel),
-    path.join(ROOT, rel)
-  ];
-  return candidates.find((c) => fs.existsSync(c)) || candidates[2];
-}
+const { srcPath, loadBackground } = require("./helpers/background-harness.js");
 
 // ===========================================================================
 // Part A — packaged block-page dependency graph is closed
@@ -174,51 +154,6 @@ test("packaged block page: both browser manifests are valid and point at package
 
 // Load the REAL background.js in an isolated sandbox with a stubbed chrome +
 // fetch, backed by the real engine bundle and the real JSON datasets.
-function loadBackground() {
-  const store = {};
-  const listeners = {};
-  const chrome = {
-    runtime: {
-      getURL: (p) => "chrome-extension://test/" + p,
-      onInstalled: { addListener: () => {} },
-      onStartup: { addListener: () => {} },
-      onMessage: { addListener: (fn) => { listeners.message = fn; } },
-      getManifest: () => ({ version: "0.55" }),
-      lastError: null
-    },
-    storage: {
-      local: {
-        get: async (keys) => {
-          if (keys === null || keys === undefined) return { ...store };
-          const out = {};
-          (Array.isArray(keys) ? keys : [keys]).forEach((k) => { if (k in store) out[k] = store[k]; });
-          return out;
-        },
-        set: async (obj) => { Object.assign(store, obj); },
-        remove: async (keys) => { (Array.isArray(keys) ? keys : [keys]).forEach((k) => delete store[k]); }
-      },
-      onChanged: { addListener: () => {} }
-    },
-    alarms: { clear: async () => {}, create: async () => {}, onAlarm: { addListener: () => {} } },
-    tabs: { create: () => {}, query: async () => [{ id: 1 }], onRemoved: { addListener: () => {} } },
-    declarativeNetRequest: {
-      _rules: [],
-      getDynamicRules: (cb) => cb(chrome.declarativeNetRequest._rules),
-      updateDynamicRules: (opts, cb) => { chrome.declarativeNetRequest._rules = opts.addRules || []; cb(); }
-    }
-  };
-  const fetchImpl = async (url) => {
-    const rel = url.replace("chrome-extension://test/", "");
-    return { ok: true, status: 200, json: async () => JSON.parse(fs.readFileSync(srcPath(rel), "utf8")) };
-  };
-  const sandbox = { chrome, console, fetch: fetchImpl, setTimeout, URL, Math, Date, JSON, Promise };
-  sandbox.self = sandbox; sandbox.globalThis = sandbox;
-  const context = vm.createContext(sandbox);
-  sandbox.importScripts = (f) => vm.runInContext(fs.readFileSync(srcPath(f), "utf8"), context, { filename: f });
-  vm.runInContext(fs.readFileSync(srcPath("background.js"), "utf8"), context, { filename: "background.js" });
-  return { context, store, listeners };
-}
-
 // Route through the worker's REAL onMessage listener, so the page and the worker
 // are tested against the same message contract the browser would use — not a
 // hand-maintained copy of it that can drift.

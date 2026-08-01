@@ -339,3 +339,53 @@ test("no page script reads a global that nothing in its chain defines", () => {
     assert.deepEqual(missing, [], `${page}: declared-then-missing globals: ${missing.join(", ")}`);
   });
 });
+
+// ---------------------------------------------------------------------------
+// Static fallbacks: what the user sees if the scripts never run
+// ---------------------------------------------------------------------------
+
+// The block page is a declarativeNetRequest redirect target, so it is the one
+// surface a user cannot avoid — and the one where a script failure strands them
+// on a page with no visible way out. Every control it ships must carry its own
+// label in the markup, so the page is still operable (and still readable) when
+// warning.js has not run: a blocked user staring at an unlabelled button has no
+// way to tell it is the way forward.
+test("every block-page control is labelled in the markup, not only by script", () => {
+  const html = fs.readFileSync(srcPath("warning.html"), "utf8");
+  const unlabelled = [];
+
+  for (const match of html.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/g)) {
+    const [, attrs, inner] = match;
+    const id = (/id="([^"]+)"/.exec(attrs) || [])[1] || "(no id)";
+    const text = inner.replace(/<[^>]*>/g, "").trim();
+    const labelled = /aria-label=|data-i18n-aria-label=/.test(attrs);
+
+    if (!text && !labelled) {
+      unlabelled.push(id);
+    }
+  }
+
+  assert.deepEqual(unlabelled, [], `block-page buttons with no static label: ${unlabelled.join(", ")}`);
+});
+
+// A static fallback that disagrees with what the script writes is worse than
+// none: the page would flash the wrong state. The markup must therefore quote
+// the SAME message the script uses for the state the page opens in (locked).
+test("the block page's static fallbacks quote the same strings the script sets", () => {
+  const html = fs.readFileSync(srcPath("warning.html"), "utf8");
+  const en = JSON.parse(fs.readFileSync(srcPath("_locales/en/messages.json"), "utf8"));
+
+  [
+    ["continue", "warningLockedButton"],
+    ["hint", "warningLockedHint"]
+  ].forEach(([id, key]) => {
+    const element = new RegExp(`<[^>]*id="${id}"[^>]*>([^<]*)<`).exec(html);
+    assert.ok(element, `#${id} not found in warning.html`);
+    assert.ok(en[key], `${key} missing from the English catalog`);
+    assert.equal(
+      element[1].trim(),
+      en[key].message,
+      `#${id}'s static text must match ${key}, or the page flashes the wrong state`
+    );
+  });
+});

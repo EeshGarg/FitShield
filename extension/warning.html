@@ -473,7 +473,7 @@
       </div>
       <p class="sr-only" id="timerAnnounce" role="status" aria-live="polite"></p>
 
-      <p class="hint" id="hint"></p>
+      <p class="hint" id="hint" data-i18n="warningLockedHint">Continuing unlocks when the pause ends.</p>
 
       <!-- Explains any extra pause added for a repeat visit. Never hidden
            behaviour: if friction changed, it says so. -->
@@ -481,7 +481,9 @@
 
       <div class="actions">
         <button id="back" class="primary" type="button" data-i18n="warningBackButton">Go back</button>
-        <button id="continue" class="tertiary" type="button" disabled aria-describedby="hint"></button>
+        <!-- Static text matters here: if the scripts fail to run, this is the only
+             thing the user sees on the button that offers a way out. -->
+        <button id="continue" class="tertiary" type="button" disabled aria-describedby="hint" data-i18n="warningLockedButton">Continue (locked)</button>
       </div>
 
       <details class="reason" id="reasonPanel" hidden>
