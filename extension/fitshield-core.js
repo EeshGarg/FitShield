@@ -1031,6 +1031,86 @@
   }
 
   // ===========================================================================
+  // Theme mode
+  // ===========================================================================
+  //
+  // Only the PURE part lives here: which mode is selected, what a mode's colours
+  // are, and whether a stored theme is still one of the presets. Actually
+  // applying a theme stays in each page, because the pages legitimately expose
+  // different CSS variables (the popup has --popup-width, the block page has
+  // --accent-dim, and so on).
+  //
+  // This was duplicated byte-for-byte between popup.js and settings.js. Theme
+  // mode is exactly the kind of thing that must not drift between two surfaces:
+  // if the popup and the settings page disagree about what "system" resolves to,
+  // the user sees two different themes in the same product.
+
+  const DEFAULT_THEME_MODE = "dark";
+  const THEME_MODE_OPTIONS = ["system", "light", "dark"];
+  const THEME_MODE_COLOR_KEYS = ["bg", "panel", "border", "text", "muted", "accent"];
+
+  const THEME_MODE_PRESETS = {
+    dark: {
+      bg: "#0f141b",
+      panel: "#1a212b",
+      border: "#2c3644",
+      text: "#edf2f7",
+      muted: "#a9b4c2",
+      accent: "#7ef0a8"
+    },
+    light: {
+      bg: "#f4f6fa",
+      panel: "#ffffff",
+      border: "#d6dde6",
+      text: "#1b2430",
+      muted: "#5a6675",
+      accent: "#15a05a"
+    }
+  };
+
+  function normalizeThemeMode(mode) {
+    return THEME_MODE_OPTIONS.includes(mode) ? mode : DEFAULT_THEME_MODE;
+  }
+
+  /**
+   * Which concrete theme a mode resolves to.
+   * @param {string} mode
+   * @param {boolean} [prefersLight] the OS preference; the caller reads matchMedia
+   *   so this stays free of the DOM and therefore testable.
+   */
+  function resolveThemeMode(mode, prefersLight) {
+    const normalized = normalizeThemeMode(mode);
+    return normalized === "system" ? (prefersLight ? "light" : "dark") : normalized;
+  }
+
+  function themeMatchesPreset(theme, preset) {
+    return THEME_MODE_COLOR_KEYS.every((key) => {
+      const value = theme && theme[key];
+      return typeof value === "string" && value.toLowerCase() === preset[key];
+    });
+  }
+
+  // True when a stored theme is still an untouched preset, so following the OS is
+  // safe. Once the user has hand-picked colours, "system" must not overwrite them.
+  function shouldUseResolvedPreset(theme, mode) {
+    return (
+      normalizeThemeMode(mode) === "system" &&
+      (!theme || themeMatchesPreset(theme, THEME_MODE_PRESETS.dark) || themeMatchesPreset(theme, THEME_MODE_PRESETS.light))
+    );
+  }
+
+  function hexToRgba(hex, alpha) {
+    const normalized = String(hex || "").replace("#", "");
+    const expanded = normalized.length === 3
+      ? normalized.split("").map((char) => char + char).join("")
+      : normalized;
+    const red = Number.parseInt(expanded.slice(0, 2), 16);
+    const green = Number.parseInt(expanded.slice(2, 4), 16);
+    const blue = Number.parseInt(expanded.slice(4, 6), 16);
+    return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+  }
+
+  // ===========================================================================
   // Problem reports
   // ===========================================================================
   //
@@ -1406,6 +1486,8 @@
     frictionProfileValues,
 
     // schedule
+    DEFAULT_SCHEDULE_START,
+    DEFAULT_SCHEDULE_END,
     SCHEDULE_PRESETS,
     SCHEDULE_PRESET_IDS,
     ALL_DAYS,
@@ -1451,6 +1533,17 @@
     normalizePantry,
     normalizeEquipment,
     normalizeDietPreference,
+
+    // theme mode (pure; applying a theme stays per-page)
+    DEFAULT_THEME_MODE,
+    THEME_MODE_OPTIONS,
+    THEME_MODE_COLOR_KEYS,
+    THEME_MODE_PRESETS,
+    normalizeThemeMode,
+    resolveThemeMode,
+    themeMatchesPreset,
+    shouldUseResolvedPreset,
+    hexToRgba,
 
     // custom alternatives
     CUSTOM_LIMITS,

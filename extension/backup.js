@@ -17,7 +17,28 @@
 (function (global) {
   "use strict";
 
-  const core = typeof FitShieldCore !== "undefined" ? FitShieldCore : (typeof require === "function" ? require("./fitshield-core.js") : null);
+  // Resolved LAZILY, on first use, not at load time.
+  //
+  // This file is loaded before fitshield-core.js on both pages that use it, so a
+  // load-time binding resolved to null in the browser while still working in
+  // Node (where `require` is available) — which meant restore silently skipped
+  // normalization in production and only in production. Looking the global up
+  // when it is actually needed makes the module independent of script order.
+  let cachedCore = null;
+
+  function getCore() {
+    if (cachedCore) {
+      return cachedCore;
+    }
+
+    if (typeof FitShieldCore !== "undefined") {
+      cachedCore = FitShieldCore;
+    } else if (typeof require === "function") {
+      cachedCore = require("./fitshield-core.js");
+    }
+
+    return cachedCore;
+  }
 
   const FILE_NAME = "fitshield-settings.json";
   const BACKUP_TYPE = "fitshield-settings-backup";
@@ -256,8 +277,13 @@
    * except where rejecting the whole file is safer (handled in parseBackup).
    */
   function normalizeImported(settings) {
+    const core = getCore();
+
+    // Refuse rather than degrade. Silently importing un-normalized settings is
+    // exactly the failure this function exists to prevent, so if the shared
+    // validator is genuinely unavailable the import stops here.
     if (!core) {
-      return settings;
+      throw new Error("FitShield could not validate that backup (fitshield-core.js is not loaded). Reload and try again.");
     }
 
     const normalized = core.readSettings(settings);

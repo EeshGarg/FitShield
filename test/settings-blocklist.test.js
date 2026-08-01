@@ -81,7 +81,9 @@ function renderSettings(store, workerResponse) {
   // The engine ships as the generated bundle; load it first (settings.html loads
   // blocklist.js), then the rest of the page scripts in order.
   vm.runInContext(build.bundleEngine(), ctx, { filename: "blocklist.js" });
-  for (const f of ["blocklist-records.js", "languages.js", "currency.js", "backup.js", "browser-shim.js", "i18n.js", "settings.js"]) {
+  // Mirrors the <script> order in settings.html; fitshield-core.js must load
+  // before the files that use it.
+  for (const f of ["blocklist-records.js", "languages.js", "currency.js", "fitshield-core.js", "backup.js", "browser-shim.js", "i18n.js", "settings.js"]) {
     vm.runInContext(fs.readFileSync(srcPath(f), "utf8"), ctx, { filename: f });
   }
   return doc;

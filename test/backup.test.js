@@ -288,6 +288,89 @@ test("an import is stamped with the current schema version", () => {
 });
 
 // ---------------------------------------------------------------------------
+// Load order
+// ---------------------------------------------------------------------------
+//
+// backup.js used to bind FitShieldCore at load time. It is loaded before
+// fitshield-core.js on both pages that use it, so in the browser the binding
+// resolved to null and `normalizeImported` silently returned the file
+// unvalidated — while Node tests kept passing, because `require` was available
+// there. The tests below pin both halves of the fix: the module must work
+// whatever order it is loaded in, and the pages must load core first anyway.
+
+test("backup.js validates even when it is evaluated BEFORE fitshield-core.js", () => {
+  const vm = require("node:vm");
+
+  const sandbox = { console, JSON, Object, Array, Number, String, Date, Math, Error };
+  sandbox.self = sandbox;
+  sandbox.globalThis = sandbox;
+  const context = vm.createContext(sandbox);
+
+  // Deliberately the wrong order: backup first, core second, no `require`.
+  vm.runInContext(fs.readFileSync(path.join(__dirname, "..", "extension", "backup.js"), "utf8"), context, {
+    filename: "backup.js"
+  });
+  vm.runInContext(fs.readFileSync(path.join(__dirname, "..", "extension", "fitshield-core.js"), "utf8"), context, {
+    filename: "fitshield-core.js"
+  });
+
+  const restored = sandbox.FitShieldBackup.normalizeImported(
+    sandbox.FitShieldBackup.parseBackup(JSON.stringify(wrap({ enabled: true, timerSeconds: 9999999 })))
+  );
+
+  assert.equal(restored.timerSeconds, core.MAX_TIMER_SECONDS, "the hostile value must still be clamped");
+  assert.equal(restored[core.SCHEMA_KEY], core.SCHEMA_VERSION, "the import must still be stamped");
+});
+
+test("an import refuses rather than degrades when the validator is genuinely absent", () => {
+  const vm = require("node:vm");
+
+  const sandbox = { console, JSON, Object, Array, Number, String, Date, Math, Error };
+  sandbox.self = sandbox;
+  sandbox.globalThis = sandbox;
+  const context = vm.createContext(sandbox);
+
+  // core never loads at all.
+  vm.runInContext(fs.readFileSync(path.join(__dirname, "..", "extension", "backup.js"), "utf8"), context, {
+    filename: "backup.js"
+  });
+
+  assert.throws(
+    () => sandbox.FitShieldBackup.normalizeImported({ enabled: true }),
+    /could not validate/i,
+    "silently importing un-normalized settings is the failure this must prevent"
+  );
+});
+
+test("every page loads fitshield-core.js before anything that uses it", () => {
+  const USERS = ["backup.js", "settings.js", "preferences.js", "welcome.js", "warning.js", "recipes.js"];
+
+  ["settings.html", "welcome.html", "warning.html", "popup.html"].forEach((page) => {
+    const html = fs.readFileSync(path.join(__dirname, "..", "extension", page), "utf8");
+    const scripts = [...html.matchAll(/<script src="([^"]+)"/g)].map((match) => match[1]);
+
+    const coreIndex = scripts.indexOf("fitshield-core.js");
+    const userIndex = scripts.findIndex((script) => USERS.includes(script));
+
+    if (userIndex === -1) {
+      return;
+    }
+
+    assert.notEqual(coreIndex, -1, `${page} loads ${scripts[userIndex]} but never loads fitshield-core.js`);
+    assert.ok(
+      coreIndex < userIndex,
+      `${page} loads ${scripts[userIndex]} (position ${userIndex}) before fitshield-core.js (position ${coreIndex})`
+    );
+
+    assert.equal(
+      scripts.filter((script) => script === "fitshield-core.js").length,
+      1,
+      `${page} loads fitshield-core.js more than once`
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Release metadata
 // ---------------------------------------------------------------------------
 

@@ -1,9 +1,11 @@
-const DEFAULT_TIMER_SECONDS = 60;
-const MIN_TIMER_SECONDS = 10;
-const DEFAULT_PASS_DURATION_MINUTES = 5;
-const MIN_PASS_DURATION_MINUTES = 1;
-const DEFAULT_SCHEDULE_START = "18:00";
-const DEFAULT_SCHEDULE_END = "23:00";
+/**
+ * FitShield popup — the at-a-glance surface: master switch, bucket toggles, the
+ * pause and pass sliders, the simple schedule window, the weekly recap, and the
+ * optional "did you make it?" follow-up.
+ *
+ * Everything it shows comes from ONE getBlockState message, so the popup can
+ * never disagree with the worker about what is currently blocked.
+ */
 
 // Localization helper (i18n.js loads first). Falls back to the key when a
 // message is missing so the gap is visible rather than blank.
@@ -56,42 +58,38 @@ const DEFAULT_THEME = {
   popupWidth: 516
 };
 
-const DEFAULT_THEME_MODE = "dark";
-const THEME_MODE_OPTIONS = ["system", "light", "dark"];
-const THEME_MODE_COLOR_KEYS = ["bg", "panel", "border", "text", "muted", "accent"];
 const systemThemeQuery = typeof window.matchMedia === "function"
   ? window.matchMedia("(prefers-color-scheme: light)")
   : null;
 
-const THEME_MODE_PRESETS = {
-  dark: {
-    bg: "#0f141b",
-    panel: "#1a212b",
-    border: "#2c3644",
-    text: "#edf2f7",
-    muted: "#a9b4c2",
-    accent: "#7ef0a8"
-  },
-  light: {
-    bg: "#f4f6fa",
-    panel: "#ffffff",
-    border: "#d6dde6",
-    text: "#1b2430",
-    muted: "#5a6675",
-    accent: "#15a05a"
-  }
-};
+// Shared, page-independent values and helpers live in fitshield-core.js
+// (FitShieldCore). They are aliased here so this file reads the same as before,
+// while the popup, the settings page, and the service worker can no longer drift
+// apart on what a limit is or what "system" theme resolves to.
+const core = FitShieldCore;
 
-function hexToRgba(hex, alpha) {
-  const normalized = hex.replace("#", "");
-  const expanded = normalized.length === 3
-    ? normalized.split("").map((char) => char + char).join("")
-    : normalized;
-  const red = Number.parseInt(expanded.slice(0, 2), 16);
-  const green = Number.parseInt(expanded.slice(2, 4), 16);
-  const blue = Number.parseInt(expanded.slice(4, 6), 16);
-  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-}
+const DEFAULT_TIMER_SECONDS = core.DEFAULT_TIMER_SECONDS;
+const MIN_TIMER_SECONDS = core.MIN_TIMER_SECONDS;
+const DEFAULT_PASS_DURATION_MINUTES = core.DEFAULT_PASS_DURATION_MINUTES;
+const MIN_PASS_DURATION_MINUTES = core.MIN_PASS_DURATION_MINUTES;
+const DEFAULT_SCHEDULE_START = core.DEFAULT_SCHEDULE_START;
+const DEFAULT_SCHEDULE_END = core.DEFAULT_SCHEDULE_END;
+const DEFAULT_THEME_MODE = core.DEFAULT_THEME_MODE;
+const THEME_MODE_OPTIONS = core.THEME_MODE_OPTIONS;
+const THEME_MODE_COLOR_KEYS = core.THEME_MODE_COLOR_KEYS;
+const THEME_MODE_PRESETS = core.THEME_MODE_PRESETS;
+
+// These now clamp the MAXIMUM as well as the minimum. The page-local copies only
+// clamped the minimum, so a pasted value like 999999 was stored as typed and then
+// silently clamped on every read — the field and the behaviour disagreed.
+const normalizeTimerSeconds = (value) => core.normalizeTimerSeconds(value);
+const normalizePassDurationMinutes = (value) => core.normalizePassDurationMinutes(value);
+
+const hexToRgba = (hex, alpha) => core.hexToRgba(hex, alpha);
+const normalizeThemeMode = (mode) => core.normalizeThemeMode(mode);
+const themeMatchesPreset = (theme, preset) => core.themeMatchesPreset(theme, preset);
+const shouldUseResolvedPreset = (theme, mode) => core.shouldUseResolvedPreset(theme, mode);
+const resolveThemeMode = (mode) => core.resolveThemeMode(mode, !!(systemThemeQuery && systemThemeQuery.matches));
 
 function buildTheme(theme = {}) {
   const sourceTheme = theme || {};
@@ -111,32 +109,6 @@ function buildTheme(theme = {}) {
     shadow: sourceTheme.shadow
       || (hasThemeAccent ? hexToRgba(mergedTheme.accent, 0.14) : DEFAULT_THEME.shadow)
   };
-}
-
-function normalizeThemeMode(mode) {
-  return THEME_MODE_OPTIONS.includes(mode) ? mode : DEFAULT_THEME_MODE;
-}
-
-function resolveThemeMode(mode) {
-  const normalizedMode = normalizeThemeMode(mode);
-
-  if (normalizedMode === "system") {
-    return systemThemeQuery?.matches ? "light" : "dark";
-  }
-
-  return normalizedMode;
-}
-
-function themeMatchesPreset(theme, preset) {
-  return THEME_MODE_COLOR_KEYS.every((key) => {
-    const value = theme?.[key];
-    return typeof value === "string" && value.toLowerCase() === preset[key];
-  });
-}
-
-function shouldUseResolvedPreset(theme, mode) {
-  return normalizeThemeMode(mode) === "system"
-    && (!theme || themeMatchesPreset(theme, THEME_MODE_PRESETS.dark) || themeMatchesPreset(theme, THEME_MODE_PRESETS.light));
 }
 
 function buildThemeForMode(mode, baseTheme = {}) {
@@ -182,16 +154,6 @@ async function loadTheme() {
 
   applyTheme(mergedTheme);
   applyThemeMode(normalizedMode);
-}
-
-function normalizeTimerSeconds(value) {
-  const parsed = Number.parseInt(value, 10);
-  return Number.isFinite(parsed) ? Math.max(MIN_TIMER_SECONDS, parsed) : DEFAULT_TIMER_SECONDS;
-}
-
-function normalizePassDurationMinutes(value) {
-  const parsed = Number.parseInt(value, 10);
-  return Number.isFinite(parsed) ? Math.max(MIN_PASS_DURATION_MINUTES, parsed) : DEFAULT_PASS_DURATION_MINUTES;
 }
 
 function formatTimeRemaining(ms) {
