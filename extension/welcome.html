@@ -79,6 +79,20 @@
     .step h2 { margin: 0 0 6px; font-size: 1.2rem; }
     .step p { margin: 0 0 16px; color: var(--muted); line-height: 1.55; }
 
+    /* Secondary copy inside a step — the import offer and the "everything else
+       is in Settings" note on the last screen. Both follow a button, and the
+       only `.desc` rule this sheet had was scoped `.choice-row .desc`, a
+       container that appears nowhere in the page. They therefore matched only
+       `.step p`, whose margin shorthand has no TOP margin, so each paragraph sat
+       flush against the button above it and the last screen read as one
+       undifferentiated block. 16px is the same gap `.step p` already leaves
+       below itself, so the column keeps one rhythm. */
+    .step .desc {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
     select, .text-input {
       width: 100%;
       font: inherit;
@@ -90,19 +104,12 @@
       outline: none;
     }
 
-    .choice-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 14px;
-      border-radius: 14px;
-      background: var(--veil);
-      border: 1px solid var(--hairline);
-    }
-    .choice-row + .choice-row { margin-top: 12px; }
-    .choice-row .label { font-weight: 600; }
-    .choice-row .desc { color: var(--muted); font-size: 0.88rem; margin-top: 4px; }
+    /* `.choice-row` and its `.label` / `.desc` children were styled here for a
+       row layout the onboarding no longer builds — the questions became
+       `.onboard-choices` buttons. Nothing in this page or welcome.js emits the
+       class, so the rules matched nothing and, worse, held the page's only
+       `.desc` declaration hostage inside a dead scope. `.desc` now lives with
+       `.step` above, where the elements that carry it actually are. */
 
     .theme-options { display: flex; gap: 10px; }
     .theme-options button {

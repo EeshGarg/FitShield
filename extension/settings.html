@@ -680,9 +680,10 @@
     }
 
     .dual-inputs,
-    .schedule-grid,
     /* Was two rules, the first of which (1fr 1fr) was entirely overridden by the
-       second and only made the cascade harder to read. */
+       second and only made the cascade harder to read. `.schedule-grid` was a
+       third selector here; it styled only the duplicate simple schedule pair
+       that Blocking Options no longer carries. The popup declares its own. */
     .search-controls {
       display: grid;
       grid-template-columns: 1fr auto auto;
@@ -1434,34 +1435,15 @@
           </div>
         </div>
 
-        <div class="field">
-          <div class="row">
-            <div>
-              <label for="scheduleEnabled" data-i18n="scheduledHoursLabel">Scheduled hours</label>
-              <small data-i18n="scheduledHoursHint">Block only during a daily time window.</small>
-            </div>
-            <label class="toggle">
-              <input id="scheduleEnabled" type="checkbox">
-              <span class="slider"></span>
-            </label>
-          </div>
-
-          <div class="schedule-grid">
-            <div>
-              <label for="scheduleStart" data-i18n="startTimeLabel">Start time</label>
-              <input id="scheduleStart" type="time">
-            </div>
-            <div>
-              <label for="scheduleEnd" data-i18n="endTimeLabel">End time</label>
-              <input id="scheduleEnd" type="time">
-            </div>
-          </div>
-          <small id="scheduleSummary" data-i18n="scheduleDefaultSummary">Blocking will follow your daily schedule when this is enabled.</small>
-          <!-- Shown when the saved schedule has more shape than these two inputs
-               can represent, so they are disabled rather than silently
-               collapsing it to a single daily window. -->
-          <small id="simpleScheduleNote" class="schedule-advanced-note" hidden></small>
-        </div>
+        <!-- A simple start/end pair used to sit here as well, asking the same
+             question the "When FitShield is on" section below asks with presets
+             and a full editor. Two editable controls for one setting: whichever
+             the user reached second silently overwrote the first, and the pair
+             here could not even express what the editor there can. The schedule
+             is asked once now, in the section that owns it. The popup keeps its
+             own simple pair — that is the at-a-glance surface, not a second
+             editor for the same page. settings.js reads all five ids
+             conditionally, so nothing here is left dangling. -->
       </div>
     </section>
 

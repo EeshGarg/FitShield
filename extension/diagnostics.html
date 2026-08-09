@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FitShield Diagnostics</title>
+  <title data-i18n="diagTitle">FitShield Diagnostics</title>
   <style>
     :root {
       color-scheme: dark;
@@ -122,43 +122,60 @@
 </head>
 <body>
   <main>
-    <h1>FitShield Diagnostics</h1>
-    <p class="sub">Live view of the extension runtime. If blocking isn't working, the answer is here.</p>
+    <h1 data-i18n="diagTitle">FitShield Diagnostics</h1>
+    <p class="sub" data-i18n="diagSubtitle">Live view of the extension runtime. If blocking isn't working, the answer is here.</p>
 
-    <div id="banner" class="banner good" hidden></div>
+    <!-- The banner is written by diagnostics.js after the worker answers (or
+         fails to), with no focus move, so it has to announce itself. Polite, not
+         an alert: the user opened this page deliberately and is reading it. -->
+    <div id="banner" class="banner good" role="status" hidden></div>
 
     <section class="panel">
-      <h2>Runtime</h2>
-      <div class="row"><span class="label">Manifest</span><span class="value" id="v-manifest">…</span></div>
-      <div class="row"><span class="label">Service worker</span><span class="value" id="v-sw">…</span></div>
-      <div class="row"><span class="label">FS Engine bundle</span><span class="value" id="v-engine">…</span></div>
-      <div class="row"><span class="label">Block page URL</span><span class="value" id="v-blockurl">…</span></div>
+      <h2 data-i18n="diagRuntimeHeading">Runtime</h2>
+      <div class="row"><span class="label" data-i18n="diagManifestLabel">Manifest</span><span class="value" id="v-manifest">…</span></div>
+      <div class="row"><span class="label" data-i18n="diagServiceWorkerLabel">Service worker</span><span class="value" id="v-sw">…</span></div>
+      <div class="row"><span class="label" data-i18n="diagEngineLabel">FS Engine bundle</span><span class="value" id="v-engine">…</span></div>
+      <div class="row"><span class="label" data-i18n="diagBlockPageUrlLabel">Block page URL</span><span class="value" id="v-blockurl">…</span></div>
     </section>
 
     <section class="panel">
-      <h2>Blocklist &amp; rules</h2>
-      <div class="row"><span class="label">Brands loaded</span><span class="value" id="v-brands">…</span></div>
-      <div class="row"><span class="label">Delivery / fast-food</span><span class="value" id="v-buckets">…</span></div>
-      <div class="row"><span class="label">Live redirect rules (Chrome)</span><span class="value" id="v-rules">…</span></div>
-      <div class="row"><span class="label">Last blocking decision</span><span class="value" id="v-decision">…</span></div>
-      <div class="row"><span class="label">Last error</span><span class="value" id="v-error">…</span></div>
+      <h2 data-i18n="diagBlocklistHeading">Blocklist &amp; rules</h2>
+      <div class="row"><span class="label" data-i18n="diagBrandsLabel">Brands loaded</span><span class="value" id="v-brands">…</span></div>
+      <div class="row"><span class="label" data-i18n="diagBucketsLabel">Delivery / fast-food</span><span class="value" id="v-buckets">…</span></div>
+      <div class="row"><span class="label" data-i18n="diagRulesLabel">Live redirect rules (Chrome)</span><span class="value" id="v-rules">…</span></div>
+      <div class="row"><span class="label" data-i18n="diagLastDecisionLabel">Last blocking decision</span><span class="value" id="v-decision">…</span></div>
+      <div class="row"><span class="label" data-i18n="diagLastErrorLabel">Last error</span><span class="value" id="v-error">…</span></div>
     </section>
 
     <section class="panel">
-      <h2>Test a domain</h2>
+      <h2 data-i18n="diagTestHeading">Test a domain</h2>
       <div class="controls">
-        <input type="text" id="domain" placeholder="e.g. order.doordash.com" autocomplete="off" spellcheck="false">
-        <button id="test" type="button">Check</button>
+        <!-- A placeholder is not a label: it disappears the moment anything is
+             typed, and some screen readers never announce it. The field carries
+             its own name as well. -->
+        <input type="text" id="domain" aria-label="Domain to check" data-i18n-aria-label="diagDomainLabel"
+               placeholder="e.g. order.doordash.com" data-i18n-placeholder="diagDomainPlaceholder"
+               autocomplete="off" spellcheck="false">
+        <button id="test" type="button" data-i18n="diagCheckButton">Check</button>
       </div>
-      <div class="test-result" id="test-result"></div>
-      <p class="muted-note">Runs the domain through the engine — no navigation, nothing stored.</p>
+      <!-- Written after "Check" is pressed, in place, with focus left on the
+           button — without a live region a screen-reader user gets nothing. -->
+      <div class="test-result" id="test-result" role="status"></div>
+      <p class="muted-note" data-i18n="diagTestNote">Runs the domain through the engine — no navigation, nothing stored.</p>
     </section>
 
     <div class="controls">
-      <button id="refresh" class="secondary" type="button">Refresh</button>
+      <button id="refresh" class="secondary" type="button" data-i18n="diagRefreshButton">Refresh</button>
     </div>
   </main>
 
+  <!-- Same chain every other FitShield page loads, and the reason the markup
+       above can be localized at all: browser-shim.js publishes `fitshield.*`,
+       i18n.js reads the stored language and rewrites every data-i18n* element on
+       load. Without these two the attributes are inert and ~90 locales get an
+       English developer page. Classic scripts only — MV3 CSP forbids inline. -->
+  <script src="browser-shim.js"></script>
+  <script src="i18n.js"></script>
   <script src="diagnostics.js"></script>
 </body>
 </html>

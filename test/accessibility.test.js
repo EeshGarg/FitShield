@@ -741,13 +741,23 @@ function stubElement(tag) {
   return element;
 }
 
-function settingsContext() {
+/**
+ * Load settings.html's whole script chain against a stub DOM.
+ *
+ * `absentIds` are the ids `getElementById` answers `null` for — the way the real
+ * browser answers for markup a section no longer contains. Passing a list is how
+ * a test proves settings.js survives a control being REMOVED from the page,
+ * rather than proving it against a stub that conjures an element for every id
+ * ever asked for.
+ */
+function settingsContext(absentIds) {
+  const absent = new Set(absentIds || []);
   const document = {
     documentElement: stubElement("html"),
     body: stubElement("body"),
     head: stubElement("head"),
     currentScript: null, hidden: false, readyState: "complete",
-    getElementById: () => stubElement("div"),
+    getElementById: (id) => (absent.has(id) ? null : stubElement("div")),
     querySelector: () => stubElement("div"),
     querySelectorAll: () => [],
     createElement: (tag) => stubElement(tag),
@@ -1064,4 +1074,276 @@ test('the block page\'s "Skip" is a real target, not a bare word', () => {
     `.intent-skip has ${horizontal} horizontal padding, so its target is only as wide as the word`
   );
   assert.equal(declared(rules, ".intent-skip", "min-height"), null, ".intent-skip must not opt out of --tap");
+});
+
+// ---------------------------------------------------------------------------
+// 6. One setting, one editable control
+// ---------------------------------------------------------------------------
+
+// Settings asked for the blocking schedule TWICE: a start/end pair plus a
+// checkbox in "Blocking Options", and the preset list with a full multi-window
+// editor in "When FitShield is on". They wrote the same storage, so whichever
+// the user reached second silently overwrote the first, and the simple pair
+// could not represent what the editor could — so it disabled itself and showed
+// a note explaining that it was inert. A control the page has to apologise for
+// is not a control.
+//
+// The rule this pins is structural rather than "id X is gone": every schedule
+// affordance in the page must live in the section that owns the schedule.
+const stripComments = (html) => html.replace(/<!--[\s\S]*?-->/g, " ");
+
+/** [sectionId, [affordances]] for every <section> that can EDIT the schedule. */
+function scheduleAffordancesBySection(html) {
+  const out = [];
+
+  stripComments(html).split(/<section\b/).slice(1).forEach((chunk) => {
+    const openTag = chunk.slice(0, chunk.indexOf(">"));
+    const id = (/id="([^"]+)"/.exec(openTag) || [])[1] || "(unnamed)";
+    // Skip the section's own tag: `<section id="schedule">` would otherwise
+    // count itself and make the assertion circular.
+    const card = chunk.slice(chunk.indexOf(">") + 1, chunk.indexOf("</section>"));
+
+    const found = [];
+    for (const tag of card.matchAll(/<([a-z]+)\b[^>]*>/gi)) {
+      const attrs = attributes(tag[0]);
+      const name = attrs.id || attrs.for || "";
+      if (/^schedule/i.test(name) || attrs.type === "time") {
+        found.push(name || tag[0]);
+      }
+    }
+
+    if (found.length > 0) { out.push([id, found]); }
+  });
+
+  return out;
+}
+
+test("settings.html asks for the blocking schedule in exactly one section", () => {
+  const found = scheduleAffordancesBySection(read("settings.html"));
+
+  assert.deepEqual(
+    found.map(([id]) => id),
+    ["schedule"],
+    `two editable controls for one setting overwrite each other: ${
+      found.map(([id, names]) => `${id} -> ${names.join(", ")}`).join(" | ")
+    }`
+  );
+
+  // And that one section still really is the editor, not an empty shell.
+  const [, names] = found[0];
+  ["schedulePresets", "scheduleAdvanced", "scheduleWindows"].forEach((id) => {
+    assert.ok(names.includes(id), `the surviving schedule editor lost #${id}`);
+  });
+});
+
+// The popup keeps its own simple pair on purpose: it is the at-a-glance surface,
+// one click from the toolbar, not a second editor for the settings page. Pinning
+// it stops the de-duplication above from being "fixed" by deleting the wrong one.
+test("the popup keeps its at-a-glance schedule pair", () => {
+  const html = read("popup.html");
+
+  ["scheduleEnabled", "scheduleStart", "scheduleEnd"].forEach((id) => {
+    assert.match(html, new RegExp(`id="${id}"`), `the popup lost #${id}`);
+  });
+});
+
+// settings.js reads five ids the page no longer has. Every one of those reads is
+// conditional; this proves it by answering `null` for exactly those ids, which
+// is what the real browser does now. Before the guards went in, the top-level
+// `scheduleEnabledInput.addEventListener(...)` threw here and took the entire
+// settings page down with it — no theme, no blocklist, no reset.
+test("settings.js loads with the simple schedule controls absent from the page", () => {
+  const absent = ["scheduleEnabled", "scheduleStart", "scheduleEnd", "scheduleSummary", "simpleScheduleNote"];
+
+  absent.forEach((id) => {
+    assert.ok(
+      !new RegExp(`id="${id}"`).test(read("settings.html")),
+      `#${id} is back in settings.html; this test no longer describes the page`
+    );
+  });
+
+  assert.doesNotThrow(
+    () => settingsContext(absent),
+    "settings.js dereferences a schedule control the page does not contain"
+  );
+});
+
+// ---------------------------------------------------------------------------
+// 7. Onboarding: secondary copy is spaced, not welded to the button above it
+// ---------------------------------------------------------------------------
+
+// Step 6 stacks button / paragraph / button / notice / paragraph. The only
+// `.desc` rule in the sheet was scoped `.choice-row .desc`, a container the
+// onboarding stopped building, so those paragraphs matched nothing but
+// `.step p { margin: 0 0 16px }` — no TOP margin — and each one sat flush
+// against the button above it.
+test("welcome.html: step-6 secondary copy has real spacing above it", () => {
+  const html = read("welcome.html");
+  const rules = stylesheet("welcome.html");
+
+  const step6 = /<section class="step" data-step="6">([\s\S]*?)<\/section>/.exec(html);
+  assert.ok(step6, "welcome.html has no step 6");
+  assert.match(
+    stripComments(step6[1]),
+    /<\/button>\s*<p class="desc"/,
+    "the case this guards is a .desc paragraph directly after a button"
+  );
+
+  // The fallback it would otherwise inherit still has no top margin, so the
+  // spacing genuinely has to come from a .desc rule.
+  const stepP = required(rules, ".step p", "margin", "welcome.html").split(/\s+/);
+  assert.equal(stepP[0], "0", "assumption changed: .step p now supplies its own top margin");
+
+  // Any selector that reaches these paragraphs will do — `.step .desc`,
+  // `.step p.desc`, a bare `.desc`. What is pinned is the resulting gap, not the
+  // spelling of the rule that produces it.
+  const gaps = rules
+    .filter((rule) => splitTop(rule.prelude, ",").some((selector) => {
+      const parts = selector.trim().split(/\s+/);
+      return /\.desc$/.test(parts[parts.length - 1]) && parts.every((p) => !/\.choice-row/.test(p));
+    }))
+    .map((rule) => rule.decls["margin-top"])
+    .filter(Boolean);
+
+  assert.ok(
+    gaps.length > 0,
+    "no rule that reaches the step-6 `.desc` paragraphs sets a top margin, so they sit flush against the button above"
+  );
+  assert.ok(
+    gaps.every((value) => parseFloat(value) > 0),
+    `a .desc rule sets margin-top: ${gaps.join(" / ")} — zero is the flush layout this test exists for`
+  );
+});
+
+// The bug underneath the bug: a live element styled by a rule scoped to a
+// container that appears nowhere. Checked for `.desc` specifically, because that
+// is the class it happened to, and a `.choice-row .desc` regression would
+// otherwise read as a harmless tidy-up.
+test("welcome.html: no .desc rule is scoped to a container the page never builds", () => {
+  // Both sources, because a container can legitimately be added by script.
+  const html = read("welcome.html") + read("welcome.js");
+  const orphans = [];
+
+  stylesheet("welcome.html").forEach((rule) => {
+    splitTop(rule.prelude, ",").forEach((selector) => {
+      const parts = selector.trim().split(/\s+/);
+      if (!/\.desc$/.test(parts[parts.length - 1])) { return; }
+
+      parts.slice(0, -1).forEach((ancestor) => {
+        (ancestor.match(/\.([\w-]+)/g) || []).forEach((token) => {
+          if (!html.includes(`class="${token.slice(1)}`) && !html.includes(`${token.slice(1)}"`)) {
+            orphans.push(`${selector} (no .${token.slice(1)} in the markup)`);
+          }
+        });
+      });
+    });
+  });
+
+  assert.deepEqual(orphans, [], `these style nothing: ${orphans.join(", ")}`);
+});
+
+// ---------------------------------------------------------------------------
+// 8. Diagnostics is a user-facing page, not a developer console
+// ---------------------------------------------------------------------------
+
+// Settings' "Check FitShield is working" opens diagnostics.html, so every locale
+// reaches it. It shipped with zero data-i18n attributes and no i18n runtime, so
+// ~90 locales got an English page. These two tests pin both halves: the strings
+// are tagged, AND the module that resolves the tags is actually loaded — either
+// one alone does nothing.
+
+const VOID_ELEMENTS = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input",
+  "link", "meta", "param", "source", "track", "wbr"]);
+
+/** Text runs in `html` whose innermost element carries no data-i18n. */
+function untranslatedText(html) {
+  const stripped = stripComments(html)
+    .replace(/<!doctype[^>]*>/gi, "")
+    .replace(/<style\b[\s\S]*?<\/style>/gi, "")
+    .replace(/<script\b[\s\S]*?<\/script>/gi, "");
+
+  const stack = [];
+  const loose = [];
+
+  for (const token of stripped.matchAll(/<\/?([a-z][\w-]*)\b[^>]*>|[^<]+/gi)) {
+    const text = token[0];
+
+    if (text.startsWith("</")) { stack.pop(); continue; }
+
+    if (text.startsWith("<")) {
+      const name = token[1].toLowerCase();
+      if (!VOID_ELEMENTS.has(name) && !text.endsWith("/>")) {
+        stack.push({ name, attrs: attributes(text) });
+      }
+      continue;
+    }
+
+    // `…` and other punctuation-only placeholders are filled in by script.
+    if (!/[A-Za-z]/.test(text)) { continue; }
+
+    const owner = stack[stack.length - 1];
+    if (!owner || !owner.attrs["data-i18n"]) {
+      loose.push(`<${owner ? owner.name : "?"}>${text.trim().slice(0, 48)}`);
+    }
+  }
+
+  return loose;
+}
+
+/** Localizable attributes present without their data-i18n-* twin. */
+function untranslatedAttributes(html) {
+  const pairs = [["placeholder", "data-i18n-placeholder"], ["aria-label", "data-i18n-aria-label"], ["alt", "data-i18n-alt"]];
+  const loose = [];
+
+  for (const tag of stripComments(html).matchAll(/<[a-z][\w-]*\b[^>]*>/gi)) {
+    const attrs = attributes(tag[0]);
+    pairs.forEach(([plain, tagged]) => {
+      if (attrs[plain] && !attrs[tagged]) {
+        loose.push(`${plain}="${attrs[plain]}"`);
+      }
+    });
+  }
+
+  return loose;
+}
+
+test("diagnostics.html leaves no static string untranslated", () => {
+  const html = read("diagnostics.html");
+
+  assert.deepEqual(
+    untranslatedText(html),
+    [],
+    "these render in English in every locale; tag them with data-i18n"
+  );
+  assert.deepEqual(
+    untranslatedAttributes(html),
+    [],
+    "a placeholder or aria-label is read aloud too; it needs its data-i18n-* twin"
+  );
+});
+
+// The tagging above is inert on its own: nothing rewrites a data-i18n element
+// unless i18n.js is on the page, and i18n.js needs the shim that publishes
+// `fitshield.*` underneath it. The page shipped with neither.
+test("diagnostics.html loads the i18n runtime its attributes depend on", () => {
+  const scripts = [...read("diagnostics.html").matchAll(/<script src="([^"]+)"/g)].map((m) => m[1]);
+
+  assert.ok(scripts.includes("i18n.js"), "diagnostics.html tags strings but never loads i18n.js");
+  assert.ok(
+    scripts.indexOf("browser-shim.js") !== -1 && scripts.indexOf("browser-shim.js") < scripts.indexOf("i18n.js"),
+    "i18n.js reads `fitshield.*` at load; browser-shim.js has to define it first"
+  );
+});
+
+// The page reports asynchronously — a worker that never answers, and the result
+// of "Check" — with focus left where it was. Without a live region a screen
+// reader user presses Check and is told nothing at all.
+test("diagnostics.html announces the answers it writes in place", () => {
+  const html = read("diagnostics.html");
+
+  ["banner", "test-result"].forEach((id) => {
+    const tag = new RegExp(`<[a-z]+\\b[^>]*id="${id}"[^>]*>`, "i").exec(html);
+    assert.ok(tag, `diagnostics.html has no #${id}`);
+    assert.match(tag[0], /role="status"|aria-live=/, `#${id} is written after load with no focus move`);
+  });
 });
