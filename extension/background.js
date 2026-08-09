@@ -856,8 +856,10 @@ async function grantPass(request) {
     target: preset.scope === "category" ? site && site.category : domain,
     minutes: preset.minutes === undefined ? settings.passDurationMinutes : preset.minutes,
     tabId: input.tabId,
-    now: Date.now(),
-    reason: String(input.intent || "")
+    now: Date.now()
+    // input.intent is deliberately NOT forwarded. Settings promises the "what
+    // brought you here?" answer is never saved, and it used to be persisted on
+    // the pass record.
   });
 
   const tabs = await openTabIds();
@@ -1089,14 +1091,34 @@ const REFRESH_KEYS = [
   "enabledCategories"
 ];
 
+const ALL_DAY_COUNT = 7;
+
 // The popup still writes the three flat schedule keys, and older builds only
 // understood those. Whenever they change, rebuild the structured schedule from
 // them so there is exactly one effective source of truth. Guarded against
 // looping: it only writes when the rebuilt schedule actually differs.
 async function syncLegacySchedule() {
   const raw = await chrome.storage.local.get(["schedule", "scheduleEnabled", "scheduleStart", "scheduleEnd"]);
-  const rebuilt = FitShieldCore.normalizeSchedule(FitShieldCore.scheduleFromLegacy(raw));
   const current = FitShieldCore.normalizeSchedule(raw.schedule);
+
+  // The flat trio can only ever describe ONE window on ALL SEVEN days, so
+  // rebuilding from it is lossy. Anything richer than that — "Workday lunch"
+  // (Mon-Fri), "Evenings and weekends" (two windows), or any per-day schedule
+  // from the advanced editor — must not be regenerated from its own lossy
+  // mirror, or the worker silently replaces the schedule the user just saved
+  // with a seven-day one and then blocks their Saturday lunch.
+  //
+  // The advanced editor writes the structured schedule AND the mirror in one
+  // set(), which is exactly what used to trip this listener.
+  const expressibleByFlatKeys =
+    current.mode !== "windows" ||
+    (current.windows.length === 1 && current.windows[0].days.length === ALL_DAY_COUNT);
+
+  if (!expressibleByFlatKeys) {
+    return;
+  }
+
+  const rebuilt = FitShieldCore.normalizeSchedule(FitShieldCore.scheduleFromLegacy(raw));
 
   // A temporary override lives only on the structured form; preserve it.
   rebuilt.until = current.until;

@@ -545,8 +545,13 @@
       expiresAt,
       // Guards against a backwards clock change stretching the pass.
       maxDurationMs: Math.max(60 * 1000, expiresAt - now),
-      tabId: preset && preset.tabBound && Number.isInteger(opts.tabId) ? opts.tabId : null,
-      reason: String(opts.reason || "").slice(0, 40)
+      tabId: preset && preset.tabBound && Number.isInteger(opts.tabId) ? opts.tabId : null
+      // Deliberately NO `reason`. The block page's "what brought you here?"
+      // answer used to be stored here, which made the settings page's promise
+      // that "the answer is never saved" false, and left a
+      // {domain, exact timestamp, why I gave in} triple on disk — the most
+      // sensitive thing this product could possibly keep. Nothing ever read it
+      // back; the answer does its whole job in the page that asked.
     };
   }
 
@@ -578,8 +583,9 @@
       maxDurationMs: Number.isFinite(Number(value.maxDurationMs))
         ? Number(value.maxDurationMs)
         : Math.max(60 * 1000, expiresAt - createdAt),
-      tabId: Number.isInteger(value.tabId) ? value.tabId : null,
-      reason: String(value.reason || "").slice(0, 40)
+      // A pass stored by an earlier build may carry `reason`; dropping it here
+      // means the next write of the passes array erases it from disk.
+      tabId: Number.isInteger(value.tabId) ? value.tabId : null
     };
   }
 
@@ -907,6 +913,19 @@
 
   const EQUIPMENT_ITEMS = ["microwave", "stove", "oven", "air fryer", "toaster", "blender", "rice cooker", "kettle"];
 
+  // The nine allergens the catalog declares (tools/alternatives-audit.js enforces
+  // that every entry's list is complete and drawn from exactly these). Unlike the
+  // pantry, this is a HARD filter in the matcher: an entry carrying an avoided
+  // allergen is never offered, at any position, under any filter.
+  const ALLERGENS = ["gluten", "dairy", "egg", "peanut", "tree-nut", "soy", "fish", "shellfish", "sesame"];
+
+  function normalizeAllergens(value) {
+    const allowed = new Set(ALLERGENS);
+    return toStringList(value, ALLERGENS.length)
+      .map((item) => item.toLowerCase())
+      .filter((item) => allowed.has(item));
+  }
+
   // Equipment a kitchen is assumed to have when the user has said nothing. Chosen
   // so that an empty preference set never hides alternatives.
   const DEFAULT_EQUIPMENT = ["microwave", "stove", "oven", "toaster", "kettle"];
@@ -1210,6 +1229,7 @@
       dietPreference: "omnivore",
       pantry: [],
       equipment: DEFAULT_EQUIPMENT.slice(),
+      avoidAllergens: [],
       alternativeFavorites: [],
       recentAlternatives: [],
       dismissedAlternatives: [],
@@ -1295,7 +1315,7 @@
             expiresAt,
             maxDurationMs: Math.max(60 * 1000, expiresAt - Date.now()),
             tabId: null,
-            reason: "migrated"
+            // no `reason`: see createPass
           };
         })
         .filter(Boolean);
@@ -1442,6 +1462,11 @@
       dietPreference: normalizeDietPreference(get("dietPreference")),
       pantry: normalizePantry(get("pantry")),
       equipment: normalizeEquipment(get("equipment")),
+      // Was missing entirely, so the chips in Settings saved a value that
+      // readSettings then dropped: getBlockContext handed the block page
+      // `undefined` and the matcher's hard allergen filter never ran. A user who
+      // ticked "peanut" was still shown peanut recipes.
+      avoidAllergens: normalizeAllergens(get("avoidAllergens")),
       alternativeFavorites: normalizeIdList(get("alternativeFavorites"), 200),
       recentAlternatives: normalizeIdList(get("recentAlternatives"), MAX_RECENT_SHOWN),
       dismissedAlternatives: normalizeIdList(get("dismissedAlternatives"), MAX_DISMISSED),

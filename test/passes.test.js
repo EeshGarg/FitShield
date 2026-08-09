@@ -269,3 +269,47 @@ test("repeat history is bounded so it cannot grow without limit", () => {
   assert.ok(Object.keys(normalized).length <= 60, "domain count is capped");
   Object.values(normalized).forEach((times) => assert.ok(times.length <= 12, "per-domain history is capped"));
 });
+
+// ---------------------------------------------------------------------------
+// The block page's "what brought you here?" answer
+//
+// Settings promises, next to the toggle, that "the answer is never saved". It
+// was being written onto the pass record as `reason`, leaving a
+// {domain, exact timestamp, why I gave in} triple on disk — the most sensitive
+// thing this product could keep, about the moment a user gave in. Nothing ever
+// read it back.
+// ---------------------------------------------------------------------------
+
+test("a pass never records why the user continued", () => {
+  const pass = core.createPass({
+    presetId: "site10",
+    target: "doordash.com",
+    now: T0,
+    reason: "someone-else"
+  });
+
+  assert.ok(!("reason" in pass), "the intent answer must not be stored on the pass");
+  assert.equal(
+    JSON.stringify(pass).includes("someone-else"),
+    false,
+    "no part of the record may carry the answer"
+  );
+});
+
+test("a pass stored by an older build has its reason dropped on the next read", () => {
+  const legacy = {
+    id: "p1",
+    preset: "site10",
+    scope: "site",
+    target: "doordash.com",
+    createdAt: T0,
+    expiresAt: T0 + minutes(10),
+    maxDurationMs: minutes(10),
+    reason: "someone-else"
+  };
+
+  const [active] = core.activePasses([legacy], T0 + minutes(1));
+
+  assert.ok(active, "the pass itself still works");
+  assert.ok(!("reason" in active), "but the stored answer is not carried forward");
+});

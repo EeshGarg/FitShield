@@ -230,3 +230,49 @@ test("nextLocalMidnight is the coming local midnight, not a UTC one", () => {
   assert.equal(midnight.getMinutes(), 0);
   assert.equal(midnight.getDate(), 5);
 });
+
+// ---------------------------------------------------------------------------
+// The flat mirror must never overwrite a richer schedule
+//
+// The worker rebuilt `schedule` from the three flat keys whenever any of them
+// changed. Those three can only describe ONE window across ALL SEVEN days, and
+// the advanced editor writes the structured schedule and the mirror in the same
+// storage set — so saving "Workday lunch" (Mon-Fri) or "Evenings and weekends"
+// (two windows) was immediately replaced by a seven-day window, and the settings
+// page went on displaying the choice the user made rather than the one being
+// enforced. A weekday-lunch user got interrupted on Saturday.
+// ---------------------------------------------------------------------------
+
+// Mirrors the guard in background.js syncLegacySchedule.
+function expressibleByFlatKeys(schedule) {
+  const current = core.normalizeSchedule(schedule);
+  return current.mode !== "windows" || (current.windows.length === 1 && current.windows[0].days.length === 7);
+}
+
+test("a weekday-only schedule cannot be rebuilt from the flat keys", () => {
+  const workdayLunch = core.normalizeSchedule(core.schedulePresetValues("workdayLunch"));
+
+  assert.equal(workdayLunch.windows.length, 1);
+  assert.deepEqual(workdayLunch.windows[0].days, [1, 2, 3, 4, 5], "precondition: weekdays only");
+  assert.equal(expressibleByFlatKeys(workdayLunch), false, "so the worker must leave it alone");
+
+  // What the old code would have written back.
+  const lossy = core.normalizeSchedule(
+    core.scheduleFromLegacy({ scheduleEnabled: true, scheduleStart: "11:00", scheduleEnd: "14:00" })
+  );
+  assert.deepEqual(lossy.windows[0].days, [0, 1, 2, 3, 4, 5, 6], "the mirror can only mean every day");
+});
+
+test("a multi-window schedule cannot be rebuilt from the flat keys", () => {
+  const both = core.normalizeSchedule(core.schedulePresetValues("eveningsAndWeekends"));
+
+  assert.ok(both.windows.length > 1, "precondition: more than one window");
+  assert.equal(expressibleByFlatKeys(both), false);
+});
+
+test("a plain every-day window still syncs from the flat keys", () => {
+  ["evenings", "lateNight", "always"].forEach((id) => {
+    const preset = core.normalizeSchedule(core.schedulePresetValues(id));
+    assert.equal(expressibleByFlatKeys(preset), true, `${id} is expressible, so the popup can still drive it`);
+  });
+});

@@ -69,10 +69,16 @@ mean 18:00 local after a daylight-saving shift.
   "createdAt": 1767225600000,
   "expiresAt": 1767226200000,   // ABSOLUTE, never "minutes remaining"
   "maxDurationMs": 600000,      // ceiling on the granted duration
-  "tabId": null,                // set for the "until this tab closes" scope
-  "reason": ""                  // the intent answered on the block page, if any
+  "tabId": null                 // set for the "until this tab closes" scope
 }
 ```
+
+There is deliberately **no field for why the user continued.** An earlier build
+stored the block page's "what brought you here?" answer here as `reason`, which
+made the promise printed beside that toggle — *the answer is never saved* —
+false, and left a `{domain, exact timestamp, why I gave in}` triple on disk.
+Nothing ever read it back. A pass written by that build has the field dropped
+the next time the passes array is written.
 
 Every preset is **scope plus duration**, because that is the whole of what the
 blocking layer can enforce: dynamic `declarativeNetRequest` rules are global and
