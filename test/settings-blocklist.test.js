@@ -492,3 +492,24 @@ function parseHTML(html) {
   }
   return root;
 }
+
+test("resetting blocking settings clears everything that governs blocking", () => {
+  const source = fs.readFileSync(srcPath("settings.js"), "utf8");
+  const declared = /const BLOCKING_KEYS = \[([\s\S]*?)\];/.exec(source);
+  assert.ok(declared, "BLOCKING_KEYS should be a literal list");
+
+  const keys = [...declared[1].replace(/\/\/[^\n]*/g, "").matchAll(/\"([^\"]+)\"/g)].map((m) => m[1]);
+
+  // Each of these was missing, so "Reset blocking settings" left the thing it
+  // named still in force: an active pass kept a site unblocked, the structured
+  // schedule kept enforcing hours, and Settings showed "Strict" over freshly
+  // defaulted Standard values.
+  ["passes", "schedule", "frictionProfile"].forEach((key) => {
+    assert.ok(keys.includes(key), `${key} governs blocking and must be cleared`);
+  });
+
+  // …and it must still not touch things it does not name.
+  ["stats", "customAlternatives", "pantry", "equipment", "theme"].forEach((key) => {
+    assert.ok(!keys.includes(key), `${key} is not a blocking setting and must survive`);
+  });
+});

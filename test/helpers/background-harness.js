@@ -144,7 +144,10 @@ function loadBackground(initialStore, options) {
   // Drive a message the way a page does, and resolve with what sendResponse got.
   const message = (payload) =>
     new Promise((resolve) => {
-      const handled = listeners.message(payload, {}, resolve);
+      // A realistic sender: every message the product sends comes from one of its
+      // own extension pages, and the worker now refuses state-changing messages
+      // from anywhere else.
+      const handled = listeners.message(payload, { id: "test", url: "chrome-extension://test/warning.html" }, resolve);
       if (!handled) {
         resolve(null);
       }

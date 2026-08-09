@@ -106,7 +106,10 @@ function loadWorker(initialStore) {
     rules: () => chrome.declarativeNetRequest._rules,
     message: (payload) =>
       new Promise((resolve) => {
-        const handled = listeners.message(payload, {}, resolve);
+        // A realistic sender: every message the product sends comes from one of its
+      // own extension pages, and the worker now refuses state-changing messages
+      // from anywhere else.
+      const handled = listeners.message(payload, { id: "test", url: "chrome-extension://test/warning.html" }, resolve);
         if (!handled) resolve(null);
       })
   };

@@ -2021,7 +2021,24 @@ const BLOCKING_KEYS = [
   "disabledDeliverySiteKeys",
   "disabledFastFoodSiteKeys",
   "customSites",
+  // The LIVE pass list. This named only the retired `siteBypasses` key, so
+  // "Reset blocking settings" left an active temporary pass running: the user
+  // reset everything and the site they had unblocked stayed unblocked.
+  "passes",
   "siteBypasses",
+  // The schedule the worker actually enforces. Clearing only the flat mirror
+  // left the structured schedule in place, so blocking hours survived a reset
+  // that claimed to have cleared them.
+  "schedule",
+  // Friction is a blocking setting; leaving it behind made Settings show
+  // "Strict" over freshly-defaulted Standard values.
+  "frictionProfile",
+  "askIntent",
+  "repeatFrictionEnabled",
+  "repeatExtraSeconds",
+  "repeatWindowMinutes",
+  "settingsDelaySeconds",
+  "repeatHistory",
   "enabledCountries",
   "enabledCategories",
   "quickAccessCountries",

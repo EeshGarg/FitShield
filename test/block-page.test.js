@@ -159,7 +159,7 @@ test("packaged block page: both browser manifests are valid and point at package
 // hand-maintained copy of it that can drift.
 function dispatchToBackground(bg, msg) {
   return new Promise((resolve) => {
-    const handled = bg.listeners.message(msg, {}, resolve);
+    const handled = bg.listeners.message(msg, { id: "test", url: "chrome-extension://test/warning.html" }, resolve);
     if (!handled) resolve({ ok: false });
   });
 }

@@ -1186,6 +1186,38 @@
     return THEME_MODE_OPTIONS.includes(mode) ? mode : DEFAULT_THEME_MODE;
   }
 
+  // Every theme value is written straight into a CSS custom property by the
+  // pages, so an imported backup could smuggle `a remote url() value` into one and
+  // make the settings page and popup fetch a remote resource — a beacon on a
+  // product that promises it makes no network requests. Only literal colours and
+  // the two numeric layout values survive; anything else falls back.
+  const COLOR_PATTERN = /^(#[0-9a-f]{3,8}|rgba?\([0-9.,\s%]+\)|hsla?\([0-9.,\s%deg]+\))$/i;
+
+  function normalizeTheme(value) {
+    const source = safeObject(value);
+    const out = {};
+
+    Object.keys(source).forEach((key) => {
+      const raw = source[key];
+
+      if (key === "radius" || key === "popupWidth") {
+        const number = Number(raw);
+
+        if (Number.isFinite(number)) {
+          out[key] = Math.min(1000, Math.max(0, Math.round(number)));
+        }
+
+        return;
+      }
+
+      if (typeof raw === "string" && COLOR_PATTERN.test(raw.trim())) {
+        out[key] = raw.trim();
+      }
+    });
+
+    return out;
+  }
+
   /**
    * Which concrete theme a mode resolves to.
    * @param {string} mode
@@ -1594,6 +1626,11 @@
 
       showEstimates: get("showEstimates") === true,
       recapEnabled: get("recapEnabled") !== false,
+      // Colours only. Every value here is written into a CSS custom property, so
+      // an imported backup could otherwise smuggle a remote url() value into one and
+      // make the settings page fetch a remote resource.
+      theme: normalizeTheme(get("theme")),
+      themeMode: normalizeThemeMode(get("themeMode")),
       recapDismissedFor: String(get("recapDismissedFor") || "").slice(0, 16)
     };
   }
@@ -1681,6 +1718,7 @@
     THEME_MODE_COLOR_KEYS,
     THEME_MODE_PRESETS,
     normalizeThemeMode,
+    normalizeTheme,
     resolveThemeMode,
     themeMatchesPreset,
     shouldUseResolvedPreset,

@@ -91,6 +91,9 @@ const state = {
   // prepared behind the intent prompt, or re-rendered after a language change,
   // must not count.
   recordedId: null,
+  // Entries already chosen during THIS interruption, so the same dish cannot be
+  // counted twice by rotating away and back.
+  chosenIds: [],
   chosen: false,
   favorites: []
 };
@@ -632,7 +635,11 @@ function showAlternative(options) {
   }
 
   state.current = selection.entry;
-  state.chosen = false;
+  // "Chosen" is per ENTRY, not per render. Resetting it unconditionally meant
+  // choosing an alternative, rotating away, rotating back and choosing again
+  // counted "alternatives you chose" twice for the same dish in a single
+  // interruption.
+  state.chosen = state.chosenIds.includes(selection.entry.id);
   ui.chosenNote.hidden = true;
 
   renderAlternative(selection.entry, selection.reasons, selection.relaxed, selection);
@@ -786,6 +793,7 @@ ui.chooseAlt.addEventListener("click", () => {
   }
 
   state.chosen = true;
+  state.chosenIds.push(state.current.id);
   ui.chooseAlt.disabled = true;
   ui.chooseAlt.textContent = t("alternativeChosenButton");
 

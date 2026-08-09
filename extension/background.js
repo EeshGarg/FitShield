@@ -1176,11 +1176,56 @@ const HANDLERS = {
   refreshBlocking: () => queueRefreshBlockingState().then(() => ({ ok: true }))
 };
 
+// Messages that change durable state may only come from FitShield's own pages.
+//
+// warning.html is web_accessible_resources with `<all_urls>` — it has to be, it
+// is the declarativeNetRequest redirect target — so any site could embed it in a
+// hidden iframe, or simply post these messages itself, and silently run up the
+// user's interruption count, brand breakdown and rotation history. Statistics
+// FitShield presents as observed events must not be forgeable by the pages it is
+// meant to be interrupting.
+//
+// A message from an extension page carries a sender.url on our own origin. One
+// from a web page does not.
+function isOwnSurface(sender) {
+  if (!sender) {
+    return false;
+  }
+
+  // Same extension id, and an extension-origin URL.
+  if (sender.id && chrome.runtime.id && sender.id !== chrome.runtime.id) {
+    return false;
+  }
+
+  const origin = chrome.runtime.getURL("");
+  const url = String(sender.url || "");
+
+  return url.startsWith(origin);
+}
+
+const WEB_FORGEABLE = new Set([
+  "recordInterruption",
+  "recordLeft",
+  "recordBlockedBrand",
+  "recordAlternativeShown",
+  "recordAlternativeSelected",
+  "recordAlternativeDismissed",
+  "markAlternativeMade",
+  "grantPass",
+  "revokeAllPasses"
+]);
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   const handler = message && HANDLERS[message.type];
 
   if (!handler) {
     return false;
+  }
+
+  if (WEB_FORGEABLE.has(message.type) && !isOwnSurface(sender)) {
+    fsError(`Refused "${message.type}" from outside the extension`, sender && sender.url);
+    sendResponse({ ok: false, error: "Refused: not a FitShield surface." });
+    return true;
   }
 
   Promise.resolve()

@@ -357,3 +357,107 @@ test("storage.sync is never used — everything stays on one device", () => {
 
   assert.deepEqual(offenders, [], `storage.sync in: ${offenders.join(", ")}`);
 });
+
+// ---------------------------------------------------------------------------
+// warning.html is web_accessible_resources with <all_urls> — it has to be, it is
+// the declarativeNetRequest redirect target. That means any website could post
+// the worker's recording messages, or embed the block page in a hidden iframe,
+// and run up the user's interruption count and brand breakdown. Statistics the
+// product presents as OBSERVED events must not be forgeable by the very pages it
+// exists to interrupt.
+// ---------------------------------------------------------------------------
+
+test("a web page cannot forge a statistics event", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  const fromWebPage = (payload) =>
+    new Promise((resolve) => {
+      const handled = bg.listeners.message(payload, { id: "evil", url: "https://evil.example/page" }, resolve);
+      if (!handled) resolve({ ok: false });
+    });
+
+  const before = JSON.stringify(bg.store.stats || {});
+
+  for (const type of [
+    "recordInterruption",
+    "recordLeft",
+    "recordAlternativeShown",
+    "recordAlternativeSelected",
+    "markAlternativeMade"
+  ]) {
+    const response = await fromWebPage({ type, id: "naan-pizza", meta: { domain: "doordash.com" } });
+    assert.equal(response.ok, false, `${type} must be refused from a web page`);
+  }
+
+  assert.equal(JSON.stringify(bg.store.stats || {}), before, "no counter may move");
+});
+
+test("a web page cannot grant itself a temporary pass", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  const response = await new Promise((resolve) => {
+    const handled = bg.listeners.message(
+      { type: "grantPass", site: "delivery-doordash-com", presetId: "site30" },
+      { id: "evil", url: "https://evil.example/page" },
+      resolve
+    );
+    if (!handled) resolve({ ok: false });
+  });
+
+  assert.equal(response.ok, false, "a page must not be able to unblock itself");
+  assert.equal((bg.store.passes || []).length, 0, "and no pass may exist");
+});
+
+test("the extension's own pages are still allowed", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  const response = await new Promise((resolve) => {
+    const handled = bg.listeners.message(
+      { type: "recordInterruption" },
+      { id: "test", url: "chrome-extension://test/warning.html" },
+      resolve
+    );
+    if (!handled) resolve({ ok: false });
+  });
+
+  assert.equal(response.ok, true, "the block page must keep working");
+  assert.equal(bg.store.stats.totals.interruptions, 1);
+});
+
+// ---------------------------------------------------------------------------
+// Theme values are written straight into CSS custom properties, so an imported
+// backup could smuggle a remote resource reference into one and make the
+// settings page and popup fetch it — a beacon on a product whose central claim
+// is that it makes no network requests at all.
+// ---------------------------------------------------------------------------
+
+test("an imported theme cannot carry a remote resource reference", () => {
+  const hostile = {
+    bg: "#000000",
+    accent: "url(" + "https://evil.example/beacon.png)",
+    panel: "red; background:url(//evil.example/x)",
+    text: "#fff",
+    muted: "rgba(1, 2, 3, 0.5)",
+    radius: "99999",
+    popupWidth: "not-a-number",
+    injected: "expression(alert(1))"
+  };
+
+  const clean = core.normalizeTheme(hostile);
+  const serialized = JSON.stringify(clean);
+
+  assert.ok(!/url\(/i.test(serialized), "no url() may survive");
+  assert.ok(!/evil\.example/.test(serialized), "no remote host may survive");
+  assert.ok(!/expression/i.test(serialized), "no CSS expression may survive");
+  assert.equal(clean.bg, "#000000", "a real colour is kept");
+  assert.equal(clean.muted, "rgba(1, 2, 3, 0.5)", "rgba is a real colour");
+  assert.equal(clean.radius, 1000, "numbers are clamped, not passed through");
+  assert.ok(!("popupWidth" in clean), "a non-numeric size is dropped");
+  assert.ok(!("panel" in clean), "a colour with a declaration smuggled in is dropped");
+});
