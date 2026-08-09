@@ -109,10 +109,47 @@ function checkManifestShape(reporter, manifest, pkg) {
     );
   }
 
-  // MV3 extensions must not carry a custom CSP unless deliberately relaxed —
-  // the default (script-src 'self') is the privacy story the docs promise.
-  if (manifest.content_security_policy) {
-    reporter.warn("manifest sets a custom content_security_policy — the MV3 default is expected");
+  // A custom CSP used to be reported as suspicious on the assumption that any
+  // deviation from the MV3 default was a relaxation. It is the opposite here:
+  // the default constrains `script-src` and `object-src` and leaves `img-src`
+  // and `connect-src` WIDE OPEN, which was measured — a remote <img> injected
+  // into settings.html loaded, the exact shape of a tracking beacon. So the
+  // declared policy is a hardening, and what this check must catch is a policy
+  // that gives that ground back.
+  const csp = manifest.content_security_policy;
+
+  if (csp) {
+    const pages = typeof csp === "string" ? csp : csp.extension_pages || "";
+    const directive = (name) => {
+      const found = pages.split(";").map((part) => part.trim()).find((part) => part.startsWith(`${name} `));
+      return found ? found.slice(name.length).trim() : null;
+    };
+
+    // 'unsafe-inline' in style-src is the one concession: these pages carry
+    // <style> blocks. It cannot execute script, so it does not open egress.
+    [
+      ["script-src", /'unsafe-inline'|'unsafe-eval'|https?:|\*/],
+      ["connect-src", /https?:|wss?:|\*/],
+      ["img-src", /https?:|\*/],
+      ["object-src", /https?:|\*/]
+    ].forEach(([name, dangerous]) => {
+      const value = directive(name);
+
+      if (value === null) {
+        reporter.warn(`content_security_policy does not constrain ${name} — it falls back to the permissive default`);
+        return;
+      }
+
+      if (dangerous.test(value)) {
+        reporter.fail(`content_security_policy ${name} allows a remote or unsafe source: "${value}"`);
+      }
+    });
+
+    reporter.note("content_security_policy tightens the MV3 default (script, connect, img and object all 'self')");
+  } else {
+    reporter.warn(
+      "manifest declares no content_security_policy — the MV3 default leaves img-src and connect-src open to any host"
+    );
   }
 
   // Firefox packaging metadata (AMO requires the id + data collection keys).

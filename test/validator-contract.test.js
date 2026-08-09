@@ -642,3 +642,85 @@ test("every audit named in validate-all is reachable and returns a reporter", as
     assert.equal(typeof reporter.name, "string");
   });
 });
+
+// ---------------------------------------------------------------------------
+// The CSP check must catch a relaxation, not a hardening
+// ---------------------------------------------------------------------------
+
+// It used to warn on ANY custom content_security_policy, on the assumption
+// that deviating from the MV3 default could only mean loosening it. That is
+// backwards for this product: the default constrains script-src and
+// object-src and leaves img-src and connect-src open to any host, and a
+// remote <img> injected into settings.html was measured actually loading —
+// the exact shape of a tracking beacon in an extension that promises none.
+// So a tighter policy is correct and the check has to recognise the
+// difference between tightening and giving that ground back.
+
+const MANIFEST_FILE = path.join(ROOT, "extension", "manifest.json");
+const extensionAudit = require("../tools/extension-audit.js");
+
+function withManifestCsp(policy, fn) {
+  const original = fs.readFileSync(MANIFEST_FILE, "utf8");
+  const manifest = JSON.parse(original);
+
+  if (policy === null) {
+    delete manifest.content_security_policy;
+  } else {
+    manifest.content_security_policy = { extension_pages: policy };
+  }
+
+  fs.writeFileSync(MANIFEST_FILE, JSON.stringify(manifest, null, 2));
+
+  try {
+    fn();
+  } finally {
+    fs.writeFileSync(MANIFEST_FILE, original);
+    assert.equal(fs.readFileSync(MANIFEST_FILE, "utf8"), original, "the manifest must be restored exactly");
+  }
+}
+
+test("the shipped CSP is accepted and reported as a hardening", () => {
+  const reporter = extensionAudit();
+  assert.deepEqual(reporter.errors, [], reporter.errors.join("\n"));
+  assert.ok(
+    reporter.notes.some((n) => /tightens the MV3 default/.test(n)),
+    `expected the hardening note, got:\n${reporter.notes.join("\n")}`
+  );
+});
+
+test("a CSP that re-opens egress is an error, directive by directive", () => {
+  [
+    ["connect-src", "script-src 'self'; object-src 'self'; connect-src 'self' https://api.example.com; img-src 'self'"],
+    ["img-src", "script-src 'self'; object-src 'self'; connect-src 'self'; img-src *"],
+    ["script-src", "script-src 'self' 'unsafe-eval'; object-src 'self'; connect-src 'self'; img-src 'self'"],
+    ["script-src", "script-src 'self' 'unsafe-inline'; object-src 'self'; connect-src 'self'; img-src 'self'"]
+  ].forEach(([directive, policy]) => {
+    withManifestCsp(policy, () => {
+      const errors = extensionAudit().errors;
+      assert.ok(
+        errors.some((e) => new RegExp(`${directive} allows a remote or unsafe source`).test(e)),
+        `${directive} was allowed to open up; errors:\n${errors.join("\n")}`
+      );
+    });
+  });
+});
+
+test("dropping a directive is reported, because it falls back to the permissive default", () => {
+  withManifestCsp("script-src 'self'; object-src 'self'", () => {
+    const reporter = extensionAudit();
+    assert.ok(
+      reporter.warnings.some((w) => /does not constrain connect-src/.test(w)),
+      `expected the missing-directive warning, got:\n${reporter.warnings.join("\n")}`
+    );
+  });
+});
+
+test("declaring no CSP at all is reported as leaving img-src and connect-src open", () => {
+  withManifestCsp(null, () => {
+    const reporter = extensionAudit();
+    assert.ok(
+      reporter.warnings.some((w) => /leaves img-src and connect-src open/.test(w)),
+      `expected the absent-policy warning, got:\n${reporter.warnings.join("\n")}`
+    );
+  });
+});
