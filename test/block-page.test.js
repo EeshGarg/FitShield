@@ -310,6 +310,9 @@ function renderBlockPage(bg, siteKey, options) {
   for (const f of ["browser-shim.js", "i18n.js", "fitshield-core.js", "recipes.js", "warning.js"]) {
     vm.runInContext(fs.readFileSync(srcPath(f), "utf8"), ctx, { filename: f });
   }
+  // The page's own globals, so a test can ask the shared resolvers what they
+  // return and compare that against what the page actually rendered.
+  doc.globals = sandbox;
   return doc;
 }
 
@@ -697,6 +700,249 @@ test("render smoke: preview mode records nothing", async () => {
   assert.equal(totals.alternativesSelected || 0, 0, "preview must not count a choice");
   assert.equal(bg.store.recentAlternatives, undefined, "preview must not write rotation history");
   assert.equal(doc.getById("previewBanner").hidden, false, "and it says so on screen");
+});
+
+// ---------------------------------------------------------------------------
+// The "why you were interrupted" panel prints display names, not storage keys
+//
+// The panel renders a category id and a list of ISO country codes — the same two
+// identifiers Settings prints in its most-blocked lists. Settings resolved both
+// to display names; this page did not. It ran `capitalize()` over the raw id and
+// joined the bare codes, so one interruption of Jollibee read
+//
+//     Category   Fast_casual
+//     Active in  PH, US, CA, GB, IT, ES +7 more
+//
+// while the record of that same interruption, two clicks away, read "Fast Casual"
+// and "Philippines, United States, …". Both pages now resolve through the single
+// implementation in i18n.js.
+//
+// These drive the real page and read the rendered DOM. A source grep would pass
+// on a call to a resolver that returns the identifier anyway.
+// ---------------------------------------------------------------------------
+
+// The rendered text of one row of the reason panel, by its label.
+async function reasonRow(doc, label) {
+  await waitFor(() => {
+    const body = doc.getById("reasonBody");
+    return body && body.childElementCount > 0;
+  });
+
+  const body = doc.getById("reasonBody");
+  const row = (body.children || []).find(
+    (child) => child.children && child.children[0] && child.children[0].textContent === label
+  );
+  return row ? row.children[1].textContent : "";
+}
+
+async function renderBrand(siteKey) {
+  const bg = loadBackground();
+  bg.store.uiLanguage = "en";   // force the _locales override path
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+  const doc = renderBlockPage(bg, siteKey);
+  await waitFor(() => {
+    const brand = doc.getById("brand");
+    return brand && brand.hidden === false && brand.textContent.length > 0;
+  });
+  return doc;
+}
+
+// The resolvers as the BLOCK PAGE has them — taken off a real booted page, with
+// its real locale loaded, rather than from a hand-built stub that could resolve
+// differently from the thing being tested.
+let bootedI18n = null;
+async function blockPageI18n() {
+  if (!bootedI18n) {
+    bootedI18n = (await renderBrand("delivery-doordash-com")).globals.FitShieldI18n;
+  }
+  return bootedI18n;
+}
+
+test("the block page prints a category NAME or no category row at all", async () => {
+  // Whatever the worker reports as the category, the panel either names it or
+  // says nothing. It may never print the identifier. Written against the worker's
+  // actual answer rather than a hard-coded string, because what the worker
+  // reports here is being corrected in its own lane: today it hands over the rule
+  // bucket ("fastfood"), which this row suppresses because it only restates the
+  // Rule row; once it hands over the curated "fast_casual" the row renders "Fast
+  // Casual". Both outcomes satisfy this test, and "Fast_casual" satisfies neither.
+  const bg = loadBackground();
+  bg.store.uiLanguage = "en";
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+
+  // What the worker actually reports for this brand, asked over the same message
+  // contract the page uses, so the assertion tracks the worker instead of
+  // hard-coding a value that another lane is in the middle of correcting.
+  const context = await dispatchToBackground(bg, {
+    type: "getBlockContext",
+    site: "fast-food-jollibee-com",
+    preview: false
+  });
+  const reported = context.site.category;
+
+  const doc = renderBlockPage(bg, "fast-food-jollibee-com");
+  await waitFor(() => {
+    const brand = doc.getById("brand");
+    return brand && brand.hidden === false && brand.textContent.length > 0;
+  });
+
+  const category = await reasonRow(doc, "Category");
+  const i18n = doc.globals.FitShieldI18n;
+
+  assert.ok(!/[_]/.test(category), `a raw category id reached the screen: "${category}"`);
+  assert.equal(
+    category,
+    sameWordAsType(reported, context.site.type) ? "" : i18n.categoryName(reported),
+    `the panel rendered "${category}" for the reported category "${reported}"`
+  );
+});
+
+// Mirrors warning.js's own rule: a Category row that merely restates the Rule
+// row is suppressed, and the two are not always spelled alike ("fastfood" vs
+// "fast_food").
+function sameWordAsType(category, type) {
+  const strip = (value) => String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  return strip(category) === strip(type);
+}
+
+test("the block page never restates the rule as a mangled category", async () => {
+  // The regression itself: "Rule: Fast food" immediately above "Category:
+  // Fastfood" — the same fact twice, the second time as an identifier.
+  const doc = await renderBrand("fast-food-jollibee-com");
+
+  assert.equal(await reasonRow(doc, "Rule"), "Fast food", "the rule row should name the bucket in words");
+  assert.notEqual(
+    (await reasonRow(doc, "Category")).toLowerCase().replace(/[^a-z0-9]/g, ""),
+    "fastfood",
+    "the category row is restating the rule row"
+  );
+});
+
+test("the shared resolver names every category the shipped blocklists carry", async () => {
+  // The block page's resolver, driven from a real booted page, over the real
+  // curated ids — the vocabulary Settings' category picker lists, and the one the
+  // block page's Category row will carry once the worker stops overwriting it.
+  const i18n = await blockPageI18n();
+
+  assert.equal(i18n.categoryName("fast_casual"), "Fast Casual");
+  // The id title-casing gets wrong on its own, which is why every shipped
+  // category has a string: "B2b Marketplace" is not a word anyone writes.
+  assert.equal(i18n.categoryName("b2b_marketplace"), "B2B Marketplace");
+
+  const dir = srcPath("blocklists");
+  const ids = new Set();
+
+  for (const file of fs.readdirSync(dir).filter((name) => name.endsWith(".json"))) {
+    const parsed = JSON.parse(fs.readFileSync(path.join(dir, file), "utf8"));
+    const entries = Array.isArray(parsed) ? parsed : parsed.entries || parsed.sites || parsed.brands || [];
+    entries.forEach((entry) => {
+      if (entry && entry.category) ids.add(entry.category);
+    });
+  }
+
+  assert.ok(ids.size > 10, `expected many categories in the blocklists, found ${ids.size}`);
+
+  const unresolved = [...ids].filter((id) => /[_]/.test(i18n.categoryName(id))).sort();
+  assert.deepEqual(unresolved, [], `these categories still render as identifiers: ${unresolved.join(", ")}`);
+});
+
+test("the block page names countries, it does not print ISO codes", async () => {
+  // SF Express is active in exactly two countries, so nothing is truncated and
+  // the whole list can be asserted. HK is the one code where a bare Intl lookup
+  // ("Hong Kong SAR China") disagrees with the name Settings' country picker
+  // shows, which is why the shared resolver pins the short form.
+  const doc = await renderBrand("delivery-sf-express-com");
+  const countries = await reasonRow(doc, "Active in");
+
+  assert.equal(countries, "China, Hong Kong", `the block page rendered "${countries}"`);
+});
+
+test("a long country list is named and then truncated, still without codes", async () => {
+  // Jollibee ships 13 countries; the panel shows six and counts the rest.
+  const doc = await renderBrand("fast-food-jollibee-com");
+  const countries = await reasonRow(doc, "Active in");
+
+  assert.equal(
+    countries,
+    "Philippines, United States, Canada, United Kingdom, Italy, Spain +7 more",
+    `the block page rendered "${countries}"`
+  );
+});
+
+test("the block page renders exactly what the shared resolver returns", async () => {
+  // The actual defect was never "the block page is ugly" — it was two surfaces
+  // describing one block differently, because each had its own copy of the rule.
+  // The block page has no copy: this asserts the pixels equal the shared
+  // function's output, so a reintroduced local resolver fails here.
+  const doc = await renderBrand("fast-food-jollibee-com");
+  const i18n = doc.globals.FitShieldI18n;
+
+  assert.equal(typeof i18n.categoryName, "function", "the shared category resolver is gone");
+  assert.equal(typeof i18n.countryName, "function", "the shared country resolver is gone");
+
+  assert.equal(
+    (await reasonRow(doc, "Active in")).split(" +")[0],
+    ["PH", "US", "CA", "GB", "IT", "ES"].map((code) => i18n.countryName(code)).join(", ")
+  );
+});
+
+test("the shared country namer agrees with the engine on every code the datasets carry", async () => {
+  // Settings shows the engine's names in its country picker and the shared
+  // namer's names in the list below it, on the same page in the same language.
+  // Two namers only stay in agreement if something checks; this is that check.
+  const i18n = await blockPageI18n();
+  const codes = new Set();
+
+  for (const file of fs.readdirSync(srcPath("blocklists")).filter((name) => name.endsWith(".json"))) {
+    const parsed = JSON.parse(fs.readFileSync(path.join(srcPath("blocklists"), file), "utf8"));
+    const entries = Array.isArray(parsed) ? parsed : parsed.entries || parsed.sites || parsed.brands || [];
+    entries.forEach((entry) => {
+      (entry && Array.isArray(entry.countries) ? entry.countries : []).forEach((code) =>
+        codes.add(String(code).toUpperCase())
+      );
+    });
+  }
+
+  assert.ok(codes.size > 100, `expected the datasets to span many countries, found ${codes.size}`);
+
+  const disagreements = [...codes]
+    .map((code) => [code, i18n.countryName(code), engine.getCountryName(code, "en")])
+    .filter(([, shared, fromEngine]) => shared !== fromEngine);
+
+  assert.deepEqual(
+    disagreements,
+    [],
+    `the block page and the country picker name the same country differently: ${JSON.stringify(disagreements)}`
+  );
+});
+
+test("an unnamed category still reads as words, and an unknown country still reads", async () => {
+  // Neither resolver may hand its argument straight back: a category added to the
+  // data ahead of its string, and a code Intl has no name for, both still have to
+  // produce something a person can read.
+  const i18n = await blockPageI18n();
+
+  assert.equal(i18n.categoryName("no_such_category_here"), "No Such Category Here");
+  assert.equal(i18n.categoryName(""), "");
+  assert.equal(i18n.countryName("QQ"), "QQ", "an unnamed code echoes rather than rendering blank");
+  assert.equal(i18n.countryName(""), "");
+  assert.equal(i18n.countryName(" hk "), "Hong Kong", "codes are normalized before lookup");
+});
+
+test("the block page ends the sentence it starts about the brand", async () => {
+  // "You opened DoorDash" sat between two properly punctuated sentences. The
+  // stop has to be its own text node: the brand name is emphasised and comes
+  // from the blocklist, so it cannot be baked into the message.
+  const doc = await renderBrand("delivery-doordash-com");
+  const brand = doc.getById("brand");
+
+  assert.equal(brand.textContent, "You opened DoorDash.", `the brand line reads "${brand.textContent}"`);
+
+  const strong = (brand.children || []).find((child) => child.tagName === "STRONG");
+  assert.ok(strong, "the brand name is no longer emphasised");
+  assert.equal(strong.textContent, "DoorDash", "the full stop must not be inside the emphasis");
 });
 
 test("the block page never assigns user or catalog text to innerHTML", () => {

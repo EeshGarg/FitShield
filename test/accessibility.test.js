@@ -1538,3 +1538,165 @@ test("diagnostics.html announces the answers it writes in place", () => {
     assert.match(tag[0], /role="status"|aria-live=/, `#${id} is written after load with no focus move`);
   });
 });
+
+// ---------------------------------------------------------------------------
+// 9. Inline i18n fallbacks say what English says
+// ---------------------------------------------------------------------------
+
+/**
+ * `<h1 data-i18n="warningTitle">Take a Breath</h1>` has TWO copies of one
+ * sentence, and the markup copy is not decoration:
+ *
+ *   - the browser paints it first and i18n.js replaces it a tick later, so a
+ *     disagreement is a visible flash of retired copy on every load;
+ *   - `t()` falls back to English for any key a locale has not translated, but
+ *     it can only fall back to the message FILE. If the runtime never starts —
+ *     a script error, a locale fetch that fails — the inline text is what the
+ *     user is left reading, permanently;
+ *   - it is what a reviewer reads when deciding whether the page says the right
+ *     thing, so a stale one launders retired wording back into review.
+ *
+ * Nothing else in the suite could see it: the key still resolves perfectly, so
+ * every locale check passes while the page ships two different sentences. One
+ * terminology pass left 34 of these behind at once, four of which had survived
+ * two releases ("Export settings" on a button whose label is "Export data &
+ * settings"), plus three `aria-label` twins that only a screen reader would have
+ * caught ("Language" for a control English calls "Display language").
+ *
+ * Data-driven over the shipped markup and the shipped English on purpose: this
+ * is the durable half of that cleanup. Nothing here lists a page or a key, so a
+ * newly tagged element is covered the moment it is written, and the next
+ * wording change fails here instead of shipping.
+ */
+
+const EN_MESSAGES = JSON.parse(fs.readFileSync(path.join(EXT, "_locales", "en", "messages.json"), "utf8"));
+
+const PAGES = fs.readdirSync(EXT).filter((name) => name.endsWith(".html")).sort();
+
+const HTML_ENTITIES = { "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'", "&nbsp;": " " };
+const decodeEntities = (text) => text.replace(/&(?:amp|lt|gt|quot|#39|nbsp);/g, (entity) => HTML_ENTITIES[entity]);
+
+// `data-i18n-*` attribute -> the plain attribute i18n.js overwrites with it.
+// Mirrors the TARGETS table in extension/i18n.js.
+const ATTRIBUTE_TWINS = [
+  ["data-i18n-placeholder", "placeholder"],
+  ["data-i18n-title", "title"],
+  ["data-i18n-aria-label", "aria-label"],
+  ["data-i18n-alt", "alt"]
+];
+
+/**
+ * Elements whose ENTIRE content is one run of text, paired with their key.
+ *
+ * `[^<>]` spans newlines, so an open tag broken across lines is still read;
+ * anything richer than a single text run (nested markup, a script-filled
+ * placeholder) is skipped, because comparing those is a judgement about markup
+ * rather than about wording.
+ */
+function inlineFallbacks(html) {
+  const pattern = /<([a-z0-9]+)\b[^<>]*\bdata-i18n="([A-Za-z0-9_]+)"[^<>]*>([^<>]*)<\/\1\s*>/gi;
+  const out = [];
+
+  for (const match of stripComments(html).matchAll(pattern)) {
+    const text = decodeEntities(match[3]).trim();
+    if (text) { out.push({ key: match[2], text }); }
+  }
+
+  return out;
+}
+
+// Guards the scanner itself. Every assertion below is "no offenders", which a
+// regex that silently stopped matching would also satisfy.
+test("the inline-fallback scan actually reaches the shipped markup", () => {
+  const counted = PAGES.map((page) => [page, inlineFallbacks(read(page)).length]);
+  const silent = counted.filter(([page, found]) => found === 0 && read(page).includes('data-i18n="'));
+
+  assert.deepEqual(silent.map(([page]) => page), [], "the scanner matched nothing on a page that tags strings");
+  assert.ok(
+    counted.reduce((sum, [, found]) => sum + found, 0) > 150,
+    `only ${counted.map(([page, found]) => `${page}:${found}`).join(", ")} — the scan has stopped seeing the pages`
+  );
+});
+
+// `t()` returns the KEY when nothing resolves, so a typo'd or renamed key does
+// not degrade to English — it puts "alternativeFavoriteLabel" on screen.
+test("every data-i18n key in the markup exists in English", () => {
+  const dangling = [];
+
+  PAGES.forEach((page) => {
+    for (const tag of stripComments(read(page)).matchAll(/<[a-z][\w-]*\b[^>]*>/gi)) {
+      const attrs = attributes(tag[0]);
+      Object.keys(attrs)
+        .filter((name) => name === "data-i18n" || name.startsWith("data-i18n-"))
+        .forEach((name) => {
+          if (!EN_MESSAGES[attrs[name]]) { dangling.push(`${page}: ${name}="${attrs[name]}"`); }
+        });
+    }
+  });
+
+  assert.deepEqual(dangling, [], `these render the key name at the user:\n  ${dangling.join("\n  ")}`);
+});
+
+test("every inline data-i18n fallback is byte-identical to its English message", () => {
+  const drift = [];
+
+  PAGES.forEach((page) => {
+    inlineFallbacks(read(page)).forEach(({ key, text }) => {
+      const english = EN_MESSAGES[key] && EN_MESSAGES[key].message;
+      if (english !== undefined && text !== english) {
+        drift.push(`${page}: "${key}" markup says ${JSON.stringify(text)}, English says ${JSON.stringify(english)}`);
+      }
+    });
+  });
+
+  assert.deepEqual(drift, [], `the page paints this before i18n.js runs:\n  ${drift.join("\n  ")}`);
+});
+
+// The tab title is the one string on a page that no reviewer looks at, which is
+// how the onboarding and what's-new tabs shipped hardcoded English titles while
+// every heading beneath them was tagged. The product name is the only text that
+// is the same in every language, so it is the only allowed exception.
+test("every page tags its document title for translation", () => {
+  const untagged = PAGES
+    .map((page) => [page, /<title\b([^>]*)>([\s\S]*?)<\/title>/i.exec(read(page))])
+    .filter(([, match]) => match && !/\bdata-i18n=/.test(match[1]) && match[2].trim() !== "FitShield")
+    .map(([page, match]) => `${page}: <title>${match[2].trim()}</title>`);
+
+  assert.deepEqual(untagged, [], `these show English in every locale: ${untagged.join(", ")}`);
+});
+
+// `title="Favourite"` sat on the block page's star for as long as the button
+// existed: no key, no translation, and British spelling in a product whose copy
+// is American. Nothing on screen changes when one of these is wrong, so only a
+// scan finds them.
+test("every localizable attribute in the shipped markup has its data-i18n twin", () => {
+  const loose = PAGES
+    .flatMap((page) => untranslatedAttributes(read(page)).map((entry) => `${page}: ${entry}`));
+
+  assert.deepEqual(loose, [], `hardcoded English, read aloud or shown on hover: ${loose.join(", ")}`);
+});
+
+// The same defect one layer down, and the one nobody sees: a stale `aria-label`
+// beside a correct `data-i18n-aria-label` is invisible on screen in every case.
+test("every inline i18n attribute fallback matches its English message", () => {
+  const drift = [];
+
+  PAGES.forEach((page) => {
+    for (const tag of stripComments(read(page)).matchAll(/<[a-z][\w-]*\b[^>]*>/gi)) {
+      const attrs = attributes(tag[0]);
+
+      ATTRIBUTE_TWINS.forEach(([tagged, plain]) => {
+        if (!attrs[tagged] || attrs[plain] === undefined) { return; }
+
+        const english = EN_MESSAGES[attrs[tagged]] && EN_MESSAGES[attrs[tagged]].message;
+        const inline = decodeEntities(attrs[plain]).trim();
+
+        if (english !== undefined && inline !== english) {
+          drift.push(`${page}: ${plain} says ${JSON.stringify(inline)}, English says ${JSON.stringify(english)}`);
+        }
+      });
+    }
+  });
+
+  assert.deepEqual(drift, [], `read aloud before i18n.js runs:\n  ${drift.join("\n  ")}`);
+});

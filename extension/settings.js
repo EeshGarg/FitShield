@@ -442,6 +442,18 @@ function updateMasterBlocklistToggle() {
   allBlocklistsEnabledInput.indeterminate = !allOn && !allOff;
 }
 
+// The " N match the search." tail on a blocklist count line, or nothing when no
+// search is running. English needs the verb to agree — "1 match the search" was
+// ungrammatical — so exactly one match takes its own string rather than the
+// plural with a 1 substituted into it.
+function searchMatchSuffix(count) {
+  if (!currentSearch) {
+    return "";
+  }
+
+  return t(count === 1 ? "searchMatchSuffixOne" : "searchMatchSuffix", [String(count)]);
+}
+
 function renderBlocklist(state) {
   latestBlockState = state;
   updateBlockingControls(state);
@@ -466,9 +478,9 @@ function renderBlocklist(state) {
   const deliveryEnabledCount = deliverySites.filter((site) => site.enabled).length;
   const fastFoodEnabledCount = fastFoodSites.filter((site) => site.enabled).length;
   deliveryCount.textContent = t("deliverySitesEnabledCount", [String(deliveryEnabledCount), String(deliverySites.length)])
-    + (currentSearch ? t("searchMatchSuffix", [String(filteredDeliverySites.length)]) : "");
+    + searchMatchSuffix(filteredDeliverySites.length);
   fastFoodCount.textContent = t("fastFoodSitesEnabledCount", [String(fastFoodEnabledCount), String(fastFoodSites.length)])
-    + (currentSearch ? t("searchMatchSuffix", [String(filteredFastFoodSites.length)]) : "");
+    + searchMatchSuffix(filteredFastFoodSites.length);
 
   renderSiteList(deliveryList, filteredDeliverySites, "delivery", t("emptyDeliverySearch"));
   renderSiteList(fastFoodList, filteredFastFoodSites, "fastfood", t("emptyFastFoodSearch"));
@@ -990,12 +1002,19 @@ function buildQuickChip(label, enabled, onToggle, onRemove) {
   const toggle = document.createElement("button");
   toggle.type = "button";
   toggle.className = `mb-chip-toggle ${enabled ? "on" : "off"}`;
-  toggle.textContent = enabled ? t("mbOn") : t("mbOff");
+  // The same two words the search results use, now from the same two keys.
+  // mbOn/mbOff carried identical English to mbBlocking/mbBlock but were never
+  // translated — they exist in en/messages.json alone, so every non-English user
+  // read an English "Blocking" on the chip beside a translated one in the list
+  // above it. One pair of keys is also the only way that cannot drift again.
+  const stateLabel = enabled ? t("mbBlocking") : t("mbBlock");
+
+  toggle.textContent = stateLabel;
   toggle.title = enabled ? t("mbChipToggleOnTitle") : t("mbChipToggleOffTitle");
   // Same fix as buildResultRow: "On"/"Off" alone never said what was on or off,
   // and title is a description, not a name. The remove button beside it has
   // always done this correctly.
-  toggle.setAttribute("aria-label", `${enabled ? t("mbOn") : t("mbOff")}: ${label}`);
+  toggle.setAttribute("aria-label", `${stateLabel}: ${label}`);
   toggle.setAttribute("aria-pressed", String(!!enabled));
   toggle.addEventListener("click", onToggle);
 
@@ -1623,16 +1642,14 @@ function renderEstimate() {
   estimateValueEl.textContent = formatSavings(made * protectionData.avgMealCost);
 
   if (estimateBasisEl) {
-    estimateBasisEl.textContent = t("estimateBasis", [
-      String(made),
-      formatSavings(protectionData.avgMealCost)
-    ]);
-  }
-}
+    // The singular writes the count into the sentence itself, so it takes ONE
+    // placeholder (the price) where the plural takes two. Passing the plural's
+    // two arguments to it would leave the price in $1's slot and drop it.
+    const price = formatSavings(protectionData.avgMealCost);
 
-// BCP-47 form of the stats locale ("pt_BR" -> "pt-BR") for Intl APIs.
-function intlLocale() {
-  return statsLocale().replace(/_/g, "-");
+    estimateBasisEl.textContent =
+      made === 1 ? t("estimateBasisOne", [price]) : t("estimateBasis", [String(made), price]);
+  }
 }
 
 // Resolve a curated brand's apex domain to its display label (e.g.
@@ -1649,54 +1666,24 @@ function brandLabelForDomain(domain) {
   return domain;
 }
 
-// Title-case a raw category id for display: "fast_casual" -> "Fast Casual".
-// Used as the universal fallback when a category has no localized name.
-function prettifyCategory(category) {
-  return String(category || "")
-    .split(/[_\s]+/)
-    .filter(Boolean)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
-
-// Localized display name for a category id. Core food categories have a
-// `catLabel<PascalCase>` message; anything else (or any locale missing the
-// string) falls back to the prettified id, so every category reads cleanly in
-// every language without inventing translations for niche categories.
+// Display names for category ids and ISO country codes.
+//
+// Both resolvers used to live here, and the block page — which prints the SAME
+// two identifiers in its "why you were interrupted" panel — had neither, so it
+// title-cased the raw id and joined bare ISO codes. They now live in i18n.js,
+// the one module both pages load, so the two surfaces cannot describe one block
+// differently. Do not reintroduce a local copy: a second implementation of this
+// rule is the defect, not the fix.
 function categoryDisplayName(category) {
-  const pascal = String(category || "")
-    .split(/[_\s]+/)
-    .filter(Boolean)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join("");
-  const key = pascal ? `catLabel${pascal}` : "";
-
-  if (key) {
-    const localized = t(key);
-    if (localized && localized !== key) {
-      return localized;
-    }
-  }
-
-  return prettifyCategory(category);
+  return typeof FitShieldI18n !== "undefined" && FitShieldI18n.categoryName
+    ? FitShieldI18n.categoryName(category)
+    : String(category || "");
 }
 
-// Localized country name from an ISO code; falls back to the code when Intl has
-// no name for it (e.g. XK). Memoized via a single cached formatter per render.
-let regionNamesFormatter = null;
 function countryDisplayName(code) {
-  const upper = String(code || "").trim().toUpperCase();
-  if (!upper) {
-    return "";
-  }
-  try {
-    if (!regionNamesFormatter) {
-      regionNamesFormatter = new Intl.DisplayNames([intlLocale()], { type: "region" });
-    }
-    return regionNamesFormatter.of(upper) || upper;
-  } catch (error) {
-    return upper;
-  }
+  return typeof FitShieldI18n !== "undefined" && FitShieldI18n.countryName
+    ? FitShieldI18n.countryName(code)
+    : String(code || "").trim().toUpperCase();
 }
 
 // Coerce a stored value into a clean { key: positive-number } map. Defensive
@@ -1777,8 +1764,9 @@ function renderMostBlocked() {
     return;
   }
 
-  regionNamesFormatter = null; // rebuild per render so a language switch re-localizes.
-
+  // The Intl formatter behind countryDisplayName is memoized per locale inside
+  // i18n.js, so a language switch re-localizes these lists without this render
+  // having to remember to drop a cache it no longer owns.
   const hasSites = renderRankedList(
     document.getElementById("mostBlockedSites"),
     protectionData.blockedByDomain,

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="settingsTitle">FitShield Settings</title>
+  <title data-i18n="settingsTitle">FitShield settings</title>
   <style>
     :root {
       color-scheme: dark;
@@ -307,18 +307,38 @@
     }
 
     /* Currency picker sits inline, left of the meal-cost amount. The picker
-       takes the slack (currency names are long); the amount stays compact. */
+       takes the slack (currency names are long); the amount stays compact.
+       Bottom-aligned rather than stretched, because the picker carries its own
+       caption and the amount is labelled by the field title above the row. */
     .cost-row {
       display: flex;
       gap: 8px;
-      align-items: stretch;
+      align-items: flex-end;
+    }
+
+    .cost-currency {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* Quieter than the field title above it, so the two do not read as two
+       headings for one control. */
+    .field .cost-currency label {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
     }
 
     .cost-row select {
-      flex: 1 1 auto;
+      width: 100%;
       min-width: 0;
       /* Drop the native arrow and draw our own so the currency name never
-         runs into it; reserve space on the right for the chevron + ellipsis. */
+         runs into it; reserve space on the inline-end side for the chevron +
+         ellipsis. */
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
@@ -330,6 +350,13 @@
       background-repeat: no-repeat;
       background-position: right 12px center;
       background-size: 12px;
+    }
+
+    /* `padding-inline-end` flips with the writing mode but `background-position`
+       does not, so in Arabic/Hebrew the reserved gap and the chevron ended up on
+       opposite sides and a long currency name ran straight under the arrow. */
+    [dir="rtl"] .cost-row select {
+      background-position: left 12px center;
     }
 
     .cost-row input {
@@ -943,10 +970,9 @@
       justify-content: flex-end;
     }
 
-    .language-current .mb-chip {
-      max-width: 100%;
-    }
-
+    /* The language chip is one line in a right-aligned column, so it ellipsizes
+       rather than wrapping. (`.mb-chip { max-width: 100% }` now covers every
+       chip, so it is no longer restated here.) */
     .language-current .mb-chip-label {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1034,19 +1060,34 @@
       gap: 8px;
     }
 
+    /* max-width was scoped to the language chip. It belongs on every chip: the
+       toggle beside the label says "Blocking" / "Not blocking" rather than
+       "On" / "Off", and buttons are `white-space: nowrap` page-wide, so the
+       fixed part of a quick-access chip is ~150px. A card track is 300px wide at
+       its narrowest, which leaves a long region name (Intl.DisplayNames answers
+       in the UI language — German returns single tokens like
+       "Zentralafrikanische") able to push the chip past the card it sits in. */
     .mb-chip {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 5px 6px 5px 13px;
+      max-width: 100%;
+      /* Logical, not `5px 6px 5px 13px`: the tight side belongs against the
+         round remove button, which moves to the left in Arabic and Hebrew. */
+      padding-block: 5px;
+      padding-inline: 13px 6px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
+    /* Pairs with the max-width above: `anywhere` (not `break-word`) is the value
+       that also lowers the min-content width, which is what lets the chip shrink
+       instead of overflowing. The chip grows taller; the toggle never clips. */
     .mb-chip-label {
       font-size: 0.86rem;
       font-weight: 600;
+      overflow-wrap: anywhere;
     }
 
     .mb-chip-toggle {
@@ -1344,12 +1385,12 @@
 <body>
   <main class="wrap">
     <section class="hero">
-      <h1 data-i18n="settingsTitle">FitShield Settings</h1>
+      <h1 data-i18n="settingsTitle">FitShield settings</h1>
     </section>
 
     <div class="layout">
     <section id="protection-status" class="section">
-      <h2 data-i18n="protectionStatusHeading">Your Stats</h2>
+      <h2 data-i18n="protectionStatusHeading">Your stats</h2>
       <p data-i18n="statsIntro">Counts of things that actually happened, kept on this device. Every number is one observed event — nothing here is inferred, and nothing is uploaded.</p>
       <div id="protectionStatusGrid" class="status-grid"></div>
 
@@ -1384,7 +1425,13 @@
         <div class="field savings-field">
           <label id="avgMealCostLabel" for="avgMealCost" data-i18n="avgMealCostLabel">Average meal cost</label>
           <div class="cost-row">
-            <select id="currencyMode" aria-labelledby="avgMealCostLabel"></select>
+            <!-- The picker used to borrow avgMealCostLabel through
+                 aria-labelledby, so the currency and the amount announced as one
+                 name ("Average meal cost ($)") and neither said which was which. -->
+            <div class="cost-currency">
+              <label for="currencyMode" data-i18n="currencyLabel">Currency</label>
+              <select id="currencyMode"></select>
+            </div>
             <input id="avgMealCost" type="number" min="0" step="1">
           </div>
           <small data-i18n="avgMealCostBasisHint">What one delivery order usually costs you. Stored on your device only.</small>
@@ -1398,7 +1445,7 @@
     </section>
 
     <section id="blocking-options" class="section">
-      <h2 data-i18n="blockingOptionsHeading">Blocking Options</h2>
+      <h2 data-i18n="blockingOptionsHeading">Blocking options</h2>
 
       <div class="grid">
         <div class="field">
@@ -1575,7 +1622,7 @@
 
     <!-- A restrained, local, entirely optional weekly summary. -->
     <section id="weekly-recap" class="section">
-      <h2 data-i18n="recapHeading">This week</h2>
+      <h2 data-i18n="recapHeading">Last 7 days</h2>
       <div id="recapBody" class="pref-list"></div>
       <div class="pref-row">
         <label class="toggle-inline">
@@ -1637,7 +1684,7 @@
     </section>
 
     <section id="customize-blocklist" class="section full">
-      <h2 data-i18n="customizeBlocklistHeading">Customize Blocklist</h2>
+      <h2 data-i18n="customizeBlocklistHeading">Customize blocklist</h2>
       <p data-i18n="customizeBlocklistIntro">Choose which built-in groups are active, turn individual sites on or off, and add your own domains.</p>
 
       <div class="search-controls">
@@ -1658,7 +1705,7 @@
                  that contains them. Each one also NAMES its switch, so the
                  accessible name is the same localized string on screen rather
                  than a `title` on the wrapping <label>, which named nothing. -->
-            <h3 id="allBlocklistsTitle" data-i18n="allBlocklistsHeading">All Blocklists</h3>
+            <h3 id="allBlocklistsTitle" data-i18n="allBlocklistsHeading">All blocklists</h3>
             <p data-i18n="allBlocklistsHint">Turn every built-in group on or off at once.</p>
           </div>
           <div class="category-actions">
@@ -1673,11 +1720,11 @@
       <div class="category-card">
         <div class="row stack-row">
           <div>
-            <h3 id="deliverySitesTitle" data-i18n="deliverySitesHeading">Delivery Sites</h3>
+            <h3 id="deliverySitesTitle" data-i18n="deliverySitesHeading">Delivery sites</h3>
             <p id="deliveryCount" data-i18n="popupDeliveryDefault">Delivery ordering domains.</p>
           </div>
           <div class="category-actions">
-            <button id="toggleDeliveryList" class="secondary list-toggle" type="button" aria-expanded="false" data-i18n="showSitesButton">Show Sites</button>
+            <button id="toggleDeliveryList" class="secondary list-toggle" type="button" aria-expanded="false" data-i18n="showSitesButton">Show sites</button>
             <label class="toggle" title="Enable delivery site blocking" data-i18n-title="deliveryToggleTitle">
               <input id="deliverySitesEnabled" type="checkbox" aria-labelledby="deliverySitesTitle">
               <span class="slider"></span>
@@ -1690,11 +1737,11 @@
       <div class="category-card">
         <div class="row stack-row">
           <div>
-            <h3 id="fastFoodSitesTitle" data-i18n="fastFoodSitesHeading">Fast Food Sites</h3>
+            <h3 id="fastFoodSitesTitle" data-i18n="fastFoodSitesHeading">Fast food sites</h3>
             <p id="fastFoodCount" data-i18n="popupFastFoodDefault">Major chain ordering domains.</p>
           </div>
           <div class="category-actions">
-            <button id="toggleFastFoodList" class="secondary list-toggle" type="button" aria-expanded="false" data-i18n="showSitesButton">Show Sites</button>
+            <button id="toggleFastFoodList" class="secondary list-toggle" type="button" aria-expanded="false" data-i18n="showSitesButton">Show sites</button>
             <label class="toggle" title="Enable fast food site blocking" data-i18n-title="fastFoodToggleTitle">
               <input id="fastFoodSitesEnabled" type="checkbox" aria-labelledby="fastFoodSitesTitle">
               <span class="slider"></span>
@@ -1726,14 +1773,14 @@
           </div>
           <small data-i18n="customNormalizeHint">Entries are normalized to domains and blocked across all pages.</small>
           <div id="customSiteList" class="list" hidden></div>
-          <div id="customSiteEmpty" class="empty" data-i18n="customEmptyDefault">No custom URLs added yet.</div>
+          <div id="customSiteEmpty" class="empty" data-i18n="customEmptyDefault">No custom blocked sites yet. Add a domain like example.com above to start blocking it.</div>
           <div id="blocklistNotice" class="notice" aria-live="polite"></div>
         </div>
       </div>
     </section>
 
     <section id="metadata-blocking" class="section full">
-      <h2 data-i18n="metadataHeading">Country &amp; Category Blocking</h2>
+      <h2 data-i18n="metadataHeading">Country &amp; category blocking</h2>
       <p data-i18n="metadataIntro">Block whole groups of sites by the country a brand operates in or the kind of food it serves. These blocks add to your existing site and custom-URL blocks.</p>
 
       <div class="grid mb-grid">
@@ -1790,7 +1837,7 @@
     <section id="appearance" class="section">
       <div class="row">
         <h2 data-i18n="themeHeading">Theme</h2>
-        <button id="resetTheme" class="secondary theme-reset-button" type="button" data-i18n="resetThemeButton">Reset Theme</button>
+        <button id="resetTheme" class="secondary theme-reset-button" type="button" data-i18n="resetThemeButton">Reset theme</button>
       </div>
 
       <div class="grid">
@@ -1825,7 +1872,7 @@
           <input id="textColor" type="color">
         </div>
         <div class="field theme-color-field">
-          <label for="mutedColor" data-i18n="themeMutedText">Muted Text</label>
+          <label for="mutedColor" data-i18n="themeMutedText">Muted text</label>
           <input id="mutedColor" type="color">
         </div>
         <div class="field theme-color-field">
@@ -1836,12 +1883,12 @@
 
       <div class="grid">
         <div class="field">
-          <label for="radiusRange" data-i18n="cornerRadiusLabel">Corner Radius</label>
+          <label for="radiusRange" data-i18n="cornerRadiusLabel">Corner radius</label>
           <input id="radiusRange" type="range" min="12" max="36" step="1">
           <small><span id="radiusValue">24</span> px</small>
         </div>
         <div class="field">
-          <label for="popupWidthRange" data-i18n="popupWidthLabel">Popup Width</label>
+          <label for="popupWidthRange" data-i18n="popupWidthLabel">Popup width</label>
           <input id="popupWidthRange" type="range" min="420" max="620" step="4">
           <small><span id="popupWidthValue">516</span> px</small>
         </div>
@@ -1849,20 +1896,20 @@
     </section>
 
     <section class="section" id="backup-restore">
-      <h2 data-i18n="backupHeading">Backup &amp; Restore</h2>
+      <h2 data-i18n="backupHeading">Backup &amp; restore</h2>
       <p data-i18n="backupIntro">Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded.</p>
 
       <div class="search-controls">
-        <button id="exportSettings" class="secondary" type="button" data-i18n="exportSettingsButton">Export settings</button>
-        <button id="importSettings" class="secondary" type="button" data-i18n="importSettingsButton">Import settings</button>
+        <button id="exportSettings" class="secondary" type="button" data-i18n="exportSettingsButton">Export data &amp; settings</button>
+        <button id="importSettings" class="secondary" type="button" data-i18n="importSettingsButton">Import data &amp; settings</button>
       </div>
 
-      <input id="importSettingsInput" type="file" accept="application/json,.json" aria-label="Import settings" data-i18n-aria-label="importSettingsButton" hidden>
+      <input id="importSettingsInput" type="file" accept="application/json,.json" aria-label="Import data &amp; settings" data-i18n-aria-label="importSettingsButton" hidden>
       <div id="backupNotice" class="notice" aria-live="polite"></div>
     </section>
 
     <section class="section" id="reset-data">
-      <h2 data-i18n="resetHeading">Reset &amp; Data</h2>
+      <h2 data-i18n="resetHeading">Reset &amp; data</h2>
       <p data-i18n="resetIntro">Restore parts of FitShield to their defaults. Each action asks for confirmation first.</p>
 
       <div class="reset-grid">
@@ -1876,7 +1923,7 @@
         </div>
         <div class="reset-item">
           <button id="resetPreferences" class="secondary" type="button" data-i18n="resetStatsButton">Reset statistics &amp; estimates</button>
-          <small data-i18n="resetStatsHint">Your counters, the most-blocked lists, your favourites, and the estimate settings.</small>
+          <small data-i18n="resetStatsHint">Your counters, the most-blocked lists, your favorites, and the estimate settings.</small>
         </div>
         <div class="reset-item">
           <button id="factoryReset" class="danger" type="button" data-i18n="factoryResetButton">Factory reset</button>

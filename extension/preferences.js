@@ -192,7 +192,11 @@
       return t("scheduleAlwaysSummary");
     }
 
-    return t("scheduleWindowsSummary", [String(schedule.windows.length)]);
+    const count = schedule.windows.length;
+
+    // Two real strings, not one with an "s" bolted on: the singular writes the
+    // count out ("1 time window set.") so a locale is free to inflect it.
+    return t(count === 1 ? "scheduleWindowsSummaryOne" : "scheduleWindowsSummary", [String(count)]);
   }
 
   function renderScheduleWindows() {

@@ -17,6 +17,21 @@
 
 const t = (key, subs) => (typeof FitShieldI18n !== "undefined" ? FitShieldI18n.t(key, subs) : key);
 
+// A category id and a country code are internal identifiers. Settings prints
+// display names for them; this page used to print the identifiers themselves, so
+// the same block read "Fast_casual · US, HK" here and "Fast Casual · United
+// States, Hong Kong" in the record of it. Both pages now resolve through the one
+// implementation in i18n.js — see the "Display names" block there.
+const categoryDisplayName = (category) =>
+  typeof FitShieldI18n !== "undefined" && FitShieldI18n.categoryName
+    ? FitShieldI18n.categoryName(category)
+    : String(category || "");
+
+const countryDisplayName = (code) =>
+  typeof FitShieldI18n !== "undefined" && FitShieldI18n.countryName
+    ? FitShieldI18n.countryName(code)
+    : String(code || "");
+
 const params = new URLSearchParams(window.location.search);
 const siteKey = params.get("site") || "";
 // Preview mode is opt-in through the settings page and is loudly labelled; it
@@ -190,8 +205,17 @@ function unlock() {
 // Why this was interrupted
 // ---------------------------------------------------------------------------
 
-function capitalize(text) {
-  return text ? text.charAt(0).toUpperCase() + text.slice(1) : text;
+// "fastfood" and "fast_food" are one word spelled two ways. The worker's rule
+// catalog labels a brand with its BUCKET ("delivery", "fastfood", "custom")
+// rather than its curated category, and that bucket is not always spelled the
+// way the type is — so the exact comparison this guard used to make let the
+// fast-food bucket through, and the panel printed a Category row that only
+// restated the Rule row above it, as an identifier: "Rule: Fast food /
+// Category: Fastfood". A row that adds nothing does not belong on a screen whose
+// whole job is to answer four questions.
+function sameWord(a, b) {
+  const strip = (value) => String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  return strip(a) === strip(b);
 }
 
 function blockTypeLabel(type) {
@@ -209,7 +233,7 @@ function blockTypeLabel(type) {
 
 function formatCountryList(codes) {
   const list = (Array.isArray(codes) ? codes : [])
-    .map((code) => String(code || "").trim().toUpperCase())
+    .map((code) => countryDisplayName(code))
     .filter(Boolean);
 
   if (list.length === 0) {
@@ -253,7 +277,9 @@ function renderReason() {
   }
 
   const category =
-    info.category && info.category !== info.type && info.category !== "custom" ? capitalize(info.category) : "";
+    info.category && !sameWord(info.category, info.type) && info.category !== "custom"
+      ? categoryDisplayName(info.category)
+      : "";
 
   appendReasonRow(t("blockReasonDomain"), info.domain || "");
   appendReasonRow(t("blockReasonType"), blockTypeLabel(info.type));
@@ -276,7 +302,11 @@ function renderStaticText() {
     ui.brand.replaceChildren();
     const strong = document.createElement("strong");
     strong.textContent = state.info.label;
-    ui.brand.append(document.createTextNode(`${t("warningTriggeredByPrefix")} `), strong);
+    // The sentence ends after the brand. Without the stop the line read
+    // "You opened DoorDash" between two properly punctuated sentences — and it
+    // has to be a text node rather than part of the message, because the brand
+    // name is emphasised and the label comes from the blocklist, not from copy.
+    ui.brand.append(document.createTextNode(`${t("warningTriggeredByPrefix")} `), strong, document.createTextNode("."));
     ui.brand.hidden = false;
   } else {
     ui.brand.hidden = true;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to FitShield</title>
+  <title data-i18n="welcomeTitle">Welcome to FitShield</title>
   <style>
     :root {
       color-scheme: dark;
@@ -213,7 +213,7 @@
     <section class="step" data-step="1">
       <h2 data-i18n="welcomeLangTitle">Choose your language</h2>
       <p data-i18n="welcomeLangBody">This sets the language for FitShield's popup, settings, and block screen.</p>
-      <select id="languageSelect" aria-label="Language" data-i18n-aria-label="languageSelectLabel"></select>
+      <select id="languageSelect" aria-label="Display language" data-i18n-aria-label="languageSelectLabel"></select>
     </section>
 
     <!-- Step 2: theme -->
@@ -256,7 +256,7 @@
 
       <p class="desc" data-i18n="welcomeImportBody">Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue.</p>
       <button id="importButton" class="btn secondary" type="button" data-i18n="welcomeImportButton">Import settings file</button>
-      <input id="importInput" type="file" accept="application/json,.json" aria-label="Import settings" data-i18n-aria-label="welcomeImportButton" hidden>
+      <input id="importInput" type="file" accept="application/json,.json" aria-label="Import settings file" data-i18n-aria-label="welcomeImportButton" hidden>
       <div class="notice" id="importNotice"></div>
 
       <p class="desc" data-i18n="onboardingAdvancedNote">Everything else — countries, categories, individual sites, your kitchen, and your own alternatives — is in settings whenever you want it.</p>

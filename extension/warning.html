@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="warningPageTitle">Take a Breath</title>
+  <title data-i18n="warningPageTitle">Take a moment</title>
   <style>
     :root {
       color-scheme: dark;
@@ -510,7 +510,7 @@
     <section class="shell block-card" aria-labelledby="pauseTitle">
       <span class="eyebrow" data-i18n="warningEyebrow">FitShield</span>
       <h1 id="pauseTitle" data-i18n="warningTitle">Take a moment.</h1>
-      <p data-i18n="warningIntro">Hunger, habit, stress, and convenience feel the same in the moment. Here is one thing you could make instead.</p>
+      <p data-i18n="warningIntro">Hunger, habit, stress, and convenience all feel the same in the moment. Here is one thing you could make instead.</p>
       <p class="brand-line" id="brand" hidden></p>
 
       <!-- The number itself is not a live region: announcing every second would
@@ -587,9 +587,9 @@
       <p class="alt-note" id="altNote"></p>
 
       <div class="alt-actions">
-        <button class="choose" id="chooseAlt" type="button" data-i18n="alternativeChooseButton">I'll make this</button>
+        <button class="choose" id="chooseAlt" type="button" data-i18n="alternativeChooseButton">Choose this</button>
         <button class="another" id="anotherAlt" type="button" data-i18n="alternativeAnotherButton">Show another</button>
-        <button class="fav" id="favAlt" type="button" aria-pressed="false" data-i18n-aria-label="alternativeFavoriteLabel" title="Favourite">★</button>
+        <button class="fav" id="favAlt" type="button" aria-pressed="false" data-i18n-aria-label="alternativeFavoriteLabel" title="Save as a favorite" data-i18n-title="alternativeFavoriteLabel">★</button>
       </div>
 
       <div class="filters" id="filters" role="group" data-i18n-aria-label="alternativeFiltersLabel"></div>
@@ -600,8 +600,8 @@
 
     <!-- Shown when the user chooses to continue: an explicit, scoped decision. -->
     <section class="shell pass" id="passPanel" hidden aria-labelledby="passTitle">
-      <div class="pass-title" id="passTitle" data-i18n="passTitle">Continue to this site</div>
-      <p class="pass-sub" id="passSub" data-i18n="passSubtitle">Choose how long. FitShield stays on for everything else.</p>
+      <div class="pass-title" id="passTitle" data-i18n="passTitle">How do you want to continue?</div>
+      <p class="pass-sub" id="passSub" data-i18n="passSubtitle">Choose how long. Each option says what it covers — this site only, or all blocking.</p>
       <div class="pass-options" id="passOptions" role="group" aria-labelledby="passTitle"></div>
       <div class="actions">
         <button id="passCancel" class="secondary" type="button" data-i18n="passCancel">Never mind</button>

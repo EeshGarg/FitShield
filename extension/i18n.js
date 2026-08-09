@@ -217,6 +217,140 @@
     return key;
   }
 
+  // -------------------------------------------------------------------------
+  // Display names for internal identifiers
+  //
+  // A blocklist category ("fast_casual") and an ISO country code ("HK") are
+  // storage keys, not English. Two surfaces print the SAME ones — the block
+  // page's "why you were interrupted" panel and Settings' most-blocked lists —
+  // and they used to print them differently: Settings resolved a localized name
+  // while the block page title-cased the raw id, so one interruption read
+  // "Fast_casual · US, HK" and the record of that same interruption read
+  // "Fast Casual · United States, Hong Kong".
+  //
+  // Copying Settings' resolver onto the block page would have left the defect
+  // intact — two implementations of one rule drift the moment either is touched.
+  // Resolution therefore lives HERE, beside the message table it reads from,
+  // because i18n.js is the one module every page already loads.
+  // -------------------------------------------------------------------------
+
+  // The locale display names resolve against, in the BCP-47 form Intl wants:
+  // the pinned UI language, else the host's own locale.
+  function displayLocale() {
+    const active =
+      overrideLocale ||
+      (typeof navigator !== "undefined" ? navigator.language : "") ||
+      (hasI18n && FS.i18n.getUILanguage ? FS.i18n.getUILanguage() : "") ||
+      "en";
+
+    return String(active).replace(/_/g, "-");
+  }
+
+  // Title-case a raw category id: "fast_casual" -> "Fast Casual". This is the
+  // universal fallback, and it is only ever *approximately* right — correct for
+  // "fast_casual", wrong for "b2b_marketplace", and English in every locale
+  // either way. Every category the shipped blocklists carry has a catLabel key
+  // (a test in locales.test.js keeps it that way), so this fires only for a
+  // category added to the data ahead of its string.
+  function prettifyCategory(category) {
+    return String(category || "")
+      .split(/[_\s]+/)
+      .filter(Boolean)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+
+  // Localized display name for a blocklist category id.
+  function categoryName(category) {
+    const pascal = String(category || "")
+      .split(/[_\s]+/)
+      .filter(Boolean)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join("");
+    const key = pascal ? `catLabel${pascal}` : "";
+
+    if (key) {
+      // `t` returns the key itself when nothing resolves, which is precisely the
+      // "renders the KEY NAME at the user" failure — so an unresolved lookup
+      // falls through to the prettified id instead.
+      const localized = t(key);
+
+      if (localized && localized !== key) {
+        return localized;
+      }
+    }
+
+    return prettifyCategory(category);
+  }
+
+  // Curated English short forms, mirroring FS Engine's getCountryName — which
+  // names the country picker in Settings, on the same page that renders the
+  // most-blocked country list. Intl agrees with the engine on all 111 codes the
+  // shipped datasets carry except this one ("Hong Kong SAR China" is too verbose
+  // for a chip), and a test pins the two namers together over every one of those
+  // codes so a future divergence cannot appear silently.
+  const COUNTRY_SHORT_FORMS = { HK: "Hong Kong" };
+
+  // Building an Intl.DisplayNames is not free and the ranked lists resolve a
+  // code per row on every render, so it is memoized — keyed by locale, which
+  // means switching language invalidates it without anyone having to remember to.
+  let regionNamer = null;
+  let regionNamerLocale = "";
+
+  function regionNamerFor(locale) {
+    if (regionNamerLocale === locale) {
+      return regionNamer;
+    }
+
+    regionNamerLocale = locale;
+    regionNamer = null;
+
+    try {
+      if (typeof Intl !== "undefined" && typeof Intl.DisplayNames === "function") {
+        regionNamer = new Intl.DisplayNames([locale], { type: "region" });
+      }
+    } catch (error) {
+      // A locale tag Intl will not accept. The curated map / raw code answers.
+      regionNamer = null;
+    }
+
+    return regionNamer;
+  }
+
+  // Localized country name from an ISO 3166-1 alpha-2 code. Unknown codes echo
+  // themselves (e.g. XK), which is still better than an empty cell.
+  function countryName(code) {
+    const normalized = String(code || "").trim().toUpperCase();
+
+    if (!normalized) {
+      return "";
+    }
+
+    const locale = displayLocale();
+
+    // English prefers the curated short form; every other locale prefers Intl,
+    // so the name is actually translated rather than pinned to English.
+    if (/^en(-|$)/i.test(locale) && COUNTRY_SHORT_FORMS[normalized]) {
+      return COUNTRY_SHORT_FORMS[normalized];
+    }
+
+    const namer = regionNamerFor(locale);
+
+    if (namer) {
+      try {
+        const name = namer.of(normalized);
+
+        if (name && name !== normalized) {
+          return name;
+        }
+      } catch (error) {
+        // Not a well-formed region code for Intl — fall through.
+      }
+    }
+
+    return COUNTRY_SHORT_FORMS[normalized] || normalized;
+  }
+
   // Map of data attribute (camelCase dataset key) -> how to apply the string.
   const TARGETS = [
     ["i18n", (el, value) => { el.textContent = value; }],
@@ -376,6 +510,9 @@
     onChange,
     ready,
     isRtl,
+    displayLocale,
+    categoryName,
+    countryName,
     SUPPORTED_LOCALES,
     STORAGE_KEY
   };

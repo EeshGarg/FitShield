@@ -969,3 +969,196 @@ test("resetting blocking settings clears everything that governs blocking", () =
   );
   assert.ok(!known.has("settingsDelaySeconds"), "a retired key must not come back through a backup either");
 });
+
+// ===========================================================================
+// Singular/plural: three lines that used to build grammar by suffix
+//
+// Each rendered a count of exactly 1 through the plural string, so the page said
+// "1 time windows set.", "1 alternatives you marked as made", and "1 match the
+// search". They now have real singular keys — and the singular of the estimate
+// takes ONE placeholder where the plural takes two, so handing it the plural's
+// arguments would put the count in the price's slot and drop the price.
+//
+// Driven through the real page: `t()` renders the KEY NAME when a key is
+// missing, so a mistyped key shows up here as "estimateBasisOne" on screen.
+// ===========================================================================
+
+test("one time window is described in the singular", async () => {
+  const core = require("../extension/fitshield-core.js");
+
+  const store = {
+    uiLanguage: "en",
+    timerSeconds: 30,
+    schedule: {
+      mode: "windows",
+      windows: [{ days: core.ALL_DAYS.slice(), start: "18:00", end: "23:00" }],
+      until: null
+    }
+  };
+  const doc = renderSettings(store, { ok: true, ...core.readSettings(store) });
+  assert.ok(await waitFor(() => doc.getById("scheduleStatus").textContent.length > 0), "the schedule summary rendered");
+
+  assert.equal(doc.getById("scheduleStatus").textContent, "1 time window set.");
+});
+
+test("two time windows are described in the plural", async () => {
+  const core = require("../extension/fitshield-core.js");
+
+  const store = {
+    uiLanguage: "en",
+    timerSeconds: 30,
+    schedule: {
+      mode: "windows",
+      windows: [
+        { days: core.ALL_DAYS.slice(), start: "12:00", end: "14:00" },
+        { days: core.ALL_DAYS.slice(), start: "18:00", end: "23:00" }
+      ],
+      until: null
+    }
+  };
+  const doc = renderSettings(store, { ok: true, ...core.readSettings(store) });
+  assert.ok(await waitFor(() => doc.getById("scheduleStatus").textContent.length > 0), "the schedule summary rendered");
+
+  assert.equal(doc.getById("scheduleStatus").textContent, "2 time windows set.");
+});
+
+// The estimate basis line, at exactly one confirmed alternative and at several.
+async function estimateBasisAt(alternativesMade) {
+  const core = require("../extension/fitshield-core.js");
+
+  const store = {
+    ...core.migrateState({}).state,
+    uiLanguage: "en",
+    showEstimates: true,
+    mealStatsCustomized: true,
+    avgMealCost: 20,
+    currency: "USD",
+    stats: {
+      totals: {
+        interruptions: 50,
+        left: 40,
+        continued: 10,
+        passesUsed: 10,
+        alternativesViewed: 60,
+        alternativesSelected: 9,
+        alternativesMade
+      },
+      history: []
+    }
+  };
+
+  const doc = renderSettings(store, undefined);
+  assert.ok(await waitFor(() => doc.getById("estimateBasis").textContent.length > 0), "the estimate basis rendered");
+  return doc.getById("estimateBasis").textContent;
+}
+
+test("one confirmed alternative reads as one, with the price still in the sentence", async () => {
+  const basis = await estimateBasisAt(1);
+
+  assert.equal(basis, "1 alternative you marked as made, at $20 each.", `the basis reads "${basis}"`);
+  // The singular takes one placeholder. Handing it the plural's two arguments
+  // substitutes the COUNT for the price, which is how a "$1" reaches the screen.
+  assert.ok(!/\$1\s+each/.test(basis), "the count was substituted where the price belongs");
+});
+
+test("several confirmed alternatives read as several", async () => {
+  const basis = await estimateBasisAt(4);
+
+  assert.equal(basis, "4 alternatives you marked as made, at $20 each.", `the basis reads "${basis}"`);
+});
+
+// The " N match the search." tail on the delivery count line.
+async function deliveryCountLine(query) {
+  const store = {
+    deliverySitesEnabled: true,
+    fastFoodSitesEnabled: true,
+    customSitesEnabled: true,
+    timerSeconds: 30,
+    uiLanguage: "en"
+  };
+  const doc = renderSettings(store, undefined);
+  assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
+
+  // Typed, then searched — the same two actions a user performs, through the
+  // page's own click handler.
+  doc.getById("blocklistSearchInput").value = query;
+  const search = doc.getById("blocklistSearchButton");
+  (search._listeners.click || []).forEach((fn) => fn({ preventDefault() {} }));
+  assert.ok(
+    await waitFor(() => /search/.test(doc.getById("deliveryCount").textContent)),
+    "the search suffix should appear on the count line"
+  );
+
+  return doc.getById("deliveryCount").textContent;
+}
+
+test("exactly one search match agrees with its verb", async () => {
+  // "1 match the search" was ungrammatical; English needs the -s at one.
+  const line = await deliveryCountLine("doordash.com");
+
+  assert.match(line, / 1 matches the search\.$/, `the count line reads "${line}"`);
+});
+
+test("several search matches keep the plural verb", async () => {
+  const line = await deliveryCountLine("deliveroo");
+
+  assert.ok(!/ 1 match/.test(line), `a plural count took the singular string: "${line}"`);
+  assert.match(line, / \d+ match the search\.$/, `the count line reads "${line}"`);
+});
+
+// ===========================================================================
+// Display names and state words come from one place
+// ===========================================================================
+
+test("Settings resolves category and country names through the shared resolver", async () => {
+  // Settings used to own both resolvers and the block page owned neither, so the
+  // two pages described one block differently. If a local copy is reintroduced
+  // here, it stops matching the shared one and this fails.
+  const doc = renderSettings({ uiLanguage: "en", timerSeconds: 30 }, undefined);
+  assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
+
+  const page = doc.globals;
+  const i18n = page.FitShieldI18n;
+
+  ["fast_casual", "b2b_marketplace", "tea", "logistics", "not_a_real_category"].forEach((id) => {
+    assert.equal(page.categoryDisplayName(id), i18n.categoryName(id), `Settings resolves "${id}" on its own`);
+  });
+
+  ["US", "HK", "JP", "QQ"].forEach((code) => {
+    assert.equal(page.countryDisplayName(code), i18n.countryName(code), `Settings resolves "${code}" on its own`);
+  });
+
+  // …and what they return are names, not the identifiers storage holds.
+  assert.equal(page.categoryDisplayName("fast_casual"), "Fast Casual");
+  assert.equal(page.countryDisplayName("HK"), "Hong Kong");
+});
+
+test("a quick-access chip and a search result use the same two words", async () => {
+  // The chips read mbOn/mbOff, which carried the same English as
+  // mbBlocking/mbBlock but existed in en/messages.json ALONE. A Japanese user
+  // therefore saw a translated state word in the results list and an English one
+  // on the chip pinned directly above it.
+  const doc = renderSettings({ uiLanguage: "en", timerSeconds: 30 }, undefined);
+  assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
+
+  const page = doc.globals;
+
+  [true, false].forEach((enabled) => {
+    const chip = page.buildQuickChip("Japan", enabled, () => {}, () => {});
+    const toggle = chip.querySelectorAll("button").find((node) => node.getAttribute("aria-pressed") !== null);
+    const pill = page.buildResultRow("Japan", "3 sites", enabled, () => {}).querySelectorAll("button")[0];
+
+    assert.ok(toggle, "buildQuickChip built no state toggle");
+    assert.equal(
+      toggle.textContent,
+      pill.textContent,
+      `the chip says "${toggle.textContent}" where the search result says "${pill.textContent}"`
+    );
+    assert.equal(toggle.textContent, enabled ? "Blocking" : "Not blocking");
+    // WCAG 2.5.3 — the visible word stays inside the accessible name.
+    assert.ok(
+      (toggle.getAttribute("aria-label") || "").includes(toggle.textContent),
+      "the visible word dropped out of the accessible name"
+    );
+  });
+});
