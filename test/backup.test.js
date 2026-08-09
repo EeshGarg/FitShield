@@ -390,3 +390,125 @@ test("changelog.json is valid and lists the current version", () => {
     "changelog should include the current manifest version"
   );
 });
+
+// ---------------------------------------------------------------------------
+// Round-trip durability
+//
+// `readSettings` silently owned `customSites` through the defaults spread but
+// never populated it, so `normalizeImported` preferred that empty default over
+// the file's real value: an export followed by an import deleted every custom
+// blocked domain and reported success. And every import stamped
+// SCHEMA_VERSION before migrating, so a 0.54 backup's counters were never
+// translated and all seven statistics read zero.
+// ---------------------------------------------------------------------------
+
+test("custom blocked sites survive an export/import round trip", () => {
+  const sites = [
+    { domain: "pizzahut.co.uk", enabled: true },
+    { domain: "localkebab.example", enabled: false }
+  ];
+
+  const restored = backup.normalizeImported(
+    backup.parseBackup(
+      JSON.stringify({
+        _type: "fitshield-settings-backup",
+        schema: 2,
+        settings: { customSites: sites, enabled: true }
+      })
+    )
+  );
+
+  assert.deepEqual(restored.customSites, sites, "the domains must come back exactly as exported");
+});
+
+test("a legacy string[] of custom sites is upgraded, not dropped", () => {
+  const restored = backup.normalizeImported(
+    backup.parseBackup(
+      JSON.stringify({
+        _type: "fitshield-settings-backup",
+        schema: 1,
+        settings: { customSites: ["https://www.foo.example/menu", "bar.example"] }
+      })
+    )
+  );
+
+  assert.deepEqual(restored.customSites, [
+    { domain: "foo.example", enabled: true },
+    { domain: "bar.example", enabled: true }
+  ]);
+});
+
+test("a 0.54 backup's counters reach the statistics the panel reads", () => {
+  const restored = backup.normalizeImported(
+    backup.parseBackup(
+      JSON.stringify({
+        _type: "fitshield-settings-backup",
+        schema: 1,
+        version: "0.54",
+        settings: { blockedVisits: 137, recipesChosen: 19, caloriesAvoided: 8200 }
+      })
+    )
+  );
+
+  assert.equal(restored.stats.totals.interruptions, 137, "blockedVisits must become interruptions");
+  assert.equal(restored.stats.totals.alternativesSelected, 19, "recipesChosen must become alternativesSelected");
+  assert.equal(restored.blockedVisits, 137, "and the original counter is still preserved");
+  assert.equal(restored.schemaVersion, 2);
+});
+
+test("a 0.54 schedule reaches the structured form on restore", () => {
+  const restored = backup.normalizeImported(
+    backup.parseBackup(
+      JSON.stringify({
+        _type: "fitshield-settings-backup",
+        schema: 1,
+        settings: { scheduleEnabled: true, scheduleStart: "19:30", scheduleEnd: "02:00" }
+      })
+    )
+  );
+
+  assert.equal(restored.schedule.mode, "windows");
+  assert.deepEqual(restored.schedule.windows, [{ days: [0, 1, 2, 3, 4, 5, 6], start: "19:30", end: "02:00" }]);
+});
+
+test("a partial backup still does not overwrite anything it did not carry", () => {
+  // The migration fills in every default; adopting those would let a two-key
+  // file wipe the current profile's schedule, passes and statistics.
+  const restored = backup.normalizeImported(
+    backup.parseBackup(
+      JSON.stringify({ _type: "fitshield-settings-backup", schema: 2, settings: { timerSeconds: 30 } })
+    )
+  );
+
+  assert.deepEqual(Object.keys(restored).sort(), ["schemaVersion", "timerSeconds"]);
+});
+
+test("every durable key survives a full round trip with its value intact", () => {
+  // The class of bug above, generalised: any key readSettings does not handle
+  // is silently replaced by its default on import.
+  const profile = {
+    customSites: [{ domain: "wings.example", enabled: false }],
+    pantry: ["eggs", "rice"],
+    equipment: ["microwave", "stove"],
+    avoidAllergens: ["peanut"],
+    dietPreference: "vegetarian",
+    alternativeFavorites: ["naan-pizza"],
+    enabledCountries: ["GB", "US"],
+    enabledCategories: ["pizza"],
+    disabledDeliverySiteKeys: ["delivery-ubereats-com"],
+    timerSeconds: 45,
+    passDurationMinutes: 12,
+    frictionProfile: "custom",
+    uiLanguage: "fr",
+    showEstimates: true,
+    avgMealCost: 22
+  };
+
+  const restored = backup.normalizeImported(
+    backup.parseBackup(JSON.stringify({ _type: "fitshield-settings-backup", schema: 2, settings: profile }))
+  );
+
+  Object.keys(profile).forEach((key) => {
+    assert.deepEqual(restored[key], profile[key], `${key} must survive the round trip unchanged`);
+  });
+});

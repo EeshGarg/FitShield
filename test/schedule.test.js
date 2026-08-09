@@ -276,3 +276,61 @@ test("a plain every-day window still syncs from the flat keys", () => {
     assert.equal(expressibleByFlatKeys(preset), true, `${id} is expressible, so the popup can still drive it`);
   });
 });
+
+// ---------------------------------------------------------------------------
+// The UI must render the schedule that is actually enforced
+//
+// readSettings returned no scheduleEnabled/Start/End at all, so getBlockState
+// carried none of them and both the popup and Settings fell through to their
+// own destructuring defaults: a profile whose window was 19:30-02:00 was shown
+// as "off, 18:00-23:00" while the worker enforced the real hours.
+// ---------------------------------------------------------------------------
+
+test("readSettings projects the flat trio from the canonical schedule", () => {
+  const stored = {
+    schedule: core.normalizeSchedule(
+      core.scheduleFromLegacy({ scheduleEnabled: true, scheduleStart: "19:30", scheduleEnd: "02:00" })
+    )
+  };
+
+  const settings = core.readSettings(stored);
+
+  assert.equal(settings.scheduleEnabled, true, "the UI must see that a schedule is on");
+  assert.equal(settings.scheduleStart, "19:30", "and the hours actually stored");
+  assert.equal(settings.scheduleEnd, "02:00");
+  assert.equal(settings.scheduleSimple, true);
+});
+
+test("an always-on schedule projects as off, with usable defaults", () => {
+  const settings = core.readSettings({ schedule: { mode: "always", windows: [], until: null } });
+
+  assert.equal(settings.scheduleEnabled, false);
+  assert.equal(settings.scheduleSimple, true, "the simple controls can still be offered");
+});
+
+test("a schedule the two time inputs cannot hold is flagged, not misrepresented", () => {
+  ["workdayLunch", "eveningsAndWeekends"].forEach((id) => {
+    const settings = core.readSettings({ schedule: core.schedulePresetValues(id) });
+
+    assert.equal(settings.scheduleEnabled, true, `${id} is a real schedule`);
+    assert.equal(
+      settings.scheduleSimple,
+      false,
+      `${id} has more shape than start+end, so the surfaces must disable those inputs`
+    );
+  });
+});
+
+test("the projection never invents hours for a schedule it cannot express", () => {
+  // The old local mirror fell back to `settings.scheduleStart || "18:00"`, and
+  // because that key did not exist the fallback always won — silently rewriting
+  // a migrated 19:30 profile to 18:00 as soon as a second window was added.
+  const rich = core.normalizeSchedule(core.schedulePresetValues("eveningsAndWeekends"));
+  const mirror = core.scheduleToLegacy(rich);
+
+  assert.equal(mirror.simple, false);
+  assert.equal(mirror.scheduleEnabled, true, "it is still a schedule");
+  // The values are the documented defaults precisely BECAUSE they are not read
+  // back: scheduleIsFlatExpressible is false, so nothing rebuilds from them.
+  assert.equal(core.scheduleIsFlatExpressible(rich), false);
+});

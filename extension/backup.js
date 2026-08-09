@@ -286,13 +286,53 @@
       throw new Error("FitShield could not validate that backup (fitshield-core.js is not loaded). Reload and try again.");
     }
 
-    const normalized = core.readSettings(settings);
+    // Bring an older file up to the current schema BEFORE normalizing it.
+    //
+    // This used to stamp SCHEMA_VERSION unconditionally at the end, which made
+    // every restored file look already-migrated: migrateState then short-
+    // circuited on `from >= SCHEMA_VERSION` and a 0.54 backup's blockedVisits /
+    // recipesChosen were never translated into `stats`. The counters were
+    // physically present in storage and every one of the seven cards read zero.
+    const migrated = core.migrateState(settings);
+    const upgraded = migrated.error ? settings : migrated.state;
+
+    const normalized = core.readSettings(upgraded);
     const out = {};
 
     // Only write back keys the file actually carried, so importing a partial
-    // backup does not reset everything else to a default.
-    Object.keys(settings).forEach((key) => {
-      out[key] = Object.prototype.hasOwnProperty.call(normalized, key) ? normalized[key] : settings[key];
+    // backup does not reset everything else to a default. Note the migration is
+    // NOT allowed to widen that set on its own — it fills in every default, and
+    // adopting those would let a two-key backup overwrite the current profile's
+    // schedule, passes and statistics.
+    const keys = new Set(Object.keys(settings));
+
+    // …with one exception per legacy translation: a key the migration DERIVED
+    // from something the file carried belongs to that file's data, and dropping
+    // it would throw the upgrade away again. Each entry is "the key produced"
+    // -> "the legacy keys that produce it".
+    const DERIVED_FROM = {
+      stats: ["blockedVisits", "recipesChosen", "caloriesAvoided"],
+      schedule: ["scheduleEnabled", "scheduleStart", "scheduleEnd"],
+      passes: ["siteBypasses"],
+      alternativeFavorites: ["recipeFavorites"]
+    };
+
+    Object.keys(DERIVED_FROM).forEach((derived) => {
+      const carriedASource = DERIVED_FROM[derived].some((key) =>
+        Object.prototype.hasOwnProperty.call(settings, key)
+      );
+
+      if (carriedASource && !Object.prototype.hasOwnProperty.call(settings, derived)) {
+        keys.add(derived);
+      }
+    });
+
+    keys.forEach((key) => {
+      if (Object.prototype.hasOwnProperty.call(normalized, key)) {
+        out[key] = normalized[key];
+      } else if (Object.prototype.hasOwnProperty.call(upgraded, key)) {
+        out[key] = upgraded[key];
+      }
     });
 
     // Custom alternatives are re-validated individually: a hostile entry is

@@ -655,7 +655,9 @@ function showAlternative(options) {
 // ---------------------------------------------------------------------------
 
 const PASS_OPTIONS = [
-  { presetId: "site5", labelKey: "passFiveMinutes", scopeKey: "passScopeSite" },
+  // Uses the user's own "Site open time" setting; its label is generated from
+  // that number so it can never quote a duration the pass does not honour.
+  { presetId: "siteDefault", minutesFromSettings: true, scopeKey: "passScopeSite" },
   { presetId: "site10", labelKey: "passTenMinutes", scopeKey: "passScopeSite" },
   { presetId: "site30", labelKey: "passThirtyMinutes", scopeKey: "passScopeSite" },
   { presetId: "tab", labelKey: "passUntilTabCloses", scopeKey: "passScopeSite" },
@@ -663,15 +665,28 @@ const PASS_OPTIONS = [
   { presetId: "allTomorrow", labelKey: "passAllUntilTomorrow", scopeKey: "passScopeAll" }
 ];
 
+// The durations the fixed presets already offer, so the user's own setting is
+// not listed twice when it happens to match one of them.
+const FIXED_PASS_MINUTES = { site10: 10, site30: 30 };
+
 function renderPassOptions() {
   ui.passOptions.replaceChildren();
 
-  PASS_OPTIONS.forEach((option) => {
+  const configured = Number(state.context && state.context.passDurationMinutes) || 0;
+
+  PASS_OPTIONS.filter((option) => {
+    if (option.minutesFromSettings) {
+      return configured > 0;
+    }
+    return FIXED_PASS_MINUTES[option.presetId] !== configured;
+  }).forEach((option) => {
     const button = document.createElement("button");
     button.type = "button";
 
     const label = document.createElement("span");
-    label.textContent = t(option.labelKey);
+    label.textContent = option.minutesFromSettings
+      ? t(configured === 1 ? "passConfiguredMinute" : "passConfiguredMinutes", [String(configured)])
+      : t(option.labelKey);
 
     const scope = document.createElement("span");
     scope.className = "scope";

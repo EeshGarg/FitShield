@@ -142,17 +142,26 @@ test("a tab-bound pass dies with its tab", () => {
 // after it. The old test pinned a filter for a state the product could not
 // reach, while the UI promised "Just this once". The behaviour that actually
 // ships is pinned instead: the shortest pass is a five-minute site pass.
-test("the shortest pass is five minutes on this site, and expires on time", () => {
-  const pass = core.createPass({ presetId: "site5", target: "doordash.com", now: T0 });
+test("the site pass honours the user's own Site open time setting", () => {
+  const pass = core.createPass({ presetId: "siteDefault", target: "doordash.com", minutes: 5, now: T0 });
 
   assert.equal(pass.scope, "site");
   assert.equal(pass.expiresAt, T0 + minutes(5));
   assert.equal(core.activePasses([pass], T0 + minutes(4)).length, 1);
   assert.equal(core.activePasses([pass], T0 + minutes(5)).length, 0, "gone the moment it expires");
+
+  // The whole point of siteDefault: it carries no fixed duration, so the
+  // "Site open time" slider in the popup and Settings actually governs it.
+  // Every other preset hard-codes its minutes, which is why that slider was
+  // unreachable and did nothing while three surfaces quoted a number from it.
+  assert.equal(core.PASS_PRESETS.siteDefault.minutes, undefined, "no baked-in duration");
+
+  const longer = core.createPass({ presetId: "siteDefault", target: "doordash.com", minutes: 25, now: T0 });
+  assert.equal(longer.expiresAt, T0 + minutes(25), "a different setting gives a different pass");
 });
 
 test("no pass record carries state nothing can ever set", () => {
-  const pass = core.createPass({ presetId: "site5", target: "doordash.com", now: T0 });
+  const pass = core.createPass({ presetId: "siteDefault", target: "doordash.com", minutes: 5, now: T0 });
 
   assert.ok(!("oneShot" in pass), "oneShot was never read by anything");
   assert.ok(!("used" in pass), "used was never written by anything");
@@ -174,7 +183,7 @@ test("a pass written under the retired 'once' preset keeps working", () => {
   const [active] = core.activePasses([legacy], T0 + minutes(1));
 
   assert.ok(active, "the pass survives the upgrade rather than being dropped");
-  assert.equal(active.preset, "site5", "renamed to what it always behaved as");
+  assert.equal(active.preset, "siteDefault", "renamed to what it always behaved as");
   assert.equal(active.target, "doordash.com");
   assert.equal(active.expiresAt, T0 + minutes(5), "its expiry is untouched");
 });

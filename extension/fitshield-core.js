@@ -326,6 +326,44 @@
     };
   }
 
+  /**
+   * The flat trio (`scheduleEnabled` / `scheduleStart` / `scheduleEnd`) derived
+   * FROM the canonical `schedule`.
+   *
+   * `schedule` is the single source of truth. The trio is a one-way projection
+   * of it, kept because the popup, older builds, and the Android app all still
+   * speak it. It is never read back to rebuild `schedule` unless it can express
+   * it exactly (see `scheduleIsFlatExpressible`).
+   *
+   * `simple` says whether the simple start/end controls can honestly represent
+   * this schedule at all. When it is false the schedule has more shape than two
+   * time inputs can hold, and a surface that offers them anyway would silently
+   * destroy the other windows the moment the user nudged one.
+   */
+  function scheduleToLegacy(schedule) {
+    const normalized = normalizeSchedule(schedule);
+    const single =
+      normalized.mode === "windows" &&
+      normalized.windows.length === 1 &&
+      normalized.windows[0].days.length === ALL_DAYS.length
+        ? normalized.windows[0]
+        : null;
+
+    return {
+      scheduleEnabled: normalized.mode === "windows",
+      scheduleStart: single ? single.start : DEFAULT_SCHEDULE_START,
+      scheduleEnd: single ? single.end : DEFAULT_SCHEDULE_END,
+      simple: normalized.mode === "always" || single !== null
+    };
+  }
+
+  // Can the flat trio express this schedule without losing anything? Used by the
+  // worker before it rebuilds `schedule` from the mirror, and by the UI before
+  // it offers the simple controls.
+  function scheduleIsFlatExpressible(schedule) {
+    return scheduleToLegacy(schedule).simple;
+  }
+
   // Is `now` inside this single window? Handles both same-day and overnight
   // (end <= start) forms, and start === end as "all day".
   function windowCoversMoment(window, now) {
@@ -494,7 +532,12 @@
   // says what it really is, a five-minute pass, rather than claiming a
   // single-use behaviour nothing implements.
   const PASS_PRESETS = {
-    site5: { id: "site5", scope: "site", minutes: 5 },
+    // The one preset with no fixed duration: it uses the user's own "Site open
+    // time" setting. Before this existed, every preset hard-coded its minutes,
+    // so `settings.passDurationMinutes` was unreachable and the slider in the
+    // popup and in Settings did nothing at all while three surfaces quoted a
+    // duration from it.
+    siteDefault: { id: "siteDefault", scope: "site" },
     tab: { id: "tab", scope: "site", minutes: 720, tabBound: true },
     site10: { id: "site10", scope: "site", minutes: 10 },
     site30: { id: "site30", scope: "site", minutes: 30 },
@@ -567,11 +610,11 @@
       return null;
     }
 
-    // An earlier 0.55 development build wrote passes under the retired "once"
-    // preset. Their scope, target, and expiry are all still valid, so such a
-    // pass keeps running as what it always was — a five-minute site pass —
-    // rather than being dropped out from under whoever granted it.
-    const preset = value.preset === "once" ? "site5" : value.preset;
+    // Earlier 0.55 development builds wrote passes under "once" and then
+    // "site5". Their scope, target, and expiry are all still valid, so such a
+    // pass keeps running rather than being dropped out from under whoever
+    // granted it; only the label it reports changes.
+    const preset = value.preset === "once" || value.preset === "site5" ? "siteDefault" : value.preset;
 
     return {
       id: String(value.id || "").slice(0, 64) || `p${createdAt}`,
@@ -892,6 +935,52 @@
       topCategory,
       hasActivity: STAT_EVENTS.some((event) => totals[event] > 0)
     };
+  }
+
+  // ---------------------------------------------------------------------------
+  // Custom blocked sites
+  // ---------------------------------------------------------------------------
+  //
+  // Historically a bare string[]; now { domain, enabled } records. Both forms
+  // are accepted because an old profile or an old backup can still hold either.
+  //
+  // This normalizer lives here, rather than being re-implemented in background.js
+  // and settings.js, because `readSettings` did not handle `customSites` at all:
+  // it spread the empty default and never overrode it, so a settings EXPORT then
+  // IMPORT silently replaced every custom blocked domain with [] and reported
+  // success. Anything readSettings does not know about, a backup loses.
+
+  function normalizeCustomDomainValue(value) {
+    const text = String(value == null ? "" : value).trim().toLowerCase();
+
+    if (!text) {
+      return "";
+    }
+
+    // Accept a pasted URL as well as a bare domain.
+    const withoutScheme = text.replace(/^[a-z][a-z0-9+.-]*:\/\//, "");
+    const host = withoutScheme.split(/[/?#]/)[0].replace(/^www\./, "").replace(/\.+$/, "");
+
+    return /^[a-z0-9.-]+\.[a-z]{2,}$/.test(host) ? host : "";
+  }
+
+  function normalizeCustomSites(value) {
+    if (!Array.isArray(value)) {
+      return [];
+    }
+
+    const byDomain = new Map();
+
+    value.slice(0, 500).forEach((entry) => {
+      const source = typeof entry === "string" ? { domain: entry } : safeObject(entry);
+      const domain = normalizeCustomDomainValue(source.domain);
+
+      if (domain && !byDomain.has(domain)) {
+        byDomain.set(domain, { domain, enabled: source.enabled !== false });
+      }
+    });
+
+    return [...byDomain.values()];
   }
 
   // ===========================================================================
@@ -1446,9 +1535,29 @@
 
       schedule,
 
+      // The flat trio, PROJECTED from the canonical schedule rather than read
+      // from storage. Every surface renders from readSettings, and because these
+      // three were missing the popup and Settings both destructured their own
+      // defaults — so a user whose schedule was 19:30-02:00 was shown "off,
+      // 18:00-23:00" while the worker enforced their real window. `scheduleSimple`
+      // tells a surface whether two time inputs can represent this schedule at
+      // all, so it can stop offering controls that would destroy the rest of it.
+      ...(() => {
+        const legacy = scheduleToLegacy(schedule);
+        return {
+          scheduleEnabled: legacy.scheduleEnabled,
+          scheduleStart: legacy.scheduleStart,
+          scheduleEnd: legacy.scheduleEnd,
+          scheduleSimple: legacy.simple
+        };
+      })(),
+
       deliverySitesEnabled: get("deliverySitesEnabled") !== false,
       fastFoodSitesEnabled: get("fastFoodSitesEnabled") !== false,
       customSitesEnabled: get("customSitesEnabled") !== false,
+      // Was absent, so an export/import round trip replaced every custom blocked
+      // domain with the empty default and called it a success.
+      customSites: normalizeCustomSites(get("customSites")),
       disabledDeliverySiteKeys: toStringList(get("disabledDeliverySiteKeys"), 5000),
       disabledFastFoodSiteKeys: toStringList(get("disabledFastFoodSiteKeys"), 5000),
       enabledCountries: toStringList(get("enabledCountries"), 500),
@@ -1525,6 +1634,9 @@
     normalizeSchedule,
     normalizeTime,
     scheduleFromLegacy,
+    scheduleToLegacy,
+    scheduleIsFlatExpressible,
+    normalizeCustomSites,
     evaluateSchedule,
     nextScheduleBoundary,
     nextLocalMidnight,

@@ -59,6 +59,9 @@
   "scheduleDefaultSummary": {
     "message": "Blocking will follow your daily schedule when this is enabled."
   },
+  "scheduleAdvancedInUse": {
+    "message": "You have a detailed schedule set below. Edit it there — these two times can only describe one window across every day."
+  },
   "currentScheduleSummary": {
     "message": "Current schedule: $1.",
     "description": "$1 is a time range, optionally followed by ' every day'."
@@ -1123,8 +1126,12 @@
   "passOpening": {
     "message": "Opening…"
   },
-  "passFiveMinutes": {
-    "message": "For 5 minutes"
+  "passConfiguredMinutes": {
+    "message": "For $1 minutes",
+    "description": "$1 is the user’s own Site open time setting."
+  },
+  "passConfiguredMinute": {
+    "message": "For 1 minute"
   },
   "passTenMinutes": {
     "message": "For 10 minutes"
@@ -1465,17 +1472,11 @@
   "reportCopy": {
     "message": "Copy this report"
   },
-  "reportMail": {
-    "message": "Open an email draft"
-  },
   "reportCopied": {
     "message": "Copied. Nothing has been sent — paste it wherever you want to."
   },
   "reportCopyFailed": {
     "message": "Could not reach the clipboard. The report is shown above; select and copy it."
-  },
-  "reportMailOpened": {
-    "message": "Opening a draft in your email app. Nothing is sent until you send it."
   },
   "reportPrivacyNote": {
     "message": "Query strings are stripped and only the domain is included. Your browsing history, page contents, settings, and statistics are never part of a report."

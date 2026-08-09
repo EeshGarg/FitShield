@@ -82,6 +82,7 @@ const scheduleEnabledInput = document.getElementById("scheduleEnabled");
 const scheduleStartInput = document.getElementById("scheduleStart");
 const scheduleEndInput = document.getElementById("scheduleEnd");
 const scheduleSummary = document.getElementById("scheduleSummary");
+const simpleScheduleNote = document.getElementById("simpleScheduleNote");
 const passDurationSlider = document.getElementById("passDurationSlider");
 const passDurationDisplay = document.getElementById("passDurationDisplay");
 const passDurationMinutesInput = document.getElementById("passDurationMinutes");
@@ -255,9 +256,34 @@ function formatScheduleText(start, end) {
   ]);
 }
 
+// True when the stored schedule has more shape than two time inputs can hold —
+// several windows, or specific weekdays. Set from the projection the core hands
+// back, so this page and the worker can never disagree about it.
+let scheduleIsSimple = true;
+
+/**
+ * The simple start/end pair is a PROJECTION of the canonical schedule, so it is
+ * only offered when it can represent that schedule honestly.
+ *
+ * Nudging one of these inputs rebuilds the whole schedule from the flat trio,
+ * which can only ever mean one window across all seven days. Left enabled over a
+ * "Workday lunch" or "Evenings and weekends" schedule, a single click silently
+ * destroyed every other window. Now the pair is disabled and the page says to
+ * use the advanced editor instead.
+ */
 function updateScheduleControls(scheduleEnabled) {
-  scheduleStartInput.disabled = !scheduleEnabled;
-  scheduleEndInput.disabled = !scheduleEnabled;
+  const usable = scheduleEnabled && scheduleIsSimple;
+
+  scheduleStartInput.disabled = !usable;
+  scheduleEndInput.disabled = !usable;
+  scheduleEnabledInput.disabled = !scheduleIsSimple;
+
+  if (simpleScheduleNote) {
+    simpleScheduleNote.hidden = scheduleIsSimple;
+    if (!scheduleIsSimple) {
+      simpleScheduleNote.textContent = t("scheduleAdvancedInUse");
+    }
+  }
 }
 
 function normalizeCustomDomain(value) {
@@ -405,8 +431,15 @@ function updateBlockingControls(state) {
     passDurationMinutes = DEFAULT_PASS_DURATION_MINUTES,
     scheduleEnabled = false,
     scheduleStart = DEFAULT_SCHEDULE_START,
-    scheduleEnd = DEFAULT_SCHEDULE_END
+    scheduleEnd = DEFAULT_SCHEDULE_END,
+    scheduleSimple = true
   } = state;
+
+  // These four now arrive projected from the canonical schedule. They used to be
+  // absent from the worker's response entirely, so every destructure above fell
+  // through to its default and the page showed "off, 18:00-23:00" no matter what
+  // was actually stored and enforced.
+  scheduleIsSimple = scheduleSimple !== false;
 
   timerSlider.value = normalizeTimerSeconds(timerSeconds);
   timerSecondsInput.value = normalizeTimerSeconds(timerSeconds);

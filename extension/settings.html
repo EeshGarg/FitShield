@@ -1412,6 +1412,10 @@
             </div>
           </div>
           <small id="scheduleSummary" data-i18n="scheduleDefaultSummary">Blocking will follow your daily schedule when this is enabled.</small>
+          <!-- Shown when the saved schedule has more shape than these two inputs
+               can represent, so they are disabled rather than silently
+               collapsing it to a single daily window. -->
+          <small id="simpleScheduleNote" class="schedule-advanced-note" hidden></small>
         </div>
       </div>
     </section>
@@ -1594,8 +1598,12 @@
       </div>
 
       <div class="pref-row">
+        <!-- Copy is the only action offered. There was an "Open an email draft"
+             button beside it pointing at reports@fitshield.net, a domain that
+             publishes no MX record — the mail would have bounced or silently
+             gone nowhere. A visible control that cannot work is worse than one
+             fewer control, so it is gone rather than documented as a caveat. -->
         <button id="reportCopy" class="primary" type="button" data-i18n="reportCopy">Copy this report</button>
-        <button id="reportMail" class="secondary" type="button" data-i18n="reportMail">Open an email draft</button>
       </div>
       <p class="pref-note" id="reportNotice" role="status"></p>
       <p class="pref-note" data-i18n="reportPrivacyNote">Query strings are stripped and only the domain is included. Your browsing history, page contents, settings, and statistics are never part of a report.</p>

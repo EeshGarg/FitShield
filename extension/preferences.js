@@ -131,14 +131,15 @@
 
   // The three legacy flat keys are kept in step with the structured schedule so
   // an older build — and the popup's simple start/end controls — keep working.
+  // Derived by the core so there is exactly one projection rule. The previous
+  // local copy fell back to `settings.scheduleStart || "18:00"` for anything
+  // that was not a single window — and readSettings did not carry that key, so
+  // the fallback ALWAYS won: adding a second window silently rewrote a migrated
+  // 19:30-02:00 profile to 18:00-23:00, and the worker then rebuilt the whole
+  // schedule from those stale values.
   function legacyMirror(schedule) {
-    const single = schedule.mode === "windows" && schedule.windows.length === 1 ? schedule.windows[0] : null;
-
-    return {
-      scheduleEnabled: schedule.mode === "windows",
-      scheduleStart: single ? single.start : settings.scheduleStart || "18:00",
-      scheduleEnd: single ? single.end : settings.scheduleEnd || "23:00"
-    };
+    const { scheduleEnabled, scheduleStart, scheduleEnd } = core.scheduleToLegacy(schedule);
+    return { scheduleEnabled, scheduleStart, scheduleEnd };
   }
 
   async function saveSchedule(schedule) {
@@ -773,14 +774,11 @@
       }
     });
 
-    el("reportMail").addEventListener("click", () => {
-      const subject = encodeURIComponent(`FitShield report: ${el("reportType").value}`);
-      const body = encodeURIComponent(buildReport());
-      // A mail draft the user reviews and sends themselves. Nothing leaves the
-      // device until they press send in their own client.
-      window.location.href = `mailto:reports@fitshield.net?subject=${subject}&body=${body}`;
-      el("reportNotice").textContent = t("reportMailOpened");
-    });
+    // There is deliberately no second action. A "mail draft" button used to sit
+    // here targeting reports@fitshield.net; that domain publishes no MX record,
+    // so the draft had nowhere to go. The report is composed locally, shown
+    // verbatim, and copied on request — the user chooses where it goes, and
+    // FitShield never transmits anything.
 
     renderReport();
   }

@@ -192,9 +192,22 @@ function formatPassDisplay(minutes) {
   return `${minutes}m`;
 }
 
+// Set from the worker's projection of the canonical schedule.
+let scheduleIsSimple = true;
+
+/**
+ * The popup's start/end pair writes only the three flat keys, and the worker
+ * rebuilds the schedule from them — which can only ever mean one window across
+ * all seven days. Over a "Workday lunch" or multi-window schedule a single nudge
+ * silently destroyed the rest, so the pair is offered only when it can represent
+ * what is stored. The full editor lives in Settings.
+ */
 function updateScheduleControls(scheduleEnabled) {
-  scheduleStartInput.disabled = !scheduleEnabled;
-  scheduleEndInput.disabled = !scheduleEnabled;
+  const usable = scheduleEnabled && scheduleIsSimple;
+
+  scheduleStartInput.disabled = !usable;
+  scheduleEndInput.disabled = !usable;
+  scheduleEnabledInput.disabled = !scheduleIsSimple;
 }
 
 function getStatusMessage(state) {
@@ -365,6 +378,7 @@ function updateUI(state) {
     scheduleEnabled = false,
     scheduleStart = DEFAULT_SCHEDULE_START,
     scheduleEnd = DEFAULT_SCHEDULE_END,
+    scheduleSimple = true,
     scheduleActive = false,
     deliverySitesEnabled = true,
     fastFoodSitesEnabled = true,
