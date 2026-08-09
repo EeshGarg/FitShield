@@ -80,7 +80,12 @@ function deferralHeadings(text, policy) {
   return out;
 }
 
-function policyAudit() {
+// `paths` lets the tests point the queue checks at a temporary directory.
+// Without it they read the live .queue.json and .queue.closures/, so a lane
+// landing a closure while the suite runs would fail tests that have nothing to
+// do with it — the tests would be asserting against a moving tree rather than
+// against a fixture. Production callers pass nothing and get the repo root.
+function policyAudit(paths = {}) {
   const reporter = new Reporter("Development governance");
 
   if (!fs.existsSync(POLICY_FILE)) {
@@ -227,7 +232,7 @@ function policyAudit() {
   }
 
   // --- 5. the work queue, if one is present, must be empty ------------------
-  const queueFile = path.join(ROOT, ".queue.json");
+  const queueFile = paths.queueFile || path.join(ROOT, ".queue.json");
 
   if (fs.existsSync(queueFile)) {
     const raw = JSON.parse(fs.readFileSync(queueFile, "utf8"));
@@ -236,7 +241,7 @@ function policyAudit() {
     // concurrently silently drop each other's edits — the same file-ownership
     // hazard that cost this project real work once already — so the findings
     // list stays read-only and each lane owns exactly one file in here.
-    const closureDir = path.join(ROOT, ".queue.closures");
+    const closureDir = paths.closureDir || path.join(ROOT, ".queue.closures");
     const closures = new Map();
 
     if (fs.existsSync(closureDir)) {

@@ -213,56 +213,73 @@ test("the project still ships with no dependencies", () => {
 // failure this whole audit exists to prevent, one file over: an assertion of
 // completion standing in for the work. Closure now needs a narrative and an
 // anchor, and the narrative is held to the report's language rules.
+//
+// These run against a temp fixture rather than the repository's own queue.
+// Reading the live one made them fail whenever a lane landed a closure while
+// the suite was running — a test asserting against a moving tree, which is a
+// defect in the test and not in the tree.
 
-const QUEUE_FILE = path.join(ROOT, ".queue.json");
+let fixtureSeq = 0;
 
-// The real queue is swapped out and restored, mirroring withReport above.
-function withQueue(items, fn) {
-  const had = fs.existsSync(QUEUE_FILE);
-  const original = had ? fs.readFileSync(QUEUE_FILE, "utf8") : null;
+// `items` become the findings list; `closures` is {laneName: [records]}.
+function withFixture({ items = [], closures = {} }, fn) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), `fs-queue-${fixtureSeq++}-`));
+  const queueFile = path.join(dir, ".queue.json");
+  const closureDir = path.join(dir, ".queue.closures");
 
-  fs.writeFileSync(QUEUE_FILE, JSON.stringify(items, null, 2));
+  fs.writeFileSync(queueFile, JSON.stringify(items, null, 2));
+
+  if (Object.keys(closures).length > 0) {
+    fs.mkdirSync(closureDir, { recursive: true });
+    Object.entries(closures).forEach(([lane, records]) => {
+      fs.writeFileSync(path.join(closureDir, `${lane}.json`), JSON.stringify(records, null, 2));
+    });
+  }
 
   try {
-    fn();
+    return fn({ queueFile, closureDir });
   } finally {
-    if (had) {
-      fs.writeFileSync(QUEUE_FILE, original);
-    } else {
-      fs.unlinkSync(QUEUE_FILE);
-    }
+    fs.rmSync(dir, { recursive: true, force: true });
   }
 }
 
+const audit = (paths) => policyAudit(paths);
+
+const PROBE = { id: "F900", dimension: "probe", severity: "HIGH", title: "probe" };
 const PROVEN = {
   id: "F900",
-  dimension: "probe",
-  severity: "HIGH",
-  title: "probe",
   status: "closed",
-  verification: "Reproduced against the built package in Chrome 149, fixed, then re-run with the fix reverted to confirm the check fails without it.",
+  verification:
+    "Reproduced against the built package in Chrome 149, fixed, then re-ran with the fix reverted to confirm the check fails without it.",
   test: "test/probe.test.js"
 };
 
 test("a queue item closed with proof and an anchor is accepted", () => {
-  withQueue([PROVEN], () => {
-    assert.deepEqual(policyAudit().errors, []);
+  withFixture({ items: [{ ...PROBE, ...PROVEN }] }, (paths) => {
+    const reporter = audit(paths);
+    assert.deepEqual(reporter.errors, [], reporter.errors.join("\n"));
+    assert.ok(
+      reporter.notes.some((n) => /work queue empty/.test(n)),
+      `expected an empty queue, got:\n${reporter.notes.join("\n")}`
+    );
   });
 });
 
 test("a queue item cannot be closed by the word alone", () => {
-  withQueue([{ id: "F901", dimension: "probe", severity: "HIGH", title: "probe", status: "closed" }], () => {
-    const errors = policyAudit().errors;
+  withFixture({ items: [{ ...PROBE, status: "closed" }] }, (paths) => {
+    const errors = audit(paths).errors;
     assert.ok(
-      errors.some((e) => /F901: no verification narrative/.test(e)),
+      errors.some((e) => /F900: no verification narrative/.test(e)),
       `expected the unproven-closure failure, got:\n${errors.join("\n")}`
     );
   });
 });
 
 test("a verified queue item still needs somewhere the proof lives", () => {
-  withQueue([{ ...PROVEN, test: undefined, commit: undefined, evidenceAfter: undefined }], () => {
-    const errors = policyAudit().errors;
+  const { test: _dropped, ...unanchored } = PROVEN;
+
+  withFixture({ items: [{ ...PROBE, ...unanchored }] }, (paths) => {
+    const errors = audit(paths).errors;
     assert.ok(errors.some((e) => /F900: verified but unanchored/.test(e)), errors.join("\n"));
   });
 });
@@ -276,8 +293,10 @@ test("closure prose is held to the same language rules as the report", () => {
     "assumed closed",
     "should now be resolved"
   ].forEach((phrase) => {
-    withQueue([{ ...PROVEN, verification: `This one ${phrase} by the earlier catalog work in the other lane.` }], () => {
-      const errors = policyAudit().errors;
+    const item = { ...PROBE, ...PROVEN, verification: `This one ${phrase} by the earlier catalog work in the other lane.` };
+
+    withFixture({ items: [item] }, (paths) => {
+      const errors = audit(paths).errors;
       assert.ok(
         errors.some((e) => /forbidden language/.test(e)),
         `"${phrase}" was accepted as verification; errors:\n${errors.join("\n")}`
@@ -286,66 +305,34 @@ test("closure prose is held to the same language rules as the report", () => {
   });
 });
 
-// Closures land one file per lane, so concurrent agents never write the same
-// file. The audit merges them onto the read-only findings list.
-const CLOSURE_DIR = path.join(ROOT, ".queue.closures");
-
-function withClosures(byLane, fn) {
-  const existed = fs.existsSync(CLOSURE_DIR);
-  const before = existed ? fs.readdirSync(CLOSURE_DIR) : [];
-
-  fs.mkdirSync(CLOSURE_DIR, { recursive: true });
-  const written = Object.entries(byLane).map(([lane, records]) => {
-    const file = path.join(CLOSURE_DIR, `${lane}.json`);
-    fs.writeFileSync(file, JSON.stringify(records, null, 2));
-    return file;
-  });
-
-  try {
-    fn();
-  } finally {
-    written.forEach((file) => fs.existsSync(file) && fs.unlinkSync(file));
-    if (!existed && fs.readdirSync(CLOSURE_DIR).length === 0) {
-      fs.rmdirSync(CLOSURE_DIR);
-    }
-    assert.deepEqual(fs.existsSync(CLOSURE_DIR) ? fs.readdirSync(CLOSURE_DIR) : [], before);
-  }
-}
+// ---------------------------------------------------------------------------
+// Closures land one file per lane, so concurrent agents never collide
+// ---------------------------------------------------------------------------
 
 test("a lane's closure record closes its finding without touching the queue file", () => {
-  withQueue([{ id: "F910", dimension: "probe", severity: "HIGH", title: "probe" }], () => {
-    const queueBefore = fs.readFileSync(QUEUE_FILE, "utf8");
-
-    withClosures({ "probe-lane": [{ id: "F910", status: "closed", verification: PROVEN.verification, test: "test/probe.test.js" }] }, () => {
-      const reporter = policyAudit();
-      assert.deepEqual(reporter.errors, [], reporter.errors.join("\n"));
-      assert.ok(
-        reporter.notes.some((n) => /work queue empty/.test(n)),
-        `expected an empty queue, got:\n${reporter.notes.join("\n")}`
-      );
-    });
+  withFixture({ items: [PROBE], closures: { "probe-lane": [PROVEN] } }, (paths) => {
+    const reporter = audit(paths);
+    assert.deepEqual(reporter.errors, [], reporter.errors.join("\n"));
+    assert.ok(
+      reporter.notes.some((n) => /work queue empty/.test(n)),
+      `expected an empty queue, got:\n${reporter.notes.join("\n")}`
+    );
 
     // The findings list is the record of what was found; closing is additive.
-    assert.equal(fs.readFileSync(QUEUE_FILE, "utf8"), queueBefore);
+    assert.deepEqual(JSON.parse(fs.readFileSync(paths.queueFile, "utf8")), [PROBE]);
   });
 });
 
 test("two lanes cannot both claim the same finding", () => {
-  withQueue([{ id: "F911", dimension: "probe", severity: "HIGH", title: "probe" }], () => {
-    const record = { id: "F911", status: "closed", verification: PROVEN.verification, test: "t.js" };
-
-    withClosures({ "lane-a": [record], "lane-b": [record] }, () => {
-      const errors = policyAudit().errors;
-      assert.ok(errors.some((e) => /claimed closed by two lanes/.test(e)), errors.join("\n"));
-    });
+  withFixture({ items: [PROBE], closures: { "lane-a": [PROVEN], "lane-b": [PROVEN] } }, (paths) => {
+    const errors = audit(paths).errors;
+    assert.ok(errors.some((e) => /claimed closed by two lanes/.test(e)), errors.join("\n"));
   });
 });
 
 test("a closure for a finding nobody recorded is rejected", () => {
-  withQueue([{ id: "F912", dimension: "probe", severity: "HIGH", title: "probe" }], () => {
-    withClosures({ "lane-a": [{ id: "F999", status: "closed", verification: PROVEN.verification, test: "t.js" }] }, () => {
-      const errors = policyAudit().errors;
-      assert.ok(errors.some((e) => /unknown finding/.test(e)), errors.join("\n"));
-    });
+  withFixture({ items: [PROBE], closures: { "lane-a": [{ ...PROVEN, id: "F999" }] } }, (paths) => {
+    const errors = audit(paths).errors;
+    assert.ok(errors.some((e) => /unknown finding/.test(e)), errors.join("\n"));
   });
 });
