@@ -104,7 +104,9 @@ Candidates, not commitments:
   when they earn their place — kept clean, avoiding schema bloat.
 - Per-brand notes surfaced on the block screen.
 - Export formats beyond JSON (e.g. a human-readable summary).
-- Optional weekly on-device recap (no network, no telemetry).
+
+*Shipped in 0.55, previously listed here:* the optional weekly on-device recap
+(popup, no network, no telemetry, dismissible).
 
 ## Long-term vision
 
