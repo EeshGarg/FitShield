@@ -61,6 +61,21 @@ const FUNCTION_WORDS = [
 
 const FUNCTION_RE = new RegExp(`(?:^|[^A-Za-z])(?:${FUNCTION_WORDS.join("|")})(?:[^A-Za-z]|$)`, "i");
 
+/**
+ * True when a string is English PROSE rather than a name.
+ *
+ * Two or more words, at least one of which is English grammar. That excludes the
+ * things that legitimately survive translation byte-for-byte — "FitShield",
+ * "Pizza", "Buy Me a Coffee", "Fast Casual", "Filipino / Tagalog" — and includes
+ * everything a translator would actually have to rewrite. Used by
+ * tools/locale-prune.js to tell a real translation that happens to match English
+ * from English text that was simply copied into a locale file.
+ */
+function isEnglishPhrase(text) {
+  const value = String(text || "").trim();
+  return value.split(/\s+/).length >= 2 && FUNCTION_RE.test(value);
+}
+
 const localeCodes = require("./lib/load.js").localeDirs;
 
 function readLocale(code) {
@@ -134,6 +149,7 @@ function audit() {
 module.exports = audit;
 module.exports.findHybrids = findHybrids;
 module.exports.FUNCTION_WORDS = FUNCTION_WORDS;
+module.exports.isEnglishPhrase = isEnglishPhrase;
 
 if (require.main === module) {
   const found = findHybrids();

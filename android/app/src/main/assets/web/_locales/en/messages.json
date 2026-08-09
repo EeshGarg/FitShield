@@ -166,10 +166,6 @@
   "warningIntro": {
     "message": "Hunger, habit, stress, and convenience all feel the same in the moment. Here is one thing you could make instead."
   },
-  "warningTriggeredBy": {
-    "message": "You're about to order from $1.",
-    "description": "$1 is the blocked brand name."
-  },
   "warningBackButton": {
     "message": "Go back"
   },

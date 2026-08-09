@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "ដកដង្ហើម"
   },
-  "warningEyebrow": {
-    "message": "ពិនិត្យ FitShield"
-  },
-  "warningTitle": {
-    "message": "ចំណាយពេលមួយនាទី។"
-  },
-  "warningIntro": {
-    "message": "ពិនិត្យចូលមុនពេលអ្នកបញ្ជាទិញ។ ភាពអត់ឃ្លាន ភាពងាយស្រួល ភាពតានតឹង និងទម្លាប់អាចមានអារម្មណ៍ស្រដៀងគ្នានៅពេលនេះ។"
-  },
-  "warningTriggeredBy": {
-    "message": "អ្នកហៀបនឹងបញ្ជាទិញពី $1 ។"
-  },
   "warningBackButton": {
     "message": "ត្រឡប់ទៅវិញ។"
-  },
-  "warningLockedButton": {
-    "message": "ចាក់សោ"
-  },
-  "warningContinueButton": {
-    "message": "បន្ត"
   },
   "warningErrorHint": {
     "message": "មានអ្វីមួយខុសប្រក្រតីពេលបើកគេហទំព័រ។ សូមព្យាយាមម្តងទៀត។"
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "បើកការទប់ស្កាត់ URL ផ្ទាល់ខ្លួន"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "បន្ថែម URL ដែលបានទប់ស្កាត់ផ្ទាល់ខ្លួន"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "នាំចេញទិន្នន័យ និងការកំណត់"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "ហេតុអ្វីបានជាអ្នកឃើញវា"
   },
   "blockReasonDomain": {
     "message": "គេហទំព័រ"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

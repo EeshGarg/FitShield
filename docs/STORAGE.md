@@ -27,7 +27,7 @@ before 0.55.
 | `repeatFrictionEnabled` | bool | Add extra pause on a repeat visit. |
 | `repeatExtraSeconds` | int, 0–120 | How much extra. Capped; never compounds. |
 | `repeatWindowMinutes` | int, 5–720 | How long a repeat counts as recent. |
-| `settingsDelaySeconds` | int, 0–600 | Cooling-off delay before weakening protection (strict only). |
+| `repeatHistory` | `{ "domain": number[] }` | See [Repeat-access history](#repeat-access-history). **Expires.** |
 | `schedule` | `{ mode, windows[], until }` | See below. |
 | `scheduleEnabled` / `scheduleStart` / `scheduleEnd` | bool / `"HH:MM"` / `"HH:MM"` | Legacy mirror of a single window. Kept in step in both directions so the popup and older builds still work. |
 | `deliverySitesEnabled` / `fastFoodSitesEnabled` / `customSitesEnabled` | bool | Bucket toggles. |
@@ -54,7 +54,42 @@ of that day.
 
 Everything is evaluated against the device's local wall clock. There is no stored
 offset and no remote time service, which is what makes an "evenings" window still
-mean 18:00 local after a daylight-saving shift.
+mean 18:00 local after a daylight-saving shift. The single alarm the worker arms
+is computed the same way: an all-day window's real transition is local midnight,
+and a wall-clock time that daylight saving *skips* resolves to the instant the
+clock jumps rather than to the hour it rolls forward into.
+
+`until` is the "Block until tomorrow" override. While it is in the future the
+worker **refuses** an all-scope ("pause everything") temporary pass, so the
+commitment cannot be cancelled from the next block page. Site-scoped passes,
+and the master switch, still work. On an always-on schedule the override changes
+no reported state — `evaluateSchedule` keeps saying `always`, because a
+commitment button must never make the protection FitShield reports smaller than
+the protection it enforces.
+
+### Repeat-access history
+
+```jsonc
+"repeatHistory": { "doordash.com": [1767225600000, 1767227400000] }
+```
+
+Written only when the user deliberately continues to a blocked brand, and read
+only by `repeatFrictionFor` to decide whether this is a second visit inside the
+repeat window. It is bounded three ways:
+
+- **by age** — entries older than `repeatWindowMinutes` × 3 are dropped, and a
+  domain left with no entries loses its row entirely. With the default 60-minute
+  window that is 3 hours; with the longest window the setting allows, 36 hours.
+  Expiry is applied on every read (`readSettings`) **and** on every write
+  (`recordContinue`), and the worker writes the pruned map back on every refresh
+  — so a profile nobody touches cannot keep it on disk either.
+- **by domain count** — at most 60 domains.
+- **by entries per domain** — at most 12.
+
+Before 0.55 the caps were on count only and nothing expired, which made this a
+permanent per-brand record of the exact moments a user gave in. It is not backed
+up, and it is the one stored map that is browsing-adjacent, so its lifetime is
+part of the privacy contract rather than an implementation detail.
 
 ### Temporary passes
 
@@ -63,7 +98,7 @@ mean 18:00 local after a daylight-saving shift.
 ```jsonc
 {
   "id": "p1767225600000-1",
-  "preset": "site5" | "tab" | "site10" | "site30" | "category30" | "all30" | "allTomorrow" | "custom",
+  "preset": "siteDefault" | "site10" | "site30" | "tab" | "all30" | "allTomorrow" | "custom",
   "scope": "site" | "category" | "all",
   "target": "doordash.com",     // "" for scope "all"
   "createdAt": 1767225600000,
@@ -87,9 +122,21 @@ visit and stand down after it. A genuine single-use pass would need a
 browser-wide navigation listener — a permission and an observation surface
 FitShield does not take. During 0.55's development this menu carried a `once`
 preset labelled "Just this once" that was in fact a five-minute site pass, plus
-`oneShot`/`used` fields nothing ever read or wrote. It is now `site5`, labelled
-"For 5 minutes", and the dead fields are gone; a pass persisted under the old
-name is read as `site5` with its scope, target, and expiry untouched.
+`oneShot`/`used` fields nothing ever read or wrote. It is now `siteDefault`,
+which carries no baked-in duration and therefore honours the user's own "Site
+open time" setting, and the dead fields are gone; a pass persisted under `once`
+or `site5` is read as `siteDefault` with its scope, target, and expiry untouched.
+
+The `preset` union above is the complete set a screen can produce. There is
+**no** `category30`: it was defined, exported, documented here and unit-tested
+while no UI could select it, which turned a constant into an apparent feature.
+`scope: "category"` is still honoured on read, so a pass granted by an older
+build keeps working for the minutes it was granted; nothing creates a new one.
+Bringing category passes back means adding the option to the block page's
+chooser first.
+
+An all-scope pass is refused entirely while a "Block until tomorrow" override is
+in force — see [Schedule shape](#schedule-shape).
 
 Expiry is decided in exactly one place (`FitShieldCore.activePasses`) and
 re-checked on every read. That single fact is what makes passes end correctly
@@ -114,7 +161,7 @@ Passes are **not** included in backups; see [Backups](#backups).
 | `alternativeFavorites` | string[] | Alternative ids. |
 | `customAlternatives` | object[] | Your own entries, validated by `sanitizeCustomAlternative`. |
 | `recentAlternatives` / `dismissedAlternatives` | string[] | Rotation state, capped at 24 each. |
-| `pendingAlternatives` | `{id, at}[]` | Choices awaiting an optional "did you make it?" answer. Capped at 10. |
+| `pendingAlternatives` | `{id, at}[]` | Choices awaiting an optional "did you make it?" answer. Capped at 10, and **dropped 48 hours after the choice** — see below. |
 
 ### Statistics
 
@@ -133,6 +180,20 @@ hands, because the extension cannot see any of those.
 `alternativesSelected` is an intention expressed on the block page.
 `alternativesMade` is a separate, voluntary confirmation the user gives later from
 the popup. Declining to confirm records nothing at all.
+
+`continued` and `passesUsed` currently count **the same event**: every exit from
+the block page to the interrupted brand goes through `grantPass`, which is the
+only writer of either, so the two numbers cannot differ. Separating them would
+need a browser-wide navigation listener — a permission FitShield does not take.
+A surface should therefore show one of them, not both side by side as if they
+were independent measurements.
+
+A pending "did you make it?" entry expires 48 hours after the choice, applied
+when the popup asks the worker for state and again on every write. Before that,
+the `at` field was stored and never read: entries resurfaced one popup-open at a
+time, indefinitely, so a customer could be asked weeks later about a dish they
+did not remember choosing — and that answer is the sole input to
+`alternativesMade`, which the optional estimate multiplies by a meal price.
 
 Also stored: `blockedByDomain`, `blockedByCategory`, `blockedByCountry` — counts
 keyed by **curated blocklist metadata only** (the brand's apex domain, its food
@@ -164,7 +225,21 @@ recipe card was the clearest false claim in the old statistics.
 
 `theme`, `themeMode`, `cardOrder`, `uiLanguage`, `currency`, `avgMealCost`,
 `avgMealCalories`, `mealStatsCustomized`, `showEstimates`, `recapEnabled`,
-`recapDismissedFor`, `lastSeenVersion`.
+`lastSeenVersion`.
+
+Two keys were **retired** in 0.55 because nothing read them, and a stored value
+nothing reads is a claim the product does not honour:
+
+- `recapDismissedFor` — defaulted, normalized, excluded from backups and cleared
+  by the reset, in five files, for a "dismiss this week's recap" behaviour no
+  surface has. The recap is gated by `recapEnabled`, which is real.
+- `settingsDelaySeconds` — written as 60 by the Strict friction profile and
+  documented here as "a cooling-off delay before weakening protection". No code
+  applied it. It is gone rather than left inert; reinstating it means
+  implementing the delay where protection settings are weakened first.
+
+Neither is deleted from an existing profile: the migration never removes a key it
+does not understand, so an old value simply sits there unread until a reset.
 
 ## Migrations
 

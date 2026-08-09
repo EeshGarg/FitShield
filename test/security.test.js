@@ -335,6 +335,64 @@ test("a problem report cannot carry a path, query string, or credentials", () =>
   assert.equal(redacted, "doordash.com");
 });
 
+// The note printed directly above the field is unconditional — "Query strings
+// are stripped and only the domain is included" — and it is what persuades a
+// cautious user to paste a URL at all. The redaction gated on a dotted-alpha
+// hostname and fell through to the RAW TEXT when that failed, so an IP literal,
+// a single-label host, and a trailing-dot FQDN all bypassed it entirely: a user
+// reporting a false positive on an intranet or router-hosted ordering page got
+// their session token copied verbatim into a mail draft addressed to the vendor.
+test("no URL escapes redaction, whatever its host looks like", () => {
+  const cases = [
+    ["http://192.168.1.50/admin?token=SECRET123", "192.168.1.50"],
+    ["https://localhost:3000/checkout?card=4111111111111111", "localhost"],
+    ["https://ubereats.com./store?q=late+night+order", "ubereats.com"],
+    ["http://[2001:db8::1]/order?session=abc", "2001:db8::1"],
+    ["https://10.0.0.8:8443/cart#pay", "10.0.0.8"],
+    // No scheme, but unmistakably a URL: a path, a query, or both.
+    ["192.168.1.50/admin?token=SECRET123", "192.168.1.50"],
+    ["intranet/order?id=99", "intranet"],
+    ["www.doordash.com/store/9?cart=abc", "doordash.com"]
+  ];
+
+  cases.forEach(([input, expected]) => {
+    const redacted = core.redactReportSubject(input);
+
+    assert.equal(redacted, expected, `${input} was not reduced to its host`);
+    assert.ok(!redacted.includes("?"), `${input} kept a query string`);
+    assert.ok(!redacted.includes("/"), `${input} kept a path`);
+    assert.ok(!/SECRET123|4111111111111111|session=|token=|cart=/.test(redacted), `${input} leaked a secret`);
+  });
+});
+
+test("free text a user typed instead of a URL is still passed through", () => {
+  // The fallback is for labels, not for URLs — it must keep working, or the
+  // field stops accepting "the checkout page" as an answer.
+  assert.equal(core.redactReportSubject("the checkout page"), "the checkout page");
+  assert.equal(core.redactReportSubject("doordash"), "doordash");
+  assert.equal(core.redactReportSubject(""), "");
+  assert.ok(core.redactReportSubject("x".repeat(500)).length <= 120, "and it is still length-capped");
+});
+
+// ---------------------------------------------------------------------------
+// repeatHistory is the one stored map that is browsing-adjacent
+// ---------------------------------------------------------------------------
+
+test("repeat history cannot become a permanent per-brand diary", () => {
+  const now = Date.now();
+  const year = 365 * 24 * 60 * 60 * 1000;
+
+  const ancient = core.normalizeRepeatHistory(
+    { "ubereats.com": [now - 2 * year, now - 3 * year], "dominos.com": [now - year] },
+    { now, windowMinutes: 60 }
+  );
+
+  assert.deepEqual(ancient, {}, "nothing from years ago may survive a read");
+
+  // And the ceiling holds for the longest window a user can configure.
+  assert.ok(core.repeatHistoryRetentionMs(720) <= 36 * 60 * 60 * 1000);
+});
+
 test("nothing in the runtime reads a tab URL or browsing history", () => {
   const BANNED = /chrome\.history|browser\.history|chrome\.topSites|chrome\.browsingData|tab\.url|\.pendingUrl/;
   const offenders = shipped.filter(([, source]) => BANNED.test(source)).map(([name]) => name);
@@ -410,6 +468,88 @@ test("a web page cannot grant itself a temporary pass", async () => {
 
   assert.equal(response.ok, false, "a page must not be able to unblock itself");
   assert.equal((bg.store.passes || []).length, 0, "and no pass may exist");
+});
+
+// The origin check alone was not enough. warning.html is web_accessible_resources
+// with <all_urls> at a STABLE chrome-extension:// URL (the extension id is fixed
+// and public for a listed extension), so a hostile page can load it in a 1x1
+// hidden iframe in a loop — and every one of those loads is a message from
+// FitShield's own origin, which passed. A blocked delivery brand is exactly the
+// party motivated to run the user's "ordering pages interrupted" count and
+// per-brand breakdown up until the panel is worthless. The real block page is
+// always a top-level main_frame redirect, so a framed sender is never one.
+test("a website cannot fabricate statistics by iframing the block page", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  const fromHiddenIframe = (payload) =>
+    new Promise((resolve) => {
+      const handled = bg.listeners.message(
+        payload,
+        {
+          id: "test",
+          // Our own page, our own origin — but embedded in a page on evil.example.
+          url: "chrome-extension://test/warning.html?site=delivery-doordash-com",
+          tab: { id: 7 },
+          frameId: 3
+        },
+        resolve
+      );
+      if (!handled) resolve({ ok: false });
+    });
+
+  for (let load = 0; load < 5; load += 1) {
+    const recorded = await fromHiddenIframe({ type: "recordInterruption" });
+    const branded = await fromHiddenIframe({
+      type: "recordBlockedBrand",
+      meta: { domain: "doordash.com", category: "pizza", countries: ["US"] }
+    });
+
+    assert.equal(recorded.ok, false, "a framed block page must not record an interruption");
+    assert.equal(branded.ok, false, "nor a brand");
+  }
+
+  core.STAT_EVENTS.forEach((event) => {
+    assert.equal(bg.store.stats.totals[event], 0, `"${event}" moved for a framed page`);
+  });
+  assert.equal(bg.store.blockedByDomain, undefined, "and no brand breakdown was created");
+});
+
+test("a framed page cannot grant itself a pass either", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  const response = await new Promise((resolve) => {
+    const handled = bg.listeners.message(
+      { type: "grantPass", site: "delivery-doordash-com", presetId: "site30" },
+      { id: "test", url: "chrome-extension://test/warning.html", tab: { id: 7 }, frameId: 2 },
+      resolve
+    );
+    if (!handled) resolve({ ok: false });
+  });
+
+  assert.equal(response.ok, false);
+  assert.equal((bg.store.passes || []).length, 0);
+});
+
+test("the real, top-level block page is unaffected", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  const response = await new Promise((resolve) => {
+    const handled = bg.listeners.message(
+      { type: "recordInterruption" },
+      { id: "test", url: "chrome-extension://test/warning.html", tab: { id: 7 }, frameId: 0 },
+      resolve
+    );
+    if (!handled) resolve({ ok: false });
+  });
+
+  assert.equal(response.ok, true, "frameId 0 is the document the DNR rule redirected");
+  assert.equal(bg.store.stats.totals.interruptions, 1);
 });
 
 test("the extension's own pages are still allowed", async () => {

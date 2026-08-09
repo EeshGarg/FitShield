@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": " |\nଏକ ନିଶ୍ୱାସ ନିଅନ୍ତୁ |"
   },
-  "warningEyebrow": {
-    "message": " |\nFitShield ଯାଞ୍ଚ କରନ୍ତୁ |"
-  },
-  "warningTitle": {
-    "message": " |\nଗୋଟିଏ ମିନିଟ୍ ନିଅ |"
-  },
-  "warningIntro": {
-    "message": "ଆପଣ ଅର୍ଡର କରିବା ପୂର୍ବରୁ ଯାଞ୍ଚ କରନ୍ତୁ | କ୍ଷୁଧା, ସୁବିଧା, ଚାପ ଏବଂ ଅଭ୍ୟାସ ଏହି ସମୟରେ ଅନୁଭବ କରିପାରନ୍ତି |"
-  },
-  "warningTriggeredBy": {
-    "message": " |\nଆପଣ $1 ରୁ ଅର୍ଡର କରିବାକୁ ଯାଉଛନ୍ତି |"
-  },
   "warningBackButton": {
     "message": " |\nଫେରିଯାଅ |"
-  },
-  "warningLockedButton": {
-    "message": " |\nତାଲା ପଡିଛି |"
-  },
-  "warningContinueButton": {
-    "message": " |\nଜାରି ରଖ |"
   },
   "warningErrorHint": {
     "message": " |\nସାଇଟ୍ ଖୋଲିବାବେଳେ କିଛି ଭୁଲ୍ ହୋଇଗଲା | ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ |"
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": " |\nକଷ୍ଟମ୍ URL ଅବରୋଧକୁ ସକ୍ଷମ କରନ୍ତୁ |"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": " |\nଏକ କଷ୍ଟମ୍ ଅବରୋଧିତ URL ଯୋଡନ୍ତୁ |"
@@ -650,9 +623,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "ଡାଟା ଓ ସେଟିଂସ୍ ରପ୍ତାନି କରନ୍ତୁ"
   },
@@ -661,15 +631,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "ଆପଣ ଏହା କାହିଁକି ଦେଖୁଛନ୍ତି"
   },
   "blockReasonDomain": {
     "message": "ସାଇଟ୍"
@@ -877,8 +838,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

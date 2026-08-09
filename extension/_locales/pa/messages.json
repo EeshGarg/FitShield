@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "ਇੱਕ ਸਾਹ ਲਓ"
   },
-  "warningEyebrow": {
-    "message": "FitShield ਜਾਂਚ"
-  },
-  "warningTitle": {
-    "message": "ਇੱਕ ਮਿੰਟ ਲਓ।"
-  },
-  "warningIntro": {
-    "message": "ਆਰਡਰ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਆਪਣੇ ਆਪ ਨਾਲ ਜਾਂਚ ਕਰੋ। ਭੁੱਖ, ਸਹੂਲਤ, ਤਣਾਅ ਅਤੇ ਆਦਤ ਉਸ ਵੇਲੇ ਇੱਕੋ ਜਿਹੇ ਲੱਗ ਸਕਦੇ ਹਨ।"
-  },
-  "warningTriggeredBy": {
-    "message": "ਤੁਸੀਂ $1 ਤੋਂ ਆਰਡਰ ਕਰਨ ਵਾਲੇ ਹੋ।"
-  },
   "warningBackButton": {
     "message": "ਵਾਪਸ ਜਾਓ"
-  },
-  "warningLockedButton": {
-    "message": "ਲਾਕ ਹੈ"
-  },
-  "warningContinueButton": {
-    "message": "ਜਾਰੀ ਰੱਖੋ"
   },
   "warningErrorHint": {
     "message": "ਸਾਈਟ ਖੋਲ੍ਹਣ ਵੇਲੇ ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "ਕਸਟਮ URL ਬਲਾਕਿੰਗ ਚਾਲੂ ਕਰੋ"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "ਬਲਾਕ ਕਰਨ ਲਈ ਕਸਟਮ URL ਜੋੜੋ"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "ਡਾਟਾ ਅਤੇ ਸੈਟਿੰਗਾਂ ਨਿਰਯਾਤ ਕਰੋ"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "ਤੁਸੀਂ ਇਹ ਕਿਉਂ ਦੇਖ ਰਹੇ ਹੋ"
   },
   "blockReasonDomain": {
     "message": "ਸਾਈਟ"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

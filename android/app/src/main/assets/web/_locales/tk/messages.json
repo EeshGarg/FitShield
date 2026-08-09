@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "Dem alyň"
   },
-  "warningEyebrow": {
-    "message": "FitShield Barlaň"
-  },
-  "warningTitle": {
-    "message": "Bir minut wagt alyň."
-  },
-  "warningIntro": {
-    "message": "Sargyt etmezden ozal barlaň. Açlyk, amatlylyk, stres we endik häzirki pursatda şuňa meňzeýär."
-  },
-  "warningTriggeredBy": {
-    "message": "$1 zakaz etjek bolýarsyňyz."
-  },
   "warningBackButton": {
     "message": "Yzyňa dolan"
-  },
-  "warningLockedButton": {
-    "message": "Gulply"
-  },
-  "warningContinueButton": {
-    "message": "Dowam et"
   },
   "warningErrorHint": {
     "message": "Sahypany açanda bir zat ýalňyşdy. Gaýtadan synanyşmagyňyzy haýyş edýäris."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "Hususy URL blokirlemesini işjeňleşdiriň"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "Blockörite bloklanan URL goşuň"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "Maglumatlary we sazlamalary eksport et"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "Muny näme üçin görýärsiňiz"
   },
   "blockReasonDomain": {
     "message": "Sahypa"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

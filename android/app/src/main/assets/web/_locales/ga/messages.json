@@ -2,9 +2,6 @@
   "appName": {
     "message": "FitShield"
   },
-  "appDescription": {
-    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
-  },
   "actionTitle": {
     "message": "FitShield"
   },
@@ -38,9 +35,6 @@
   "customSecondsLabel": {
     "message": "Custom seconds"
   },
-  "siteOpenTimeLabel": {
-    "message": "Site open time"
-  },
   "siteOpenTimeHint": {
     "message": "Choose how long suíomhanna stay open after the timer ends."
   },
@@ -58,12 +52,6 @@
   },
   "currentScheduleSummary": {
     "message": "Reatha sceideal: $1."
-  },
-  "everyDaySuffix": {
-    "message": " every day"
-  },
-  "scheduleRange": {
-    "message": "$1 to $2"
   },
   "unitMinute": {
     "message": "nóiméad"
@@ -137,32 +125,8 @@
   "fastFoodSitesEnabledCount": {
     "message": "$1 of $2 suíomhanna mearbhia enabled."
   },
-  "searchMatchSuffix": {
-    "message": " $1 match the search."
-  },
-  "warningPageTitle": {
-    "message": "Take a Breath"
-  },
-  "warningEyebrow": {
-    "message": "FitShield Check"
-  },
-  "warningTitle": {
-    "message": "Take one nóiméad."
-  },
-  "warningIntro": {
-    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
-  },
-  "warningTriggeredBy": {
-    "message": "You're about to order from $1."
-  },
   "warningBackButton": {
     "message": "Téigh siar"
-  },
-  "warningLockedButton": {
-    "message": "Faoi ghlas"
-  },
-  "warningContinueButton": {
-    "message": "Lean ar aghaidh"
   },
   "warningErrorHint": {
     "message": "Something went wrong while opening the suíomh. Please try again."
@@ -218,20 +182,8 @@
   "customToggleTitle": {
     "message": "Cumasaigh custom URL blocáiling"
   },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
-  },
   "addCustomUrlLabel": {
     "message": "Cuir leis a custom blocáiled URL"
-  },
-  "customSitePlaceholder": {
-    "message": "example.com or https://example.com"
   },
   "customNormalizeHint": {
     "message": "Entries are normalized to domains and blocáiled across all pages."
@@ -250,9 +202,6 @@
   },
   "noticeMatched": {
     "message": "$1 $2 matched \"$3\"."
-  },
-  "invalidUrlNotice": {
-    "message": "That URL does not look valid yet. Try a domain like example.com."
   },
   "alreadyOnBlocklist": {
     "message": "$1 is already on the blocáillist, so it has been re-enabled."
@@ -308,9 +257,6 @@
   "languageHeading": {
     "message": "Teanga"
   },
-  "languageIntro": {
-    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
-  },
   "languageSelectLabel": {
     "message": "Display language"
   },
@@ -331,9 +277,6 @@
   },
   "languageSystem": {
     "message": "Córas default"
-  },
-  "languageSystemSub": {
-    "message": "Follow your browser's language"
   },
   "languageEnglish": {
     "message": "English"
@@ -509,9 +452,6 @@
   "systemThemeLabel": {
     "message": "Córas theme"
   },
-  "systemThemeHint": {
-    "message": "Device preference or a fixed mode."
-  },
   "themeSystem": {
     "message": "Córas"
   },
@@ -668,9 +608,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "Easpórtáil sonraí agus socruithe"
   },
@@ -679,15 +616,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "Cén fáth a bhfeiceann tú é seo"
   },
   "blockReasonDomain": {
     "message": "Suíomh"
@@ -895,8 +823,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

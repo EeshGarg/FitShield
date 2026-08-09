@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "קח נשימה"
   },
-  "warningEyebrow": {
-    "message": "FitShield בדיקה"
-  },
-  "warningTitle": {
-    "message": "קח דקה אחת."
-  },
-  "warningIntro": {
-    "message": "בדוק לפני שאתה מזמין. רעב, נוחות, מתח והרגל יכולים להרגיש דומים ברגע זה."
-  },
-  "warningTriggeredBy": {
-    "message": "אתה עומד להזמין מ-$1."
-  },
   "warningBackButton": {
     "message": "תחזור אחורה"
-  },
-  "warningLockedButton": {
-    "message": "נעול"
-  },
-  "warningContinueButton": {
-    "message": "המשך"
   },
   "warningErrorHint": {
     "message": "משהו השתבש במהלך פתיחת האתר. אנא נסה שוב."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "אפשר חסימת כתובת אתר מותאמת אישית"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "הוסף כתובת אתר חסומה מותאמת אישית"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "ייצוא נתונים והגדרות"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "למה אתה רואה את זה"
   },
   "blockReasonDomain": {
     "message": "אתר"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

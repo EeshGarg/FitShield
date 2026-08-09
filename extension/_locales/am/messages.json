@@ -140,26 +140,8 @@
   "searchMatchSuffix": {
     "message": " $1 ከፍለጋው ጋር ይዛመዳል።"
   },
-  "warningEyebrow": {
-    "message": "FitShield ያረጋግጡ"
-  },
-  "warningTitle": {
-    "message": "አንድ ደቂቃ ይውሰዱ."
-  },
   "warningPageTitle": {
     "message": "ይተንፍሱ"
-  },
-  "warningTriggeredBy": {
-    "message": "ከ$1 ልታዝዙ ነው።"
-  },
-  "warningIntro": {
-    "message": "ከማዘዝዎ በፊት ያረጋግጡ። ረሃብ፣ ምቾት፣ ጭንቀት እና ልማድ በዚህ ቅጽበት ተመሳሳይ ሊሰማቸው ይችላል።"
-  },
-  "warningContinueButton": {
-    "message": "ቀጥል"
-  },
-  "warningLockedButton": {
-    "message": "ተቆልፏል"
   },
   "warningBackButton": {
     "message": "ተመለስ"
@@ -220,15 +202,6 @@
   },
   "customToggleTitle": {
     "message": "ብጁ URL እገዳን አንቃ"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "customSitePlaceholder": {
     "message": "example.com ወይም https://example.com"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "ውሂብ እና ቅንብሮችን ላክ"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "ይህን ለምን እያዩ ነው"
   },
   "blockReasonDomain": {
     "message": "ድረ-ገጽ"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

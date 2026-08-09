@@ -120,7 +120,8 @@
         "Heat the oil in a frying pan over medium heat until a breadcrumb sizzles steadily when dropped in.",
         "Fry 4-5 minutes per side without moving. The crust should be deep golden.",
         "Check the thickest part reads 74 C / 165 F, or cut in and confirm it is white throughout with clear juices. If the crust is dark but the centre is not done, finish it in a 190 C / 375 F oven for 5 minutes.",
-        "Drain on kitchen paper for 1 minute, then build: toasted bun, mayonnaise, chicken, pickles."
+        "Drain on kitchen paper for 1 minute. While it drains, toast the cut sides of the buns in a dry pan for 1 minute, until golden.",
+        "Build in this order: toasted bun, mayonnaise, chicken, pickles. The sauce goes under the chicken so the bun does not go soft."
       ],
       "totalMinutes": 25,
       "activeMinutes": 20,
@@ -182,7 +183,7 @@
       ],
       "storage": "Best fresh. Keeps 2 days; re-crisp at 200 C / 400 F for 5 minutes.",
       "categories": ["chicken", "fast_food", "korean_food"],
-      "cravings": ["wings", "fried-chicken", "late-night"],
+      "cravings": ["wings", "fried-chicken"],
       "region": "north-american",
       "noCook": false,
       "microwave": false,
@@ -255,18 +256,19 @@
         { "quantity": 2, "unit": "tbsp", "item": "shredded cheese", "optional": true }
       ],
       "steps": [
-        "Cook the strips from frozen in the air fryer at 200 C / 400 F for 10 minutes, or follow the packet oven time. Check they are piping hot right through before eating.",
+        "Cook the strips from frozen in the air fryer at 200 C / 400 F for 10 minutes. Check they are piping hot right through before eating.",
         "Warm the tortilla for 20 seconds in a dry pan or microwave so it folds without cracking.",
         "Spread the sauce, add lettuce, cheese, and the hot strips, then roll tightly and cut in half."
       ],
       "totalMinutes": 12,
       "activeMinutes": 4,
       "difficulty": "easy",
-      "equipment": ["air fryer", "oven"],
+      "equipment": ["air fryer"],
       "method": "assembly",
       "diet": "omnivore",
       "allergens": ["gluten", "egg", "dairy"],
       "substitutions": [
+        { "for": "air fryer", "use": "the oven at the packet temperature, which takes 18-20 minutes rather than 10" },
         { "for": "frozen breaded chicken strips", "use": "frozen plant-based nuggets for a vegetarian version" }
       ],
       "storage": "Eat straight away.",

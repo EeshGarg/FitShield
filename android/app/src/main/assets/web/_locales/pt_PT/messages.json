@@ -2,9 +2,6 @@
   "appName": {
     "message": "FitShield"
   },
-  "appDescription": {
-    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
-  },
   "actionTitle": {
     "message": "FitShield"
   },
@@ -38,12 +35,6 @@
   "customSecondsLabel": {
     "message": "Custom seconds"
   },
-  "siteOpenTimeLabel": {
-    "message": "Site open time"
-  },
-  "siteOpenTimeHint": {
-    "message": "Choose how long sites stay open after the timer ends."
-  },
   "customMinutesLabel": {
     "message": "Custom minutos"
   },
@@ -58,12 +49,6 @@
   },
   "currentScheduleSummary": {
     "message": "Atual agenda: $1."
-  },
-  "everyDaySuffix": {
-    "message": " every day"
-  },
-  "scheduleRange": {
-    "message": "$1 to $2"
   },
   "unitMinute": {
     "message": "minuto"
@@ -116,9 +101,6 @@
   "popupScheduleSubtitle": {
     "message": "Usarful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All sites are accessible."
-  },
   "statusAllDisabled": {
     "message": "Bloqueador is on, but every individual site is disabled. Abrir Definições to turn some sites back on."
   },
@@ -137,35 +119,8 @@
   "fastFoodSitesEnabledCount": {
     "message": "$1 of $2 sites de fast food enabled."
   },
-  "searchMatchSuffix": {
-    "message": " $1 match the search."
-  },
-  "warningPageTitle": {
-    "message": "Take a Breath"
-  },
-  "warningEyebrow": {
-    "message": "FitShield Check"
-  },
-  "warningTitle": {
-    "message": "Take one minuto."
-  },
-  "warningIntro": {
-    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
-  },
-  "warningTriggeredBy": {
-    "message": "You're about to order from $1."
-  },
   "warningBackButton": {
     "message": "Voltar"
-  },
-  "warningLockedButton": {
-    "message": "Bloqueado"
-  },
-  "warningContinueButton": {
-    "message": "Continuar"
-  },
-  "warningErrorHint": {
-    "message": "Something went wrong while opening the site. Please try again."
   },
   "settingsTitle": {
     "message": "FitShield Definições"
@@ -181,9 +136,6 @@
   },
   "customizeBlocklistHeading": {
     "message": "Customize Bloquearlist"
-  },
-  "customizeBlocklistIntro": {
-    "message": "Choose which built-in groups are active, turn individual sites on or off, and add your own domains."
   },
   "deliverySitesHeading": {
     "message": "Sites de entrega"
@@ -218,20 +170,8 @@
   "customToggleTitle": {
     "message": "Ativar custom URL bloquearing"
   },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
-  },
   "addCustomUrlLabel": {
     "message": "Adicionar a custom bloqueared URL"
-  },
-  "customSitePlaceholder": {
-    "message": "example.com or https://example.com"
   },
   "customNormalizeHint": {
     "message": "Entries are normalized to domains and bloqueared across all pages."
@@ -250,9 +190,6 @@
   },
   "noticeMatched": {
     "message": "$1 $2 matched \"$3\"."
-  },
-  "invalidUrlNotice": {
-    "message": "That URL does not look valid yet. Try a domain like example.com."
   },
   "alreadyOnBlocklist": {
     "message": "$1 is already on the bloquearlist, so it has been re-enabled."
@@ -308,9 +245,6 @@
   "languageHeading": {
     "message": "Idioma"
   },
-  "languageIntro": {
-    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
-  },
   "languageSelectLabel": {
     "message": "Display language"
   },
@@ -331,9 +265,6 @@
   },
   "languageSystem": {
     "message": "Sistema default"
-  },
-  "languageSystemSub": {
-    "message": "Follow your browser's language"
   },
   "languageEnglish": {
     "message": "English"
@@ -509,9 +440,6 @@
   "systemThemeLabel": {
     "message": "Sistema theme"
   },
-  "systemThemeHint": {
-    "message": "Device preference or a fixed mode."
-  },
   "themeSystem": {
     "message": "Sistema"
   },
@@ -668,9 +596,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "Exportar dados e definições"
   },
@@ -679,15 +604,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "Por que você está vendo isto"
   },
   "blockReasonDomain": {
     "message": "Site"
@@ -895,8 +811,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurante"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

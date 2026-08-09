@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "ஒரு மூச்சு விடுங்கள்"
   },
-  "warningEyebrow": {
-    "message": "FitShield சரிபார்ப்பு"
-  },
-  "warningTitle": {
-    "message": "ஒரு நிமிடம் எடுத்துக்கொள்ளுங்கள்."
-  },
-  "warningIntro": {
-    "message": "ஆர்டர் செய்வதற்கு முன் உங்களுடன் நீங்களே பார்க்கவும். பசி, வசதி, மனஅழுத்தம், பழக்கம் ஆகியவை அந்த நேரத்தில் ஒரே மாதிரி தோன்றலாம்."
-  },
-  "warningTriggeredBy": {
-    "message": "நீங்கள் $1-இலிருந்து ஆர்டர் செய்யப் போகிறீர்கள்."
-  },
   "warningBackButton": {
     "message": "திரும்பிச் செல்"
-  },
-  "warningLockedButton": {
-    "message": "பூட்டப்பட்டது"
-  },
-  "warningContinueButton": {
-    "message": "தொடர்"
   },
   "warningErrorHint": {
     "message": "தளத்தைத் திறக்கும் போது ஏதோ தவறு ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "தனிப்பயன் URL தடையை இயக்கு"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "தடுக்க தனிப்பயன் URL ஒன்றைச் சேர்க்கவும்"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "தரவு மற்றும் அமைப்புகளை ஏற்றுமதி செய்"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "இதை ஏன் பார்க்கிறீர்கள்"
   },
   "blockReasonDomain": {
     "message": "தளம்"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

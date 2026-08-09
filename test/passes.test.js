@@ -43,12 +43,45 @@ test("a site pass covers only its own domain and its subdomains", () => {
   );
 });
 
-test("a category pass covers a category and nothing else", () => {
-  const passes = [core.createPass({ presetId: "category30", scope: "category", target: "pizza", now: T0 })];
+// ---------------------------------------------------------------------------
+// There is no category preset, because no screen could ever select one
+//
+// `category30` was defined in PASS_PRESETS, exported through PASS_PRESET_IDS,
+// published in docs/STORAGE.md as a state a profile could hold, and pinned by a
+// passing test called "a category pass covers a category and nothing else" —
+// while the block page's chooser offered six options, none of them this one. A
+// buyer reading the docs or the suite would believe FitShield supports "open all
+// pizza sites for 30 minutes". It does not, and a test passing for a feature is
+// exactly the case where tests do not make it real.
+// ---------------------------------------------------------------------------
 
-  assert.ok(core.findCoveringPass(passes, { domain: "dominos.com", category: "pizza" }, T0));
-  assert.equal(core.findCoveringPass(passes, { domain: "dominos.com", category: "burger" }, T0), null);
-  assert.equal(core.findCoveringPass(passes, { domain: "dominos.com" }, T0), null);
+test("no pass preset creates a scope no screen can offer", () => {
+  assert.ok(!core.PASS_PRESET_IDS.includes("category30"));
+  assert.equal(core.PASS_PRESETS.category30, undefined);
+
+  const reachableScopes = new Set(core.PASS_PRESET_IDS.map((id) => core.PASS_PRESETS[id].scope));
+  assert.ok(!reachableScopes.has("category"), "nothing the UI can press grants a category pass");
+});
+
+test("a category pass already granted by an older build still covers what it said", () => {
+  // The scope stays supported precisely so a pass someone is currently holding
+  // is neither widened nor dropped out from under them mid-flight.
+  const stored = [
+    {
+      id: "p-old",
+      preset: "category30",
+      scope: "category",
+      target: "pizza",
+      createdAt: T0,
+      expiresAt: T0 + minutes(30),
+      maxDurationMs: minutes(30)
+    }
+  ];
+
+  assert.ok(core.findCoveringPass(stored, { domain: "dominos.com", category: "pizza" }, T0 + minutes(5)));
+  assert.equal(core.findCoveringPass(stored, { domain: "dominos.com", category: "burger" }, T0 + minutes(5)), null);
+  assert.equal(core.findCoveringPass(stored, { domain: "dominos.com" }, T0 + minutes(5)), null);
+  assert.equal(core.activePasses(stored, T0 + minutes(31)).length, 0, "and it still expires on time");
 });
 
 test("an all-scope pause covers everything", () => {
@@ -274,9 +307,80 @@ test("repeat history is bounded so it cannot grow without limit", () => {
     history = core.recordContinue(history, `site${i % 90}.example`, T0 + i * 1000);
   }
 
-  const normalized = core.normalizeRepeatHistory(history);
+  const normalized = core.normalizeRepeatHistory(history, { now: T0 + 400 * 1000 });
   assert.ok(Object.keys(normalized).length <= 60, "domain count is capped");
   Object.values(normalized).forEach((times) => assert.ok(times.length <= 12, "per-domain history is capped"));
+});
+
+// ---------------------------------------------------------------------------
+// repeatHistory must actually be the "short-lived window" the product calls it
+//
+// The caps were on COUNT only — 60 domains x 12 entries — and nothing anywhere
+// applied an age. `repeatFrictionFor` computed a cutoff but used it for READING
+// only and never wrote the pruned list back, so a map of
+// {"ubereats.com": [12 exact millisecond timestamps]} survived every read,
+// forever. That is a durable per-brand record of the moments a user gave in, on
+// a product that promises it stores no browsing history, readable by anyone with
+// a moment at an unlocked machine. Age is now enforced where it is decided:
+// every read, and every write.
+// ---------------------------------------------------------------------------
+
+const RETENTION = () => core.repeatHistoryRetentionMs(60);
+
+test("a continue older than the retention window is dropped on read", () => {
+  const history = {
+    "ubereats.com": [T0 - RETENTION() - minutes(1), T0 - minutes(5)],
+    "dominos.com": [T0 - 3 * 365 * 24 * 60 * 60 * 1000]
+  };
+
+  const pruned = core.normalizeRepeatHistory(history, { now: T0, windowMinutes: 60 });
+
+  assert.deepEqual(pruned["ubereats.com"], [T0 - minutes(5)], "only the recent visit survives");
+  assert.ok(!("dominos.com" in pruned), "a domain with nothing recent leaves no row at all");
+});
+
+test("retention is a bounded multiple of the user's own repeat window", () => {
+  assert.equal(core.repeatHistoryRetentionMs(60), 60 * core.REPEAT_HISTORY_RETENTION_MULTIPLE * 60 * 1000);
+  // Clamped to the same 5-720 minute range the window itself uses, so no
+  // setting can turn this back into an unbounded log.
+  assert.equal(core.repeatHistoryRetentionMs(999999), core.repeatHistoryRetentionMs(720));
+  assert.equal(core.repeatHistoryRetentionMs("nonsense"), core.repeatHistoryRetentionMs(60));
+  assert.ok(core.repeatHistoryRetentionMs(720) <= 36 * 60 * 60 * 1000, "nothing survives beyond 36 hours");
+});
+
+test("recording a continue prunes what it is written into", () => {
+  const stale = { "ubereats.com": [T0 - RETENTION() - 1] };
+  const next = core.recordContinue(stale, "doordash.com", T0, { windowMinutes: 60 });
+
+  assert.deepEqual(next, { "doordash.com": [T0] }, "the write carried nothing expired forward");
+});
+
+test("a timestamp from a wrong clock cannot outlive every cutoff", () => {
+  const tampered = { "ubereats.com": [T0 + 10 * 365 * 24 * 60 * 60 * 1000] };
+
+  assert.deepEqual(core.normalizeRepeatHistory(tampered, { now: T0, windowMinutes: 60 }), {});
+});
+
+test("readSettings expires repeat history, so a profile left alone cannot keep it", () => {
+  const settings = core.readSettings(
+    {
+      repeatWindowMinutes: 60,
+      repeatHistory: { "ubereats.com": [T0 - RETENTION() - 1, T0 - minutes(2)] }
+    },
+    { now: T0 }
+  );
+
+  assert.deepEqual(settings.repeatHistory, { "ubereats.com": [T0 - minutes(2)] });
+});
+
+test("friction still works exactly as before within the window", () => {
+  // Retention must never shorten the behaviour it exists to serve: an entry
+  // inside the repeat window has to survive both the read and the write.
+  const history = core.recordContinue({}, "doordash.com", T0, { windowMinutes: 60 });
+  const result = core.repeatFrictionFor(history, "doordash.com", frictionOn, T0 + minutes(59));
+
+  assert.equal(result.repeat, true);
+  assert.equal(result.recentCount, 1);
 });
 
 // ---------------------------------------------------------------------------

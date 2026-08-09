@@ -14,6 +14,20 @@
       --muted: #a9b4c2;
       --accent: #7ef0a8;
       --panel-radius: 18px;
+
+      /* Derived from the live palette, because welcome.js writes the chosen
+         preset straight into these variables without adding a `.theme-light`
+         class. This is the page where Light is CHOSEN, so the moment it is
+         picked the whole card has to stay legible. Same tokens as the block
+         page: --surface is the quiet-button fill (a literal #293241 here made
+         "Back" a 1.21:1 invisible label), --accent-text is the accent pulled
+         towards --text so it clears 4.5:1 on white as well as on the panel. */
+      --surface: color-mix(in srgb, var(--text) 12%, var(--bg));
+      --sunken: color-mix(in srgb, var(--text) 6%, var(--bg));
+      --accent-text: color-mix(in srgb, var(--accent) 65%, var(--text));
+      --accent-tint: color-mix(in srgb, var(--accent) 12%, transparent);
+      --veil: color-mix(in srgb, var(--text) 3%, transparent);
+      --hairline: color-mix(in srgb, var(--text) 12%, transparent);
     }
 
     * { box-sizing: border-box; }
@@ -25,7 +39,7 @@
       place-items: center;
       padding: 32px 24px;
       background:
-        radial-gradient(130% 80% at 50% -10%, rgba(255, 255, 255, 0.025), transparent 60%),
+        radial-gradient(130% 80% at 50% -10%, var(--veil), transparent 60%),
         var(--bg);
       color: var(--text);
       font-family: "Segoe UI", -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
@@ -45,8 +59,8 @@
       margin-bottom: 12px;
       padding: 6px 12px;
       border-radius: 999px;
-      background: rgba(126, 240, 168, 0.12);
-      color: var(--accent);
+      background: var(--accent-tint);
+      color: var(--accent-text);
       font-size: 0.78rem;
       letter-spacing: 0.04em;
       text-transform: uppercase;
@@ -56,7 +70,7 @@
     .subtitle { margin: 0 0 20px; color: var(--muted); line-height: 1.5; }
 
     .dots { display: flex; gap: 6px; margin-bottom: 22px; }
-    .dot { height: 6px; flex: 1; border-radius: 999px; background: #2c3644; transition: background 0.2s ease; }
+    .dot { height: 6px; flex: 1; border-radius: 999px; background: var(--surface); transition: background 0.2s ease; }
     .dot.active { background: var(--accent); }
 
     .step { display: none; }
@@ -69,8 +83,8 @@
       width: 100%;
       font: inherit;
       color: var(--text);
-      background: #111823;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: var(--sunken);
+      border: 1px solid var(--hairline);
       border-radius: 12px;
       padding: 12px 14px;
       outline: none;
@@ -83,8 +97,8 @@
       gap: 14px;
       padding: 14px;
       border-radius: 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: var(--veil);
+      border: 1px solid var(--hairline);
     }
     .choice-row + .choice-row { margin-top: 12px; }
     .choice-row .label { font-weight: 600; }
@@ -93,25 +107,25 @@
     .theme-options { display: flex; gap: 10px; }
     .theme-options button {
       flex: 1;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: #111823;
+      border: 1px solid var(--hairline);
+      background: var(--sunken);
       color: var(--text);
       border-radius: 12px;
       padding: 12px;
       font: inherit;
       cursor: pointer;
     }
-    .theme-options button.active { border-color: var(--accent); color: var(--accent); }
+    .theme-options button.active { border-color: var(--accent-text); color: var(--accent-text); }
 
     .toggle { position: relative; width: 54px; height: 30px; flex: 0 0 auto; }
     .toggle input { opacity: 0; width: 0; height: 0; }
-    .slider { position: absolute; inset: 0; border-radius: 999px; background: #334155; cursor: pointer; transition: 0.2s ease; }
+    .slider { position: absolute; inset: 0; border-radius: 999px; background: color-mix(in srgb, var(--text) 26%, var(--bg)); cursor: pointer; transition: 0.2s ease; }
     .slider::before { content: ""; position: absolute; width: 22px; height: 22px; left: 4px; top: 4px; border-radius: 50%; background: #fff; transition: 0.2s ease; }
     input:checked + .slider { background: var(--accent); }
     input:checked + .slider::before { transform: translateX(24px); background: #122117; }
 
     .explainers { display: grid; gap: 12px; }
-    .explainer { padding: 12px 14px; border-radius: 12px; background: rgba(255, 255, 255, 0.03); }
+    .explainer { padding: 12px 14px; border-radius: 12px; background: var(--veil); }
     .explainer b { display: block; margin-bottom: 2px; }
     .explainer span { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
 
@@ -129,15 +143,15 @@
       background: var(--accent);
       color: #102016;
     }
-    button.btn.secondary { background: #293241; color: var(--text); }
+    button.btn.secondary { background: var(--surface); color: var(--text); }
     button.btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
     button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible {
-      outline: 2px solid var(--accent);
+      outline: 2px solid var(--accent-text);
       outline-offset: 2px;
     }
     .toggle input:focus-visible + .slider {
-      outline: 2px solid var(--accent);
+      outline: 2px solid var(--accent-text);
       outline-offset: 2px;
     }
     /* Onboarding answer buttons. Selection is carried by aria-pressed and a
@@ -153,7 +167,7 @@
       padding: 14px 18px;
       border-radius: 14px;
       border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--veil);
       color: var(--text);
       font: inherit;
       font-size: 0.98rem;
@@ -161,10 +175,10 @@
       cursor: pointer;
       transition: background 0.15s ease;
     }
-    .onboard-choices button:hover { background: rgba(255, 255, 255, 0.07); }
+    .onboard-choices button:hover { background: color-mix(in srgb, var(--text) 7%, transparent); }
     .onboard-choices button[aria-pressed="true"] {
-      border-color: var(--accent);
-      background: rgba(126, 240, 168, 0.14);
+      border-color: var(--accent-text);
+      background: color-mix(in srgb, var(--accent) 14%, transparent);
       font-weight: 600;
     }
     .onboard-choices button[aria-pressed="true"]::before { content: "✓ "; }

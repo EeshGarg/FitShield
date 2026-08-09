@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "একটি শ্বাস নিন"
   },
-  "warningEyebrow": {
-    "message": "FitShield চেক"
-  },
-  "warningTitle": {
-    "message": "এক মিনিট সময় নিন।"
-  },
-  "warningIntro": {
-    "message": "আপনি অর্ডার করার আগে চেক ইন করুন. ক্ষুধা, সুবিধা, মানসিক চাপ এবং অভ্যাস এই মুহূর্তে অনুরূপ অনুভব করতে পারে।"
-  },
-  "warningTriggeredBy": {
-    "message": "আপনি $1 থেকে অর্ডার করতে চলেছেন৷"
-  },
   "warningBackButton": {
     "message": "ফিরে যান"
-  },
-  "warningLockedButton": {
-    "message": "তালাবদ্ধ"
-  },
-  "warningContinueButton": {
-    "message": "চালিয়ে যান"
   },
   "warningErrorHint": {
     "message": "সাইটটি খোলার সময় কিছু ভুল হয়েছে৷ আবার চেষ্টা করুন."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "কাস্টম URL ব্লকিং সক্ষম করুন"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "একটি কাস্টম অবরুদ্ধ URL যোগ করুন"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "ডেটা ও সেটিংস এক্সপোর্ট করুন"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "আপনি কেন এটি দেখছেন"
   },
   "blockReasonDomain": {
     "message": "সাইট"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "خذ نفسا"
   },
-  "warningEyebrow": {
-    "message": "FitShield تحقق"
-  },
-  "warningTitle": {
-    "message": "خذ دقيقة واحدة."
-  },
-  "warningIntro": {
-    "message": "تحقق قبل أن تأمر. يمكن أن تشعر بالجوع والراحة والتوتر والعادة بشكل متشابه في الوقت الحالي."
-  },
-  "warningTriggeredBy": {
-    "message": "أنت على وشك الطلب من $1."
-  },
   "warningBackButton": {
     "message": "ارجع"
-  },
-  "warningLockedButton": {
-    "message": "مغلق"
-  },
-  "warningContinueButton": {
-    "message": "متابعة"
   },
   "warningErrorHint": {
     "message": "حدث خطأ ما أثناء فتح الموقع. يرجى المحاولة مرة أخرى."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "تمكين حظر عناوين URL المخصصة"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "أضف عنوان URL محظورًا مخصصًا"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "تصدير البيانات والإعدادات"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "لماذا ترى هذا"
   },
   "blockReasonDomain": {
     "message": "الموقع"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "مطعم"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

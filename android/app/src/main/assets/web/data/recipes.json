@@ -7,21 +7,21 @@
     "shared": {
       "id": "Stable unique id (kebab-case). Never reused, never renumbered.",
       "title": "Name (English).",
-      "description": "One line explaining what it is.",
+      "description": "One line explaining what it is. Any number it states (minutes, count of ingredients) must match the data below it.",
       "servings": "Exact number of servings the quantities produce.",
       "ingredients": "Structured objects: { quantity, unit, item, note?, optional?, substituteGroup? }.",
       "steps": "Ordered instructions. Must be executable by someone who has not cooked it before.",
-      "totalMinutes": "Elapsed time from starting to eating.",
+      "totalMinutes": "Elapsed time from starting to eating, INCLUDING heating the oven and bringing water to the boil. If a step says to preheat, that time is part of this number.",
       "activeMinutes": "Hands-on effort only. Always <= totalMinutes.",
       "difficulty": "easy | medium",
-      "equipment": "Equipment vocabulary from taxonomy.equipment. [] means no equipment at all.",
+      "equipment": "Equipment vocabulary from taxonomy.equipment. EVERY item listed is required: the matcher treats the array as AND, so two appliances that are alternatives to each other must never both appear here — declare the one the recipe is written for and put the other in substitutions. [] means no equipment at all.",
       "method": "Effort classification from taxonomy.methods.",
       "diet": "The strictest diet this satisfies: vegan | vegetarian | pescatarian | omnivore.",
       "allergens": "Major allergens present, from taxonomy.allergens. [] means none of the tracked nine.",
       "substitutions": "[{ for, use }] realistic swaps, required when an ingredient is uncommon.",
       "storage": "Leftover / storage guidance, or how long it keeps.",
       "categories": "Blocked categories this answers (taxonomy.categories).",
-      "cravings": "Craving types this answers (taxonomy.cravings).",
+      "cravings": "Craving types this answers (taxonomy.cravings). A tag is a promise: only tag a craving this entry genuinely answers, never to pad a group.",
       "region": "Cuisine grouping (taxonomy.regions). Not a claim of authenticity.",
       "noCook": "True when nothing is heated at all.",
       "microwave": "True when a microwave alone is enough.",
@@ -37,9 +37,9 @@
     }
   },
   "_counts": {
-    "recipes": 43,
-    "quickAlternatives": 38,
-    "total": 81
+    "recipes": 46,
+    "quickAlternatives": 42,
+    "total": 88
   },
   "taxonomy": {
     "methods": [
@@ -602,14 +602,12 @@
         "pasta"
       ],
       "hot dogs": [
-        "late-night"
+        "sandwich"
       ],
       "snacks": [
-        "late-night",
         "convenience"
       ],
       "chips": [
-        "late-night",
         "convenience"
       ],
       "convenience stores": [
@@ -681,7 +679,7 @@
       "id": "naan-pizza",
       "kind": "recipe",
       "title": "Naan Pizza",
-      "description": "A personal pizza on naan with a properly crisp base, out of the oven in fifteen minutes.",
+      "description": "A personal pizza on naan with a properly crisp base — six minutes of work, and twenty-five from a cold oven.",
       "servings": 2,
       "ingredients": [
         {
@@ -725,13 +723,13 @@
         }
       ],
       "steps": [
-        "Heat the oven to 230 C / 450 F and put a baking tray in while it heats.",
+        "Heat the oven to 230 C / 450 F with a baking tray already inside. Give it a full 10-12 minutes to get there — the hot tray is what crisps the base, and this is most of the twenty-five.",
         "Brush the edges of each naan with olive oil and spread 1/4 cup of sauce over each, leaving a 1 cm border.",
         "Scatter the mozzarella and any toppings evenly, then sprinkle with oregano.",
         "Slide the naans onto the hot tray and bake 8-10 minutes, until the cheese is fully melted with a few browned spots and the edges are firm and dry to the touch.",
         "Rest 2 minutes before slicing so the cheese sets."
       ],
-      "totalMinutes": 15,
+      "totalMinutes": 25,
       "activeMinutes": 6,
       "prepMinutes": 5,
       "cookMinutes": 10,
@@ -1440,7 +1438,8 @@
         "Heat the oil in a frying pan over medium heat until a breadcrumb sizzles steadily when dropped in.",
         "Fry 4-5 minutes per side without moving. The crust should be deep golden.",
         "Check the thickest part reads 74 C / 165 F, or cut in and confirm it is white throughout with clear juices. If the crust is dark but the centre is not done, finish it in a 190 C / 375 F oven for 5 minutes.",
-        "Drain on kitchen paper for 1 minute, then build: toasted bun, mayonnaise, chicken, pickles."
+        "Drain on kitchen paper for 1 minute. While it drains, toast the cut sides of the buns in a dry pan for 1 minute, until golden.",
+        "Build in this order: toasted bun, mayonnaise, chicken, pickles. The sauce goes under the chicken so the bun does not go soft."
       ],
       "totalMinutes": 25,
       "activeMinutes": 20,
@@ -1568,8 +1567,7 @@
       ],
       "cravings": [
         "wings",
-        "fried-chicken",
-        "late-night"
+        "fried-chicken"
       ],
       "region": "north-american",
       "noCook": false,
@@ -2358,14 +2356,14 @@
       "id": "garlic-soy-noodles",
       "kind": "recipe",
       "title": "Garlic Soy Noodles",
-      "description": "Ten minutes, five pantry ingredients, and a sauce that clings properly to the noodles.",
+      "description": "Six pantry ingredients and a sauce that clings to every strand — twenty minutes, most of it waiting for water to boil.",
       "servings": 2,
       "ingredients": [
         {
           "quantity": 200,
           "unit": "g",
           "item": "dried noodles",
-          "note": "egg, wheat, or instant noodle blocks without the sachet"
+          "note": "wheat or rice noodles, or instant noodle blocks without the sachet — egg noodles are not vegan, so check the packet"
         },
         {
           "quantity": 4,
@@ -2408,16 +2406,16 @@
         }
       ],
       "steps": [
-        "Boil the noodles for the time on the packet, then drain, keeping 4 tbsp of the cooking water.",
+        "Bring a pan of water to the boil over high heat — a full pan takes 6-8 minutes, and that is most of this recipe. Boil the noodles for the time on the packet, until tender, then drain, keeping 4 tbsp of the cooking water.",
         "While they cook, mix the soy sauce, sesame oil, and sugar in a bowl.",
         "Heat the neutral oil in a pan over medium heat and cook the garlic for 45-60 seconds, until it smells sweet and turns pale gold. Take it off the moment it colours — burnt garlic turns the whole dish bitter.",
         "Add the drained noodles, the sauce, and 2 tbsp of the reserved water. Toss over the heat for 1 minute until the sauce coats every strand and no liquid pools in the pan; add the rest of the water if it looks dry.",
         "Finish with chilli flakes and spring onions."
       ],
-      "totalMinutes": 12,
+      "totalMinutes": 20,
       "activeMinutes": 10,
       "prepMinutes": 4,
-      "cookMinutes": 8,
+      "cookMinutes": 16,
       "difficulty": "easy",
       "equipment": [
         "stove"
@@ -2447,8 +2445,7 @@
       ],
       "cravings": [
         "noodles",
-        "chinese",
-        "late-night"
+        "chinese"
       ],
       "region": "east-asian",
       "noCook": false,
@@ -2738,16 +2735,16 @@
         }
       ],
       "steps": [
-        "Boil the noodles over high heat for the time on the packet, usually 4-6 minutes, until tender with a slight bite. Reserve half a cup of the water before draining.",
+        "Bring a pan of water to the boil over high heat — allow 6-8 minutes for that alone — then boil the noodles for the time on the packet, usually 4-6 minutes, until tender with a slight bite. Reserve half a cup of the water before draining.",
         "Whisk the peanut butter, soy sauce, vinegar, sugar, and garlic in a large bowl. It will seize and look wrong at first.",
         "Add the hot noodle water 1 tbsp at a time, whisking, until the sauce becomes smooth and just thin enough to pour.",
         "Toss the drained noodles through the sauce until every strand is coated.",
         "Top with the shredded vegetables and chilli flakes."
       ],
-      "totalMinutes": 12,
+      "totalMinutes": 20,
       "activeMinutes": 10,
       "prepMinutes": 5,
-      "cookMinutes": 7,
+      "cookMinutes": 15,
       "difficulty": "easy",
       "equipment": [
         "stove"
@@ -2777,8 +2774,7 @@
       ],
       "cravings": [
         "noodles",
-        "thai",
-        "late-night"
+        "thai"
       ],
       "region": "southeast-asian",
       "noCook": false,
@@ -3102,7 +3098,8 @@
         "Add the cumin, turmeric, and chilli powder and stir for 30 seconds.",
         "Add the tomato and salt and cook 3-4 minutes, pressing with the spoon, until it breaks down into a thick paste and the oil starts to separate at the edges.",
         "Stir in the crumbled paneer and cook 3 minutes, just long enough to heat it through. Cooking it longer makes it rubbery.",
-        "Finish with coriander and serve with warm flatbread."
+        "If you are having flatbread with it, warm the rotis 20 seconds a side in a dry pan, until they puff slightly and smell toasted.",
+        "Finish with coriander and serve."
       ],
       "totalMinutes": 18,
       "activeMinutes": 16,
@@ -3333,14 +3330,21 @@
           "unit": "piece",
           "item": "pita breads",
           "optional": true
+        },
+        {
+          "quantity": 2,
+          "unit": "cup",
+          "item": "salad leaves or shredded lettuce",
+          "optional": true
         }
       ],
       "steps": [
         "Dry the chickpeas properly in a tea towel. Wet chickpeas make a paste that will not hold.",
-        "Pulse the chickpeas, herbs, garlic, flour, spices, and salt in a food processor to a coarse, crumbly mixture that holds when squeezed — stop before it becomes smooth. With no processor, mash by hand and chop the herbs finely.",
+        "Pulse the chickpeas, the parsley, garlic, flour, cumin, ground coriander, and salt in a food processor to a coarse, crumbly mixture that holds when squeezed — stop before it becomes smooth. With no processor, mash by hand and chop the herbs finely.",
         "Shape into 6 flat patties about 1.5 cm thick.",
         "Heat the oil in a frying pan over medium heat and fry 3-4 minutes per side, until deeply golden and firm.",
-        "Serve in warm pita with hummus and salad."
+        "Warm the pita breads 20 seconds a side in a dry pan while the patties rest, so they open without tearing.",
+        "Fill each one with the patties, the hummus, and the salad leaves."
       ],
       "totalMinutes": 25,
       "activeMinutes": 20,
@@ -3393,7 +3397,7 @@
       "id": "garlic-butter-spaghetti",
       "kind": "recipe",
       "title": "Garlic Butter Spaghetti",
-      "description": "Four ingredients, ten minutes, and a sauce that clings because of the pasta water.",
+      "description": "Four ingredients, twenty minutes, and a sauce that clings because of the pasta water.",
       "servings": 2,
       "ingredients": [
         {
@@ -3438,17 +3442,17 @@
         }
       ],
       "steps": [
-        "Boil the spaghetti in well-salted water for the time on the packet, and scoop out a mugful of the water before draining.",
+        "Bring a big pan of well-salted water to the boil — 6-8 minutes on its own, and the main reason this takes twenty. Boil the spaghetti for the time on the packet, then scoop out a mugful of the water before draining.",
         "While it boils, melt the butter in a wide pan over medium-low heat and add the garlic and chilli flakes.",
         "Cook the garlic gently for 2-3 minutes until it is pale gold and smells sweet. If it browns it will taste bitter, so keep the heat low.",
         "Add the drained pasta and 0.5 cup of the pasta water to the pan and toss hard over medium heat for 60-90 seconds.",
         "The sauce is ready when it turns glossy and coats the strands instead of pooling. Add more pasta water a splash at a time if it looks dry.",
         "Take off the heat, stir in the parmesan and parsley, and serve immediately."
       ],
-      "totalMinutes": 12,
+      "totalMinutes": 20,
       "activeMinutes": 10,
       "prepMinutes": 3,
-      "cookMinutes": 10,
+      "cookMinutes": 18,
       "difficulty": "easy",
       "equipment": [
         "stove"
@@ -3477,8 +3481,7 @@
       ],
       "cravings": [
         "pasta",
-        "comfort",
-        "late-night"
+        "comfort"
       ],
       "region": "european",
       "noCook": false,
@@ -3909,7 +3912,7 @@
       "id": "scrambled-eggs-toast",
       "kind": "recipe",
       "title": "Soft Scrambled Eggs on Toast",
-      "description": "Five minutes, two ingredients, and the one technique that separates creamy from rubbery.",
+      "description": "Six minutes, five things you already have, and the one technique that separates creamy from rubbery.",
       "servings": 1,
       "ingredients": [
         {
@@ -3940,7 +3943,7 @@
       ],
       "steps": [
         "Beat the eggs with the salt until no streaks of white remain.",
-        "Put the toast on.",
+        "Put the bread in the toaster now, so it is ready when the eggs are.",
         "Melt the butter in a non-stick pan over LOW heat — low is the whole trick.",
         "Pour in the eggs and stir slowly and constantly with a spatula, scraping the base every few seconds.",
         "After 2-3 minutes they will start forming soft curds. Take the pan off the heat while they still look slightly wet and glossy; the residual heat finishes them.",
@@ -3999,7 +4002,7 @@
       "id": "overnight-oats",
       "kind": "recipe",
       "title": "Overnight Oats",
-      "description": "Two minutes tonight, breakfast handled tomorrow. Nothing is cooked.",
+      "description": "Four minutes tonight, breakfast handled tomorrow. Nothing is cooked.",
       "servings": 1,
       "ingredients": [
         {
@@ -4176,14 +4179,14 @@
       "id": "blended-mocha-frappe",
       "kind": "recipe",
       "title": "Blended Mocha",
-      "description": "The thick, sweet, blended coffee drink — made in a blender in three minutes.",
+      "description": "The thick, sweet, blended coffee drink — made in a blender in five minutes.",
       "servings": 1,
       "ingredients": [
         {
           "quantity": 60,
           "unit": "ml",
           "item": "strong brewed coffee",
-          "note": "cooled"
+          "note": "hot, or freshly brewed — step 1 needs it warm to dissolve the cocoa"
         },
         {
           "quantity": 120,
@@ -4243,9 +4246,7 @@
       "storage": "Drink immediately; it separates as it melts.",
       "categories": [
         "coffee",
-        "dessert",
-        "smoothie",
-        "tea"
+        "dessert"
       ],
       "cravings": [
         "sweet-drink",
@@ -4361,10 +4362,108 @@
       "dataVersion": 2
     },
     {
+      "id": "masala-chai",
+      "kind": "recipe",
+      "title": "Stovetop Masala Chai",
+      "description": "Black tea simmered with milk, cardamom, and ginger — a simple everyday version of the hot drink, not a claim to one true recipe.",
+      "servings": 2,
+      "ingredients": [
+        {
+          "quantity": 1,
+          "unit": "cup",
+          "item": "water"
+        },
+        {
+          "quantity": 1,
+          "unit": "cup",
+          "item": "milk or plant milk"
+        },
+        {
+          "quantity": 2,
+          "unit": "piece",
+          "item": "black teabags",
+          "note": "or 2 tsp loose black tea"
+        },
+        {
+          "quantity": 2,
+          "unit": "tsp",
+          "item": "sugar"
+        },
+        {
+          "quantity": 4,
+          "unit": "piece",
+          "item": "green cardamom pods",
+          "note": "lightly crushed with the flat of a knife"
+        },
+        {
+          "quantity": 1,
+          "unit": "tsp",
+          "item": "grated ginger",
+          "optional": true
+        },
+        {
+          "quantity": 1,
+          "unit": "pinch",
+          "item": "ground cinnamon",
+          "optional": true
+        }
+      ],
+      "steps": [
+        "Put the water and the crushed cardamom pods in a small saucepan and bring to the boil over high heat — about 3 minutes.",
+        "Add the teabags and the ginger, lower to medium heat, and simmer 2 minutes until the water is dark red-brown.",
+        "Pour in the milk and sugar and bring back to a gentle simmer over medium heat, 3-4 minutes. Watch it from here — chai climbs the pan the second it boils hard.",
+        "It is ready when the colour is an even tan and the surface is steaming with a ring of foam at the edge.",
+        "Lift out the teabags and pour through a small sieve into two cups."
+      ],
+      "totalMinutes": 10,
+      "activeMinutes": 8,
+      "prepMinutes": 2,
+      "cookMinutes": 9,
+      "difficulty": "easy",
+      "equipment": [
+        "stove"
+      ],
+      "method": "quick-cook",
+      "diet": "vegetarian",
+      "allergens": [
+        "dairy"
+      ],
+      "substitutions": [
+        {
+          "for": "green cardamom pods",
+          "use": "0.5 tsp ground cardamom, added with the tea instead of the water"
+        },
+        {
+          "for": "milk or plant milk",
+          "use": "oat milk, which holds up to simmering better than most plant milks and keeps this vegan"
+        }
+      ],
+      "storage": "Drink straight away. Chai left on the heat keeps stewing and turns bitter.",
+      "categories": [
+        "tea",
+        "coffee"
+      ],
+      "cravings": [
+        "sweet-drink",
+        "comfort"
+      ],
+      "region": "south-asian",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [
+        110,
+        190
+      ],
+      "dataVersion": 2
+    },
+    {
       "id": "microwave-mug-brownie",
       "kind": "recipe",
       "title": "Microwave Mug Brownie",
-      "description": "A single warm, fudgy brownie in ninety seconds, with no oven and nothing left over.",
+      "description": "A single warm, fudgy brownie in five minutes, with no oven and nothing left over.",
       "servings": 1,
       "ingredients": [
         {
@@ -4462,7 +4561,7 @@
       "id": "banana-nice-cream",
       "kind": "recipe",
       "title": "Banana Ice Cream",
-      "description": "Two frozen bananas blended into something genuinely like soft-serve. One ingredient, no churning.",
+      "description": "Three frozen bananas blended into something genuinely like soft-serve. One ingredient, no churning.",
       "servings": 2,
       "ingredients": [
         {
@@ -4475,7 +4574,8 @@
           "quantity": 2,
           "unit": "tbsp",
           "item": "milk or plant milk",
-          "note": "only if the blender needs help"
+          "note": "only if the blender needs help",
+          "optional": true
         },
         {
           "quantity": 1,
@@ -4528,7 +4628,6 @@
       "cravings": [
         "ice-cream",
         "dessert",
-        "sweet-drink",
         "smoothie"
       ],
       "region": "global",
@@ -5077,8 +5176,7 @@
       ],
       "cravings": [
         "wings",
-        "fried-chicken",
-        "late-night"
+        "fried-chicken"
       ],
       "region": "north-american",
       "noCook": false,
@@ -5206,6 +5304,242 @@
         480
       ],
       "dataVersion": 2
+    },
+    {
+      "id": "chicken-caesar-salad",
+      "kind": "recipe",
+      "title": "Chicken Caesar-Style Salad",
+      "description": "A proper cold salad built on crunchy lettuce and chicken that is already cooked — no anchovies, no raw egg, no cooking at all.",
+      "servings": 2,
+      "ingredients": [
+        {
+          "quantity": 1,
+          "unit": "piece",
+          "item": "cos or romaine lettuce",
+          "note": "about 300 g"
+        },
+        {
+          "quantity": 250,
+          "unit": "g",
+          "item": "cooked chicken",
+          "note": "rotisserie or leftover, sliced"
+        },
+        {
+          "quantity": 3,
+          "unit": "tbsp",
+          "item": "mayonnaise"
+        },
+        {
+          "quantity": 1,
+          "unit": "tbsp",
+          "item": "lemon juice"
+        },
+        {
+          "quantity": 30,
+          "unit": "g",
+          "item": "parmesan",
+          "note": "finely grated"
+        },
+        {
+          "quantity": 1,
+          "unit": "clove",
+          "item": "garlic",
+          "note": "grated"
+        },
+        {
+          "quantity": 0.5,
+          "unit": "tsp",
+          "item": "mustard"
+        },
+        {
+          "quantity": 0.25,
+          "unit": "tsp",
+          "item": "black pepper"
+        },
+        {
+          "quantity": 0.5,
+          "unit": "cup",
+          "item": "croutons",
+          "optional": true
+        }
+      ],
+      "steps": [
+        "Whisk the mayonnaise, lemon juice, garlic, mustard, half the parmesan, and the pepper in the bottom of a large bowl until it is smooth enough to pour. Add a teaspoon of water if it is too thick to coat a leaf.",
+        "Chop the lettuce into 3 cm pieces, wash it, and dry it properly — dressing slides straight off a wet leaf and pools in the bottom of the bowl.",
+        "Add the lettuce and the sliced chicken and toss until every leaf is lightly coated.",
+        "Scatter the rest of the parmesan and the croutons over the top, and eat it before the croutons soften."
+      ],
+      "totalMinutes": 12,
+      "activeMinutes": 12,
+      "prepMinutes": 12,
+      "cookMinutes": 0,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "omnivore",
+      "allergens": [
+        "dairy",
+        "egg",
+        "gluten"
+      ],
+      "substitutions": [
+        {
+          "for": "cooked chicken",
+          "use": "a tin of tuna, a tin of chickpeas, or cubed halloumi for a vegetarian salad"
+        },
+        {
+          "for": "mayonnaise",
+          "use": "plain yogurt with an extra squeeze of lemon"
+        },
+        {
+          "for": "croutons",
+          "use": "2 slices of bread cut into cubes and fried in 1 tbsp oil over medium heat for 3-4 minutes, until golden"
+        }
+      ],
+      "storage": "Dress only what you are eating now. Undressed, the leaves and the chicken keep 2 days separately.",
+      "categories": [
+        "fast_casual",
+        "delivery",
+        "grocery"
+      ],
+      "cravings": [
+        "salad",
+        "high-protein"
+      ],
+      "region": "north-american",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": false,
+      "calorieRange": [
+        420,
+        560
+      ],
+      "dataVersion": 2
+    },
+    {
+      "id": "tuna-white-bean-salad",
+      "kind": "recipe",
+      "title": "Tuna and White Bean Salad",
+      "description": "A tinned-fish salad that eats like a real meal, from things that all keep in the cupboard.",
+      "servings": 2,
+      "ingredients": [
+        {
+          "quantity": 145,
+          "unit": "g",
+          "item": "canned tuna",
+          "note": "one tin, drained"
+        },
+        {
+          "quantity": 400,
+          "unit": "g",
+          "item": "canned white beans",
+          "note": "one tin, drained and rinsed"
+        },
+        {
+          "quantity": 3,
+          "unit": "cup",
+          "item": "salad leaves or rocket",
+          "note": "roughly torn"
+        },
+        {
+          "quantity": 0.5,
+          "unit": "piece",
+          "item": "red onion",
+          "note": "very thinly sliced"
+        },
+        {
+          "quantity": 1,
+          "unit": "piece",
+          "item": "tomato",
+          "note": "diced"
+        },
+        {
+          "quantity": 3,
+          "unit": "tbsp",
+          "item": "olive oil"
+        },
+        {
+          "quantity": 1.5,
+          "unit": "tbsp",
+          "item": "lemon juice"
+        },
+        {
+          "quantity": 0.5,
+          "unit": "tsp",
+          "item": "salt"
+        },
+        {
+          "quantity": 0.25,
+          "unit": "tsp",
+          "item": "black pepper"
+        },
+        {
+          "quantity": 2,
+          "unit": "tbsp",
+          "item": "chopped parsley",
+          "optional": true
+        },
+        {
+          "quantity": 2,
+          "unit": "tbsp",
+          "item": "olives",
+          "optional": true
+        }
+      ],
+      "steps": [
+        "Soak the sliced onion in cold water for 2 minutes, then drain it. This takes the raw burn out and is the difference between a salad you finish and one you pick at.",
+        "Whisk the olive oil, lemon juice, salt, and pepper in the bottom of a large bowl until it thickens slightly and stops separating.",
+        "Turn the drained beans and the diced tomato through the dressing first, so the firm things take most of it.",
+        "Flake the tuna in over the top in large pieces and fold it through gently — stirring hard turns tinned fish to paste.",
+        "Add the leaves, the onion, the parsley, and the olives, and toss lightly just before you eat."
+      ],
+      "totalMinutes": 10,
+      "activeMinutes": 10,
+      "prepMinutes": 10,
+      "cookMinutes": 0,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "pescatarian",
+      "allergens": [
+        "fish"
+      ],
+      "substitutions": [
+        {
+          "for": "canned tuna",
+          "use": "tinned salmon or sardines, or a second tin of beans for a vegan salad"
+        },
+        {
+          "for": "canned white beans",
+          "use": "chickpeas or butter beans, drained the same way"
+        }
+      ],
+      "storage": "The dressed beans and tuna keep 2 days and improve. Add the leaves only when you eat.",
+      "categories": [
+        "fast_casual",
+        "seafood",
+        "grocery",
+        "delivery"
+      ],
+      "cravings": [
+        "salad",
+        "seafood",
+        "high-protein",
+        "mediterranean"
+      ],
+      "region": "mediterranean",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "calorieRange": [
+        400,
+        520
+      ],
+      "dataVersion": 2
     }
   ],
   "quickAlternatives": [
@@ -5219,7 +5553,8 @@
         {
           "quantity": 1,
           "unit": "piece",
-          "item": "frozen pizza"
+          "item": "frozen pizza",
+          "note": "check the box if you need it vegetarian — most of the ones on offer are not"
         },
         {
           "quantity": 0.5,
@@ -5241,11 +5576,11 @@
         }
       ],
       "steps": [
-        "Heat the oven 25 C / 50 F hotter than the box says and put the shelf in the lowest position.",
-        "Add the extra cheese, then bake for the time on the box, checking 3 minutes early. It is ready when the cheese is bubbling and the crust edge is golden and firm.",
+        "Heat the oven 25 C / 50 F hotter than the box says, with the shelf in the lowest position. Allow 10-12 minutes for it to get there before the pizza goes anywhere near it.",
+        "Add the extra cheese to the frozen pizza, then bake for the time on the box, checking 3 minutes early. It is ready when the cheese is bubbling and the crust edge is golden and firm.",
         "Brush the crust edge with olive oil and sprinkle oregano over the top as it comes out."
       ],
-      "totalMinutes": 16,
+      "totalMinutes": 30,
       "activeMinutes": 3,
       "difficulty": "easy",
       "equipment": [
@@ -5257,7 +5592,12 @@
         "gluten",
         "dairy"
       ],
-      "substitutions": [],
+      "substitutions": [
+        {
+          "for": "frozen pizza",
+          "use": "any frozen pizza; a margherita or vegetable one keeps this vegetarian, and a pepperoni one does not"
+        }
+      ],
       "storage": "Leftovers keep 2 days; reheat in a dry pan with a lid.",
       "categories": [
         "pizza",
@@ -5266,7 +5606,6 @@
       ],
       "cravings": [
         "pizza",
-        "late-night",
         "comfort"
       ],
       "region": "north-american",
@@ -5281,7 +5620,7 @@
       "id": "frozen-patty-cheeseburger",
       "kind": "quick",
       "title": "Frozen Patty Cheeseburger",
-      "description": "Freezer to plate in ten minutes with no defrosting and no shaping.",
+      "description": "Freezer to plate in twelve minutes with no defrosting and no shaping.",
       "servings": 1,
       "ingredients": [
         {
@@ -5385,7 +5724,7 @@
       "steps": [
         "Toast the split muffins lightly so the bases stay firm.",
         "Spread 1 tbsp of sauce on each half and top with cheese.",
-        "Grill or bake at 220 C / 425 F for 5-6 minutes, until the cheese is bubbling with browned spots."
+        "Put them under the grill on high for 5-6 minutes, until the cheese is bubbling with browned spots. A grill is ready in a minute or two, which is what keeps this under ten minutes."
       ],
       "totalMinutes": 9,
       "activeMinutes": 4,
@@ -5404,6 +5743,10 @@
         {
           "for": "English muffins",
           "use": "bagel halves, crumpets, or thick sliced bread"
+        },
+        {
+          "for": "the grill",
+          "use": "a 220 C / 425 F oven for 5-6 minutes — but add 10-12 minutes for it to heat up first"
         }
       ],
       "storage": "Eat straight away.",
@@ -5460,7 +5803,7 @@
         }
       ],
       "steps": [
-        "Cook the strips from frozen in the air fryer at 200 C / 400 F for 10 minutes, or follow the packet oven time. Check they are piping hot right through before eating.",
+        "Cook the strips from frozen in the air fryer at 200 C / 400 F for 10 minutes. Check they are piping hot right through before eating.",
         "Warm the tortilla for 20 seconds in a dry pan or microwave so it folds without cracking.",
         "Spread the sauce, add lettuce, cheese, and the hot strips, then roll tightly and cut in half."
       ],
@@ -5468,8 +5811,7 @@
       "activeMinutes": 4,
       "difficulty": "easy",
       "equipment": [
-        "air fryer",
-        "oven"
+        "air fryer"
       ],
       "method": "assembly",
       "diet": "omnivore",
@@ -5479,6 +5821,10 @@
         "dairy"
       ],
       "substitutions": [
+        {
+          "for": "air fryer",
+          "use": "the oven at the packet temperature, which takes 18-20 minutes rather than 10"
+        },
         {
           "for": "frozen breaded chicken strips",
           "use": "frozen plant-based nuggets for a vegetarian version"
@@ -5916,7 +6262,8 @@
         {
           "quantity": 1,
           "unit": "packet",
-          "item": "instant noodles"
+          "item": "instant noodles",
+          "note": "check the sachet if you need it vegetarian — chicken and beef are the most common flavours"
         },
         {
           "quantity": 1,
@@ -5943,12 +6290,12 @@
         }
       ],
       "steps": [
-        "Boil the noodles over high heat in their water for 3 minutes, adding the frozen vegetables at the same time, until the noodles are tender and the vegetables are steaming hot.",
+        "Bring 2 cups of water to the boil in a small pan over high heat — about 4 minutes — then add the noodle block and the frozen vegetables and cook 3 minutes, until the noodles are tender and the vegetables are steaming hot.",
         "One minute before the noodles are done, crack the egg into the pan and leave it undisturbed so it poaches, or stir it through for a silky broth.",
         "Add the seasoning sachet off the heat — using half keeps the salt down without losing the flavour.",
         "Finish with sesame oil and spring onion."
       ],
-      "totalMinutes": 7,
+      "totalMinutes": 9,
       "activeMinutes": 5,
       "difficulty": "easy",
       "equipment": [
@@ -5963,6 +6310,10 @@
         "sesame"
       ],
       "substitutions": [
+        {
+          "for": "instant noodles",
+          "use": "any plain noodle block with your own seasoning: 1 tsp soy sauce, a pinch of sugar, and a stock cube you have read the label on"
+        },
         {
           "for": "egg",
           "use": "a handful of frozen edamame or cubed tofu for a vegan bowl"
@@ -6157,8 +6508,7 @@
       "cravings": [
         "mediterranean",
         "middle-eastern",
-        "convenience",
-        "late-night"
+        "convenience"
       ],
       "region": "middle-eastern",
       "noCook": true,
@@ -6265,7 +6615,7 @@
       "id": "soup-and-toastie",
       "kind": "quick",
       "title": "Tinned Soup and Toast",
-      "description": "The lowest-effort hot meal in the house — five minutes, one pan, one toaster.",
+      "description": "The lowest-effort hot meal in the house — six minutes, one pan, one toaster.",
       "servings": 1,
       "ingredients": [
         {
@@ -6328,8 +6678,7 @@
       "cravings": [
         "soup",
         "comfort",
-        "convenience",
-        "late-night"
+        "convenience"
       ],
       "region": "global",
       "noCook": false,
@@ -6430,7 +6779,7 @@
       "id": "pesto-pasta-frozen-veg",
       "kind": "quick",
       "title": "Pesto Pasta with Frozen Veg",
-      "description": "One pot, two ingredients you already have, and a green vegetable that cooks itself.",
+      "description": "One pot, a jar of pesto, and a green vegetable that cooks itself.",
       "servings": 2,
       "ingredients": [
         {
@@ -6456,12 +6805,12 @@
         }
       ],
       "steps": [
-        "Boil the pasta over high heat for the time on the packet, adding the frozen vegetables for the last 3 minutes, until the pasta is tender and the vegetables are hot right through.",
+        "Bring a pan of water to the boil over high heat — allow 6-8 minutes for that alone. Boil the pasta for the time on the packet, adding the frozen vegetables for the last 3 minutes, until the pasta is tender and the vegetables are hot right through.",
         "Reserve half a cup of the cooking water, then drain.",
         "Return everything to the pot off the heat, stir in the pesto and 3 tbsp of the water, and toss until glossy and coated.",
         "Add cheese if you want it richer."
       ],
-      "totalMinutes": 13,
+      "totalMinutes": 20,
       "activeMinutes": 5,
       "difficulty": "easy",
       "equipment": [
@@ -6499,10 +6848,261 @@
       "dataVersion": 2
     },
     {
+      "id": "hot-latte",
+      "kind": "quick",
+      "title": "Hot Latte",
+      "description": "The hot coffee-shop drink in three minutes, from a jar of instant and a microwave.",
+      "servings": 1,
+      "ingredients": [
+        {
+          "quantity": 200,
+          "unit": "ml",
+          "item": "milk or plant milk"
+        },
+        {
+          "quantity": 1.5,
+          "unit": "tsp",
+          "item": "instant coffee"
+        },
+        {
+          "quantity": 1,
+          "unit": "tsp",
+          "item": "sugar",
+          "optional": true
+        },
+        {
+          "quantity": 1,
+          "unit": "pinch",
+          "item": "ground cinnamon",
+          "optional": true
+        }
+      ],
+      "steps": [
+        "Pour the milk into a large mug, no more than two thirds full — it climbs as it heats.",
+        "Microwave 90 seconds. It is ready when the milk is steaming and a little foam has gathered at the edge; boiled milk tastes scalded, so stop before it lifts.",
+        "Stir in the instant coffee, the sugar, and the cinnamon until the coffee has completely dissolved and the colour is an even brown."
+      ],
+      "totalMinutes": 3,
+      "activeMinutes": 3,
+      "difficulty": "easy",
+      "equipment": [
+        "microwave"
+      ],
+      "method": "microwave",
+      "diet": "vegetarian",
+      "allergens": [
+        "dairy"
+      ],
+      "substitutions": [
+        {
+          "for": "instant coffee",
+          "use": "60 ml of strong brewed coffee or a double espresso, with 60 ml less milk"
+        },
+        {
+          "for": "milk or plant milk",
+          "use": "oat milk heats best of the plant milks and keeps this vegan"
+        },
+        {
+          "for": "microwave",
+          "use": "a small pan over medium heat for 2-3 minutes, until steaming"
+        }
+      ],
+      "storage": "Drink straight away.",
+      "categories": [
+        "coffee",
+        "tea"
+      ],
+      "cravings": [
+        "coffee",
+        "comfort"
+      ],
+      "region": "global",
+      "noCook": false,
+      "microwave": true,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "hot-chocolate",
+      "kind": "quick",
+      "title": "Real Hot Chocolate",
+      "description": "Cocoa, sugar, and milk made properly in a pan in five minutes — nothing like the sachet.",
+      "servings": 1,
+      "ingredients": [
+        {
+          "quantity": 250,
+          "unit": "ml",
+          "item": "milk or plant milk"
+        },
+        {
+          "quantity": 1.5,
+          "unit": "tbsp",
+          "item": "cocoa powder"
+        },
+        {
+          "quantity": 1.5,
+          "unit": "tbsp",
+          "item": "sugar"
+        },
+        {
+          "quantity": 1,
+          "unit": "pinch",
+          "item": "salt"
+        },
+        {
+          "quantity": 0.25,
+          "unit": "tsp",
+          "item": "vanilla extract",
+          "optional": true
+        }
+      ],
+      "steps": [
+        "Put the cocoa, sugar, and salt in a small pan with 3 tbsp of the milk and stir to a smooth, glossy paste. Cocoa only dissolves in a little liquid — tip all the milk in first and it stays lumpy forever.",
+        "Whisk in the rest of the milk a splash at a time, keeping it smooth.",
+        "Heat over medium heat for 3-4 minutes, whisking, until it is steaming with foam gathering at the edge. Do not let it boil.",
+        "Take it off the heat, stir in the vanilla if you are using it, and pour."
+      ],
+      "totalMinutes": 5,
+      "activeMinutes": 5,
+      "difficulty": "easy",
+      "equipment": [
+        "stove"
+      ],
+      "method": "quick-cook",
+      "diet": "vegetarian",
+      "allergens": [
+        "dairy"
+      ],
+      "substitutions": [
+        {
+          "for": "milk or plant milk",
+          "use": "oat or soy milk, for a vegan cup"
+        },
+        {
+          "for": "cocoa powder",
+          "use": "3 tbsp drinking chocolate, with the sugar dropped to 1 tsp"
+        }
+      ],
+      "storage": "Drink straight away; it forms a skin as it cools.",
+      "categories": [
+        "coffee",
+        "dessert"
+      ],
+      "cravings": [
+        "sweet-drink",
+        "dessert",
+        "comfort"
+      ],
+      "region": "global",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "chia-milk-tea",
+      "kind": "quick",
+      "title": "Chia Milk Tea",
+      "description": "The milk-tea shape with something to chew: chia seeds swell into soft beads that sit in the bottom of the glass like boba.",
+      "servings": 1,
+      "ingredients": [
+        {
+          "quantity": 2,
+          "unit": "tbsp",
+          "item": "chia seeds"
+        },
+        {
+          "quantity": 4,
+          "unit": "tbsp",
+          "item": "cold water"
+        },
+        {
+          "quantity": 2,
+          "unit": "piece",
+          "item": "black teabags",
+          "note": "or 1 tsp matcha"
+        },
+        {
+          "quantity": 120,
+          "unit": "ml",
+          "item": "hot water"
+        },
+        {
+          "quantity": 200,
+          "unit": "ml",
+          "item": "milk or plant milk",
+          "note": "cold"
+        },
+        {
+          "quantity": 2,
+          "unit": "tsp",
+          "item": "sugar or honey",
+          "optional": true
+        },
+        {
+          "quantity": 1,
+          "unit": "cup",
+          "item": "ice",
+          "optional": true
+        }
+      ],
+      "steps": [
+        "Stir the chia seeds into the cold water and leave them 8-10 minutes, stirring once after the first minute so they do not set in a clump. They are ready when they have swollen into soft beads with a little bite left in the middle.",
+        "While they soak, steep the teabags in the hot water for 4 minutes, then lift them out and stir the sugar in while the tea is still hot.",
+        "Let the tea cool for 2 minutes, then spoon the chia and its gel into a tall glass and add the ice.",
+        "Pour in the cold milk, then the tea, and stir hard before drinking. Use the widest straw you have, or a spoon."
+      ],
+      "totalMinutes": 10,
+      "activeMinutes": 4,
+      "difficulty": "easy",
+      "equipment": [
+        "kettle"
+      ],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": [
+        "dairy"
+      ],
+      "substitutions": [
+        {
+          "for": "chia seeds",
+          "use": "basil seeds, soaked the same way — or real tapioca pearls, which need 25-30 minutes of boiling"
+        },
+        {
+          "for": "black teabags",
+          "use": "jasmine or oolong tea, or 1 tsp matcha whisked into the hot water"
+        },
+        {
+          "for": "milk or plant milk",
+          "use": "oat milk with sugar instead of honey, for a vegan cup"
+        }
+      ],
+      "storage": "Soaked chia keeps 3 days in the fridge, which turns this into a two-minute drink next time.",
+      "categories": [
+        "tea",
+        "smoothie",
+        "coffee"
+      ],
+      "cravings": [
+        "sweet-drink"
+      ],
+      "region": "east-asian",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
       "id": "yogurt-fruit-granola",
       "kind": "quick",
       "title": "Yogurt, Fruit, and Granola",
-      "description": "Three things in a bowl. Two minutes, no appliances, no cooking.",
+      "description": "Three things in a bowl. Three minutes, no appliances, no cooking.",
       "servings": 1,
       "ingredients": [
         {
@@ -6638,8 +7238,7 @@
         "tea"
       ],
       "cravings": [
-        "coffee",
-        "sweet-drink"
+        "coffee"
       ],
       "region": "global",
       "noCook": true,
@@ -6714,7 +7313,8 @@
       "storage": "Drink straight away.",
       "categories": [
         "tea",
-        "coffee"
+        "coffee",
+        "smoothie"
       ],
       "cravings": [
         "sweet-drink",
@@ -6799,7 +7399,6 @@
       ],
       "cravings": [
         "breakfast",
-        "late-night",
         "convenience",
         "dessert"
       ],
@@ -6815,7 +7414,7 @@
       "id": "yogurt-frozen-fruit-swirl",
       "kind": "quick",
       "title": "Frozen Fruit Yogurt Swirl",
-      "description": "Two minutes to something cold and sweet, using a tub of yogurt and the freezer.",
+      "description": "Three minutes to something cold and sweet, using a tub of yogurt and the freezer.",
       "servings": 1,
       "ingredients": [
         {
@@ -6948,8 +7547,7 @@
       ],
       "cravings": [
         "dessert",
-        "convenience",
-        "late-night"
+        "convenience"
       ],
       "region": "global",
       "noCook": true,
@@ -6963,7 +7561,7 @@
       "id": "cheese-crackers-fruit",
       "kind": "quick",
       "title": "Cheese, Crackers, and Fruit",
-      "description": "A convenience-store shaped plate assembled at home in two minutes.",
+      "description": "A convenience-store shaped plate assembled at home in three minutes.",
       "servings": 1,
       "ingredients": [
         {
@@ -6997,7 +7595,7 @@
         }
       ],
       "steps": [
-        "Slice the cheese and fruit and arrange everything on one plate.",
+        "Slice the cheese and the fruit and fan the crackers out beside them on one plate.",
         "Eat with your hands. That is the whole recipe."
       ],
       "totalMinutes": 3,
@@ -7025,8 +7623,7 @@
       ],
       "cravings": [
         "convenience",
-        "late-night",
-        "salad"
+        "late-night"
       ],
       "region": "global",
       "noCook": true,
@@ -7040,7 +7637,7 @@
       "id": "microwave-baked-potato",
       "kind": "quick",
       "title": "Microwave Baked Potato",
-      "description": "A whole hot meal from one potato and whatever is in the fridge, in about ten minutes.",
+      "description": "A whole hot meal from one potato and whatever is in the fridge, in eleven minutes.",
       "servings": 1,
       "ingredients": [
         {
@@ -7186,8 +7783,7 @@
       "cravings": [
         "high-protein",
         "breakfast",
-        "convenience",
-        "salad"
+        "convenience"
       ],
       "region": "global",
       "noCook": true,
@@ -7261,8 +7857,7 @@
       ],
       "cravings": [
         "wings",
-        "fried-chicken",
-        "late-night"
+        "fried-chicken"
       ],
       "region": "north-american",
       "noCook": false,
@@ -7303,22 +7898,25 @@
         }
       ],
       "steps": [
-        "Air fry at 200 C / 400 F for 14-16 minutes, or oven-bake at 220 C / 425 F for 20-22 minutes.",
-        "Spread them in one layer with gaps — a heaped basket steams instead of crisping — and shake once at the halfway point.",
-        "They are done when the outsides are deep golden and rigid rather than bendy.",
+        "Heat the oven to 220 C / 425 F with the empty tray already inside. Give it a full 10-12 minutes — a hot tray is half the crispness.",
+        "Spread the frozen fries over the hot tray in one loose layer with gaps between them. A heaped tray steams instead of crisping.",
+        "Bake 20-22 minutes, turning them once halfway. They are done when the outsides are deep golden and rigid rather than bendy.",
         "Salt them the second they come out, while the surface is still hot enough for it to stick."
       ],
-      "totalMinutes": 18,
+      "totalMinutes": 32,
       "activeMinutes": 4,
       "difficulty": "easy",
       "equipment": [
-        "air fryer",
         "oven"
       ],
       "method": "assembly",
       "diet": "vegan",
       "allergens": [],
       "substitutions": [
+        {
+          "for": "oven",
+          "use": "an air fryer at 200 C / 400 F for 14-16 minutes, shaking once — no preheat, so it is half the time"
+        },
         {
           "for": "frozen fries",
           "use": "frozen potato wedges or hash browns, adding 3-4 minutes"
@@ -7337,13 +7935,12 @@
       ],
       "cravings": [
         "fries",
-        "late-night",
         "convenience"
       ],
       "region": "north-american",
       "noCook": false,
       "microwave": false,
-      "airFryer": true,
+      "airFryer": false,
       "onePan": true,
       "pantryFriendly": true,
       "dataVersion": 2
@@ -7444,7 +8041,7 @@
       "id": "microwave-steamed-dumplings",
       "kind": "quick",
       "title": "Microwave Steamed Dumplings",
-      "description": "Frozen dumplings with no pan and no stove — a bowl, a plate, and four minutes.",
+      "description": "Frozen dumplings with no pan and no stove — a bowl, a plate, and five minutes.",
       "servings": 1,
       "ingredients": [
         {
@@ -7519,10 +8116,108 @@
       "dataVersion": 2
     },
     {
+      "id": "ten-minute-buffalo-chicken",
+      "kind": "quick",
+      "title": "Ten-Minute Buffalo Chicken",
+      "description": "The buffalo-wing flavour in ten minutes, from chicken that is already cooked — no fryer, no oven, no bones.",
+      "servings": 2,
+      "ingredients": [
+        {
+          "quantity": 300,
+          "unit": "g",
+          "item": "cooked chicken",
+          "note": "rotisserie or leftover, torn into pieces the size of a wing flat"
+        },
+        {
+          "quantity": 3,
+          "unit": "tbsp",
+          "item": "hot sauce"
+        },
+        {
+          "quantity": 1.5,
+          "unit": "tbsp",
+          "item": "butter"
+        },
+        {
+          "quantity": 1,
+          "unit": "tsp",
+          "item": "neutral oil"
+        },
+        {
+          "quantity": 1,
+          "unit": "tsp",
+          "item": "honey",
+          "optional": true
+        },
+        {
+          "quantity": 2,
+          "unit": "stick",
+          "item": "celery",
+          "note": "cut into batons",
+          "optional": true
+        },
+        {
+          "quantity": 2,
+          "unit": "tbsp",
+          "item": "blue cheese or ranch dressing",
+          "optional": true
+        }
+      ],
+      "steps": [
+        "Tear the cooked chicken into rough pieces about the size of a wing flat. Ragged edges are what catch and crisp.",
+        "Heat the oil in a frying pan over medium-high heat and spread the chicken out in one layer. Leave it 3-4 minutes without stirring, until the edges are deep golden and crisp.",
+        "Turn the heat to low and add the butter, hot sauce, and honey. Toss for 1-2 minutes until the butter has melted into a glossy sauce that coats every piece and the chicken is steaming hot right through.",
+        "Tip onto a plate and serve with the celery and dressing for dipping."
+      ],
+      "totalMinutes": 10,
+      "activeMinutes": 8,
+      "difficulty": "easy",
+      "equipment": [
+        "stove"
+      ],
+      "method": "quick-cook",
+      "diet": "omnivore",
+      "allergens": [
+        "dairy"
+      ],
+      "substitutions": [
+        {
+          "for": "cooked chicken",
+          "use": "frozen breaded nuggets or strips cooked to the packet instructions first, then tossed through the same sauce"
+        },
+        {
+          "for": "butter",
+          "use": "olive oil or a dairy-free spread"
+        },
+        {
+          "for": "hot sauce",
+          "use": "any vinegar-based chilli sauce; sriracha is sweeter, so leave the honey out"
+        }
+      ],
+      "storage": "Best straight away — the sauce softens those crisp edges within a few minutes.",
+      "categories": [
+        "chicken",
+        "fast_food",
+        "fast_casual"
+      ],
+      "cravings": [
+        "wings",
+        "high-protein",
+        "comfort"
+      ],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": false,
+      "dataVersion": 2
+    },
+    {
       "id": "microwave-mug-pizza",
       "kind": "quick",
       "title": "Microwave Mug Pizza",
-      "description": "A pizza-shaped answer for a kitchen with nothing but a microwave. Four minutes, one mug.",
+      "description": "A pizza-shaped answer for a kitchen with nothing but a microwave. Five minutes, one mug.",
       "servings": 1,
       "ingredients": [
         {
@@ -7757,7 +8452,6 @@
       ],
       "cravings": [
         "taco",
-        "salad",
         "convenience",
         "high-protein"
       ],
@@ -7856,7 +8550,6 @@
       "cravings": [
         "noodles",
         "thai",
-        "salad",
         "convenience"
       ],
       "region": "east-asian",
@@ -7969,7 +8662,7 @@
       "id": "microwave-miso-tofu-soup",
       "kind": "quick",
       "title": "Miso Tofu Soup",
-      "description": "A hot, savoury bowl from a kettle or a microwave in four minutes.",
+      "description": "A hot, savoury bowl in five minutes, with nothing but a microwave.",
       "servings": 1,
       "ingredients": [
         {
@@ -7980,7 +8673,8 @@
         {
           "quantity": 350,
           "unit": "ml",
-          "item": "hot water"
+          "item": "hot water",
+          "note": "from the kettle, or heat it in the microwave first"
         },
         {
           "quantity": 150,
@@ -8010,15 +8704,14 @@
       "steps": [
         "Put the miso in a mug or bowl and add 3 tbsp of the hot water. Mash it with a spoon until completely smooth — miso will not dissolve once the bowl is full.",
         "Add the rest of the water, the tofu, and the frozen vegetables.",
-        "Microwave 90 seconds, or leave it 2 minutes if the water came from a kettle. It is ready when it is steaming hot right through and the tofu has warmed.",
+        "Microwave 90 seconds. It is ready when it is steaming hot right through and the tofu has warmed.",
         "Stir in the sesame oil if you have it, and scatter the spring onion over. Do not boil it — miso turns harsh and grainy above a simmer."
       ],
       "totalMinutes": 5,
       "activeMinutes": 4,
       "difficulty": "easy",
       "equipment": [
-        "microwave",
-        "kettle"
+        "microwave"
       ],
       "method": "microwave",
       "diet": "vegan",
@@ -8026,6 +8719,10 @@
         "soy"
       ],
       "substitutions": [
+        {
+          "for": "microwave",
+          "use": "a kettle alone — pour the boiling water straight over and leave it covered for 2 minutes instead"
+        },
         {
           "for": "miso paste",
           "use": "a vegetable stock cube with 1 tsp soy sauce — different, but the same savoury bowl"
@@ -8242,7 +8939,7 @@
       "id": "mango-lassi",
       "kind": "quick",
       "title": "Mango Lassi",
-      "description": "Thick, cold, and sweet in three minutes — the drink to order alongside a curry, made at home.",
+      "description": "Thick, cold, and sweet in four minutes — the drink to order alongside a curry, made at home.",
       "servings": 1,
       "ingredients": [
         {

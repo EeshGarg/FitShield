@@ -483,6 +483,249 @@ test("a partial backup still does not overwrite anything it did not carry", () =
   assert.deepEqual(Object.keys(restored).sort(), ["schemaVersion", "timerSeconds"]);
 });
 
+// ---------------------------------------------------------------------------
+// Rejection reasons
+//
+// Every rejection was thrown with an actionable sentence and then discarded by
+// the UI for one generic "That file isn't a valid FitShield backup." — a message
+// that is wrong for a backup written by a newer FitShield, and that invites a
+// user to delete the only copy of their settings. The reason now travels with
+// the error in both an English and a localizable form.
+// ---------------------------------------------------------------------------
+
+test("every import rejection carries a distinct, actionable reason", () => {
+  const cases = [
+    ["", "backupErrorEmptyFile", /empty/i],
+    ["{not json", "backupErrorInvalidJson", /JSON/],
+    [JSON.stringify({ someOtherApp: true }), "backupErrorNoSettings", /no FitShield settings/i],
+    [JSON.stringify({ _type: "other-extension", settings: { enabled: true } }), "backupErrorNotBackup", /not a FitShield backup/i],
+    [
+      JSON.stringify({ _type: "fitshield-settings-backup", schema: 99, settings: { enabled: true } }),
+      "backupErrorNewerFormat",
+      /newer version of FitShield/i
+    ]
+  ];
+
+  const seenKeys = new Set();
+
+  cases.forEach(([text, expectedKey, expectedMessage]) => {
+    let thrown = null;
+
+    try {
+      parseBackup(text);
+    } catch (error) {
+      thrown = error;
+    }
+
+    assert.ok(thrown, `${expectedKey} should have been rejected`);
+    assert.equal(thrown.i18nKey, expectedKey, "the reason must be identifiable for localization");
+    assert.match(thrown.message, expectedMessage, "and readable in English without a locale loaded");
+    seenKeys.add(thrown.i18nKey);
+  });
+
+  assert.equal(seenKeys.size, cases.length, "each rejection needs its OWN reason, not one shared message");
+});
+
+test("the newer-format rejection names the format so the reason can be localized", () => {
+  let thrown = null;
+
+  try {
+    parseBackup(JSON.stringify({ _type: "fitshield-settings-backup", schema: 99, settings: { enabled: true } }));
+  } catch (error) {
+    thrown = error;
+  }
+
+  // The number has to survive as a substitution, or a translated message can
+  // only say "a newer version" and the user cannot tell which file it was.
+  assert.deepEqual(thrown.i18nSubs, ["99"]);
+  assert.ok(!/isn't a valid FitShield backup/i.test(thrown.message), "a newer backup IS a valid backup");
+});
+
+test("an oversized file reports both the size and the limit", () => {
+  const huge = JSON.stringify({ settings: { theme: "x".repeat(backup.MAX_BYTES) } });
+  let thrown = null;
+
+  try {
+    parseBackup(huge);
+  } catch (error) {
+    thrown = error;
+  }
+
+  assert.equal(thrown.i18nKey, "backupErrorTooLarge");
+  assert.equal(thrown.i18nSubs.length, 2, "the actual size and the limit are both substitutable");
+  assert.match(thrown.message, /\d+ KB/);
+});
+
+test("a missing validator is reported as something the user can fix, not as a bad file", () => {
+  const vm = require("node:vm");
+
+  const sandbox = { console, JSON, Object, Array, Number, String, Date, Math, Error };
+  sandbox.self = sandbox;
+  sandbox.globalThis = sandbox;
+  const context = vm.createContext(sandbox);
+
+  vm.runInContext(fs.readFileSync(path.join(__dirname, "..", "extension", "backup.js"), "utf8"), context, {
+    filename: "backup.js"
+  });
+
+  let thrown = null;
+
+  try {
+    sandbox.FitShieldBackup.normalizeImported({ enabled: true });
+  } catch (error) {
+    thrown = error;
+  }
+
+  assert.equal(thrown.i18nKey, "backupErrorValidatorMissing");
+  assert.match(thrown.message, /Reload and try again/);
+});
+
+// ---------------------------------------------------------------------------
+// Duplicate custom-alternative ids
+//
+// Deletion and editing both key on the id. A backup carrying several entries
+// with the same id imported unchanged, so deleting one of the user's own
+// recipes silently deleted every entry sharing that id, and editing one
+// collapsed them all into the edited copy — no undo, no warning.
+// ---------------------------------------------------------------------------
+
+test("duplicate custom-alternative ids in a backup are re-issued, not accepted", () => {
+  const duplicated = wrap({
+    enabled: true,
+    customAlternatives: [
+      { id: "dup", name: "Eggs on toast", steps: ["Fry."] },
+      { id: "dup", name: "Rice bowl", steps: ["Boil."] },
+      { id: "dup", name: "Cold noodles", steps: ["Soak."] }
+    ]
+  });
+
+  const restored = normalizeImported(parseBackup(JSON.stringify(duplicated)));
+  const ids = restored.customAlternatives.map((entry) => entry.id);
+
+  assert.equal(restored.customAlternatives.length, 3, "no entry of the user's own content may be dropped");
+  assert.equal(new Set(ids).size, 3, `ids must be distinct, got ${JSON.stringify(ids)}`);
+  assert.equal(ids[0], "dup", "the first claim on an id keeps it");
+
+  // The behaviour that actually hurt: removing one entry by id.
+  const survivors = restored.customAlternatives.filter((entry) => entry.id !== ids[0]);
+  assert.equal(survivors.length, 2, "deleting one entry must leave the other two");
+
+  // And the titles are still attached to the right entries.
+  assert.deepEqual(
+    restored.customAlternatives.map((entry) => entry.title),
+    ["Eggs on toast", "Rice bowl", "Cold noodles"]
+  );
+});
+
+test("a re-issued id cannot collide with an id further down the same file", () => {
+  // The replacement is minted from a timestamp + the entry's position, so it
+  // has to be checked against every id the file carried, not just the ones
+  // already seen.
+  const stamp = Date.now().toString(36);
+
+  const entries = [
+    { id: "dup", title: "A", steps: ["x"], ingredients: [], equipment: ["stove"], diet: "omnivore", totalMinutes: 5 },
+    { id: "dup", title: "B", steps: ["x"], ingredients: [], equipment: ["stove"], diet: "omnivore", totalMinutes: 5 },
+    { id: `custom-${stamp}-1`, title: "C", steps: ["x"], ingredients: [], equipment: ["stove"], diet: "omnivore", totalMinutes: 5 }
+  ];
+
+  const ids = backup.withUniqueIds(entries).map((entry) => entry.id);
+
+  assert.equal(new Set(ids).size, 3, `ids must be distinct, got ${JSON.stringify(ids)}`);
+  assert.equal(ids[2], `custom-${stamp}-1`, "an entry that already held its id keeps it");
+});
+
+test("de-duplication leaves a well-formed list completely alone", () => {
+  const entries = [{ id: "a", title: "A" }, { id: "b", title: "B" }];
+  assert.deepEqual(backup.withUniqueIds(entries), entries);
+});
+
+// ---------------------------------------------------------------------------
+// The restored count
+// ---------------------------------------------------------------------------
+
+test("the restored count is what the FILE carried, not what was written", () => {
+  // normalizeImported stamps the internal schema marker onto every result, so
+  // counting its keys reported one more setting than a pre-0.55 file held, and
+  // presented an internal marker as one of "your settings" for every other file.
+  const schemaOne = {
+    _type: "fitshield-settings-backup",
+    schema: 1,
+    version: "0.54",
+    settings: {
+      enabled: true,
+      timerSeconds: 45,
+      deliverySitesEnabled: true,
+      fastFoodSitesEnabled: false,
+      theme: { accent: "#7ef0a8" },
+      uiLanguage: "de"
+    }
+  };
+
+  const restored = normalizeImported(parseBackup(JSON.stringify(schemaOne)));
+
+  assert.equal(Object.keys(schemaOne.settings).length, 6, "precondition: the file carries six settings");
+  assert.ok(Object.keys(restored).includes(core.SCHEMA_KEY), "the schema marker is still stamped");
+  assert.equal(backup.restoredCount(restored), 6, "the user is told six, not seven");
+});
+
+test("the schema marker is not counted even when the file carried it", () => {
+  const restored = normalizeImported(parseBackup(JSON.stringify(wrap({ schemaVersion: 2, enabled: true }))));
+
+  assert.equal(backup.restoredCount(restored), 1, "schemaVersion is not one of the user's settings");
+});
+
+// ---------------------------------------------------------------------------
+// Validate before committing
+// ---------------------------------------------------------------------------
+
+test("nothing is written until a validated map is handed over", async () => {
+  // Import is the one destructive action in Settings: it overwrites live
+  // settings AND clears install-local state (an active pass, unanswered "did
+  // you make it?" prompts). Parsing has to be separable from writing so a
+  // caller can validate, say what will happen, and wait for a yes.
+  const removed = [];
+  const written = [];
+
+  global.chrome = {
+    storage: {
+      local: {
+        remove: async (keys) => { removed.push(...keys); },
+        set: async (value) => { written.push(value); }
+      }
+    }
+  };
+
+  try {
+    // A rejected file must not touch storage at all.
+    await assert.rejects(() => backup.importFromText("{not json"), /JSON/);
+    assert.deepEqual(removed, [], "a file that fails validation must not clear anything");
+    assert.deepEqual(written, [], "and must not write anything");
+
+    const settings = normalizeImported(parseBackup(JSON.stringify(wrap({ enabled: true, timerSeconds: 45 }))));
+    assert.deepEqual(removed, [], "validating alone still writes nothing");
+
+    const count = await backup.applyImport(settings);
+
+    assert.equal(count, 2);
+    assert.deepEqual(removed, backup.EXCLUDED_KEYS, "the install-local keys are cleared on commit");
+    assert.equal(written.length, 1);
+    assert.equal(written[0].timerSeconds, 45);
+  } finally {
+    delete global.chrome;
+  }
+});
+
+test("the keys an import clears are the ones a user has to be warned about", () => {
+  // The confirmation names an active pass and the unanswered "did you make it?"
+  // queue specifically, so both must actually be in the cleared set.
+  assert.ok(backup.EXCLUDED_KEYS.includes("passes"), "an active pass is destroyed by an import");
+  assert.ok(
+    backup.EXCLUDED_KEYS.includes("pendingAlternatives"),
+    "the unanswered 'did you make it?' queue is destroyed by an import"
+  );
+});
+
 test("every durable key survives a full round trip with its value intact", () => {
   // The class of bug above, generalised: any key readSettings does not handle
   // is silently replaced by its default on import.

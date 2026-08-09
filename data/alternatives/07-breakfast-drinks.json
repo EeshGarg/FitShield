@@ -3,7 +3,7 @@
     {
       "id": "scrambled-eggs-toast",
       "title": "Soft Scrambled Eggs on Toast",
-      "description": "Five minutes, two ingredients, and the one technique that separates creamy from rubbery.",
+      "description": "Six minutes, five things you already have, and the one technique that separates creamy from rubbery.",
       "servings": 1,
       "ingredients": [
         { "quantity": 3, "unit": "piece", "item": "eggs" },
@@ -14,7 +14,7 @@
       ],
       "steps": [
         "Beat the eggs with the salt until no streaks of white remain.",
-        "Put the toast on.",
+        "Put the bread in the toaster now, so it is ready when the eggs are.",
         "Melt the butter in a non-stick pan over LOW heat — low is the whole trick.",
         "Pour in the eggs and stir slowly and constantly with a spatula, scraping the base every few seconds.",
         "After 2-3 minutes they will start forming soft curds. Take the pan off the heat while they still look slightly wet and glossy; the residual heat finishes them.",
@@ -48,7 +48,7 @@
     {
       "id": "overnight-oats",
       "title": "Overnight Oats",
-      "description": "Two minutes tonight, breakfast handled tomorrow. Nothing is cooked.",
+      "description": "Four minutes tonight, breakfast handled tomorrow. Nothing is cooked.",
       "servings": 1,
       "ingredients": [
         { "quantity": 0.5, "unit": "cup", "item": "rolled oats" },
@@ -135,10 +135,10 @@
     {
       "id": "blended-mocha-frappe",
       "title": "Blended Mocha",
-      "description": "The thick, sweet, blended coffee drink — made in a blender in three minutes.",
+      "description": "The thick, sweet, blended coffee drink — made in a blender in five minutes.",
       "servings": 1,
       "ingredients": [
-        { "quantity": 60, "unit": "ml", "item": "strong brewed coffee", "note": "cooled" },
+        { "quantity": 60, "unit": "ml", "item": "strong brewed coffee", "note": "hot, or freshly brewed — step 1 needs it warm to dissolve the cocoa" },
         { "quantity": 120, "unit": "ml", "item": "milk or plant milk" },
         { "quantity": 1.5, "unit": "cup", "item": "ice" },
         { "quantity": 1.5, "unit": "tbsp", "item": "cocoa powder" },
@@ -165,7 +165,7 @@
         { "for": "cocoa powder", "use": "2 tbsp drinking chocolate, and drop the sugar to 1 tsp" }
       ],
       "storage": "Drink immediately; it separates as it melts.",
-      "categories": ["coffee", "dessert", "smoothie", "tea"],
+      "categories": ["coffee", "dessert"],
       "cravings": ["sweet-drink", "coffee", "dessert"],
       "region": "global",
       "noCook": true,
@@ -219,13 +219,181 @@
       "pantryFriendly": true,
       "calorieRange": [280, 420],
       "dataVersion": 2
+    },
+    {
+      "id": "masala-chai",
+      "title": "Stovetop Masala Chai",
+      "description": "Black tea simmered with milk, cardamom, and ginger — a simple everyday version of the hot drink, not a claim to one true recipe.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 1, "unit": "cup", "item": "water" },
+        { "quantity": 1, "unit": "cup", "item": "milk or plant milk" },
+        { "quantity": 2, "unit": "piece", "item": "black teabags", "note": "or 2 tsp loose black tea" },
+        { "quantity": 2, "unit": "tsp", "item": "sugar" },
+        { "quantity": 4, "unit": "piece", "item": "green cardamom pods", "note": "lightly crushed with the flat of a knife" },
+        { "quantity": 1, "unit": "tsp", "item": "grated ginger", "optional": true },
+        { "quantity": 1, "unit": "pinch", "item": "ground cinnamon", "optional": true }
+      ],
+      "steps": [
+        "Put the water and the crushed cardamom pods in a small saucepan and bring to the boil over high heat — about 3 minutes.",
+        "Add the teabags and the ginger, lower to medium heat, and simmer 2 minutes until the water is dark red-brown.",
+        "Pour in the milk and sugar and bring back to a gentle simmer over medium heat, 3-4 minutes. Watch it from here — chai climbs the pan the second it boils hard.",
+        "It is ready when the colour is an even tan and the surface is steaming with a ring of foam at the edge.",
+        "Lift out the teabags and pour through a small sieve into two cups."
+      ],
+      "totalMinutes": 10,
+      "activeMinutes": 8,
+      "prepMinutes": 2,
+      "cookMinutes": 9,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "quick-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "green cardamom pods", "use": "0.5 tsp ground cardamom, added with the tea instead of the water" },
+        { "for": "milk or plant milk", "use": "oat milk, which holds up to simmering better than most plant milks and keeps this vegan" }
+      ],
+      "storage": "Drink straight away. Chai left on the heat keeps stewing and turns bitter.",
+      "categories": ["tea", "coffee"],
+      "cravings": ["sweet-drink", "comfort"],
+      "region": "south-asian",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "calorieRange": [110, 190],
+      "dataVersion": 2
     }
   ],
   "quickAlternatives": [
     {
+      "id": "hot-latte",
+      "title": "Hot Latte",
+      "description": "The hot coffee-shop drink in three minutes, from a jar of instant and a microwave.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 200, "unit": "ml", "item": "milk or plant milk" },
+        { "quantity": 1.5, "unit": "tsp", "item": "instant coffee" },
+        { "quantity": 1, "unit": "tsp", "item": "sugar", "optional": true },
+        { "quantity": 1, "unit": "pinch", "item": "ground cinnamon", "optional": true }
+      ],
+      "steps": [
+        "Pour the milk into a large mug, no more than two thirds full — it climbs as it heats.",
+        "Microwave 90 seconds. It is ready when the milk is steaming and a little foam has gathered at the edge; boiled milk tastes scalded, so stop before it lifts.",
+        "Stir in the instant coffee, the sugar, and the cinnamon until the coffee has completely dissolved and the colour is an even brown."
+      ],
+      "totalMinutes": 3,
+      "activeMinutes": 3,
+      "difficulty": "easy",
+      "equipment": ["microwave"],
+      "method": "microwave",
+      "diet": "vegetarian",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "instant coffee", "use": "60 ml of strong brewed coffee or a double espresso, with 60 ml less milk" },
+        { "for": "milk or plant milk", "use": "oat milk heats best of the plant milks and keeps this vegan" },
+        { "for": "microwave", "use": "a small pan over medium heat for 2-3 minutes, until steaming" }
+      ],
+      "storage": "Drink straight away.",
+      "categories": ["coffee", "tea"],
+      "cravings": ["coffee", "comfort"],
+      "region": "global",
+      "noCook": false,
+      "microwave": true,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "hot-chocolate",
+      "title": "Real Hot Chocolate",
+      "description": "Cocoa, sugar, and milk made properly in a pan in five minutes — nothing like the sachet.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 250, "unit": "ml", "item": "milk or plant milk" },
+        { "quantity": 1.5, "unit": "tbsp", "item": "cocoa powder" },
+        { "quantity": 1.5, "unit": "tbsp", "item": "sugar" },
+        { "quantity": 1, "unit": "pinch", "item": "salt" },
+        { "quantity": 0.25, "unit": "tsp", "item": "vanilla extract", "optional": true }
+      ],
+      "steps": [
+        "Put the cocoa, sugar, and salt in a small pan with 3 tbsp of the milk and stir to a smooth, glossy paste. Cocoa only dissolves in a little liquid — tip all the milk in first and it stays lumpy forever.",
+        "Whisk in the rest of the milk a splash at a time, keeping it smooth.",
+        "Heat over medium heat for 3-4 minutes, whisking, until it is steaming with foam gathering at the edge. Do not let it boil.",
+        "Take it off the heat, stir in the vanilla if you are using it, and pour."
+      ],
+      "totalMinutes": 5,
+      "activeMinutes": 5,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "quick-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "milk or plant milk", "use": "oat or soy milk, for a vegan cup" },
+        { "for": "cocoa powder", "use": "3 tbsp drinking chocolate, with the sugar dropped to 1 tsp" }
+      ],
+      "storage": "Drink straight away; it forms a skin as it cools.",
+      "categories": ["coffee", "dessert"],
+      "cravings": ["sweet-drink", "dessert", "comfort"],
+      "region": "global",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
+      "id": "chia-milk-tea",
+      "title": "Chia Milk Tea",
+      "description": "The milk-tea shape with something to chew: chia seeds swell into soft beads that sit in the bottom of the glass like boba.",
+      "servings": 1,
+      "ingredients": [
+        { "quantity": 2, "unit": "tbsp", "item": "chia seeds" },
+        { "quantity": 4, "unit": "tbsp", "item": "cold water" },
+        { "quantity": 2, "unit": "piece", "item": "black teabags", "note": "or 1 tsp matcha" },
+        { "quantity": 120, "unit": "ml", "item": "hot water" },
+        { "quantity": 200, "unit": "ml", "item": "milk or plant milk", "note": "cold" },
+        { "quantity": 2, "unit": "tsp", "item": "sugar or honey", "optional": true },
+        { "quantity": 1, "unit": "cup", "item": "ice", "optional": true }
+      ],
+      "steps": [
+        "Stir the chia seeds into the cold water and leave them 8-10 minutes, stirring once after the first minute so they do not set in a clump. They are ready when they have swollen into soft beads with a little bite left in the middle.",
+        "While they soak, steep the teabags in the hot water for 4 minutes, then lift them out and stir the sugar in while the tea is still hot.",
+        "Let the tea cool for 2 minutes, then spoon the chia and its gel into a tall glass and add the ice.",
+        "Pour in the cold milk, then the tea, and stir hard before drinking. Use the widest straw you have, or a spoon."
+      ],
+      "totalMinutes": 10,
+      "activeMinutes": 4,
+      "difficulty": "easy",
+      "equipment": ["kettle"],
+      "method": "no-cook",
+      "diet": "vegetarian",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "chia seeds", "use": "basil seeds, soaked the same way — or real tapioca pearls, which need 25-30 minutes of boiling" },
+        { "for": "black teabags", "use": "jasmine or oolong tea, or 1 tsp matcha whisked into the hot water" },
+        { "for": "milk or plant milk", "use": "oat milk with sugar instead of honey, for a vegan cup" }
+      ],
+      "storage": "Soaked chia keeps 3 days in the fridge, which turns this into a two-minute drink next time.",
+      "categories": ["tea", "smoothie", "coffee"],
+      "cravings": ["sweet-drink"],
+      "region": "east-asian",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "dataVersion": 2
+    },
+    {
       "id": "yogurt-fruit-granola",
       "title": "Yogurt, Fruit, and Granola",
-      "description": "Three things in a bowl. Two minutes, no appliances, no cooking.",
+      "description": "Three things in a bowl. Three minutes, no appliances, no cooking.",
       "servings": 1,
       "ingredients": [
         { "quantity": 1, "unit": "cup", "item": "yogurt" },
@@ -289,7 +457,7 @@
       ],
       "storage": "Drink straight away.",
       "categories": ["coffee", "tea"],
-      "cravings": ["coffee", "sweet-drink"],
+      "cravings": ["coffee"],
       "region": "global",
       "noCook": true,
       "microwave": false,
@@ -327,7 +495,7 @@
         { "for": "milk or plant milk", "use": "oat milk, for a vegan drink with sugar instead of honey" }
       ],
       "storage": "Drink straight away.",
-      "categories": ["tea", "coffee"],
+      "categories": ["tea", "coffee", "smoothie"],
       "cravings": ["sweet-drink", "coffee"],
       "region": "east-asian",
       "noCook": true,
@@ -367,7 +535,7 @@
       ],
       "storage": "Eat straight away.",
       "categories": ["bakery", "coffee", "grocery"],
-      "cravings": ["breakfast", "late-night", "convenience", "dessert"],
+      "cravings": ["breakfast", "convenience", "dessert"],
       "region": "global",
       "noCook": false,
       "microwave": false,

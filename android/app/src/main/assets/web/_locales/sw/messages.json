@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "Vuta Pumzi"
   },
-  "warningTitle": {
-    "message": "Chukua dakika moja."
-  },
-  "warningEyebrow": {
-    "message": "Uchunguzi wa FitShield"
-  },
-  "warningIntro": {
-    "message": "Ingia kabla ya kuagiza. Njaa, urahisi, dhiki, na tabia inaweza kuhisi sawa kwa sasa."
-  },
-  "warningTriggeredBy": {
-    "message": "Unakaribia kuagiza kutoka $1."
-  },
   "warningBackButton": {
     "message": "Rudi nyuma"
-  },
-  "warningContinueButton": {
-    "message": "Endelea"
-  },
-  "warningLockedButton": {
-    "message": "Imefungwa"
   },
   "settingsTitle": {
     "message": "Mipangilio ya FitShield"
@@ -220,15 +202,6 @@
   },
   "customToggleTitle": {
     "message": "Washa kizuizi maalum cha URL"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "customEmptyDefault": {
     "message": "Bado hakuna tovuti maalum zilizozuiwa. Ongeza kikoa kama example.com hapo juu ili kuanza kukizuia."
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "Hamisha data na mipangilio"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "Kwa nini unaona hili"
   },
   "blockReasonDomain": {
     "message": "Tovuti"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

@@ -140,26 +140,8 @@
   "warningPageTitle": {
     "message": "ഒരു ശ്വാസം എടുക്കുക"
   },
-  "warningEyebrow": {
-    "message": "FitShield പരിശോധിക്കുക"
-  },
-  "warningTitle": {
-    "message": "ഒരു മിനിറ്റ് എടുക്കുക."
-  },
-  "warningIntro": {
-    "message": "നിങ്ങൾ ഓർഡർ ചെയ്യുന്നതിന് മുമ്പ് ചെക്ക് ഇൻ ചെയ്യുക. വിശപ്പ്, സൗകര്യം, സമ്മർദ്ദം, ശീലം എന്നിവ ഈ നിമിഷത്തിൽ സമാനമായി അനുഭവപ്പെടാം."
-  },
-  "warningTriggeredBy": {
-    "message": "നിങ്ങൾ $1-ൽ നിന്ന് ഓർഡർ ചെയ്യാൻ പോകുകയാണ്."
-  },
   "warningBackButton": {
     "message": "തിരികെ പോകൂ"
-  },
-  "warningLockedButton": {
-    "message": "പൂട്ടി"
-  },
-  "warningContinueButton": {
-    "message": "തുടരുക"
   },
   "warningErrorHint": {
     "message": "സൈറ്റ് തുറക്കുമ്പോൾ എന്തോ കുഴപ്പം സംഭവിച്ചു. ദയവായി വീണ്ടും ശ്രമിക്കുക."
@@ -214,15 +196,6 @@
   },
   "customToggleTitle": {
     "message": "ഇഷ്‌ടാനുസൃത URL തടയൽ പ്രവർത്തനക്ഷമമാക്കുക"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "ഇഷ്‌ടാനുസൃത ബ്ലോക്ക് ചെയ്‌ത URL ചേർക്കുക"
@@ -665,9 +638,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "ഡാറ്റയും ക്രമീകരണങ്ങളും കയറ്റുമതി ചെയ്യുക"
   },
@@ -676,15 +646,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "നിങ്ങൾ ഇത് കാണുന്നത് എന്തുകൊണ്ട്"
   },
   "blockReasonDomain": {
     "message": "സൈറ്റ്"
@@ -892,8 +853,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

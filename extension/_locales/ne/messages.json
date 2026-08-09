@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "सास लिनुहोस्"
   },
-  "warningEyebrow": {
-    "message": "FitShield जाँच"
-  },
-  "warningTitle": {
-    "message": "एक मिनेट लिनुहोस्।"
-  },
-  "warningIntro": {
-    "message": "तपाईंले अर्डर गर्नु अघि जाँच गर्नुहोस्। भोक, सुविधा, तनाव, र बानी क्षण मा समान महसुस गर्न सक्नुहुन्छ।"
-  },
-  "warningTriggeredBy": {
-    "message": "तपाईं $1 बाट अर्डर गर्न लाग्दै हुनुहुन्छ।"
-  },
   "warningBackButton": {
     "message": "फिर्ता जानुहोस्"
-  },
-  "warningLockedButton": {
-    "message": "ताला लगाइएको"
-  },
-  "warningContinueButton": {
-    "message": "जारी राख्नुहोस्"
   },
   "warningErrorHint": {
     "message": "साइट खोल्दा केही गडबड भयो। कृपया पुन: प्रयास गर्नुहोस्।"
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "अनुकूलन URL अवरुद्ध सक्षम गर्नुहोस्"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "आफू अनुकूल अवरुद्ध URL थप्नुहोस्"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "डेटा र सेटिङहरू निर्यात गर्नुहोस्"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "तपाईं यो किन देख्दै हुनुहुन्छ"
   },
   "blockReasonDomain": {
     "message": "साइट"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

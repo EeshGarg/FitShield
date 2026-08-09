@@ -137,6 +137,27 @@
     return !!value && typeof value === "object" && !Array.isArray(value);
   }
 
+  /**
+   * Every rejection below is a reason a person can act on — "update FitShield",
+   * "that file is 3 MB", "reload the page". They used to be thrown and then
+   * discarded by the caller, which replaced all of them with one generic
+   * "That file isn't a valid FitShield backup" — a message that is actively
+   * wrong for a backup written by a NEWER FitShield, and that invites a user to
+   * delete the only copy of their settings.
+   *
+   * The Error carries both forms: `message` is the English sentence (and what
+   * the Node tests match on, since no i18n runtime exists there), and `i18nKey`
+   * plus `i18nSubs` let a page render the same reason in the user's language.
+   * This module deliberately does not depend on the i18n runtime itself — it is
+   * pure, and is unit-tested outside a browser.
+   */
+  function backupError(i18nKey, message, substitutions) {
+    const error = new Error(message);
+    error.i18nKey = i18nKey;
+    error.i18nSubs = (substitutions || []).map(String);
+    return error;
+  }
+
   function getVersion() {
     try {
       return typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getManifest
@@ -204,25 +225,30 @@
    * because backups written before the wrapper existed are still in the wild.
    */
   function extractSettings(parsed) {
+    const notABackup = () =>
+      backupError("backupErrorNotBackup", "That file is not a FitShield backup.");
+
     if (!isPlainObject(parsed)) {
-      throw new Error("That file is not a FitShield backup.");
+      throw notABackup();
     }
 
     const wrapped = isPlainObject(parsed.settings);
     const settings = wrapped ? parsed.settings : parsed;
 
     if (!isPlainObject(settings)) {
-      throw new Error("That file is not a FitShield backup.");
+      throw notABackup();
     }
 
     if (wrapped && parsed._type && parsed._type !== BACKUP_TYPE) {
-      throw new Error("That file is not a FitShield backup.");
+      throw notABackup();
     }
 
     // A schema newer than this build understands would be written blind.
     if (wrapped && Number.isFinite(Number(parsed.schema)) && Number(parsed.schema) > SCHEMA_VERSION) {
-      throw new Error(
-        `That backup was written by a newer version of FitShield (format ${parsed.schema}). Update FitShield, then import it.`
+      throw backupError(
+        "backupErrorNewerFormat",
+        `That backup was written by a newer version of FitShield (format ${parsed.schema}). Update FitShield, then import it.`,
+        [parsed.schema]
       );
     }
 
@@ -231,7 +257,7 @@
     );
 
     if (known.length === 0) {
-      throw new Error("That backup contains no FitShield settings.");
+      throw backupError("backupErrorNoSettings", "That backup contains no FitShield settings.");
     }
 
     const cleaned = {};
@@ -250,12 +276,17 @@
     const source = String(text == null ? "" : text);
 
     if (source.length === 0) {
-      throw new Error("That file is empty.");
+      throw backupError("backupErrorEmptyFile", "That file is empty.");
     }
 
     if (source.length > MAX_BYTES) {
-      throw new Error(
-        `That file is too large to be a FitShield backup (${Math.round(source.length / 1024)} KB; the limit is ${MAX_BYTES / 1024} KB).`
+      const actualKb = Math.round(source.length / 1024);
+      const limitKb = MAX_BYTES / 1024;
+
+      throw backupError(
+        "backupErrorTooLarge",
+        `That file is too large to be a FitShield backup (${actualKb} KB; the limit is ${limitKb} KB).`,
+        [actualKb, limitKb]
       );
     }
 
@@ -264,10 +295,52 @@
     try {
       parsed = JSON.parse(source);
     } catch (error) {
-      throw new Error("That file isn't valid JSON.");
+      throw backupError("backupErrorInvalidJson", "That file isn't valid JSON.");
     }
 
     return extractSettings(parsed);
+  }
+
+  /**
+   * Pure: guarantee every custom alternative in a list carries a DISTINCT id.
+   *
+   * Ids are what every surface keys on: preferences.js removes by id and the
+   * block page favourites by id. `normalizeCustomAlternatives` deliberately
+   * preserves whatever id an entry arrived with, and does not compare them — so
+   * a hand-edited or third-party backup carrying three entries all with
+   * `id: "dup"` imported as three entries all still called "dup", and deleting
+   * one of the user's own recipes then silently deleted every entry sharing
+   * that id, with no undo and no warning.
+   *
+   * A collision is re-issued a fresh id rather than dropped: the entry is the
+   * user's own content and losing it would be the worse failure.
+   */
+  function withUniqueIds(entries) {
+    const list = Array.isArray(entries) ? entries : [];
+    const original = new Set(list.map((entry) => entry && entry.id));
+    const taken = new Set();
+    const stamp = Date.now().toString(36);
+
+    return list.map((entry, index) => {
+      if (!taken.has(entry.id)) {
+        taken.add(entry.id);
+        return entry;
+      }
+
+      // Same shape as the id sanitizeCustomAlternative mints, and checked
+      // against BOTH the ids already kept and every id the file carried, so a
+      // replacement can never collide with an entry further down the list.
+      let attempt = 0;
+      let candidate = `custom-${stamp}-${index}`;
+
+      while (taken.has(candidate) || original.has(candidate)) {
+        attempt += 1;
+        candidate = `custom-${stamp}-${index}-${attempt}`;
+      }
+
+      taken.add(candidate);
+      return { ...entry, id: candidate };
+    });
   }
 
   /**
@@ -283,7 +356,10 @@
     // exactly the failure this function exists to prevent, so if the shared
     // validator is genuinely unavailable the import stops here.
     if (!core) {
-      throw new Error("FitShield could not validate that backup (fitshield-core.js is not loaded). Reload and try again.");
+      throw backupError(
+        "backupErrorValidatorMissing",
+        "FitShield could not validate that backup (fitshield-core.js is not loaded). Reload and try again."
+      );
     }
 
     // Bring an older file up to the current schema BEFORE normalizing it.
@@ -336,13 +412,30 @@
     });
 
     // Custom alternatives are re-validated individually: a hostile entry is
-    // dropped rather than allowed to reach the renderer.
+    // dropped rather than allowed to reach the renderer, and duplicate ids are
+    // re-issued so deleting one entry cannot delete several.
     if (Object.prototype.hasOwnProperty.call(settings, "customAlternatives")) {
-      out.customAlternatives = core.normalizeCustomAlternatives(settings.customAlternatives);
+      out.customAlternatives = withUniqueIds(core.normalizeCustomAlternatives(settings.customAlternatives));
     }
 
     out[core.SCHEMA_KEY] = core.SCHEMA_VERSION;
     return out;
+  }
+
+  /**
+   * Pure: how many of the user's settings a validated import actually carries.
+   *
+   * `normalizeImported` stamps the internal schema marker onto every result, so
+   * counting its keys reported one more setting than the file held — the number
+   * shown as "Restored N settings from the backup." was off by one for any
+   * backup written before that key existed, and counted an internal marker as
+   * one of "your settings" for every other backup.
+   */
+  function restoredCount(settings) {
+    const core = getCore();
+    const schemaKey = core ? core.SCHEMA_KEY : "schemaVersion";
+
+    return Object.keys(isPlainObject(settings) ? settings : {}).filter((key) => key !== schemaKey).length;
   }
 
   // Browser: trigger a download of the current settings.
@@ -361,6 +454,26 @@
   }
 
   /**
+   * Browser: write an ALREADY-VALIDATED settings map into storage.
+   *
+   * Split out from `importFromText` so a caller can validate a file, show the
+   * user exactly what is about to happen, wait for a yes, and only then write.
+   * Import is the one destructive action in Settings, and it used to go straight
+   * from file-pick to write with no confirmation at all.
+   *
+   * Returns the count of the user's settings restored.
+   */
+  async function applyImport(settings) {
+    // Clear the install-local keys a restore should not inherit — most
+    // importantly any active pass, which would otherwise unblock a site the user
+    // is not currently looking at. The caller is expected to have said so.
+    await chrome.storage.local.remove(EXCLUDED_KEYS);
+    await chrome.storage.local.set(settings);
+
+    return restoredCount(settings);
+  }
+
+  /**
    * Browser: validate a file's text and write it into storage.
    *
    * Everything is validated BEFORE anything is written, so a file that fails
@@ -368,15 +481,7 @@
    * Returns the count of settings restored.
    */
   async function importFromText(text) {
-    const settings = normalizeImported(parseBackup(text));
-
-    // Clear the install-local keys a restore should not inherit — most
-    // importantly any active pass, which would otherwise unblock a site the user
-    // is not currently looking at.
-    await chrome.storage.local.remove(EXCLUDED_KEYS);
-    await chrome.storage.local.set(settings);
-
-    return Object.keys(settings).length;
+    return applyImport(normalizeImported(parseBackup(text)));
   }
 
   const api = {
@@ -390,7 +495,10 @@
     extractSettings,
     parseBackup,
     normalizeImported,
+    withUniqueIds,
+    restoredCount,
     downloadBackup,
+    applyImport,
     importFromText
   };
 

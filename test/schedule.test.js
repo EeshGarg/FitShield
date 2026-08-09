@@ -100,6 +100,59 @@ test("a temporary override wins while it lasts, then expires on its own", () => 
   assert.equal(core.evaluateSchedule(schedule, at(2026, 3, 4, 13, 30)).active, false);
 });
 
+// ---------------------------------------------------------------------------
+// "Block until tomorrow" must never make the reported protection SMALLER
+//
+// The override branch ran before the always-on branch, so on the default
+// profile (mode "always") pressing the one commitment button in the product
+// changed nothing about what was enforced while downgrading the reported state
+// from "always" to "temporary" — the status text went from "FitShield is on all
+// the time" to a weaker claim that implies it stops at midnight.
+// ---------------------------------------------------------------------------
+
+test("an override cannot downgrade an always-on schedule's reported state", () => {
+  const until = WED_12_00.getTime() + 6 * 60 * 60 * 1000;
+  const before = core.evaluateSchedule({ mode: "always", windows: [], until: null }, WED_12_00);
+  const after = core.evaluateSchedule({ mode: "always", windows: [], until }, WED_12_00);
+
+  assert.deepEqual(after, before, "the same protection must report the same way");
+  assert.equal(after.reason, "always", 'not "temporary", which reads as "and then it stops"');
+});
+
+test("the override still decides for a windowed schedule outside its hours", () => {
+  const until = WED_12_00.getTime() + 60 * 60 * 1000;
+  const schedule = { mode: "windows", windows: [{ days: core.ALL_DAYS, start: "18:00", end: "23:00" }], until };
+
+  assert.equal(core.evaluateSchedule(schedule, WED_12_00).reason, "temporary");
+  assert.equal(core.scheduleOverrideActive(schedule, WED_12_00.getTime()), true);
+  assert.equal(core.scheduleOverrideActive(schedule, until + 1), false, "it expires on its own");
+});
+
+test("scheduleOverrideActive is what the worker gates a pause-everything pass on", () => {
+  // It has to be true for an always-on profile too, or the commitment button is
+  // a no-op on the default install — which is exactly what it used to be.
+  const until = WED_12_00.getTime() + 60 * 60 * 1000;
+
+  assert.equal(core.scheduleOverrideActive({ mode: "always", windows: [], until }, WED_12_00.getTime()), true);
+  assert.equal(core.scheduleOverrideActive({ mode: "always", windows: [], until: null }, WED_12_00.getTime()), false);
+  assert.equal(core.scheduleOverrideActive(null, WED_12_00.getTime()), false);
+});
+
+test("the window cap is reachable by the surfaces that must respect it", () => {
+  // "Add a window" accepted the click and normalizeSchedule silently truncated
+  // it away, with the button never disabled and no message shown. A surface
+  // cannot disable a control at a cap it cannot read.
+  assert.equal(typeof core.MAX_WINDOWS, "number");
+  assert.ok(core.MAX_WINDOWS > 0);
+
+  const tooMany = core.normalizeSchedule({
+    mode: "windows",
+    windows: Array.from({ length: core.MAX_WINDOWS + 6 }, () => ({ days: [1], start: "18:00", end: "19:00" }))
+  });
+
+  assert.equal(tooMany.windows.length, core.MAX_WINDOWS, "the exported constant IS the enforced cap");
+});
+
 test("invalid and legacy schedules degrade to always-on rather than blocking nothing silently", () => {
   const junk = [
     { mode: "windows", windows: [{ start: "nope", end: "??" }] },
@@ -158,7 +211,18 @@ test("the workday-lunch preset skips the weekend", () => {
   assert.equal(core.evaluateSchedule(lunch, SUN_12_00).active, false);
 });
 
-test("copying one day's schedule to other days replaces those days", () => {
+// ---------------------------------------------------------------------------
+// "Copy to every day" must ADD, never delete
+//
+// copyScheduleDay stripped the target days off every OTHER window first and
+// dropped any window left with no days. So the button labelled "Copy to every
+// day" — which sits directly beside "Remove" in the same row, with no
+// confirmation and no undo — deleted every window the user had built for any
+// other day. A "weekdays 11:00-14:00 plus weekends 22:00-02:00" schedule
+// collapsed to a single window and the weekend one was simply gone.
+// ---------------------------------------------------------------------------
+
+test("copying one day's window onto other days adds it and destroys nothing", () => {
   const schedule = windows([
     { days: [1], start: "18:00", end: "22:00" },
     { days: [2], start: "09:00", end: "10:00" }
@@ -166,10 +230,48 @@ test("copying one day's schedule to other days replaces those days", () => {
 
   const copied = core.copyScheduleDay(schedule, 1, [2, 3]);
 
-  assert.equal(core.evaluateSchedule(copied, at(2026, 3, 3, 19, 0)).active, true, "Tuesday now matches Monday");
-  assert.equal(core.evaluateSchedule(copied, at(2026, 3, 3, 9, 30)).active, false, "Tuesday's old window is gone");
-  assert.equal(core.evaluateSchedule(copied, at(2026, 3, 4, 19, 0)).active, true, "Wednesday got the copy too");
+  assert.equal(core.evaluateSchedule(copied, at(2026, 3, 3, 19, 0)).active, true, "Tuesday got Monday's evening");
+  assert.equal(core.evaluateSchedule(copied, at(2026, 3, 4, 19, 0)).active, true, "Wednesday got it too");
   assert.equal(core.evaluateSchedule(copied, at(2026, 3, 2, 19, 0)).active, true, "the source day is unchanged");
+  assert.equal(
+    core.evaluateSchedule(copied, at(2026, 3, 3, 9, 30)).active,
+    true,
+    "and Tuesday's OWN morning window still exists"
+  );
+});
+
+test("copying to every day cannot lose a window built for another day", () => {
+  // The exact schedule the destructive version wiped: weekday lunches plus a
+  // late weekend window, copying from whichever day the editor listed first.
+  const schedule = windows([
+    { days: core.WEEKDAYS, start: "11:00", end: "14:00" },
+    { days: core.WEEKEND, start: "22:00", end: "02:00" }
+  ]);
+
+  const copied = core.copyScheduleDay(schedule, 1, core.ALL_DAYS);
+
+  assert.equal(copied.windows.length, 2, "both windows survive");
+  assert.equal(core.evaluateSchedule(copied, SUN_12_00).active, true, "the lunch window reached Sunday");
+  assert.equal(
+    core.evaluateSchedule(copied, at(2026, 3, 7, 23, 0)).active,
+    true,
+    "the Saturday-night window the copy used to delete is still enforced"
+  );
+});
+
+test("copying is idempotent and never touches the temporary override", () => {
+  const schedule = {
+    mode: "windows",
+    windows: [{ days: [1], start: "18:00", end: "22:00" }],
+    until: WED_12_00.getTime() + 60 * 60 * 1000
+  };
+
+  const once = core.copyScheduleDay(schedule, 1, core.ALL_DAYS);
+  const twice = core.copyScheduleDay(once, 1, core.ALL_DAYS);
+
+  assert.deepEqual(twice, once);
+  assert.equal(once.until, schedule.until);
+  assert.deepEqual(once.windows[0].days, core.ALL_DAYS);
 });
 
 // ---------------------------------------------------------------------------
@@ -221,6 +323,95 @@ test("DST: a wall-clock window keeps its wall-clock meaning across the shift", (
   const boundary = new Date(core.nextScheduleBoundary(schedule, at(2026, 3, 8, 12, 0)));
   assert.equal(boundary.getHours(), 18);
   assert.equal(boundary.getDate(), 8);
+});
+
+// ---------------------------------------------------------------------------
+// DST spring forward: a window that ENDS inside the skipped hour
+//
+// setHours() on a wall-clock time that does not exist rolls forward, so asking
+// for 02:30 on a spring-forward morning yields 03:30 — an hour after
+// evaluateSchedule already reports "outside". The worker arms exactly one alarm
+// from that value, so the redirect rules stayed installed for up to an hour
+// past the end of the user's window, against a settings page that promises
+// times "keep their meaning across daylight-saving changes".
+//
+// Run in a child process because the fault only exists in a zone that has the
+// gap, and the suite must stay correct wherever it is run from.
+// ---------------------------------------------------------------------------
+
+test("DST: an alarm for a skipped wall-clock time fires when blocking actually ends", () => {
+  const { execFileSync } = require("node:child_process");
+  const path = require("node:path");
+
+  const script = `
+    const core = require(${JSON.stringify(path.join(__dirname, "..", "extension", "fitshield-core.js"))});
+    // US DST 2026: 02:00 EST -> 03:00 EDT on March 8. A 21:00-02:30 window ends
+    // at 02:30, which does not exist that morning.
+    const now = new Date(2026, 2, 8, 1, 30, 0, 0);
+    const schedule = { mode: "windows", windows: [{ days: core.ALL_DAYS, start: "21:00", end: "02:30" }], until: null };
+    const boundary = core.nextScheduleBoundary(schedule, now);
+    process.stdout.write(JSON.stringify({
+      offsetMinutes: (boundary - now.getTime()) / 60000,
+      activeAtBoundary: core.evaluateSchedule(schedule, new Date(boundary)).active,
+      activeJustBefore: core.evaluateSchedule(schedule, new Date(boundary - 1000)).active,
+      zone: new Date(boundary).getTimezoneOffset()
+    }));
+  `;
+
+  const output = execFileSync(process.execPath, ["-e", script], {
+    env: { ...process.env, TZ: "America/New_York" },
+    encoding: "utf8"
+  });
+
+  const result = JSON.parse(output);
+
+  // Guard: if the child did not actually get the zone, the assertion below would
+  // pass for the wrong reason.
+  assert.equal(result.zone, 240, "precondition: the child ran in EDT");
+
+  assert.equal(result.activeJustBefore, true, "still inside the window a second earlier");
+  assert.equal(result.activeAtBoundary, false, "the boundary is the moment blocking should stop");
+  assert.equal(result.offsetMinutes, 30, "30 minutes away — the rolled-forward value was 90");
+});
+
+// ---------------------------------------------------------------------------
+// An all-day window changes at MIDNIGHT, which was never a candidate
+//
+// nextScheduleBoundary only ever proposed a window's own start and end times.
+// For start === end ("Mondays, all day" — a documented, supported form) the real
+// transition is local midnight, so the single alarm the worker arms was set for
+// the window's start time on its NEXT listed day: a customer who chose "Mondays,
+// all day" stayed blocked through the whole of Tuesday, with nothing in the UI
+// to explain it and nothing in the UI able to clear it.
+// ---------------------------------------------------------------------------
+
+test("an all-day window wakes the worker at midnight, not a week later", () => {
+  // 2026-08-10 is a Monday.
+  const monday20 = at(2026, 8, 10, 20, 0);
+  const schedule = windows([{ days: [1], start: "18:00", end: "18:00" }]);
+
+  assert.equal(core.evaluateSchedule(schedule, monday20).active, true, "precondition: blocking all Monday");
+
+  const boundary = new Date(core.nextScheduleBoundary(schedule, monday20));
+
+  assert.equal(boundary.getDate(), 11, "the next transition is the start of Tuesday");
+  assert.equal(boundary.getHours(), 0);
+  assert.equal(boundary.getMinutes(), 0);
+  assert.equal(
+    core.evaluateSchedule(schedule, boundary).active,
+    false,
+    "and the alarm fires exactly when blocking should stop"
+  );
+});
+
+test("a normal window still wakes only at its own edges", () => {
+  // The midnight candidate is added ONLY for all-day windows, so an ordinary
+  // schedule does not pay for a daily wake-up it has no use for.
+  const schedule = windows([{ days: core.ALL_DAYS, start: "18:00", end: "23:00" }]);
+  const boundary = new Date(core.nextScheduleBoundary(schedule, at(2026, 3, 4, 23, 30)));
+
+  assert.equal(boundary.getHours(), 18, "the next opening, not the intervening midnight");
+  assert.equal(boundary.getDate(), 5);
 });
 
 test("nextLocalMidnight is the coming local midnight, not a UTC one", () => {

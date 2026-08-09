@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "Շունչ քաշեք"
   },
-  "warningEyebrow": {
-    "message": "FitShield Ստուգեք"
-  },
-  "warningTitle": {
-    "message": "Վերցրեք մեկ րոպե:"
-  },
-  "warningIntro": {
-    "message": "Ստուգեք նախքան պատվիրելը: Քաղցը, հարմարավետությունը, սթրեսը և սովորությունը կարող են նման զգալ տվյալ պահին:"
-  },
-  "warningTriggeredBy": {
-    "message": "Դուք պատրաստվում եք պատվիրել $1-ից:"
-  },
   "warningBackButton": {
     "message": "Վերադարձեք"
-  },
-  "warningLockedButton": {
-    "message": "Կողպված է"
-  },
-  "warningContinueButton": {
-    "message": "Շարունակեք"
   },
   "warningErrorHint": {
     "message": "Սխալ առաջացավ կայքը բացելիս: Խնդրում ենք կրկին փորձել:"
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "Միացնել հատուկ URL-ի արգելափակումը"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "Ավելացրեք հատուկ արգելափակված URL"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "Արտահանել տվյալները և կարգավորումները"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "Ինչու եք սա տեսնում"
   },
   "blockReasonDomain": {
     "message": "Կայք"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

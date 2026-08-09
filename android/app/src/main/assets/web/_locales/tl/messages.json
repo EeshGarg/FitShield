@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "Huminga ka"
   },
-  "warningEyebrow": {
-    "message": "FitShield Suriin"
-  },
-  "warningTitle": {
-    "message": "Maglaan ng isang minuto."
-  },
-  "warningIntro": {
-    "message": "Mag-check in bago ka mag-order. Ang gutom, kaginhawahan, stress, at ugali ay maaaring maging katulad sa sandaling ito."
-  },
-  "warningTriggeredBy": {
-    "message": "Mag-o-order ka mula sa $1."
-  },
   "warningBackButton": {
     "message": "Bumalik ka"
-  },
-  "warningLockedButton": {
-    "message": "Naka-lock"
-  },
-  "warningContinueButton": {
-    "message": "Magpatuloy"
   },
   "warningErrorHint": {
     "message": "Nagkaproblema habang binubuksan ang site. Pakisubukang muli."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "Paganahin ang custom na pag-block ng URL"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "Magdagdag ng custom na naka-block na URL"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "I-export ang data at mga setting"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "Bakit mo ito nakikita"
   },
   "blockReasonDomain": {
     "message": "Site"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

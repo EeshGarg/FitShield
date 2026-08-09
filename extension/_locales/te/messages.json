@@ -83,9 +83,6 @@
   "popupBlockerTitle": {
     "message": "FitShield బ్లాకర్"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every block list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & category blocking"
   },
@@ -109,9 +106,6 @@
   },
   "popupCustomSubtitle": {
     "message": "మీ స్వంత సైట్‌లను జోడించండి మరియు వాటిని ఒక్కొక్కటిగా నిలిపివేయండి."
-  },
-  "popupScheduleLabel": {
-    "message": "Block only during scheduled hours"
   },
   "popupScheduleSubtitle": {
     "message": "భోజన బడ్జెట్‌లు, అర్థరాత్రి ఆర్డర్ చేయడం లేదా పని గంటల కోసం ఉపయోగపడుతుంది."
@@ -143,26 +137,8 @@
   "warningPageTitle": {
     "message": "ఒక శ్వాస తీసుకోండి"
   },
-  "warningEyebrow": {
-    "message": "FitShield తనిఖీ"
-  },
-  "warningTitle": {
-    "message": "ఒక్క నిమిషం తీసుకోండి."
-  },
-  "warningIntro": {
-    "message": "మీరు ఆర్డర్ చేయడానికి ముందు చెక్ ఇన్ చేయండి. ఆకలి, సౌలభ్యం, ఒత్తిడి మరియు అలవాటు ఈ క్షణంలో ఒకేలా అనిపించవచ్చు."
-  },
-  "warningTriggeredBy": {
-    "message": "You're about to order from $1."
-  },
   "warningBackButton": {
     "message": "వెనక్కి వెళ్ళు"
-  },
-  "warningLockedButton": {
-    "message": "లాక్ చేయబడింది"
-  },
-  "warningContinueButton": {
-    "message": "కొనసాగించు"
   },
   "warningErrorHint": {
     "message": "సైట్‌ని ఓపెన్ చేస్తున్నప్పుడు ఏదో తప్పు జరిగింది. దయచేసి మళ్లీ ప్రయత్నించండి."
@@ -217,15 +193,6 @@
   },
   "customToggleTitle": {
     "message": "అనుకూల URL నిరోధించడాన్ని ప్రారంభించండి"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "కస్టమ్ బ్లాక్ చేయబడిన URLని జోడించండి"
@@ -668,9 +635,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "డేటా & సెట్టింగ్‌లను ఎగుమతి చేయండి"
   },
@@ -679,15 +643,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "మీరు దీన్ని ఎందుకు చూస్తున్నారు"
   },
   "blockReasonDomain": {
     "message": "సైట్"
@@ -895,8 +850,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

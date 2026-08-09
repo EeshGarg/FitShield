@@ -3,7 +3,7 @@
     {
       "id": "microwave-mug-brownie",
       "title": "Microwave Mug Brownie",
-      "description": "A single warm, fudgy brownie in ninety seconds, with no oven and nothing left over.",
+      "description": "A single warm, fudgy brownie in five minutes, with no oven and nothing left over.",
       "servings": 1,
       "ingredients": [
         { "quantity": 4, "unit": "tbsp", "item": "plain flour" },
@@ -49,11 +49,11 @@
     {
       "id": "banana-nice-cream",
       "title": "Banana Ice Cream",
-      "description": "Two frozen bananas blended into something genuinely like soft-serve. One ingredient, no churning.",
+      "description": "Three frozen bananas blended into something genuinely like soft-serve. One ingredient, no churning.",
       "servings": 2,
       "ingredients": [
         { "quantity": 3, "unit": "piece", "item": "bananas", "note": "sliced and frozen at least 3 hours" },
-        { "quantity": 2, "unit": "tbsp", "item": "milk or plant milk", "note": "only if the blender needs help" },
+        { "quantity": 2, "unit": "tbsp", "item": "milk or plant milk", "note": "only if the blender needs help", "optional": true },
         { "quantity": 1, "unit": "tbsp", "item": "cocoa powder", "optional": true },
         { "quantity": 1, "unit": "tbsp", "item": "peanut butter", "optional": true }
       ],
@@ -79,7 +79,7 @@
       ],
       "storage": "Freezes solid; let it soften 10 minutes before scooping again.",
       "categories": ["dessert", "smoothie"],
-      "cravings": ["ice-cream", "dessert", "sweet-drink", "smoothie"],
+      "cravings": ["ice-cream", "dessert", "smoothie"],
       "region": "global",
       "noCook": true,
       "microwave": false,
@@ -234,7 +234,7 @@
     {
       "id": "yogurt-frozen-fruit-swirl",
       "title": "Frozen Fruit Yogurt Swirl",
-      "description": "Two minutes to something cold and sweet, using a tub of yogurt and the freezer.",
+      "description": "Three minutes to something cold and sweet, using a tub of yogurt and the freezer.",
       "servings": 1,
       "ingredients": [
         { "quantity": 0.75, "unit": "cup", "item": "yogurt", "note": "thick or Greek-style" },
@@ -298,7 +298,7 @@
       ],
       "storage": "Keeps a week in the fridge and freezes for 2 months.",
       "categories": ["dessert", "bakery", "grocery"],
-      "cravings": ["dessert", "convenience", "late-night"],
+      "cravings": ["dessert", "convenience"],
       "region": "global",
       "noCook": true,
       "microwave": false,
@@ -310,7 +310,7 @@
     {
       "id": "cheese-crackers-fruit",
       "title": "Cheese, Crackers, and Fruit",
-      "description": "A convenience-store shaped plate assembled at home in two minutes.",
+      "description": "A convenience-store shaped plate assembled at home in three minutes.",
       "servings": 1,
       "ingredients": [
         { "quantity": 80, "unit": "g", "item": "cheese", "note": "sliced or cubed" },
@@ -320,7 +320,7 @@
         { "quantity": 2, "unit": "tbsp", "item": "olives or pickles", "optional": true }
       ],
       "steps": [
-        "Slice the cheese and fruit and arrange everything on one plate.",
+        "Slice the cheese and the fruit and fan the crackers out beside them on one plate.",
         "Eat with your hands. That is the whole recipe."
       ],
       "totalMinutes": 3,
@@ -335,7 +335,7 @@
       ],
       "storage": "Eat straight away.",
       "categories": ["grocery", "fast_casual", "delivery"],
-      "cravings": ["convenience", "late-night", "salad"],
+      "cravings": ["convenience", "late-night"],
       "region": "global",
       "noCook": true,
       "microwave": false,
@@ -347,7 +347,7 @@
     {
       "id": "microwave-baked-potato",
       "title": "Microwave Baked Potato",
-      "description": "A whole hot meal from one potato and whatever is in the fridge, in about ten minutes.",
+      "description": "A whole hot meal from one potato and whatever is in the fridge, in eleven minutes.",
       "servings": 1,
       "ingredients": [
         { "quantity": 1, "unit": "piece", "item": "large potato", "note": "about 300 g, scrubbed" },
@@ -413,7 +413,7 @@
       ],
       "storage": "Eat straight away; keep cottage cheese refrigerated.",
       "categories": ["grocery", "smoothie", "fast_casual", "meal_delivery"],
-      "cravings": ["high-protein", "breakfast", "convenience", "salad"],
+      "cravings": ["high-protein", "breakfast", "convenience"],
       "region": "global",
       "noCook": true,
       "microwave": false,

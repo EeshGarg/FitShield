@@ -30,7 +30,7 @@
       ],
       "storage": "Best fresh; re-crisp leftovers at 200 C / 400 F for 5 minutes.",
       "categories": ["chicken", "fast_food", "korean_food", "grocery"],
-      "cravings": ["wings", "fried-chicken", "late-night"],
+      "cravings": ["wings", "fried-chicken"],
       "region": "north-american",
       "noCook": false,
       "microwave": false,
@@ -51,29 +51,30 @@
         { "quantity": 2, "unit": "tbsp", "item": "shredded cheese", "optional": true }
       ],
       "steps": [
-        "Air fry at 200 C / 400 F for 14-16 minutes, or oven-bake at 220 C / 425 F for 20-22 minutes.",
-        "Spread them in one layer with gaps — a heaped basket steams instead of crisping — and shake once at the halfway point.",
-        "They are done when the outsides are deep golden and rigid rather than bendy.",
+        "Heat the oven to 220 C / 425 F with the empty tray already inside. Give it a full 10-12 minutes — a hot tray is half the crispness.",
+        "Spread the frozen fries over the hot tray in one loose layer with gaps between them. A heaped tray steams instead of crisping.",
+        "Bake 20-22 minutes, turning them once halfway. They are done when the outsides are deep golden and rigid rather than bendy.",
         "Salt them the second they come out, while the surface is still hot enough for it to stick."
       ],
-      "totalMinutes": 18,
+      "totalMinutes": 32,
       "activeMinutes": 4,
       "difficulty": "easy",
-      "equipment": ["air fryer", "oven"],
+      "equipment": ["oven"],
       "method": "assembly",
       "diet": "vegan",
       "allergens": [],
       "substitutions": [
+        { "for": "oven", "use": "an air fryer at 200 C / 400 F for 14-16 minutes, shaking once — no preheat, so it is half the time" },
         { "for": "frozen fries", "use": "frozen potato wedges or hash browns, adding 3-4 minutes" },
         { "for": "shredded cheese", "use": "leave it out to keep this vegan" }
       ],
       "storage": "Eat straight away; reheated fries never recover.",
       "categories": ["burger", "fast_food", "chicken", "grocery"],
-      "cravings": ["fries", "late-night", "convenience"],
+      "cravings": ["fries", "convenience"],
       "region": "north-american",
       "noCook": false,
       "microwave": false,
-      "airFryer": true,
+      "airFryer": false,
       "onePan": true,
       "pantryFriendly": true,
       "dataVersion": 2
@@ -123,7 +124,7 @@
     {
       "id": "microwave-steamed-dumplings",
       "title": "Microwave Steamed Dumplings",
-      "description": "Frozen dumplings with no pan and no stove — a bowl, a plate, and four minutes.",
+      "description": "Frozen dumplings with no pan and no stove — a bowl, a plate, and five minutes.",
       "servings": 1,
       "ingredients": [
         { "quantity": 8, "unit": "piece", "item": "frozen dumplings" },

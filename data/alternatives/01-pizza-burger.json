@@ -3,7 +3,7 @@
     {
       "id": "naan-pizza",
       "title": "Naan Pizza",
-      "description": "A personal pizza on naan with a properly crisp base, out of the oven in fifteen minutes.",
+      "description": "A personal pizza on naan with a properly crisp base — six minutes of work, and twenty-five from a cold oven.",
       "servings": 2,
       "ingredients": [
         { "quantity": 2, "unit": "piece", "item": "naan breads", "substituteGroup": "flatbread" },
@@ -15,13 +15,13 @@
         { "quantity": 0.5, "unit": "tsp", "item": "dried oregano" }
       ],
       "steps": [
-        "Heat the oven to 230 C / 450 F and put a baking tray in while it heats.",
+        "Heat the oven to 230 C / 450 F with a baking tray already inside. Give it a full 10-12 minutes to get there — the hot tray is what crisps the base, and this is most of the twenty-five.",
         "Brush the edges of each naan with olive oil and spread 1/4 cup of sauce over each, leaving a 1 cm border.",
         "Scatter the mozzarella and any toppings evenly, then sprinkle with oregano.",
         "Slide the naans onto the hot tray and bake 8-10 minutes, until the cheese is fully melted with a few browned spots and the edges are firm and dry to the touch.",
         "Rest 2 minutes before slicing so the cheese sets."
       ],
-      "totalMinutes": 15,
+      "totalMinutes": 25,
       "activeMinutes": 6,
       "prepMinutes": 5,
       "cookMinutes": 10,
@@ -241,27 +241,29 @@
       "description": "The lowest-effort pizza there is, with two small changes that close most of the gap.",
       "servings": 2,
       "ingredients": [
-        { "quantity": 1, "unit": "piece", "item": "frozen pizza" },
+        { "quantity": 1, "unit": "piece", "item": "frozen pizza", "note": "check the box if you need it vegetarian — most of the ones on offer are not" },
         { "quantity": 0.5, "unit": "cup", "item": "shredded mozzarella", "optional": true },
         { "quantity": 1, "unit": "tbsp", "item": "olive oil", "optional": true },
         { "quantity": 0.5, "unit": "tsp", "item": "dried oregano", "optional": true }
       ],
       "steps": [
-        "Heat the oven 25 C / 50 F hotter than the box says and put the shelf in the lowest position.",
-        "Add the extra cheese, then bake for the time on the box, checking 3 minutes early. It is ready when the cheese is bubbling and the crust edge is golden and firm.",
+        "Heat the oven 25 C / 50 F hotter than the box says, with the shelf in the lowest position. Allow 10-12 minutes for it to get there before the pizza goes anywhere near it.",
+        "Add the extra cheese to the frozen pizza, then bake for the time on the box, checking 3 minutes early. It is ready when the cheese is bubbling and the crust edge is golden and firm.",
         "Brush the crust edge with olive oil and sprinkle oregano over the top as it comes out."
       ],
-      "totalMinutes": 16,
+      "totalMinutes": 30,
       "activeMinutes": 3,
       "difficulty": "easy",
       "equipment": ["oven"],
       "method": "assembly",
       "diet": "vegetarian",
       "allergens": ["gluten", "dairy"],
-      "substitutions": [],
+      "substitutions": [
+        { "for": "frozen pizza", "use": "any frozen pizza; a margherita or vegetable one keeps this vegetarian, and a pepperoni one does not" }
+      ],
       "storage": "Leftovers keep 2 days; reheat in a dry pan with a lid.",
       "categories": ["pizza", "delivery", "fast_food"],
-      "cravings": ["pizza", "late-night", "comfort"],
+      "cravings": ["pizza", "comfort"],
       "region": "north-american",
       "noCook": false,
       "microwave": false,
@@ -273,7 +275,7 @@
     {
       "id": "frozen-patty-cheeseburger",
       "title": "Frozen Patty Cheeseburger",
-      "description": "Freezer to plate in ten minutes with no defrosting and no shaping.",
+      "description": "Freezer to plate in twelve minutes with no defrosting and no shaping.",
       "servings": 1,
       "ingredients": [
         { "quantity": 1, "unit": "piece", "item": "frozen beef or plant burger patty" },
@@ -322,7 +324,7 @@
       "steps": [
         "Toast the split muffins lightly so the bases stay firm.",
         "Spread 1 tbsp of sauce on each half and top with cheese.",
-        "Grill or bake at 220 C / 425 F for 5-6 minutes, until the cheese is bubbling with browned spots."
+        "Put them under the grill on high for 5-6 minutes, until the cheese is bubbling with browned spots. A grill is ready in a minute or two, which is what keeps this under ten minutes."
       ],
       "totalMinutes": 9,
       "activeMinutes": 4,
@@ -332,7 +334,8 @@
       "diet": "vegetarian",
       "allergens": ["gluten", "dairy"],
       "substitutions": [
-        { "for": "English muffins", "use": "bagel halves, crumpets, or thick sliced bread" }
+        { "for": "English muffins", "use": "bagel halves, crumpets, or thick sliced bread" },
+        { "for": "the grill", "use": "a 220 C / 425 F oven for 5-6 minutes — but add 10-12 minutes for it to heat up first" }
       ],
       "storage": "Eat straight away.",
       "categories": ["pizza", "bakery"],

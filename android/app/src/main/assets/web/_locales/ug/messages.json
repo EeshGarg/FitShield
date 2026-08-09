@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "نەپەس ئېلىڭ"
   },
-  "warningEyebrow": {
-    "message": "FitShield تەكشۈرۈش"
-  },
-  "warningTitle": {
-    "message": "بىر مىنۇت ئېلىڭ."
-  },
-  "warningIntro": {
-    "message": "زاكاز قىلىشتىن بۇرۇن تەكشۈرۈپ بېقىڭ. ئاچلىق ، قۇلايلىق ، بېسىم ۋە ئادەت مۇشۇ پەيتتە ئوخشاش ھېس قىلالايدۇ."
-  },
-  "warningTriggeredBy": {
-    "message": "سىز $1 دىن زاكاز قىلماقچى بولۇۋاتىسىز."
-  },
   "warningBackButton": {
     "message": "قايتىڭ"
-  },
-  "warningLockedButton": {
-    "message": "قۇلۇپلاندى"
-  },
-  "warningContinueButton": {
-    "message": "داۋاملاشتۇر"
   },
   "warningErrorHint": {
     "message": "تور بېكەت ئاچقاندا خاتالىق كۆرۈلدى. قايتا سىناڭ."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "ئىختىيارى URL توسۇشنى قوزغىتىڭ"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "ئىختىيارى توسۇلغان URL نى قوشۇڭ"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "سانلىق مەلۇمات ۋە تەڭشەكلەرنى چىقىرىش"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "بۇنى نېمە ئۈچۈن كۆرۈۋاتىسىز"
   },
   "blockReasonDomain": {
     "message": "بېكەت"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

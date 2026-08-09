@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "Nafas oling"
   },
-  "warningEyebrow": {
-    "message": "FitShield tekshiring"
-  },
-  "warningTitle": {
-    "message": "Bir daqiqa oling."
-  },
-  "warningIntro": {
-    "message": "Buyurtma berishdan oldin tekshiring. Ochlik, qulaylik, stress va odat ayni paytda o'xshash bo'lishi mumkin."
-  },
-  "warningTriggeredBy": {
-    "message": "Siz $1 dan buyurtma bermoqchisiz."
-  },
   "warningBackButton": {
     "message": "Orqaga qayt"
-  },
-  "warningLockedButton": {
-    "message": "Qulflangan"
-  },
-  "warningContinueButton": {
-    "message": "Davom eting"
   },
   "warningErrorHint": {
     "message": "Saytni ochishda nimadir xato ketdi. Iltimos, qayta urinib koʻring."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "Maxsus URL blokirovkasini yoqing"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "Maxsus bloklangan URL qo'shing"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "Ma'lumotlar va sozlamalarni eksport qilish"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "Buni nega ko'ryapsiz"
   },
   "blockReasonDomain": {
     "message": "Sayt"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

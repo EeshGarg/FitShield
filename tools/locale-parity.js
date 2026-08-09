@@ -10,7 +10,17 @@
  *     never be shown, and usually a rename that was only half-applied,
  *   - a duplicate key in the raw JSON (JSON.parse silently keeps the last one),
  *   - an empty message, an unsafe $name$ placeholder, or a positional
- *     placeholder set that differs from English for a key the locale DOES have.
+ *     placeholder set that differs from English for a key the locale DOES have,
+ *   - a translation of English text that has since CHANGED. This is the one
+ *     failure mode the fallback cannot rescue: the key IS defined, so neither
+ *     chrome.i18n nor i18n.js can substitute the current English, and 82 locales
+ *     keep rendering a sentence the product retired. `learnMoreLink` shipped a
+ *     whole release that way — English moved to "About FitShield" while every
+ *     other locale said "Visit fitshield.net",
+ *   - a locale entry byte-identical to an English SENTENCE. That is English
+ *     filed as a translation: it renders exactly what the fallback would render,
+ *     while inflating the coverage figure and hiding the string from every
+ *     translator worklist.
  *
  * WARNINGS (translation debt, not breakage):
  *   - a locale is missing an English key. This is reported as a per-locale
@@ -31,6 +41,28 @@ const load = require("./lib/load");
 
 const NAMED_PLACEHOLDER = /\$[A-Za-z0-9_@]+\$/;
 const positional = (s) => (s.match(/\$[1-9]/g) || []).sort().join(",");
+
+/**
+ * English wordings the product has RETIRED, pinned by key.
+ *
+ * The digest baseline (tools/locale-source-baseline.json) is the general guard
+ * against translations of changed English. This is the specific one: the exact
+ * strings that were found shipping in 82 locales after English had moved on. It
+ * is deliberately independent of the baseline file, so deleting or hand-editing
+ * that file cannot quietly bring them back — and it catches the worst variant,
+ * where the "translation" is the old English text verbatim and so is invisible
+ * to every other check in this file.
+ */
+const RETIRED_ENGLISH = {
+  learnMoreLink: ["Visit fitshield.net"],
+  warningEyebrow: ["FitShield Check"],
+  warningTitle: ["Take one minute."],
+  warningIntro: ["Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."],
+  warningLockedButton: ["Locked"],
+  warningContinueButton: ["Continue"],
+  blockReasonHeading: ["Why you're seeing this"],
+  alternativeAnnounce: ["$1, $2 minutes. Option $3 of $4."]
+};
 
 // Detect duplicate top-level keys, which JSON.parse silently collapses.
 function duplicateKeys(raw) {
@@ -106,6 +138,12 @@ function localeParity() {
       if (code !== "en" && enSet.has(key) && positional(msg) !== positional(en.data[key].message)) {
         reporter.fail(`${code}.${key}: placeholder set differs from English`);
       }
+      if (code !== "en" && (RETIRED_ENGLISH[key] || []).includes(msg)) {
+        reporter.fail(
+          `${code}.${key}: ships retired English wording "${msg}" — English now says ` +
+            `"${en.data[key] ? en.data[key].message : "(key removed)"}". Delete the entry so the fallback applies.`
+        );
+      }
     }
 
     // Category localization coverage: a locale "localizes" categories when at
@@ -134,6 +172,50 @@ function localeParity() {
     prune.unusedKeys().forEach((key) => {
       reporter.warn(`"${key}" exists in every locale but no source references it (node tools/locale-prune.js --apply)`);
     });
+
+    // Translations of English that has since changed. Unlike an untranslated
+    // key, this cannot heal itself at runtime, so it is an error.
+    const stale = prune.staleTranslations();
+    stale.forEach((codes, key) => {
+      reporter.fail(
+        `"${key}": English text changed after the translations were cut — ${codes.length} locale(s) still ` +
+          `render the old wording, and the fallback cannot correct them. Re-translate, or run ` +
+          `\`node tools/locale-prune.js --apply\``
+      );
+    });
+
+    // English sentences filed as translations. Removing one changes nothing on
+    // screen and makes the coverage figure true.
+    const copies = prune.englishCopies();
+    copies.forEach((codes, key) => {
+      reporter.fail(
+        `"${key}": byte-identical to the English sentence in ${codes.length} locale(s) — that is English ` +
+          `filed as a translation (node tools/locale-prune.js --apply)`
+      );
+    });
+
+    // The baseline is only a guard while it covers the corpus. A key added to
+    // English since the last recording is not an error — nothing is translated
+    // against it yet — but it does need recording before it can be watched.
+    const baseline = prune.readBaseline();
+    const unrecorded = enKeys.filter((key) => !Object.prototype.hasOwnProperty.call(baseline, key));
+
+    if (Object.keys(baseline).length === 0) {
+      reporter.fail(
+        "no English source baseline recorded — translations of changed English cannot be detected " +
+          "(node tools/locale-prune.js --baseline)"
+      );
+    } else if (unrecorded.length > 0) {
+      reporter.warn(
+        `${unrecorded.length} English key(s) added since the source baseline was recorded; changes to them ` +
+          `are unwatched until \`node tools/locale-prune.js --baseline\` runs`
+      );
+    }
+
+    reporter.note(
+      `source baseline: ${Object.keys(baseline).length} English string(s) recorded · ` +
+        `${prune.total(stale)} stale translation(s) · ${prune.total(copies)} verbatim-English copy(ies)`
+    );
   } catch (error) {
     reporter.warn(`could not check for unreferenced keys: ${error.message}`);
   }
@@ -158,3 +240,4 @@ if (require.main === module) {
 }
 
 module.exports = localeParity;
+module.exports.RETIRED_ENGLISH = RETIRED_ENGLISH;

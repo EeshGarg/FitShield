@@ -78,6 +78,47 @@ test("leaving and continuing are recorded separately and neither is judged", () 
   assert.equal(stats.totals.continued, 1);
 });
 
+// ---------------------------------------------------------------------------
+// "Times you continued" and "Temporary passes used" are ONE event
+//
+// Every exit from the block page to the interrupted brand goes through
+// grantPass — warning.js navigates to `response.destination` for all six pass
+// options — and grantPass is the only writer of either counter. So the two
+// numbers cannot differ, ever, and cannot be separated without observing a
+// navigation, which needs a permission FitShield will not take.
+//
+// This pins the identity so it cannot be discovered again by surprise. Showing
+// both as independent measurements invites a reader to draw a conclusion from
+// an agreement that is guaranteed by construction. Fixing that means dropping
+// one card, which lives in extension/settings.js (STAT_CARDS) and
+// extension/preferences.js (the recap figure list).
+// ---------------------------------------------------------------------------
+
+test("the worker has exactly one writer of continued and of passesUsed, together", () => {
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const background = fs.readFileSync(path.join(__dirname, "..", "extension", "background.js"), "utf8");
+
+  assert.equal([...background.matchAll(/recordEvent\("continued"/g)].length, 1);
+  assert.equal([...background.matchAll(/recordEvent\("passesUsed"/g)].length, 1);
+  assert.match(
+    background,
+    /recordEvent\("passesUsed"\);\s*await recordEvent\("continued"\);/,
+    "both are written back to back for one grant — they are one event under two names"
+  );
+});
+
+test("the popup's recap does not present the duplicate as a second measurement", () => {
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const popup = fs.readFileSync(path.join(__dirname, "..", "extension", "popup.js"), "utf8");
+  const figures = /const RECAP_FIGURES = \[([\s\S]*?)\];/.exec(popup);
+
+  assert.ok(figures, "popup.js should still declare RECAP_FIGURES as a literal list");
+  assert.ok(figures[1].includes('"continued"'), "the continue count is the honest one to show");
+  assert.ok(!figures[1].includes('"passesUsed"'), "showing both would be one event counted twice");
+});
+
 test("an unknown event is ignored rather than creating a counter", () => {
   const stats = apply({ totals: core.emptyStatTotals(), history: [] }, "caloriesAvoided", T0);
 
@@ -148,21 +189,42 @@ test("the recap of an unused week reports no activity rather than a zero score",
   const recap = core.weeklyRecap({ totals: core.emptyStatTotals(), history: [] }, T0);
 
   assert.equal(recap.hasActivity, false);
-  assert.equal(recap.topCategory, null);
   core.STAT_EVENTS.forEach((event) => assert.equal(recap.totals[event], 0));
 });
 
-test("the recap reports a most-common category but never ranks the user", () => {
+// ---------------------------------------------------------------------------
+// Everything in the seven-day recap must come from those seven days
+//
+// weeklyRecap used to add a `topCategory` computed from `blockedByCategory`, a
+// LIFETIME running map with no per-day buckets, which the surfaces then printed
+// under a heading that reads "This week". A customer who had not touched pizza
+// in six months was still told their most interrupted category this week was
+// pizza — the one row in the panel that could not be reconciled with any other,
+// which undermines the panel's whole premise. The all-time breakdown is still
+// shown, honestly labelled, in Settings' "Most blocked categories".
+// ---------------------------------------------------------------------------
+
+test("the recap carries no all-time figure, whatever it is handed", () => {
   const recap = core.weeklyRecap({ totals: core.emptyStatTotals(), history: [] }, T0, {
     blockedByCategory: { pizza: 9, burger: 3 }
   });
 
-  assert.deepEqual(recap.topCategory, { name: "pizza", count: 9 });
+  assert.ok(!("topCategory" in recap), "a lifetime category cannot live in a seven-day panel");
+  assert.equal(JSON.stringify(recap).includes("pizza"), false, "and nothing leaks in by another name");
+});
 
-  // The recap payload carries counts only — no score, streak, grade or projection.
-  const keys = Object.keys(recap);
-  ["score", "streak", "grade", "failures", "projection", "goal"].forEach((banned) => {
-    assert.ok(!keys.includes(banned), `recap must not expose "${banned}"`);
+test("the recap payload is counts and dates, and nothing else", () => {
+  let stats = { totals: core.emptyStatTotals(), history: [] };
+  stats = apply(stats, "interruptions", T0);
+
+  const recap = core.weeklyRecap(stats, T0);
+
+  assert.deepEqual(Object.keys(recap).sort(), ["from", "hasActivity", "to", "totals"]);
+
+  // No score, streak, grade or projection — and no field a surface could read as
+  // a judgement of the user.
+  ["score", "streak", "grade", "failures", "projection", "goal", "topCategory"].forEach((banned) => {
+    assert.ok(!(banned in recap), `recap must not expose "${banned}"`);
   });
 });
 

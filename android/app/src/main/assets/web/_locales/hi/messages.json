@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "एक पल रुकें"
   },
-  "warningEyebrow": {
-    "message": "FitShield जाँच"
-  },
-  "warningTitle": {
-    "message": "एक मिनट लें।"
-  },
-  "warningIntro": {
-    "message": "ऑर्डर करने से पहले ख़ुद से जाँच करें। उस पल में भूख, सुविधा, तनाव और आदत एक जैसी लग सकती हैं।"
-  },
-  "warningTriggeredBy": {
-    "message": "आप $1 से ऑर्डर करने वाले हैं।"
-  },
   "warningBackButton": {
     "message": "वापस जाएँ"
-  },
-  "warningLockedButton": {
-    "message": "लॉक किया गया"
-  },
-  "warningContinueButton": {
-    "message": "जारी रखें"
   },
   "warningErrorHint": {
     "message": "साइट खोलते समय कुछ गड़बड़ हो गई। कृपया फिर से प्रयास करें।"
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "कस्टम URL ब्लॉकिंग सक्षम करें"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "ब्लॉक करने के लिए कस्टम URL जोड़ें"
@@ -686,9 +659,6 @@
   "importErrorNotice": {
     "message": "वह फ़ाइल मान्य FitShield बैकअप नहीं है।"
   },
-  "blockReasonHeading": {
-    "message": "आप यह क्यों देख रहे हैं"
-  },
   "blockReasonDomain": {
     "message": "साइट"
   },
@@ -895,8 +865,5 @@
   },
   "catLabelRestaurant": {
     "message": "रेस्तरां"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

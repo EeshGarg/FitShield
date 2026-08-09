@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "Respira"
   },
-  "warningEyebrow": {
-    "message": "Revisión de FitShield"
-  },
-  "warningTitle": {
-    "message": "Tómate un minuto."
-  },
-  "warningIntro": {
-    "message": "Haz una pausa antes de pedir. El hambre, la comodidad, el estrés y la costumbre pueden sentirse parecidos en el momento."
-  },
-  "warningTriggeredBy": {
-    "message": "Estás a punto de pedir en $1."
-  },
   "warningBackButton": {
     "message": "Volver"
-  },
-  "warningLockedButton": {
-    "message": "Bloqueado"
-  },
-  "warningContinueButton": {
-    "message": "Continuar"
   },
   "warningErrorHint": {
     "message": "Ocurrió un problema al abrir el sitio. Inténtalo de nuevo."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "Activar el bloqueo de URL personalizadas"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "Agregar una URL personalizada para bloquear"
@@ -686,9 +659,6 @@
   "importErrorNotice": {
     "message": "Ese archivo no es una copia de seguridad válida de FitShield."
   },
-  "blockReasonHeading": {
-    "message": "Por qué ves esto"
-  },
   "blockReasonDomain": {
     "message": "Sitio"
   },
@@ -895,8 +865,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurante"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

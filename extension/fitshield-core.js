@@ -117,6 +117,13 @@
   // disagreeing with the label. No profile is irreversible and every profile
   // keeps the block page's override reachable.
 
+  // A profile carries ONLY values something in the runtime actually enforces.
+  // `settingsDelaySeconds` used to live here: strict wrote 60, the storage doc
+  // described it as "a cooling-off delay before weakening protection", a unit
+  // test asserted it was greater than zero — and no code anywhere read it. A
+  // setting that does nothing is a false claim about the product, and a tested
+  // one is worse, because the test reads as proof it works. It is gone rather
+  // than left inert; adding it back means implementing the delay first.
   const FRICTION_PROFILES = {
     light: {
       id: "light",
@@ -124,8 +131,7 @@
       passDurationMinutes: 15,
       askIntent: false,
       repeatFrictionEnabled: false,
-      repeatExtraSeconds: 0,
-      settingsDelaySeconds: 0
+      repeatExtraSeconds: 0
     },
     standard: {
       id: "standard",
@@ -133,8 +139,7 @@
       passDurationMinutes: 5,
       askIntent: true,
       repeatFrictionEnabled: true,
-      repeatExtraSeconds: 20,
-      settingsDelaySeconds: 0
+      repeatExtraSeconds: 20
     },
     strict: {
       id: "strict",
@@ -142,11 +147,7 @@
       passDurationMinutes: 3,
       askIntent: true,
       repeatFrictionEnabled: true,
-      repeatExtraSeconds: 45,
-      // A short cooling-off delay before *weakening* protection settings takes
-      // effect. Never applied to strengthening a setting, and never to the block
-      // page's own override.
-      settingsDelaySeconds: 60
+      repeatExtraSeconds: 45
     }
   };
 
@@ -182,8 +183,7 @@
       passDurationMinutes: profile.passDurationMinutes,
       askIntent: profile.askIntent,
       repeatFrictionEnabled: profile.repeatFrictionEnabled,
-      repeatExtraSeconds: profile.repeatExtraSeconds,
-      settingsDelaySeconds: profile.settingsDelaySeconds
+      repeatExtraSeconds: profile.repeatExtraSeconds
     };
   }
 
@@ -405,6 +405,18 @@
     const at = now instanceof Date ? now : new Date();
     const normalized = normalizeSchedule(schedule);
 
+    // "Always" is checked FIRST, and deliberately.
+    //
+    // The override branch used to run first, so pressing "Block until tomorrow"
+    // on a default (always-on) profile changed nothing about what was enforced
+    // while downgrading the reported state from "always" to "temporary" — the
+    // status text went from "FitShield is on all the time" to a weaker claim
+    // that implies it stops at midnight. A commitment button must never be able
+    // to make the reported protection SMALLER than what is actually enforced.
+    if (normalized.mode === "always") {
+      return { active: true, reason: "always" };
+    }
+
     // A temporary override ("block until tomorrow") wins while it lasts, then
     // expires on its own — it is stored as an absolute timestamp, so a browser
     // restart or a suspended worker cannot strand the user inside it.
@@ -412,12 +424,80 @@
       return { active: true, reason: "temporary" };
     }
 
-    if (normalized.mode === "always") {
-      return { active: true, reason: "always" };
-    }
-
     const inWindow = normalized.windows.some((window) => windowCoversMoment(window, at));
     return { active: inWindow, reason: inWindow ? "window" : "outside" };
+  }
+
+  /**
+   * Is a "block until tomorrow" override in force?
+   *
+   * The override is a commitment the user made to themselves, so the worker
+   * refuses an all-scope ("pause everything") pass while it lasts — otherwise
+   * one click on the very next block page turns blocking completely off while
+   * Settings goes on reporting "Blocking everything until tomorrow." The master
+   * switch is still an escape hatch, and the override expires on its own.
+   */
+  function scheduleOverrideActive(schedule, now) {
+    const at = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+    const normalized = normalizeSchedule(schedule);
+
+    return normalized.until !== null && normalized.until > at;
+  }
+
+  // Minutes past local midnight, on whatever local date `date` landed on.
+  function localWallMinutes(date) {
+    return date.getHours() * 60 + date.getMinutes();
+  }
+
+  /**
+   * The instant of `minutes` past local midnight, `offsetDays` from `at`.
+   *
+   * setHours() on a wall-clock time that DOES NOT EXIST (the hour daylight
+   * saving skips every spring) silently rolls forward: asking for 02:30 on a
+   * spring-forward morning yields 03:30, an hour after the schedule actually
+   * changed meaning. The worker arms one alarm from this value, so that hour is
+   * an hour of blocking past the end of the user's window — against a settings
+   * page that promises times "keep their meaning across daylight-saving
+   * changes". When the requested time was skipped, bisect for the instant the
+   * clock jumped instead, which is exactly when evaluateSchedule flips.
+   */
+  function localMomentAt(at, offsetDays, minutes) {
+    const moment = new Date(at);
+    moment.setDate(moment.getDate() + offsetDays);
+    moment.setHours(Math.floor(minutes / 60), minutes % 60, 0, 0);
+
+    if (localWallMinutes(moment) === minutes) {
+      return moment.getTime();
+    }
+
+    const dayStart = new Date(moment);
+    dayStart.setHours(0, 0, 0, 0);
+
+    const reached = (time) => localWallMinutes(new Date(time)) >= minutes;
+
+    let low = dayStart.getTime();
+    let high = moment.getTime();
+
+    if (reached(low) || low >= high) {
+      return moment.getTime();
+    }
+
+    // Transitions land on whole minutes, so a minute-aligned bisection is exact.
+    while (high - low > 60 * 1000) {
+      const mid = low + Math.floor((high - low) / 120000) * 60000;
+
+      if (mid <= low || mid >= high) {
+        break;
+      }
+
+      if (reached(mid)) {
+        high = mid;
+      } else {
+        low = mid;
+      }
+    }
+
+    return high;
   }
 
   // The next moment the answer from evaluateSchedule could change, so the worker
@@ -433,6 +513,17 @@
     }
 
     if (normalized.mode === "windows") {
+      // An all-day window (start === end) does not change at either of its own
+      // clock times — it changes at LOCAL MIDNIGHT, when the day rolls over.
+      // Midnight was never a candidate, so "Mondays, all day" armed its next
+      // alarm for Monday 18:00 a week later and left the redirect rules
+      // installed through the whole of Tuesday.
+      const hasAllDayWindow = normalized.windows.some((window) => {
+        const start = timeToMinutes(window.start);
+        const end = timeToMinutes(window.end);
+        return start !== null && end !== null && start === end;
+      });
+
       for (let offset = 0; offset <= 8; offset += 1) {
         normalized.windows.forEach((window) => {
           [window.start, window.end].forEach((time) => {
@@ -442,15 +533,21 @@
               return;
             }
 
-            const moment = new Date(at);
-            moment.setDate(moment.getDate() + offset);
-            moment.setHours(Math.floor(minutes / 60), minutes % 60, 0, 0);
+            const moment = localMomentAt(at, offset, minutes);
 
-            if (moment.getTime() > at.getTime()) {
-              candidates.push(moment.getTime());
+            if (moment > at.getTime()) {
+              candidates.push(moment);
             }
           });
         });
+
+        if (hasAllDayWindow && offset > 0) {
+          const midnight = localMomentAt(at, offset, 0);
+
+          if (midnight > at.getTime()) {
+            candidates.push(midnight);
+          }
+        }
       }
     }
 
@@ -479,7 +576,19 @@
     };
   }
 
-  // Copy one day's windows onto other days, replacing whatever those days had.
+  /**
+   * ADD one day's windows to other days. Additive, never destructive.
+   *
+   * This used to strip the target days off every OTHER window first and drop
+   * any window left with no days, so the control labelled "Copy to every day"
+   * deleted every window the user had built for any other day — no
+   * confirmation, no undo, and the button sits beside "Remove" in the same row.
+   * A weekday-lunch plus weekend-evening schedule collapsed to one window.
+   *
+   * Copying now means what the label says: the source day's hours are added to
+   * the target days and nothing else is touched. Adding a window can never lose
+   * one, so this needs no confirmation to be safe.
+   */
   function copyScheduleDay(schedule, fromDay, toDays) {
     const normalized = normalizeSchedule(schedule);
     const targets = normalizeDays(toDays).filter((day) => day !== fromDay);
@@ -488,21 +597,13 @@
       return normalized;
     }
 
-    const sourceWindows = normalized.windows
-      .filter((window) => window.days.includes(fromDay))
-      .map((window) => ({ start: window.start, end: window.end }));
-
-    const windows = normalized.windows
-      .map((window) => ({
-        start: window.start,
-        end: window.end,
-        days: window.days.filter((day) => !targets.includes(day))
-      }))
-      .filter((window) => window.days.length > 0);
-
-    sourceWindows.forEach((window) => {
-      windows.push({ days: targets.slice(), start: window.start, end: window.end });
-    });
+    const windows = normalized.windows.map((window) => ({
+      start: window.start,
+      end: window.end,
+      days: window.days.includes(fromDay)
+        ? normalizeDays([...window.days, ...targets])
+        : window.days.slice()
+    }));
 
     return normalizeSchedule({ mode: windows.length > 0 ? "windows" : "always", windows, until: normalized.until });
   }
@@ -521,6 +622,10 @@
   // pass also records createdAt and a maxDurationMs; a pass whose apparent age
   // exceeds its own maximum is treated as expired regardless of the wall clock.
 
+  // "category" stays a supported SCOPE even though no preset creates one any
+  // more: a pass persisted by an earlier build under the retired `category30`
+  // preset must keep running for the minutes it was granted, rather than being
+  // silently widened or dropped out from under whoever took it.
   const PASS_SCOPES = ["site", "category", "all"];
 
   // Every preset is expressible as scope + duration, because that is all the
@@ -541,9 +646,15 @@
     tab: { id: "tab", scope: "site", minutes: 720, tabBound: true },
     site10: { id: "site10", scope: "site", minutes: 10 },
     site30: { id: "site30", scope: "site", minutes: 30 },
-    category30: { id: "category30", scope: "category", minutes: 30 },
     all30: { id: "all30", scope: "all", minutes: 30 },
     allTomorrow: { id: "allTomorrow", scope: "all", untilTomorrow: true }
+    // There is deliberately no `category30`. It was defined here, exported,
+    // published in docs/STORAGE.md as a state a profile could hold, and pinned
+    // by a passing test — while no screen in the product could select it. A
+    // preset no UI offers is not a feature, and a test for it reads as proof
+    // that it ships. Reinstating a category pass means adding the option to the
+    // block page's chooser first; the `category` scope below still works, so a
+    // pass already granted under the old preset keeps running.
   };
 
   const PASS_PRESET_IDS = Object.keys(PASS_PRESETS);
@@ -720,8 +831,46 @@
   const MAX_REPEAT_HISTORY_PER_DOMAIN = 12;
   const MAX_REPEAT_DOMAINS = 60;
 
-  function normalizeRepeatHistory(value) {
+  // How long a recorded continue is KEPT, as a multiple of the repeat window.
+  //
+  // This is the difference between "a short-lived behavioural window", which is
+  // what the product says repeatHistory is, and a permanent per-brand diary of
+  // exact millisecond timestamps, which is what it was: the caps were on COUNT
+  // only (60 domains x 12 entries) and nothing ever expired, so a three-year-old
+  // {"ubereats.com": [1723173263247, ...]} survived every read untouched. That
+  // is browsing history of the most personal kind, on a product that promises it
+  // stores none, readable by anyone with a moment at an unlocked machine.
+  //
+  // repeatFrictionFor already ignores anything older than the window, so the
+  // only reason to keep it was that nothing deleted it. The multiple gives some
+  // headroom if the user later lengthens their window, and is bounded: with the
+  // maximum 720-minute window, nothing survives longer than 36 hours.
+  const REPEAT_HISTORY_RETENTION_MULTIPLE = 3;
+
+  function repeatWindowMinutesFor(value) {
+    return clampInt(value, 5, 720, DEFAULT_REPEAT_WINDOW_MINUTES);
+  }
+
+  function repeatHistoryRetentionMs(windowMinutes) {
+    return repeatWindowMinutesFor(windowMinutes) * REPEAT_HISTORY_RETENTION_MULTIPLE * 60 * 1000;
+  }
+
+  /**
+   * Rebuild a repeat-history map defensively, dropping anything expired.
+   *
+   * @param {object} value
+   * @param {object} [options] { now, windowMinutes } — WITHOUT a finite `now`
+   *   this only fixes the shape, because a pure module must not invent a clock
+   *   reading it was never handed.
+   */
+  function normalizeRepeatHistory(value, options) {
+    const opts = safeObject(options);
     const source = safeObject(value);
+    const at = Number.isFinite(Number(opts.now)) ? Number(opts.now) : null;
+    const oldest = at === null ? null : at - repeatHistoryRetentionMs(opts.windowMinutes);
+    // A timestamp far in the FUTURE (a tampered record, or one written while the
+    // clock was wrong) would otherwise outlive every cutoff forever.
+    const newest = at === null ? null : at + 60 * 1000;
     const out = {};
 
     Object.keys(source)
@@ -730,6 +879,7 @@
         const times = (Array.isArray(source[domain]) ? source[domain] : [])
           .map((time) => Number(time))
           .filter((time) => Number.isFinite(time) && time > 0)
+          .filter((time) => oldest === null || (time >= oldest && time <= newest))
           .sort((a, b) => a - b)
           .slice(-MAX_REPEAT_HISTORY_PER_DOMAIN);
 
@@ -741,11 +891,13 @@
     return out;
   }
 
-  // Record that the user deliberately continued to `domain`.
-  function recordContinue(history, domain, now) {
+  // Record that the user deliberately continued to `domain`. Writing prunes, so
+  // the stored map can never hold more than the retention window.
+  function recordContinue(history, domain, now, options) {
+    const opts = safeObject(options);
     const at = Number.isFinite(Number(now)) ? Number(now) : Date.now();
     const key = String(domain || "").trim().toLowerCase();
-    const next = normalizeRepeatHistory(history);
+    const next = normalizeRepeatHistory(history, { now: at, windowMinutes: opts.windowMinutes });
 
     if (!key) {
       return next;
@@ -762,7 +914,7 @@
   function repeatFrictionFor(history, domain, settings, now) {
     const config = safeObject(settings);
     const at = Number.isFinite(Number(now)) ? Number(now) : Date.now();
-    const windowMinutes = clampInt(config.repeatWindowMinutes, 5, 720, DEFAULT_REPEAT_WINDOW_MINUTES);
+    const windowMinutes = repeatWindowMinutesFor(config.repeatWindowMinutes);
     const none = { repeat: false, recentCount: 0, extraSeconds: 0, windowMinutes };
 
     if (config.repeatFrictionEnabled === false) {
@@ -770,7 +922,7 @@
     }
 
     const key = String(domain || "").trim().toLowerCase();
-    const times = normalizeRepeatHistory(history)[key] || [];
+    const times = normalizeRepeatHistory(history, { now: at, windowMinutes })[key] || [];
     const cutoff = at - windowMinutes * 60 * 1000;
     const recentCount = times.filter((time) => time >= cutoff && time <= at).length;
 
@@ -803,6 +955,19 @@
     "alternativesSelected",// the user picked one to make
     "alternativesMade"     // the user later confirmed they made it
   ];
+
+  // WARNING to anyone building a surface from these: `continued` and
+  // `passesUsed` are, today, ONE event under two names. Every exit from the
+  // block page to the interrupted brand goes through grantPass, and grantPass is
+  // the only writer of either counter, so the two numbers are mathematically
+  // incapable of differing. They cannot be separated without observing a
+  // navigation, which needs a permission and an observation surface FitShield
+  // will not take.
+  //
+  // So: show ONE of them. Presenting both side by side as independent
+  // measurements invites the reader to draw a conclusion from an agreement that
+  // is guaranteed by construction, and pads the panel with a figure that is not
+  // a second observation.
 
   const MAX_HISTORY_DAYS = 70;
 
@@ -896,11 +1061,22 @@
   /**
    * A local, non-judgmental summary of the last 7 local days.
    * Returns counts only — no scores, no streaks, no projections.
+   *
+   * It also returns ONLY figures from those seven days. It used to add a
+   * `topCategory` computed from `blockedByCategory`, which is a lifetime running
+   * map with no per-day buckets, and the surfaces printed it under a heading
+   * that reads "This week" — so a customer who had not touched pizza in six
+   * months was still told their most interrupted category this week was pizza.
+   * It was the one row in the panel that could not be reconciled with the
+   * others. The all-time breakdown is still shown, honestly labelled, in
+   * Settings' "Most blocked categories" list, which reads `blockedByCategory`
+   * directly. Restoring it here means bucketing category counts per local day
+   * into `history` first, so the number comes from the same seven days as the
+   * rest of the panel.
    */
-  function weeklyRecap(stats, now, options) {
+  function weeklyRecap(stats, now) {
     const source = safeObject(stats);
     const history = normalizeStatHistory(source.history);
-    const opts = safeObject(options);
     const at = now instanceof Date ? now : new Date(Number.isFinite(Number(now)) ? Number(now) : Date.now());
 
     const days = [];
@@ -921,18 +1097,10 @@
       }
     });
 
-    const categories = safeObject(opts.blockedByCategory);
-    const topCategory =
-      Object.keys(categories)
-        .map((name) => ({ name, count: Number(categories[name]) || 0 }))
-        .filter((item) => item.count > 0)
-        .sort((a, b) => b.count - a.count)[0] || null;
-
     return {
       from: days[0],
       to: days[days.length - 1],
       totals,
-      topCategory,
       hasActivity: STAT_EVENTS.some((event) => totals[event] > 0)
     };
   }
@@ -1273,19 +1441,43 @@
       return "";
     }
 
-    try {
-      const url = new URL(text.includes("://") ? text : `https://${text}`);
-      const host = url.hostname.replace(/^www\./, "").toLowerCase();
+    const looksLikeUrl = text.includes("://");
 
-      // A bare word parses as a hostname too; only accept something that looks
-      // like a domain, otherwise fall through to plain text.
+    try {
+      const url = new URL(looksLikeUrl ? text : `https://${text}`);
+      // Strip "www.", a trailing root dot, and the brackets an IPv6 literal
+      // carries. What is left is a host and nothing else.
+      const host = url.hostname
+        .replace(/^www\./, "")
+        .replace(/\.+$/, "")
+        .replace(/^\[|\]$/g, "")
+        .toLowerCase();
+
       if (/^[a-z0-9.-]+\.[a-z]{2,}$/.test(host)) {
         return host;
+      }
+
+      // Anything carrying a scheme, a path, a query, or a fragment is a URL,
+      // whatever its host looks like — and the note printed above the field
+      // promises unconditionally that "Query strings are stripped and only the
+      // domain is included". The host test above rejects IP literals
+      // ("192.168.1.50"), single-label hosts ("localhost"), and fully-qualified
+      // names with a trailing dot, and the fallback below returns the input
+      // VERBATIM: an intranet or router-hosted ordering page went into the mail
+      // draft complete with its session token. Every URL is now reduced to its
+      // host, and only free text reaches the fallback.
+      const carriedMoreThanAHost =
+        looksLikeUrl || url.pathname !== "/" || url.search !== "" || url.hash !== "";
+
+      if (host && carriedMoreThanAHost) {
+        return cleanText(host, 120);
       }
     } catch (error) {
       // Not a URL — fall through and treat it as a plain label.
     }
 
+    // Reached only by input with no scheme that did not parse as a host: a
+    // free-text label like "the checkout page", which carries no URL to strip.
     return cleanText(text, 120);
   }
 
@@ -1329,7 +1521,6 @@
       repeatFrictionEnabled: true,
       repeatExtraSeconds: 20,
       repeatWindowMinutes: DEFAULT_REPEAT_WINDOW_MINUTES,
-      settingsDelaySeconds: 0,
 
       schedule: { mode: "always", windows: [], until: null },
 
@@ -1362,9 +1553,96 @@
       blockedByCountry: {},
 
       showEstimates: false,
-      recapEnabled: true,
-      recapDismissedFor: ""
+      recapEnabled: true
+      // No `recapDismissedFor`. It was defaulted here, normalized in
+      // readSettings, listed in the worker's settings keys, excluded from
+      // backups and cleared by the reset — five files carrying a key that
+      // nothing ever read or wrote, implying a "dismiss this week's recap"
+      // behaviour the build does not have. The recap is gated by `recapEnabled`,
+      // which is real.
     };
+  }
+
+  // ---------------------------------------------------------------------------
+  // Recovering a pre-0.55 site key
+  // ---------------------------------------------------------------------------
+  //
+  // 0.54 built its `siteBypasses` keys with domainToKey, which flattens EVERY
+  // run of non-alphanumeric characters — dots and hyphens alike — to a single
+  // "-". So "doordash.com" and "just-eat.com" both become "<bucket>-…-com" and
+  // the mapping is not reversible on its own: the old code simply replaced every
+  // "-" with ".", which turned "delivery-just-eat-com" into "just.eat.com" — a
+  // host that does not exist. findCoveringPass then matched nothing, so the pass
+  // was shown as active and blocked the user anyway. 128 of the catalog's
+  // domains contain a hyphen.
+  //
+  // Instead of inventing a host, enumerate the readings the key could have had
+  // and let the caller confirm one against the real blocklist.
+
+  function legacyBypassDomainCandidates(siteKey) {
+    const withoutBucket = String(siteKey || "").replace(/^(delivery|fast-food|fast_food|custom|site)-/, "");
+    const parts = withoutBucket.split("-");
+
+    // A key with no separator carries no TLD, and an empty part means the key
+    // was not written by domainToKey at all.
+    if (parts.length < 2 || parts.some((part) => part === "")) {
+      return [];
+    }
+
+    const gaps = parts.length - 1;
+
+    // 2^gaps readings. A pathological key must not turn into a huge array.
+    if (gaps > 8) {
+      return [];
+    }
+
+    const candidates = [];
+
+    for (let mask = 0; mask < 1 << gaps; mask += 1) {
+      let host = parts[0];
+
+      for (let index = 0; index < gaps; index += 1) {
+        host += (mask & (1 << index)) === 0 ? "." : "-";
+        host += parts[index + 1];
+      }
+
+      candidates.push(host);
+    }
+
+    // mask 0 is the all-dots reading, so it is tried first.
+    return candidates;
+  }
+
+  /**
+   * @param {string} siteKey
+   * @param {Function} [resolve] (domain) => boolean — "is this a real blocked
+   *   brand?". The worker passes a lookup into the loaded catalog.
+   * @returns {string} the recovered domain, or "" when it cannot be known.
+   */
+  function recoverLegacyBypassDomain(siteKey, resolve) {
+    const candidates = legacyBypassDomainCandidates(siteKey);
+
+    if (candidates.length === 0) {
+      return "";
+    }
+
+    if (typeof resolve === "function") {
+      const matched = candidates.find((candidate) => {
+        try {
+          return resolve(candidate) === true;
+        } catch (error) {
+          return false;
+        }
+      });
+
+      return matched || "";
+    }
+
+    // No catalog to check against. Accept only the one reading that cannot be
+    // ambiguous: a single separator can only ever have been the dot before the
+    // TLD ("doordash-com" -> "doordash.com"). Anything else is dropped rather
+    // than guessed — the original map is kept at legacy.siteBypasses either way.
+    return candidates.length === 2 ? candidates[0] : "";
   }
 
   // ---------------------------------------------------------------------------
@@ -1374,7 +1652,8 @@
   // preserved under `legacy.<key>` so it can be recovered.
   // ---------------------------------------------------------------------------
 
-  function migrateV1toV2(state) {
+  function migrateV1toV2(state, options) {
+    const opts = safeObject(options);
     const next = { ...state };
     const legacy = safeObject(next.legacy);
 
@@ -1423,9 +1702,17 @@
             return null;
           }
 
-          // "delivery-doordash-com" / "fast_food-mcdonalds-com" -> "doordash.com".
-          const withoutBucket = siteKey.replace(/^(delivery|fast-food|fast_food|custom|site)-/, "");
-          const domain = withoutBucket.replace(/-/g, ".");
+          // "delivery-doordash-com" -> "doordash.com", checked against the real
+          // catalog where one is available. A key whose domain cannot be known
+          // is DROPPED rather than pointed at a host that does not exist: a pass
+          // with a wrong target is shown as active and blocks the user anyway,
+          // which is worse than no pass at all. legacy.siteBypasses below keeps
+          // the original either way.
+          const domain = recoverLegacyBypassDomain(siteKey, opts.resolveDomain);
+
+          if (!domain) {
+            return null;
+          }
 
           return {
             id: `migrated-${siteKey}`,
@@ -1502,9 +1789,12 @@
    * untouched and the failure is reported — a broken migration must never reset
    * a user's data.
    *
+   * @param {object} [options] { resolveDomain } — an optional
+   *   (domain) => boolean lookup into the real blocklist, used to recover the
+   *   host behind a pre-0.55 site key. Absent, ambiguous keys are dropped.
    * @returns {{ state: object, from: number, to: number, changed: boolean, notes: string[], error: string|null }}
    */
-  function migrateState(state) {
+  function migrateState(state, options) {
     const source = safeObject(state);
     const from = storedVersion(source);
     const notes = [];
@@ -1518,7 +1808,7 @@
     try {
       MIGRATIONS.forEach(([version, step]) => {
         if (storedVersion(working) === version) {
-          working = step(working);
+          working = step(working, options);
           notes.push(`migrated schema ${version} -> ${storedVersion(working)}`);
         }
       });
@@ -1541,10 +1831,16 @@
    * consumer goes through this, so a missing or junk value can never mean
    * something different in two places.
    */
-  function readSettings(raw) {
+  function readSettings(raw, options) {
     const defaults = defaultState();
     const source = safeObject(raw);
+    const opts = safeObject(options);
     const get = (key) => (Object.prototype.hasOwnProperty.call(source, key) ? source[key] : undefined);
+
+    // Expiry is decided on READ, for passes and for repeat history alike, so a
+    // profile that is simply left alone cannot keep either past its lifetime.
+    const now = Number.isFinite(Number(opts.now)) ? Number(opts.now) : Date.now();
+    const repeatWindowMinutes = repeatWindowMinutesFor(get("repeatWindowMinutes"));
 
     const schedule = isPlainObject(get("schedule"))
       ? normalizeSchedule(get("schedule"))
@@ -1562,8 +1858,7 @@
       askIntent: get("askIntent") !== false,
       repeatFrictionEnabled: get("repeatFrictionEnabled") !== false,
       repeatExtraSeconds: clampInt(get("repeatExtraSeconds"), 0, 120, defaults.repeatExtraSeconds),
-      repeatWindowMinutes: clampInt(get("repeatWindowMinutes"), 5, 720, defaults.repeatWindowMinutes),
-      settingsDelaySeconds: clampInt(get("settingsDelaySeconds"), 0, 600, 0),
+      repeatWindowMinutes,
 
       schedule,
 
@@ -1597,8 +1892,11 @@
       quickAccessCountries: toStringList(get("quickAccessCountries"), 100),
       quickAccessCategories: toStringList(get("quickAccessCategories"), 100),
 
-      passes: activePasses(get("passes")),
-      repeatHistory: normalizeRepeatHistory(get("repeatHistory")),
+      passes: activePasses(get("passes"), now),
+      // Pruned to its retention window here, so every consumer — including the
+      // worker, which writes the result straight back — sees a map that has
+      // actually aged out rather than one that only ever grew to its count caps.
+      repeatHistory: normalizeRepeatHistory(get("repeatHistory"), { now, windowMinutes: repeatWindowMinutes }),
 
       dietPreference: normalizeDietPreference(get("dietPreference")),
       pantry: normalizePantry(get("pantry")),
@@ -1630,8 +1928,7 @@
       // an imported backup could otherwise smuggle a remote url() value into one and
       // make the settings page fetch a remote resource.
       theme: normalizeTheme(get("theme")),
-      themeMode: normalizeThemeMode(get("themeMode")),
-      recapDismissedFor: String(get("recapDismissedFor") || "").slice(0, 16)
+      themeMode: normalizeThemeMode(get("themeMode"))
     };
   }
 
@@ -1643,6 +1940,7 @@
     migrateState,
     readSettings,
     storedVersion,
+    recoverLegacyBypassDomain,
 
     // limits
     MIN_TIMER_SECONDS,
@@ -1668,6 +1966,10 @@
     ALL_DAYS,
     WEEKDAYS,
     WEEKEND,
+    // Exported so a surface offering "Add a window" can disable the control at
+    // the cap instead of accepting a click that normalizeSchedule truncates
+    // away with no message.
+    MAX_WINDOWS,
     normalizeSchedule,
     normalizeTime,
     scheduleFromLegacy,
@@ -1675,6 +1977,7 @@
     scheduleIsFlatExpressible,
     normalizeCustomSites,
     evaluateSchedule,
+    scheduleOverrideActive,
     nextScheduleBoundary,
     nextLocalMidnight,
     schedulePresetValues,
@@ -1689,6 +1992,11 @@
     findCoveringPass,
 
     // repeat friction
+    DEFAULT_REPEAT_WINDOW_MINUTES,
+    MAX_REPEAT_DOMAINS,
+    MAX_REPEAT_HISTORY_PER_DOMAIN,
+    REPEAT_HISTORY_RETENTION_MULTIPLE,
+    repeatHistoryRetentionMs,
     normalizeRepeatHistory,
     recordContinue,
     repeatFrictionFor,

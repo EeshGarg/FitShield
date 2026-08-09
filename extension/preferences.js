@@ -31,7 +31,8 @@
   const has = (id) => !!el(id);
 
   let settings = null;
-  let editingId = null;
+  // The POSITION of the entry being edited, not its id — see the delete handler.
+  let editingIndex = null;
 
   async function load() {
     const raw = await chrome.storage.local.get(null);
@@ -78,10 +79,45 @@
   // Friction
   // ---------------------------------------------------------------------------
 
+  // Which preset, if any, still describes the values actually stored.
+  //
+  // The page prints `frictionIntro` — "You can change any value afterwards —
+  // doing so simply moves you to Custom." Nothing ever wrote
+  // `frictionProfile: "custom"`, so a user who dragged the popup's timer to 300
+  // seconds opened Settings to find "Standard" highlighted directly above
+  // "300-second pause". The stored id is therefore a cache, not the truth: what
+  // the chips claim is derived from the numbers themselves.
+  //
+  // The field list comes from `frictionProfileValues` so it cannot drift from
+  // what a preset writes — core.detectFrictionProfile compares only two of the
+  // six, which is why turning "Ask what brought me here" off never moved the
+  // label either.
+  const FRICTION_VALUE_KEYS = Object.keys(core.frictionProfileValues("standard")).filter(
+    (key) => key !== "frictionProfile"
+  );
+
+  function frictionProfileFor(values) {
+    return (
+      core.FRICTION_PROFILE_IDS.find((id) => {
+        const preset = core.frictionProfileValues(id);
+        return FRICTION_VALUE_KEYS.every((key) => preset[key] === values[key]);
+      }) || "custom"
+    );
+  }
+
+  // Persist a friction value AND the profile that now describes the result, so
+  // the stored label agrees with the stored numbers on every other surface too.
+  async function saveFrictionValue(partial) {
+    const next = { ...settings, ...partial };
+    await save({ ...partial, frictionProfile: frictionProfileFor(next) });
+  }
+
   function renderFriction() {
     if (!has("frictionPresets")) {
       return;
     }
+
+    const profile = frictionProfileFor(settings);
 
     renderChips(
       el("frictionPresets"),
@@ -90,14 +126,13 @@
         { value: "standard", label: t("frictionStandard") },
         { value: "strict", label: t("frictionStrict") }
       ],
-      (value) => settings.frictionProfile === value,
+      (value) => profile === value,
       async (value) => {
         await save(core.frictionProfileValues(value));
         renderFriction();
       }
     );
 
-    const profile = settings.frictionProfile;
     el("frictionCurrent").textContent =
       profile === "custom"
         ? t("frictionCustomSummary", [String(settings.timerSeconds), String(settings.passDurationMinutes)])
@@ -113,12 +148,12 @@
     }
 
     el("askIntentToggle").addEventListener("change", async (event) => {
-      await save({ askIntent: event.target.checked });
+      await saveFrictionValue({ askIntent: event.target.checked });
       renderFriction();
     });
 
     el("repeatFrictionToggle").addEventListener("change", async (event) => {
-      await save({ repeatFrictionEnabled: event.target.checked });
+      await saveFrictionValue({ repeatFrictionEnabled: event.target.checked });
       renderFriction();
     });
   }
@@ -395,7 +430,7 @@
     const list = el("customAltList");
     list.replaceChildren();
 
-    settings.customAlternatives.forEach((entry) => {
+    settings.customAlternatives.forEach((entry, index) => {
       const item = document.createElement("div");
       item.className = "pref-item";
 
@@ -424,7 +459,7 @@
       edit.className = "secondary";
       edit.textContent = t("editButton");
       edit.setAttribute("aria-label", `${t("editButton")}: ${entry.title}`);
-      edit.addEventListener("click", () => startEditing(entry));
+      edit.addEventListener("click", () => startEditing(entry, index));
 
       const remove = document.createElement("button");
       remove.type = "button";
@@ -432,8 +467,14 @@
       remove.textContent = t("removeButton");
       remove.setAttribute("aria-label", `${t("removeButton")}: ${entry.title}`);
       remove.addEventListener("click", async () => {
+        // By POSITION, not by id. Filtering on `item.id !== entry.id` deleted
+        // every entry sharing that id, and ids are not guaranteed unique: a
+        // hand-edited or third-party backup can carry several with the same one.
+        // backup.js now re-issues collisions on import, but deleting the wrong
+        // recipe is unrecoverable, so this removes exactly the row that was
+        // clicked regardless of what the ids say.
         await save({
-          customAlternatives: settings.customAlternatives.filter((item2) => item2.id !== entry.id)
+          customAlternatives: settings.customAlternatives.filter((_, position) => position !== index)
         });
         renderCustomAlternatives();
       });
@@ -479,14 +520,14 @@
       }
     );
 
-    el("customAltCancel").hidden = editingId === null;
-    el("customAltSave").textContent = editingId === null ? t("customAltSave") : t("customAltUpdate");
+    el("customAltCancel").hidden = editingIndex === null;
+    el("customAltSave").textContent = editingIndex === null ? t("customAltSave") : t("customAltUpdate");
   }
 
   const formDraft = { equipment: ["stove"], cravings: [] };
 
   function resetForm() {
-    editingId = null;
+    editingIndex = null;
     formDraft.equipment = ["stove"];
     formDraft.cravings = [];
     el("customAltForm").reset();
@@ -494,8 +535,8 @@
     renderCustomAlternatives();
   }
 
-  function startEditing(entry) {
-    editingId = entry.id;
+  function startEditing(entry, index) {
+    editingIndex = index;
     formDraft.equipment = entry.equipment.slice();
     formDraft.cravings = entry.cravings.slice();
 
@@ -524,8 +565,10 @@
     el("customAltForm").addEventListener("submit", async (event) => {
       event.preventDefault();
 
+      const editing = editingIndex === null ? null : settings.customAlternatives[editingIndex] || null;
+
       const result = core.sanitizeCustomAlternative({
-        id: editingId || undefined,
+        id: editing ? editing.id : undefined,
         name: el("customAltName").value,
         description: el("customAltDescription").value,
         ingredients: splitLines(el("customAltIngredients").value),
@@ -548,8 +591,19 @@
         return;
       }
 
-      const others = settings.customAlternatives.filter((entry) => entry.id !== result.value.id);
-      await save({ customAlternatives: [...others, result.value] });
+      // Replace the row being edited IN PLACE. Rebuilding the list as
+      // "everything whose id differs, plus the edited copy" collapsed every
+      // entry sharing that id into one, and moved an edited entry to the end of
+      // the user's own list for no reason.
+      const next = settings.customAlternatives.slice();
+
+      if (editing) {
+        next[editingIndex] = result.value;
+      } else {
+        next.push(result.value);
+      }
+
+      await save({ customAlternatives: next });
 
       el("customAltNotice").textContent = t("customAltSaved", [result.value.title]);
       resetForm();
@@ -710,9 +764,39 @@
     }
   }
 
+  // What a hostname looks like once core.redactReportSubject has reduced the
+  // input to a domain. Same shape the core tests for.
+  const DOMAIN_SHAPE = /^[a-z0-9.-]+\.[a-z]{2,}$/;
+
+  /**
+   * The note printed above this field promises, unconditionally, that "query
+   * strings are stripped and only the domain is included".
+   *
+   * `core.redactReportSubject` reduces every input that PARSES as a URL to its
+   * host, which covers pasted links, intranet hosts and localhost pages. What it
+   * cannot reduce it returns verbatim, correctly — free text is a label, not a
+   * URL, and truncating it would mangle a perfectly good subject like
+   * "pizza w/ extra cheese".
+   *
+   * But a link pasted into a sentence ("ordered from intranet/checkout?token=x
+   * and it broke") does not parse as a URL and so reaches that fallback with its
+   * query string intact. A privacy-first product does not print a guarantee next
+   * to a field and then keep the token, so drop any query/fragment tail here.
+   * Only `?` and `#` — never a path separator, which appears in ordinary prose.
+   */
+  function redactSubject(value) {
+    const redacted = core.redactReportSubject(value);
+
+    if (DOMAIN_SHAPE.test(redacted)) {
+      return redacted;
+    }
+
+    return core.cleanText(redacted.replace(/[?#][\s\S]*$/, ""), 120);
+  }
+
   function buildReport() {
     const type = el("reportType").value;
-    const subject = core.redactReportSubject(el("reportSubject").value);
+    const subject = redactSubject(el("reportSubject").value);
     const details = core.cleanText(el("reportDetails").value, 800);
     const version =
       typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getManifest

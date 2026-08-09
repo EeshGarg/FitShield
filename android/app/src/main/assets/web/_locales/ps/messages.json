@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "ساه واخلئ"
   },
-  "warningEyebrow": {
-    "message": "FitShield چک"
-  },
-  "warningTitle": {
-    "message": "یوه دقیقه وخت ونیسئ."
-  },
-  "warningIntro": {
-    "message": "مخکې لدې چې تاسو امر وکړئ چیک ان کړئ. لوږه، اسانتیا، فشار، او عادت کولی شي په شیبه کې ورته احساس وکړي."
-  },
-  "warningTriggeredBy": {
-    "message": "تاسو د $1 څخه د امر کولو په حال کې یاست."
-  },
   "warningBackButton": {
     "message": "بیرته لاړ شه"
-  },
-  "warningLockedButton": {
-    "message": "تړل شوی"
-  },
-  "warningContinueButton": {
-    "message": "ادامه ورکړئ"
   },
   "warningErrorHint": {
     "message": "د سایټ د پرانیستلو په وخت کې یو څه غلط شو. مهرباني وکړئ بیا هڅه وکړئ."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "د دودیز URL بلاک کول فعال کړئ"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "یو دودیز بلاک شوی URL اضافه کړئ"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "ډاټا او تنظیمات صادر کړئ"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "تاسو دا ولې ګورئ"
   },
   "blockReasonDomain": {
     "message": "ویب پاڼه"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

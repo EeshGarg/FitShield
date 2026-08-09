@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "ಉಸಿರು ತೆಗೆದುಕೊಳ್ಳಿ"
   },
-  "warningEyebrow": {
-    "message": "FitShield ಚೆಕ್"
-  },
-  "warningTitle": {
-    "message": "ಒಂದು ನಿಮಿಷ ತೆಗೆದುಕೊಳ್ಳಿ."
-  },
-  "warningIntro": {
-    "message": "ನೀವು ಆರ್ಡರ್ ಮಾಡುವ ಮೊದಲು ಪರಿಶೀಲಿಸಿ. ಹಸಿವು, ಅನುಕೂಲತೆ, ಒತ್ತಡ ಮತ್ತು ಅಭ್ಯಾಸವು ಕ್ಷಣದಲ್ಲಿ ಒಂದೇ ರೀತಿಯ ಭಾವನೆಯನ್ನು ಉಂಟುಮಾಡಬಹುದು."
-  },
-  "warningTriggeredBy": {
-    "message": "ನೀವು $1 ನಿಂದ ಆರ್ಡರ್ ಮಾಡಲಿರುವಿರಿ."
-  },
   "warningBackButton": {
     "message": "ಹಿಂತಿರುಗಿ"
-  },
-  "warningLockedButton": {
-    "message": "ಲಾಕ್ ಮಾಡಲಾಗಿದೆ"
-  },
-  "warningContinueButton": {
-    "message": "ಮುಂದುವರಿಸಿ"
   },
   "warningErrorHint": {
     "message": "ಸೈಟ್ ತೆರೆಯುವಾಗ ಏನೋ ತಪ್ಪಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "ಕಸ್ಟಮ್ URL ನಿರ್ಬಂಧಿಸುವಿಕೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "ಕಸ್ಟಮ್ ನಿರ್ಬಂಧಿಸಿದ URL ಅನ್ನು ಸೇರಿಸಿ"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "ಡೇಟಾ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ರಫ್ತು ಮಾಡಿ"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "ನೀವು ಇದನ್ನು ಏಕೆ ನೋಡುತ್ತಿದ್ದೀರಿ"
   },
   "blockReasonDomain": {
     "message": "ಸೈಟ್"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

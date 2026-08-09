@@ -1,5 +1,5 @@
 {
-  "_note": "Authored to close specific coverage gaps: cravings with no vegetarian answer, no answer without a stove or oven, or no answer under 15 minutes.",
+  "_note": "Authored to close specific coverage gaps: cravings with no vegetarian answer, no answer without a stove or oven, no answer under 15 minutes, no answer that is not an air-fryer recipe, and craving groups whose count was padded by entries that did not really answer them.",
   "recipes": [
     {
       "id": "crispy-tofu-sandwich",
@@ -92,7 +92,7 @@
       ],
       "storage": "Best straight away; the coating softens within an hour.",
       "categories": ["chicken", "fast_food", "korean_food"],
-      "cravings": ["wings", "fried-chicken", "late-night"],
+      "cravings": ["wings", "fried-chicken"],
       "region": "north-american",
       "noCook": false,
       "microwave": false,
@@ -150,13 +150,154 @@
       "pantryFriendly": false,
       "calorieRange": [380, 480],
       "dataVersion": 2
+    },
+    {
+      "id": "chicken-caesar-salad",
+      "title": "Chicken Caesar-Style Salad",
+      "description": "A proper cold salad built on crunchy lettuce and chicken that is already cooked — no anchovies, no raw egg, no cooking at all.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 1, "unit": "piece", "item": "cos or romaine lettuce", "note": "about 300 g" },
+        { "quantity": 250, "unit": "g", "item": "cooked chicken", "note": "rotisserie or leftover, sliced" },
+        { "quantity": 3, "unit": "tbsp", "item": "mayonnaise" },
+        { "quantity": 1, "unit": "tbsp", "item": "lemon juice" },
+        { "quantity": 30, "unit": "g", "item": "parmesan", "note": "finely grated" },
+        { "quantity": 1, "unit": "clove", "item": "garlic", "note": "grated" },
+        { "quantity": 0.5, "unit": "tsp", "item": "mustard" },
+        { "quantity": 0.25, "unit": "tsp", "item": "black pepper" },
+        { "quantity": 0.5, "unit": "cup", "item": "croutons", "optional": true }
+      ],
+      "steps": [
+        "Whisk the mayonnaise, lemon juice, garlic, mustard, half the parmesan, and the pepper in the bottom of a large bowl until it is smooth enough to pour. Add a teaspoon of water if it is too thick to coat a leaf.",
+        "Chop the lettuce into 3 cm pieces, wash it, and dry it properly — dressing slides straight off a wet leaf and pools in the bottom of the bowl.",
+        "Add the lettuce and the sliced chicken and toss until every leaf is lightly coated.",
+        "Scatter the rest of the parmesan and the croutons over the top, and eat it before the croutons soften."
+      ],
+      "totalMinutes": 12,
+      "activeMinutes": 12,
+      "prepMinutes": 12,
+      "cookMinutes": 0,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "omnivore",
+      "allergens": ["dairy", "egg", "gluten"],
+      "substitutions": [
+        { "for": "cooked chicken", "use": "a tin of tuna, a tin of chickpeas, or cubed halloumi for a vegetarian salad" },
+        { "for": "mayonnaise", "use": "plain yogurt with an extra squeeze of lemon" },
+        { "for": "croutons", "use": "2 slices of bread cut into cubes and fried in 1 tbsp oil over medium heat for 3-4 minutes, until golden" }
+      ],
+      "storage": "Dress only what you are eating now. Undressed, the leaves and the chicken keep 2 days separately.",
+      "categories": ["fast_casual", "delivery", "grocery"],
+      "cravings": ["salad", "high-protein"],
+      "region": "north-american",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": false,
+      "calorieRange": [420, 560],
+      "dataVersion": 2
+    },
+    {
+      "id": "tuna-white-bean-salad",
+      "title": "Tuna and White Bean Salad",
+      "description": "A tinned-fish salad that eats like a real meal, from things that all keep in the cupboard.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 145, "unit": "g", "item": "canned tuna", "note": "one tin, drained" },
+        { "quantity": 400, "unit": "g", "item": "canned white beans", "note": "one tin, drained and rinsed" },
+        { "quantity": 3, "unit": "cup", "item": "salad leaves or rocket", "note": "roughly torn" },
+        { "quantity": 0.5, "unit": "piece", "item": "red onion", "note": "very thinly sliced" },
+        { "quantity": 1, "unit": "piece", "item": "tomato", "note": "diced" },
+        { "quantity": 3, "unit": "tbsp", "item": "olive oil" },
+        { "quantity": 1.5, "unit": "tbsp", "item": "lemon juice" },
+        { "quantity": 0.5, "unit": "tsp", "item": "salt" },
+        { "quantity": 0.25, "unit": "tsp", "item": "black pepper" },
+        { "quantity": 2, "unit": "tbsp", "item": "chopped parsley", "optional": true },
+        { "quantity": 2, "unit": "tbsp", "item": "olives", "optional": true }
+      ],
+      "steps": [
+        "Soak the sliced onion in cold water for 2 minutes, then drain it. This takes the raw burn out and is the difference between a salad you finish and one you pick at.",
+        "Whisk the olive oil, lemon juice, salt, and pepper in the bottom of a large bowl until it thickens slightly and stops separating.",
+        "Turn the drained beans and the diced tomato through the dressing first, so the firm things take most of it.",
+        "Flake the tuna in over the top in large pieces and fold it through gently — stirring hard turns tinned fish to paste.",
+        "Add the leaves, the onion, the parsley, and the olives, and toss lightly just before you eat."
+      ],
+      "totalMinutes": 10,
+      "activeMinutes": 10,
+      "prepMinutes": 10,
+      "cookMinutes": 0,
+      "difficulty": "easy",
+      "equipment": [],
+      "method": "no-cook",
+      "diet": "pescatarian",
+      "allergens": ["fish"],
+      "substitutions": [
+        { "for": "canned tuna", "use": "tinned salmon or sardines, or a second tin of beans for a vegan salad" },
+        { "for": "canned white beans", "use": "chickpeas or butter beans, drained the same way" }
+      ],
+      "storage": "The dressed beans and tuna keep 2 days and improve. Add the leaves only when you eat.",
+      "categories": ["fast_casual", "seafood", "grocery", "delivery"],
+      "cravings": ["salad", "seafood", "high-protein", "mediterranean"],
+      "region": "mediterranean",
+      "noCook": true,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": false,
+      "pantryFriendly": true,
+      "calorieRange": [400, 520],
+      "dataVersion": 2
     }
   ],
   "quickAlternatives": [
     {
+      "id": "ten-minute-buffalo-chicken",
+      "title": "Ten-Minute Buffalo Chicken",
+      "description": "The buffalo-wing flavour in ten minutes, from chicken that is already cooked — no fryer, no oven, no bones.",
+      "servings": 2,
+      "ingredients": [
+        { "quantity": 300, "unit": "g", "item": "cooked chicken", "note": "rotisserie or leftover, torn into pieces the size of a wing flat" },
+        { "quantity": 3, "unit": "tbsp", "item": "hot sauce" },
+        { "quantity": 1.5, "unit": "tbsp", "item": "butter" },
+        { "quantity": 1, "unit": "tsp", "item": "neutral oil" },
+        { "quantity": 1, "unit": "tsp", "item": "honey", "optional": true },
+        { "quantity": 2, "unit": "stick", "item": "celery", "note": "cut into batons", "optional": true },
+        { "quantity": 2, "unit": "tbsp", "item": "blue cheese or ranch dressing", "optional": true }
+      ],
+      "steps": [
+        "Tear the cooked chicken into rough pieces about the size of a wing flat. Ragged edges are what catch and crisp.",
+        "Heat the oil in a frying pan over medium-high heat and spread the chicken out in one layer. Leave it 3-4 minutes without stirring, until the edges are deep golden and crisp.",
+        "Turn the heat to low and add the butter, hot sauce, and honey. Toss for 1-2 minutes until the butter has melted into a glossy sauce that coats every piece and the chicken is steaming hot right through.",
+        "Tip onto a plate and serve with the celery and dressing for dipping."
+      ],
+      "totalMinutes": 10,
+      "activeMinutes": 8,
+      "difficulty": "easy",
+      "equipment": ["stove"],
+      "method": "quick-cook",
+      "diet": "omnivore",
+      "allergens": ["dairy"],
+      "substitutions": [
+        { "for": "cooked chicken", "use": "frozen breaded nuggets or strips cooked to the packet instructions first, then tossed through the same sauce" },
+        { "for": "butter", "use": "olive oil or a dairy-free spread" },
+        { "for": "hot sauce", "use": "any vinegar-based chilli sauce; sriracha is sweeter, so leave the honey out" }
+      ],
+      "storage": "Best straight away — the sauce softens those crisp edges within a few minutes.",
+      "categories": ["chicken", "fast_food", "fast_casual"],
+      "cravings": ["wings", "high-protein", "comfort"],
+      "region": "north-american",
+      "noCook": false,
+      "microwave": false,
+      "airFryer": false,
+      "onePan": true,
+      "pantryFriendly": false,
+      "dataVersion": 2
+    },
+    {
       "id": "microwave-mug-pizza",
       "title": "Microwave Mug Pizza",
-      "description": "A pizza-shaped answer for a kitchen with nothing but a microwave. Four minutes, one mug.",
+      "description": "A pizza-shaped answer for a kitchen with nothing but a microwave. Five minutes, one mug.",
       "servings": 1,
       "ingredients": [
         { "quantity": 4, "unit": "tbsp", "item": "plain flour" },
@@ -265,7 +406,7 @@
       ],
       "storage": "The bean mix keeps 3 days; fill the leaves just before eating.",
       "categories": ["mexican", "fast_casual", "grocery"],
-      "cravings": ["taco", "salad", "convenience", "high-protein"],
+      "cravings": ["taco", "convenience", "high-protein"],
       "region": "latin-american",
       "noCook": true,
       "microwave": false,
@@ -307,7 +448,7 @@
       ],
       "storage": "Keeps a day; the sauce thickens cold, so loosen with a splash of water.",
       "categories": ["asian", "delivery", "fast_casual"],
-      "cravings": ["noodles", "thai", "salad", "convenience"],
+      "cravings": ["noodles", "thai", "convenience"],
       "region": "east-asian",
       "noCook": true,
       "microwave": false,
@@ -361,11 +502,11 @@
     {
       "id": "microwave-miso-tofu-soup",
       "title": "Miso Tofu Soup",
-      "description": "A hot, savoury bowl from a kettle or a microwave in four minutes.",
+      "description": "A hot, savoury bowl in five minutes, with nothing but a microwave.",
       "servings": 1,
       "ingredients": [
         { "quantity": 1, "unit": "tbsp", "item": "miso paste" },
-        { "quantity": 350, "unit": "ml", "item": "hot water" },
+        { "quantity": 350, "unit": "ml", "item": "hot water", "note": "from the kettle, or heat it in the microwave first" },
         { "quantity": 150, "unit": "g", "item": "silken or firm tofu", "note": "cut into small cubes" },
         { "quantity": 1, "unit": "piece", "item": "spring onion", "note": "sliced" },
         { "quantity": 0.5, "unit": "cup", "item": "frozen spinach or peas", "optional": true },
@@ -374,17 +515,18 @@
       "steps": [
         "Put the miso in a mug or bowl and add 3 tbsp of the hot water. Mash it with a spoon until completely smooth — miso will not dissolve once the bowl is full.",
         "Add the rest of the water, the tofu, and the frozen vegetables.",
-        "Microwave 90 seconds, or leave it 2 minutes if the water came from a kettle. It is ready when it is steaming hot right through and the tofu has warmed.",
+        "Microwave 90 seconds. It is ready when it is steaming hot right through and the tofu has warmed.",
         "Stir in the sesame oil if you have it, and scatter the spring onion over. Do not boil it — miso turns harsh and grainy above a simmer."
       ],
       "totalMinutes": 5,
       "activeMinutes": 4,
       "difficulty": "easy",
-      "equipment": ["microwave", "kettle"],
+      "equipment": ["microwave"],
       "method": "microwave",
       "diet": "vegan",
       "allergens": ["soy"],
       "substitutions": [
+        { "for": "microwave", "use": "a kettle alone — pour the boiling water straight over and leave it covered for 2 minutes instead" },
         { "for": "miso paste", "use": "a vegetable stock cube with 1 tsp soy sauce — different, but the same savoury bowl" },
         { "for": "silken or firm tofu", "use": "a handful of frozen edamame, or leave it out and add noodles" }
       ],
@@ -484,7 +626,7 @@
     {
       "id": "mango-lassi",
       "title": "Mango Lassi",
-      "description": "Thick, cold, and sweet in three minutes — the drink to order alongside a curry, made at home.",
+      "description": "Thick, cold, and sweet in four minutes — the drink to order alongside a curry, made at home.",
       "servings": 1,
       "ingredients": [
         { "quantity": 1, "unit": "cup", "item": "frozen mango" },

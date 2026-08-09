@@ -52,10 +52,10 @@
     {
       "id": "garlic-soy-noodles",
       "title": "Garlic Soy Noodles",
-      "description": "Ten minutes, five pantry ingredients, and a sauce that clings properly to the noodles.",
+      "description": "Six pantry ingredients and a sauce that clings to every strand — twenty minutes, most of it waiting for water to boil.",
       "servings": 2,
       "ingredients": [
-        { "quantity": 200, "unit": "g", "item": "dried noodles", "note": "egg, wheat, or instant noodle blocks without the sachet" },
+        { "quantity": 200, "unit": "g", "item": "dried noodles", "note": "wheat or rice noodles, or instant noodle blocks without the sachet — egg noodles are not vegan, so check the packet" },
         { "quantity": 4, "unit": "clove", "item": "garlic", "note": "finely chopped" },
         { "quantity": 2, "unit": "tbsp", "item": "neutral oil" },
         { "quantity": 3, "unit": "tbsp", "item": "soy sauce" },
@@ -65,16 +65,16 @@
         { "quantity": 2, "unit": "piece", "item": "spring onions", "note": "sliced", "optional": true }
       ],
       "steps": [
-        "Boil the noodles for the time on the packet, then drain, keeping 4 tbsp of the cooking water.",
+        "Bring a pan of water to the boil over high heat — a full pan takes 6-8 minutes, and that is most of this recipe. Boil the noodles for the time on the packet, until tender, then drain, keeping 4 tbsp of the cooking water.",
         "While they cook, mix the soy sauce, sesame oil, and sugar in a bowl.",
         "Heat the neutral oil in a pan over medium heat and cook the garlic for 45-60 seconds, until it smells sweet and turns pale gold. Take it off the moment it colours — burnt garlic turns the whole dish bitter.",
         "Add the drained noodles, the sauce, and 2 tbsp of the reserved water. Toss over the heat for 1 minute until the sauce coats every strand and no liquid pools in the pan; add the rest of the water if it looks dry.",
         "Finish with chilli flakes and spring onions."
       ],
-      "totalMinutes": 12,
+      "totalMinutes": 20,
       "activeMinutes": 10,
       "prepMinutes": 4,
-      "cookMinutes": 8,
+      "cookMinutes": 16,
       "difficulty": "easy",
       "equipment": ["stove"],
       "method": "quick-cook",
@@ -86,7 +86,7 @@
       ],
       "storage": "Keeps 2 days; loosen with a splash of water when reheating.",
       "categories": ["asian", "delivery", "fast_casual"],
-      "cravings": ["noodles", "chinese", "late-night"],
+      "cravings": ["noodles", "chinese"],
       "region": "east-asian",
       "noCook": false,
       "microwave": false,
@@ -208,16 +208,16 @@
         { "quantity": 1, "unit": "cup", "item": "shredded carrot or cucumber", "optional": true }
       ],
       "steps": [
-        "Boil the noodles over high heat for the time on the packet, usually 4-6 minutes, until tender with a slight bite. Reserve half a cup of the water before draining.",
+        "Bring a pan of water to the boil over high heat — allow 6-8 minutes for that alone — then boil the noodles for the time on the packet, usually 4-6 minutes, until tender with a slight bite. Reserve half a cup of the water before draining.",
         "Whisk the peanut butter, soy sauce, vinegar, sugar, and garlic in a large bowl. It will seize and look wrong at first.",
         "Add the hot noodle water 1 tbsp at a time, whisking, until the sauce becomes smooth and just thin enough to pour.",
         "Toss the drained noodles through the sauce until every strand is coated.",
         "Top with the shredded vegetables and chilli flakes."
       ],
-      "totalMinutes": 12,
+      "totalMinutes": 20,
       "activeMinutes": 10,
       "prepMinutes": 5,
-      "cookMinutes": 7,
+      "cookMinutes": 15,
       "difficulty": "easy",
       "equipment": ["stove"],
       "method": "quick-cook",
@@ -229,7 +229,7 @@
       ],
       "storage": "Keeps 2 days; the sauce thickens cold, so loosen with hot water.",
       "categories": ["asian", "delivery", "fast_casual"],
-      "cravings": ["noodles", "thai", "late-night"],
+      "cravings": ["noodles", "thai"],
       "region": "southeast-asian",
       "noCook": false,
       "microwave": false,
@@ -287,19 +287,19 @@
       "description": "The packet you already have, turned into an actual meal with an egg and something green.",
       "servings": 1,
       "ingredients": [
-        { "quantity": 1, "unit": "packet", "item": "instant noodles" },
+        { "quantity": 1, "unit": "packet", "item": "instant noodles", "note": "check the sachet if you need it vegetarian — chicken and beef are the most common flavours" },
         { "quantity": 1, "unit": "piece", "item": "egg" },
         { "quantity": 1, "unit": "cup", "item": "frozen vegetables" },
         { "quantity": 1, "unit": "tsp", "item": "sesame oil", "optional": true },
         { "quantity": 1, "unit": "piece", "item": "spring onion", "note": "sliced", "optional": true }
       ],
       "steps": [
-        "Boil the noodles over high heat in their water for 3 minutes, adding the frozen vegetables at the same time, until the noodles are tender and the vegetables are steaming hot.",
+        "Bring 2 cups of water to the boil in a small pan over high heat — about 4 minutes — then add the noodle block and the frozen vegetables and cook 3 minutes, until the noodles are tender and the vegetables are steaming hot.",
         "One minute before the noodles are done, crack the egg into the pan and leave it undisturbed so it poaches, or stir it through for a silky broth.",
         "Add the seasoning sachet off the heat — using half keeps the salt down without losing the flavour.",
         "Finish with sesame oil and spring onion."
       ],
-      "totalMinutes": 7,
+      "totalMinutes": 9,
       "activeMinutes": 5,
       "difficulty": "easy",
       "equipment": ["stove"],
@@ -307,6 +307,7 @@
       "diet": "vegetarian",
       "allergens": ["gluten", "egg", "soy", "sesame"],
       "substitutions": [
+        { "for": "instant noodles", "use": "any plain noodle block with your own seasoning: 1 tsp soy sauce, a pinch of sugar, and a stock cube you have read the label on" },
         { "for": "egg", "use": "a handful of frozen edamame or cubed tofu for a vegan bowl" }
       ],
       "storage": "Eat straight away.",

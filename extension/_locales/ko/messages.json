@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "잠시 숨 고르기"
   },
-  "warningEyebrow": {
-    "message": "FitShield 점검"
-  },
-  "warningTitle": {
-    "message": "1분만 멈춰 보세요."
-  },
-  "warningIntro": {
-    "message": "주문하기 전에 잠시 점검해 보세요. 배고픔, 편리함, 스트레스, 습관은 그 순간 비슷하게 느껴질 수 있습니다."
-  },
-  "warningTriggeredBy": {
-    "message": "지금 $1에서 주문하려고 합니다."
-  },
   "warningBackButton": {
     "message": "뒤로"
-  },
-  "warningLockedButton": {
-    "message": "잠김"
-  },
-  "warningContinueButton": {
-    "message": "계속"
   },
   "warningErrorHint": {
     "message": "사이트를 여는 중 문제가 발생했습니다. 다시 시도해 주세요."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "사용자 지정 URL 차단 사용"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "차단할 사용자 지정 URL 추가"
@@ -686,9 +659,6 @@
   "importErrorNotice": {
     "message": "유효한 FitShield 백업 파일이 아닙니다."
   },
-  "blockReasonHeading": {
-    "message": "이 화면이 보이는 이유"
-  },
   "blockReasonDomain": {
     "message": "사이트"
   },
@@ -895,8 +865,5 @@
   },
   "catLabelRestaurant": {
     "message": "레스토랑"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

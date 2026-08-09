@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "Ambegan"
   },
-  "warningEyebrow": {
-    "message": "FitShield Priksa"
-  },
-  "warningTitle": {
-    "message": "Njupuk siji menit."
-  },
-  "warningIntro": {
-    "message": "Priksa sadurunge sampeyan pesen. Keluwen, penak, stres, lan pakulinan bisa uga padha ing wektu iki."
-  },
-  "warningTriggeredBy": {
-    "message": "Sampeyan arep supaya saka $1."
-  },
   "warningBackButton": {
     "message": "mulih"
-  },
-  "warningLockedButton": {
-    "message": "Dikunci"
-  },
-  "warningContinueButton": {
-    "message": "Terusake"
   },
   "warningErrorHint": {
     "message": "Ana sing salah nalika mbukak situs kasebut. Coba maneh."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "Aktifake pamblokiran URL khusus"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "Tambah URL sing diblokir khusus"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "Ekspor data lan setelan"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "Sebabe sampeyan ndeleng iki"
   },
   "blockReasonDomain": {
     "message": "Situs"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

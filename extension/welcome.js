@@ -9,6 +9,28 @@ const THEME_PRESETS = {
 const t = (key, subs) =>
   (typeof FitShieldI18n !== "undefined" ? FitShieldI18n.t(key, subs) : key);
 
+/**
+ * The reason an import failed, in the user's language where possible.
+ *
+ * backup.js writes an actionable sentence for every rejection — "that backup was
+ * written by a newer version of FitShield", "that file is empty", "that file
+ * isn't valid JSON". The wizard used to discard all of them and print one
+ * generic "That file isn't a valid FitShield backup.", which is wrong for a
+ * backup that is perfectly valid and simply newer than this build.
+ */
+function backupErrorMessage(error) {
+  if (error && error.i18nKey) {
+    const localized = t(error.i18nKey, error.i18nSubs);
+
+    if (localized !== error.i18nKey) {
+      return localized;
+    }
+  }
+
+  const message = error && typeof error.message === "string" ? error.message.trim() : "";
+  return message || t("importErrorNotice");
+}
+
 function resolveMode(mode) {
   if (mode === "system") {
     return (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
@@ -196,12 +218,38 @@ function renderQuestions() {
 
 // Reflect whatever is already stored (a re-run, or a restored backup) so the
 // wizard never claims a choice the profile does not actually have.
+// Which preset, if any, still describes the stored friction values. The stored
+// `frictionProfile` id is a cache and can be stale — the popup's timer slider
+// writes timerSeconds without touching it — so the wizard derives the answer
+// from the numbers instead of claiming a preset the profile no longer matches.
+// The field list comes from the preset itself, so it cannot drift.
+function frictionProfileFor(values) {
+  if (!core) {
+    return "standard";
+  }
+
+  const keys = Object.keys(core.frictionProfileValues("standard")).filter((key) => key !== "frictionProfile");
+
+  return (
+    core.FRICTION_PROFILE_IDS.find((id) => {
+      const preset = core.frictionProfileValues(id);
+      return keys.every((key) => preset[key] === values[key]);
+    }) || "custom"
+  );
+}
+
 async function loadAnswers() {
   const state = await chrome.storage.local.get([
     "deliverySitesEnabled",
     "fastFoodSitesEnabled",
     "schedule",
-    "frictionProfile"
+    "frictionProfile",
+    "timerSeconds",
+    "passDurationMinutes",
+    "askIntent",
+    "repeatFrictionEnabled",
+    "repeatExtraSeconds",
+    "settingsDelaySeconds"
   ]);
 
   const delivery = state.deliverySitesEnabled !== false;
@@ -217,9 +265,9 @@ async function loadAnswers() {
     answers.when = match || "always";
   }
 
-  answers.friction = core && core.FRICTION_PROFILE_IDS.includes(state.frictionProfile)
-    ? state.frictionProfile
-    : "standard";
+  // "custom" is a real answer here: no chip is highlighted, which is honest,
+  // rather than highlighting "Standard" over values that are not standard.
+  answers.friction = core ? frictionProfileFor(core.readSettings(state)) : "standard";
 
   renderQuestions();
 }
@@ -264,7 +312,7 @@ importInput.addEventListener("change", async () => {
     await loadAnswers();
   } catch (error) {
     console.error("Failed to import settings:", error);
-    importNotice.textContent = t("importErrorNotice");
+    importNotice.textContent = backupErrorMessage(error);
   } finally {
     importInput.value = "";
   }

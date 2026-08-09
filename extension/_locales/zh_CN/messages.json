@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "深呼吸一下"
   },
-  "warningEyebrow": {
-    "message": "FitShield 检查"
-  },
-  "warningTitle": {
-    "message": "先停一分钟。"
-  },
-  "warningIntro": {
-    "message": "点单前先觉察一下。饥饿、便利、压力和习惯在当下会让人感觉相似。"
-  },
-  "warningTriggeredBy": {
-    "message": "你正打算在 $1 点单。"
-  },
   "warningBackButton": {
     "message": "返回"
-  },
-  "warningLockedButton": {
-    "message": "已锁定"
-  },
-  "warningContinueButton": {
-    "message": "继续"
   },
   "warningErrorHint": {
     "message": "打开网站时出现问题。请重试。"
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "启用自定义网址屏蔽"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "添加要屏蔽的自定义网址"
@@ -686,9 +659,6 @@
   "importErrorNotice": {
     "message": "该文件不是有效的 FitShield 备份。"
   },
-  "blockReasonHeading": {
-    "message": "为什么看到这个"
-  },
   "blockReasonDomain": {
     "message": "网站"
   },
@@ -895,8 +865,5 @@
   },
   "catLabelRestaurant": {
     "message": "餐厅"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

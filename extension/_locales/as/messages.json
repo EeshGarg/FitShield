@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "এটা উশাহ লওক"
   },
-  "warningEyebrow": {
-    "message": "FitShield পৰীক্ষা কৰক"
-  },
-  "warningTitle": {
-    "message": "এমিনিট সময় লওক।"
-  },
-  "warningIntro": {
-    "message": "অৰ্ডাৰ দিয়াৰ আগতে চেক ইন কৰক। ভোক, সুবিধা, মানসিক চাপ আৰু অভ্যাস এই মুহূৰ্ততে একে অনুভৱ হ’ব পাৰে।"
-  },
-  "warningTriggeredBy": {
-    "message": "আপুনি $1 ৰ পৰা অৰ্ডাৰ দিবলৈ ওলাইছে।"
-  },
   "warningBackButton": {
     "message": "উভতি যাওক"
-  },
-  "warningLockedButton": {
-    "message": "লক কৰা হৈছে"
-  },
-  "warningContinueButton": {
-    "message": "আগবাঢ়ি যাওক"
   },
   "warningErrorHint": {
     "message": "চাইটটো খুলি থাকোঁতে কিবা এটা ভুল হ’ল৷ অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।"
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "স্বনিৰ্বাচিত URL ব্লক সামৰ্থবান কৰক"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "এটা স্বনিৰ্বাচিত ব্লক কৰা URL যোগ কৰক"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "ডেটা আৰু ছেটিংছ ৰপ্তানি কৰক"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "আপুনি ই কিয় দেখিছে"
   },
   "blockReasonDomain": {
     "message": "ছাইট"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

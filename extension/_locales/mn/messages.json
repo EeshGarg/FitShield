@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "Амьсгалаа аваарай"
   },
-  "warningEyebrow": {
-    "message": "FitShield шалгах"
-  },
-  "warningTitle": {
-    "message": "Нэг минут зарцуул."
-  },
-  "warningIntro": {
-    "message": "Захиалга хийхээсээ өмнө шалгана уу. Өлсгөлөн, тав тухтай байдал, стресс, зуршил зэрэг нь тухайн мөчид ижил төстэй мэдрэмж төрүүлдэг."
-  },
-  "warningTriggeredBy": {
-    "message": "Та $1-с захиалах гэж байна."
-  },
   "warningBackButton": {
     "message": "Буцах"
-  },
-  "warningLockedButton": {
-    "message": "Түгжигдсэн"
-  },
-  "warningContinueButton": {
-    "message": "Үргэлжлүүлэх"
   },
   "warningErrorHint": {
     "message": "Сайтыг нээх явцад алдаа гарлаа. Дахин оролдоно уу."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "Тусгай URL хориглохыг идэвхжүүлэх"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "Тусгай хориглосон URL нэмнэ үү"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "Өгөгдөл ба тохиргоог экспортлох"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "Та яагаад үүнийг харж байна вэ"
   },
   "blockReasonDomain": {
     "message": "Сайт"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

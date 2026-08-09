@@ -12,6 +12,16 @@
 const t = (key, subs) =>
   (typeof FitShieldI18n !== "undefined" ? FitShieldI18n.t(key, subs) : key);
 
+// `t` returns the raw key when a message is missing, which is the right
+// behaviour for a label (the gap is obvious) and the wrong behaviour for a
+// sentence shown to a user (they read "confirmImportBackup"). For strings added
+// after the locale files were last synced, fall back to the English text instead
+// so the sentence is always readable; the key wins the moment it exists.
+function tOr(key, fallback, subs) {
+  const value = t(key, subs);
+  return value === key ? fallback : value;
+}
+
 function siteUnit(count) {
   return t(count === 1 ? "unitSite" : "unitSites");
 }
@@ -272,6 +282,13 @@ let scheduleIsSimple = true;
  * use the advanced editor instead.
  */
 function updateScheduleControls(scheduleEnabled) {
+  // The whole simple pair is optional markup: it duplicates the schedule
+  // section further down the page, and it is being removed from Blocking
+  // Options. Nothing here may assume it is present.
+  if (!scheduleEnabledInput || !scheduleStartInput || !scheduleEndInput) {
+    return;
+  }
+
   const usable = scheduleEnabled && scheduleIsSimple;
 
   scheduleStartInput.disabled = !usable;
@@ -364,6 +381,10 @@ function createSiteRow(site, category) {
   input.checked = site.enabled !== false;
   input.dataset.category = category;
   input.dataset.key = site.key || site.domain;
+  // The site name is in a sibling div that nothing associated with this control,
+  // so every row in a list hundreds long announced as a bare "checkbox, checked".
+  // The name is the site's own label, so there is no string to localize.
+  input.setAttribute("aria-label", site.label || site.domain);
 
   const slider = document.createElement("span");
   slider.className = "slider";
@@ -447,16 +468,42 @@ function updateBlockingControls(state) {
   passDurationSlider.value = normalizePassDurationMinutes(passDurationMinutes);
   passDurationMinutesInput.value = normalizePassDurationMinutes(passDurationMinutes);
   passDurationDisplay.textContent = formatPassDisplay(normalizePassDurationMinutes(passDurationMinutes));
-  scheduleEnabledInput.checked = scheduleEnabled;
-  scheduleStartInput.value = scheduleStart;
-  scheduleEndInput.value = scheduleEnd;
-  updateScheduleControls(scheduleEnabled);
 
-  scheduleSummary.textContent = scheduleEnabled
-    ? t("currentScheduleSummary", [
-        formatScheduleText(scheduleStart, scheduleEnd) + (scheduleStart === scheduleEnd ? t("everyDaySuffix") : "")
-      ])
-    : t("scheduleDefaultSummary");
+  if (scheduleEnabledInput && scheduleStartInput && scheduleEndInput) {
+    scheduleEnabledInput.checked = scheduleEnabled;
+    scheduleStartInput.value = scheduleStart;
+    scheduleEndInput.value = scheduleEnd;
+    updateScheduleControls(scheduleEnabled);
+  }
+
+  if (scheduleSummary) {
+    scheduleSummary.textContent = describeSimpleSchedule(scheduleEnabled, scheduleStart, scheduleEnd);
+  }
+}
+
+/**
+ * The one-line summary under the simple start/end pair.
+ *
+ * The "every day" suffix used to be appended when `scheduleStart ===
+ * scheduleEnd`, which is the opposite of what it means: equal times describe a
+ * window covering the whole 24 hours, not a set of days. Whether the window
+ * repeats every day is a property of the PROJECTION — the flat trio can only
+ * ever express one window across all seven days (see `scheduleToLegacy`), so
+ * whenever the pair can honestly represent the stored schedule at all, it is by
+ * definition every day. When it cannot, the times shown are placeholders and
+ * `simpleScheduleNote` beneath already says to use the advanced editor, so
+ * repeating that here would be two lines saying the same thing.
+ */
+function describeSimpleSchedule(scheduleEnabled, scheduleStart, scheduleEnd) {
+  if (!scheduleEnabled) {
+    return t("scheduleDefaultSummary");
+  }
+
+  if (!scheduleIsSimple) {
+    return "";
+  }
+
+  return t("currentScheduleSummary", [formatScheduleText(scheduleStart, scheduleEnd) + t("everyDaySuffix")]);
 }
 
 // Keep the "All Blocklists" master toggle in sync with the three group toggles:
@@ -669,6 +716,42 @@ resetThemeButton.addEventListener("click", async () => {
   await chrome.storage.local.set({ theme, themeMode: DEFAULT_THEME_MODE });
 });
 
+// ---------------------------------------------------------------------------
+// Friction values, and the label that has to keep up with them.
+//
+// Onboarding and this page both print `frictionIntro`: "You can change any value
+// afterwards — doing so simply moves you to Custom." Nothing ever wrote
+// `frictionProfile: "custom"`, so the promise was never kept: a user who dragged
+// the timer to 300 seconds still saw "Standard" selected, above the sentence
+// "60-second pause, then the site stays open for 5 minutes".
+//
+// The comparison is derived from `frictionProfileValues` itself rather than a
+// hand-written field list, so it cannot drift from what a preset actually
+// writes. (core.detectFrictionProfile compares only timerSeconds and
+// passDurationMinutes, so turning "Ask what brought me here" off would not move
+// the label; extending it there is the durable home for this.)
+const FRICTION_VALUE_KEYS = Object.keys(core.frictionProfileValues("standard")).filter(
+  (key) => key !== "frictionProfile"
+);
+
+function frictionProfileFor(values) {
+  return (
+    core.FRICTION_PROFILE_IDS.find((id) => {
+      const preset = core.frictionProfileValues(id);
+      return FRICTION_VALUE_KEYS.every((key) => preset[key] === values[key]);
+    }) || "custom"
+  );
+}
+
+// Persist a friction value AND whichever profile now describes the result, so
+// every other surface reads a label that matches the numbers underneath it.
+async function saveFrictionValues(partial) {
+  const stored = await chrome.storage.local.get(FRICTION_VALUE_KEYS);
+  const next = { ...core.readSettings(stored), ...partial };
+
+  await saveSettings({ ...partial, frictionProfile: frictionProfileFor(next) });
+}
+
 timerSlider.addEventListener("input", () => {
   const timerSeconds = normalizeTimerSeconds(timerSlider.value);
   timerSecondsInput.value = timerSeconds;
@@ -676,12 +759,18 @@ timerSlider.addEventListener("input", () => {
   chrome.storage.local.set({ timerSeconds });
 });
 
+// Dragging fires `input` per pixel and `change` once, on release — so the live
+// value stays cheap and the profile is recomputed once the user has settled.
+timerSlider.addEventListener("change", async () => {
+  await saveFrictionValues({ timerSeconds: normalizeTimerSeconds(timerSlider.value) });
+});
+
 timerSecondsInput.addEventListener("change", async () => {
   const timerSeconds = normalizeTimerSeconds(timerSecondsInput.value);
   timerSecondsInput.value = timerSeconds;
   timerSlider.value = timerSeconds;
   timerDisplay.textContent = formatTimerDisplay(timerSeconds);
-  await saveSettings({ timerSeconds });
+  await saveFrictionValues({ timerSeconds });
 });
 
 passDurationSlider.addEventListener("input", () => {
@@ -691,12 +780,18 @@ passDurationSlider.addEventListener("input", () => {
   chrome.storage.local.set({ passDurationMinutes });
 });
 
+passDurationSlider.addEventListener("change", async () => {
+  await saveFrictionValues({
+    passDurationMinutes: normalizePassDurationMinutes(passDurationSlider.value)
+  });
+});
+
 passDurationMinutesInput.addEventListener("change", async () => {
   const passDurationMinutes = normalizePassDurationMinutes(passDurationMinutesInput.value);
   passDurationMinutesInput.value = passDurationMinutes;
   passDurationSlider.value = passDurationMinutes;
   passDurationDisplay.textContent = formatPassDisplay(passDurationMinutes);
-  await saveSettings({ passDurationMinutes });
+  await saveFrictionValues({ passDurationMinutes });
 });
 
 // These three inputs are the SIMPLE view of the schedule: one window, every day.
@@ -709,6 +804,12 @@ passDurationMinutesInput.addEventListener("change", async () => {
 // derivation the migration uses) and stores both, so the simple view, the
 // advanced editor in preferences.js, and Android — which still reads the flat
 // keys — cannot disagree about when blocking is on.
+//
+// It is also DUPLICATE: the schedule section further down this page asks the
+// same question again, under a different heading, with presets and a full
+// editor that can express things these two time inputs cannot. That block is
+// being removed from Blocking Options, so everything here is conditional on the
+// markup still being present and nothing else on the page depends on it.
 async function saveScheduleFromSimpleControls(partial) {
   const flat = {
     scheduleEnabled: scheduleEnabledInput.checked,
@@ -720,18 +821,20 @@ async function saveScheduleFromSimpleControls(partial) {
   await saveSettings({ ...flat, schedule: core.scheduleFromLegacy(flat) });
 }
 
-scheduleEnabledInput.addEventListener("change", async () => {
-  updateScheduleControls(scheduleEnabledInput.checked);
-  await saveScheduleFromSimpleControls({ scheduleEnabled: scheduleEnabledInput.checked });
-});
+if (scheduleEnabledInput && scheduleStartInput && scheduleEndInput) {
+  scheduleEnabledInput.addEventListener("change", async () => {
+    updateScheduleControls(scheduleEnabledInput.checked);
+    await saveScheduleFromSimpleControls({ scheduleEnabled: scheduleEnabledInput.checked });
+  });
 
-scheduleStartInput.addEventListener("change", async () => {
-  await saveScheduleFromSimpleControls({ scheduleStart: scheduleStartInput.value || DEFAULT_SCHEDULE_START });
-});
+  scheduleStartInput.addEventListener("change", async () => {
+    await saveScheduleFromSimpleControls({ scheduleStart: scheduleStartInput.value || DEFAULT_SCHEDULE_START });
+  });
 
-scheduleEndInput.addEventListener("change", async () => {
-  await saveScheduleFromSimpleControls({ scheduleEnd: scheduleEndInput.value || DEFAULT_SCHEDULE_END });
-});
+  scheduleEndInput.addEventListener("change", async () => {
+    await saveScheduleFromSimpleControls({ scheduleEnd: scheduleEndInput.value || DEFAULT_SCHEDULE_END });
+  });
+}
 
 if (allBlocklistsEnabledInput) {
   allBlocklistsEnabledInput.addEventListener("change", async () => {
@@ -989,6 +1092,13 @@ function buildResultRow(name, sub, enabled, onToggle, labels) {
   button.type = "button";
   button.className = `mb-pill ${enabled ? "on" : "off"}`;
   button.textContent = enabled ? onLabel : offLabel;
+  // Searching "United" produced a list of countries whose buttons all announced
+  // as "Block, button" — blocking every brand in a country with no way to hear
+  // WHICH country. The visible word stays first in the name so it still matches
+  // what is on screen, and aria-pressed carries the state independently of it
+  // (the pill's on/off is otherwise a colour class only).
+  button.setAttribute("aria-label", `${enabled ? onLabel : offLabel}: ${name}`);
+  button.setAttribute("aria-pressed", String(!!enabled));
   button.addEventListener("click", onToggle);
 
   row.append(label, button);
@@ -1008,6 +1118,11 @@ function buildQuickChip(label, enabled, onToggle, onRemove) {
   toggle.className = `mb-chip-toggle ${enabled ? "on" : "off"}`;
   toggle.textContent = enabled ? t("mbOn") : t("mbOff");
   toggle.title = enabled ? t("mbChipToggleOnTitle") : t("mbChipToggleOffTitle");
+  // Same fix as buildResultRow: "On"/"Off" alone never said what was on or off,
+  // and title is a description, not a name. The remove button beside it has
+  // always done this correctly.
+  toggle.setAttribute("aria-label", `${enabled ? t("mbOn") : t("mbOff")}: ${label}`);
+  toggle.setAttribute("aria-pressed", String(!!enabled));
   toggle.addEventListener("click", onToggle);
 
   const remove = document.createElement("button");
@@ -1386,6 +1501,32 @@ function setBackupNotice(message) {
   }
 }
 
+/**
+ * The reason an import failed, in the user's language where possible.
+ *
+ * backup.js goes to real trouble to produce actionable reasons — "that backup
+ * was written by a newer version of FitShield, update it first", "that file is
+ * 3,204 KB", "reload the page". All of them used to be caught and thrown away
+ * for one message: "That file isn't a valid FitShield backup." A backup written
+ * by a newer FitShield IS a valid FitShield backup, and telling a user it is not
+ * invites them to delete the only copy of their settings.
+ */
+function backupErrorMessage(error) {
+  if (error && error.i18nKey) {
+    const localized = t(error.i18nKey, error.i18nSubs);
+
+    if (localized !== error.i18nKey) {
+      return localized;
+    }
+  }
+
+  // backup.js writes its `message` for a person, in English. Preferred over the
+  // generic notice; the generic notice is the last resort, for an error that
+  // came from somewhere else entirely and has no sentence in it.
+  const message = error && typeof error.message === "string" ? error.message.trim() : "";
+  return message || t("importErrorNotice");
+}
+
 if (exportSettingsButton && typeof FitShieldBackup !== "undefined") {
   exportSettingsButton.addEventListener("click", async () => {
     try {
@@ -1393,7 +1534,15 @@ if (exportSettingsButton && typeof FitShieldBackup !== "undefined") {
       setBackupNotice(t("exportSuccessNotice"));
     } catch (error) {
       console.error("Failed to export settings:", error);
-      setBackupNotice(t("importErrorNotice"));
+      // This used to report `importErrorNotice` — "That file isn't a valid
+      // FitShield backup." — for a failure to WRITE one, which is nonsense: at
+      // that point there is no file, and nothing the user chose was at fault.
+      setBackupNotice(
+        tOr(
+          "exportErrorNotice",
+          "FitShield could not save the backup file. Check that downloads are allowed for this browser, then try again."
+        )
+      );
     }
   });
 }
@@ -1410,13 +1559,37 @@ if (importSettingsButton && importSettingsInput) {
 
     try {
       const text = await file.text();
-      const count = await FitShieldBackup.importFromText(text);
-      setBackupNotice(t("importSuccessNotice", [String(count)]));
+
+      // Validate FIRST. Asking someone to confirm a destructive action for a
+      // file that was never going to import is a worse experience than either
+      // half alone, and validation is pure — it touches no storage.
+      const settings = FitShieldBackup.normalizeImported(FitShieldBackup.parseBackup(text));
+      const count = FitShieldBackup.restoredCount(settings);
+
+      // Import is the one destructive action in Settings that never asked. It
+      // overwrites live settings AND clears install-local state nothing warned
+      // about: an active temporary pass, and any unanswered "did you make it?"
+      // prompt (which feeds the "meals actually made" figure). Every reset on
+      // this page confirms; so does this now, and it names what it will clear.
+      const confirmed = await confirmAction(
+        tOr(
+          "confirmImportBackup",
+          `Restore ${count} settings from this file? They replace what is on this profile, and any active temporary pass and unanswered "did you make it?" prompt are cleared. This cannot be undone.`,
+          [String(count)]
+        )
+      );
+
+      if (!confirmed) {
+        setBackupNotice(tOr("importCancelledNotice", "Import cancelled. Nothing was changed."));
+        return;
+      }
+
+      setBackupNotice(t("importSuccessNotice", [String(await FitShieldBackup.applyImport(settings))]));
       // Reload so every control reflects the restored values.
       setTimeout(() => window.location.reload(), 900);
     } catch (error) {
       console.error("Failed to import settings:", error);
-      setBackupNotice(t("importErrorNotice"));
+      setBackupNotice(backupErrorMessage(error));
     } finally {
       importSettingsInput.value = "";
     }
@@ -1930,11 +2103,17 @@ if (chrome.storage && chrome.storage.onChanged) {
       renderMostBlocked();
     }
 
-    // The advanced schedule editor (preferences.js) is on this same page and
-    // writes the flat mirror alongside the structured schedule. Without this the
-    // simple inputs above would keep showing the pre-edit window until reload —
-    // two controls for one setting, visibly disagreeing.
-    if (changes.scheduleEnabled || changes.scheduleStart || changes.scheduleEnd) {
+    // While the duplicate simple pair still exists in Blocking Options, the
+    // schedule editor below writes the flat mirror alongside the structured
+    // schedule — without this, the pair kept showing the pre-edit window until
+    // reload: two controls for one setting, visibly disagreeing. Once the
+    // duplicate is gone this block has nothing to keep in step and does nothing.
+    if (
+      scheduleEnabledInput &&
+      scheduleStartInput &&
+      scheduleEndInput &&
+      (changes.scheduleEnabled || changes.scheduleStart || changes.scheduleEnd)
+    ) {
       if (changes.scheduleEnabled) {
         scheduleEnabledInput.checked = changes.scheduleEnabled.newValue === true;
         updateScheduleControls(scheduleEnabledInput.checked);
@@ -1944,6 +2123,14 @@ if (chrome.storage && chrome.storage.onChanged) {
       }
       if (changes.scheduleEnd) {
         scheduleEndInput.value = changes.scheduleEnd.newValue || DEFAULT_SCHEDULE_END;
+      }
+
+      if (scheduleSummary) {
+        scheduleSummary.textContent = describeSimpleSchedule(
+          scheduleEnabledInput.checked,
+          scheduleStartInput.value,
+          scheduleEndInput.value
+        );
       }
     }
   });

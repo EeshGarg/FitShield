@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "Hãy hít thở"
   },
-  "warningEyebrow": {
-    "message": "Kiểm tra FitShield"
-  },
-  "warningTitle": {
-    "message": "Hãy dành một phút."
-  },
-  "warningIntro": {
-    "message": "Kiểm tra trước khi bạn đặt hàng. Cơn đói, sự thuận tiện, căng thẳng và thói quen có thể cảm thấy tương tự vào lúc này."
-  },
-  "warningTriggeredBy": {
-    "message": "Bạn sắp đặt hàng từ $1."
-  },
   "warningBackButton": {
     "message": "Quay lại"
-  },
-  "warningLockedButton": {
-    "message": "Đã khóa"
-  },
-  "warningContinueButton": {
-    "message": "Tiếp tục"
   },
   "warningErrorHint": {
     "message": "Đã xảy ra lỗi khi mở trang web. Vui lòng thử lại."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "Bật tính năng chặn URL tùy chỉnh"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "Thêm URL bị chặn tùy chỉnh"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "Xuất dữ liệu và cài đặt"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "Vì sao bạn thấy điều này"
   },
   "blockReasonDomain": {
     "message": "Trang"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Nhà hàng"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

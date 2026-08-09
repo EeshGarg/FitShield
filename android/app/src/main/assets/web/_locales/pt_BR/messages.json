@@ -140,29 +140,11 @@
   "searchMatchSuffix": {
     "message": " $1 corresponde à pesquisa."
   },
-  "warningIntro": {
-    "message": "Faça check-in antes de fazer o pedido. Fome, conveniência, estresse e hábito podem parecer semelhantes no momento."
-  },
-  "warningTriggeredBy": {
-    "message": "Você está prestes a fazer um pedido em $1."
-  },
-  "warningTitle": {
-    "message": "Reserve um minuto."
-  },
   "warningPageTitle": {
     "message": "Respire fundo"
   },
-  "warningEyebrow": {
-    "message": "Verificação FitShield"
-  },
   "warningBackButton": {
     "message": "Volte"
-  },
-  "warningContinueButton": {
-    "message": "Continuar"
-  },
-  "warningLockedButton": {
-    "message": "Bloqueado"
   },
   "warningErrorHint": {
     "message": "Algo deu errado ao abrir o site. Por favor, tente novamente."
@@ -214,15 +196,6 @@
   },
   "customToggleTitle": {
     "message": "Habilitar bloqueio URL personalizado"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "deliveryToggleTitle": {
     "message": "Ativar bloqueio de site de entrega"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "Exportar dados e configurações"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "Por que você está vendo isto"
   },
   "blockReasonDomain": {
     "message": "Site"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurante"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

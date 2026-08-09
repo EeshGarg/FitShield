@@ -289,6 +289,76 @@ test("a tab-scoped pass dies when its tab closes", async () => {
   assert.ok(hasDomain(bg.rules(), "doordash.com"), "closing the tab ends the pass");
 });
 
+// ---------------------------------------------------------------------------
+// A pass is a pass. It is not a switch that turns the product back on.
+// ---------------------------------------------------------------------------
+
+test("granting a pass does not silently re-arm a FitShield the user turned off", async () => {
+  const bg = loadBackground({ enabled: false });
+  await bg.context.queueRefreshBlockingState();
+  assert.equal(bg.rules().length, 0, "precondition: the master switch is off");
+
+  // A block-page tab left open from before the user switched off is still
+  // clickable; grantPass used to write `enabled: true` alongside the pass, so
+  // "For 5 minutes" quietly re-armed the whole extension for after it expired.
+  const granted = await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "site10" });
+
+  assert.equal(granted.ok, true);
+  assert.equal(bg.store.enabled, false, "the button said five minutes, not turn FitShield back on");
+
+  await bg.context.queueRefreshBlockingState();
+  assert.equal(bg.rules().length, 0, "and blocking stays off, as the user chose");
+});
+
+// ---------------------------------------------------------------------------
+// "Block until tomorrow" is the one commitment button in the product
+//
+// It set a timestamp and nothing enforced it: the very next block page offered
+// "Pause everything until tomorrow" as a normal option, one click turned
+// blocking completely off, and Settings went on rendering "Blocking everything
+// until tomorrow."
+// ---------------------------------------------------------------------------
+
+test("a pause-everything pass is refused while block-until-tomorrow is on", async () => {
+  const until = Date.now() + 6 * 60 * 60 * 1000;
+  const bg = loadBackground({ schedule: { mode: "always", windows: [], until } });
+  await bg.context.queueRefreshBlockingState();
+
+  for (const presetId of ["all30", "allTomorrow"]) {
+    const response = await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId });
+
+    assert.equal(response.ok, false, `${presetId} must not be able to cancel the commitment`);
+    assert.equal(response.reason, "scheduleOverride", "and the page is told exactly why");
+  }
+
+  await bg.context.queueRefreshBlockingState();
+  assert.ok(hasDomain(bg.rules(), "doordash.com"), "blocking is untouched");
+  assert.ok(hasDomain(bg.rules(), "kfc.com"));
+  assert.deepEqual(plain(bg.store.passes || []), [], "no pass was written");
+});
+
+test("the override never becomes a trap: site passes and the master switch still work", async () => {
+  const until = Date.now() + 6 * 60 * 60 * 1000;
+  const bg = loadBackground({ schedule: { mode: "always", windows: [], until } });
+  await bg.context.queueRefreshBlockingState();
+
+  const granted = await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "site10" });
+  assert.equal(granted.ok, true, "the block page still lets the user through to the site in front of them");
+
+  await bg.context.queueRefreshBlockingState();
+  assert.ok(!hasDomain(bg.rules(), "doordash.com"));
+  assert.ok(hasDomain(bg.rules(), "kfc.com"), "everything else is still blocked");
+});
+
+test("once the override has expired, pausing everything works again", async () => {
+  const bg = loadBackground({ schedule: { mode: "always", windows: [], until: Date.now() - 1000 } });
+  await bg.context.queueRefreshBlockingState();
+
+  const response = await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "all30" });
+
+  assert.equal(response.ok, true, "an expired commitment is not a permanent one");
+});
+
 test("granting a pass arms an expiry alarm", async () => {
   const bg = loadBackground();
   await bg.context.queueRefreshBlockingState();
@@ -409,6 +479,60 @@ test("leaving and continuing are recorded as separate events", async () => {
   await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "siteDefault" });
   assert.equal(bg.store.stats.totals.continued, 1, "continuing is its own event");
   assert.equal(bg.store.stats.totals.passesUsed, 1);
+});
+
+// ---------------------------------------------------------------------------
+// A burst of interruptions must not collapse into one
+//
+// recordEvent was an unserialized read-modify-write of a single `stats` object,
+// and the block page fires its messages without awaiting them — so opening
+// several delivery links at once (middle-click, session restore, a link farm)
+// ran N overlapping get/set cycles in one worker and stored ONE interruption.
+// The counter the whole panel is built on undercounted exactly in the burst a
+// user is most likely to notice.
+// ---------------------------------------------------------------------------
+
+test("simultaneous interruptions are all counted, not collapsed into one", async () => {
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  // Fired together, exactly as N freshly-redirected block pages do.
+  await Promise.all(Array.from({ length: 8 }, () => bg.message({ type: "recordInterruption" })));
+
+  assert.equal(bg.store.stats.totals.interruptions, 8, "every interruption is its own count");
+  assert.equal(bg.store.stats.history[0].interruptions, 8, "and the per-day history agrees");
+});
+
+test("interleaved events of different kinds do not overwrite each other", async () => {
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  await Promise.all([
+    bg.message({ type: "recordInterruption" }),
+    bg.message({ type: "recordLeft" }),
+    bg.message({ type: "recordInterruption" }),
+    bg.message({ type: "recordAlternativeShown", id: "naan-pizza" }),
+    bg.message({ type: "recordLeft" }),
+    bg.message({ type: "recordInterruption" })
+  ]);
+
+  assert.equal(bg.store.stats.totals.interruptions, 3);
+  assert.equal(bg.store.stats.totals.left, 2);
+  assert.equal(bg.store.stats.totals.alternativesViewed, 1);
+});
+
+test("a burst of blocks records every brand, not just the last one", async () => {
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  await Promise.all([
+    bg.message({ type: "recordBlockedBrand", meta: { domain: "doordash.com", category: "pizza", countries: ["US"] } }),
+    bg.message({ type: "recordBlockedBrand", meta: { domain: "kfc.com", category: "chicken", countries: ["US"] } }),
+    bg.message({ type: "recordBlockedBrand", meta: { domain: "doordash.com", category: "pizza", countries: ["US"] } })
+  ]);
+
+  assert.deepEqual(plain(bg.store.blockedByDomain), { "doordash.com": 2, "kfc.com": 1 });
+  assert.deepEqual(plain(bg.store.blockedByCountry), { US: 3 });
 });
 
 test("choosing an alternative records intent, never a completed meal", async () => {
@@ -543,6 +667,94 @@ test("a pre-0.55 profile is migrated on first use and keeps working", async () =
   assert.equal(bg.store.caloriesAvoided, 4000, "the old value is still there");
   assert.equal(bg.store.timerSeconds, 45, "the user's timer is untouched");
   assert.ok(hasDomain(bg.rules(), "legacy.example"), "a legacy string custom site still blocks");
+});
+
+test("a migrated pass for a hyphenated brand points at the brand that exists", async () => {
+  // Through the REAL worker and the REAL catalog: "delivery-just-eat-com" is
+  // just-eat.com, not the "just.eat.com" the key's hyphens naively suggest.
+  const expiresAt = Date.now() + 10 * 60 * 1000;
+  const bg = loadBackground({ siteBypasses: { "delivery-just-eat-com": expiresAt } });
+
+  await bg.context.queueRefreshBlockingState();
+
+  const [pass] = bg.store.passes;
+  assert.ok(pass, "the pass survived the update");
+  assert.equal(pass.target, "just-eat.com");
+  assert.ok(!hasDomain(bg.rules(), "just-eat.com"), "and it actually unblocks the brand it names");
+  assert.ok(hasDomain(bg.rules(), "doordash.com"), "while nothing else is opened");
+});
+
+// ---------------------------------------------------------------------------
+// repeatHistory must age out ON DISK, not only on read
+// ---------------------------------------------------------------------------
+
+test("expired repeat history is cleared from storage by an ordinary refresh", async () => {
+  const now = Date.now();
+  const stale = now - core.repeatHistoryRetentionMs(60) - 60 * 1000;
+
+  const bg = loadBackground({
+    repeatWindowMinutes: 60,
+    repeatHistory: { "ubereats.com": [stale], "dominos.com": [stale, now - 60 * 1000] }
+  });
+
+  await bg.context.queueRefreshBlockingState();
+
+  assert.deepEqual(
+    plain(bg.store.repeatHistory),
+    { "dominos.com": [now - 60 * 1000] },
+    "a profile left alone cannot keep a per-brand timestamp log forever"
+  );
+});
+
+test("continuing writes a repeat history that carries nothing expired", async () => {
+  const stale = Date.now() - core.repeatHistoryRetentionMs(60) - 60 * 1000;
+  const bg = loadBackground({ repeatHistory: { "ubereats.com": [stale] } });
+  await bg.context.queueRefreshBlockingState();
+
+  await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "site10" });
+
+  assert.deepEqual(Object.keys(plain(bg.store.repeatHistory)), ["doordash.com"]);
+});
+
+// ---------------------------------------------------------------------------
+// The "did you make it?" question has to be about a meal the user remembers
+//
+// A pending entry carried a timestamp nothing ever read, so nothing expired one:
+// older entries resurfaced one popup-open at a time, indefinitely, and that
+// answer is the sole input to `alternativesMade` — which the estimate panel
+// multiplies by a meal price.
+// ---------------------------------------------------------------------------
+
+test("a choice nobody answered for two days stops being asked about", async () => {
+  const now = Date.now();
+  const bg = loadBackground({
+    pendingAlternatives: [
+      { id: "ancient", at: now - 30 * 24 * 60 * 60 * 1000 },
+      { id: "stale", at: now - 49 * 60 * 60 * 1000 },
+      { id: "recent", at: now - 60 * 60 * 1000 },
+      { id: "undated" }
+    ]
+  });
+  await bg.context.queueRefreshBlockingState();
+
+  await bg.message({ type: "getBlockState" });
+
+  assert.deepEqual(
+    plain(bg.store.pendingAlternatives).map((item) => item.id),
+    ["recent"],
+    "only a choice recent enough to remember is still askable"
+  );
+});
+
+test("selecting a new alternative does not carry forgotten ones forward", async () => {
+  const bg = loadBackground({
+    pendingAlternatives: [{ id: "stale", at: Date.now() - 72 * 60 * 60 * 1000 }]
+  });
+  await bg.context.queueRefreshBlockingState();
+
+  await bg.message({ type: "recordAlternativeSelected", id: "naan-pizza" });
+
+  assert.deepEqual(plain(bg.store.pendingAlternatives).map((item) => item.id), ["naan-pizza"]);
 });
 
 test("getBlockState exposes the state the popup renders", async () => {

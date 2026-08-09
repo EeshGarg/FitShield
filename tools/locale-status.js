@@ -26,7 +26,10 @@
  *
  * A translator fills in `translation` and hands the file back; --merge writes the
  * non-empty ones into extension/_locales/<locale>/messages.json, leaving
- * everything else untouched.
+ * everything else untouched. It refuses three things: a lost or invented
+ * placeholder, Chrome's $name$ syntax, and the English sentence handed back
+ * verbatim — the last one because it renders exactly like the fallback while
+ * marking the string translated, so nobody is ever asked to translate it again.
  */
 
 const fs = require("fs");
@@ -59,6 +62,8 @@ function readLocale(code) {
 // The locale set every locale tool walks. Shared so two tools can never
 // disagree about which locales exist.
 const localeCodes = require("./lib/load.js").localeDirs;
+const prune = require("./locale-prune.js");
+const { isEnglishPhrase } = require("./locale-hybrid-audit.js");
 
 function status() {
   const en = readLocale("en");
@@ -182,7 +187,8 @@ function writeTodo(code) {
     JSON.stringify(
       {
         _instructions:
-          "Fill in each `translation`. Leave one empty to skip it — it will keep falling back to English. " +
+          "Fill in each `translation`. Leave one empty to skip it — it will keep falling back to English, " +
+          "which is a supported state; copying the English sentence into the box is NOT, and will be refused. " +
           "Any $1..$9 placeholders listed must appear in your translation too, in whatever order the language needs. " +
           "Do not translate the key names. Hand this file back and run: node tools/locale-status.js --merge " + code + " <file>",
         locale: code,
@@ -213,6 +219,7 @@ function merge(code, file) {
 
   let merged = 0;
   const rejected = [];
+  const mergedKeys = [];
 
   Object.entries(worklist.strings || {}).forEach(([key, entry]) => {
     const translation = String((entry && entry.translation) || "").trim();
@@ -238,7 +245,16 @@ function merge(code, file) {
       return;
     }
 
+    // The English sentence handed back unchanged is not a translation. Merging
+    // it would render identically to the fallback while marking the key done, so
+    // the string would never be offered to a translator again.
+    if (translation === en[key].message && isEnglishPhrase(en[key].message)) {
+      rejected.push(`${key}: identical to the English sentence — leave it empty and it falls back to English`);
+      return;
+    }
+
     existing[key] = { message: translation };
+    mergedKeys.push(key);
     merged += 1;
   });
 
@@ -261,6 +277,10 @@ function merge(code, file) {
   }
 
   fs.writeFileSync(target, JSON.stringify(ordered, null, 2) + "\n");
+  // These strings were translated from the English that is in the tree right
+  // now, so record it. Without this, the next English edit to one of them would
+  // be indistinguishable from an edit made before the translation existed.
+  prune.writeBaseline(mergedKeys);
   console.log(`Merged ${merged} string(s) into ${code}. Run \`npm run validate:locales\` and \`npm run sync\`.`);
 }
 

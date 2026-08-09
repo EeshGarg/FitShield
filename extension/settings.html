@@ -15,6 +15,13 @@
       --muted: #a9b4c2;
       --accent: #7ef0a8;
       --panel-radius: 24px;
+
+      /* The accent as TEXT. Raw --accent is 9-12:1 on the dark panel but only
+         3.2-3.4:1 on the light one, so the most-blocked counts and the duration
+         chips washed out in Light. Mixing towards --text darkens it in Light and
+         lightens it in Dark from one rule, and follows a custom accent too. */
+      --accent-text: color-mix(in srgb, var(--accent) 65%, var(--text));
+      --accent-tint: color-mix(in srgb, var(--accent) 12%, transparent);
     }
 
     * {
@@ -214,7 +221,7 @@
     }
 
     .stat-value.on {
-      color: var(--accent);
+      color: var(--accent-text);
     }
 
     .stat-value.off {
@@ -277,7 +284,7 @@
 
     .mb-count {
       flex: none;
-      color: var(--accent);
+      color: var(--accent-text);
       font-variant-numeric: tabular-nums;
       font-weight: 600;
     }
@@ -447,16 +454,24 @@
       gap: 10px;
     }
 
+    /* `select` belongs in this list: the reset above clears the native outline on
+       every dropdown, so without it the caret vanished at the diet, currency,
+       report-type and preview-category pickers — on the page that owns Factory
+       reset. --accent-text rather than --accent because the ring lands on the
+       panel, where the light-theme accent is only 3.4:1. */
     .confirm-dialog button:focus-visible,
     button:focus-visible,
     input:focus-visible,
-    a:focus-visible {
-      outline: 2px solid var(--accent);
+    select:focus-visible,
+    textarea:focus-visible,
+    a:focus-visible,
+    summary:focus-visible {
+      outline: 2px solid var(--accent-text);
       outline-offset: 2px;
     }
 
     .toggle input:focus-visible + .slider {
-      outline: 2px solid var(--accent);
+      outline: 2px solid var(--accent-text);
       outline-offset: 2px;
     }
 
@@ -482,11 +497,19 @@
       text-decoration: none;
     }
 
-    .bmc-link:hover,
-    .bmc-link:focus-visible {
+    /* Hover and focus are deliberately split. Sharing one rule meant its
+       `outline: none` — which only hover wants — also out-specified
+       `a:focus-visible`, leaving a keyboard user with a 0.95→1 opacity change as
+       the only sign of where they were. */
+    .bmc-link:hover {
       opacity: 1;
       transform: translateY(-1px);
       outline: none;
+    }
+
+    .bmc-link:focus-visible {
+      opacity: 1;
+      transform: translateY(-1px);
     }
 
     /* Rendered locally (no remote image) to keep the extension fully offline and
@@ -509,8 +532,13 @@
       line-height: 1;
     }
 
+    /* One heading convention for the whole page: the card's own title is the h2,
+       and anything nested inside a card is an h3. Two cards used to disagree —
+       the blocklist groups were h2s sitting inside an h2 — so jumping by heading
+       gave no sense of which controls belonged to which card. */
     h1,
-    h2 {
+    h2,
+    h3 {
       margin: 0;
     }
 
@@ -520,6 +548,10 @@
 
     h2 {
       font-size: 1.05rem;
+    }
+
+    h3 {
+      font-size: 1rem;
     }
 
     p {
@@ -563,11 +595,19 @@
       transition: background 0.16s ease, color 0.16s ease, box-shadow 0.16s ease;
     }
 
-    .theme-mode-button:hover,
-    .theme-mode-button:focus-visible {
+    /* Split for the same reason as .bmc-link: the shared `outline: none` beat
+       `button:focus-visible` on specificity, so System / Light / Dark answered
+       "where am I?" with a background change measured at 1.24:1 — identical to
+       hover, and invisible. Focus keeps the tint AND the ring. */
+    .theme-mode-button:hover {
       background: rgba(255, 255, 255, 0.07);
       color: var(--text);
       outline: none;
+    }
+
+    .theme-mode-button:focus-visible {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text);
     }
 
     .theme-mode-button.active {
@@ -796,8 +836,8 @@
     .value-chip {
       padding: 6px 10px;
       border-radius: 999px;
-      background: rgba(126, 240, 168, 0.12);
-      color: var(--accent);
+      background: var(--accent-tint);
+      color: var(--accent-text);
       font-size: 0.82rem;
       font-weight: 700;
       white-space: nowrap;
@@ -977,12 +1017,14 @@
       border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
 
+    /* A real <h3> now, so the shorthand has to zero the UA's top margin. */
     .mb-quick-head {
       font-size: 0.74rem;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--muted);
-      margin-bottom: 10px;
+      margin: 0 0 10px;
     }
 
     .mb-chips {
@@ -1018,9 +1060,12 @@
       color: #102016;
     }
 
+    /* --text, not --muted: at 11.2px the muted label was 3.94:1 on the light
+       chip. The "off" state is already carried by the grey fill and by the word
+       itself, so it loses nothing by being readable. */
     .mb-chip-toggle.off {
       background: #3a4556;
-      color: var(--muted);
+      color: var(--text);
     }
 
     .mb-chip-remove {
@@ -1101,6 +1146,7 @@
     html.theme-light .theme-mode-button:hover,
     html.theme-light .theme-mode-button:focus-visible {
       background: rgba(15, 23, 42, 0.07);
+      color: var(--text);
     }
 
     html.theme-light .mb-result {
@@ -1110,7 +1156,6 @@
 
     html.theme-light .mb-chip-toggle.off {
       background: #cbd5e1;
-      color: var(--muted);
     }
 
     html.theme-light .mb-chip-remove {
@@ -1626,12 +1671,17 @@
       <div class="category-card master-card">
         <div class="row stack-row">
           <div>
-            <h2 data-i18n="allBlocklistsHeading">All Blocklists</h2>
+            <!-- h3: this card's heading is "Customize Blocklist" above; the four
+                 groups are inside it. They used to be h2s, i.e. peers of the card
+                 that contains them. Each one also NAMES its switch, so the
+                 accessible name is the same localized string on screen rather
+                 than a `title` on the wrapping <label>, which named nothing. -->
+            <h3 id="allBlocklistsTitle" data-i18n="allBlocklistsHeading">All Blocklists</h3>
             <p data-i18n="allBlocklistsHint">Turn every built-in group on or off at once.</p>
           </div>
           <div class="category-actions">
             <label class="toggle" title="Enable or disable all blocklists" data-i18n-title="allBlocklistsToggleTitle">
-              <input id="allBlocklistsEnabled" type="checkbox">
+              <input id="allBlocklistsEnabled" type="checkbox" aria-labelledby="allBlocklistsTitle">
               <span class="slider"></span>
             </label>
           </div>
@@ -1641,13 +1691,13 @@
       <div class="category-card">
         <div class="row stack-row">
           <div>
-            <h2 data-i18n="deliverySitesHeading">Delivery Sites</h2>
+            <h3 id="deliverySitesTitle" data-i18n="deliverySitesHeading">Delivery Sites</h3>
             <p id="deliveryCount" data-i18n="popupDeliveryDefault">Delivery ordering domains.</p>
           </div>
           <div class="category-actions">
             <button id="toggleDeliveryList" class="secondary list-toggle" type="button" aria-expanded="false" data-i18n="showSitesButton">Show Sites</button>
             <label class="toggle" title="Enable delivery site blocking" data-i18n-title="deliveryToggleTitle">
-              <input id="deliverySitesEnabled" type="checkbox">
+              <input id="deliverySitesEnabled" type="checkbox" aria-labelledby="deliverySitesTitle">
               <span class="slider"></span>
             </label>
           </div>
@@ -1658,13 +1708,13 @@
       <div class="category-card">
         <div class="row stack-row">
           <div>
-            <h2 data-i18n="fastFoodSitesHeading">Fast Food Sites</h2>
+            <h3 id="fastFoodSitesTitle" data-i18n="fastFoodSitesHeading">Fast Food Sites</h3>
             <p id="fastFoodCount" data-i18n="popupFastFoodDefault">Major chain ordering domains.</p>
           </div>
           <div class="category-actions">
             <button id="toggleFastFoodList" class="secondary list-toggle" type="button" aria-expanded="false" data-i18n="showSitesButton">Show Sites</button>
             <label class="toggle" title="Enable fast food site blocking" data-i18n-title="fastFoodToggleTitle">
-              <input id="fastFoodSitesEnabled" type="checkbox">
+              <input id="fastFoodSitesEnabled" type="checkbox" aria-labelledby="fastFoodSitesTitle">
               <span class="slider"></span>
             </label>
           </div>
@@ -1675,13 +1725,13 @@
       <div class="category-card">
         <div class="row stack-row">
           <div>
-            <h2 data-i18n="customUrlsHeading">Custom URLs</h2>
+            <h3 id="customUrlsTitle" data-i18n="customUrlsHeading">Custom URLs</h3>
             <p data-i18n="customUrlsSettingsSubtitle">Add your own domains and disable them individually.</p>
           </div>
           <div class="category-actions">
             <button id="toggleCustomList" class="secondary list-toggle" type="button" aria-expanded="false" data-i18n="showUrlsButton">Show URLs</button>
             <label class="toggle" title="Enable custom URL blocking" data-i18n-title="customToggleTitle">
-              <input id="customSitesEnabled" type="checkbox">
+              <input id="customSitesEnabled" type="checkbox" aria-labelledby="customUrlsTitle">
               <span class="slider"></span>
             </label>
           </div>
@@ -1712,7 +1762,7 @@
           <div id="countrySearchResults" class="mb-results" hidden></div>
 
           <div class="mb-quick">
-            <div class="mb-quick-head" data-i18n="quickAccessCountries">Quick access — countries</div>
+            <h3 class="mb-quick-head" data-i18n="quickAccessCountries">Quick access — countries</h3>
             <div id="countryQuickAccess" class="mb-chips"></div>
             <div id="countryQuickEmpty" class="mb-empty" data-i18n="countryQuickEmpty">Enable a country from search to pin it here.</div>
           </div>
@@ -1725,7 +1775,7 @@
           <div id="categorySearchResults" class="mb-results" hidden></div>
 
           <div class="mb-quick">
-            <div class="mb-quick-head" data-i18n="quickAccessCategories">Quick access — categories</div>
+            <h3 class="mb-quick-head" data-i18n="quickAccessCategories">Quick access — categories</h3>
             <div id="categoryQuickAccess" class="mb-chips"></div>
             <div id="categoryQuickEmpty" class="mb-empty" data-i18n="categoryQuickEmpty">Enable a category from search to pin it here.</div>
           </div>
@@ -1745,7 +1795,7 @@
               <small data-i18n="languageHint">Search for a language and select it. Choose System default to follow your browser.</small>
             </div>
             <div class="language-current">
-              <div class="mb-quick-head" data-i18n="currentLanguageHead">Current language</div>
+              <h3 class="mb-quick-head" data-i18n="currentLanguageHead">Current language</h3>
               <div id="languageCurrent" class="mb-chips"></div>
             </div>
           </div>

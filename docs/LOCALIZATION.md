@@ -30,11 +30,85 @@ So the rule is:
 | A locale defines a key English does not have | **Error** — a dead string that can never be shown, usually a half-applied rename |
 | A message is empty, or uses `$name$` syntax | **Error** — it will fail to load |
 | A message's `$1..$9` set differs from English | **Error** — it will render with holes |
+| A translation whose English source has since changed | **Error** — the fallback cannot reach it; see below |
+| A locale entry byte-identical to an English sentence | **Error** — English filed as a translation |
 
 Enforced by `tools/locale-parity.js` (`npm run validate:locales`) and
 `test/locales.test.js`. `test/locales.test.js` also proves the English fallback
 actually works, and that every string the block page and every `data-i18n`
 attribute asks for exists in English.
+
+### The one gap the fallback does not cover
+
+"Untranslated is safe" holds only while the translation and the English say the
+same thing. When an English string is **rewritten**, a locale that still carries
+the old translation is in the one state nothing can repair: the key *is* defined,
+so neither `chrome.i18n` nor `i18n.js` will reach for English, and the locale
+goes on rendering a sentence the product retired.
+
+That is not hypothetical. `learnMoreLink` moved from "Visit fitshield.net" to
+"About FitShield" in the block-page rework, and all 82 other locales kept the old
+English verbatim — so every non-English block page ended with an instruction the
+English build no longer gave. Six more strings on the same page (`warningTitle`,
+`warningIntro`, `warningEyebrow`, `warningContinueButton`, `warningLockedButton`,
+`blockReasonHeading`) had the same break, translated faithfully into wording the
+product had dropped. All 567 of those entries were deleted; the English fallback
+now renders the current copy.
+
+Two guards keep it from recurring:
+
+- `tools/locale-source-baseline.json` records a digest of the English text every
+  surviving translation was cut against. Change an English string and its digest
+  changes, and `npm run validate:locales` fails naming every locale that still
+  translates the old wording. Re-translate it, or run
+  `node tools/locale-prune.js --apply` to drop the stale translations and
+  re-record the baseline. Never hand-edit the file to silence a failure.
+- The retired wordings above are additionally **pinned by exact string** in
+  `tools/locale-parity.js`, so deleting or editing the baseline cannot bring them
+  back.
+
+### Keeping the corpus honest
+
+`node tools/locale-prune.js` reports, and `--apply` removes, every locale entry
+that should not exist — in four families:
+
+| Family | What it is |
+| --- | --- |
+| Unreferenced English key | English defines it; no source file asks for it |
+| Orphaned translation | A locale defines it; English no longer does |
+| Stale translation | Its English source has been rewritten since |
+| Verbatim English copy | The English sentence, filed under another language |
+
+The first two are unreachable, the last two are reachable but dishonest, and all
+four are fixed the same way: delete the entry and let English fall back. That is
+safe by construction — a removed entry renders exactly what it rendered before.
+
+One trap worth knowing about, because it cost a release. The unreferenced-key
+scan used to ask whether the source text *contained* the key name, so a key stayed
+"live" whenever a longer key starting with it was still in use — which is precisely
+what a rename leaves behind. `warningTriggeredBy` survived that way while the code
+had already moved to `warningTriggeredByPrefix`: 82 translations of a sentence
+nothing could render, and the live line reading "You opened DoorDash." in English
+in every locale. The scan now matches whole keys, and `test/locales.test.js` pins
+that exact collision.
+
+### English is not a translation
+
+A locale file that repeats the English sentence verbatim is not partially
+translated — it is English filed under another language's key. It renders exactly
+what the fallback would render, and it costs two real things: the coverage figure
+counts it as done, and `--todo` never offers the string to a translator, because
+as far as the corpus is concerned it already has one.
+
+`appDescription` — the Chrome Web Store description, the first sentence a shopper
+in that language reads — was English verbatim in 33 locales. 849 such entries
+across 26 keys were removed. Nothing on screen changed; the numbers stopped
+lying.
+
+Only prose is treated this way. Names and loanwords are legitimately identical
+across languages — Italian really does call it "Pizza", every locale calls the
+product "FitShield" — so the rule requires two or more words *and* an English
+function word before it fires.
 
 ## Current status
 
@@ -43,14 +117,29 @@ npm run locales:status              # coverage table + what to translate first
 node tools/locale-status.js --locale de   # exactly what German is missing
 ```
 
-As of 0.55: **508 English keys**, 82 other locales at **61%** (309 translated,
-199 missing each). The untranslated keys are the strings added by the
-decision-flow work — the block page's new controls, the settings surfaces,
-onboarding, and the recap. Everything that existed before 0.55 is fully
-translated everywhere.
+**`npm run locales:status` is the authority for every number in this section.**
+It reads the corpus; this paragraph is a transcription of what it printed, and a
+transcription can go stale. If the two disagree, the tool is right — and the
+number to quote anywhere else (a store listing, a release note, a README badge)
+is the tool's, not this one's.
 
-These numbers come from `npm run locales:status`, which is the authority; if this
-paragraph and the tool disagree, the tool is right and this paragraph is stale.
+As of 0.55: **508 English keys across 83 locales**. No locale but English is
+complete. The other 82 sit between **46% and 57%**, median 56%, averaging 278
+translated and 230 untranslated each — 18,848 untranslated strings across the
+corpus, every one of which renders in English.
+
+Seven locales are lowest, at 46% — the six Cyrillic-script ones (be, bg, mk, ru,
+sr, uk) and Greek (el) — because an earlier pass removed mangled
+machine-translated strings from them. That is the gap working as intended: a
+missing string reads in English, a mangled one reads as nonsense.
+
+Do not read "pre-0.55 strings are all translated" into that figure — an earlier
+version of this document claimed exactly that, and it was false in the most
+visible place in the product. Seven block-page strings that predate 0.55 were
+translated into wording the product had since dropped, and `appDescription` was
+English verbatim in 33 locales. Both classes are now removed and both are gated
+(see above), so the coverage figure means what it says: a key counted as
+translated has a translation of the current English text.
 
 The report groups the gap by surface, because that is the order worth fixing it
 in. The block page is the highest-value surface: it is the one a user sees at the
@@ -83,7 +172,9 @@ surface it appears on, and the placeholders it must keep:
 ```
 
 Fill in `translation`. Leave any entry empty to skip it — it keeps falling back
-to English. Then:
+to English, which is a supported state. Pasting the English sentence into the box
+is not: it renders identically and then nobody is ever asked to translate it
+again, so the merge rejects it. Then:
 
 ```bash
 node tools/locale-status.js --merge de translations/de.todo.json
@@ -91,10 +182,12 @@ npm run validate:locales
 npm run sync                    # refresh extension/'s committed copies
 ```
 
-The merge **refuses** any string that drops or invents a `$1..$9` placeholder, or
-that uses Chrome's `$name$` syntax, and tells you which and why. It writes only
-the entries you filled in, keeps English key order so the diff is reviewable, and
-leaves everything else untouched.
+The merge **refuses** any string that drops or invents a `$1..$9` placeholder,
+that uses Chrome's `$name$` syntax, or that hands the English sentence back
+unchanged — and tells you which and why. It writes only the entries you filled
+in, records the English each one was translated from (so a later English edit
+raises the stale-translation error rather than passing silently), keeps English
+key order so the diff is reviewable, and leaves everything else untouched.
 
 `translations/` is git-ignored — worklists are scratch space, not source.
 
@@ -108,6 +201,10 @@ leaves everything else untouched.
   judges. If a natural translation lands harsher than the English, prefer the
   gentler wording. A test fails the build if shaming vocabulary appears in
   English; please hold the same line in your language.
+- **Leaving a string out is a real answer.** An empty entry renders in English,
+  which is correct and expected. Copying the English in is not the same thing: it
+  looks translated to every tool that counts, so the string disappears from the
+  work queue forever.
 - **Cooking instructions are not in `_locales`.** The alternatives catalog
   (`data/recipes.json`) is English-only for now — see below.
 

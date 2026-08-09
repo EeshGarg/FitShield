@@ -13,7 +13,15 @@
  *     is a bug (usually a half-applied rename), so it is still a failure;
  *   - a message that IS translated must be non-empty, must not use Chrome's
  *     named-placeholder syntax, and must take the same positional arguments as
- *     English, or it will render with holes in it.
+ *     English, or it will render with holes in it;
+ *   - a message that IS translated must correspond to the English text that is
+ *     in the tree TODAY. A translation of retired English is the one state the
+ *     fallback cannot rescue — the key is defined, so nothing can substitute the
+ *     current English, and the locale renders a sentence the product no longer
+ *     says. `learnMoreLink` shipped that way in all 82 locales;
+ *   - an English sentence copied into a locale file is not a translation. It
+ *     renders exactly like the fallback, but it counts as translated and so is
+ *     never offered to a translator again.
  *
  * `npm run validate:locales` reports the untranslated-key debt per locale.
  */
@@ -70,6 +78,139 @@ test("placeholder sets match English for every key a locale does define", () => 
       assert.equal(positional(data[key].message), positional(en[key].message), `${loc}.${key} placeholder set`);
     }
   }
+});
+
+test("no locale ships an English wording the product has retired", () => {
+  // The specific regression. Each of these was found live in the corpus: English
+  // had moved on, the locales had not, and because the key WAS defined neither
+  // fallback path could correct it. `learnMoreLink` is the worst of them — every
+  // non-English block page ended with "Visit fitshield.net" while English said
+  // "About FitShield". Pinned by exact string so no future edit can reintroduce
+  // the wording, whatever the digest baseline says.
+  const localeParity = require("../tools/locale-parity.js");
+  const retired = localeParity.RETIRED_ENGLISH;
+
+  assert.ok(Object.keys(retired).length > 0, "the retired-wording list must not be empty");
+
+  const offenders = [];
+  for (const loc of dirs) {
+    if (loc === "en") continue;
+    const data = readLocale(loc);
+    for (const [key, wordings] of Object.entries(retired)) {
+      if (data[key] && wordings.includes(data[key].message)) {
+        offenders.push(`${loc}.${key} = ${JSON.stringify(data[key].message)}`);
+      }
+    }
+  }
+
+  assert.deepEqual(offenders, [], `retired English wording still shipping:\n  ${offenders.join("\n  ")}`);
+
+  // And the English side really has moved on, so the pins stay meaningful rather
+  // than quietly pinning the current text.
+  for (const [key, wordings] of Object.entries(retired)) {
+    if (en[key]) {
+      assert.ok(
+        !wordings.includes(en[key].message),
+        `${key} is pinned as retired but English still says it — remove the pin or the pin is wrong`
+      );
+    }
+  }
+});
+
+test("no translation outlives the English text it was made from", () => {
+  // The general form of the same bug. tools/locale-source-baseline.json records
+  // the English each surviving translation was cut against; when an English
+  // string changes, its digest changes and every locale still translating the
+  // old wording is reported. This is what `learnMoreLink` needed and did not have.
+  const prune = require("../tools/locale-prune.js");
+  const baseline = prune.readBaseline();
+
+  assert.ok(Object.keys(baseline).length > 0, "no English source baseline recorded — the guard is inert");
+
+  // A key nobody translates needs no baseline entry (nothing can be stale). A key
+  // somebody DOES translate must be watched, or the guard has a hole exactly
+  // where the translations are.
+  const anyLocaleHas = new Set();
+  dirs.filter((loc) => loc !== "en").forEach((loc) => Object.keys(readLocale(loc)).forEach((key) => anyLocaleHas.add(key)));
+
+  const translated = enKeys.filter((key) => anyLocaleHas.has(key));
+  const unwatched = translated.filter((key) => !Object.prototype.hasOwnProperty.call(baseline, key));
+
+  assert.deepEqual(
+    unwatched,
+    [],
+    `translated keys with no recorded English source (run \`node tools/locale-prune.js --baseline\`): ${unwatched.join(", ")}`
+  );
+
+  const stale = prune.staleTranslations();
+  const summary = [...stale.entries()].map(([key, codes]) => `${key} (${codes.length} locales)`);
+
+  assert.deepEqual(
+    summary,
+    [],
+    `English changed after these were translated; re-translate or run \`node tools/locale-prune.js --apply\`:\n  ${summary.join("\n  ")}`
+  );
+});
+
+test("an English sentence copied into a locale is not filed as a translation", () => {
+  // Including the Chrome Web Store description, which is the first thing a
+  // shopper in that language sees. English-in-place renders identically to the
+  // fallback, so removing it costs nothing and stops the coverage figure — and
+  // the store listing — claiming a translation that was never made.
+  const prune = require("../tools/locale-prune.js");
+  const copies = prune.englishCopies();
+  const summary = [...copies.entries()].map(([key, codes]) => `${key} (${codes.length} locales)`);
+
+  assert.deepEqual(summary, [], `English filed as translation:\n  ${summary.join("\n  ")}`);
+
+  const storeKeys = ["appDescription", "appName", "actionTitle"];
+  for (const loc of dirs) {
+    if (loc === "en") continue;
+    const data = readLocale(loc);
+    for (const key of storeKeys) {
+      if (data[key] && en[key]) {
+        const { isEnglishPhrase } = require("../tools/locale-hybrid-audit.js");
+        assert.ok(
+          !(data[key].message === en[key].message && isEnglishPhrase(en[key].message)),
+          `${loc}.${key} is the English sentence verbatim — the store would list ${loc} as translated`
+        );
+      }
+    }
+  }
+});
+
+test("a copied English sentence is refused, a real translation that matches is not", () => {
+  // The rule has to tell prose from a name, or it would demand that translators
+  // invent differences: Italian really does call it "Pizza".
+  const { isEnglishPhrase } = require("../tools/locale-hybrid-audit.js");
+
+  for (const prose of [
+    "Turn every built-in group on or off at once.",
+    "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering.",
+    "That file isn't a valid FitShield backup.",
+    "About FitShield"
+  ]) {
+    assert.ok(isEnglishPhrase(prose), `should be treated as English prose: ${prose}`);
+  }
+
+  for (const name of ["FitShield", "Pizza", "Buy Me a Coffee", "Fast Casual", "Filipino / Tagalog", "System default"]) {
+    assert.ok(!isEnglishPhrase(name), `should be allowed to match English: ${name}`);
+  }
+});
+
+test("a rename cannot leave the old key alive behind a longer one", () => {
+  // How the dead key hid: the unused-key scan asked whether the source text
+  // CONTAINS "warningTriggeredBy", and it did — inside "warningTriggeredByPrefix",
+  // the key that replaced it. 82 translations of a sentence nothing could render
+  // survived a release that way.
+  const prune = require("../tools/locale-prune.js");
+
+  assert.equal(prune.referenced('t("warningTriggeredByPrefix")', "warningTriggeredBy"), false);
+  assert.equal(prune.referenced('t("warningTriggeredByPrefix")', "warningTriggeredByPrefix"), true);
+  assert.equal(prune.referenced('data-i18n="learnMoreLink"', "learnMoreLink"), true);
+
+  const unused = prune.unusedKeys();
+  assert.deepEqual(unused, [], `English keys no source references (node tools/locale-prune.js --apply): ${unused.join(", ")}`);
 });
 
 test("the block page's own strings all exist in English", () => {
@@ -162,12 +303,21 @@ test("a merged translation cannot drop or invent a placeholder", () => {
   const key = Object.keys(en).find((name) => /\$1/.test(en[name].message));
   assert.ok(key, "the English locale should have at least one placeholder string");
 
+  // And a worklist handed back with the English sentence pasted into the box —
+  // the way `appDescription` became "translated" in 33 locales.
+  const phrase = Object.keys(en).find((name) => {
+    const { isEnglishPhrase } = require("../tools/locale-hybrid-audit.js");
+    return isEnglishPhrase(en[name].message) && !/\$[1-9]/.test(en[name].message);
+  });
+  assert.ok(phrase, "the English locale should have at least one prose string");
+
   fs.writeFileSync(
     file,
     JSON.stringify({
       locale: "de",
       strings: {
         [key]: { english: en[key].message, translation: "no placeholder here" },
+        [phrase]: { english: en[phrase].message, translation: en[phrase].message },
         notARealKey: { english: "x", translation: "y" }
       }
     })
@@ -191,6 +341,10 @@ test("a merged translation cannot drop or invent a placeholder", () => {
   assert.equal(after, before, "a rejected worklist must not modify the locale file");
   assert.ok(errors.some((line) => /placeholders differ/.test(line)), "the placeholder loss is reported");
   assert.ok(errors.some((line) => /not an English key/.test(line)), "an unknown key is reported");
+  assert.ok(
+    errors.some((line) => /identical to the English sentence/.test(line)),
+    "English handed back as its own translation is reported"
+  );
 });
 
 test("locale coverage is reported, not silently ignored", () => {

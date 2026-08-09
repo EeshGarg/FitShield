@@ -104,7 +104,6 @@ const SETTINGS_KEYS = [
   "repeatFrictionEnabled",
   "repeatExtraSeconds",
   "repeatWindowMinutes",
-  "settingsDelaySeconds",
   "schedule",
   "scheduleEnabled",
   "scheduleStart",
@@ -132,8 +131,7 @@ const SETTINGS_KEYS = [
   "customAlternatives",
   "stats",
   "showEstimates",
-  "recapEnabled",
-  "recapDismissedFor"
+  "recapEnabled"
 ];
 
 // The legacy delivery/fast-food site lists are sourced from the JSON blocklists.
@@ -247,8 +245,22 @@ let migrationPromise = null;
 async function ensureMigrated() {
   if (!migrationPromise) {
     migrationPromise = (async () => {
+      // A 0.54 site key flattened dots AND hyphens to "-", so recovering the
+      // domain behind "delivery-just-eat-com" needs the real catalog to say
+      // whether it was just-eat.com or just.eat.com. Loading it here is best
+      // effort: a dataset that will not load must never block a migration, and
+      // the recovery falls back to dropping only the ambiguous keys.
+      let resolveDomain = null;
+
+      try {
+        await ensureBlocklistsLoaded();
+        resolveDomain = (domain) => FitShieldBlocklist.isBlockedHost(domain) === true;
+      } catch (error) {
+        fsError("Blocklists unavailable during migration — ambiguous legacy passes will be dropped", error);
+      }
+
       const raw = await chrome.storage.local.get(null);
-      const result = FitShieldCore.migrateState(raw);
+      const result = FitShieldCore.migrateState(raw, { resolveDomain });
 
       FS_DIAG.schemaVersion = result.to;
 
@@ -505,6 +517,24 @@ async function syncAlarms(settings) {
 
 let refreshChain = Promise.resolve();
 
+// readSettings prunes repeatHistory to its retention window on every read, but a
+// profile nobody touches would keep the expired rows ON DISK forever — and disk
+// is where they matter, because that is what anyone with a moment at an unlocked
+// machine can read. Every refresh (startup, alarm, settings change) writes the
+// pruned map back, so nothing outlives its window just because the user stopped
+// continuing to blocked sites.
+async function pruneStoredRepeatHistory(settings) {
+  const { repeatHistory } = await chrome.storage.local.get(["repeatHistory"]);
+
+  if (!repeatHistory) {
+    return;
+  }
+
+  if (JSON.stringify(repeatHistory) !== JSON.stringify(settings.repeatHistory)) {
+    await chrome.storage.local.set({ repeatHistory: settings.repeatHistory });
+  }
+}
+
 async function refreshBlockingState() {
   const settings = await getSettings();
   const schedule = FitShieldCore.evaluateSchedule(settings.schedule);
@@ -533,6 +563,8 @@ async function refreshBlockingState() {
 
   const hasBlockingRules = rules.length > 0;
   const globalPause = activePasses.some((pass) => pass.scope === "all");
+
+  await pruneStoredRepeatHistory(settings);
 
   if (!settings.enabled || !schedule.active || globalPause || !hasActiveSites || !hasBlockingRules) {
     const reason = !settings.enabled
@@ -682,6 +714,24 @@ async function getBlockContext(siteKey, options) {
 // Statistics — see fitshield-core.js for what each event means.
 // ---------------------------------------------------------------------------
 
+// Every stats write goes through ONE promise chain.
+//
+// recordEvent is a read-modify-write of a single `stats` object, and the block
+// page fires its messages without awaiting them — so opening several delivery
+// links at once (middle-click, session restore, a link farm) used to run N
+// overlapping get/set cycles in one worker and store ONE interruption instead of
+// N. The counter the whole panel is built on undercounted exactly in the burst a
+// user is most likely to notice. Same pattern as queueRefreshBlockingState.
+let statsChain = Promise.resolve();
+
+function queueStatsUpdate(task) {
+  const next = statsChain.catch(() => {}).then(task);
+  // The chain must survive a failed link, or one thrown error stops every later
+  // count; callers still see their own rejection through `next`.
+  statsChain = next.catch(() => {});
+  return next;
+}
+
 // Preview mode must be able to exercise the whole flow without touching real
 // numbers, so every recording path takes the same `preview` escape hatch.
 async function recordEvent(event, options) {
@@ -692,11 +742,14 @@ async function recordEvent(event, options) {
   }
 
   await ensureMigrated();
-  const { stats } = await chrome.storage.local.get(["stats"]);
-  const next = FitShieldCore.applyStatEvent(stats, event, Date.now());
-  await chrome.storage.local.set({ stats: next });
 
-  return { ok: true, recorded: true, totals: next.totals };
+  return queueStatsUpdate(async () => {
+    const { stats } = await chrome.storage.local.get(["stats"]);
+    const next = FitShieldCore.applyStatEvent(stats, event, Date.now());
+    await chrome.storage.local.set({ stats: next });
+
+    return { ok: true, recorded: true, totals: next.totals };
+  });
 }
 
 function incrementCount(map, key, by) {
@@ -731,26 +784,31 @@ async function recordBlockedBrand(meta, options) {
     return { ok: true, recorded: false };
   }
 
-  const stored = await chrome.storage.local.get(["blockedByDomain", "blockedByCategory", "blockedByCountry"]);
+  // Three more read-modify-write maps, serialized on the same chain as the
+  // counters for the same reason: a burst of simultaneous blocks must not
+  // collapse into one recorded brand.
+  return queueStatsUpdate(async () => {
+    const stored = await chrome.storage.local.get(["blockedByDomain", "blockedByCategory", "blockedByCountry"]);
 
-  const blockedByDomain = domain ? incrementCount(stored.blockedByDomain, domain, 1) : stored.blockedByDomain || {};
-  const isBucketCategory = category === "delivery" || category === "fast_food" || category === "custom";
-  const blockedByCategory =
-    category && !isBucketCategory
-      ? incrementCount(stored.blockedByCategory, category, 1)
-      : stored.blockedByCategory || {};
+    const blockedByDomain = domain ? incrementCount(stored.blockedByDomain, domain, 1) : stored.blockedByDomain || {};
+    const isBucketCategory = category === "delivery" || category === "fast_food" || category === "custom";
+    const blockedByCategory =
+      category && !isBucketCategory
+        ? incrementCount(stored.blockedByCategory, category, 1)
+        : stored.blockedByCategory || {};
 
-  // Count only the brand's PRIMARY (first-listed) operating market. Many brands
-  // operate in dozens of countries; counting every one would let a single block
-  // inflate the whole list. This still uses only curated brand metadata — never
-  // the user's real location.
-  const primaryCountry = countries[0];
-  const blockedByCountry = primaryCountry
-    ? incrementCount(stored.blockedByCountry, primaryCountry, 1)
-    : stored.blockedByCountry || {};
+    // Count only the brand's PRIMARY (first-listed) operating market. Many
+    // brands operate in dozens of countries; counting every one would let a
+    // single block inflate the whole list. This still uses only curated brand
+    // metadata — never the user's real location.
+    const primaryCountry = countries[0];
+    const blockedByCountry = primaryCountry
+      ? incrementCount(stored.blockedByCountry, primaryCountry, 1)
+      : stored.blockedByCountry || {};
 
-  await chrome.storage.local.set({ blockedByDomain, blockedByCategory, blockedByCountry });
-  return { ok: true, recorded: true };
+    await chrome.storage.local.set({ blockedByDomain, blockedByCategory, blockedByCountry });
+    return { ok: true, recorded: true };
+  });
 }
 
 // Remember what was shown so "show another" can move on, and what was dismissed
@@ -783,6 +841,36 @@ async function recordAlternativeDismissed(id, options) {
   return { ok: true, recorded: true };
 }
 
+// How long a "did you make it?" question stays askable.
+//
+// A pending entry carried a timestamp that nothing ever read, so nothing expired
+// one: the queue holds ten, the popup asks about the newest, and older ones
+// resurfaced one popup-open at a time, indefinitely. A customer opening the
+// popup weeks later was asked "Did you make it?" about an unnamed dish from an
+// interruption they cannot remember — and that answer is the sole input to
+// `alternativesMade`, which the estimate panel multiplies by a meal price. An
+// answer given under that much ambiguity is noise, and this is the one statistic
+// the product stakes its honesty on. Two days is long enough to cook something
+// and short enough that the question is still about a meal the user remembers.
+const PENDING_ALTERNATIVE_TTL_MS = 48 * 60 * 60 * 1000;
+const MAX_PENDING_ALTERNATIVES = 10;
+
+// Well-formed, unanswered, and still recent enough to be worth asking about.
+function freshPendingAlternatives(value, now) {
+  const oldest = now - PENDING_ALTERNATIVE_TTL_MS;
+
+  return (Array.isArray(value) ? value : []).filter((item) => {
+    if (!item || typeof item !== "object" || !item.id) {
+      return false;
+    }
+
+    const at = Number(item.at);
+    // An entry written before `at` existed has no age; treat it as expired
+    // rather than keep asking about it forever.
+    return Number.isFinite(at) && at <= now && at >= oldest;
+  });
+}
+
 // "I'll make this" is an INTENT. It does not claim a meal happened, and it does
 // not touch any calorie figure. Confirming it was actually made is a separate,
 // voluntary action (markAlternativeMade) taken later from the popup.
@@ -794,16 +882,16 @@ async function recordAlternativeSelected(id, options) {
   }
 
   await ensureMigrated();
+  const now = Date.now();
   const { pendingAlternatives } = await chrome.storage.local.get(["pendingAlternatives"]);
-  const pending = Array.isArray(pendingAlternatives) ? pendingAlternatives : [];
+  const pending = freshPendingAlternatives(pendingAlternatives, now);
   const cleanId = String(id || "").slice(0, 64);
 
   if (cleanId) {
     await chrome.storage.local.set({
-      pendingAlternatives: [
-        ...pending.filter((item) => item && item.id !== cleanId),
-        { id: cleanId, at: Date.now() }
-      ].slice(-10)
+      pendingAlternatives: [...pending.filter((item) => item.id !== cleanId), { id: cleanId, at: now }].slice(
+        -MAX_PENDING_ALTERNATIVES
+      )
     });
   }
 
@@ -813,11 +901,11 @@ async function recordAlternativeSelected(id, options) {
 async function markAlternativeMade(id) {
   await ensureMigrated();
   const { pendingAlternatives } = await chrome.storage.local.get(["pendingAlternatives"]);
-  const pending = Array.isArray(pendingAlternatives) ? pendingAlternatives : [];
+  const pending = freshPendingAlternatives(pendingAlternatives, Date.now());
   const cleanId = String(id || "").slice(0, 64);
 
   await chrome.storage.local.set({
-    pendingAlternatives: pending.filter((item) => item && item.id !== cleanId)
+    pendingAlternatives: pending.filter((item) => item.id !== cleanId)
   });
 
   return recordEvent("alternativesMade");
@@ -851,6 +939,24 @@ async function grantPass(request) {
   const presetId = FitShieldCore.PASS_PRESET_IDS.includes(input.presetId) ? input.presetId : "site10";
   const preset = FitShieldCore.PASS_PRESETS[presetId];
 
+  // "Block until tomorrow" is the one commitment button in the product — the
+  // thing a customer presses at 9pm knowing they are about to cave. It did not
+  // survive the very next block page, where "pause everything" is offered as a
+  // normal option: one click turned blocking completely off while Settings went
+  // on rendering "Blocking everything until tomorrow." Honour the commitment
+  // instead. Site-scoped passes still work (the pause, the alternative and the
+  // whole block page still happen), the override expires on its own at
+  // midnight, and the master switch remains an escape hatch — so this is a
+  // promise kept, not a trap.
+  if (preset.scope === "all" && FitShieldCore.scheduleOverrideActive(settings.schedule, Date.now())) {
+    return {
+      ok: false,
+      error: "Blocking everything until tomorrow is switched on.",
+      reason: "scheduleOverride",
+      until: settings.schedule.until
+    };
+  }
+
   const pass = FitShieldCore.createPass({
     presetId,
     target: preset.scope === "category" ? site && site.category : domain,
@@ -866,10 +972,18 @@ async function grantPass(request) {
   const passes = [...FitShieldCore.activePasses(settings.passes, Date.now(), { openTabIds: tabs }), pass];
 
   const repeatHistory = domain
-    ? FitShieldCore.recordContinue(settings.repeatHistory, domain, Date.now())
+    ? FitShieldCore.recordContinue(settings.repeatHistory, domain, Date.now(), {
+        windowMinutes: settings.repeatWindowMinutes
+      })
     : settings.repeatHistory;
 
-  await chrome.storage.local.set({ enabled: true, passes, repeatHistory });
+  // `enabled` is deliberately NOT written here. This used to set it to true,
+  // unexplained: a user who had turned FitShield off in the popup, then returned
+  // to a block-page tab left open from earlier and clicked "For 5 minutes",
+  // silently re-armed the entire extension for after the pass expired. The
+  // button says "For 5 minutes", not "turn FitShield back on", and a state
+  // change nobody asked for is not a favour.
+  await chrome.storage.local.set({ passes, repeatHistory });
   await recordEvent("passesUsed");
   await recordEvent("continued");
   await queueRefreshBlockingState();
@@ -901,6 +1015,8 @@ async function getBlockState() {
   const tabs = await openTabIds();
   const passes = FitShieldCore.activePasses(settings.passes, Date.now(), { openTabIds: tabs });
 
+  await expirePendingAlternatives();
+
   return {
     ok: true,
     ...settings,
@@ -909,10 +1025,33 @@ async function getBlockState() {
     scheduleReason: schedule.reason,
     // Kept for older UI code and the popup's "paused" message.
     bypassUntil: passes.length > 0 ? Math.max(...passes.map((pass) => pass.expiresAt)) : 0,
-    recap: FitShieldCore.weeklyRecap(settings.stats, Date.now(), {
-      blockedByCategory: (await chrome.storage.local.get(["blockedByCategory"])).blockedByCategory
-    })
+    // No blockedByCategory here any more: weeklyRecap used it to compute an
+    // ALL-TIME "most interrupted category" that the surfaces printed inside a
+    // panel headed "This week". The all-time breakdown still has an honest home
+    // in Settings' "Most blocked categories" list.
+    recap: FitShieldCore.weeklyRecap(settings.stats, Date.now())
   };
+}
+
+// The popup asks its "did you make it?" question straight out of storage, so the
+// expiry has to have happened before it reads. Every popup open calls
+// getBlockState first, which makes this the one place that reliably runs.
+async function expirePendingAlternatives() {
+  try {
+    const { pendingAlternatives } = await chrome.storage.local.get(["pendingAlternatives"]);
+
+    if (!Array.isArray(pendingAlternatives) || pendingAlternatives.length === 0) {
+      return;
+    }
+
+    const fresh = freshPendingAlternatives(pendingAlternatives, Date.now());
+
+    if (fresh.length !== pendingAlternatives.length) {
+      await chrome.storage.local.set({ pendingAlternatives: fresh });
+    }
+  } catch (error) {
+    fsError("Failed to expire pending alternatives", error);
+  }
 }
 
 async function getDiagnostics(testDomain) {
@@ -1187,6 +1326,14 @@ const HANDLERS = {
 //
 // A message from an extension page carries a sender.url on our own origin. One
 // from a web page does not.
+// The origin check alone is not enough: warning.html is reachable at a stable
+// chrome-extension:// URL from every site, so a hostile page can put it in a
+// 1x1 hidden iframe and every load is a message from OUR origin. The real block
+// page is always a top-level main_frame redirect (see the rule condition in
+// createRules), so a FRAMED sender is never one, and a blocked delivery brand is
+// exactly the party motivated to run the user's interruption count up until the
+// stats panel is worthless. Chrome's extension id is fixed and public for a
+// listed extension, which is what makes that reachable.
 function isOwnSurface(sender) {
   if (!sender) {
     return false;
@@ -1194,6 +1341,13 @@ function isOwnSurface(sender) {
 
   // Same extension id, and an extension-origin URL.
   if (sender.id && chrome.runtime.id && sender.id !== chrome.runtime.id) {
+    return false;
+  }
+
+  // frameId is only set when the message came from a tab. 0 is the top-level
+  // document; anything else is an embedded frame. The popup and other
+  // tab-less surfaces carry no frameId at all and are unaffected.
+  if (Number.isInteger(sender.frameId) && sender.frameId !== 0) {
     return false;
   }
 

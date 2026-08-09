@@ -131,38 +131,14 @@
   "statusShieldUp": {
     "message": "အကာအကွယ်။ $1 စက္ကန့်နှစ်သစ်၊ $2 $3 ကျော်ပါ။"
   },
-  "deliverySitesEnabledCount": {
-    "message": "$1 of $2 delivery sites enabled."
-  },
-  "fastFoodSitesEnabledCount": {
-    "message": "$1 of $2 fast food sites enabled."
-  },
   "searchMatchSuffix": {
     "message": " $1 ရှာဖွေမှုနှင့် ကိုက်ညီသည်။"
   },
   "warningPageTitle": {
     "message": "အသက်ရှုပါ။"
   },
-  "warningEyebrow": {
-    "message": "FitShield စစ်ဆေးပါ။"
-  },
-  "warningTitle": {
-    "message": "တစ်မိနစ်လောက် အချိန်ပေးပါ။"
-  },
-  "warningIntro": {
-    "message": "သင်အမိန့်မချမီစစ်ဆေးပါ။ ဆာလောင်မှု၊ အဆင်ပြေမှု၊ ဖိစီးမှုနှင့် အလေ့အထသည် အခိုက်အတန့်တွင် အလားတူခံစားရနိုင်သည်။"
-  },
-  "warningTriggeredBy": {
-    "message": "သင် $1 မှ မှာယူပါတော့မည်။"
-  },
   "warningBackButton": {
     "message": "ပြန်သွားပါ။"
-  },
-  "warningLockedButton": {
-    "message": "သော့ခတ်ထားသည်။"
-  },
-  "warningContinueButton": {
-    "message": "ဆက်ရန်"
   },
   "warningErrorHint": {
     "message": "ဆိုက်ကိုဖွင့်စဉ် တစ်ခုခုမှားသွားသည်။ ထပ်စမ်းကြည့်ပါ။"
@@ -217,15 +193,6 @@
   },
   "customToggleTitle": {
     "message": "စိတ်ကြိုက် URL ပိတ်ဆို့ခြင်းကို ဖွင့်ပါ။"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "စိတ်ကြိုက်ပိတ်ဆို့ထားသော URL ကိုထည့်ပါ။"
@@ -668,9 +635,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "ဒေတာနှင့် ဆက်တင်များကို ထုတ်ယူပါ"
   },
@@ -679,15 +643,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "ဘာကြောင့်ဒါကိုမြင်ရတာလဲ"
   },
   "blockReasonDomain": {
     "message": "ဆိုက်"
@@ -895,8 +850,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

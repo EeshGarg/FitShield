@@ -3,7 +3,7 @@
     {
       "id": "garlic-butter-spaghetti",
       "title": "Garlic Butter Spaghetti",
-      "description": "Four ingredients, ten minutes, and a sauce that clings because of the pasta water.",
+      "description": "Four ingredients, twenty minutes, and a sauce that clings because of the pasta water.",
       "servings": 2,
       "ingredients": [
         { "quantity": 200, "unit": "g", "item": "spaghetti" },
@@ -15,17 +15,17 @@
         { "quantity": 2, "unit": "tbsp", "item": "chopped parsley", "optional": true }
       ],
       "steps": [
-        "Boil the spaghetti in well-salted water for the time on the packet, and scoop out a mugful of the water before draining.",
+        "Bring a big pan of well-salted water to the boil — 6-8 minutes on its own, and the main reason this takes twenty. Boil the spaghetti for the time on the packet, then scoop out a mugful of the water before draining.",
         "While it boils, melt the butter in a wide pan over medium-low heat and add the garlic and chilli flakes.",
         "Cook the garlic gently for 2-3 minutes until it is pale gold and smells sweet. If it browns it will taste bitter, so keep the heat low.",
         "Add the drained pasta and 0.5 cup of the pasta water to the pan and toss hard over medium heat for 60-90 seconds.",
         "The sauce is ready when it turns glossy and coats the strands instead of pooling. Add more pasta water a splash at a time if it looks dry.",
         "Take off the heat, stir in the parmesan and parsley, and serve immediately."
       ],
-      "totalMinutes": 12,
+      "totalMinutes": 20,
       "activeMinutes": 10,
       "prepMinutes": 3,
-      "cookMinutes": 10,
+      "cookMinutes": 18,
       "difficulty": "easy",
       "equipment": ["stove"],
       "method": "quick-cook",
@@ -37,7 +37,7 @@
       ],
       "storage": "Best fresh. Keeps 2 days; reheat with a splash of water.",
       "categories": ["delivery", "restaurant", "fast_casual"],
-      "cravings": ["pasta", "comfort", "late-night"],
+      "cravings": ["pasta", "comfort"],
       "region": "european",
       "noCook": false,
       "microwave": false,
@@ -237,7 +237,7 @@
     {
       "id": "soup-and-toastie",
       "title": "Tinned Soup and Toast",
-      "description": "The lowest-effort hot meal in the house — five minutes, one pan, one toaster.",
+      "description": "The lowest-effort hot meal in the house — six minutes, one pan, one toaster.",
       "servings": 1,
       "ingredients": [
         { "quantity": 400, "unit": "g", "item": "canned soup", "note": "one tin" },
@@ -263,7 +263,7 @@
       ],
       "storage": "Eat straight away.",
       "categories": ["grocery", "delivery", "sandwich"],
-      "cravings": ["soup", "comfort", "convenience", "late-night"],
+      "cravings": ["soup", "comfort", "convenience"],
       "region": "global",
       "noCook": false,
       "microwave": false,
@@ -315,7 +315,7 @@
     {
       "id": "pesto-pasta-frozen-veg",
       "title": "Pesto Pasta with Frozen Veg",
-      "description": "One pot, two ingredients you already have, and a green vegetable that cooks itself.",
+      "description": "One pot, a jar of pesto, and a green vegetable that cooks itself.",
       "servings": 2,
       "ingredients": [
         { "quantity": 200, "unit": "g", "item": "pasta" },
@@ -324,12 +324,12 @@
         { "quantity": 2, "unit": "tbsp", "item": "grated cheese", "optional": true }
       ],
       "steps": [
-        "Boil the pasta over high heat for the time on the packet, adding the frozen vegetables for the last 3 minutes, until the pasta is tender and the vegetables are hot right through.",
+        "Bring a pan of water to the boil over high heat — allow 6-8 minutes for that alone. Boil the pasta for the time on the packet, adding the frozen vegetables for the last 3 minutes, until the pasta is tender and the vegetables are hot right through.",
         "Reserve half a cup of the cooking water, then drain.",
         "Return everything to the pot off the heat, stir in the pesto and 3 tbsp of the water, and toss until glossy and coated.",
         "Add cheese if you want it richer."
       ],
-      "totalMinutes": 13,
+      "totalMinutes": 20,
       "activeMinutes": 5,
       "difficulty": "easy",
       "equipment": ["stove"],

@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "ひと呼吸"
   },
-  "warningEyebrow": {
-    "message": "FitShield チェック"
-  },
-  "warningTitle": {
-    "message": "1 分だけ立ち止まりましょう。"
-  },
-  "warningIntro": {
-    "message": "注文する前に自分の状態を確認しましょう。空腹、手軽さ、ストレス、習慣はその瞬間には似て感じられます。"
-  },
-  "warningTriggeredBy": {
-    "message": "これから $1 で注文しようとしています。"
-  },
   "warningBackButton": {
     "message": "戻る"
-  },
-  "warningLockedButton": {
-    "message": "ロック中"
-  },
-  "warningContinueButton": {
-    "message": "続行"
   },
   "warningErrorHint": {
     "message": "サイトを開く際に問題が発生しました。もう一度お試しください。"
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "カスタム URL のブロックを有効化"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "ブロックするカスタム URL を追加"
@@ -686,9 +659,6 @@
   "importErrorNotice": {
     "message": "そのファイルは有効な FitShield バックアップではありません。"
   },
-  "blockReasonHeading": {
-    "message": "表示されている理由"
-  },
   "blockReasonDomain": {
     "message": "サイト"
   },
@@ -895,8 +865,5 @@
   },
   "catLabelRestaurant": {
     "message": "レストラン"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

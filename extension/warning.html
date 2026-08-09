@@ -15,11 +15,42 @@
       --accent: #7ef0a8;
       --accent-dim: #243228;
       --panel-radius: 24px;
-      /* Minimum comfortable touch target. Every interactive element uses it. */
+      /* Minimum comfortable touch target. Every interactive element uses it —
+         including the intent "Skip" link, the recipe filters, and the "why was
+         this interrupted?" disclosure, none of which opt out. */
       --tap: 44px;
+
+      /* Everything below is DERIVED from the four live palette values above,
+         never hard-coded to one theme.
+
+         warning.js writes --bg / --panel / --text / --accent from the stored
+         palette but does not add a `.theme-light` class the way popup.js does,
+         so a rule can't ask "is this Light?". Mixing against --text and --bg
+         instead gives the right answer in every theme, including a custom
+         accent, with no second stylesheet to keep in step.
+
+         --surface      the raised "quiet button" fill. Was a literal #293241,
+                        which rendered "Show another" and "Never mind" as
+                        1.21:1 unreadable rectangles on a light palette.
+         --accent-text  the accent pulled far enough towards --text to clear
+                        4.5:1 on a tinted panel in BOTH themes. Raw --accent is
+                        9-12:1 on dark but only 3.2-3.4:1 on white.
+         --accent-tint  the mint wash behind accent-coloured labels. */
+      --surface: color-mix(in srgb, var(--text) 12%, var(--bg));
+      --accent-text: color-mix(in srgb, var(--accent) 65%, var(--text));
+      --accent-tint: color-mix(in srgb, var(--accent) 12%, transparent);
+      --accent-tint-strong: color-mix(in srgb, var(--accent) 16%, transparent);
+      --veil-soft: color-mix(in srgb, var(--text) 4%, transparent);
+      --veil: color-mix(in srgb, var(--text) 6%, transparent);
     }
 
     * { box-sizing: border-box; }
+
+    html {
+      /* Naming both scrollbar colours keeps the page scrollbar legible when the
+         palette is light, which `color-scheme: dark` alone would not. */
+      scrollbar-color: color-mix(in srgb, var(--text) 32%, var(--bg)) var(--bg);
+    }
 
     body {
       margin: 0;
@@ -27,9 +58,11 @@
       display: grid;
       place-items: center;
       padding: 20px;
+      /* Same soft top-light over whatever --bg is. The literal dark gradient
+         this replaces meant a light palette produced dark-on-dark text. */
       background:
-        radial-gradient(130% 70% at 50% -5%, rgba(255, 255, 255, 0.025), transparent 60%),
-        linear-gradient(180deg, #111823 0%, #0d1117 100%);
+        radial-gradient(130% 70% at 50% -5%, color-mix(in srgb, var(--text) 3%, transparent), transparent 60%),
+        linear-gradient(180deg, color-mix(in srgb, var(--text) 3%, var(--bg)) 0%, var(--bg) 100%);
       color: var(--text);
       font-family: "Segoe UI", -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
       line-height: 1.5;
@@ -59,8 +92,8 @@
       margin-bottom: 10px;
       padding: 5px 10px;
       border-radius: 999px;
-      background: rgba(126, 240, 168, 0.12);
-      color: var(--accent);
+      background: var(--accent-tint);
+      color: var(--accent-text);
       font-size: 0.75rem;
       letter-spacing: 0.05em;
       text-transform: uppercase;
@@ -94,10 +127,13 @@
       height: 116px;
       margin: 18px auto 12px;
       border-radius: 50%;
-      border: 3px solid rgba(126, 240, 168, 0.45);
+      /* Decorative frame around the countdown — the number inside it is --text,
+         so nothing here has to carry meaning. Mixed against --bg rather than
+         hard-coded so a custom accent still rings the timer. */
+      border: 3px solid color-mix(in srgb, var(--accent) 55%, var(--bg));
       display: grid;
       place-items: center;
-      box-shadow: 0 0 20px rgba(126, 240, 168, 0.15);
+      box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 15%, transparent);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
@@ -120,14 +156,18 @@
 
     .hint { font-size: 0.9rem; margin-top: 6px; }
 
+    /* The amber wash carries "this pause is longer than usual"; the sentence
+       itself is --text, so it stays readable on a white panel. It used to be a
+       literal #ffd7a3, which is 1.30:1 on a light panel — the one explanation of
+       why the pause changed, invisible. */
     .repeat-note {
       margin: 12px auto 0;
       max-width: 380px;
       padding: 10px 12px;
       border-radius: 12px;
-      background: rgba(255, 196, 120, 0.1);
-      border: 1px solid rgba(255, 196, 120, 0.28);
-      color: #ffd7a3;
+      background: rgba(255, 196, 120, 0.12);
+      border: 1px solid rgba(214, 138, 40, 0.42);
+      color: var(--text);
       font-size: 0.85rem;
       text-align: start;
     }
@@ -168,7 +208,7 @@
     .actions button { flex: 1 1 160px; }
 
     .primary { background: var(--accent); color: #102016; }
-    .secondary { background: #293241; color: var(--text); }
+    .secondary { background: var(--surface); color: var(--text); }
 
     /* "Continue" is deliberately the quiet option: available, never hidden,
        never dressed up as the thing to press. */
@@ -178,7 +218,7 @@
       border: 1px solid var(--accent-dim);
     }
     .tertiary:disabled { opacity: 0.5; }
-    .tertiary.ready { color: var(--text); border-color: rgba(255, 255, 255, 0.2); }
+    .tertiary.ready { color: var(--text); border-color: color-mix(in srgb, var(--text) 20%, transparent); }
 
     /* --- intent prompt --------------------------------------------------- */
 
@@ -193,22 +233,26 @@
     }
     .intent-options button {
       flex: 1 1 auto;
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--veil-soft);
       border: 1px solid var(--accent-dim);
       color: var(--text);
       font-weight: 500;
       font-size: 0.88rem;
       padding: 10px 14px;
     }
-    .intent-options button:hover { background: rgba(126, 240, 168, 0.1); }
+    .intent-options button:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+
+    /* "Skip" is the escape hatch from an optional question and sits directly
+       under five full-width options, so it keeps the same 44px target as
+       everything else: no `min-height: auto`, and real horizontal padding
+       instead of the bare ~28px-wide word it used to be. */
     .intent-skip {
       margin-top: 10px;
       background: transparent;
       color: var(--muted);
       font-size: 0.82rem;
       font-weight: 500;
-      padding: 8px 0;
-      min-height: auto;
+      padding: 8px 14px;
       text-decoration: underline;
     }
 
@@ -232,8 +276,8 @@
       letter-spacing: 0.05em;
       padding: 4px 9px;
       border-radius: 999px;
-      background: rgba(126, 240, 168, 0.13);
-      color: var(--accent);
+      background: var(--accent-tint);
+      color: var(--accent-text);
       white-space: nowrap;
     }
 
@@ -250,17 +294,17 @@
       font-size: 0.76rem;
       padding: 4px 9px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
+      background: var(--veil);
       color: var(--muted);
       white-space: nowrap;
     }
-    .chip.strong { background: rgba(126, 240, 168, 0.13); color: var(--accent); }
+    .chip.strong { background: var(--accent-tint); color: var(--accent-text); }
 
     .alt-desc { font-size: 0.9rem; margin-bottom: 12px; }
 
     .alt-why {
       font-size: 0.82rem;
-      color: var(--accent);
+      color: var(--accent-text);
       margin-bottom: 12px;
     }
     .alt-why[hidden] { display: none; }
@@ -283,7 +327,9 @@
     }
     .alt-ingredients li,
     .alt-steps li { margin-bottom: 5px; }
-    .alt-ingredients .optional { opacity: 0.75; }
+    /* De-emphasised by style, not by opacity: the line already ends in the word
+       "optional", and dimming it to 75% put it at 3.40:1 on a light panel. */
+    .alt-ingredients .optional { font-style: italic; }
 
     /* Long recipes scroll inside the card. The container is focusable so a
        keyboard user can actually reach and scroll it. */
@@ -291,11 +337,11 @@
       max-height: 220px;
       overflow-y: auto;
       scrollbar-width: thin;
-      scrollbar-color: rgba(126, 240, 168, 0.3) transparent;
+      scrollbar-color: color-mix(in srgb, var(--accent) 55%, var(--bg)) transparent;
     }
-    .alt-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .alt-scroll:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
     .alt-scroll::-webkit-scrollbar { width: 6px; }
-    .alt-scroll::-webkit-scrollbar-thumb { background: rgba(126, 240, 168, 0.28); border-radius: 999px; }
+    .alt-scroll::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--accent) 55%, var(--bg)); border-radius: 999px; }
 
     .alt-note {
       margin-top: 12px;
@@ -310,16 +356,16 @@
       margin-top: 16px;
     }
     .alt-actions .choose { flex: 2 1 180px; background: var(--accent); color: #102016; }
-    .alt-actions .another { flex: 1 1 130px; background: #293241; color: var(--text); }
+    .alt-actions .another { flex: 1 1 130px; background: var(--surface); color: var(--text); }
     .alt-actions .fav {
       flex: 0 0 var(--tap);
       min-width: var(--tap);
-      background: rgba(255, 255, 255, 0.05);
+      background: color-mix(in srgb, var(--text) 5%, transparent);
       color: var(--muted);
       border: 1px solid var(--accent-dim);
       font-size: 1rem;
     }
-    .alt-actions .fav[aria-pressed="true"] { background: rgba(126, 240, 168, 0.16); color: var(--accent); }
+    .alt-actions .fav[aria-pressed="true"] { background: var(--accent-tint-strong); color: var(--accent-text); }
 
     .filters {
       display: flex;
@@ -333,15 +379,15 @@
       flex: 0 1 auto;
       font-size: 0.8rem;
       font-weight: 500;
-      padding: 9px 12px;
-      min-height: 38px;
-      background: rgba(255, 255, 255, 0.04);
+      padding: 10px 12px;
+      min-height: var(--tap);
+      background: var(--veil-soft);
       border: 1px solid transparent;
       color: var(--muted);
     }
     .filters button[aria-pressed="true"] {
-      background: rgba(126, 240, 168, 0.14);
-      color: var(--accent);
+      background: var(--accent-tint-strong);
+      color: var(--accent-text);
       border-color: var(--border);
       font-weight: 700;
     }
@@ -350,8 +396,8 @@
       margin-top: 14px;
       padding: 10px 12px;
       border-radius: 12px;
-      background: rgba(126, 240, 168, 0.12);
-      color: var(--accent);
+      background: var(--accent-tint);
+      color: var(--accent-text);
       font-size: 0.88rem;
     }
     .chosen-note[hidden] { display: none; }
@@ -364,13 +410,13 @@
     .pass-options { display: flex; flex-direction: column; gap: 8px; }
     .pass-options button {
       text-align: start;
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--veil-soft);
       border: 1px solid var(--accent-dim);
       color: var(--text);
       font-weight: 500;
       font-size: 0.9rem;
     }
-    .pass-options button:hover { background: rgba(126, 240, 168, 0.1); }
+    .pass-options button:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
     .pass-options .scope { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
 
     /* --- why panel ------------------------------------------------------- */
@@ -381,13 +427,16 @@
       padding-top: 12px;
       text-align: start;
     }
+    /* A summary is an interactive control, so it takes the same 44px target as
+       every button (12px of padding around a ~20px line clears it without
+       changing `display`, which would drop the disclosure triangle). */
     details.reason summary {
       cursor: pointer;
       font-size: 0.85rem;
       color: var(--muted);
       list-style: none;
-      padding: 6px 0;
-      min-height: 32px;
+      padding: 12px 0;
+      min-height: var(--tap);
     }
     details.reason summary::-webkit-details-marker { display: none; }
     details.reason summary::before { content: "▸ "; }
@@ -400,7 +449,7 @@
       font-size: 0.84rem;
       padding: 5px 0;
     }
-    .reason-row + .reason-row { border-top: 1px solid rgba(255, 255, 255, 0.05); }
+    .reason-row + .reason-row { border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent); }
     .reason-label { color: var(--muted); flex: 0 0 auto; }
     .reason-value { color: var(--text); font-weight: 600; text-align: end; word-break: break-word; }
 
@@ -409,16 +458,16 @@
       font-size: 0.82rem;
       color: var(--muted);
     }
-    .learn-more a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    .learn-more a { color: var(--accent-text); font-weight: 600; text-decoration: none; }
     .learn-more a:hover, .learn-more a:focus-visible { text-decoration: underline; }
 
     .preview-banner {
       padding: 12px 16px;
       border-radius: 14px;
-      background: rgba(126, 240, 168, 0.1);
+      background: var(--accent-tint);
       border: 1px dashed var(--border);
       font-size: 0.86rem;
-      color: var(--accent);
+      color: var(--accent-text);
     }
     .preview-banner[hidden] { display: none; }
 
@@ -433,7 +482,9 @@
       border: 0;
     }
 
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    /* --accent-text, not --accent: the ring lands on the panel, where the raw
+       light-theme accent is only 3.4:1. */
+    :focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
 
     @media (prefers-reduced-motion: reduce) {
       * { animation: none !important; transition: none !important; }
@@ -473,7 +524,14 @@
       </div>
       <p class="sr-only" id="timerAnnounce" role="status" aria-live="polite"></p>
 
-      <p class="hint" id="hint" data-i18n="warningLockedHint">Continuing unlocks when the pause ends.</p>
+      <!-- role="status" because warning.js writes three things here and two of
+           them are news: "the pause is over, Continue is live now", and the
+           failure message when a pass could not be granted. Without it a failed
+           "continue" only re-enabled the button and wrote a sentence into a card
+           the user was no longer looking at, so nothing announced it at all.
+           Safe as a live region: renderStaticText() runs on unlock, on load, and
+           on a language change — never on the per-second tick. -->
+      <p class="hint" id="hint" role="status" data-i18n="warningLockedHint">Continuing unlocks when the pause ends.</p>
 
       <!-- Explains any extra pause added for a repeat visit. Never hidden
            behaviour: if friction changed, it says so. -->

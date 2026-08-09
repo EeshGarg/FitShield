@@ -18,6 +18,14 @@
       --shadow: rgba(126, 240, 168, 0.14);
       --panel-radius: 16px;
       --popup-width: 516px;
+
+      /* The accent as TEXT. Raw --accent is 9-12:1 on the dark panel but only
+         3.2-3.4:1 on the light one, so the value chips (the only place the popup
+         shows what the pause and pass durations actually are) went pale-green on
+         pale-green in Light. Mixing towards --text darkens it in Light and
+         lightens it in Dark from the same rule — no second palette. */
+      --accent-text: color-mix(in srgb, var(--accent) 65%, var(--text));
+      --accent-tint: color-mix(in srgb, var(--accent) 12%, transparent);
     }
 
     * {
@@ -27,9 +35,16 @@
     html,
     body {
       margin: 0;
-      min-width: var(--popup-width);
+      /* Was `min-width: var(--popup-width)` with `overflow-x: hidden`. Chrome
+         caps a browser-action popup at 800px, and popups render at the browser's
+         zoom level, so above ~155% zoom (129% at the 620px maximum this slider
+         allows) the hard floor pushed the right-hand column — the master switch,
+         all three blocklist switches, and Settings — past the edge, with the
+         scrollbar suppressed so it could not be reached. Now it shrinks to the
+         viewport, and anything still clipped stays scrollable. */
+      width: min(var(--popup-width), 100vw);
       border-radius: var(--panel-radius);
-      overflow-x: hidden;
+      overflow-x: auto;
       overflow-y: auto;
       background:
         radial-gradient(120% 70% at 50% 0%, rgba(255, 255, 255, 0.025), transparent 62%),
@@ -79,12 +94,22 @@
       background: linear-gradient(90deg, transparent, var(--accent-dim, rgba(110, 231, 183, 0.35)), transparent);
     }
 
+    /* Wrapping, not clipping: at high zoom or with a long localized label the
+       control reflows under its description instead of being pushed off the
+       right edge. `min-width: 0` lets the text column shrink so a long word
+       cannot hold the row open. */
     .header-row,
     .row {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+    }
+
+    .header-row > *,
+    .row > * {
+      min-width: 0;
     }
 
     h1 {
@@ -260,7 +285,9 @@
       font-weight: 700;
       padding: 12px 14px;
       cursor: pointer;
-      white-space: nowrap;
+      /* Was `nowrap`, which let a long localized label (viewBlocklistButton is
+         28 characters in Telugu) force the row wider than the popup. */
+      white-space: normal;
     }
 
     .button.secondary {
@@ -295,8 +322,8 @@
     .value-chip {
       padding: 6px 10px;
       border-radius: 999px;
-      background: rgba(126, 240, 168, 0.12);
-      color: var(--accent);
+      background: var(--accent-tint);
+      color: var(--accent-text);
       font-size: 0.82rem;
       font-weight: 700;
     }
@@ -343,13 +370,14 @@
        visually-hidden toggle inputs (the outline lands on their slider). */
     button:focus-visible,
     input:focus-visible,
+    select:focus-visible,
     a:focus-visible {
-      outline: 2px solid var(--accent);
+      outline: 2px solid var(--accent-text);
       outline-offset: 2px;
     }
 
     .toggle input:focus-visible + .slider {
-      outline: 2px solid var(--accent);
+      outline: 2px solid var(--accent-text);
       outline-offset: 2px;
     }
     /* ---- Weekly recap + the optional "did you make it?" follow-up ---- */
@@ -402,13 +430,19 @@
     </section>
 
     <section class="section">
+      <!-- Every switch on this page is named by the heading beside it via
+           aria-labelledby, so the accessible name is the SAME already-localized
+           string the user can see (no parallel aria-only copy to translate, and
+           it satisfies label-in-name). Without it a screen reader announced four
+           consecutive "checkbox, checked" with no way to tell which one was the
+           master kill switch. -->
       <div class="row">
         <div>
-          <div data-i18n="popupBlockerTitle">FitShield blocker</div>
+          <div id="blockerTitle" data-i18n="popupBlockerTitle">FitShield blocker</div>
           <div class="muted" data-i18n="popupBlockerSubtitle">Turn every block list on or off.</div>
         </div>
         <label class="toggle">
-          <input id="toggle" type="checkbox">
+          <input id="toggle" type="checkbox" aria-labelledby="blockerTitle" aria-describedby="status">
           <span class="slider"></span>
         </label>
       </div>
@@ -418,7 +452,14 @@
         <button id="popupSearchButton" class="button secondary" type="button" data-i18n="searchButton">Search</button>
       </div>
 
-      <div id="status" class="status" aria-live="polite"></div>
+      <!-- NOT a live region. popup.js rewrites this once a second, and while a
+           temporary pass is running the sentence genuinely changes every tick
+           ("...resumes in 4m 12s"), so aria-live made a screen reader re-read the
+           whole status over and over and bury every other control in the popup.
+           The block page already documents this rule for its own countdown. It is
+           instead the description of the master switch above, so the current
+           state is read on demand, when the user reaches the control it is about. -->
+      <div id="status" class="status"></div>
 
       <!-- A voluntary follow-up on something the user said they would make.
            Shown once, dismissible, never nagging: it appears only when there is
@@ -451,13 +492,13 @@
         <div class="category-card">
           <div class="row">
             <div>
-              <div data-i18n="popupDeliveryLabel">Delivery sites</div>
+              <div id="deliveryTitle" data-i18n="popupDeliveryLabel">Delivery sites</div>
               <div class="muted" id="deliveryCount" data-i18n="popupDeliveryDefault">Delivery ordering domains.</div>
             </div>
             <div class="category-actions">
               <button id="toggleDeliveryList" class="button secondary" type="button" data-i18n="viewBlocklistButton">View Blocklist</button>
               <label class="toggle">
-                <input id="deliverySitesEnabled" type="checkbox">
+                <input id="deliverySitesEnabled" type="checkbox" aria-labelledby="deliveryTitle">
                 <span class="slider"></span>
               </label>
             </div>
@@ -467,13 +508,13 @@
         <div class="category-card">
           <div class="row">
             <div>
-              <div data-i18n="popupFastFoodLabel">Fast food sites</div>
+              <div id="fastFoodTitle" data-i18n="popupFastFoodLabel">Fast food sites</div>
               <div class="muted" id="fastFoodCount" data-i18n="popupFastFoodDefault">Major chain ordering domains.</div>
             </div>
             <div class="category-actions">
               <button id="toggleFastFoodList" class="button secondary" type="button" data-i18n="viewBlocklistButton">View Blocklist</button>
               <label class="toggle">
-                <input id="fastFoodSitesEnabled" type="checkbox">
+                <input id="fastFoodSitesEnabled" type="checkbox" aria-labelledby="fastFoodTitle">
                 <span class="slider"></span>
               </label>
             </div>
@@ -483,13 +524,13 @@
         <div class="category-card">
           <div class="row">
             <div>
-              <div data-i18n="popupCustomLabel">Custom URLs</div>
+              <div id="customTitle" data-i18n="popupCustomLabel">Custom URLs</div>
               <div class="muted" data-i18n="popupCustomSubtitle">Add your own sites and disable them individually.</div>
             </div>
             <div class="category-actions">
               <button id="toggleCustomList" class="button secondary" type="button" data-i18n="viewBlocklistButton">View Blocklist</button>
               <label class="toggle">
-                <input id="customSitesEnabled" type="checkbox">
+                <input id="customSitesEnabled" type="checkbox" aria-labelledby="customTitle">
                 <span class="slider"></span>
               </label>
             </div>

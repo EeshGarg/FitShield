@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "نفس بکش"
   },
-  "warningEyebrow": {
-    "message": "FitShield بررسی کنید"
-  },
-  "warningTitle": {
-    "message": "یک دقیقه وقت بگذارید"
-  },
-  "warningIntro": {
-    "message": "قبل از سفارش بررسی کنید گرسنگی، راحتی، استرس و عادت می توانند در لحظه احساس مشابهی داشته باشند."
-  },
-  "warningTriggeredBy": {
-    "message": "شما در شرف سفارش از $1 هستید."
-  },
   "warningBackButton": {
     "message": "به عقب برگرد"
-  },
-  "warningLockedButton": {
-    "message": "قفل شده است"
-  },
-  "warningContinueButton": {
-    "message": "ادامه دهید"
   },
   "warningErrorHint": {
     "message": "هنگام باز کردن سایت مشکلی پیش آمد. لطفا دوباره امتحان کنید."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "مسدود کردن URL سفارشی را فعال کنید"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "یک URL مسدود شده سفارشی اضافه کنید"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "برون‌بری داده‌ها و تنظیمات"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "چرا این را می‌بینید"
   },
   "blockReasonDomain": {
     "message": "سایت"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

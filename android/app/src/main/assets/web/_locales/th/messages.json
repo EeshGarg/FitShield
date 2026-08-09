@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "หยุดหายใจสักครู่"
   },
-  "warningEyebrow": {
-    "message": "การตรวจสอบของ FitShield"
-  },
-  "warningTitle": {
-    "message": "ใช้เวลาหนึ่งนาที"
-  },
-  "warningIntro": {
-    "message": "เช็กตัวเองก่อนสั่งอาหาร ความหิว ความสะดวก ความเครียด และความเคยชินอาจรู้สึกคล้ายกันในช่วงเวลานั้น"
-  },
-  "warningTriggeredBy": {
-    "message": "คุณกำลังจะสั่งจาก $1."
-  },
   "warningBackButton": {
     "message": "ย้อนกลับ"
-  },
-  "warningLockedButton": {
-    "message": "ล็อกอยู่"
-  },
-  "warningContinueButton": {
-    "message": "ดำเนินการต่อ"
   },
   "warningErrorHint": {
     "message": "เกิดข้อผิดพลาดขณะเปิดไซต์ โปรดลองอีกครั้ง"
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "เปิดใช้การบล็อก URL ที่กำหนดเอง"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "เพิ่ม URL ที่กำหนดเองเพื่อบล็อก"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "ส่งออกข้อมูลและการตั้งค่า"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "ทำไมคุณจึงเห็นสิ่งนี้"
   },
   "blockReasonDomain": {
     "message": "เว็บไซต์"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "ร้านอาหาร"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

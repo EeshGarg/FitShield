@@ -158,6 +158,77 @@ test("an active site bypass survives as a site-scoped pass", () => {
   assert.deepEqual(after.legacy.siteBypasses, profile.siteBypasses);
 });
 
+// ---------------------------------------------------------------------------
+// A pre-0.55 site key is NOT reversible to a domain
+//
+// domainToKey flattened every run of non-alphanumeric characters to a single
+// "-", so "just-eat.com" and "just.eat.com" produce the same key. The migration
+// replaced every "-" with ".", so a pass taken on Just Eat minutes before the
+// update was rewritten to target "just.eat.com" — a host that does not exist.
+// findCoveringPass matched nothing, so the pass showed as active and the user
+// was interrupted anyway, at the one moment the product had promised to stay
+// out of the way. 128 catalog domains contain a hyphen.
+// ---------------------------------------------------------------------------
+
+const soon = () => Date.now() + 10 * 60 * 1000;
+
+test("a hyphenated brand's legacy bypass resolves against the real catalog", () => {
+  const expiresAt = soon();
+  const catalog = new Set(["just-eat.com", "deliveroo.co.uk", "doordash.com"]);
+
+  const after = core.migrateState(
+    { siteBypasses: { "delivery-just-eat-com": expiresAt } },
+    { resolveDomain: (domain) => catalog.has(domain) }
+  ).state;
+
+  assert.equal(after.passes.length, 1);
+  assert.equal(after.passes[0].target, "just-eat.com", 'not the unreachable "just.eat.com"');
+  assert.equal(after.passes[0].expiresAt, expiresAt);
+});
+
+test("a two-part TLD is recovered too, rather than guessed", () => {
+  const catalog = new Set(["deliveroo.co.uk"]);
+  const after = core.migrateState(
+    { siteBypasses: { "delivery-deliveroo-co-uk": soon() } },
+    { resolveDomain: (domain) => catalog.has(domain) }
+  ).state;
+
+  assert.equal(after.passes[0].target, "deliveroo.co.uk");
+});
+
+test("an ambiguous key with no catalog is dropped rather than pointed at a wrong host", () => {
+  const bypasses = { "delivery-just-eat-com": soon() };
+  const after = core.migrateState({ siteBypasses: bypasses }).state;
+
+  assert.deepEqual(after.passes, [], "inventing a host is worse than granting nothing");
+  assert.deepEqual(after.legacy.siteBypasses, bypasses, "and the original is still recoverable");
+});
+
+test("an unambiguous single-separator key still resolves with no catalog at all", () => {
+  // "doordash-com" can only ever have been "doordash.com": one separator, and a
+  // bare "doordash-com" is not a hostname. Recovery must not become useless when
+  // the datasets are unavailable.
+  const after = core.migrateState({ siteBypasses: { "delivery-doordash-com": soon() } }).state;
+
+  assert.equal(after.passes.length, 1);
+  assert.equal(after.passes[0].target, "doordash.com");
+});
+
+test("recoverLegacyBypassDomain never invents a host from an unusable key", () => {
+  ["", "delivery-", "-", "delivery", "custom-x-", "site--com"].forEach((key) => {
+    assert.equal(core.recoverLegacyBypassDomain(key), "", `"${key}" must not become a domain`);
+  });
+
+  // A resolver that throws is a resolver that cannot be trusted, not a licence
+  // to fall back to a guess.
+  assert.equal(
+    core.recoverLegacyBypassDomain("delivery-just-eat-com", () => {
+      throw new Error("catalog unavailable");
+    }),
+    ""
+  );
+});
+
 test("an already-expired bypass is not resurrected", () => {
   const after = core.migrateState({ siteBypasses: { "delivery-x-com": Date.now() - 1000 } }).state;
   assert.deepEqual(after.passes, []);
@@ -272,8 +343,39 @@ test("strict mode is reversible and never removes the override", () => {
   const strict = core.frictionProfileValues("strict");
   const light = core.frictionProfileValues("light");
 
-  assert.ok(strict.settingsDelaySeconds > 0, "strict uses a cooling-off delay");
-  assert.equal(light.settingsDelaySeconds, 0);
+  assert.ok(strict.timerSeconds > light.timerSeconds, "strict is a longer pause");
+  assert.ok(strict.passDurationMinutes < light.passDurationMinutes, "and a shorter pass");
   // Switching back is a plain settings write with no extra state to unwind.
   assert.equal(core.detectFrictionProfile(light), "light");
+});
+
+// This test used to assert `strict.settingsDelaySeconds > 0` — "strict uses a
+// cooling-off delay". It did not. The key was written by the profile, defaulted
+// in the schema, clamped in readSettings, listed in the worker's settings keys,
+// carried in backups, and documented as "Cooling-off delay before weakening
+// protection" — and no line of code anywhere read it. A setting that does
+// nothing is a false claim about the product, and a TESTED one is worse: the
+// passing test reads as proof that it works. It is gone rather than left inert.
+test("no friction profile writes a value nothing enforces", () => {
+  core.FRICTION_PROFILE_IDS.forEach((id) => {
+    const values = core.frictionProfileValues(id);
+
+    assert.ok(
+      !("settingsDelaySeconds" in values),
+      `${id} must not write a cooling-off delay until something applies one`
+    );
+  });
+
+  assert.ok(!("settingsDelaySeconds" in core.defaultState()));
+  assert.ok(!("settingsDelaySeconds" in core.readSettings({ settingsDelaySeconds: 60 })));
+});
+
+test("recapDismissedFor is not carried by a schema nothing reads it from", () => {
+  // Defaulted, normalized, listed by the worker, excluded from backups and
+  // cleared by the reset — in five files — for a "dismiss this week's recap"
+  // behaviour no surface has. Dead keys make the storage docs describe a product
+  // that does not exist.
+  assert.ok(!("recapDismissedFor" in core.defaultState()));
+  assert.ok(!("recapDismissedFor" in core.readSettings({ recapDismissedFor: "2026-08-09" })));
+  assert.equal(core.readSettings({}).recapEnabled, true, "the recap gate that IS real still works");
 });

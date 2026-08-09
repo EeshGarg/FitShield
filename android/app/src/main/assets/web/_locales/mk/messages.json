@@ -2,9 +2,6 @@
   "appName": {
     "message": "FitShield"
   },
-  "appDescription": {
-    "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering."
-  },
   "actionTitle": {
     "message": "FitShield"
   },
@@ -29,9 +26,6 @@
   "customSecondsLabel": {
     "message": "Custom seconds"
   },
-  "siteOpenTimeLabel": {
-    "message": "Site open time"
-  },
   "customMinutesLabel": {
     "message": "Custom минути"
   },
@@ -43,12 +37,6 @@
   },
   "currentScheduleSummary": {
     "message": "Тековно распоред: $1."
-  },
-  "everyDaySuffix": {
-    "message": " every day"
-  },
-  "scheduleRange": {
-    "message": "$1 to $2"
   },
   "unitMinute": {
     "message": "минута"
@@ -89,29 +77,8 @@
   "statusShieldUp": {
     "message": "Shield up. $1 seconds countdown, $2 $3 pass."
   },
-  "searchMatchSuffix": {
-    "message": " $1 match the search."
-  },
-  "warningPageTitle": {
-    "message": "Take a Breath"
-  },
-  "warningEyebrow": {
-    "message": "FitShield Check"
-  },
-  "warningIntro": {
-    "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
-  },
-  "warningTriggeredBy": {
-    "message": "You're about to order from $1."
-  },
   "warningBackButton": {
     "message": "Назад"
-  },
-  "warningLockedButton": {
-    "message": "Заклучено"
-  },
-  "warningContinueButton": {
-    "message": "Продолжи"
   },
   "settingsTitle": {
     "message": "FitShield Поставки"
@@ -155,29 +122,14 @@
   "customToggleTitle": {
     "message": "Овозможи custom URL блокирајing"
   },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
-  },
   "addCustomUrlLabel": {
     "message": "Додај a custom блокирајed URL"
-  },
-  "customSitePlaceholder": {
-    "message": "example.com or https://example.com"
   },
   "customEmptyDefault": {
     "message": "Сѐ уште нема прилагодени блокирани сајтови. Додадете домен како example.com погоре за да започнете да го блокирате."
   },
   "noticeMatched": {
     "message": "$1 $2 matched \"$3\"."
-  },
-  "invalidUrlNotice": {
-    "message": "That URL does not look valid yet. Try a domain like example.com."
   },
   "metadataHeading": {
     "message": "Country & Category Блокирање"
@@ -203,9 +155,6 @@
   "languageHeading": {
     "message": "Јазик"
   },
-  "languageIntro": {
-    "message": "Choose the language FitShield uses for its own screens. This overrides your browser language for the extension only."
-  },
   "languageSelectLabel": {
     "message": "Display language"
   },
@@ -223,9 +172,6 @@
   },
   "languageSystem": {
     "message": "Систем default"
-  },
-  "languageSystemSub": {
-    "message": "Follow your browser's language"
   },
   "languageEnglish": {
     "message": "English"
@@ -389,9 +335,6 @@
   "systemThemeLabel": {
     "message": "Систем theme"
   },
-  "systemThemeHint": {
-    "message": "Device preference or a fixed mode."
-  },
   "themeSystem": {
     "message": "Систем"
   },
@@ -545,9 +488,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "Извези податоци и поставки"
   },
@@ -556,15 +496,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "Зошто го гледате ова"
   },
   "blockReasonDomain": {
     "message": "Сајт"
@@ -772,8 +703,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }

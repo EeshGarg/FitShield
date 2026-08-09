@@ -124,7 +124,8 @@
         "Add the cumin, turmeric, and chilli powder and stir for 30 seconds.",
         "Add the tomato and salt and cook 3-4 minutes, pressing with the spoon, until it breaks down into a thick paste and the oil starts to separate at the edges.",
         "Stir in the crumbled paneer and cook 3 minutes, just long enough to heat it through. Cooking it longer makes it rubbery.",
-        "Finish with coriander and serve with warm flatbread."
+        "If you are having flatbread with it, warm the rotis 20 seconds a side in a dry pan, until they puff slightly and smell toasted.",
+        "Finish with coriander and serve."
       ],
       "totalMinutes": 18,
       "activeMinutes": 16,
@@ -217,14 +218,16 @@
         { "quantity": 0.75, "unit": "tsp", "item": "salt" },
         { "quantity": 3, "unit": "tbsp", "item": "olive oil" },
         { "quantity": 3, "unit": "tbsp", "item": "hummus", "optional": true },
-        { "quantity": 2, "unit": "piece", "item": "pita breads", "optional": true }
+        { "quantity": 2, "unit": "piece", "item": "pita breads", "optional": true },
+        { "quantity": 2, "unit": "cup", "item": "salad leaves or shredded lettuce", "optional": true }
       ],
       "steps": [
         "Dry the chickpeas properly in a tea towel. Wet chickpeas make a paste that will not hold.",
-        "Pulse the chickpeas, herbs, garlic, flour, spices, and salt in a food processor to a coarse, crumbly mixture that holds when squeezed — stop before it becomes smooth. With no processor, mash by hand and chop the herbs finely.",
+        "Pulse the chickpeas, the parsley, garlic, flour, cumin, ground coriander, and salt in a food processor to a coarse, crumbly mixture that holds when squeezed — stop before it becomes smooth. With no processor, mash by hand and chop the herbs finely.",
         "Shape into 6 flat patties about 1.5 cm thick.",
         "Heat the oil in a frying pan over medium heat and fry 3-4 minutes per side, until deeply golden and firm.",
-        "Serve in warm pita with hummus and salad."
+        "Warm the pita breads 20 seconds a side in a dry pan while the patties rest, so they open without tearing.",
+        "Fill each one with the patties, the hummus, and the salad leaves."
       ],
       "totalMinutes": 25,
       "activeMinutes": 20,
@@ -283,7 +286,7 @@
       ],
       "storage": "Eat straight away; opened hummus keeps 3 days.",
       "categories": ["fast_casual", "grocery", "delivery"],
-      "cravings": ["mediterranean", "middle-eastern", "convenience", "late-night"],
+      "cravings": ["mediterranean", "middle-eastern", "convenience"],
       "region": "middle-eastern",
       "noCook": true,
       "microwave": false,

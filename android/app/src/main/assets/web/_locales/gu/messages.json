@@ -143,26 +143,8 @@
   "warningPageTitle": {
     "message": "શ્વાસ લો"
   },
-  "warningEyebrow": {
-    "message": "FitShield તપાસો"
-  },
-  "warningTitle": {
-    "message": "એક મિનિટ લો."
-  },
-  "warningIntro": {
-    "message": "તમે ઓર્ડર કરો તે પહેલાં તપાસો. ભૂખ, સગવડ, તણાવ અને આદત ક્ષણમાં સમાન લાગે છે."
-  },
-  "warningTriggeredBy": {
-    "message": "તમે $1 થી ઓર્ડર આપવાના છો."
-  },
   "warningBackButton": {
     "message": "પાછા જાઓ"
-  },
-  "warningLockedButton": {
-    "message": "તાળું મારેલું"
-  },
-  "warningContinueButton": {
-    "message": "ચાલુ રાખો"
   },
   "warningErrorHint": {
     "message": "સાઇટ ખોલતી વખતે કંઈક ખોટું થયું. કૃપા કરીને ફરી પ્રયાસ કરો."
@@ -217,15 +199,6 @@
   },
   "customToggleTitle": {
     "message": "કસ્ટમ URL અવરોધિત કરવાનું સક્ષમ કરો"
-  },
-  "allBlocklistsHeading": {
-    "message": "All Blocklists"
-  },
-  "allBlocklistsHint": {
-    "message": "Turn every built-in group on or off at once."
-  },
-  "allBlocklistsToggleTitle": {
-    "message": "Enable or disable all blocklists"
   },
   "addCustomUrlLabel": {
     "message": "કસ્ટમ અવરોધિત URL ઉમેરો"
@@ -668,9 +641,6 @@
   "backupHeading": {
     "message": "Backup & Restore"
   },
-  "backupIntro": {
-    "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
-  },
   "exportSettingsButton": {
     "message": "ડેટા અને સેટિંગ્સ નિકાસ કરો"
   },
@@ -679,15 +649,6 @@
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
-  },
-  "importSuccessNotice": {
-    "message": "Restored $1 settings from the backup."
-  },
-  "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
-  },
-  "blockReasonHeading": {
-    "message": "તમે આ કેમ જુઓ છો"
   },
   "blockReasonDomain": {
     "message": "સાઇટ"
@@ -895,8 +856,5 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
-  },
-  "learnMoreLink": {
-    "message": "Visit fitshield.net"
   }
 }
