@@ -488,3 +488,145 @@ test("craving derivation uses the vocabulary, not word matching", async () => {
 
   assert.deepEqual(derived.primary, []);
 });
+
+// ---------------------------------------------------------------------------
+// Cravings the ranking used to get wrong
+//
+// Each of these reproduces a real blocked page — the brand's own category and
+// specialties, copied from the blocklists — and asserts the answer a person
+// would expect. They failed before the catalog and taxonomy were corrected.
+// ---------------------------------------------------------------------------
+
+const FIVE_GUYS = site({
+  key: "fast-food-fiveguys-com",
+  domain: "fiveguys.com",
+  category: "burger",
+  specialties: ["burgers", "fries", "milkshakes", "hot dogs"]
+});
+const SALAD_SHOP = site({
+  key: "fast-food-saladchain-com",
+  domain: "saladchain.com",
+  category: "fast_casual",
+  specialties: ["salads", "salad bar"]
+});
+const WINGS = site({
+  key: "fast-food-buffalowildwings-com",
+  domain: "buffalowildwings.com",
+  category: "chicken",
+  specialties: ["wings", "burgers", "sports bar"]
+});
+const BUBBLE_TEA = site({
+  key: "fast-food-gongcha-ca",
+  domain: "gongcha.ca",
+  category: "smoothie",
+  specialties: ["bubble tea", "milk tea", "fruit tea"]
+});
+
+// "late-night" sat on more than a third of the catalog AND was reachable as a
+// PRIMARY craving through "hot dogs", "snacks" and "chips" — so it scored the
+// full 100 of a real specialty match and shoved correct answers down the list.
+test("late-night is never reachable as a primary craving", async () => {
+  const data = await catalog();
+  const viaSpecialty = Object.entries(data.taxonomy.specialtyCravings)
+    .filter(([, cravings]) => cravings.includes("late-night"))
+    .map(([specialty]) => specialty);
+
+  assert.deepEqual(
+    viaSpecialty,
+    [],
+    `these specialties resolve straight to the late-night wildcard: ${viaSpecialty.join(", ")}`
+  );
+});
+
+test("a burger chain that also sells hot dogs is answered with burgers and fries", async () => {
+  await catalog();
+  const best = top(recipes.rankAlternatives(FIVE_GUYS, {}), 3);
+  const sold = ["burger", "fries", "sandwich", "sweet-drink", "ice-cream"];
+
+  best.forEach((entry) => {
+    assert.ok(
+      entry.cravings.some((craving) => sold.includes(craving)),
+      `${entry.id} (${entry.cravings.join(", ")}) is not something this shop sells`
+    );
+  });
+
+  assert.ok(
+    best[0].cravings.includes("burger") || best[0].cravings.includes("fries"),
+    `the best answer to a burger shop should be a burger or fries, got ${best[0].id}`
+  );
+});
+
+test("a salad shop is answered with salads", async () => {
+  await catalog();
+  const best = top(recipes.rankAlternatives(SALAD_SHOP, {}), 3);
+
+  best.forEach((entry) => {
+    assert.ok(
+      entry.cravings.includes("salad"),
+      `${entry.id} (${entry.cravings.join(", ")}) is not a salad — the salad group must not be padded`
+    );
+  });
+});
+
+// The block page sets filter "fastest" (15 minutes) for the "I'm hungry now"
+// intent. Every wings answer used to be a 26-32 minute air-fryer recipe, so that
+// path silently swapped the craving for a chicken wrap and a bag of fries.
+test("the 'I am hungry now' path can still answer a wings craving", async () => {
+  await catalog();
+  const result = recipes.rankAlternatives(WINGS, {}, { filter: "fastest", intent: "hungry" });
+
+  assert.deepEqual(result.relaxed, [], "the fastest filter should not need relaxing on a wings page");
+  assert.ok(
+    top(result, 3).some((entry) => entry.cravings.includes("wings")),
+    `no wings answer in the fastest three: ${top(result, 3).map((entry) => entry.id).join(", ")}`
+  );
+});
+
+// A recipe that declares ["air fryer", "oven"] to mean "either" is read as
+// "both", so it disappeared for everyone who owned one of them — including the
+// oven-only user the oven instructions were written for.
+test("an oven-only kitchen is offered the oven answer instead of being filtered out of it", async () => {
+  await catalog();
+  const result = recipes.rankAlternatives(BURGER, { equipment: ["oven"] });
+
+  assert.deepEqual(result.relaxed, [], "an oven kitchen should not need the equipment filter relaxed");
+  assert.ok(
+    top(result, 3).some((entry) => entry.cravings.includes("fries")),
+    `an oven user blocked on a fries page got: ${top(result, 3).map((entry) => entry.id).join(", ")}`
+  );
+
+  result.matches.forEach((match) => {
+    assert.ok(
+      recipes.equipmentAvailable(match.entry, ["oven"]),
+      `${match.entry.id} needs ${match.entry.equipment.join(", ")}`
+    );
+  });
+});
+
+test("a bubble-tea shop is not answered with a chocolate coffee drink", async () => {
+  await catalog();
+  const best = top(recipes.rankAlternatives(BUBBLE_TEA, {}), 3);
+  const hasCoffee = (entry) => (entry.ingredients || []).some((ingredient) => /coffee|espresso/i.test(ingredient.item));
+
+  assert.ok(!hasCoffee(best[0]), `a boba craving was answered with ${best[0].id}, which is coffee`);
+  assert.ok(
+    best.some((entry) => (entry.ingredients || []).some((ingredient) => /\btea\b|teabags?|matcha|chai/i.test(ingredient.item))),
+    `nothing tea-based in the top three: ${best.map((entry) => entry.id).join(", ")}`
+  );
+});
+
+test("a coffee shop can be answered with a hot drink, not only an iced one", async () => {
+  await catalog();
+  const result = recipes.rankAlternatives(COFFEE, {});
+  const iced = (entry) => (entry.ingredients || []).some((ingredient) => /\bice\b/i.test(ingredient.item));
+
+  const hot = result.matches
+    .slice(0, 6)
+    .map((match) => match.entry)
+    .filter((entry) => !iced(entry) && /steaming|simmer|scalded/i.test((entry.steps || []).join(" ")));
+
+  assert.ok(
+    hot.length > 0,
+    `every answer a coffee shop gets is cold: ${top(result, 6).map((entry) => entry.id).join(", ")}`
+  );
+});

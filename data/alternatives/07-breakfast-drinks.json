@@ -95,7 +95,7 @@
       "description": "The coffee-shop drink, at home, for the price of the beans.",
       "servings": 1,
       "ingredients": [
-        { "quantity": 60, "unit": "ml", "item": "strong brewed coffee", "note": "cooled, or 2 shots of espresso" },
+        { "quantity": 60, "unit": "ml", "item": "strong brewed coffee", "note": "hot or freshly brewed, or 2 shots of espresso — step 2 cools it" },
         { "quantity": 180, "unit": "ml", "item": "milk or plant milk", "note": "cold" },
         { "quantity": 1, "unit": "cup", "item": "ice" },
         { "quantity": 2, "unit": "tsp", "item": "sugar or syrup", "optional": true },

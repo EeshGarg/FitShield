@@ -341,6 +341,249 @@ test("resetting statistics clears the object the panel actually reads", async ()
 });
 
 // ===========================================================================
+// Backup & restore, from the page
+//
+// Three separate defects lived in this handler:
+//   - every import failure was reported as "That file isn't a valid FitShield
+//     backup", including a file that IS a valid backup and simply newer;
+//   - a failed EXPORT reported the same thing, which is nonsense when no file
+//     was chosen and none was written;
+//   - import was the one destructive action in Settings with no confirmation,
+//     even though it overwrites live settings AND clears an active pass and any
+//     unanswered "did you make it?" prompt.
+// ===========================================================================
+
+// Drive the page's own file-picker handler with a chosen file's text, and
+// answer the confirmation modal the way `answer` says.
+async function importFile(doc, store, text, answer = true) {
+  const input = doc.getById("importSettingsInput");
+  input.files = [{ text: async () => text }];
+
+  const done = Promise.all((input._listeners.change || []).map((fn) => fn({})));
+
+  // The modal is shown synchronously by confirmAction; click through it once it
+  // appears. If it never appears, this resolves without clicking and the test
+  // that requires it will say so.
+  const overlay = doc.getById("confirmOverlay");
+  await waitFor(() => overlay.hidden === false, 300);
+
+  if (overlay.hidden === false) {
+    const button = doc.getById(answer ? "confirmOk" : "confirmCancel");
+    (button._listeners.click || []).forEach((fn) => fn({}));
+  }
+
+  await done;
+  return doc.getById("backupNotice").textContent;
+}
+
+function validBackup(settings) {
+  return JSON.stringify({ _type: "fitshield-settings-backup", schema: 2, settings });
+}
+
+test("an import states the real reason it failed, not one generic message", async () => {
+  const store = { uiLanguage: "en" };
+  const doc = renderSettings(store, undefined);
+  assert.ok(await waitFor(() => doc.getById("protectionStatusGrid").childElementCount > 0), "settings rendered");
+
+  // A backup written by a NEWER FitShield is a perfectly valid FitShield
+  // backup. Telling the user it is not invites them to delete their only copy.
+  const newer = await importFile(
+    doc,
+    store,
+    JSON.stringify({ _type: "fitshield-settings-backup", schema: 99, settings: { enabled: true } })
+  );
+
+  assert.match(newer, /newer version of FitShield/i, `got "${newer}"`);
+  assert.ok(!/isn't a valid FitShield backup/i.test(newer), "a newer backup must not be called invalid");
+
+  const notJson = await importFile(doc, store, "{not json");
+  assert.match(notJson, /JSON/i, `got "${notJson}"`);
+
+  const empty = await importFile(doc, store, "");
+  assert.match(empty, /empty/i, `got "${empty}"`);
+
+  // Each reason must be its own sentence — the whole defect was one message
+  // standing in for all of them.
+  assert.equal(new Set([newer, notJson, empty]).size, 3, "three different failures, three different messages");
+});
+
+test("nothing is written when a chosen file is refused", async () => {
+  const store = { uiLanguage: "en", timerSeconds: 30, passes: [{ id: "keep-me" }] };
+  const doc = renderSettings(store, undefined);
+  assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
+
+  await importFile(doc, store, "{not json");
+
+  assert.equal(store.timerSeconds, 30, "a rejected file must not change a setting");
+  assert.deepEqual(store.passes, [{ id: "keep-me" }], "and must not clear install-local state");
+});
+
+test("an import asks before it overwrites, and says what it will clear", async () => {
+  const store = {
+    uiLanguage: "en",
+    timerSeconds: 30,
+    passes: [{ id: "active", expiresAt: Date.now() + 60000 }],
+    pendingAlternatives: [{ id: "did-you-make-it" }]
+  };
+  const doc = renderSettings(store, undefined);
+  assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
+
+  const input = doc.getById("importSettingsInput");
+  input.files = [{ text: async () => validBackup({ timerSeconds: 90, enabled: true }) }];
+
+  const done = Promise.all((input._listeners.change || []).map((fn) => fn({})));
+  const overlay = doc.getById("confirmOverlay");
+
+  assert.ok(await waitFor(() => overlay.hidden === false, 500), "import must confirm, like every reset on this page");
+
+  const message = doc.getById("confirmMessage").textContent;
+  assert.match(message, /pass/i, "the confirmation must say an active pass is cleared");
+  assert.ok(/did you make it/i.test(message), "and that unanswered prompts are cleared");
+
+  // Cancel: nothing at all may have happened.
+  (doc.getById("confirmCancel")._listeners.click || []).forEach((fn) => fn({}));
+  await done;
+
+  assert.equal(store.timerSeconds, 30, "cancelling must not apply the file");
+  assert.deepEqual(store.pendingAlternatives, [{ id: "did-you-make-it" }], "and must not clear anything");
+  assert.match(doc.getById("backupNotice").textContent, /cancel/i);
+});
+
+test("confirming the import applies it and reports the count the FILE carried", async () => {
+  const store = { uiLanguage: "en", timerSeconds: 30, passes: [{ id: "active" }] };
+  const doc = renderSettings(store, undefined);
+  assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
+
+  // Six settings in the file. The notice used to say seven, because the
+  // importer's own schema marker was counted as one of "your settings".
+  const notice = await importFile(
+    doc,
+    store,
+    validBackup({
+      enabled: true,
+      timerSeconds: 90,
+      deliverySitesEnabled: true,
+      fastFoodSitesEnabled: false,
+      theme: { accent: "#7ef0a8" },
+      uiLanguage: "de"
+    })
+  );
+
+  await waitFor(() => store.timerSeconds === 90);
+
+  assert.equal(store.timerSeconds, 90, "the file was applied");
+  assert.match(notice, /\b6\b/, `the notice should say six settings, got "${notice}"`);
+  assert.ok(!/\b7\b/.test(notice), "and must not count the internal schema marker");
+});
+
+test("a failed export does not tell the user their file is invalid", async () => {
+  const store = { uiLanguage: "en" };
+  const doc = renderSettings(store, undefined);
+  assert.ok(await waitFor(() => doc.getById("protectionStatusGrid").childElementCount > 0), "settings rendered");
+
+  // downloadBackup needs Blob and URL.createObjectURL, neither of which exists
+  // in this sandbox — so clicking export really does fail here, which is
+  // exactly the path being asserted.
+  const button = doc.getById("exportSettings");
+  await Promise.all((button._listeners.click || []).map((fn) => fn({})));
+  await waitFor(() => doc.getById("backupNotice").textContent !== "");
+
+  const notice = doc.getById("backupNotice").textContent;
+
+  assert.notEqual(notice, "", "a failed export has to say something");
+  assert.ok(
+    !/isn't a valid FitShield backup/i.test(notice),
+    `export reported an import error — there is no file at that point. Got "${notice}"`
+  );
+  assert.ok(!/exportErrorNotice/.test(notice), "and the raw message key must never reach the screen");
+});
+
+// ===========================================================================
+// The simple schedule summary
+//
+// "…every day" was appended when scheduleStart === scheduleEnd, which is the
+// opposite of what it means: equal times describe a window covering the whole 24
+// hours, not a set of days. The flat pair can only ever express ONE window
+// across ALL SEVEN days, so whenever it can represent the schedule at all, it is
+// by definition every day.
+// ===========================================================================
+
+test("the schedule summary says 'every day' when the window is every day", async () => {
+  const core = require("../extension/fitshield-core.js");
+
+  const store = {
+    uiLanguage: "en",
+    schedule: { mode: "windows", windows: [{ days: core.ALL_DAYS.slice(), start: "18:00", end: "23:00" }], until: null }
+  };
+
+  const doc = renderSettings(store, { ok: true, ...core.readSettings(store) });
+  const summary = () => doc.getById("scheduleSummary").textContent;
+
+  assert.ok(await waitFor(() => /\d/.test(summary())), `the summary should render a time range, got "${summary()}"`);
+  assert.match(summary(), /every day/i, `a seven-day window is every day, got "${summary()}"`);
+});
+
+test("a schedule the two inputs cannot express does not claim to be every day", async () => {
+  const core = require("../extension/fitshield-core.js");
+
+  // "Workday lunch" is weekdays only — the flat pair cannot hold it, so the
+  // times shown are placeholders and the advanced note below explains it.
+  const schedule = core.normalizeSchedule(core.schedulePresetValues("workdayLunch"));
+  const store = { uiLanguage: "en", schedule };
+  const settings = core.readSettings(store);
+
+  assert.equal(settings.scheduleSimple, false, "precondition: this schedule is not flat-expressible");
+
+  const doc = renderSettings(store, settings);
+  assert.ok(await waitFor(() => doc.getById("protectionStatusGrid").childElementCount > 0), "settings rendered");
+
+  assert.ok(
+    !/every day/i.test(doc.getById("scheduleSummary").textContent),
+    "a weekdays-only schedule must never be summarised as every day"
+  );
+});
+
+// ===========================================================================
+// Friction profile
+//
+// Both onboarding and this page print: "You can change any value afterwards —
+// doing so simply moves you to Custom." Nothing wrote it.
+// ===========================================================================
+
+test("changing the timer moves the stored friction profile to Custom", async () => {
+  const core = require("../extension/fitshield-core.js");
+
+  const store = { uiLanguage: "en", ...core.frictionProfileValues("standard") };
+  const doc = renderSettings(store, { ok: true, ...core.readSettings(store) });
+  assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "60s"), "settings rendered");
+
+  assert.equal(store.frictionProfile, "standard", "precondition: a fresh profile is Standard");
+
+  const field = doc.getById("timerSeconds");
+  field.value = "300";
+  await Promise.all((field._listeners.change || []).map((fn) => fn({})));
+  await waitFor(() => store.timerSeconds === 300);
+
+  assert.equal(store.timerSeconds, 300);
+  assert.equal(store.frictionProfile, "custom", "the label must follow the value, as the page promises");
+});
+
+test("setting a value back to a preset's own number restores that preset's name", async () => {
+  const core = require("../extension/fitshield-core.js");
+
+  const store = { uiLanguage: "en", ...core.frictionProfileValues("standard"), timerSeconds: 300, frictionProfile: "custom" };
+  const doc = renderSettings(store, { ok: true, ...core.readSettings(store) });
+  assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "300s"), "settings rendered");
+
+  const field = doc.getById("timerSeconds");
+  field.value = String(core.FRICTION_PROFILES.standard.timerSeconds);
+  await Promise.all((field._listeners.change || []).map((fn) => fn({})));
+  await waitFor(() => store.frictionProfile === "standard");
+
+  assert.equal(store.frictionProfile, "standard", "moving back onto a preset must not strand the profile on Custom");
+});
+
+// ===========================================================================
 // Compact DOM + HTML parser — enough for the settings page scripts. Superset of
 // the block-page test's DOM (adds querySelector, input .value, and document
 // fragments, which settings.js uses).
@@ -429,6 +672,10 @@ class El {
   removeAttribute(n) { delete this.attributes[n]; }
   addEventListener(type, fn) { (this._listeners[type] = this._listeners[type] || []).push(fn); }
   removeEventListener(type, fn) { this._listeners[type] = (this._listeners[type] || []).filter((f) => f !== fn); }
+  // The confirmation modal moves focus to its OK button when it opens; without
+  // this every path through confirmAction threw instead of showing the dialog.
+  focus() {}
+  blur() {}
   get firstChild() { return this.children[0] || null; }
   get childElementCount() { return this.children.filter((c) => c instanceof El).length; }
   set textContent(v) { this.children = []; this._text = String(v); }
@@ -512,4 +759,25 @@ test("resetting blocking settings clears everything that governs blocking", () =
   ["stats", "customAlternatives", "pantry", "equipment", "theme"].forEach((key) => {
     assert.ok(!keys.includes(key), `${key} is not a blocking setting and must survive`);
   });
+
+  // Every key it clears must be one the extension actually owns. This is the
+  // same drift check the statistics reset already had, and it is what catches a
+  // retired key left behind: `settingsDelaySeconds` was written by the Strict
+  // profile, documented, and unit-tested, while nothing read it. It has been
+  // removed from the runtime, and this fails if a list still names it.
+  const backupSource = fs.readFileSync(srcPath("backup.js"), "utf8");
+  const listed = (name) => {
+    const block = new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`).exec(backupSource);
+    assert.ok(block, `${name} should be a literal list in backup.js`);
+    return [...block[1].replace(/\/\/[^\n]*/g, "").matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+  };
+
+  const known = new Set([...listed("DURABLE_KEYS"), ...listed("EXCLUDED_KEYS")]);
+
+  assert.deepEqual(
+    keys.filter((key) => !known.has(key)),
+    [],
+    "reset blocking clears keys the extension does not own"
+  );
+  assert.ok(!known.has("settingsDelaySeconds"), "a retired key must not come back through a backup either");
 });

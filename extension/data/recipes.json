@@ -679,7 +679,7 @@
       "id": "naan-pizza",
       "kind": "recipe",
       "title": "Naan Pizza",
-      "description": "A personal pizza on naan with a properly crisp base — six minutes of work, and twenty-five from a cold oven.",
+      "description": "A personal pizza on naan with a properly crisp base — twenty-five minutes from a cold oven, six of them hands-on.",
       "servings": 2,
       "ingredients": [
         {
@@ -2792,7 +2792,7 @@
       "id": "quick-chana-masala",
       "kind": "recipe",
       "title": "Quick-Style Chana Masala",
-      "description": "A simplified weeknight version of the chickpea curry — twenty minutes from a tin, not a takeaway.",
+      "description": "A simplified weeknight version of the chickpea curry — twenty-five minutes from a tin, not a takeaway.",
       "servings": 2,
       "ingredients": [
         {
@@ -4102,7 +4102,7 @@
           "quantity": 60,
           "unit": "ml",
           "item": "strong brewed coffee",
-          "note": "cooled, or 2 shots of espresso"
+          "note": "hot or freshly brewed, or 2 shots of espresso — step 2 cools it"
         },
         {
           "quantity": 180,
@@ -5939,7 +5939,7 @@
       "id": "microwave-rice-beans-salsa",
       "kind": "quick",
       "title": "Microwave Rice, Beans, and Salsa",
-      "description": "A hot, filling bowl in four minutes using only a microwave and three tins or pouches.",
+      "description": "A hot, filling bowl in five minutes using only a microwave and three tins or pouches.",
       "servings": 1,
       "ingredients": [
         {
@@ -6094,7 +6094,7 @@
       "id": "microwave-nachos",
       "kind": "quick",
       "title": "Microwave Nachos",
-      "description": "The late-night one. Three minutes, one plate, no oven.",
+      "description": "The late-night one. Four minutes, one plate, no oven.",
       "servings": 1,
       "ingredients": [
         {

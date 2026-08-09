@@ -3,7 +3,7 @@
     {
       "id": "naan-pizza",
       "title": "Naan Pizza",
-      "description": "A personal pizza on naan with a properly crisp base — six minutes of work, and twenty-five from a cold oven.",
+      "description": "A personal pizza on naan with a properly crisp base — twenty-five minutes from a cold oven, six of them hands-on.",
       "servings": 2,
       "ingredients": [
         { "quantity": 2, "unit": "piece", "item": "naan breads", "substituteGroup": "flatbread" },

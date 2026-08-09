@@ -2224,7 +2224,9 @@ const BLOCKING_KEYS = [
   "repeatFrictionEnabled",
   "repeatExtraSeconds",
   "repeatWindowMinutes",
-  "settingsDelaySeconds",
+  // `settingsDelaySeconds` was here. It has been retired from the runtime — it
+  // was written, documented and tested, and read by nothing — so a reset must
+  // not name a key the extension no longer owns.
   "repeatHistory",
   "enabledCountries",
   "enabledCategories",

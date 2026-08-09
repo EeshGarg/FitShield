@@ -870,6 +870,94 @@ test("a quick-access chip toggle names its country or category", () => {
 });
 
 // ---------------------------------------------------------------------------
+// 3b. Keyboard focus stays visible
+// ---------------------------------------------------------------------------
+
+// The regression: a component rule wrote `outline: none` into a selector list it
+// shared with :focus-visible, and won on specificity. The caret then vanished at
+// the theme picker and the donation link on the page that owns Factory reset.
+// A hover rule may clear the outline; a :focus-visible rule may never.
+["popup.html", "settings.html", "welcome.html", "whats-new.html", "warning.html"].forEach((page) => {
+  test(`${page}: no :focus-visible rule removes its own outline`, () => {
+    const offenders = stylesheet(page)
+      .filter((rule) => splitTop(rule.prelude, ",").some((selector) => selector.includes(":focus-visible")))
+      .filter((rule) => /^(none|0)\b/.test(rule.decls.outline || ""))
+      .map((rule) => rule.prelude);
+
+    assert.deepEqual(offenders, [], `these leave a keyboard user with no caret: ${offenders.join(", ")}`);
+  });
+});
+
+// Any control whose native outline the sheet resets has to get one back.
+test("settings.html restores a focus ring on every control it resets", () => {
+  const rules = stylesheet("settings.html");
+
+  // `input:focus-visible` really does cover `input[type="text"]`, so compare on
+  // the base selector: an attribute-qualified selector is a subset of it.
+  const base = (selector) => selector.replace(/\[[^\]]*\]/g, "").trim();
+
+  const reset = new Set();
+  rules.forEach((rule) => {
+    if (!/^(none|0)\b/.test(rule.decls.outline || "")) { return; }
+    splitTop(rule.prelude, ",").forEach((selector) => {
+      if (selector.includes(":hover") || selector.includes(":focus")) { return; }
+      reset.add(base(selector));
+    });
+  });
+
+  const restored = new Set();
+  rules.forEach((rule) => {
+    if (!rule.decls.outline || /^(none|0)\b/.test(rule.decls.outline)) { return; }
+    splitTop(rule.prelude, ",").forEach((selector) => {
+      if (!selector.includes(":focus-visible")) { return; }
+      restored.add(base(selector.replace(":focus-visible", "")));
+    });
+  });
+
+  assert.ok(reset.size > 0, "expected the sheet to reset some native outlines");
+
+  const orphans = [...reset].filter((selector) => !restored.has(selector));
+  assert.deepEqual(
+    orphans,
+    [],
+    `these clear the native outline and never draw one: ${orphans.join(", ")}`
+  );
+});
+
+// ---------------------------------------------------------------------------
+// 3c. The popup stays reachable at high zoom
+// ---------------------------------------------------------------------------
+
+// Chrome caps a browser-action popup at 800px and renders it at browser zoom, so
+// a hard `min-width` floor pushes the right-hand column — master switch, three
+// blocklist switches, Settings — off the edge above ~155% zoom. With
+// `overflow-x: hidden` there was then no scrollbar to reach it with. Low-vision
+// users are exactly the population running that zoom level.
+test("the popup shrinks to the viewport and never hides horizontal overflow", () => {
+  const rules = stylesheet("popup.html");
+
+  const floor = declared(rules, "body", "min-width");
+  assert.equal(floor, null, `the popup must not have a hard width floor (found min-width: ${floor})`);
+
+  const width = required(rules, "body", "width", "popup.html");
+  assert.match(width, /min\(\s*var\(--popup-width\)\s*,\s*100vw\s*\)/, "the popup width must yield to the viewport");
+
+  assert.notEqual(
+    declared(rules, "body", "overflow-x"),
+    "hidden",
+    "clipped controls must stay scrollable"
+  );
+
+  assert.notEqual(
+    declared(rules, ".button", "white-space"),
+    "nowrap",
+    "a long localized button label must wrap rather than widen the row"
+  );
+
+  assert.equal(declared(rules, ".row", "flex-wrap"), "wrap", "rows must reflow instead of overflowing");
+});
+
+// ---------------------------------------------------------------------------
 // 4. Heading levels
 // ---------------------------------------------------------------------------
 

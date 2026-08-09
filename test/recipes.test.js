@@ -473,3 +473,316 @@ test("the alternatives audit distinguishes warnings from errors", () => {
   assert.ok(Array.isArray(reporter.warnings));
   assert.ok(reporter.notes.length > 0, "the audit produces a human-readable summary");
 });
+
+// ---------------------------------------------------------------------------
+// Honesty of the catalog's own claims
+//
+// Every test below exists because the catalog once failed it. They are grouped
+// here rather than spread through the file so that the standard they encode —
+// a tag, a time, and a sentence on a card are promises to the user — is
+// readable in one place.
+// ---------------------------------------------------------------------------
+
+// A salad group is easy to inflate: tag anything cold and the headline count
+// doubles. It had 7 entries of which 2 were salads; a Sweetgreen interruption
+// answered "cold sesame noodles". A salad-tagged entry must therefore both call
+// itself a salad and be built on something you would find in one.
+test("every salad-tagged entry is really a salad", () => {
+  const RAW_VEGETABLE = /\b(salad|lettuce|leaves|rocket|romaine|cos|spinach|cabbage|cucumber|tomato|tomatoes|greens)\b/i;
+  const salads = ALL.filter((entry) => entry.cravings.includes("salad"));
+  const problems = [];
+
+  salads.forEach((entry) => {
+    if (!/salad/i.test(`${entry.title} ${entry.description}`)) {
+      problems.push(`${entry.id}: tagged salad but never calls itself one`);
+    }
+
+    const hasVegetable = entry.ingredients
+      .filter((ingredient) => !ingredient.optional)
+      .some((ingredient) => RAW_VEGETABLE.test(ingredient.item));
+
+    if (!hasVegetable) {
+      problems.push(`${entry.id}: tagged salad but no required ingredient is a leaf or raw vegetable`);
+    }
+  });
+
+  assert.deepEqual(problems, [], `padded salad group:\n  ${problems.join("\n  ")}`);
+  assert.ok(salads.length >= 4, `only ${salads.length} real salads — the group needs genuine depth, not tags`);
+});
+
+// "late-night" was on 37% of the catalog. A tag that broad is not a craving, it
+// is noise, and because a primary craving hit scores the same as a real
+// specialty match it displaced correct answers. Two rules keep it honest: it
+// only goes on things that are actually fast, and it stays a minority tag.
+test("late-night is a narrow tag, not a wildcard over the catalog", () => {
+  const lateNight = ALL.filter((entry) => entry.cravings.includes("late-night"));
+  const slow = lateNight.filter((entry) => entry.totalMinutes > 15).map((entry) => `${entry.id} (${entry.totalMinutes} min)`);
+
+  assert.deepEqual(slow, [], `a 26-minute recipe is not a late-night answer:\n  ${slow.join("\n  ")}`);
+  assert.ok(
+    lateNight.length / ALL.length <= 0.22,
+    `late-night is on ${lateNight.length}/${ALL.length} entries — that is a wildcard, not a craving`
+  );
+});
+
+// A vegetarian chip on "Frozen Pizza, Made Better" is a promise about a box the
+// recipe cannot see inside. Claiming a diet for a generic packaged product is
+// allowed only when the entry tells the reader to check it.
+test("a diet claimed over a generic packaged product carries a check-the-label caveat", () => {
+  const PACKAGED = /\b(frozen pizza|instant noodles|canned soup|frozen dumplings|dumpling wrappers|curry paste|pesto)\b/i;
+  const problems = [];
+
+  ALL.filter((entry) => entry.diet !== "omnivore").forEach((entry) => {
+    entry.ingredients
+      .filter((ingredient) => !ingredient.optional && PACKAGED.test(ingredient.item))
+      .forEach((ingredient) => {
+        const stated = `${ingredient.note || ""} ${JSON.stringify(entry.substitutions)}`;
+
+        if (!/check the (label|packet|box|sachet)/i.test(stated)) {
+          problems.push(`${entry.id}: "${ingredient.item}" is labelled ${entry.diet} with no check-the-label note`);
+        }
+      });
+  });
+
+  assert.deepEqual(problems, [], `unverifiable diet claims:\n  ${problems.join("\n  ")}`);
+});
+
+// totalMinutes is "elapsed time from starting to eating" — the number the block
+// page leads with and the whole basis of the "Fastest" filter. It once excluded
+// the 10-15 minutes an oven takes to reach 230 C and the 6-8 minutes a pan of
+// water takes to boil, so a "12 min" pasta really took twenty.
+test("elapsed time includes heating the oven and boiling the water", () => {
+  const OVEN_PREHEAT = /heat the oven/i;
+  const POT_OF_WATER = /\bboil the (spaghetti|pasta|noodles)\b/i;
+  const problems = [];
+
+  ALL.forEach((entry) => {
+    const steps = entry.steps.join(" ");
+
+    // A domestic oven needs 10-15 minutes to come up to a pizza temperature, so
+    // nothing that starts by heating one can honestly claim under twenty.
+    if (OVEN_PREHEAT.test(steps) && entry.totalMinutes < 20) {
+      problems.push(`${entry.id}: heats an oven from cold but claims ${entry.totalMinutes} min`);
+    }
+
+    // A full pan of water is 6-8 minutes before the pasta even goes in.
+    if (POT_OF_WATER.test(steps) && entry.totalMinutes < 18) {
+      problems.push(`${entry.id}: boils a pan of water but claims ${entry.totalMinutes} min`);
+    }
+  });
+
+  assert.deepEqual(problems, [], `times that exclude the waiting:\n  ${problems.join("\n  ")}`);
+});
+
+// The description is the first sentence of the card and the ingredient list is
+// printed directly beneath it. "Two frozen bananas… One ingredient" above a list
+// starting "3 bananas" is a small lie in exactly the place this product needs to
+// be believed.
+test("a number stated in a description matches the data beneath it", () => {
+  const WORDS = {
+    one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
+    eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, twenty: 20,
+    "twenty-five": 25, thirty: 30, forty: 40, sixty: 60, ninety: 90
+  };
+  const value = (word) => (WORDS[word.toLowerCase()] !== undefined ? WORDS[word.toLowerCase()] : (/^\d+$/.test(word) ? Number(word) : null));
+  const problems = [];
+
+  ALL.forEach((entry) => {
+    // Only an explicit "N ingredients" claim is checked. "a sauce from four
+    // things" is prose about part of the dish, not a count of the whole list.
+    const counted = entry.description.match(/([A-Za-z-]+|\d+)\s+(?:pantry\s+)?ingredients?\b/i);
+
+    if (counted) {
+      const claimed = value(counted[1]);
+      const required = entry.ingredients.filter((ingredient) => !ingredient.optional).length;
+
+      if (claimed !== null && claimed !== required) {
+        problems.push(`${entry.id}: description says "${counted[0]}" over a list of ${required}`);
+      }
+    }
+
+    const times = entry.description.matchAll(/([A-Za-z-]+|\d+)[\s-](minutes?|seconds?)\b/gi);
+
+    for (const match of times) {
+      const claimed = value(match[1]);
+
+      if (claimed === null) {
+        continue;
+      }
+
+      const minutes = /second/i.test(match[2]) ? claimed / 60 : claimed;
+      // For a make-ahead entry the honest headline is the hands-on work, not
+      // the four hours it spends in the fridge.
+      const makeAhead = entry.totalMinutes - entry.activeMinutes > 60;
+      const limit = makeAhead ? entry.activeMinutes : entry.totalMinutes;
+
+      if (minutes < limit) {
+        problems.push(`${entry.id}: description promises "${match[0]}" for a ${limit}-minute job`);
+      }
+    }
+  });
+
+  assert.deepEqual(problems, [], `descriptions that contradict the data:\n  ${problems.join("\n  ")}`);
+});
+
+// The blended mocha listed its coffee as "cooled" and then told the cook to
+// whisk cocoa "into the warm coffee" — a two-line contradiction on a five-minute
+// recipe, and the recipe itself explains that getting it wrong ruins the drink.
+test("no ingredient note contradicts the step that uses it", () => {
+  const problems = [];
+
+  ALL.forEach((entry) => {
+    entry.ingredients.forEach((ingredient) => {
+      if (!/\bcool(ed)?\b|\bcold\b/i.test(ingredient.note || "")) {
+        return;
+      }
+
+      const noun = (ingredient.item.split(/[^a-z]+/i).filter((word) => word.length > 3).pop() || "").toLowerCase();
+
+      if (!noun) {
+        return;
+      }
+
+      const wantsItHot = new RegExp(`\\b(warm|hot)\\s+(?:\\w+\\s+){0,2}${noun}\\b`, "i");
+
+      entry.steps.forEach((step, index) => {
+        if (wantsItHot.test(step)) {
+          problems.push(`${entry.id}: "${ingredient.item}" is listed as "${ingredient.note}" but step ${index + 1} wants it hot`);
+        }
+      });
+    });
+  });
+
+  assert.deepEqual(problems, [], `ingredient notes fighting their own steps:\n  ${problems.join("\n  ")}`);
+});
+
+// A falafel recipe ended "Serve in warm pita with hummus and salad" — salad was
+// in no list, and no step warmed the pita. You find that out at the moment the
+// hot food is ready.
+test("every component a step serves on or with is in the ingredient list", () => {
+  const COMPONENTS = [
+    { name: "pita", step: /\bpitas?\b/i, ingredient: /\bpitas?\b/i },
+    { name: "bun", step: /\bbuns?\b/i, ingredient: /\bbuns?\b|\broll\b/i },
+    { name: "flatbread", step: /\bflatbreads?\b|\brotis?\b/i, ingredient: /flatbread|\broti/i },
+    { name: "tortilla", step: /\btortillas?\b/i, ingredient: /tortilla|\bwrap\b/i },
+    { name: "salad", step: /\b(?:with|and)\s+salad\b/i, ingredient: /\bsalad\b|lettuce|\bleaves\b|cabbage|rocket/i }
+  ];
+  const problems = [];
+
+  ALL.forEach((entry) => {
+    const steps = entry.steps.join(" ");
+    const items = entry.ingredients.map((ingredient) => ingredient.item).join(" | ");
+
+    COMPONENTS.forEach((component) => {
+      if (component.step.test(steps) && !component.ingredient.test(items)) {
+        problems.push(`${entry.id}: a step calls for ${component.name}, which is in no ingredient list`);
+      }
+    });
+  });
+
+  assert.deepEqual(problems, [], `steps calling for things nobody was told to buy:\n  ${problems.join("\n  ")}`);
+});
+
+test("a step that promises a warmed or toasted component has a step that does it", () => {
+  const PREPARED = [
+    { name: "a toasted bun", promise: /toasted buns?/i, action: /toast[^.]*\bbuns?\b/i },
+    { name: "warm pita", promise: /warm pitas?/i, action: /warm the pitas?/i },
+    { name: "warm flatbread", promise: /warm (flatbread|roti)/i, action: /warm the (rotis?|flatbreads?)/i },
+    { name: "a warm tortilla", promise: /warm tortillas?/i, action: /warm (the |each )?tortillas?/i }
+  ];
+  const problems = [];
+
+  ALL.forEach((entry) => {
+    const steps = entry.steps.join(" ");
+
+    PREPARED.forEach((prepared) => {
+      if (prepared.promise.test(steps) && !prepared.action.test(steps)) {
+        problems.push(`${entry.id}: the steps assume ${prepared.name}, but no step prepares it`);
+      }
+    });
+  });
+
+  assert.deepEqual(problems, [], `prep steps that never appear:\n  ${problems.join("\n  ")}`);
+});
+
+// All three wings answers needed an air fryer and none was under 26 minutes, so
+// the "I'm hungry now" path — which filters to 15 minutes — could never show one.
+test("the wings craving has a fast answer that needs no air fryer", () => {
+  const wings = ALL.filter((entry) => entry.cravings.includes("wings"));
+
+  assert.ok(wings.length >= 2, "wings needs more than one answer");
+  assert.ok(
+    wings.some((entry) => entry.totalMinutes <= 15),
+    `no wings answer is under 15 minutes: ${wings.map((entry) => `${entry.id} ${entry.totalMinutes}min`).join(", ")}`
+  );
+  assert.ok(
+    wings.some((entry) => !entry.equipment.includes("air fryer")),
+    "every wings answer needs an air fryer — a kitchen without one gets nothing"
+  );
+  assert.ok(
+    wings.some((entry) => entry.totalMinutes <= 15 && !entry.equipment.includes("air fryer")),
+    "the fast wings answer must also be the one that needs no air fryer"
+  );
+});
+
+// The matcher requires EVERY declared appliance (`needed.every(...)`), so an
+// entry that lists two interchangeable ones is hidden from everybody who owns
+// only one of them — including the users it was written for.
+test("equipment never pairs two appliances that are alternatives to each other", () => {
+  const INTERCHANGEABLE = [["oven", "air fryer"], ["microwave", "kettle"]];
+  const problems = [];
+
+  ALL.forEach((entry) => {
+    INTERCHANGEABLE.forEach(([first, second]) => {
+      if (entry.equipment.includes(first) && entry.equipment.includes(second)) {
+        problems.push(`${entry.id}: requires both "${first}" and "${second}" — the matcher reads that as AND`);
+      }
+    });
+  });
+
+  assert.deepEqual(
+    problems,
+    [],
+    `equipment written as OR but enforced as AND — put the alternative in substitutions:\n  ${problems.join("\n  ")}`
+  );
+
+  // And the alternative has to be written down somewhere the user can see it.
+  [
+    ["frozen-fries-done-right", /air fryer/i],
+    ["frozen-chicken-strip-wrap", /oven/i],
+    ["microwave-miso-tofu-soup", /kettle/i]
+  ].forEach(([id, mentions]) => {
+    const entry = ALL.find((candidate) => candidate.id === id);
+    assert.ok(entry, `${id} is missing from the catalog`);
+    assert.match(
+      JSON.stringify(entry.substitutions),
+      mentions,
+      `${id} dropped its second appliance without telling the reader how to use it`
+    );
+  });
+});
+
+// Every drink in the catalog was iced: no hot coffee, no hot tea, no hot
+// chocolate, and nothing tea-based for a boba craving.
+test("the drinks group is not all iced", () => {
+  const iced = (entry) => entry.ingredients.some((ingredient) => /\bice\b/i.test(ingredient.item));
+  const heated = (entry) => /steaming|simmer|scalded/i.test(entry.steps.join(" "));
+  const drinks = ALL.filter((entry) => entry.cravings.includes("coffee") || entry.cravings.includes("sweet-drink"));
+  const hot = drinks.filter((entry) => !iced(entry) && heated(entry));
+
+  assert.ok(hot.length >= 3, `only ${hot.length} hot drinks in the whole catalog: ${hot.map((e) => e.id).join(", ")}`);
+  assert.ok(
+    hot.some((entry) => entry.cravings.includes("coffee")),
+    "there is no hot coffee — the answer to a coffee-shop craving cannot only be a cold one"
+  );
+  assert.ok(
+    hot.some((entry) => entry.cravings.includes("sweet-drink") && !entry.cravings.includes("coffee")),
+    "there is no hot drink for someone who did not want coffee"
+  );
+
+  // A bubble-tea craving needs something tea-based, not a chocolate coffee drink.
+  const teaBased = drinks.filter((entry) =>
+    entry.ingredients.some((ingredient) => /\btea\b|teabags?|matcha|chai/i.test(ingredient.item))
+  );
+  assert.ok(teaBased.length >= 2, `only ${teaBased.length} tea-based drinks for the sweet-drink craving`);
+});

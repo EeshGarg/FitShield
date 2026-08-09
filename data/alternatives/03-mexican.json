@@ -246,7 +246,7 @@
     {
       "id": "microwave-rice-beans-salsa",
       "title": "Microwave Rice, Beans, and Salsa",
-      "description": "A hot, filling bowl in four minutes using only a microwave and three tins or pouches.",
+      "description": "A hot, filling bowl in five minutes using only a microwave and three tins or pouches.",
       "servings": 1,
       "ingredients": [
         { "quantity": 1, "unit": "pouch", "item": "microwave rice", "note": "250 g" },
@@ -323,7 +323,7 @@
     {
       "id": "microwave-nachos",
       "title": "Microwave Nachos",
-      "description": "The late-night one. Three minutes, one plate, no oven.",
+      "description": "The late-night one. Four minutes, one plate, no oven.",
       "servings": 1,
       "ingredients": [
         { "quantity": 60, "unit": "g", "item": "corn tortilla chips" },

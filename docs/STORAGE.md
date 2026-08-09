@@ -267,7 +267,7 @@ moment and will run it again on the next wake-up.
 | `customSites: string[]` | `{domain, enabled}[]` | |
 | `scheduleEnabled/Start/End` | `schedule` object | Flat keys **kept** so an older build still reads them. `scheduleEnabled:false` keeps the window under `mode:"always"`, so switching it back on restores the original hours. |
 | (inferred) | `frictionProfile` | Derived from the existing `timerSeconds`. **No value is changed.** |
-| `siteBypasses: {key: expiry}` | `passes[]` | Active bypasses become site-scoped passes. Expired ones are not resurrected. The original map is preserved at `legacy.siteBypasses` because the old key format is not fully reversible to a domain. |
+| `siteBypasses: {key: expiry}` | `passes[]` | Active bypasses become site-scoped passes. Expired ones are not resurrected. The original map is preserved at `legacy.siteBypasses` because the old key format is not fully reversible to a domain — see below. |
 | `blockedVisits` | `stats.totals.interruptions` | Translated. The original key is kept. |
 | `recipesChosen` | `stats.totals.alternativesSelected` | Translated. The original key is kept. |
 | `caloriesAvoided` | kept + `legacy.caloriesAvoided` | No longer displayed anywhere. The number is preserved, not shown: it counted a card being rendered, not a meal. |
@@ -275,6 +275,27 @@ moment and will run it again on the next wake-up.
 
 Anything a step cannot interpret is preserved under `legacy.<key>` rather than
 discarded.
+
+#### Recovering a 0.54 site key
+
+`siteBypasses` was keyed by site key, and the key builder flattened **every** run
+of non-alphanumeric characters to a single `-` — dots and hyphens alike. So
+`just-eat.com` and `just.eat.com` produce the same `delivery-just-eat-com`, and
+the mapping cannot be inverted on its own. The migration therefore enumerates the
+readings a key could have had and confirms one against the real blocklist, which
+the worker passes in as `migrateState(state, { resolveDomain })`.
+
+- A key that resolves to a catalog brand becomes a site pass for that brand.
+- A key with a single separator (`delivery-doordash-com`) resolves without a
+  catalog at all, because a dot is the only reading that yields a hostname.
+- Anything still ambiguous is **dropped**, not guessed. A pass pointing at a host
+  that does not exist reads as active and blocks the user anyway, which is worse
+  than granting nothing — and `legacy.siteBypasses` keeps the original either
+  way.
+
+Earlier builds replaced every `-` with `.`, so a pass taken on Just Eat minutes
+before the update targeted the non-existent `just.eat.com`. 128 catalog domains
+contain a hyphen.
 
 Tested in [`test/core-schema.test.js`](../test/core-schema.test.js) and, through
 the real worker, in [`test/blocking.test.js`](../test/blocking.test.js).
@@ -311,17 +332,25 @@ trusts:
 
 Deliberately **not** backed up: `passes` and `siteBypasses` (an active permission
 to reach a blocked site — restoring one on another machine, or days later, would
-silently unblock something the user did not ask for *now*), `repeatHistory`,
-`recentAlternatives`, `dismissedAlternatives`, `pendingAlternatives`,
-`lastSeenVersion`, `recapDismissedFor`.
+silently unblock something the user did not ask for *now*), `repeatHistory` (it
+expires in hours; carrying it between installs would be the one browsing-adjacent
+map outliving the device it was recorded on), `recentAlternatives`,
+`dismissedAlternatives`, `pendingAlternatives`, `lastSeenVersion`. The exclusion
+list also still names the retired `recapDismissedFor`, which is harmless — an
+excluded key that no longer exists is simply never seen.
 
 Backups written by 0.54 and earlier still import, including the pre-wrapper bare
 form.
 
 ## What is never stored
 
-- A URL, path, query string, or page title.
-- Any browsing history, including for sites FitShield did not interrupt.
+- A URL, path, query string, or page title. A problem report reduces whatever the
+  user typed to a bare host before it is shown to them — every URL, including one
+  whose host is an IP literal, a single-label intranet name, or a fully-qualified
+  name with a trailing dot.
+- Any browsing history, including for sites FitShield did not interrupt. The one
+  brand-keyed, time-stamped map — [`repeatHistory`](#repeat-access-history) —
+  expires in hours by design, is never backed up, and holds no URL or path.
 - Your location. Country selection is a blocklist filter you choose; onboarding
   may *suggest* a region from the browser's language, and says so.
 - The answer to "what brought you here?" — it shapes the current screen and is
