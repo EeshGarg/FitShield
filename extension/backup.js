@@ -67,7 +67,10 @@
     "repeatFrictionEnabled",
     "repeatExtraSeconds",
     "repeatWindowMinutes",
-    "settingsDelaySeconds",
+    // `settingsDelaySeconds` was here. It was written by the Strict profile,
+    // documented as a cooling-off delay, unit-tested — and read by nothing. It
+    // has been removed from the runtime, so carrying it in a backup would
+    // propagate a retired key to every new device.
     "schedule",
     "scheduleEnabled",
     "scheduleStart",

@@ -248,8 +248,7 @@ async function loadAnswers() {
     "passDurationMinutes",
     "askIntent",
     "repeatFrictionEnabled",
-    "repeatExtraSeconds",
-    "settingsDelaySeconds"
+    "repeatExtraSeconds"
   ]);
 
   const delivery = state.deliverySitesEnabled !== false;

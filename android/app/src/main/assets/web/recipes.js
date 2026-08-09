@@ -170,10 +170,44 @@
     return allowed.includes(normalize(entryDiet));
   }
 
+  // The appliance vocabulary, so a substitution can be read for one by name.
+  const APPLIANCES = ["microwave", "stove", "oven", "air fryer", "toaster", "blender", "rice cooker", "kettle"];
+
+  /**
+   * Can this kitchen make this entry?
+   *
+   * `equipment` is AND — an entry listing oven AND air fryer needs both. But an
+   * entry that lists ONE appliance and then carries a substitution telling you
+   * how to do it with another is genuinely makeable by someone who owns the
+   * other one, and the entry says so in its own words.
+   *
+   * Without this, declaring a single appliance per entry (the fix for entries
+   * that previously listed two alternatives as if both were required) made them
+   * invisible in the opposite direction: the oven fries vanished for an
+   * air-fryer-only kitchen even though the recipe's own substitution line reads
+   * "air fryer at 200 C for 18 minutes". The data already knew; the filter did
+   * not read it.
+   */
   function equipmentAvailable(entry, equipment) {
     const owned = new Set((Array.isArray(equipment) ? equipment : []).map(normalize));
     const needed = Array.isArray(entry.equipment) ? entry.equipment : [];
-    return needed.every((item) => owned.has(normalize(item)));
+    const swaps = Array.isArray(entry.substitutions) ? entry.substitutions : [];
+
+    return needed.every((item) => {
+      if (owned.has(normalize(item))) {
+        return true;
+      }
+
+      const swap = swaps.find((entry_) => entry_ && normalize(entry_.for) === normalize(item));
+
+      if (!swap) {
+        return false;
+      }
+
+      // The swap counts only if it names an appliance this kitchen actually has.
+      const how = normalize(swap.use);
+      return APPLIANCES.some((appliance) => owned.has(appliance) && how.includes(appliance));
+    });
   }
 
   function allergenSafe(entry, avoid) {

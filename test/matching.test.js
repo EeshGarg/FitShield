@@ -630,3 +630,70 @@ test("a coffee shop can be answered with a hot drink, not only an iced one", asy
     `every answer a coffee shop gets is cold: ${top(result, 6).map((entry) => entry.id).join(", ")}`
   );
 });
+
+// ---------------------------------------------------------------------------
+// Equipment is AND, but a substitution is a real route
+//
+// Entries that previously listed two interchangeable appliances were read as
+// needing BOTH, so the data lane declared one appliance each. That fixed the
+// AND bug and opened the mirror image: the oven fries became invisible to an
+// air-fryer-only kitchen, even though the recipe's own substitution line
+// explains how to make them in an air fryer. The data knew; the filter did not
+// read it.
+// ---------------------------------------------------------------------------
+
+test("an appliance substitution makes an entry reachable from the other kitchen", async () => {
+  await catalog();
+
+  const fries = recipes
+    .rankAlternatives(BURGER, { equipment: ["oven"] })
+    .matches.find((match) => match.entry.id === "frozen-fries-done-right");
+
+  assert.ok(fries, "precondition: the oven kitchen can obviously make the oven fries");
+
+  const swap = (fries.entry.substitutions || []).find((entry) => /oven/i.test(entry.for));
+  assert.ok(swap, "precondition: the entry explains how to make it without an oven");
+  assert.match(swap.use, /air fryer/i, "precondition: that explanation names an air fryer");
+
+  const viaAirFryer = recipes
+    .rankAlternatives(BURGER, { equipment: ["air fryer"] })
+    .matches.find((match) => match.entry.id === "frozen-fries-done-right");
+
+  assert.ok(viaAirFryer, "an air-fryer kitchen must be offered it too — the recipe says how");
+});
+
+test("a substitution that names no owned appliance does not unlock the entry", async () => {
+  await catalog();
+
+  // A microwave cannot make the oven fries, and no substitution says it can.
+  const viaMicrowave = recipes
+    .rankAlternatives(BURGER, { equipment: ["microwave"] })
+    .matches.find((match) => match.entry.id === "frozen-fries-done-right");
+
+  assert.ok(!viaMicrowave, "the filter must not wave an entry through on an unrelated substitution");
+});
+
+test("equipment is still AND when an entry genuinely needs two appliances", async () => {
+  await catalog();
+  const data = await catalog();
+
+  const twoAppliance = data.entries.find((entry) => (entry.equipment || []).length >= 2);
+
+  if (!twoAppliance) {
+    return; // the catalog currently declares one appliance per entry
+  }
+
+  const partial = recipes.rankAlternatives(BURGER, { equipment: [twoAppliance.equipment[0]] });
+  const hasIt = partial.matches.some((match) => match.entry.id === twoAppliance.id);
+  const swaps = twoAppliance.substitutions || [];
+  const excused = swaps.some((swap) => normalizeIsAppliance(swap, twoAppliance.equipment[1]));
+
+  if (!excused) {
+    assert.ok(!hasIt, `${twoAppliance.id} needs both appliances and must not appear with one`);
+  }
+});
+
+// Helper: does this substitution excuse the missing appliance?
+function normalizeIsAppliance(swap, missing) {
+  return swap && String(swap.for || "").toLowerCase() === String(missing || "").toLowerCase();
+}
