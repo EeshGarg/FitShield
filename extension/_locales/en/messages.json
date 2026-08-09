@@ -938,7 +938,7 @@
   },
   "currencyAuto": {
     "message": "Match my language — $1 ($2)",
-    "description": "The first entry in the currency picker: follow the display language instead of pinning a currency. $1 is the currency name, $2 its symbol. A globe emoji was previously the only thing distinguishing this from the real currency of the same name. [staged: settings.js]"
+    "description": "The first entry in the currency picker: follow the display language instead of pinning a currency. $1 is the currency name, $2 its symbol. A globe emoji was previously the only thing distinguishing this from the real currency of the same name, and screen readers drop it."
   },
   "avgMealCostBasisHint": {
     "message": "What one delivery order usually costs you. Stored on your device only."

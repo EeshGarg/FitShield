@@ -62,3 +62,36 @@ test("currencyCodes lists every cost-table currency, majors first", () => {
   assert.equal(codes.length, Object.keys(currency.CURRENCY_DEFAULT_COST).length);
   assert.ok(codes.includes("INR"));
 });
+
+// The picker's first entry means "follow my display language". When the display
+// language already resolves to the currency being named, that entry and the
+// pinned entry for the same currency render the same name and the same symbol.
+// A globe emoji used to be the only difference, which is precisely the
+// character a screen reader is free to drop — leaving two identical options.
+// The distinguishing part must therefore be words.
+test("the auto currency entry is distinguishable from the pinned one without emoji", () => {
+  const messages = JSON.parse(
+    require("node:fs").readFileSync(
+      require("node:path").join(__dirname, "..", "extension", "_locales", "en", "messages.json"),
+      "utf8"
+    )
+  );
+
+  const template = messages.currencyAuto && messages.currencyAuto.message;
+  assert.ok(template, "currencyAuto must exist in the English catalog");
+  assert.ok(template.includes("$1") && template.includes("$2"), "it takes the name and the symbol");
+
+  for (const [code, locale] of [["USD", "en"], ["JPY", "ja"], ["EUR", "de"]]) {
+    const name = currency.displayName(code, locale);
+    const symbol = currency.symbolFor(code, locale);
+    const auto = template.replace("$1", name).replace("$2", symbol);
+    const pinned = `${name} (${symbol})`;
+
+    assert.notEqual(auto, pinned, `${code}: the two entries must not render identically`);
+
+    // Strip everything a screen reader may skip — emoji and other symbols —
+    // and the two must STILL differ, i.e. by actual words.
+    const words = (s) => s.replace(/[^\p{Letter}\p{Number}\s]/gu, " ").split(/\s+/).filter(Boolean).join(" ");
+    assert.notEqual(words(auto), words(pinned), `${code}: they differ only by symbols a reader may drop`);
+  }
+});

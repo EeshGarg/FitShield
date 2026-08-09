@@ -1786,9 +1786,13 @@ function renderMostBlocked() {
   mostBlockedContainer.hidden = !(hasSites || hasCategories || hasCountries);
 }
 
-// Build the currency picker: a "follow language" option (globe) plus every
-// supported currency, each shown with its localized name and symbol. No
-// translation strings needed — Intl localizes the names and symbols.
+// Build the currency picker: a "follow language" option plus every supported
+// currency, each shown with its localized name and symbol. Intl localizes the
+// names and symbols; the first entry needs a real string because naming the
+// resolved currency is not the same as saying the choice follows the language.
+// When the display language already resolves to, say, USD, the auto entry and
+// the pinned USD entry render identical text, and the globe emoji that used to
+// be the sole difference is exactly what a screen reader drops.
 function buildCurrencyOptions() {
   if (!currencySelect || !currencyApi) {
     return;
@@ -1800,7 +1804,10 @@ function buildCurrencyOptions() {
 
   const auto = document.createElement("option");
   auto.value = "";
-  auto.textContent = `🌐 ${currencyApi.displayName(autoCode, locale)} (${currencyApi.symbolFor(autoCode, locale)})`;
+  auto.textContent = t("currencyAuto", [
+    currencyApi.displayName(autoCode, locale),
+    currencyApi.symbolFor(autoCode, locale)
+  ]);
   frag.appendChild(auto);
 
   currencyApi.currencyCodes().forEach((code) => {
