@@ -35,6 +35,9 @@
     "page": "settings.html",
     "open_in_tab": true
   },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; media-src 'self'; frame-src 'none'; child-src 'none'; form-action 'none'; base-uri 'none'"
+  },
   "web_accessible_resources": [
     {
       "resources": [

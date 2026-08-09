@@ -77,9 +77,13 @@ shipped forms:
 
 - **Chrome**: strips `browser_specific_settings` (Chromium warns on unknown
   keys).
-- **Firefox**: adds
-  `background.scripts: ["blocklist.js", "fitshield-core.js", "background.js"]`
-  (Firefox has no background service workers). Order matters and
+- **Firefox**: adds `background.scripts`, which is exactly `build.BACKGROUND_SCRIPTS`
+  with `background.js` last — today `["blocklist.js", "fitshield-core.js",
+  "background.js"]` (Firefox has no background service workers). Stated as the
+  contract rather than as a copied literal, because this list was published here
+  with two entries while three shipped, and the audit that is supposed to enforce
+  it compares against `build.BACKGROUND_SCRIPTS`, so a copied literal drifts
+  silently. Order matters and
   `background.js` must be last: it references both `FitShieldBlocklist` (the
   engine bundle) and `FitShieldCore` (the shared decision layer — schema,
   schedules, passes, stats), so both have to be evaluated before it. On

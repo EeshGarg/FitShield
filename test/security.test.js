@@ -280,9 +280,74 @@ test("the manifest asks for exactly the permissions the runtime uses", () => {
   assert.ok(!manifest.permissions.includes("downloads"));
 });
 
-test("no custom content security policy relaxes the MV3 default", () => {
+// The MV3 default is `script-src 'self'; object-src 'self'` and NOTHING else —
+// which means img-src, connect-src, font-src and media-src are unrestricted on
+// every extension page. Measured in Chrome 149 against the built package with no
+// declared policy: a remote <img> injected into settings.html LOADED. That is
+// the exact shape of the beacon this product had once already (the removed
+// buymeacoffee button image), and "we checked there is no remote image today" is
+// a weaker guarantee than "a remote image cannot load".
+//
+// So the policy is declared, and it is declared TIGHTER. Every page was loaded
+// under it in real Chrome — all six render, both <style> blocks apply, and the
+// remote <img> and the remote fetch both became "blocked".
+//
+// `frame-ancestors 'none'` is deliberately NOT here. Chrome accepts it and does
+// not apply it to a web_accessible_resource loaded by a website, so it would
+// read as protection against the hidden-iframe attack while providing none. That
+// attack is stopped in the worker, where it can actually be stopped.
+const CSP_MUST_INCLUDE = {
+  "script-src": "'self'",
+  "object-src": "'self'",
+  // The one that enforces "no telemetry" rather than asserting it.
+  "connect-src": "'self'",
+  "img-src": "'self' data:",
+  "font-src": "'self'",
+  "media-src": "'self'",
+  "frame-src": "'none'",
+  "child-src": "'none'",
+  "form-action": "'none'",
+  "base-uri": "'none'"
+};
+
+test("the declared CSP is strictly tighter than the MV3 default, never looser", () => {
   const manifest = JSON.parse(fs.readFileSync(path.join(EXT, "manifest.json"), "utf8"));
-  assert.equal(manifest.content_security_policy, undefined);
+  const policy = manifest.content_security_policy && manifest.content_security_policy.extension_pages;
+
+  assert.ok(policy, "extension_pages CSP must be declared — the MV3 default leaves img-src and connect-src open");
+
+  const directives = {};
+  policy.split(";").map((part) => part.trim()).filter(Boolean).forEach((part) => {
+    const [name, ...values] = part.split(/\s+/);
+    directives[name] = values.join(" ");
+  });
+
+  Object.entries(CSP_MUST_INCLUDE).forEach(([name, expected]) => {
+    assert.equal(directives[name], expected, `${name} must be exactly "${expected}"`);
+  });
+
+  // Nothing may loosen it. 'unsafe-inline' is permitted for STYLE only — the
+  // pages carry <style> blocks — and never for script.
+  assert.ok(!/unsafe-eval|wasm-unsafe-eval/.test(policy), "no eval may ever be permitted");
+  assert.ok(!/https?:/.test(policy), "no remote origin may appear in the policy");
+  assert.ok(
+    !/script-src[^;]*unsafe-inline/.test(policy),
+    "'unsafe-inline' must never reach script-src"
+  );
+  assert.equal(directives["style-src"], "'self' 'unsafe-inline'", "the pages' <style> blocks need exactly this");
+});
+
+test("the built packages all carry the same tightened CSP", () => {
+  const source = JSON.parse(fs.readFileSync(path.join(EXT, "manifest.json"), "utf8"));
+
+  [build.chromeManifest, build.firefoxManifest].forEach((derive) => {
+    const derived = derive(JSON.parse(JSON.stringify(source)));
+    assert.deepEqual(
+      derived.content_security_policy,
+      source.content_security_policy,
+      "a derived manifest dropped or changed the policy"
+    );
+  });
 });
 
 test("no page carries an inline script", () => {
@@ -349,7 +414,7 @@ test("a hostile domain string cannot escape hostname normalization", () => {
     "https://evil.example/../../doordash.com",
     "doordash.com.evil.example",
     "..doordash.com",
-    " doordash.com"
+    "\u0000doordash.com"
   ];
 
   hostile.forEach((value) => {
@@ -459,6 +524,105 @@ test("free text a user typed instead of a URL is still passed through", () => {
 // ---------------------------------------------------------------------------
 // repeatHistory is the one stored map that is browsing-adjacent
 // ---------------------------------------------------------------------------
+
+// Retention is only real if the worker WRITES it back. readSettings prunes on
+// read, but the copy that matters is the one on disk — that is what anyone with
+// a moment at an unlocked machine can read, and it is the only reason this map
+// was ever described as "a short-lived window".
+test("switching repeat friction off deletes the history it was kept for", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const now = Date.now();
+
+  const bg = loadBackground({
+    repeatFrictionEnabled: true,
+    repeatWindowMinutes: 60,
+    repeatHistory: { "doordash.com": [now - 1000], "ubereats.com": [now - 2000] }
+  });
+
+  await bg.context.queueRefreshBlockingState();
+  assert.deepEqual(Object.keys(bg.store.repeatHistory).sort(), ["doordash.com", "ubereats.com"],
+    "precondition: the feature is on and the rows are fresh");
+
+  // The user turns it off. Nothing reads the map any more, so nothing may keep
+  // it: it is a brand-keyed record of every time they gave in.
+  bg.store.repeatFrictionEnabled = false;
+  await bg.context.queueRefreshBlockingState();
+
+  // Object.keys, not deepEqual: the worker's objects are built inside the vm
+  // sandbox, so an identical {} has a different realm's prototype.
+  assert.deepEqual(Object.keys(bg.store.repeatHistory), [],
+    "the relapse diary must not outlive the feature that read it");
+
+  // And a continue while it is off writes nothing back.
+  await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "site10" });
+  assert.deepEqual(Object.keys(bg.store.repeatHistory), [], "and continuing must not start it again");
+});
+
+test("a stored repeat window cannot extend retention, because there is no such setting", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const now = Date.now();
+  const hours = (n) => now - n * 60 * 60 * 1000;
+
+  // A hand-edited profile (or an old backup) claiming a 12-hour window used to
+  // be honoured, which made retention 36 hours — for a value no control in the
+  // product could ever set. Retention is a documented constant now, so this row
+  // is simply outside it.
+  const bg = loadBackground({
+    repeatFrictionEnabled: true,
+    repeatWindowMinutes: 720,
+    repeatHistory: { "doordash.com": [hours(12)] }
+  });
+
+  await bg.context.queueRefreshBlockingState();
+
+  assert.deepEqual(Object.keys(bg.store.repeatHistory), [],
+    "a smuggled window must not keep a brand-keyed timestamp alive on disk");
+  assert.ok(
+    core.repeatHistoryRetentionMs(720) <= core.repeatHistoryRetentionMs(core.DEFAULT_REPEAT_WINDOW_MINUTES) * 12,
+    "and the ceiling is still bounded"
+  );
+});
+
+test("the key that decides retention actually triggers a re-evaluation", () => {
+  const source = shipped.find(([name]) => name === "background.js")[1];
+  const keys = /const REFRESH_KEYS = \[([\s\S]*?)\];/.exec(source);
+
+  assert.ok(keys, "background.js should still declare REFRESH_KEYS as a literal list");
+  assert.ok(
+    keys[1].includes('"repeatFrictionEnabled"'),
+    "switching repeat friction off decides whether the history is kept at all, so it must refresh"
+  );
+
+  // And the phantom key stays gone from every list that made it look real.
+  assert.ok(!source.includes('"repeatWindowMinutes"'), "background.js must not read a key nothing writes");
+  const backupSource = shipped.find(([name]) => name === "backup.js")[1];
+  assert.ok(
+    !/^\s*"repeatWindowMinutes",/m.test(backupSource),
+    "a backup must not carry a key nothing writes"
+  );
+});
+
+test("no message handler exists that no FitShield surface sends", () => {
+  const source = shipped.find(([name]) => name === "background.js")[1];
+  const table = /const HANDLERS = \{([\s\S]*?)\n\};/.exec(source);
+
+  assert.ok(table, "background.js should still declare HANDLERS as a literal table");
+
+  const handlers = [...table[1].matchAll(/^\s{2}([A-Za-z][A-Za-z0-9]*):/gm)].map((match) => match[1]);
+  assert.ok(handlers.length >= 10, `expected the message surface, found ${handlers.join(", ")}`);
+
+  // Every handler must be sent by something that ships. `refreshBlocking` was
+  // not: it rebuilt every rule and rewrote passes and repeat history on demand,
+  // reachable from the one FitShield page a website can cause to load, and no
+  // page, shim or script anywhere sent it.
+  const senders = shipped
+    .filter(([name]) => name !== "background.js")
+    .map(([, text]) => text)
+    .join("\n");
+
+  const orphans = handlers.filter((type) => !senders.includes(`"${type}"`));
+  assert.deepEqual(orphans, [], `message handlers nothing sends: ${orphans.join(", ")}`);
+});
 
 test("repeat history cannot become a permanent per-brand diary", () => {
   const now = Date.now();
@@ -616,40 +780,198 @@ test("a framed page cannot grant itself a pass either", async () => {
   assert.equal((bg.store.passes || []).length, 0);
 });
 
-test("the real, top-level block page is unaffected", async () => {
+test("the real, top-level, redirected block page is unaffected", async () => {
   const { loadBackground } = require("./helpers/background-harness.js");
   const bg = loadBackground();
   await bg.context.queueRefreshBlockingState();
 
-  const response = await new Promise((resolve) => {
-    const handled = bg.listeners.message(
-      { type: "recordInterruption" },
-      { id: "test", url: "chrome-extension://test/warning.html", tab: { id: 7 }, frameId: 0 },
-      resolve
-    );
-    if (!handled) resolve({ ok: false });
-  });
+  const response = await bg.message({ type: "recordInterruption" });
 
-  assert.equal(response.ok, true, "frameId 0 is the document the DNR rule redirected");
+  assert.equal(response.ok, true, "the page the DNR rule redirected to must keep working");
   assert.equal(bg.store.stats.totals.interruptions, 1);
 });
 
-test("the extension's own pages are still allowed", async () => {
+test("the extension's own non-block pages are still allowed", async () => {
   const { loadBackground } = require("./helpers/background-harness.js");
   const bg = loadBackground();
   await bg.context.queueRefreshBlockingState();
 
-  const response = await new Promise((resolve) => {
-    const handled = bg.listeners.message(
-      { type: "recordInterruption" },
-      { id: "test", url: "chrome-extension://test/warning.html" },
-      resolve
-    );
-    if (!handled) resolve({ ok: false });
-  });
+  // The popup carries no frameId at all and is not the block page, so it needs
+  // no redirect token.
+  const response = await bg.message(
+    { type: "recordInterruption" },
+    { id: "test", url: "chrome-extension://test/popup.html" }
+  );
 
-  assert.equal(response.ok, true, "the block page must keep working");
+  assert.equal(response.ok, true, "the popup must keep working");
   assert.equal(bg.store.stats.totals.interruptions, 1);
+});
+
+// ---------------------------------------------------------------------------
+// The half the frameId rule does not cover.
+//
+// A hostile page does not have to EMBED the block page. It can send the tab
+// straight to `chrome-extension://<id>/warning.html?site=delivery-doordash-com`,
+// which is a top-level document on our own origin: same id, frameId 0, our
+// origin. Every provenance check passed it.
+//
+// Measured in Chrome 149 against the built dist/chrome package before this was
+// fixed: four such navigations moved stats.totals.interruptions from 2 to 6 and
+// wrote doordash.com into blockedByDomain. The panel is the product's only
+// feedback loop and it presents those numbers as facts about the user, so the
+// brand being blocked could author them.
+// ---------------------------------------------------------------------------
+
+test("a block page the extension did not redirect to cannot record anything", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  // Exactly what a website can construct: our origin, our block page, a real
+  // site key, top-level. Everything except the token, which lives only in the
+  // dynamic rules and in chrome.storage.session.
+  const navigated = (search) =>
+    bg.message(
+      { type: "recordInterruption" },
+      { id: "test", url: `chrome-extension://test/warning.html${search}`, tab: { id: 7 }, frameId: 0 }
+    );
+
+  for (const search of [
+    "?site=delivery-doordash-com",
+    "?site=delivery-doordash-com&k=",
+    "?site=delivery-doordash-com&k=guessed-token",
+    "?site=delivery-doordash-com&k=0000000000000000",
+    ""
+  ]) {
+    const response = await navigated(search);
+    assert.equal(response.ok, false, `a forged block page at "${search}" recorded an interruption`);
+  }
+
+  const branded = await bg.message(
+    { type: "recordBlockedBrand", meta: { domain: "doordash.com", category: "pizza", countries: ["US"] } },
+    { id: "test", url: "chrome-extension://test/warning.html?site=delivery-doordash-com", frameId: 0 }
+  );
+
+  assert.equal(branded.ok, false, "nor a brand");
+  core.STAT_EVENTS.forEach((event) => {
+    assert.equal(bg.store.stats.totals[event], 0, `"${event}" moved for a forged block page`);
+  });
+  assert.equal(bg.store.blockedByDomain, undefined, "and no brand breakdown was created");
+});
+
+test("a forged block page cannot grant a pass or touch any durable state", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+  const ruleCount = bg.rules().length;
+
+  const forged = { id: "test", url: "chrome-extension://test/warning.html?site=delivery-doordash-com", frameId: 0 };
+
+  const pass = await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "allTomorrow" }, forged);
+  const revoke = await bg.message({ type: "revokeAllPasses" }, forged);
+  const record = await bg.message({ type: "recordAlternativeSelected", id: "naan-pizza" }, forged);
+
+  assert.equal(pass.ok, false, "a website that opens the block page must not be able to unblock a site");
+  assert.equal(revoke.ok, false, "nor cancel the user's own passes");
+  assert.equal(record.ok, false, "nor write to the rotation history");
+  assert.equal((bg.store.passes || []).length, 0);
+  assert.equal(bg.store.recentAlternatives, undefined);
+  assert.equal(bg.rules().length, ruleCount, "blocking must be exactly as it was");
+});
+
+test("the token is in the redirect URL the worker actually installs", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  const rules = bg.rules();
+  assert.ok(rules.length > 100, "expected a real rule set");
+
+  const token = await bg.evalIn("ensureBlockPageToken()");
+  assert.ok(typeof token === "string" && token.length >= 16, `the token should be unguessable, got "${token}"`);
+
+  rules.forEach((rule) => {
+    const url = new URL(rule.action.redirect.url);
+    assert.equal(url.searchParams.get("k"), token, "every redirect must carry the current token");
+    assert.ok(url.searchParams.get("site"), "and still name the site");
+  });
+});
+
+test("a block page opened as a PREVIEW is allowed, and records nothing", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  // Settings and the welcome tour open warning.html?preview=1 directly, with no
+  // token — there was no redirect. It has to keep working, and it must stay
+  // incapable of moving a number.
+  const preview = { id: "test", url: "chrome-extension://test/warning.html?site=delivery-doordash-com&preview=1" };
+
+  const recorded = await bg.message({ type: "recordInterruption" }, preview);
+  const granted = await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "site10" }, preview);
+
+  assert.equal(recorded.ok, true, "the preview must still render and answer");
+  assert.equal(recorded.recorded, false, "but it must not count");
+  assert.equal(granted.granted, false, "and it must not unblock anything");
+  assert.equal(bg.store.stats.totals.interruptions, 0);
+  assert.equal((bg.store.passes || []).length, 0);
+});
+
+test("a page cannot lie about being a preview, in either direction", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  // `preview` is read from the URL the worker can see, never from the message.
+  // Claiming preview:false from a preview URL used to be the whole bypass.
+  const lying = await bg.message(
+    { type: "recordInterruption", preview: false },
+    { id: "test", url: "chrome-extension://test/warning.html?site=delivery-doordash-com&preview=1" }
+  );
+
+  assert.equal(lying.recorded, false, "a preview URL records nothing whatever the message claims");
+  assert.equal(bg.store.stats.totals.interruptions, 0);
+
+  // And the reverse: the real block page cannot opt out of being counted.
+  const real = await bg.message({ type: "recordInterruption", preview: true });
+  assert.equal(real.recorded, true, "the real block page counts, whatever the message claims");
+  assert.equal(bg.store.stats.totals.interruptions, 1);
+});
+
+test("read-only handlers are refused from a framed surface too", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground({ dietPreference: "vegan", avoidAllergens: ["peanut"], pantry: ["rice"] });
+  await bg.context.queueRefreshBlockingState();
+
+  // getBlockContext hands back the user's diet, allergens, pantry and their own
+  // written-out recipes. Nothing FitShield ships runs in a frame, so a framed
+  // caller is a hostile embed and gets nothing — not even a read.
+  const framed = { id: "test", url: "chrome-extension://test/warning.html", tab: { id: 7 }, frameId: 4 };
+
+  for (const type of ["getBlockState", "getBlockContext", "getDiagnostics"]) {
+    const response = await bg.message({ type, site: "delivery-doordash-com" }, framed);
+    assert.equal(response.ok, false, `${type} answered a framed caller`);
+    assert.ok(
+      !JSON.stringify(response).includes("peanut") && !JSON.stringify(response).includes("vegan"),
+      `${type} leaked the user's preferences to a frame`
+    );
+  }
+});
+
+test("a forged message cannot pin a tab-bound pass to somebody else's tab", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  // The sender's real tab wins. `tabId` was read from the message first, so a
+  // message could bind a pass to a tab it was not sent from.
+  await bg.message(
+    { type: "grantPass", site: "delivery-doordash-com", presetId: "tab", tabId: 999 },
+    { id: "test", url: await bg.blockPageUrl(), tab: { id: 2 }, frameId: 0 }
+  );
+
+  assert.equal(bg.store.passes.length, 1);
+  assert.equal(bg.store.passes[0].tabId, 2, "the pass belongs to the tab the block page was actually in");
 });
 
 // ---------------------------------------------------------------------------
@@ -682,4 +1004,241 @@ test("an imported theme cannot carry a remote resource reference", () => {
   assert.equal(clean.radius, 1000, "numbers are clamped, not passed through");
   assert.ok(!("popupWidth" in clean), "a non-numeric size is dropped");
   assert.ok(!("panel" in clean), "a colour with a declaration smuggled in is dropped");
+});
+
+// The helper being correct is a different claim from the IMPORT being correct.
+// Asserting normalizeTheme in isolation passes happily while the import path
+// routes around it — which is exactly how a beacon would get in.
+test("the import PATH, not just the helper, strips a remote reference", () => {
+  const backup = require("../extension/backup.js");
+  const file = JSON.stringify({
+    _type: "fitshield-settings-backup",
+    schema: 2,
+    settings: {
+      enabled: true,
+      theme: {
+        bg: "url(" + "https://evil.example/beacon.png)",
+        panel: "red;background:url(//evil.example/x)",
+        accent: "#7ef0a8"
+      }
+    }
+  });
+
+  const restored = backup.normalizeImported(backup.parseBackup(file));
+  const serialized = JSON.stringify(restored);
+
+  assert.ok(!/evil\.example/.test(serialized), `a remote host reached storage: ${serialized}`);
+  assert.ok(!/url\(/i.test(serialized), "no url() may reach storage");
+  assert.equal(restored.theme.accent, "#7ef0a8", "and a real colour still restores");
+});
+
+// ---------------------------------------------------------------------------
+// Untrusted backups, fuzzed through the real entry point.
+//
+// A backup is the documented way to accept a file from somewhere else, so it is
+// the one place a stranger's bytes reach the store the worker trusts. Every one
+// of these must end in the same three places: nothing executed, nothing
+// polluted, and the user still protected.
+// ---------------------------------------------------------------------------
+
+test("a hostile backup is refused with a reason a person can act on, or normalized", () => {
+  const backup = require("../extension/backup.js");
+
+  const deeplyNested = (() => {
+    const root = { enabled: true };
+    let cursor = root;
+    for (let i = 0; i < 400; i += 1) {
+      cursor.n = {};
+      cursor = cursor.n;
+    }
+    return { settings: root };
+  })();
+
+  const cases = {
+    "prototype pollution": JSON.stringify({ settings: JSON.parse('{"__proto__":{"pwned":true},"enabled":true}') }),
+    "constructor key": JSON.stringify({
+      settings: JSON.parse('{"constructor":{"prototype":{"pwned":true}},"enabled":true}')
+    }),
+    "polluted nested value": JSON.stringify({
+      settings: { customSites: JSON.parse('[{"__proto__":{"pwned":true},"domain":"x.example"}]') }
+    }),
+    "deep nesting": JSON.stringify(deeplyNested),
+    "enormous array": JSON.stringify({ settings: { customSites: Array.from({ length: 60000 }, (_, i) => `s${i}.example`) } }),
+    "10MB string": JSON.stringify({ settings: { dietPreference: "x".repeat(10 * 1024 * 1024) } }),
+    "future schema": JSON.stringify({ _type: backup.BACKUP_TYPE, schema: 99, settings: { enabled: false } }),
+    "non-numeric schema": JSON.stringify({ _type: backup.BACKUP_TYPE, schema: "banana", settings: { enabled: false } }),
+    "wrong _type": JSON.stringify({ _type: "evil", settings: { enabled: false } }),
+    "not json": "{oh no",
+    empty: "",
+    null: "null",
+    array: "[1,2,3]",
+    "no known keys": JSON.stringify({ settings: { hello: "world" } }),
+    "script tags": JSON.stringify({
+      settings: {
+        enabled: true,
+        customAlternatives: [
+          { id: "<script>alert(1)</script>", name: "<img src=x onerror=alert(1)>", steps: ["<svg onload=alert(1)>"] }
+        ]
+      }
+    }),
+    "RTL override and null bytes": JSON.stringify({
+      settings: { enabled: true, customAlternatives: [{ id: "a", name: "safe‮evil\u0000", steps: ["x\u0000y"] }] }
+    }),
+    "duplicate ids": JSON.stringify({
+      settings: {
+        enabled: true,
+        customAlternatives: [
+          { id: "dup", name: "A", steps: ["s"] },
+          { id: "dup", name: "B", steps: ["s"] },
+          { id: "dup", name: "C", steps: ["s"] }
+        ]
+      }
+    })
+  };
+
+  const rejected = [];
+
+  Object.entries(cases).forEach(([name, text]) => {
+    let result = null;
+
+    try {
+      result = backup.normalizeImported(backup.parseBackup(text));
+    } catch (error) {
+      // A rejection must name a reason a page can localize AND a sentence a
+      // person can act on. "That file isn't a valid FitShield backup" for a file
+      // that is one invites the user to delete their only copy.
+      assert.ok(error.i18nKey, `"${name}" was rejected with no localizable reason`);
+      assert.ok(String(error.message).length > 10, `"${name}" was rejected with no human sentence`);
+      rejected.push(name);
+      return;
+    }
+
+    // A file that IS accepted must arrive inert and bounded. Markup is stored
+    // verbatim on purpose — a recipe may legitimately be called "Fish & <chips>"
+    // — and it is safe because every surface renders it with textContent; the
+    // "no page that renders user or catalog data uses innerHTML" test above is
+    // what keeps that true. What must not survive is anything unbounded,
+    // unprintable, or ambiguous about identity.
+    const serialized = JSON.stringify(result);
+    assert.ok(!/\u0000/.test(serialized), `"${name}" carried a null byte into storage`);
+    assert.ok(!/[\u0001-\u0008\u000b\u000c\u000e-\u001f]/.test(serialized), `"${name}" carried a control character`);
+    assert.ok(serialized.length < 512 * 1024, `"${name}" wrote ${serialized.length} bytes into storage`);
+
+    const alternatives = result.customAlternatives || [];
+    alternatives.forEach((entry) => {
+      assert.equal(typeof entry.id, "string");
+      assert.ok(entry.id.length <= 64, `"${name}" stored a ${entry.id.length}-character id`);
+      assert.ok(entry.title.length <= core.CUSTOM_LIMITS.name, `"${name}" stored an over-long title`);
+    });
+
+    const ids = alternatives.map((entry) => entry.id);
+    assert.equal(new Set(ids).size, ids.length, `"${name}" imported duplicate ids — deleting one would delete several`);
+  });
+
+  assert.ok(({}).pwned === undefined, "Object.prototype was polluted by an imported backup");
+  assert.ok([].pwned === undefined, "Array.prototype was polluted by an imported backup");
+  assert.ok(
+    rejected.length >= 6,
+    `expected the clearly-broken files to be refused, only refused: ${rejected.join(", ")}`
+  );
+});
+
+test("a hostile backup cannot leave the user unprotected", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+  const backup = require("../extension/backup.js");
+
+  // The three shapes that would matter most: a file that switches everything
+  // off, one that empties the blocklists, and one that arrives with an active
+  // pass already granted.
+  const hostile = backup.normalizeImported(
+    backup.parseBackup(
+      JSON.stringify({
+        settings: {
+          enabled: false,
+          deliverySitesEnabled: false,
+          fastFoodSitesEnabled: false,
+          passes: [{ scope: "all", expiresAt: Date.now() + 9e11, createdAt: Date.now() }],
+          siteBypasses: { "doordash.com": Date.now() + 9e11 }
+        }
+      })
+    )
+  );
+
+  // `passes` and `siteBypasses` are excluded from a backup precisely so a file
+  // cannot hand itself an active permission to reach a blocked site.
+  assert.ok(!("passes" in hostile), "an imported file must not be able to carry a live pass");
+  assert.ok(!("siteBypasses" in hostile), "nor its retired spelling");
+
+  // The rest is honest user intent — it CAN turn blocking off, the same way the
+  // switch can — but the user has to have confirmed the import, and turning it
+  // back on must work immediately.
+  const bg = loadBackground(hostile);
+  await bg.context.queueRefreshBlockingState();
+  assert.equal(bg.rules().length, 0, "an off profile blocks nothing, which is what it says");
+
+  bg.store.enabled = true;
+  bg.store.deliverySitesEnabled = true;
+  bg.store.fastFoodSitesEnabled = true;
+  await bg.context.queueRefreshBlockingState();
+  assert.ok(bg.rules().length > 100, "and switching it back on restores blocking with no repair step");
+});
+
+// ---------------------------------------------------------------------------
+// Corrupt storage. A crash that leaves the user unblocked is the worst failure
+// this product has: the one thing it promises is that the site does not open.
+// ---------------------------------------------------------------------------
+
+test("blocking survives every corrupt value a profile can hold", async () => {
+  const { loadBackground } = require("./helpers/background-harness.js");
+
+  const corruptions = {
+    "customSites is a string": { customSites: "not-an-array" },
+    "customSites holds nulls": { customSites: [null, 5, {}, { domain: null }] },
+    "schedule is an array": { schedule: [1, 2, 3] },
+    "schedule is null": { schedule: null },
+    "schedule windows are junk": { schedule: { mode: "windows", windows: [null, { days: "everyday", start: {} }] } },
+    "passes is an object": { passes: { a: 1 } },
+    "passes hold junk": { passes: [null, "x", { expiresAt: "soon" }] },
+    "stats is a number": { stats: 42 },
+    "stats.totals is a string": { stats: { totals: "nope", history: 7 } },
+    "schemaVersion is not a number": { schemaVersion: "banana" },
+    "schemaVersion is from the future": { schemaVersion: 9999 },
+    "enabled is the string false": { enabled: "false" },
+    "timerSeconds is Infinity": { timerSeconds: Infinity },
+    "timerSeconds is NaN": { timerSeconds: NaN },
+    "disabled keys are deeply nested": { disabledDeliverySiteKeys: [[[[["a"]]]]] },
+    "repeatHistory is an array": { repeatHistory: [1, 2, 3] },
+    "repeatHistory holds strings": { repeatHistory: { "a.com": "yesterday" } },
+    "blockedByDomain holds objects": { blockedByDomain: { "a.com": { n: 1 } } },
+    "enabledCountries is a number": { enabledCountries: 7 },
+    "customAlternatives are hostile": { customAlternatives: [{ id: "a", name: "<img src=x onerror=1>", steps: [1, {}] }, null, "z"] },
+    "a huge string value": { dietPreference: "x".repeat(200000) },
+    "prototype-polluting keys": JSON.parse('{"__proto__":{"pwned":true},"constructor":{"x":1},"customSites":[]}')
+  };
+
+  for (const [label, patch] of Object.entries(corruptions)) {
+    const bg = loadBackground({
+      enabled: true,
+      deliverySitesEnabled: true,
+      fastFoodSitesEnabled: true,
+      ...patch
+    });
+
+    await bg.context.queueRefreshBlockingState();
+
+    assert.ok(({}).pwned === undefined, `${label}: Object.prototype was polluted`);
+    assert.ok(
+      bg.rules().length > 100,
+      `${label}: blocking collapsed to ${bg.rules().length} rules — a corrupt profile must not unblock the user`
+    );
+    assert.ok(
+      bg.rules().some((rule) => rule.condition.urlFilter === "||doordash.com"),
+      `${label}: a known brand stopped being blocked`
+    );
+
+    // And the block page can still answer, which is what the user actually sees.
+    const context = await bg.message({ type: "getBlockContext", site: "delivery-doordash-com" });
+    assert.equal(context.ok, true, `${label}: the block page could not be rendered`);
+    assert.ok(Number.isFinite(context.timerSeconds), `${label}: the countdown was not a number`);
+  }
 });

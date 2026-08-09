@@ -306,7 +306,18 @@ test("readSettings clamps hostile numbers instead of trusting them", () => {
   assert.equal(settings.timerSeconds, core.MAX_TIMER_SECONDS);
   assert.equal(settings.passDurationMinutes, core.MIN_PASS_DURATION_MINUTES);
   assert.equal(settings.repeatExtraSeconds, 120);
-  assert.equal(settings.repeatWindowMinutes, 5);
+
+  // `repeatWindowMinutes` is no longer READ from storage at all. Nothing in the
+  // product ever wrote it — no control, no friction preset, not the install seed
+  // — so the only value it could hold was the default, while it was carried in
+  // every backup and named by a reset button. A stored value is now ignored
+  // outright rather than clamped, which is the honest form of "there is no such
+  // setting": there is a constant, and it is documented in docs/STORAGE.md.
+  assert.equal(
+    settings.repeatWindowMinutes,
+    core.DEFAULT_REPEAT_WINDOW_MINUTES,
+    "a value nothing can set must not be readable back either"
+  );
 });
 
 test("readSettings understands a legacy flat schedule with no schedule object", () => {

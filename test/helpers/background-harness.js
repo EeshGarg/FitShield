@@ -79,6 +79,25 @@ function loadBackground(initialStore, options) {
       lastError: null
     },
     storage: {
+      // Memory-only, browser-session-scoped storage. The worker keeps the
+      // block-page redirect token here, so it must exist for the message
+      // boundary to behave as it does in the browser.
+      session: {
+        _data: {},
+        get: async (keys) => {
+          const data = chrome.storage.session._data;
+          if (keys === null || keys === undefined) return { ...data };
+          const out = {};
+          (Array.isArray(keys) ? keys : [keys]).forEach((k) => {
+            if (k in data) out[k] = data[k];
+          });
+          return out;
+        },
+        set: async (obj) => { Object.assign(chrome.storage.session._data, obj); },
+        remove: async (keys) => {
+          (Array.isArray(keys) ? keys : [keys]).forEach((k) => delete chrome.storage.session._data[k]);
+        }
+      },
       local: {
         get: async (keys) => {
           if (opts.onStorageGet) {
@@ -131,7 +150,21 @@ function loadBackground(initialStore, options) {
     return { ok: true, status: 200, json: async () => JSON.parse(text) };
   };
 
-  const sandbox = { chrome, console, fetch: fetchImpl, setTimeout, URL, Math, Date, JSON, Promise };
+  const sandbox = {
+    chrome,
+    console,
+    fetch: fetchImpl,
+    setTimeout,
+    URL,
+    URLSearchParams,
+    Uint8Array,
+    // The worker mints its block-page redirect token with getRandomValues.
+    crypto: { getRandomValues: (array) => require("node:crypto").randomFillSync(array) },
+    Math,
+    Date,
+    JSON,
+    Promise
+  };
   sandbox.self = sandbox;
   sandbox.globalThis = sandbox;
 
@@ -141,29 +174,49 @@ function loadBackground(initialStore, options) {
 
   vm.runInContext(fs.readFileSync(srcPath("background.js"), "utf8"), context, { filename: "background.js" });
 
-  // Drive a message the way a page does, and resolve with what sendResponse got.
-  const message = (payload) =>
-    new Promise((resolve) => {
-      // A realistic sender: every message the product sends comes from one of its
-      // own extension pages, and the worker now refuses state-changing messages
-      // from anywhere else.
-      const handled = listeners.message(payload, { id: "test", url: "chrome-extension://test/warning.html" }, resolve);
-      if (!handled) {
-        resolve(null);
-      }
-    });
-
   // background.js declares its module state with top-level `let`, which lives in
   // the context's lexical scope and never appears on the sandbox global — so
   // `bg.context.blocklistsLoaded` silently reads undefined. Go through the
   // context to see or set what the worker actually holds.
   const evalIn = (expression) => vm.runInContext(expression, context);
 
+  // The URL the REAL block page runs at. The worker builds its redirect target
+  // with a random token and refuses to record for a block page that does not
+  // carry the current one, so a harness sender without it is not the block page
+  // — it is the forgery the guard exists to stop. Every suite that drives the
+  // block page therefore has to ask the worker for the same token the browser
+  // would have put in the address bar.
+  const blockPageUrl = async (search) =>
+    `chrome-extension://test/warning.html?site=x&k=${await evalIn("ensureBlockPageToken()")}${search || ""}`;
+
+  /**
+   * Drive a message the way a page does, and resolve with what sendResponse got.
+   *
+   * @param {object} payload
+   * @param {object} [sender] Override the sender entirely — how a suite models a
+   *   web page, a framed block page, or a block page with a stale token.
+   */
+  const message = async (payload, sender) =>
+    new Promise((resolve) => {
+      const handled = listeners.message(payload, sender, resolve);
+      if (!handled) {
+        resolve(null);
+      }
+    });
+
+  const messageFromBlockPage = async (payload) =>
+    message(payload, { id: "test", url: await blockPageUrl(), frameId: 0 });
+
   return {
     context,
     store,
     listeners,
-    message,
+    // The default sender is the genuine, redirected block page: that is where
+    // nearly every message in the product comes from.
+    message: async (payload, sender) =>
+      sender === undefined ? messageFromBlockPage(payload) : message(payload, sender),
+    messageFrom: message,
+    blockPageUrl,
     evalIn,
     alarms: () => chrome.alarms._set,
     createdTabs: () => listeners.created || [],

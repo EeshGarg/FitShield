@@ -80,19 +80,20 @@ test("the rule catalog still labels Jollibee with its bucket", async () => {
   );
 });
 
-test("getBlockedSiteInfo reports the same curated category as the block context", async () => {
+// There used to be two readers of one brand, and this asserted they agreed.
+// The second (`getBlockedSiteInfo`) was sent by nothing that ships and has been
+// removed, so what remains is the property that always mattered: the reader the
+// block page actually uses reports the CURATED category, never the rule bucket
+// the site was blocked by.
+test("the block context reports the curated category, not the rule bucket", async () => {
   const bg = await bootedWorker();
 
-  const info = await bg.message({ type: "getBlockedSiteInfo", site: "fast-food-jollibee-com" });
   const context = await bg.message({ type: "getBlockContext", site: "fast-food-jollibee-com" });
 
-  assert.equal(info.found, true);
-  assert.equal(info.category, "fast_casual");
-  assert.equal(
-    info.category,
-    context.site.category,
-    "the two readers of one brand must not disagree about its category"
-  );
+  assert.equal(context.found, true);
+  assert.equal(context.site.category, "fast_casual", "the dataset's word, not the bucket");
+  assert.notEqual(context.site.category, "fastfood");
+  assert.equal(context.site.type, "fast_food", "and the rule bucket is still available separately");
 });
 
 test("a delivery brand reports what the dataset curated, not the bucket it was blocked by", async () => {
@@ -229,7 +230,6 @@ test("reporting a curated category adds no stored field and no request", async (
   const keysBefore = Object.keys(bg.store).sort();
 
   const context = await bg.message({ type: "getBlockContext", site: "fast-food-jollibee-com" });
-  await bg.message({ type: "getBlockedSiteInfo", site: "fast-food-jollibee-com" });
 
   assert.equal(bg.fetchCount(), before, "reading a brand must not fetch anything");
   assert.deepEqual(Object.keys(bg.store).sort(), keysBefore, "a read must not write");

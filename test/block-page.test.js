@@ -233,11 +233,23 @@ test("packaged block page: both browser manifests are valid and point at package
 // Route through the worker's REAL onMessage listener, so the page and the worker
 // are tested against the same message contract the browser would use — not a
 // hand-maintained copy of it that can drift.
-function dispatchToBackground(bg, msg) {
-  return new Promise((resolve) => {
-    const handled = bg.listeners.message(msg, { id: "test", url: "chrome-extension://test/warning.html" }, resolve);
-    if (!handled) resolve({ ok: false });
-  });
+// `search` is the block page's OWN query string, because that is what the
+// browser puts in `sender.url` — and the worker now reads two things out of it:
+// the redirect token that proves FitShield sent the user here, and whether this
+// is a preview. Handing it a bare "warning.html" would model a page nobody was
+// redirected to, which is the forgery the worker is supposed to refuse.
+function dispatchToBackground(bg, msg, search) {
+  return (async () => {
+    const token = await bg.evalIn("ensureBlockPageToken()");
+    const url = `chrome-extension://test/warning.html${search || ""}${
+      (search || "").includes("?") ? "&" : "?"
+    }k=${token}`;
+
+    return new Promise((resolve) => {
+      const handled = bg.listeners.message(msg, { id: "test", url, frameId: 0 }, resolve);
+      if (!handled) resolve({ ok: false });
+    });
+  })();
 }
 
 // Render the block page (browser-shim.js, i18n.js, recipes.js, warning.js) for
@@ -247,12 +259,15 @@ function dispatchToBackground(bg, msg) {
 function renderBlockPage(bg, siteKey, options) {
   const opts = options || {};
   const doc = buildDocument(srcPath("warning.html"));
+  // The page's real address. It is both what warning.js parses and what the
+  // browser reports to the worker as sender.url, so one value serves both.
+  const search = `?site=${siteKey}${opts.preview ? "&preview=1" : ""}`;
 
   const chrome = {
     runtime: {
       getURL: (p) => "chrome-extension://test/" + p,
       getManifest: () => ({ version: "0.54" }),
-      sendMessage: async (msg) => { doc.messages.push(msg.type); return dispatchToBackground(bg, msg); }
+      sendMessage: async (msg) => { doc.messages.push(msg.type); return dispatchToBackground(bg, msg, search); }
     },
     storage: {
       local: {
@@ -271,12 +286,17 @@ function renderBlockPage(bg, siteKey, options) {
     const rel = url.replace("chrome-extension://test/", "");
     return { ok: true, status: 200, json: async () => JSON.parse(fs.readFileSync(srcPath(rel), "utf8")) };
   };
-  const search = `?site=${siteKey}${opts.preview ? "&preview=1" : ""}`;
   const win = {
     location: { search, href: "" },
     matchMedia: () => ({ matches: false }),
     setInterval: () => 0, clearInterval: () => {},
     setTimeout: () => 0,
+    // Every browser has this; the stub did not, so the first line of warning.js
+    // that used it turned a pass-option click into a TypeError here while
+    // working perfectly in Chrome. Run the callback straight away — the page
+    // uses it to re-announce a message, not to animate anything.
+    requestAnimationFrame: (fn) => { fn(); return 0; },
+    cancelAnimationFrame: () => {},
     history: { back: () => {}, length: 1 }
   };
 
@@ -849,14 +869,36 @@ test("the shared resolver names every category the shipped blocklists carry", as
 });
 
 test("the block page names countries, it does not print ISO codes", async () => {
-  // SF Express is active in exactly two countries, so nothing is truncated and
-  // the whole list can be asserted. HK is the one code where a bare Intl lookup
-  // ("Hong Kong SAR China") disagrees with the name Settings' country picker
-  // shows, which is why the shared resolver pins the short form.
-  const doc = await renderBrand("delivery-sf-express-com");
-  const countries = await reasonRow(doc, "Active in");
+  // The brand is READ FROM THE SHIPPED DATA rather than named here. This test
+  // used to pin `delivery-sf-express-com`, and when that entry was dropped from
+  // the blocklists — it is a parcel carrier, not a place to order dinner — the
+  // test failed on a missing fixture rather than on the behaviour it exists to
+  // protect. Any brand active in exactly China and Hong Kong will do: two
+  // countries so nothing is truncated, and HK is the one code where a bare Intl
+  // lookup ("Hong Kong SAR China") disagrees with the name Settings' country
+  // picker shows, which is why the shared resolver pins the short form.
+  const brands = [
+    ...JSON.parse(fs.readFileSync(path.join(ROOT, "data", "blocklists", "delivery.json"), "utf8")).entries,
+    ...JSON.parse(fs.readFileSync(path.join(ROOT, "data", "blocklists", "fast-food.json"), "utf8")).entries
+  ];
+  const brand = brands.find(
+    (entry) =>
+      entry.enabled !== false &&
+      Array.isArray(entry.countries) &&
+      entry.countries.length === 2 &&
+      entry.countries.includes("CN") &&
+      entry.countries.includes("HK")
+  );
 
-  assert.equal(countries, "China, Hong Kong", `the block page rendered "${countries}"`);
+  assert.ok(brand, "no shipped brand is active in exactly China and Hong Kong");
+
+  const key = `${brand.type.replace(/_/g, "-")}-${brand.domain.replace(/[^a-z0-9]+/g, "-")}`;
+  const doc = await renderBrand(key);
+  const countries = await reasonRow(doc, "Active in");
+  const expected = brand.countries.map((code) => (code === "CN" ? "China" : "Hong Kong")).join(", ");
+
+  assert.equal(countries, expected, `the block page rendered "${countries}" for ${brand.domain}`);
+  assert.ok(!/\bCN\b|\bHK\b/.test(countries), `the block page printed a raw ISO code: "${countries}"`);
 });
 
 test("the countries are named in the user's language, not just in English", async () => {

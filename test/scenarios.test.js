@@ -52,6 +52,21 @@ function loadWorker(initialStore) {
       lastError: null
     },
     storage: {
+      // Memory-only, browser-session-scoped. The worker keeps its block-page
+      // redirect token here.
+      session: (() => {
+        const data = {};
+        return {
+          get: async (keys) => {
+            if (keys === null || keys === undefined) return { ...data };
+            const out = {};
+            (Array.isArray(keys) ? keys : [keys]).forEach((k) => { if (k in data) out[k] = data[k]; });
+            return out;
+          },
+          set: async (obj) => { Object.assign(data, obj); },
+          remove: async (keys) => { (Array.isArray(keys) ? keys : [keys]).forEach((k) => delete data[k]); }
+        };
+      })(),
       local: {
         get: async (keys) => {
           if (keys === null || keys === undefined) return { ...store };
@@ -89,7 +104,9 @@ function loadWorker(initialStore) {
       const rel = url.replace("chrome-extension://test/", "");
       return { ok: true, status: 200, json: async () => JSON.parse(fs.readFileSync(srcPath(rel), "utf8")) };
     },
-    setTimeout, URL, Math, Date, JSON, Promise
+    setTimeout, URL, URLSearchParams, Uint8Array, Math, Date, JSON, Promise,
+    // The worker mints its block-page redirect token with getRandomValues.
+    crypto: { getRandomValues: (array) => require("node:crypto").randomFillSync(array) }
   };
   sandbox.self = sandbox;
   sandbox.globalThis = sandbox;
@@ -104,14 +121,21 @@ function loadWorker(initialStore) {
     listeners,
     setOpenTabs: (tabs) => { openTabs = tabs; },
     rules: () => chrome.declarativeNetRequest._rules,
-    message: (payload) =>
-      new Promise((resolve) => {
-        // A realistic sender: every message the product sends comes from one of its
-      // own extension pages, and the worker now refuses state-changing messages
-      // from anywhere else.
-      const handled = listeners.message(payload, { id: "test", url: "chrome-extension://test/warning.html" }, resolve);
+    // The genuine, redirected block page — the URL the worker itself minted,
+    // token and all. The worker refuses to record for a block page that cannot
+    // prove it is one FitShield redirected to, so a sender without the token is
+    // not "a realistic sender", it is the forgery the guard exists to stop.
+    message: async (payload) => {
+      const token = await vm.runInContext("ensureBlockPageToken()", context);
+      return new Promise((resolve) => {
+        const handled = listeners.message(
+          payload,
+          { id: "test", url: `chrome-extension://test/warning.html?site=x&k=${token}`, frameId: 0 },
+          resolve
+        );
         if (!handled) resolve(null);
-      })
+      });
+    }
   };
 }
 

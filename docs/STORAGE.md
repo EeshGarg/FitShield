@@ -26,7 +26,6 @@ before 0.55.
 | `askIntent` | bool | Show the optional "what brought you here?" prompt. |
 | `repeatFrictionEnabled` | bool | Add extra pause on a repeat visit. |
 | `repeatExtraSeconds` | int, 0–120 | How much extra. Capped; never compounds. |
-| `repeatWindowMinutes` | int, 5–720 | How long a repeat counts as recent. |
 | `repeatHistory` | `{ "domain": number[] }` | See [Repeat-access history](#repeat-access-history). **Expires.** |
 | `schedule` | `{ mode, windows[], until }` | See below. |
 | `scheduleEnabled` / `scheduleStart` / `scheduleEnd` | bool / `"HH:MM"` / `"HH:MM"` | Legacy mirror of a single window. Kept in step in both directions so the popup and older builds still work. |
@@ -77,12 +76,20 @@ Written only when the user deliberately continues to a blocked brand, and read
 only by `repeatFrictionFor` to decide whether this is a second visit inside the
 repeat window. It is bounded three ways:
 
-- **by age** — entries older than `repeatWindowMinutes` × 3 are dropped, and a
-  domain left with no entries loses its row entirely. With the default 60-minute
-  window that is 3 hours; with the longest window the setting allows, 36 hours.
+- **by age** — entries older than three times the repeat window are dropped, and
+  a domain left with no entries loses its row entirely. The window is a constant
+  (60 minutes, `DEFAULT_REPEAT_WINDOW_MINUTES` in `fitshield-core.js`), so
+  retention is a flat 3 hours. It was briefly a stored key, `repeatWindowMinutes`
+  — but no control, no friction preset and no install seed ever wrote it, so the
+  only value it could hold was that default while it was carried in every backup
+  and named by a reset button. A stored value is now ignored outright: adding a
+  control for it means adding the control and reading the key back together.
   Expiry is applied on every read (`readSettings`) **and** on every write
   (`recordContinue`), and the worker writes the pruned map back on every refresh
   — so a profile nobody touches cannot keep it on disk either.
+- **by whether the feature is on at all** — switching repeat friction off deletes
+  the map. Nothing else reads it, and a record of when the user gave in has no
+  business outliving the feature it was kept for.
 - **by domain count** — at most 60 domains.
 - **by entries per domain** — at most 12.
 
@@ -356,4 +363,12 @@ form.
 - The answer to "what brought you here?" — it shapes the current screen and is
   discarded.
 - Anything at all in preview mode.
-- Anything on a server, because there isn't one.
+- Anything on a server, because there isn't one. This is enforced rather than
+  asserted: the packages declare an `extension_pages` content security policy of
+  `connect-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'`
+  (plus `script-src 'self'` and `object-src 'self'`), so no page FitShield ships
+  can reach a remote host even if a future change tried to. Verified in Chrome
+  against the built package: an injected remote `<img>` and a remote `fetch()`
+  are both blocked, and a full session — blocking a site, the block page, taking
+  a pass, Settings, a backup export, every page — produced zero requests to any
+  non-extension origin.

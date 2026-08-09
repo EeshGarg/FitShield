@@ -1840,7 +1840,17 @@
     // Expiry is decided on READ, for passes and for repeat history alike, so a
     // profile that is simply left alone cannot keep either past its lifetime.
     const now = Number.isFinite(Number(opts.now)) ? Number(opts.now) : Date.now();
-    const repeatWindowMinutes = repeatWindowMinutesFor(get("repeatWindowMinutes"));
+    // NOT read from storage. `repeatWindowMinutes` was read in six places and
+    // written by nothing: no control offers it, no friction preset sets it, and
+    // `onInstalled` does not seed it — so the only value it could ever hold was
+    // this default, while it was carried in every backup, listed as a setting,
+    // and named by a reset button. A value no code path can set is not a
+    // setting; it is a constant with a misleading amount of machinery around it.
+    // It stays a named constant because it is a real part of the repeat-friction
+    // rule and of how long repeat history is kept, and it is documented as such
+    // in docs/STORAGE.md. Adding a control for it means adding the control AND
+    // reading the key back here, together.
+    const repeatWindowMinutes = DEFAULT_REPEAT_WINDOW_MINUTES;
 
     const schedule = isPlainObject(get("schedule"))
       ? normalizeSchedule(get("schedule"))

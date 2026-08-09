@@ -402,15 +402,18 @@ test("an unresolved site key degrades gracefully instead of throwing", async () 
   assert.ok(context.timerSeconds > 0, "the pause still works without a resolved brand");
 });
 
-test("getBlockedSiteInfo still resolves the trigger brand from a site key", async () => {
+test("the block context still resolves the trigger brand from a site key", async () => {
   const bg = loadBackground();
   await bg.context.queueRefreshBlockingState();
 
-  const info = await bg.message({ type: "getBlockedSiteInfo", site: "fast-food-kfc-com" });
+  // Was asserted through `getBlockedSiteInfo`, a second reader of the same brand
+  // that nothing shipped ever sent. getBlockContext is the reader the block page
+  // uses, and it answers the same question.
+  const context = await bg.message({ type: "getBlockContext", site: "fast-food-kfc-com" });
 
-  assert.equal(info.found, true);
-  assert.equal(info.domain, "kfc.com");
-  assert.ok(Array.isArray(info.specialties));
+  assert.equal(context.found, true);
+  assert.equal(context.site.domain, "kfc.com");
+  assert.ok(Array.isArray(context.site.specialties));
 });
 
 // ---------------------------------------------------------------------------
@@ -645,16 +648,25 @@ test("showing an alternative records it for rotation, dismissing it for depriori
 // Preview mode
 // ---------------------------------------------------------------------------
 
+// Preview is a property of the ADDRESS the block page is running at — Settings
+// and the welcome tour open `warning.html?...&preview=1` — not a flag the page
+// asserts about itself in each message. The worker reads it from sender.url, so
+// these drive it the way the browser would.
+const PREVIEW_SENDER = {
+  id: "test",
+  url: "chrome-extension://test/warning.html?site=delivery-doordash-com&preview=1"
+};
+
 test("preview mode records nothing at all", async () => {
   const bg = loadBackground();
   await bg.context.queueRefreshBlockingState();
   const before = JSON.stringify(bg.store.stats || null);
 
-  await bg.message({ type: "recordInterruption", preview: true });
-  await bg.message({ type: "recordAlternativeShown", id: "naan-pizza", preview: true });
-  await bg.message({ type: "recordAlternativeSelected", id: "naan-pizza", preview: true });
-  await bg.message({ type: "recordLeft", preview: true });
-  await bg.message({ type: "recordBlockedBrand", meta: { domain: "doordash.com" }, preview: true });
+  await bg.message({ type: "recordInterruption" }, PREVIEW_SENDER);
+  await bg.message({ type: "recordAlternativeShown", id: "naan-pizza" }, PREVIEW_SENDER);
+  await bg.message({ type: "recordAlternativeSelected", id: "naan-pizza" }, PREVIEW_SENDER);
+  await bg.message({ type: "recordLeft" }, PREVIEW_SENDER);
+  await bg.message({ type: "recordBlockedBrand", meta: { domain: "doordash.com" } }, PREVIEW_SENDER);
 
   assert.equal(JSON.stringify(bg.store.stats || null), before, "no statistics were written");
   assert.equal(bg.store.recentAlternatives, undefined);
@@ -665,12 +677,10 @@ test("preview mode never grants a real pass", async () => {
   const bg = loadBackground();
   await bg.context.queueRefreshBlockingState();
 
-  const response = await bg.message({
-    type: "grantPass",
-    site: "delivery-doordash-com",
-    presetId: "site30",
-    preview: true
-  });
+  const response = await bg.message(
+    { type: "grantPass", site: "delivery-doordash-com", presetId: "site30" },
+    PREVIEW_SENDER
+  );
 
   assert.equal(response.granted, false);
   await bg.context.queueRefreshBlockingState();

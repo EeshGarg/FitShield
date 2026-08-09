@@ -26,8 +26,8 @@ Hard contracts discovered (must not be broken silently):
 
 | Contract | Enforced by |
 | --- | --- |
-| `background.js` may `importScripts` **only** `blocklist.js` | `tools/service-worker-audit.js` |
-| Firefox manifest `background.scripts` is exactly `["blocklist.js","fitshield-core.js","background.js"]`, in that order | `tools/extension-audit.js` |
+| `background.js` may `importScripts` **only** `blocklist.js` and `fitshield-core.js` | `tools/service-worker-audit.js` |
+| Firefox manifest `background.scripts` is exactly `build.BACKGROUND_SCRIPTS`, with `background.js` last | `tools/extension-audit.js` |
 | Every `.js`/`.html` in `extension/` is staged by `build.js` (no orphans) | `tools/extension-audit.js` |
 | No inline `<script>` on any page (MV3 CSP) | `tools/extension-audit.js` |
 | Packaged block-page dependency graph is closed | `build.js verifyStage`, `test/block-page.test.js` |

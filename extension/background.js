@@ -103,7 +103,6 @@ const SETTINGS_KEYS = [
   "askIntent",
   "repeatFrictionEnabled",
   "repeatExtraSeconds",
-  "repeatWindowMinutes",
   "schedule",
   "scheduleEnabled",
   "scheduleStart",
@@ -446,12 +445,18 @@ function toUrlFilterHost(domain) {
   }
 }
 
-function createRules(settings) {
+function createRules(settings, blockToken) {
   const rules = [];
 
   getRuleCatalog(settings).forEach((site) => {
     const warningUrl = new URL(chrome.runtime.getURL("warning.html"));
     warningUrl.searchParams.set("site", site.key);
+
+    // Provenance. See ensureBlockPageToken: this is what separates a block page
+    // WE redirected to from one a website navigated the tab to itself.
+    if (blockToken) {
+      warningUrl.searchParams.set(BLOCK_TOKEN_PARAM, blockToken);
+    }
 
     const matchDomains = [site.match, ...(Array.isArray(site.aliases) ? site.aliases : [])]
       .map(toUrlFilterHost)
@@ -478,6 +483,132 @@ function getDynamicRules() {
   return new Promise((resolve) => {
     chrome.declarativeNetRequest.getDynamicRules(resolve);
   });
+}
+
+// ---------------------------------------------------------------------------
+// Block-page provenance
+// ---------------------------------------------------------------------------
+//
+// warning.html HAS to be web_accessible_resources with `<all_urls>` — it is the
+// declarativeNetRequest redirect target, and Chrome refuses to redirect to a
+// resource that is not exposed. That leaves it reachable at a fixed, public URL
+// from every site on the internet, and the `frameId !== 0` rule below only
+// closes the SILENT half of that hole. A hostile page can also simply send the
+// tab itself to
+//
+//   chrome-extension://<id>/warning.html?site=delivery-doordash-com
+//
+// which is a top-level document on our own origin: same id, frameId 0, our
+// origin. Every provenance check that existed passed it.
+//
+// Measured, not reasoned about — Chrome 149 against the built dist/chrome
+// package: four such navigations moved `stats.totals.interruptions` from 2 to 6
+// and wrote the brand into `blockedByDomain`. The statistics panel is the
+// product's only feedback loop, and "most interrupted sites" is presented as a
+// fact about the user's own behaviour, so a blocked delivery brand could author
+// the numbers that describe the user.
+//
+// The fix is provenance the page cannot fabricate: the redirect URL the worker
+// mints carries a random token, and a block page may only record anything when
+// the URL it is actually running at carries the CURRENT one. A website can
+// construct every other part of that URL — the site key is not a secret — but it
+// cannot read the token. The token exists only inside the dynamic rules and
+// chrome.storage.session, and a web page can read neither.
+const BLOCK_TOKEN_PARAM = "k";
+const BLOCK_TOKEN_KEY = "blockPageToken";
+
+let blockPageToken = null;
+let blockTokenPromise = null;
+
+function mintBlockPageToken() {
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  return [...bytes].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
+function tokenFromUrl(value) {
+  try {
+    return new URL(String(value || "")).searchParams.get(BLOCK_TOKEN_PARAM) || "";
+  } catch {
+    return "";
+  }
+}
+
+/**
+ * The token this worker generation will accept, resolved once and cached.
+ *
+ * An MV3 worker is torn down constantly, so this cannot live in a variable
+ * alone. `chrome.storage.session` is the right home: it is memory-only, never
+ * reaches disk, and is emptied when the browser closes — the exact lifetime a
+ * redirect nonce should have. It needs no permission beyond `storage`.
+ */
+async function ensureBlockPageToken() {
+  if (blockPageToken) {
+    return blockPageToken;
+  }
+
+  if (!blockTokenPromise) {
+    blockTokenPromise = (async () => {
+      try {
+        const stored = await chrome.storage.session.get([BLOCK_TOKEN_KEY]);
+        const cached = stored && stored[BLOCK_TOKEN_KEY];
+
+        if (typeof cached === "string" && cached.length >= 8) {
+          return cached;
+        }
+      } catch (error) {
+        // Session storage is unavailable on this build; fall through and adopt.
+      }
+
+      // First wake of a browser session. Dynamic rules SURVIVE a restart, so
+      // adopt the token already baked into them rather than minting a new one:
+      // otherwise a block page reached in the seconds before onStartup finishes
+      // rebuilding would carry a token this worker had just invalidated, and a
+      // genuine interruption would go uncounted.
+      let token = "";
+
+      try {
+        const rules = await getDynamicRules();
+
+        for (const rule of Array.isArray(rules) ? rules : []) {
+          const found = tokenFromUrl(rule && rule.action && rule.action.redirect && rule.action.redirect.url);
+
+          if (found) {
+            token = found;
+            break;
+          }
+        }
+      } catch (error) {
+        // No rules to adopt from — a fresh install, or blocking is off.
+      }
+
+      if (!token) {
+        token = mintBlockPageToken();
+      }
+
+      try {
+        await chrome.storage.session.set({ [BLOCK_TOKEN_KEY]: token });
+      } catch (error) {
+        // Unstorable, but still usable for this worker generation.
+      }
+
+      return token;
+    })()
+      .then((token) => {
+        blockPageToken = token;
+        return token;
+      })
+      .catch((error) => {
+        // A token we could not persist still beats having none: without one
+        // every block page would be refused and the counters would stop moving.
+        blockTokenPromise = null;
+        blockPageToken = mintBlockPageToken();
+        fsError("Could not resolve the block-page token", error);
+        return blockPageToken;
+      });
+  }
+
+  return blockTokenPromise;
 }
 
 async function updateDynamicRules(addRules) {
@@ -530,8 +661,15 @@ async function pruneStoredRepeatHistory(settings) {
     return;
   }
 
-  if (JSON.stringify(repeatHistory) !== JSON.stringify(settings.repeatHistory)) {
-    await chrome.storage.local.set({ repeatHistory: settings.repeatHistory });
+  // Repeat friction is the ONLY reader of this map. With the feature switched
+  // off it is a brand-keyed, time-stamped record of every moment the user gave
+  // in, kept on disk for a feature that is not running — which is precisely the
+  // data the product promises it does not accumulate. Switching the feature off
+  // therefore deletes it, rather than freezing it in place forever.
+  const wanted = settings.repeatFrictionEnabled ? settings.repeatHistory : {};
+
+  if (JSON.stringify(repeatHistory) !== JSON.stringify(wanted)) {
+    await chrome.storage.local.set({ repeatHistory: wanted });
   }
 }
 
@@ -554,12 +692,15 @@ async function refreshBlockingState() {
       { openTabIds: tabs }
     );
 
-  const rules = createRules({
-    ...settings,
-    deliverySites: settings.deliverySites.filter((site) => !passCovers(site)),
-    fastFoodSites: settings.fastFoodSites.filter((site) => !passCovers(site)),
-    customSites: settings.customSites.filter((site) => !passCovers({ domain: site.domain, category: "custom" }))
-  });
+  const rules = createRules(
+    {
+      ...settings,
+      deliverySites: settings.deliverySites.filter((site) => !passCovers(site)),
+      fastFoodSites: settings.fastFoodSites.filter((site) => !passCovers(site)),
+      customSites: settings.customSites.filter((site) => !passCovers({ domain: site.domain, category: "custom" }))
+    },
+    await ensureBlockPageToken()
+  );
 
   const hasBlockingRules = rules.length > 0;
   const globalPause = activePasses.some((pass) => pass.scope === "all");
@@ -644,6 +785,13 @@ function customRecordsFor(settings) {
 //      lists the curated vocabulary (`fast_casual`, `logistics`, `tea`, …). One
 //      page, two vocabularies.
 //
+// (There were two readers. `getBlockedSiteInfo` returned the same brand fields
+// one at a time and was sent by nothing that ships — the block page has always
+// used getBlockContext, which answers the same question plus the pause, the
+// pass options and the user's preferences in ONE round trip, which matters on
+// a page that must render before a countdown. It was removed; getBlockContext
+// is the reader.)
+//
 // The catalog keeps its bucket. This lookup reads the branded records instead:
 // they carry the curated `category`, plus the `type`, `countries` and
 // `specialties` the panel and the recipe picker read. Every key the catalog can
@@ -672,30 +820,6 @@ function findSite(settings, siteKey) {
   return getRuleCatalog(settings).find((entry) => entry.key === siteKey) || null;
 }
 
-async function getBlockedSiteInfo(siteKey) {
-  const settings = await getSettings();
-  const site = findSite(settings, siteKey);
-
-  if (!site) {
-    return { ok: true, found: false };
-  }
-
-  return {
-    ok: true,
-    found: true,
-    key: site.key,
-    label: site.label,
-    domain: site.domain || site.match,
-    apex: site.apex || site.domain || site.match,
-    aliases: Array.isArray(site.aliases) ? site.aliases : [],
-    home: site.home,
-    type: site.type || "",
-    category: site.category || "",
-    countries: Array.isArray(site.countries) ? site.countries : [],
-    regions: Array.isArray(site.regions) ? site.regions : [],
-    specialties: Array.isArray(site.specialties) ? site.specialties : []
-  };
-}
 
 /**
  * Everything the block page needs, in ONE round trip: which brand was
@@ -1090,11 +1214,17 @@ async function grantPass(request) {
   const tabs = await openTabIds();
   const passes = [...FitShieldCore.activePasses(settings.passes, Date.now(), { openTabIds: tabs }), pass];
 
-  const repeatHistory = domain
-    ? FitShieldCore.recordContinue(settings.repeatHistory, domain, Date.now(), {
-        windowMinutes: settings.repeatWindowMinutes
-      })
-    : settings.repeatHistory;
+  // Only written while repeat friction is actually switched on: this map exists
+  // to make the SECOND visit to a brand cost more, and nothing else reads it. A
+  // user who turned the feature off did not ask FitShield to keep noting when
+  // they ordered.
+  const repeatHistory = !settings.repeatFrictionEnabled
+    ? {}
+    : domain
+      ? FitShieldCore.recordContinue(settings.repeatHistory, domain, Date.now(), {
+          windowMinutes: settings.repeatWindowMinutes
+        })
+      : settings.repeatHistory;
 
   // `enabled` is deliberately NOT written here. This used to set it to true,
   // unexplained: a user who had turned FitShield off in the popup, then returned
@@ -1346,7 +1476,12 @@ const REFRESH_KEYS = [
   "customSites",
   "passes",
   "enabledCountries",
-  "enabledCategories"
+  "enabledCategories",
+  // Not a rule input — a retention input. It decides whether `repeatHistory` is
+  // kept at all, and nothing re-evaluated that when it changed: a user who
+  // switched repeat friction off kept the old rows on disk until the next
+  // browser restart.
+  "repeatFrictionEnabled"
 ];
 
 const ALL_DAY_COUNT = 7;
@@ -1418,11 +1553,17 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 // and makes the message surface readable in one place.
 const HANDLERS = {
   getBlockState: () => getBlockState(),
-  getBlockedSiteInfo: (message) => getBlockedSiteInfo(message.site),
   getBlockContext: (message) => getBlockContext(message.site, message),
   getDiagnostics: (message) => getDiagnostics(message.domain),
+  // The sender's REAL tab wins over anything the message claims. `tabId` was
+  // read from the message first, so a forged message could pin a tab-bound pass
+  // to a tab the sender is not in. No FitShield page has ever sent one; only a
+  // forgery would.
   grantPass: (message, sender) =>
-    grantPass({ ...message, tabId: message.tabId ?? (sender && sender.tab && sender.tab.id) }),
+    grantPass({
+      ...message,
+      tabId: sender && sender.tab && Number.isInteger(sender.tab.id) ? sender.tab.id : message.tabId
+    }),
   revokeAllPasses: () => revokeAllPasses(),
   recordInterruption: (message) => recordEvent("interruptions", message),
   recordLeft: (message) => recordEvent("left", message),
@@ -1430,52 +1571,88 @@ const HANDLERS = {
   recordAlternativeShown: (message) => recordAlternativeShown(message.id, message),
   recordAlternativeSelected: (message) => recordAlternativeSelected(message.id, message),
   recordAlternativeDismissed: (message) => recordAlternativeDismissed(message.id, message),
-  markAlternativeMade: (message) => markAlternativeMade(message.id),
-  refreshBlocking: () => queueRefreshBlockingState().then(() => ({ ok: true }))
+  markAlternativeMade: (message) => markAlternativeMade(message.id)
+  // A "refreshBlocking" handler lived here. Nothing in the product ever sent it
+  // — no page, no shim, no shipped script — while it rebuilt every rule and
+  // rewrote passes and repeat history on demand. A message handler with no
+  // sender is attack surface with no user, and this one was reachable from the
+  // block page, which is the one FitShield surface a website can cause to load.
+  // Every real trigger still exists: chrome.storage.onChanged over REFRESH_KEYS,
+  // the pass and schedule alarms, onStartup and onInstalled. If a "rebuild the
+  // rules" button is ever wanted, it arrives together with the button.
 };
 
-// Messages that change durable state may only come from FitShield's own pages.
+// EVERY message must come from one of FitShield's own pages, unframed. Nothing
+// FitShield ships runs in a frame, so a framed sender is either the block page
+// embedded by a hostile site or something else entirely; both are refused,
+// including for the read-only handlers, which return the user's diet, allergens,
+// pantry and custom recipes.
 //
 // warning.html is web_accessible_resources with `<all_urls>` — it has to be, it
 // is the declarativeNetRequest redirect target — so any site could embed it in a
-// hidden iframe, or simply post these messages itself, and silently run up the
-// user's interruption count, brand breakdown and rotation history. Statistics
-// FitShield presents as observed events must not be forgeable by the pages it is
-// meant to be interrupting.
-//
-// A message from an extension page carries a sender.url on our own origin. One
-// from a web page does not.
-// The origin check alone is not enough: warning.html is reachable at a stable
-// chrome-extension:// URL from every site, so a hostile page can put it in a
-// 1x1 hidden iframe and every load is a message from OUR origin. The real block
-// page is always a top-level main_frame redirect (see the rule condition in
-// createRules), so a FRAMED sender is never one, and a blocked delivery brand is
-// exactly the party motivated to run the user's interruption count up until the
-// stats panel is worthless. Chrome's extension id is fixed and public for a
-// listed extension, which is what makes that reachable.
-function isOwnSurface(sender) {
+// hidden iframe and silently run up the user's interruption count, brand
+// breakdown and rotation history. Statistics FitShield presents as observed
+// events must not be forgeable by the pages it is meant to be interrupting.
+// Chrome's extension id is fixed and public for a listed extension, which is
+// what makes that reachable. (Firefox randomises the moz-extension UUID per
+// profile, so the exposure was always Chrome-side; the guard is not.)
+/**
+ * Which FitShield surface a message came from, or null if it did not come from
+ * one at all.
+ *
+ * A message from an extension page carries a sender.url on our own origin. One
+ * from a web page does not. The origin check alone is not enough: warning.html
+ * is reachable at a stable chrome-extension:// URL from every site, so a hostile
+ * page can put it in a 1x1 hidden iframe and every load is a message from OUR
+ * origin. The real block page is always a top-level main_frame redirect (see the
+ * rule condition in createRules), so a FRAMED sender is never one.
+ */
+function senderSurface(sender) {
   if (!sender) {
-    return false;
+    return null;
   }
 
   // Same extension id, and an extension-origin URL.
   if (sender.id && chrome.runtime.id && sender.id !== chrome.runtime.id) {
-    return false;
+    return null;
   }
 
   // frameId is only set when the message came from a tab. 0 is the top-level
   // document; anything else is an embedded frame. The popup and other
   // tab-less surfaces carry no frameId at all and are unaffected.
   if (Number.isInteger(sender.frameId) && sender.frameId !== 0) {
-    return false;
+    return null;
   }
 
   const origin = chrome.runtime.getURL("");
   const url = String(sender.url || "");
 
-  return url.startsWith(origin);
+  if (!url.startsWith(origin)) {
+    return null;
+  }
+
+  let params;
+
+  try {
+    params = new URL(url).searchParams;
+  } catch {
+    params = new URLSearchParams();
+  }
+
+  return {
+    path: url.slice(origin.length).split(/[?#]/)[0],
+    isBlockPage: url.slice(origin.length).split(/[?#]/)[0] === "warning.html",
+    // Read from the URL, never from the message body. "Preview mode records
+    // nothing" is then a property of the address the page is running at, which
+    // the worker can see, rather than a flag the page asserts about itself.
+    preview: params.get("preview") === "1",
+    token: params.get(BLOCK_TOKEN_PARAM) || ""
+  };
 }
 
+// Messages that change durable state. These get the provenance check; the
+// read-only handlers still require an own, unframed surface (below) but do not
+// need to prove which block page they are.
 const WEB_FORGEABLE = new Set([
   "recordInterruption",
   "recordLeft",
@@ -1488,6 +1665,27 @@ const WEB_FORGEABLE = new Set([
   "revokeAllPasses"
 ]);
 
+/**
+ * May this sender run this message?
+ *
+ *  1. It must be one of our own pages, unframed.
+ *  2. If it changes durable state AND it is the block page, that block page must
+ *     be one WE redirected to — its URL must carry the current redirect token.
+ *     The preview is exempt because it records nothing by construction, and the
+ *     worker now enforces that from the URL rather than trusting the page.
+ */
+async function senderMayRun(type, surface) {
+  if (!surface) {
+    return false;
+  }
+
+  if (!WEB_FORGEABLE.has(type) || !surface.isBlockPage || surface.preview) {
+    return true;
+  }
+
+  return surface.token !== "" && surface.token === (await ensureBlockPageToken());
+}
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   const handler = message && HANDLERS[message.type];
 
@@ -1495,14 +1693,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return false;
   }
 
-  if (WEB_FORGEABLE.has(message.type) && !isOwnSurface(sender)) {
-    fsError(`Refused "${message.type}" from outside the extension`, sender && sender.url);
-    sendResponse({ ok: false, error: "Refused: not a FitShield surface." });
-    return true;
-  }
+  const surface = senderSurface(sender);
 
   Promise.resolve()
-    .then(() => handler(message, sender))
+    .then(async () => {
+      if (!(await senderMayRun(message.type, surface))) {
+        fsError(`Refused "${message.type}" from outside the extension`, sender && sender.url);
+        return { ok: false, error: "Refused: not a FitShield surface." };
+      }
+
+      // The block page's own address decides whether it is a preview, so a
+      // page cannot claim to be recording for real, or claim not to be.
+      const payload = surface.isBlockPage ? { ...message, preview: surface.preview } : message;
+      return handler(payload, sender);
+    })
     .then((result) => sendResponse(result || { ok: true }))
     .catch((error) => {
       fsError(`Message "${message.type}" failed`, error);

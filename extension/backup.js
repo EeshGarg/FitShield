@@ -66,7 +66,11 @@
     "askIntent",
     "repeatFrictionEnabled",
     "repeatExtraSeconds",
-    "repeatWindowMinutes",
+    // `repeatWindowMinutes` was here. Nothing in the product ever wrote it — no
+    // control, no friction preset, not the install seed — so a backup could only
+    // ever carry the one default, and restoring it would propagate a key the
+    // runtime no longer reads onto every new device. It is a named constant now
+    // (fitshield-core.js), which is what it always effectively was.
     // `settingsDelaySeconds` was here. It was written by the Strict profile,
     // documented as a cooling-off delay, unit-tested — and read by nothing. It
     // has been removed from the runtime, so carrying it in a backup would
@@ -135,6 +139,11 @@
   ];
 
   const FORBIDDEN_KEYS = new Set(["__proto__", "constructor", "prototype"]);
+
+  // How many settings the imported FILE carried, carried alongside the
+  // normalized result. A symbol so that Object.keys, JSON.stringify and
+  // chrome.storage.local.set all step straight over it.
+  const SOURCE_COUNT = Symbol("fitshield.backup.sourceCount");
 
   function isPlainObject(value) {
     return !!value && typeof value === "object" && !Array.isArray(value);
@@ -422,19 +431,44 @@
     }
 
     out[core.SCHEMA_KEY] = core.SCHEMA_VERSION;
+
+    // How many of the USER'S settings this file carried. Recorded here because
+    // it is the only place that can still see the file: by the time the caller
+    // has the result, the migration has added `stats` (derived from a legacy
+    // file's counters) and the schema marker, and neither is a setting the user
+    // chose. A symbol key so it is invisible to Object.keys, to JSON, and to
+    // chrome.storage.local.set — it can never be mistaken for data.
+    Object.defineProperty(out, SOURCE_COUNT, {
+      // The marker is FitShield's bookkeeping even when the file carried one,
+      // so it is not one of "your settings" in either direction.
+      value: Object.keys(settings).filter((key) => key !== core.SCHEMA_KEY).length,
+      enumerable: false
+    });
+
     return out;
   }
 
   /**
    * Pure: how many of the user's settings a validated import actually carries.
    *
-   * `normalizeImported` stamps the internal schema marker onto every result, so
-   * counting its keys reported one more setting than the file held — the number
-   * shown as "Restored N settings from the backup." was off by one for any
-   * backup written before that key existed, and counted an internal marker as
-   * one of "your settings" for every other backup.
+   * This is the one number a person gets to sanity-check a restore against, and
+   * it has been wrong twice in the same direction. `normalizeImported` stamps
+   * the internal schema marker onto every result, so counting its keys reported
+   * an internal marker as one of "your settings". Excluding that key alone was
+   * still wrong for the case the report actually named — a pre-0.55 backup —
+   * because the migration ALSO adds `stats`, translated from the very
+   * `blockedVisits` / `recipesChosen` keys already being counted. A six-setting
+   * file reported seven either way.
+   *
+   * So the count now comes from the file, recorded while the file was still in
+   * view. The key-counting path remains for a caller that hands over a map from
+   * somewhere else.
    */
   function restoredCount(settings) {
+    if (isPlainObject(settings) && Number.isFinite(settings[SOURCE_COUNT])) {
+      return settings[SOURCE_COUNT];
+    }
+
     const core = getCore();
     const schemaKey = core ? core.SCHEMA_KEY : "schemaVersion";
 
