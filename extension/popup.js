@@ -254,10 +254,6 @@ function describeSimpleSchedule(schedule, scheduleEnabled, scheduleStart, schedu
   return t("currentScheduleSummary", [formatScheduleText(scheduleStart, scheduleEnd) + t("everyDaySuffix")]);
 }
 
-function siteUnit(value) {
-  return t(value === 1 ? "unitSite" : "unitSites");
-}
-
 /**
  * The passes that are still running RIGHT NOW.
  *
@@ -272,19 +268,59 @@ function activePassesOf(state, now) {
 }
 
 /**
+ * How many sites the status line will NAME before it falls back to counting.
+ *
+ * Naming them is the guarantee: a count tells you that something is open, not
+ * WHICH thing, and "which" is the entire correction F039 made. So the names are
+ * given for as long as they can be read, and only then does the count take
+ * over.
+ *
+ * Three is where that turns, measured rather than guessed. Domains in the
+ * shipped blocklists run to 13 characters at the median and 18 at the 90th
+ * percentile; three of those joined by ", " plus the sentence around them come
+ * to roughly 120 characters, which is the two lines `.status` is already sized
+ * for (min-height 38px at 0.92rem/1.35 in popup.html). A fourth name spills
+ * onto a third line and resizes the popup underneath the user's cursor every
+ * time a pass is taken or expires.
+ */
+const MAX_NAMED_PASS_SITES = 3;
+
+/**
+ * The list separator is a plain ", " rather than Intl.ListFormat or a
+ * translated conjunction, deliberately. These are ASCII machine names, not
+ * prose: a localized "and"/"und"/"و" inserted between two domains adds a word
+ * without adding meaning, and it would make the sentence engine-dependent —
+ * this string is recomputed every second and asserted in tests, so it should
+ * not vary with which Intl data the host happens to ship. The part of the
+ * sentence that genuinely depends on the language is the message itself, and
+ * that is translated.
+ */
+function joinSites(targets) {
+  return targets.join(", ");
+}
+
+/**
  * Say what is ACTUALLY paused.
  *
- * A pass carries its own scope. Two of the six presets ("Pause everything for
- * 30 minutes", "Pause everything until tomorrow") are scope "all"; the other
- * four unblock exactly one site, and the pass chooser promises so in as many
- * words — "FitShield stays on for everything else". The status line ignored the
+ * A pass carries its own scope. Two of the six presets ("Turn off all blocking
+ * for 30 minutes", "…until tomorrow") are scope "all"; the other four unblock
+ * exactly one site, and the pass chooser says so. The status line ignored the
  * scope and printed "Blocking resumes in X" for every one of them, which told a
  * user who had opened one delivery site for five minutes that FitShield was
  * off. It was not: every other site was still being blocked, and would have
  * been interrupted normally.
  *
  * So the global sentence is kept for the passes it is true of, and a scoped
- * pass names its site and its scope instead.
+ * pass names its site and says, in words, that nothing else was unblocked.
+ *
+ * The scoped branches used to be assembled from fragments — `doordash.com ·
+ * This site only · 4m 12s`. That is a caption, not a sentence: the reader has
+ * to infer what the separators mean, a screen reader announces it as three
+ * unrelated runs, and the one thing the fix exists to say — that everything
+ * else is still blocked — was never actually said. Each branch is now one
+ * translatable sentence, which is also the only form the other 84 locales can
+ * render correctly: word order is theirs to choose, not ours to impose with
+ * interpuncts.
  */
 function passStatusMessage(passes, now) {
   const remaining = formatTimeRemaining(
@@ -304,13 +340,20 @@ function passStatusMessage(passes, now) {
     return t("statusBypassActive", [remaining]);
   }
 
-  // One site: name it, and say the pass covers only it.
+  // One site: name it, and say that nothing else was opened with it.
   if (targets.length === 1) {
-    return `${targets[0]} · ${t("passScopeSite")} · ${remaining}`;
+    return t("statusPassSite", [targets[0], remaining]);
   }
 
-  // Several: name them all, with the count, and the time the last one ends.
-  return `${targets.join(", ")} · ${targets.length} ${siteUnit(targets.length)} · ${remaining}`;
+  // A few: name every one of them, and the time the last one ends.
+  if (targets.length <= MAX_NAMED_PASS_SITES) {
+    return t("statusPassSitesNamed", [joinSites(targets), remaining]);
+  }
+
+  // Too many to read as a list. The count is the honest summary, and the
+  // promise it is paired with — that everything else is still blocked — is the
+  // part that has to survive at any length.
+  return t("statusPassSites", [String(targets.length), remaining]);
 }
 
 function getStatusMessage(state) {

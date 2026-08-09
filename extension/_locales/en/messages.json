@@ -135,11 +135,15 @@
   },
   "statusPassSite": {
     "message": "$1 is open for $2. Everything else is still blocked.",
-    "description": "$1 is the site the pass covers, $2 the time remaining. Used when every active pass is scoped to one site, so the global \"blocking resumes\" sentence would be false. [staged: popup.js]"
+    "description": "$1 is the site the pass covers, $2 the time remaining. Used when exactly one site has a pass, so the global \"blocking resumes\" sentence would be false."
+  },
+  "statusPassSitesNamed": {
+    "message": "$1 are open for up to $2. Everything else is still blocked.",
+    "description": "$1 is the list of sites that have a pass, already joined by popup.js (\"doordash.com, ubereats.com\"); $2 is the time until the last pass ends. Used for two or three sites, where naming them still fits the status line. Do not turn $1 back into a count — knowing WHICH sites are open is the point of the sentence."
   },
   "statusPassSites": {
     "message": "$1 sites are open for up to $2. Everything else is still blocked.",
-    "description": "$1 is how many sites have a pass, $2 the time until the last one ends. [staged: popup.js]"
+    "description": "$1 is how many sites have a pass, $2 the time until the last one ends. Used from four sites upwards, where the list is too long to name and the count is the readable fact."
   },
   "statusOutsideSchedule": {
     "message": "FitShield is on, but this is outside your scheduled hours. It will block from $1.",
@@ -163,7 +167,7 @@
   },
   "searchMatchSuffixOne": {
     "message": " 1 matches the search.",
-    "description": "Singular form of searchMatchSuffix, for exactly one match. English needs the -s here; \"1 match the search\" was ungrammatical. [staged: settings.js]"
+    "description": "Singular form of searchMatchSuffix, for exactly one match. English needs the -s here; \"1 match the search\" was ungrammatical."
   },
   "warningPageTitle": {
     "message": "Take a moment"
@@ -800,7 +804,7 @@
   },
   "estimateBasisOne": {
     "message": "1 alternative you marked as made, at $1 each.",
-    "description": "Singular form of estimateBasis, for exactly one alternative. $1 is the price; the count is written out, so this takes ONE placeholder where the plural takes two. [staged: settings.js]"
+    "description": "Singular form of estimateBasis, for exactly one alternative. $1 is the price; the count is written out, so this takes ONE placeholder where the plural takes two."
   },
   "statsMostBlockedSites": {
     "message": "Most blocked sites"
@@ -930,7 +934,7 @@
   },
   "currencyLabel": {
     "message": "Currency",
-    "description": "Accessible name for the currency picker beside the meal-cost field. The two controls previously shared one label, so a screen reader announced both as \"Average meal cost\". [staged: settings.html]"
+    "description": "Accessible name for the currency picker beside the meal-cost field. The two controls previously shared one label, so a screen reader announced both as \"Average meal cost\"."
   },
   "currencyAuto": {
     "message": "Match my language — $1 ($2)",
@@ -1342,7 +1346,7 @@
   },
   "scheduleWindowsSummaryOne": {
     "message": "1 time window set.",
-    "description": "Singular form of scheduleWindowsSummary, for exactly one window. [staged: preferences.js]"
+    "description": "Singular form of scheduleWindowsSummary, for exactly one window."
   },
   "scheduleOverrideActive": {
     "message": "Blocking everything until tomorrow."

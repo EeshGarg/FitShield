@@ -3,12 +3,15 @@
  * Popup regressions: what the status line CLAIMS, what the user can DO about a
  * running pass, and what the popup WRITES to storage.
  *
- * Five defects, all in extension/popup.js, all invisible to a source grep and
+ * Six defects, all in extension/popup.js, all invisible to a source grep and
  * all visible the moment the page is actually driven:
  *
  *   F039  the status announced a global pause ("Blocking resumes in 4m 12s")
  *         for a pass that had unblocked exactly ONE site — the opposite of what
- *         the pass chooser had just promised.
+ *         the pass chooser had just promised. The first correction named the
+ *         site but did it in fragments ("doordash.com · This site only · 4m
+ *         12s"), which still never said that everything else was blocked; the
+ *         status line is now a sentence in every branch.
  *   F040  the worker has implemented and registered `revokeAllPasses` since
  *         passes existed and NOTHING called it: a pass could not be ended early
  *         except by turning FitShield off.
@@ -212,7 +215,18 @@ test("a site-scoped pass does not claim that all blocking is paused", async () =
     /Blocking resumes/i,
     "blocking never stopped for anything but that site — saying so was the defect"
   );
-  assert.match(message, /This site only/i, "and the scope the user chose is stated back to them");
+
+  // The guarantee is now made in words instead of being implied by a "This site
+  // only" tag wedged between two separators. A caption made the reader infer
+  // it; a sentence states it.
+  assert.match(message, /doordash\.com is open for/i, "a sentence about that site, not a caption");
+  assert.match(
+    message,
+    /Everything else is still blocked\./i,
+    "the fix is only complete when the popup SAYS what is still blocked"
+  );
+  assert.doesNotMatch(message, /·/, "no interpunct fragments — screen readers read this as one sentence");
+  assert.doesNotMatch(message, /statusPassSite/, "the key resolved: t() renders the key name when it does not");
 });
 
 test("a pass that really did pause everything still says so", async () => {
@@ -236,8 +250,63 @@ test("several site passes name every site that is open", async () => {
 
   assert.match(message, /doordash\.com/);
   assert.match(message, /ubereats\.com/);
-  assert.match(message, /2 sites/i, "with the count, so a long list is still countable");
   assert.doesNotMatch(message, /Blocking resumes/i);
+
+  // A count is not a substitute for the names here. "2 sites are open" tells a
+  // user that something is unblocked without telling them WHICH — which is the
+  // exact information F039 was raised to restore, so the short-list branch has
+  // to name them rather than count them.
+  assert.match(
+    message,
+    /doordash\.com, ubereats\.com are open for up to/i,
+    "both names, in one sentence, joined readably"
+  );
+  assert.doesNotMatch(message, /^\s*2 sites/i, "the count-only sentence must not be used while the list is nameable");
+  assert.match(message, /Everything else is still blocked\./i);
+  assert.doesNotMatch(message, /·/, "one sentence, not three fragments");
+  assert.doesNotMatch(message, /statusPassSitesNamed/, "the key resolved");
+});
+
+test("three site passes are still all named — that is the threshold, not two", async () => {
+  const { sandbox } = renderPopup({ uiLanguage: "en" }, blockStateWith({}));
+  await settle();
+  const passes = [sitePass("doordash.com", 5), sitePass("ubereats.com", 12), sitePass("grubhub.com", 3)];
+  const state = blockStateWith({ passes, bypassUntil: Math.max(...passes.map((p) => p.expiresAt)) });
+
+  const message = sandbox.getStatusMessage(state);
+
+  for (const site of ["doordash.com", "ubereats.com", "grubhub.com"]) {
+    assert.match(message, new RegExp(site.replace(".", "\\.")), `${site} has a pass and must be named`);
+  }
+
+  assert.doesNotMatch(message, /3 sites/i, "three still fits the status line, so it is named rather than counted");
+  assert.match(message, /Everything else is still blocked\./i);
+  assert.doesNotMatch(message, /Blocking resumes/i);
+});
+
+test("past the threshold the count takes over, and keeps the promise with it", async () => {
+  const { sandbox } = renderPopup({ uiLanguage: "en" }, blockStateWith({}));
+  await settle();
+  const names = ["doordash.com", "ubereats.com", "grubhub.com", "postmates.com"];
+  const passes = names.map((name, index) => sitePass(name, index + 2));
+  const state = blockStateWith({ passes, bypassUntil: Math.max(...passes.map((p) => p.expiresAt)) });
+
+  const message = sandbox.getStatusMessage(state);
+
+  // Four names would push the status box onto a third line and resize the popup
+  // every time a pass starts or ends, so the list gives way to a count.
+  assert.match(message, /4 sites are open for up to/i, "the count, once the list stops being readable");
+  names.forEach((name) => {
+    assert.doesNotMatch(message, new RegExp(name.replace(".", "\\.")), `${name} is counted, not listed, past the threshold`);
+  });
+
+  // Whatever the length, the sentence never degrades into the global claim.
+  assert.doesNotMatch(message, /Blocking resumes/i, "these are site passes at any count");
+  assert.match(
+    message,
+    /Everything else is still blocked\./i,
+    "the promise F039 restored has to survive the fallback, not just the short list"
+  );
 });
 
 test("a mixed set is described by the pass with the widest scope", async () => {
