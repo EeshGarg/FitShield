@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blokkoló"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every blokkolás list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & kategória blokkolásing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Használatful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All oldalak are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Blokkoló is on, but every individual oldal is disabled. Megnyitás Beállítások to turn some oldalak back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blokkolás resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blokkoló is armed, but outside ütemezésd hours. It will blokkolás from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 kiszállítási oldalak enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Blokkolás"
-  },
-  "mbBlock": {
-    "message": "Blokkolás"
-  },
-  "mbOn": {
-    "message": "Be"
-  },
-  "mbOff": {
-    "message": "Ki"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blokkolás — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to blokkolás"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Eltávolítás shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Eltávolítás $1 from quick access"

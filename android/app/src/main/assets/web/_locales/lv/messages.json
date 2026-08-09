@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield bloķētājs"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every bloķēt list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & kategorija bloķēting"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Lietotful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All vietnes are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Bloķētājs is on, but every individual vietne is disabled. Atvērt Iestatījumi to turn some vietnes back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Bloķēšana resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Bloķētājs is armed, but outside grafiksd hours. It will bloķēt from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 piegādes vietnes enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Bloķēšana"
-  },
-  "mbBlock": {
-    "message": "Bloķēt"
-  },
-  "mbOn": {
-    "message": "Ieslēgts"
-  },
-  "mbOff": {
-    "message": "Izslēgts"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Bloķēšana — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to bloķēt"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Noņemt shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Noņemt $1 from quick access"

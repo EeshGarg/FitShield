@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blokuoklis"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every blokuoti list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & kategorija blokuotiing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Naudotiful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All svetainės are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Blokuoklis is on, but every individual svetainė is disabled. Atidaryti Nustatymai to turn some svetainės back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blokavimas resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blokuoklis is armed, but outside tvarkaraštisd hours. It will blokuoti from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 pristatymo svetainės enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Blokavimas"
-  },
-  "mbBlock": {
-    "message": "Blokuoti"
-  },
-  "mbOn": {
-    "message": "Įjungta"
-  },
-  "mbOff": {
-    "message": "Išjungta"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blokavimas — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to blokuoti"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Pašalinti shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Pašalinti $1 from quick access"

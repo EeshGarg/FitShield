@@ -110,17 +110,8 @@
   "popupScheduleSubtitle": {
     "message": "భోజన బడ్జెట్‌లు, అర్థరాత్రి ఆర్డర్ చేయడం లేదా పని గంటల కోసం ఉపయోగపడుతుంది."
   },
-  "statusInactive": {
-    "message": "నిష్క్రియ. అన్ని సైట్‌లు అందుబాటులో ఉన్నాయి."
-  },
-  "statusAllDisabled": {
-    "message": "బ్లాకర్ ఆన్‌లో ఉంది, కానీ ప్రతి వ్యక్తిగత సైట్ నిలిపివేయబడింది. కొన్ని సైట్‌లను తిరిగి ఆన్ చేయడానికి సెట్టింగ్‌లను తెరవండి."
-  },
   "statusBypassActive": {
     "message": "తాత్కాలిక పాస్ సక్రియంగా ఉంది. $1లో రెజ్యూమ్‌లను నిరోధించడం."
-  },
-  "statusOutsideSchedule": {
-    "message": "బ్లాకర్ ఆయుధాలు కలిగి ఉన్నాడు, కానీ షెడ్యూల్ చేసిన సమయాల వెలుపల. ఇది $1 నుండి బ్లాక్ చేయబడుతుంది."
   },
   "deliverySitesEnabledCount": {
     "message": "$2 డెలివరీ సైట్‌లలో $1 ప్రారంభించబడింది."
@@ -130,9 +121,6 @@
   },
   "searchMatchSuffix": {
     "message": " $1 శోధనతో సరిపోలుతుంది."
-  },
-  "warningPageTitle": {
-    "message": "ఒక శ్వాస తీసుకోండి"
   },
   "warningBackButton": {
     "message": "వెనక్కి వెళ్ళు"
@@ -535,24 +523,6 @@
   },
   "mbBlocking": {
     "message": "నిరోధించడం"
-  },
-  "mbBlock": {
-    "message": "నిరోధించు"
-  },
-  "mbOn": {
-    "message": "ఆన్"
-  },
-  "mbOff": {
-    "message": "ఆఫ్"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "నిరోధించడం — పాజ్ చేయడానికి క్లిక్ చేయండి"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "పాజ్ చేయబడింది - నిరోధించడానికి క్లిక్ చేయండి"
-  },
-  "mbChipRemoveTitle": {
-    "message": "త్వరిత యాక్సెస్ నుండి సత్వరమార్గాన్ని తీసివేయండి"
   },
   "mbChipRemoveAria": {
     "message": "త్వరిత ప్రాప్యత నుండి $1ని తీసివేయండి"

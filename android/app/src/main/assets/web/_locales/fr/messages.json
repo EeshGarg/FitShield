@@ -83,9 +83,6 @@
   "popupBlockerTitle": {
     "message": "Bloqueur FitShield"
   },
-  "popupBlockerSubtitle": {
-    "message": "Activez ou désactivez toutes les listes de blocage."
-  },
   "popupMetadataLabel": {
     "message": "Blocage par pays et catégorie"
   },
@@ -116,17 +113,8 @@
   "popupScheduleSubtitle": {
     "message": "Utile pour les budgets repas, les commandes tardives ou les heures de travail."
   },
-  "statusInactive": {
-    "message": "Inactif. Tous les sites sont accessibles."
-  },
-  "statusAllDisabled": {
-    "message": "Le bloqueur est activé, mais tous les sites individuels sont désactivés. Ouvrez les paramètres pour réactiver certains sites."
-  },
   "statusBypassActive": {
     "message": "Un pass temporaire est actif. Le blocage reprend dans $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Le bloqueur est prêt, mais hors des heures programmées. Il bloquera à partir de $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 sur $2 sites de livraison activés."
@@ -136,9 +124,6 @@
   },
   "searchMatchSuffix": {
     "message": " $1 correspondent à la recherche."
-  },
-  "warningPageTitle": {
-    "message": "Respirez un instant"
   },
   "warningBackButton": {
     "message": "Retour"
@@ -343,24 +328,6 @@
   },
   "mbBlocking": {
     "message": "Blocage"
-  },
-  "mbBlock": {
-    "message": "Bloquer"
-  },
-  "mbOn": {
-    "message": "Activé"
-  },
-  "mbOff": {
-    "message": "Désactivé"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blocage — cliquer pour suspendre"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Suspendu — cliquer pour bloquer"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Supprimer le raccourci de l’accès rapide"
   },
   "mbChipRemoveAria": {
     "message": "Supprimer $1 de l’accès rapide"

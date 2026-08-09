@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blokeerija"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every blokeeri list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & kategooria blokeeriing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Kasutaful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All saidid are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Blokeerija is on, but every individual sait is disabled. Ava Seaded to turn some saidid back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blokeerimine resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blokeerija is armed, but outside ajakavad hours. It will blokeeri from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 kohaletoimetamise saidid enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Blokeerimine"
-  },
-  "mbBlock": {
-    "message": "Blokeeri"
-  },
-  "mbOn": {
-    "message": "Sees"
-  },
-  "mbOff": {
-    "message": "Väljas"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blokeerimine — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to blokeeri"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Eemalda shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Eemalda $1 from quick access"

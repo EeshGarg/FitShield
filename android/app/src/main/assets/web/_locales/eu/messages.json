@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blokeatzailea"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every blokeatu list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & kategoria blokeatuing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Erabiliful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All guneak are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Blokeatzailea is on, but every individual gune is disabled. Ireki Ezarpenak to turn some guneak back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blokeoa resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blokeatzailea is armed, but outside ordutegiad hours. It will blokeatu from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 banaketa guneak enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Blokeoa"
-  },
-  "mbBlock": {
-    "message": "Blokeatu"
-  },
-  "mbOn": {
-    "message": "Aktibatuta"
-  },
-  "mbOff": {
-    "message": "Desaktibatuta"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blokeoa — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to blokeatu"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Kendu shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Kendu $1 from quick access"

@@ -30,7 +30,7 @@
     "message": "Remove"
   },
   "viewBlocklistButton": {
-    "message": "View Blocklist"
+    "message": "View blocklist"
   },
   "timerDurationLabel": {
     "message": "Timer duration"
@@ -58,9 +58,6 @@
   },
   "scheduleDefaultSummary": {
     "message": "Blocking will follow your daily schedule when this is enabled."
-  },
-  "scheduleAdvancedInUse": {
-    "message": "You have a detailed schedule set below. Edit it there — these two times can only describe one window across every day."
   },
   "currentScheduleSummary": {
     "message": "Current schedule: $1.",
@@ -92,7 +89,7 @@
     "message": "FitShield blocker"
   },
   "popupBlockerSubtitle": {
-    "message": "Turn every block list on or off."
+    "message": "Turn every blocklist on or off."
   },
   "popupMetadataLabel": {
     "message": "Country & category blocking"
@@ -125,22 +122,32 @@
     "message": "Useful for meal budgets, late-night ordering, or work hours."
   },
   "statusInactive": {
-    "message": "Inactive. All sites are accessible."
+    "message": "FitShield is off. Nothing is being blocked.",
+    "description": "Shown when the master switch is off. The subject is always \"FitShield\"."
   },
   "statusAllDisabled": {
-    "message": "Blocker is on, but every individual site is disabled. Open Settings to turn some sites back on."
+    "message": "FitShield is on, but every individual site is switched off. Open Settings to turn some back on.",
+    "description": "Shown when FitShield is on but every individual site has been switched off."
   },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blocking resumes in $1.",
     "description": "$1 is a remaining-time string such as '4m 12s'."
   },
+  "statusPassSite": {
+    "message": "$1 is open for $2. Everything else is still blocked.",
+    "description": "$1 is the site the pass covers, $2 the time remaining. Used when every active pass is scoped to one site, so the global \"blocking resumes\" sentence would be false. [staged: popup.js]"
+  },
+  "statusPassSites": {
+    "message": "$1 sites are open for up to $2. Everything else is still blocked.",
+    "description": "$1 is how many sites have a pass, $2 the time until the last one ends. [staged: popup.js]"
+  },
   "statusOutsideSchedule": {
-    "message": "Blocker is armed, but outside scheduled hours. It will block from $1.",
-    "description": "$1 is a time range."
+    "message": "FitShield is on, but this is outside your scheduled hours. It will block from $1.",
+    "description": "$1 is a time range. The subject is always \"FitShield\"."
   },
   "statusShieldUp": {
-    "message": "Shield up. $1-second pause, then the site stays open for $2 $3.",
-    "description": "$1 pause length in seconds, $2 how long the site stays open, $3 the localized minute/minutes unit for $2. Same wording as frictionSummary; 'pause' and 'stays open' are the words the rest of the UI uses."
+    "message": "FitShield is on. $1-second pause, then the site stays open for $2 $3.",
+    "description": "$1 pause length in seconds, $2 how long the site stays open, $3 the localized minute/minutes unit for $2. Same wording as frictionSummary. The subject is always \"FitShield\" — never \"the blocker\", \"the shield\" or \"armed\"."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 delivery sites enabled.",
@@ -152,10 +159,14 @@
   },
   "searchMatchSuffix": {
     "message": " $1 match the search.",
-    "description": "$1 is the count of matching sites; appended to a count line."
+    "description": "$1 is the count of matching sites; appended to a count line. Plural verb agreement — searchMatchSuffixOne covers exactly 1."
+  },
+  "searchMatchSuffixOne": {
+    "message": " 1 matches the search.",
+    "description": "Singular form of searchMatchSuffix, for exactly one match. English needs the -s here; \"1 match the search\" was ungrammatical. [staged: settings.js]"
   },
   "warningPageTitle": {
-    "message": "Take a Breath"
+    "message": "Take a moment"
   },
   "warningEyebrow": {
     "message": "FitShield"
@@ -213,22 +224,22 @@
     "message": "Steps"
   },
   "settingsTitle": {
-    "message": "FitShield Settings"
+    "message": "FitShield settings"
   },
   "blockingOptionsHeading": {
-    "message": "Blocking Options"
+    "message": "Blocking options"
   },
   "customizeBlocklistHeading": {
-    "message": "Customize Blocklist"
+    "message": "Customize blocklist"
   },
   "customizeBlocklistIntro": {
     "message": "Choose which built-in groups are active, turn individual sites on or off, and add your own domains."
   },
   "deliverySitesHeading": {
-    "message": "Delivery Sites"
+    "message": "Delivery sites"
   },
   "fastFoodSitesHeading": {
-    "message": "Fast Food Sites"
+    "message": "Fast food sites"
   },
   "customUrlsHeading": {
     "message": "Custom URLs"
@@ -237,10 +248,10 @@
     "message": "Add your own domains and disable them individually."
   },
   "showSitesButton": {
-    "message": "Show Sites"
+    "message": "Show sites"
   },
   "hideSitesButton": {
-    "message": "Hide Sites"
+    "message": "Hide sites"
   },
   "showUrlsButton": {
     "message": "Show URLs"
@@ -258,7 +269,7 @@
     "message": "Enable custom URL blocking"
   },
   "allBlocklistsHeading": {
-    "message": "All Blocklists"
+    "message": "All blocklists"
   },
   "allBlocklistsHint": {
     "message": "Turn every built-in group on or off at once."
@@ -307,7 +318,7 @@
     "description": "$1 is a domain."
   },
   "metadataHeading": {
-    "message": "Country & Category Blocking"
+    "message": "Country & category blocking"
   },
   "metadataIntro": {
     "message": "Block whole groups of sites by the country a brand operates in or the kind of food it serves. These blocks add to your existing site and custom-URL blocks."
@@ -628,25 +639,29 @@
     "message": "No languages match that search."
   },
   "mbBlocking": {
-    "message": "Blocking"
+    "message": "Blocking",
+    "description": "State of a country/category in the search results: it IS being blocked. Pairs with mbBlock."
   },
   "mbBlock": {
-    "message": "Block"
+    "message": "Not blocking",
+    "description": "State of a country/category in the search results: it is NOT being blocked. Pairs with mbBlocking."
   },
   "mbOn": {
-    "message": "On"
+    "message": "Blocking",
+    "description": "Same state as mbBlocking, on the pinned quick-access chips. Both widgets must use the same two words."
   },
   "mbOff": {
-    "message": "Off"
+    "message": "Not blocking",
+    "description": "Same state as mbBlock, on the pinned quick-access chips. Both widgets must use the same two words."
   },
   "mbChipToggleOnTitle": {
-    "message": "Blocking — click to pause"
+    "message": "Blocking — click to stop blocking"
   },
   "mbChipToggleOffTitle": {
-    "message": "Paused — click to block"
+    "message": "Not blocking — click to block"
   },
   "mbChipRemoveTitle": {
-    "message": "Remove shortcut from quick access"
+    "message": "Remove from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Remove $1 from quick access",
@@ -656,7 +671,7 @@
     "message": "Theme"
   },
   "resetThemeButton": {
-    "message": "Reset Theme"
+    "message": "Reset theme"
   },
   "systemThemeLabel": {
     "message": "System theme"
@@ -686,28 +701,28 @@
     "message": "Text"
   },
   "themeMutedText": {
-    "message": "Muted Text"
+    "message": "Muted text"
   },
   "themeAccent": {
     "message": "Accent"
   },
   "cornerRadiusLabel": {
-    "message": "Corner Radius"
+    "message": "Corner radius"
   },
   "popupWidthLabel": {
-    "message": "Popup Width"
+    "message": "Popup width"
   },
   "backupHeading": {
-    "message": "Backup & Restore"
+    "message": "Backup & restore"
   },
   "backupIntro": {
     "message": "Save your FitShield settings to a file, or restore them on another device. Everything stays on your device — nothing is uploaded."
   },
   "exportSettingsButton": {
-    "message": "Export Data & Settings"
+    "message": "Export data & settings"
   },
   "importSettingsButton": {
-    "message": "Import Data & Settings"
+    "message": "Import data & settings"
   },
   "exportSuccessNotice": {
     "message": "Settings exported."
@@ -721,7 +736,7 @@
     "description": "$1 is the number of settings restored."
   },
   "importCancelledNotice": {
-    "message": "Import cancelled. Nothing was changed.",
+    "message": "Import canceled. Nothing was changed.",
     "description": "Shown when the user declines the import confirmation. Must make clear that no settings were touched."
   },
   "confirmImportBackup": {
@@ -765,7 +780,7 @@
     "description": "$1 is the card's title. Accessible label for the drag handle."
   },
   "protectionStatusHeading": {
-    "message": "Your Stats"
+    "message": "Your stats"
   },
   "statsIntro": {
     "message": "Counts of things that actually happened, kept on this device. Every number is one observed event — nothing here is inferred, and nothing is uploaded."
@@ -780,7 +795,12 @@
     "message": "Off by default. It multiplies the alternatives you marked as made by a price you choose. That is an assumption, not a measurement — FitShield cannot see what you ordered or spent."
   },
   "estimateBasis": {
-    "message": "$1 alternatives you marked as made, at $2 each."
+    "message": "$1 alternatives you marked as made, at $2 each.",
+    "description": "$1 is the count (always 2 or more), $2 the price. estimateBasisOne covers exactly 1."
+  },
+  "estimateBasisOne": {
+    "message": "1 alternative you marked as made, at $1 each.",
+    "description": "Singular form of estimateBasis, for exactly one alternative. $1 is the price; the count is written out, so this takes ONE placeholder where the plural takes two. [staged: settings.js]"
   },
   "statsMostBlockedSites": {
     "message": "Most blocked sites"
@@ -845,14 +865,82 @@
   "catLabelRestaurant": {
     "message": "Restaurant"
   },
+  "catLabelDelivery": {
+    "message": "Delivery"
+  },
+  "catLabelFastFood": {
+    "message": "Fast Food"
+  },
+  "catLabelMealDelivery": {
+    "message": "Meal Delivery"
+  },
+  "catLabelMealKit": {
+    "message": "Meal Kit"
+  },
+  "catLabelMealService": {
+    "message": "Meal Service"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Restaurant Discovery"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Restaurant Group"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Restaurant Software"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Pickup Ordering"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Venue Ordering"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Quick Commerce"
+  },
+  "catLabelSuperApp": {
+    "message": "Super App"
+  },
+  "catLabelCourier": {
+    "message": "Courier"
+  },
+  "catLabelLogistics": {
+    "message": "Logistics"
+  },
+  "catLabelLocalServices": {
+    "message": "Local Services"
+  },
+  "catLabelMarketplace": {
+    "message": "Marketplace"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Online Marketplace"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "B2B Marketplace"
+  },
+  "catLabelFoodContent": {
+    "message": "Food Content"
+  },
+  "catLabelRecipe": {
+    "message": "Recipes"
+  },
   "avgMealCostLabel": {
     "message": "Average meal cost"
+  },
+  "currencyLabel": {
+    "message": "Currency",
+    "description": "Accessible name for the currency picker beside the meal-cost field. The two controls previously shared one label, so a screen reader announced both as \"Average meal cost\". [staged: settings.html]"
+  },
+  "currencyAuto": {
+    "message": "Match my language — $1 ($2)",
+    "description": "The first entry in the currency picker: follow the display language instead of pinning a currency. $1 is the currency name, $2 its symbol. A globe emoji was previously the only thing distinguishing this from the real currency of the same name. [staged: settings.js]"
   },
   "avgMealCostBasisHint": {
     "message": "What one delivery order usually costs you. Stored on your device only."
   },
   "resetHeading": {
-    "message": "Reset & Data"
+    "message": "Reset & data"
   },
   "resetIntro": {
     "message": "Restore parts of FitShield to their defaults. Each action asks for confirmation first."
@@ -873,7 +961,7 @@
     "message": "Reset statistics & estimates"
   },
   "resetStatsHint": {
-    "message": "Your counters, the most-blocked lists, your favourites, and the estimate settings."
+    "message": "Your counters, the most-blocked lists, your favorites, and the estimate settings."
   },
   "factoryResetButton": {
     "message": "Factory reset"
@@ -894,7 +982,7 @@
     "message": "Reset the theme and appearance to the default dark mode?"
   },
   "confirmResetStats": {
-    "message": "Reset every statistic, your favourites, and the estimate settings? Your blocklist, schedule, kitchen, and the alternatives you wrote yourself are kept."
+    "message": "Reset every statistic, your favorites, and the estimate settings? Your blocklist, schedule, kitchen, and the alternatives you wrote yourself are kept."
   },
   "confirmFactoryReset": {
     "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
@@ -948,7 +1036,7 @@
     "description": "$1 is the current step number, $2 is the total."
   },
   "whatsNewTitle": {
-    "message": "What's New"
+    "message": "What's new"
   },
   "whatsNewSubtitle": {
     "message": "A quick look at what changed."
@@ -1048,7 +1136,8 @@
     "message": "Yours"
   },
   "alternativeChooseButton": {
-    "message": "I'll make this"
+    "message": "Choose this",
+    "description": "Selects an alternative on the block page. It must not use \"make\": \"made\" names only the event the user later confirms in the popup."
   },
   "alternativeChosenButton": {
     "message": "Chosen"
@@ -1057,7 +1146,7 @@
     "message": "Show another"
   },
   "alternativeFavoriteLabel": {
-    "message": "Save as a favourite"
+    "message": "Save as a favorite"
   },
   "alternativeFiltersLabel": {
     "message": "Filter alternatives"
@@ -1126,7 +1215,7 @@
     "message": "Uses $1 things you keep"
   },
   "whyFavorite": {
-    "message": "One of your favourites"
+    "message": "One of your favorites"
   },
   "whyCustom": {
     "message": "Your own alternative"
@@ -1147,10 +1236,12 @@
     "message": "No microwave-only option matched — closest option shown"
   },
   "passTitle": {
-    "message": "Continue to this site"
+    "message": "How do you want to continue?",
+    "description": "Heading of the block page's continue panel. Scope-neutral: the panel offers site-scoped AND all-scope options."
   },
   "passSubtitle": {
-    "message": "Choose how long. FitShield stays on for everything else."
+    "message": "Choose how long. Each option says what it covers — this site only, or all blocking.",
+    "description": "Sits above six buttons, four scoped to this site and two that turn all blocking off. It must not promise that FitShield stays on, because two of the buttons switch it off."
   },
   "passCancel": {
     "message": "Never mind"
@@ -1175,10 +1266,12 @@
     "message": "Until I close this tab"
   },
   "passAllThirtyMinutes": {
-    "message": "Pause everything for 30 minutes"
+    "message": "Turn off all blocking for 30 minutes",
+    "description": "Turns ALL blocking off, not just this site. \"Pause\" is reserved for the block-page countdown."
   },
   "passAllUntilTomorrow": {
-    "message": "Pause everything until tomorrow"
+    "message": "Turn off all blocking until tomorrow",
+    "description": "Turns ALL blocking off, not just this site. \"Pause\" is reserved for the block-page countdown."
   },
   "passScopeSite": {
     "message": "This site only"
@@ -1244,7 +1337,12 @@
     "message": "FitShield is on all the time."
   },
   "scheduleWindowsSummary": {
-    "message": "$1 time window(s) set."
+    "message": "$1 time windows set.",
+    "description": "$1 is the number of windows, always 2 or more. scheduleWindowsSummaryOne covers exactly 1."
+  },
+  "scheduleWindowsSummaryOne": {
+    "message": "1 time window set.",
+    "description": "Singular form of scheduleWindowsSummary, for exactly one window. [staged: preferences.js]"
   },
   "scheduleOverrideActive": {
     "message": "Blocking everything until tomorrow."
@@ -1415,16 +1513,18 @@
     "message": "Edit"
   },
   "recapHeading": {
-    "message": "This week"
+    "message": "Last 7 days",
+    "description": "Heading of the rolling seven-day summary. The same window is called \"Last 7 days\" in the popup."
   },
   "recapEnabledLabel": {
     "message": "Show this summary"
   },
   "recapHidden": {
-    "message": "The weekly summary is switched off."
+    "message": "The 7-day summary is switched off."
   },
   "recapNoActivity": {
-    "message": "Nothing to summarise for the last seven days."
+    "message": "Nothing to summarize for the last 7 days.",
+    "description": "Rolling seven days, not a calendar week — the wording must not imply a Monday reset."
   },
   "recapInterrupted": {
     "message": "Ordering pages interrupted"
@@ -1583,7 +1683,7 @@
     "message": "Everything else — countries, categories, individual sites, your kitchen, and your own alternatives — is in settings whenever you want it."
   },
   "diagTitle": {
-    "message": "FitShield Diagnostics",
+    "message": "FitShield diagnostics",
     "description": "Diagnostics page. Title bar and main heading. 'FitShield' is the product name and stays as-is."
   },
   "diagSubtitle": {
@@ -1654,5 +1754,73 @@
   "diagRefreshButton": {
     "message": "Refresh",
     "description": "Button that re-reads every value on the diagnostics page."
+  },
+  "diagValueResponding": {
+    "message": "Responding",
+    "description": "Service worker row value: the background service answered."
+  },
+  "diagValueNotResponding": {
+    "message": "Not responding",
+    "description": "Service worker row value: the background service did not answer."
+  },
+  "diagValueLoaded": {
+    "message": "Loaded",
+    "description": "FS Engine row value: the blocking engine is in memory."
+  },
+  "diagValueMissing": {
+    "message": "Missing",
+    "description": "FS Engine row value: the blocking engine did not load."
+  },
+  "diagValueNone": {
+    "message": "None",
+    "description": "Last error row value: there is no recorded error."
+  },
+  "diagValueError": {
+    "message": "Error: $1",
+    "description": "Row value when reading a figure failed. $1 is the underlying message."
+  },
+  "diagOpenBlockPage": {
+    "message": "Open the block page",
+    "description": "Link beside the block page address. It previously read \"open warning.html\", exposing a source filename."
+  },
+  "diagWorkerDown": {
+    "message": "FitShield's background service is not responding, so nothing is being blocked.",
+    "description": "Banner shown when the diagnostics page gets no answer at all."
+  },
+  "diagWorkerDownFix": {
+    "message": "Turn FitShield off and back on from your browser's extensions page. If that does not help, restart your browser.",
+    "description": "What a customer can actually do about it. This replaced an instruction to run a Node build script and load an unpacked folder, which no store customer can follow."
+  },
+  "diagEngineDown": {
+    "message": "Part of FitShield did not load, so nothing will be blocked.",
+    "description": "Banner shown when the FS Engine bundle is missing."
+  },
+  "diagDetails": {
+    "message": "Details: $1",
+    "description": "Prefix for the raw error text under a banner. $1 is not translated — it is whatever the browser reported."
+  },
+  "diagChecking": {
+    "message": "Checking…",
+    "description": "Shown while a typed domain is being tested."
+  },
+  "diagNoResult": {
+    "message": "No result.",
+    "description": "The domain test returned nothing to report."
+  },
+  "diagTestBlocked": {
+    "message": "“$1” would be interrupted — FitShield would show the block page instead.",
+    "description": "$1 is the domain that was tested. \"Interrupted\" is the product's word for a blocked page load."
+  },
+  "diagTestOpen": {
+    "message": "“$1” is not on the blocklist — it would open normally.",
+    "description": "$1 is the domain that was tested."
+  },
+  "diagCheckFailed": {
+    "message": "Could not check “$1”: $2",
+    "description": "$1 is the domain that was typed, $2 the reason it could not be checked."
+  },
+  "diagTestNoAnswer": {
+    "message": "FitShield's background service did not respond: $1",
+    "description": "$1 is the underlying error."
   }
 }

@@ -36,11 +36,64 @@
  * instead keeps the gap visible and honest.
  */
 
+const fs = require("fs");
+const path = require("path");
 const { Reporter, runCli } = require("./lib/report");
 const load = require("./lib/load");
 
 const NAMED_PLACEHOLDER = /\$[A-Za-z0-9_@]+\$/;
 const positional = (s) => (s.match(/\$[1-9]/g) || []).sort().join(",");
+
+const EXTENSION_DIR = path.join(__dirname, "..", "extension");
+
+const HTML_ENTITIES = { "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'", "&nbsp;": " " };
+
+/**
+ * Inline text under a `data-i18n` element that no longer matches English.
+ *
+ * The attribute makes the inline text a FALLBACK, not decoration: it is what the
+ * page paints before `i18n.js` has run, what a reviewer reads in the source, and
+ * what a reader sees if the locale layer ever fails to start. When English moves
+ * and the markup does not, the two disagree — and the disagreement is invisible
+ * to every other check here, because the KEY still resolves perfectly.
+ *
+ * Reported as a warning rather than an error for the same reason untranslated
+ * keys are: nothing is broken on screen, and the fix belongs to whoever owns the
+ * markup. It is measured so it cannot drift quietly.
+ *
+ * Deliberately conservative — only elements whose entire content is a single run
+ * of text are compared, because anything richer is a judgement call about markup
+ * rather than about wording.
+ */
+function htmlFallbackDrift(en) {
+  const decode = (text) => text.replace(/&(?:amp|lt|gt|quot|#39|nbsp);/g, (entity) => HTML_ENTITIES[entity]);
+  const out = [];
+
+  fs.readdirSync(EXTENSION_DIR)
+    .filter((name) => name.endsWith(".html"))
+    .sort()
+    .forEach((page) => {
+      fs.readFileSync(path.join(EXTENSION_DIR, page), "utf8")
+        .split("\n")
+        .forEach((line, index) => {
+          const pattern = /<([a-z0-9]+)\b[^>]*\bdata-i18n="([A-Za-z0-9_]+)"[^>]*>([^<]*)<\/\1>/g;
+          let match;
+
+          while ((match = pattern.exec(line)) !== null) {
+            const [, , key, raw] = match;
+            const text = decode(raw).trim();
+
+            if (!text || !en[key] || text === en[key].message) {
+              continue;
+            }
+
+            out.push({ page, line: index + 1, key, text, english: en[key].message });
+          }
+        });
+    });
+
+  return out;
+}
 
 /**
  * English wordings the product has RETIRED, pinned by key.
@@ -62,13 +115,76 @@ const RETIRED_ENGLISH = {
   warningContinueButton: ["Continue"],
   blockReasonHeading: ["Why you're seeing this"],
   alternativeAnnounce: ["$1, $2 minutes. Option $3 of $4."],
-  // "5 minutes pass" read as a verb phrase, and "pass" was jargon the popup never
-  // defined — the same value is "Site open time" on one control and "Temporary
-  // pass" on another. Retired in favour of the wording frictionSummary uses.
-  statusShieldUp: ["Shield up. $1 seconds countdown, $2 $3 pass."],
   // Named delivery only, under an onboarding question whose answers include fast
   // food, so the body contradicted the choices directly beneath it.
-  welcomeDeliveryBody: ["Adds a pause screen on delivery platforms like DoorDash and Uber Eats."]
+  welcomeDeliveryBody: ["Adds a pause screen on delivery platforms like DoorDash and Uber Eats."],
+
+  // --- The 0.56 terminology pass ------------------------------------------
+  //
+  // One canonical name per concept, chosen and recorded in docs/LOCALIZATION.md.
+  // Everything below is a synonym the product no longer uses. They are pinned by
+  // exact string as well as by digest because several of them are single common
+  // words: "On", "Off" and "Block" are exactly the entries a future bulk import
+  // would hand back as a "translation", and the digest guard cannot see that a
+  // locale file was never really translated.
+
+  // The product calls itself FitShield. Not "the blocker", not "the shield", and
+  // never "armed" — four names for one subject, in four branches of the SAME
+  // popup sentence.
+  statusInactive: ["Inactive. All sites are accessible."],
+  statusAllDisabled: ["Blocker is on, but every individual site is disabled. Open Settings to turn some sites back on."],
+  statusOutsideSchedule: ["Blocker is armed, but outside scheduled hours. It will block from $1."],
+  // Two generations of the same line. "5 minutes pass" read as a verb phrase and
+  // "pass" was jargon the popup never defined; the replacement borrowed
+  // frictionSummary's wording but kept "Shield up" as a fifth name for FitShield.
+  statusShieldUp: [
+    "Shield up. $1 seconds countdown, $2 $3 pass.",
+    "Shield up. $1-second pause, then the site stays open for $2 $3."
+  ],
+
+  // "blocklist" is one word everywhere else in the product.
+  popupBlockerSubtitle: ["Turn every block list on or off."],
+
+  // "Pause" now means the block-page countdown and nothing else. These two
+  // buttons turn ALL blocking off, which is a different thing entirely.
+  passAllThirtyMinutes: ["Pause everything for 30 minutes"],
+  passAllUntilTomorrow: ["Pause everything until tomorrow"],
+
+  // The panel promised "FitShield stays on for everything else" directly above
+  // the two buttons that switch it off for everything.
+  passTitle: ["Continue to this site"],
+  passSubtitle: ["Choose how long. FitShield stays on for everything else."],
+
+  // One country/category had four labels across two adjacent widgets: the search
+  // rows said "Blocking"/"Block" while the pinned chips said "On"/"Off" with
+  // "Blocking"/"Paused" tooltips. Now "Blocking"/"Not blocking" in all four.
+  mbBlock: ["Block"],
+  mbOn: ["On"],
+  mbOff: ["Off"],
+  mbChipToggleOnTitle: ["Blocking — click to pause"],
+  mbChipToggleOffTitle: ["Paused — click to block"],
+  mbChipRemoveTitle: ["Remove shortcut from quick access"],
+
+  // The tab title and the heading beneath it were two different headlines.
+  warningPageTitle: ["Take a Breath"],
+
+  // One rolling seven-day window, three names. "This week" also implied a
+  // calendar week that resets on Monday, which is not what weeklyRecap computes.
+  recapHeading: ["This week"],
+  recapNoActivity: ["Nothing to summarise for the last seven days."],
+  recapHidden: ["The weekly summary is switched off."],
+
+  // "Made" names only the event the user personally confirmed in the popup. The
+  // button that merely SELECTS an alternative may not use that verb.
+  alternativeChooseButton: ["I'll make this"],
+
+  // A "(s)" hack most languages cannot express, replaced by a real key pair.
+  scheduleWindowsSummary: ["$1 time window(s) set."],
+
+  // American spelling throughout.
+  alternativeFavoriteLabel: ["Save as a favourite"],
+  whyFavorite: ["One of your favourites"],
+  importCancelledNotice: ["Import cancelled. Nothing was changed."]
 };
 
 // Detect duplicate top-level keys, which JSON.parse silently collapses.
@@ -180,6 +296,25 @@ function localeParity() {
       reporter.warn(`"${key}" exists in every locale but no source references it (node tools/locale-prune.js --apply)`);
     });
 
+    // Keys written ahead of the page script that will render them. Exempt from
+    // the unused-key scan, but never invisible: a staged key with no reader is
+    // real work someone still owes, and it is stated on every validation run
+    // until the marker is removed.
+    prune.stagedInvalid().forEach((entry) => {
+      reporter.fail(`"${entry.key}" is staged for "${entry.file}", which does not exist in extension/`);
+    });
+
+    prune.stagedKeys().forEach((file, key) => {
+      reporter.warn(`"${key}" is staged for ${file}, which does not read it yet — the string cannot appear on screen`);
+    });
+
+    prune.stagedFulfilled().forEach((entry) => {
+      reporter.warn(
+        `"${entry.key}" is still marked "[staged: ${entry.file}]" but ${entry.file} already reads it — ` +
+          `remove the note from its English description`
+      );
+    });
+
     // Translations of English that has since changed. Unlike an untranslated
     // key, this cannot heal itself at runtime, so it is an error.
     const stale = prune.staleTranslations();
@@ -227,6 +362,19 @@ function localeParity() {
     reporter.warn(`could not check for unreferenced keys: ${error.message}`);
   }
 
+  const drift = htmlFallbackDrift(en.data);
+
+  drift.forEach((entry) => {
+    reporter.warn(
+      `${entry.page}:${entry.line} inline fallback for "${entry.key}" is ${JSON.stringify(entry.text)} but ` +
+        `English now says ${JSON.stringify(entry.english)}`
+    );
+  });
+
+  if (drift.length > 0) {
+    reporter.note(`${drift.length} inline HTML fallback(s) disagree with English (markup edit, not a locale edit)`);
+  }
+
   const fullyTranslated = dirs.length - coverage.length;
   const averagePercent = coverage.length
     ? Math.round(coverage.reduce((sum, item) => sum + item.percent, 0) / coverage.length)
@@ -248,3 +396,4 @@ if (require.main === module) {
 
 module.exports = localeParity;
 module.exports.RETIRED_ENGLISH = RETIRED_ENGLISH;
+module.exports.htmlFallbackDrift = htmlFallbackDrift;

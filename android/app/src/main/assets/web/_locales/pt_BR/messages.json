@@ -80,9 +80,6 @@
   "scheduleRange": {
     "message": "$1 para $2"
   },
-  "popupBlockerSubtitle": {
-    "message": "Ative ou desative todas as listas de bloqueio."
-  },
   "popupMetadataSubtitle": {
     "message": "Bloqueie grupos inteiros de sites por país ou categoria alimentar."
   },
@@ -116,17 +113,8 @@
   "popupScheduleSubtitle": {
     "message": "Útil para orçamentos de refeições, pedidos noturnos ou horário de trabalho."
   },
-  "statusAllDisabled": {
-    "message": "O bloqueador está ativado, mas todos os sites individuais estão desativados. Abra Configurações para reativar alguns sites."
-  },
-  "statusInactive": {
-    "message": "Inativo. Todos os sites são acessíveis."
-  },
   "statusBypassActive": {
     "message": "O passe temporário está ativo. O bloqueio é retomado em $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "O bloqueador está armado, mas fora do horário programado. Ele bloqueará $1."
   },
   "fastFoodSitesEnabledCount": {
     "message": "$1 de sites de fast food $2 habilitados."
@@ -136,9 +124,6 @@
   },
   "searchMatchSuffix": {
     "message": " $1 corresponde à pesquisa."
-  },
-  "warningPageTitle": {
-    "message": "Respire fundo"
   },
   "warningBackButton": {
     "message": "Volte"
@@ -551,21 +536,6 @@
   "languageSwahili": {
     "message": "suaíli"
   },
-  "mbOn": {
-    "message": "Sobre"
-  },
-  "mbBlock": {
-    "message": "Bloquear"
-  },
-  "mbOff": {
-    "message": "Desligado"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Pausado – clique para bloquear"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Remover atalho do acesso rápido"
-  },
   "themeHeading": {
     "message": "Tema"
   },
@@ -577,9 +547,6 @@
   },
   "systemThemeHint": {
     "message": "Preferência de dispositivo ou modo fixo."
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Bloqueio – clique para pausar"
   },
   "themeSystem": {
     "message": "Sistema"

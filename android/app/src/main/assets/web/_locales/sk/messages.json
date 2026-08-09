@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blokátor"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every blokovať list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & kategória blokovaťing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Použiťful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All stránky are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Blokátor is on, but every individual stránka is disabled. Otvoriť Nastavenia to turn some stránky back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blokovanie resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blokátor is armed, but outside plánd hours. It will blokovať from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 doručovacie stránky enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Blokovanie"
-  },
-  "mbBlock": {
-    "message": "Blokovať"
-  },
-  "mbOn": {
-    "message": "Zapnuté"
-  },
-  "mbOff": {
-    "message": "Vypnuté"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blokovanie — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to blokovať"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Odstrániť shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Odstrániť $1 from quick access"

@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield estäjä"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every estä list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & luokka estäing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Käytäful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All sivustot are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Estäjä is on, but every individual sivusto is disabled. Avaa Asetukset to turn some sivustot back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Estäminen resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Estäjä is armed, but outside aikataulud hours. It will estä from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 toimitussivustot enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Estäminen"
-  },
-  "mbBlock": {
-    "message": "Estä"
-  },
-  "mbOn": {
-    "message": "Päällä"
-  },
-  "mbOff": {
-    "message": "Pois"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Estäminen — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to estä"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Poista shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Poista $1 from quick access"

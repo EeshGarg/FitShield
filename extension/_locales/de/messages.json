@@ -88,9 +88,6 @@
   "popupBlockerTitle": {
     "message": "FitShield-Blocker"
   },
-  "popupBlockerSubtitle": {
-    "message": "Schalte jede Sperrliste ein oder aus."
-  },
   "popupMetadataLabel": {
     "message": "Sperrung nach Land & Kategorie"
   },
@@ -121,19 +118,9 @@
   "popupScheduleSubtitle": {
     "message": "Nützlich für Essensbudgets, nächtliches Bestellen oder Arbeitszeiten."
   },
-  "statusInactive": {
-    "message": "Inaktiv. Alle Seiten sind erreichbar."
-  },
-  "statusAllDisabled": {
-    "message": "Der Blocker ist an, aber jede einzelne Seite ist deaktiviert. Öffne die Einstellungen, um einige wieder zu aktivieren."
-  },
   "statusBypassActive": {
     "message": "Temporärer Zugang aktiv. Sperrung wird in $1 fortgesetzt.",
     "description": "$1 is a remaining-time string such as '4m 12s'."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blocker ist scharf, aber außerhalb der geplanten Zeiten. Er sperrt ab $1.",
-    "description": "$1 is a time range."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 von $2 Lieferseiten aktiviert.",
@@ -146,9 +133,6 @@
   "searchMatchSuffix": {
     "message": " $1 entsprechen der Suche.",
     "description": "$1 is the count of matching sites; appended to a count line."
-  },
-  "warningPageTitle": {
-    "message": "Durchatmen"
   },
   "warningBackButton": {
     "message": "Zurück"
@@ -595,24 +579,6 @@
   },
   "mbBlocking": {
     "message": "Sperrung"
-  },
-  "mbBlock": {
-    "message": "Sperren"
-  },
-  "mbOn": {
-    "message": "An"
-  },
-  "mbOff": {
-    "message": "Aus"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Sperrung – zum Pausieren klicken"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Pausiert – zum Sperren klicken"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Verknüpfung aus dem Schnellzugriff entfernen"
   },
   "mbChipRemoveAria": {
     "message": "$1 aus dem Schnellzugriff entfernen",

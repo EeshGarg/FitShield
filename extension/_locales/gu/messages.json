@@ -83,9 +83,6 @@
   "popupBlockerTitle": {
     "message": "FitShield બ્લોકર"
   },
-  "popupBlockerSubtitle": {
-    "message": "દરેક બ્લોક સૂચિને ચાલુ અથવા બંધ કરો."
-  },
   "popupMetadataLabel": {
     "message": "દેશ અને શ્રેણી અવરોધિત"
   },
@@ -116,17 +113,8 @@
   "popupScheduleSubtitle": {
     "message": "ભોજનના બજેટ, મોડી રાતના ઓર્ડર અથવા કામના કલાકો માટે ઉપયોગી."
   },
-  "statusInactive": {
-    "message": "નિષ્ક્રિય. બધી સાઇટ્સ ઍક્સેસિબલ છે."
-  },
-  "statusAllDisabled": {
-    "message": "બ્લોકર ચાલુ છે, પરંતુ દરેક વ્યક્તિગત સાઇટ અક્ષમ છે. કેટલીક સાઇટ્સને ફરી ચાલુ કરવા માટે સેટિંગ્સ ખોલો."
-  },
   "statusBypassActive": {
     "message": "હંગામી પાસ સક્રિય છે. $1 માં અવરોધિત કરવાનું ફરી શરૂ થાય છે."
-  },
-  "statusOutsideSchedule": {
-    "message": "બ્લોકર સશસ્ત્ર છે, પરંતુ નિર્ધારિત કલાકોની બહાર. તે $1 થી અવરોધિત કરશે."
   },
   "deliverySitesEnabledCount": {
     "message": "$2 ડિલિવરી સાઇટ્સમાંથી $1 સક્ષમ."
@@ -136,9 +124,6 @@
   },
   "searchMatchSuffix": {
     "message": " $1 શોધ સાથે મેળ ખાય છે."
-  },
-  "warningPageTitle": {
-    "message": "શ્વાસ લો"
   },
   "warningBackButton": {
     "message": "પાછા જાઓ"
@@ -541,24 +526,6 @@
   },
   "mbBlocking": {
     "message": "બ્લોકીંગ"
-  },
-  "mbBlock": {
-    "message": "બ્લોક"
-  },
-  "mbOn": {
-    "message": "ચાલુ"
-  },
-  "mbOff": {
-    "message": "બંધ"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "અવરોધિત કરવું - થોભાવવા માટે ક્લિક કરો"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "થોભાવ્યું — અવરોધિત કરવા માટે ક્લિક કરો"
-  },
-  "mbChipRemoveTitle": {
-    "message": "ઝડપી ઍક્સેસમાંથી શોર્ટકટ દૂર કરો"
   },
   "mbChipRemoveAria": {
     "message": "ઝડપી ઍક્સેસમાંથી $1 દૂર કરો"

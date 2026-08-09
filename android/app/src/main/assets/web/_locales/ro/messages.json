@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blocator"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every blochează list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & categorie blocheazăing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Foloseșteful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All site-uri are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Blocator is on, but every individual site is disabled. Deschide Setări to turn some site-uri back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blocare resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blocator is armed, but outside programd hours. It will blochează from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 site-uri de livrare enabled."
@@ -409,24 +397,6 @@
   },
   "mbBlocking": {
     "message": "Blocare"
-  },
-  "mbBlock": {
-    "message": "Blochează"
-  },
-  "mbOn": {
-    "message": "Pornit"
-  },
-  "mbOff": {
-    "message": "Oprit"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blocare — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to blochează"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Elimină shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Elimină $1 from quick access"

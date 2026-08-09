@@ -83,9 +83,6 @@
   "popupBlockerTitle": {
     "message": "Блокери FitShield"
   },
-  "popupBlockerSubtitle": {
-    "message": "Ҳар як рӯйхати блокҳоро фаъол ё хомӯш кунед."
-  },
   "popupMetadataLabel": {
     "message": "Бастани кишвар ва категория"
   },
@@ -116,17 +113,8 @@
   "popupScheduleSubtitle": {
     "message": "Барои буҷетҳои хӯрокхӯрӣ, фармоиши шабона ё соатҳои корӣ муфид аст."
   },
-  "statusInactive": {
-    "message": "ғайрифаъол. Ҳама сайтҳо дастрасанд."
-  },
-  "statusAllDisabled": {
-    "message": "Blocker фаъол аст, аммо ҳар як сайти инфиродӣ ғайрифаъол аст. Танзимотҳоро кушоед, то баъзе сайтҳоро дубора фаъол созед."
-  },
   "statusBypassActive": {
     "message": "Тасвири муваққатӣ фаъол аст. Бастан дар $1 идома меёбад."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blocker мусаллаҳ аст, аммо берун аз соатҳои муқарраршуда. Он аз $1 баста мешавад."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 аз сайтҳои интиқоли $2 фаъол карда шудааст."
@@ -136,9 +124,6 @@
   },
   "searchMatchSuffix": {
     "message": " $1 ба ҷустуҷӯ мувофиқат мекунад."
-  },
-  "warningPageTitle": {
-    "message": "Нафас гиред"
   },
   "warningBackButton": {
     "message": "Бозгашт"
@@ -541,24 +526,6 @@
   },
   "mbBlocking": {
     "message": "Бастан"
-  },
-  "mbBlock": {
-    "message": "Блок"
-  },
-  "mbOn": {
-    "message": "Дар бораи"
-  },
-  "mbOff": {
-    "message": "Хомӯш"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Бастан — барои таваққуф клик кунед"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Таваққуф карда шуд — барои бастан клик кунед"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Миёнабурро аз дастрасии зуд хориҷ кунед"
   },
   "mbChipRemoveAria": {
     "message": "$1-ро аз дастрасии зуд хориҷ кунед"

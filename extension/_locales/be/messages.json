@@ -311,15 +311,6 @@
   "mbBlocking": {
     "message": "Блакіраванне"
   },
-  "mbBlock": {
-    "message": "Блакіраваць"
-  },
-  "mbOn": {
-    "message": "Укл"
-  },
-  "mbOff": {
-    "message": "Выкл"
-  },
   "themeHeading": {
     "message": "Тэма"
   },

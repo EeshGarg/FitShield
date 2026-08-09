@@ -83,9 +83,6 @@
   "popupBlockerTitle": {
     "message": "ตัวบล็อก FitShield"
   },
-  "popupBlockerSubtitle": {
-    "message": "เปิดหรือปิดรายการบล็อกทั้งหมด"
-  },
   "popupMetadataLabel": {
     "message": "การบล็อกตามประเทศและหมวดหมู่"
   },
@@ -116,17 +113,8 @@
   "popupScheduleSubtitle": {
     "message": "มีประโยชน์สำหรับงบอาหาร การสั่งตอนดึก หรือเวลาทำงาน"
   },
-  "statusInactive": {
-    "message": "ไม่ทำงาน เข้าถึงไซต์ทั้งหมดได้"
-  },
-  "statusAllDisabled": {
-    "message": "ตัวบล็อกเปิดอยู่ แต่ไซต์แต่ละรายการถูกปิดใช้งานทั้งหมด เปิดการตั้งค่าเพื่อเปิดบางไซต์อีกครั้ง"
-  },
   "statusBypassActive": {
     "message": "บัตรผ่านชั่วคราวทำงานอยู่ การบล็อกจะกลับมาใน $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "ตัวบล็อกพร้อมทำงาน แต่ขณะนี้อยู่นอกช่วงเวลาที่กำหนด จะเริ่มบล็อกตั้งแต่ $1."
   },
   "deliverySitesEnabledCount": {
     "message": "เปิดใช้ไซต์เดลิเวอรี $1 จาก $2 ไซต์"
@@ -136,9 +124,6 @@
   },
   "searchMatchSuffix": {
     "message": " $1 รายการตรงกับการค้นหา"
-  },
-  "warningPageTitle": {
-    "message": "หยุดหายใจสักครู่"
   },
   "warningBackButton": {
     "message": "ย้อนกลับ"
@@ -343,24 +328,6 @@
   },
   "mbBlocking": {
     "message": "กำลังบล็อก"
-  },
-  "mbBlock": {
-    "message": "บล็อก"
-  },
-  "mbOn": {
-    "message": "เปิด"
-  },
-  "mbOff": {
-    "message": "ปิด"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "กำลังบล็อก — คลิกเพื่อหยุดชั่วคราว"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "หยุดชั่วคราว — คลิกเพื่อบล็อก"
-  },
-  "mbChipRemoveTitle": {
-    "message": "นำทางลัดออกจากการเข้าถึงด่วน"
   },
   "mbChipRemoveAria": {
     "message": "นำ $1 ออกจากการเข้าถึงด่วน"

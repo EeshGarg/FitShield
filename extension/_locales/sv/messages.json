@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blockeraerare"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every blockera list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & kategori blockeraing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Användful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All webbplatser are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Blockeraerare is on, but every individual webbplats is disabled. Öppna Inställningar to turn some webbplatser back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blockeraerareing resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blockeraerare is armed, but outside schemad hours. It will blockera from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 leveranssidor enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Blockeraerareing"
-  },
-  "mbBlock": {
-    "message": "Blockera"
-  },
-  "mbOn": {
-    "message": "På"
-  },
-  "mbOff": {
-    "message": "Av"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blockeraerareing — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to blockera"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Ta bort shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Ta bort $1 from quick access"

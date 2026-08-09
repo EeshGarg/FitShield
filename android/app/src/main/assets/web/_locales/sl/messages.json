@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blokator"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every blokiraj list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & kategorija blokirajing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Uporabiful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All spletna mesta are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Blokator is on, but every individual spletno mesto is disabled. Odpri Nastavitve to turn some spletna mesta back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blokiranje resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blokator is armed, but outside urnikd hours. It will blokiraj from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 spletna mesta za dostavo enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Blokiranje"
-  },
-  "mbBlock": {
-    "message": "Blokiraj"
-  },
-  "mbOn": {
-    "message": "Vklopljeno"
-  },
-  "mbOff": {
-    "message": "Izklopljeno"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blokiranje — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to blokiraj"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Odstrani shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Odstrani $1 from quick access"

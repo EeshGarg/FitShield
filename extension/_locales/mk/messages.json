@@ -311,15 +311,6 @@
   "mbBlocking": {
     "message": "Блокирање"
   },
-  "mbBlock": {
-    "message": "Блокирај"
-  },
-  "mbOn": {
-    "message": "Вклучено"
-  },
-  "mbOff": {
-    "message": "Исклучено"
-  },
   "themeHeading": {
     "message": "Тема"
   },

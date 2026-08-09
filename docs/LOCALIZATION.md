@@ -3,6 +3,68 @@
 FitShield ships in **83 locales**. English is the source of truth and is always
 complete; the others may be partial.
 
+## The canonical vocabulary
+
+English is the source of truth for *wording*, not only for strings. One concept
+gets one name, and a synonym is a defect even when every individual sentence
+reads well — because a buyer reads two screens at once, and two words for one
+thing is what makes a product look assembled by different people.
+
+Enforced by `test/locales.test.js`. Every row below is a test, and each one was
+written against a real drift found in the shipped corpus.
+
+| Concept | Say | Never say |
+| --- | --- | --- |
+| The product, in any status sentence | **FitShield** ("FitShield is on/off…") | "the blocker", "Blocker is on", "Blocker is armed", "Shield up" |
+| The countdown on the block page before Continue unlocks | **pause** | "timer", "delay", "cooldown" |
+| Going to a blocked site anyway, for a set time | **temporary pass** (short: **pass**) | "bypass", "exception", "unlock", "temporary access", "allowlist" |
+| How long that lasts | **how long the site stays open** / "Site open time" | "pass length", "grace period" |
+| Switching blocking off everywhere for a while | **turn off all blocking** | "pause everything", "snooze", "disable FitShield" |
+| Whether a country or category is blocked | **Blocking** / **Not blocking** | "On"/"Off", "Block", "Paused" |
+| An ordering page being replaced by the block page | **interrupted** | "blocked" (in stats copy), "stopped" |
+| The rolling seven-day stats window | **Last 7 days** | "This week", "the last seven days", "weekly" |
+| The curated site lists | **blocklist** (one word) | "block list", "blacklist" |
+| Spelling | **American** (favorite, summarize, canceled) | British (-our, -ise, -lled) |
+| Headings, buttons, page and tab titles | **Sentence case** | Title Case |
+| Category, language and weekday labels | **Title Case** — they are names, not headings | — |
+
+### "Pause" is the countdown, and only the countdown
+
+It used to mean three things at once, two of them reachable from the same
+screen: the block-page countdown, switching *all* blocking off ("Pause
+everything for 30 minutes"), and un-blocking *one* country ("Blocking — click to
+pause"). The test allowlists the eleven keys that describe the countdown; any
+other English string containing "pause" fails.
+
+### The statistic verbs
+
+Each event has exactly one verb, and they may not borrow each other's:
+
+| Event | Verb | Keys |
+| --- | --- | --- |
+| An ordering page was replaced by the block page | **interrupted** | `recapInterrupted`, `recapTopCategory` |
+| The user went back | **left** | `recapLeft` |
+| The user went on to the site | **continued** | `recapContinued` |
+| An alternative was displayed | **shown** | `recapViewed` |
+| The user picked an alternative | **selected** / chose | `recapSelected`, `alternativeChooseButton`, `alternativeChosenButton` |
+| The user confirmed afterwards that they cooked it | **made** | `recapMade`, `popupMarkMade*`, `estimateBasis*` |
+
+`made` is load-bearing: it is the only event in the whole vocabulary the user
+personally confirmed, and the optional savings estimate is built on it alone. So
+the button that merely *selects* an alternative may not use that verb. It read
+"I'll make this", which put the confirmed-event word on an unconfirmed action one
+screen before the confirmation was even asked for. It now reads "Choose this".
+
+### Case is a house style, not a meaning
+
+Restyling English capitalisation does **not** invalidate a translation: every
+language capitalises by its own rules regardless of ours. `tools/locale-prune.js`
+digests case-insensitively for exactly that reason — the one pass that moved
+eighteen headings and buttons to sentence case would otherwise have deleted
+roughly 1,400 genuine translations to record a change of capital letter. Nothing
+looser than case is forgiven; a single changed word still raises the
+stale-translation error.
+
 ## The policy, and why
 
 A key a locale does not define **falls back to English at runtime**, in both
@@ -65,6 +127,55 @@ them by prefix and re-verifies each construction site instead.
 The `data-i18n` check enumerates `extension/*.html` rather than listing pages,
 because a hardcoded list silently fails to cover a page added later.
 
+### The third gap: markup that quotes English it no longer says
+
+`data-i18n` makes an element's inline text a **fallback**, not decoration. It is
+what the page paints before `i18n.js` runs, what anyone reading the markup
+believes the product says, and what a reader sees if the locale layer ever fails
+to start. When English moves and the markup does not, the two disagree — and
+every check above still passes, because the *key* resolves perfectly.
+
+`npm run validate:locales` now compares them and reports each mismatch with its
+file, line, and both texts. It is a **warning**, for the same reason untranslated
+keys are: nothing is broken on screen, and the fix belongs to whoever owns the
+markup, not to whoever owns the strings. Four of these predated the terminology
+pass — `warning.html` was still quoting an earlier draft of `warningIntro`, and
+Settings' export and import buttons were two releases behind their own labels.
+
+### A key written ahead of the code that renders it
+
+Locale files and page scripts have different owners, and a string cannot land in
+both at once: whoever edits `diagnostics.js` cannot add the message it needs, and
+whoever writes the message cannot wire it up. With no way to say so the two
+halves deadlock — which is how sixteen customer-visible diagnostics sentences
+stayed hardcoded in English inside `diagnostics.js`, where no locale could ever
+reach them, including the one that told a Chrome Web Store customer to run
+`node build.js`.
+
+So an English entry may name its consumer in its own `description`:
+
+```jsonc
+"diagWorkerDown": {
+  "message": "FitShield's background service is not responding, so nothing is being blocked.",
+  "description": "Banner shown when the diagnostics page gets no answer. [staged: diagnostics.js]"
+}
+```
+
+The marker means one thing: **this key has no reader yet, and the file named is
+the one that must grow one.** It excuses the unreferenced-key scan and nothing
+else — the key is still parity-checked, still placeholder-checked, and still
+offered to translators, so staging cannot be used to smuggle a string past
+review. Three things keep it honest:
+
+- `npm run validate:locales` warns for every staged key on every run, so an
+  unfulfilled handoff is stated rather than remembered;
+- a marker naming a file that does not exist is an **error**, not an exemption;
+- once the named file does reference the key, the audit says so and asks for the
+  note to be deleted, so the marker cannot outlive the work it described.
+
+A staged key is a promise, not a parking space. If the code change is not coming,
+delete the string.
+
 ### The one gap the fallback does not cover
 
 "Untranslated is safe" holds only while the translation and the English say the
@@ -101,7 +212,9 @@ Two guards keep it from recurring:
 - `tools/locale-source-baseline.json` records a digest of the English text every
   surviving translation was cut against. Change an English string and its digest
   changes, and `npm run validate:locales` fails naming every locale that still
-  translates the old wording. Re-translate it, or run
+  translates the old wording. (Capitalisation is the one exception, and it is
+  deliberate — see "Case is a house style, not a meaning" above.)
+  Re-translate it, or run
   `node tools/locale-prune.js --apply` to drop the stale translations and
   re-record the baseline. Never hand-edit the file to silence a failure.
 - The retired wordings above are additionally **pinned by exact string** in
@@ -164,24 +277,33 @@ transcription can go stale. If the two disagree, the tool is right — and the
 number to quote anywhere else (a store listing, a release note, a README badge)
 is the tool's, not this one's.
 
-As of 0.55: **535 English keys across 83 locales**. No locale but English is
-complete. The other 82 sit between **43% and 53%**, median 53%, averaging 274
-translated and 261 untranslated each — 21,383 untranslated strings across the
-corpus, every one of which renders in English.
+After the terminology pass: **578 English keys across 83 locales**. No locale but
+English is complete. The other 82 sit between **40% and 47%**, median 47%,
+averaging 264 translated and 314 untranslated each — 25,726 untranslated strings
+across the corpus, every one of which renders in English.
 
-Seven locales are lowest, at 43% — the six Cyrillic-script ones (be, bg, mk, ru,
+Seven locales are lowest, at 40% — the six Cyrillic-script ones (be, bg, mk, ru,
 sr, uk) and Greek (el) — because an earlier pass removed mangled
 machine-translated strings from them. That is the gap working as intended: a
 missing string reads in English, a mangled one reads as nonsense.
 
-The percentages fell during 0.55 while the corpus got *more* honest, not less.
-Three things moved the denominator and the numerator in opposite directions:
+The percentages have fallen twice now while the corpus got *more* honest, not
+less. Four things move the denominator and the numerator in opposite directions:
 verbatim-English entries were deleted rather than counted as translations,
 translations of rewritten English were deleted rather than left rendering retired
-copy, and 29 English strings were added that no locale has yet — the ten backup
-and import failure reasons above, and the nineteen the diagnostics page needs.
-All 29 are **English-only by design**: every other locale falls back, and none
-has been machine-translated to make the number look better.
+copy, and English strings were added that no locale has yet — the ten backup and
+import failure reasons above, the diagnostics page's labels and its runtime
+sentences, and the strings the terminology pass introduced. Every one of them is
+**English-only by design**: the rest fall back, and none has been machine
+translated to make the number look better.
+
+The terminology pass itself cost 817 translations across eleven keys, deleted
+rather than left rendering a synonym the product had dropped — "On"/"Off" for a
+control whose sibling now says "Blocking"/"Not blocking", "Blocker is armed" for
+a product that calls itself FitShield. Those eleven keys are the honest cost of
+picking one word per concept; they are back in every translator worklist. The
+same pass restyled eighteen headings and buttons to sentence case and cost
+**nothing**, because case is not meaning (see above).
 
 Do not read "pre-0.55 strings are all translated" into that figure — an earlier
 version of this document claimed exactly that, and it was false in the most

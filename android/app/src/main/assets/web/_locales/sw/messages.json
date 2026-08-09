@@ -86,9 +86,6 @@
   "popupMetadataLabel": {
     "message": "Uzuiaji wa nchi na kategoria"
   },
-  "popupBlockerSubtitle": {
-    "message": "Washa au zima kila orodha ya block."
-  },
   "popupMetadataSubtitle": {
     "message": "Zuia vikundi vizima vya tovuti kulingana na nchi au kategoria ya chakula."
   },
@@ -116,17 +113,8 @@
   "popupCustomSubtitle": {
     "message": "Ongeza tovuti zako na uzizima kibinafsi."
   },
-  "statusAllDisabled": {
-    "message": "Kizuia kimewashwa, lakini kila tovuti maalum imezimwa. Fungua Mipangilio ili kuwasha tena tovuti zingine."
-  },
   "statusBypassActive": {
     "message": "Pasi ya muda inatumika. Kuzuia kunaendelea tena katika $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blocker ina silaha, lakini nje ya saa zilizopangwa. Itazuia kutoka $1."
-  },
-  "statusInactive": {
-    "message": "Isiyotumika. Tovuti zote zinapatikana."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 za tovuti za utoaji za $2 zimewezeshwa."
@@ -136,9 +124,6 @@
   },
   "searchMatchSuffix": {
     "message": " $1 inalingana na utaftaji."
-  },
-  "warningPageTitle": {
-    "message": "Vuta Pumzi"
   },
   "warningBackButton": {
     "message": "Rudi nyuma"
@@ -551,26 +536,8 @@
   "mbBlocking": {
     "message": "Kuzuia"
   },
-  "mbOn": {
-    "message": "Washa"
-  },
-  "mbBlock": {
-    "message": "Zuia"
-  },
-  "mbOff": {
-    "message": "Imezimwa"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Imesitishwa - bofya ili kuzuia"
-  },
   "mbChipRemoveAria": {
     "message": "Ondoa $1 kutoka kwa ufikiaji wa haraka"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Kuzuia - bofya ili kusitisha"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Ondoa njia ya mkato kutoka kwa ufikiaji wa haraka"
   },
   "systemThemeHint": {
     "message": "Upendeleo wa kifaa au hali isiyobadilika."

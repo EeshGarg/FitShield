@@ -83,9 +83,6 @@
   "popupBlockerTitle": {
     "message": "FitShield ブロッカー"
   },
-  "popupBlockerSubtitle": {
-    "message": "すべてのブロックリストをまとめてオン／オフします。"
-  },
   "popupMetadataLabel": {
     "message": "国・カテゴリ別ブロック"
   },
@@ -116,17 +113,8 @@
   "popupScheduleSubtitle": {
     "message": "食費の管理、深夜の注文、勤務時間などに便利です。"
   },
-  "statusInactive": {
-    "message": "無効です。すべてのサイトにアクセスできます。"
-  },
-  "statusAllDisabled": {
-    "message": "ブロッカーはオンですが、個々のサイトはすべて無効です。設定を開いて一部のサイトを再度オンにしてください。"
-  },
   "statusBypassActive": {
     "message": "一時パスが有効です。$1 後にブロックを再開します。"
-  },
-  "statusOutsideSchedule": {
-    "message": "ブロッカーは待機中ですが、指定時間外です。$1 にブロックを開始します。"
   },
   "deliverySitesEnabledCount": {
     "message": "デリバリーサイト $2 件中 $1 件が有効です。"
@@ -136,9 +124,6 @@
   },
   "searchMatchSuffix": {
     "message": " $1 件が検索に一致します。"
-  },
-  "warningPageTitle": {
-    "message": "ひと呼吸"
   },
   "warningBackButton": {
     "message": "戻る"
@@ -343,24 +328,6 @@
   },
   "mbBlocking": {
     "message": "ブロック中"
-  },
-  "mbBlock": {
-    "message": "ブロック"
-  },
-  "mbOn": {
-    "message": "オン"
-  },
-  "mbOff": {
-    "message": "オフ"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "ブロック中 — クリックで一時停止"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "一時停止中 — クリックでブロック"
-  },
-  "mbChipRemoveTitle": {
-    "message": "クイックアクセスからショートカットを削除"
   },
   "mbChipRemoveAria": {
     "message": "$1 をクイックアクセスから削除"

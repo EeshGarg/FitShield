@@ -83,9 +83,6 @@
   "popupBlockerTitle": {
     "message": "FitShield ബ്ലോക്കർ"
   },
-  "popupBlockerSubtitle": {
-    "message": "എല്ലാ ബ്ലോക്ക് ലിസ്റ്റും ഓണാക്കുകയോ ഓഫാക്കുകയോ ചെയ്യുക."
-  },
   "popupMetadataLabel": {
     "message": "രാജ്യവും വിഭാഗവും തടയൽ"
   },
@@ -116,26 +113,14 @@
   "popupScheduleSubtitle": {
     "message": "ഭക്ഷണ ബജറ്റുകൾക്കും രാത്രി വൈകി ഓർഡർ ചെയ്യുന്നതിനും അല്ലെങ്കിൽ ജോലി സമയത്തിനും ഉപയോഗപ്രദമാണ്."
   },
-  "statusInactive": {
-    "message": "നിഷ്ക്രിയം. എല്ലാ സൈറ്റുകളും ആക്സസ് ചെയ്യാവുന്നതാണ്."
-  },
-  "statusAllDisabled": {
-    "message": "ബ്ലോക്കർ ഓണാണ്, എന്നാൽ ഓരോ വ്യക്തിഗത സൈറ്റും പ്രവർത്തനരഹിതമാണ്. ചില സൈറ്റുകൾ വീണ്ടും ഓണാക്കാൻ ക്രമീകരണം തുറക്കുക."
-  },
   "statusBypassActive": {
     "message": "താൽക്കാലിക പാസ് സജീവമാണ്. $1-ൽ തടയൽ റെസ്യൂമുകൾ."
-  },
-  "statusOutsideSchedule": {
-    "message": "ബ്ലോക്കർ സായുധനാണ്, എന്നാൽ ഷെഡ്യൂൾ ചെയ്ത സമയത്തിന് പുറത്ത്. ഇത് $1-ൽ നിന്ന് തടയും."
   },
   "deliverySitesEnabledCount": {
     "message": "$2 ഡെലിവറി സൈറ്റുകളുടെ $1 പ്രവർത്തനക്ഷമമാക്കി."
   },
   "searchMatchSuffix": {
     "message": " $1 തിരയലുമായി പൊരുത്തപ്പെടുന്നു."
-  },
-  "warningPageTitle": {
-    "message": "ഒരു ശ്വാസം എടുക്കുക"
   },
   "warningBackButton": {
     "message": "തിരികെ പോകൂ"
@@ -538,24 +523,6 @@
   },
   "mbBlocking": {
     "message": "തടയുന്നു"
-  },
-  "mbBlock": {
-    "message": "തടയുക"
-  },
-  "mbOn": {
-    "message": "ഓൺ"
-  },
-  "mbOff": {
-    "message": "ഓഫ്"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "തടയുന്നു - താൽക്കാലികമായി നിർത്താൻ ക്ലിക്കുചെയ്യുക"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "താൽക്കാലികമായി നിർത്തി - തടയാൻ ക്ലിക്ക് ചെയ്യുക"
-  },
-  "mbChipRemoveTitle": {
-    "message": "ദ്രുത പ്രവേശനത്തിൽ നിന്ന് കുറുക്കുവഴി നീക്കം ചെയ്യുക"
   },
   "mbChipRemoveAria": {
     "message": "ദ്രുത പ്രവേശനത്തിൽ നിന്ന് $1 നീക്കം ചെയ്യുക"

@@ -311,15 +311,6 @@
   "mbBlocking": {
     "message": "Блокировка"
   },
-  "mbBlock": {
-    "message": "Блокировать"
-  },
-  "mbOn": {
-    "message": "Вкл"
-  },
-  "mbOff": {
-    "message": "Выкл"
-  },
   "themeHeading": {
     "message": "Тема"
   },

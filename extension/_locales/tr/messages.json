@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield engelleyici"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every engelle list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & kategori engelleing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Kullanful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All siteler are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Engelleyici is on, but every individual site is disabled. Aç Ayarlar to turn some siteler back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Engelleme resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Engelleyici is armed, but outside programd hours. It will engelle from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 teslimat siteleri enabled."
@@ -409,24 +397,6 @@
   },
   "mbBlocking": {
     "message": "Engelleme"
-  },
-  "mbBlock": {
-    "message": "Engelle"
-  },
-  "mbOn": {
-    "message": "Açık"
-  },
-  "mbOff": {
-    "message": "Kapalı"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Engelleme — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to engelle"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Kaldır shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Kaldır $1 from quick access"

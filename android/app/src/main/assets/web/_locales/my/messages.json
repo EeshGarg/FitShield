@@ -83,9 +83,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blocker"
   },
-  "popupBlockerSubtitle": {
-    "message": "ဘလောက်စာရင်းတိုင်းကို အဖွင့်အပိတ်လုပ်ပါ။"
-  },
   "popupMetadataLabel": {
     "message": "နိုင်ငံနှင့် အမျိုးအစား ပိတ်ဆို့ခြင်း။"
   },
@@ -116,23 +113,11 @@
   "popupScheduleSubtitle": {
     "message": "အစားအသောက်ဘတ်ဂျက်များ၊ ညနှောင်းပိုင်းအမိန့်စာ သို့မဟုတ် အလုပ်ချိန်များအတွက် အသုံးဝင်သည်။"
   },
-  "statusInactive": {
-    "message": "မလှုပ်မရှား။ ဆိုက်များအားလုံး ဝင်ရောက်ကြည့်ရှုနိုင်ပြီဖြစ်သည်။"
-  },
-  "statusAllDisabled": {
-    "message": "Blocker ကိုဖွင့်ထားသော်လည်း ဝဘ်ဆိုက်တစ်ခုစီတိုင်းကို ပိတ်ထားသည်။ အချို့ဆိုဒ်များကို ပြန်ဖွင့်ရန် ဆက်တင်များကိုဖွင့်ပါ။"
-  },
   "statusBypassActive": {
     "message": "ယာယီဖြတ်သန်းခွင့်သည် အသက်ဝင်ပါသည်။ ပိတ်ဆို့ခြင်းကို $1 တွင် ပြန်လည်စတင်သည်။"
   },
-  "statusOutsideSchedule": {
-    "message": "Blocker သည် လက်နက်ကိုင်ဆောင်ထားသော်လည်း သတ်မှတ်ချိန်ပြင်ပတွင် ရှိနေသည်။ ၎င်းသည် $1 မှပိတ်ဆို့လိမ့်မည်။"
-  },
   "searchMatchSuffix": {
     "message": " $1 ရှာဖွေမှုနှင့် ကိုက်ညီသည်။"
-  },
-  "warningPageTitle": {
-    "message": "အသက်ရှုပါ။"
   },
   "warningBackButton": {
     "message": "ပြန်သွားပါ။"
@@ -535,24 +520,6 @@
   },
   "mbBlocking": {
     "message": "ပိတ်ဆို့ခြင်း။"
-  },
-  "mbBlock": {
-    "message": "ပိတ်ဆို့သည်။"
-  },
-  "mbOn": {
-    "message": "ဂရန်"
-  },
-  "mbOff": {
-    "message": "ပိတ်သည်။"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "ပိတ်ဆို့ခြင်း — ခေတ္တရပ်ရန် နှိပ်ပါ။"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "ခေတ္တရပ်ထားသည် — ပိတ်ဆို့ရန် နှိပ်ပါ။"
-  },
-  "mbChipRemoveTitle": {
-    "message": "အမြန်ဝင်ရောက်ခွင့်မှ ဖြတ်လမ်းလင့်ခ်ကို ဖယ်ရှားပါ။"
   },
   "mbChipRemoveAria": {
     "message": "$1 ကို အမြန်ဝင်ရောက်ခွင့်မှ ဖယ်ရှားပါ။"

@@ -83,9 +83,6 @@
   "popupSettingsButton": {
     "message": "ቅንብሮች"
   },
-  "popupBlockerSubtitle": {
-    "message": "እያንዳንዱን የማገጃ ዝርዝር ያብሩ ወይም ያጥፉ።"
-  },
   "popupMetadataLabel": {
     "message": "አገር እና ምድብ ማገድ"
   },
@@ -116,29 +113,17 @@
   "statusBypassActive": {
     "message": "ጊዜያዊ ማለፊያ ንቁ ነው። ማገድ በ$1 ከቆመበት ይቀጥላል።"
   },
-  "statusInactive": {
-    "message": "እንቅስቃሴ-አልባ ሁሉም ጣቢያዎች ተደራሽ ናቸው።"
-  },
-  "statusAllDisabled": {
-    "message": "ማገጃ በርቷል፣ ግን እያንዳንዱ ግለሰብ ጣቢያ ተሰናክሏል። አንዳንድ ጣቢያዎችን መልሰው ለማብራት ቅንብሮችን ይክፈቱ።"
-  },
   "popupScheduleSubtitle": {
     "message": "ለምግብ በጀት፣ ለሊት ማዘዣ ወይም ለስራ ሰአታት ጠቃሚ።"
   },
   "fastFoodSitesEnabledCount": {
     "message": "$1 የ$2 ፈጣን ምግብ ጣቢያዎች ነቅተዋል።"
   },
-  "statusOutsideSchedule": {
-    "message": "ማገጃው የታጠቀ ነው፣ ነገር ግን ከታቀዱት ሰዓቶች ውጭ። ከ $1 ያግዳል።"
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 የ$2 ማድረሻ ጣቢያዎች ነቅተዋል።"
   },
   "searchMatchSuffix": {
     "message": " $1 ከፍለጋው ጋር ይዛመዳል።"
-  },
-  "warningPageTitle": {
-    "message": "ይተንፍሱ"
   },
   "warningBackButton": {
     "message": "ተመለስ"
@@ -551,26 +536,8 @@
   "mbBlocking": {
     "message": "ማገድ"
   },
-  "mbBlock": {
-    "message": "አግድ"
-  },
-  "mbOff": {
-    "message": "ጠፍቷል"
-  },
-  "mbOn": {
-    "message": "በርቷል"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "በማገድ ላይ - ለአፍታ ለማቆም ጠቅ ያድርጉ"
-  },
   "mbChipRemoveAria": {
     "message": "$1 ከፈጣን መዳረሻ ያስወግዱ"
-  },
-  "mbChipRemoveTitle": {
-    "message": "አቋራጭን ከፈጣን መዳረሻ ያስወግዱ"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "ባለበት ቆሟል - ለማገድ ጠቅ ያድርጉ"
   },
   "resetThemeButton": {
     "message": "ገጽታን ዳግም አስጀምር"

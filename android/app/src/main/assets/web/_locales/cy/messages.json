@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield rhwystrydd"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every rhwystro list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & categori rhwystroing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Defnyddioful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All gwefannau are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Rhwystrydd is on, but every individual gwefan is disabled. Agor Gosodiadau to turn some gwefannau back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Rhwystro resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Rhwystrydd is armed, but outside amserlend hours. It will rhwystro from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 gwefannau danfon enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Rhwystro"
-  },
-  "mbBlock": {
-    "message": "Rhwystro"
-  },
-  "mbOn": {
-    "message": "Ymlaen"
-  },
-  "mbOff": {
-    "message": "I ffwrdd"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Rhwystro — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to rhwystro"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Tynnu shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Tynnu $1 from quick access"

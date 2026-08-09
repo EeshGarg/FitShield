@@ -83,9 +83,6 @@
   "popupBlockerTitle": {
     "message": "FitShield блокатору"
   },
-  "popupBlockerSubtitle": {
-    "message": "Ар бир бөгөттөөлөр тизмесин күйгүзүңүз же өчүрүңүз."
-  },
   "popupMetadataLabel": {
     "message": "Өлкө жана категория бөгөттөө"
   },
@@ -116,17 +113,8 @@
   "popupScheduleSubtitle": {
     "message": "Тамактануунун бюджети, кечкисин заказ кылуу же жумуш убактысы үчүн пайдалуу."
   },
-  "statusInactive": {
-    "message": "Жигерсиз. Бардык сайттарга жеткиликтүү."
-  },
-  "statusAllDisabled": {
-    "message": "Блоктоочу күйгүзүлгөн, бирок ар бир сайт өчүрүлгөн. Кээ бир сайттарды кайра иштетүү үчүн Жөндөөлөрдү ачыңыз."
-  },
   "statusBypassActive": {
     "message": "Убактылуу өтмөк активдүү. Бөгөттөө $1 ичинде улантылат."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blocker куралдуу, бирок белгиленген сааттан тышкары. Ал $1 тарабынан бөгөттөлөт."
   },
   "deliverySitesEnabledCount": {
     "message": "$2 жеткирүү сайттарынын $1 иштетилди."
@@ -136,9 +124,6 @@
   },
   "searchMatchSuffix": {
     "message": " $1 издөөгө дал келет."
-  },
-  "warningPageTitle": {
-    "message": "Дем ал"
   },
   "warningBackButton": {
     "message": "Артка кайт"
@@ -541,24 +526,6 @@
   },
   "mbBlocking": {
     "message": "Бөгөттөө"
-  },
-  "mbBlock": {
-    "message": "Блок"
-  },
-  "mbOn": {
-    "message": "Күйүк"
-  },
-  "mbOff": {
-    "message": "Өчүк"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Бөгөттөө — тыныгуу үчүн чыкылдатыңыз"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Тындырылды — бөгөт коюу үчүн чыкылдатыңыз"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Ыкчам мүмкүндүк алуудан кыска жолду алып салуу"
   },
   "mbChipRemoveAria": {
     "message": "$1 тез жетүү мүмкүнчүлүгүн алып салыңыз"

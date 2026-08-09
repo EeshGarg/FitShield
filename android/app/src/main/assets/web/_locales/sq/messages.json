@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield bllokuesi"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every blloko list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & kategori bllokoing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Përdorful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All faqe are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Bllokuesi is on, but every individual faqe is disabled. Hap Cilësimet to turn some faqe back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Bllokimi resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Bllokuesi is armed, but outside orarid hours. It will blloko from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 faqe dërgese enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Bllokimi"
-  },
-  "mbBlock": {
-    "message": "Blloko"
-  },
-  "mbOn": {
-    "message": "Aktiv"
-  },
-  "mbOff": {
-    "message": "Joaktiv"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Bllokimi — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to blloko"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Hiq shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Hiq $1 from quick access"

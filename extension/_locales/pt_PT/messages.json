@@ -68,9 +68,6 @@
   "popupBlockerTitle": {
     "message": "FitShield bloqueador"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every bloquear list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & categoria bloquearing"
   },
@@ -101,14 +98,8 @@
   "popupScheduleSubtitle": {
     "message": "Usarful for meal budgets, late-night ordering, or work hours."
   },
-  "statusAllDisabled": {
-    "message": "Bloqueador is on, but every individual site is disabled. Abrir Definições to turn some sites back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Bloqueio resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Bloqueador is armed, but outside agendad hours. It will bloquear from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 sites de entrega enabled."
@@ -400,24 +391,6 @@
   },
   "mbBlocking": {
     "message": "Bloqueio"
-  },
-  "mbBlock": {
-    "message": "Bloquear"
-  },
-  "mbOn": {
-    "message": "Ligado"
-  },
-  "mbOff": {
-    "message": "Desligado"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Bloqueio — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to bloquear"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Remover shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Remover $1 from quick access"

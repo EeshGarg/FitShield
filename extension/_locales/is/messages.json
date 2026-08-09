@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield lokari"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every loka list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & flokkur lokaing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Notaful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All síður are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Lokari is on, but every individual síða is disabled. Opna Stillingar to turn some síður back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Lokun resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Lokari is armed, but outside áætlund hours. It will loka from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 afhendingarsíður enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Lokun"
-  },
-  "mbBlock": {
-    "message": "Loka"
-  },
-  "mbOn": {
-    "message": "Kveikt"
-  },
-  "mbOff": {
-    "message": "Slökkt"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Lokun — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to loka"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Fjarlægja shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Fjarlægja $1 from quick access"

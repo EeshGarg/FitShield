@@ -68,9 +68,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blokkeerder"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every blokkeren list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & categorie blokkerening"
   },
@@ -101,14 +98,8 @@
   "popupScheduleSubtitle": {
     "message": "Gebruikenful for meal budgets, late-night ordering, or work hours."
   },
-  "statusAllDisabled": {
-    "message": "Blokkeerder is on, but every individual site is disabled. Openen Instellingen to turn some sites back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blokkeren resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blokkeerder is armed, but outside schemad hours. It will blokkeren from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 bezorgsites enabled."
@@ -400,24 +391,6 @@
   },
   "mbBlocking": {
     "message": "Blokkeren"
-  },
-  "mbBlock": {
-    "message": "Blokkeren"
-  },
-  "mbOn": {
-    "message": "Aan"
-  },
-  "mbOff": {
-    "message": "Uit"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blokkeren — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to blokkeren"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Verwijderen shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Verwijderen $1 from quick access"

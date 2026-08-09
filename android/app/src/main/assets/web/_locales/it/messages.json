@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blocco"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every blocca list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & categoria bloccaing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Usaful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All siti are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Blocco is on, but every individual sito is disabled. Apri Impostazioni to turn some siti back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blocco resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blocco is armed, but outside programmad hours. It will blocca from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 siti di consegna enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Blocco"
-  },
-  "mbBlock": {
-    "message": "Blocca"
-  },
-  "mbOn": {
-    "message": "Attivo"
-  },
-  "mbOff": {
-    "message": "Disattivo"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blocco — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to blocca"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Rimuovi shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Rimuovi $1 from quick access"

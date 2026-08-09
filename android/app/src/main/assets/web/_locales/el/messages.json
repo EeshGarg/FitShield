@@ -311,15 +311,6 @@
   "mbBlocking": {
     "message": "Αποκλεισμός"
   },
-  "mbBlock": {
-    "message": "Αποκλεισμός"
-  },
-  "mbOn": {
-    "message": "Ενεργό"
-  },
-  "mbOff": {
-    "message": "Ανενεργό"
-  },
   "themeHeading": {
     "message": "Θέμα"
   },

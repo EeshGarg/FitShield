@@ -61,6 +61,73 @@ const DYNAMIC_PREFIXES = [
 // Keys the manifest references via __MSG_name__ rather than in JS.
 const MANIFEST_KEYS = ["appName", "appDescription", "actionTitle"];
 
+/**
+ * A key written in English AHEAD of the code that will render it.
+ *
+ * Locale files and page scripts are owned by different people, and a string
+ * cannot land in both at once: whoever edits `diagnostics.js` cannot add the
+ * message it needs, and whoever writes the message cannot wire it up. Without a
+ * way to say so, the two halves deadlock — which is how sixteen customer-visible
+ * diagnostics sentences ended up hardcoded in English inside `diagnostics.js`,
+ * where no locale could ever reach them.
+ *
+ * So the English entry declares its consumer in its own `description`:
+ *
+ *   "description": "… [staged: diagnostics.js]"
+ *
+ * The marker means exactly one thing — "this key has no reader YET, and the file
+ * named is the one that must grow one". It suppresses nothing else: the key is
+ * still parity-checked, still placeholder-checked, still offered to translators.
+ * `stagedFulfilled()` reports every marker whose consumer has since caught up so
+ * the note gets deleted rather than becoming folklore, and `stagedInvalid()`
+ * fails outright if a marker names a file that does not exist.
+ */
+const STAGED_MARKER = /\[staged:\s*([A-Za-z0-9._-]+)\s*\]/;
+
+// key -> the source file that must come to reference it.
+function stagedKeys(en) {
+  const data = en || english();
+  const out = new Map();
+
+  Object.keys(data).forEach((key) => {
+    const match = STAGED_MARKER.exec((data[key] && data[key].description) || "");
+    if (match) {
+      out.set(key, match[1]);
+    }
+  });
+
+  return out;
+}
+
+// A marker naming a file that is not there is a typo, and a typo would silently
+// exempt the key forever.
+function stagedInvalid() {
+  const out = [];
+
+  stagedKeys().forEach((file, key) => {
+    if (!fs.existsSync(path.join(EXT, file))) {
+      out.push({ key, file });
+    }
+  });
+
+  return out;
+}
+
+// Markers whose consumer already reads the key. The staging did its job; the
+// note is now false and should be removed from the English description.
+function stagedFulfilled() {
+  const blob = sourceBlob();
+  const out = [];
+
+  stagedKeys().forEach((file, key) => {
+    if (referenced(blob, key)) {
+      out.push({ key, file });
+    }
+  });
+
+  return out;
+}
+
 const { isEnglishPhrase } = require("./locale-hybrid-audit.js");
 
 // The locale set every locale tool walks. Shared so two tools can never
@@ -102,10 +169,12 @@ function referenced(blob, key) {
 function unusedKeys() {
   const en = english();
   const blob = sourceBlob();
+  const staged = stagedKeys(en);
 
   return Object.keys(en).filter((key) => {
     if (MANIFEST_KEYS.includes(key)) return false;
     if (DYNAMIC_PREFIXES.some((entry) => key.startsWith(entry.prefix))) return false;
+    if (staged.has(key)) return false;
     return !referenced(blob, key);
   });
 }
@@ -147,8 +216,27 @@ function orphanedKeys() {
 
 // --- The English source baseline ------------------------------------------
 
+/**
+ * The digest that decides whether a translation has outlived its source.
+ *
+ * Deliberately case-INSENSITIVE, and only case-insensitive.
+ *
+ * The question this guard exists to answer is "does the English still SAY what
+ * it said when this was translated?". Letter case is not part of what a sentence
+ * says — it is an English house-style choice, and every other language applies
+ * its own capitalisation rules regardless of ours. German capitalises every
+ * noun; French sentence-cases headings whatever English does. So "Your Stats" ->
+ * "Your stats" invalidates no translation anywhere, and treating it as a rewrite
+ * would have deleted roughly 1,400 genuine translations across eighteen keys the
+ * one time this repository restyled its headings — real human work destroyed to
+ * record a change of capital letter.
+ *
+ * Everything else still counts. A single changed word, a dropped clause, a moved
+ * placeholder, added punctuation: all of those change the digest and raise the
+ * stale-translation error, which is the failure `learnMoreLink` shipped without.
+ */
 function digest(text) {
-  return crypto.createHash("sha1").update(String(text), "utf8").digest("hex").slice(0, 12);
+  return crypto.createHash("sha1").update(String(text).toLowerCase(), "utf8").digest("hex").slice(0, 12);
 }
 
 function readBaseline() {
@@ -375,6 +463,31 @@ if (require.main === module) {
     process.exit(1);
   }
 
+  const badMarkers = stagedInvalid();
+
+  if (badMarkers.length > 0) {
+    console.error(
+      "These [staged: …] markers name a file that does not exist in extension/:\n" +
+        badMarkers.map((entry) => `  ${entry.key} -> ${entry.file}`).join("\n")
+    );
+    process.exit(1);
+  }
+
+  const pending = stagedKeys();
+  const fulfilled = stagedFulfilled();
+
+  if (pending.size > 0) {
+    console.log(`${pending.size} English key(s) staged for a page script that does not read them yet:`);
+    pending.forEach((file, key) => console.log(`  ${key.padEnd(28)} -> ${file}`));
+    console.log("");
+  }
+
+  if (fulfilled.length > 0) {
+    console.log(`${fulfilled.length} staged key(s) whose consumer has caught up — delete the [staged: …] note:`);
+    fulfilled.forEach((entry) => console.log(`  ${entry.key.padEnd(28)} ${entry.file} now references it`));
+    console.log("");
+  }
+
   const keys = unusedKeys();
   const orphans = orphanedKeys();
   const changed = staleTranslations();
@@ -432,6 +545,10 @@ module.exports = {
   staleTranslations,
   englishCopies,
   staleExemptions,
+  stagedKeys,
+  stagedInvalid,
+  stagedFulfilled,
+  STAGED_MARKER,
   prune,
   pruneTranslations,
   readBaseline,

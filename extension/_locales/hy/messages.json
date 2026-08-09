@@ -83,9 +83,6 @@
   "popupBlockerTitle": {
     "message": "FitShield արգելափակիչ"
   },
-  "popupBlockerSubtitle": {
-    "message": "Միացնել կամ անջատել բոլոր արգելափակումների ցանկը:"
-  },
   "popupMetadataLabel": {
     "message": "Երկրի և կատեգորիայի արգելափակում"
   },
@@ -116,17 +113,8 @@
   "popupScheduleSubtitle": {
     "message": "Օգտակար է սննդի բյուջեի, ուշ գիշեր պատվիրելու կամ աշխատանքային ժամերի համար:"
   },
-  "statusInactive": {
-    "message": "Ոչ ակտիվ: Բոլոր կայքերը հասանելի են:"
-  },
-  "statusAllDisabled": {
-    "message": "Արգելափակիչը միացված է, բայց յուրաքանչյուր առանձին կայք անջատված է: Բացեք Կարգավորումները՝ որոշ կայքեր նորից միացնելու համար:"
-  },
   "statusBypassActive": {
     "message": "Ժամանակավոր անցաթուղթը ակտիվ է։ Արգելափակումը վերսկսվում է $1-ում:"
-  },
-  "statusOutsideSchedule": {
-    "message": "Արգելափակիչը զինված է, բայց նախատեսված ժամերից դուրս: Այն կարգելափակվի $1-ից:"
   },
   "deliverySitesEnabledCount": {
     "message": "$1 $2 առաքման կայքերից միացված է:"
@@ -136,9 +124,6 @@
   },
   "searchMatchSuffix": {
     "message": " $1 համապատասխանում է որոնմանը:"
-  },
-  "warningPageTitle": {
-    "message": "Շունչ քաշեք"
   },
   "warningBackButton": {
     "message": "Վերադարձեք"
@@ -541,24 +526,6 @@
   },
   "mbBlocking": {
     "message": "Արգելափակում"
-  },
-  "mbBlock": {
-    "message": "Արգելափակել"
-  },
-  "mbOn": {
-    "message": "Միացված է"
-  },
-  "mbOff": {
-    "message": "Անջատված"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Արգելափակում — սեղմեք՝ դադարեցնելու համար"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Դադարեցված է — սեղմեք արգելափակելու համար"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Հեռացրեք դյուրանցումը արագ մուտքից"
   },
   "mbChipRemoveAria": {
     "message": "Հեռացրեք $1 արագ մուտքից"

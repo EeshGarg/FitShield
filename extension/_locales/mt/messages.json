@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield imblokkatur"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every imblokka list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & kategorija imblokkaing"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Użaful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All siti are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Imblokkatur is on, but every individual sit is disabled. Iftaħ Settings to turn some siti back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Imblukkar resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Imblokkatur is armed, but outside skedad hours. It will imblokka from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 siti tal-kunsinna enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Imblukkar"
-  },
-  "mbBlock": {
-    "message": "Imblokka"
-  },
-  "mbOn": {
-    "message": "Mixgħul"
-  },
-  "mbOff": {
-    "message": "Mitfi"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Imblukkar — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to imblokka"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Neħħi shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Neħħi $1 from quick access"

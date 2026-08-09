@@ -83,9 +83,6 @@
   "popupBlockerTitle": {
     "message": "FitShield хориглогч"
   },
-  "popupBlockerSubtitle": {
-    "message": "Блоклох жагсаалт бүрийг асаах эсвэл унтраа."
-  },
   "popupMetadataLabel": {
     "message": "Улс, ангиллыг хориглох"
   },
@@ -116,17 +113,8 @@
   "popupScheduleSubtitle": {
     "message": "Хоолны төсөв, шөнийн цагаар захиалга хийх эсвэл ажлын цагаар хэрэглэхэд тохиромжтой."
   },
-  "statusInactive": {
-    "message": "Идэвхгүй. Бүх сайтуудад хандах боломжтой."
-  },
-  "statusAllDisabled": {
-    "message": "Блоклогч асаалттай, гэхдээ сайт бүр идэвхгүй байна. Зарим сайтыг дахин асаахын тулд Тохиргоог нээнэ үү."
-  },
   "statusBypassActive": {
     "message": "Түр зуурын тасалбар идэвхтэй байна. $1-д хоригийг үргэлжлүүлж байна."
-  },
-  "statusOutsideSchedule": {
-    "message": "Блоклогч нь зэвсэглэсэн боловч хуваарьт цагаас гадуур. Энэ нь $1-аас блоклох болно."
   },
   "deliverySitesEnabledCount": {
     "message": "$2 хүргэх сайтуудын $1 идэвхжсэн."
@@ -136,9 +124,6 @@
   },
   "searchMatchSuffix": {
     "message": " $1 хайлтад таарч байна."
-  },
-  "warningPageTitle": {
-    "message": "Амьсгалаа аваарай"
   },
   "warningBackButton": {
     "message": "Буцах"
@@ -541,24 +526,6 @@
   },
   "mbBlocking": {
     "message": "Блоклох"
-  },
-  "mbBlock": {
-    "message": "Блоклох"
-  },
-  "mbOn": {
-    "message": "Асаалттай"
-  },
-  "mbOff": {
-    "message": "Унтраах"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Блоклох — түр зогсоохын тулд товшино уу"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Түр зогссон — блоклохын тулд товшино уу"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Шуурхай хандалтаас товчлолыг устгана уу"
   },
   "mbChipRemoveAria": {
     "message": "$1-г хурдан хандалтаас хас"

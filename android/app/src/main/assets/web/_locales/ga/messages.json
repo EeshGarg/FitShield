@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blocálaí"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every blocáil list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & catagóir blocáiling"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Úsáidful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All suíomhanna are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Blocálaí is on, but every individual suíomh is disabled. Oscail Socruithe to turn some suíomhanna back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blocáil resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blocálaí is armed, but outside sceideald hours. It will blocáil from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 suíomhanna seachadta enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Blocáil"
-  },
-  "mbBlock": {
-    "message": "Blocáil"
-  },
-  "mbOn": {
-    "message": "Ar siúl"
-  },
-  "mbOff": {
-    "message": "Múchta"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blocáil — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to blocáil"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Bain shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Bain $1 from quick access"

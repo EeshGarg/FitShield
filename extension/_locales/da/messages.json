@@ -71,9 +71,6 @@
   "popupBlockerTitle": {
     "message": "FitShield blokering"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every bloker list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & kategori blokering"
   },
@@ -104,17 +101,8 @@
   "popupScheduleSubtitle": {
     "message": "Brugful for meal budgets, late-night ordering, or work hours."
   },
-  "statusInactive": {
-    "message": "Inactive. All sider are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Blokering is on, but every individual side is disabled. Åbn Indstillinger to turn some sider back on."
-  },
   "statusBypassActive": {
     "message": "Temporary pass is active. Blokering resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Blokering is armed, but outside tidspland hours. It will bloker from $1."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 leveringssider enabled."
@@ -412,24 +400,6 @@
   },
   "mbBlocking": {
     "message": "Blokering"
-  },
-  "mbBlock": {
-    "message": "Bloker"
-  },
-  "mbOn": {
-    "message": "Til"
-  },
-  "mbOff": {
-    "message": "Fra"
-  },
-  "mbChipToggleOnTitle": {
-    "message": "Blokering — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to bloker"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Fjern shortcut from quick access"
   },
   "mbChipRemoveAria": {
     "message": "Fjern $1 from quick access"
