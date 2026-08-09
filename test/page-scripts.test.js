@@ -420,3 +420,58 @@ test("every page loads fitshield-core.js before any script that uses it", () => 
 
   assert.deepEqual(violations, [], violations.join("\n"));
 });
+
+// ---------------------------------------------------------------------------
+// Retired storage keys
+//
+// `blockedVisits`, `recipesChosen` and `caloriesAvoided` are pre-0.55 counters.
+// The migration reads them once to seed `stats.totals`; after that nothing
+// writes them, ever. They stay in storage and in backups so an upgraded profile
+// keeps the numbers it watched grow — they are archive, not live data.
+//
+// Settings' "Your Stats" went on reading `blockedVisits` and `caloriesAvoided`
+// for the whole of 0.55's development. The panel showed a frozen number to
+// upgraded users and a permanent zero to everyone else, and nothing failed,
+// because a dead read looks exactly like a live one. This makes it fail.
+//
+// The rule is narrow and mechanical: a page may CARRY a retired key (backup) and
+// may DELETE one (reset), but may not ASK storage for it. Anything that needs
+// those numbers reads `stats`.
+// ---------------------------------------------------------------------------
+
+const RETIRED_KEYS = ["blockedVisits", "recipesChosen", "caloriesAvoided", "siteBypasses"];
+
+test("no page asks storage for a key only the migration reads", () => {
+  const offenders = [];
+
+  fs.readdirSync(EXT)
+    .filter((name) => name.endsWith(".js") && name !== "blocklist.js" && name !== "fitshield-core.js")
+    .forEach((name) => {
+      const source = fs.readFileSync(path.join(EXT, name), "utf8");
+
+      // Only `.get(...)` calls with literal keys — a variable inventory
+      // (backup.js reads DURABLE_KEYS) is carrying data, not displaying it.
+      [...source.matchAll(/storage\.local\.get\(\s*(\[[^\]]*\]|"[^"]*")/g)].forEach((call) => {
+        [...call[1].matchAll(/"([^"]+)"/g)].forEach((key) => {
+          if (RETIRED_KEYS.includes(key[1])) {
+            offenders.push(`${name} reads "${key[1]}" — read stats.totals instead`);
+          }
+        });
+      });
+    });
+
+  assert.deepEqual(offenders, [], offenders.join("\n"));
+});
+
+test("the retired counters are still carried by backups", () => {
+  const backup = fs.readFileSync(path.join(EXT, "backup.js"), "utf8");
+  const durable = /const DURABLE_KEYS = \[([\s\S]*?)\];/.exec(backup);
+
+  assert.ok(durable, "backup.js should declare DURABLE_KEYS as a literal list");
+
+  // Preserved, not displayed. Dropping them from backups would lose a number the
+  // user watched grow, which is the opposite failure to reading them.
+  ["blockedVisits", "recipesChosen", "caloriesAvoided"].forEach((key) => {
+    assert.ok(durable[1].includes(`"${key}"`), `${key} must still be preserved in backups`);
+  });
+});
