@@ -203,3 +203,85 @@ test("the project still ships with no dependencies", () => {
   assert.ok(!pkg.devDependencies || Object.keys(pkg.devDependencies).length === 0, "no dev dependencies either");
   assert.ok(!fs.existsSync(path.join(ROOT, "node_modules")), "and nothing installed");
 });
+
+// ---------------------------------------------------------------------------
+// Closing a queue item has to cost more than one word
+// ---------------------------------------------------------------------------
+
+// The queue check originally read `item.status !== "closed"`, so the cheapest
+// way to empty a 77-item queue was to write "closed" 77 times. That is the same
+// failure this whole audit exists to prevent, one file over: an assertion of
+// completion standing in for the work. Closure now needs a narrative and an
+// anchor, and the narrative is held to the report's language rules.
+
+const QUEUE_FILE = path.join(ROOT, ".queue.json");
+
+// The real queue is swapped out and restored, mirroring withReport above.
+function withQueue(items, fn) {
+  const had = fs.existsSync(QUEUE_FILE);
+  const original = had ? fs.readFileSync(QUEUE_FILE, "utf8") : null;
+
+  fs.writeFileSync(QUEUE_FILE, JSON.stringify(items, null, 2));
+
+  try {
+    fn();
+  } finally {
+    if (had) {
+      fs.writeFileSync(QUEUE_FILE, original);
+    } else {
+      fs.unlinkSync(QUEUE_FILE);
+    }
+  }
+}
+
+const PROVEN = {
+  id: "F900",
+  dimension: "probe",
+  severity: "HIGH",
+  title: "probe",
+  status: "closed",
+  verification: "Reproduced against the built package in Chrome 149, fixed, then re-run with the fix reverted to confirm the check fails without it.",
+  test: "test/probe.test.js"
+};
+
+test("a queue item closed with proof and an anchor is accepted", () => {
+  withQueue([PROVEN], () => {
+    assert.deepEqual(policyAudit().errors, []);
+  });
+});
+
+test("a queue item cannot be closed by the word alone", () => {
+  withQueue([{ id: "F901", dimension: "probe", severity: "HIGH", title: "probe", status: "closed" }], () => {
+    const errors = policyAudit().errors;
+    assert.ok(
+      errors.some((e) => /F901: no verification narrative/.test(e)),
+      `expected the unproven-closure failure, got:\n${errors.join("\n")}`
+    );
+  });
+});
+
+test("a verified queue item still needs somewhere the proof lives", () => {
+  withQueue([{ ...PROVEN, test: undefined, commit: undefined, evidenceAfter: undefined }], () => {
+    const errors = policyAudit().errors;
+    assert.ok(errors.some((e) => /F900: verified but unanchored/.test(e)), errors.join("\n"));
+  });
+});
+
+test("closure prose is held to the same language rules as the report", () => {
+  [
+    "probably fixed",
+    "not re-verified",
+    "likely resolved",
+    "appears to be fixed",
+    "assumed closed",
+    "should now be resolved"
+  ].forEach((phrase) => {
+    withQueue([{ ...PROVEN, verification: `This one ${phrase} by the earlier catalog work in the other lane.` }], () => {
+      const errors = policyAudit().errors;
+      assert.ok(
+        errors.some((e) => /forbidden language/.test(e)),
+        `"${phrase}" was accepted as verification; errors:\n${errors.join("\n")}`
+      );
+    });
+  });
+});

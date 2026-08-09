@@ -98,6 +98,19 @@ function policyAudit() {
 
   const governance = fs.readFileSync(GOVERNANCE_FILE, "utf8");
 
+  // The ways a session talks itself out of finishing. Shared by the report
+  // check and the queue-closure check so a claim that is refused in one place
+  // cannot simply be written in the other.
+  const FORBIDDEN_CLOSURE_LANGUAGE = [
+    /probably\s*fixed/i,
+    /not\s+re-?verified/i,
+    /likely\s+resolved/i,
+    /appears\s+(?:to\s+be\s+)?(?:fixed|resolved)/i,
+    /assumed\s+(?:fixed|closed|resolved)/i,
+    /should\s+(?:be|now\s+be)\s+(?:fixed|resolved)/i,
+    /no\s+longer\s+reproducible\s+\(untested\)/i
+  ];
+
   [
     ["a finding is work", /a finding is work/i],
     ["the no-verdict rule", /terminal verdicts are forbidden/i],
@@ -206,8 +219,10 @@ function policyAudit() {
       reporter.note("acceptance report declares 0 repository-local findings");
     }
 
-    if (/probably fixed|not re-?verified|likely resolved/i.test(report)) {
-      reporter.fail('the acceptance report contains an unverified claim ("probably fixed" / "not re-verified")');
+    const claimed = FORBIDDEN_CLOSURE_LANGUAGE.find((rx) => rx.test(report));
+
+    if (claimed) {
+      reporter.fail(`the acceptance report contains an unverified claim (matched ${claimed})`);
     }
   }
 
@@ -218,10 +233,46 @@ function policyAudit() {
     const queue = JSON.parse(fs.readFileSync(queueFile, "utf8"));
     const open = queue.filter((item) => item && item.status !== "closed");
 
+    // Closing an item used to cost one word. `status: "closed"` was the whole
+    // check, so the cheapest way to empty the queue was to assert that it was
+    // empty — which is the failure mode this whole audit exists to prevent.
+    // A closed item now has to carry how it was proven and where the proof
+    // lives, and the prose has to survive the same forbidden-language check
+    // the report does, so "probably fixed" cannot be laundered through here.
+    const closed = queue.filter((item) => item && item.status === "closed");
+    const unproven = [];
+
+    closed.forEach((item) => {
+      const how = typeof item.verification === "string" ? item.verification.trim() : "";
+      const where = item.commit || item.test || item.evidenceAfter;
+
+      if (how.length < 40) {
+        unproven.push(`${item.id}: no verification narrative (how was it proven?)`);
+        return;
+      }
+
+      if (!where) {
+        unproven.push(`${item.id}: verified but unanchored — needs a commit, test, or evidenceAfter`);
+        return;
+      }
+
+      const weasel = FORBIDDEN_CLOSURE_LANGUAGE.find((rx) => rx.test(how));
+
+      if (weasel) {
+        unproven.push(`${item.id}: closure prose matches forbidden language ${weasel}`);
+      }
+    });
+
+    if (unproven.length > 0) {
+      reporter.fail(
+        `${unproven.length} queue item(s) claim closure without proof:\n      ${unproven.join("\n      ")}`
+      );
+    }
+
     if (open.length > 0) {
       reporter.note(`${open.length} item(s) still open in .queue.json — the session is not finished`);
     } else {
-      reporter.note(`work queue empty (${queue.length} closed)`);
+      reporter.note(`work queue empty (${queue.length} closed, each with verification and an anchor)`);
     }
   }
 
