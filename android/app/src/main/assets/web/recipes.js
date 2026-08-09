@@ -232,18 +232,37 @@
     customBoost: 25        // the user wrote it themselves
   };
 
+  /**
+   * How well this entry matches what the user says they keep.
+   *
+   * Returns the score AND the hit count, because the block page shows the count
+   * to the user ("uses 3 things you keep"). Deriving it back out of the score
+   * got it wrong twice over: the shelf-stable consolation bonus, which is not a
+   * pantry match at all, read as one hit, and any entry past the cap under-
+   * reported. The count is now the thing that was actually counted.
+   *
+   * @returns {{ score: number, hits: number }}
+   */
   function pantryScore(entry, pantry) {
-    const owned = new Set((Array.isArray(pantry) ? pantry : []).map(normalize));
+    const owned = new Set((Array.isArray(pantry) ? pantry : []).map(normalize).filter(Boolean));
 
     if (owned.size === 0) {
       // Nothing declared: prefer things that keep, since they are the ones most
       // likely to actually be in the kitchen right now.
-      return entry.pantryFriendly ? WEIGHTS.pantryFriendly : 0;
+      return { score: entry.pantryFriendly ? WEIGHTS.pantryFriendly : 0, hits: 0 };
     }
 
+    // Two shapes reach this: catalog entries carry structured ingredients
+    // ({ quantity, unit, item }), while a user's own alternative stores plain
+    // strings. Reading only `.item` left every custom entry with a list of
+    // empty strings — and `staple.includes("")` is true for every staple, so a
+    // custom alternative scored a FULL pantry match whatever was in it, and the
+    // block page told the user it "uses 5 things you keep" about a dish it had
+    // never looked at. Empties are dropped, and both shapes match on their text.
     const ingredients = (Array.isArray(entry.ingredients) ? entry.ingredients : [])
       .filter((ingredient) => ingredient && !ingredient.optional)
-      .map((ingredient) => normalize(ingredient.item));
+      .map((ingredient) => normalize(typeof ingredient === "string" ? ingredient : ingredient.item))
+      .filter(Boolean);
 
     let hits = 0;
     owned.forEach((staple) => {
@@ -252,7 +271,7 @@
       }
     });
 
-    return Math.min(WEIGHTS.pantryCap, hits * WEIGHTS.pantryItem);
+    return { score: Math.min(WEIGHTS.pantryCap, hits * WEIGHTS.pantryItem), hits };
   }
 
   function timeScore(entry) {
@@ -312,10 +331,10 @@
     }
 
     const pantry = pantryScore(entry, context.pantry);
-    score += pantry;
+    score += pantry.score;
 
-    if (pantry > 0 && context.pantry.length > 0) {
-      reasons.push({ key: "pantry", value: String(Math.round(pantry / WEIGHTS.pantryItem)) });
+    if (pantry.hits > 0) {
+      reasons.push({ key: "pantry", value: String(pantry.hits) });
     }
 
     score += timeScore(entry);

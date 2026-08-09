@@ -261,6 +261,64 @@ test("a pantry hit is reported so the page can explain the choice", async () => 
   assert.ok(explained, "at least one match should carry a pantry reason");
 });
 
+// A user's own alternative stores its ingredients as plain strings; the catalog
+// stores structured { quantity, unit, item } objects. Reading only `.item` left
+// every custom entry with a list of empty strings, and `staple.includes("")` is
+// true for every staple — so a custom alternative scored a FULL pantry match
+// whatever was actually in it, and the block page claimed on screen that it
+// "uses 5 things you keep" about a dish it had never looked at.
+test("a custom alternative's pantry score reflects what is really in it", async () => {
+  await catalog();
+  const pantry = ["eggs", "rice", "pasta", "canned beans", "frozen vegetables", "cheese", "yogurt", "chicken"];
+
+  const unrelated = {
+    id: "custom-toast",
+    kind: "custom",
+    title: "Plain toast",
+    ingredients: ["bread"],
+    steps: ["Toast it."],
+    totalMinutes: 3,
+    activeMinutes: 2,
+    equipment: ["toaster"],
+    diet: "vegan",
+    categories: [],
+    cravings: []
+  };
+
+  const matching = {
+    ...unrelated,
+    id: "custom-egg-rice",
+    title: "Egg fried rice",
+    ingredients: ["2 eggs", "1 cup rice", "frozen vegetables"],
+    diet: "vegetarian"
+  };
+
+  const result = recipes.rankAlternatives(PIZZA, { pantry, customAlternatives: [unrelated, matching] });
+  const find = (id) => result.matches.find((match) => match.entry.id === id);
+
+  const toast = find("custom-toast");
+  assert.ok(
+    !toast.reasons.some((reason) => reason.key === "pantry"),
+    "nothing in it is on the list, so it must not claim a pantry match"
+  );
+
+  const rice = find("custom-egg-rice");
+  const pantryReason = rice.reasons.find((reason) => reason.key === "pantry");
+  assert.ok(pantryReason, "one that genuinely uses the pantry says so");
+  assert.equal(pantryReason.value, "3", "eggs, rice and frozen vegetables — counted, not assumed");
+  assert.ok(rice.score > toast.score, "and it outranks the one that matches nothing");
+});
+
+test("an empty pantry entry cannot match every alternative", async () => {
+  await catalog();
+  const result = recipes.rankAlternatives(PIZZA, { pantry: ["", "  "] });
+
+  assert.ok(
+    !result.matches.some((match) => match.reasons.some((reason) => reason.key === "pantry")),
+    "a blank staple is not a staple"
+  );
+});
+
 // ---------------------------------------------------------------------------
 // Rotation, favorites, dismissal
 // ---------------------------------------------------------------------------

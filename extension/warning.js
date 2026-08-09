@@ -463,7 +463,7 @@ function reasonText(reasons, relaxed) {
     if (reason.key === "craving" && reason.value) {
       parts.push(t("whyCraving", [reason.value.replace(/-/g, " ")]));
     } else if (reason.key === "pantry") {
-      parts.push(t("whyPantry", [reason.value]));
+      parts.push(reason.value === "1" ? t("whyPantryOne") : t("whyPantry", [reason.value]));
     } else if (reason.key === "favorite") {
       parts.push(t("whyFavorite"));
     } else if (reason.key === "custom") {
@@ -561,9 +561,14 @@ function renderAlternative(entry, reasons, relaxed, position) {
   ui.chooseAlt.textContent = state.chosen ? t("alternativeChosenButton") : t("alternativeChooseButton");
   ui.chooseAlt.disabled = state.chosen;
 
+  // Spoken, not abbreviated: "12 minutes", not "12 min". The unit comes from the
+  // shared singular/plural pair so a one-minute entry — which a user can author
+  // themselves — is not announced as "1 minutes".
+  const spokenMinutes = Number(entry.totalMinutes) || 0;
+
   ui.altAnnounce.textContent = t("alternativeAnnounce", [
     entry.title || "",
-    String(entry.totalMinutes || 0),
+    `${spokenMinutes} ${minuteUnit(spokenMinutes)}`,
     String(position.index + 1),
     String(position.count)
   ]);

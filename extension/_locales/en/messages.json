@@ -1034,7 +1034,7 @@
     "message": "Noted as your plan. FitShield has not recorded a meal — you can confirm you made it from the popup later, if you want to."
   },
   "alternativeAnnounce": {
-    "message": "$1, $2 minutes. Option $3 of $4."
+    "message": "$1, $2. Option $3 of $4."
   },
   "noAlternativeFound": {
     "message": "No alternative matched. Try clearing a filter."
@@ -1086,6 +1086,9 @@
   },
   "whyCraving": {
     "message": "Matches $1"
+  },
+  "whyPantryOne": {
+    "message": "Uses 1 thing you keep"
   },
   "whyPantry": {
     "message": "Uses $1 things you keep"
