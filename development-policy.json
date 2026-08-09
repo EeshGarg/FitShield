@@ -1,7 +1,6 @@
 {
   "_note": "Machine-readable development governance for FitShield. The prose lives in CLAUDE.md; this file is what tools/policy-audit.js enforces, so a rule cannot quietly exist in one and not the other. Runs inside `npm run validate` and `npm test`.",
   "version": 1,
-
   "completion": {
     "repository_local_open_findings_must_be_zero": true,
     "report_requires_local_queue_empty": true,
@@ -10,7 +9,6 @@
     "severity_changes_priority_not_completion": true,
     "validators_may_not_be_loosened_to_pass": true
   },
-
   "agents": {
     "agent_usage_required": true,
     "maximize_safe_parallelism": true,
@@ -24,9 +22,16 @@
       "qa-engineer",
       "release-engineer",
       "ui-ux-engineer"
-    ]
+    ],
+    "destructive_git_forbidden_in_lanes": true,
+    "forbidden_lane_commands": [
+      "git reset --hard",
+      "git checkout -- .",
+      "git clean",
+      "git stash"
+    ],
+    "_lane_command_note": "Repository-wide commands. A lane running one rolls back every other lane writing concurrently, with no error. Observed this session: one lane reset and stashed the tree and another lane's completed work vanished from disk. A lane writes only the files it owns and reports a broken tree to the coordinator rather than repairing it."
   },
-
   "_forbidden_note": "Terms that may never end a session, a review, or a report. A report containing one of these as a heading for repository-local work is a policy failure, not a status.",
   "forbidden_terminal_verdicts": [
     "NOT READY",
@@ -36,7 +41,6 @@
     "DO NOT SHIP",
     "NEEDS ANOTHER PASS"
   ],
-
   "_deferral_note": "Section headings a final report may not use for work that is still performable in this repository. External-only items are classified separately.",
   "forbidden_report_sections": [
     "Deferred",
@@ -48,7 +52,6 @@
     "Not verified",
     "Deferred non-release ideas"
   ],
-
   "external_only_allowed": [
     {
       "id": "safari-xcode",
@@ -75,9 +78,12 @@
       "local_prerequisites_complete": true
     }
   ],
-
   "product_invariants": {
-    "permissions": ["storage", "declarativeNetRequest", "alarms"],
+    "permissions": [
+      "storage",
+      "declarativeNetRequest",
+      "alarms"
+    ],
     "runtime_network_requests_allowed": false,
     "new_dependencies_allowed": false,
     "telemetry_allowed": false,

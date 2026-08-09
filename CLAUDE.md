@@ -102,6 +102,27 @@ explicit do-not-edit list.
 | `release-engineer` | `changelog/**`, version metadata, release docs |
 | `qa-engineer` | adversarial verification; may add `test/**` |
 
+### Never run a destructive or repository-wide git command in a lane
+
+`git reset --hard`, `git checkout -- .`, `git clean`, and `git stash` are
+**repository-wide**. A lane that runs one does not roll back its own work — it
+rolls back every other lane writing concurrently, silently, with no error.
+
+This happened. One lane reset the tree and stashed it; another lane's completed
+locale work vanished from disk mid-session. It survived only because the stash
+was popped and that lane noticed and re-verified. Nothing warned anyone.
+
+A lane may only:
+
+- write the files it owns;
+- `git add` / `git commit` those exact paths;
+- read anything.
+
+To undo its own change a lane rewrites the file. If a lane believes the tree is
+broken it reports that to the coordinator rather than repairing it — the
+coordinator is the only role that can see every lane.
+
+
 ---
 
 ## 5. Definition of done
