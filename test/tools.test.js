@@ -94,6 +94,59 @@ test("the docs state the real Firefox background.scripts value", () => {
   }
 });
 
+// A raw control byte in a source file makes grep and ripgrep classify it as
+// BINARY and skip it silently. Two test files carried literal NUL bytes inside
+// string and regex literals (hostile-input fixtures written as raw bytes rather
+// than as escapes), and the cost was not hypothetical: a repo-wide dead-code
+// audit run in this project reported those two files as unsearchable and had to
+// be re-run with `grep -a`, which changed four of its conclusions. A symbol used
+// only inside an unsearchable file looks dead to every tool anyone will reach
+// for.
+//
+// `"\u0000"` and a raw NUL are the same string at runtime, so the escaped form
+// costs nothing and keeps the file greppable, diffable, and safe to paste.
+test("no source file contains raw control bytes", () => {
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const ROOT = path.join(__dirname, "..");
+
+  // Tab (0x09), LF (0x0a) and CR (0x0d) are legitimate whitespace.
+  const isRawControl = (byte) => byte < 0x20 && byte !== 0x09 && byte !== 0x0a && byte !== 0x0d;
+
+  const dirs = ["test", "tools", "tools/lib", "extension", "FS Engine"];
+  const offenders = [];
+
+  for (const dir of dirs) {
+    const full = path.join(ROOT, dir);
+    if (!fs.existsSync(full)) continue;
+
+    for (const name of fs.readdirSync(full)) {
+      if (!/\.(js|json|html)$/.test(name)) continue;
+
+      const file = path.join(full, name);
+      if (!fs.statSync(file).isFile()) continue;
+
+      const buf = fs.readFileSync(file);
+      const found = [];
+      for (let i = 0; i < buf.length; i++) {
+        if (isRawControl(buf[i])) {
+          const line = buf.subarray(0, i).toString("utf8").split("\n").length;
+          found.push(`0x${buf[i].toString(16).padStart(2, "0")} at line ${line}`);
+        }
+      }
+      if (found.length) {
+        offenders.push(`${dir}/${name}: ${found.slice(0, 5).join(", ")}`);
+      }
+    }
+  }
+
+  assert.deepEqual(
+    offenders,
+    [],
+    `raw control bytes make these files invisible to grep/ripgrep — write them as \\uXXXX escapes instead:\n  ${offenders.join("\n  ")}`
+  );
+});
+
 // tools/README.md is the map a new contributor reads before touching anything
 // here. It had drifted badly — 14 of 24 tools were missing and it pointed at
 // three files that do not exist — which is worse than no map, because the

@@ -8,6 +8,28 @@ const fs = require("node:fs");
 
 const gen = require("../tools/generate-android-rules");
 const androidAudit = require("../tools/android-audit");
+const { apkOutcome } = require("../tools/build-android");
+
+// `npm run build:android` used to exit 0 no matter what happened to the APK.
+// "No Android SDK on this machine" and "the APK build is broken" are completely
+// different facts, and reporting both as success means any CI job wired to this
+// script goes green over a broken build — the one thing a build gate exists to
+// prevent. Absent tooling is still a clean skip; anything that RAN and produced
+// no APK is a failure.
+test("the Android build reports a real Gradle failure instead of exiting clean", () => {
+  assert.equal(apkOutcome({ hasGradle: false, gradleStatus: null, apkFound: false }).exitCode, 0,
+    "no toolchain here is a skip, not a failure");
+
+  assert.equal(apkOutcome({ hasGradle: true, gradleStatus: 1, apkFound: false }).exitCode, 1,
+    "a Gradle build that failed must fail the command");
+
+  assert.equal(apkOutcome({ hasGradle: true, gradleStatus: 0, apkFound: false }).exitCode, 1,
+    "Gradle reporting success while producing no APK must fail the command");
+
+  const built = apkOutcome({ hasGradle: true, gradleStatus: 0, apkFound: true });
+  assert.equal(built.exitCode, 0);
+  assert.equal(built.built, true);
+});
 
 test("committed Android rules asset matches the separated engine output", async () => {
   const derived = await gen.derive();

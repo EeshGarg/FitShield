@@ -414,6 +414,196 @@ test("an unreferenced ingredient warns but never fails", () => {
 });
 
 // ---------------------------------------------------------------------------
+// The ingredient-reference heuristic, in BOTH directions.
+//
+// This check used to report eleven healthy recipes as broken, for four separate
+// reasons in the matcher rather than anything wrong with the data: it stemmed
+// "tomatoes" to "tomatoe" so a step saying "tomato" never matched, it discarded
+// three-letter head nouns so "burger bun" could not see "the bun", it never read
+// `ingredient.note` so "cut into 8 strips" could not license "each strip", and
+// its synonym table had no entry for the words steps actually use ("the liquid",
+// "the florets", "the vegetables", "the salad").
+//
+// Relaxing a fuzzy matcher is how a check quietly becomes decorative, so every
+// relaxation below is pinned by a PAIR: the healthy recipe it must now accept,
+// and the stranded ingredient it must still report. If a future edit widens the
+// matcher into uselessness, the negative half of the pair fails.
+// ---------------------------------------------------------------------------
+
+function strandedWarningsFor(probe) {
+  return auditWithProbe(probe).warnings.filter(
+    (w) => /contract-probe/.test(w) && /never mentioned in the steps/i.test(w)
+  );
+}
+
+const OMNIVORE = { diet: "omnivore", allergens: ["gluten", "dairy"] };
+
+test("the shipped catalog has no unreferenced-ingredient warnings", () => {
+  const reporter = alternativesAudit();
+  const stranded = reporter.warnings.filter((w) => /never mentioned in the steps/i.test(w));
+
+  assert.deepEqual(
+    stranded,
+    [],
+    "Either a step stopped referring to an ingredient, or the matcher in " +
+      "tools/alternatives-audit.js needs the word the step actually uses. Do not " +
+      "delete the check — fix whichever side is wrong.\n  " +
+      stranded.join("\n  ")
+  );
+});
+
+test("a plural ingredient matches a singular step, but an absent one still warns", () => {
+  const ingredients = [
+    { quantity: 2, unit: "cup", item: "cooked rice" },
+    { quantity: 3, unit: "piece", item: "tomatoes" }
+  ];
+
+  assert.deepEqual(
+    strandedWarningsFor(
+      validRecipe({
+        ingredients,
+        steps: ["Toss the tomato and the rice with the oil over medium heat for 2 minutes, until steaming hot."]
+      })
+    ),
+    [],
+    '"tomatoes" must match a step that says "tomato"'
+  );
+
+  assert.equal(
+    strandedWarningsFor(validRecipe({ ingredients })).length,
+    1,
+    "stemming must not make an ingredient the steps never touch look referenced"
+  );
+});
+
+test("a three-letter head noun is evidence, but only when the step contains it", () => {
+  const ingredients = [
+    { quantity: 1, unit: "piece", item: "burger bun" },
+    { quantity: 1, unit: "tbsp", item: "olive oil" }
+  ];
+
+  assert.deepEqual(
+    strandedWarningsFor(
+      validRecipe({
+        ...OMNIVORE,
+        ingredients,
+        steps: ["Toast the bun cut-side down in the oil for 1 minute, until golden."]
+      })
+    ),
+    [],
+    '"burger bun" must match a step that says "the bun"'
+  );
+
+  assert.equal(
+    strandedWarningsFor(validRecipe({ ...OMNIVORE, ingredients })).length,
+    1,
+    "a short head noun must not match a step that never names it"
+  );
+});
+
+test("an ingredient note licenses the word the steps use, and nothing more", () => {
+  const withNote = (steps) =>
+    strandedWarningsFor(
+      validRecipe({
+        ...OMNIVORE,
+        ingredients: [
+          { quantity: 400, unit: "g", item: "chicken breast", note: "cut into 8 strips" },
+          { quantity: 1, unit: "tbsp", item: "olive oil" }
+        ],
+        steps
+      })
+    );
+
+  assert.deepEqual(
+    withNote(["Coat each strip in the oil and bake 15 minutes, until golden and white all the way through."]),
+    [],
+    'the note "cut into 8 strips" must license a step that says "each strip"'
+  );
+
+  assert.equal(
+    withNote(["Heat the oil in a pan over medium heat for 5 minutes, until it is piping hot."]).length,
+    1,
+    "reading the note must not excuse an ingredient no step uses"
+  );
+});
+
+test("a prep adjective shared with a step is not evidence the ingredient was used", () => {
+  const stranded = strandedWarningsFor(
+    validRecipe({
+      ingredients: [
+        { quantity: 2, unit: "cup", item: "cooked rice" },
+        { quantity: 1, unit: "tsp", item: "smoked paprika", note: "finely chopped" }
+      ],
+      steps: ["Add the finely chopped rice to the oil and cook 3 minutes, until it is steaming hot."]
+    })
+  );
+
+  assert.equal(
+    stranded.length,
+    1,
+    'sharing only "finely"/"chopped" with a step must still be reported — those words describe every ingredient'
+  );
+});
+
+test("a synonym only excuses an ingredient when the step really uses the generic word", () => {
+  const ingredients = [
+    { quantity: 1, unit: "piece", item: "cauliflower" },
+    { quantity: 1, unit: "tbsp", item: "olive oil" }
+  ];
+
+  assert.deepEqual(
+    strandedWarningsFor(
+      validRecipe({
+        ingredients,
+        steps: ["Toss the florets through the oil and air fry 14 minutes, until golden and crisp."]
+      })
+    ),
+    [],
+    '"cauliflower" must match a step that says "the florets"'
+  );
+
+  assert.equal(
+    strandedWarningsFor(
+      validRecipe({
+        ingredients,
+        steps: ["Heat the oil in a pan over medium heat for 3 minutes, until it is piping hot."]
+      })
+    ).length,
+    1,
+    "a synonym must not fire when its generic word is absent from the steps"
+  );
+});
+
+test("a collective step reference excuses the list; a step that merely names a mixture does not", () => {
+  const ingredients = [
+    { quantity: 1, unit: "cup", item: "rolled oats" },
+    { quantity: 2, unit: "tbsp", item: "cocoa powder" }
+  ];
+
+  assert.deepEqual(
+    strandedWarningsFor(
+      validRecipe({
+        ingredients,
+        steps: ["Stir everything together in a bowl until it is stiff but holds together when squeezed."]
+      })
+    ),
+    [],
+    '"stir everything together" genuinely accounts for every ingredient'
+  );
+
+  assert.equal(
+    strandedWarningsFor(
+      validRecipe({
+        ingredients,
+        steps: ["Whisk the oats and the oil until the dressing thickens slightly, about 1 minute."]
+      })
+    ).length,
+    1,
+    '"the dressing" names something a step just built — it must not exempt the whole recipe'
+  );
+});
+
+// ---------------------------------------------------------------------------
 // ARCHITECTURE.md: the packaging contracts
 // ---------------------------------------------------------------------------
 

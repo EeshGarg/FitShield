@@ -95,6 +95,8 @@ async function main() {
   // 4. Build the DEBUG APK if tooling is present.
   const gradle = findGradle();
   let built = false;
+  let gradleStatus = null;
+  let apkFound = false;
 
   if (gradle) {
     console.log(`\nBuilding debug APK with ${gradle.label}…`);
@@ -102,8 +104,10 @@ async function main() {
       `${gradle.bin} :app:assembleDebug -PfitshieldVersionName=${version}`,
       { cwd: ANDROID_DIR, stdio: "inherit", shell: true }
     );
+    gradleStatus = result.status;
     if (result.status === 0) {
       const apk = newestApk(path.join(ANDROID_DIR, "app", "build", "outputs", "apk", "debug"));
+      apkFound = !!apk;
       if (apk) {
         fs.copyFileSync(apk, path.join(DIST_ANDROID, apkName));
         built = true;
@@ -120,10 +124,50 @@ async function main() {
   }
 
   writeBuildTxt({ version, apkName, built, hasGradle: !!gradle, asset });
+
+  const outcome = apkOutcome({ hasGradle: !!gradle, gradleStatus, apkFound });
   if (!built) {
-    // Not an error: tooling simply absent. Exit 0 so it can run in CI/dev too.
     console.log("\nTo build locally, run the command in dist/android/BUILD.txt.");
   }
+  if (outcome.exitCode !== 0) {
+    console.error(`\n${outcome.reason}`);
+    process.exit(outcome.exitCode);
+  }
+}
+
+/**
+ * Decide the process exit code for the APK phase.
+ *
+ * "No Android tooling here" and "the APK build is broken" are completely
+ * different facts, and this step used to report both as success: a Gradle run
+ * that FAILED printed "Gradle build failed" and then exited 0, so any CI job
+ * wired to `npm run build:android` went green over a broken APK. Same for the
+ * "Gradle said OK but produced no APK" case.
+ *
+ * Absent tooling stays exit 0 on purpose — this environment genuinely has no
+ * Android SDK, and the rules/bundle/audit steps above are still worth running
+ * everywhere. Anything that actually RAN and did not produce an APK is a
+ * failure.
+ */
+function apkOutcome({ hasGradle, gradleStatus, apkFound }) {
+  if (!hasGradle) {
+    return { exitCode: 0, built: false, reason: "Android SDK/Gradle absent — APK skipped, not failed." };
+  }
+  if (gradleStatus !== 0) {
+    return {
+      exitCode: 1,
+      built: false,
+      reason: `Android build FAILED: gradle :app:assembleDebug exited ${gradleStatus}.`
+    };
+  }
+  if (!apkFound) {
+    return {
+      exitCode: 1,
+      built: false,
+      reason: "Android build FAILED: Gradle reported success but produced no debug APK."
+    };
+  }
+  return { exitCode: 0, built: true, reason: "APK built." };
 }
 
 function buildCommand() {
@@ -198,7 +242,23 @@ function writeBuildTxt({ version, apkName, built, hasGradle, asset }) {
   fs.writeFileSync(path.join(DIST_ANDROID, "BUILD.txt"), lines.join("\n"));
 }
 
+// Gradle — wrapper or system — cannot do anything without a JDK, and the wrapper
+// script is COMMITTED, so `fs.existsSync(gradlew)` is true on every checkout
+// including machines with no Java at all. Treating the file's presence as
+// "tooling available" made this step announce "Building debug APK…", hand the
+// user a JAVA_HOME stack trace, and call that a normal day.
+function hasJava() {
+  if (process.env.JAVA_HOME && fs.existsSync(process.env.JAVA_HOME)) {
+    return true;
+  }
+  return spawnSync("java -version", { shell: true }).status === 0;
+}
+
 function findGradle() {
+  if (!hasJava()) {
+    return null;
+  }
+
   const isWin = process.platform === "win32";
   const wrapper = path.join(ANDROID_DIR, isWin ? "gradlew.bat" : "gradlew");
   if (fs.existsSync(wrapper)) {
@@ -230,7 +290,7 @@ function newestApk(dir) {
 // too. They are copied from the same canonical sources as the browser build, so
 // leaving them to the (heavyweight, SDK-dependent) Android build meant the audit
 // failed on drift after every ordinary data or locale edit.
-module.exports = { bundleWeb, WEB_COPIES, WEB_DIR_COPIES, WEB_DIR };
+module.exports = { bundleWeb, WEB_COPIES, WEB_DIR_COPIES, WEB_DIR, apkOutcome };
 
 if (require.main === module) {
   main().catch((error) => {

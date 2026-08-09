@@ -612,6 +612,10 @@ function checkSubstitutionsAndCalories(reporter, entry) {
 // A step naturally says "the cheese", not "the shredded mozzarella". Without a
 // synonym table this check would report a false positive on almost every recipe,
 // which is the fastest way to teach people to ignore a validator.
+//
+// Matched as a SUBSTRING of the joined step text, not as a whole word, so one
+// generic covers its own inflections: "vegetable" finds "vegetables", "floret"
+// finds "florets", "crunch" finds "crunchy".
 const INGREDIENT_SYNONYMS = [
   [/mozzarella|cheddar|parmesan|feta|paneer|halloumi|cottage cheese/, "cheese"],
   [/naan|pita|tortilla|bun|muffin|ciabatta|flatbread|roti|bagel|roll/, "bread"],
@@ -623,13 +627,84 @@ const INGREDIENT_SYNONYMS = [
   [/turkey|ham|beef|pork|chicken/, "meat"],
   [/tuna|salmon|cod|prawns/, "fish"],
   [/crackers|tortilla chips|granola|cereal|cornflakes/, "crunch"],
-  [/frozen pizza/, "pizza"]
+  [/frozen pizza/, "pizza"],
+  // A step pours "the liquid" into the blender, arranges "the florets", steams
+  // "the frozen vegetables", rolls up "the chicken and salad". Each of these is
+  // the word a cook actually writes once the ingredient is in the pan.
+  //
+  // Widening a row here can only ever SUPPRESS a warning when the step text
+  // genuinely contains the generic word, so a mapping cannot hide an ingredient
+  // the steps never refer to at all.
+  [/milk|stock|broth|juice/, "liquid"],
+  [/cauliflower|broccoli/, "floret"],
+  [
+    /tomato|cucumber|onion|pepper|carrot|lettuce|spinach|courgette|zucchini|cabbage|broccoli|green beans|peas|sweetcorn|mushroom/,
+    "vegetable"
+  ],
+  [/lettuce|rocket|arugula|slaw|salad leaves|mixed leaves/, "salad"]
 ];
+
+// Some steps refer to the ingredient list COLLECTIVELY, and that is correct
+// recipe prose rather than an omission: "stir everything together" genuinely
+// does account for every ingredient, and a burrito's "pile the filling" accounts
+// for the things going inside it. Deliberately short and literal — phrases like
+// "the dressing" or "the batter" are NOT here, because those name something a
+// step has just built out of named ingredients, so they would exempt a recipe
+// that really had left an ingredient stranded.
+const COLLECTIVE_STEP_REFERENCE =
+  /\b(everything|all (?:the )?ingredients|the (?:remaining|rest of the) ingredients|the filling)\b/;
+
+// Words that are never evidence that an ingredient was used: articles,
+// prepositions, and the prep adjectives that decorate an ingredient name
+// ("shredded cheese", "cut into strips"). Filtering them makes the check
+// STRICTER — an ingredient whose only overlap with the steps is the word
+// "chopped" is still reported.
+const NON_EVIDENCE_WORDS = new Set([
+  "and", "the", "for", "with", "into", "from", "plus", "about", "each", "any",
+  "some", "more", "less", "cut", "your", "them", "then", "over", "onto", "per",
+  "optional", "fresh", "freshly", "large", "small", "medium", "warm", "cold",
+  "hot", "room", "temperature", "drained", "rinsed", "thinly", "roughly",
+  "finely", "coarse", "coarsely", "beaten", "crushed", "ripe", "raw", "dried",
+  "ground", "chopped", "sliced", "diced", "grated", "shredded", "mixed",
+  "whole", "plain", "canned", "frozen", "packed", "level", "heaped"
+]);
+
+// English plurals, enough of them to stop the check lying. The previous rule
+// stripped a bare trailing "s", which turns "tomatoes" into "tomatoe" and so
+// never matches a step that says "tomato" — a false positive produced purely by
+// the stemmer. Applied to BOTH sides so the comparison is symmetric.
+function singular(word) {
+  if (word.length > 4 && /ies$/.test(word)) {
+    return `${word.slice(0, -3)}y`; // berries -> berry
+  }
+  if (word.length > 4 && /(?:oes|ches|shes|sses|xes|zes)$/.test(word)) {
+    return word.slice(0, -2); // tomatoes -> tomato, dishes -> dish
+  }
+  if (word.length > 3 && /[^s]s$/.test(word)) {
+    return word.slice(0, -1); // strips -> strip
+  }
+  return word;
+}
+
+// Content words of a phrase, singularised. Minimum length 3, not 4: "bun",
+// "egg", "ham" and "oat" are head nouns, and dropping them made the check miss
+// the very word the step used.
+function evidenceWords(text) {
+  return lower(text)
+    .split(/[^a-z]+/)
+    .filter((word) => word.length >= 3 && !NON_EVIDENCE_WORDS.has(word))
+    .map(singular);
+}
 
 // Free-text cross-referencing. WARNINGS only — these are word guesses.
 function checkIngredientReferences(reporter, entry) {
   const id = entry.id;
-  const steps = lower((entry.steps || []).join(" "));
+  const stepText = lower((entry.steps || []).join(" "));
+  const stepWords = new Set(evidenceWords(stepText));
+
+  if (COLLECTIVE_STEP_REFERENCE.test(stepText)) {
+    return;
+  }
 
   // Seasonings and fats are used without being named in a step all the time.
   const IGNORE = /^(salt|pepper|salt and pepper|water|black pepper|neutral oil|olive oil|oil|sugar|ice|hot water|seasonings)$/;
@@ -643,11 +718,13 @@ function checkIngredientReferences(reporter, entry) {
         return;
       }
 
-      // A distinctive word of the ingredient name, its singular form, or a
-      // generic word a cook would plausibly use for it.
-      const words = item.split(/[^a-z]+/).filter((word) => word.length > 3);
-      const byWord = words.some((word) => steps.includes(word.replace(/s$/, "")));
-      const bySynonym = INGREDIENT_SYNONYMS.some(([pattern, generic]) => pattern.test(item) && steps.includes(generic));
+      // The `note` is part of the ingredient as the reader sees it, and it is
+      // routinely what names the FORM the steps then refer to: "chicken breast,
+      // cut into 8 strips" is why step 3 can say "coat each strip". Reading only
+      // `item` reported that recipe as broken when it is exemplary.
+      const words = [...evidenceWords(item), ...evidenceWords(ingredient.note || "")];
+      const byWord = words.some((word) => stepWords.has(word) || stepText.includes(word));
+      const bySynonym = INGREDIENT_SYNONYMS.some(([pattern, generic]) => pattern.test(item) && stepText.includes(generic));
 
       if (words.length > 0 && !byWord && !bySynonym) {
         reporter.warn(`${id}: required ingredient "${ingredient.item}" is never mentioned in the steps`);
@@ -681,12 +758,20 @@ function checkCoverage(reporter, entries, taxonomy) {
 
   // Every major craving needs at least one genuinely fast answer, or the "I am
   // hungry now" path has nothing to offer.
+  //
+  // This is an ERROR, not a warning. It is decided exactly — a count of entries
+  // whose totalMinutes is a number — so the "natural-language matching guesses"
+  // reason for warning does not apply. It used to warn, and the consequence was
+  // that `wings` sat with three air-fryer answers of 26, 30 and 32 minutes for
+  // as long as it took someone to read past a green summary line: the user
+  // picked "I'm hungry now" on a wings page and the product quietly swapped
+  // their craving for a chicken wrap and a bag of fries.
   MAJOR_CRAVINGS.forEach((craving) => {
     const matches = byCraving.get(craving) || [];
     const fast = matches.filter((entry) => entry.totalMinutes <= 15);
 
     if (matches.length > 0 && fast.length < MIN_FAST_PER_MAJOR) {
-      reporter.warn(`craving "${craving}" has no answer under 15 minutes`);
+      reporter.fail(`craving "${craving}" has no answer under 15 minutes — the "I'm hungry now" path cannot serve it`);
     }
   });
 

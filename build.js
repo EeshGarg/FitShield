@@ -173,33 +173,50 @@ function copyInto(stageDir) {
   verifyStage(stageDir);
 }
 
-// Fail the build LOUDLY if the packaged output is missing anything the block
-// page (warning.html) needs to render. copyInto already throws when a *source*
-// FILE/DIR is absent; this instead re-reads the STAGED package and proves the
-// block page's own dependency graph is closed inside it — the exact failure
-// mode ("block page broke after the engine moved") this guards against:
-//   1. warning.html itself, plus every local asset it <script>/<link>/<img>s
-//      (ambient.js, browser-shim.js, i18n.js, recipes.js, warning.js, …),
+// Fail the build LOUDLY if the packaged output is missing anything a packaged
+// page needs to render. copyInto already throws when a *source* FILE/DIR is
+// absent; this instead re-reads the STAGED package and proves each page's own
+// dependency graph is closed inside it — the exact failure mode ("the page broke
+// after the engine moved") this guards against:
+//   1. EVERY staged .html page, plus every local asset it <script>/<link>/<img>s,
 //   2. the generated engine runtime bundle (blocklist.js) and the datasets it
 //      fetches at runtime (blocklists/*.json), and the recipe catalog the
 //      block page's alternative columns load (data/recipes.json).
-// The page's asset list is derived FROM warning.html, so adding a <script> to
-// the block page without staging it fails here rather than in production.
-// test/block-page.test.js exercises the same graph plus a full render.
+// Each page's asset list is derived FROM that page, so adding a <script> to any
+// of them without staging it fails here rather than in production.
+//
+// This used to read warning.html and nothing else, while the comment claimed it
+// covered "the block page's own dependency graph" — accurate for warning.html
+// and wrong for the other five. settings.html alone loads six scripts warning.html
+// never touches (blocklist.js, blocklist-records.js, languages.js, currency.js,
+// backup.js, preferences.js); dropping any of them from FILES shipped a dead
+// options page with a green build. test/block-page.test.js exercises the same
+// graph plus a full render.
 function verifyStage(stageDir) {
   const has = (rel) => fs.existsSync(path.join(stageDir, rel));
   const missing = [];
 
-  // (1) The block page and each same-origin asset it loads.
-  const warningHtmlPath = path.join(stageDir, "warning.html");
-  if (!fs.existsSync(warningHtmlPath)) {
+  // (1) Every staged page and each same-origin asset it loads.
+  //
+  // warning.html is named explicitly because it is the declarativeNetRequest
+  // redirect target: if it is absent, blocking sends users to a dead URL, and
+  // that deserves its own message rather than "no pages found".
+  if (!has("warning.html")) {
     throw new Error("Block page dependency check failed: warning.html was not staged.");
   }
-  const warningHtml = fs.readFileSync(warningHtmlPath, "utf8");
-  for (const tag of warningHtml.match(/<(?:script|link|img)\b[^>]*>/g) || []) {
-    const ref = /\s(?:src|href)="([^"]+)"/.exec(tag);
-    if (ref && !/^(https?:|data:|#|mailto:)/.test(ref[1]) && !has(ref[1])) {
-      missing.push(`warning.html references "${ref[1]}"`);
+
+  const pages = fs.readdirSync(stageDir).filter((name) => name.endsWith(".html")).sort();
+  if (pages.length === 0) {
+    throw new Error("Package dependency check failed: no HTML pages were staged.");
+  }
+
+  for (const page of pages) {
+    const html = fs.readFileSync(path.join(stageDir, page), "utf8");
+    for (const tag of html.match(/<(?:script|link|img)\b[^>]*>/g) || []) {
+      const ref = /\s(?:src|href)="([^"]+)"/.exec(tag);
+      if (ref && !/^(https?:|data:|#|mailto:)/.test(ref[1]) && !has(ref[1].replace(/^\.\//, ""))) {
+        missing.push(`${page} references "${ref[1]}"`);
+      }
     }
   }
 
@@ -324,17 +341,62 @@ function walkFiles(baseDir, dir, out) {
   return out;
 }
 
+// ---- Deterministic archive metadata ------------------------------------------
+// Two runs of `node build.js` over unchanged sources must produce BYTE-IDENTICAL
+// zips, so that anyone can rebuild a published artifact and prove it came from
+// the published source. That is the whole value of shipping a zero-dependency
+// extension people are asked to trust with their browsing.
+//
+// Two things used to break it, both metadata rather than content:
+//   1. `dosDateTime(new Date())` stamped wall-clock time into every entry. Two
+//      builds a few seconds apart differed in 232 bytes across identical files —
+//      one per local header and one per central-directory header.
+//   2. `localeCompare` ordered the entries, which is locale-dependent, so two
+//      machines with different locales could lay the same files out differently.
+//
+// The timestamp honours SOURCE_DATE_EPOCH (the reproducible-builds standard,
+// whole seconds since the Unix epoch) and otherwise pins the DOS epoch,
+// 1980-01-01T00:00:00Z — the conventional "no meaningful timestamp" value.
+// Neither store reads these fields; they are archive bookkeeping.
+const DOS_EPOCH_MS = Date.UTC(1980, 0, 1);
+
+function archiveDate() {
+  const raw = process.env.SOURCE_DATE_EPOCH;
+  const seconds = raw === undefined || raw === "" ? NaN : Number(raw);
+
+  if (!Number.isFinite(seconds)) {
+    return new Date(DOS_EPOCH_MS);
+  }
+
+  // MS-DOS cannot represent anything before 1980, and the year field is only 7
+  // bits, so an out-of-range epoch falls back rather than wrapping into a
+  // nonsense date that would still differ run to run.
+  const requested = new Date(seconds * 1000);
+  const withinDos = requested.getTime() >= DOS_EPOCH_MS && requested.getUTCFullYear() <= 2107;
+  return withinDos ? requested : new Date(DOS_EPOCH_MS);
+}
+
+// UTC getters, not local ones: the same SOURCE_DATE_EPOCH must encode to the
+// same bytes in every timezone, and a local-time reading of the DOS epoch lands
+// in 1979 west of Greenwich, which underflows the year field.
 function dosDateTime(date) {
-  const time = ((date.getHours() & 0x1f) << 11) | ((date.getMinutes() & 0x3f) << 5) | ((date.getSeconds() / 2) & 0x1f);
-  const day = (((date.getFullYear() - 1980) & 0x7f) << 9) | (((date.getMonth() + 1) & 0xf) << 5) | (date.getDate() & 0x1f);
+  const time =
+    ((date.getUTCHours() & 0x1f) << 11) |
+    ((date.getUTCMinutes() & 0x3f) << 5) |
+    ((date.getUTCSeconds() / 2) & 0x1f);
+  const day =
+    (((date.getUTCFullYear() - 1980) & 0x7f) << 9) |
+    (((date.getUTCMonth() + 1) & 0xf) << 5) |
+    (date.getUTCDate() & 0x1f);
   return { time: time & 0xffff, day: day & 0xffff };
 }
 
 function zipDir(stageDir, outputZip) {
   rmrf(outputZip);
 
-  const files = walkFiles(stageDir, stageDir, []).sort((a, b) => a.name.localeCompare(b.name));
-  const { time, day } = dosDateTime(new Date());
+  // Codepoint order — stable everywhere, unlike localeCompare.
+  const files = walkFiles(stageDir, stageDir, []).sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+  const { time, day } = dosDateTime(archiveDate());
   const localParts = [];
   const centralParts = [];
   let offset = 0;
@@ -392,6 +454,31 @@ function zipDir(stageDir, outputZip) {
   fs.writeFileSync(outputZip, Buffer.concat([...localParts, centralBuf, end]));
 }
 
+// Every previous version's zips used to survive in dist/ forever, because the
+// build only ever deleted the stage directories and the file it was about to
+// write. After a few releases "upload the zip in dist/" had six answers, several
+// of them a version already published — the kind of mistake that is only
+// discovered by a user on the wrong build. Sweeps browser artifacts only:
+// dist/android belongs to the separate `npm run build:android` pipeline and is
+// deliberately left alone.
+const BROWSER_ZIP = /^FitShield-.+-(?:chrome|firefox|nightly-safari)\.zip$/;
+
+function removeStaleBrowserZips(version) {
+  const current = new Set([
+    `FitShield-${version}-chrome.zip`,
+    `FitShield-${version}-firefox.zip`,
+    `FitShield-${version}-nightly-safari.zip`
+  ]);
+
+  return fs
+    .readdirSync(DIST)
+    .filter((name) => BROWSER_ZIP.test(name) && !current.has(name))
+    .map((name) => {
+      rmrf(path.join(DIST, name));
+      return name;
+    });
+}
+
 async function main() {
   // Gate the build on the validators: never package broken datasets, locales,
   // documentation, missing assets, or an Android ruleset that has drifted from
@@ -412,6 +499,7 @@ async function main() {
   fs.mkdirSync(DIST, { recursive: true });
   rmrf(path.join(DIST, "chrome"));
   rmrf(path.join(DIST, "firefox"));
+  removeStaleBrowserZips(version);
 
   // --- Chrome / Chromium: same files, Firefox-only manifest keys removed. -----
   const chromeStage = path.join(DIST, "chrome");
@@ -459,7 +547,7 @@ async function main() {
 // per-browser forms stay a checked contract. Assigned BEFORE main() may run —
 // the audit is reached from main() via validate-all, and a later assignment
 // would hand that circular require an empty exports object.
-module.exports = { bundleEngine, ENGINE_MODULES, FILES, DIRS, BACKGROUND_SCRIPTS, ANDROID_ONLY_PREFIXES, copyInto, verifyStage, assertNoAndroidPayload, zipDir, chromeManifest, firefoxManifest, safariManifest, SAFARI_NIGHTLY_NAME };
+module.exports = { bundleEngine, ENGINE_MODULES, FILES, DIRS, BACKGROUND_SCRIPTS, ANDROID_ONLY_PREFIXES, copyInto, verifyStage, assertNoAndroidPayload, zipDir, chromeManifest, firefoxManifest, safariManifest, SAFARI_NIGHTLY_NAME, archiveDate, dosDateTime, removeStaleBrowserZips, BROWSER_ZIP, DOS_EPOCH_MS };
 
 if (require.main === module) {
   main().catch((error) => {
