@@ -22,18 +22,18 @@ const metadata = require("./metadata.js");
 const loader = require("./loader.js");
 
 // Default an omitted entry list to the loader's cache (raw reference — every
-// consumer below only reads it, and callers get copies via getLoadedEntries).
+// consumer below only reads it; it is never handed out).
 const withDefault = (list) => (Array.isArray(list) ? list : loader._cachedEntries());
 
 const api = {
   // Loading (loader.js)
   BLOCKLIST_FILES: loader.BLOCKLIST_FILES,
   loadBlocklists: loader.loadBlocklists,
-  getLoadedEntries: loader.getLoadedEntries,
+
 
   // Hostname semantics (hostnames.js)
   normalizeHostname: hostnames.normalizeHostname,
-  normalizeDomain: hostnames.normalizeDomain,
+
   domainMatches: hostnames.domainMatches,
 
   // Entry matching & filtering (entries.js) — entry list defaults to the cache

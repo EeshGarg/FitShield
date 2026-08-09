@@ -34,18 +34,6 @@ function normalizeHostname(hostname) {
 }
 
 /**
- * Normalize a domain from either a string entry or an entry object to an apex
- * hostname. Backward-compatible with older string-only blocklist entries.
- */
-function normalizeDomain(value) {
-  if (value && typeof value === "object") {
-    return normalizeHostname(value.domain);
-  }
-
-  return normalizeHostname(value);
-}
-
-/**
  * True when `hostname` is the apex `domain` or a subdomain of it.
  * "fake-mcdonalds.com" does NOT match "mcdonalds.com" because matching is
  * anchored at a domain-label boundary.
@@ -61,4 +49,4 @@ function domainMatches(hostname, domain) {
   return host === apex || host.endsWith(`.${apex}`);
 }
 
-module.exports = { normalizeHostname, normalizeDomain, domainMatches };
+module.exports = { normalizeHostname, domainMatches };

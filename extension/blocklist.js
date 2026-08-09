@@ -49,18 +49,6 @@ function normalizeHostname(hostname) {
 }
 
 /**
- * Normalize a domain from either a string entry or an entry object to an apex
- * hostname. Backward-compatible with older string-only blocklist entries.
- */
-function normalizeDomain(value) {
-  if (value && typeof value === "object") {
-    return normalizeHostname(value.domain);
-  }
-
-  return normalizeHostname(value);
-}
-
-/**
  * True when `hostname` is the apex `domain` or a subdomain of it.
  * "fake-mcdonalds.com" does NOT match "mcdonalds.com" because matching is
  * anchored at a domain-label boundary.
@@ -76,7 +64,7 @@ function domainMatches(hostname, domain) {
   return host === apex || host.endsWith(`.${apex}`);
 }
 
-module.exports = { normalizeHostname, normalizeDomain, domainMatches };
+module.exports = { normalizeHostname, domainMatches };
 };
 __modules["./entries.js"] = function (module, exports, require) {
 "use strict";
@@ -417,7 +405,7 @@ __modules["./loader.js"] = function (module, exports, require) {
 // Relative to the data directory (Node) / the extension root (browser).
 const BLOCKLIST_FILES = ["blocklists/fast-food.json", "blocklists/delivery.json"];
 
-// Cache of the most recently loaded entries (see getLoadedEntries / index.js).
+// Cache of the most recently loaded entries (see _cachedEntries / index.js).
 let loadedEntries = [];
 
 // Resolve the WebExtension runtime from whichever namespace the engine is loaded
@@ -479,17 +467,12 @@ async function loadBlocklists(options) {
   return entries;
 }
 
-/** A copy of the most recently loaded entries (empty before the first load). */
-function getLoadedEntries() {
-  return loadedEntries.slice();
-}
-
 // Internal: raw (uncopied) cache reference for index.js's default wrappers.
 function _cachedEntries() {
   return loadedEntries;
 }
 
-module.exports = { BLOCKLIST_FILES, loadBlocklists, getLoadedEntries, _cachedEntries };
+module.exports = { BLOCKLIST_FILES, loadBlocklists, _cachedEntries };
 };
 __modules["./index.js"] = function (module, exports, require) {
 "use strict";
@@ -516,18 +499,18 @@ const metadata = require("./metadata.js");
 const loader = require("./loader.js");
 
 // Default an omitted entry list to the loader's cache (raw reference — every
-// consumer below only reads it, and callers get copies via getLoadedEntries).
+// consumer below only reads it; it is never handed out).
 const withDefault = (list) => (Array.isArray(list) ? list : loader._cachedEntries());
 
 const api = {
   // Loading (loader.js)
   BLOCKLIST_FILES: loader.BLOCKLIST_FILES,
   loadBlocklists: loader.loadBlocklists,
-  getLoadedEntries: loader.getLoadedEntries,
+
 
   // Hostname semantics (hostnames.js)
   normalizeHostname: hostnames.normalizeHostname,
-  normalizeDomain: hostnames.normalizeDomain,
+
   domainMatches: hostnames.domainMatches,
 
   // Entry matching & filtering (entries.js) — entry list defaults to the cache

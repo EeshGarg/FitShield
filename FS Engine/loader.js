@@ -18,7 +18,7 @@
 // Relative to the data directory (Node) / the extension root (browser).
 const BLOCKLIST_FILES = ["blocklists/fast-food.json", "blocklists/delivery.json"];
 
-// Cache of the most recently loaded entries (see getLoadedEntries / index.js).
+// Cache of the most recently loaded entries (see _cachedEntries / index.js).
 let loadedEntries = [];
 
 // Resolve the WebExtension runtime from whichever namespace the engine is loaded
@@ -80,14 +80,9 @@ async function loadBlocklists(options) {
   return entries;
 }
 
-/** A copy of the most recently loaded entries (empty before the first load). */
-function getLoadedEntries() {
-  return loadedEntries.slice();
-}
-
 // Internal: raw (uncopied) cache reference for index.js's default wrappers.
 function _cachedEntries() {
   return loadedEntries;
 }
 
-module.exports = { BLOCKLIST_FILES, loadBlocklists, getLoadedEntries, _cachedEntries };
+module.exports = { BLOCKLIST_FILES, loadBlocklists, _cachedEntries };
