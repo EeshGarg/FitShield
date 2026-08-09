@@ -8,9 +8,6 @@
   "actionTitle": {
     "message": "FitShield"
   },
-  "searchSitePlaceholder": {
-    "message": "Търсене сайт name or URL"
-  },
   "searchButton": {
     "message": "Търсене"
   },
@@ -26,23 +23,14 @@
   "removeButton": {
     "message": "Премахни"
   },
-  "viewBlocklistButton": {
-    "message": "View Блокирайlist"
-  },
   "timerDurationLabel": {
     "message": "Timer duration"
-  },
-  "timerDurationHint": {
-    "message": "Adjust the countdown before Продължи appears."
   },
   "customSecondsLabel": {
     "message": "Custom seconds"
   },
   "siteOpenTimeLabel": {
     "message": "Site open time"
-  },
-  "siteOpenTimeHint": {
-    "message": "Choose how long сайтове stay open after the timer ends."
   },
   "customMinutesLabel": {
     "message": "Custom минути"
@@ -52,9 +40,6 @@
   },
   "endTimeLabel": {
     "message": "End time"
-  },
-  "scheduleDefaultSummary": {
-    "message": "Блокиране will follow your daily график when this is enabled."
   },
   "currentScheduleSummary": {
     "message": "Текущ график: $1."
@@ -83,14 +68,8 @@
   "popupBlockerTitle": {
     "message": "FitShield блокер"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every блокирай list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & категория блокирайing"
-  },
-  "popupMetadataSubtitle": {
-    "message": "Блокирай whole groups of сайтове by държава or food категория."
   },
   "popupDeliveryLabel": {
     "message": "Сайтове за доставка"
@@ -107,35 +86,8 @@
   "popupCustomLabel": {
     "message": "Персонализирани URL адреси"
   },
-  "popupCustomSubtitle": {
-    "message": "Добави your own сайтове and disable them individually."
-  },
-  "popupScheduleLabel": {
-    "message": "Блокирай only during графикd hours"
-  },
-  "popupScheduleSubtitle": {
-    "message": "Използвайful for meal budgets, late-night ordering, or work hours."
-  },
-  "statusInactive": {
-    "message": "Inactive. All сайтове are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Блокер is on, but every individual сайт is disabled. Отвори Настройки to turn some сайтове back on."
-  },
-  "statusBypassActive": {
-    "message": "Temporary pass is active. Блокиране resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Блокер is armed, but outside графикd hours. It will блокирай from $1."
-  },
   "statusShieldUp": {
     "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
-  "deliverySitesEnabledCount": {
-    "message": "$1 of $2 сайтове за доставка enabled."
-  },
-  "fastFoodSitesEnabledCount": {
-    "message": "$1 of $2 сайтове за бързо хранене enabled."
   },
   "searchMatchSuffix": {
     "message": " $1 match the search."
@@ -145,9 +97,6 @@
   },
   "warningEyebrow": {
     "message": "FitShield Check"
-  },
-  "warningTitle": {
-    "message": "Take one минута."
   },
   "warningIntro": {
     "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
@@ -164,9 +113,6 @@
   "warningContinueButton": {
     "message": "Продължи"
   },
-  "warningErrorHint": {
-    "message": "Something went wrong while opening the сайт. Please try again."
-  },
   "settingsTitle": {
     "message": "FitShield Настройки"
   },
@@ -176,14 +122,8 @@
   "scheduledHoursLabel": {
     "message": "Планирани часове"
   },
-  "scheduledHoursHint": {
-    "message": "Блокирай only during a daily time window."
-  },
   "customizeBlocklistHeading": {
     "message": "Customize Блокирайlist"
-  },
-  "customizeBlocklistIntro": {
-    "message": "Choose which built-in groups are active, turn individual сайтове on or off, and add your own domains."
   },
   "deliverySitesHeading": {
     "message": "Сайтове за доставка"
@@ -193,9 +133,6 @@
   },
   "customUrlsHeading": {
     "message": "Персонализирани URL адреси"
-  },
-  "customUrlsSettingsSubtitle": {
-    "message": "Добави your own domains and disable them individually."
   },
   "showSitesButton": {
     "message": "Покажи Sites"
@@ -233,20 +170,8 @@
   "customSitePlaceholder": {
     "message": "example.com or https://example.com"
   },
-  "customNormalizeHint": {
-    "message": "Entries are normalized to domains and блокирайed across all pages."
-  },
   "customEmptyDefault": {
     "message": "Все още няма персонализирани блокирани сайтове. Добавете домейн като example.com по-горе, за да започнете да го блокирате."
-  },
-  "customNoMatch": {
-    "message": "No персонализирани URL адреси match this search."
-  },
-  "emptyDeliverySearch": {
-    "message": "No сайтове за доставка match this search."
-  },
-  "emptyFastFoodSearch": {
-    "message": "No сайтове за бързо хранене match this search."
   },
   "noticeMatched": {
     "message": "$1 $2 matched \"$3\"."
@@ -254,26 +179,11 @@
   "invalidUrlNotice": {
     "message": "That URL does not look valid yet. Try a domain like example.com."
   },
-  "alreadyOnBlocklist": {
-    "message": "$1 is already on the блокирайlist, so it has been re-enabled."
-  },
-  "addedToBlocklist": {
-    "message": "$1 was added to the custom блокирайlist."
-  },
-  "removedFromBlocklist": {
-    "message": "$1 was removed from the custom блокирайlist."
-  },
   "metadataHeading": {
     "message": "Country & Category Блокиране"
   },
-  "metadataIntro": {
-    "message": "Блокирай whole groups of сайтове by the държава a brand operates in or the kind of food it serves. These блокирайs add to your existing сайт and custom-URL блокирайs."
-  },
   "blockByCountryLabel": {
     "message": "Блокирай by държава"
-  },
-  "blockByCountryHint": {
-    "message": "Търсене by държава name or code, e.g. \"United\" or \"US\". Enabling a държава блокирайs every brand active there."
   },
   "countrySearchPlaceholder": {
     "message": "Търсене държави…"
@@ -281,29 +191,14 @@
   "quickAccessCountries": {
     "message": "Бърз достъп — държави"
   },
-  "countryQuickEmpty": {
-    "message": "Активирай a държава from search to pin it here."
-  },
   "blockByCategoryLabel": {
     "message": "Блокирай by категория"
-  },
-  "blockByCategoryHint": {
-    "message": "Търсене категории like burger, pizza, or coffee. Specialties are searchable too; the блокирай applies by категория."
   },
   "categorySearchPlaceholder": {
     "message": "Търсене категории…"
   },
   "quickAccessCategories": {
     "message": "Бърз достъп — категории"
-  },
-  "categoryQuickEmpty": {
-    "message": "Активирай a категория from search to pin it here."
-  },
-  "noCountriesMatch": {
-    "message": "No държави match that search."
-  },
-  "noCategoriesMatch": {
-    "message": "No категории match that search."
   },
   "languageHeading": {
     "message": "Език"
@@ -313,9 +208,6 @@
   },
   "languageSelectLabel": {
     "message": "Display language"
-  },
-  "languageHint": {
-    "message": "Търсене for a language and select it. Choose Система default to follow your browser."
   },
   "languageSearchPlaceholder": {
     "message": "Търсене на езици…"
@@ -488,18 +380,6 @@
   "mbOff": {
     "message": "Изкл"
   },
-  "mbChipToggleOnTitle": {
-    "message": "Блокиране — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to блокирай"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Премахни shortcut from quick access"
-  },
-  "mbChipRemoveAria": {
-    "message": "Премахни $1 from quick access"
-  },
   "themeHeading": {
     "message": "Тема"
   },
@@ -544,9 +424,6 @@
   },
   "popupWidthLabel": {
     "message": "Ширина на изскачащия прозорец"
-  },
-  "supportFooterText": {
-    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep блокирайlists and docs moving."
   },
   "bmcAlt": {
     "message": "Buy Me a Coffee"

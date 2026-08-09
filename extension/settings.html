@@ -66,8 +66,26 @@
       margin-top: 0;
     }
 
+    /* A grid item defaults to min-width:auto, so a section could not shrink
+       below the widest thing inside it — the inner auto-fit grids held it at
+       384px and the whole settings page scrolled sideways on a narrow window or
+       at high zoom. Letting the item shrink, and collapsing the inner grids at
+       the same breakpoint, is what keeps the page one column wide. */
+    .layout > .section {
+      min-width: 0;
+    }
+
     @media (max-width: 520px) {
       .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .status-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      }
+
+      .most-blocked,
+      .stat-settings {
         grid-template-columns: 1fr;
       }
     }
@@ -297,7 +315,7 @@
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-      padding-right: 34px;
+      padding-inline-end: 34px;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
@@ -623,16 +641,25 @@
 
     .dual-inputs,
     .schedule-grid,
+    /* Was two rules, the first of which (1fr 1fr) was entirely overridden by the
+       second and only made the cascade harder to read. */
     .search-controls {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr auto auto;
       gap: 10px;
       margin-top: 12px;
+      align-items: center;
     }
 
-    .search-controls {
-      grid-template-columns: 1fr auto auto;
-      align-items: center;
+    /* Must follow the rule above, not sit with the other narrow-width overrides
+       at the top of the sheet: a media query adds no specificity, so an earlier
+       one loses to a later plain rule with the same selector. Export/Import held
+       side by side on a narrow window are squeezed past their own labels and
+       push the whole page sideways. */
+    @media (max-width: 520px) {
+      .search-controls {
+        grid-template-columns: 1fr;
+      }
     }
 
     .toggle {
@@ -864,7 +891,7 @@
     .language-current {
       min-width: 210px;
       max-width: 42%;
-      text-align: right;
+      text-align: end;
     }
 
     .language-current .mb-quick-head {
@@ -1103,7 +1130,7 @@
       .language-current {
         max-width: none;
         min-width: 0;
-        text-align: left;
+        text-align: start;
       }
 
       .language-current .mb-chips {

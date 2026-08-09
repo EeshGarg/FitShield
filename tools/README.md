@@ -28,6 +28,7 @@ build. `build.js` runs it automatically before packaging.
 | `npm run validate:android` | `android-audit.js` | the generated rules asset still matches the engine, no Android data fork, no unapproved permissions or analytics |
 | `npm run validate:android-packages` | `validate-android-packages.js` | package-map schema, orphaned brands, duplicate brand/package, `packageStatus`, determinism, drift |
 | `npm run validate:locales` | `locale-parity.js` | identical key sets, empty messages, `$name$` placeholders, positional-placeholder parity, duplicate keys, unreferenced keys (warning) |
+| `npm run validate:hybrids` | `locale-hybrid-audit.js` | strings that are neither translated nor English but a mangled mix (`"Take one минута."`, `"блокироватьing"`); `--apply` removes them so they fall back to English |
 | `npm run validate:docs` | `changelog-validator.js` | manifest↔package version sync, `changelog.json` current entry, `changelog/<version>.md` + `ROADMAP.md` presence |
 | `npm run validate:assets` | `assets-check.js` | manifest keys, referenced icons exist, required runtime files/dirs present |
 | `npm run validate:extension` | `extension-audit.js` | the staged package is closed — every manifest, page, and runtime reference resolves |
@@ -75,6 +76,7 @@ tools/
   validate-all.js               # runs the 13 audits above
   validate-datasets.js  alternatives-audit.js  alias-audit.js
   country-audit.js      category-audit.js      locale-parity.js
+  locale-hybrid-audit.js
   changelog-validator.js  assets-check.js      extension-audit.js
   service-worker-audit.js  sync-audit.js       android-audit.js
   validate-android-packages.js

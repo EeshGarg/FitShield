@@ -8,9 +8,6 @@
   "actionTitle": {
     "message": "FitShield"
   },
-  "searchSitePlaceholder": {
-    "message": "Αναζήτηση ιστότοπος name or URL"
-  },
   "searchButton": {
     "message": "Αναζήτηση"
   },
@@ -26,23 +23,14 @@
   "removeButton": {
     "message": "Αφαίρεση"
   },
-  "viewBlocklistButton": {
-    "message": "View Αποκλεισμόςlist"
-  },
   "timerDurationLabel": {
     "message": "Timer duration"
-  },
-  "timerDurationHint": {
-    "message": "Adjust the countdown before Συνέχεια appears."
   },
   "customSecondsLabel": {
     "message": "Custom seconds"
   },
   "siteOpenTimeLabel": {
     "message": "Site open time"
-  },
-  "siteOpenTimeHint": {
-    "message": "Choose how long ιστότοποι stay open after the timer ends."
   },
   "customMinutesLabel": {
     "message": "Custom λεπτά"
@@ -52,9 +40,6 @@
   },
   "endTimeLabel": {
     "message": "End time"
-  },
-  "scheduleDefaultSummary": {
-    "message": "Αποκλεισμός will follow your daily πρόγραμμα when this is enabled."
   },
   "currentScheduleSummary": {
     "message": "Τρέχον πρόγραμμα: $1."
@@ -83,14 +68,8 @@
   "popupBlockerTitle": {
     "message": "FitShield αποκλειστής"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every αποκλεισμός list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & κατηγορία αποκλεισμόςing"
-  },
-  "popupMetadataSubtitle": {
-    "message": "Αποκλεισμός whole groups of ιστότοποι by χώρα or food κατηγορία."
   },
   "popupDeliveryLabel": {
     "message": "Ιστότοποι διανομής"
@@ -107,35 +86,8 @@
   "popupCustomLabel": {
     "message": "Προσαρμοσμένα URL"
   },
-  "popupCustomSubtitle": {
-    "message": "Προσθήκη your own ιστότοποι and disable them individually."
-  },
-  "popupScheduleLabel": {
-    "message": "Αποκλεισμός only during πρόγραμμαd hours"
-  },
-  "popupScheduleSubtitle": {
-    "message": "Χρήσηful for meal budgets, late-night ordering, or work hours."
-  },
-  "statusInactive": {
-    "message": "Inactive. All ιστότοποι are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Αποκλειστής is on, but every individual ιστότοπος is disabled. Άνοιγμα Ρυθμίσεις to turn some ιστότοποι back on."
-  },
-  "statusBypassActive": {
-    "message": "Temporary pass is active. Αποκλεισμός resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Αποκλειστής is armed, but outside πρόγραμμαd hours. It will αποκλεισμός from $1."
-  },
   "statusShieldUp": {
     "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
-  "deliverySitesEnabledCount": {
-    "message": "$1 of $2 ιστότοποι διανομής enabled."
-  },
-  "fastFoodSitesEnabledCount": {
-    "message": "$1 of $2 ιστότοποι γρήγορου φαγητού enabled."
   },
   "searchMatchSuffix": {
     "message": " $1 match the search."
@@ -145,9 +97,6 @@
   },
   "warningEyebrow": {
     "message": "FitShield Check"
-  },
-  "warningTitle": {
-    "message": "Take one λεπτό."
   },
   "warningIntro": {
     "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
@@ -164,9 +113,6 @@
   "warningContinueButton": {
     "message": "Συνέχεια"
   },
-  "warningErrorHint": {
-    "message": "Something went wrong while opening the ιστότοπος. Please try again."
-  },
   "settingsTitle": {
     "message": "FitShield Ρυθμίσεις"
   },
@@ -176,14 +122,8 @@
   "scheduledHoursLabel": {
     "message": "Προγραμματισμένες ώρες"
   },
-  "scheduledHoursHint": {
-    "message": "Αποκλεισμός only during a daily time window."
-  },
   "customizeBlocklistHeading": {
     "message": "Customize Αποκλεισμόςlist"
-  },
-  "customizeBlocklistIntro": {
-    "message": "Choose which built-in groups are active, turn individual ιστότοποι on or off, and add your own domains."
   },
   "deliverySitesHeading": {
     "message": "Ιστότοποι διανομής"
@@ -193,9 +133,6 @@
   },
   "customUrlsHeading": {
     "message": "Προσαρμοσμένα URL"
-  },
-  "customUrlsSettingsSubtitle": {
-    "message": "Προσθήκη your own domains and disable them individually."
   },
   "showSitesButton": {
     "message": "Εμφάνιση Sites"
@@ -233,20 +170,8 @@
   "customSitePlaceholder": {
     "message": "example.com or https://example.com"
   },
-  "customNormalizeHint": {
-    "message": "Entries are normalized to domains and αποκλεισμόςed across all pages."
-  },
   "customEmptyDefault": {
     "message": "Δεν υπάρχουν ακόμη προσαρμοσμένοι αποκλεισμένοι ιστότοποι. Προσθέστε παραπάνω έναν τομέα όπως example.com για να ξεκινήσετε τον αποκλεισμό του."
-  },
-  "customNoMatch": {
-    "message": "No προσαρμοσμένα URL match this search."
-  },
-  "emptyDeliverySearch": {
-    "message": "No ιστότοποι διανομής match this search."
-  },
-  "emptyFastFoodSearch": {
-    "message": "No ιστότοποι γρήγορου φαγητού match this search."
   },
   "noticeMatched": {
     "message": "$1 $2 matched \"$3\"."
@@ -254,26 +179,11 @@
   "invalidUrlNotice": {
     "message": "That URL does not look valid yet. Try a domain like example.com."
   },
-  "alreadyOnBlocklist": {
-    "message": "$1 is already on the αποκλεισμόςlist, so it has been re-enabled."
-  },
-  "addedToBlocklist": {
-    "message": "$1 was added to the custom αποκλεισμόςlist."
-  },
-  "removedFromBlocklist": {
-    "message": "$1 was removed from the custom αποκλεισμόςlist."
-  },
   "metadataHeading": {
     "message": "Country & Category Αποκλεισμός"
   },
-  "metadataIntro": {
-    "message": "Αποκλεισμός whole groups of ιστότοποι by the χώρα a brand operates in or the kind of food it serves. These αποκλεισμόςs add to your existing ιστότοπος and custom-URL αποκλεισμόςs."
-  },
   "blockByCountryLabel": {
     "message": "Αποκλεισμός by χώρα"
-  },
-  "blockByCountryHint": {
-    "message": "Αναζήτηση by χώρα name or code, e.g. \"United\" or \"US\". Enabling a χώρα αποκλεισμόςs every brand active there."
   },
   "countrySearchPlaceholder": {
     "message": "Αναζήτηση χώρες…"
@@ -281,29 +191,14 @@
   "quickAccessCountries": {
     "message": "Γρήγορη πρόσβαση — χώρες"
   },
-  "countryQuickEmpty": {
-    "message": "Ενεργοποίηση a χώρα from search to pin it here."
-  },
   "blockByCategoryLabel": {
     "message": "Αποκλεισμός by κατηγορία"
-  },
-  "blockByCategoryHint": {
-    "message": "Αναζήτηση κατηγορίες like burger, pizza, or coffee. Specialties are searchable too; the αποκλεισμός applies by κατηγορία."
   },
   "categorySearchPlaceholder": {
     "message": "Αναζήτηση κατηγορίες…"
   },
   "quickAccessCategories": {
     "message": "Γρήγορη πρόσβαση — κατηγορίες"
-  },
-  "categoryQuickEmpty": {
-    "message": "Ενεργοποίηση a κατηγορία from search to pin it here."
-  },
-  "noCountriesMatch": {
-    "message": "No χώρες match that search."
-  },
-  "noCategoriesMatch": {
-    "message": "No κατηγορίες match that search."
   },
   "languageHeading": {
     "message": "Γλώσσα"
@@ -313,9 +208,6 @@
   },
   "languageSelectLabel": {
     "message": "Display language"
-  },
-  "languageHint": {
-    "message": "Αναζήτηση for a language and select it. Choose Σύστημα default to follow your browser."
   },
   "languageSearchPlaceholder": {
     "message": "Αναζήτηση γλωσσών…"
@@ -488,18 +380,6 @@
   "mbOff": {
     "message": "Ανενεργό"
   },
-  "mbChipToggleOnTitle": {
-    "message": "Αποκλεισμός — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to αποκλεισμός"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Αφαίρεση shortcut from quick access"
-  },
-  "mbChipRemoveAria": {
-    "message": "Αφαίρεση $1 from quick access"
-  },
   "themeHeading": {
     "message": "Θέμα"
   },
@@ -544,9 +424,6 @@
   },
   "popupWidthLabel": {
     "message": "Πλάτος αναδυόμενου"
-  },
-  "supportFooterText": {
-    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep αποκλεισμόςlists and docs moving."
   },
   "bmcAlt": {
     "message": "Buy Me a Coffee"

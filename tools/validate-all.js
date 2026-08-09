@@ -25,6 +25,7 @@ const AUDITS = [
   require("./android-audit"),
   require("./validate-android-packages"),
   require("./locale-parity"),
+  require("./locale-hybrid-audit"),
   require("./changelog-validator"),
   require("./assets-check"),
   require("./extension-audit"),

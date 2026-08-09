@@ -227,8 +227,45 @@
   ];
 
   // Walk the document (or a subtree) and localize every tagged element.
+  // Languages written right to left. FitShield ships all six, and until the
+  // document says so the browser lays every one of them out left to right:
+  // paragraphs align to the wrong edge, list markers sit on the wrong side, and
+  // the whole screen reads as an untranslated English page with Arabic words in
+  // it. Setting `dir` is what makes the CSS logical properties do their job.
+  const RTL_LANGUAGES = ["ar", "fa", "he", "ps", "ug", "ur", "yi", "iw", "dv", "ku", "sd"];
+
+  function isRtl(locale) {
+    const base = String(locale || "").toLowerCase().split(/[-_]/)[0];
+    return RTL_LANGUAGES.includes(base);
+  }
+
+  /**
+   * Stamp the document with the language actually in effect and its direction.
+   *
+   * Also fixes a smaller correctness bug: every page is authored `<html lang="en">`,
+   * so without this a screen reader announces Japanese or Arabic content in an
+   * English voice whatever language the user picked.
+   */
+  function applyDocumentLanguage() {
+    if (typeof document === "undefined" || !document.documentElement) {
+      return;
+    }
+
+    const active =
+      overrideLocale ||
+      ((FS && FS.i18n && FS.i18n.getUILanguage) ? FS.i18n.getUILanguage() : "") ||
+      "en";
+
+    document.documentElement.lang = String(active).replace(/_/g, "-");
+    document.documentElement.dir = isRtl(active) ? "rtl" : "ltr";
+  }
+
   function localizeDocument(root) {
     const scope = root || document;
+
+    if (!root) {
+      applyDocumentLanguage();
+    }
 
     TARGETS.forEach(([datasetKey, apply]) => {
       const attribute = `data-${datasetKey.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}`;
@@ -338,6 +375,7 @@
     getLanguage,
     onChange,
     ready,
+    isRtl,
     SUPPORTED_LOCALES,
     STORAGE_KEY
   };

@@ -134,9 +134,6 @@
   "deliverySitesEnabledCount": {
     "message": "$2 ഡെലിവറി സൈറ്റുകളുടെ $1 പ്രവർത്തനക്ഷമമാക്കി."
   },
-  "fastFoodSitesEnabledCount": {
-    "message": "$1 of $2 ഫാസ്റ്റ് ഫുഡ് സൈറ്റുകൾ പ്രവർത്തനക്ഷമമാക്കി."
-  },
   "searchMatchSuffix": {
     "message": " $1 തിരയലുമായി പൊരുത്തപ്പെടുന്നു."
   },

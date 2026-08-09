@@ -8,9 +8,6 @@
   "actionTitle": {
     "message": "FitShield"
   },
-  "searchSitePlaceholder": {
-    "message": "Поиск сайт name or URL"
-  },
   "searchButton": {
     "message": "Поиск"
   },
@@ -26,23 +23,14 @@
   "removeButton": {
     "message": "Удалить"
   },
-  "viewBlocklistButton": {
-    "message": "View Блокироватьlist"
-  },
   "timerDurationLabel": {
     "message": "Timer duration"
-  },
-  "timerDurationHint": {
-    "message": "Adjust the countdown before Продолжить appears."
   },
   "customSecondsLabel": {
     "message": "Custom seconds"
   },
   "siteOpenTimeLabel": {
     "message": "Site open time"
-  },
-  "siteOpenTimeHint": {
-    "message": "Choose how long сайты stay open after the timer ends."
   },
   "customMinutesLabel": {
     "message": "Custom минуты"
@@ -52,9 +40,6 @@
   },
   "endTimeLabel": {
     "message": "End time"
-  },
-  "scheduleDefaultSummary": {
-    "message": "Блокировка will follow your daily расписание when this is enabled."
   },
   "currentScheduleSummary": {
     "message": "Текущий расписание: $1."
@@ -83,14 +68,8 @@
   "popupBlockerTitle": {
     "message": "FitShield блокировщик"
   },
-  "popupBlockerSubtitle": {
-    "message": "Turn every блокировать list on or off."
-  },
   "popupMetadataLabel": {
     "message": "Country & категория блокироватьing"
-  },
-  "popupMetadataSubtitle": {
-    "message": "Блокировать whole groups of сайты by страна or food категория."
   },
   "popupDeliveryLabel": {
     "message": "Сайты доставки"
@@ -107,35 +86,8 @@
   "popupCustomLabel": {
     "message": "Пользовательские URL"
   },
-  "popupCustomSubtitle": {
-    "message": "Добавить your own сайты and disable them individually."
-  },
-  "popupScheduleLabel": {
-    "message": "Блокировать only during расписаниеd hours"
-  },
-  "popupScheduleSubtitle": {
-    "message": "Использоватьful for meal budgets, late-night ordering, or work hours."
-  },
-  "statusInactive": {
-    "message": "Inactive. All сайты are accessible."
-  },
-  "statusAllDisabled": {
-    "message": "Блокировщик is on, but every individual сайт is disabled. Открыть Настройки to turn some сайты back on."
-  },
-  "statusBypassActive": {
-    "message": "Temporary pass is active. Блокировка resumes in $1."
-  },
-  "statusOutsideSchedule": {
-    "message": "Блокировщик is armed, but outside расписаниеd hours. It will блокировать from $1."
-  },
   "statusShieldUp": {
     "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
-  "deliverySitesEnabledCount": {
-    "message": "$1 of $2 сайты доставки enabled."
-  },
-  "fastFoodSitesEnabledCount": {
-    "message": "$1 of $2 сайты фастфуда enabled."
   },
   "searchMatchSuffix": {
     "message": " $1 match the search."
@@ -145,9 +97,6 @@
   },
   "warningEyebrow": {
     "message": "FitShield Check"
-  },
-  "warningTitle": {
-    "message": "Take one минута."
   },
   "warningIntro": {
     "message": "Check in before you order. Hunger, convenience, stress, and habit can feel similar in the moment."
@@ -164,9 +113,6 @@
   "warningContinueButton": {
     "message": "Продолжить"
   },
-  "warningErrorHint": {
-    "message": "Something went wrong while opening the сайт. Please try again."
-  },
   "settingsTitle": {
     "message": "FitShield Настройки"
   },
@@ -176,14 +122,8 @@
   "scheduledHoursLabel": {
     "message": "Запланированные часы"
   },
-  "scheduledHoursHint": {
-    "message": "Блокировать only during a daily time window."
-  },
   "customizeBlocklistHeading": {
     "message": "Customize Блокироватьlist"
-  },
-  "customizeBlocklistIntro": {
-    "message": "Choose which built-in groups are active, turn individual сайты on or off, and add your own domains."
   },
   "deliverySitesHeading": {
     "message": "Сайты доставки"
@@ -193,9 +133,6 @@
   },
   "customUrlsHeading": {
     "message": "Пользовательские URL"
-  },
-  "customUrlsSettingsSubtitle": {
-    "message": "Добавить your own domains and disable them individually."
   },
   "showSitesButton": {
     "message": "Показать Sites"
@@ -233,20 +170,8 @@
   "customSitePlaceholder": {
     "message": "example.com or https://example.com"
   },
-  "customNormalizeHint": {
-    "message": "Entries are normalized to domains and блокироватьed across all pages."
-  },
   "customEmptyDefault": {
     "message": "Пока нет своих заблокированных сайтов. Добавьте выше домен вроде example.com, чтобы начать его блокировать."
-  },
-  "customNoMatch": {
-    "message": "No пользовательские URL match this search."
-  },
-  "emptyDeliverySearch": {
-    "message": "No сайты доставки match this search."
-  },
-  "emptyFastFoodSearch": {
-    "message": "No сайты фастфуда match this search."
   },
   "noticeMatched": {
     "message": "$1 $2 matched \"$3\"."
@@ -254,26 +179,11 @@
   "invalidUrlNotice": {
     "message": "That URL does not look valid yet. Try a domain like example.com."
   },
-  "alreadyOnBlocklist": {
-    "message": "$1 is already on the блокироватьlist, so it has been re-enabled."
-  },
-  "addedToBlocklist": {
-    "message": "$1 was added to the custom блокироватьlist."
-  },
-  "removedFromBlocklist": {
-    "message": "$1 was removed from the custom блокироватьlist."
-  },
   "metadataHeading": {
     "message": "Country & Category Блокировка"
   },
-  "metadataIntro": {
-    "message": "Блокировать whole groups of сайты by the страна a brand operates in or the kind of food it serves. These блокироватьs add to your existing сайт and custom-URL блокироватьs."
-  },
   "blockByCountryLabel": {
     "message": "Блокировать by страна"
-  },
-  "blockByCountryHint": {
-    "message": "Поиск by страна name or code, e.g. \"United\" or \"US\". Enabling a страна блокироватьs every brand active there."
   },
   "countrySearchPlaceholder": {
     "message": "Поиск страны…"
@@ -281,29 +191,14 @@
   "quickAccessCountries": {
     "message": "Быстрый доступ — страны"
   },
-  "countryQuickEmpty": {
-    "message": "Включить a страна from search to pin it here."
-  },
   "blockByCategoryLabel": {
     "message": "Блокировать by категория"
-  },
-  "blockByCategoryHint": {
-    "message": "Поиск категории like burger, pizza, or coffee. Specialties are searchable too; the блокировать applies by категория."
   },
   "categorySearchPlaceholder": {
     "message": "Поиск категории…"
   },
   "quickAccessCategories": {
     "message": "Быстрый доступ — категории"
-  },
-  "categoryQuickEmpty": {
-    "message": "Включить a категория from search to pin it here."
-  },
-  "noCountriesMatch": {
-    "message": "No страны match that search."
-  },
-  "noCategoriesMatch": {
-    "message": "No категории match that search."
   },
   "languageHeading": {
     "message": "Язык"
@@ -313,9 +208,6 @@
   },
   "languageSelectLabel": {
     "message": "Display language"
-  },
-  "languageHint": {
-    "message": "Поиск for a language and select it. Choose Система default to follow your browser."
   },
   "languageSearchPlaceholder": {
     "message": "Поиск языков…"
@@ -488,18 +380,6 @@
   "mbOff": {
     "message": "Выкл"
   },
-  "mbChipToggleOnTitle": {
-    "message": "Блокировка — click to pause"
-  },
-  "mbChipToggleOffTitle": {
-    "message": "Paused — click to блокировать"
-  },
-  "mbChipRemoveTitle": {
-    "message": "Удалить shortcut from quick access"
-  },
-  "mbChipRemoveAria": {
-    "message": "Удалить $1 from quick access"
-  },
   "themeHeading": {
     "message": "Тема"
   },
@@ -544,9 +424,6 @@
   },
   "popupWidthLabel": {
     "message": "Ширина всплывающего окна"
-  },
-  "supportFooterText": {
-    "message": "If FitShield helped you avoid an unnecessary delivery order, optional support helps keep блокироватьlists and docs moving."
   },
   "bmcAlt": {
     "message": "Buy Me a Coffee"

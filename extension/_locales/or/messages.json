@@ -239,15 +239,6 @@
   "customEmptyDefault": {
     "message": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି କଷ୍ଟମ୍ ଅବରୋଧିତ ସାଇଟ୍ ନାହିଁ। ଅବରୋଧ ଆରମ୍ଭ କରିବାକୁ ଉପରେ example.com ପରି ଏକ ଡୋମେନ ଯୋଡ଼ନ୍ତୁ।"
   },
-  "customNoMatch": {
-    "message": " |\nକ search ଣସି କଷ୍ଟମ୍ URL ଗୁଡିକ ଏହି ସନ୍ଧାନ ସହିତ ମେଳ ଖାଉ ନାହିଁ |"
-  },
-  "emptyDeliverySearch": {
-    "message": " |\nକ search ଣସି ବିତରଣ ସାଇଟ ଏହି ସନ୍ଧାନ ସହିତ ମେଳ ଖାଉ ନାହିଁ |"
-  },
-  "emptyFastFoodSearch": {
-    "message": " |\nକ search ଣସି ଫାଷ୍ଟଫୁଡ୍ ସାଇଟ୍ ଏହି ସନ୍ଧାନ ସହିତ ମେଳ ଖାଉ ନାହିଁ |"
-  },
   "noticeMatched": {
     "message": " |\n$1 $2 \"$3\" ସହିତ ମେଳ ହେଲା |"
   },
@@ -298,12 +289,6 @@
   },
   "categoryQuickEmpty": {
     "message": " |\nଏହାକୁ ଏଠାରେ ପିନ୍ କରିବା ପାଇଁ ସନ୍ଧାନରୁ ଏକ ବର୍ଗ ସକ୍ଷମ କରନ୍ତୁ |"
-  },
-  "noCountriesMatch": {
-    "message": " |\nକ search ଣସି ଦେଶ ସେହି ସନ୍ଧାନ ସହିତ ମେଳ ଖାଉ ନାହାଁନ୍ତି |"
-  },
-  "noCategoriesMatch": {
-    "message": " |\nକ search ଣସି ବର୍ଗ ସେହି ସନ୍ଧାନ ସହିତ ମେଳ ଖାଉ ନାହିଁ |"
   },
   "languageHeading": {
     "message": " |\nଭାଷା"
@@ -571,9 +556,6 @@
   },
   "languageUzbek": {
     "message": " |\nଉଜବେକିସ୍ତାନ"
-  },
-  "noLanguagesMatch": {
-    "message": " |\nକ search ଣସି ଭାଷା ସେହି ସନ୍ଧାନ ସହିତ ମେଳ ଖାଉ ନାହିଁ |"
   },
   "mbBlocking": {
     "message": " |\nଅବରୋଧ"
