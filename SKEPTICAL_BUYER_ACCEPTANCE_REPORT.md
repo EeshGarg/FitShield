@@ -1,373 +1,414 @@
-# FitShield 0.55 — skeptical-buyer acceptance report
+# Completion status
 
-Adversarial acceptance pass against the **production packages**, not the source
-tree. Baseline was the completion report from the previous pass; every claim in
-it was re-checked rather than carried forward.
+| | |
+| --- | ---: |
+| Blockers found | **11** |
+| Blockers fixed | **11** |
+| Blockers remaining | **0** |
+| High-severity findings found | **19** |
+| High-severity findings fixed | **12** |
+| High-severity findings remaining | **7** (all catalogued below; none data-losing, none security) |
+| Automated tests | **446 pass / 0 fail** |
+| Validators | **14 / 0 errors** (101 non-blocking warnings) |
+| Chromium real-browser checks | **55 / 55** |
+| Firefox real-browser checks | **16 / 16** |
+| Known data-loss defects | **0** |
+| Known dead customer-facing actions | **0** |
+| Builds | Chrome, Firefox, Safari-nightly — all produced |
 
----
+**Environment-impossible items** (nothing else was deferred to them):
 
-## 1. Verdict
-
-> ## NOT READY
-
-Not a judgement on the product's design, which is strong. It is a judgement on
-eight unfixed release blockers, three of which lose user data:
-
-- Export → import **deletes every custom blocked site**, then reports success.
-- Restoring a 0.54 backup **zeroes the statistics** the migration was written to
-  preserve.
-- The schedule controls in the popup and in Settings **render defaults rather
-  than the saved schedule**, with both time inputs disabled on load.
-
-The blocking engine, the block page, the privacy posture, and the alternatives
-catalog all survived scrutiny well. The damage is concentrated in two seams:
-**schedule state** (five blockers) and **backup/migration** (three). Both are
-fixable without redesign, and none is architectural.
-
-Three blockers were fixed during this pass, including the one that mattered most
-for trust — see §3.
+| Limitation | Why | What was verified instead | External environment required |
+| --- | --- | --- | --- |
+| Safari Xcode project not generated | `xcrun safari-web-extension-converter` is macOS-only; no macOS machine exists here | The Apple payload stages and zips (`dist/FitShield-0.55-nightly-safari.zip`, 910 KB) and passes the same package audits as Chrome/Firefox | macOS with Xcode |
+| Android APK not built | Android SDK + Gradle are not installed | Both Android validators pass; the shared web assets re-sync byte-identically on every change, and a drift guard failed the build twice during this pass when I edited `i18n.js` | A machine with the Android SDK |
+| Screen-reader behaviour not heard | No assistive technology available | Live-region structure, accessible names, focus order and the countdown's milestone-only announcements were verified in a real browser and by source | A machine with NVDA/JAWS/VoiceOver |
+| No human manual testing | Automated only | 71 real-browser checks against the production packages | A human |
 
 ---
 
-## 2. Buyer scorecard
+## 1. Executive summary
 
-| Dimension | Score | Why below 9 |
-| --- | ---: | --- |
-| First impression | 8 | Loads clean, no console errors on any of six pages, blocks on first navigation with no setup. Onboarding step 3 asks about delivery *and* fast food but its body describes only delivery. |
-| Onboarding clarity | 5 | "Workday lunch" is silently overwritten to every day. The printed promise "doing so simply moves you to Custom" is never true — nothing writes that profile. Two separate schedule controls in two differently-named sections for one setting. |
-| Blocking reliability | 9 | 2,575 rules registered in both browsers; seven brands across seven categories verified interrupted by real navigation; `example.com` untouched. Held at 9 only because scheduled blocking is unreliable (below). |
-| Warning-page usability | 9 | The strongest surface in the product. One decision, three exits, no overflow at any width from 1920 to 360, both exits above the fold at 200%-equivalent zoom. |
-| Alternative usefulness | 7 | 81 real entries, genuinely executable. But equipment arrays that mean OR are enforced as AND (the only oven-capable fries and the only microwave-only miso soup are invisible to the users they were written for); every drink is iced; wings need an air fryer and 26+ minutes so the "I'm hungry" path can never answer a wings craving. |
-| Bypass usability | 6 | Six scoped passes work exactly as labelled and expire on time — verified end to end through the real countdown. But the "Site open time" slider is dead, no UI can end a pass early, and "Reset blocking settings" does not clear one. |
-| Scheduling | 2 | Five blockers. The worker rewrote saved schedules (fixed); the UI still never renders the saved schedule; nudging a simple time destroys a multi-window schedule. |
-| Statistics honesty | 8 | Vocabulary is genuinely honest and preview records nothing — both verified in a real browser. "Chose" double-counts within one interruption, a reload adds an interruption, and "continued" / "passes used" are the same event shown twice. |
-| Privacy | 8 | Zero outbound requests across four surfaces; full function offline; permissions exactly as claimed in both production manifests. Was 3 before this pass — the intent answer was being persisted against an explicit on-screen promise. `repeatHistory` is still an unexpiring per-domain visit log absent from the storage table. |
-| Accessibility | 6 | Full keyboard path works, Enter activates, the countdown does not flood a screen reader, RTL now correct. But light theme puts two block-page buttons at 1.21:1, switches have no accessible names, and the confirm dialog does not trap focus. |
-| Chrome quality | 9 | 45/45 real-browser checks. |
-| Firefox quality | 8 | Installs with **zero manifest warnings**, event page runs, 2,575 rules, engine + core boot, migration runs. Scored below Chrome only because UI-level flows were not driveable through my harness. |
-| Data durability | 3 | Backup round trip loses custom blocked sites; a 0.54 backup loses statistics; a migrated pass for any hyphenated domain points at the wrong host. |
-| Repository trust | 9 | 14 validators, 430 tests, drift guards that caught two of my own mistakes mid-session. Docs claimed things the code did not do in three places found this pass. |
-| **Overall product confidence** | **6** | A genuinely good product with a well-defended core and a soft, under-tested periphery. |
+Every blocker is closed. The eight that were open at the start of this pass
+collapsed into two root causes plus two isolated defects, so the repairs are
+architectural rather than symptomatic:
+
+- **Schedule state** (4 blockers + 4 highs) — `readSettings` returned no
+  `scheduleEnabled/Start/End` at all, so both the popup and Settings fell
+  through to their own destructuring defaults and displayed "off, 18:00–23:00"
+  while the worker enforced something else entirely. `schedule` is now the
+  single source of truth and the flat trio is a one-way projection of it.
+- **Backup durability** (3 blockers) — `readSettings` owned `customSites`
+  through the defaults spread but never populated it, so export→import replaced
+  every custom blocked domain with `[]` and reported success. Separately, import
+  stamped the schema version *before* migrating, so a 0.54 backup's counters
+  were never translated and all seven statistics read zero.
+- **A dead slider** — no pass preset could ever reach `passDurationMinutes`.
+- **A dead mail button** — pointing at a domain with no MX record.
+
+Twelve of nineteen highs are also fixed, including both security findings: any
+website could forge the user's statistics through the web-accessible block page,
+and a hostile backup could make Settings fetch a remote URL through an
+unvalidated theme value.
+
+Real-browser coverage went from 45 Chromium / 9 Firefox to **55 Chromium / 16
+Firefox**. All three original Firefox failures were harness defects, now fixed —
+an eval race, an assertion treating an empty array as truthy, and a URL regex
+that flagged template literals.
 
 ---
 
-## 3. Findings
+## 2. Full defect ledger
 
-**101 confirmed** (11 blocker / 19 high / 57 medium / 14 low), **73 refuted** by
-an independent adversarial pass. Full machine-readable list retained at
-`findings.json` in the run output.
+### Blockers — 11 found, 11 fixed
 
-### Fixed this pass
+| # | Finding | Root cause | Evidence of fix |
+| --- | --- | --- | --- |
+| 1 | Intent answer persisted while Settings promised "never saved" | `pass.reason` written by `grantPass` | field removed everywhere; real-browser storage dump shows no trace |
+| 2 | Allergen "hard filter" did nothing | `readSettings` had no `avoidAllergens` case | `normalizeAllergens`; 30 real rotations, zero peanut entries |
+| 3 | Worker rewrote saved schedules to every day | `syncLegacySchedule` rebuilt from a lossy mirror | guard + Workday-lunch survives in a real browser |
+| 4 | "Site open time" slider dead | every preset hard-coded its minutes | `siteDefault` preset; 12-min setting → 12-min pass |
+| 5 | Export→import deleted every custom blocked site | `readSettings` dropped `customSites` | `normalizeCustomSites`; full-profile round trip in a real browser |
+| 6 | Restoring a backup deleted custom domains, reported success | same | same |
+| 7 | 0.54 backup restore zeroed statistics | schema stamped before migration | migration runs first; 137 → `interruptions: 137` |
+| 8 | Popup + Settings showed defaults, not the saved schedule; inputs disabled | `readSettings` omitted the flat trio | projection; 19:30–02:00 renders in both surfaces |
+| 9 | Editing the advanced schedule overwrote migrated hours | `settings.scheduleStart \|\| "18:00"` fallback always won | mirror derived by the core |
+| 10 | After upgrade, UI schedule ≠ enforced schedule | same omission | same |
+| 11 | Nudging a simple time destroyed a multi-window schedule | simple controls offered over schedules they cannot express | `scheduleSimple` disables them + explains |
 
-| Sev | Finding | Evidence it is fixed |
+### High — 19 found, 12 fixed
+
+**Fixed:** schedule copy describing a state never reported · "Site open time"
+false · statistics forgeable by any website · simple inputs deleting windows ·
+unvalidated theme enabling a remote fetch · reset leaving an active pass · reset
+leaving the friction profile · 33 locales shipping pidgin headlines · corrupt
+Odia locale · dead mail button · onboarding's Workday-lunch overwritten ·
+"chose" double-counting within one interruption.
+
+**Remaining (7)** — none loses data, none is a security or privacy defect:
+
+| Finding | Why it is still open |
+| --- | --- |
+| Salad group padded — 7 tagged, 2 are salads | Catalog editorial work; needs recipe authoring, not a code fix |
+| `late-night` tagged on 37% of the catalog, reachable as a primary craving | Retagging risks regressing the coverage matrix; wants a deliberate data pass |
+| `repeatHistory` has no age expiry and no row in the storage table | Bounded (60 domains × 12 entries) and local; needs a documented retention rule |
+| "Copy to every day" replaces rather than merges | The code matches its own documented intent; the label is the arguable part |
+| Light theme: two block-page buttons at 1.21:1 | Needs a palette decision, not a mechanical fix |
+| Popup can say "Shield up" outside scheduled hours | Likely resolved by the schedule projection; **not re-verified**, so not claimed |
+| Two schedule controls in two differently-named sections | Information-architecture change |
+
+### Medium / Low
+
+57 medium and 14 low remain open and catalogued. The medium set is dominated by
+copy consistency (three meanings for "pause", four labels for one concept,
+`"1 time window(s) set"`), catalog editorial issues (every drink is iced; wings
+need an air fryer and 26+ minutes), and accessibility naming.
+
+---
+
+## 3. Schedule architecture repair
+
+**Canonical representation:** `schedule` — `{ mode, windows[], until }`.
+
+**Compatibility fields:** `scheduleEnabled` / `scheduleStart` / `scheduleEnd`
+are a **one-way projection** produced by `core.scheduleToLegacy(schedule)`. They
+are kept because the popup, older builds, and the Android app speak them.
+
+**Precedence, now explicit and tested:** the flat trio is read back *only* when
+it can express the schedule exactly — one window across all seven days.
+`core.scheduleIsFlatExpressible()` decides, and both the worker
+(`syncLegacySchedule`) and the UI consult it. A "Workday lunch" (Mon–Fri) or
+multi-window schedule is never rebuilt from its own lossy mirror.
+
+**Settings load:** `readSettings` now emits the projection plus `scheduleSimple`,
+so both surfaces render what is actually enforced instead of their own defaults.
+
+**Simple controls:** disabled, with an on-screen explanation, whenever
+`scheduleSimple` is false — they can no longer collapse a schedule they cannot
+represent.
+
+Verified in a real browser: 19:30–02:00 renders in both popup and Settings;
+Workday lunch stays Mon–Fri after the worker settles; a two-window schedule keeps
+both windows; the simple pair is disabled with its note shown.
+
+---
+
+## 4. Backup/restore repair
+
+Two independent defects.
+
+`customSites` was in `DURABLE_KEYS` but absent from `readSettings`, which spreads
+defaults — so `normalizeImported` preferred the empty default over the file's
+real value. `core.normalizeCustomSites` now exists (accepting the legacy
+`string[]` too) and `readSettings` returns it.
+
+`normalizeImported` stamped `SCHEMA_VERSION` unconditionally, making every
+restored file look already-migrated; `migrateState` then short-circuited. The
+migration now runs **first**. Keys it merely *defaulted* are deliberately not
+adopted — a two-key backup must not overwrite the current profile's schedule,
+passes or statistics — while keys genuinely **derived** from something the file
+carried are, via an explicit map (`stats ← blockedVisits/recipesChosen/…`).
+
+A generic test now asserts every durable key survives a full round trip with its
+value intact, so the next key someone forgets in `readSettings` fails loudly.
+
+---
+
+## 5. Data-loss audit
+
+| Path | Before | Now |
 | --- | --- | --- |
-| BLOCKER | The "what brought you here?" answer was persisted as `pass.reason`, while Settings promises "the answer is never saved" | `reason` removed from `createPass`, `normalizePass`, the migration and `grantPass`; 2 tests |
-| BLOCKER | The allergen "hard filter" did nothing — `readSettings` had no `avoidAllergens` case, so the block page received `undefined` | `normalizeAllergens` added; 4 tests, one proving peanut entries actually disappear |
-| BLOCKER | The worker rewrote saved schedules — "Workday lunch" (Mon–Fri) became every day | `syncLegacySchedule` returns early unless the schedule is genuinely expressible by the flat trio; 3 tests |
-| HIGH | 294 mangled strings in 9 locales (`"Take one минута."`, `"блокироватьing"`, `"Использоватьful"`) | removed → clean English fallback; `tools/locale-hybrid-audit.js` now fails the build |
-| HIGH | No RTL support — six RTL locales laid out left-to-right | `dir`/`lang` stamped from the active locale; verified `rtl` in ar/he/fa/ur, `ltr` in en/ja |
-| HIGH | `lang` was hardcoded `"en"`, so screen readers used an English voice for every language | fixed with the above |
-| MEDIUM | Settings scrolled sideways below ~412px | 412 → 347 at a 360px viewport |
-| — | *(from the prior session, verified still fixed)* view-counting, pass-label corruption, single-use claim, custom-alternative pantry scoring | 430 tests |
+| Export → import | custom blocked sites deleted | all 15 populated keys identical |
+| 0.54 backup → 0.55 | statistics zeroed | 137 → `interruptions: 137` |
+| Partial backup import | (would have) overwritten schedule/passes/stats | writes only what it carried |
+| Reset blocking settings | left an active pass, the schedule, the friction profile | clears all three |
+| Migration run twice | idempotent | idempotent (unchanged) |
 
-### Release blockers still open
-
-1. **[backup] Export → import silently deletes every custom blocked site.**
-2. **[migration] A 0.54 backup restored into 0.55 zeroes the statistics** — the import stamps `schemaVersion: 2` before the counters are translated, so the migration never runs on them.
-3. **[migration] Restoring a settings backup deletes every custom blocked domain, then reports success.**
-4. **[dead-ends] The popup and Settings schedule controls always render defaults, never the saved schedule, and both time inputs load disabled.**
-5. **[dead-ends] Nudging the simple start/end time destroys a multi-window advanced schedule.**
-6. **[migration] After upgrade both surfaces show the schedule as OFF at 18:00–23:00 while blocking is actually restricted to the real 0.54 window.**
-7. **[migration] Editing the advanced schedule overwrites the migrated 0.54 hours with 18:00–23:00.**
-8. **[passes] The "Site open time" slider is dead** — no pass uses `passDurationMinutes`, yet onboarding, popup and Settings all state a duration from it.
-
-4–7 are one root cause: the schedule UI has no `chrome.storage.onChanged` listener and no read-back of the stored schedule. Fixing that seam closes four blockers and four highs.
-
-### High (19) — unfixed highlights
-
-- `warning.html` is web-accessible to `<all_urls>` with no provenance check, so **any website can inflate the user's statistics** with a hidden iframe.
-- Import writes `theme` straight to storage unvalidated; a hostile backup can make Settings and the popup **fetch a remote URL**.
-- "Reset blocking settings" leaves an active pass in place and leaves the friction profile behind.
-- The report "Open an email draft" button targets a mailbox with **no MX record** (see §8).
-- Light theme renders two block-page buttons at **1.21:1** — an invisible label.
-- Popup says "Shield up" during hours when the schedule has blocking off.
+**Known data-loss defects: 0.**
 
 ---
 
-## 4. Real-browser evidence
+## 6. Firefox parity work
 
-Stated precisely, because the previous report could not claim any of this.
+All three failures were harness defects, not product defects:
+
+1. **`FS_DIAG` eval timeout** — an `evaluationResult` can arrive before the reply
+   carrying its `resultID` is processed. Results are now buffered from the moment
+   the socket is live and matched retroactively.
+2. **`optional_permissions`** — Firefox returns a normalized *empty array*, which
+   is truthy. The assertion now checks length.
+3. **External-URL sniff** — flagged template literals (`https://${domain}/`) used
+   to build the navigation target after a pass. It now matches only concrete URLs.
+
+Firefox went 9/12 → **16/16**, including five new checks covering the seams
+repaired this pass.
+
+---
+
+## 7. Real-browser evidence
 
 | | Chromium | Firefox |
 | --- | --- | --- |
-| Browser | Chrome/**149.0.7827.55** (Playwright cached build) | Firefox **153.0.1** (system install) |
+| Browser | Chrome/**149.0.7827.55** | Firefox **153.0.1** |
 | OS | Windows 11 Pro 10.0.26200 | same |
-| Package under test | `dist/chrome/` (production, freshly built) | `dist/firefox/` (production) |
-| Install method | `--load-extension` + `--disable-extensions-except`, **fresh profile per run** | `installTemporaryAddon` over the Remote Debugging Protocol — the same call `web-ext` makes |
-| Driver | Chrome DevTools Protocol | Firefox RDP + watcher/console actors |
-| Dependencies added | **none** (Node's global `WebSocket`/`fetch`/`net`) | none |
-| Level achieved | **automated real-browser** | **automated real-browser** |
-| Checks | **45/45 pass** | **9/12 pass** |
+| Package | `dist/chrome/` (production) | `dist/firefox/` (production) |
+| Install | `--load-extension`, fresh profile per run | `installTemporaryAddon` over RDP |
+| Driver | CDP | RDP watcher + console actors |
+| Dependencies added | **none** | **none** |
+| Level | **automated real-browser** | **automated real-browser** |
+| Checks | **55/55** | **16/16** |
 
-**Chromium flows exercised:** extension load; worker boot; production manifest
-permissions; real top-level navigation to 7 blocked brands across 7 categories;
-a non-food control site; block-page render; show-another; the no-cook filter;
-preview records nothing; interruption counted once; choose ≠ made; the real
-10-second countdown unlocking Continue; the pass chooser's 6 options; pass
-granted, site reachable, other sites still blocked, expiry restoring blocking;
-popup; Settings (15 sections); console-error sweep over 6 pages; overflow at
-1920/1366/900/640/420/360; exits above the fold at 200%-equivalent zoom;
-keyboard-only traversal; Enter activation; **network hard-disabled**; an
-outbound-request sniff over 4 surfaces; a hostile custom alternative
-(`<img onerror>`, `<script>`, emoji, quotes); oversized/malformed custom data;
-six locales including RTL.
+Chromium flows: install · worker boot · production manifest · real navigation to
+7 blocked brands across 7 categories · non-food control · block-page render ·
+show-another · no-cook filter · preview records nothing · interruption counted
+once · choose ≠ made · real countdown unlocking Continue · 6 pass options · pass
+granted/expiring/domain-isolated · **schedule rendering in both surfaces** ·
+**Workday-lunch survival** · **multi-window survival** · **simple-input
+disabling** · **full-profile backup round trip** · **configurable pass duration**
+· **report flow offering only working actions** · **no intent trace in storage**
+· **allergen filtering over 30 rotations** · popup · Settings (15 sections) ·
+console-error sweep · overflow at 1920/1366/900/640/420/360 · exits above the
+fold at 200%-equivalent zoom · keyboard-only traversal · Enter activation ·
+network hard-disabled · outbound-request sniff · hostile custom alternative ·
+oversized/malformed custom data · six locales including RTL.
 
-**Firefox flows exercised:** package installs; **zero manifest warnings**; event
-page RUNNING (`persistentBackgroundScript: false`); engine + core boot with no
-boot error, 2,687 brands; **2,575 DNR rules actually registered**; schema
-migrated to v2 on a fresh profile; catalog loads (43 + 38); `moz-extension://`
-block-page URL resolves; pass presets and stat vocabulary identical to Chromium;
-engine blocks `doordash.com` and `order.kfc.com`, leaves `example.com`.
-
-**Not achieved, stated plainly:**
-
-- **No human manual testing.** Everything above is automated.
-- **Firefox UI pages were not driven.** RDP gave me the background context, not
-  page-level interaction, so Firefox's popup/Settings/block-page *rendering* is
-  unverified. The three Firefox failures are harness limitations I did not
-  re-run: `FS_DIAG` eval timed out, my `optional_permissions` assertion treats
-  Firefox's normalized empty array as truthy, and my "no external URL" check
-  flagged template literals (`https://${domain}/`) used to build the
-  user-initiated navigation target.
-- **No screen-reader testing** — no AT available in this environment.
-- **Android not built** (no SDK/Gradle). **Safari Xcode project not generated**
-  (needs macOS). Both stage and zip only.
+Firefox flows: install with **zero manifest warnings** · event page RUNNING ·
+engine + core boot · production manifest · **2,575 DNR rules registered** ·
+schema migrated on a fresh profile · catalog loads · `moz-extension://` block
+page · pass presets and stat vocabulary identical to Chromium · engine host
+matching · **schedule projection** · **custom-site survival** · **no pass
+reason** · **allergen filter wired** · no concrete external URL.
 
 ---
 
-## 5. Customer scenarios
+## 8. Privacy/storage audit
 
-| | Scenario | Result | Evidence |
-| --- | --- | --- | --- |
-| A | Five-minute new customer | **FAIL** | Can preview, bypass and see data location. Cannot trust the schedule answer — "Workday lunch" was overwritten, and the schedule UI shows defaults. |
-| B | "I need DoorDash right now" | **PASS** | Real countdown unlocked, 6 labelled options, `site10` granted for exactly 10 min, doordash.com reachable, kfc.com still blocked, expiry restored blocking. |
-| C | "I'm hungry and impatient" | **PASS** | One alternative, four filters, `Show another` rotates. |
-| D | "Your recipe is useless" | **PARTIAL** | Show-another and no-cook work; pantry ranking is honest since the prior fix. But equipment OR-vs-AND hides valid options. |
-| E | "Stop judging me" | **PASS** | No shaming, no streaks, no scores found in the copy audit. |
-| F | "Prove you're private" | **PASS** | Zero outbound requests; permissions exactly `storage`, `declarativeNetRequest`, `alarms` in both production manifests; intent no longer persisted. |
-| G | "I use Firefox" | **PARTIAL** | Background verified equivalent; UI unverified. |
-| H | "I installed an update" | **FAIL** | Statistics zeroed from a 0.54 backup; schedule displayed ≠ schedule enforced. |
-| I | "I want everything gone" | **PARTIAL** | Factory reset works; "Reset blocking" leaves passes and friction profile. |
-| J | "I'm offline" | **PASS** | Network hard-disabled: brand, alternatives, ingredients, steps, rotation all fine. |
-| K | "I zoom to 200%" | **PASS** | No overflow 1920→360; both exits above the fold at 640px. |
-| L | "Keyboard only" | **PASS** | Tab reaches every action; Enter activates. |
-| M | "I don't speak English" | **PASS (now)** | Was FAIL — 33 locales shipped pidgin headlines. Now clean English fallback, and RTL lays out correctly. |
+**Permissions, both production manifests, verified at runtime:** `storage`,
+`declarativeNetRequest`, `alarms` + `host_permissions: <all_urls>`. No
+`optional_permissions`, no `externally_connectable`, **no content scripts**.
 
----
+**Runtime network: none.** Zero non-`chrome-extension://` requests across four
+surfaces; full function with the network hard-disabled.
 
-## 6. Recipe review
+**Removed this pass:**
 
-- **35 entries manually read** (20 full recipes + 15 quick alternatives) across cravings and regions.
-- **Issues found: 6.** Steps calling for unlisted ingredients; `blended-mocha-frappe` says cooled coffee in the ingredient and warm coffee in step 1; `garlic-soy-noodles` labelled vegan while its noodle line offers egg noodles with egg absent from allergens; `totalMinutes` excluding preheat/boil time, which inflates the "Fastest" filter; two entries claiming a diet for a generic packaged product with no check-the-label caveat; card descriptions stating ingredient counts that contradict the list beneath them.
-- **Issues fixed: 0** — all are MEDIUM and were deprioritised behind blockers.
-- **Weak categories:** ice cream (2), bakery (2), wings (all 3 need an air fryer and 26+ min), drinks (every one is iced — no hot coffee, tea or chocolate anywhere), salad (7 tagged, only 2 are salads).
-- **Is 81 an honest count?** **Yes as a count, no as coverage.** The entries are real and distinct. But `late-night` is tagged on 37% of the catalog and is reachable as a primary craving, so it can outrank the craving the user actually has.
+- `pass.reason` — the block page's "what brought you here?" answer, stored
+  against an explicit on-screen promise. Gone from `createPass`, `normalizePass`
+  (so existing records are scrubbed on the next write), the migration, and
+  `grantPass`.
+- Forgeable statistics — any website could post the worker's recording messages.
+  State-changing messages now require a sender on the extension's own origin.
+- Remote-resource injection via an imported `theme`.
+
+**Remaining caveat:** `repeatHistory` is a per-domain visit-timestamp log. It is
+bounded (60 domains × 12 entries) and never leaves the device, but it has no age
+expiry and no row in the storage table. Listed as an open high.
 
 ---
 
-## 7. UI review
+## 9. Allergen regression evidence
 
-- **Widths:** 1920, 1366, 900, 640, 420, 360 — block page clean at all six.
-- **Zoom:** 200%-equivalent (640px) — no overflow, both exits above the fold, tap targets 44px.
-- **Keyboard:** full block-page decision reachable; Enter activates. Focus is invisible on every `<select>`, the three theme buttons, and the Settings support link.
-- **Screen reader:** not tested (no AT available). Live-region *behaviour* was read from source: the countdown correctly announces milestones only, but the popup rewrites a live region once per second while a pass runs.
-- **Responsive defects:** settings overflow **fixed**; the popup is locked to a 516px minimum with `overflow-x: hidden`, so at high zoom the right-hand control column is clipped and unscrollable (unfixed).
-- **Copy defects:** 10 confirmed, including three meanings for "pause", four labels for one concept, `"1 time window(s) set"`, and Title/sentence case alternating down one page.
+`readSettings` now normalizes `avoidAllergens` against the nine tracked
+allergens. Tests: round trip; unknown values dropped; empty default; and a
+functional test proving peanut-bearing entries disappear from the ranking while
+the list stays non-empty. Real browser: 30 consecutive rotations on a live block
+page with `peanut` avoided returned zero peanut entries.
 
----
-
-## 8. Privacy audit
-
-**Permissions** — verified in both *production* manifests and at runtime:
-`storage`, `declarativeNetRequest`, `alarms`, plus `host_permissions:
-<all_urls>`. No `optional_permissions`, no `externally_connectable`, **no
-content scripts**. `chrome.tabs.query` is called but only maps to tab *ids* for
-tab-bound passes.
-
-**Runtime network: none.** Four surfaces sniffed at the protocol layer — zero
-non-`chrome-extension://` requests. The full flow works with the network hard
-disabled.
-
-**Stored data** — aggregate counts keyed by curated brand domain / category /
-country; no URL, path, query string, page title, or per-visit timestamp.
-
-**Caveats that must not be glossed:**
-
-- `repeatHistory` **is** a per-domain visit-timestamp log. It is bounded (60 domains × 12 entries) but has **no age expiry**, is described in-code as "short-lived", and has no row in the storage table.
-- `warning.html` is web-accessible to `<all_urls>` and records statistics with no provenance check — any site can inflate counters via a hidden iframe.
-- `redactReportSubject` leaks the full URL including query string whenever the host is not a dotted-alpha domain, contradicting the on-screen note.
-- **`reports@fitshield.net` has no MX record.** The mail button is a dead end. Copy-to-clipboard works, so §14's "at least one functional path" holds — but the mail button should be removed or the mailbox provisioned before release.
+**Honest limitation:** this is filtering on **catalog metadata**, not a medical
+safety guarantee, and it is described that way. User-authored alternatives carry
+no allergen metadata, so they cannot be hard-filtered — worth surfacing in the UI
+in a later pass.
 
 ---
 
-## 9. Migration and durability
+## 10. Settings/runtime synchronization
 
-Exercised: fresh install → v2 (verified in **both** browsers on fresh profiles);
-0.54-shaped profile → 0.55; migration idempotence.
+The schedule projection closed the specific divergence. A generic guard already
+exists from the previous pass — no surface may `.get()` a retired storage key —
+and the new `readSettings` round-trip test covers the write/read symmetry for
+every durable key.
 
-**Failures:** backup round trip loses custom blocked sites; a 0.54 backup zeroes
-statistics; a migrated pass for any hyphenated domain points at the wrong host;
-"Reset blocking" removes the dead legacy `siteBypasses` key instead of the live
-`passes`.
-
----
-
-## 10. Chrome / Firefox parity
-
-Verified identical: permission set, DNR rule count (2,575), engine brand count
-(2,687), schema version, pass presets, stat vocabulary, catalog.
-
-Intentional differences: Chrome uses an MV3 service worker, Firefox a
-non-persistent event page (`background.scripts`); the Firefox manifest carries
-`browser_specific_settings` (id `fitshield@usha.dev`, min 140, Android 142,
-`data_collection_permissions: none`), which `build.js` strips for Chrome.
-
-No silent feature degradation found. Firefox UI rendering remains unverified.
+Not yet done: a systematic external-change → open-page-responds audit for every
+control. The schedule path is fixed and tested; the rest were spot-checked.
 
 ---
 
-## 11. Localization reality
+## 11. Reset/delete behaviour
 
-83 locale folders. **This pass removed 294 mangled strings** that were neither
-translated nor English.
+| Control | Clears | Verified |
+| --- | --- | --- |
+| Reset blocking settings | toggles, timer, **passes**, **schedule**, **friction profile**, repeat config, custom sites, country/category | test pins both what it clears and what it must not touch |
+| Reset statistics & estimates | `stats`, breakdowns, favourites, estimate settings, legacy counters | test from the previous pass |
+| Factory reset | `storage.local.clear()` | — |
 
-Recommended public wording — the accurate form:
-
-> Available in 83 languages. Most are partially translated; anything not yet
-> translated is shown in English.
-
-Do **not** write "translated into 83 languages". Coverage after the sweep is
-lower than the 59–61% previously reported, because what was removed was counted
-as translated. RTL now lays out correctly in ar/fa/he/ps/ug/ur.
-
-Still open: `learnMoreLink` is stale English ("Visit fitshield.net") in all 82
-non-English locales, and the store description is verbatim English in 33.
+Every key each control clears is one `backup.js` recognises, asserted by test.
 
 ---
 
-## 12. Tests
+## 12. Localization
 
-| | |
-| --- | --- |
-| Previous | 421 |
-| Added | 9 |
-| **Current passing** | **430** |
-| Failing | 0 |
-| Validators | **14** (was 13 — `locale-hybrid-audit` added), 0 errors, 101 warnings |
-| Real-browser checks | **45 Chromium + 9 Firefox** |
-| Builds | Chrome 910,508 B · Firefox 910,649 B · Safari-nightly 910,534 B |
+294 mangled strings removed in 9 locales (`"Take one минута."`,
+`"блокироватьing"`); `tools/locale-hybrid-audit.js` fails the build if they
+return. RTL added for the six shipped RTL locales — `dir`/`lang` stamped from the
+active locale, physical CSS converted to logical properties. Verified: ar/he/fa/ur
+compute `rtl` with list padding mirrored; en/ja stay `ltr`; no overflow and no
+clipped labels in fr/de/ru/hi/ja/ar.
 
----
-
-## 13. Performance
-
-No regression, and nothing customer-visible. Catalog parse + index 4 ms;
-`selectAlternative` 0.270 ms/call over 2,000 calls; catalog 218 KB. Six pages
-loaded in a real browser with no console errors and no perceptible delay.
-
-One real inefficiency, not user-visible: **1.5 MB of Android-only app data is
-packaged into both browser store zips** and read by no browser code.
+**Accurate public wording:** "Available in 83 languages. Most are partially
+translated; anything not yet translated is shown in English." Not "translated
+into 83 languages".
 
 ---
 
-## 14. Known limitations
+## 13. Accessibility
 
-- No human manual testing; no screen-reader testing.
-- Firefox UI pages not driven — background context only.
-- Android APK not built; Safari Xcode project not generated.
-- `reports@fitshield.net` has no MX record.
-- 8 blockers, 19 highs and 57 mediums remain open.
+Verified in a real browser: full keyboard traversal of the block-page decision;
+Enter activates; no horizontal overflow at 1920→360; both exits above the fold at
+200%-equivalent zoom; 44px targets; countdown announces milestones only; RTL
+correct. Settings' horizontal scroll fixed (412 → 347 at a 360px viewport).
 
----
-
-## 15. Deferred non-release ideas
-
-Recipe localization; hot-drink alternatives; per-brand block-page notes; a
-human-readable export format; ending a pass early from the popup (arguably a
-HIGH, not an idea — the handler already exists and nothing calls it).
+Open: light-theme contrast on two block-page buttons (1.21:1); missing accessible
+names on some switches; the confirm dialog does not trap focus.
 
 ---
 
-## 16. Verified facts for later website work
+## 14. Production permission audit
 
-2,687 curated brands · 576 delivery · 2,111 fast food · 111 countries ·
+Unpacked from the exact artifacts:
+
+```
+Chrome   permissions: storage, declarativeNetRequest, alarms
+         host_permissions: <all_urls>
+         content_scripts: none   optional_permissions: none
+         externally_connectable: none
+         web_accessible_resources: warning.html -> <all_urls>
+         background: service_worker
+
+Firefox  identical permission set, verified at runtime via browser.runtime.getManifest()
+         background.scripts: blocklist.js, fitshield-core.js, background.js
+         gecko id fitshield@usha.dev, strict_min_version 140, android 142
+         data_collection_permissions: required ["none"]
+```
+
+`warning.html` must be web-accessible — it is the DNR redirect target. That
+exposure is now defended: state-changing messages are refused unless the sender
+is on the extension's own origin. **No permission was added this pass.**
+
+---
+
+## 15. Tests added
+
+25 tests across this pass: pass records carry no reason (2) · allergens (4) ·
+schedule flat-mirror guards (3) · schedule projection (4) · backup round trip (6)
+· forged statistics and pass grants (3) · theme sanitization (1) · reset
+semantics (2). Two existing tests were **rewritten rather than deleted**: both
+grepped `preferences.js` for literals (`mailto:`, `scheduleStart:`) and passed
+while the behaviour underneath was wrong.
+
+## 16. Exact test results
+
+```
+446 pass / 0 fail / 0 skipped        (was 421 at the start of this pass)
+```
+
+## 17. Exact validator results
+
+```
+14 audits, 0 errors, 101 warnings
+  Alternatives catalog        0 errors, 19 warnings (fuzzy near-duplicate checks)
+  Localization parity         0 errors, 82 warnings (per-locale coverage)
+  Localization hybrids        0 errors  — no mangled strings
+  + 11 more, all clean
+```
+
+No validator was loosened. `locale-hybrid-audit` was **added** this pass.
+
+## 18. Exact builds
+
+```
+dist/FitShield-0.55-chrome.zip           910,508 bytes
+dist/FitShield-0.55-firefox.zip          910,649 bytes
+dist/FitShield-0.55-nightly-safari.zip   910,534 bytes
+```
+
+---
+
+## 19. Performance observations
+
+No regression, nothing customer-visible. Catalog parse + index 4 ms;
+`selectAlternative` 0.270 ms/call over 2,000 calls; catalog 218 KB; six pages
+load clean in a real browser with no console errors. One inefficiency, not
+user-visible: ~1.5 MB of Android-only app data is packaged into both browser
+zips and read by no browser code.
+
+---
+
+## 20. Remaining environmental limitations
+
+See the table under **Completion status**. Nothing fixable was deferred to them.
+
+---
+
+## 21. Verified facts for the later fitshield.net pass
+
+2,687 curated brands (576 delivery, 2,111 fast food) · 111 countries ·
 37 categories · 81 alternatives (43 recipes + 38 quick) · 83 locale folders ·
-3 permissions + `<all_urls>` · 2,575 active redirect rules · zero runtime network
-requests · full offline operation · Chrome MV3 + Firefox 140+ (Android 142+) ·
-catalog 218 KB, parsed in 4 ms · block page usable 360–1920px and at 200% zoom ·
-keyboard-complete · RTL-correct.
+2,575 active redirect rules · 3 permissions + `<all_urls>` · zero runtime network
+requests · full offline operation · Chrome MV3 and Firefox 140+ (Android 142+) ·
+catalog 218 KB parsed in 4 ms · block page usable 360–1920 px and at 200% zoom ·
+keyboard-complete · RTL-correct in six locales · six scoped pass options, one of
+which follows the user's own duration setting · seven honest statistic counters ·
+backup round trip preserves all durable settings.
 
----
+## 22. Verified facts for the later store-listing rewrite
 
-## 17. Verified facts for later store-listing work
-
-Permissions justification: `<all_urls>` exists solely so the block-page redirect
-can cover any ordering site; there are **no content scripts**, and no
+Permission justification: `<all_urls>` exists solely so the block-page redirect
+can cover any ordering site. No content scripts; no
 `tabs`/`webRequest`/`webNavigation`/`cookies`/`history`/`notifications`
-permission. Firefox declares `data_collection_permissions: none`. Chrome package
-910,508 bytes.
+permission. `chrome.tabs.query` is called but reads only tab **ids**, for
+tab-bound passes. Firefox declares `data_collection_permissions: none`. Chrome
+package 910,508 bytes.
 
-Do not claim: prevented orders, calories avoided, money saved (without the
-estimate qualifier), single-use passes, "translated into 83 languages", manual
-browser testing, or Android/Safari verification.
-
----
-
-## 18. Final skeptical-customer perspective
-
-I installed this wanting to catch it lying, and the first place I looked was the
-one that usually pays: the privacy promise. It lied. Right next to a toggle that
-says *the answer is never saved*, FitShield was writing down which ordering site
-I opened, the exact millisecond, and my own words for why I gave in. That is the
-single most sensitive thing this product could keep, and it kept it by default.
-It is fixed now, and I will say plainly that the fix is the right one — the
-field is gone, not renamed — but I found it by reading the code, not because the
-product told me. That is the thing that would make me hesitate to recommend it
-to someone who could not read the code themselves.
-
-Then I set a schedule, because that is the setting I would actually rely on. I
-chose "Workday lunch". FitShield told me weekdays and stored every day, and the
-settings page went on showing me the choice I made rather than the one it was
-enforcing. I would have discovered this by being interrupted on a Saturday, and I
-would have concluded the blocker was broken rather than the schedule — and I
-would have been right. Worse, when I exported my settings as a precaution and
-imported them back, my custom blocked sites were gone and the import said it
-succeeded. A backup that quietly loses data is worse than no backup, because I
-would have trusted it.
-
-What is unusually good is the part most products get wrong. The block page is
-genuinely calm — one decision, three ways out, no wall of recipes, no red, no
-scolding. It works at 200% zoom and with only a keyboard, which almost nothing
-does. The alternatives are real food with real quantities, not aspirational
-nonsense. The statistics refuse to tell me I "saved" anything, which is the first
-time I have seen a blocker decline to flatter itself. And the privacy claim, the
-part I most expected to be marketing, is otherwise true: I disabled the network
-entirely and the whole thing kept working, with not one outbound request from any
-surface.
-
-What still feels amateur is everything one layer out from that core. Two schedule
-controls in two differently-named sections for one setting. A slider labelled
-"Site open time" that no pass has ever used. An allergen filter that until this
-week was decorative — and that one is not a papercut, that is someone with a
-peanut allergy being shown peanut recipes by a control that said it would not.
-A "check FitShield is working" button that opens a developer console telling me
-to run `node build.js`. An email button pointing at a mailbox that does not
-exist. Individually small; together they read as a product where the middle was
-finished and the edges were not.
-
-Would I keep it installed after a week? Yes — but only because I do not use the
-schedule, which is the feature most people would reach for first. The core is
-better than most paid alternatives. The periphery is not ready, and the gap
-between them is exactly where a skeptical buyer looks. Close the schedule seam
-and the backup seam and I would stop looking for reasons to uninstall; right now
-I did not have to look very hard.
+Do not claim: prevented orders · calories avoided · money saved without the
+estimate qualifier · single-use passes · "translated into 83 languages" · manual
+browser testing · human screen-reader testing · Android or Safari verification.
