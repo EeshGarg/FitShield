@@ -566,6 +566,12 @@ async function refreshBlockingState() {
 
   await pruneStoredRepeatHistory(settings);
 
+  // Stats hygiene, not blocking: a failure here must never stop rules being
+  // written, so it is caught rather than allowed to reject the refresh.
+  await pruneRuleBucketCategoryStats().catch((error) => {
+    fsError("Failed to repair the category breakdown", error);
+  });
+
   if (!settings.enabled || !schedule.active || globalPause || !hasActiveSites || !hasBlockingRules) {
     const reason = !settings.enabled
       ? "master switch off"
@@ -620,15 +626,50 @@ function customRecordsFor(settings) {
   }));
 }
 
+// WHO was interrupted — which is a different question from WHICH RULE fired, and
+// has to be answered from a different record.
+//
+// getRuleCatalog deliberately overwrites every entry's `category` with its rule
+// BUCKET ("delivery" / "fastfood" / "custom"), because that is what the
+// declarativeNetRequest bookkeeping above needs. This lookup used to search that
+// catalog FIRST, so both readers below — and therefore the block page, and
+// therefore the statistics the block page reports — saw the bucket where the
+// brand's curated category should have been. Jollibee is `fast_casual` in the
+// dataset and reached the screen as "fastfood"; every delivery brand reached it
+// as "delivery". Two consequences, one visible and one durable:
+//
+//   1. the block page's Category row could only restate the Rule row above it;
+//   2. `recordBlockedBrand` counts THIS field, so "Most blocked categories" in
+//      Settings accumulated rule buckets, while the category PICKER beside it
+//      lists the curated vocabulary (`fast_casual`, `logistics`, `tea`, …). One
+//      page, two vocabularies.
+//
+// The catalog keeps its bucket. This lookup reads the branded records instead:
+// they carry the curated `category`, plus the `type`, `countries` and
+// `specialties` the panel and the recipe picker read. Every key the catalog can
+// hold is one of these records' keys — the catalog is BUILT from them — so
+// nothing that resolved before stops resolving, and a custom site now resolves
+// to its full record (`type: "custom"`) rather than the catalog's stub, which
+// carried no type at all and left the block page's Rule row blank.
 function findSite(settings, siteKey) {
-  const lookup = [
-    ...getRuleCatalog(settings),
+  const described = [
     ...settings.deliverySites,
     ...settings.fastFoodSites,
     ...customRecordsFor(settings)
-  ];
+  ].find((entry) => entry.key === siteKey);
 
-  return lookup.find((entry) => entry.key === siteKey) || null;
+  if (described) {
+    return described;
+  }
+
+  // Unreachable with today's catalog sources, and cheap: this is the only path
+  // that pays for rebuilding the catalog, so the block page — which wakes an
+  // MV3 worker and then has to render before a countdown — no longer rebuilds
+  // ~2,700 entries just to name one brand. Kept so that a future catalog source
+  // which synthesizes a record still resolves instead of stranding the user on
+  // an "unknown site" block page. What it returns carries a bucket, not curated
+  // vocabulary, which is why recordBlockedBrand refuses to count one.
+  return getRuleCatalog(settings).find((entry) => entry.key === siteKey) || null;
 }
 
 async function getBlockedSiteInfo(siteKey) {
@@ -764,6 +805,85 @@ function incrementCount(map, key, by) {
   return next;
 }
 
+// Strings that can arrive in a `category` field without being a curated
+// category. Both are RULE BUCKETS, and neither is vocabulary any dataset uses:
+//
+//   "fastfood" — what getRuleCatalog labels a fast-food brand with. The
+//     datasets spell the curated category "fast_food", so this spelling can
+//     only ever have come from the bucket.
+//   "custom"   — the user's own list. A ranked list of food categories that
+//     included it would be describing the user's settings, not their cravings.
+//
+// "delivery" and "fast_food" are deliberately absent: both are genuine curated
+// categories (328 and 16 shipped entries), both are offered by Settings'
+// category picker, and both ship display names (catLabelDelivery,
+// catLabelFastFood). The guard here used to drop them, so the single largest
+// curated delivery category could never appear in "Most blocked categories"
+// while the picker one panel away offered it.
+//
+// This is a deny-list of two known bucket spellings rather than a check against
+// the curated vocabulary, on purpose: the Android build counts its own app
+// categories into this same map ("convenience" among them), and a
+// vocabulary-only check would silently delete those on import.
+const RULE_BUCKET_CATEGORIES = new Set(["fastfood", "custom"]);
+
+// Remove the rule-bucket keys the old reader left behind in `blockedByCategory`.
+//
+// Until this change the block page was handed the rule bucket as its category
+// (see findSite), so every fast-food interruption was counted under "fastfood" —
+// a word Settings' category picker does not offer and no dataset carries, which
+// "Most blocked categories" renders as "Fastfood" beside real categories. That
+// map is lifetime-cumulative and never decays, so without this it would outrank
+// every real category for the life of the profile.
+//
+// What this does NOT do matters as much: it removes only those two keys, only
+// from this one map, only when they are present, and it re-derives nothing. The
+// interruptions behind them are still counted — in `stats.interruptions`, in
+// `blockedByDomain` and in `blockedByCountry`, which recorded the same events
+// per brand and per market and were never mislabeled. So no interruption is
+// forgotten; one wrong label is dropped.
+//
+// It is idempotent by construction (after one pass there is nothing to remove,
+// and the corrected reader never writes such a key again), it writes only when
+// it actually removes something, it is safe on missing or malformed input, and
+// it says what it did in the worker log. It runs on the stats chain so it cannot
+// race a concurrent recordBlockedBrand read-modify-write.
+async function pruneRuleBucketCategoryStats() {
+  const { blockedByCategory } = await chrome.storage.local.get(["blockedByCategory"]);
+
+  if (!blockedByCategory || typeof blockedByCategory !== "object" || Array.isArray(blockedByCategory)) {
+    return;
+  }
+
+  const buckets = Object.keys(blockedByCategory).filter((key) =>
+    RULE_BUCKET_CATEGORIES.has(String(key).trim().toLowerCase())
+  );
+
+  if (buckets.length === 0) {
+    return;
+  }
+
+  await queueStatsUpdate(async () => {
+    const stored = await chrome.storage.local.get(["blockedByCategory"]);
+    const current = stored.blockedByCategory;
+
+    if (!current || typeof current !== "object" || Array.isArray(current)) {
+      return;
+    }
+
+    const next = { ...current };
+    const removed = buckets.filter((key) => key in next);
+    removed.forEach((key) => delete next[key]);
+
+    if (removed.length === 0) {
+      return;
+    }
+
+    await chrome.storage.local.set({ blockedByCategory: next });
+    fsLog(`category breakdown repaired — dropped the rule-bucket key(s): ${removed.join(", ")}`);
+  });
+}
+
 // Record an aggregate, local-only breakdown of WHICH curated brand was
 // interrupted, so the stats panel can show the most interrupted sites,
 // categories, and countries. This counts only brands already on the curated
@@ -791,9 +911,8 @@ async function recordBlockedBrand(meta, options) {
     const stored = await chrome.storage.local.get(["blockedByDomain", "blockedByCategory", "blockedByCountry"]);
 
     const blockedByDomain = domain ? incrementCount(stored.blockedByDomain, domain, 1) : stored.blockedByDomain || {};
-    const isBucketCategory = category === "delivery" || category === "fast_food" || category === "custom";
     const blockedByCategory =
-      category && !isBucketCategory
+      category && !RULE_BUCKET_CATEGORIES.has(category)
         ? incrementCount(stored.blockedByCategory, category, 1)
         : stored.blockedByCategory || {};
 

@@ -576,13 +576,48 @@ test("no statistic stores a URL, a path, or any browsing detail", async () => {
   assert.deepEqual(plain(bg.store.blockedByCountry), { US: 1 }, "only the primary market is counted");
 });
 
-test("bucket names are not counted as food categories", async () => {
+// This test used to assert that the category "delivery" was NOT counted, which
+// was right for as long as the worker handed the block page a rule bucket where
+// the brand's curated category belonged: everything arriving here was a bucket,
+// so the bucket names had to be refused.
+//
+// The worker now reports the curated category (see findSite), and the guard the
+// old assertion pinned was wrong in both directions once you look at the
+// datasets it was guarding: "delivery" (328 shipped entries) and "fast_food"
+// (16) are real curated categories, offered by Settings' category picker and
+// shipped with display names — while "fastfood", the one spelling the rule
+// catalog actually produces, was not in the list at all. So it refused the
+// biggest curated delivery category and admitted the bucket: the exact
+// inversion of its purpose.
+//
+// The contract asserted here is the corrected one, and it is no weaker: a rule
+// bucket may never be counted as a category, and a curated category always is.
+test("a rule bucket is never counted as a category, and a curated one always is", async () => {
   const bg = loadBackground();
   await bg.context.queueRefreshBlockingState();
 
-  await bg.message({ type: "recordBlockedBrand", meta: { domain: "x.com", category: "delivery", countries: [] } });
+  // "fastfood" is what getRuleCatalog labels a fast-food brand with; no dataset
+  // spells it that way. "custom" is the user's own list, not a cuisine.
+  await bg.message({ type: "recordBlockedBrand", meta: { domain: "a.com", category: "fastfood", countries: [] } });
+  await bg.message({ type: "recordBlockedBrand", meta: { domain: "b.com", category: "custom", countries: [] } });
 
-  assert.deepEqual(plain(bg.store.blockedByCategory || {}), {});
+  assert.deepEqual(plain(bg.store.blockedByCategory || {}), {}, "a rule bucket reached the category breakdown");
+  assert.deepEqual(
+    plain(bg.store.blockedByDomain),
+    { "a.com": 1, "b.com": 1 },
+    "refusing the label must not lose the interruption — the brand is still counted"
+  );
+
+  // Uber Eats' curated category IS "delivery"; Settings' picker offers it and
+  // the shipped locale names it "Delivery".
+  await bg.message({ type: "recordBlockedBrand", meta: { domain: "ubereats.com", category: "delivery", countries: [] } });
+  await bg.message({ type: "recordBlockedBrand", meta: { domain: "seamless.com", category: "fast_food", countries: [] } });
+
+  assert.deepEqual(
+    plain(bg.store.blockedByCategory),
+    { delivery: 1, fast_food: 1 },
+    "a curated category must be counted even when a rule bucket is spelled like it"
+  );
 });
 
 test("recordBlockedBrand records nothing when the brand could not be resolved", async () => {
