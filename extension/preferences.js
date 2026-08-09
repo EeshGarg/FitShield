@@ -317,6 +317,32 @@
     el("scheduleStatus").textContent = describeSchedule(current);
     el("clearScheduleOverride").hidden = !(current.until && current.until > Date.now());
     renderScheduleWindows();
+    renderAddWindowAvailability();
+  }
+
+  // `normalizeSchedule` truncates the window list to core.MAX_WINDOWS with no
+  // signal, and this button had no limit check: past the cap the click was
+  // accepted, the list did not grow, and nothing said why. Three windows a day
+  // across seven days is 21, so a customer with genuinely different hours on
+  // different days reaches 24 — and a visible control that accepts a click and
+  // does nothing reads as a broken build.
+  //
+  // The count itself is already on screen: `describeSchedule` renders
+  // "24 time windows set." into #scheduleStatus directly above, and the rows are
+  // listed. So the honest thing left to do is stop pretending the control is
+  // available, which is what disabling it says in every locale without inventing
+  // a string for one.
+  function renderAddWindowAvailability() {
+    const button = el("addScheduleWindow");
+
+    if (!button) {
+      return;
+    }
+
+    const atCap = settings.schedule.windows.length >= core.MAX_WINDOWS;
+
+    button.disabled = atCap;
+    button.setAttribute("aria-disabled", String(atCap));
   }
 
   function wireSchedule() {
@@ -325,6 +351,13 @@
     }
 
     el("addScheduleWindow").addEventListener("click", () => {
+      // Belt and braces: the button is disabled at the cap, but a stale render
+      // must never be able to submit a list the core will silently truncate.
+      if (settings.schedule.windows.length >= core.MAX_WINDOWS) {
+        renderAddWindowAvailability();
+        return;
+      }
+
       saveSchedule({
         mode: "windows",
         windows: [...settings.schedule.windows, { days: core.ALL_DAYS.slice(), start: "18:00", end: "23:00" }],
@@ -640,8 +673,14 @@
       return;
     }
 
-    const { blockedByCategory } = await chrome.storage.local.get(["blockedByCategory"]);
-    const recap = core.weeklyRecap(settings.stats, Date.now(), { blockedByCategory });
+    // Seven days, and only seven days. `weeklyRecap` takes no options: it used
+    // to accept `blockedByCategory` — a LIFETIME running map with no per-day
+    // buckets — and return a `topCategory` that this panel rendered under a
+    // heading reading "This week", as the raw storage key ("fast_casual") while
+    // the list a few sections up rendered "Fast Casual". Both the lifetime
+    // figure and the raw identifier are gone; the all-time breakdown is still
+    // shown, honestly labelled, in Settings' "Most blocked categories".
+    const recap = core.weeklyRecap(settings.stats, Date.now());
 
     if (!recap.hasActivity) {
       const note = document.createElement("p");
@@ -652,11 +691,20 @@
     }
 
     // Counts only. No score, no streak, no ranking, no projection.
+    //
+    // `recapPasses` (passesUsed) was here beside `recapContinued`. Every exit
+    // from the block page to the interrupted brand goes through grantPass, and
+    // grantPass is the only writer of either counter — it writes both, back to
+    // back — so the two numbers are mathematically incapable of differing.
+    // Printing them side by side invited the reader to draw a conclusion from an
+    // agreement guaranteed by construction ("some continues happened without a
+    // pass"), and padded the panel with a figure that is not a second
+    // observation. The popup's recap already shows only the continue count; this
+    // panel now matches it.
     const figures = [
       ["recapInterrupted", recap.totals.interruptions],
       ["recapLeft", recap.totals.left],
       ["recapContinued", recap.totals.continued],
-      ["recapPasses", recap.totals.passesUsed],
       ["recapSelected", recap.totals.alternativesSelected],
       ["recapMade", recap.totals.alternativesMade]
     ];
@@ -675,21 +723,6 @@
       row.append(label, number);
       body.appendChild(row);
     });
-
-    if (recap.topCategory) {
-      const row = document.createElement("div");
-      row.className = "recap-figure";
-
-      const label = document.createElement("span");
-      label.textContent = t("recapTopCategory");
-
-      const value = document.createElement("span");
-      value.className = "recap-value";
-      value.textContent = recap.topCategory.name;
-
-      row.append(label, value);
-      body.appendChild(row);
-    }
   }
 
   function wireRecap() {
@@ -883,6 +916,39 @@
     await renderRecap();
   }
 
+  // "Your stats" (settings.js) re-renders on chrome.storage.onChanged; this file
+  // registered no listener at all, so with Settings open in one window and a
+  // blocked site interrupted in another, the card at the top of the page ticked
+  // up while the "This week" panel below it stayed frozen until a reload. Two
+  // panels sourced from the same `stats` object, on one screen, showing
+  // different numbers for the same event is what makes a customer stop trusting
+  // both.
+  //
+  // Deliberately narrow: ONLY the keys the recap is made of, and only the recap
+  // is re-rendered. The schedule and custom-alternative editors are live text
+  // and time inputs, and rebuilding them from another tab's write would take the
+  // focus out from under someone mid-edit — a cure worse than the disagreement.
+  // `load()` runs first so the re-render sees the same settings object the rest
+  // of the page does, and a failure here is logged rather than thrown: this is a
+  // refresh, not a load path.
+  const RECAP_KEYS = ["stats", "recapEnabled"];
+
+  function watchStorage() {
+    if (typeof chrome === "undefined" || !chrome.storage || !chrome.storage.onChanged) {
+      return;
+    }
+
+    chrome.storage.onChanged.addListener((changes, area) => {
+      if (area !== "local" || !RECAP_KEYS.some((key) => key in changes)) {
+        return;
+      }
+
+      load()
+        .then(() => renderRecap())
+        .catch((error) => console.error("FitShield: could not refresh the weekly recap", error));
+    });
+  }
+
   async function initialize() {
     await load();
 
@@ -893,6 +959,7 @@
     wireRecap();
     wirePreview();
     wireReport();
+    watchStorage();
 
     await renderAll();
   }

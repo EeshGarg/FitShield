@@ -1,0 +1,163 @@
+[
+  {
+    "id": "F004",
+    "status": "closed",
+    "verification": "Reproduced the destructive copy in a real Chromium against the loaded package, then confirmed it is gone two ways. Drove FitShieldCore.copyScheduleDay in the settings page's own context with the finding's exact input (weekday lunch 11:00-14:00 plus weekend 22:00-23:30) and clicked the real 'Copy to every day' button in a rendered Settings page on a live profile. Both leave TWO windows: the lunch window now covers all seven days and the weekend window keeps days [0,6] and its 22:00-23:30 hours. copyScheduleDay in extension/fitshield-core.js was rewritten to union the target days into the source window instead of stripping them off every other window and dropping empties, so an add can no longer be a delete.",
+    "test": "test/preferences-panels.test.js",
+    "evidenceAfter": "clicked: Copy to every day; stored windows [{\"days\":[0,1,2,3,4,5,6],\"end\":\"14:00\",\"start\":\"11:00\"},{\"days\":[0,6],\"end\":\"23:30\",\"start\":\"22:00\"}]"
+  },
+  {
+    "id": "F006",
+    "status": "closed",
+    "verification": "Seeded a schedule whose window starts two hours from now, confirmed through the shipped core that evaluateSchedule reports active=false, then opened the real popup in Chromium and read the status line and the card class. The popup says 'FitShield is on, but this is outside your scheduled hours. It will block from 1:02 PM to 2:02 PM.' and no element carries the 'glow' class. The dead branch is live because getBlockState now carries the schedule state the guard reads, so the string that could never render does render, and the card no longer claims protection during hours the user switched blocking off.",
+    "test": "test/popup-status.test.js",
+    "evidenceAfter": "FitShield is on, but this is outside your scheduled hours. It will block from 1:02 PM to 2:02 PM. (no protected glow)"
+  },
+  {
+    "id": "F026",
+    "status": "closed",
+    "verification": "Called the shipped FitShieldCore.weeklyRecap inside a real settings page with a lifetime blockedByCategory map passed as a third argument. It returns exactly [from, to, totals, hasActivity] and its arity is 2, so the lifetime figure cannot reach a panel headed 'This week' even if a caller hands the map back in. Also rendered the real Settings page with blockedByCategory {fast_casual: 999} and read #recapBody: no category row appears. The all-time breakdown is still shown, honestly labelled, in Settings' 'Most blocked categories', which reads blockedByCategory directly.",
+    "test": "test/stats-semantics.test.js",
+    "evidenceAfter": "recap keys [from,to,totals,hasActivity]; a third argument is ignored"
+  },
+  {
+    "id": "F028",
+    "status": "closed",
+    "verification": "Rendered the real Settings page in Chromium with blockedByCategory {fast_casual: 999} and read the whole textContent of #recapBody. It contains no 'fast_casual', no underscore of any kind, and no category row at all. The renderer that wrote recap.topCategory.name verbatim has been removed from extension/preferences.js along with the ignored options argument that fed it, so the two panels on that page can no longer describe one category id two different ways.",
+    "test": "test/preferences-panels.test.js",
+    "evidenceAfter": "recap body carries no identifier (41 chars); no underscore anywhere in the panel"
+  },
+  {
+    "id": "F029",
+    "status": "closed",
+    "verification": "Seeded two pending entries in a real profile — one two hours old for microwave-mug-pizza, one eight days old — and opened the real popup in Chromium. The prompt reads 'Microwave Mug Pizza · 2 hours ago — Did you make it?' and its dataset id is bound to microwave-mug-pizza, so the question names the dish and roughly when it was chosen instead of asking 'Did you make it?' about nothing. With only the eight-day-old entry present the prompt does not appear at all: the worker expires pending entries past PENDING_ALTERNATIVE_TTL_MS on the getBlockState call every popup open makes first. The one figure the money estimate is built on is no longer collected under ambiguity.",
+    "test": "test/popup-passes.test.js",
+    "evidenceAfter": "names it: \"Microwave Mug Pizza · 2 hours ago — Did you make it?\" (bound to microwave-mug-pizza); an 8-day-old entry is no longer asked about"
+  },
+  {
+    "id": "F046",
+    "status": "closed",
+    "verification": "Ran the shipped FitShieldCore.recoverLegacyBypassDomain in a real extension page against the flattened 0.54 keys, with a resolver standing in for the loaded catalog. 'delivery-just-eat-com' recovers 'just-eat.com' (the old code produced the non-existent 'just.eat.com'), 'delivery-just-eat-co-uk' recovers 'just-eat.co.uk', 'delivery-rakuten-delivery-com' recovers 'rakuten-delivery.com', ordinary domains and the fast-food bucket prefix still resolve, and a key matching no brand yields an empty string rather than an invented host. Also drove a 0.54-shaped profile (schemaVersion 1 plus siteBypasses) through the real worker: no migrated pass targets a dotted rebuild of a hyphenated host. A pass taken just before an update now points at a host findCoveringPass can match.",
+    "test": "test/passes.test.js",
+    "evidenceAfter": "delivery-just-eat-com -> just-eat.com ; delivery-just-eat-co-uk -> just-eat.co.uk ; delivery-rakuten-delivery-com -> rakuten-delivery.com ; delivery-not-a-brand-anywhere-xyz -> \"\""
+  },
+  {
+    "id": "F030",
+    "status": "closed",
+    "verification": "Opened five real blocked brands (doordash, ubereats, mcdonalds, kfc, starbucks) as five simultaneous navigations in one Chromium, letting declarativeNetRequest redirect each one, then read storage. stats.totals.interruptions is 5 and blockedByDomain carries five distinct brands, each at 1. Repeated on a fresh profile in an isolated harness in both attached and detached tab modes with the same result. recordEvent and recordBlockedBrand now run on one promise chain (queueStatsUpdate) so the read-modify-write of stats cannot interleave, which is the same pattern queueRefreshBlockingState already used.",
+    "test": "test/stats-semantics.test.js",
+    "evidenceAfter": "interruptions=5, 5 brands recorded — no lost read-modify-write"
+  },
+  {
+    "id": "F031",
+    "status": "closed",
+    "verification": "Navigated to doordash.com in Chromium, confirmed the redirect landed on warning.html, then pressed reload three times and read storage. stats.totals.interruptions is 1 and blockedByDomain['doordash.com'] is 1. warning.js now checks the navigation type and a per-tab sessionStorage marker before recording, so a reload of the same block screen counts once, and the brand breakdown is gated on the same decision so it cannot inflate independently.",
+    "test": "test/block-page.test.js",
+    "evidenceAfter": "1 interruption after 3 reloads; doordash counted once"
+  },
+  {
+    "id": "F032",
+    "status": "closed",
+    "verification": "Opened Settings in one tab, captured both panels, then interrupted kfc.com in a second tab and re-read the first tab without reloading it. Before the fix 'Your stats' moved and 'This week' stayed on 'Nothing to summarize for the last 7 days.'; both panels now re-render on the same storage change. Added a chrome.storage.onChanged listener to extension/preferences.js scoped to the two keys the recap is made of (stats, recapEnabled) so the schedule and custom-alternative editors are not rebuilt under someone who is typing in them. Proved the guard by deleting the watchStorage() call: two tests fail; restoring it makes them pass.",
+    "test": "test/preferences-panels.test.js",
+    "evidenceAfter": "both panels re-rendered on the same storage change"
+  },
+  {
+    "id": "F036",
+    "status": "closed",
+    "verification": "Evaluated the shipped FitShieldCore in a real settings page with an all-day window (start === end) covering today, asking for the next boundary from 20:00 — the exact situation in the finding, where the only candidates were the window's own clock times a day or more away. nextScheduleBoundary now returns local midnight, four hours later, and evaluateSchedule reports the window inactive one second past it. localMomentAt supplies midnight as a candidate for every searched day whenever any window is all-day, so the up-to-18-hour window in which stale redirect rules stayed installed is closed.",
+    "test": "test/schedule.test.js",
+    "evidenceAfter": "active at 20:00; next wake-up local midnight, 4.00h away and the window is over by then"
+  },
+  {
+    "id": "F037",
+    "status": "closed",
+    "verification": "Set schedule.until to the next local midnight in a real profile, then sent the worker a grantPass for the allTomorrow preset from an extension page and a site10 for the same brand. The all-scope grant is refused with reason 'scheduleOverride' and never reaches storage; the site-scoped grant succeeds, so the pause, the alternative and the block page all still work. grantPass consults FitShieldCore.scheduleOverrideActive before creating an all-scope pass, so the one commitment button in the product can no longer be cancelled by the very next block page while Settings goes on saying it is in force.",
+    "test": "test/schedule.test.js",
+    "evidenceAfter": "allTomorrow refused (scheduleOverride); site10 granted; stored scopes [site]"
+  },
+  {
+    "id": "F038",
+    "status": "closed",
+    "verification": "Loaded a profile holding exactly core.MAX_WINDOWS (24) schedule windows and opened the real Settings page in Chromium: before the fix #addScheduleWindow was enabled, and clicking it left the list at 24 because normalizeSchedule truncates silently. extension/preferences.js now disables the control and sets aria-disabled at the cap, re-enables it as soon as a window is removed, and refuses the click outright if a stale render still submits one. The count is already on screen in #scheduleStatus, so nothing needed a new string. Proved the guard by reverting both edits in place: three tests fail; restoring them makes all ten pass.",
+    "test": "test/preferences-panels.test.js",
+    "evidenceAfter": "at 24 windows the control is disabled; removing one re-enables it"
+  },
+  {
+    "id": "F039",
+    "status": "closed",
+    "verification": "Put a live site-scoped pass on doordash.com into a real profile and read the popup's rendered status line: 'doordash.com is open for 9m 58s. Everything else is still blocked.' Replaced it with an all-scope pass and the line becomes 'Temporary pass is active. Blocking resumes in 29m 58s.' with no site named. The status is derived from state.passes rather than the flattened bypassUntil, so a five-minute pass on one brand no longer tells the user the whole product is down.",
+    "test": "test/popup-passes.test.js",
+    "evidenceAfter": "site scope: \"doordash.com is open for 9m 58s. Everything else is still blocked.\" / all scope: \"Temporary pass is active. Blocking resumes in 29m 58s.\""
+  },
+  {
+    "id": "F040",
+    "status": "closed",
+    "verification": "Two real-browser checks. With an all-scope pass live, the popup renders an #endPass control labelled 'Cancel that'; clicking it empties the pass list and the dynamic rule count goes from 0 back to 2534, so blocking genuinely returns. Separately, clicked the real 'Reset blocking settings' button and confirmed its modal in a rendered Settings page with a live pass present: the pass is gone afterwards, because 'passes' was added to BLOCKING_KEYS. The worker had implemented and registered revokeAllPasses all along with nothing calling it; a user who misclicks 'pause everything until tomorrow' can now undo it without a factory reset.",
+    "test": "test/popup-passes.test.js",
+    "evidenceAfter": "\"Cancel that\" cleared the pass; rules 0 -> 2534; reset removes a live pass"
+  },
+  {
+    "id": "F041",
+    "status": "closed",
+    "verification": "Called the popup's own formatTimeRemaining in a running popup page with the durations the product actually produces: 86399000ms renders '23h 59m 59s' and 12 hours renders '12h 0m 0s', where the finding observed '1439m 59s' and '719m 57s'. Short pauses are unchanged — 90000ms is still '1m 30s' and 10000ms is still '10s' — so the hours branch did not cost the sub-minute readings.",
+    "test": "test/popup-passes.test.js",
+    "evidenceAfter": "23h 59m 59s / 12h 0m 0s / 1m 30s / 10s"
+  },
+  {
+    "id": "F042",
+    "status": "closed",
+    "verification": "Set enabled to false in a real profile, as a user who has switched FitShield off in the popup would, then sent grantPass for a site5 preset from an extension page exactly as a block-page tab left open from earlier does. The grant succeeds and enabled is still false afterwards. The unexplained 'enabled: true' has been dropped from the grantPass write, so pressing a button that says 'For 5 minutes' no longer silently re-arms the whole extension for after the pass expires.",
+    "test": "test/passes.test.js",
+    "evidenceAfter": "enabled stayed false through a granted pass"
+  },
+  {
+    "id": "F059",
+    "status": "closed",
+    "verification": "Ran the shipped FitShieldCore.redactReportSubject inside a real extension page against the three inputs the finding named plus a hostile URL and a plain label. '192.168.1.5/order?token=SECRET123' becomes '192.168.1.5', 'localhost:3000/checkout?email=me@example.com' becomes 'localhost', 'http://router.local/order#session=abc' becomes 'router.local', a URL carrying credentials and an email becomes 'doordash.com', and free text passes through untouched. Nothing in the output carries a ?, #, @, token or email, so the unconditional promise printed above the field is one the code keeps.",
+    "test": "test/security.test.js",
+    "evidenceAfter": "192.168.1.5/order?token=SECRET123 -> 192.168.1.5 ; localhost:3000/checkout?email=me@example.com -> localhost ; the checkout page -> the checkout page"
+  },
+  {
+    "id": "F060",
+    "status": "closed",
+    "verification": "Opened the real Settings page in Chromium and inspected the report section: there is no #reportMail button, the rendered document contains no mailto: URL anywhere, and the packaged preferences.js contains neither a mailto: construction nor the reportMailOpened string. The mail-draft path was removed rather than length-guarded, because the address it targeted publishes no MX record, so there was no draft length at which it would have worked. What remains is the clipboard action, which has a failure path, and the verbatim preview.",
+    "test": "test/security.test.js",
+    "evidenceAfter": "no mail button, no mailto anywhere, copy + 120-char preview remain"
+  },
+  {
+    "id": "F065",
+    "status": "closed",
+    "verification": "Called FitShieldCore.defaultState() and FitShieldCore.readSettings({recapDismissedFor: '2026-08-09'}) inside a real extension page: the key is present in neither, so a value handed in is not carried through the schema. The remaining mentions in background.js, backup.js and settings.js are comments and exclusion lists explaining the removal, not live reads or writes, and docs/STORAGE.md documents it as removed. The schema no longer implies a dismiss-this-week's-recap behaviour that does not exist.",
+    "test": "test/core-schema.test.js",
+    "evidenceAfter": "absent from defaultState and readSettings; residual mentions are comments and exclusion lists only"
+  },
+  {
+    "id": "F068",
+    "status": "closed",
+    "verification": "Drove the shipped core in a Chromium page with the timezone overridden to America/New_York and a Sunday 00:30-02:30 window on 2026-03-08, the day 02:00 EST becomes 03:00 EDT so the window's end falls in an hour that does not exist locally. The armed boundary is 03:00 EDT, thirty real minutes from 01:30 EST, not the rolled-forward 03:30 the naive setHours produces; evaluateSchedule is active one minute before it and inactive at it. localMomentAt now verifies the result landed on the requested wall-clock minute and bisects to the first instant that is reachable when it did not, so the once-a-year half-hour of blocking past the end of a window is gone.",
+    "test": "test/schedule.test.js",
+    "evidenceAfter": "America/New_York: alarm at Sun Mar 08 2026 03:00:00 GMT-0400, 30 real minutes away — active a minute before, over at the boundary"
+  },
+  {
+    "id": "F070",
+    "status": "closed",
+    "verification": "Read FitShieldCore.PASS_PRESET_IDS and PASS_PRESETS from a real extension page: the ids are [siteDefault, tab, site10, site30, all30, allTomorrow] and PASS_PRESETS.category30 is undefined, so nothing is exported that no screen can reach. docs/STORAGE.md no longer lists category30 in the preset union and says so explicitly. The category SCOPE is retained in findCoveringPass only so a pass persisted by an earlier build still resolves rather than becoming an unrecognised record.",
+    "test": "test/passes.test.js",
+    "evidenceAfter": "presets [siteDefault,tab,site10,site30,all30,allTomorrow] — no unreachable option, docs agree"
+  },
+  {
+    "id": "F074",
+    "status": "closed",
+    "verification": "The control that announced 'Opening a draft in your email app' without verifying anything happened no longer exists. Confirmed in a real Settings page in Chromium: no #reportMail element, no mailto: in the rendered document, and no reportMailOpened string in the packaged preferences.js. The remaining action is the clipboard copy, which already had a failure path that replaces the notice with reportCopyFailed and focuses the preview, so no report action now claims a result it did not observe.",
+    "test": "test/security.test.js",
+    "evidenceAfter": "no mail button, no mailto anywhere, copy + 120-char preview remain"
+  },
+  {
+    "id": "F075",
+    "status": "closed",
+    "verification": "Parsed the declared EXTERNAL_URL_ALLOWLIST out of test/security.test.js rather than grepping the file, because the three retired hosts are still named in the comment explaining their removal and in the test that now catches their return. The list is down to fitshield.net, buymeacoffee.com, w3.org and example.com — img.buymeacoffee.com, addons.mozilla.org, chromewebstore.google.com and mailto:reports@fitshield.net are all gone. Also confirmed no file in the built package references any of them, and that a rot check now fails on any allowlist entry with no remaining use.",
+    "test": "test/security.test.js",
+    "evidenceAfter": "allowlist carries no stale host; the built package references none; a rot check guards it"
+  }
+]
