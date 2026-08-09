@@ -84,13 +84,27 @@ const FILES = [
 // [absolute source dir, stage-relative destination]. data/blocklists is
 // remapped to the package root's blocklists/ (the runtime fetch path); the
 // rest of data/ keeps its data/ prefix.
+//
+// data/android/ and data/generated/ are deliberately ABSENT. They are the
+// Android AccessibilityService's app-package datasets — ~1.5 MB of
+// `com.dd.doordash`-style Android package names, which no browser can act on
+// and which no file under extension/ reads: the only data/ path the browser
+// runtime ever fetches is data/recipes.json. Both zips carried them to every
+// Chrome and Firefox user, and to both store reviews, as pure dead weight.
+// The Android pipeline is unaffected — tools/build-android.js and
+// tools/generate-android-packages.js read them from the canonical data/ tree in
+// the repo, never from a browser stage. `assertNoAndroidPayload` below keeps
+// them out.
 const DIRS = [
   [path.join(EXTENSION_DIR, "_locales"), "_locales"],
   [path.join(DATA_DIR, "blocklists"), "blocklists"],
-  [path.join(DATA_DIR, "android"), path.join("data", "android")],
-  [path.join(DATA_DIR, "generated"), path.join("data", "generated")],
   [path.join(EXTENSION_DIR, "icons"), "icons"]
 ];
+
+// Android-only payload, as package-relative path prefixes. Named here so the
+// exclusion is a checked contract rather than an absence nobody would notice
+// being undone — re-adding either directory to DIRS now fails the build.
+const ANDROID_ONLY_PREFIXES = ["data/android/", "data/generated/"];
 
 // ---- FS Engine bundler --------------------------------------------------------
 // The engine is authored as CommonJS modules in "FS Engine/" (see its README),
@@ -202,6 +216,30 @@ function verifyStage(stageDir) {
       "Block page dependency check failed — the staged package is missing:\n  " +
         missing.join("\n  ") +
         "\nThe block page would render blank. Fix build.js FILES/DIRS or the FS Engine bundle."
+    );
+  }
+
+  // (3) …and nothing the browser cannot use.
+  assertNoAndroidPayload(stageDir);
+}
+
+// The other half of the dependency check: a browser package must not carry the
+// Android AccessibilityService's app-package datasets. Checked against the
+// STAGED BYTES rather than against the DIRS list, so re-adding them by any
+// route — a new DIRS entry, a stray FILES entry, a copy in a helper — fails the
+// build here instead of quietly adding ~1.5 MB of unusable data to both store
+// uploads. See ANDROID_ONLY_PREFIXES.
+function assertNoAndroidPayload(stageDir) {
+  const strays = walkFiles(stageDir, stageDir, [])
+    .map((file) => file.name)
+    .filter((name) => ANDROID_ONLY_PREFIXES.some((prefix) => name.startsWith(prefix)));
+
+  if (strays.length > 0) {
+    throw new Error(
+      "Android-only data was staged into a browser package:\n  " +
+        strays.join("\n  ") +
+        "\nNo browser code reads these; they belong to the Android pipeline " +
+        "(npm run build:android), which reads them from data/ directly."
     );
   }
 }
@@ -421,7 +459,7 @@ async function main() {
 // per-browser forms stay a checked contract. Assigned BEFORE main() may run —
 // the audit is reached from main() via validate-all, and a later assignment
 // would hand that circular require an empty exports object.
-module.exports = { bundleEngine, ENGINE_MODULES, FILES, DIRS, BACKGROUND_SCRIPTS, copyInto, verifyStage, zipDir, chromeManifest, firefoxManifest, safariManifest, SAFARI_NIGHTLY_NAME };
+module.exports = { bundleEngine, ENGINE_MODULES, FILES, DIRS, BACKGROUND_SCRIPTS, ANDROID_ONLY_PREFIXES, copyInto, verifyStage, assertNoAndroidPayload, zipDir, chromeManifest, firefoxManifest, safariManifest, SAFARI_NIGHTLY_NAME };
 
 if (require.main === module) {
   main().catch((error) => {

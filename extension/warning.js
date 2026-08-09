@@ -836,6 +836,72 @@ ui.intentSkip.addEventListener("click", () => {
 });
 
 // ---------------------------------------------------------------------------
+// Counting an interruption exactly once per interruption
+// ---------------------------------------------------------------------------
+
+/**
+ * Pressing reload on the block page is not a new interruption — but the worker
+ * has no way to know that. The message arrives on the same tab, from the same
+ * `sender.url`, and a reload creates a NEW documentId, so every one of the
+ * worker's identifiers says "different document, count it". Hold F5 and
+ * `interruptions` and the per-brand breakdown climb as fast as the page can
+ * load, which is a statistic the product presents as an observed event.
+ *
+ * Only the page itself can tell the difference, and it needs two facts:
+ *
+ *   1. Is this document a re-run of one the user was already looking at?
+ *      `PerformanceNavigationTiming.type` answers exactly that: "reload" and
+ *      "back_forward" are re-runs, "navigate" is a genuinely new arrival.
+ *   2. Has this tab already counted an interruption for this site?
+ *      `sessionStorage` is scoped to the tab and survives a reload, so it can
+ *      carry that across the re-run. Nothing here leaves the tab, and it dies
+ *      with it.
+ *
+ * BOTH are required, and each one alone is wrong:
+ *
+ *   - The marker alone would suppress a GENUINE second interruption. Leaving
+ *     the block page and coming back to the same site an hour later is a real
+ *     new interruption, and the marker is still sitting in the tab.
+ *   - The navigation type alone would suppress a genuine FIRST one. Turning
+ *     blocking on while a delivery site is already open and hitting reload is
+ *     a very ordinary way to meet the block page for the first time, and that
+ *     navigation is a "reload".
+ *
+ * Together they say precisely what is meant: skip the recording only when this
+ * document is a re-run AND this tab has already counted this site. Every
+ * failure mode of the two APIs (private mode, disabled storage, an engine
+ * without navigation timing) falls through to recording, because under-counting
+ * a real interruption is a worse lie than the duplicate this removes.
+ */
+const INTERRUPTION_MARKER = `fitshield:counted:${siteKey}`;
+
+function isRerunOfSameDocument() {
+  try {
+    const [entry] = performance.getEntriesByType("navigation");
+    return !!entry && (entry.type === "reload" || entry.type === "back_forward");
+  } catch (error) {
+    return false;
+  }
+}
+
+function tabAlreadyCountedThisSite() {
+  try {
+    return sessionStorage.getItem(INTERRUPTION_MARKER) !== null;
+  } catch (error) {
+    return false;
+  }
+}
+
+function markTabCountedThisSite() {
+  try {
+    sessionStorage.setItem(INTERRUPTION_MARKER, String(Date.now()));
+  } catch (error) {
+    // Private mode, partitioned storage, or a quota error. Counting one extra
+    // interruption is a far smaller harm than throwing on the block page.
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Boot
 // ---------------------------------------------------------------------------
 
@@ -865,17 +931,22 @@ async function initialize() {
   renderTimer();
   startTimer();
 
-  // Counted once per interruption, and never in preview mode.
-  send("recordInterruption", {});
+  // Counted once per interruption, and never in preview mode. The brand
+  // breakdown is the same event seen from the other side, so it is gated on the
+  // same decision — a reload inflated both counters identically.
+  if (!(isRerunOfSameDocument() && tabAlreadyCountedThisSite())) {
+    markTabCountedThisSite();
+    send("recordInterruption", {});
 
-  if (state.info) {
-    send("recordBlockedBrand", {
-      meta: {
-        domain: state.info.domain || "",
-        category: state.info.category || "",
-        countries: Array.isArray(state.info.countries) ? state.info.countries : []
-      }
-    });
+    if (state.info) {
+      send("recordBlockedBrand", {
+        meta: {
+          domain: state.info.domain || "",
+          category: state.info.category || "",
+          countries: Array.isArray(state.info.countries) ? state.info.countries : []
+        }
+      });
+    }
   }
 
   // Alternatives are non-blocking: the countdown and the exits work regardless

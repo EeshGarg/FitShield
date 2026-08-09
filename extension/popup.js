@@ -156,16 +156,26 @@ async function loadTheme() {
   applyThemeMode(normalizedMode);
 }
 
+// Units are cumulative, largest first. Without the hours unit the longest pass
+// the product offers — "Pause everything until tomorrow", up to 24 hours — was
+// printed as "Blocking resumes in 1439m 59s", a number nobody can read as a
+// time. The rollover is the same arithmetic in both directions, so a 90-second
+// pause still reads "1m 30s" and a 30-second one still reads "30s".
 function formatTimeRemaining(ms) {
   const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
-  const minutes = Math.floor(totalSeconds / 60);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
 
-  if (minutes === 0) {
-    return `${seconds}s`;
+  if (hours > 0) {
+    return `${hours}h ${minutes}m ${seconds}s`;
   }
 
-  return `${minutes}m ${seconds}s`;
+  if (minutes > 0) {
+    return `${minutes}m ${seconds}s`;
+  }
+
+  return `${seconds}s`;
 }
 
 function formatScheduleText(start, end) {
@@ -210,6 +220,65 @@ function updateScheduleControls(scheduleEnabled) {
   scheduleEnabledInput.disabled = !scheduleIsSimple;
 }
 
+function siteUnit(value) {
+  return t(value === 1 ? "unitSite" : "unitSites");
+}
+
+/**
+ * The passes that are still running RIGHT NOW.
+ *
+ * `getBlockState` already filters expired passes, but the popup re-reads that
+ * one response every second for as long as it stays open, so a pass that ran
+ * out while the popup was on screen would otherwise keep naming itself.
+ */
+function activePassesOf(state, now) {
+  const passes = Array.isArray(state && state.passes) ? state.passes : [];
+
+  return passes.filter((pass) => pass && Number(pass.expiresAt) > now);
+}
+
+/**
+ * Say what is ACTUALLY paused.
+ *
+ * A pass carries its own scope. Two of the six presets ("Pause everything for
+ * 30 minutes", "Pause everything until tomorrow") are scope "all"; the other
+ * four unblock exactly one site, and the pass chooser promises so in as many
+ * words — "FitShield stays on for everything else". The status line ignored the
+ * scope and printed "Blocking resumes in X" for every one of them, which told a
+ * user who had opened one delivery site for five minutes that FitShield was
+ * off. It was not: every other site was still being blocked, and would have
+ * been interrupted normally.
+ *
+ * So the global sentence is kept for the passes it is true of, and a scoped
+ * pass names its site and its scope instead.
+ */
+function passStatusMessage(passes, now) {
+  const remaining = formatTimeRemaining(
+    Math.max(...passes.map((pass) => Number(pass.expiresAt) || 0)) - now
+  );
+
+  // "All blocking" really is paused — the original sentence is accurate here.
+  if (passes.some((pass) => pass.scope === "all")) {
+    return t("statusBypassActive", [remaining]);
+  }
+
+  const targets = [...new Set(passes.map((pass) => String(pass.target || "").trim()).filter(Boolean))];
+
+  // A scoped pass with no target cannot name a site; the generic sentence is
+  // still better than an empty one.
+  if (targets.length === 0) {
+    return t("statusBypassActive", [remaining]);
+  }
+
+  // One site: name it, and say the pass covers only it.
+  if (targets.length === 1) {
+    return `${targets[0]} · ${t("passScopeSite")} · ${remaining}`;
+  }
+
+  // Several: name them all, with the count, and the time the last one ends.
+  return `${targets.join(", ")} · ${targets.length} ${siteUnit(targets.length)} · ${remaining}`;
+}
+
 function getStatusMessage(state) {
   const {
     enabled = false,
@@ -228,7 +297,9 @@ function getStatusMessage(state) {
     customSites = []
   } = state;
 
-  const bypassActive = enabled && bypassUntil > Date.now();
+  const now = Date.now();
+  const passes = activePassesOf(state, now);
+  const bypassActive = enabled && bypassUntil > now;
   const activeSiteCount =
     (deliverySitesEnabled ? deliverySites.filter((site) => site.enabled).length : 0) +
     (fastFoodSitesEnabled ? fastFoodSites.filter((site) => site.enabled).length : 0) +
@@ -243,7 +314,11 @@ function getStatusMessage(state) {
   }
 
   if (bypassActive) {
-    return t("statusBypassActive", [formatTimeRemaining(bypassUntil - Date.now())]);
+    // Older responses (and any state without the pass records) still have only
+    // `bypassUntil` to go on, so fall back to the sentence that predates scopes.
+    return passes.length > 0
+      ? passStatusMessage(passes, now)
+      : t("statusBypassActive", [formatTimeRemaining(bypassUntil - now)]);
   }
 
   if (scheduleEnabled && !scheduleActive) {
@@ -259,12 +334,92 @@ function getStatusMessage(state) {
   ]);
 }
 
+// ---------------------------------------------------------------------------
+// Ending a pass early
+// ---------------------------------------------------------------------------
+
+/**
+ * The worker has implemented AND registered `revokeAllPasses` for as long as
+ * passes have existed, and nothing ever sent it. So once a pass was running the
+ * only ways to get blocking back were to wait it out or to flip the master
+ * switch — and the master switch turns FitShield OFF, which is the opposite of
+ * what someone ending a pass early is asking for. Changing your mind is exactly
+ * the moment this product is supposed to be on your side.
+ *
+ * The label is the one Settings already uses to end the OTHER temporary
+ * override ("Block everything until tomorrow" -> "Cancel that"), so the same
+ * action reads the same way in both places and in all 85 locales.
+ */
+let endPassButton = null;
+
+function ensureEndPassButton() {
+  if (endPassButton || !status || !status.parentNode) {
+    return endPassButton;
+  }
+
+  const button = document.createElement("button");
+
+  button.id = "endPass";
+  button.type = "button";
+  button.className = "button secondary";
+  button.hidden = true;
+  // "Cancel that" is only meaningful next to the sentence saying what "that"
+  // is, so the status line is its description rather than a second string.
+  button.setAttribute("aria-describedby", "status");
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+
+    try {
+      await chrome.runtime.sendMessage({ type: "revokeAllPasses" });
+    } catch (error) {
+      console.error("Failed to end the temporary pass:", error);
+    }
+
+    button.disabled = false;
+    await loadState();
+  });
+
+  status.parentNode.insertBefore(button, status.nextSibling);
+  endPassButton = button;
+
+  return endPassButton;
+}
+
+function renderPassControls(state) {
+  const button = ensureEndPassButton();
+
+  if (!button) {
+    return;
+  }
+
+  button.textContent = t("clearScheduleOverride");
+  button.hidden = !(state && state.enabled && activePassesOf(state, Date.now()).length > 0);
+}
+
+// Set by updateUI so a new state always re-renders, and by the ticker so an
+// unchanged sentence is not rewritten. Not a cache of the state — a cache of
+// the STRING, which is the only thing the DOM cares about.
+let lastStatusText = null;
+
 function refreshStatusOnly() {
   if (!latestState) {
     return;
   }
 
-  status.textContent = getStatusMessage(latestState);
+  const text = getStatusMessage(latestState);
+
+  // This runs once a second for as long as the popup is open. While a pass is
+  // counting down the sentence really does change every tick, but the rest of
+  // the time it is byte-identical — and assigning textContent unconditionally
+  // destroys and rebuilds the text node, invalidating layout every second for
+  // no visible change. Write only when there is something different to write.
+  if (text === lastStatusText) {
+    return;
+  }
+
+  lastStatusText = text;
+  status.textContent = text;
+  renderPassControls(latestState);
 }
 
 // ---------------------------------------------------------------------------
@@ -314,9 +469,90 @@ function renderRecap(state) {
   popupRecap.hidden = false;
 }
 
+/**
+ * Resolve a pending alternative's id to the title the user actually saw.
+ *
+ * A pending entry is `{ id, at }` — the id of a catalog entry or of something
+ * the user wrote themselves. The popup does not load the recipe module, so it
+ * reads the packaged catalog directly (a same-origin, extension-local file:
+ * this is not a network request) and the user's own alternatives from storage.
+ * Both lookups are best effort — an unknown id simply goes unnamed, exactly as
+ * before, rather than blocking the prompt.
+ */
+let alternativeTitles = null;
+
+async function loadAlternativeTitles() {
+  if (alternativeTitles) {
+    return alternativeTitles;
+  }
+
+  const titles = new Map();
+
+  try {
+    const { customAlternatives } = await chrome.storage.local.get(["customAlternatives"]);
+    (Array.isArray(customAlternatives) ? customAlternatives : []).forEach((entry) => {
+      if (entry && entry.id && entry.title) {
+        titles.set(String(entry.id), String(entry.title));
+      }
+    });
+  } catch (error) {
+    console.error("Could not read your own alternatives:", error);
+  }
+
+  try {
+    const response = await fetch(chrome.runtime.getURL("data/recipes.json"));
+    const catalog = await response.json();
+
+    [...(catalog.recipes || []), ...(catalog.quickAlternatives || [])].forEach((entry) => {
+      if (entry && entry.id && entry.title) {
+        titles.set(String(entry.id), String(entry.title));
+      }
+    });
+  } catch (error) {
+    console.error("Could not read the alternatives catalog:", error);
+  }
+
+  alternativeTitles = titles;
+  return alternativeTitles;
+}
+
+/**
+ * "3 hours ago", in the user's language, with no message key of its own.
+ *
+ * Intl.RelativeTimeFormat is a platform API, so this stays correct in all 85
+ * locales — including the ones where the plural rules are not "add an s" —
+ * without inventing a string anyone has to translate. i18n.js has already
+ * stamped the active language onto <html lang>, so reading it here is what
+ * makes the phrasing follow the language the user picked.
+ */
+function formatRoughAge(at, now) {
+  const elapsed = now - Number(at);
+
+  if (!Number.isFinite(elapsed) || elapsed < 0) {
+    return "";
+  }
+
+  const language = (document.documentElement && document.documentElement.lang) || "en";
+  const hours = Math.round(elapsed / (60 * 60 * 1000));
+  const minutes = Math.round(elapsed / (60 * 1000));
+
+  try {
+    const relative = new Intl.RelativeTimeFormat(language, { numeric: "auto" });
+    return hours >= 1 ? relative.format(-hours, "hour") : relative.format(-Math.max(minutes, 0), "minute");
+  } catch (error) {
+    return "";
+  }
+}
+
 // Shown only when there is something pending, and only ever asked once per
 // choice: answering either way clears it. FitShield never chases the user for
 // an answer and never sends a notification about it.
+//
+// It used to ask "Did you make it?" and name nothing at all. The entry it means
+// can be up to 48 hours old (the core expires them at that point) and the user
+// may have chosen several things since, so "it" was unanswerable: saying yes
+// recorded a meal against an entry they could not identify. It now says which
+// one, and roughly when they chose it.
 async function renderMadePrompt() {
   if (!madePrompt) {
     return;
@@ -331,7 +567,31 @@ async function renderMadePrompt() {
     return;
   }
 
-  madePromptText.textContent = t("popupMarkMade");
+  const titles = await loadAlternativeTitles();
+  const title = titles.get(String(latest.id)) || "";
+  const age = formatRoughAge(latest.at, Date.now());
+
+  madePromptText.replaceChildren();
+
+  if (title) {
+    const name = document.createElement("strong");
+    name.textContent = title;
+    madePromptText.append(name);
+
+    if (age) {
+      const when = document.createElement("span");
+      when.className = "muted";
+      when.textContent = ` · ${age}`;
+      madePromptText.append(when);
+    }
+
+    madePromptText.append(document.createTextNode(` — ${t("popupMarkMade")}`));
+  } else {
+    // An id with no title left (a custom alternative the user has since
+    // deleted). Ask the plain question rather than an empty one.
+    madePromptText.textContent = t("popupMarkMade");
+  }
+
   madePrompt.dataset.alternativeId = latest.id;
   madePrompt.hidden = false;
 }
@@ -426,6 +686,12 @@ function updateUI(state) {
   card.classList.toggle("glow", enabled && activeSiteCount > 0 && (scheduleActive || !scheduleEnabled) && !bypassActive);
 
   renderRecap(state);
+  renderPassControls(state);
+
+  // A fresh state always re-renders the sentence, even if it happens to read
+  // the same as the last tick — otherwise the memo above would swallow a
+  // language change, which rewrites every string without changing the state.
+  lastStatusText = null;
   refreshStatusOnly();
 }
 
@@ -481,6 +747,44 @@ toggleDeliveryListButton.addEventListener("click", () => openBlocklistSettings()
 toggleFastFoodListButton.addEventListener("click", () => openBlocklistSettings());
 toggleCustomListButton.addEventListener("click", () => openBlocklistSettings());
 
+// ---------------------------------------------------------------------------
+// Friction values, and the label that has to keep up with them.
+//
+// Two of the values a friction profile is made of — the countdown and the site
+// open time — are editable from THIS page as well as from Settings. Settings
+// derives `frictionProfile` from the resulting numbers and stores it alongside
+// them; the popup wrote the numbers alone. So dragging the popup's timer to 300
+// seconds left `frictionProfile: "standard"` in storage describing values that
+// are nothing of the sort, and an exported backup carried that contradiction to
+// the next device.
+//
+// Every surface now derives the label when it renders, so nothing shows the
+// wrong one — but storage and the backup were still wrong, and the backup is
+// the copy that outlives this machine. Same derivation as settings.js, from the
+// same `frictionProfileValues`, so the two pages cannot drift apart.
+const FRICTION_VALUE_KEYS = Object.keys(core.frictionProfileValues("standard")).filter(
+  (key) => key !== "frictionProfile"
+);
+
+function frictionProfileFor(values) {
+  return (
+    core.FRICTION_PROFILE_IDS.find((id) => {
+      const preset = core.frictionProfileValues(id);
+      return FRICTION_VALUE_KEYS.every((key) => preset[key] === values[key]);
+    }) || "custom"
+  );
+}
+
+async function saveFrictionValues(partial) {
+  const stored = await chrome.storage.local.get(FRICTION_VALUE_KEYS);
+  const next = { ...core.readSettings(stored), ...partial };
+
+  await saveSettings({ ...partial, frictionProfile: frictionProfileFor(next) });
+}
+
+// Dragging fires `input` per pixel and `change` once, on release — so the live
+// value stays a cheap single-key write and the profile is recomputed once the
+// user has settled, exactly as the settings page does it.
 timerSlider.addEventListener("input", () => {
   const timerSeconds = normalizeTimerSeconds(timerSlider.value);
   timerSecondsInput.value = timerSeconds;
@@ -488,12 +792,16 @@ timerSlider.addEventListener("input", () => {
   chrome.storage.local.set({ timerSeconds });
 });
 
+timerSlider.addEventListener("change", async () => {
+  await saveFrictionValues({ timerSeconds: normalizeTimerSeconds(timerSlider.value) });
+});
+
 timerSecondsInput.addEventListener("change", async () => {
   const timerSeconds = normalizeTimerSeconds(timerSecondsInput.value);
   timerSecondsInput.value = timerSeconds;
   timerSlider.value = timerSeconds;
   timerDisplay.textContent = formatTimerDisplay(timerSeconds);
-  await saveSettings({ timerSeconds });
+  await saveFrictionValues({ timerSeconds });
 });
 
 passDurationSlider.addEventListener("input", () => {
@@ -503,12 +811,18 @@ passDurationSlider.addEventListener("input", () => {
   chrome.storage.local.set({ passDurationMinutes });
 });
 
+passDurationSlider.addEventListener("change", async () => {
+  await saveFrictionValues({
+    passDurationMinutes: normalizePassDurationMinutes(passDurationSlider.value)
+  });
+});
+
 passDurationMinutesInput.addEventListener("change", async () => {
   const passDurationMinutes = normalizePassDurationMinutes(passDurationMinutesInput.value);
   passDurationMinutesInput.value = passDurationMinutes;
   passDurationSlider.value = passDurationMinutes;
   passDurationDisplay.textContent = formatPassDisplay(passDurationMinutes);
-  await saveSettings({ passDurationMinutes });
+  await saveFrictionValues({ passDurationMinutes });
 });
 
 scheduleEnabledInput.addEventListener("change", async () => {
@@ -567,5 +881,10 @@ if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.onChange) {
     if (latestState) {
       updateUI(latestState);
     }
+
+    // The follow-up prompt now carries a localized relative time ("3 hours
+    // ago"), so it has to be rebuilt in the new language too — it was the one
+    // dynamic string on this page that a language change left behind.
+    renderMadePrompt();
   });
 }

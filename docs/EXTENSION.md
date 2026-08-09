@@ -77,9 +77,15 @@ shipped forms:
 
 - **Chrome**: strips `browser_specific_settings` (Chromium warns on unknown
   keys).
-- **Firefox**: adds `background.scripts: ["blocklist.js", "background.js"]`
-  (Firefox has no background service workers; the engine bundle must load
-  first because `background.js` references the global).
+- **Firefox**: adds
+  `background.scripts: ["blocklist.js", "fitshield-core.js", "background.js"]`
+  (Firefox has no background service workers). Order matters and
+  `background.js` must be last: it references both `FitShieldBlocklist` (the
+  engine bundle) and `FitShieldCore` (the shared decision layer — schema,
+  schedules, passes, stats), so both have to be evaluated before it. On
+  Chromium the same two files are pulled in by `background.js`'s own
+  `importScripts` call. The single source of truth is `BACKGROUND_SCRIPTS` in
+  `build.js`; `test/tools.test.js` fails if this list drifts from it.
 
 Other manifest facts the audit (below) enforces: MV3, `default_locale: en`
 with every `__MSG_*__` key present, exactly the three permissions the runtime

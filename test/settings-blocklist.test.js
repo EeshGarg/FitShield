@@ -4,9 +4,9 @@
  * defaults" and "select-all should move the other three" bugs.
  *
  * Renders the REAL settings page (blocklist.js, blocklist-records.js, i18n.js,
- * currency.js, languages.js, backup.js, browser-shim.js, settings.js) against a
- * compact DOM, with the background worker deliberately NOT answering
- * getBlockState, and asserts:
+ * currency.js, languages.js, backup.js, browser-shim.js, settings.js,
+ * preferences.js) against a compact DOM, with the background worker deliberately
+ * NOT answering getBlockState, and asserts:
  *
  *   1. Saved values still display — the blocklist toggles + timer reflect
  *      chrome.storage.local instead of snapping back to unchecked defaults
@@ -45,6 +45,11 @@ function renderSettings(store, workerResponse) {
     storage: {
       local: {
         get: async (keys) => {
+          // `get(null)` means "the whole profile" in the real API, and that is
+          // how preferences.js loads settings. A mock that treated null as a key
+          // name returned {} for it, so preferences.js would have rendered the
+          // schedule section from defaults instead of from `store`.
+          if (keys === null || keys === undefined) { return { ...store }; }
           const out = {};
           (Array.isArray(keys) ? keys : [keys]).forEach((k) => { if (k in store) out[k] = store[k]; });
           return out;
@@ -82,10 +87,16 @@ function renderSettings(store, workerResponse) {
   // blocklist.js), then the rest of the page scripts in order.
   vm.runInContext(build.bundleEngine(), ctx, { filename: "blocklist.js" });
   // Mirrors the <script> order in settings.html; fitshield-core.js must load
-  // before the files that use it.
-  for (const f of ["blocklist-records.js", "languages.js", "currency.js", "fitshield-core.js", "backup.js", "browser-shim.js", "i18n.js", "settings.js"]) {
+  // before the files that use it. preferences.js is last, exactly as the page
+  // loads it — it owns the friction, schedule, kitchen, alternatives and recap
+  // surfaces, and the schedule section is now the ONLY editor for that setting,
+  // so leaving it out would render a settings page with no schedule controls.
+  for (const f of ["blocklist-records.js", "languages.js", "currency.js", "fitshield-core.js", "backup.js", "browser-shim.js", "i18n.js", "settings.js", "preferences.js"]) {
     vm.runInContext(fs.readFileSync(srcPath(f), "utf8"), ctx, { filename: f });
   }
+  // Top-level function declarations in these scripts land on the context's
+  // global object, so tests can call the page's own helpers directly.
+  doc.globals = sandbox;
   return doc;
 }
 
@@ -154,44 +165,86 @@ test("toggling the master All Blocklists switch moves and persists all three gro
   assert.equal(master.indeterminate, false, "master is no longer indeterminate once all are on");
 });
 
-// The three simple schedule inputs used to write ONLY the flat scheduleEnabled /
-// scheduleStart / scheduleEnd keys. readSettings prefers the structured
-// `schedule` object whenever it exists — and after the v1 -> v2 migration it
-// always exists — so the flat keys were read by nobody and all three controls
-// were visible and inert. Assert the effect, not the key: what matters is that
-// setting a window actually stops blocking outside it.
-test("the simple schedule controls actually change when blocking is active", async () => {
+// The schedule used to be asked TWICE on this page. A simple start/end pair in
+// "Blocking Options" wrote ONLY the flat scheduleEnabled / scheduleStart /
+// scheduleEnd keys, while readSettings prefers the structured `schedule` object
+// whenever it exists — and after the v1 -> v2 migration it always exists — so
+// the flat keys were read by nobody and all three controls were visible and
+// inert.
+//
+// RETARGETED. That duplicate pair has been deleted from settings.html
+// (#scheduleEnabled / #scheduleStart / #scheduleEnd no longer exist there), so
+// this drives the surface that survived and now owns the setting: the preset
+// chips in #schedulePresets and the per-window editor in #scheduleWindows, both
+// built by preferences.js. The end assertion is deliberately unchanged, because
+// it is the whole point — after using the control,
+// core.evaluateSchedule(core.readSettings(store).schedule, t) must really say
+// "off" outside the chosen window and "on" inside it. Which widget carried the
+// change is an implementation detail; that it reached the object the worker
+// consults is not.
+test("the Settings schedule controls actually change when blocking is active", async () => {
   const core = require("../extension/fitshield-core.js");
 
-  // A migrated profile: `schedule` is present, so the flat keys alone are dead.
+  // A migrated profile: `schedule` is present, so a control that writes only the
+  // flat keys changes nothing that is enforced.
   const store = { ...core.migrateState({ timerSeconds: 30 }).state, uiLanguage: "en" };
   assert.equal(store.schedule.mode, "always", "precondition: a migrated profile blocks around the clock");
 
   const doc = renderSettings(store, undefined);
   assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
 
-  const enabled = doc.getById("scheduleEnabled");
-  const start = doc.getById("scheduleStart");
-  const end = doc.getById("scheduleEnd");
+  const presets = doc.getById("schedulePresets");
+  assert.ok(await waitFor(() => presets.childElementCount > 0), "the schedule presets should render");
+  assert.equal(presets.childElementCount, core.SCHEDULE_PRESET_IDS.length,
+    "one chip per preset — if these drift apart the index below stops meaning anything");
 
-  start.value = "18:00";
-  end.value = "23:00";
-  enabled.checked = true;
-  await Promise.all((enabled._listeners.change || []).map((fn) => fn({})));
-  await waitFor(() => store.scheduleEnabled === true);
+  // "Evenings" is 18:00-23:00 every day. Chosen by position and then verified by
+  // VALUE below, so a reordered chip list fails loudly instead of silently
+  // testing a different preset.
+  const evenings = presets.children[core.SCHEDULE_PRESET_IDS.indexOf("evenings")];
+  (evenings._listeners.click || []).forEach((fn) => fn({}));
+  await waitFor(() => store.schedule && store.schedule.mode === "windows");
 
-  assert.equal(store.scheduleEnabled, true, "the flat mirror is still written, for Android and older builds");
   assert.equal(store.schedule.mode, "windows", "the structured schedule — the one that decides — was updated");
+  // Round-tripped through JSON: the page writes these objects inside the vm
+  // sandbox, so they carry that realm's Object prototype and a strict deep
+  // comparison would fail on identical values.
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(store.schedule.windows)),
+    core.normalizeSchedule(core.schedulePresetValues("evenings")).windows,
+    "the Evenings chip must store the Evenings window"
+  );
+  assert.equal(store.scheduleEnabled, true, "the flat mirror is still written, for the popup and older builds");
 
   // 09:00 Wednesday is outside 18:00-23:00: blocking must now be off.
-  const settings = core.readSettings(store);
   const nineAm = new Date(2026, 2, 4, 9, 0, 0);
   const eightPm = new Date(2026, 2, 4, 20, 0, 0);
+  const tenPm = new Date(2026, 2, 4, 22, 0, 0);
 
-  assert.equal(core.evaluateSchedule(settings.schedule, nineAm).active, false,
+  assert.equal(core.evaluateSchedule(core.readSettings(store).schedule, nineAm).active, false,
     "outside the chosen window blocking must be off — otherwise the control did nothing");
-  assert.equal(core.evaluateSchedule(settings.schedule, eightPm).active, true,
+  assert.equal(core.evaluateSchedule(core.readSettings(store).schedule, eightPm).active, true,
     "inside the chosen window blocking must be on");
+
+  // Now the advanced editor, which is the control the deleted pair was a lossy
+  // copy of. Pull the window's end time back to 21:00 and 22:00 must stop being
+  // blocked, without touching any flat key.
+  const endInput = doc.getById("window-0-end");
+  assert.ok(endInput, "the advanced editor should render an end-time input for the stored window");
+  assert.equal(endInput.value, "23:00", "the editor shows the window that is actually stored");
+
+  assert.equal(core.evaluateSchedule(core.readSettings(store).schedule, tenPm).active, true,
+    "precondition: 22:00 is inside 18:00-23:00");
+
+  endInput.value = "21:00";
+  (endInput._listeners.change || []).forEach((fn) => fn({}));
+  await waitFor(() => store.schedule.windows[0].end === "21:00");
+
+  assert.equal(store.schedule.windows[0].end, "21:00", "the editor wrote the structured schedule");
+  assert.equal(core.evaluateSchedule(core.readSettings(store).schedule, tenPm).active, false,
+    "22:00 is now outside the window, so blocking must be off");
+  assert.equal(core.evaluateSchedule(core.readSettings(store).schedule, eightPm).active, true,
+    "20:00 is still inside it");
 });
 
 // ---------------------------------------------------------------------------
@@ -506,6 +559,31 @@ test("a failed export does not tell the user their file is invalid", async () =>
 // hours, not a set of days. The flat pair can only ever express ONE window
 // across ALL SEVEN days, so whenever it can represent the schedule at all, it is
 // by definition every day.
+//
+// RETARGETED. The element both tests read — #scheduleSummary — belonged to the
+// duplicate simple pair that has been deleted from settings.html. The readout
+// that survives in the schedule section, #scheduleStatus, does NOT carry this
+// meaning (it says "FitShield is on all the time" or "N time window(s) set"), so
+// it cannot stand in for the "every day" claim; it is asserted below only for
+// the negative half, which it can honestly answer. The popup still renders the
+// sentence itself, but test/ has no popup-rendering harness and this file is not
+// the place to grow one — see the note on popup.js at the end of this block.
+//
+// So the guarantee is now asserted against the three things that survive and
+// that make it true:
+//   - core.scheduleToLegacy, the projection that decides when the flat pair may
+//     be offered at all. It is WHY the suffix is unconditional, and it is the
+//     rule the old start === end condition contradicted.
+//   - describeSimpleSchedule in settings.js, the function that composes the
+//     sentence, called after the real page has computed its own
+//     `scheduleIsSimple` from the stored schedule.
+//   - the day buttons rendered by the advanced editor, which are the surviving
+//     Settings surface that states which days a window runs on.
+//
+// KNOWN, NOT FIXED HERE: extension/popup.js still carries the pre-fix form
+// (`scheduleStart === scheduleEnd ? t("everyDaySuffix") : ""`). Another lane owns
+// that file this session; it is reported rather than changed here, and no
+// assertion below drives popup.js.
 // ===========================================================================
 
 test("the schedule summary says 'every day' when the window is every day", async () => {
@@ -513,35 +591,85 @@ test("the schedule summary says 'every day' when the window is every day", async
 
   const store = {
     uiLanguage: "en",
+    timerSeconds: 30,
     schedule: { mode: "windows", windows: [{ days: core.ALL_DAYS.slice(), start: "18:00", end: "23:00" }], until: null }
   };
 
-  const doc = renderSettings(store, { ok: true, ...core.readSettings(store) });
-  const summary = () => doc.getById("scheduleSummary").textContent;
+  // The rule at its source. A schedule is only offered through the flat pair
+  // when it is ONE window across all seven days — and this one's two times
+  // differ, which is precisely the case the old `start === end` condition
+  // refused to call "every day".
+  const legacy = core.scheduleToLegacy(store.schedule);
+  assert.equal(legacy.simple, true, "precondition: this schedule is flat-expressible");
+  assert.notEqual(legacy.scheduleStart, legacy.scheduleEnd, "…and its two times are not equal");
 
-  assert.ok(await waitFor(() => /\d/.test(summary())), `the summary should render a time range, got "${summary()}"`);
-  assert.match(summary(), /every day/i, `a seven-day window is every day, got "${summary()}"`);
+  core.SCHEDULE_PRESET_IDS.forEach((id) => {
+    const schedule = core.normalizeSchedule(core.schedulePresetValues(id));
+
+    if (schedule.mode === "windows" && core.scheduleToLegacy(schedule).simple) {
+      assert.deepEqual(schedule.windows[0].days, core.ALL_DAYS,
+        `${id} can be shown through the flat pair, so it must run on every day`);
+    }
+  });
+
+  const doc = renderSettings(store, { ok: true, ...core.readSettings(store) });
+  assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
+
+  const describe = doc.globals.describeSimpleSchedule;
+  assert.equal(typeof describe, "function", "settings.js must still compose this sentence");
+
+  const summary = describe(true, "18:00", "23:00");
+  assert.ok(/\d/.test(summary), `the summary should carry a time range, got "${summary}"`);
+  assert.match(summary, /every day/i, `a seven-day window is every day, got "${summary}"`);
+  assert.match(describe(true, "18:00", "18:00"), /every day/i,
+    "a 24-hour window is every day too — the suffix must not hinge on the two times matching");
+
+  // The surviving Settings surface agrees about the days.
+  const groups = doc.getById("scheduleWindows").querySelectorAll(".days");
+  assert.equal(groups.length, 1, "one stored window, one day group in the editor");
+  assert.deepEqual(pressedDays(groups[0]), core.ALL_DAYS, "the editor shows the window running on all seven days");
 });
 
 test("a schedule the two inputs cannot express does not claim to be every day", async () => {
   const core = require("../extension/fitshield-core.js");
 
   // "Workday lunch" is weekdays only — the flat pair cannot hold it, so the
-  // times shown are placeholders and the advanced note below explains it.
+  // times it would show are placeholders and any "every day" would be a claim
+  // about days that are not blocked.
   const schedule = core.normalizeSchedule(core.schedulePresetValues("workdayLunch"));
-  const store = { uiLanguage: "en", schedule };
+  const store = { uiLanguage: "en", timerSeconds: 30, schedule };
   const settings = core.readSettings(store);
 
   assert.equal(settings.scheduleSimple, false, "precondition: this schedule is not flat-expressible");
 
-  const doc = renderSettings(store, settings);
-  assert.ok(await waitFor(() => doc.getById("protectionStatusGrid").childElementCount > 0), "settings rendered");
+  const doc = renderSettings(store, { ok: true, ...settings });
+  assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
 
-  assert.ok(
-    !/every day/i.test(doc.getById("scheduleSummary").textContent),
-    "a weekdays-only schedule must never be summarised as every day"
-  );
+  // Composed by the page, from the state the page derived from this schedule —
+  // not from a flag the test set.
+  const sentence = doc.globals.describeSimpleSchedule(true, settings.scheduleStart, settings.scheduleEnd);
+
+  assert.ok(!/every day/i.test(sentence),
+    `a weekdays-only schedule must never be summarised as every day, got "${sentence}"`);
+  assert.equal(sentence, "",
+    "with placeholder times it says nothing rather than describing a window nobody set");
+
+  // The readout that DOES describe this schedule must not claim seven days either.
+  const status = doc.getById("scheduleStatus");
+  assert.ok(await waitFor(() => status.textContent !== ""), "the schedule status should render");
+  assert.ok(!/every day/i.test(status.textContent), `got "${status.textContent}"`);
+
+  // And the editor states the real days, so the truth is on screen somewhere.
+  const groups = doc.getById("scheduleWindows").querySelectorAll(".days");
+  assert.deepEqual(pressedDays(groups[0]), [1, 2, 3, 4, 5], "five weekdays selected, no weekend day");
 });
+
+// Which weekday indices a rendered window's day group has switched on.
+function pressedDays(group) {
+  return group.children
+    .map((button, index) => (button.getAttribute("aria-pressed") === "true" ? index : -1))
+    .filter((index) => index >= 0);
+}
 
 // ===========================================================================
 // Friction profile

@@ -118,6 +118,82 @@ test("packaged block page: engine datasets and the recipe catalog are in the pac
   assert.ok(staged("_locales/en/messages.json"), "default locale is not in the package");
 });
 
+// ---------------------------------------------------------------------------
+// …and nothing the browser cannot use.
+//
+// data/android/ and data/generated/ are the Android AccessibilityService's
+// app-package datasets — ~1.5 MB of `com.dd.doordash`-style ANDROID package
+// names. No browser can act on an Android package name, and no file under
+// extension/ reads them: the only data/ path the browser runtime ever fetches
+// is data/recipes.json. They were nevertheless copied into the Chrome, Firefox
+// and Safari packages on every build and shipped to every user and both store
+// reviews. The exclusion is asserted against the staged BYTES, not against the
+// DIRS table, so re-adding them by any route fails here.
+// ---------------------------------------------------------------------------
+
+test("packaged: no Android-only dataset is shipped to a browser", () => {
+  const stage = stagedPackage();
+
+  const strays = [];
+  const walk = (dir, rel) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const childRel = rel ? `${rel}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        walk(path.join(dir, entry.name), childRel);
+      } else if (build.ANDROID_ONLY_PREFIXES.some((prefix) => childRel.startsWith(prefix))) {
+        strays.push(childRel);
+      }
+    }
+  };
+  walk(stage, "");
+
+  assert.deepEqual(strays, [], `Android-only payload in a browser package:\n  ${strays.join("\n  ")}`);
+
+  // The datasets still exist canonically — this is an exclusion from the browser
+  // package, not a deletion. The Android build reads them from data/ directly.
+  assert.ok(fs.existsSync(path.join(ROOT, "data", "android")), "data/android must still exist for the Android build");
+  assert.ok(
+    fs.existsSync(path.join(ROOT, "data", "generated", "android-packages.json")),
+    "the generated Android package asset must still exist for the Android build"
+  );
+});
+
+test("packaged: staging an Android dataset into a browser package fails the build", () => {
+  // Prove the guard, rather than trusting that the DIRS table stays correct:
+  // plant the exact file the old build shipped into a stage and assert
+  // verifyStage's check rejects it.
+  const probe = fs.mkdtempSync(path.join(os.tmpdir(), "fs-android-stray-"));
+  const planted = path.join(probe, "data", "generated", "android-packages.json");
+
+  fs.mkdirSync(path.dirname(planted), { recursive: true });
+  fs.writeFileSync(planted, "{}");
+
+  assert.throws(
+    () => build.assertNoAndroidPayload(probe),
+    /Android-only data was staged/,
+    "an Android dataset in a browser stage must abort the build"
+  );
+
+  // A stage without it passes.
+  const clean = fs.mkdtempSync(path.join(os.tmpdir(), "fs-android-clean-"));
+  fs.writeFileSync(path.join(clean, "manifest.json"), "{}");
+  assert.doesNotThrow(() => build.assertNoAndroidPayload(clean));
+
+  fs.rmSync(probe, { recursive: true, force: true });
+  fs.rmSync(clean, { recursive: true, force: true });
+});
+
+// The block page and the settings page must still find everything they load —
+// this is the check that the exclusion took only dead weight. copyInto runs
+// verifyStage itself, so stagedPackage() reaching this point is already part of
+// the proof; these pin the two pages' own data dependency explicitly.
+test("packaged: the data the browser DOES read is still there", () => {
+  assert.ok(staged("data/recipes.json"), "the block page's alternative columns load this");
+  assert.ok(staged("blocklists/delivery.json"), "settings renders its pickers from the live dataset");
+  assert.ok(staged("blocklists/fast-food.json"));
+  assert.ok(staged("blocklist.js"), "and the engine bundle both pages depend on");
+});
+
 test("packaged block page: both browser manifests are valid and point at packaged files", () => {
   const stage = stagedPackage();
   const chrome = JSON.parse(fs.readFileSync(path.join(stage, "manifest.chrome.json"), "utf8"));
@@ -203,11 +279,31 @@ function renderBlockPage(bg, siteKey, options) {
     setTimeout: () => 0,
     history: { back: () => {}, length: 1 }
   };
+
+  // A tab's sessionStorage. Passing the SAME `opts.tabSession` object into two
+  // renders is what makes the second one a reload of the first rather than a
+  // load in a fresh tab — that is exactly the distinction sessionStorage draws
+  // in a real browser, and the one the block page relies on.
+  const session = opts.tabSession || new Map();
+  const sessionStorage = {
+    getItem: (key) => (session.has(key) ? session.get(key) : null),
+    setItem: (key, value) => { session.set(key, String(value)); },
+    removeItem: (key) => { session.delete(key); }
+  };
+
+  // PerformanceNavigationTiming.type: "navigate" for a new arrival, "reload"
+  // when the user pressed reload, "back_forward" for a history restore.
+  const performance = {
+    getEntriesByType: (type) =>
+      type === "navigation" ? [{ type: opts.navigationType || "navigate" }] : []
+  };
+
   const sandbox = {
     chrome, document: Object.assign(doc.document, { hidden: false }), window: win, fetch: fetchImpl, console,
     URL, URLSearchParams, Math, Date, Number, String, Array, Object, JSON, Promise,
     setInterval: () => 0, clearInterval: () => {}, setTimeout,
-    location: win.location, matchMedia: win.matchMedia
+    location: win.location, matchMedia: win.matchMedia,
+    sessionStorage, performance
   };
   sandbox.self = sandbox; sandbox.globalThis = sandbox;
   const ctx = vm.createContext(sandbox);
@@ -314,6 +410,124 @@ test("render smoke: statistics move through the worker with the new event names"
   // Nothing claims a meal happened just because the page rendered.
   assert.equal(bg.store.stats.totals.alternativesSelected, 0);
   assert.equal(bg.store.stats.totals.alternativesMade, 0);
+});
+
+// ---------------------------------------------------------------------------
+// An interruption is counted once per interruption — not once per page load.
+//
+// `interruptions` and the per-brand breakdown are published to the user as
+// OBSERVED events. The worker cannot tell a reload of the block page from a new
+// interruption (same tab, same sender.url, and a reload mints a new documentId),
+// so holding F5 ran both counters up as fast as the page could load. The page
+// itself is the only party that knows, and it needs BOTH a tab-scoped marker and
+// the navigation type to know it correctly — each of the four tests below fails
+// if either half is dropped.
+// ---------------------------------------------------------------------------
+
+async function countedInterruptions(bg) {
+  await waitFor(() => bg.store.stats && bg.store.stats.totals.interruptions >= 1);
+  return bg.store.stats.totals.interruptions;
+}
+
+test("reloading the block page does not record a second interruption", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+
+  // One tab: the same sessionStorage carries across the reload, as in a browser.
+  const tabSession = new Map();
+
+  renderBlockPage(bg, "delivery-doordash-com", { tabSession, navigationType: "navigate" });
+  assert.equal(await countedInterruptions(bg), 1, "the first arrival is a real interruption");
+
+  // Now reload it, three times, exactly as holding F5 would.
+  for (let reload = 0; reload < 3; reload += 1) {
+    renderBlockPage(bg, "delivery-doordash-com", { tabSession, navigationType: "reload" });
+  }
+
+  // Give the (fire-and-forget) recording calls every chance to land.
+  await new Promise((resolve) => setTimeout(resolve, 120));
+
+  assert.equal(bg.store.stats.totals.interruptions, 1, "a reload is the same interruption, not a new one");
+  assert.equal(
+    bg.store.blockedByDomain["doordash.com"],
+    1,
+    "and the brand breakdown must not climb either — it is the same event seen from the other side"
+  );
+});
+
+test("a back/forward restore of the block page is not a new interruption either", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+
+  const tabSession = new Map();
+
+  renderBlockPage(bg, "delivery-doordash-com", { tabSession, navigationType: "navigate" });
+  assert.equal(await countedInterruptions(bg), 1);
+
+  renderBlockPage(bg, "delivery-doordash-com", { tabSession, navigationType: "back_forward" });
+  await new Promise((resolve) => setTimeout(resolve, 120));
+
+  assert.equal(bg.store.stats.totals.interruptions, 1, "pressing Back onto the block page re-shows one interruption");
+});
+
+// The half that is easy to get wrong in the other direction. A marker keyed on
+// the site alone would suppress this, and it is a genuine, separate interruption
+// the user really did experience.
+test("a GENUINE second interruption of the same site in the same tab is still counted", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+
+  // Same tab (the marker is still sitting in sessionStorage), but the user went
+  // away and came back: a real navigation, not a reload.
+  const tabSession = new Map();
+
+  renderBlockPage(bg, "delivery-doordash-com", { tabSession, navigationType: "navigate" });
+  assert.equal(await countedInterruptions(bg), 1);
+
+  renderBlockPage(bg, "delivery-doordash-com", { tabSession, navigationType: "navigate" });
+
+  assert.ok(
+    await waitFor(() => bg.store.stats.totals.interruptions === 2),
+    "returning to a blocked site later is a second interruption and must be counted"
+  );
+  assert.equal(bg.store.blockedByDomain["doordash.com"], 2, "and it is a second visit to that brand");
+});
+
+// The other direction again, and the reason the navigation type cannot be used
+// on its own: turning blocking on while a delivery site is already open and
+// hitting reload is an extremely ordinary way to meet the block page for the
+// FIRST time. There is no marker yet, so it counts.
+test("a reload that produces the FIRST block page in a tab is counted", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+
+  renderBlockPage(bg, "delivery-doordash-com", { tabSession: new Map(), navigationType: "reload" });
+
+  assert.ok(
+    await waitFor(() => bg.store.stats.totals.interruptions === 1),
+    "a reload with nothing counted yet in this tab is a real first interruption"
+  );
+});
+
+test("a reload in a DIFFERENT tab is its own interruption", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+
+  renderBlockPage(bg, "delivery-doordash-com", { tabSession: new Map(), navigationType: "navigate" });
+  assert.equal(await countedInterruptions(bg), 1);
+
+  // A second tab has its own sessionStorage, so nothing carries over.
+  renderBlockPage(bg, "delivery-doordash-com", { tabSession: new Map(), navigationType: "reload" });
+
+  assert.ok(
+    await waitFor(() => bg.store.stats.totals.interruptions === 2),
+    "sessionStorage is per tab — another tab's block page is another interruption"
+  );
 });
 
 test("render smoke: choosing an alternative records intent, not a meal", async () => {

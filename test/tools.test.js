@@ -38,6 +38,62 @@ test("each individual audit is runnable and returns a reporter", async () => {
   }
 });
 
+// Both docs stated the Firefox event page loads `["blocklist.js",
+// "background.js"]`. It has loaded `fitshield-core.js` between the two since the
+// shared decision layer was split out — background.js references the
+// FitShieldCore global, so a Firefox build with the documented two-entry list
+// would throw at registration and block NOTHING. The docs are what a
+// contributor reads before touching the manifest derivation, and PRODUCT_AUDIT
+// listed it as a "hard contract ... must not be broken silently", which is
+// exactly what the wrong value invited.
+//
+// tools/extension-audit.js already pins the BEHAVIOUR against
+// build.BACKGROUND_SCRIPTS. This pins the PROSE against the same constant, so
+// the docs cannot drift from it again — which is the failure that actually
+// happened.
+test("the docs state the real Firefox background.scripts value", () => {
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const build = require("../build.js");
+  const ROOT = path.join(__dirname, "..");
+
+  // Guard the guard: if the constant were ever emptied these assertions would
+  // pass vacuously against any prose at all.
+  assert.ok(build.BACKGROUND_SCRIPTS.length >= 3, "the engine bundle, the core, and the worker");
+  assert.equal(
+    build.BACKGROUND_SCRIPTS[build.BACKGROUND_SCRIPTS.length - 1],
+    "background.js",
+    "background.js loads last — it needs the globals the others define"
+  );
+
+  // Every script must be named, and the docs must not print a list that omits
+  // one. Both spellings the two files use are accepted; the ordering claim is
+  // covered by extension-audit.js and test/block-page.test.js.
+  const spellings = [
+    build.BACKGROUND_SCRIPTS.map((s) => `"${s}"`).join(", "),
+    build.BACKGROUND_SCRIPTS.map((s) => `"${s}"`).join(",")
+  ];
+
+  for (const doc of ["docs/EXTENSION.md", "docs/PRODUCT_AUDIT.md"]) {
+    const text = fs.readFileSync(path.join(ROOT, doc), "utf8");
+
+    assert.ok(
+      /background\.scripts/.test(text),
+      `${doc} no longer mentions background.scripts — this check has gone vacuous`
+    );
+    assert.ok(
+      spellings.some((list) => text.includes(list)),
+      `${doc} does not state the real background.scripts value (${spellings[0]})`
+    );
+
+    // And it must not still carry the stale two-entry list.
+    assert.ok(
+      !/"blocklist\.js"\s*,\s*"background\.js"/.test(text),
+      `${doc} still documents the old two-entry background.scripts list`
+    );
+  }
+});
+
 // tools/README.md is the map a new contributor reads before touching anything
 // here. It had drifted badly — 14 of 24 tools were missing and it pointed at
 // three files that do not exist — which is worse than no map, because the

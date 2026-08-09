@@ -83,21 +83,38 @@ test("no analytics, telemetry, or third-party endpoint is referenced", () => {
   assert.deepEqual(offenders, [], `possible third-party service in: ${offenders.join(", ")}`);
 });
 
-test("the only external URLs are ones the user chooses to open", () => {
-  const allowed = [
-    "https://fitshield.net",           // the About link on the block page
-    "mailto:reports@fitshield.net",    // the report draft, opened on click
-    "https://buymeacoffee.com",        // the support link in settings
-    "https://img.buymeacoffee.com",    // its button image
-    "http://www.w3.org",               // SVG xmlns (not a request)
-    "https://example.com",             // placeholder text in an input
-    "https://addons.mozilla.org",      // documentation link
-    "https://chromewebstore.google.com"
-  ];
+// An allowlist is only a guarantee about what is NOT here. Every entry that
+// stays listed after its last real use is a hole: the test keeps passing while
+// the thing it permits is quietly reintroduced.
+//
+// `https://img.buymeacoffee.com` was the worst of the four. It was the support
+// button's IMAGE — a remote <img> on the settings page, which is a request the
+// user never chooses to make. Merely opening Settings would have sent their IP
+// address, User-Agent, and Referer to a third party, on a product whose central
+// claim is that it makes no network requests at all. The image is gone; while
+// its host stayed on this list, putting it back would not have failed a single
+// test. `addons.mozilla.org` and `chromewebstore.google.com` were store links
+// that no longer exist in any shipped file, and `mailto:reports@fitshield.net`
+// was the mail-draft button removed when that domain turned out to publish no
+// MX record (see the comment in preferences.js).
+//
+// Each of the four was verified absent from every file build.js ships before it
+// was removed here, and "no entry outlives its use" is now itself asserted by
+// the test below, so this list cannot rot again.
+const EXTERNAL_URL_ALLOWLIST = [
+  "https://fitshield.net",           // the About link on the block page
+  "https://buymeacoffee.com",        // the support link in settings
+  "http://www.w3.org",               // SVG xmlns (not a request)
+  "https://example.com"              // placeholder text in an input
+];
 
+// The URLs a set of [name, source] files contains that the allowlist does not
+// cover. Extracted so the scan itself can be tested against a file that is
+// deliberately hostile — see the reintroduction test below.
+function externalUrlOffenders(files, allowed) {
   const offenders = [];
 
-  [...shipped, ...shippedHtml].forEach(([name, source]) => {
+  files.forEach(([name, source]) => {
     for (const match of source.matchAll(/(?:https?:|mailto:)[^\s"'`)]+/g)) {
       const url = match[0];
 
@@ -114,7 +131,72 @@ test("the only external URLs are ones the user chooses to open", () => {
     }
   });
 
+  return offenders;
+}
+
+test("the only external URLs are ones the user chooses to open", () => {
+  const offenders = externalUrlOffenders([...shipped, ...shippedHtml], EXTERNAL_URL_ALLOWLIST);
+
   assert.deepEqual(offenders, [], `unexpected external URL:\n  ${offenders.join("\n  ")}`);
+});
+
+// The rot check. An allowlist entry with no remaining use is not harmless
+// housekeeping — it is a standing permission for something nobody is watching
+// for any more, and the four removed above had been exactly that.
+test("every allowlisted external URL is one the runtime actually uses", () => {
+  const corpus = [...shipped, ...shippedHtml].map(([, source]) => source).join("\n");
+
+  const dead = EXTERNAL_URL_ALLOWLIST.filter((prefix) => !corpus.includes(prefix));
+
+  assert.deepEqual(
+    dead,
+    [],
+    "these are permitted but appear in no shipped file — remove them, or the " +
+      `test stops guarding against their return:\n  ${dead.join("\n  ")}`
+  );
+});
+
+// The specific regression. Each of these was permitted while being used by
+// nothing, so re-adding it — most damagingly the remote support-button image,
+// which would have leaked every user's IP and User-Agent to a third party on
+// each settings-page open — was a silent, passing change. Proved two ways: the
+// hosts are gone from the shipped files AND the scan now flags them.
+test("a removed third-party host cannot be reintroduced unnoticed", () => {
+  const RETIRED = [
+    "https://img.buymeacoffee.com",
+    "https://addons.mozilla.org",
+    "https://chromewebstore.google.com",
+    "mailto:reports@fitshield.net"
+  ];
+
+  // 1. None of them is permitted any more.
+  const stillAllowed = RETIRED.filter((url) => EXTERNAL_URL_ALLOWLIST.some((p) => url.startsWith(p)));
+  assert.deepEqual(stillAllowed, [], `still allowlisted: ${stillAllowed.join(", ")}`);
+
+  // 2. None of them is in a shipped file today.
+  const present = [];
+  [...shipped, ...shippedHtml].forEach(([name, source]) => {
+    RETIRED.forEach((url) => {
+      if (source.includes(url)) {
+        present.push(`${name}: ${url}`);
+      }
+    });
+  });
+  assert.deepEqual(present, [], `retired host is back:\n  ${present.join("\n  ")}`);
+
+  // 3. And the scan would CATCH each one — the property that was false before.
+  //    The support-button image is spelled out as the real markup it would be.
+  const hostile = [
+    ["settings.html", '<img src="https://img.buymeacoffee.com/button-api/?slug=x" alt="">'],
+    ["settings.html", '<a href="https://addons.mozilla.org/addon/fitshield">Rate us</a>'],
+    ["settings.html", '<a href="https://chromewebstore.google.com/detail/fitshield">Rate us</a>'],
+    ["preferences.js", 'const draft = "mailto:reports@fitshield.net?subject=" + subject;']
+  ];
+
+  hostile.forEach((file) => {
+    const caught = externalUrlOffenders([file], EXTERNAL_URL_ALLOWLIST);
+    assert.equal(caught.length, 1, `reintroducing ${file[1].slice(0, 48)}… was not caught`);
+  });
 });
 
 // ---------------------------------------------------------------------------
