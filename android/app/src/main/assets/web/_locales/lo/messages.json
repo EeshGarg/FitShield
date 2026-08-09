@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "ສະຖິຕິຂອງເຈົ້າ"
   },
-  "protectionStatusIntro": {
-    "message": "ການປະເມີນສ່ວນຕົວຢູ່ໃນອຸປະກອນກ່ຽວກັບສິ່ງທີ່ FitShield ຊ່ວຍໃຫ້ເຈົ້າຂ້າມ. ນີ້ແມ່ນການປະເມີນ ແລະ ບໍ່ມີຫຍັງຖືກອັບໂຫລດ."
-  },
-  "statusBlockedVisits": {
-    "message": "ການເຂົ້າຊົມທີ່ຖືກບລັອກ"
-  },
   "statusEstimatedSavings": {
     "message": "ການປະຢັດໂດຍປະມານ"
   },
   "avgMealCostLabel": {
     "message": "ຄ່າອາຫານສະເລ່ຍ"
-  },
-  "avgMealCostHint": {
-    "message": "ໃຊ້ເພື່ອປະເມີນເງິນທີ່ປະຢັດເມື່ອເຈົ້າຂ້າມການສັ່ງ. ບັນທຶກຢູ່ໃນອຸປະກອນຂອງເຈົ້າເທົ່ານັ້ນ."
   },
   "resetHeading": {
     "message": "ຣີເຊັດ ແລະ ຂໍ້ມູນ"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "ສີຮູບແບບ ແລະ ໂໝດແຈ້ງ/ມືດ."
   },
-  "resetPreferencesButton": {
-    "message": "ຣີເຊັດສູດ ແລະ ການຕັ້ງຄ່າ"
-  },
-  "resetPreferencesHint": {
-    "message": "ຄ່າອາຫານສະເລ່ຍ, ການຕັ້ງຄ່າແຄລໍຣີ, ແລະ ສະຖິຕິທີ່ບັນທຶກໄວ້."
-  },
   "factoryResetButton": {
     "message": "ຣີເຊັດໂຮງງານ"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "ຣີເຊັດຮູບແບບ ແລະ ຮູບລັກສະນະໄປສູ່ໂໝດມືດເລີ່ມຕົ້ນບໍ?"
   },
-  "confirmResetPreferences": {
-    "message": "ຣີເຊັດການຕັ້ງຄ່າຄ່າໃຊ້ຈ່າຍ ແລະ ແຄລໍຣີ, ພ້ອມທັງສະຖິຕິການປະຢັດ ແລະ ແຄລໍຣີທີ່ຫຼີກລ່ຽງບໍ?"
-  },
   "confirmFactoryReset": {
     "message": "ຣີເຊັດໂຮງງານ FitShield ບໍ? ນີ້ຈະລຶບການຕັ້ງຄ່າ, ເວັບໄຊກຳນົດເອງ ແລະ ສະຖິຕິທັງໝົດໃນອຸປະກອນນີ້. ບໍ່ສາມາດກັບຄືນໄດ້."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "ສຳເລັດ. ກຳລັງໂຫລດຄືນ…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "ແຄລໍຣີທີ່ຫຼີກລ່ຽງ"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "ແຄລໍຣີອາຫານສະເລ່ຍ"
-  },
-  "avgMealCaloriesHint": {
-    "message": "ໃຊ້ເພື່ອປະເມີນແຄລໍຣີທີ່ຫຼີກລ່ຽງເມື່ອເຈົ້າເລືອກສູດແທນ. ບັນທຶກຢູ່ໃນອຸປະກອນຂອງເຈົ້າເທົ່ານັ້ນ."
   },
   "reorderCardLabel": {
     "message": "ຈັດລຳດັບບັດໃໝ່: $1. ໃຊ້ປຸ່ມລູກສອນເພື່ອຍ້າຍ."

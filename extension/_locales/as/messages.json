@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "আপোনাৰ পৰিসংখ্যা"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield-এ আপোনাক কি এৰাই চলিবলৈ সহায় কৰিলে তাৰ ডিভাইচতে থকা এটা ব্যক্তিগত আনুমানিক হিচাপ। এইবোৰ আনুমানিক আৰু একো আপলোড নহয়।"
-  },
-  "statusBlockedVisits": {
-    "message": "অৱৰোধিত পৰিদৰ্শন"
-  },
   "statusEstimatedSavings": {
     "message": "আনুমানিক সাশ্ৰয়"
   },
   "avgMealCostLabel": {
     "message": "গড় আহাৰৰ খৰচ"
-  },
-  "avgMealCostHint": {
-    "message": "এটা অৰ্ডাৰ এৰিলে সাশ্ৰয় হোৱা টকা আনুমানিক কৰিবলৈ ব্যৱহাৰ হয়। কেৱল আপোনাৰ ডিভাইচত সংৰক্ষিত।"
   },
   "resetHeading": {
     "message": "ৰিছেট আৰু ডেটা"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "থীম ৰং আৰু পোহৰ/আন্ধাৰ ম’ড।"
   },
-  "resetPreferencesButton": {
-    "message": "ৰেচিপি আৰু পছন্দ ৰিছেট কৰক"
-  },
-  "resetPreferencesHint": {
-    "message": "গড় আহাৰৰ খৰচ, কেলৰি ছেটিং, আৰু আপোনাৰ সংৰক্ষিত পৰিসংখ্যা।"
-  },
   "factoryResetButton": {
     "message": "ফেক্টৰী ৰিছেট"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "থীম আৰু ৰূপ ডিফল্ট আন্ধাৰ ম’ডলৈ ৰিছেট কৰিবনে?"
   },
-  "confirmResetPreferences": {
-    "message": "আপোনাৰ খৰচ আৰু কেলৰি পছন্দ, লগতে সাশ্ৰয় আৰু এৰাই চলা-কেলৰি পৰিসংখ্যা ৰিছেট কৰিবনে?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield ফেক্টৰী ৰিছেট কৰিবনে? ই এই ডিভাইচৰ সকলো ছেটিং, কাষ্টম ছাইট আৰু পৰিসংখ্যা মচি পেলায়। ইয়াক পূৰ্বাৱস্থালৈ নিব নোৱাৰি।"
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "সম্পূৰ্ণ হ’ল। পুনৰ ল’ড হৈ আছে…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "এৰাই চলা কেলৰি"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "গড় আহাৰৰ কেলৰি"
-  },
-  "avgMealCaloriesHint": {
-    "message": "তাৰ সলনি এটা ৰেচিপি বাছিলে এৰাই চলা কেলৰি আনুমানিক কৰিবলৈ ব্যৱহাৰ হয়। কেৱল আপোনাৰ ডিভাইচত সংৰক্ষিত।"
   },
   "reorderCardLabel": {
     "message": "কাৰ্ড পুনৰ সজাওক: $1। স্থানান্তৰ কৰিবলৈ কাঁড় কী ব্যৱহাৰ কৰক।"

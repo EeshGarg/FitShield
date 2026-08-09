@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Ваша статыстыка"
   },
-  "protectionStatusIntro": {
-    "message": "Прыватная ацэнка на прыладзе таго, што FitShield дапамог вам прапусціць. Гэта ацэнкі, і нічога не запампоўваецца."
-  },
-  "statusBlockedVisits": {
-    "message": "Заблакіраваныя наведванні"
-  },
   "statusEstimatedSavings": {
     "message": "Прыблізная эканомія"
   },
   "avgMealCostLabel": {
     "message": "Сярэдні кошт прыёму ежы"
-  },
-  "avgMealCostHint": {
-    "message": "Выкарыстоўваецца для ацэнкі зэканомленых грошай, калі вы прапускаеце замову. Захоўваецца толькі на вашай прыладзе."
   },
   "resetHeading": {
     "message": "Скід і даныя"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Колеры тэмы і светлы/цёмны рэжым."
   },
-  "resetPreferencesButton": {
-    "message": "Скінуць рэцэпты і налады"
-  },
-  "resetPreferencesHint": {
-    "message": "Сярэдні кошт прыёму ежы, налады калорый і захаваная статыстыка."
-  },
   "factoryResetButton": {
     "message": "Заводскі скід"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Скінуць тэму і выгляд да прадвызначанага цёмнага рэжыму?"
   },
-  "confirmResetPreferences": {
-    "message": "Скінуць налады кошту і калорый, а таксама статыстыку эканоміі і пазбегнутых калорый?"
-  },
   "confirmFactoryReset": {
     "message": "Зрабіць заводскі скід FitShield? Гэта сцірае ўсе налады, уласныя сайты і статыстыку на гэтай прыладзе. Нельга адмяніць."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Гатова. Перазагрузка…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Пазбегнутыя калорыі"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Сярэднія калорыі прыёму ежы"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Выкарыстоўваецца для ацэнкі пазбегнутых калорый, калі вы замест гэтага выбіраеце рэцэпт. Захоўваецца толькі на вашай прыладзе."
   },
   "reorderCardLabel": {
     "message": "Перапарадкаваць картку: $1. Для перамяшчэння карыстайцеся стрэлкамі."

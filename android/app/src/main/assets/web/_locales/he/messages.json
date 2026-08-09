@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "הסטטיסטיקה שלך"
   },
-  "protectionStatusIntro": {
-    "message": "הערכה פרטית במכשיר שלך של מה ש-FitShield עזר לך לדלג עליו. אלה הערכות ושום דבר לא מועלה."
-  },
-  "statusBlockedVisits": {
-    "message": "ביקורים חסומים"
-  },
   "statusEstimatedSavings": {
     "message": "חיסכון משוער"
   },
   "avgMealCostLabel": {
     "message": "עלות ארוחה ממוצעת"
-  },
-  "avgMealCostHint": {
-    "message": "משמש להערכת הכסף שנחסך כשמדלגים על הזמנה. נשמר רק במכשיר שלך."
   },
   "resetHeading": {
     "message": "איפוס ונתונים"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "צבעי ערכה ומצב בהיר/כהה."
   },
-  "resetPreferencesButton": {
-    "message": "איפוס מתכונים והעדפות"
-  },
-  "resetPreferencesHint": {
-    "message": "עלות ארוחה ממוצעת, הגדרות קלוריות והסטטיסטיקה השמורה שלך."
-  },
   "factoryResetButton": {
     "message": "איפוס להגדרות יצרן"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "לאפס את הערכה והמראה למצב הכהה כברירת מחדל?"
   },
-  "confirmResetPreferences": {
-    "message": "לאפס את העדפות העלות והקלוריות, וגם את סטטיסטיקות החיסכון והקלוריות שנמנעו?"
-  },
   "confirmFactoryReset": {
     "message": "לאפס את FitShield להגדרות יצרן? פעולה זו מוחקת את כל ההגדרות, האתרים המותאמים והסטטיסטיקה במכשיר הזה. אי אפשר לבטל."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "בוצע. טוען מחדש…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "קלוריות שנמנעו"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "קלוריות ממוצעות לארוחה"
-  },
-  "avgMealCaloriesHint": {
-    "message": "משמש להערכת הקלוריות שנמנעו כשבוחרים מתכון במקום. נשמר רק במכשיר שלך."
   },
   "reorderCardLabel": {
     "message": "שינוי סדר כרטיס: $1. השתמש במקשי החצים כדי להזיז."

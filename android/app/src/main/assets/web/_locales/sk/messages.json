@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Vaše štatistiky"
   },
-  "protectionStatusIntro": {
-    "message": "Súkromný odhad priamo v zariadení o tom, čo vám FitShield pomohol vynechať. Sú to odhady a nič sa nenahráva."
-  },
-  "statusBlockedVisits": {
-    "message": "Zablokované návštevy"
-  },
   "statusEstimatedSavings": {
     "message": "Odhadovaná úspora"
   },
   "avgMealCostLabel": {
     "message": "Priemerná cena jedla"
-  },
-  "avgMealCostHint": {
-    "message": "Slúži na odhad ušetrených peňazí, keď vynecháte objednávku. Uložené len vo vašom zariadení."
   },
   "resetHeading": {
     "message": "Obnovenie a údaje"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Farby motívu a svetlý/tmavý režim."
   },
-  "resetPreferencesButton": {
-    "message": "Obnoviť recepty a predvoľby"
-  },
-  "resetPreferencesHint": {
-    "message": "Priemerná cena jedla, nastavenia kalórií a uložené štatistiky."
-  },
   "factoryResetButton": {
     "message": "Továrenské nastavenia"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Obnoviť motív a vzhľad na predvolený tmavý režim?"
   },
-  "confirmResetPreferences": {
-    "message": "Obnoviť predvoľby ceny a kalórií aj štatistiky úspor a ušetrených kalórií?"
-  },
   "confirmFactoryReset": {
     "message": "Obnoviť FitShield do továrenských nastavení? Vymaže to všetky nastavenia, vlastné weby a štatistiky v tomto zariadení. Nedá sa vrátiť späť."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Hotovo. Načítava sa…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Ušetrené kalórie"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Priemerné kalórie jedla"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Slúži na odhad ušetrených kalórií, keď namiesto toho zvolíte recept. Uložené len vo vašom zariadení."
   },
   "reorderCardLabel": {
     "message": "Zmeniť poradie karty: $1. Na presun použite šípky."

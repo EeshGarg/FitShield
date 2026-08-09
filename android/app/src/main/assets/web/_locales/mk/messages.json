@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Вашата статистика"
   },
-  "protectionStatusIntro": {
-    "message": "Приватна проценка на уредот за тоа што FitShield ви помогна да прескокнете. Ова се проценки и ништо не се прикачува."
-  },
-  "statusBlockedVisits": {
-    "message": "Блокирани посети"
-  },
   "statusEstimatedSavings": {
     "message": "Проценета заштеда"
   },
   "avgMealCostLabel": {
     "message": "Просечна цена на оброк"
-  },
-  "avgMealCostHint": {
-    "message": "Се користи за проценка на заштедените пари кога прескокнувате нарачка. Се чува само на вашиот уред."
   },
   "resetHeading": {
     "message": "Ресетирање и податоци"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Бои на темата и светол/темен режим."
   },
-  "resetPreferencesButton": {
-    "message": "Ресетирај рецепти и преференци"
-  },
-  "resetPreferencesHint": {
-    "message": "Просечна цена на оброк, поставки за калории и зачуваната статистика."
-  },
   "factoryResetButton": {
     "message": "Фабричко ресетирање"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Да се ресетираат темата и изгледот на стандардниот темен режим?"
   },
-  "confirmResetPreferences": {
-    "message": "Да се ресетираат преференците за цена и калории, плус статистиката за заштеда и избегнати калории?"
-  },
   "confirmFactoryReset": {
     "message": "Фабричко ресетирање на FitShield? Ова брише сите поставки, прилагодени сајтови и статистика на овој уред. Не може да се врати."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Готово. Се вчитува повторно…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Избегнати калории"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Просечни калории на оброк"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Се користи за проценка на избегнатите калории кога наместо тоа избирате рецепт. Се чува само на вашиот уред."
   },
   "reorderCardLabel": {
     "message": "Преподреди ја картичката: $1. Користете ги стрелките за да ја поместите."

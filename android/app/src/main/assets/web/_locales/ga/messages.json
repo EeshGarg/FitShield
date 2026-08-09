@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Do staitisticí"
   },
-  "protectionStatusIntro": {
-    "message": "Meastachán príobháideach ar an ngléas ar a bhfuil FitShield tar éis cabhrú leat a scipeáil. Meastacháin iad seo agus ní uaslódáiltear aon rud."
-  },
-  "statusBlockedVisits": {
-    "message": "Cuairteanna bactha"
-  },
   "statusEstimatedSavings": {
     "message": "Coigilteas measta"
   },
   "avgMealCostLabel": {
     "message": "Meánchostas béile"
-  },
-  "avgMealCostHint": {
-    "message": "Úsáidtear é chun an t-airgead a sábháiltear a mheas nuair a scipeálann tú ordú. Stóráilte ar do ghléas amháin."
   },
   "resetHeading": {
     "message": "Athshocrú agus sonraí"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Dathanna téama agus mód geal/dorcha."
   },
-  "resetPreferencesButton": {
-    "message": "Athshocraigh oidis agus roghanna"
-  },
-  "resetPreferencesHint": {
-    "message": "Meánchostas béile, socruithe calraí, agus do staitisticí sábháilte."
-  },
   "factoryResetButton": {
     "message": "Athshocrú monarchan"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Athshocraigh an téama agus an chuma go dtí an mód dorcha réamhshocraithe?"
   },
-  "confirmResetPreferences": {
-    "message": "Athshocraigh do roghanna costais agus calraí, móide na staitisticí airgid shábháilte agus calraí a seachnaíodh?"
-  },
   "confirmFactoryReset": {
     "message": "Athshocrú monarchan FitShield? Scriosann sé seo gach socrú, suíomh saincheaptha agus staitistic ar an ngléas seo. Ní féidir é a chealú."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Déanta. Ag athlódáil…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Calraí a seachnaíodh"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Meánchalraí béile"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Úsáidtear é chun na calraí a seachnaíodh a mheas nuair a roghnaíonn tú oideas ina ionad. Stóráilte ar do ghléas amháin."
   },
   "reorderCardLabel": {
     "message": "Atheagraigh cárta: $1. Úsáid na heochracha saighde chun é a bhogadh."

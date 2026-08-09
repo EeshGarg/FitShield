@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Iyong Stats"
   },
-  "protectionStatusIntro": {
-    "message": "Isang pribadong pagtatantya sa device ng kung ano ang natulungan kang laktawan ng FitShield. Mga tantya ito at walang ina-upload."
-  },
-  "statusBlockedVisits": {
-    "message": "Na-block na pagbisita"
-  },
   "statusEstimatedSavings": {
     "message": "Tinatayang naipon"
   },
   "avgMealCostLabel": {
     "message": "Karaniwang halaga ng pagkain"
-  },
-  "avgMealCostHint": {
-    "message": "Ginagamit para tantyahin ang naipong pera kapag nilaktawan mo ang isang order. Naka-store lang sa device mo."
   },
   "resetHeading": {
     "message": "I-reset at Data"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Mga kulay ng tema at light/dark mode."
   },
-  "resetPreferencesButton": {
-    "message": "I-reset ang recipe at mga kagustuhan"
-  },
-  "resetPreferencesHint": {
-    "message": "Karaniwang halaga ng pagkain, mga setting ng calorie, at iyong naka-save na stats."
-  },
   "factoryResetButton": {
     "message": "Factory reset"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "I-reset ang tema at itsura sa default na dark mode?"
   },
-  "confirmResetPreferences": {
-    "message": "I-reset ang iyong mga kagustuhan sa halaga at calorie, pati ang stats ng naipon at naiwasang calories?"
-  },
   "confirmFactoryReset": {
     "message": "Factory reset ang FitShield? Buburahin nito ang lahat ng setting, custom na site, at stats sa device na ito. Hindi ito maibabalik."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Tapos na. Niri-reload…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Naiwasang calories"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Karaniwang calories ng pagkain"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Ginagamit para tantyahin ang naiwasang calories kapag pumili ka ng recipe sa halip. Naka-store lang sa device mo."
   },
   "reorderCardLabel": {
     "message": "Ayusin muli ang card: $1. Gamitin ang arrow keys para igalaw ito."

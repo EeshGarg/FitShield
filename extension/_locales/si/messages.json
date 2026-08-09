@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "ඔබේ සංඛ්‍යාලේඛන"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield ඔබට මඟ හැරීමට උදව් කළ දේ පිළිබඳ උපාංගයේම ඇති පෞද්ගලික ඇස්තමේන්තුවක්. මේවා ඇස්තමේන්තු වන අතර කිසිවක් උඩුගත නොවේ."
-  },
-  "statusBlockedVisits": {
-    "message": "අවහිර කළ පිවිසුම්"
-  },
   "statusEstimatedSavings": {
     "message": "ඇස්තමේන්තුගත ඉතිරිය"
   },
   "avgMealCostLabel": {
     "message": "සාමාන්‍ය ආහාර වියදම"
-  },
-  "avgMealCostHint": {
-    "message": "ඇණවුමක් මඟ හරින විට ඉතිරි කළ මුදල් ඇස්තමේන්තු කිරීමට භාවිතා වේ. ඔබේ උපාංගයේ පමණක් ගබඩා වේ."
   },
   "resetHeading": {
     "message": "යළි සැකසීම සහ දත්ත"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "තේමා වර්ණ සහ ආලෝක/අඳුරු ආකාරය."
   },
-  "resetPreferencesButton": {
-    "message": "වට්ටෝරු සහ අභිප්‍රේත යළි සකසන්න"
-  },
-  "resetPreferencesHint": {
-    "message": "සාමාන්‍ය ආහාර වියදම, කැලරි සැකසීම්, සහ ඔබේ සුරැකි සංඛ්‍යාලේඛන."
-  },
   "factoryResetButton": {
     "message": "කර්මාන්තශාලා යළි සැකසීම"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "තේමාව සහ පෙනුම පෙරනිමි අඳුරු ආකාරයට යළි සකසනවාද?"
   },
-  "confirmResetPreferences": {
-    "message": "ඔබේ වියදම් සහ කැලරි අභිප්‍රේත, මෙන්ම ඉතිරිය සහ වැළැක්වූ-කැලරි සංඛ්‍යාලේඛන යළි සකසනවාද?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield කර්මාන්තශාලා යළි සකසනවාද? මෙය මෙම උපාංගයේ සියලුම සැකසීම්, අභිරුචි අඩවි සහ සංඛ්‍යාලේඛන මකයි. මෙය පෙරළිය නොහැක."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "අවසන්. නැවත පූරණය වෙමින්…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "වැළැක්වූ කැලරි"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "සාමාන්‍ය ආහාර කැලරි"
-  },
-  "avgMealCaloriesHint": {
-    "message": "ඒ වෙනුවට වට්ටෝරුවක් තෝරන විට වැළැක්වූ කැලරි ඇස්තමේන්තු කිරීමට භාවිතා වේ. ඔබේ උපාංගයේ පමණක් ගබඩා වේ."
   },
   "reorderCardLabel": {
     "message": "කාඩ්පත නැවත අනුපිළිවෙළ කරන්න: $1. ගෙනයාමට ඊතල යතුරු භාවිතා කරන්න."

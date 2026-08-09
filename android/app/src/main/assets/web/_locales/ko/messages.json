@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "내 통계"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield가 건너뛰도록 도와준 내용을 기기 안에서만 추정한 값이에요. 추정치이며 아무것도 업로드되지 않습니다."
-  },
-  "statusBlockedVisits": {
-    "message": "차단된 방문"
-  },
   "statusEstimatedSavings": {
     "message": "예상 절약액"
   },
   "avgMealCostLabel": {
     "message": "평균 한 끼 비용"
-  },
-  "avgMealCostHint": {
-    "message": "주문을 건너뛸 때 절약한 금액을 추정하는 데 쓰여요. 기기에만 저장됩니다."
   },
   "resetHeading": {
     "message": "초기화 및 데이터"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "테마 색상과 라이트/다크 모드."
   },
-  "resetPreferencesButton": {
-    "message": "레시피 및 환경설정 초기화"
-  },
-  "resetPreferencesHint": {
-    "message": "평균 한 끼 비용, 칼로리 설정, 저장된 통계."
-  },
   "factoryResetButton": {
     "message": "공장 초기화"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "테마와 외관을 기본 다크 모드로 초기화할까요?"
   },
-  "confirmResetPreferences": {
-    "message": "비용 및 칼로리 환경설정과 절약액·피한 칼로리 통계를 초기화할까요?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield를 공장 초기화할까요? 이 기기의 모든 설정, 사용자 사이트, 통계가 지워집니다. 되돌릴 수 없습니다."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "완료. 다시 불러오는 중…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "피한 칼로리"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "평균 한 끼 칼로리"
-  },
-  "avgMealCaloriesHint": {
-    "message": "대신 레시피를 고를 때 피한 칼로리를 추정하는 데 쓰여요. 기기에만 저장됩니다."
   },
   "reorderCardLabel": {
     "message": "카드 순서 변경: $1. 화살표 키로 이동하세요."

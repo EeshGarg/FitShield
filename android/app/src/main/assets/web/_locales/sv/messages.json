@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Din statistik"
   },
-  "protectionStatusIntro": {
-    "message": "En privat uppskattning på enheten av vad FitShield hjälpt dig att hoppa över. Detta är uppskattningar och inget laddas upp."
-  },
-  "statusBlockedVisits": {
-    "message": "Blockerade besök"
-  },
   "statusEstimatedSavings": {
     "message": "Uppskattad besparing"
   },
   "avgMealCostLabel": {
     "message": "Genomsnittlig måltidskostnad"
-  },
-  "avgMealCostHint": {
-    "message": "Används för att uppskatta pengar du sparar när du hoppar över en beställning. Lagras endast på din enhet."
   },
   "resetHeading": {
     "message": "Återställ och data"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Temafärger och ljust/mörkt läge."
   },
-  "resetPreferencesButton": {
-    "message": "Återställ recept och inställningar"
-  },
-  "resetPreferencesHint": {
-    "message": "Genomsnittlig måltidskostnad, kaloriinställningar och din sparade statistik."
-  },
   "factoryResetButton": {
     "message": "Fabriksåterställning"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Återställa tema och utseende till standardmörkt läge?"
   },
-  "confirmResetPreferences": {
-    "message": "Återställa dina kostnads- och kaloriinställningar samt statistik för sparade pengar och undvikna kalorier?"
-  },
   "confirmFactoryReset": {
     "message": "Fabriksåterställa FitShield? Detta raderar alla inställningar, egna webbplatser och statistik på den här enheten. Kan inte ångras."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Klart. Läser om…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Undvikna kalorier"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Genomsnittliga måltidskalorier"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Används för att uppskatta kalorier du undviker när du väljer ett recept istället. Lagras endast på din enhet."
   },
   "reorderCardLabel": {
     "message": "Ändra ordning på kort: $1. Använd piltangenterna för att flytta."

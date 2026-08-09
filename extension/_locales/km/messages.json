@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "ស្ថិតិរបស់អ្នក"
   },
-  "protectionStatusIntro": {
-    "message": "ការប៉ាន់ស្មានឯកជននៅលើឧបករណ៍អំពីអ្វីដែល FitShield បានជួយអ្នករំលង។ ទាំងនេះជាការប៉ាន់ស្មាន ហើយគ្មានអ្វីត្រូវបានផ្ទុកឡើងទេ។"
-  },
-  "statusBlockedVisits": {
-    "message": "ការចូលមើលដែលបានទប់ស្កាត់"
-  },
   "statusEstimatedSavings": {
     "message": "ការសន្សំប៉ាន់ស្មាន"
   },
   "avgMealCostLabel": {
     "message": "តម្លៃអាហារជាមធ្យម"
-  },
-  "avgMealCostHint": {
-    "message": "ប្រើដើម្បីប៉ាន់ប្រាក់ដែលសន្សំនៅពេលអ្នករំលងការបញ្ជាទិញ។ រក្សាទុកតែនៅលើឧបករណ៍របស់អ្នកប៉ុណ្ណោះ។"
   },
   "resetHeading": {
     "message": "កំណត់ឡើងវិញ និងទិន្នន័យ"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "ពណ៌ស្បែក និងរបៀបភ្លឺ/ងងឹត។"
   },
-  "resetPreferencesButton": {
-    "message": "កំណត់រូបមន្ត និងចំណូលចិត្តឡើងវិញ"
-  },
-  "resetPreferencesHint": {
-    "message": "តម្លៃអាហារជាមធ្យម ការកំណត់កាឡូរី និងស្ថិតិដែលបានរក្សាទុករបស់អ្នក។"
-  },
   "factoryResetButton": {
     "message": "កំណត់ដូចចេញពីរោងចក្រ"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "កំណត់ស្បែក និងរូបរាងទៅរបៀបងងឹតលំនាំដើមឬ?"
   },
-  "confirmResetPreferences": {
-    "message": "កំណត់ចំណូលចិត្តតម្លៃ និងកាឡូរី ព្រមទាំងស្ថិតិសន្សំ និងកាឡូរីដែលជៀសវាងឡើងវិញឬ?"
-  },
   "confirmFactoryReset": {
     "message": "កំណត់ FitShield ដូចចេញពីរោងចក្រឬ? វាលុបការកំណត់ គេហទំព័រផ្ទាល់ខ្លួន និងស្ថិតិទាំងអស់នៅលើឧបករណ៍នេះ។ មិនអាចត្រឡប់វិញបានទេ។"
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "រួចរាល់។ កំពុងផ្ទុកឡើងវិញ…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "កាឡូរីដែលជៀសវាង"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "កាឡូរីអាហារជាមធ្យម"
-  },
-  "avgMealCaloriesHint": {
-    "message": "ប្រើដើម្បីប៉ាន់កាឡូរីដែលជៀសវាងនៅពេលអ្នកជ្រើសរើសរូបមន្តជំនួសវិញ។ រក្សាទុកតែនៅលើឧបករណ៍របស់អ្នកប៉ុណ្ណោះ។"
   },
   "reorderCardLabel": {
     "message": "រៀបចំកាតឡើងវិញ៖ $1។ ប្រើគ្រាប់ចុចព្រួញដើម្បីផ្លាស់ទី។"

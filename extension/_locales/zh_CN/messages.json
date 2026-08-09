@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "你的统计"
   },
-  "protectionStatusIntro": {
-    "message": "在你设备本地对 FitShield 帮你跳过内容的私密估算。这些只是估算，不会上传任何内容。"
-  },
-  "statusBlockedVisits": {
-    "message": "已拦截的访问"
-  },
   "statusEstimatedSavings": {
     "message": "预计省下"
   },
   "avgMealCostLabel": {
     "message": "每餐平均花费"
-  },
-  "avgMealCostHint": {
-    "message": "用于估算放弃一次下单省下的钱。仅保存在你的设备上。"
   },
   "resetHeading": {
     "message": "重置与数据"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "主题颜色和浅色/深色模式。"
   },
-  "resetPreferencesButton": {
-    "message": "重置食谱与偏好"
-  },
-  "resetPreferencesHint": {
-    "message": "每餐平均花费、卡路里设置，以及已保存的统计。"
-  },
   "factoryResetButton": {
     "message": "恢复出厂"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "将主题和外观重置为默认深色模式？"
   },
-  "confirmResetPreferences": {
-    "message": "重置花费和卡路里偏好，以及省钱和避免卡路里的统计？"
-  },
   "confirmFactoryReset": {
     "message": "将 FitShield 恢复出厂设置？这会清除本设备上的所有设置、自定义网站和统计。无法撤销。"
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "完成。正在重新加载…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "避免的卡路里"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "每餐平均卡路里"
-  },
-  "avgMealCaloriesHint": {
-    "message": "用于估算改选食谱时避免的卡路里。仅保存在你的设备上。"
   },
   "reorderCardLabel": {
     "message": "重新排序卡片：$1。用方向键移动。"

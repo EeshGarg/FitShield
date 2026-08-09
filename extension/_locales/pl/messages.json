@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Twoje statystyki"
   },
-  "protectionStatusIntro": {
-    "message": "Prywatne oszacowanie na Twoim urządzeniu tego, czego FitShield pomógł uniknąć. To szacunki i nic nie jest wysyłane."
-  },
-  "statusBlockedVisits": {
-    "message": "Zablokowane wizyty"
-  },
   "statusEstimatedSavings": {
     "message": "Szacowane oszczędności"
   },
   "avgMealCostLabel": {
     "message": "Średni koszt posiłku"
-  },
-  "avgMealCostHint": {
-    "message": "Służy do szacowania zaoszczędzonych pieniędzy, gdy rezygnujesz z zamówienia. Zapisywane tylko na Twoim urządzeniu."
   },
   "resetHeading": {
     "message": "Reset i dane"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Kolory motywu i tryb jasny/ciemny."
   },
-  "resetPreferencesButton": {
-    "message": "Resetuj przepisy i preferencje"
-  },
-  "resetPreferencesHint": {
-    "message": "Średni koszt posiłku, ustawienia kalorii i zapisane statystyki."
-  },
   "factoryResetButton": {
     "message": "Reset do ustawień fabrycznych"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Zresetować motyw i wygląd do domyślnego trybu ciemnego?"
   },
-  "confirmResetPreferences": {
-    "message": "Zresetować preferencje kosztu i kalorii oraz statystyki oszczędności i uniknietych kalorii?"
-  },
   "confirmFactoryReset": {
     "message": "Przywrócić FitShield do ustawień fabrycznych? To usunie wszystkie ustawienia, własne witryny i statystyki na tym urządzeniu. Nie można cofnąć."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Gotowe. Ponowne ładowanie…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Uniknięte kalorie"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Średnie kalorie posiłku"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Służy do szacowania unikniętych kalorii, gdy wybierasz przepis. Zapisywane tylko na Twoim urządzeniu."
   },
   "reorderCardLabel": {
     "message": "Zmień kolejność karty: $1. Użyj strzałek, aby ją przesunąć."

@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "आपके आँकड़े"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield ने आपको जो टालने में मदद की, उसका आपके डिवाइस पर एक निजी अनुमान। ये अनुमान हैं और कुछ भी अपलोड नहीं होता।"
-  },
-  "statusBlockedVisits": {
-    "message": "अवरुद्ध विज़िट"
-  },
   "statusEstimatedSavings": {
     "message": "अनुमानित बचत"
   },
   "avgMealCostLabel": {
     "message": "औसत भोजन लागत"
-  },
-  "avgMealCostHint": {
-    "message": "ऑर्डर टालने पर बची राशि का अनुमान लगाने के लिए। केवल आपके डिवाइस पर सहेजी जाती है।"
   },
   "resetHeading": {
     "message": "रीसेट और डेटा"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "थीम रंग और लाइट/डार्क मोड।"
   },
-  "resetPreferencesButton": {
-    "message": "रेसिपी और प्राथमिकताएँ रीसेट करें"
-  },
-  "resetPreferencesHint": {
-    "message": "औसत भोजन लागत, कैलोरी सेटिंग्स और आपके सहेजे आँकड़े।"
-  },
   "factoryResetButton": {
     "message": "फ़ैक्टरी रीसेट"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "थीम और रूप को डिफ़ॉल्ट डार्क मोड पर रीसेट करें?"
   },
-  "confirmResetPreferences": {
-    "message": "अपनी लागत और कैलोरी प्राथमिकताएँ, साथ ही बचत और बची-कैलोरी के आँकड़े रीसेट करें?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield को फ़ैक्टरी रीसेट करें? यह इस डिवाइस की सभी सेटिंग्स, कस्टम साइटें और आँकड़े मिटा देगा। इसे पूर्ववत नहीं किया जा सकता।"
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "हो गया। पुनः लोड हो रहा है…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "बची कैलोरी"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "औसत भोजन कैलोरी"
-  },
-  "avgMealCaloriesHint": {
-    "message": "रेसिपी चुनने पर बची कैलोरी का अनुमान लगाने के लिए। केवल आपके डिवाइस पर सहेजी जाती है।"
   },
   "reorderCardLabel": {
     "message": "कार्ड पुनः क्रमित करें: $1. इसे हिलाने के लिए तीर कुंजियाँ इस्तेमाल करें।"

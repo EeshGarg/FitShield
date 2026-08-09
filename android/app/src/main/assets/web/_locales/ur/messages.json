@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "آپ کے اعدادوشمار"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield نے آپ کو کیا چھوڑنے میں مدد کی، اس کا آلے ہی پر موجود نجی تخمینہ۔ یہ تخمینے ہیں اور کچھ بھی اپ لوڈ نہیں ہوتا۔"
-  },
-  "statusBlockedVisits": {
-    "message": "مسدود دورے"
-  },
   "statusEstimatedSavings": {
     "message": "تخمینی بچت"
   },
   "avgMealCostLabel": {
     "message": "اوسط کھانے کی لاگت"
-  },
-  "avgMealCostHint": {
-    "message": "کسی آرڈر کو چھوڑنے پر بچائے گئے پیسوں کا تخمینہ لگانے کے لیے استعمال ہوتا ہے۔ صرف آپ کے آلے پر محفوظ ہوتا ہے۔"
   },
   "resetHeading": {
     "message": "ری سیٹ اور ڈیٹا"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "تھیم کے رنگ اور روشن/تاریک موڈ۔"
   },
-  "resetPreferencesButton": {
-    "message": "ترکیبیں اور ترجیحات ری سیٹ کریں"
-  },
-  "resetPreferencesHint": {
-    "message": "اوسط کھانے کی لاگت، کیلوری کی ترتیبات، اور آپ کے محفوظ اعدادوشمار۔"
-  },
   "factoryResetButton": {
     "message": "فیکٹری ری سیٹ"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "تھیم اور ظاہری شکل کو طے شدہ تاریک موڈ پر ری سیٹ کریں؟"
   },
-  "confirmResetPreferences": {
-    "message": "اپنی لاگت اور کیلوری کی ترجیحات، نیز بچت اور بچائی گئی کیلوری کے اعدادوشمار ری سیٹ کریں؟"
-  },
   "confirmFactoryReset": {
     "message": "FitShield کو فیکٹری ری سیٹ کریں؟ یہ اس آلے کی تمام ترتیبات، حسب ضرورت سائٹس اور اعدادوشمار مٹا دیتا ہے۔ اسے واپس نہیں کیا جا سکتا۔"
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "ہو گیا۔ دوبارہ لوڈ ہو رہا ہے…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "بچائی گئی کیلوریز"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "اوسط کھانے کی کیلوریز"
-  },
-  "avgMealCaloriesHint": {
-    "message": "اس کے بجائے کوئی ترکیب منتخب کرنے پر بچائی گئی کیلوریز کا تخمینہ لگانے کے لیے استعمال ہوتا ہے۔ صرف آپ کے آلے پر محفوظ ہوتا ہے۔"
   },
   "reorderCardLabel": {
     "message": "کارڈ کی ترتیب بدلیں: $1۔ منتقل کرنے کے لیے تیر کی کلیدیں استعمال کریں۔"

@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "तुमची आकडेवारी"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield ने तुम्हाला काय टाळण्यास मदत केली याचा डिव्हाइसवरीलच एक खाजगी अंदाज. हे अंदाज आहेत आणि काहीही अपलोड होत नाही."
-  },
-  "statusBlockedVisits": {
-    "message": "अवरोधित भेटी"
-  },
   "statusEstimatedSavings": {
     "message": "अंदाजित बचत"
   },
   "avgMealCostLabel": {
     "message": "सरासरी जेवण खर्च"
-  },
-  "avgMealCostHint": {
-    "message": "ऑर्डर टाळल्यावर वाचलेल्या पैशांचा अंदाज लावण्यासाठी वापरले जाते. फक्त तुमच्या डिव्हाइसवर साठवले जाते."
   },
   "resetHeading": {
     "message": "रीसेट आणि डेटा"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "थीम रंग आणि लाइट/डार्क मोड."
   },
-  "resetPreferencesButton": {
-    "message": "रेसिपी आणि प्राधान्ये रीसेट करा"
-  },
-  "resetPreferencesHint": {
-    "message": "सरासरी जेवण खर्च, कॅलरी सेटिंग्ज आणि तुमची जतन केलेली आकडेवारी."
-  },
   "factoryResetButton": {
     "message": "फॅक्टरी रीसेट"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "थीम आणि देखावा डीफॉल्ट डार्क मोडवर रीसेट करायचा?"
   },
-  "confirmResetPreferences": {
-    "message": "तुमची खर्च आणि कॅलरी प्राधान्ये, तसेच बचत आणि टाळलेल्या-कॅलरी आकडेवारी रीसेट करायची?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield फॅक्टरी रीसेट करायचे? हे या डिव्हाइसवरील सर्व सेटिंग्ज, सानुकूल साइट्स आणि आकडेवारी पुसून टाकेल. हे पूर्ववत करता येत नाही."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "पूर्ण झाले. पुन्हा लोड होत आहे…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "टाळलेल्या कॅलरी"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "सरासरी जेवण कॅलरी"
-  },
-  "avgMealCaloriesHint": {
-    "message": "त्याऐवजी रेसिपी निवडल्यावर टाळलेल्या कॅलरीचा अंदाज लावण्यासाठी वापरले जाते. फक्त तुमच्या डिव्हाइसवर साठवले जाते."
   },
   "reorderCardLabel": {
     "message": "कार्ड पुन्हा क्रमवारी लावा: $1. हलवण्यासाठी बाण की वापरा."

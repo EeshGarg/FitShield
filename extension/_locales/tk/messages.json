@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Siziň statistikaňyz"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield-iň size nämäni geçirmäge kömek edenini enjamda saklanýan şahsy çaklama. Bular çaklamalar we hiç zat ýüklenmeýär."
-  },
-  "statusBlockedVisits": {
-    "message": "Petiklenen girişler"
-  },
   "statusEstimatedSavings": {
     "message": "Çak edilen tygşytlama"
   },
   "avgMealCostLabel": {
     "message": "Ortaça nahar bahasy"
-  },
-  "avgMealCostHint": {
-    "message": "Sargydy geçireniňizde tygşytlanan puly çaklamak üçin ulanylýar. Diňe enjamyňyzda saklanýar."
   },
   "resetHeading": {
     "message": "Täzeden düzmek we maglumat"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Tema reňkleri we açyk/garaňky režim."
   },
-  "resetPreferencesButton": {
-    "message": "Reseptleri we sazlamalary täzeden düz"
-  },
-  "resetPreferencesHint": {
-    "message": "Ortaça nahar bahasy, kaloriýa sazlamalary we ýatdaky statistikaňyz."
-  },
   "factoryResetButton": {
     "message": "Zawod täzeden düzmesi"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Tema we daşky görnüş başlangyç garaňky režime dikeldilsinmi?"
   },
-  "confirmResetPreferences": {
-    "message": "Baha we kaloriýa sazlamalaryňyz, şeýle hem tygşytlama we öňi alnan kaloriýa statistikasy dikeldilsinmi?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield zawod ýagdaýyna dikeldilsinmi? Bu bu enjamdaky ähli sazlamalary, ýörite sahypalary we statistikany öçürýär. Yzyna gaýtaryp bolmaýar."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Taýýar. Täzeden ýüklenýär…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Öňi alnan kaloriýalar"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Ortaça nahar kaloriýasy"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Onuň ýerine resept saýlanyňyzda öňi alnan kaloriýalary çaklamak üçin ulanylýar. Diňe enjamyňyzda saklanýar."
   },
   "reorderCardLabel": {
     "message": "Karty täzeden tertiple: $1. Süýşürmek üçin ok düwmelerini ulan."

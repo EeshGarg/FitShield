@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "A statisztikád"
   },
-  "protectionStatusIntro": {
-    "message": "Egy privát, az eszközön készült becslés arról, mit segített kihagyni a FitShield. Ezek becslések, és semmi nem töltődik fel."
-  },
-  "statusBlockedVisits": {
-    "message": "Letiltott látogatások"
-  },
   "statusEstimatedSavings": {
     "message": "Becsült megtakarítás"
   },
   "avgMealCostLabel": {
     "message": "Átlagos étkezési költség"
-  },
-  "avgMealCostHint": {
-    "message": "A megspórolt pénz becslésére, amikor kihagysz egy rendelést. Csak az eszközödön tárolódik."
   },
   "resetHeading": {
     "message": "Visszaállítás és adatok"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Témaszínek és világos/sötét mód."
   },
-  "resetPreferencesButton": {
-    "message": "Receptek és beállítások visszaállítása"
-  },
-  "resetPreferencesHint": {
-    "message": "Átlagos étkezési költség, kalóriabeállítások és a mentett statisztikák."
-  },
   "factoryResetButton": {
     "message": "Gyári visszaállítás"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Visszaállítod a témát és a megjelenést az alapértelmezett sötét módra?"
   },
-  "confirmResetPreferences": {
-    "message": "Visszaállítod a költség- és kalóriabeállításokat, valamint a megtakarítás és elkerült kalória statisztikákat?"
-  },
   "confirmFactoryReset": {
     "message": "Gyárilag visszaállítod a FitShieldet? Ez töröl minden beállítást, egyéni webhelyet és statisztikát ezen az eszközön. Nem vonható vissza."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Kész. Újratöltés…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Elkerült kalóriák"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Átlagos étkezési kalória"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Az elkerült kalóriák becslésére, amikor inkább egy receptet választasz. Csak az eszközödön tárolódik."
   },
   "reorderCardLabel": {
     "message": "Kártya átrendezése: $1. A nyílbillentyűkkel mozgathatod."

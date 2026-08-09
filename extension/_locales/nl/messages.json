@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Je statistieken"
   },
-  "protectionStatusIntro": {
-    "message": "Een privé schatting, op je apparaat, van wat FitShield je hielp overslaan. Het zijn schattingen en er wordt niets geüpload."
-  },
-  "statusBlockedVisits": {
-    "message": "Geblokkeerde bezoeken"
-  },
   "statusEstimatedSavings": {
     "message": "Geschatte besparing"
   },
   "avgMealCostLabel": {
     "message": "Gemiddelde maaltijdkosten"
-  },
-  "avgMealCostHint": {
-    "message": "Gebruikt om het bespaarde geld te schatten als je een bestelling overslaat. Alleen op je apparaat bewaard."
   },
   "resetHeading": {
     "message": "Resetten en gegevens"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Themakleuren en lichte/donkere modus."
   },
-  "resetPreferencesButton": {
-    "message": "Recepten en voorkeuren resetten"
-  },
-  "resetPreferencesHint": {
-    "message": "Gemiddelde maaltijdkosten, calorie-instellingen en je opgeslagen stats."
-  },
   "factoryResetButton": {
     "message": "Fabrieksreset"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Thema en weergave terugzetten naar de standaard donkere modus?"
   },
-  "confirmResetPreferences": {
-    "message": "Je kosten- en calorievoorkeuren resetten, plus de bespaar- en vermeden-calorieën-stats?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield fabrieksreset uitvoeren? Dit wist alle instellingen, eigen sites en stats op dit apparaat. Dit kan niet ongedaan worden gemaakt."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Klaar. Opnieuw laden…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Vermeden calorieën"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Gemiddelde calorieën per maaltijd"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Gebruikt om de vermeden calorieën te schatten als je een recept kiest. Alleen op je apparaat bewaard."
   },
   "reorderCardLabel": {
     "message": "Kaart verplaatsen: $1. Gebruik de pijltjestoetsen."

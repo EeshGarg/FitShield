@@ -733,17 +733,20 @@
   "protectionStatusHeading": {
     "message": "Your Stats"
   },
-  "protectionStatusIntro": {
-    "message": "A private, on-device estimate of what FitShield has helped you skip. These are estimates, and nothing here is uploaded."
-  },
-  "statusBlockedVisits": {
-    "message": "Blocked visits"
+  "statsIntro": {
+    "message": "Counts of things that actually happened, kept on this device. Every number is one observed event — nothing here is inferred, and nothing is uploaded."
   },
   "statusEstimatedSavings": {
     "message": "Estimated savings"
   },
-  "statusCaloriesAvoided": {
-    "message": "Calories avoided"
+  "estimatesToggleLabel": {
+    "message": "Show an optional cost estimate"
+  },
+  "estimatesToggleHint": {
+    "message": "Off by default. It multiplies the alternatives you marked as made by a price you choose. That is an assumption, not a measurement — FitShield cannot see what you ordered or spent."
+  },
+  "estimateBasis": {
+    "message": "$1 alternatives you marked as made, at $2 each."
   },
   "statsMostBlockedSites": {
     "message": "Most blocked sites"
@@ -811,14 +814,8 @@
   "avgMealCostLabel": {
     "message": "Average meal cost"
   },
-  "avgMealCostHint": {
-    "message": "Used to estimate money saved when you skip an order. Stored on your device only."
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Average meal calories"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Used to estimate calories avoided when you pick a recipe instead. Stored on your device only."
+  "avgMealCostBasisHint": {
+    "message": "What one delivery order usually costs you. Stored on your device only."
   },
   "resetHeading": {
     "message": "Reset & Data"
@@ -838,11 +835,11 @@
   "resetAppearanceHint": {
     "message": "Theme colors and light/dark mode."
   },
-  "resetPreferencesButton": {
-    "message": "Reset recipes & preferences"
+  "resetStatsButton": {
+    "message": "Reset statistics & estimates"
   },
-  "resetPreferencesHint": {
-    "message": "Average meal cost, calorie settings, and your saved stats."
+  "resetStatsHint": {
+    "message": "Your counters, the most-blocked lists, your favourites, and the estimate settings."
   },
   "factoryResetButton": {
     "message": "Factory reset"
@@ -862,8 +859,8 @@
   "confirmResetAppearance": {
     "message": "Reset the theme and appearance to the default dark mode?"
   },
-  "confirmResetPreferences": {
-    "message": "Reset your meal-cost and calorie preferences, plus the saved-money and calories-avoided stats?"
+  "confirmResetStats": {
+    "message": "Reset every statistic, your favourites, and the estimate settings? Your blocklist, schedule, kitchen, and the alternatives you wrote yourself are kept."
   },
   "confirmFactoryReset": {
     "message": "Factory reset FitShield? This erases all settings, custom sites, and stats on this device. This cannot be undone."
@@ -1401,6 +1398,9 @@
   },
   "recapPasses": {
     "message": "Temporary passes used"
+  },
+  "recapViewed": {
+    "message": "Alternatives shown to you"
   },
   "recapSelected": {
     "message": "Alternatives you chose"

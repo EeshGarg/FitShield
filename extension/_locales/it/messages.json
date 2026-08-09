@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Le tue statistiche"
   },
-  "protectionStatusIntro": {
-    "message": "Una stima privata, sul tuo dispositivo, di ciò che FitShield ti ha aiutato a evitare. Sono stime e non viene caricato nulla."
-  },
-  "statusBlockedVisits": {
-    "message": "Visite bloccate"
-  },
   "statusEstimatedSavings": {
     "message": "Risparmio stimato"
   },
   "avgMealCostLabel": {
     "message": "Costo medio per pasto"
-  },
-  "avgMealCostHint": {
-    "message": "Serve a stimare il denaro risparmiato evitando un ordine. Salvato solo sul tuo dispositivo."
   },
   "resetHeading": {
     "message": "Reset e dati"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Colori del tema e modalità chiara/scura."
   },
-  "resetPreferencesButton": {
-    "message": "Reimposta ricette e preferenze"
-  },
-  "resetPreferencesHint": {
-    "message": "Costo medio per pasto, impostazioni calorie e le statistiche salvate."
-  },
   "factoryResetButton": {
     "message": "Ripristino di fabbrica"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Reimpostare tema e aspetto alla modalità scura predefinita?"
   },
-  "confirmResetPreferences": {
-    "message": "Reimpostare le preferenze di costo e calorie, oltre alle statistiche di risparmio e calorie evitate?"
-  },
   "confirmFactoryReset": {
     "message": "Ripristino di fabbrica di FitShield? Cancella tutte le impostazioni, i siti personalizzati e le statistiche su questo dispositivo. Non è reversibile."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Fatto. Ricaricamento…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Calorie evitate"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Calorie medie per pasto"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Serve a stimare le calorie evitate scegliendo una ricetta. Salvato solo sul tuo dispositivo."
   },
   "reorderCardLabel": {
     "message": "Riordina scheda: $1. Usa le frecce per spostarla."

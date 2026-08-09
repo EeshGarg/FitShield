@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Din statistikk"
   },
-  "protectionStatusIntro": {
-    "message": "Et privat anslag på enheten over hva FitShield har hjulpet deg å hoppe over. Dette er anslag, og ingenting lastes opp."
-  },
-  "statusBlockedVisits": {
-    "message": "Blokkerte besøk"
-  },
   "statusEstimatedSavings": {
     "message": "Anslått besparelse"
   },
   "avgMealCostLabel": {
     "message": "Gjennomsnittlig måltidskostnad"
-  },
-  "avgMealCostHint": {
-    "message": "Brukes til å anslå penger spart når du hopper over en bestilling. Lagres kun på enheten din."
   },
   "resetHeading": {
     "message": "Tilbakestill og data"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Temafarger og lys/mørk modus."
   },
-  "resetPreferencesButton": {
-    "message": "Tilbakestill oppskrifter og preferanser"
-  },
-  "resetPreferencesHint": {
-    "message": "Gjennomsnittlig måltidskostnad, kaloriinnstillinger og lagret statistikk."
-  },
   "factoryResetButton": {
     "message": "Fabrikktilbakestilling"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Tilbakestille tema og utseende til standard mørk modus?"
   },
-  "confirmResetPreferences": {
-    "message": "Tilbakestille pris- og kaloripreferanser samt statistikk for sparte penger og unngåtte kalorier?"
-  },
   "confirmFactoryReset": {
     "message": "Fabrikktilbakestille FitShield? Dette sletter alle innstillinger, egne nettsteder og statistikk på denne enheten. Kan ikke angres."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Ferdig. Laster inn på nytt…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Unngåtte kalorier"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Gjennomsnittlige måltidskalorier"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Brukes til å anslå unngåtte kalorier når du heller velger en oppskrift. Lagres kun på enheten din."
   },
   "reorderCardLabel": {
     "message": "Endre rekkefølge på kort: $1. Bruk piltastene for å flytte det."

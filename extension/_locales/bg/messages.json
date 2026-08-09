@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Вашата статистика"
   },
-  "protectionStatusIntro": {
-    "message": "Поверителна оценка в устройството за това какво FitShield ви е помогнал да пропуснете. Това са оценки и нищо не се качва."
-  },
-  "statusBlockedVisits": {
-    "message": "Блокирани посещения"
-  },
   "statusEstimatedSavings": {
     "message": "Очаквани спестявания"
   },
   "avgMealCostLabel": {
     "message": "Средна цена на хранене"
-  },
-  "avgMealCostHint": {
-    "message": "Използва се за оценка на спестените пари, когато пропуснете поръчка. Съхранява се само на вашето устройство."
   },
   "resetHeading": {
     "message": "Нулиране и данни"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Цветове на темата и светъл/тъмен режим."
   },
-  "resetPreferencesButton": {
-    "message": "Нулирай рецепти и предпочитания"
-  },
-  "resetPreferencesHint": {
-    "message": "Средна цена на хранене, настройки за калории и записана статистика."
-  },
   "factoryResetButton": {
     "message": "Фабрично нулиране"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Да се нулират ли темата и обликът към тъмния режим по подразбиране?"
   },
-  "confirmResetPreferences": {
-    "message": "Да се нулират ли предпочитанията за цена и калории, както и статистиката за спестявания и избегнати калории?"
-  },
   "confirmFactoryReset": {
     "message": "Фабрично нулиране на FitShield? Това изтрива всички настройки, персонализирани сайтове и статистика на това устройство. Не може да се отмени."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Готово. Презареждане…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Избегнати калории"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Средни калории на хранене"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Използва се за оценка на избегнатите калории, когато вместо това изберете рецепта. Съхранява се само на вашето устройство."
   },
   "reorderCardLabel": {
     "message": "Пренареди картата: $1. Използвайте стрелките, за да я преместите."

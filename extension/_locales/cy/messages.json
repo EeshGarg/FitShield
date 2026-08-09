@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Eich ystadegau"
   },
-  "protectionStatusIntro": {
-    "message": "Amcangyfrif preifat, ar y ddyfais, o'r hyn mae FitShield wedi'ch helpu i'w hepgor. Amcangyfrifon yw'r rhain ac nid oes dim yn cael ei lanlwytho."
-  },
-  "statusBlockedVisits": {
-    "message": "Ymweliadau wedi'u rhwystro"
-  },
   "statusEstimatedSavings": {
     "message": "Arbedion amcangyfrifedig"
   },
   "avgMealCostLabel": {
     "message": "Cost pryd cyfartalog"
-  },
-  "avgMealCostHint": {
-    "message": "Yn cael ei ddefnyddio i amcangyfrif arian a arbedwyd pan fyddwch yn hepgor archeb. Cedwir ar eich dyfais yn unig."
   },
   "resetHeading": {
     "message": "Ailosod a data"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Lliwiau thema a modd golau/tywyll."
   },
-  "resetPreferencesButton": {
-    "message": "Ailosod ryseitiau a dewisiadau"
-  },
-  "resetPreferencesHint": {
-    "message": "Cost pryd cyfartalog, gosodiadau calorïau, a'ch ystadegau wedi'u cadw."
-  },
   "factoryResetButton": {
     "message": "Ailosod ffatri"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Ailosod y thema a'r golwg i'r modd tywyll rhagosodedig?"
   },
-  "confirmResetPreferences": {
-    "message": "Ailosod eich dewisiadau cost a chalorïau, ynghyd â'r ystadegau arian a arbedwyd a chalorïau a osgowyd?"
-  },
   "confirmFactoryReset": {
     "message": "Ailosod FitShield i'r ffatri? Mae hyn yn dileu pob gosodiad, safle personol ac ystadegyn ar y ddyfais hon. Ni ellir ei ddadwneud."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Wedi gorffen. Aillwytho…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Calorïau a osgowyd"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Calorïau pryd cyfartalog"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Yn cael ei ddefnyddio i amcangyfrif calorïau a osgowyd pan fyddwch yn dewis rysáit yn lle. Cedwir ar eich dyfais yn unig."
   },
   "reorderCardLabel": {
     "message": "Aildrefnu cerdyn: $1. Defnyddiwch y bysellau saeth i'w symud."

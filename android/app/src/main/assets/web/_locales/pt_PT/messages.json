@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Suas estatísticas"
   },
-  "protectionStatusIntro": {
-    "message": "Uma estimativa privada, no seu dispositivo, do que o FitShield ajudou você a evitar. São estimativas e nada é enviado."
-  },
-  "statusBlockedVisits": {
-    "message": "Visitas bloqueadas"
-  },
   "statusEstimatedSavings": {
     "message": "Economia estimada"
   },
   "avgMealCostLabel": {
     "message": "Custo médio por refeição"
-  },
-  "avgMealCostHint": {
-    "message": "Usado para estimar o dinheiro economizado ao evitar um pedido. Salvo só no seu dispositivo."
   },
   "resetHeading": {
     "message": "Repor e dados"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Cores do tema e modo claro/escuro."
   },
-  "resetPreferencesButton": {
-    "message": "Repor receitas e preferências"
-  },
-  "resetPreferencesHint": {
-    "message": "Custo médio por refeição, ajustes de calorias e suas estatísticas salvas."
-  },
   "factoryResetButton": {
     "message": "Reposição de fábrica"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Repor o tema e a aparência para o modo escuro predefinido?"
   },
-  "confirmResetPreferences": {
-    "message": "Redefinir suas preferências de custo e calorias, além das estatísticas de economia e calorias evitadas?"
-  },
   "confirmFactoryReset": {
     "message": "Restaurar o FitShield de fábrica? Isso apaga todas as configurações, sites personalizados e estatísticas neste dispositivo. Não dá para desfazer."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Concluído. A recarregar…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Calorias evitadas"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Calorias médias por refeição"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Usado para estimar as calorias evitadas ao escolher uma receita. Salvo só no seu dispositivo."
   },
   "reorderCardLabel": {
     "message": "Reordenar cartão: $1. Use as setas para movê-lo."

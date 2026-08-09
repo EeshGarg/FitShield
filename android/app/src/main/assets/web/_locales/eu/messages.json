@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Zure estatistikak"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield-ek saltatzen lagundu dizunaren gailuko estimazio pribatua. Estimazioak dira eta ez da ezer igotzen."
-  },
-  "statusBlockedVisits": {
-    "message": "Blokeatutako bisitak"
-  },
   "statusEstimatedSavings": {
     "message": "Aurrezki estimatua"
   },
   "avgMealCostLabel": {
     "message": "Otorduaren batez besteko kostua"
-  },
-  "avgMealCostHint": {
-    "message": "Eskaera bat saltatzean aurreztutako dirua estimatzeko erabiltzen da. Zure gailuan bakarrik gordetzen da."
   },
   "resetHeading": {
     "message": "Berrezarri eta datuak"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Gaiaren koloreak eta modu argia/iluna."
   },
-  "resetPreferencesButton": {
-    "message": "Berrezarri errezetak eta hobespenak"
-  },
-  "resetPreferencesHint": {
-    "message": "Otorduaren batez besteko kostua, kaloria ezarpenak eta gordetako estatistikak."
-  },
   "factoryResetButton": {
     "message": "Fabrikako berrezartzea"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Gaia eta itxura modu ilun lehenetsira berrezarri?"
   },
-  "confirmResetPreferences": {
-    "message": "Kostu eta kaloria hobespenak berrezarri, baita aurrezki eta saihestutako kalorien estatistikak ere?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield fabrikako balioetara berrezarri? Honek gailu honetako ezarpen, gune pertsonalizatu eta estatistika guztiak ezabatzen ditu. Ezin da desegin."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Eginda. Birkargatzen…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Saihestutako kaloriak"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Otorduaren batez besteko kaloriak"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Errezeta bat aukeratzean saihestutako kaloriak estimatzeko erabiltzen da. Zure gailuan bakarrik gordetzen da."
   },
   "reorderCardLabel": {
     "message": "Berrordenatu txartela: $1. Erabili gezi-teklak mugitzeko."

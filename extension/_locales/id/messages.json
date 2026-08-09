@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Statistikmu"
   },
-  "protectionStatusIntro": {
-    "message": "Perkiraan pribadi di perangkatmu tentang apa yang FitShield bantu kamu lewati. Ini perkiraan dan tidak ada yang diunggah."
-  },
-  "statusBlockedVisits": {
-    "message": "Kunjungan diblokir"
-  },
   "statusEstimatedSavings": {
     "message": "Perkiraan penghematan"
   },
   "avgMealCostLabel": {
     "message": "Biaya rata-rata per makan"
-  },
-  "avgMealCostHint": {
-    "message": "Dipakai memperkirakan uang yang hemat saat kamu lewati pesanan. Disimpan hanya di perangkatmu."
   },
   "resetHeading": {
     "message": "Reset & Data"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Warna tema dan mode terang/gelap."
   },
-  "resetPreferencesButton": {
-    "message": "Reset resep & preferensi"
-  },
-  "resetPreferencesHint": {
-    "message": "Biaya rata-rata per makan, setelan kalori, dan statistik tersimpanmu."
-  },
   "factoryResetButton": {
     "message": "Reset pabrik"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Reset tema dan tampilan ke mode gelap bawaan?"
   },
-  "confirmResetPreferences": {
-    "message": "Reset preferensi biaya dan kalori, plus statistik penghematan dan kalori dihindari?"
-  },
   "confirmFactoryReset": {
     "message": "Reset pabrik FitShield? Ini menghapus semua setelan, situs khusus, dan statistik di perangkat ini. Tidak bisa dibatalkan."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Selesai. Memuat ulang…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Kalori dihindari"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Kalori rata-rata per makan"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Dipakai memperkirakan kalori yang dihindari saat memilih resep. Disimpan hanya di perangkatmu."
   },
   "reorderCardLabel": {
     "message": "Susun ulang kartu: $1. Gunakan tombol panah untuk memindahkannya."

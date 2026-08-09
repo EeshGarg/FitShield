@@ -136,7 +136,23 @@ market is counted, so one block by a brand operating in fifty countries cannot
 flood the breakdown.
 
 `blockedVisits`, `recipesChosen`, and `caloriesAvoided` are pre-0.55 counters,
-kept in place after migration so nothing a user watched grow disappears.
+kept in place after migration so nothing a user watched grow disappears. They
+are **read only by the migration**. Nothing writes them and no surface displays
+them — Settings' "Your Stats" reads `stats.totals`, the same object the popup's
+weekly recap reads.
+
+`showEstimates` gates the one optional estimate in Settings. It is off for new
+profiles and on for anyone who had already customised their meal cost. The
+estimate is `stats.totals.alternativesMade x avgMealCost`: the count of meals
+the user *voluntarily confirmed they made*, times a price they set. It is
+deliberately not derived from interruptions — a page being interrupted says
+nothing about whether an order would have been placed — and the basis is printed
+under the figure so it cannot read as a measurement.
+
+`avgMealCalories` is retained and backed up for anyone who set it, but no
+surface reads it. The "calories avoided" figure it fed was removed: FitShield
+cannot observe what was eaten, and estimating a calorie saving from a displayed
+recipe card was the clearest false claim in the old statistics.
 
 ### Presentation
 
@@ -173,7 +189,7 @@ moment and will run it again on the next wake-up.
 | `siteBypasses: {key: expiry}` | `passes[]` | Active bypasses become site-scoped passes. Expired ones are not resurrected. The original map is preserved at `legacy.siteBypasses` because the old key format is not fully reversible to a domain. |
 | `blockedVisits` | `stats.totals.interruptions` | Translated. The original key is kept. |
 | `recipesChosen` | `stats.totals.alternativesSelected` | Translated. The original key is kept. |
-| `caloriesAvoided` | kept + `legacy.caloriesAvoided` | No longer a headline number; the estimate panel stays switched on for anyone who already had one. |
+| `caloriesAvoided` | kept + `legacy.caloriesAvoided` | No longer displayed anywhere. The number is preserved, not shown: it counted a card being rendered, not a meal. |
 | `recipeFavorites` | `alternativeFavorites` | A key nothing ever wrote; migrated anyway rather than dropped. |
 
 Anything a step cannot interpret is preserved under `legacy.<key>` rather than

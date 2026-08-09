@@ -733,29 +733,11 @@
   "protectionStatusHeading": {
     "message": "Deine Statistiken"
   },
-  "protectionStatusIntro": {
-    "message": "Eine private, geräteinterne Schätzung dessen, was FitShield dir zu überspringen geholfen hat. Das sind Schätzungen, und nichts davon wird hochgeladen."
-  },
-  "statusBlockedVisits": {
-    "message": "Gesperrte Besuche"
-  },
   "statusEstimatedSavings": {
     "message": "Geschätzte Ersparnis"
   },
-  "statusCaloriesAvoided": {
-    "message": "Vermiedene Kalorien"
-  },
   "avgMealCostLabel": {
     "message": "Durchschnittliche Mahlzeitkosten"
-  },
-  "avgMealCostHint": {
-    "message": "Dient zur Schätzung des gesparten Geldes, wenn du eine Bestellung auslässt. Wird nur auf deinem Gerät gespeichert."
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Durchschnittliche Kalorien pro Mahlzeit"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Dient zur Schätzung der vermiedenen Kalorien, wenn du stattdessen ein Rezept wählst. Wird nur auf deinem Gerät gespeichert."
   },
   "resetHeading": {
     "message": "Zurücksetzen & Daten"
@@ -775,12 +757,6 @@
   "resetAppearanceHint": {
     "message": "Designfarben und Hell-/Dunkelmodus."
   },
-  "resetPreferencesButton": {
-    "message": "Rezepte & Einstellungen zurücksetzen"
-  },
-  "resetPreferencesHint": {
-    "message": "Durchschnittliche Mahlzeitkosten, Kalorieneinstellungen und deine gespeicherten Statistiken."
-  },
   "factoryResetButton": {
     "message": "Auf Werkseinstellungen zurücksetzen"
   },
@@ -798,9 +774,6 @@
   },
   "confirmResetAppearance": {
     "message": "Design und Darstellung auf den standardmäßigen Dunkelmodus zurücksetzen?"
-  },
-  "confirmResetPreferences": {
-    "message": "Deine Kosten- und Kalorieneinstellungen sowie die Statistiken zu gespartem Geld und vermiedenen Kalorien zurücksetzen?"
   },
   "confirmFactoryReset": {
     "message": "FitShield auf Werkseinstellungen zurücksetzen? Dies löscht alle Einstellungen, eigenen Seiten und Statistiken auf diesem Gerät. Das kann nicht rückgängig gemacht werden."

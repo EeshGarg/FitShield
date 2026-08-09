@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "إحصاءاتك"
   },
-  "protectionStatusIntro": {
-    "message": "تقدير خاص على جهازك لما ساعدك FitShield على تجنّبه. هذه تقديرات ولا يُرفع أي شيء."
-  },
-  "statusBlockedVisits": {
-    "message": "الزيارات المحظورة"
-  },
   "statusEstimatedSavings": {
     "message": "التوفير المقدّر"
   },
   "avgMealCostLabel": {
     "message": "متوسط تكلفة الوجبة"
-  },
-  "avgMealCostHint": {
-    "message": "يُستخدم لتقدير المال الموفَّر عند تجنّب طلب. يُحفظ على جهازك فقط."
   },
   "resetHeading": {
     "message": "إعادة الضبط والبيانات"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "ألوان السمة والوضع الفاتح/الداكن."
   },
-  "resetPreferencesButton": {
-    "message": "إعادة ضبط الوصفات والتفضيلات"
-  },
-  "resetPreferencesHint": {
-    "message": "متوسط تكلفة الوجبة وإعدادات السعرات وإحصاءاتك المحفوظة."
-  },
   "factoryResetButton": {
     "message": "إعادة ضبط المصنع"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "إعادة ضبط السمة والمظهر إلى الوضع الداكن الافتراضي؟"
   },
-  "confirmResetPreferences": {
-    "message": "إعادة ضبط تفضيلات التكلفة والسعرات، بالإضافة إلى إحصاءات التوفير والسعرات المتجنَّبة؟"
-  },
   "confirmFactoryReset": {
     "message": "إعادة ضبط FitShield إلى إعدادات المصنع؟ يمحو هذا كل الإعدادات والمواقع المخصصة والإحصاءات على هذا الجهاز. لا يمكن التراجع."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "تم. إعادة التحميل…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "السعرات المتجنَّبة"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "متوسط سعرات الوجبة"
-  },
-  "avgMealCaloriesHint": {
-    "message": "يُستخدم لتقدير السعرات المتجنَّبة عند اختيار وصفة بدلاً من ذلك. يُحفظ على جهازك فقط."
   },
   "reorderCardLabel": {
     "message": "إعادة ترتيب البطاقة: $1. استخدم مفاتيح الأسهم لتحريكها."

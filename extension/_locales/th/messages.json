@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "สถิติของคุณ"
   },
-  "protectionStatusIntro": {
-    "message": "ค่าประมาณส่วนตัวบนอุปกรณ์ของคุณว่า FitShield ช่วยให้คุณข้ามอะไรไปบ้าง นี่คือค่าประมาณ และไม่มีการอัปโหลดอะไร"
-  },
-  "statusBlockedVisits": {
-    "message": "การเข้าชมที่ถูกบล็อก"
-  },
   "statusEstimatedSavings": {
     "message": "ประหยัดโดยประมาณ"
   },
   "avgMealCostLabel": {
     "message": "ค่ามื้ออาหารเฉลี่ย"
-  },
-  "avgMealCostHint": {
-    "message": "ใช้ประมาณเงินที่ประหยัดได้เมื่อคุณข้ามการสั่ง เก็บไว้บนอุปกรณ์ของคุณเท่านั้น"
   },
   "resetHeading": {
     "message": "รีเซ็ตและข้อมูล"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "สีธีมและโหมดสว่าง/มืด"
   },
-  "resetPreferencesButton": {
-    "message": "รีเซ็ตสูตรอาหารและค่ากำหนด"
-  },
-  "resetPreferencesHint": {
-    "message": "ค่ามื้ออาหารเฉลี่ย การตั้งค่าแคลอรี และสถิติที่บันทึกไว้"
-  },
   "factoryResetButton": {
     "message": "รีเซ็ตเป็นค่าจากโรงงาน"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "รีเซ็ตธีมและรูปลักษณ์เป็นโหมดมืดเริ่มต้นไหม"
   },
-  "confirmResetPreferences": {
-    "message": "รีเซ็ตค่ากำหนดค่าใช้จ่ายและแคลอรี รวมถึงสถิติเงินที่ประหยัดและแคลอรีที่เลี่ยงได้ไหม"
-  },
   "confirmFactoryReset": {
     "message": "รีเซ็ต FitShield เป็นค่าจากโรงงานไหม การนี้จะลบการตั้งค่า เว็บไซต์ที่กำหนดเอง และสถิติทั้งหมดบนอุปกรณ์นี้ ไม่สามารถเลิกทำได้"
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "เสร็จแล้ว กำลังโหลดใหม่…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "แคลอรีที่เลี่ยงได้"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "แคลอรีต่อมื้อเฉลี่ย"
-  },
-  "avgMealCaloriesHint": {
-    "message": "ใช้ประมาณแคลอรีที่เลี่ยงได้เมื่อคุณเลือกสูตรอาหารแทน เก็บไว้บนอุปกรณ์ของคุณเท่านั้น"
   },
   "reorderCardLabel": {
     "message": "จัดเรียงการ์ดใหม่: $1 ใช้ปุ่มลูกศรเพื่อย้าย"

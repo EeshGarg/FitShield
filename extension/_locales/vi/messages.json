@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Thống kê của bạn"
   },
-  "protectionStatusIntro": {
-    "message": "Ước tính riêng tư trên thiết bị của bạn về những gì FitShield giúp bạn bỏ qua. Đây là ước tính và không có gì được tải lên."
-  },
-  "statusBlockedVisits": {
-    "message": "Lượt truy cập bị chặn"
-  },
   "statusEstimatedSavings": {
     "message": "Tiết kiệm ước tính"
   },
   "avgMealCostLabel": {
     "message": "Chi phí bữa ăn trung bình"
-  },
-  "avgMealCostHint": {
-    "message": "Dùng để ước tính số tiền tiết kiệm khi bạn bỏ một đơn. Chỉ lưu trên thiết bị của bạn."
   },
   "resetHeading": {
     "message": "Đặt lại & Dữ liệu"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Màu chủ đề và chế độ sáng/tối."
   },
-  "resetPreferencesButton": {
-    "message": "Đặt lại công thức & tùy chọn"
-  },
-  "resetPreferencesHint": {
-    "message": "Chi phí bữa ăn trung bình, cài đặt calo và thống kê đã lưu của bạn."
-  },
   "factoryResetButton": {
     "message": "Đặt lại về mặc định gốc"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Đặt lại chủ đề và giao diện về chế độ tối mặc định?"
   },
-  "confirmResetPreferences": {
-    "message": "Đặt lại tùy chọn chi phí và calo, cùng thống kê tiết kiệm và calo đã tránh?"
-  },
   "confirmFactoryReset": {
     "message": "Đặt lại FitShield về mặc định gốc? Thao tác này xóa mọi cài đặt, trang tùy chỉnh và thống kê trên thiết bị này. Không thể hoàn tác."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Xong. Đang tải lại…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Calo đã tránh"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Calo bữa ăn trung bình"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Dùng để ước tính calo đã tránh khi bạn chọn một công thức. Chỉ lưu trên thiết bị của bạn."
   },
   "reorderCardLabel": {
     "message": "Sắp xếp lại thẻ: $1. Dùng phím mũi tên để di chuyển."

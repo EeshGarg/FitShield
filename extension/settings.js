@@ -1391,30 +1391,57 @@ if (importSettingsButton && importSettingsInput) {
 }
 
 // ===========================================================================
-// Protection Status (local-only health snapshot) + estimated savings.
-// Every value comes from data already on the device — the blocklist metadata,
-// the recipe catalog, the supported-locale list, and a local blocked-visit
-// counter. No network requests.
+// Your Stats — the honest counters, plus one optional estimate.
+//
+// Every figure here is a count of something FitShield actually observed, read
+// from the single `stats` object the worker maintains (see fitshield-core.js
+// for what each event means). Nothing is derived from a page block: a block
+// tells FitShield that a page was interrupted and nothing whatsoever about
+// whether an order would have happened.
+//
+// This panel used to read `blockedVisits` and `caloriesAvoided` and present
+// "Blocked visits", "Estimated savings" (visits x meal cost) and "Calories
+// avoided". Both of those keys stopped being written when the statistics
+// vocabulary was rebuilt, so the whole panel had quietly frozen — a new install
+// showed zeros forever while the popup's recap counted correctly.
 // ===========================================================================
 
 const DEFAULT_AVG_MEAL_COST = 15;
-const DEFAULT_AVG_MEAL_CALORIES = 1000;
+
+// The counters, in the order they tell the story: what happened, what you did
+// about it, and what came of the alternative. The labels are shared with the
+// popup's weekly recap so the two surfaces cannot drift into two vocabularies.
+const STAT_CARDS = [
+  ["interruptions", "recapInterrupted"],
+  ["left", "recapLeft"],
+  ["continued", "recapContinued"],
+  ["passesUsed", "recapPasses"],
+  ["alternativesViewed", "recapViewed"],
+  ["alternativesSelected", "recapSelected"],
+  ["alternativesMade", "recapMade"]
+];
 
 const currencyApi = typeof FitShieldCurrency !== "undefined" ? FitShieldCurrency : null;
 
 const protectionStatusGrid = document.getElementById("protectionStatusGrid");
 const avgMealCostInput = document.getElementById("avgMealCost");
-const avgMealCaloriesInput = document.getElementById("avgMealCalories");
 const currencySelect = document.getElementById("currencyMode");
 const avgMealCostLabelEl = document.getElementById("avgMealCostLabel");
+const showEstimatesToggle = document.getElementById("showEstimates");
+const estimateSettings = document.getElementById("estimateSettings");
+const estimateValueEl = document.getElementById("estimateValue");
+const estimateBasisEl = document.getElementById("estimateBasis");
 
 const protectionData = {
-  blockedVisits: 0,
+  // The live totals, keyed by the event names in fitshield-core.js.
+  totals: {},
   avgMealCost: DEFAULT_AVG_MEAL_COST,
-  avgMealCalories: DEFAULT_AVG_MEAL_CALORIES,
-  caloriesAvoided: 0,
+  showEstimates: false,
   currencyChoice: "", // "" => follow the display language
-  customized: false,  // true once the user edits cost or calories by hand
+  customized: false,  // true once the user edits the cost by hand
+  // False until initProtectionStatus has read storage. Until then `customized`
+  // is only the initial guess, and acting on it would overwrite a real one.
+  loaded: false,
   // Aggregate, local-only breakdowns of what got blocked (counts keyed by the
   // curated brand's apex domain, food category, and operating countries). No
   // URLs, pages, or browsing history — only the brands already on the blocklist.
@@ -1446,11 +1473,6 @@ function normalizeMealCost(value) {
   return Number.isFinite(parsed) && parsed >= 0 ? parsed : DEFAULT_AVG_MEAL_COST;
 }
 
-function normalizeMealCalories(value) {
-  const parsed = Number.parseFloat(value);
-  return Number.isFinite(parsed) && parsed >= 0 ? parsed : DEFAULT_AVG_MEAL_CALORIES;
-}
-
 // Format the savings figure in the resolved currency ("$1,234" / "¥1,234"),
 // falling back to a bare number if Intl/the currency module is unavailable.
 function formatSavings(amount) {
@@ -1480,23 +1502,52 @@ function buildStatCard(value, label, valueClass) {
   return card;
 }
 
-// Compact, Brave-style stat strip: the three numbers that actually accumulate
-// as you use FitShield. Everything is a local aggregate — no per-site history.
+// The counters that actually accumulate as FitShield is used. Local aggregates
+// only — no per-site history, no timestamps, no URLs.
 function renderProtectionStatus() {
   if (!protectionStatusGrid) {
     return;
   }
 
-  const savings = protectionData.blockedVisits * protectionData.avgMealCost;
-
-  const cards = [
-    buildStatCard(formatCount(protectionData.blockedVisits), t("statusBlockedVisits")),
-    buildStatCard(formatSavings(savings), t("statusEstimatedSavings"), "savings"),
-    buildStatCard(formatCount(protectionData.caloriesAvoided), t("statusCaloriesAvoided"))
-  ];
+  const cards = STAT_CARDS.map(([event, labelKey]) =>
+    buildStatCard(formatCount(protectionData.totals[event]), t(labelKey))
+  );
 
   protectionStatusGrid.replaceChildren(...cards);
+  renderEstimate();
   renderMostBlocked();
+}
+
+/**
+ * The one optional estimate.
+ *
+ * It is deliberately based on `alternativesMade` — the only event in the whole
+ * vocabulary the user personally confirmed — rather than on interruptions. A
+ * page being interrupted says nothing about whether an order would have been
+ * placed, so multiplying interruptions by a meal price would invent a saving
+ * out of a page load. The basis line spells the arithmetic out on screen so the
+ * number can never read as a measurement.
+ */
+function renderEstimate() {
+  if (!estimateSettings) {
+    return;
+  }
+
+  estimateSettings.hidden = !protectionData.showEstimates;
+
+  if (!protectionData.showEstimates || !estimateValueEl) {
+    return;
+  }
+
+  const made = Number(protectionData.totals.alternativesMade) || 0;
+  estimateValueEl.textContent = formatSavings(made * protectionData.avgMealCost);
+
+  if (estimateBasisEl) {
+    estimateBasisEl.textContent = t("estimateBasis", [
+      String(made),
+      formatSavings(protectionData.avgMealCost)
+    ]);
+  }
 }
 
 // BCP-47 form of the stats locale ("pt_BR" -> "pt-BR") for Intl APIs.
@@ -1570,6 +1621,14 @@ function countryDisplayName(code) {
 
 // Coerce a stored value into a clean { key: positive-number } map. Defensive
 // against junk (non-objects, arrays, NaN counts) from older or hand-edited data.
+// The stored `stats` object, defensively reduced to the totals this page shows.
+// Normalization lives in the core so the popup's recap and this panel can never
+// disagree about what a counter is worth.
+function readStatTotals(value) {
+  const stats = value && typeof value === "object" ? value : {};
+  return core.normalizeStatTotals(stats.totals);
+}
+
 function readCountMap(value) {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return {};
@@ -1696,29 +1755,32 @@ function updateCostLabel() {
   avgMealCostLabelEl.textContent = `${t("avgMealCostLabel")} (${symbol})`;
 }
 
-// Re-seed cost & calories from the locale/currency until the user customizes
-// them, then refresh the label and the stat cards. `persist` writes the seeded
-// values so the background's calorie estimate matches what's shown here.
+// Re-seed the meal cost from the locale/currency until the user customizes it,
+// then refresh the label and the stat cards. `persist` writes the seeded value
+// so a later read agrees with what is on screen.
 async function applyCurrencyDefaults(options) {
   const persist = !!(options && options.persist);
 
+  // The language handler calls refreshStats, and on a cold load it can win the
+  // race against initProtectionStatus. Seeding then would read `customized` as
+  // false before storage had been consulted, replace a cost the user had set
+  // with the locale default, and — because persist is on — write it back,
+  // silently losing the setting. Nothing is seeded until storage has been read.
+  if (!protectionData.loaded) {
+    updateCostLabel();
+    renderProtectionStatus();
+    return;
+  }
+
   if (!protectionData.customized && currencyApi) {
-    const code = resolvedCurrency();
-    protectionData.avgMealCost = currencyApi.defaultCost(code);
-    protectionData.avgMealCalories = currencyApi.defaultCalories(statsLocale());
+    protectionData.avgMealCost = currencyApi.defaultCost(resolvedCurrency());
 
     if (avgMealCostInput) {
       avgMealCostInput.value = protectionData.avgMealCost;
     }
-    if (avgMealCaloriesInput) {
-      avgMealCaloriesInput.value = protectionData.avgMealCalories;
-    }
 
     if (persist) {
-      await chrome.storage.local.set({
-        avgMealCost: protectionData.avgMealCost,
-        avgMealCalories: protectionData.avgMealCalories
-      });
+      await chrome.storage.local.set({ avgMealCost: protectionData.avgMealCost });
     }
   }
 
@@ -1734,10 +1796,9 @@ async function refreshStats(options) {
 
 async function initProtectionStatus() {
   const stored = await chrome.storage.local.get([
-    "blockedVisits",
+    "stats",
     "avgMealCost",
-    "avgMealCalories",
-    "caloriesAvoided",
+    "showEstimates",
     "currency",
     "mealStatsCustomized",
     "blockedByDomain",
@@ -1745,10 +1806,14 @@ async function initProtectionStatus() {
     "blockedByCountry"
   ]);
 
-  protectionData.blockedVisits = Number(stored.blockedVisits) || 0;
-  protectionData.caloriesAvoided = Number(stored.caloriesAvoided) || 0;
+  protectionData.totals = readStatTotals(stored.stats);
+  protectionData.showEstimates = stored.showEstimates === true;
   protectionData.currencyChoice = typeof stored.currency === "string" ? stored.currency : "";
   protectionData.customized = !!stored.mealStatsCustomized;
+
+  if (showEstimatesToggle) {
+    showEstimatesToggle.checked = protectionData.showEstimates;
+  }
   protectionData.blockedByDomain = readCountMap(stored.blockedByDomain);
   protectionData.blockedByCategory = readCountMap(stored.blockedByCategory);
   protectionData.blockedByCountry = readCountMap(stored.blockedByCountry);
@@ -1757,16 +1822,13 @@ async function initProtectionStatus() {
   // locale in refreshStats() below.
   if (protectionData.customized) {
     protectionData.avgMealCost = normalizeMealCost(stored.avgMealCost);
-    protectionData.avgMealCalories = normalizeMealCalories(stored.avgMealCalories);
 
     if (avgMealCostInput) {
       avgMealCostInput.value = protectionData.avgMealCost;
     }
-    if (avgMealCaloriesInput) {
-      avgMealCaloriesInput.value = protectionData.avgMealCalories;
-    }
   }
 
+  protectionData.loaded = true;
   await refreshStats({ persist: true });
 }
 
@@ -1791,16 +1853,11 @@ if (avgMealCostInput) {
   });
 }
 
-if (avgMealCaloriesInput) {
-  avgMealCaloriesInput.addEventListener("change", async () => {
-    protectionData.avgMealCalories = normalizeMealCalories(avgMealCaloriesInput.value);
-    avgMealCaloriesInput.value = protectionData.avgMealCalories;
-    protectionData.customized = true;
-    await chrome.storage.local.set({
-      avgMealCalories: protectionData.avgMealCalories,
-      mealStatsCustomized: true
-    });
-    renderProtectionStatus();
+if (showEstimatesToggle) {
+  showEstimatesToggle.addEventListener("change", async () => {
+    protectionData.showEstimates = showEstimatesToggle.checked;
+    await chrome.storage.local.set({ showEstimates: protectionData.showEstimates });
+    renderEstimate();
   });
 }
 
@@ -1812,14 +1869,19 @@ if (chrome.storage && chrome.storage.onChanged) {
       return;
     }
 
-    if (changes.blockedVisits) {
-      protectionData.blockedVisits = Number(changes.blockedVisits.newValue) || 0;
+    if (changes.stats) {
+      protectionData.totals = readStatTotals(changes.stats.newValue);
       renderProtectionStatus();
     }
 
-    if (changes.caloriesAvoided) {
-      protectionData.caloriesAvoided = Number(changes.caloriesAvoided.newValue) || 0;
-      renderProtectionStatus();
+    if (changes.showEstimates) {
+      protectionData.showEstimates = changes.showEstimates.newValue === true;
+
+      if (showEstimatesToggle) {
+        showEstimatesToggle.checked = protectionData.showEstimates;
+      }
+
+      renderEstimate();
     }
 
     if (changes.blockedByDomain || changes.blockedByCategory || changes.blockedByCountry) {
@@ -1934,7 +1996,40 @@ const BLOCKING_KEYS = [
 ];
 
 const APPEARANCE_KEYS = ["theme", "themeMode", "cardOrder"];
-const PREFERENCE_KEYS = ["avgMealCost", "avgMealCalories", "currency", "mealStatsCustomized", "blockedVisits", "caloriesAvoided", "recipesChosen", "recipeFavorites", "blockedByDomain", "blockedByCategory", "blockedByCountry"];
+// "Reset statistics & estimates" — everything the numbers are made of, and the
+// assumptions behind the optional estimate. NOT the blocklist, the schedule,
+// the kitchen, or the alternatives the user wrote themselves: those are content
+// and settings, and deleting them here would be data loss the button does not
+// warn about.
+//
+// This list previously named only the pre-0.55 counters, so pressing it left
+// the live `stats` object — every number actually on screen — untouched.
+const PREFERENCE_KEYS = [
+  // the live vocabulary and the aggregate brand breakdowns
+  "stats",
+  "blockedByDomain",
+  "blockedByCategory",
+  "blockedByCountry",
+  // estimate assumptions
+  "avgMealCost",
+  "avgMealCalories",
+  "currency",
+  "mealStatsCustomized",
+  "showEstimates",
+  // pre-0.55 counters the migration preserved, so a reset does not leave old
+  // numbers behind for an upgraded profile
+  "blockedVisits",
+  "caloriesAvoided",
+  "recipesChosen",
+  "legacy",
+  // personal alternatives state: favourites, rotation, and the pending
+  // "did you make it?" question
+  "alternativeFavorites",
+  "recentAlternatives",
+  "dismissedAlternatives",
+  "pendingAlternatives",
+  "recapDismissedFor"
+];
 
 function reloadSoon() {
   if (resetNotice) {
@@ -1966,7 +2061,7 @@ if (resetAppearanceButton) {
 
 if (resetPreferencesButton) {
   resetPreferencesButton.addEventListener("click", async () => {
-    if (await confirmAction(t("confirmResetPreferences"))) {
+    if (await confirmAction(t("confirmResetStats"))) {
       await resetKeys(PREFERENCE_KEYS);
     }
   });

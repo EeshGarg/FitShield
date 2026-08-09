@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Tölfræðin þín"
   },
-  "protectionStatusIntro": {
-    "message": "Persónulegt mat í tækinu á því sem FitShield hefur hjálpað þér að sleppa. Þetta eru áætlanir og engu er hlaðið upp."
-  },
-  "statusBlockedVisits": {
-    "message": "Lokaðar heimsóknir"
-  },
   "statusEstimatedSavings": {
     "message": "Áætlaður sparnaður"
   },
   "avgMealCostLabel": {
     "message": "Meðalverð máltíðar"
-  },
-  "avgMealCostHint": {
-    "message": "Notað til að áætla sparaða peninga þegar þú sleppir pöntun. Vistað aðeins í tækinu þínu."
   },
   "resetHeading": {
     "message": "Endurstilling og gögn"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Þemalitir og ljós/dökk stilling."
   },
-  "resetPreferencesButton": {
-    "message": "Endurstilla uppskriftir og kjörstillingar"
-  },
-  "resetPreferencesHint": {
-    "message": "Meðalverð máltíðar, hitaeiningastillingar og vistuð tölfræði."
-  },
   "factoryResetButton": {
     "message": "Verksmiðjuendurstilling"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Endurstilla þema og útlit í sjálfgefna dökka stillingu?"
   },
-  "confirmResetPreferences": {
-    "message": "Endurstilla verð- og hitaeiningakjörstillingar ásamt sparnaðar- og forðaðra hitaeininga tölfræði?"
-  },
   "confirmFactoryReset": {
     "message": "Verksmiðjuendurstilla FitShield? Þetta eyðir öllum stillingum, sérsniðnum vefjum og tölfræði í þessu tæki. Ekki er hægt að afturkalla."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Lokið. Endurhleð…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Forðaðar hitaeiningar"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Meðalhitaeiningar máltíðar"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Notað til að áætla forðaðar hitaeiningar þegar þú velur uppskrift í staðinn. Vistað aðeins í tækinu þínu."
   },
   "reorderCardLabel": {
     "message": "Endurraða spjaldi: $1. Notaðu örvalyklana til að færa það."

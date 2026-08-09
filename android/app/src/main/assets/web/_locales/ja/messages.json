@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "あなたの統計"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield が回避を手伝った内容の、端末内だけの概算です。これらは推定値であり、何もアップロードされません。"
-  },
-  "statusBlockedVisits": {
-    "message": "ブロックした回数"
-  },
   "statusEstimatedSavings": {
     "message": "推定節約額"
   },
   "avgMealCostLabel": {
     "message": "1食あたりの平均費用"
-  },
-  "avgMealCostHint": {
-    "message": "注文をやめたときの節約額の推定に使われます。端末内にのみ保存されます。"
   },
   "resetHeading": {
     "message": "リセットとデータ"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "テーマカラーとライト／ダークモード。"
   },
-  "resetPreferencesButton": {
-    "message": "レシピと設定をリセット"
-  },
-  "resetPreferencesHint": {
-    "message": "1食あたりの平均費用、カロリー設定、保存された統計。"
-  },
   "factoryResetButton": {
     "message": "初期化（工場出荷時に戻す）"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "テーマと外観を既定のダークモードに戻しますか？"
   },
-  "confirmResetPreferences": {
-    "message": "1食の費用とカロリーの設定、および節約額と回避カロリーの統計をリセットしますか？"
-  },
   "confirmFactoryReset": {
     "message": "FitShield を初期化しますか？この端末上のすべての設定、カスタムサイト、統計が消去されます。元に戻せません。"
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "完了しました。再読み込みしています…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "回避したカロリー"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "1食あたりの平均カロリー"
-  },
-  "avgMealCaloriesHint": {
-    "message": "代わりにレシピを選んだときの回避カロリーの推定に使われます。端末内にのみ保存されます。"
   },
   "reorderCardLabel": {
     "message": "カードの並べ替え: $1。矢印キーで移動できます。"

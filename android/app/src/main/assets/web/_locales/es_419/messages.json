@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Tus estadísticas"
   },
-  "protectionStatusIntro": {
-    "message": "Una estimación privada, en tu dispositivo, de lo que FitShield te ayudó a evitar. Son estimaciones y no se sube nada."
-  },
-  "statusBlockedVisits": {
-    "message": "Visitas bloqueadas"
-  },
   "statusEstimatedSavings": {
     "message": "Ahorro estimado"
   },
   "avgMealCostLabel": {
     "message": "Costo medio por comida"
-  },
-  "avgMealCostHint": {
-    "message": "Sirve para estimar el dinero ahorrado al evitar un pedido. Se guarda solo en tu dispositivo."
   },
   "resetHeading": {
     "message": "Restablecer y datos"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Colores del tema y modo claro/oscuro."
   },
-  "resetPreferencesButton": {
-    "message": "Restablecer recetas y preferencias"
-  },
-  "resetPreferencesHint": {
-    "message": "Costo medio por comida, ajustes de calorías y tus estadísticas guardadas."
-  },
   "factoryResetButton": {
     "message": "Restablecer de fábrica"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "¿Restablecer el tema y la apariencia al modo oscuro predeterminado?"
   },
-  "confirmResetPreferences": {
-    "message": "¿Restablecer tus preferencias de costo y calorías, además de las estadísticas de ahorro y calorías evitadas?"
-  },
   "confirmFactoryReset": {
     "message": "¿Restablecer FitShield de fábrica? Esto borra todos los ajustes, sitios personalizados y estadísticas de este dispositivo. No se puede deshacer."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Listo. Recargando…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Calorías evitadas"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Calorías medias por comida"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Sirve para estimar las calorías evitadas al elegir una receta. Se guarda solo en tu dispositivo."
   },
   "reorderCardLabel": {
     "message": "Reordenar tarjeta: $1. Usa las flechas para moverla."

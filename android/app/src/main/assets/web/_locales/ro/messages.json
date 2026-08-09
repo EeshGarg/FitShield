@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Statisticile tale"
   },
-  "protectionStatusIntro": {
-    "message": "O estimare privată, pe dispozitiv, a ceea ce FitShield te-a ajutat să eviți. Sunt estimări și nimic nu este încărcat."
-  },
-  "statusBlockedVisits": {
-    "message": "Vizite blocate"
-  },
   "statusEstimatedSavings": {
     "message": "Economii estimate"
   },
   "avgMealCostLabel": {
     "message": "Cost mediu pe masă"
-  },
-  "avgMealCostHint": {
-    "message": "Folosit pentru a estima banii economisiți când renunți la o comandă. Stocat doar pe dispozitivul tău."
   },
   "resetHeading": {
     "message": "Resetare și date"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Culorile temei și modul luminos/întunecat."
   },
-  "resetPreferencesButton": {
-    "message": "Resetează rețete și preferințe"
-  },
-  "resetPreferencesHint": {
-    "message": "Cost mediu pe masă, setări de calorii și statisticile salvate."
-  },
   "factoryResetButton": {
     "message": "Resetare din fabrică"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Resetezi tema și aspectul la modul întunecat implicit?"
   },
-  "confirmResetPreferences": {
-    "message": "Resetezi preferințele de cost și calorii, plus statisticile de economii și calorii evitate?"
-  },
   "confirmFactoryReset": {
     "message": "Resetezi FitShield din fabrică? Aceasta șterge toate setările, site-urile personalizate și statisticile de pe acest dispozitiv. Nu poate fi anulată."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Gata. Se reîncarcă…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Calorii evitate"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Calorii medii pe masă"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Folosit pentru a estima caloriile evitate când alegi o rețetă în schimb. Stocat doar pe dispozitivul tău."
   },
   "reorderCardLabel": {
     "message": "Reordonează cardul: $1. Folosește săgețile pentru a-l muta."

@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "আপনার পরিসংখ্যান"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield আপনাকে যা এড়াতে সাহায্য করেছে তার ডিভাইসেই থাকা একটি ব্যক্তিগত অনুমান। এগুলো অনুমান এবং কিছুই আপলোড হয় না।"
-  },
-  "statusBlockedVisits": {
-    "message": "ব্লক করা ভিজিট"
-  },
   "statusEstimatedSavings": {
     "message": "আনুমানিক সাশ্রয়"
   },
   "avgMealCostLabel": {
     "message": "গড় খাবারের খরচ"
-  },
-  "avgMealCostHint": {
-    "message": "কোনো অর্ডার এড়ালে সাশ্রয় হওয়া অর্থ অনুমানে ব্যবহৃত হয়। শুধু আপনার ডিভাইসে সংরক্ষিত।"
   },
   "resetHeading": {
     "message": "রিসেট ও ডেটা"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "থিম রং এবং লাইট/ডার্ক মোড।"
   },
-  "resetPreferencesButton": {
-    "message": "রেসিপি ও পছন্দ রিসেট করুন"
-  },
-  "resetPreferencesHint": {
-    "message": "গড় খাবারের খরচ, ক্যালোরি সেটিংস এবং আপনার সংরক্ষিত পরিসংখ্যান।"
-  },
   "factoryResetButton": {
     "message": "ফ্যাক্টরি রিসেট"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "থিম ও চেহারা ডিফল্ট ডার্ক মোডে রিসেট করবেন?"
   },
-  "confirmResetPreferences": {
-    "message": "আপনার খরচ ও ক্যালোরি পছন্দ, এবং সাশ্রয় ও এড়ানো-ক্যালোরি পরিসংখ্যান রিসেট করবেন?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield ফ্যাক্টরি রিসেট করবেন? এটি এই ডিভাইসের সব সেটিংস, কাস্টম সাইট ও পরিসংখ্যান মুছে দেবে। এটি পূর্বাবস্থায় ফেরানো যায় না।"
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "সম্পন্ন। পুনরায় লোড হচ্ছে…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "এড়ানো ক্যালোরি"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "গড় খাবারের ক্যালোরি"
-  },
-  "avgMealCaloriesHint": {
-    "message": "এর বদলে রেসিপি বেছে নিলে এড়ানো ক্যালোরি অনুমানে ব্যবহৃত হয়। শুধু আপনার ডিভাইসে সংরক্ষিত।"
   },
   "reorderCardLabel": {
     "message": "কার্ড পুনঃসাজান: $1। সরাতে তীর কী ব্যবহার করুন।"

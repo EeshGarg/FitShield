@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Таны статистик"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield танд юу алгасахад тусалсныг төхөөрөмж дээр хадгалсан хувийн тооцоо. Эдгээр нь тооцоо бөгөөд юу ч байршуулагдахгүй."
-  },
-  "statusBlockedVisits": {
-    "message": "Хориглосон зочлолтууд"
-  },
   "statusEstimatedSavings": {
     "message": "Тооцоолсон хэмнэлт"
   },
   "avgMealCostLabel": {
     "message": "Дундаж хоолны зардал"
-  },
-  "avgMealCostHint": {
-    "message": "Захиалга алгасахад хэмнэсэн мөнгийг тооцоход ашиглагдана. Зөвхөн таны төхөөрөмжид хадгалагдана."
   },
   "resetHeading": {
     "message": "Шинэчлэх ба өгөгдөл"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Загварын өнгө ба гэрэл/харанхуй горим."
   },
-  "resetPreferencesButton": {
-    "message": "Жор ба тохиргоог шинэчлэх"
-  },
-  "resetPreferencesHint": {
-    "message": "Дундаж хоолны зардал, илчлэгийн тохиргоо болон хадгалсан статистик."
-  },
   "factoryResetButton": {
     "message": "Үйлдвэрийн тохиргоо"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Загвар, харагдацыг анхдагч харанхуй горим руу шинэчлэх үү?"
   },
-  "confirmResetPreferences": {
-    "message": "Зардал, илчлэгийн тохиргоо болон хэмнэлт, зайлсхийсэн илчлэгийн статистикийг шинэчлэх үү?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield-ийг үйлдвэрийн тохиргоо руу шинэчлэх үү? Энэ нь энэ төхөөрөмж дээрх бүх тохиргоо, захиалгат сайт, статистикийг устгана. Буцаах боломжгүй."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Дууссан. Дахин ачаалж байна…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Зайлсхийсэн илчлэг"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Дундаж хоолны илчлэг"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Оронд нь жор сонгоход зайлсхийсэн илчлэгийг тооцоход ашиглагдана. Зөвхөн таны төхөөрөмжид хадгалагдана."
   },
   "reorderCardLabel": {
     "message": "Картыг дахин эрэмбэлэх: $1. Зөөхдөө сумны товчлуурыг ашиглана уу."

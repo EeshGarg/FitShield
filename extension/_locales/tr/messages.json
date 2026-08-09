@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "İstatistiklerin"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield'in atlamana yardım ettiği şeylerin cihazında kalan özel bir tahmini. Bunlar tahmindir ve hiçbir şey yüklenmez."
-  },
-  "statusBlockedVisits": {
-    "message": "Engellenen ziyaretler"
-  },
   "statusEstimatedSavings": {
     "message": "Tahmini tasarruf"
   },
   "avgMealCostLabel": {
     "message": "Ortalama öğün maliyeti"
-  },
-  "avgMealCostHint": {
-    "message": "Bir siparişi atladığında kazanılan parayı tahmin etmek için kullanılır. Yalnızca cihazında saklanır."
   },
   "resetHeading": {
     "message": "Sıfırlama ve veriler"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Tema renkleri ve açık/koyu mod."
   },
-  "resetPreferencesButton": {
-    "message": "Tarifleri ve tercihleri sıfırla"
-  },
-  "resetPreferencesHint": {
-    "message": "Ortalama öğün maliyeti, kalori ayarları ve kayıtlı istatistiklerin."
-  },
   "factoryResetButton": {
     "message": "Fabrika ayarlarına döndür"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Tema ve görünüm varsayılan koyu moda sıfırlansın mı?"
   },
-  "confirmResetPreferences": {
-    "message": "Maliyet ve kalori tercihlerinin yanı sıra tasarruf ve önlenen kalori istatistikleri sıfırlansın mı?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield fabrika ayarlarına döndürülsün mü? Bu, bu cihazdaki tüm ayarları, özel siteleri ve istatistikleri siler. Geri alınamaz."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Tamam. Yeniden yükleniyor…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Önlenen kalori"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Ortalama öğün kalorisi"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Bunun yerine bir tarif seçtiğinde önlenen kaloriyi tahmin etmek için kullanılır. Yalnızca cihazında saklanır."
   },
   "reorderCardLabel": {
     "message": "Kartı yeniden sırala: $1. Taşımak için ok tuşlarını kullan."

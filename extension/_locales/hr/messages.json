@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Vaša statistika"
   },
-  "protectionStatusIntro": {
-    "message": "Privatna procjena na uređaju o tome što vam je FitShield pomogao preskočiti. Ovo su procjene i ništa se ne učitava."
-  },
-  "statusBlockedVisits": {
-    "message": "Blokirani posjeti"
-  },
   "statusEstimatedSavings": {
     "message": "Procijenjena ušteda"
   },
   "avgMealCostLabel": {
     "message": "Prosječna cijena obroka"
-  },
-  "avgMealCostHint": {
-    "message": "Za procjenu ušteđenog novca kad preskočite narudžbu. Pohranjeno samo na vašem uređaju."
   },
   "resetHeading": {
     "message": "Ponovno postavljanje i podaci"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Boje teme i svijetli/tamni način."
   },
-  "resetPreferencesButton": {
-    "message": "Resetiraj recepte i postavke"
-  },
-  "resetPreferencesHint": {
-    "message": "Prosječna cijena obroka, postavke kalorija i spremljena statistika."
-  },
   "factoryResetButton": {
     "message": "Tvorničke postavke"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Resetirati temu i izgled na zadani tamni način?"
   },
-  "confirmResetPreferences": {
-    "message": "Resetirati postavke cijene i kalorija te statistiku uštede i izbjegnutih kalorija?"
-  },
   "confirmFactoryReset": {
     "message": "Vratiti FitShield na tvorničke postavke? Ovo briše sve postavke, prilagođene stranice i statistiku na ovom uređaju. Ne može se poništiti."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Gotovo. Ponovno učitavanje…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Izbjegnute kalorije"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Prosječne kalorije obroka"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Za procjenu izbjegnutih kalorija kad umjesto toga odaberete recept. Pohranjeno samo na vašem uređaju."
   },
   "reorderCardLabel": {
     "message": "Promijeni redoslijed kartice: $1. Za pomicanje koristite strelice."

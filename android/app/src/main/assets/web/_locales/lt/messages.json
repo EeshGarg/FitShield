@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Jūsų statistika"
   },
-  "protectionStatusIntro": {
-    "message": "Privatus, įrenginyje atliktas įvertinimas, ko FitShield padėjo jums atsisakyti. Tai sąmatos, ir nieko neįkeliama."
-  },
-  "statusBlockedVisits": {
-    "message": "Užblokuoti apsilankymai"
-  },
   "statusEstimatedSavings": {
     "message": "Numatomas sutaupymas"
   },
   "avgMealCostLabel": {
     "message": "Vidutinė patiekalo kaina"
-  },
-  "avgMealCostHint": {
-    "message": "Naudojama įvertinti sutaupytus pinigus, kai atsisakote užsakymo. Saugoma tik jūsų įrenginyje."
   },
   "resetHeading": {
     "message": "Atstatymas ir duomenys"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Temos spalvos ir šviesus/tamsus režimas."
   },
-  "resetPreferencesButton": {
-    "message": "Atstatyti receptus ir nuostatas"
-  },
-  "resetPreferencesHint": {
-    "message": "Vidutinė patiekalo kaina, kalorijų nustatymai ir įrašyta statistika."
-  },
   "factoryResetButton": {
     "message": "Gamyklinis atstatymas"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Atstatyti temą ir išvaizdą į numatytąjį tamsų režimą?"
   },
-  "confirmResetPreferences": {
-    "message": "Atstatyti kainos ir kalorijų nuostatas bei sutaupymo ir išvengtų kalorijų statistiką?"
-  },
   "confirmFactoryReset": {
     "message": "Gamykliškai atstatyti FitShield? Tai ištrins visus nustatymus, pasirinktines svetaines ir statistiką šiame įrenginyje. Negalima atšaukti."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Atlikta. Įkeliama iš naujo…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Išvengtos kalorijos"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Vidutinės patiekalo kalorijos"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Naudojama įvertinti išvengtas kalorijas, kai vietoj to pasirenkate receptą. Saugoma tik jūsų įrenginyje."
   },
   "reorderCardLabel": {
     "message": "Pertvarkyti kortelę: $1. Norėdami perkelti, naudokite rodyklių klavišus."

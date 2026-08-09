@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "L-istatistika tiegħek"
   },
-  "protectionStatusIntro": {
-    "message": "Stima privata, fuq it-tagħmir, ta' dak li FitShield għenek taqbeż. Dawn huma stimi u xejn ma jiġi mtella'."
-  },
-  "statusBlockedVisits": {
-    "message": "Żjarat imblukkati"
-  },
   "statusEstimatedSavings": {
     "message": "Tfaddil stmat"
   },
   "avgMealCostLabel": {
     "message": "Spiża medja tal-ikla"
-  },
-  "avgMealCostHint": {
-    "message": "Tintuża biex tistma l-flus iffrankati meta taqbeż ordni. Maħżun fuq it-tagħmir tiegħek biss."
   },
   "resetHeading": {
     "message": "Irrisettja u data"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Kuluri tat-tema u mod ċar/skur."
   },
-  "resetPreferencesButton": {
-    "message": "Irrisettja r-riċetti u l-preferenzi"
-  },
-  "resetPreferencesHint": {
-    "message": "Spiża medja tal-ikla, settings tal-kaloriji, u l-istatistika salvata tiegħek."
-  },
   "factoryResetButton": {
     "message": "Irrisettja għall-fabbrika"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Tirrisettja t-tema u d-dehra għall-mod skur default?"
   },
-  "confirmResetPreferences": {
-    "message": "Tirrisettja l-preferenzi tal-ispiża u l-kaloriji, flimkien mal-istatistika tal-flus iffrankati u l-kaloriji evitati?"
-  },
   "confirmFactoryReset": {
     "message": "Tirrisettja FitShield għall-fabbrika? Dan iħassar is-settings kollha, is-siti personalizzati u l-istatistika fuq dan it-tagħmir. Ma jistax jitreġġa' lura."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Lest. Qed jerġa' jitgħabba…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Kaloriji evitati"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Kaloriji medji tal-ikla"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Tintuża biex tistma l-kaloriji evitati meta minflok tagħżel riċetta. Maħżun fuq it-tagħmir tiegħek biss."
   },
   "reorderCardLabel": {
     "message": "Erġa' ordna l-karta: $1. Uża l-vleġeġ biex tmexxiha."

@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Takwimu zako"
   },
-  "protectionStatusIntro": {
-    "message": "Makadirio ya faragha kwenye kifaa ya kile ambacho FitShield imekusaidia kuruka. Haya ni makadirio na hakuna kinachopakiwa."
-  },
-  "statusBlockedVisits": {
-    "message": "Ziara zilizozuiwa"
-  },
   "statusEstimatedSavings": {
     "message": "Akiba inayokadiriwa"
   },
   "avgMealCostLabel": {
     "message": "Gharama ya wastani ya mlo"
-  },
-  "avgMealCostHint": {
-    "message": "Hutumika kukadiria pesa zilizookolewa unaporuka agizo. Huhifadhiwa kwenye kifaa chako pekee."
   },
   "resetHeading": {
     "message": "Weka upya na data"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Rangi za mandhari na hali ya mwanga/giza."
   },
-  "resetPreferencesButton": {
-    "message": "Weka upya mapishi na mapendeleo"
-  },
-  "resetPreferencesHint": {
-    "message": "Gharama ya wastani ya mlo, mipangilio ya kalori, na takwimu zako zilizohifadhiwa."
-  },
   "factoryResetButton": {
     "message": "Weka upya kiwandani"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Uweke upya mandhari na muonekano kwa hali ya giza ya chaguo-msingi?"
   },
-  "confirmResetPreferences": {
-    "message": "Uweke upya mapendeleo yako ya gharama na kalori, pamoja na takwimu za akiba na kalori zilizoepukwa?"
-  },
   "confirmFactoryReset": {
     "message": "Uweke upya FitShield kiwandani? Hii hufuta mipangilio yote, tovuti maalum, na takwimu kwenye kifaa hiki. Haiwezi kutenduliwa."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Imekamilika. Inapakia upya…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Kalori zilizoepukwa"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Kalori za wastani za mlo"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Hutumika kukadiria kalori zilizoepukwa unapochagua mapishi badala yake. Huhifadhiwa kwenye kifaa chako pekee."
   },
   "reorderCardLabel": {
     "message": "Panga upya kadi: $1. Tumia vitufe vya mishale kuihamisha."

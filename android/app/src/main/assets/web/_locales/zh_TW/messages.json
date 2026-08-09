@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "你的統計"
   },
-  "protectionStatusIntro": {
-    "message": "在你裝置本機對 FitShield 幫你略過內容的私密估算。這些只是估算，不會上傳任何內容。"
-  },
-  "statusBlockedVisits": {
-    "message": "已攔截的造訪"
-  },
   "statusEstimatedSavings": {
     "message": "預計省下"
   },
   "avgMealCostLabel": {
     "message": "每餐平均花費"
-  },
-  "avgMealCostHint": {
-    "message": "用於估算放棄一次下單省下的錢。僅儲存在你的裝置上。"
   },
   "resetHeading": {
     "message": "重設與資料"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "主題顏色與淺色/深色模式。"
   },
-  "resetPreferencesButton": {
-    "message": "重設食譜與偏好"
-  },
-  "resetPreferencesHint": {
-    "message": "每餐平均花費、卡路里設定，以及已儲存的統計。"
-  },
   "factoryResetButton": {
     "message": "還原原廠"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "將主題和外觀重設為預設深色模式？"
   },
-  "confirmResetPreferences": {
-    "message": "重設花費和卡路里偏好，以及省錢和避免卡路里的統計？"
-  },
   "confirmFactoryReset": {
     "message": "將 FitShield 還原原廠設定？這會清除本裝置上的所有設定、自訂網站和統計。無法復原。"
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "完成。正在重新載入…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "避免的卡路里"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "每餐平均卡路里"
-  },
-  "avgMealCaloriesHint": {
-    "message": "用於估算改選食譜時避免的卡路里。僅儲存在你的裝置上。"
   },
   "reorderCardLabel": {
     "message": "重新排序卡片：$1。用方向鍵移動。"

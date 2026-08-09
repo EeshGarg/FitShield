@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "آمار شما"
   },
-  "protectionStatusIntro": {
-    "message": "برآوردی خصوصی روی دستگاه شما از آنچه FitShield به شما کمک کرد از آن صرف‌نظر کنید. این‌ها تخمینی‌اند و چیزی بارگذاری نمی‌شود."
-  },
-  "statusBlockedVisits": {
-    "message": "بازدیدهای مسدودشده"
-  },
   "statusEstimatedSavings": {
     "message": "صرفه‌جویی تخمینی"
   },
   "avgMealCostLabel": {
     "message": "میانگین هزینهٔ هر وعده"
-  },
-  "avgMealCostHint": {
-    "message": "برای تخمین پول صرفه‌جویی‌شده هنگام صرف‌نظر از سفارش به کار می‌رود. فقط روی دستگاه شما ذخیره می‌شود."
   },
   "resetHeading": {
     "message": "بازنشانی و داده‌ها"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "رنگ‌های پوسته و حالت روشن/تیره."
   },
-  "resetPreferencesButton": {
-    "message": "بازنشانی دستورها و ترجیحات"
-  },
-  "resetPreferencesHint": {
-    "message": "میانگین هزینهٔ وعده، تنظیمات کالری و آمار ذخیره‌شدهٔ شما."
-  },
   "factoryResetButton": {
     "message": "بازنشانی کارخانه"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "پوسته و ظاهر به حالت تیرهٔ پیش‌فرض بازنشانی شود؟"
   },
-  "confirmResetPreferences": {
-    "message": "ترجیحات هزینه و کالری به‌همراه آمار صرفه‌جویی و کالری اجتناب‌شده بازنشانی شود؟"
-  },
   "confirmFactoryReset": {
     "message": "FitShield به تنظیمات کارخانه بازنشانی شود؟ این کار همهٔ تنظیمات، سایت‌های سفارشی و آمار این دستگاه را پاک می‌کند. قابل بازگشت نیست."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "انجام شد. در حال بارگذاری مجدد…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "کالری اجتناب‌شده"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "میانگین کالری هر وعده"
-  },
-  "avgMealCaloriesHint": {
-    "message": "برای تخمین کالری اجتناب‌شده هنگام انتخاب دستور پخت به کار می‌رود. فقط روی دستگاه شما ذخیره می‌شود."
   },
   "reorderCardLabel": {
     "message": "مرتب‌سازی کارت: $1. برای جابه‌جایی از کلیدهای جهت استفاده کنید."

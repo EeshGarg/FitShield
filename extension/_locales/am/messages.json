@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "የእርስዎ ስታትስቲክስ"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield ምን እንዲዘሉ እንደረዳዎት በመሣሪያው ላይ ያለ የግል ግምት። እነዚህ ግምቶች ናቸው እና ምንም አይሰቀልም።"
-  },
-  "statusBlockedVisits": {
-    "message": "የታገዱ ጉብኝቶች"
-  },
   "statusEstimatedSavings": {
     "message": "የተገመተ ቁጠባ"
   },
   "avgMealCostLabel": {
     "message": "አማካይ የምግብ ወጪ"
-  },
-  "avgMealCostHint": {
-    "message": "ትዕዛዝ ሲዘሉ የተቆጠበውን ገንዘብ ለመገመት ይጠቅማል። በመሣሪያዎ ላይ ብቻ ይቀመጣል።"
   },
   "resetHeading": {
     "message": "ዳግም አስጀምር እና ውሂብ"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "የገጽታ ቀለሞች እና ብርሃን/ጨለማ ሁነታ።"
   },
-  "resetPreferencesButton": {
-    "message": "የምግብ አሰራሮችን እና ምርጫዎችን ዳግም አስጀምር"
-  },
-  "resetPreferencesHint": {
-    "message": "አማካይ የምግብ ወጪ፣ የካሎሪ ቅንብሮች እና የተቀመጡ ስታትስቲክስዎ።"
-  },
   "factoryResetButton": {
     "message": "የፋብሪካ ዳግም አስጀምር"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "ገጽታውን እና መልክን ወደ ነባሪ ጨለማ ሁነታ ዳግም ይጀምሩ?"
   },
-  "confirmResetPreferences": {
-    "message": "የወጪ እና የካሎሪ ምርጫዎችዎን፣ እንዲሁም የቁጠባ እና የተወገዱ-ካሎሪ ስታትስቲክስን ዳግም ይጀምሩ?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield የፋብሪካ ዳግም ይጀምሩ? ይህ በዚህ መሣሪያ ላይ ያሉትን ሁሉንም ቅንብሮች፣ ብጁ ጣቢያዎች እና ስታትስቲክስ ይሰርዛል። መቀልበስ አይቻልም።"
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "ተጠናቋል። እንደገና በመጫን ላይ…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "የተወገዱ ካሎሪዎች"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "አማካይ የምግብ ካሎሪ"
-  },
-  "avgMealCaloriesHint": {
-    "message": "በምትኩ የምግብ አሰራር ሲመርጡ የተወገዱ ካሎሪዎችን ለመገመት ይጠቅማል። በመሣሪያዎ ላይ ብቻ ይቀመጣል።"
   },
   "reorderCardLabel": {
     "message": "ካርዱን እንደገና ያደራጁ፡ $1። ለማንቀሳቀስ የቀስት ቁልፎችን ይጠቀሙ።"

@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "तपाईंको तथ्याङ्क"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield ले तपाईंलाई के छोड्न मद्दत गर्‍यो भन्ने उपकरणमै रहेको निजी अनुमान। यी अनुमान हुन् र केही पनि अपलोड हुँदैन।"
-  },
-  "statusBlockedVisits": {
-    "message": "रोकिएका भ्रमणहरू"
-  },
   "statusEstimatedSavings": {
     "message": "अनुमानित बचत"
   },
   "avgMealCostLabel": {
     "message": "औसत खाना खर्च"
-  },
-  "avgMealCostHint": {
-    "message": "अर्डर छोड्दा बचेको पैसा अनुमान गर्न प्रयोग हुन्छ। तपाईंको उपकरणमा मात्र भण्डारण हुन्छ।"
   },
   "resetHeading": {
     "message": "रिसेट र डेटा"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "थिम रङ र लाइट/डार्क मोड।"
   },
-  "resetPreferencesButton": {
-    "message": "रेसिपी र प्राथमिकता रिसेट गर्नुहोस्"
-  },
-  "resetPreferencesHint": {
-    "message": "औसत खाना खर्च, क्यालोरी सेटिङ, र तपाईंको सुरक्षित तथ्याङ्क।"
-  },
   "factoryResetButton": {
     "message": "फ्याक्ट्री रिसेट"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "थिम र रूप पूर्वनिर्धारित डार्क मोडमा रिसेट गर्ने?"
   },
-  "confirmResetPreferences": {
-    "message": "तपाईंको खर्च र क्यालोरी प्राथमिकता, साथै बचत र बचाइएको-क्यालोरी तथ्याङ्क रिसेट गर्ने?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield फ्याक्ट्री रिसेट गर्ने? यसले यो उपकरणका सबै सेटिङ, अनुकूलन साइट र तथ्याङ्क मेटाउँछ। यो उल्टाउन सकिँदैन।"
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "भयो। पुनः लोड हुँदैछ…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "बचाइएका क्यालोरी"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "औसत खाना क्यालोरी"
-  },
-  "avgMealCaloriesHint": {
-    "message": "साटो रेसिपी छनोट गर्दा बचेका क्यालोरी अनुमान गर्न प्रयोग हुन्छ। तपाईंको उपकरणमा मात्र भण्डारण हुन्छ।"
   },
   "reorderCardLabel": {
     "message": "कार्ड पुनः क्रमबद्ध गर्नुहोस्: $1। सार्न तीर कुञ्जी प्रयोग गर्नुहोस्।"

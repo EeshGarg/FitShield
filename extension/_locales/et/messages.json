@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Sinu statistika"
   },
-  "protectionStatusIntro": {
-    "message": "Privaatne, seadmes tehtud hinnang sellele, mida FitShield on aidanud sul vahele jätta. Need on hinnangud ja midagi ei laadita üles."
-  },
-  "statusBlockedVisits": {
-    "message": "Blokeeritud külastused"
-  },
   "statusEstimatedSavings": {
     "message": "Hinnanguline kokkuhoid"
   },
   "avgMealCostLabel": {
     "message": "Keskmine eine hind"
-  },
-  "avgMealCostHint": {
-    "message": "Kasutatakse säästetud raha hindamiseks, kui jätad tellimuse vahele. Salvestatakse ainult sinu seadmesse."
   },
   "resetHeading": {
     "message": "Lähtestamine ja andmed"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Teema värvid ja hele/tume režiim."
   },
-  "resetPreferencesButton": {
-    "message": "Lähtesta retseptid ja eelistused"
-  },
-  "resetPreferencesHint": {
-    "message": "Keskmine eine hind, kaloriseaded ja salvestatud statistika."
-  },
   "factoryResetButton": {
     "message": "Tehaseseadete taastamine"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Kas lähtestada teema ja välimus vaikimisi tumedale režiimile?"
   },
-  "confirmResetPreferences": {
-    "message": "Kas lähtestada hinna- ja kalorieelistused ning säästu ja välditud kalorite statistika?"
-  },
   "confirmFactoryReset": {
     "message": "Kas taastada FitShieldi tehaseseaded? See kustutab kõik seaded, kohandatud saidid ja statistika selles seadmes. Seda ei saa tagasi võtta."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Valmis. Laaditakse uuesti…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Välditud kalorid"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Keskmised eine kalorid"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Kasutatakse välditud kalorite hindamiseks, kui valid selle asemel retsepti. Salvestatakse ainult sinu seadmesse."
   },
   "reorderCardLabel": {
     "message": "Korralda kaart ümber: $1. Liigutamiseks kasuta nooleklahve."

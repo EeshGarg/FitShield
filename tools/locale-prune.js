@@ -57,6 +57,42 @@ function unusedKeys() {
   });
 }
 
+/**
+ * Keys a translation still carries that English has dropped.
+ *
+ * These are the *other* half of the same problem. When a string's meaning
+ * changes, the honest move is a new key — a locale keeping the old translation
+ * would otherwise render text that describes behaviour the product no longer
+ * has, in 82 languages, while English reads correctly. So the old key leaves
+ * English, and every translation of it becomes unreachable: nothing requests
+ * it, and there is no English entry to fall back to.
+ *
+ * Unreachable is not harmless. `tools/locale-parity.js` fails the build on
+ * them, and until they are gone the failure hides real parity problems.
+ *
+ * @returns {Map<string, string[]>} locale code -> the keys English no longer has
+ */
+function orphanedKeys() {
+  const en = JSON.parse(fs.readFileSync(path.join(LOCALES_DIR, "en", "messages.json"), "utf8"));
+  const out = new Map();
+
+  localeCodes().forEach((code) => {
+    if (code === "en") {
+      return;
+    }
+
+    const file = path.join(LOCALES_DIR, code, "messages.json");
+    const data = JSON.parse(fs.readFileSync(file, "utf8"));
+    const extra = Object.keys(data).filter((key) => !Object.prototype.hasOwnProperty.call(en, key));
+
+    if (extra.length > 0) {
+      out.set(code, extra);
+    }
+  });
+
+  return out;
+}
+
 // Re-verify each declared dynamic prefix still has a construction site, so the
 // exemption list cannot quietly outlive the code that justified it.
 function staleExemptions() {
@@ -106,22 +142,35 @@ if (require.main === module) {
   }
 
   const keys = unusedKeys();
+  const orphans = orphanedKeys();
+  // Both kinds are unreachable and both are removed the same way, so they are
+  // reported separately and pruned together.
+  const orphanNames = [...new Set([...orphans.values()].flat())].sort();
 
-  if (keys.length === 0) {
+  if (keys.length === 0 && orphanNames.length === 0) {
     console.log("No unreferenced locale keys.");
     process.exit(0);
   }
 
-  console.log(`${keys.length} unreferenced key(s):`);
-  keys.forEach((key) => console.log(`  ${key}`));
+  if (keys.length > 0) {
+    console.log(`${keys.length} key(s) in English that no source file references:`);
+    keys.forEach((key) => console.log(`  ${key}`));
+  }
+
+  if (orphanNames.length > 0) {
+    console.log(
+      `${orphanNames.length} key(s) English has dropped, still translated in ${orphans.size} locale(s):`
+    );
+    orphanNames.forEach((key) => console.log(`  ${key}`));
+  }
 
   if (!process.argv.includes("--apply")) {
     console.log("\nRe-run with --apply to remove them from every locale.");
     process.exit(0);
   }
 
-  const { touched, removed } = prune(keys);
+  const { touched, removed } = prune([...keys, ...orphanNames]);
   console.log(`\nRemoved ${removed} entries across ${touched} locale file(s). Run \`npm run sync\`.`);
 }
 
-module.exports = { unusedKeys, staleExemptions, prune, DYNAMIC_PREFIXES };
+module.exports = { unusedKeys, orphanedKeys, staleExemptions, prune, DYNAMIC_PREFIXES };

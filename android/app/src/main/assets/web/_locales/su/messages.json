@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Statistik Anjeun"
   },
-  "protectionStatusIntro": {
-    "message": "Perkiraan pribadi dina alat ngeunaan naon anu dibantu FitShield pikeun dilewatan. Ieu perkiraan jeung teu aya nu diunggah."
-  },
-  "statusBlockedVisits": {
-    "message": "Kunjungan diblokir"
-  },
   "statusEstimatedSavings": {
     "message": "Tabungan perkiraan"
   },
   "avgMealCostLabel": {
     "message": "Rata-rata waragad dahar"
-  },
-  "avgMealCostHint": {
-    "message": "Dipaké pikeun ngira-ngira duit nu disimpen nalika anjeun ngalewatan pesenan. Disimpen ngan dina alat anjeun."
   },
   "resetHeading": {
     "message": "Reset & Data"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Warna téma jeung mode caang/poék."
   },
-  "resetPreferencesButton": {
-    "message": "Reset resep & préferénsi"
-  },
-  "resetPreferencesHint": {
-    "message": "Rata-rata waragad dahar, setélan kalori, jeung statistik nu disimpen."
-  },
   "factoryResetButton": {
     "message": "Reset pabrik"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Reset téma jeung tampilan ka mode poék standar?"
   },
-  "confirmResetPreferences": {
-    "message": "Reset préferénsi waragad jeung kalori, katut statistik tabungan jeung kalori nu dihindari?"
-  },
   "confirmFactoryReset": {
     "message": "Reset pabrik FitShield? Ieu mupus sadaya setélan, situs khusus, jeung statistik dina alat ieu. Teu bisa dibatalkeun."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Réngsé. Ngamuat deui…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Kalori dihindari"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Rata-rata kalori dahar"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Dipaké pikeun ngira-ngira kalori nu dihindari nalika anjeun milih resep. Disimpen ngan dina alat anjeun."
   },
   "reorderCardLabel": {
     "message": "Susun deui kartu: $1. Paké kenop panah pikeun mindahkeun."

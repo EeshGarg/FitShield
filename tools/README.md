@@ -56,7 +56,7 @@ fails `npm run validate` and `npm test` rather than shipping silently.
 | `npm run build:safari` | `build-safari.js` | stages the Safari wrapper source |
 | `npm run verify:unpacked` | `verify-unpacked.js` | loads a built package and proves the engine blocks a real brand |
 | `npm run locales:status` | `locale-status.js` | translation coverage per locale; `--todo <locale>` writes a worklist |
-| `npm run locales:prune` | `locale-prune.js` | finds (and removes) locale keys no source file can display |
+| `npm run locales:prune` | `locale-prune.js` | finds (and removes) unreachable locale keys: those no source file references, and those English has dropped but translations still carry |
 
 ## Module form
 

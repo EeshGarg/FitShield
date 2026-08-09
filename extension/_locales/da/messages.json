@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Din statistik"
   },
-  "protectionStatusIntro": {
-    "message": "Et privat skøn på enheden over, hvad FitShield har hjulpet dig med at springe over. Dette er skøn, og intet uploades."
-  },
-  "statusBlockedVisits": {
-    "message": "Blokerede besøg"
-  },
   "statusEstimatedSavings": {
     "message": "Anslået besparelse"
   },
   "avgMealCostLabel": {
     "message": "Gennemsnitlig måltidspris"
-  },
-  "avgMealCostHint": {
-    "message": "Bruges til at anslå penge sparet, når du springer en bestilling over. Gemmes kun på din enhed."
   },
   "resetHeading": {
     "message": "Nulstil og data"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Temafarver og lys/mørk tilstand."
   },
-  "resetPreferencesButton": {
-    "message": "Nulstil opskrifter og præferencer"
-  },
-  "resetPreferencesHint": {
-    "message": "Gennemsnitlig måltidspris, kalorieindstillinger og din gemte statistik."
-  },
   "factoryResetButton": {
     "message": "Fabriksnulstilling"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Nulstil tema og udseende til standard mørk tilstand?"
   },
-  "confirmResetPreferences": {
-    "message": "Nulstil dine pris- og kaloriepræferencer samt statistik for sparede penge og undgåede kalorier?"
-  },
   "confirmFactoryReset": {
     "message": "Fabriksnulstil FitShield? Dette sletter alle indstillinger, egne websteder og statistik på denne enhed. Kan ikke fortrydes."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Færdig. Genindlæser…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Undgåede kalorier"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Gennemsnitlige måltidskalorier"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Bruges til at anslå undgåede kalorier, når du i stedet vælger en opskrift. Gemmes kun på din enhed."
   },
   "reorderCardLabel": {
     "message": "Omarranger kort: $1. Brug piletasterne til at flytte det."

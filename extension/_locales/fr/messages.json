@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Vos statistiques"
   },
-  "protectionStatusIntro": {
-    "message": "Une estimation privée, sur votre appareil, de ce que FitShield vous a aidé à éviter. Ce sont des estimations et rien n'est envoyé."
-  },
-  "statusBlockedVisits": {
-    "message": "Visites bloquées"
-  },
   "statusEstimatedSavings": {
     "message": "Économies estimées"
   },
   "avgMealCostLabel": {
     "message": "Coût moyen par repas"
-  },
-  "avgMealCostHint": {
-    "message": "Sert à estimer l'argent économisé en évitant une commande. Stocké uniquement sur votre appareil."
   },
   "resetHeading": {
     "message": "Réinitialisation et données"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Couleurs du thème et mode clair/sombre."
   },
-  "resetPreferencesButton": {
-    "message": "Réinitialiser recettes et préférences"
-  },
-  "resetPreferencesHint": {
-    "message": "Coût moyen par repas, réglages de calories et vos stats enregistrées."
-  },
   "factoryResetButton": {
     "message": "Réinitialisation d'usine"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Réinitialiser le thème et l'apparence au mode sombre par défaut ?"
   },
-  "confirmResetPreferences": {
-    "message": "Réinitialiser vos préférences de coût et de calories, ainsi que les stats d'économies et de calories évitées ?"
-  },
   "confirmFactoryReset": {
     "message": "Réinitialiser FitShield d'usine ? Cela efface tous les réglages, sites personnalisés et stats de cet appareil. Action irréversible."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Terminé. Rechargement…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Calories évitées"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Calories moyennes par repas"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Sert à estimer les calories évitées en choisissant une recette. Stocké uniquement sur votre appareil."
   },
   "reorderCardLabel": {
     "message": "Réorganiser la carte : $1. Utilisez les flèches pour la déplacer."

@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Les teves estadístiques"
   },
-  "protectionStatusIntro": {
-    "message": "Una estimació privada, al dispositiu, del que FitShield t'ha ajudat a evitar. Són estimacions i no es puja res."
-  },
-  "statusBlockedVisits": {
-    "message": "Visites bloquejades"
-  },
   "statusEstimatedSavings": {
     "message": "Estalvi estimat"
   },
   "avgMealCostLabel": {
     "message": "Cost mitjà per àpat"
-  },
-  "avgMealCostHint": {
-    "message": "S'usa per estimar els diners estalviats quan evites una comanda. Es desa només al teu dispositiu."
   },
   "resetHeading": {
     "message": "Restabliment i dades"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Colors del tema i mode clar/fosc."
   },
-  "resetPreferencesButton": {
-    "message": "Restableix receptes i preferències"
-  },
-  "resetPreferencesHint": {
-    "message": "Cost mitjà per àpat, configuració de calories i les estadístiques desades."
-  },
   "factoryResetButton": {
     "message": "Restabliment de fàbrica"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Vols restablir el tema i l'aparença al mode fosc per defecte?"
   },
-  "confirmResetPreferences": {
-    "message": "Vols restablir les preferències de cost i calories, més les estadístiques d'estalvi i calories evitades?"
-  },
   "confirmFactoryReset": {
     "message": "Vols restablir FitShield de fàbrica? Això esborra tota la configuració, els llocs personalitzats i les estadístiques d'aquest dispositiu. No es pot desfer."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Fet. Tornant a carregar…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Calories evitades"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Calories mitjanes per àpat"
-  },
-  "avgMealCaloriesHint": {
-    "message": "S'usa per estimar les calories evitades quan tries una recepta. Es desa només al teu dispositiu."
   },
   "reorderCardLabel": {
     "message": "Reordena la targeta: $1. Fes servir les fletxes per moure-la."

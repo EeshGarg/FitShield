@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "మీ గణాంకాలు"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield మిమ్మల్ని వదిలేయడంలో సహాయపడిన దానిపై పరికరంలోనే ఉండే ఒక గోప్యమైన అంచనా. ఇవి అంచనాలు, ఏదీ అప్‌లోడ్ కాదు."
-  },
-  "statusBlockedVisits": {
-    "message": "నిరోధించిన సందర్శనలు"
-  },
   "statusEstimatedSavings": {
     "message": "అంచనా పొదుపు"
   },
   "avgMealCostLabel": {
     "message": "సగటు భోజన ఖర్చు"
-  },
-  "avgMealCostHint": {
-    "message": "ఆర్డర్‌ను వదిలేసినప్పుడు ఆదా అయిన డబ్బును అంచనా వేయడానికి ఉపయోగిస్తారు. మీ పరికరంలో మాత్రమే నిల్వ చేయబడుతుంది."
   },
   "resetHeading": {
     "message": "రీసెట్ & డేటా"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "థీమ్ రంగులు మరియు లైట్/డార్క్ మోడ్."
   },
-  "resetPreferencesButton": {
-    "message": "రెసిపీలు & ప్రాధాన్యతలను రీసెట్ చేయి"
-  },
-  "resetPreferencesHint": {
-    "message": "సగటు భోజన ఖర్చు, కేలరీ సెట్టింగ్‌లు, మీ సేవ్ చేసిన గణాంకాలు."
-  },
   "factoryResetButton": {
     "message": "ఫ్యాక్టరీ రీసెట్"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "థీమ్ మరియు రూపాన్ని డిఫాల్ట్ డార్క్ మోడ్‌కు రీసెట్ చేయాలా?"
   },
-  "confirmResetPreferences": {
-    "message": "మీ ఖర్చు, కేలరీ ప్రాధాన్యతలను, అలాగే పొదుపు మరియు తప్పించిన-కేలరీ గణాంకాలను రీసెట్ చేయాలా?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield‌ను ఫ్యాక్టరీ రీసెట్ చేయాలా? ఇది ఈ పరికరంలోని అన్ని సెట్టింగ్‌లు, అనుకూల సైట్‌లు, గణాంకాలను తొలగిస్తుంది. దీన్ని తిరిగి తీసుకోలేరు."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "పూర్తయింది. మళ్లీ లోడ్ అవుతోంది…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "తప్పించిన కేలరీలు"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "సగటు భోజన కేలరీలు"
-  },
-  "avgMealCaloriesHint": {
-    "message": "బదులుగా రెసిపీని ఎంచుకున్నప్పుడు తప్పించిన కేలరీలను అంచనా వేయడానికి ఉపయోగిస్తారు. మీ పరికరంలో మాత్రమే నిల్వ చేయబడుతుంది."
   },
   "reorderCardLabel": {
     "message": "కార్డును క్రమం మార్చండి: $1. తరలించడానికి బాణం కీలను వాడండి."

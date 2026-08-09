@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Jou statistiek"
   },
-  "protectionStatusIntro": {
-    "message": "’n Private skatting op die toestel van wat FitShield jou gehelp het om oor te slaan. Dit is skattings en niks word opgelaai nie."
-  },
-  "statusBlockedVisits": {
-    "message": "Geblokte besoeke"
-  },
   "statusEstimatedSavings": {
     "message": "Geskatte besparing"
   },
   "avgMealCostLabel": {
     "message": "Gemiddelde maaltydkoste"
-  },
-  "avgMealCostHint": {
-    "message": "Word gebruik om geld te skat wat jy spaar wanneer jy ’n bestelling oorslaan. Net op jou toestel gestoor."
   },
   "resetHeading": {
     "message": "Herstel en data"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Temakleure en lig/donker modus."
   },
-  "resetPreferencesButton": {
-    "message": "Herstel resepte en voorkeure"
-  },
-  "resetPreferencesHint": {
-    "message": "Gemiddelde maaltydkoste, kalorie-instellings en jou gestoorde statistiek."
-  },
   "factoryResetButton": {
     "message": "Fabriekherstel"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Herstel die tema en voorkoms na die verstek donker modus?"
   },
-  "confirmResetPreferences": {
-    "message": "Herstel jou koste- en kalorievoorkeure, plus die bespaar- en vermyde-kalorie-statistiek?"
-  },
   "confirmFactoryReset": {
     "message": "Fabriekherstel FitShield? Dit vee alle instellings, pasgemaakte werwe en statistiek op hierdie toestel uit. Dit kan nie ongedaan gemaak word nie."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Klaar. Herlaai tans…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Vermyde kalorieë"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Gemiddelde maaltydkalorieë"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Word gebruik om vermyde kalorieë te skat wanneer jy eerder ’n resep kies. Net op jou toestel gestoor."
   },
   "reorderCardLabel": {
     "message": "Herrangskik kaart: $1. Gebruik die pyltjiesleutels om dit te skuif."

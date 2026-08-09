@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Statistikat tuaja"
   },
-  "protectionStatusIntro": {
-    "message": "Një vlerësim privat, në pajisje, i asaj që FitShield ju ndihmoi të anashkaloni. Këto janë vlerësime dhe asgjë nuk ngarkohet."
-  },
-  "statusBlockedVisits": {
-    "message": "Vizita të bllokuara"
-  },
   "statusEstimatedSavings": {
     "message": "Kursime të vlerësuara"
   },
   "avgMealCostLabel": {
     "message": "Kosto mesatare e vaktit"
-  },
-  "avgMealCostHint": {
-    "message": "Përdoret për të vlerësuar paratë e kursyera kur anashkaloni një porosi. Ruhet vetëm në pajisjen tuaj."
   },
   "resetHeading": {
     "message": "Rivendosja dhe të dhënat"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Ngjyrat e temës dhe modaliteti i çelët/i errët."
   },
-  "resetPreferencesButton": {
-    "message": "Rivendos recetat dhe preferencat"
-  },
-  "resetPreferencesHint": {
-    "message": "Kosto mesatare e vaktit, cilësimet e kalorive dhe statistikat e ruajtura."
-  },
   "factoryResetButton": {
     "message": "Rivendosje në fabrikë"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Të rivendosen tema dhe pamja në modalitetin e errët të parazgjedhur?"
   },
-  "confirmResetPreferences": {
-    "message": "Të rivendosen preferencat e kostos dhe kalorive, plus statistikat e kursimeve dhe kalorive të shmangura?"
-  },
   "confirmFactoryReset": {
     "message": "Të rivendoset FitShield në fabrikë? Kjo fshin të gjitha cilësimet, sajtet e personalizuara dhe statistikat në këtë pajisje. Nuk mund të zhbëhet."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "U krye. Po ringarkohet…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Kalori të shmangura"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Kalori mesatare të vaktit"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Përdoret për të vlerësuar kaloritë e shmangura kur zgjidhni një recetë. Ruhet vetëm në pajisjen tuaj."
   },
   "reorderCardLabel": {
     "message": "Rirendit kartën: $1. Përdorni shigjetat për ta lëvizur."

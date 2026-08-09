@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Ваша статистика"
   },
-  "protectionStatusIntro": {
-    "message": "Приватна оцінка на вашому пристрої того, що FitShield допоміг пропустити. Це оцінки, і нічого не завантажується."
-  },
-  "statusBlockedVisits": {
-    "message": "Заблоковані візити"
-  },
   "statusEstimatedSavings": {
     "message": "Орієнтовна економія"
   },
   "avgMealCostLabel": {
     "message": "Середня ціна прийому їжі"
-  },
-  "avgMealCostHint": {
-    "message": "Використовується для оцінки заощаджених грошей, коли ви відмовляєтесь від замовлення. Зберігається лише на вашому пристрої."
   },
   "resetHeading": {
     "message": "Скидання та дані"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Кольори теми та світлий/темний режим."
   },
-  "resetPreferencesButton": {
-    "message": "Скинути рецепти й налаштування"
-  },
-  "resetPreferencesHint": {
-    "message": "Середня ціна прийому їжі, налаштування калорій і збережена статистика."
-  },
   "factoryResetButton": {
     "message": "Скидання до заводських"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Скинути тему та вигляд до типового темного режиму?"
   },
-  "confirmResetPreferences": {
-    "message": "Скинути налаштування ціни й калорій, а також статистику економії та уникнутих калорій?"
-  },
   "confirmFactoryReset": {
     "message": "Скинути FitShield до заводських налаштувань? Це зітре всі налаштування, власні сайти й статистику на цьому пристрої. Скасувати неможливо."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Готово. Перезавантаження…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Уникнуто калорій"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Середні калорії на прийом їжі"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Використовується для оцінки уникнутих калорій, коли ви обираєте рецепт. Зберігається лише на вашому пристрої."
   },
   "reorderCardLabel": {
     "message": "Перемістити картку: $1. Користуйтеся стрілками."

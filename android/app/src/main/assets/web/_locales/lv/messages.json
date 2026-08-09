@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Jūsu statistika"
   },
-  "protectionStatusIntro": {
-    "message": "Privāts, ierīcē veikts novērtējums tam, ko FitShield palīdzējis izlaist. Tie ir aptuveni rādītāji, un nekas netiek augšupielādēts."
-  },
-  "statusBlockedVisits": {
-    "message": "Bloķētie apmeklējumi"
-  },
   "statusEstimatedSavings": {
     "message": "Aplēstie ietaupījumi"
   },
   "avgMealCostLabel": {
     "message": "Vidējā maltītes cena"
-  },
-  "avgMealCostHint": {
-    "message": "Izmanto, lai aplēstu ietaupīto naudu, kad izlaižat pasūtījumu. Glabājas tikai jūsu ierīcē."
   },
   "resetHeading": {
     "message": "Atiestatīšana un dati"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Motīva krāsas un gaišais/tumšais režīms."
   },
-  "resetPreferencesButton": {
-    "message": "Atiestatīt receptes un preferences"
-  },
-  "resetPreferencesHint": {
-    "message": "Vidējā maltītes cena, kaloriju iestatījumi un saglabātā statistika."
-  },
   "factoryResetButton": {
     "message": "Rūpnīcas atiestatīšana"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Atiestatīt motīvu un izskatu uz noklusējuma tumšo režīmu?"
   },
-  "confirmResetPreferences": {
-    "message": "Atiestatīt cenas un kaloriju preferences, kā arī ietaupījumu un izvairīto kaloriju statistiku?"
-  },
   "confirmFactoryReset": {
     "message": "Atiestatīt FitShield uz rūpnīcas iestatījumiem? Tas izdzēš visus iestatījumus, pielāgotās vietnes un statistiku šajā ierīcē. To nevar atsaukt."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Pabeigts. Notiek atkārtota ielāde…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Izvairītās kalorijas"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Vidējās maltītes kalorijas"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Izmanto, lai aplēstu izvairītās kalorijas, kad tā vietā izvēlaties recepti. Glabājas tikai jūsu ierīcē."
   },
   "reorderCardLabel": {
     "message": "Pārkārtot kartīti: $1. Lai pārvietotu, izmantojiet bulttaustiņus."

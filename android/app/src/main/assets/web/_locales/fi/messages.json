@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Tilastosi"
   },
-  "protectionStatusIntro": {
-    "message": "Yksityinen, laitteella tehty arvio siitä, mitä FitShield on auttanut sinua ohittamaan. Nämä ovat arvioita, eikä mitään ladata."
-  },
-  "statusBlockedVisits": {
-    "message": "Estetyt käynnit"
-  },
   "statusEstimatedSavings": {
     "message": "Arvioidut säästöt"
   },
   "avgMealCostLabel": {
     "message": "Aterian keskihinta"
-  },
-  "avgMealCostHint": {
-    "message": "Käytetään arvioimaan säästetyt rahat, kun ohitat tilauksen. Tallennetaan vain laitteellesi."
   },
   "resetHeading": {
     "message": "Nollaus ja tiedot"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Teeman värit ja vaalea/tumma tila."
   },
-  "resetPreferencesButton": {
-    "message": "Nollaa reseptit ja asetukset"
-  },
-  "resetPreferencesHint": {
-    "message": "Aterian keskihinta, kaloriasetukset ja tallennetut tilastot."
-  },
   "factoryResetButton": {
     "message": "Tehdasasetusten palautus"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Nollataanko teema ja ulkoasu oletustummaan tilaan?"
   },
-  "confirmResetPreferences": {
-    "message": "Nollataanko hinta- ja kaloriasetukset sekä säästö- ja vältettyjen kaloreiden tilastot?"
-  },
   "confirmFactoryReset": {
     "message": "Palautetaanko FitShield tehdasasetuksiin? Tämä pyyhkii kaikki asetukset, omat sivustot ja tilastot tältä laitteelta. Ei voi kumota."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Valmis. Ladataan uudelleen…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Vältetyt kalorit"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Aterian keskikalorit"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Käytetään arvioimaan vältetyt kalorit, kun valitset reseptin sen sijaan. Tallennetaan vain laitteellesi."
   },
   "reorderCardLabel": {
     "message": "Järjestä kortti uudelleen: $1. Siirrä nuolinäppäimillä."

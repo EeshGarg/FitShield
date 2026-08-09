@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "તમારા આંકડા"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield એ તમને શું ટાળવામાં મદદ કરી તેનો ઉપકરણમાં જ રહેલો ખાનગી અંદાજ. આ અંદાજો છે અને કંઈ અપલોડ થતું નથી."
-  },
-  "statusBlockedVisits": {
-    "message": "અવરોધિત મુલાકાતો"
-  },
   "statusEstimatedSavings": {
     "message": "અંદાજિત બચત"
   },
   "avgMealCostLabel": {
     "message": "સરેરાશ ભોજન ખર્ચ"
-  },
-  "avgMealCostHint": {
-    "message": "ઓર્ડર ટાળતી વખતે બચેલા પૈસાનો અંદાજ કાઢવા વપરાય છે. ફક્ત તમારા ઉપકરણ પર સંગ્રહિત."
   },
   "resetHeading": {
     "message": "રીસેટ અને ડેટા"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "થીમ રંગો અને લાઇટ/ડાર્ક મોડ."
   },
-  "resetPreferencesButton": {
-    "message": "રેસિપી અને પસંદગીઓ રીસેટ કરો"
-  },
-  "resetPreferencesHint": {
-    "message": "સરેરાશ ભોજન ખર્ચ, કેલરી સેટિંગ્સ અને તમારા સાચવેલા આંકડા."
-  },
   "factoryResetButton": {
     "message": "ફેક્ટરી રીસેટ"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "થીમ અને દેખાવ ડિફોલ્ટ ડાર્ક મોડ પર રીસેટ કરવો?"
   },
-  "confirmResetPreferences": {
-    "message": "તમારી ખર્ચ અને કેલરી પસંદગીઓ, તેમજ બચત અને ટાળેલી-કેલરી આંકડા રીસેટ કરવા?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield ફેક્ટરી રીસેટ કરવું? આ આ ઉપકરણ પરની બધી સેટિંગ્સ, કસ્ટમ સાઇટ્સ અને આંકડા ભૂંસી નાખશે. આ પૂર્વવત્ કરી શકાતું નથી."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "થઈ ગયું. ફરી લોડ થઈ રહ્યું છે…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "ટાળેલી કેલરી"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "સરેરાશ ભોજન કેલરી"
-  },
-  "avgMealCaloriesHint": {
-    "message": "તેના બદલે રેસિપી પસંદ કરતી વખતે ટાળેલી કેલરીનો અંદાજ કાઢવા વપરાય છે. ફક્ત તમારા ઉપકરણ પર સંગ્રહિત."
   },
   "reorderCardLabel": {
     "message": "કાર્ડ ફરી ગોઠવો: $1. ખસેડવા માટે તીર કી વાપરો."

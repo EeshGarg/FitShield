@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "ستاسو احصایه"
   },
-  "protectionStatusIntro": {
-    "message": "د هغه څه یوه شخصي اټکل چې FitShield تاسو سره د پریښودلو کې مرسته کړې، چې په وسیله کې پاتې کیږي. دا اټکلونه دي او هیڅ شی نه اپلوډ کیږي."
-  },
-  "statusBlockedVisits": {
-    "message": "بند شوي لیدنې"
-  },
   "statusEstimatedSavings": {
     "message": "اټکل شوې سپما"
   },
   "avgMealCostLabel": {
     "message": "د خواړو منځنۍ بیه"
-  },
-  "avgMealCostHint": {
-    "message": "کله چې یو امر پریږدئ د سپما شوي پیسو اټکل لپاره کارول کیږي. یوازې ستاسو وسیله کې ساتل کیږي."
   },
   "resetHeading": {
     "message": "بیا تنظیم او معلومات"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "د تیم رنګونه او روښانه/تیاره حالت."
   },
-  "resetPreferencesButton": {
-    "message": "ترکیبونه او غوره توبونه بیا تنظیم کړئ"
-  },
-  "resetPreferencesHint": {
-    "message": "د خواړو منځنۍ بیه، د کالوري ترتیبات، او ستاسو ساتل شوې احصایه."
-  },
   "factoryResetButton": {
     "message": "د فابریکې بیا تنظیم"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "تیم او بڼه اصلي تیاره حالت ته بیا تنظیم شي؟"
   },
-  "confirmResetPreferences": {
-    "message": "ستاسو د بیې او کالوري غوره توبونه، او همدارنګه د سپما او مخنیوي شوي کالوري احصایه بیا تنظیم شي؟"
-  },
   "confirmFactoryReset": {
     "message": "FitShield د فابریکې بیا تنظیم شي؟ دا په دې وسیله کې ټول ترتیبات، دودیز سایټونه او احصایه پاکوي. بیرته نشي راګرځیدلی."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "بشپړ شو. بیا لوډ کیږي…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "مخنیوي شوي کالوري"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "د خواړو منځنۍ کالوري"
-  },
-  "avgMealCaloriesHint": {
-    "message": "کله چې پر ځای یې ترکیب غوره کړئ د مخنیوي شوي کالوري اټکل لپاره کارول کیږي. یوازې ستاسو وسیله کې ساتل کیږي."
   },
   "reorderCardLabel": {
     "message": "کارت بیا تنظیم کړئ: $1. د خوځولو لپاره د غشي تڼۍ وکاروئ."

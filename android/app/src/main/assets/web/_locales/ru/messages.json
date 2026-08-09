@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Ваша статистика"
   },
-  "protectionStatusIntro": {
-    "message": "Приватная оценка на вашем устройстве того, что FitShield помог пропустить. Это оценки, и ничего не загружается."
-  },
-  "statusBlockedVisits": {
-    "message": "Заблокированные визиты"
-  },
   "statusEstimatedSavings": {
     "message": "Примерная экономия"
   },
   "avgMealCostLabel": {
     "message": "Средняя цена приёма пищи"
-  },
-  "avgMealCostHint": {
-    "message": "Используется для оценки сэкономленных денег при отказе от заказа. Хранится только на вашем устройстве."
   },
   "resetHeading": {
     "message": "Сброс и данные"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Цвета темы и светлый/тёмный режим."
   },
-  "resetPreferencesButton": {
-    "message": "Сбросить рецепты и настройки"
-  },
-  "resetPreferencesHint": {
-    "message": "Средняя цена приёма пищи, настройки калорий и сохранённая статистика."
-  },
   "factoryResetButton": {
     "message": "Сброс к заводским"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Сбросить тему и оформление к тёмному режиму по умолчанию?"
   },
-  "confirmResetPreferences": {
-    "message": "Сбросить настройки цены и калорий, а также статистику экономии и избежанных калорий?"
-  },
   "confirmFactoryReset": {
     "message": "Сбросить FitShield к заводским настройкам? Это сотрёт все настройки, свои сайты и статистику на этом устройстве. Отменить нельзя."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Готово. Перезагрузка…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Избежано калорий"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Средние калории на приём пищи"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Используется для оценки избежанных калорий при выборе рецепта. Хранится только на вашем устройстве."
   },
   "reorderCardLabel": {
     "message": "Переместить карточку: $1. Используйте стрелки."

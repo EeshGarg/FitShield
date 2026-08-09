@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Statistikangiz"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield sizga nimani o'tkazib yuborishga yordam berganining qurilmadagi shaxsiy bahosi. Bular taxminlar va hech narsa yuklanmaydi."
-  },
-  "statusBlockedVisits": {
-    "message": "Bloklangan tashriflar"
-  },
   "statusEstimatedSavings": {
     "message": "Taxminiy tejamkorlik"
   },
   "avgMealCostLabel": {
     "message": "O'rtacha ovqat narxi"
-  },
-  "avgMealCostHint": {
-    "message": "Buyurtmani o'tkazib yuborganda tejalgan pulni baholash uchun ishlatiladi. Faqat qurilmangizda saqlanadi."
   },
   "resetHeading": {
     "message": "Tiklash va ma'lumotlar"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Mavzu ranglari va yorug'/qorong'i rejim."
   },
-  "resetPreferencesButton": {
-    "message": "Retsept va sozlamalarni tiklash"
-  },
-  "resetPreferencesHint": {
-    "message": "O'rtacha ovqat narxi, kaloriya sozlamalari va saqlangan statistikangiz."
-  },
   "factoryResetButton": {
     "message": "Zavod sozlamalari"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Mavzu va ko'rinishni standart qorong'i rejimga tiklaymizmi?"
   },
-  "confirmResetPreferences": {
-    "message": "Narx va kaloriya sozlamalarini, shuningdek tejamkorlik va oldi olingan kaloriya statistikasini tiklaymizmi?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield'ni zavod sozlamalariga tiklaymizmi? Bu qurilmadagi barcha sozlamalar, maxsus saytlar va statistikani o'chiradi. Buni qaytarib bo'lmaydi."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Tayyor. Qayta yuklanmoqda…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Oldi olingan kaloriyalar"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "O'rtacha ovqat kaloriyasi"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Buning o'rniga retsept tanlaganda oldi olingan kaloriyalarni baholash uchun ishlatiladi. Faqat qurilmangizda saqlanadi."
   },
   "reorderCardLabel": {
     "message": "Kartani qayta tartiblang: $1. Ko'chirish uchun strelka tugmalaridan foydalaning."

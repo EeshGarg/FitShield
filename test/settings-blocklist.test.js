@@ -194,6 +194,152 @@ test("the simple schedule controls actually change when blocking is active", asy
     "inside the chosen window blocking must be on");
 });
 
+// ---------------------------------------------------------------------------
+// Your Stats
+//
+// This panel read `blockedVisits` and `caloriesAvoided` for a whole release
+// after both keys stopped being written, so it showed zeros to every new
+// install while the popup's recap counted correctly. Nothing failed, because
+// nothing tested it. These pin it to the live `stats` object.
+// ---------------------------------------------------------------------------
+
+test("Your Stats renders the live counters, not the retired ones", async () => {
+  const core = require("../extension/fitshield-core.js");
+
+  const store = {
+    ...core.migrateState({}).state,
+    uiLanguage: "en",
+    stats: {
+      totals: {
+        interruptions: 12,
+        left: 7,
+        continued: 3,
+        passesUsed: 3,
+        alternativesViewed: 19,
+        alternativesSelected: 5,
+        alternativesMade: 2
+      },
+      history: []
+    },
+    // The pre-0.55 counters, deliberately set to values nothing should show.
+    blockedVisits: 999,
+    caloriesAvoided: 888
+  };
+
+  const doc = renderSettings(store, undefined);
+  const grid = () => doc.getById("protectionStatusGrid");
+  assert.ok(await waitFor(() => grid() && grid().childElementCount > 0), "the stats grid renders");
+
+  const text = grid().textContent;
+
+  for (const shown of ["12", "7", "3", "19", "5", "2"]) {
+    assert.ok(text.includes(shown), `the grid should show the live total ${shown}`);
+  }
+
+  assert.ok(!text.includes("999"), "blockedVisits is retired and must not be displayed");
+  assert.ok(!text.includes("888"), "caloriesAvoided is retired and must not be displayed");
+});
+
+test("the cost estimate is off by default, and counts only confirmed meals", async () => {
+  const core = require("../extension/fitshield-core.js");
+
+  const store = {
+    ...core.migrateState({}).state,
+    uiLanguage: "en",
+    mealStatsCustomized: true,
+    avgMealCost: 20,
+    currency: "USD",
+    stats: {
+      totals: { interruptions: 50, left: 40, continued: 10, passesUsed: 10, alternativesViewed: 60, alternativesSelected: 9, alternativesMade: 4 },
+      history: []
+    }
+  };
+
+  const doc = renderSettings(store, undefined);
+  const panel = () => doc.getById("estimateSettings");
+  assert.ok(await waitFor(() => doc.getById("protectionStatusGrid").childElementCount > 0), "settings rendered");
+
+  assert.equal(core.readSettings(store).showEstimates, false, "precondition: a fresh profile has estimates off");
+  assert.equal(panel().hidden, true, "so the estimate is not shown unless asked for");
+
+  const toggle = doc.getById("showEstimates");
+  toggle.checked = true;
+  await Promise.all((toggle._listeners.change || []).map((fn) => fn({})));
+  await waitFor(() => store.showEstimates === true);
+
+  assert.equal(panel().hidden, false, "turning it on reveals the estimate");
+
+  // 4 meals the user CONFIRMED they made, at 20 each. Not 50 interruptions:
+  // a blocked page says nothing about whether an order would have happened.
+  const value = doc.getById("estimateValue").textContent;
+  assert.match(value, /80/, `the estimate should be 4 x 20, got "${value}"`);
+  assert.ok(!/1[,.]?000/.test(value), "it must not be derived from interruptions");
+});
+
+// Found while writing the test above. The language handler calls refreshStats,
+// and on a cold load it can run before initProtectionStatus has read storage —
+// at which point `customized` is still its initial false. The seeding branch
+// then replaced the user's own meal cost with the locale default AND persisted
+// it, so the setting was gone on the next load.
+test("a saved meal cost survives the settings page loading", async () => {
+  const core = require("../extension/fitshield-core.js");
+
+  const store = {
+    ...core.migrateState({}).state,
+    uiLanguage: "en",
+    mealStatsCustomized: true,
+    avgMealCost: 20,
+    currency: "USD"
+  };
+
+  const doc = renderSettings(store, undefined);
+  assert.ok(await waitFor(() => doc.getById("protectionStatusGrid").childElementCount > 0), "settings rendered");
+
+  // Give every boot path — including the language handler — a chance to run.
+  await new Promise((resolve) => setTimeout(resolve, 60));
+
+  assert.equal(store.avgMealCost, 20, "the stored cost must not be overwritten by the locale default");
+  assert.equal(Number(doc.getById("avgMealCost").value), 20, "and the field shows what was saved");
+});
+
+test("resetting statistics clears the object the panel actually reads", async () => {
+  const source = fs.readFileSync(srcPath("settings.js"), "utf8");
+
+  // PREFERENCE_KEYS named only the pre-0.55 counters, so the button cleared
+  // nothing a user could see. Read the list the page really passes to remove().
+  const declared = /const PREFERENCE_KEYS = \[([\s\S]*?)\];/.exec(source);
+  assert.ok(declared, "PREFERENCE_KEYS should be a literal list");
+  // Comments inside the list explain each group and can quote prose, so they
+  // are stripped before the entries are read.
+  const keys = [...declared[1].replace(/\/\/[^\n]*/g, "").matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+
+  assert.ok(keys.includes("stats"), "the live statistics object must be cleared");
+
+  for (const key of ["blockedByDomain", "blockedByCategory", "blockedByCountry"]) {
+    assert.ok(keys.includes(key), `the ${key} breakdown must be cleared`);
+  }
+
+  assert.ok(keys.includes("alternativeFavorites"), "the live favourites key must be cleared");
+  assert.ok(!keys.includes("customAlternatives"), "the user's own alternatives are content, and must survive");
+  assert.ok(!keys.includes("pantry") && !keys.includes("equipment"), "the kitchen is a setting, and must survive");
+
+  // Every key it clears must be one the extension actually recognises. backup.js
+  // holds the full inventory of storage keys FitShield owns (durable + the ones
+  // deliberately not backed up), so a typo or a key retired elsewhere shows up
+  // here as "clears something that does not exist".
+  const backup = fs.readFileSync(srcPath("backup.js"), "utf8");
+  const listed = (name) => {
+    const block = new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`).exec(backup);
+    assert.ok(block, `${name} should be a literal list in backup.js`);
+    return [...block[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+  };
+
+  const known = new Set([...listed("DURABLE_KEYS"), ...listed("EXCLUDED_KEYS")]);
+  const unknown = keys.filter((key) => !known.has(key));
+
+  assert.deepEqual(unknown, [], "reset clears keys the extension does not own");
+});
+
 // ===========================================================================
 // Compact DOM + HTML parser — enough for the settings page scripts. Superset of
 // the block-page test's DOM (adds querySelector, input .value, and document

@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "ଆପଣଙ୍କ ପରିସଂଖ୍ୟାନ"
   },
-  "protectionStatusIntro": {
-    "message": "FitShield ଆପଣଙ୍କୁ କଣ ଏଡ଼ାଇବାରେ ସାହାଯ୍ୟ କଲା ତାହାର ଡିଭାଇସରେ ରହିଥିବା ଏକ ଗୋପନୀୟ ଆକଳନ। ଏଗୁଡ଼ିକ ଆକଳନ ଏବଂ କିଛି ଅପଲୋଡ୍ ହୁଏ ନାହିଁ।"
-  },
-  "statusBlockedVisits": {
-    "message": "ଅବରୋଧିତ ପରିଦର୍ଶନ"
-  },
   "statusEstimatedSavings": {
     "message": "ଆକଳିତ ସଞ୍ଚୟ"
   },
   "avgMealCostLabel": {
     "message": "ହାରାହାରି ଭୋଜନ ଖର୍ଚ୍ଚ"
-  },
-  "avgMealCostHint": {
-    "message": "ଏକ ଅର୍ଡର ଏଡ଼ାଇଲେ ସଞ୍ଚିତ ଟଙ୍କା ଆକଳନ କରିବାକୁ ବ୍ୟବହୃତ। କେବଳ ଆପଣଙ୍କ ଡିଭାଇସରେ ସଞ୍ଚିତ।"
   },
   "resetHeading": {
     "message": "ରିସେଟ୍ ଓ ଡାଟା"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "ଥିମ ରଙ୍ଗ ଏବଂ ଲାଇଟ୍/ଡାର୍କ ମୋଡ୍।"
   },
-  "resetPreferencesButton": {
-    "message": "ରେସିପି ଓ ପସନ୍ଦ ରିସେଟ୍ କରନ୍ତୁ"
-  },
-  "resetPreferencesHint": {
-    "message": "ହାରାହାରି ଭୋଜନ ଖର୍ଚ୍ଚ, କ୍ୟାଲୋରୀ ସେଟିଂସ, ଓ ଆପଣଙ୍କ ସଞ୍ଚିତ ପରିସଂଖ୍ୟାନ।"
-  },
   "factoryResetButton": {
     "message": "ଫ୍ୟାକ୍ଟରୀ ରିସେଟ୍"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "ଥିମ ଓ ରୂପକୁ ଡିଫଲ୍ଟ ଡାର୍କ ମୋଡକୁ ରିସେଟ୍ କରିବେ?"
   },
-  "confirmResetPreferences": {
-    "message": "ଆପଣଙ୍କ ଖର୍ଚ୍ଚ ଓ କ୍ୟାଲୋରୀ ପସନ୍ଦ, ଏବଂ ସଞ୍ଚୟ ଓ ଏଡ଼ାଯାଇଥିବା-କ୍ୟାଲୋରୀ ପରିସଂଖ୍ୟାନ ରିସେଟ୍ କରିବେ?"
-  },
   "confirmFactoryReset": {
     "message": "FitShield କୁ ଫ୍ୟାକ୍ଟରୀ ରିସେଟ୍ କରିବେ? ଏହା ଏହି ଡିଭାଇସର ସମସ୍ତ ସେଟିଂସ, କଷ୍ଟମ୍ ସାଇଟ୍ ଓ ପରିସଂଖ୍ୟାନ ବିଲୋପ କରେ। ଏହାକୁ ପୂର୍ବବତ୍ କରାଯାଇପାରିବ ନାହିଁ।"
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "ସମ୍ପନ୍ନ। ପୁଣି ଲୋଡ୍ ହେଉଛି…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "ଏଡ଼ାଯାଇଥିବା କ୍ୟାଲୋରୀ"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "ହାରାହାରି ଭୋଜନ କ୍ୟାଲୋରୀ"
-  },
-  "avgMealCaloriesHint": {
-    "message": "ବଦଳରେ ଏକ ରେସିପି ବାଛିଲେ ଏଡ଼ାଯାଇଥିବା କ୍ୟାଲୋରୀ ଆକଳନ କରିବାକୁ ବ୍ୟବହୃତ। କେବଳ ଆପଣଙ୍କ ଡିଭାଇସରେ ସଞ୍ଚିତ।"
   },
   "reorderCardLabel": {
     "message": "କାର୍ଡ ପୁନଃକ୍ରମ କରନ୍ତୁ: $1। ସ୍ଥାନାନ୍ତର କରିବାକୁ ତୀର କୀ ବ୍ୟବହାର କରନ୍ତୁ।"

@@ -716,20 +716,11 @@
   "protectionStatusHeading": {
     "message": "Statistik anda"
   },
-  "protectionStatusIntro": {
-    "message": "Anggaran peribadi pada peranti anda tentang apa yang FitShield bantu anda elak. Ini anggaran dan tiada apa dimuat naik."
-  },
-  "statusBlockedVisits": {
-    "message": "Lawatan disekat"
-  },
   "statusEstimatedSavings": {
     "message": "Anggaran penjimatan"
   },
   "avgMealCostLabel": {
     "message": "Kos purata semakan"
-  },
-  "avgMealCostHint": {
-    "message": "Digunakan untuk menganggar wang dijimat apabila anda elak satu pesanan. Disimpan pada peranti anda sahaja."
   },
   "resetHeading": {
     "message": "Set semula & Data"
@@ -749,12 +740,6 @@
   "resetAppearanceHint": {
     "message": "Warna tema dan mod cerah/gelap."
   },
-  "resetPreferencesButton": {
-    "message": "Set semula resipi & keutamaan"
-  },
-  "resetPreferencesHint": {
-    "message": "Kos purata semakan, tetapan kalori, dan statistik tersimpan anda."
-  },
   "factoryResetButton": {
     "message": "Set semula kilang"
   },
@@ -773,9 +758,6 @@
   "confirmResetAppearance": {
     "message": "Set semula tema dan penampilan kepada mod gelap lalai?"
   },
-  "confirmResetPreferences": {
-    "message": "Set semula keutamaan kos dan kalori, serta statistik penjimatan dan kalori dielak?"
-  },
   "confirmFactoryReset": {
     "message": "Set semula kilang FitShield? Ini memadam semua tetapan, tapak tersuai, dan statistik pada peranti ini. Tidak boleh dibatalkan."
   },
@@ -784,15 +766,6 @@
   },
   "resetDoneNotice": {
     "message": "Selesai. Memuat semula…"
-  },
-  "statusCaloriesAvoided": {
-    "message": "Kalori dielak"
-  },
-  "avgMealCaloriesLabel": {
-    "message": "Kalori purata semakan"
-  },
-  "avgMealCaloriesHint": {
-    "message": "Digunakan untuk menganggar kalori dielak apabila anda pilih resipi. Disimpan pada peranti anda sahaja."
   },
   "reorderCardLabel": {
     "message": "Susun semula kad: $1. Gunakan kekunci anak panah untuk menggerakkannya."
