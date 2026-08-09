@@ -485,8 +485,16 @@
 
   const PASS_SCOPES = ["site", "category", "all"];
 
+  // Every preset is expressible as scope + duration, because that is all the
+  // blocking layer can actually enforce: dynamic declarativeNetRequest rules are
+  // global and give no callback when a request matches, so the worker cannot
+  // observe a single visit and stand back down after it. A "one use only" pass
+  // would need a browser-wide navigation listener, which is a permission and an
+  // observation surface FitShield will not take for one option — so the option
+  // says what it really is, a five-minute pass, rather than claiming a
+  // single-use behaviour nothing implements.
   const PASS_PRESETS = {
-    once: { id: "once", scope: "site", minutes: 5, oneShot: true },
+    site5: { id: "site5", scope: "site", minutes: 5 },
     tab: { id: "tab", scope: "site", minutes: 720, tabBound: true },
     site10: { id: "site10", scope: "site", minutes: 10 },
     site30: { id: "site30", scope: "site", minutes: 30 },
@@ -537,9 +545,7 @@
       expiresAt,
       // Guards against a backwards clock change stretching the pass.
       maxDurationMs: Math.max(60 * 1000, expiresAt - now),
-      oneShot: !!(preset && preset.oneShot),
       tabId: preset && preset.tabBound && Number.isInteger(opts.tabId) ? opts.tabId : null,
-      used: false,
       reason: String(opts.reason || "").slice(0, 40)
     };
   }
@@ -556,9 +562,15 @@
       return null;
     }
 
+    // An earlier 0.55 development build wrote passes under the retired "once"
+    // preset. Their scope, target, and expiry are all still valid, so such a
+    // pass keeps running as what it always was — a five-minute site pass —
+    // rather than being dropped out from under whoever granted it.
+    const preset = value.preset === "once" ? "site5" : value.preset;
+
     return {
       id: String(value.id || "").slice(0, 64) || `p${createdAt}`,
-      preset: PASS_PRESET_IDS.includes(value.preset) ? value.preset : "custom",
+      preset: PASS_PRESET_IDS.includes(preset) ? preset : "custom",
       scope: PASS_SCOPES.includes(value.scope) ? value.scope : "site",
       target: String(value.target || "").trim().toLowerCase().slice(0, 253),
       createdAt,
@@ -566,9 +578,7 @@
       maxDurationMs: Number.isFinite(Number(value.maxDurationMs))
         ? Number(value.maxDurationMs)
         : Math.max(60 * 1000, expiresAt - createdAt),
-      oneShot: value.oneShot === true,
       tabId: Number.isInteger(value.tabId) ? value.tabId : null,
-      used: value.used === true,
       reason: String(value.reason || "").slice(0, 40)
     };
   }
@@ -591,10 +601,6 @@
       .map(normalizePass)
       .filter(Boolean)
       .filter((pass) => {
-        if (pass.used) {
-          return false;
-        }
-
         if (pass.expiresAt <= at) {
           return false;
         }
@@ -1288,9 +1294,7 @@
             createdAt: Math.min(Date.now(), expiresAt),
             expiresAt,
             maxDurationMs: Math.max(60 * 1000, expiresAt - Date.now()),
-            oneShot: false,
             tabId: null,
-            used: false,
             reason: "migrated"
           };
         })

@@ -1123,8 +1123,8 @@
   "passOpening": {
     "message": "Opening…"
   },
-  "passOnce": {
-    "message": "Just this once"
+  "passFiveMinutes": {
+    "message": "For 5 minutes"
   },
   "passTenMinutes": {
     "message": "For 10 minutes"

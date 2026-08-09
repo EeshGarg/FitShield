@@ -352,7 +352,7 @@ test("continuing once makes the next interruption slightly longer, and says why"
   await bg.context.queueRefreshBlockingState();
 
   const before = await bg.message({ type: "getBlockContext", site: "delivery-doordash-com" });
-  await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "once" });
+  await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "site5" });
   const after = await bg.message({ type: "getBlockContext", site: "delivery-doordash-com" });
 
   assert.ok(after.timerSeconds > before.timerSeconds, "the pause grew");
@@ -366,7 +366,7 @@ test("repeat friction can be switched off", async () => {
   await bg.context.queueRefreshBlockingState();
 
   const before = await bg.message({ type: "getBlockContext", site: "delivery-doordash-com" });
-  await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "once" });
+  await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "site5" });
   const after = await bg.message({ type: "getBlockContext", site: "delivery-doordash-com" });
 
   assert.equal(after.timerSeconds, before.timerSeconds);
@@ -377,7 +377,7 @@ test("repeat friction is per-domain", async () => {
   const bg = loadBackground();
   await bg.context.queueRefreshBlockingState();
 
-  await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "once" });
+  await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "site5" });
   const other = await bg.message({ type: "getBlockContext", site: "fast-food-kfc-com" });
 
   assert.equal(other.repeat.repeat, false, "a different brand is unaffected");
@@ -406,7 +406,7 @@ test("leaving and continuing are recorded as separate events", async () => {
   assert.equal(bg.store.stats.totals.left, 1);
   assert.equal(bg.store.stats.totals.continued, 0);
 
-  await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "once" });
+  await bg.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "site5" });
   assert.equal(bg.store.stats.totals.continued, 1, "continuing is its own event");
   assert.equal(bg.store.stats.totals.passesUsed, 1);
 });

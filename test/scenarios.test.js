@@ -276,7 +276,7 @@ test("Scenario 5: coming back soon after continuing is noticed, explained, and c
   const first = await worker.message({ type: "getBlockContext", site: "delivery-doordash-com" });
   assert.equal(first.repeat.repeat, false, "the first visit is unremarkable");
 
-  await worker.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "once" });
+  await worker.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "site5" });
 
   const second = await worker.message({ type: "getBlockContext", site: "delivery-doordash-com" });
   assert.equal(second.repeat.repeat, true);
@@ -285,7 +285,7 @@ test("Scenario 5: coming back soon after continuing is noticed, explained, and c
 
   // Repeated bypasses do NOT compound.
   for (let i = 0; i < 5; i += 1) {
-    await worker.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "once" });
+    await worker.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "site5" });
   }
   const sixth = await worker.message({ type: "getBlockContext", site: "delivery-doordash-com" });
   assert.equal(sixth.timerSeconds, second.timerSeconds, "friction is capped, not exponential");
@@ -304,7 +304,7 @@ test("Scenario 5b: strict mode is stricter but still reversible and still has an
   assert.equal(context.timerSeconds, strict.timerSeconds);
 
   // The block page's own way out still works under strict.
-  const granted = await worker.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "once" });
+  const granted = await worker.message({ type: "grantPass", site: "delivery-doordash-com", presetId: "site5" });
   assert.equal(granted.ok, true);
 
   // And switching back down is a plain settings write with nothing to unwind.
@@ -562,7 +562,7 @@ test("Scenario 10: everything works with no network at all", async () => {
   assert.ok(pick.entry, "an alternative is chosen offline");
   assert.ok(pick.entry.steps.length > 0, "with full instructions available offline");
 
-  const granted = await worker.message({ type: "grantPass", site: "fast-food-kfc-com", presetId: "once" });
+  const granted = await worker.message({ type: "grantPass", site: "fast-food-kfc-com", presetId: "site5" });
   assert.equal(granted.ok, true, "a pass can be granted offline");
 });
 

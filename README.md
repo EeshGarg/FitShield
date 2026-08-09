@@ -37,7 +37,7 @@ browsing history collection.
 
 **Then get out of the way**
 
-10. Scoped temporary passes: once, 10 minutes, 30 minutes, until the tab closes, or pause everything for 30 minutes or until tomorrow.
+10. Scoped temporary passes: 5, 10 or 30 minutes on this site, until the tab closes, or pause everything for 30 minutes or until tomorrow. Each one is a scope plus a duration — nothing claims a single-use pass the blocking layer cannot enforce.
 11. Honest local statistics — pages interrupted, times you left, times you continued, passes used, alternatives viewed / chosen / marked as made. Only aggregate counts, never a URL or any browsing history.
 12. An optional weekly summary, and a preview mode that shows exactly what an interruption looks like without recording anything.
 13. Export and import everything as one local JSON file.

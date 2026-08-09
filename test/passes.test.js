@@ -135,12 +135,48 @@ test("a tab-bound pass dies with its tab", () => {
   assert.equal(core.activePasses(stored, T0 + minutes(1)).length, 1, "no tab list available -> time still governs");
 });
 
-test("a one-shot pass is consumed once it is marked used", () => {
-  const pass = core.createPass({ presetId: "once", target: "doordash.com", now: T0 });
-  assert.equal(pass.oneShot, true);
+// Replaces "a one-shot pass is consumed once it is marked used", which set
+// `used: true` on the record by hand. No code path in the extension ever wrote
+// that flag — declarativeNetRequest gives the worker no signal when a request
+// matches, so a single visit cannot be observed and a pass cannot stand down
+// after it. The old test pinned a filter for a state the product could not
+// reach, while the UI promised "Just this once". The behaviour that actually
+// ships is pinned instead: the shortest pass is a five-minute site pass.
+test("the shortest pass is five minutes on this site, and expires on time", () => {
+  const pass = core.createPass({ presetId: "site5", target: "doordash.com", now: T0 });
 
-  assert.equal(core.activePasses([pass], T0 + 1000).length, 1);
-  assert.equal(core.activePasses([{ ...pass, used: true }], T0 + 1000).length, 0);
+  assert.equal(pass.scope, "site");
+  assert.equal(pass.expiresAt, T0 + minutes(5));
+  assert.equal(core.activePasses([pass], T0 + minutes(4)).length, 1);
+  assert.equal(core.activePasses([pass], T0 + minutes(5)).length, 0, "gone the moment it expires");
+});
+
+test("no pass record carries state nothing can ever set", () => {
+  const pass = core.createPass({ presetId: "site5", target: "doordash.com", now: T0 });
+
+  assert.ok(!("oneShot" in pass), "oneShot was never read by anything");
+  assert.ok(!("used" in pass), "used was never written by anything");
+});
+
+test("a pass written under the retired 'once' preset keeps working", () => {
+  const legacy = {
+    id: "p1",
+    preset: "once",
+    scope: "site",
+    target: "doordash.com",
+    createdAt: T0,
+    expiresAt: T0 + minutes(5),
+    maxDurationMs: minutes(5),
+    oneShot: true,
+    used: false
+  };
+
+  const [active] = core.activePasses([legacy], T0 + minutes(1));
+
+  assert.ok(active, "the pass survives the upgrade rather than being dropped");
+  assert.equal(active.preset, "site5", "renamed to what it always behaved as");
+  assert.equal(active.target, "doordash.com");
+  assert.equal(active.expiresAt, T0 + minutes(5), "its expiry is untouched");
 });
 
 test("malformed and hostile pass records are discarded, not trusted", () => {

@@ -57,9 +57,6 @@
       ...(Array.isArray(data && data.quickAlternatives) ? data.quickAlternatives : [])
     ].filter((entry) => entry && typeof entry === "object" && entry.id);
 
-    const byId = new Map();
-    entries.forEach((entry) => byId.set(entry.id, entry));
-
     return {
       version: (data && data._version) || "",
       taxonomy: {
@@ -70,8 +67,7 @@
         pantryStaples: taxonomy.pantryStaples || [],
         equipment: taxonomy.equipment || []
       },
-      entries,
-      byId
+      entries
     };
   }
 
@@ -158,8 +154,6 @@
   // ---------------------------------------------------------------------------
   // Eligibility
   // ---------------------------------------------------------------------------
-
-  const DIET_RANK = { vegan: 0, vegetarian: 1, pescatarian: 2, omnivore: 3 };
 
   // A user's diet admits everything at least as restrictive as their own.
   // Pescatarian is a special case: it admits vegan and vegetarian, and fish, but
@@ -518,11 +512,6 @@
     return trio;
   }
 
-  function getEntry(id) {
-    return (catalog && catalog.byId.get(String(id))) || null;
-  }
-
-
   const api = {
     RECIPE_FILE,
     FILTER_IDS,
@@ -538,7 +527,6 @@
     rankAlternatives,
     selectAlternative,
     selectTrio,
-    getEntry,
     getCatalog: () => catalog
   };
 

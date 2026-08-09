@@ -359,6 +359,104 @@ test("render smoke: the intent prompt is offered and is skippable", async () => 
   assert.equal(panel().hidden, true, "it can be dismissed without answering");
 });
 
+// `alternativesViewed` is published to the user as an observed event, and the
+// same recording call seeds the recently-shown rotation. Counting a card that
+// is sitting behind the intent prompt would inflate the statistic AND penalise
+// an entry that was never suggested, so nothing may be recorded until the card
+// is actually uncovered.
+test("an alternative prepared behind the intent prompt is not counted as seen", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = true;
+  await bg.context.queueRefreshBlockingState();
+  const doc = renderBlockPage(bg, "delivery-doordash-com");
+
+  await waitFor(() => doc.getById("intentPanel") && doc.getById("intentPanel").hidden === false);
+  // The interruption itself is recorded, so waiting on it proves the worker has
+  // caught up and an unrecorded view is a real absence, not a race.
+  await waitFor(() => bg.store.stats && bg.store.stats.totals.interruptions === 1);
+
+  assert.equal(doc.getById("altPanel").hidden, true, "the card is prepared but covered");
+  assert.equal(bg.store.stats.totals.alternativesViewed, 0, "nothing has been shown yet");
+  assert.equal(bg.store.recentAlternatives, undefined, "and nothing entered the rotation");
+
+  doc.getById("intentSkip").click();
+
+  assert.ok(
+    await waitFor(() => bg.store.stats.totals.alternativesViewed === 1),
+    "uncovering it counts exactly one view"
+  );
+  assert.equal(doc.getById("altPanel").hidden, false, "and the prepared card is on screen");
+  assert.equal(bg.store.recentAlternatives.length, 1, "the rotation records the one that was seen");
+});
+
+test("answering 'bored or browsing' shows no food and counts no view", async () => {
+  const bg = loadBackground();
+  bg.store.askIntent = true;
+  await bg.context.queueRefreshBlockingState();
+  const doc = renderBlockPage(bg, "delivery-doordash-com");
+
+  await waitFor(() => doc.getById("intentPanel") && doc.getById("intentPanel").hidden === false);
+  await waitFor(() => bg.store.stats && bg.store.stats.totals.interruptions === 1);
+
+  // hungry · something specific · bored or browsing · legitimate · someone else
+  doc.getById("intentOptions").children[2].click();
+  await new Promise((resolve) => setTimeout(resolve, 50));
+
+  assert.equal(doc.getById("altPanel").hidden, true, "the alternative stays out of sight");
+  assert.equal(bg.store.stats.totals.alternativesViewed, 0, "and is not counted as viewed");
+  assert.equal(bg.store.recentAlternatives, undefined, "nor pushed into the rotation");
+});
+
+test("answering 'ordering for someone else' opens the pass chooser, counting no view", async () => {
+  const bg = loadBackground();
+  bg.store.uiLanguage = "en";
+  bg.store.askIntent = true;
+  await bg.context.queueRefreshBlockingState();
+  const doc = renderBlockPage(bg, "delivery-doordash-com");
+
+  await waitFor(() => doc.getById("intentPanel") && doc.getById("intentPanel").hidden === false);
+  await waitFor(() => bg.store.stats && bg.store.stats.totals.interruptions === 1);
+
+  doc.getById("intentOptions").children[4].click();
+
+  assert.ok(
+    await waitFor(() => doc.getById("passPanel") && doc.getById("passPanel").hidden === false),
+    "ordering for someone else goes straight to a scoped pass"
+  );
+  assert.equal(bg.store.stats.totals.alternativesViewed, 0, "no alternative was ever shown");
+});
+
+// Each pass option is a two-part button: the option and, beneath it, the scope
+// it applies to. Writing a transient label onto the BUTTON collapses both into
+// one string, so restoring it fused them ("For 5 minutesThis site only"). The
+// preview path hits this on every click.
+test("a pass option keeps its label and scope after a preview click", async () => {
+  const bg = loadBackground();
+  bg.store.uiLanguage = "en";
+  bg.store.askIntent = true;
+  await bg.context.queueRefreshBlockingState();
+  const doc = renderBlockPage(bg, "delivery-doordash-com", { preview: true });
+
+  await waitFor(() => doc.getById("intentPanel") && doc.getById("intentPanel").hidden === false);
+  doc.getById("intentOptions").children[3].click();
+  await waitFor(() => doc.getById("passPanel") && doc.getById("passPanel").hidden === false);
+
+  const option = doc.getById("passOptions").children[0];
+  assert.equal(option.childElementCount, 2, "an option and its scope line");
+
+  const label = option.children[0].textContent;
+  const scope = option.children[1].textContent;
+  assert.ok(label.length > 0 && scope.length > 0, "both are localized");
+
+  option.click();
+  await new Promise((resolve) => setTimeout(resolve, 20));
+
+  assert.equal(option.childElementCount, 2, "the two parts survive the click");
+  assert.equal(option.children[0].textContent, label, "the option reads the same as before");
+  assert.equal(option.children[1].textContent, scope, "and still says what it applies to");
+  assert.equal(option.disabled, false, "and it can be pressed again");
+});
+
 test("render smoke: an unresolved site key degrades gracefully (no throw, no brand)", async () => {
   const bg = loadBackground();
   bg.store.askIntent = false;

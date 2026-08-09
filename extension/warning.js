@@ -87,6 +87,10 @@ const state = {
   filter: "all",
   intent: null,
   current: null,
+  // The id last recorded as *seen*. Rendering is not seeing: an alternative
+  // prepared behind the intent prompt, or re-rendered after a language change,
+  // must not count.
+  recordedId: null,
   chosen: false,
   favorites: []
 };
@@ -351,8 +355,8 @@ function applyIntent(intentId) {
   state.rotation = 0;
   state.filter = intentId === "hungry" ? "fastest" : "all";
   renderFilters();
-  showAlternative({ announce: true });
-  ui.altPanel.hidden = false;
+  // Reveals and counts the view: this is the first moment the card is on screen.
+  showAlternative({});
 }
 
 // ---------------------------------------------------------------------------
@@ -378,7 +382,7 @@ function renderFilters() {
       state.filter = state.filter === filter.id ? "all" : filter.id;
       state.rotation = 0;
       renderFilters();
-      showAlternative({ announce: true });
+      showAlternative({});
     });
     ui.filters.appendChild(button);
   });
@@ -565,6 +569,43 @@ function renderAlternative(entry, reasons, relaxed, position) {
   ]);
 }
 
+/**
+ * Count an alternative as viewed — but only once it is genuinely on screen.
+ *
+ * This is not bookkeeping pedantry. `recordAlternativeShown` does two things:
+ * it increments `alternativesViewed`, and it pushes the id into the recently-
+ * shown rotation. Recording something the user never saw therefore inflates a
+ * statistic the product promises is an observed event, *and* penalises that
+ * entry the next time they are interrupted — suppressing a suggestion that was
+ * never made.
+ */
+function recordShown(entry) {
+  if (!entry || state.recordedId === entry.id) {
+    return;
+  }
+
+  state.recordedId = entry.id;
+  send("recordAlternativeShown", { id: entry.id });
+}
+
+// Uncover an alternative that was prepared while something else was on top of
+// it (the intent prompt). Only now has it actually been shown.
+function revealAlternative() {
+  if (!state.current) {
+    return;
+  }
+
+  ui.altPanel.hidden = false;
+  recordShown(state.current);
+}
+
+/**
+ * Render the current alternative.
+ *
+ * `opts.silent` renders it without revealing or counting it — used to have the
+ * card ready behind the intent prompt so revealing it costs no round trip.
+ * `opts.focus` moves focus to the new title, for "show another".
+ */
 function showAlternative(options) {
   const opts = options || {};
 
@@ -590,9 +631,13 @@ function showAlternative(options) {
   ui.chosenNote.hidden = true;
 
   renderAlternative(selection.entry, selection.reasons, selection.relaxed, selection);
-  ui.altPanel.hidden = false;
 
-  send("recordAlternativeShown", { id: selection.entry.id });
+  if (opts.silent) {
+    return;
+  }
+
+  ui.altPanel.hidden = false;
+  recordShown(selection.entry);
 
   if (opts.focus) {
     ui.altTitle.setAttribute("tabindex", "-1");
@@ -605,7 +650,7 @@ function showAlternative(options) {
 // ---------------------------------------------------------------------------
 
 const PASS_OPTIONS = [
-  { presetId: "once", labelKey: "passOnce", scopeKey: "passScopeSite" },
+  { presetId: "site5", labelKey: "passFiveMinutes", scopeKey: "passScopeSite" },
   { presetId: "site10", labelKey: "passTenMinutes", scopeKey: "passScopeSite" },
   { presetId: "site30", labelKey: "passThirtyMinutes", scopeKey: "passScopeSite" },
   { presetId: "tab", labelKey: "passUntilTabCloses", scopeKey: "passScopeSite" },
@@ -628,7 +673,11 @@ function renderPassOptions() {
     scope.textContent = t(option.scopeKey);
 
     button.append(label, scope);
-    button.addEventListener("click", () => grantPass(option.presetId, button));
+    // The label element is handed over, not the button: writing textContent on
+    // the button itself would collapse both spans into one string, so restoring
+    // it after a preview or a failure would fuse the option and its scope into
+    // "For 10 minutesThis site only".
+    button.addEventListener("click", () => grantPass(option.presetId, button, label));
     ui.passOptions.appendChild(button);
   });
 }
@@ -642,15 +691,15 @@ function showPassChooser() {
   }
 }
 
-async function grantPass(presetId, button) {
+async function grantPass(presetId, button, labelEl) {
   button.disabled = true;
-  const original = button.textContent;
-  button.textContent = t("passOpening");
+  const original = labelEl.textContent;
+  labelEl.textContent = t("passOpening");
 
   if (isPreview) {
     ui.altAnnounce.textContent = t("previewPassNote");
     button.disabled = false;
-    button.textContent = original;
+    labelEl.textContent = original;
     return;
   }
 
@@ -658,7 +707,7 @@ async function grantPass(presetId, button) {
 
   if (!response || !response.ok) {
     button.disabled = false;
-    button.textContent = original;
+    labelEl.textContent = original;
     ui.hint.textContent = t("warningErrorHint");
     return;
   }
@@ -754,7 +803,7 @@ ui.favAlt.addEventListener("click", async () => {
 
 ui.intentSkip.addEventListener("click", () => {
   ui.intentPanel.hidden = true;
-  ui.altPanel.hidden = false;
+  revealAlternative();
   ui.back.focus();
 });
 
@@ -810,9 +859,11 @@ async function initialize() {
     if (state.context && state.context.askIntent) {
       renderIntentOptions();
       ui.intentPanel.hidden = false;
+      // Prepared, not shown: whichever way the prompt is answered, the card is
+      // ready instantly, and nothing is counted for an answer that never
+      // reveals it ("bored", "ordering for someone else").
       ui.altPanel.hidden = true;
-      showAlternative({});
-      ui.altPanel.hidden = true;
+      showAlternative({ silent: true });
     } else {
       showAlternative({});
     }
@@ -829,8 +880,11 @@ if (typeof FitShieldI18n !== "undefined" && FitShieldI18n.onChange) {
     renderFilters();
     renderIntentOptions();
 
+    // Re-render in the new language without changing what is on screen: a
+    // hidden card stays hidden (the user answered "bored", or has not answered
+    // the intent prompt yet), and a visible one is not counted a second time.
     if (state.current) {
-      showAlternative({});
+      showAlternative({ silent: ui.altPanel.hidden });
     }
   });
 }

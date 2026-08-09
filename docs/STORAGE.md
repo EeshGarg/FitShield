@@ -63,17 +63,27 @@ mean 18:00 local after a daylight-saving shift.
 ```jsonc
 {
   "id": "p1767225600000-1",
-  "preset": "once" | "tab" | "site10" | "site30" | "category30" | "all30" | "allTomorrow" | "custom",
+  "preset": "site5" | "tab" | "site10" | "site30" | "category30" | "all30" | "allTomorrow" | "custom",
   "scope": "site" | "category" | "all",
   "target": "doordash.com",     // "" for scope "all"
   "createdAt": 1767225600000,
   "expiresAt": 1767226200000,   // ABSOLUTE, never "minutes remaining"
   "maxDurationMs": 600000,      // ceiling on the granted duration
-  "oneShot": false,
   "tabId": null,                // set for the "until this tab closes" scope
-  "used": false
+  "reason": ""                  // the intent answered on the block page, if any
 }
 ```
+
+Every preset is **scope plus duration**, because that is the whole of what the
+blocking layer can enforce: dynamic `declarativeNetRequest` rules are global and
+report nothing back when a request matches, so the worker cannot observe a single
+visit and stand down after it. A genuine single-use pass would need a
+browser-wide navigation listener — a permission and an observation surface
+FitShield does not take. During 0.55's development this menu carried a `once`
+preset labelled "Just this once" that was in fact a five-minute site pass, plus
+`oneShot`/`used` fields nothing ever read or wrote. It is now `site5`, labelled
+"For 5 minutes", and the dead fields are gone; a pass persisted under the old
+name is read as `site5` with its scope, target, and expiry untouched.
 
 Expiry is decided in exactly one place (`FitShieldCore.activePasses`) and
 re-checked on every read. That single fact is what makes passes end correctly
