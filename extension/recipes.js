@@ -64,6 +64,7 @@
         categories: taxonomy.categories || [],
         categoryCravings: taxonomy.categoryCravings || {},
         specialtyCravings: taxonomy.specialtyCravings || {},
+        genericCravings: taxonomy.genericCravings || [],
         pantryStaples: taxonomy.pantryStaples || [],
         equipment: taxonomy.equipment || []
       },
@@ -110,9 +111,21 @@
    * the rule bucket is the weakest ("delivery"). They are mapped through the
    * catalog's own vocabulary rather than by matching words, which is what stops
    * "chickpea" being read as "chicken".
+   *
+   * `taxonomy.genericCravings` are the ones that describe a shape of food
+   * rather than a food — comfort, convenience, late-night, high-protein. Each
+   * necessarily sits on a quarter or more of the catalog, so a specialty that
+   * derives one must not outrank a specialty that derives a real dish. A
+   * steakhouse listing "steak, burgers, ribs" derived `burger` AND `comfort` at
+   * the same weight, and comfort sits on 28% of the catalog, so the closest
+   * answer to a steakhouse was a microwave mug pizza. Generic cravings are
+   * therefore demoted to the secondary tier — but only when something specific
+   * was derived too, because a plain delivery marketplace has nothing else and
+   * must keep its only signal.
    */
   function deriveCravings(info, taxonomy) {
     const source = info && typeof info === "object" ? info : {};
+    const generic = new Set((taxonomy.genericCravings || []).map(normalize));
     const primary = [];
     const secondary = [];
 
@@ -122,9 +135,17 @@
       }
     };
 
+    const fromSpecialties = [];
     (Array.isArray(source.specialties) ? source.specialties : []).forEach((specialty) => {
-      (taxonomy.specialtyCravings[normalize(specialty)] || []).forEach((craving) => push(primary, craving));
+      (taxonomy.specialtyCravings[normalize(specialty)] || []).forEach((craving) => {
+        if (!fromSpecialties.includes(craving)) {
+          fromSpecialties.push(craving);
+        }
+      });
     });
+
+    const specific = fromSpecialties.filter((craving) => !generic.has(craving));
+    fromSpecialties.forEach((craving) => push(specific.length > 0 && generic.has(craving) ? secondary : primary, craving));
 
     (taxonomy.categoryCravings[normalize(source.category)] || []).forEach((craving) => push(secondary, craving));
 
@@ -136,6 +157,49 @@
 
     return { primary, secondary };
   }
+
+  // How well an entry answers the block, on the same two-tier split the scoring
+  // uses: 2 = it answers a SPECIALTY the brand actually sells, 1 = it answers
+  // the brand's broad category, 0 = it answers neither and is only in the list
+  // because nothing better survived the filters.
+  const ANSWER_NONE = 0;
+  const ANSWER_CATEGORY = 1;
+  const ANSWER_SPECIALTY = 2;
+
+  /**
+   * Which tier does this entry answer the block at?
+   *
+   * Two places have to agree on this, and neither used to ask it at all:
+   *
+   *   1. the `relaxed` signal — a filter that removes every answer to the
+   *      craving has to be reported even when it leaves the pool non-empty,
+   *      otherwise a pizza order is silently answered with a mango lassi and
+   *      the page prints no explanation;
+   *   2. the trio — "fastest" and "easiest" have to be the fastest and easiest
+   *      ANSWERS, not simply the fastest and easiest rows in the catalog.
+   *
+   * Deliberately craving-only. A direct `categories` hit still scores, but
+   * those are broad groupings (39% of the catalog carries `delivery`), so
+   * treating one as an answer would make almost everything an answer and mean
+   * nothing.
+   */
+  function answerTier(entry, cravings) {
+    const tags = new Set((Array.isArray(entry && entry.cravings) ? entry.cravings : []).map(normalize));
+    const wanted = cravings || { primary: [], secondary: [] };
+
+    if ((wanted.primary || []).some((craving) => tags.has(craving))) {
+      return ANSWER_SPECIALTY;
+    }
+
+    if ((wanted.secondary || []).some((craving) => tags.has(craving))) {
+      return ANSWER_CATEGORY;
+    }
+
+    return ANSWER_NONE;
+  }
+
+  const bestAnswerTier = (list, cravings) =>
+    list.reduce((best, entry) => Math.max(best, answerTier(entry, cravings)), ANSWER_NONE);
 
   function categoriesFor(info) {
     const source = info && typeof info === "object" ? info : {};
@@ -408,7 +472,11 @@
     // Deterministic jitter, small enough that it only separates genuine ties.
     const jitter = hashString(`${context.seed}:${entry.id}`) % 7;
 
-    return { score: score + jitter, reasons };
+    return {
+      score: score + jitter,
+      reasons,
+      tier: primaryHits.length > 0 ? ANSWER_SPECIALTY : secondaryHits.length > 0 ? ANSWER_CATEGORY : ANSWER_NONE
+    };
   }
 
   // ---------------------------------------------------------------------------
@@ -469,6 +537,20 @@
         return;
       }
 
+      // The filter is real and it stays — a kitchen with no oven genuinely
+      // cannot bake, and offering something the user cannot make is worse than
+      // saying so. But a filter that leaves the pool full while knocking the
+      // best answer DOWN A TIER has to be reported too. Without this, a
+      // blender-only kitchen blocked on a pizza order lost all five pizza
+      // entries and was handed a cottage cheese bowl with `relaxed: []`, so
+      // the page printed no reason at all and the suggestion read as random.
+      if (
+        !relaxed.includes(label) &&
+        bestAnswerTier(next, context.cravings) < bestAnswerTier(working, context.cravings)
+      ) {
+        relaxed.push(label);
+      }
+
       working = next;
     };
 
@@ -488,8 +570,8 @@
 
     const matches = working
       .map((entry) => {
-        const { score, reasons } = scoreEntry(entry, context);
-        return { entry, score, reasons };
+        const { score, reasons, tier } = scoreEntry(entry, context);
+        return { entry, score, reasons, tier };
       })
       // Sort by score, then by id, so the order is total and reproducible.
       .sort((a, b) => b.score - a.score || (a.entry.id < b.entry.id ? -1 : 1));
@@ -539,6 +621,29 @@
     const seen = new Set();
     const trio = [];
 
+    // All three slots are drawn from the entries that actually ANSWER the block,
+    // at the best tier available — a specialty answer if there is one, the
+    // brand's category otherwise, and only then the whole ranking.
+    //
+    // The fastest and easiest slots used to sort the whole eligible pool by
+    // elapsed and active time, with the score only as a tiebreak. Elapsed time
+    // has nothing to do with the craving, so the sort returned the catalog's
+    // global minimum every single time: McDonald's, Domino's, Taco Bell, KFC,
+    // Subway, Gong Cha, Baskin-Robbins and a salad chain ALL produced
+    // "Two-Minute Iced Coffee" in the fastest slot. One of the three shapes the
+    // page offers was a constant, and the docstring above it claimed all three
+    // answered "one craving".
+    //
+    // Tiering matters as much as filtering: a salad chain derives `salad` from
+    // its specialty and `rice-bowl`/`sandwich` from its `fast_casual` category,
+    // and the category answers are the quicker ones — so a flat "is it an
+    // answer" test still filled two of three slots with a turkey sandwich and a
+    // rice bowl for a salad order.
+    const byTier = [ANSWER_SPECIALTY, ANSWER_CATEGORY]
+      .map((tier) => ranked.matches.filter((match) => match.tier === tier))
+      .find((list) => list.length > 0);
+    const pool = byTier || ranked.matches;
+
     const take = (label, list) => {
       const pick = list.find((match) => !seen.has(match.entry.id));
 
@@ -548,16 +653,16 @@
       }
     };
 
-    take("closest", ranked.matches);
+    take("closest", pool);
     take(
       "fastest",
-      [...ranked.matches].sort(
+      [...pool].sort(
         (a, b) => (Number(a.entry.totalMinutes) || 0) - (Number(b.entry.totalMinutes) || 0) || b.score - a.score
       )
     );
     take(
       "easiest",
-      [...ranked.matches].sort(
+      [...pool].sort(
         (a, b) => (Number(a.entry.activeMinutes) || 0) - (Number(b.entry.activeMinutes) || 0) || b.score - a.score
       )
     );

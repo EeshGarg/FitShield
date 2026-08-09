@@ -697,3 +697,200 @@ test("equipment is still AND when an entry genuinely needs two appliances", asyn
 function normalizeIsAppliance(swap, missing) {
   return swap && String(swap.for || "").toLowerCase() === String(missing || "").toLowerCase();
 }
+
+// ---------------------------------------------------------------------------
+// The trio must answer the block in all three slots (F001)
+// ---------------------------------------------------------------------------
+
+// The real records, read from the shipped blocklists rather than restated here,
+// so a dataset edit that breaks the promise fails in this file.
+const blocklistEntries = [
+  ...require("../data/blocklists/fast-food.json").entries,
+  ...require("../data/blocklists/delivery.json").entries
+];
+
+function siteRecord(domain) {
+  const entry = blocklistEntries.find((candidate) => candidate.domain === domain);
+  assert.ok(entry, `${domain} is not in the shipped blocklists`);
+  return {
+    key: `${entry.type}-${domain}`,
+    domain,
+    type: entry.type,
+    category: entry.category,
+    specialties: entry.specialties || []
+  };
+}
+
+// What the block page derived the user wanted, computed the same way the
+// matcher does — through the catalog's own vocabulary, not by matching words.
+function cravingsFor(info, data) {
+  return recipes.deriveCravings(info, data.taxonomy);
+}
+
+const answersOneOf = (entry, cravings) =>
+  [...cravings.primary, ...cravings.secondary].some((craving) => (entry.cravings || []).includes(craving));
+
+test("no trio slot is a constant across the blocklist", async () => {
+  await catalog();
+
+  // A spread of shapes: burger, pizza, coffee, tacos, chicken, sandwiches,
+  // bubble tea, ice cream, wings, and a generic delivery marketplace.
+  const domains = [
+    "mcdonalds.com", "dominos.com", "starbucks.com", "tacobell.com", "kfc.com",
+    "subway.com", "gong-cha.com", "baskinrobbins.com", "buffalowildwings.com", "doordash.com"
+  ];
+
+  const slots = { closest: new Set(), fastest: new Set(), easiest: new Set() };
+
+  domains.forEach((domain) => {
+    recipes.selectTrio(siteRecord(domain), {}).forEach((item) => slots[item.label].add(item.entry.id));
+  });
+
+  // The regression this pins: `fastest` sorted the whole eligible pool by
+  // elapsed time, so the catalog's global minimum won every time and all ten
+  // brands — pizza, tacos, wings, ice cream — returned "Two-Minute Iced
+  // Coffee". One of the three shapes the page offers was a constant.
+  Object.entries(slots).forEach(([label, ids]) => {
+    assert.ok(
+      ids.size > 1,
+      `every one of ${domains.length} different brands got the same "${label}" suggestion (${[...ids][0]})`
+    );
+  });
+});
+
+test("every trio slot answers the craving the block derived", async () => {
+  const data = await catalog();
+
+  ["mcdonalds.com", "dominos.com", "tacobell.com", "kfc.com", "subway.com", "gong-cha.com"].forEach((domain) => {
+    const info = siteRecord(domain);
+    const cravings = cravingsFor(info, data);
+    const trio = recipes.selectTrio(info, {});
+
+    assert.equal(trio.length, 3, `${domain} did not produce three options`);
+
+    trio.forEach((item) => {
+      assert.ok(
+        answersOneOf(item.entry, cravings),
+        `${domain}: "${item.label}" offered ${item.entry.id}, which answers none of ${JSON.stringify([
+          ...cravings.primary,
+          ...cravings.secondary
+        ])}`
+      );
+    });
+  });
+});
+
+test("a specialty answer is never displaced by a category answer in the trio", async () => {
+  await catalog();
+
+  // A salad chain: `salads` is the specialty, and its `fast_casual` category
+  // also derives rice-bowl / sandwich / burrito. The category answers are the
+  // quicker ones, so a flat relevance test filled the fastest and easiest slots
+  // with a turkey sandwich and a rice bowl for a salad order.
+  const saladChain = site({ key: "fast-food-salad", domain: "salad.example", category: "fast_casual", specialties: ["salads"] });
+
+  recipes.selectTrio(saladChain, {}).forEach((item) => {
+    assert.ok(
+      (item.entry.cravings || []).includes("salad"),
+      `"${item.label}" offered ${item.entry.id} to a salad chain`
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// A filter that silently removes every answer has to say so (F024)
+// ---------------------------------------------------------------------------
+
+test("a filter that removes every answer is reported, not hidden", async () => {
+  await catalog();
+
+  const pizzaOnly = site({ key: "fast-food-pizza", domain: "pizza.example", category: "pizza", specialties: ["pizza"] });
+
+  // A blender cannot make any of the five pizza answers. The pool stays full of
+  // hummus and smoothies, so the old check — "did this filter empty the pool?"
+  // — never fired, and the page printed no reason at all next to a cottage
+  // cheese bowl offered in place of a pizza.
+  const result = recipes.rankAlternatives(pizzaOnly, { equipment: ["blender"] });
+
+  assert.ok(result.matches.length > 0, "a fallback must still exist");
+  assert.ok(
+    result.matches.every((match) => !(match.entry.cravings || []).includes("pizza")),
+    "this test is only meaningful while the equipment filter really does remove the pizza answers"
+  );
+  assert.ok(
+    result.relaxed.includes("equipment"),
+    "the page must be told the equipment filter is why it is not seeing pizza"
+  );
+});
+
+test("a time limit that removes every answer is reported too", async () => {
+  await catalog();
+
+  const wings = site({ key: "fast-food-wings", domain: "wings.example", category: "chicken", specialties: ["wings"] });
+  const result = recipes.rankAlternatives(wings, {}, { filter: "five-minutes" });
+
+  assert.ok(result.matches.length > 0);
+  assert.ok(
+    result.relaxed.includes("five-minutes"),
+    "no wings answer is under five minutes — the page has to say so rather than showing nachos silently"
+  );
+});
+
+test("a filter that keeps the answers stays quiet", async () => {
+  await catalog();
+
+  // The counterpart: relaxing must not become noise. A microwave kitchen can
+  // make Microwave Mug Pizza, so a pizza block reports nothing.
+  const pizzaOnly = site({ key: "fast-food-pizza", domain: "pizza.example", category: "pizza", specialties: ["pizza"] });
+  const result = recipes.rankAlternatives(pizzaOnly, { equipment: ["microwave"] });
+
+  assert.ok(result.matches.some((match) => (match.entry.cravings || []).includes("pizza")));
+  assert.deepEqual(result.relaxed, [], "nothing was lost, so nothing should be reported");
+});
+
+// ---------------------------------------------------------------------------
+// Broad cravings must not outrank the craving the user actually has (F002)
+// ---------------------------------------------------------------------------
+
+test("a broad craving derived from a specialty never outranks a specific one", async () => {
+  const data = await catalog();
+  const generic = data.taxonomy.genericCravings;
+
+  assert.ok(generic.length > 0, "the taxonomy must declare which cravings are broad");
+
+  // A steakhouse listing "steak, burgers, ribs". "ribs" maps to `comfort`,
+  // which sits on 28% of the catalog; "burgers" maps to `burger`, which sits on
+  // 5%. Both used to score 100, so the closest answer to a steakhouse was a
+  // microwave mug pizza.
+  const steakhouse = site({ key: "fast-food-steak", domain: "steak.example", category: "restaurant", specialties: ["steak", "burgers", "ribs"] });
+  const derived = recipes.deriveCravings(steakhouse, data.taxonomy);
+
+  assert.ok(derived.primary.includes("burger"), "the specific craving stays primary");
+  assert.ok(!derived.primary.includes("comfort"), "the broad craving must be demoted");
+  assert.ok(derived.secondary.includes("comfort"), "and it must still be reachable as a fallback");
+
+  const best = recipes.rankAlternatives(steakhouse, {}).matches[0];
+  assert.ok(
+    (best.entry.cravings || []).includes("burger"),
+    `a steakhouse was answered with "${best.entry.title}"`
+  );
+});
+
+test("a brand with nothing but a broad craving keeps it", async () => {
+  const data = await catalog();
+
+  // A plain delivery marketplace derives only `comfort` and `convenience`. If
+  // demotion applied unconditionally it would lose its only signal and fall
+  // through to the rule bucket.
+  const marketplace = site({
+    key: "delivery-example", domain: "marketplace.example", type: "delivery",
+    category: "delivery", specialties: ["restaurant delivery"]
+  });
+  const derived = recipes.deriveCravings(marketplace, data.taxonomy);
+
+  assert.ok(derived.primary.length > 0, "the only craving it has must stay primary");
+  assert.ok(derived.primary.includes("comfort"));
+
+  const best = recipes.rankAlternatives(marketplace, {}).matches[0];
+  assert.ok(best.reasons.some((reason) => reason.key === "craving"), "it must still get a reasoned answer");
+});

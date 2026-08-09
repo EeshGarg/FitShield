@@ -3,581 +3,2963 @@
   "_note": "PORTED from engine/blocklists/delivery.json by tools/port-android-apps.js (additive; the blocklist stays authoritative). One entry per brand; brandId is the brand's canonical domain and all display metadata is generated from the blocklists. Confirmed packageIds are preserved on re-run; unknown ones stay needs_review — never guess a package ID.",
   "defaultCategory": "delivery",
   "apps": [
-    {"brandId":"2berega.ru","packageIds":["ru.dvaberega"]},
-    {"brandId":"58.com","packageIds":["com.wuba"]},
-    {"brandId":"58daojia.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"60chicken.com","packageIds":["com.jangs.sixtychicken"]},
-    {"brandId":"99food.com.br","packageIds":["com.xiaojukeji.didi.brazil.customer"]},
-    {"brandId":"abaty.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"africabites.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"afrimarket.fr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"ahodrink.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"aiqfome.com","packageIds":["com.vanuatu.aiqfome"]},
-    {"brandId":"aiqfome.com.br","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"airasiafood.com","packageIds":["com.airasia.mobile"]},
-    {"brandId":"akhbarelyomfood.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"akiyab.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"aklyakl.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"allsetnow.com","packageIds":["com.allset.client"]},
-    {"brandId":"ambassador.ai","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"angelinus.com","packageIds":["kr.co.angelinus.gift.m"]},
-    {"brandId":"anota.ai","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"appetito24.com","packageIds":["com.mobmedianet.appetito24"]},
-    {"brandId":"appetito24.com.do","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"appetito24.com.pa","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"arbuz.kz","packageIds":["kz.arbuz.arbuzkz"]},
-    {"brandId":"asap.com","packageIds":[],"packageStatus":"needs_review"},
-    {"brandId":"asap.com.jm","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"asapdelivery.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"asapdelivery.com.tt","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"ashley.co.kr","packageIds":["com.elandeats.crm"]},
-    {"brandId":"baemin.co.kr","packageIds":["com.sampleapp"]},
-    {"brandId":"baemin.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"baemin.me","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"baemin.vn","packageIds":["com.woowahan.vn.baemin"]},
-    {"brandId":"baiduwaimai.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"bajfood.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"bargainbox.co.nz","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"basefood.co.jp","packageIds":["com.commmune.basefoodlabo"]},
-    {"brandId":"baskinrobbins.co.kr","packageIds":["kr.co.baskinrobbins.client"]},
-    {"brandId":"bbq.co.kr","packageIds":["kr.co.genesiskorea.bbqchicken"]},
-    {"brandId":"beepit.com.ph","packageIds":["com.storehub.beep"]},
-    {"brandId":"befood.vn","packageIds":["xyz.be.customer"]},
-    {"brandId":"behrouzbiryani.com","packageIds":["com.behrouzbiryani"]},
-    {"brandId":"best-inc.com","packageIds":["com.best.android.teddyuser"]},
-    {"brandId":"beyondmenu.com","packageIds":["com.beyondmenu"]},
-    {"brandId":"bhc.co.kr","packageIds":["com.foodtechkorea.bhc"]},
-    {"brandId":"bitesquad.com","packageIds":["com.kasacapital.bitesquad"]},
-    {"brandId":"bolt.eu","packageIds":["ee.mtakso.client"]},
-    {"brandId":"boltfood.com","packageIds":["com.bolt.deliveryclient"]},
-    {"brandId":"boltfood.cz","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.ee","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.fi","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.gh","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.hr","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.hu","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.lt","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.lv","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.ng","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.pl","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.pt","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.ro","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.si","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"boltfood.sk","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"bonchon.com","packageIds":["com.togoorder.bonchon"]},
-    {"brandId":"bornga.co.kr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"bottlesapp.co.za","packageIds":["com.bottles"]},
-    {"brandId":"box8.in","packageIds":["com.poncho"]},
-    {"brandId":"bringo.uz","packageIds":["uz.bringo"]},
-    {"brandId":"broniboy.ru","packageIds":["com.broniboy.client"]},
-    {"brandId":"burgerking.co.kr","packageIds":["kr.co.burgerkinghybrid"]},
-    {"brandId":"burgerking.com.cn","packageIds":["cn.atpchina.mobileapp"]},
-    {"brandId":"cainiao.com","packageIds":["com.cainiao.cnglobal","com.cainiao.cnintl4android"]},
-    {"brandId":"cainiao.com.cn","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"capichiapp.com","packageIds":["com.capichi.order"]},
-    {"brandId":"careem.com","packageIds":["com.careem.acma"]},
-    {"brandId":"careemfood.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"carriage.com.my","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"catchtable.co.kr","packageIds":["co.kr.catchtable.android.catchtable_app"]},
-    {"brandId":"caviar.com","packageIds":["com.trycaviar.customer"]},
-    {"brandId":"chagee.com","packageIds":["com.chagee.application","com.chagee.application.zh","com.chagee.us.application"]},
-    {"brandId":"checkers60.com","packageIds":["za.co.shoprite.sixty60"]},
-    {"brandId":"chefgood.com.au","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"cheogajip.co.kr","packageIds":["com.wmpoplus.cheogajip"]},
-    {"brandId":"chibbis.ru","packageIds":["ru.chibbis"]},
-    {"brandId":"chickenplus.co.kr","packageIds":["com.wmpoplus.chickenplus"]},
-    {"brandId":"chocofood.kz","packageIds":["kz.chocofood.chocofoodapp"]},
-    {"brandId":"chope.co","packageIds":["com.chope.gui"]},
-    {"brandId":"chowcentral.com","packageIds":["com.chowcentral"]},
-    {"brandId":"chowdeck.com","packageIds":["com.chowdeck.com"]},
-    {"brandId":"chownow.com","packageIds":["com.chownow.discover"]},
-    {"brandId":"clickandfood.fr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"clustertruck.com","packageIds":["com.clustertruck.consumer"]},
-    {"brandId":"co-opdeli.jp","packageIds":["jp.coopdeli.coopdeliapp"]},
-    {"brandId":"coffeebeankorea.com","packageIds":["com.coffeebeankorea.purpleorder"]},
-    {"brandId":"composecoffee.com","packageIds":["ci.dvn.composecoffee.app"]},
-    {"brandId":"cookpad.com.cn","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"cotticoffee.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"coupang.com","packageIds":["com.coupang.mobile.lightspeed"]},
-    {"brandId":"coupangeats.com","packageIds":["com.coupang.mobile.eats"]},
-    {"brandId":"dada.cn","packageIds":["com.dada.mobile.android","com.dada.mobile.shop.android"]},
-    {"brandId":"dadajiasong.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"daichi-m.co.jp","packageIds":["li.yapp.appA46A899B"]},
-    {"brandId":"danggeunmarket.com","packageIds":["com.towneers.www"]},
-    {"brandId":"daojia.com","packageIds":["com.daojia.jz.app"]},
-    {"brandId":"daojia.jd.com","packageIds":["com.jingdong.pdj"]},
-    {"brandId":"dashdelivery.co.za","packageIds":["com.dashdelivery"]},
-    {"brandId":"ddangddang.co.kr","packageIds":["com.appg.codd.user"]},
-    {"brandId":"ddangyo.com","packageIds":["com.shinhan.o2o"]},
-    {"brandId":"delivereasy.co.nz","packageIds":["nz.co.delivereasy"]},
-    {"brandId":"deliveroo.ae","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"deliveroo.be","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"deliveroo.co.uk","packageIds":["com.deliveroo.orderapp"]},
-    {"brandId":"deliveroo.com.sg","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"deliveroo.es","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"deliveroo.fr","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"deliveroo.hk","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"deliveroo.ie","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"deliveroo.it","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"delivery-club.ru","packageIds":["com.deliveryclub"]},
-    {"brandId":"delivery.com","packageIds":["com.deliverycom"]},
-    {"brandId":"deliverydireto.com.br","packageIds":["com.delivery.direto"]},
-    {"brandId":"deliverydudes.com","packageIds":["biz.deliverydudes.customerapp"]},
-    {"brandId":"deliveryk.com","packageIds":["com.teamjin.deliveryk"]},
-    {"brandId":"deliverymuch.com.br","packageIds":["br.com.deliverymuch.gastro"]},
-    {"brandId":"deliveryvip.com.br","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"delivroum.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"demae-can.com","packageIds":["com.demaecan.androidapp"]},
-    {"brandId":"demaecan.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"deppon.com","packageIds":["com.deppon.dpapp"]},
-    {"brandId":"dial-a-delivery.co.ke","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"dial-a-meal.co.zw","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"dianping.com","packageIds":["com.dianping.v1"]},
-    {"brandId":"dicos.com.cn","packageIds":["com.dicos.prod"]},
-    {"brandId":"didi-food.cl","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"didi-food.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"didi-food.com.br","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"didi-food.com.co","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"didi-food.com.mx","packageIds":["com.xiaojukeji.didi.global.customer"]},
-    {"brandId":"didi-food.cr","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"didi-food.pe","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"dietician.jp","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"dinnerly.com.au","packageIds":["com.dinnerly"]},
-    {"brandId":"dominos.co.kr","packageIds":["kr.co.d2.dominos"]},
-    {"brandId":"dominos.com.cn","packageIds":["cn.dominos.pizza"]},
-    {"brandId":"doordash.com","packageIds":["com.dd.doordash"]},
-    {"brandId":"dostaevsky.ru","packageIds":["ru.dostaevsky.android"]},
-    {"brandId":"douguo.com","packageIds":["com.douguo.recipe"]},
-    {"brandId":"drvegefru.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"dunkindonuts.co.kr","packageIds":[],"packageStatus":"needs_review"},
-    {"brandId":"easi.com.au","packageIds":["com.easi.customer"]},
-    {"brandId":"eatclub.com.au","packageIds":["dinnerdeal.android.customer"]},
-    {"brandId":"eatclub.in","packageIds":["com.poncho.eatclub"]},
-    {"brandId":"eateasily.co.zw","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"eatfit.in","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"eatigo.com","packageIds":["com.eatigo"]},
-    {"brandId":"eatigo.hk","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"eatigo.my","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"eatigo.ph","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"eatigo.sg","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"eatigo.th","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"eatigo.vn","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"eatstreet.com","packageIds":["com.eatstreet.android"]},
-    {"brandId":"eatsure.com","packageIds":["com.done.faasos"]},
-    {"brandId":"eda.yandex.ru","packageIds":["ru.foodfox.client"]},
-    {"brandId":"ediya.com","packageIds":["com.ediya.coupon"]},
-    {"brandId":"ele.me","packageIds":["me.ele"]},
-    {"brandId":"eleme.cn","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"eleme.hk","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"elmenus.com","packageIds":["com.elmenus.app"]},
-    {"brandId":"emoi.co.kr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"epizza.pl","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"everyplate.com.au","packageIds":["com.everyplate.android"]},
-    {"brandId":"express24.kg","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"express24.uz","packageIds":["com.uznewmax.theflash"]},
-    {"brandId":"ezcater.com","packageIds":["com.ezcater.ezcaterapp"]},
-    {"brandId":"faasos.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"familyset.jp","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"fanfoodapp.com","packageIds":["com.fanfoodapp.fanfoodapp"]},
-    {"brandId":"fantuan.ca","packageIds":["com.chowbus.chowbus"]},
-    {"brandId":"fantuan.com","packageIds":["com.ca.fantuan.customer"]},
-    {"brandId":"farfor.ru","packageIds":["ru.farfor"]},
-    {"brandId":"favor.com","packageIds":["com.neighbfav.neighborfavor"]},
-    {"brandId":"feastfood.co.ke","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"fengniao.com","packageIds":["me.ele.crowdsource"]},
-    {"brandId":"fengniaodelivery.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"fengniaozhongbao.cn","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"fine-dine.jp","packageIds":["jp.finedine.android.ec"]},
-    {"brandId":"firangibake.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"fitfoodhome.jp","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"flashex.com","packageIds":["cn.ishansong"]},
-    {"brandId":"flashhold.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"flipdish.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"food.grab.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"food.jumia.com","packageIds":["com.jumiafood.android"]},
-    {"brandId":"foodbomb.com.au","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"foodbooking.com","packageIds":["com.foodbooking.clientapp"]},
-    {"brandId":"foodcourt.app","packageIds":["com.cokitchen.foodcourt"]},
-    {"brandId":"foodee.co.za","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"foodfly.co.kr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"foodhwy.com","packageIds":["com.foodhwy.foodhwy"]},
-    {"brandId":"foodi.com.bd","packageIds":["com.foodiBd"]},
-    {"brandId":"foodies.co.za","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"foodonline.co.za","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"foodora.at","packageIds":["at.mjam"]},
-    {"brandId":"foodora.bg","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodora.ca","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodora.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodora.cz","packageIds":["cz.ulikeit.damejidlo"]},
-    {"brandId":"foodora.dk","packageIds":["hungry.dk.android"]},
-    {"brandId":"foodora.fi","packageIds":["fi.pizzaonline.app"]},
-    {"brandId":"foodora.hu","packageIds":["hu.viala.newiapp"]},
-    {"brandId":"foodora.no","packageIds":["de.foodora.android"]},
-    {"brandId":"foodora.ro","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodora.se","packageIds":["se.onlinepizza"]},
-    {"brandId":"foodpanda.bd","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodpanda.com","packageIds":["com.global.foodpanda.android"]},
-    {"brandId":"foodpanda.hk","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodpanda.jp","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodpanda.kh","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodpanda.la","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodpanda.my","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodpanda.ph","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodpanda.pk","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodpanda.sg","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodpanda.tw","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foodprint.co.nz","packageIds":["com.foodprint"]},
-    {"brandId":"foodscene.delivery","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"foodstantly.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"foody.com.co","packageIds":["co.com.foody.app"]},
-    {"brandId":"foody.com.cy","packageIds":["com.ideas2life.foodymobile"]},
-    {"brandId":"foody.com.mx","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"foody.vn","packageIds":["com.foody.vn.activity"]},
-    {"brandId":"freshmenu.com","packageIds":["com.freshmenu"]},
-    {"brandId":"ganji.com","packageIds":["com.ganji.android"]},
-    {"brandId":"glovo.ba","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.ci","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.es","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.gh","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.hr","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.it","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.ke","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.kz","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.ma","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.md","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.ng","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.pl","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.pt","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.ro","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.rs","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.si","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.tn","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovo.ug","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"glovoapp.com","packageIds":["com.glovo"]},
-    {"brandId":"gochikuru.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"gofood.co.id","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"gojek.com","packageIds":["com.gojek.app"]},
-    {"brandId":"gokada.ng","packageIds":["com.gokada.userapp","ng.gokada.superapp_client"]},
-    {"brandId":"goldbelly.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"gong-cha.co.kr","packageIds":["com.easymembership.gongcha"]},
-    {"brandId":"goobne.co.kr","packageIds":["kr.co.goobne.chicken"]},
-    {"brandId":"goomer.com.br","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"goshuttle.com","packageIds":["com.goshuttle"]},
-    {"brandId":"gozem.co","packageIds":["com.gozem"]},
-    {"brandId":"grab.com","packageIds":["com.grabtaxi.passenger"]},
-    {"brandId":"grabfood.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"green-spoon.jp","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"grubhub.com","packageIds":["com.grubhub.android"]},
-    {"brandId":"gumingnc.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"h5.ele.me","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"haodou.com","packageIds":["com.haodou.recipe"]},
-    {"brandId":"hellofood.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hellofood.com.br","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hellofood.com.co","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hellofood.com.mx","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hellofood.com.ng","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hellofresh.co.nz","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"hellofresh.com.au","packageIds":["com.hellofresh.androidapp"]},
-    {"brandId":"heytea.com","packageIds":["com.heyteago"]},
-    {"brandId":"hollys.co.kr","packageIds":["com.kr.hollyscoffee"]},
-    {"brandId":"hongkong0410.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hosigi.co.kr","packageIds":["com.wmpoplus.hosigi"]},
-    {"brandId":"hugoapp.co","packageIds":["com.hugoapp.client"]},
-    {"brandId":"hugoapp.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hugodelivery.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hugodelivery.com.cr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hugodelivery.com.do","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hugodelivery.com.gt","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hugodelivery.com.hn","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hugodelivery.com.jm","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hugodelivery.com.ni","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hugodelivery.com.pa","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hugodelivery.com.sv","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hungerstation.com","packageIds":["com.hungerstation.android"]},
-    {"brandId":"hungry-panda.com","packageIds":["com.hungrypanda.waimai"]},
-    {"brandId":"hungry.ca","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"hungryhub.com","packageIds":["com.hb.hungryhub"]},
-    {"brandId":"ifood.com.br","packageIds":["br.com.brainweb.ifood"]},
-    {"brandId":"ifood.com.co","packageIds":["comeya.android"]},
-    {"brandId":"imdada.cn","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"innerchef.com","packageIds":["com.innerchef.Activities"]},
-    {"brandId":"jahez.net","packageIds":["net.jahez"]},
-    {"brandId":"jd.com","packageIds":["com.jingdong.app.mall"]},
-    {"brandId":"jddj.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"jet.dk","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"jtexpress.com.cn","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"jumia.co.ke","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"jumiafood.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"just-eat.co.uk","packageIds":["com.justeat.app.uk"]},
-    {"brandId":"just-eat.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"just-eat.ie","packageIds":["com.justeat.app.ie"]},
-    {"brandId":"justeat.dk","packageIds":["com.justeat.app.dk"]},
-    {"brandId":"justeat.es","packageIds":["com.justeat.app.es"]},
-    {"brandId":"justeat.fr","packageIds":["com.justeat.app.fr"]},
-    {"brandId":"justeat.it","packageIds":["com.justeat.app.it"]},
-    {"brandId":"justeat.no","packageIds":["com.justeat.app.no"]},
-    {"brandId":"justeat.se","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"justo.cl","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"justo.co","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"justo.com.ar","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"justo.com.br","packageIds":[],"packageStatus":"needs_review"},
-    {"brandId":"justo.mx","packageIds":["mx.justo.android"]},
-    {"brandId":"justo.pe","packageIds":[],"packageStatus":"needs_review"},
-    {"brandId":"kabaa.delivery","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"keeta.cn","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"keeta.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"keeta.hk","packageIds":["com.sankuai.sailor.afooddelivery"]},
-    {"brandId":"keeta.sa","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"kfc.co.kr","packageIds":["kfc_ko.kore.kg.kfc_korea"]},
-    {"brandId":"kfc.com.cn","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"khedmah.app","packageIds":["com.springtech.orderApp"]},
-    {"brandId":"khudebarta.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"kimbabcheonguk.co.kr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"kimbapnara.co.kr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"klikit.io","packageIds":["io.klikit.cloud"]},
-    {"brandId":"kooul.com","packageIds":["com.ora.customer"]},
-    {"brandId":"koubei.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"koubei.taobao.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"kunefood.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"kungfu.com.cn","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"kyochon.com","packageIds":["com.order.kyochonchicken"]},
-    {"brandId":"lavka.yandex.ru","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"licious.in","packageIds":["com.licious"]},
-    {"brandId":"lieferando.at","packageIds":["at.lieferservice.android"]},
-    {"brandId":"lieferando.ch","packageIds":["com.eat.ch"]},
-    {"brandId":"lieferando.de","packageIds":["com.yopeso.lieferando"]},
-    {"brandId":"lineman.co.th","packageIds":["com.linecorp.linemanth"]},
-    {"brandId":"liten-easy.com.au","packageIds":["com.AppetiteApp"]},
-    {"brandId":"localeats.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"loship.vn","packageIds":["lozi.loship_user"]},
-    {"brandId":"lotteria.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"luckincoffee.com","packageIds":["com.lucky.luckyclient"]},
-    {"brandId":"lunchbox.io","packageIds":[],"packageStatus":"needs_review"},
-    {"brandId":"m.dianping.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"m.ele.me","packageIds":[],"packageStatus":"needs_review"},
-    {"brandId":"madforgarlic.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"magicpin.in","packageIds":["com.magicpin.local"]},
-    {"brandId":"magokoro-bento.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"maishoku.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"mangoplate.com","packageIds":["com.mangoplate"]},
-    {"brandId":"marleyspoon.com.au","packageIds":["com.marleyspoon"]},
-    {"brandId":"maxim-asia.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"maximapp.com","packageIds":["com.taxsee.taxsee"]},
-    {"brandId":"mcdelivery.com.hk","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"mcdonalds.co.kr","packageIds":["com.mwos2.mcdelivery"]},
-    {"brandId":"mcdonalds.com.cn","packageIds":["com.mcdonalds.gma.cn"]},
-    {"brandId":"mealtemple.com","packageIds":["com.mealtemple.app"]},
-    {"brandId":"mega-mgccoffee.com","packageIds":["co.kr.waldlust.megacoffee"]},
-    {"brandId":"meishi.meituan.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"meishichina.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"meishij.net","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"meituan.com","packageIds":["com.sankuai.meituan"]},
-    {"brandId":"meituan.hk","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"meituan.net","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"meituanwaimai.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"menu.ca","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"menu.jp","packageIds":["co.tapgo.user"]},
-    {"brandId":"menu.ne.jp","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"menudino.com","packageIds":["com.menudino.app"]},
-    {"brandId":"menufy.com","packageIds":["com.menufy.menufyportal"]},
-    {"brandId":"menulog.com.au","packageIds":["com.menulog.m"]},
-    {"brandId":"mexicana.co.kr","packageIds":["kr.sponge.mexicanadelivery"]},
-    {"brandId":"miescontainer.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"mixue.com","packageIds":["com.mxbc.mxsaos"]},
-    {"brandId":"mogumo.jp","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"mojopizza.in","packageIds":["com.mojopizza"]},
-    {"brandId":"momstouch.co.kr","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"monchis.com.py","packageIds":["com.artico.delivery.pedidos"]},
-    {"brandId":"mottu.com.br","packageIds":["br.com.mottu"]},
-    {"brandId":"mrdfood.com","packageIds":["com.mrd.food"]},
-    {"brandId":"mrdfood.com.na","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"mrpizza.co.kr","packageIds":["com.mrpizza.android2025"]},
-    {"brandId":"mrsool.co","packageIds":["com.mrsool"]},
-    {"brandId":"mryum.com","packageIds":["au.com.meandu.orderapp"]},
-    {"brandId":"mstand.cn","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"munch.africa","packageIds":["com.ordermunch.app"]},
-    {"brandId":"muscledeli.jp","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"myfood.uz","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"myfoodbag.co.nz","packageIds":["com.myfoodbag.app"]},
-    {"brandId":"nambafood.kg","packageIds":["nambafood.nambaapps.kg.food"]},
-    {"brandId":"nayuki.com","packageIds":[],"packageStatus":"needs_review"},
-    {"brandId":"nenechicken.com","packageIds":["com.fuse_smart_nene"]},
-    {"brandId":"nham24.com","packageIds":["com.nham24.nham24"]},
-    {"brandId":"noodlebox.co.kr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"nosh.jp","packageIds":["jp.nosh.nosh"]},
-    {"brandId":"oddle.me","packageIds":["com.oddleeatsapp"]},
-    {"brandId":"oisix.com","packageIds":["com.oisix.oisixAndroid"]},
-    {"brandId":"ondc.org","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"onecart.co.za","packageIds":["za.co.onecart.onecart"]},
-    {"brandId":"orderahead.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"orderfoodonline.co.za","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"orderin.co.za","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"orderinafrica.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"ordernow.ca","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"oru.ng","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"otlob.com","packageIds":["otlob.UI"]},
-    {"brandId":"outback.co.kr","packageIds":["kr.co.Outback"]},
-    {"brandId":"ovenstory.in","packageIds":["in.ovenstory"]},
-    {"brandId":"owner.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"paikdabang.com","packageIds":["air.kr.paikdabang.android.membership"]},
-    {"brandId":"pal-system.co.jp","packageIds":["jp.co.pal_system.pochipal"]},
-    {"brandId":"papajohns.co.kr","packageIds":["kr.co.pji.android"]},
-    {"brandId":"paris.co.kr","packageIds":["com.pb.android"]},
-    {"brandId":"pathao.com","packageIds":["com.pathao.user"]},
-    {"brandId":"pedidosonline.com.py","packageIds":["com.pedidos.customer"]},
-    {"brandId":"pedidosya.cl","packageIds":["com.pedidosya"]},
-    {"brandId":"pedidosya.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.ar","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.bo","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.cr","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.do","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.ec","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.gt","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.hn","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.ni","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.pa","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.pe","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.py","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.sv","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pedidosya.com.uy","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"pelicana.co.kr","packageIds":["kr.co.pelicana.android"]},
-    {"brandId":"phoever.co.kr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"pickaroo.com","packageIds":["com.pickaroo.android"]},
-    {"brandId":"pickndrop.co.ke","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"picup.co.za","packageIds":["com.picup.driver.two"]},
-    {"brandId":"pizzaalvolo.co.kr","packageIds":["m.pizzaalvolo"]},
-    {"brandId":"pizzaetang.com","packageIds":["com.fuse_smart_pizzaetang"]},
-    {"brandId":"pizzahut.co.kr","packageIds":["com.pizzahut.android"]},
-    {"brandId":"pizzahut.com.cn","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"pizzahut.com.hk","packageIds":["com.pizzahut.app"]},
-    {"brandId":"pizzaportal.pl","packageIds":["pl.pizzaportalnew"]},
-    {"brandId":"postmates.com","packageIds":["com.postmates.android"]},
-    {"brandId":"puradakchicken.com","packageIds":["com.wmpoplus.puradakchicken"]},
-    {"brandId":"pyszne.pl","packageIds":["com.yourdelivery.pyszne"]},
-    {"brandId":"quickmart.co.ke","packageIds":["com.app.qsoko.buyer"]},
-    {"brandId":"rabbitapp.net","packageIds":["com.rabbit.mart"]},
-    {"brandId":"rabbitmart.com","packageIds":["com.rabbitmart.app"]},
-    {"brandId":"radishbo-ya.co.jp","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"railrestro.com","packageIds":["railrestro.mobile.app"]},
-    {"brandId":"rakuten-delivery.com","packageIds":["jp.co.rakuten.delivery"]},
-    {"brandId":"rappi.cl","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"rappi.co.cr","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"rappi.com","packageIds":["com.grability.rappi"]},
-    {"brandId":"rappi.com.ar","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"rappi.com.br","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"rappi.com.co","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"rappi.com.mx","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"rappi.com.uy","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"rappi.ec","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"rappi.pe","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"realkungfu.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"rebelfoods.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"resto-in.fr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"restolib.fr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"restomax.fr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"restorando.com","packageIds":["com.restorando.redo"]},
-    {"brandId":"ritual.co","packageIds":["co.ritual.app"]},
-    {"brandId":"robinhood.in.th","packageIds":["th.in.robinhood"]},
-    {"brandId":"rollringpin.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"saemaeul식당.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"samokat.ru","packageIds":["ru.sbcs.store"]},
-    {"brandId":"sbermarket.ru","packageIds":["ru.instamart"]},
-    {"brandId":"schoolfood.co.kr","packageIds":["com.wmpoplus.schoolfood"]},
-    {"brandId":"seamless.com","packageIds":["com.seamlessweb.android.view"]},
-    {"brandId":"sendme.ng","packageIds":["ng.sendme.orderapp"]},
-    {"brandId":"sendyit.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"sevenbus.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"sf-express.com","packageIds":["com.sf.hmto","com.sf.iapp"]},
-    {"brandId":"sfbest.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"sfcityrush.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"shansong.com","packageIds":["com.flash.ex"]},
-    {"brandId":"shawarmar.com","packageIds":["com.shawarmer"]},
-    {"brandId":"shidax.co.jp","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"shokutakubin.com","packageIds":["li.yapp.appEBBED457"]},
-    {"brandId":"shuttledelivery.co.kr","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"silver-life.co.jp","packageIds":["com.customer_silverlife.magokorocare"]},
-    {"brandId":"sinimanes.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"sixty60.co.za","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"skipthedishes.com","packageIds":["com.ncconsulting.skipthedishes_android"]},
-    {"brandId":"slice.com","packageIds":["com.slicelife.storefront"]},
-    {"brandId":"snappfood.com","packageIds":["com.zoodfood.android.play"]},
-    {"brandId":"sto.cn","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"subway.co.kr","packageIds":["kr.co.subway.preorder"]},
-    {"brandId":"sushiro.co.kr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"swiggy.com","packageIds":["in.swiggy.android"]},
-    {"brandId":"tabling.co.kr","packageIds":["com.mealant.tabling"]},
-    {"brandId":"takeaway.com","packageIds":["be.pizza.android"]},
-    {"brandId":"takeaway.com.be","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"talabat.com","packageIds":["com.talabat.talabat"]},
-    {"brandId":"talabat.com.eg","packageIds":["com.talabat"]},
-    {"brandId":"tanuki.ru","packageIds":["com.mobilemedia.tanuki"]},
-    {"brandId":"taobao.com","packageIds":["com.taobao.taobao"]},
-    {"brandId":"tapnow.com.my","packageIds":["com.tapnow.app"]},
-    {"brandId":"tezsum.uz","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"tgif.co.kr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"theborn.co.kr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"thechefz.co","packageIds":["com.nextwo.the_chefz"]},
-    {"brandId":"thuisbezorgd.nl","packageIds":["com.takeaway.android"]},
-    {"brandId":"tlj.co.kr","packageIds":["kr.co.tlj.app"]},
-    {"brandId":"tmall.com","packageIds":[],"packageStatus":"needs_review"},
-    {"brandId":"toasttab.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"toasttakeout.com","packageIds":["com.toasttab.consumer"]},
-    {"brandId":"tock.com","packageIds":["com.tocktix.consumer"]},
-    {"brandId":"tomntoms.com","packageIds":["com.tomntoms.mytom"]},
-    {"brandId":"tonolucro.com","packageIds":["br.com.tonolucro.delivery"]},
-    {"brandId":"toocle.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"toreore.com","packageIds":["com.wmpoplus.toreore"]},
-    {"brandId":"toters.com","packageIds":["com.toters.customer"]},
-    {"brandId":"totersapp.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"toyou.io","packageIds":["com.arammeem.android.apps.toyou"]},
-    {"brandId":"travelkhana.com","packageIds":["com.travelkhana"]},
-    {"brandId":"trycaviar.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"tsukurioki.jp","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"twosome.co.kr","packageIds":["com.cj.twosome"]},
-    {"brandId":"uber.com","packageIds":["com.ubercab"]},
-    {"brandId":"ubereats.com","packageIds":["com.ubercab.eats"]},
-    {"brandId":"uupaotui.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"uupt.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"vips.co.kr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"waimai.baidu.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"waimai.meituan.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"waitrapp.com","packageIds":["com.waitrapp"]},
-    {"brandId":"wallace.com.cn","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"watami-takushoku.co.jp","packageIds":["jp.co.watami_takushoku.mimamori.app"]},
-    {"brandId":"wellness-dining.com","packageIds":["com.wellnessdining.wellnessdining"]},
-    {"brandId":"whyq.sg","packageIds":["sg.whyq.users"]},
-    {"brandId":"wolt.com","packageIds":["com.wolt.android"]},
-    {"brandId":"wolt.jp","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"wolt.kz","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"wongnai.com","packageIds":["com.wongnai.android"]},
-    {"brandId":"woop.co.nz","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"woowahan.com","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"wowmomo.com","packageIds":["com.wowmomo.woweats"]},
-    {"brandId":"xiachufang.com","packageIds":["com.xiachufang"]},
-    {"brandId":"yakitoriya.ru","packageIds":["com.voltmobi.yakitoriya"]},
-    {"brandId":"yammyfood.kz","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"yandex.ru","packageIds":["ru.yandex.taxi"]},
-    {"brandId":"yassir.app","packageIds":["com.yatechnologies.yassir_rider"]},
-    {"brandId":"yassir.com","packageIds":["com.yatechnologies.yassirfoodclient"]},
-    {"brandId":"yebofresh.co.za","packageIds":["com.yebofresh.yeboapp"]},
-    {"brandId":"yidiandian.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"yogiyo.co.kr","packageIds":["com.fineapp.yogiyo"]},
-    {"brandId":"yonghe.com.cn","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"yooco.co.za","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"yoogane.co.kr","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"youfoodz.com","packageIds":["com.youfoodz.Youfoodz"]},
-    {"brandId":"yto.net.cn","packageIds":["com.yto.express.global"]},
-    {"brandId":"yumamia.com","packageIds":["com.rumbl.yumamia"]},
-    {"brandId":"yummy.com.ve","packageIds":["com.yummy.customer"]},
-    {"brandId":"yummy.do","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"yummycr.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"yumyumtree.com.au","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"zhimeishi.com","packageIds":[],"packageStatus":"no_app"},
-    {"brandId":"zomato.ae","packageIds":[],"packageStatus":"shared_app"},
-    {"brandId":"zomato.com","packageIds":["com.application.zomato"]},
-    {"brandId":"zoopindia.com","packageIds":["com.zoop.zoopindiaservice"]},
-    {"brandId":"zto.com","packageIds":["com.intlapp","com.zto.intl.cambodia"]},
-    {"brandId":"zulzi.com","packageIds":["com.zulzi"]}
+    {
+      "brandId": "2berega.ru",
+      "packageIds": [
+        "ru.dvaberega"
+      ]
+    },
+    {
+      "brandId": "60chicken.com",
+      "packageIds": [
+        "com.jangs.sixtychicken"
+      ]
+    },
+    {
+      "brandId": "99food.com.br",
+      "packageIds": [
+        "com.xiaojukeji.didi.brazil.customer"
+      ]
+    },
+    {
+      "brandId": "abaty.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "afrimarket.fr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "ahodrink.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "aiqfome.com",
+      "packageIds": [
+        "com.vanuatu.aiqfome"
+      ]
+    },
+    {
+      "brandId": "aiqfome.com.br",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "airasiafood.com",
+      "packageIds": [
+        "com.airasia.mobile"
+      ]
+    },
+    {
+      "brandId": "akiyab.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "aklyakl.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "allsetnow.com",
+      "packageIds": [
+        "com.allset.client"
+      ]
+    },
+    {
+      "brandId": "ambassador.ai",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "angelinus.com",
+      "packageIds": [
+        "kr.co.angelinus.gift.m"
+      ]
+    },
+    {
+      "brandId": "anota.ai",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "appetito24.com",
+      "packageIds": [
+        "com.mobmedianet.appetito24"
+      ]
+    },
+    {
+      "brandId": "appetito24.com.do",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "appetito24.com.pa",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "arbuz.kz",
+      "packageIds": [
+        "kz.arbuz.arbuzkz"
+      ]
+    },
+    {
+      "brandId": "asap.com",
+      "packageIds": [],
+      "packageStatus": "needs_review"
+    },
+    {
+      "brandId": "asap.com.jm",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "asapdelivery.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "asapdelivery.com.tt",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "ashley.co.kr",
+      "packageIds": [
+        "com.elandeats.crm"
+      ]
+    },
+    {
+      "brandId": "baemin.co.kr",
+      "packageIds": [
+        "com.sampleapp"
+      ]
+    },
+    {
+      "brandId": "baemin.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "baemin.me",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "baemin.vn",
+      "packageIds": [
+        "com.woowahan.vn.baemin"
+      ]
+    },
+    {
+      "brandId": "baiduwaimai.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "bajfood.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "bargainbox.co.nz",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "basefood.co.jp",
+      "packageIds": [
+        "com.commmune.basefoodlabo"
+      ]
+    },
+    {
+      "brandId": "baskinrobbins.co.kr",
+      "packageIds": [
+        "kr.co.baskinrobbins.client"
+      ]
+    },
+    {
+      "brandId": "bbq.co.kr",
+      "packageIds": [
+        "kr.co.genesiskorea.bbqchicken"
+      ]
+    },
+    {
+      "brandId": "beepit.com.ph",
+      "packageIds": [
+        "com.storehub.beep"
+      ]
+    },
+    {
+      "brandId": "befood.vn",
+      "packageIds": [
+        "xyz.be.customer"
+      ]
+    },
+    {
+      "brandId": "behrouzbiryani.com",
+      "packageIds": [
+        "com.behrouzbiryani"
+      ]
+    },
+    {
+      "brandId": "beyondmenu.com",
+      "packageIds": [
+        "com.beyondmenu"
+      ]
+    },
+    {
+      "brandId": "bhc.co.kr",
+      "packageIds": [
+        "com.foodtechkorea.bhc"
+      ]
+    },
+    {
+      "brandId": "bitesquad.com",
+      "packageIds": [
+        "com.kasacapital.bitesquad"
+      ]
+    },
+    {
+      "brandId": "bolt.eu",
+      "packageIds": [
+        "ee.mtakso.client"
+      ]
+    },
+    {
+      "brandId": "boltfood.com",
+      "packageIds": [
+        "com.bolt.deliveryclient"
+      ]
+    },
+    {
+      "brandId": "boltfood.cz",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.ee",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.fi",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.gh",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.hr",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.hu",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.lt",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.lv",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.ng",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.pl",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.pt",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.ro",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.si",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "boltfood.sk",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "bonchon.com",
+      "packageIds": [
+        "com.togoorder.bonchon"
+      ]
+    },
+    {
+      "brandId": "bornga.co.kr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "bottlesapp.co.za",
+      "packageIds": [
+        "com.bottles"
+      ]
+    },
+    {
+      "brandId": "box8.in",
+      "packageIds": [
+        "com.poncho"
+      ]
+    },
+    {
+      "brandId": "bringo.uz",
+      "packageIds": [
+        "uz.bringo"
+      ]
+    },
+    {
+      "brandId": "broniboy.ru",
+      "packageIds": [
+        "com.broniboy.client"
+      ]
+    },
+    {
+      "brandId": "burgerking.co.kr",
+      "packageIds": [
+        "kr.co.burgerkinghybrid"
+      ]
+    },
+    {
+      "brandId": "burgerking.com.cn",
+      "packageIds": [
+        "cn.atpchina.mobileapp"
+      ]
+    },
+    {
+      "brandId": "capichiapp.com",
+      "packageIds": [
+        "com.capichi.order"
+      ]
+    },
+    {
+      "brandId": "careem.com",
+      "packageIds": [
+        "com.careem.acma"
+      ]
+    },
+    {
+      "brandId": "careemfood.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "carriage.com.my",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "catchtable.co.kr",
+      "packageIds": [
+        "co.kr.catchtable.android.catchtable_app"
+      ]
+    },
+    {
+      "brandId": "caviar.com",
+      "packageIds": [
+        "com.trycaviar.customer"
+      ]
+    },
+    {
+      "brandId": "chagee.com",
+      "packageIds": [
+        "com.chagee.application",
+        "com.chagee.application.zh",
+        "com.chagee.us.application"
+      ]
+    },
+    {
+      "brandId": "checkers60.com",
+      "packageIds": [
+        "za.co.shoprite.sixty60"
+      ]
+    },
+    {
+      "brandId": "chefgood.com.au",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "cheogajip.co.kr",
+      "packageIds": [
+        "com.wmpoplus.cheogajip"
+      ]
+    },
+    {
+      "brandId": "chibbis.ru",
+      "packageIds": [
+        "ru.chibbis"
+      ]
+    },
+    {
+      "brandId": "chickenplus.co.kr",
+      "packageIds": [
+        "com.wmpoplus.chickenplus"
+      ]
+    },
+    {
+      "brandId": "chocofood.kz",
+      "packageIds": [
+        "kz.chocofood.chocofoodapp"
+      ]
+    },
+    {
+      "brandId": "chope.co",
+      "packageIds": [
+        "com.chope.gui"
+      ]
+    },
+    {
+      "brandId": "chowcentral.com",
+      "packageIds": [
+        "com.chowcentral"
+      ]
+    },
+    {
+      "brandId": "chowdeck.com",
+      "packageIds": [
+        "com.chowdeck.com"
+      ]
+    },
+    {
+      "brandId": "chownow.com",
+      "packageIds": [
+        "com.chownow.discover"
+      ]
+    },
+    {
+      "brandId": "clickandfood.fr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "clustertruck.com",
+      "packageIds": [
+        "com.clustertruck.consumer"
+      ]
+    },
+    {
+      "brandId": "co-opdeli.jp",
+      "packageIds": [
+        "jp.coopdeli.coopdeliapp"
+      ]
+    },
+    {
+      "brandId": "coffeebeankorea.com",
+      "packageIds": [
+        "com.coffeebeankorea.purpleorder"
+      ]
+    },
+    {
+      "brandId": "composecoffee.com",
+      "packageIds": [
+        "ci.dvn.composecoffee.app"
+      ]
+    },
+    {
+      "brandId": "cotticoffee.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "coupangeats.com",
+      "packageIds": [
+        "com.coupang.mobile.eats"
+      ]
+    },
+    {
+      "brandId": "dada.cn",
+      "packageIds": [
+        "com.dada.mobile.android",
+        "com.dada.mobile.shop.android"
+      ]
+    },
+    {
+      "brandId": "dadajiasong.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "daichi-m.co.jp",
+      "packageIds": [
+        "li.yapp.appA46A899B"
+      ]
+    },
+    {
+      "brandId": "daojia.com",
+      "packageIds": [
+        "com.daojia.jz.app"
+      ]
+    },
+    {
+      "brandId": "daojia.jd.com",
+      "packageIds": [
+        "com.jingdong.pdj"
+      ]
+    },
+    {
+      "brandId": "dashdelivery.co.za",
+      "packageIds": [
+        "com.dashdelivery"
+      ]
+    },
+    {
+      "brandId": "ddangddang.co.kr",
+      "packageIds": [
+        "com.appg.codd.user"
+      ]
+    },
+    {
+      "brandId": "ddangyo.com",
+      "packageIds": [
+        "com.shinhan.o2o"
+      ]
+    },
+    {
+      "brandId": "delivereasy.co.nz",
+      "packageIds": [
+        "nz.co.delivereasy"
+      ]
+    },
+    {
+      "brandId": "deliveroo.ae",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "deliveroo.be",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "deliveroo.co.uk",
+      "packageIds": [
+        "com.deliveroo.orderapp"
+      ]
+    },
+    {
+      "brandId": "deliveroo.com.sg",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "deliveroo.es",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "deliveroo.fr",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "deliveroo.hk",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "deliveroo.ie",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "deliveroo.it",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "delivery-club.ru",
+      "packageIds": [
+        "com.deliveryclub"
+      ]
+    },
+    {
+      "brandId": "delivery.com",
+      "packageIds": [
+        "com.deliverycom"
+      ]
+    },
+    {
+      "brandId": "deliverydireto.com.br",
+      "packageIds": [
+        "com.delivery.direto"
+      ]
+    },
+    {
+      "brandId": "deliverydudes.com",
+      "packageIds": [
+        "biz.deliverydudes.customerapp"
+      ]
+    },
+    {
+      "brandId": "deliveryk.com",
+      "packageIds": [
+        "com.teamjin.deliveryk"
+      ]
+    },
+    {
+      "brandId": "deliverymuch.com.br",
+      "packageIds": [
+        "br.com.deliverymuch.gastro"
+      ]
+    },
+    {
+      "brandId": "deliveryvip.com.br",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "delivroum.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "demae-can.com",
+      "packageIds": [
+        "com.demaecan.androidapp"
+      ]
+    },
+    {
+      "brandId": "demaecan.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "dial-a-delivery.co.ke",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "dial-a-meal.co.zw",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "dianping.com",
+      "packageIds": [
+        "com.dianping.v1"
+      ]
+    },
+    {
+      "brandId": "dicos.com.cn",
+      "packageIds": [
+        "com.dicos.prod"
+      ]
+    },
+    {
+      "brandId": "didi-food.cl",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "didi-food.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "didi-food.com.br",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "didi-food.com.co",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "didi-food.com.mx",
+      "packageIds": [
+        "com.xiaojukeji.didi.global.customer"
+      ]
+    },
+    {
+      "brandId": "didi-food.cr",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "didi-food.pe",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "dietician.jp",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "dinnerly.com.au",
+      "packageIds": [
+        "com.dinnerly"
+      ]
+    },
+    {
+      "brandId": "dominos.co.kr",
+      "packageIds": [
+        "kr.co.d2.dominos"
+      ]
+    },
+    {
+      "brandId": "dominos.com.cn",
+      "packageIds": [
+        "cn.dominos.pizza"
+      ]
+    },
+    {
+      "brandId": "doordash.com",
+      "packageIds": [
+        "com.dd.doordash"
+      ]
+    },
+    {
+      "brandId": "dostaevsky.ru",
+      "packageIds": [
+        "ru.dostaevsky.android"
+      ]
+    },
+    {
+      "brandId": "drvegefru.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "dunkindonuts.co.kr",
+      "packageIds": [],
+      "packageStatus": "needs_review"
+    },
+    {
+      "brandId": "easi.com.au",
+      "packageIds": [
+        "com.easi.customer"
+      ]
+    },
+    {
+      "brandId": "eatclub.com.au",
+      "packageIds": [
+        "dinnerdeal.android.customer"
+      ]
+    },
+    {
+      "brandId": "eatclub.in",
+      "packageIds": [
+        "com.poncho.eatclub"
+      ]
+    },
+    {
+      "brandId": "eateasily.co.zw",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "eatfit.in",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "eatigo.com",
+      "packageIds": [
+        "com.eatigo"
+      ]
+    },
+    {
+      "brandId": "eatigo.hk",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "eatigo.my",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "eatigo.ph",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "eatigo.sg",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "eatigo.th",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "eatigo.vn",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "eatstreet.com",
+      "packageIds": [
+        "com.eatstreet.android"
+      ]
+    },
+    {
+      "brandId": "eatsure.com",
+      "packageIds": [
+        "com.done.faasos"
+      ]
+    },
+    {
+      "brandId": "eda.yandex.ru",
+      "packageIds": [
+        "ru.foodfox.client"
+      ]
+    },
+    {
+      "brandId": "ediya.com",
+      "packageIds": [
+        "com.ediya.coupon"
+      ]
+    },
+    {
+      "brandId": "ele.me",
+      "packageIds": [
+        "me.ele"
+      ]
+    },
+    {
+      "brandId": "eleme.cn",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "eleme.hk",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "elmenus.com",
+      "packageIds": [
+        "com.elmenus.app"
+      ]
+    },
+    {
+      "brandId": "emoi.co.kr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "epizza.pl",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "everyplate.com.au",
+      "packageIds": [
+        "com.everyplate.android"
+      ]
+    },
+    {
+      "brandId": "express24.kg",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "express24.uz",
+      "packageIds": [
+        "com.uznewmax.theflash"
+      ]
+    },
+    {
+      "brandId": "ezcater.com",
+      "packageIds": [
+        "com.ezcater.ezcaterapp"
+      ]
+    },
+    {
+      "brandId": "faasos.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "familyset.jp",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "fanfoodapp.com",
+      "packageIds": [
+        "com.fanfoodapp.fanfoodapp"
+      ]
+    },
+    {
+      "brandId": "fantuan.ca",
+      "packageIds": [
+        "com.chowbus.chowbus"
+      ]
+    },
+    {
+      "brandId": "fantuan.com",
+      "packageIds": [
+        "com.ca.fantuan.customer"
+      ]
+    },
+    {
+      "brandId": "farfor.ru",
+      "packageIds": [
+        "ru.farfor"
+      ]
+    },
+    {
+      "brandId": "favor.com",
+      "packageIds": [
+        "com.neighbfav.neighborfavor"
+      ]
+    },
+    {
+      "brandId": "feastfood.co.ke",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "fengniao.com",
+      "packageIds": [
+        "me.ele.crowdsource"
+      ]
+    },
+    {
+      "brandId": "fengniaodelivery.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "fengniaozhongbao.cn",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "fine-dine.jp",
+      "packageIds": [
+        "jp.finedine.android.ec"
+      ]
+    },
+    {
+      "brandId": "firangibake.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "fitfoodhome.jp",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "flashex.com",
+      "packageIds": [
+        "cn.ishansong"
+      ]
+    },
+    {
+      "brandId": "flashhold.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "flipdish.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "food.grab.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "food.jumia.com",
+      "packageIds": [
+        "com.jumiafood.android"
+      ]
+    },
+    {
+      "brandId": "foodbomb.com.au",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "foodbooking.com",
+      "packageIds": [
+        "com.foodbooking.clientapp"
+      ]
+    },
+    {
+      "brandId": "foodcourt.app",
+      "packageIds": [
+        "com.cokitchen.foodcourt"
+      ]
+    },
+    {
+      "brandId": "foodee.co.za",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "foodfly.co.kr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "foodhwy.com",
+      "packageIds": [
+        "com.foodhwy.foodhwy"
+      ]
+    },
+    {
+      "brandId": "foodi.com.bd",
+      "packageIds": [
+        "com.foodiBd"
+      ]
+    },
+    {
+      "brandId": "foodies.co.za",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "foodonline.co.za",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "foodora.at",
+      "packageIds": [
+        "at.mjam"
+      ]
+    },
+    {
+      "brandId": "foodora.bg",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodora.ca",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodora.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodora.cz",
+      "packageIds": [
+        "cz.ulikeit.damejidlo"
+      ]
+    },
+    {
+      "brandId": "foodora.dk",
+      "packageIds": [
+        "hungry.dk.android"
+      ]
+    },
+    {
+      "brandId": "foodora.fi",
+      "packageIds": [
+        "fi.pizzaonline.app"
+      ]
+    },
+    {
+      "brandId": "foodora.hu",
+      "packageIds": [
+        "hu.viala.newiapp"
+      ]
+    },
+    {
+      "brandId": "foodora.no",
+      "packageIds": [
+        "de.foodora.android"
+      ]
+    },
+    {
+      "brandId": "foodora.ro",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodora.se",
+      "packageIds": [
+        "se.onlinepizza"
+      ]
+    },
+    {
+      "brandId": "foodpanda.bd",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodpanda.com",
+      "packageIds": [
+        "com.global.foodpanda.android"
+      ]
+    },
+    {
+      "brandId": "foodpanda.hk",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodpanda.jp",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodpanda.kh",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodpanda.la",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodpanda.my",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodpanda.ph",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodpanda.pk",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodpanda.sg",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodpanda.tw",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodprint.co.nz",
+      "packageIds": [
+        "com.foodprint"
+      ]
+    },
+    {
+      "brandId": "foodscene.delivery",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "foodstantly.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "foody.com.co",
+      "packageIds": [
+        "co.com.foody.app"
+      ]
+    },
+    {
+      "brandId": "foody.com.cy",
+      "packageIds": [
+        "com.ideas2life.foodymobile"
+      ]
+    },
+    {
+      "brandId": "foody.com.mx",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foody.vn",
+      "packageIds": [
+        "com.foody.vn.activity"
+      ]
+    },
+    {
+      "brandId": "freshmenu.com",
+      "packageIds": [
+        "com.freshmenu"
+      ]
+    },
+    {
+      "brandId": "glovo.ba",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.ci",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.es",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.gh",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.hr",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.it",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.ke",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.kz",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.ma",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.md",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.ng",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.pl",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.pt",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.ro",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.rs",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.si",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.tn",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovo.ug",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "glovoapp.com",
+      "packageIds": [
+        "com.glovo"
+      ]
+    },
+    {
+      "brandId": "gochikuru.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "gofood.co.id",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "gojek.com",
+      "packageIds": [
+        "com.gojek.app"
+      ]
+    },
+    {
+      "brandId": "gokada.ng",
+      "packageIds": [
+        "com.gokada.userapp",
+        "ng.gokada.superapp_client"
+      ]
+    },
+    {
+      "brandId": "goldbelly.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "gong-cha.co.kr",
+      "packageIds": [
+        "com.easymembership.gongcha"
+      ]
+    },
+    {
+      "brandId": "goobne.co.kr",
+      "packageIds": [
+        "kr.co.goobne.chicken"
+      ]
+    },
+    {
+      "brandId": "goomer.com.br",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "goshuttle.com",
+      "packageIds": [
+        "com.goshuttle"
+      ]
+    },
+    {
+      "brandId": "gozem.co",
+      "packageIds": [
+        "com.gozem"
+      ]
+    },
+    {
+      "brandId": "grabfood.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "green-spoon.jp",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "grubhub.com",
+      "packageIds": [
+        "com.grubhub.android"
+      ]
+    },
+    {
+      "brandId": "gumingnc.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hellofood.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hellofood.com.br",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hellofood.com.co",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hellofood.com.mx",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hellofood.com.ng",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hellofresh.co.nz",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "hellofresh.com.au",
+      "packageIds": [
+        "com.hellofresh.androidapp"
+      ]
+    },
+    {
+      "brandId": "heytea.com",
+      "packageIds": [
+        "com.heyteago"
+      ]
+    },
+    {
+      "brandId": "hollys.co.kr",
+      "packageIds": [
+        "com.kr.hollyscoffee"
+      ]
+    },
+    {
+      "brandId": "hongkong0410.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hosigi.co.kr",
+      "packageIds": [
+        "com.wmpoplus.hosigi"
+      ]
+    },
+    {
+      "brandId": "hugoapp.co",
+      "packageIds": [
+        "com.hugoapp.client"
+      ]
+    },
+    {
+      "brandId": "hugoapp.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hugodelivery.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hugodelivery.com.cr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hugodelivery.com.do",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hugodelivery.com.gt",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hugodelivery.com.hn",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hugodelivery.com.jm",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hugodelivery.com.ni",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hugodelivery.com.pa",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hugodelivery.com.sv",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hungerstation.com",
+      "packageIds": [
+        "com.hungerstation.android"
+      ]
+    },
+    {
+      "brandId": "hungry-panda.com",
+      "packageIds": [
+        "com.hungrypanda.waimai"
+      ]
+    },
+    {
+      "brandId": "hungry.ca",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "hungryhub.com",
+      "packageIds": [
+        "com.hb.hungryhub"
+      ]
+    },
+    {
+      "brandId": "ifood.com.br",
+      "packageIds": [
+        "br.com.brainweb.ifood"
+      ]
+    },
+    {
+      "brandId": "ifood.com.co",
+      "packageIds": [
+        "comeya.android"
+      ]
+    },
+    {
+      "brandId": "imdada.cn",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "innerchef.com",
+      "packageIds": [
+        "com.innerchef.Activities"
+      ]
+    },
+    {
+      "brandId": "jahez.net",
+      "packageIds": [
+        "net.jahez"
+      ]
+    },
+    {
+      "brandId": "jddj.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "jet.dk",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "jumia.co.ke",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "jumiafood.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "just-eat.co.uk",
+      "packageIds": [
+        "com.justeat.app.uk"
+      ]
+    },
+    {
+      "brandId": "just-eat.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "just-eat.ie",
+      "packageIds": [
+        "com.justeat.app.ie"
+      ]
+    },
+    {
+      "brandId": "justeat.dk",
+      "packageIds": [
+        "com.justeat.app.dk"
+      ]
+    },
+    {
+      "brandId": "justeat.es",
+      "packageIds": [
+        "com.justeat.app.es"
+      ]
+    },
+    {
+      "brandId": "justeat.fr",
+      "packageIds": [
+        "com.justeat.app.fr"
+      ]
+    },
+    {
+      "brandId": "justeat.it",
+      "packageIds": [
+        "com.justeat.app.it"
+      ]
+    },
+    {
+      "brandId": "justeat.no",
+      "packageIds": [
+        "com.justeat.app.no"
+      ]
+    },
+    {
+      "brandId": "justeat.se",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "justo.cl",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "justo.co",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "justo.com.ar",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "justo.com.br",
+      "packageIds": [],
+      "packageStatus": "needs_review"
+    },
+    {
+      "brandId": "justo.mx",
+      "packageIds": [
+        "mx.justo.android"
+      ]
+    },
+    {
+      "brandId": "justo.pe",
+      "packageIds": [],
+      "packageStatus": "needs_review"
+    },
+    {
+      "brandId": "kabaa.delivery",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "keeta.cn",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "keeta.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "keeta.hk",
+      "packageIds": [
+        "com.sankuai.sailor.afooddelivery"
+      ]
+    },
+    {
+      "brandId": "keeta.sa",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "kfc.co.kr",
+      "packageIds": [
+        "kfc_ko.kore.kg.kfc_korea"
+      ]
+    },
+    {
+      "brandId": "kfc.com.cn",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "khedmah.app",
+      "packageIds": [
+        "com.springtech.orderApp"
+      ]
+    },
+    {
+      "brandId": "khudebarta.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "kimbabcheonguk.co.kr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "kimbapnara.co.kr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "klikit.io",
+      "packageIds": [
+        "io.klikit.cloud"
+      ]
+    },
+    {
+      "brandId": "kooul.com",
+      "packageIds": [
+        "com.ora.customer"
+      ]
+    },
+    {
+      "brandId": "koubei.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "koubei.taobao.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "kunefood.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "kungfu.com.cn",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "kyochon.com",
+      "packageIds": [
+        "com.order.kyochonchicken"
+      ]
+    },
+    {
+      "brandId": "lavka.yandex.ru",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "licious.in",
+      "packageIds": [
+        "com.licious"
+      ]
+    },
+    {
+      "brandId": "lieferando.at",
+      "packageIds": [
+        "at.lieferservice.android"
+      ]
+    },
+    {
+      "brandId": "lieferando.ch",
+      "packageIds": [
+        "com.eat.ch"
+      ]
+    },
+    {
+      "brandId": "lieferando.de",
+      "packageIds": [
+        "com.yopeso.lieferando"
+      ]
+    },
+    {
+      "brandId": "lineman.co.th",
+      "packageIds": [
+        "com.linecorp.linemanth"
+      ]
+    },
+    {
+      "brandId": "liten-easy.com.au",
+      "packageIds": [
+        "com.AppetiteApp"
+      ]
+    },
+    {
+      "brandId": "localeats.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "loship.vn",
+      "packageIds": [
+        "lozi.loship_user"
+      ]
+    },
+    {
+      "brandId": "lotteria.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "luckincoffee.com",
+      "packageIds": [
+        "com.lucky.luckyclient"
+      ]
+    },
+    {
+      "brandId": "lunchbox.io",
+      "packageIds": [],
+      "packageStatus": "needs_review"
+    },
+    {
+      "brandId": "madforgarlic.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "magicpin.in",
+      "packageIds": [
+        "com.magicpin.local"
+      ]
+    },
+    {
+      "brandId": "magokoro-bento.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "maishoku.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "mangoplate.com",
+      "packageIds": [
+        "com.mangoplate"
+      ]
+    },
+    {
+      "brandId": "marleyspoon.com.au",
+      "packageIds": [
+        "com.marleyspoon"
+      ]
+    },
+    {
+      "brandId": "maxim-asia.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "maximapp.com",
+      "packageIds": [
+        "com.taxsee.taxsee"
+      ]
+    },
+    {
+      "brandId": "mcdelivery.com.hk",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "mcdonalds.co.kr",
+      "packageIds": [
+        "com.mwos2.mcdelivery"
+      ]
+    },
+    {
+      "brandId": "mcdonalds.com.cn",
+      "packageIds": [
+        "com.mcdonalds.gma.cn"
+      ]
+    },
+    {
+      "brandId": "mealtemple.com",
+      "packageIds": [
+        "com.mealtemple.app"
+      ]
+    },
+    {
+      "brandId": "mega-mgccoffee.com",
+      "packageIds": [
+        "co.kr.waldlust.megacoffee"
+      ]
+    },
+    {
+      "brandId": "meituan.com",
+      "packageIds": [
+        "com.sankuai.meituan"
+      ]
+    },
+    {
+      "brandId": "meituan.hk",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "meituan.net",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "meituanwaimai.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "menu.ca",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "menu.jp",
+      "packageIds": [
+        "co.tapgo.user"
+      ]
+    },
+    {
+      "brandId": "menu.ne.jp",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "menudino.com",
+      "packageIds": [
+        "com.menudino.app"
+      ]
+    },
+    {
+      "brandId": "menufy.com",
+      "packageIds": [
+        "com.menufy.menufyportal"
+      ]
+    },
+    {
+      "brandId": "menulog.com.au",
+      "packageIds": [
+        "com.menulog.m"
+      ]
+    },
+    {
+      "brandId": "mexicana.co.kr",
+      "packageIds": [
+        "kr.sponge.mexicanadelivery"
+      ]
+    },
+    {
+      "brandId": "miescontainer.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "mixue.com",
+      "packageIds": [
+        "com.mxbc.mxsaos"
+      ]
+    },
+    {
+      "brandId": "mogumo.jp",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "mojopizza.in",
+      "packageIds": [
+        "com.mojopizza"
+      ]
+    },
+    {
+      "brandId": "momstouch.co.kr",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "monchis.com.py",
+      "packageIds": [
+        "com.artico.delivery.pedidos"
+      ]
+    },
+    {
+      "brandId": "mrdfood.com",
+      "packageIds": [
+        "com.mrd.food"
+      ]
+    },
+    {
+      "brandId": "mrdfood.com.na",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "mrpizza.co.kr",
+      "packageIds": [
+        "com.mrpizza.android2025"
+      ]
+    },
+    {
+      "brandId": "mrsool.co",
+      "packageIds": [
+        "com.mrsool"
+      ]
+    },
+    {
+      "brandId": "mryum.com",
+      "packageIds": [
+        "au.com.meandu.orderapp"
+      ]
+    },
+    {
+      "brandId": "mstand.cn",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "munch.africa",
+      "packageIds": [
+        "com.ordermunch.app"
+      ]
+    },
+    {
+      "brandId": "muscledeli.jp",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "myfood.uz",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "myfoodbag.co.nz",
+      "packageIds": [
+        "com.myfoodbag.app"
+      ]
+    },
+    {
+      "brandId": "nambafood.kg",
+      "packageIds": [
+        "nambafood.nambaapps.kg.food"
+      ]
+    },
+    {
+      "brandId": "nayuki.com",
+      "packageIds": [],
+      "packageStatus": "needs_review"
+    },
+    {
+      "brandId": "nenechicken.com",
+      "packageIds": [
+        "com.fuse_smart_nene"
+      ]
+    },
+    {
+      "brandId": "nham24.com",
+      "packageIds": [
+        "com.nham24.nham24"
+      ]
+    },
+    {
+      "brandId": "noodlebox.co.kr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "nosh.jp",
+      "packageIds": [
+        "jp.nosh.nosh"
+      ]
+    },
+    {
+      "brandId": "oddle.me",
+      "packageIds": [
+        "com.oddleeatsapp"
+      ]
+    },
+    {
+      "brandId": "oisix.com",
+      "packageIds": [
+        "com.oisix.oisixAndroid"
+      ]
+    },
+    {
+      "brandId": "onecart.co.za",
+      "packageIds": [
+        "za.co.onecart.onecart"
+      ]
+    },
+    {
+      "brandId": "orderahead.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "orderfoodonline.co.za",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "orderin.co.za",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "orderinafrica.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "ordernow.ca",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "oru.ng",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "otlob.com",
+      "packageIds": [
+        "otlob.UI"
+      ]
+    },
+    {
+      "brandId": "outback.co.kr",
+      "packageIds": [
+        "kr.co.Outback"
+      ]
+    },
+    {
+      "brandId": "ovenstory.in",
+      "packageIds": [
+        "in.ovenstory"
+      ]
+    },
+    {
+      "brandId": "owner.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "paikdabang.com",
+      "packageIds": [
+        "air.kr.paikdabang.android.membership"
+      ]
+    },
+    {
+      "brandId": "pal-system.co.jp",
+      "packageIds": [
+        "jp.co.pal_system.pochipal"
+      ]
+    },
+    {
+      "brandId": "papajohns.co.kr",
+      "packageIds": [
+        "kr.co.pji.android"
+      ]
+    },
+    {
+      "brandId": "paris.co.kr",
+      "packageIds": [
+        "com.pb.android"
+      ]
+    },
+    {
+      "brandId": "pathao.com",
+      "packageIds": [
+        "com.pathao.user"
+      ]
+    },
+    {
+      "brandId": "pedidosonline.com.py",
+      "packageIds": [
+        "com.pedidos.customer"
+      ]
+    },
+    {
+      "brandId": "pedidosya.cl",
+      "packageIds": [
+        "com.pedidosya"
+      ]
+    },
+    {
+      "brandId": "pedidosya.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.ar",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.bo",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.cr",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.do",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.ec",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.gt",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.hn",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.ni",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.pa",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.pe",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.py",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.sv",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pedidosya.com.uy",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "pelicana.co.kr",
+      "packageIds": [
+        "kr.co.pelicana.android"
+      ]
+    },
+    {
+      "brandId": "phoever.co.kr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "pickaroo.com",
+      "packageIds": [
+        "com.pickaroo.android"
+      ]
+    },
+    {
+      "brandId": "pickndrop.co.ke",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "pizzaalvolo.co.kr",
+      "packageIds": [
+        "m.pizzaalvolo"
+      ]
+    },
+    {
+      "brandId": "pizzaetang.com",
+      "packageIds": [
+        "com.fuse_smart_pizzaetang"
+      ]
+    },
+    {
+      "brandId": "pizzahut.co.kr",
+      "packageIds": [
+        "com.pizzahut.android"
+      ]
+    },
+    {
+      "brandId": "pizzahut.com.cn",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "pizzahut.com.hk",
+      "packageIds": [
+        "com.pizzahut.app"
+      ]
+    },
+    {
+      "brandId": "pizzaportal.pl",
+      "packageIds": [
+        "pl.pizzaportalnew"
+      ]
+    },
+    {
+      "brandId": "postmates.com",
+      "packageIds": [
+        "com.postmates.android"
+      ]
+    },
+    {
+      "brandId": "puradakchicken.com",
+      "packageIds": [
+        "com.wmpoplus.puradakchicken"
+      ]
+    },
+    {
+      "brandId": "pyszne.pl",
+      "packageIds": [
+        "com.yourdelivery.pyszne"
+      ]
+    },
+    {
+      "brandId": "quickmart.co.ke",
+      "packageIds": [
+        "com.app.qsoko.buyer"
+      ]
+    },
+    {
+      "brandId": "rabbitapp.net",
+      "packageIds": [
+        "com.rabbit.mart"
+      ]
+    },
+    {
+      "brandId": "rabbitmart.com",
+      "packageIds": [
+        "com.rabbitmart.app"
+      ]
+    },
+    {
+      "brandId": "radishbo-ya.co.jp",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "railrestro.com",
+      "packageIds": [
+        "railrestro.mobile.app"
+      ]
+    },
+    {
+      "brandId": "rakuten-delivery.com",
+      "packageIds": [
+        "jp.co.rakuten.delivery"
+      ]
+    },
+    {
+      "brandId": "rappi.cl",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "rappi.co.cr",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "rappi.com",
+      "packageIds": [
+        "com.grability.rappi"
+      ]
+    },
+    {
+      "brandId": "rappi.com.ar",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "rappi.com.br",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "rappi.com.co",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "rappi.com.mx",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "rappi.com.uy",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "rappi.ec",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "rappi.pe",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "realkungfu.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "rebelfoods.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "resto-in.fr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "restolib.fr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "restomax.fr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "restorando.com",
+      "packageIds": [
+        "com.restorando.redo"
+      ]
+    },
+    {
+      "brandId": "ritual.co",
+      "packageIds": [
+        "co.ritual.app"
+      ]
+    },
+    {
+      "brandId": "robinhood.in.th",
+      "packageIds": [
+        "th.in.robinhood"
+      ]
+    },
+    {
+      "brandId": "rollringpin.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "saemaeul식당.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "samokat.ru",
+      "packageIds": [
+        "ru.sbcs.store"
+      ]
+    },
+    {
+      "brandId": "sbermarket.ru",
+      "packageIds": [
+        "ru.instamart"
+      ]
+    },
+    {
+      "brandId": "schoolfood.co.kr",
+      "packageIds": [
+        "com.wmpoplus.schoolfood"
+      ]
+    },
+    {
+      "brandId": "seamless.com",
+      "packageIds": [
+        "com.seamlessweb.android.view"
+      ]
+    },
+    {
+      "brandId": "sendme.ng",
+      "packageIds": [
+        "ng.sendme.orderapp"
+      ]
+    },
+    {
+      "brandId": "sevenbus.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "sfbest.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "sfcityrush.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "shansong.com",
+      "packageIds": [
+        "com.flash.ex"
+      ]
+    },
+    {
+      "brandId": "shawarmar.com",
+      "packageIds": [
+        "com.shawarmer"
+      ]
+    },
+    {
+      "brandId": "shidax.co.jp",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "shokutakubin.com",
+      "packageIds": [
+        "li.yapp.appEBBED457"
+      ]
+    },
+    {
+      "brandId": "shuttledelivery.co.kr",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "silver-life.co.jp",
+      "packageIds": [
+        "com.customer_silverlife.magokorocare"
+      ]
+    },
+    {
+      "brandId": "sinimanes.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "sixty60.co.za",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "skipthedishes.com",
+      "packageIds": [
+        "com.ncconsulting.skipthedishes_android"
+      ]
+    },
+    {
+      "brandId": "slice.com",
+      "packageIds": [
+        "com.slicelife.storefront"
+      ]
+    },
+    {
+      "brandId": "snappfood.com",
+      "packageIds": [
+        "com.zoodfood.android.play"
+      ]
+    },
+    {
+      "brandId": "subway.co.kr",
+      "packageIds": [
+        "kr.co.subway.preorder"
+      ]
+    },
+    {
+      "brandId": "sushiro.co.kr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "swiggy.com",
+      "packageIds": [
+        "in.swiggy.android"
+      ]
+    },
+    {
+      "brandId": "tabling.co.kr",
+      "packageIds": [
+        "com.mealant.tabling"
+      ]
+    },
+    {
+      "brandId": "takeaway.com",
+      "packageIds": [
+        "be.pizza.android"
+      ]
+    },
+    {
+      "brandId": "takeaway.com.be",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "talabat.com",
+      "packageIds": [
+        "com.talabat.talabat"
+      ]
+    },
+    {
+      "brandId": "talabat.com.eg",
+      "packageIds": [
+        "com.talabat"
+      ]
+    },
+    {
+      "brandId": "tanuki.ru",
+      "packageIds": [
+        "com.mobilemedia.tanuki"
+      ]
+    },
+    {
+      "brandId": "tapnow.com.my",
+      "packageIds": [
+        "com.tapnow.app"
+      ]
+    },
+    {
+      "brandId": "tezsum.uz",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "tgif.co.kr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "theborn.co.kr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "thechefz.co",
+      "packageIds": [
+        "com.nextwo.the_chefz"
+      ]
+    },
+    {
+      "brandId": "thuisbezorgd.nl",
+      "packageIds": [
+        "com.takeaway.android"
+      ]
+    },
+    {
+      "brandId": "tlj.co.kr",
+      "packageIds": [
+        "kr.co.tlj.app"
+      ]
+    },
+    {
+      "brandId": "toasttab.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "toasttakeout.com",
+      "packageIds": [
+        "com.toasttab.consumer"
+      ]
+    },
+    {
+      "brandId": "tock.com",
+      "packageIds": [
+        "com.tocktix.consumer"
+      ]
+    },
+    {
+      "brandId": "tomntoms.com",
+      "packageIds": [
+        "com.tomntoms.mytom"
+      ]
+    },
+    {
+      "brandId": "tonolucro.com",
+      "packageIds": [
+        "br.com.tonolucro.delivery"
+      ]
+    },
+    {
+      "brandId": "toocle.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "toreore.com",
+      "packageIds": [
+        "com.wmpoplus.toreore"
+      ]
+    },
+    {
+      "brandId": "toters.com",
+      "packageIds": [
+        "com.toters.customer"
+      ]
+    },
+    {
+      "brandId": "totersapp.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "toyou.io",
+      "packageIds": [
+        "com.arammeem.android.apps.toyou"
+      ]
+    },
+    {
+      "brandId": "travelkhana.com",
+      "packageIds": [
+        "com.travelkhana"
+      ]
+    },
+    {
+      "brandId": "trycaviar.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "tsukurioki.jp",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "twosome.co.kr",
+      "packageIds": [
+        "com.cj.twosome"
+      ]
+    },
+    {
+      "brandId": "ubereats.com",
+      "packageIds": [
+        "com.ubercab.eats"
+      ]
+    },
+    {
+      "brandId": "uupaotui.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "uupt.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "vips.co.kr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "waimai.baidu.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "waitrapp.com",
+      "packageIds": [
+        "com.waitrapp"
+      ]
+    },
+    {
+      "brandId": "wallace.com.cn",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "watami-takushoku.co.jp",
+      "packageIds": [
+        "jp.co.watami_takushoku.mimamori.app"
+      ]
+    },
+    {
+      "brandId": "wellness-dining.com",
+      "packageIds": [
+        "com.wellnessdining.wellnessdining"
+      ]
+    },
+    {
+      "brandId": "whyq.sg",
+      "packageIds": [
+        "sg.whyq.users"
+      ]
+    },
+    {
+      "brandId": "wolt.com",
+      "packageIds": [
+        "com.wolt.android"
+      ]
+    },
+    {
+      "brandId": "wolt.jp",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "wolt.kz",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "wongnai.com",
+      "packageIds": [
+        "com.wongnai.android"
+      ]
+    },
+    {
+      "brandId": "woop.co.nz",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "woowahan.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "wowmomo.com",
+      "packageIds": [
+        "com.wowmomo.woweats"
+      ]
+    },
+    {
+      "brandId": "yakitoriya.ru",
+      "packageIds": [
+        "com.voltmobi.yakitoriya"
+      ]
+    },
+    {
+      "brandId": "yammyfood.kz",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "yassir.app",
+      "packageIds": [
+        "com.yatechnologies.yassir_rider"
+      ]
+    },
+    {
+      "brandId": "yassir.com",
+      "packageIds": [
+        "com.yatechnologies.yassirfoodclient"
+      ]
+    },
+    {
+      "brandId": "yebofresh.co.za",
+      "packageIds": [
+        "com.yebofresh.yeboapp"
+      ]
+    },
+    {
+      "brandId": "yidiandian.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "yogiyo.co.kr",
+      "packageIds": [
+        "com.fineapp.yogiyo"
+      ]
+    },
+    {
+      "brandId": "yonghe.com.cn",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "yooco.co.za",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "yoogane.co.kr",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "youfoodz.com",
+      "packageIds": [
+        "com.youfoodz.Youfoodz"
+      ]
+    },
+    {
+      "brandId": "yumamia.com",
+      "packageIds": [
+        "com.rumbl.yumamia"
+      ]
+    },
+    {
+      "brandId": "yummy.com.ve",
+      "packageIds": [
+        "com.yummy.customer"
+      ]
+    },
+    {
+      "brandId": "yummy.do",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "yummycr.com",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "yumyumtree.com.au",
+      "packageIds": [],
+      "packageStatus": "no_app"
+    },
+    {
+      "brandId": "zomato.ae",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "zomato.com",
+      "packageIds": [
+        "com.application.zomato"
+      ]
+    },
+    {
+      "brandId": "zoopindia.com",
+      "packageIds": [
+        "com.zoop.zoopindiaservice"
+      ]
+    },
+    {
+      "brandId": "zulzi.com",
+      "packageIds": [
+        "com.zulzi"
+      ]
+    }
   ]
 }

@@ -784,6 +784,68 @@ function checkCoverage(reporter, entries, taxonomy) {
     }
   });
 
+  // A craving carried by a large share of the catalog is not a craving, it is a
+  // shape — and because a specialty hit scores 100 whatever it matched, a broad
+  // tag reachable from a specialty silently outranks the thing the user actually
+  // wanted. `late-night` sat on 37% of the catalog and answered a Five Guys
+  // burger with microwave nachos; `comfort` sits on 28% and answered a
+  // steakhouse with a mug pizza. Broad tags are allowed — a generic delivery
+  // marketplace has nothing else to derive — but they must be DECLARED, because
+  // the matcher demotes declared ones to the secondary tier.
+  const generic = new Set(taxonomy.genericCravings || []);
+  const MAX_SPECIFIC_SHARE = 0.22;
+
+  generic.forEach((craving) => {
+    if (!taxonomy.cravings.includes(craving)) {
+      reporter.fail(`genericCravings lists "${craving}", which is not in the craving vocabulary`);
+    }
+  });
+
+  taxonomy.cravings.forEach((craving) => {
+    const share = (byCraving.get(craving) || []).length / entries.length;
+
+    if (share > MAX_SPECIFIC_SHARE && !generic.has(craving)) {
+      reporter.fail(
+        `craving "${craving}" is on ${Math.round(share * 100)}% of the catalog but is not declared in ` +
+          "taxonomy.genericCravings — at that breadth it outranks the craving the user actually has"
+      );
+    }
+  });
+
+  // Every category a curated brand can carry has to reach an answer. Without
+  // this, a category added to the blocklists lands in the middle tier of the
+  // matcher with nothing mapped to it, and the block page falls back to the
+  // rule bucket without ever saying so.
+  const datasetCategories = new Set();
+  ["fast-food", "delivery"].forEach((name) => {
+    let file;
+    try {
+      file = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "blocklists", `${name}.json`), "utf8"));
+    } catch (error) {
+      reporter.warn(`could not read data/blocklists/${name}.json to check category coverage: ${error.message}`);
+      return;
+    }
+    (file.entries || []).forEach((entry) => {
+      if (entry && typeof entry.category === "string" && entry.category.trim()) {
+        datasetCategories.add(entry.category.trim());
+      }
+    });
+  });
+
+  [...datasetCategories].sort().forEach((category) => {
+    if (!taxonomy.categoryCravings[category]) {
+      reporter.fail(
+        `blocked category "${category}" is used by the blocklists but has no craving mapping — ` +
+          "every brand carrying it gets the rule bucket instead of an answer"
+      );
+    }
+  });
+
+  reporter.note(
+    `${datasetCategories.size} blocklist categories, all mapped to cravings; ` +
+      `${generic.size} declared generic craving(s)`
+  );
+
   Object.values(taxonomy.specialtyCravings).forEach((cravings) => {
     cravings.forEach((craving) => {
       if (!taxonomy.cravings.includes(craving)) {

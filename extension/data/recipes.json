@@ -125,6 +125,13 @@
       "high-protein",
       "comfort"
     ],
+    "_genericCravingsNote": "Cravings that describe a SHAPE of food rather than a food. They are legitimate, and they are the only thing a generic delivery marketplace can derive, but they are necessarily broad — each sits on a quarter or more of the catalog. A specialty that maps to one of these must therefore never outrank a specialty that maps to a real dish: \"ribs\" deriving `comfort` must not beat \"burgers\" deriving `burger`. The matcher demotes these to the secondary tier whenever a specific craving was also derived. Any craving carried by more than 22% of the catalog has to be listed here — tools/alternatives-audit.js enforces it.",
+    "genericCravings": [
+      "comfort",
+      "convenience",
+      "late-night",
+      "high-protein"
+    ],
     "categories": [
       "pizza",
       "burger",
@@ -144,7 +151,10 @@
       "fast_food",
       "grocery",
       "restaurant",
+      "restaurant_discovery",
       "meal_delivery",
+      "meal_kit",
+      "courier",
       "catering",
       "custom",
       "general"
@@ -238,10 +248,25 @@
         "pasta",
         "rice-bowl"
       ],
+      "restaurant_discovery": [
+        "comfort",
+        "pasta",
+        "rice-bowl"
+      ],
       "meal_delivery": [
         "comfort",
         "rice-bowl",
         "high-protein"
+      ],
+      "meal_kit": [
+        "comfort",
+        "pasta",
+        "high-protein"
+      ],
+      "courier": [
+        "convenience",
+        "comfort",
+        "late-night"
       ],
       "catering": [
         "comfort",
@@ -2520,7 +2545,7 @@
         "Mix the soy sauce, honey, vinegar, and ginger in a small bowl.",
         "Heat the oil in a frying pan over medium-high heat and add the chicken in one layer. Leave it 3 minutes to brown before stirring.",
         "Cook 5-6 minutes more, stirring, until every piece is browned and cooked through — no pink inside, 74 C / 165 F if you have a thermometer.",
-        "Steam or microwave the frozen vegetables until hot, about 3 minutes.",
+        "Steam or microwave the frozen broccoli or green beans until hot right through, about 3 minutes.",
         "Pour the sauce into the pan with the chicken. It will bubble hard; keep stirring for 60-90 seconds until it thickens to a syrup that coats the pieces.",
         "Serve over rice with the vegetables and a scatter of sesame seeds."
       ],
@@ -3222,7 +3247,7 @@
         "Mix the yogurt, garlic, lemon juice, and a pinch of salt in a small bowl and set aside.",
         "Heat the remaining oil in a frying pan over medium-high heat and spread the chicken out in one layer.",
         "Leave it 3 minutes to brown, then stir and cook 4-5 minutes more until the pieces are browned at the edges and cooked through with no pink inside.",
-        "Warm the flatbreads for 20 seconds a side, spread with garlic yogurt, add the chicken and salad, and roll up tightly."
+        "Warm the flatbreads for 20 seconds a side, spread with garlic yogurt, add the chicken with the shredded lettuce and sliced tomato, and roll up tightly."
       ],
       "totalMinutes": 20,
       "activeMinutes": 18,

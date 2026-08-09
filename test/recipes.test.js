@@ -786,3 +786,64 @@ test("the drinks group is not all iced", () => {
   );
   assert.ok(teaBased.length >= 2, `only ${teaBased.length} tea-based drinks for the sweet-drink craving`);
 });
+
+// A major craving with no answer under 15 minutes is decided by counting
+// numbers, not by matching words, so it is an error and not a guess. It was a
+// warning, and `wings` sat behind three air-fryer answers of 26, 30 and 32
+// minutes underneath a green summary line: the user pressed "I'm hungry now" on
+// a wings page and was handed a chicken wrap and a bag of fries instead.
+test("a major craving with no fast answer stops the build, it does not merely warn", () => {
+  const injected = JSON.parse(JSON.stringify(data));
+  const all = [...injected.recipes, ...injected.quickAlternatives];
+
+  // Push every wings answer past the "I'm hungry now" threshold.
+  const wings = all.filter((entry) => entry.cravings.includes("wings"));
+  assert.ok(wings.length > 0, "the catalog must answer the wings craving at all");
+  wings.forEach((entry) => {
+    entry.totalMinutes = 40;
+    entry.activeMinutes = Math.min(entry.activeMinutes, 40);
+  });
+
+  const reporter = alternativesAudit(injected);
+  const hit = reporter.errors.filter((message) => /wings/.test(message) && /under 15 minutes/.test(message));
+
+  assert.equal(
+    hit.length,
+    1,
+    `a craving with no fast answer must be an ERROR. errors:\n  ${reporter.errors.join("\n  ")}`
+  );
+});
+
+// A craving carried by a large share of the catalog is a shape, not a food, and
+// it scores identically to a real specialty match — so it displaces correct
+// answers. Broad tags are allowed, but they must be declared so the matcher can
+// demote them; an undeclared one has to stop the build.
+test("a craving too broad to be specific must be declared generic", () => {
+  const injected = JSON.parse(JSON.stringify(data));
+  injected.taxonomy.genericCravings = [];
+
+  const reporter = alternativesAudit(injected);
+  const hits = reporter.errors.filter((message) => /not declared in taxonomy\.genericCravings/.test(message));
+
+  assert.ok(
+    hits.length > 0,
+    `the audit must reject an undeclared wildcard craving. errors:\n  ${reporter.errors.join("\n  ")}`
+  );
+
+  // And the shipped taxonomy really does declare every broad one.
+  const clean = alternativesAudit();
+  assert.deepEqual(
+    clean.errors.filter((message) => /genericCravings/.test(message)),
+    []
+  );
+});
+
+test("every category the blocklists use reaches an answer, and the audit fails when one does not", () => {
+  const injected = JSON.parse(JSON.stringify(data));
+  delete injected.taxonomy.categoryCravings.grocery;
+
+  const reporter = alternativesAudit(injected);
+  const hits = reporter.errors.filter((message) => /"grocery".*no craving mapping/.test(message));
+
+  assert.equal(hits.length, 1, `errors:\n  ${reporter.errors.join("\n  ")}`);
+});

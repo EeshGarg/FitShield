@@ -1,0 +1,72 @@
+[
+  {
+    "id": "F001",
+    "status": "closed",
+    "verification": "Reproduced in two halves and closed both. The padding half: at 31fe45a seven entries carried the `salad` craving and only two were salads — cheese-crackers-fruit, cottage-cheese-protein-bowl and cold-sesame-noodle-bowl were tagged salad with no leaf in them. Commit b552077 took the catalog from 81 to 88 entries, dropped those three tags and added chicken-caesar-salad and tuna-white-bean-salad, so the group is now five entries that each call themselves a salad and each carry a leafy or raw-vegetable required ingredient. The outcome half still reproduced today against the shipped matcher, so I fixed it: driving FitShieldRecipes.selectTrio over ten real blocklist records (McDonald's, Domino's, Starbucks, Taco Bell, KFC, Subway, Gong Cha, Baskin-Robbins, Buffalo Wild Wings, DoorDash) returned Two-Minute Iced Coffee in the `fastest` slot for every single one, because that slot sorted the whole eligible pool by elapsed time with the score only as a tiebreak, so it always returned the catalog's global minimum. A salad chain also filled two of three slots with a turkey sandwich and a rice bowl, because its `fast_casual` category derives rice-bowl and sandwich and those answers are quicker than a salad. extension/recipes.js now draws all three slots from the entries that answer the block, at the best tier available — a specialty answer if there is one, the category otherwise. After the change the ten brands return ten different fastest slots, and a salad chain returns three salads. Sweetgreen, the brand the finding used as its example, was not in the blocklists at all; it is now listed with specialties salads / grain bowls / warm bowls.",
+    "test": "test/matching.test.js",
+    "evidenceAfter": "selectTrio fastest slot: mcdonalds.com=Two-Minute Iced Coffee, dominos.com=Leftover Pasta Salad, tacobell.com=No-Cook Bean Lettuce Tacos, kfc.com=Ten-Minute Buffalo Chicken, gong-cha.com=Mango Lassi, baskinrobbins.com=Frozen Fruit Yogurt Swirl; pure salad chain trio = Leftover Pasta Salad / Tuna and White Bean Salad / Greek Salad Pita"
+  },
+  {
+    "id": "F002",
+    "status": "closed",
+    "verification": "Reproduced at 31fe45a exactly as written: `late-night` sat on 30 of 81 entries (37%), three of them 26-32 minutes, and specialtyCravings mapped \"hot dogs\", \"snacks\" and \"chips\" straight onto it, so it was reachable as a primary craving worth the full 100 points. Commit b552077 remapped those specialties to sandwich and convenience and trimmed the tag to 18 of 88 (20%) with nothing over 15 minutes, and the Five Guys record now ranks Frozen Patty Cheeseburger first instead of Microwave Nachos. The guard that shipped with it, however, named only `late-night`, and the same defect was live on three other tags: `comfort` (28% of the catalog), `high-protein` (27%) and `convenience` (26%) are all reachable as primary cravings through specialtyCravings. I reproduced the consequence on the real Spur Steak Ranches record — specialties steak / burgers / ribs, where \"ribs\" derives comfort and \"burgers\" derives burger, both scoring 100 — and the closest answer to a steakhouse was Microwave Mug Pizza. Fixed by declaring the broad tags in taxonomy.genericCravings and having deriveCravings demote them to the secondary tier whenever a specific craving was also derived, so a marketplace with nothing but `comfort` keeps its only signal while a steakhouse does not lose its burger. tools/alternatives-audit.js now fails any craving over 22% of the catalog that is not declared generic, so the rule covers every tag rather than one.",
+    "test": "test/recipes.test.js",
+    "evidenceAfter": "spursteakranches.com now ranks Frozen Patty Cheeseburger / Black Bean Burger / Stovetop Smash Burger; deriveCravings puts burger in primary and comfort in secondary; alternatives-audit reports 4 declared generic cravings and 0 errors"
+  },
+  {
+    "id": "F018",
+    "status": "closed",
+    "verification": "Reproduced at 31fe45a: frozen-pizza-upgrade listed `{quantity: 1, unit: \"piece\", item: \"frozen pizza\"}` with `substitutions: []` and a vegetarian diet claim, and upgraded-instant-noodles listed a bare `instant noodles` packet with the same claim, so a vegetarian filtering on an absolute setting was handed a box that is usually pepperoni. Closed by commit b552077, which put the constraint in the ingredient itself: the pizza now reads \"check the box if you need it vegetarian - most of the ones on offer are not\" and carries a substitution saying a margherita keeps it vegetarian and a pepperoni does not, and the noodles read \"check the sachet if you need it vegetarian - chicken and beef are the most common flavours\". I confirmed the current data carries both notes by reading the generated catalog, and the standard is now enforced rather than remembered: test/recipes.test.js fails any entry claiming vegan or vegetarian over a generic packaged product without a check-the-label caveat.",
+    "test": "test/recipes.test.js",
+    "evidenceAfter": "frozen-pizza-upgrade ingredient note: \"check the box if you need it vegetarian - most of the ones on offer are not\"; upgraded-instant-noodles ingredient note: \"check the sachet if you need it vegetarian - chicken and beef are the most common flavours\""
+  },
+  {
+    "id": "F019",
+    "status": "closed",
+    "verification": "Reproduced at 31fe45a against the numbers in the finding: naan-pizza claimed 15 minutes while step 1 preheats an oven to 230 C with a tray inside, frozen-pizza-upgrade claimed 16, and garlic-soy-noodles, peanut-noodles and garlic-butter-spaghetti all claimed 12 while step 1 brings a pan of water to the boil. Closed by commit b552077, which raised them to 25, 30, 20, 20 and 20, rewrote the descriptions so the prose matches (\"twenty-five minutes from a cold oven, six of them hands-on\", \"twenty minutes, most of it waiting for water to boil\") and folded the wait into the step text with its own duration. The schema contract in data/alternatives-taxonomy.json now states that totalMinutes is elapsed time INCLUDING heating the oven and bringing water to the boil, so the definition and the data agree. I read every affected entry in the current catalog and each budgets the wait; the rule is held by a test that fails any entry whose steps preheat or boil without the time to do it.",
+    "test": "test/recipes.test.js",
+    "evidenceAfter": "naan-pizza 15->25, frozen-pizza-upgrade 16->30, garlic-soy-noodles 12->20, peanut-noodles 12->20, garlic-butter-spaghetti 12->20, pesto-pasta-frozen-veg 13->20"
+  },
+  {
+    "id": "F020",
+    "status": "closed",
+    "verification": "Reproduced at 31fe45a word for word: banana-nice-cream's description read \"Two frozen bananas blended into something genuinely like soft-serve. One ingredient, no churning.\" above an ingredient list starting \"3 bananas\", scrambled-eggs-toast promised \"two ingredients\" above five required ones, and garlic-soy-noodles promised \"five pantry ingredients\" above six. Closed by commit b552077, which rewrote all three to match the data beneath them - \"Three frozen bananas\", \"Six minutes, five things you already have\", \"Six pantry ingredients\". I checked each against its own ingredient list in the current catalog: banana-nice-cream's \"one ingredient\" is now true because bananas are its only required ingredient, and the counts in the other two match exactly. The rule is enforced by a test that parses any number a description states and compares it with the required-ingredient count and totalMinutes.",
+    "test": "test/recipes.test.js",
+    "evidenceAfter": "banana-nice-cream: \"Three frozen bananas... One ingredient\" over 1 required ingredient (3 bananas); scrambled-eggs-toast: \"Six minutes, five things you already have\" over 5 required, totalMinutes 6; garlic-soy-noodles: \"Six pantry ingredients\" over 6 required"
+  },
+  {
+    "id": "F021",
+    "status": "closed",
+    "verification": "Reproduced at 31fe45a: blended-mocha-frappe's coffee ingredient carried `note: \"cooled\"` while step 1 said to whisk the cocoa into the warm coffee, and step 2 then told the cook to let it cool - a cook who followed the ingredient line could not perform step 1, and the recipe itself explains that undissolved cocoa ruins the drink. Closed by commit b552077, which changed the note to \"hot, or freshly brewed - step 1 needs it warm to dissolve the cocoa\", so the ingredient and the first step now say the same thing and step 2 still handles the cooling. I read the current entry to confirm the note and both steps agree. A test now fails any ingredient note that contradicts the step that uses it, so the class is closed rather than the instance.",
+    "test": "test/recipes.test.js",
+    "evidenceAfter": "blended-mocha-frappe ingredient: 60 ml strong brewed coffee (hot, or freshly brewed - step 1 needs it warm to dissolve the cocoa)"
+  },
+  {
+    "id": "F022",
+    "status": "closed",
+    "verification": "Reproduced at 31fe45a: falafel-style-bowl's final step read \"Serve in warm pita with hummus and salad\" with no salad in the ingredient list and no step that warms the pita, paneer-bhurji served with warm flatbread it never warmed, and crispy-chicken-sandwich built on a toasted bun it never toasted. Closed by commit b552077, which added salad leaves as an optional ingredient and gave all three an explicit warming or toasting step. On top of that I found and fixed two live instances of the same class that the audit was still reporting today: chicken-teriyaki-bowl required \"frozen broccoli or green beans\" but its step called them \"the frozen vegetables\", and shawarma-style-chicken-wrap required \"shredded lettuce and sliced tomato\" but its step called it \"salad\". Both steps now name the ingredient they use, which took tools/alternatives-audit.js from 2 warnings to 0 without touching the check itself.",
+    "test": "test/recipes.test.js",
+    "evidenceAfter": "npm run validate:alternatives: 0 error(s), 0 warning(s) - previously 2 warnings for unreferenced required ingredients"
+  },
+  {
+    "id": "F023",
+    "status": "closed",
+    "verification": "Reproduced at 31fe45a: the only three wings answers were air-fryer-wings (30 min), air-fryer-cauliflower-wings (32 min) and frozen-wings-air-fryer (26 min), all requiring an air fryer, so the \"I'm hungry now\" path - which applies the `fastest` filter at 15 minutes - could never show one. Closed by commit b552077, which added ten-minute-buffalo-chicken: 10 minutes, stove only, tagged `wings`. Driving the shipped matcher on the real Buffalo Wild Wings record with intent hungry now returns it. The second half of the finding was still open: tools/alternatives-audit.js downgraded the check to reporter.warn, which is why the gap survived a release under a green summary line. That check is decided by counting numbers, not by matching words, so the warning classification did not apply to it; it is now reporter.fail. I proved the new severity by injecting a catalog in which every wings entry is pushed to 40 minutes and asserting the audit raises an error rather than a warning.",
+    "test": "test/recipes.test.js",
+    "evidenceAfter": "buffalowildwings.com with filter=fastest returns Ten-Minute Buffalo Chicken (10 min, stove); injecting 40-minute wings makes alternatives-audit raise 'craving \"wings\" has no answer under 15 minutes' as an error"
+  },
+  {
+    "id": "F024",
+    "status": "closed",
+    "verification": "Reproduced at 31fe45a: frozen-fries-done-right and frozen-chicken-strip-wrap declared `equipment: [\"air fryer\", \"oven\"]` and microwave-miso-tofu-soup declared `[\"microwave\", \"kettle\"]`, while equipmentAvailable required every listed item, so entries written to work either way were invisible to a kitchen that had one. Closed by commit b552077 together with the matcher change: each entry now declares the one appliance it is written for and puts the other in a substitution, and equipmentAvailable reads that substitution when it names an appliance the kitchen actually has. Driving the shipped matcher with `equipment: [\"oven\"]` on the real mcdonalds.com record now returns Twelve-Minute Shoestring Fries first. The finding's second recommendation was still open and I fixed it: relaxing was only reported when a filter emptied the entire pool, so a blender-only kitchen blocked on a pizza order lost all five pizza answers, was handed a cottage cheese bowl, and the page printed `relaxed: []` and therefore no reason at all. rankAlternatives now also reports a filter that knocks the best answer down a tier, which renders the existing relaxedEquipment sentence rather than needing a new string.",
+    "test": "test/matching.test.js",
+    "evidenceAfter": "oven-only kitchen on mcdonalds.com: Twelve-Minute Shoestring Fries (via its oven substitution); blender-only kitchen on a pizza-only brand: relaxed=[\"equipment\"], previously []"
+  },
+  {
+    "id": "F025",
+    "status": "closed",
+    "verification": "Reproduced at 31fe45a: the six entries answering `coffee` or `sweet-drink` were iced-latte, blended-mocha-frappe, banana-nice-cream, homemade-iced-coffee, iced-matcha-milk and mango-lassi - every drink in the catalog required ice, there was no hot coffee, hot tea or hot chocolate, and homemade-iced-coffee carried `sweet-drink`, so a Gong Cha bubble-tea block was answered with a chocolate coffee drink. Closed by commit b552077, which added hot-latte (3 min, microwave), hot-chocolate (5 min, stove), masala-chai (10 min, stove) and chia-milk-tea - a boba-shaped answer using chia seeds, with a substitution naming real tapioca pearls - and removed `sweet-drink` from homemade-iced-coffee so instant coffee can no longer answer a milk-tea craving. Driving the matcher on the real Gong Cha record now returns Iced Matcha or Chai Milk, Mango Lassi and Chia Milk Tea, and Starbucks returns Hot Latte in the easiest slot. A test now fails the catalog if every entry answering a drink craving needs ice.",
+    "test": "test/recipes.test.js",
+    "evidenceAfter": "gong-cha.com trio: closest=Iced Matcha or Chai Milk, fastest=Mango Lassi, easiest=Chia Milk Tea; starbucks.com easiest=Hot Latte; homemade-iced-coffee cravings=[\"coffee\"]"
+  }
+]

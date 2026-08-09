@@ -763,8 +763,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "grocery delivery"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -1867,24 +1866,6 @@
       "enabled": true
     },
     {
-      "domain": "waimai.meituan.com",
-      "name": "Meituan Waimai",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "delivery",
-      "specialties": [
-        "food delivery",
-        "takeout ordering",
-        "instant retail"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "meituanwaimai.com",
       "name": "Meituan Waimai",
       "type": "delivery",
@@ -1918,25 +1899,6 @@
         "instant retail",
         "local services",
         "platform domain"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "meishi.meituan.com",
-      "name": "Meituan Food",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "restaurant_discovery",
-      "specialties": [
-        "restaurant discovery",
-        "deals",
-        "dining reservations",
-        "takeout ordering"
       ],
       "enabled": true
     },
@@ -1978,42 +1940,6 @@
       "enabled": true
     },
     {
-      "domain": "h5.ele.me",
-      "name": "Ele.me Mobile",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "delivery",
-      "specialties": [
-        "mobile ordering",
-        "food delivery",
-        "takeout ordering"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "m.ele.me",
-      "name": "Ele.me Mobile",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "delivery",
-      "specialties": [
-        "mobile ordering",
-        "food delivery",
-        "takeout ordering"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "dianping.com",
       "name": "Dianping",
       "type": "delivery",
@@ -2033,24 +1959,6 @@
       "enabled": true
     },
     {
-      "domain": "m.dianping.com",
-      "name": "Dianping Mobile",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "restaurant_discovery",
-      "specialties": [
-        "mobile restaurant discovery",
-        "restaurant reviews",
-        "deals"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "koubei.com",
       "name": "Koubei",
       "type": "delivery",
@@ -2060,7 +1968,7 @@
       "regions": [
         "AS"
       ],
-      "category": "local_services",
+      "category": "restaurant_discovery",
       "specialties": [
         "restaurant discovery",
         "food deals",
@@ -2079,7 +1987,7 @@
       "regions": [
         "AS"
       ],
-      "category": "local_services",
+      "category": "restaurant_discovery",
       "specialties": [
         "restaurant discovery",
         "food deals",
@@ -2106,24 +2014,6 @@
       "enabled": true
     },
     {
-      "domain": "waimai.baidu.com",
-      "name": "Baidu Waimai",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "delivery",
-      "specialties": [
-        "food delivery",
-        "takeout ordering",
-        "legacy platform"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "jddj.com",
       "name": "JD Daojia",
       "type": "delivery",
@@ -2133,7 +2023,7 @@
       "regions": [
         "AS"
       ],
-      "category": "quick_commerce",
+      "category": "grocery",
       "specialties": [
         "grocery delivery",
         "local retail delivery",
@@ -2152,7 +2042,7 @@
       "regions": [
         "AS"
       ],
-      "category": "quick_commerce",
+      "category": "grocery",
       "specialties": [
         "grocery delivery",
         "local retail delivery",
@@ -2170,7 +2060,7 @@
       "regions": [
         "AS"
       ],
-      "category": "quick_commerce",
+      "category": "grocery",
       "specialties": [
         "grocery delivery",
         "local retail delivery",
@@ -2361,26 +2251,6 @@
       "enabled": true
     },
     {
-      "domain": "sf-express.com",
-      "name": "SF Express",
-      "type": "delivery",
-      "countries": [
-        "CN",
-        "HK"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "logistics",
-      "specialties": [
-        "express delivery",
-        "parcel delivery",
-        "cold chain logistics",
-        "same-city delivery"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "sfcityrush.com",
       "name": "SF City Rush",
       "type": "delivery",
@@ -2435,171 +2305,6 @@
       "enabled": true
     },
     {
-      "domain": "jtexpress.com.cn",
-      "name": "J&T Express China",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "logistics",
-      "specialties": [
-        "parcel delivery",
-        "express delivery",
-        "ecommerce logistics"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "cainiao.com",
-      "name": "Cainiao",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "logistics",
-      "specialties": [
-        "ecommerce logistics",
-        "parcel delivery",
-        "last-mile delivery",
-        "cross-border logistics"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "cainiao.com.cn",
-      "name": "Cainiao China",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "logistics",
-      "specialties": [
-        "ecommerce logistics",
-        "parcel delivery",
-        "last-mile delivery"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "sto.cn",
-      "name": "STO Express",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "logistics",
-      "specialties": [
-        "parcel delivery",
-        "express delivery",
-        "ecommerce logistics"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "yto.net.cn",
-      "name": "YTO Express",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "logistics",
-      "specialties": [
-        "parcel delivery",
-        "express delivery",
-        "ecommerce logistics"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "zto.com",
-      "name": "ZTO Express",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "logistics",
-      "specialties": [
-        "parcel delivery",
-        "express delivery",
-        "ecommerce logistics"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "best-inc.com",
-      "name": "BEST Inc.",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "logistics",
-      "specialties": [
-        "parcel delivery",
-        "freight",
-        "ecommerce logistics",
-        "supply chain"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "deppon.com",
-      "name": "Deppon Express",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "logistics",
-      "specialties": [
-        "parcel delivery",
-        "freight",
-        "express delivery",
-        "ecommerce logistics"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "toocle.com",
-      "name": "Toocle",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "b2b_marketplace",
-      "specialties": [
-        "business-to-business marketplace",
-        "commerce platform",
-        "food supplier discovery"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "mcdonalds.com.cn",
       "name": "McDonald's China",
       "type": "delivery",
@@ -2609,7 +2314,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "burger",
       "specialties": [
         "burgers",
         "fries",
@@ -2628,7 +2333,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "chicken",
       "specialties": [
         "fried chicken",
         "rice meals",
@@ -2684,7 +2389,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "burger",
       "specialties": [
         "burgers",
         "fries",
@@ -2922,7 +2627,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "chicken",
       "specialties": [
         "fried chicken",
         "burgers",
@@ -2941,7 +2646,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "burger",
       "specialties": [
         "burgers",
         "fried chicken",
@@ -2960,7 +2665,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "asian",
       "specialties": [
         "chinese fast food",
         "rice meals",
@@ -2979,7 +2684,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "asian",
       "specialties": [
         "chinese fast food",
         "soy milk",
@@ -2998,7 +2703,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "asian",
       "specialties": [
         "chinese fast food",
         "rice meals",
@@ -3036,7 +2741,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "burger",
       "specialties": [
         "burgers",
         "fries",
@@ -3156,261 +2861,11 @@
       "enabled": true
     },
     {
-      "domain": "58daojia.com",
-      "name": "58 Daojia",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "local_services",
-      "specialties": [
-        "home services",
-        "errand services",
-        "same-city services",
-        "local services"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "ganji.com",
-      "name": "Ganji",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "local_services",
-      "specialties": [
-        "classifieds",
-        "local services",
-        "jobs",
-        "secondhand marketplace"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "58.com",
-      "name": "58.com",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "local_services",
-      "specialties": [
-        "classifieds",
-        "local services",
-        "home services",
-        "same-city services"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "meishij.net",
-      "name": "Meishi Jie",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "recipe",
-      "specialties": [
-        "recipes",
-        "cooking guides",
-        "meal planning",
-        "food content"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "xiachufang.com",
-      "name": "Xiachufang",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "recipe",
-      "specialties": [
-        "recipes",
-        "cooking community",
-        "meal planning",
-        "food content"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "douguo.com",
-      "name": "Douguo",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "recipe",
-      "specialties": [
-        "recipes",
-        "cooking community",
-        "food content",
-        "meal planning"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "cookpad.com.cn",
-      "name": "Cookpad China",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "recipe",
-      "specialties": [
-        "recipes",
-        "cooking community",
-        "food content",
-        "meal planning"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "zhimeishi.com",
-      "name": "Zhi Meishi",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "recipe",
-      "specialties": [
-        "recipes",
-        "food content",
-        "cooking guides"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "meishichina.com",
-      "name": "Meishi China",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "recipe",
-      "specialties": [
-        "recipes",
-        "cooking community",
-        "food content",
-        "meal planning"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "haodou.com",
-      "name": "Haodou",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "recipe",
-      "specialties": [
-        "recipes",
-        "cooking community",
-        "food content",
-        "meal planning"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "jd.com",
-      "name": "JD.com",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "ecommerce_marketplace",
-      "specialties": [
-        "grocery delivery",
-        "food retail",
-        "same-day delivery",
-        "ecommerce marketplace"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "tmall.com",
-      "name": "Tmall",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "ecommerce_marketplace",
-      "specialties": [
-        "food retail",
-        "grocery ecommerce",
-        "brand marketplace",
-        "same-day delivery"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "taobao.com",
-      "name": "Taobao",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "ecommerce_marketplace",
-      "specialties": [
-        "food retail",
-        "grocery ecommerce",
-        "consumer marketplace",
-        "local services"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "demae-can.com",
       "name": "Demae-can",
       "type": "delivery",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
+      "countries": [],
+      "regions": [],
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
@@ -3423,12 +2878,8 @@
       "domain": "demaecan.com",
       "name": "Demae-can",
       "type": "delivery",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
+      "countries": [],
+      "regions": [],
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
@@ -3514,12 +2965,8 @@
       "domain": "maishoku.com",
       "name": "Maishoku",
       "type": "delivery",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
+      "countries": [],
+      "regions": [],
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
@@ -3532,12 +2979,8 @@
       "domain": "rakuten-delivery.com",
       "name": "Rakuten Delivery",
       "type": "delivery",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
+      "countries": [],
+      "regions": [],
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
@@ -3550,12 +2993,8 @@
       "domain": "gochikuru.com",
       "name": "Gochikuru",
       "type": "delivery",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
+      "countries": [],
+      "regions": [],
       "category": "catering",
       "specialties": [
         "bento delivery",
@@ -3586,12 +3025,8 @@
       "domain": "magokoro-bento.com",
       "name": "Magokoro Bento",
       "type": "delivery",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
+      "countries": [],
+      "regions": [],
       "category": "meal_delivery",
       "specialties": [
         "bento delivery",
@@ -3628,7 +3063,7 @@
       "regions": [
         "AS"
       ],
-      "category": "meal_service",
+      "category": "catering",
       "specialties": [
         "food services",
         "institutional meals",
@@ -3640,12 +3075,8 @@
       "domain": "shokutakubin.com",
       "name": "Shokutakubin",
       "type": "delivery",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
+      "countries": [],
+      "regions": [],
       "category": "meal_delivery",
       "specialties": [
         "frozen meal delivery",
@@ -3786,12 +3217,8 @@
       "domain": "drvegefru.com",
       "name": "Dr. Vegefru",
       "type": "delivery",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
+      "countries": [],
+      "regions": [],
       "category": "grocery",
       "specialties": [
         "vegetable delivery",
@@ -3804,12 +3231,8 @@
       "domain": "wellness-dining.com",
       "name": "Wellness Dining",
       "type": "delivery",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
+      "countries": [],
+      "regions": [],
       "category": "meal_delivery",
       "specialties": [
         "diet meals",
@@ -3916,12 +3339,8 @@
       "domain": "oisix.com",
       "name": "Oisix",
       "type": "delivery",
-      "countries": [
-        "JP"
-      ],
-      "regions": [
-        "AS"
-      ],
+      "countries": [],
+      "regions": [],
       "category": "grocery",
       "specialties": [
         "grocery delivery",
@@ -4076,25 +3495,6 @@
       "enabled": true
     },
     {
-      "domain": "coupang.com",
-      "name": "Coupang / Coupang Eats",
-      "type": "delivery",
-      "countries": [
-        "KR"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "ecommerce_marketplace",
-      "specialties": [
-        "Coupang Eats parent domain",
-        "grocery delivery",
-        "food retail",
-        "same-day delivery"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "shuttledelivery.co.kr",
       "name": "Shuttle Delivery",
       "type": "delivery",
@@ -4127,25 +3527,6 @@
         "restaurant delivery",
         "international food delivery",
         "takeout ordering"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "danggeunmarket.com",
-      "name": "Danggeun Market",
-      "type": "delivery",
-      "countries": [
-        "KR"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "local_services",
-      "specialties": [
-        "local marketplace",
-        "local services",
-        "food deals",
-        "neighborhood commerce"
       ],
       "enabled": true
     },
@@ -4267,7 +3648,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "burger",
       "specialties": [
         "burgers",
         "fries",
@@ -4286,7 +3667,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "chicken",
       "specialties": [
         "fried chicken",
         "burgers",
@@ -4306,7 +3687,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "burger",
       "specialties": [
         "burgers",
         "fries",
@@ -4325,7 +3706,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "burger",
       "specialties": [
         "burgers",
         "fries",
@@ -4344,7 +3725,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "burger",
       "specialties": [
         "chicken burgers",
         "fried chicken",
@@ -4894,7 +4275,7 @@
       "regions": [
         "AS"
       ],
-      "category": "restaurant_group",
+      "category": "restaurant",
       "specialties": [
         "restaurant brands",
         "korean food",
@@ -5419,7 +4800,7 @@
       "regions": [
         "NA"
       ],
-      "category": "pickup_ordering",
+      "category": "delivery",
       "specialties": [
         "mobile ordering",
         "takeout ordering",
@@ -6799,24 +6180,6 @@
       "enabled": true
     },
     {
-      "domain": "mottu.com.br",
-      "name": "Mottu",
-      "type": "delivery",
-      "countries": [
-        "BR"
-      ],
-      "regions": [
-        "SA"
-      ],
-      "category": "courier",
-      "specialties": [
-        "delivery fleet services",
-        "courier logistics",
-        "last-mile delivery"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "99food.com.br",
       "name": "99Food",
       "type": "delivery",
@@ -6880,7 +6243,7 @@
       "regions": [
         "SA"
       ],
-      "category": "restaurant_software",
+      "category": "delivery",
       "specialties": [
         "restaurant ordering",
         "online menu",
@@ -6916,7 +6279,7 @@
       "regions": [
         "SA"
       ],
-      "category": "restaurant_software",
+      "category": "delivery",
       "specialties": [
         "restaurant ordering",
         "chat ordering",
@@ -6935,7 +6298,7 @@
       "regions": [
         "SA"
       ],
-      "category": "restaurant_software",
+      "category": "delivery",
       "specialties": [
         "online menu",
         "restaurant ordering",
@@ -6953,7 +6316,7 @@
       "regions": [
         "SA"
       ],
-      "category": "restaurant_software",
+      "category": "delivery",
       "specialties": [
         "online menu",
         "restaurant ordering",
@@ -6971,7 +6334,7 @@
       "regions": [
         "SA"
       ],
-      "category": "restaurant_software",
+      "category": "delivery",
       "specialties": [
         "restaurant ordering",
         "delivery management",
@@ -7012,7 +6375,7 @@
         "EU",
         "OC"
       ],
-      "category": "restaurant_software",
+      "category": "delivery",
       "specialties": [
         "online ordering",
         "restaurant ordering",
@@ -7040,25 +6403,6 @@
       "enabled": true
     },
     {
-      "domain": "ambassador.ai",
-      "name": "Ambassador",
-      "type": "delivery",
-      "countries": [
-        "CA",
-        "US"
-      ],
-      "regions": [
-        "NA"
-      ],
-      "category": "restaurant_software",
-      "specialties": [
-        "restaurant ordering",
-        "marketing automation",
-        "delivery management"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "fanfoodapp.com",
       "name": "FanFood",
       "type": "delivery",
@@ -7069,7 +6413,7 @@
       "regions": [
         "NA"
       ],
-      "category": "venue_ordering",
+      "category": "delivery",
       "specialties": [
         "venue food ordering",
         "concession ordering",
@@ -7229,7 +6573,7 @@
       "regions": [
         "OC"
       ],
-      "category": "restaurant_software",
+      "category": "delivery",
       "specialties": [
         "table ordering",
         "online ordering",
@@ -7266,7 +6610,7 @@
       "regions": [
         "OC"
       ],
-      "category": "b2b_marketplace",
+      "category": "grocery",
       "specialties": [
         "restaurant suppliers",
         "wholesale food ordering",
@@ -7653,25 +6997,6 @@
       "enabled": true
     },
     {
-      "domain": "grab.com",
-      "name": "Grab",
-      "type": "delivery",
-      "countries": [
-        "SG"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "super_app",
-      "specialties": [
-        "GrabFood",
-        "restaurant delivery",
-        "grocery delivery",
-        "ride hailing"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "grabfood.com",
       "name": "GrabFood",
       "type": "delivery",
@@ -7699,7 +7024,7 @@
       "regions": [
         "AS"
       ],
-      "category": "super_app",
+      "category": "delivery",
       "specialties": [
         "GoFood",
         "restaurant delivery",
@@ -7844,7 +7169,7 @@
       "regions": [
         "AS"
       ],
-      "category": "restaurant_software",
+      "category": "delivery",
       "specialties": [
         "online ordering",
         "restaurant delivery",
@@ -8024,7 +7349,7 @@
       "regions": [
         "AS"
       ],
-      "category": "restaurant_software",
+      "category": "delivery",
       "specialties": [
         "restaurant ordering",
         "online menu",
@@ -8330,7 +7655,7 @@
       "regions": [
         "AS"
       ],
-      "category": "restaurant_group",
+      "category": "restaurant",
       "specialties": [
         "cloud kitchens",
         "restaurant brands",
@@ -8465,24 +7790,6 @@
       "enabled": true
     },
     {
-      "domain": "ondc.org",
-      "name": "ONDC",
-      "type": "delivery",
-      "countries": [
-        "IN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "marketplace",
-      "specialties": [
-        "open commerce network",
-        "food ordering",
-        "grocery delivery"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "eatclub.in",
       "name": "EatClub India",
       "type": "delivery",
@@ -8510,7 +7817,7 @@
       "regions": [
         "AS"
       ],
-      "category": "restaurant_software",
+      "category": "delivery",
       "specialties": [
         "delivery management",
         "online ordering",
@@ -8602,7 +7909,7 @@
       "regions": [
         "AS"
       ],
-      "category": "super_app",
+      "category": "delivery",
       "specialties": [
         "food delivery",
         "grocery delivery",
@@ -8747,7 +8054,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "fast_casual",
       "specialties": [
         "shawarma",
         "middle eastern food",
@@ -8792,24 +8099,6 @@
       "enabled": true
     },
     {
-      "domain": "akhbarelyomfood.com",
-      "name": "Akhbar Elyom Food",
-      "type": "delivery",
-      "countries": [
-        "EG"
-      ],
-      "regions": [
-        "AF"
-      ],
-      "category": "food_content",
-      "specialties": [
-        "food news",
-        "recipes",
-        "restaurant content"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "abaty.com",
       "name": "Abaty",
       "type": "delivery",
@@ -8837,7 +8126,7 @@
       "regions": [
         "AF"
       ],
-      "category": "super_app",
+      "category": "delivery",
       "specialties": [
         "restaurant delivery",
         "grocery delivery",
@@ -8856,7 +8145,7 @@
       "regions": [
         "AF"
       ],
-      "category": "super_app",
+      "category": "delivery",
       "specialties": [
         "restaurant delivery",
         "grocery delivery",
@@ -8947,7 +8236,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_food",
+      "category": "asian",
       "specialties": [
         "momos",
         "asian fast food",
@@ -8965,7 +8254,7 @@
       "regions": [
         "AS"
       ],
-      "category": "super_app",
+      "category": "delivery",
       "specialties": [
         "food delivery",
         "courier delivery",
@@ -9352,25 +8641,6 @@
       "enabled": true
     },
     {
-      "domain": "yandex.ru",
-      "name": "Yandex",
-      "type": "delivery",
-      "countries": [
-        "RU"
-      ],
-      "regions": [
-        "EU"
-      ],
-      "category": "super_app",
-      "specialties": [
-        "food delivery",
-        "grocery delivery",
-        "local services",
-        "search portal"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "eda.yandex.ru",
       "name": "Yandex Eats",
       "type": "delivery",
@@ -9434,7 +8704,7 @@
       "regions": [
         "EU"
       ],
-      "category": "quick_commerce",
+      "category": "grocery",
       "specialties": [
         "grocery delivery",
         "quick commerce",
@@ -9452,7 +8722,7 @@
       "regions": [
         "EU"
       ],
-      "category": "quick_commerce",
+      "category": "grocery",
       "specialties": [
         "grocery delivery",
         "quick commerce",
@@ -9769,25 +9039,6 @@
       "enabled": true
     },
     {
-      "domain": "uber.com",
-      "name": "Uber / Uber Eats",
-      "type": "delivery",
-      "countries": [
-        "ZA"
-      ],
-      "regions": [
-        "AF"
-      ],
-      "category": "super_app",
-      "specialties": [
-        "Uber Eats parent domain",
-        "restaurant delivery",
-        "ride hailing",
-        "local delivery"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "mrdfood.com",
       "name": "Mr D Food",
       "type": "delivery",
@@ -9914,24 +9165,6 @@
       "enabled": true
     },
     {
-      "domain": "picup.co.za",
-      "name": "Picup",
-      "type": "delivery",
-      "countries": [
-        "ZA"
-      ],
-      "regions": [
-        "AF"
-      ],
-      "category": "courier",
-      "specialties": [
-        "last-mile delivery",
-        "courier delivery",
-        "retail delivery"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "yebofresh.co.za",
       "name": "Yebo Fresh",
       "type": "delivery",
@@ -10040,24 +9273,6 @@
       "enabled": true
     },
     {
-      "domain": "africabites.com",
-      "name": "African Bites",
-      "type": "delivery",
-      "countries": [
-        "US"
-      ],
-      "regions": [
-        "NA"
-      ],
-      "category": "food_content",
-      "specialties": [
-        "recipes",
-        "african food content",
-        "cooking guides"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "jumiafood.com",
       "name": "Jumia Food",
       "type": "delivery",
@@ -10121,7 +9336,7 @@
       "regions": [
         "AF"
       ],
-      "category": "quick_commerce",
+      "category": "grocery",
       "specialties": [
         "grocery delivery",
         "quick commerce",
@@ -10139,7 +9354,7 @@
       "regions": [
         "AF"
       ],
-      "category": "quick_commerce",
+      "category": "grocery",
       "specialties": [
         "grocery delivery",
         "quick commerce",
@@ -10355,7 +9570,7 @@
       "regions": [
         "AF"
       ],
-      "category": "super_app",
+      "category": "delivery",
       "specialties": [
         "food delivery",
         "courier delivery",
@@ -10392,7 +9607,7 @@
       "regions": [
         "EU"
       ],
-      "category": "marketplace",
+      "category": "grocery",
       "specialties": [
         "african diaspora commerce",
         "food retail",
@@ -10446,7 +9661,7 @@
       "regions": [
         "AF"
       ],
-      "category": "ecommerce_marketplace",
+      "category": "grocery",
       "specialties": [
         "grocery delivery",
         "food retail",
@@ -10487,24 +9702,6 @@
         "restaurant delivery",
         "takeout ordering",
         "local food delivery"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "sendyit.com",
-      "name": "Sendy",
-      "type": "delivery",
-      "countries": [
-        "KE"
-      ],
-      "regions": [
-        "AF"
-      ],
-      "category": "courier",
-      "specialties": [
-        "courier delivery",
-        "last-mile delivery",
-        "business logistics"
       ],
       "enabled": true
     },
@@ -10644,7 +9841,7 @@
       "regions": [
         "AF"
       ],
-      "category": "restaurant_software",
+      "category": "delivery",
       "specialties": [
         "online ordering",
         "restaurant software",
@@ -10667,6 +9864,53 @@
         "restaurant delivery",
         "takeout ordering",
         "online ordering"
+      ],
+      "enabled": true
+    },
+    {
+      "domain": "waimai.baidu.com",
+      "name": "Baidu Waimai",
+      "type": "delivery",
+      "countries": [
+        "CN"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "delivery",
+      "specialties": [
+        "food delivery",
+        "takeout ordering"
+      ],
+      "enabled": true
+    },
+    {
+      "domain": "ambassador.ai",
+      "name": "Ambassador",
+      "type": "delivery",
+      "countries": [],
+      "regions": [],
+      "category": "delivery",
+      "specialties": [
+        "restaurant ordering",
+        "online menu"
+      ],
+      "enabled": true
+    },
+    {
+      "domain": "toocle.com",
+      "name": "Toocle",
+      "type": "delivery",
+      "countries": [
+        "CN"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "grocery",
+      "specialties": [
+        "foodservice marketplace",
+        "food supplier discovery"
       ],
       "enabled": true
     }

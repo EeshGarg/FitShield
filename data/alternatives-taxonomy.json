@@ -88,6 +88,13 @@
       "high-protein",
       "comfort"
     ],
+    "_genericCravingsNote": "Cravings that describe a SHAPE of food rather than a food. They are legitimate, and they are the only thing a generic delivery marketplace can derive, but they are necessarily broad — each sits on a quarter or more of the catalog. A specialty that maps to one of these must therefore never outrank a specialty that maps to a real dish: \"ribs\" deriving `comfort` must not beat \"burgers\" deriving `burger`. The matcher demotes these to the secondary tier whenever a specific craving was also derived. Any craving carried by more than 22% of the catalog has to be listed here — tools/alternatives-audit.js enforces it.",
+    "genericCravings": [
+      "comfort",
+      "convenience",
+      "late-night",
+      "high-protein"
+    ],
     "categories": [
       "pizza",
       "burger",
@@ -107,7 +114,10 @@
       "fast_food",
       "grocery",
       "restaurant",
+      "restaurant_discovery",
       "meal_delivery",
+      "meal_kit",
+      "courier",
       "catering",
       "custom",
       "general"
@@ -131,7 +141,10 @@
       "fast_food": ["burger", "fried-chicken", "fries", "late-night"],
       "grocery": ["convenience", "comfort"],
       "restaurant": ["comfort", "pasta", "rice-bowl"],
+      "restaurant_discovery": ["comfort", "pasta", "rice-bowl"],
       "meal_delivery": ["comfort", "rice-bowl", "high-protein"],
+      "meal_kit": ["comfort", "pasta", "high-protein"],
+      "courier": ["convenience", "comfort", "late-night"],
       "catering": ["comfort", "sandwich"],
       "custom": ["comfort", "late-night"],
       "general": ["comfort", "rice-bowl", "sandwich"]
