@@ -230,7 +230,43 @@ function policyAudit() {
   const queueFile = path.join(ROOT, ".queue.json");
 
   if (fs.existsSync(queueFile)) {
-    const queue = JSON.parse(fs.readFileSync(queueFile, "utf8"));
+    const raw = JSON.parse(fs.readFileSync(queueFile, "utf8"));
+
+    // Closures arrive one file per lane. Six agents editing one .queue.json
+    // concurrently silently drop each other's edits — the same file-ownership
+    // hazard that cost this project real work once already — so the findings
+    // list stays read-only and each lane owns exactly one file in here.
+    const closureDir = path.join(ROOT, ".queue.closures");
+    const closures = new Map();
+
+    if (fs.existsSync(closureDir)) {
+      fs.readdirSync(closureDir)
+        .filter((name) => name.endsWith(".json"))
+        .forEach((name) => {
+          const records = JSON.parse(fs.readFileSync(path.join(closureDir, name), "utf8"));
+
+          (Array.isArray(records) ? records : []).forEach((record) => {
+            if (!record || !record.id) {
+              return;
+            }
+
+            if (closures.has(record.id)) {
+              reporter.fail(`${record.id} is claimed closed by two lanes (${closures.get(record.id).lane}, ${name})`);
+              return;
+            }
+
+            closures.set(record.id, { ...record, lane: name });
+          });
+        });
+    }
+
+    const queue = raw.map((item) => (item && closures.has(item.id) ? { ...item, ...closures.get(item.id) } : item));
+    const stray = [...closures.keys()].filter((id) => !raw.some((item) => item && item.id === id));
+
+    if (stray.length > 0) {
+      reporter.fail(`closure record(s) for unknown finding(s): ${stray.join(", ")}`);
+    }
+
     const open = queue.filter((item) => item && item.status !== "closed");
 
     // Closing an item used to cost one word. `status: "closed"` was the whole

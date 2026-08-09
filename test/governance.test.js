@@ -285,3 +285,67 @@ test("closure prose is held to the same language rules as the report", () => {
     });
   });
 });
+
+// Closures land one file per lane, so concurrent agents never write the same
+// file. The audit merges them onto the read-only findings list.
+const CLOSURE_DIR = path.join(ROOT, ".queue.closures");
+
+function withClosures(byLane, fn) {
+  const existed = fs.existsSync(CLOSURE_DIR);
+  const before = existed ? fs.readdirSync(CLOSURE_DIR) : [];
+
+  fs.mkdirSync(CLOSURE_DIR, { recursive: true });
+  const written = Object.entries(byLane).map(([lane, records]) => {
+    const file = path.join(CLOSURE_DIR, `${lane}.json`);
+    fs.writeFileSync(file, JSON.stringify(records, null, 2));
+    return file;
+  });
+
+  try {
+    fn();
+  } finally {
+    written.forEach((file) => fs.existsSync(file) && fs.unlinkSync(file));
+    if (!existed && fs.readdirSync(CLOSURE_DIR).length === 0) {
+      fs.rmdirSync(CLOSURE_DIR);
+    }
+    assert.deepEqual(fs.existsSync(CLOSURE_DIR) ? fs.readdirSync(CLOSURE_DIR) : [], before);
+  }
+}
+
+test("a lane's closure record closes its finding without touching the queue file", () => {
+  withQueue([{ id: "F910", dimension: "probe", severity: "HIGH", title: "probe" }], () => {
+    const queueBefore = fs.readFileSync(QUEUE_FILE, "utf8");
+
+    withClosures({ "probe-lane": [{ id: "F910", status: "closed", verification: PROVEN.verification, test: "test/probe.test.js" }] }, () => {
+      const reporter = policyAudit();
+      assert.deepEqual(reporter.errors, [], reporter.errors.join("\n"));
+      assert.ok(
+        reporter.notes.some((n) => /work queue empty/.test(n)),
+        `expected an empty queue, got:\n${reporter.notes.join("\n")}`
+      );
+    });
+
+    // The findings list is the record of what was found; closing is additive.
+    assert.equal(fs.readFileSync(QUEUE_FILE, "utf8"), queueBefore);
+  });
+});
+
+test("two lanes cannot both claim the same finding", () => {
+  withQueue([{ id: "F911", dimension: "probe", severity: "HIGH", title: "probe" }], () => {
+    const record = { id: "F911", status: "closed", verification: PROVEN.verification, test: "t.js" };
+
+    withClosures({ "lane-a": [record], "lane-b": [record] }, () => {
+      const errors = policyAudit().errors;
+      assert.ok(errors.some((e) => /claimed closed by two lanes/.test(e)), errors.join("\n"));
+    });
+  });
+});
+
+test("a closure for a finding nobody recorded is rejected", () => {
+  withQueue([{ id: "F912", dimension: "probe", severity: "HIGH", title: "probe" }], () => {
+    withClosures({ "lane-a": [{ id: "F999", status: "closed", verification: PROVEN.verification, test: "t.js" }] }, () => {
+      const errors = policyAudit().errors;
+      assert.ok(errors.some((e) => /unknown finding/.test(e)), errors.join("\n"));
+    });
+  });
+});
