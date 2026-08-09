@@ -220,6 +220,40 @@ function updateScheduleControls(scheduleEnabled) {
   scheduleEnabledInput.disabled = !scheduleIsSimple;
 }
 
+/**
+ * The one-line summary under the simple start/end pair.
+ *
+ * The "every day" suffix used to be appended when `scheduleStart ===
+ * scheduleEnd`, which is the opposite of what that means: equal times describe
+ * one window covering the whole 24 hours, not a set of days. Whether the window
+ * repeats every day is a property of the PROJECTION — the flat trio can only
+ * ever express a single window across all seven days (see
+ * `FitShieldCore.scheduleToLegacy`) — so whenever the pair can honestly
+ * represent the stored schedule at all, it is by definition every day. Settings
+ * was corrected the same way; this is the popup agreeing with it.
+ *
+ * When the pair CANNOT represent it, the two times on screen are placeholders,
+ * and printing them as "Current schedule" told a user with a "Workday lunch"
+ * schedule that their schedule was 6:00 PM to 11:00 PM. The count of stored
+ * windows is the same sentence the schedule editor shows for that schedule, and
+ * unlike the times it is true.
+ */
+function describeSimpleSchedule(schedule, scheduleEnabled, scheduleStart, scheduleEnd) {
+  if (!scheduleEnabled) {
+    return t("scheduleDefaultSummary");
+  }
+
+  if (!scheduleIsSimple) {
+    const windows = schedule && Array.isArray(schedule.windows) ? schedule.windows.length : 0;
+    // A response that carried the flag but not the schedule behind it cannot be
+    // counted, and an invented "0 windows" would be one more untrue sentence.
+    // The disabled pair says enough on its own.
+    return windows > 0 ? t("scheduleWindowsSummary", [String(windows)]) : "";
+  }
+
+  return t("currentScheduleSummary", [formatScheduleText(scheduleStart, scheduleEnd) + t("everyDaySuffix")]);
+}
+
 function siteUnit(value) {
   return t(value === 1 ? "unitSite" : "unitSites");
 }
@@ -635,6 +669,7 @@ function updateUI(state) {
     bypassUntil = 0,
     timerSeconds = DEFAULT_TIMER_SECONDS,
     passDurationMinutes = DEFAULT_PASS_DURATION_MINUTES,
+    schedule = null,
     scheduleEnabled = false,
     scheduleStart = DEFAULT_SCHEDULE_START,
     scheduleEnd = DEFAULT_SCHEDULE_END,
@@ -647,6 +682,14 @@ function updateUI(state) {
     fastFoodSites = [],
     customSites = []
   } = state;
+
+  // The worker projects this out of the canonical schedule, and it is the flag
+  // the two time inputs and the summary below are gated on. It was destructured
+  // here and then dropped, so the module-level copy stayed at its `true`
+  // default: over a multi-window schedule the pair rendered enabled, accepted
+  // an edit, and the worker correctly refused the lossy rebuild — a control
+  // that takes input and discards it.
+  scheduleIsSimple = scheduleSimple !== false;
 
   const bypassActive = enabled && bypassUntil > Date.now();
   const activeSiteCount =
@@ -677,11 +720,7 @@ function updateUI(state) {
     String(fastFoodSites.length)
   ]);
 
-  scheduleSummary.textContent = scheduleEnabled
-    ? t("currentScheduleSummary", [
-        formatScheduleText(scheduleStart, scheduleEnd) + (scheduleStart === scheduleEnd ? t("everyDaySuffix") : "")
-      ])
-    : t("scheduleDefaultSummary");
+  scheduleSummary.textContent = describeSimpleSchedule(schedule, scheduleEnabled, scheduleStart, scheduleEnd);
 
   card.classList.toggle("glow", enabled && activeSiteCount > 0 && (scheduleActive || !scheduleEnabled) && !bypassActive);
 

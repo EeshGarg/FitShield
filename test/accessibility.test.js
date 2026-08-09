@@ -1147,6 +1147,197 @@ test("the popup keeps its at-a-glance schedule pair", () => {
   });
 });
 
+// ---------------------------------------------------------------------------
+// 6b. …and it only offers that pair for a schedule it can honestly hold
+// ---------------------------------------------------------------------------
+
+/**
+ * Two time inputs can express exactly one window across all seven days. That is
+ * a property of the PROJECTION, not of the times (`FitShieldCore.scheduleToLegacy`),
+ * and both halves of it were wrong in the popup:
+ *
+ *   - `scheduleSimple` arrived from the worker, was destructured, and was then
+ *     dropped, so the module-level guard stayed at its `true` default. Over a
+ *     "Workday lunch" schedule the pair rendered ENABLED, took an edit, and the
+ *     worker correctly refused the lossy rebuild — a control that accepts input
+ *     and discards it, which is worse than a disabled one.
+ *   - the "every day" suffix was appended when `scheduleStart === scheduleEnd`,
+ *     which is the opposite of what equal times mean (one window covering the
+ *     whole 24 hours). A plain seven-day 18:00–23:00 window — the only kind the
+ *     pair can hold — was the one case that never got the suffix.
+ *
+ * These drive the real popup rather than reading its source, because both
+ * defects were invisible to a grep: the names were all present and spelled
+ * correctly.
+ */
+function popupContext(blockState, store = { uiLanguage: "en" }) {
+  const ids = [...read("popup.html").matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
+  const byId = new Map();
+  const body = stubElement("body");
+
+  ids.forEach((id) => {
+    const element = stubElement("div");
+    element.id = id;
+    body.appendChild(element);
+    byId.set(id, element);
+  });
+
+  const card = stubElement("main");
+  const document = {
+    documentElement: stubElement("html"),
+    body,
+    head: stubElement("head"),
+    currentScript: null, hidden: false, readyState: "complete",
+    getElementById: (id) => (byId.has(id) ? byId.get(id) : null),
+    querySelector: (selector) => (selector === ".card" ? card : null),
+    querySelectorAll: () => [],
+    createElement: (tag) => stubElement(tag),
+    createTextNode: (value) => ({ textContent: String(value) }),
+    createDocumentFragment: () => stubElement("fragment"),
+    addEventListener() {}, removeEventListener() {}
+  };
+
+  const chrome = {
+    runtime: {
+      getURL: (p) => "chrome-extension://test/" + p,
+      getManifest: () => ({ version: "0.55" }),
+      sendMessage: async (message) =>
+        (message.type === "getBlockState" ? { ok: true, ...blockState } : { ok: true }),
+      onMessage: { addListener() {} },
+      lastError: null
+    },
+    storage: {
+      local: {
+        get: async (keys) => {
+          const out = {};
+          (Array.isArray(keys) ? keys : [keys]).forEach((key) => {
+            if (key in store) { out[key] = store[key]; }
+          });
+          return out;
+        },
+        set: async (object) => { Object.assign(store, object); }
+      },
+      onChanged: { addListener() {} }
+    },
+    i18n: { getMessage: () => "", getUILanguage: () => "en" },
+    tabs: { create() {}, query: async () => [] }
+  };
+
+  const win = {
+    location: { search: "", href: "", hash: "" },
+    matchMedia: () => ({ matches: false, addEventListener() {}, addListener() {} }),
+    open() {}, history: { back() {}, length: 1 },
+    addEventListener() {}, removeEventListener() {},
+    setInterval: () => 0, clearInterval() {}
+  };
+
+  const sandbox = {
+    chrome, document, window: win,
+    fetch: async (url) => ({
+      ok: true,
+      status: 200,
+      json: async () => JSON.parse(fs.readFileSync(path.join(EXT, String(url).replace("chrome-extension://test/", "")), "utf8"))
+    }),
+    console: { log() {}, warn() {}, error() {}, info() {} },
+    URL, URLSearchParams, Intl,
+    Math, Date, JSON, Promise, Number, String, Array, Object, Set, Map, Error, RegExp, Boolean,
+    isNaN, parseInt, parseFloat,
+    setTimeout, clearTimeout, setInterval: () => 0, clearInterval() {},
+    matchMedia: win.matchMedia, location: win.location
+  };
+  sandbox.self = sandbox;
+  sandbox.globalThis = sandbox;
+
+  const context = vm.createContext(sandbox);
+  ["browser-shim.js", "i18n.js", "fitshield-core.js", "popup.js"].forEach((file) => {
+    vm.runInContext(fs.readFileSync(path.join(EXT, file), "utf8"), context, { filename: file });
+  });
+
+  return { sandbox, byId };
+}
+
+const settle = (ms = 60) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// getBlockState is `{ ok: true, ...readSettings(stored) }`, so the fixtures are
+// PROJECTED by the same code the worker runs rather than hand-written — a test
+// that invented `scheduleSimple` itself would prove nothing about the schedule.
+const blockStateFor = (schedule) => ({
+  ...core.readSettings({ schedule }),
+  scheduleActive: true,
+  passes: [],
+  bypassUntil: 0,
+  recap: null
+});
+
+const SEVEN_DAY_EVENING = core.normalizeSchedule(
+  core.scheduleFromLegacy({ scheduleEnabled: true, scheduleStart: "18:00", scheduleEnd: "23:00" })
+);
+
+// The "Workday lunch" preset: one window, five days. One time pair cannot say
+// "not at the weekend".
+const WORKDAY_LUNCH = core.normalizeSchedule({
+  mode: "windows",
+  windows: [{ days: [1, 2, 3, 4, 5], start: "11:30", end: "14:00" }],
+  until: null
+});
+
+test("the popup's schedule fixtures really are the two cases the guard is about", () => {
+  assert.equal(core.readSettings({ schedule: SEVEN_DAY_EVENING }).scheduleSimple, true);
+  assert.equal(core.readSettings({ schedule: WORKDAY_LUNCH }).scheduleSimple, false);
+});
+
+test("the popup's time pair is read-only over a schedule it cannot express", async () => {
+  const { byId } = popupContext(blockStateFor(WORKDAY_LUNCH));
+  await settle();
+
+  ["scheduleStart", "scheduleEnd", "scheduleEnabled"].forEach((id) => {
+    assert.equal(
+      byId.get(id).disabled,
+      true,
+      `#${id} still takes an edit that the worker will refuse — the control is dead, not disabled`
+    );
+  });
+});
+
+test("the popup does not present placeholder times as the user's schedule", async () => {
+  const { byId } = popupContext(blockStateFor(WORKDAY_LUNCH));
+  await settle();
+
+  const summary = byId.get("scheduleSummary").textContent;
+
+  assert.doesNotMatch(
+    summary,
+    /\d{1,2}:\d{2}/,
+    `the two times shown are defaults, not this user's hours: "${summary}"`
+  );
+  assert.match(summary, /window/i, "so it says what IS stored instead");
+});
+
+test('the popup says "every day" for the only schedule shape its pair can hold', async () => {
+  const { byId } = popupContext(blockStateFor(SEVEN_DAY_EVENING));
+  await settle();
+
+  const summary = byId.get("scheduleSummary").textContent;
+
+  assert.match(summary, /\d{1,2}:\d{2}/, "a window it CAN express is stated as times");
+  assert.match(
+    summary,
+    /every day/i,
+    `the flat pair only ever means one window across all seven days: "${summary}"`
+  );
+  assert.equal(byId.get("scheduleStart").disabled, false, "and the pair stays editable for it");
+});
+
+test("with no schedule set the popup explains what the switch would do", async () => {
+  const { byId } = popupContext(blockStateFor({ mode: "always", windows: [], until: null }));
+  await settle();
+
+  const summary = byId.get("scheduleSummary").textContent;
+
+  assert.doesNotMatch(summary, /every day/i, "there is no window to repeat");
+  assert.match(summary, /schedule/i);
+});
+
 // settings.js reads five ids the page no longer has. Every one of those reads is
 // conditional; this proves it by answering `null` for exactly those ids, which
 // is what the real browser does now. Before the guards went in, the top-level
