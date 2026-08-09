@@ -560,33 +560,37 @@ test("a failed export does not tell the user their file is invalid", async () =>
 // across ALL SEVEN days, so whenever it can represent the schedule at all, it is
 // by definition every day.
 //
-// RETARGETED. The element both tests read — #scheduleSummary — belonged to the
-// duplicate simple pair that has been deleted from settings.html. The readout
-// that survives in the schedule section, #scheduleStatus, does NOT carry this
-// meaning (it says "FitShield is on all the time" or "N time window(s) set"), so
-// it cannot stand in for the "every day" claim; it is asserted below only for
-// the negative half, which it can honestly answer. The popup still renders the
-// sentence itself, but test/ has no popup-rendering harness and this file is not
-// the place to grow one — see the note on popup.js at the end of this block.
+// RETARGETED TWICE. The element both tests read — #scheduleSummary — belonged to
+// the duplicate simple pair, which finding F007 got deleted from settings.html.
+// An intermediate version of these tests kept the coverage by calling
+// settings.js's own `describeSimpleSchedule` directly. That function has since
+// been deleted too, and rightly: with the markup gone, every DOM lookup it
+// depended on returned null, so it composed a sentence that no longer reached a
+// screen. A test that calls a function nothing renders passes while the surface
+// it claims to protect shows whatever it likes — the exact failure mode this
+// suite exists to catch — so the coverage moves off it.
 //
-// So the guarantee is now asserted against the three things that survive and
-// that make it true:
-//   - core.scheduleToLegacy, the projection that decides when the flat pair may
-//     be offered at all. It is WHY the suffix is unconditional, and it is the
-//     rule the old start === end condition contradicted.
-//   - describeSimpleSchedule in settings.js, the function that composes the
-//     sentence, called after the real page has computed its own
-//     `scheduleIsSimple` from the stored schedule.
-//   - the day buttons rendered by the advanced editor, which are the surviving
-//     Settings surface that states which days a window runs on.
+// The guarantee is now asserted against the two things that survive and that
+// make it true:
+//   - core.scheduleToLegacy, the projection that decides whether a schedule can
+//     be shown as one start/end pair at all. It is WHY "every day" was
+//     unconditional wherever the pair was offered, and it is the rule the old
+//     `start === end` condition contradicted.
+//   - the day buttons rendered by the advanced editor, the surviving Settings
+//     surface that states which days a window runs on. Settings now SHOWS the
+//     days instead of asserting them in a sentence, which is what made the
+//     sentence safe to delete.
 //
 // KNOWN, NOT FIXED HERE: extension/popup.js still carries the pre-fix form
-// (`scheduleStart === scheduleEnd ? t("everyDaySuffix") : ""`). Another lane owns
-// that file this session; it is reported rather than changed here, and no
-// assertion below drives popup.js.
+// (`scheduleStart === scheduleEnd ? t("everyDaySuffix") : ""`), and its
+// `scheduleIsSimple` guard is declared and read but never assigned, so its own
+// start/end pair stays enabled over a schedule it cannot express. Another lane
+// owns that file this session; both are reported rather than changed here, and
+// no assertion below drives popup.js.
 // ===========================================================================
 
-test("the schedule summary says 'every day' when the window is every day", async () => {
+// Was "the schedule summary says 'every day' when the window is every day".
+test("a schedule that two time inputs can express always runs every day", async () => {
   const core = require("../extension/fitshield-core.js");
 
   const store = {
@@ -612,25 +616,34 @@ test("the schedule summary says 'every day' when the window is every day", async
     }
   });
 
+  // Equal times are the other half of the same rule: they describe a window
+  // covering the whole 24 hours, and that window still runs on all seven days.
+  // So "every day" cannot hinge on the two times matching — it holds either way,
+  // which is precisely what the old condition got backwards.
+  const allDay = core.normalizeSchedule({
+    mode: "windows",
+    windows: [{ days: core.ALL_DAYS.slice(), start: "18:00", end: "18:00" }],
+    until: null
+  });
+  const allDayLegacy = core.scheduleToLegacy(allDay);
+  assert.equal(allDayLegacy.simple, true, "a 24-hour window is flat-expressible too");
+  assert.equal(allDayLegacy.scheduleStart, allDayLegacy.scheduleEnd, "…with its two times equal");
+  assert.deepEqual(allDay.windows[0].days, core.ALL_DAYS, "…and it still runs on every day");
+
+  // The surviving Settings surface states the days rather than claiming them in
+  // a sentence: seven pressed chips IS "every day", on screen.
   const doc = renderSettings(store, { ok: true, ...core.readSettings(store) });
   assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
 
-  const describe = doc.globals.describeSimpleSchedule;
-  assert.equal(typeof describe, "function", "settings.js must still compose this sentence");
-
-  const summary = describe(true, "18:00", "23:00");
-  assert.ok(/\d/.test(summary), `the summary should carry a time range, got "${summary}"`);
-  assert.match(summary, /every day/i, `a seven-day window is every day, got "${summary}"`);
-  assert.match(describe(true, "18:00", "18:00"), /every day/i,
-    "a 24-hour window is every day too — the suffix must not hinge on the two times matching");
-
-  // The surviving Settings surface agrees about the days.
   const groups = doc.getById("scheduleWindows").querySelectorAll(".days");
   assert.equal(groups.length, 1, "one stored window, one day group in the editor");
   assert.deepEqual(pressedDays(groups[0]), core.ALL_DAYS, "the editor shows the window running on all seven days");
+  assert.equal(doc.getById("window-0-start").value, "18:00", "and the hours that are stored");
+  assert.equal(doc.getById("window-0-end").value, "23:00");
 });
 
-test("a schedule the two inputs cannot express does not claim to be every day", async () => {
+// Was "a schedule the two inputs cannot express does not claim to be every day".
+test("a schedule two time inputs cannot express is shown in full, not as placeholder hours", async () => {
   const core = require("../extension/fitshield-core.js");
 
   // "Workday lunch" is weekdays only — the flat pair cannot hold it, so the
@@ -642,26 +655,73 @@ test("a schedule the two inputs cannot express does not claim to be every day", 
 
   assert.equal(settings.scheduleSimple, false, "precondition: this schedule is not flat-expressible");
 
+  // The hours the flat pair WOULD have shown are the projection's placeholders,
+  // not this schedule's. Anything that renders the trio without consulting
+  // `scheduleSimple` states hours the user never set — which is why Settings no
+  // longer renders the trio anywhere.
+  assert.equal(settings.scheduleStart, core.DEFAULT_SCHEDULE_START, "precondition: placeholder start");
+  assert.equal(settings.scheduleEnd, core.DEFAULT_SCHEDULE_END, "precondition: placeholder end");
+  assert.notEqual(schedule.windows[0].start, settings.scheduleStart, "…which is not the stored window");
+
   const doc = renderSettings(store, { ok: true, ...settings });
   assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
 
-  // Composed by the page, from the state the page derived from this schedule —
-  // not from a flag the test set.
-  const sentence = doc.globals.describeSimpleSchedule(true, settings.scheduleStart, settings.scheduleEnd);
-
-  assert.ok(!/every day/i.test(sentence),
-    `a weekdays-only schedule must never be summarised as every day, got "${sentence}"`);
-  assert.equal(sentence, "",
-    "with placeholder times it says nothing rather than describing a window nobody set");
-
-  // The readout that DOES describe this schedule must not claim seven days either.
+  // The readout that DOES describe this schedule must not claim seven days.
   const status = doc.getById("scheduleStatus");
   assert.ok(await waitFor(() => status.textContent !== ""), "the schedule status should render");
   assert.ok(!/every day/i.test(status.textContent), `got "${status.textContent}"`);
 
-  // And the editor states the real days, so the truth is on screen somewhere.
+  // And the editor states the real days AND the real hours, so the truth is on
+  // screen — where the deleted pair could only ever have shown 18:00-23:00 on
+  // all seven days, for a schedule that is none of those things.
   const groups = doc.getById("scheduleWindows").querySelectorAll(".days");
   assert.deepEqual(pressedDays(groups[0]), [1, 2, 3, 4, 5], "five weekdays selected, no weekend day");
+  assert.equal(doc.getById("window-0-start").value, "11:00", "the editor shows the stored hours, not the placeholder");
+  assert.equal(doc.getById("window-0-end").value, "14:00");
+});
+
+// FINDING F007's REGRESSION GUARD. The two tests above pin what the surviving
+// control says; this one pins that there is only one of it. Nothing else in this
+// file fails if a second editable schedule control is added back, and a second
+// one is not untidiness: the simple pair wrote the flat trio, the flat trio can
+// only describe ONE window across ALL SEVEN days, so a single nudge over the
+// "Workday lunch" schedule above would have discarded Monday-to-Friday and
+// replaced it with a seven-day window.
+//
+// Rendered, not grepped. test/accessibility.test.js already greps settings.html
+// for these ids; this boots the real page and asks the DOM settings.js actually
+// runs against, so it also fails if the ids return by script rather than markup,
+// and it fails if the surviving editor is present but never renders.
+test("Settings offers exactly one editable schedule control", async () => {
+  const core = require("../extension/fitshield-core.js");
+
+  const store = { ...core.migrateState({ timerSeconds: 30 }).state, uiLanguage: "en" };
+  const doc = renderSettings(store, undefined);
+  assert.ok(await waitFor(() => doc.getById("timerDisplay").textContent === "30s"), "settings rendered");
+
+  for (const id of ["scheduleEnabled", "scheduleStart", "scheduleEnd", "scheduleSummary", "simpleScheduleNote"]) {
+    assert.equal(
+      doc.getById(id),
+      null,
+      `#${id} is back on the settings page: that is a second editable control for one setting (F007)`
+    );
+  }
+
+  // …and the one that survived is present AND renders, so this can never be
+  // satisfied by deleting both of them.
+  const presets = doc.getById("schedulePresets");
+  assert.ok(await waitFor(() => presets && presets.childElementCount > 0), "the schedule presets should render");
+  assert.equal(
+    presets.childElementCount,
+    core.SCHEDULE_PRESET_IDS.length,
+    "one chip per preset — the surviving control has to be the whole editor"
+  );
+
+  for (const id of ["scheduleWindows", "scheduleAdvanced", "addScheduleWindow", "scheduleStatus"]) {
+    assert.ok(doc.getById(id), `the surviving schedule editor lost #${id}`);
+  }
+
+  assert.notEqual(doc.getById("scheduleStatus").textContent, "", "and it still says what the current schedule is");
 });
 
 // Which weekday indices a rendered window's day group has switched on.

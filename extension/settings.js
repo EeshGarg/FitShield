@@ -245,58 +245,20 @@ function formatPassDisplay(minutes) {
   return `${minutes}m`;
 }
 
-function formatScheduleText(start, end) {
-  const [startHour, startMinute] = start.split(":").map(Number);
-  const [endHour, endMinute] = end.split(":").map(Number);
-
-  const startDate = new Date();
-  startDate.setHours(startHour, startMinute, 0, 0);
-
-  const endDate = new Date();
-  endDate.setHours(endHour, endMinute, 0, 0);
-
-  return t("scheduleRange", [
-    startDate.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }),
-    endDate.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
-  ]);
-}
-
-// True when the stored schedule has more shape than two time inputs can hold —
-// several windows, or specific weekdays. Set from the projection the core hands
-// back, so this page and the worker can never disagree about it.
-let scheduleIsSimple = true;
-
-/**
- * The simple start/end pair is a PROJECTION of the canonical schedule, so it is
- * only offered when it can represent that schedule honestly.
- *
- * Nudging one of these inputs rebuilds the whole schedule from the flat trio,
- * which can only ever mean one window across all seven days. Left enabled over a
- * "Workday lunch" or "Evenings and weekends" schedule, a single click silently
- * destroyed every other window. Now the pair is disabled and the page says to
- * use the advanced editor instead.
- */
-function updateScheduleControls(scheduleEnabled) {
-  // The whole simple pair is optional markup: it duplicates the schedule
-  // section further down the page, and it is being removed from Blocking
-  // Options. Nothing here may assume it is present.
-  if (!scheduleEnabledInput || !scheduleStartInput || !scheduleEndInput) {
-    return;
-  }
-
-  const usable = scheduleEnabled && scheduleIsSimple;
-
-  scheduleStartInput.disabled = !usable;
-  scheduleEndInput.disabled = !usable;
-  scheduleEnabledInput.disabled = !scheduleIsSimple;
-
-  if (simpleScheduleNote) {
-    simpleScheduleNote.hidden = scheduleIsSimple;
-    if (!scheduleIsSimple) {
-      simpleScheduleNote.textContent = t("scheduleAdvancedInUse");
-    }
-  }
-}
+// This page used to carry a SECOND schedule control: a start/end pair in
+// Blocking Options, projected from the canonical `schedule` object, with a
+// summary sentence, a time formatter, a flat-expressibility flag, an enable/
+// disable rule and a save path of its own. Two editable controls for one setting
+// is what finding F007 was, so the pair was deleted from settings.html and every
+// function that existed only to drive it has gone with it. What was left after
+// the markup went was unreachable by construction — each lookup returned null,
+// so each guard returned early — which is worse than wrong: it reads like a
+// feature.
+//
+// The schedule is now owned entirely by the presets + per-window editor in the
+// "When FitShield is on" section (#schedulePresets / #scheduleWindows /
+// #scheduleAdvanced), built by preferences.js. The popup keeps its own
+// at-a-glance pair on purpose; that is a different surface, in popup.js.
 
 function normalizeCustomDomain(value) {
   const trimmed = String(value || "").trim().toLowerCase();
@@ -441,21 +403,16 @@ function updateListToggle(button, category, shownText = t("showSitesButton"), hi
   button.setAttribute("aria-expanded", String(expanded));
 }
 
+// Blocking Options is now only the two friction values. The schedule keys the
+// worker also projects into this state (scheduleEnabled / scheduleStart /
+// scheduleEnd / scheduleSimple) are deliberately not read here: this page has no
+// control that renders them, and the section that owns the schedule reads the
+// canonical `schedule` object directly in preferences.js.
 function updateBlockingControls(state) {
   const {
     timerSeconds = DEFAULT_TIMER_SECONDS,
-    passDurationMinutes = DEFAULT_PASS_DURATION_MINUTES,
-    scheduleEnabled = false,
-    scheduleStart = DEFAULT_SCHEDULE_START,
-    scheduleEnd = DEFAULT_SCHEDULE_END,
-    scheduleSimple = true
+    passDurationMinutes = DEFAULT_PASS_DURATION_MINUTES
   } = state;
-
-  // These four now arrive projected from the canonical schedule. They used to be
-  // absent from the worker's response entirely, so every destructure above fell
-  // through to its default and the page showed "off, 18:00-23:00" no matter what
-  // was actually stored and enforced.
-  scheduleIsSimple = scheduleSimple !== false;
 
   timerSlider.value = normalizeTimerSeconds(timerSeconds);
   timerSecondsInput.value = normalizeTimerSeconds(timerSeconds);
@@ -463,42 +420,6 @@ function updateBlockingControls(state) {
   passDurationSlider.value = normalizePassDurationMinutes(passDurationMinutes);
   passDurationMinutesInput.value = normalizePassDurationMinutes(passDurationMinutes);
   passDurationDisplay.textContent = formatPassDisplay(normalizePassDurationMinutes(passDurationMinutes));
-
-  if (scheduleEnabledInput && scheduleStartInput && scheduleEndInput) {
-    scheduleEnabledInput.checked = scheduleEnabled;
-    scheduleStartInput.value = scheduleStart;
-    scheduleEndInput.value = scheduleEnd;
-    updateScheduleControls(scheduleEnabled);
-  }
-
-  if (scheduleSummary) {
-    scheduleSummary.textContent = describeSimpleSchedule(scheduleEnabled, scheduleStart, scheduleEnd);
-  }
-}
-
-/**
- * The one-line summary under the simple start/end pair.
- *
- * The "every day" suffix used to be appended when `scheduleStart ===
- * scheduleEnd`, which is the opposite of what it means: equal times describe a
- * window covering the whole 24 hours, not a set of days. Whether the window
- * repeats every day is a property of the PROJECTION — the flat trio can only
- * ever express one window across all seven days (see `scheduleToLegacy`), so
- * whenever the pair can honestly represent the stored schedule at all, it is by
- * definition every day. When it cannot, the times shown are placeholders and
- * `simpleScheduleNote` beneath already says to use the advanced editor, so
- * repeating that here would be two lines saying the same thing.
- */
-function describeSimpleSchedule(scheduleEnabled, scheduleStart, scheduleEnd) {
-  if (!scheduleEnabled) {
-    return t("scheduleDefaultSummary");
-  }
-
-  if (!scheduleIsSimple) {
-    return "";
-  }
-
-  return t("currentScheduleSummary", [formatScheduleText(scheduleStart, scheduleEnd) + t("everyDaySuffix")]);
 }
 
 // Keep the "All Blocklists" master toggle in sync with the three group toggles:
@@ -788,48 +709,6 @@ passDurationMinutesInput.addEventListener("change", async () => {
   passDurationDisplay.textContent = formatPassDisplay(passDurationMinutes);
   await saveFrictionValues({ passDurationMinutes });
 });
-
-// These three inputs are the SIMPLE view of the schedule: one window, every day.
-// The structured `schedule` object is what actually decides blocking, and it is
-// what readSettings prefers whenever it exists — which, after the v1 -> v2
-// migration, is always. Writing only the three flat keys therefore changed
-// nothing, so every one of these controls was visible and dead.
-//
-// Each edit now rebuilds the structured schedule from the flat trio (the same
-// derivation the migration uses) and stores both, so the simple view, the
-// advanced editor in preferences.js, and Android — which still reads the flat
-// keys — cannot disagree about when blocking is on.
-//
-// It is also DUPLICATE: the schedule section further down this page asks the
-// same question again, under a different heading, with presets and a full
-// editor that can express things these two time inputs cannot. That block is
-// being removed from Blocking Options, so everything here is conditional on the
-// markup still being present and nothing else on the page depends on it.
-async function saveScheduleFromSimpleControls(partial) {
-  const flat = {
-    scheduleEnabled: scheduleEnabledInput.checked,
-    scheduleStart: scheduleStartInput.value || DEFAULT_SCHEDULE_START,
-    scheduleEnd: scheduleEndInput.value || DEFAULT_SCHEDULE_END,
-    ...partial
-  };
-
-  await saveSettings({ ...flat, schedule: core.scheduleFromLegacy(flat) });
-}
-
-if (scheduleEnabledInput && scheduleStartInput && scheduleEndInput) {
-  scheduleEnabledInput.addEventListener("change", async () => {
-    updateScheduleControls(scheduleEnabledInput.checked);
-    await saveScheduleFromSimpleControls({ scheduleEnabled: scheduleEnabledInput.checked });
-  });
-
-  scheduleStartInput.addEventListener("change", async () => {
-    await saveScheduleFromSimpleControls({ scheduleStart: scheduleStartInput.value || DEFAULT_SCHEDULE_START });
-  });
-
-  scheduleEndInput.addEventListener("change", async () => {
-    await saveScheduleFromSimpleControls({ scheduleEnd: scheduleEndInput.value || DEFAULT_SCHEDULE_END });
-  });
-}
 
 if (allBlocklistsEnabledInput) {
   allBlocklistsEnabledInput.addEventListener("change", async () => {
@@ -2098,36 +1977,12 @@ if (chrome.storage && chrome.storage.onChanged) {
       renderMostBlocked();
     }
 
-    // While the duplicate simple pair still exists in Blocking Options, the
-    // schedule editor below writes the flat mirror alongside the structured
-    // schedule — without this, the pair kept showing the pre-edit window until
-    // reload: two controls for one setting, visibly disagreeing. Once the
-    // duplicate is gone this block has nothing to keep in step and does nothing.
-    if (
-      scheduleEnabledInput &&
-      scheduleStartInput &&
-      scheduleEndInput &&
-      (changes.scheduleEnabled || changes.scheduleStart || changes.scheduleEnd)
-    ) {
-      if (changes.scheduleEnabled) {
-        scheduleEnabledInput.checked = changes.scheduleEnabled.newValue === true;
-        updateScheduleControls(scheduleEnabledInput.checked);
-      }
-      if (changes.scheduleStart) {
-        scheduleStartInput.value = changes.scheduleStart.newValue || DEFAULT_SCHEDULE_START;
-      }
-      if (changes.scheduleEnd) {
-        scheduleEndInput.value = changes.scheduleEnd.newValue || DEFAULT_SCHEDULE_END;
-      }
-
-      if (scheduleSummary) {
-        scheduleSummary.textContent = describeSimpleSchedule(
-          scheduleEnabledInput.checked,
-          scheduleStartInput.value,
-          scheduleEndInput.value
-        );
-      }
-    }
+    // The flat scheduleEnabled / scheduleStart / scheduleEnd mirror used to be
+    // echoed back into a second set of controls here, so the duplicate pair in
+    // Blocking Options would not sit showing the pre-edit window until reload.
+    // That pair is gone (F007), and the section that owns the schedule re-renders
+    // itself from the canonical `schedule` object, so there is nothing on this
+    // page left for those keys to keep in step.
   });
 }
 
