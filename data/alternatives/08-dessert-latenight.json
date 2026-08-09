@@ -112,13 +112,14 @@
       "prepMinutes": 3,
       "cookMinutes": 3,
       "difficulty": "easy",
-      "equipment": ["oven", "toaster"],
+      "equipment": ["oven"],
       "method": "quick-cook",
       "diet": "vegetarian",
       "allergens": ["gluten", "dairy"],
       "substitutions": [
         { "for": "butter", "use": "a dairy-free spread, which makes it vegan" },
-        { "for": "oven", "use": "a dry frying pan, butter-side down, over medium heat for 2-3 minutes" }
+        { "for": "oven", "use": "the stove: a dry frying pan, butter-side down, over medium heat for 2-3 minutes" },
+        { "for": "oven", "use": "a toaster: toast the bread first, then spread the butter and cinnamon sugar over the hot slice so it melts in" }
       ],
       "storage": "Eat straight away.",
       "categories": ["bakery", "dessert", "coffee"],

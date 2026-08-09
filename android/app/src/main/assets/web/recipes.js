@@ -262,15 +262,17 @@
         return true;
       }
 
-      const swap = swaps.find((entry_) => entry_ && normalize(entry_.for) === normalize(item));
+      // ALL the swaps for this appliance, not the first one. An entry may offer
+      // more than one way round a missing appliance — cinnamon-sugar-toast can
+      // be done in a frying pan or in a toaster — and taking only the first
+      // meant the second kitchen never saw it.
+      const alternatives = swaps.filter((swap) => swap && normalize(swap.for) === normalize(item));
 
-      if (!swap) {
-        return false;
-      }
-
-      // The swap counts only if it names an appliance this kitchen actually has.
-      const how = normalize(swap.use);
-      return APPLIANCES.some((appliance) => owned.has(appliance) && how.includes(appliance));
+      // A swap counts only if it names an appliance this kitchen actually has.
+      return alternatives.some((swap) => {
+        const how = normalize(swap.use);
+        return APPLIANCES.some((appliance) => owned.has(appliance) && how.includes(appliance));
+      });
     });
   }
 

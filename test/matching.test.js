@@ -894,3 +894,48 @@ test("a brand with nothing but a broad craving keeps it", async () => {
   const best = recipes.rankAlternatives(marketplace, {}).matches[0];
   assert.ok(best.reasons.some((reason) => reason.key === "craving"), "it must still get a reasoned answer");
 });
+
+test("all of an entry's appliance swaps are read, not just the first", async () => {
+  const data = await catalog();
+
+  // cinnamon-sugar-toast is written for the oven grill and offers two ways
+  // round it: a frying pan, and a toaster. equipmentAvailable used to take the
+  // FIRST swap for a missing appliance and stop, so the toaster kitchen — the
+  // one the second line was written for — never saw the entry.
+  const entry = data.entries.find((candidate) => candidate.id === "cinnamon-sugar-toast");
+  assert.ok(entry, "cinnamon-sugar-toast is missing from the catalog");
+  assert.ok(
+    (entry.substitutions || []).filter((swap) => swap.for === "oven").length >= 2,
+    "this test needs an entry that offers more than one way round the same appliance"
+  );
+
+  assert.equal(recipes.equipmentAvailable(entry, ["oven"]), true, "the declared appliance");
+  assert.equal(recipes.equipmentAvailable(entry, ["stove"]), true, "the first swap");
+  assert.equal(recipes.equipmentAvailable(entry, ["toaster"]), true, "the second swap");
+  assert.equal(recipes.equipmentAvailable(entry, ["blender"]), false, "a kitchen no swap covers is still refused");
+});
+
+test("an appliance swap that names no appliance is caught by the audit, not shipped", async () => {
+  const data = await catalog();
+  const APPLIANCES = ["microwave", "stove", "oven", "air fryer", "toaster", "blender", "rice cooker", "kettle"];
+
+  // Every appliance swap in the shipped catalog has to name an appliance,
+  // because that is the only thing equipmentAvailable can read. "a small pan
+  // over medium heat" is a stove, but the word was not there, so a stove-only
+  // kitchen was never offered Hot Latte.
+  const silent = [];
+
+  data.entries.forEach((entry) => {
+    (entry.substitutions || []).forEach((swap) => {
+      if (!APPLIANCES.includes(String(swap.for).toLowerCase())) {
+        return;
+      }
+      const named = APPLIANCES.some((appliance) => String(swap.use).toLowerCase().includes(appliance));
+      if (!named) {
+        silent.push(`${entry.id}: ${swap.for} -> ${swap.use}`);
+      }
+    });
+  });
+
+  assert.deepEqual(silent, [], `appliance swaps the matcher cannot honour:\n  ${silent.join("\n  ")}`);
+});

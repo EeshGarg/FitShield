@@ -555,6 +555,13 @@ function checkTags(reporter, entry, taxonomy) {
   }
 }
 
+// The appliance vocabulary the matcher reads a substitution against. Mirrors
+// APPLIANCES in extension/recipes.js: equipmentAvailable only excuses a missing
+// appliance when the swap NAMES another one the kitchen has, so a swap that
+// describes the method without naming the appliance ("a small pan over medium
+// heat") reads as no swap at all and the entry stays invisible.
+const APPLIANCES = ["microwave", "stove", "oven", "air fryer", "toaster", "blender", "rice cooker", "kettle"];
+
 function checkSubstitutionsAndCalories(reporter, entry) {
   const id = entry.id;
   const substitutions = entry.substitutions || [];
@@ -570,6 +577,23 @@ function checkSubstitutionsAndCalories(reporter, entry) {
         reporter.fail(`${id}: substitution ${index + 1} is missing "${field}"`);
       }
     });
+
+    // An appliance swap is the ONLY thing that lets a kitchen without the
+    // declared appliance see this entry, and the matcher decides that by
+    // looking for an appliance NAME in the swap text. "a small pan over medium
+    // heat" is a stove, but the word is not there, so a stove-only kitchen was
+    // never offered Hot Latte even though its own substitution described
+    // exactly what a stove does.
+    if (APPLIANCES.includes(lower(substitution.for)) && typeof substitution.use === "string") {
+      const named = APPLIANCES.some((appliance) => lower(substitution.use).includes(appliance));
+
+      if (!named) {
+        reporter.fail(
+          `${id}: substitution for "${substitution.for}" describes a method but names no appliance ` +
+            `(one of: ${APPLIANCES.join(", ")}), so the matcher cannot honour it`
+        );
+      }
+    }
   });
 
   const covered = new Set(substitutions.map((substitution) => lower(substitution.for)));

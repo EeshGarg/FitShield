@@ -294,7 +294,7 @@
       "substitutions": [
         { "for": "instant coffee", "use": "60 ml of strong brewed coffee or a double espresso, with 60 ml less milk" },
         { "for": "milk or plant milk", "use": "oat milk heats best of the plant milks and keeps this vegan" },
-        { "for": "microwave", "use": "a small pan over medium heat for 2-3 minutes, until steaming" }
+        { "for": "microwave", "use": "the stove: a small pan over medium heat for 2-3 minutes, until steaming" }
       ],
       "storage": "Drink straight away.",
       "categories": ["coffee", "tea"],
