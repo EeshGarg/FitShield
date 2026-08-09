@@ -16,6 +16,34 @@ tools in [`tools/`](tools/).
 - **Keep it fast.** Don't add work to popup startup, blocking, or stats.
 - **Validate before you commit:** `npm run validate` (and `npm test`).
 
+## Working with an assistant
+
+Automated and assisted sessions in this repository are governed by
+[`CLAUDE.md`](CLAUDE.md), with the rules in machine-readable form in
+[`development-policy.json`](development-policy.json) and enforced by
+`npm run validate:policy`. Two rules matter most, because both were learned the
+hard way:
+
+- **A finding is work.** Severity sets the order things get fixed in, never
+  whether they get fixed. An issue may not be left open because it is medium,
+  editorial, UX, cleanup, or "probably already fixed". If it is safely fixable
+  here, it is fixed, tested, and closed before the session ends.
+- **No terminal verdicts.** Nothing concludes with NOT READY, SHIP / DO NOT SHIP,
+  or an equivalent. A defect is an instruction to fix it, and a reviewer raising
+  one has created work rather than ended the task.
+
+A report is the consequence of finishing, not permission to stop: the policy
+audit fails the build if the acceptance report claims completion while its own
+repository-local queue is non-empty, or if it contains an unverified
+"probably fixed". The only unfinished items a report may carry are the four this
+machine physically cannot do — the Safari Xcode wrapper (macOS), an Android APK
+(the SDK), real screen-reader validation (assistive technology), and human
+subjective acceptance.
+
+Specialist agents in [`.claude/agents/`](.claude/agents/) are mandatory for
+substantial work, run in parallel, and are partitioned by **file ownership** so
+two writers never touch one file.
+
 ## Project layout
 
 The repo separates the blocking engine (`FS Engine/`, code only), the

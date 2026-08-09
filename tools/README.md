@@ -10,13 +10,13 @@ dependencies).
 
 ```bash
 npm test                # the test suite
-npm run validate        # node tools/validate-all.js — all 13 audits
+npm run validate        # node tools/validate-all.js — all 15 audits
 ```
 
 `validate` exits non-zero if any audit reports an error; warnings never fail a
 build. `build.js` runs it automatically before packaging.
 
-## Validators (all 13 run by `npm run validate`)
+## Validators (all 15 run by `npm run validate`)
 
 | Command | Tool | Checks |
 | --- | --- | --- |
@@ -29,6 +29,7 @@ build. `build.js` runs it automatically before packaging.
 | `npm run validate:android-packages` | `validate-android-packages.js` | package-map schema, orphaned brands, duplicate brand/package, `packageStatus`, determinism, drift |
 | `npm run validate:locales` | `locale-parity.js` | identical key sets, empty messages, `$name$` placeholders, positional-placeholder parity, duplicate keys, unreferenced keys (warning) |
 | `npm run validate:hybrids` | `locale-hybrid-audit.js` | strings that are neither translated nor English but a mangled mix (`"Take one минута."`, `"блокироватьing"`); `--apply` removes them so they fall back to English |
+| `npm run validate:policy` | `policy-audit.js` | development governance: CLAUDE.md and development-policy.json agree, every required agent definition is registered, no instruction file re-introduces a terminal verdict or a deferral bucket, and the acceptance report cannot claim completion while its local queue is non-empty |
 | `npm run validate:docs` | `changelog-validator.js` | manifest↔package version sync, `changelog.json` current entry, `changelog/<version>.md` + `ROADMAP.md` presence |
 | `npm run validate:assets` | `assets-check.js` | manifest keys, referenced icons exist, required runtime files/dirs present |
 | `npm run validate:extension` | `extension-audit.js` | the staged package is closed — every manifest, page, and runtime reference resolves |
@@ -73,10 +74,10 @@ tools/
     report.js   # Reporter class + CLI runner
     load.js     # paths, loaders, locale dirs, ISO country set,
                 # country→region map, isApexDomain()
-  validate-all.js               # runs the 13 audits above
+  validate-all.js               # runs the 15 audits above
   validate-datasets.js  alternatives-audit.js  alias-audit.js
   country-audit.js      category-audit.js      locale-parity.js
-  locale-hybrid-audit.js
+  locale-hybrid-audit.js  policy-audit.js
   changelog-validator.js  assets-check.js      extension-audit.js
   service-worker-audit.js  sync-audit.js       android-audit.js
   validate-android-packages.js

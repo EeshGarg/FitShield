@@ -22,3 +22,8 @@ android/keystore.properties
 
 # Translator worklists written by tools/locale-status.js --todo
 translations/
+
+# Session-local acceptance work queue (regenerated per audit pass)
+.queue.json
+.queue/
+.queue-source.json

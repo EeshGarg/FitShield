@@ -13,6 +13,7 @@
     "validate:categories": "node tools/category-audit.js",
     "validate:locales": "node tools/locale-parity.js",
     "validate:hybrids": "node tools/locale-hybrid-audit.js",
+    "validate:policy": "node tools/policy-audit.js",
     "locales:status": "node tools/locale-status.js",
     "locales:prune": "node tools/locale-prune.js",
     "validate:docs": "node tools/changelog-validator.js",
