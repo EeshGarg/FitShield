@@ -859,6 +859,27 @@ test("the block page names countries, it does not print ISO codes", async () => 
   assert.equal(countries, "China, Hong Kong", `the block page rendered "${countries}"`);
 });
 
+test("the countries are named in the user's language, not just in English", async () => {
+  // The point of resolving rather than printing: "CN, HK" was the same two
+  // characters in every locale FitShield ships. A pinned language now reaches
+  // the block page's reason panel, exactly as it already reached Settings'.
+  const bg = loadBackground();
+  bg.store.uiLanguage = "ja";
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+
+  const doc = renderBlockPage(bg, "delivery-doordash-com");
+  await waitFor(() => {
+    const brand = doc.getById("brand");
+    return brand && brand.hidden === false && brand.textContent.length > 0;
+  });
+
+  const countries = await reasonRow(doc, doc.globals.FitShieldI18n.t("blockReasonCountries"));
+
+  assert.equal(countries, "アメリカ合衆国, カナダ, オーストラリア", `the reason panel rendered "${countries}"`);
+  assert.ok(!/US|CA|AU/.test(countries), "an ISO code survived into a localized page");
+});
+
 test("a long country list is named and then truncated, still without codes", async () => {
   // Jollibee ships 13 countries; the panel shows six and counts the rest.
   const doc = await renderBrand("fast-food-jollibee-com");
