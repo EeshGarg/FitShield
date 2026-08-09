@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Engelleyici is armed, but outside programd hours. It will engelle from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 teslimat siteleri enabled."
   },
@@ -133,12 +130,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Engelleme Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Planlı saatler"
-  },
-  "scheduledHoursHint": {
-    "message": "Engelle only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Engellelist"
@@ -712,9 +703,6 @@
   },
   "welcomeThemeBody": {
     "message": "Renkleri daha sonra Ayarlar'da ince ayar yapabilirsin."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash ve Uber Eats gibi teslimat platformlarına bir mola ekranı ekler."
   },
   "welcomeImportBody": {
     "message": "Başka bir cihazdan mı geliyorsun? Her şeyi taşımak için bir FitShield ayar dosyası içe aktar. Değilse devam et."

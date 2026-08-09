@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Pameungpeuk bersenjata, tapi di luar jam anu dijadwalkeun. Bakal meungpeuk ti $1."
   },
-  "statusShieldUp": {
-    "message": "Tameng. $1 detik mundur, $2 $3 lulus."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 tina situs pangiriman $2 diaktipkeun."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Pilihan blocking"
-  },
-  "scheduledHoursLabel": {
-    "message": "jam dijadwalkeun"
-  },
-  "scheduledHoursHint": {
-    "message": "Blok ngan dina jandela waktos poean."
   },
   "customizeBlocklistHeading": {
     "message": "Sesuaikeun Daptar Blok"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Anjeun bisa nyaluyukeun warna engké di Setélan."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Nambihan layar reureuh dina platform pangiriman siga DoorDash jeung Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Datang ti alat séjén? Impor file setélan FitShield pikeun mawa sadayana. Mun henteu, teruskeun waé."

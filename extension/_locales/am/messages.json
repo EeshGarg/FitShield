@@ -134,9 +134,6 @@
   "deliverySitesEnabledCount": {
     "message": "$1 የ$2 ማድረሻ ጣቢያዎች ነቅተዋል።"
   },
-  "statusShieldUp": {
-    "message": "መከታ። $1 ሰከንዶች ቆጠራ፣ $2 $3 ማለፊያ።"
-  },
   "searchMatchSuffix": {
     "message": " $1 ከፍለጋው ጋር ይዛመዳል።"
   },
@@ -157,12 +154,6 @@
   },
   "customizeBlocklistHeading": {
     "message": "የማገጃ መዝገብ ያብጁ"
-  },
-  "scheduledHoursHint": {
-    "message": "በዕለታዊ መስኮት ጊዜ ብቻ አግድ።"
-  },
-  "scheduledHoursLabel": {
-    "message": "የታቀዱ ሰዓቶች"
   },
   "customUrlsHeading": {
     "message": "ብጁ URLs"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "ቀለሞችን በኋላ በቅንብሮች ውስጥ በጥሩ ሁኔታ ማስተካከል ይችላሉ።"
-  },
-  "welcomeDeliveryBody": {
-    "message": "እንደ DoorDash እና Uber Eats ባሉ የማድረስ መድረኮች ላይ የእረፍት ማያ ገጽ ይጨምራል።"
   },
   "welcomeImportBody": {
     "message": "ከሌላ መሣሪያ ነው የመጡት? ሁሉንም ለማምጣት የFitShield ቅንብሮች ፋይል ያስመጡ። አለበለዚያ ይቀጥሉ።"

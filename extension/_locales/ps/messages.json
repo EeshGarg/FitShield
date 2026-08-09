@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "بلاکر وسله وال دی، مګر د ټاکل شوي ساعتونو څخه بهر. دا به د $1 څخه بلاک شي."
   },
-  "statusShieldUp": {
-    "message": "پورته کړه. $1 ثانیې شمېرنه، $2 $3 پاس."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 د $2 تحویلي سایټونه فعال شوي."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "د بندولو اختیارونه"
-  },
-  "scheduledHoursLabel": {
-    "message": "ټاکل شوي ساعتونه"
-  },
-  "scheduledHoursHint": {
-    "message": "یوازې د ورځني وخت کړکۍ کې بند کړئ."
   },
   "customizeBlocklistHeading": {
     "message": "د بلاک لیست تنظیم کړئ"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "رنګونه وروسته په ترتیباتو کې سم کولی شئ."
-  },
-  "welcomeDeliveryBody": {
-    "message": "د DoorDash او Uber Eats په څیر د رسولو پلیټ فارمونو کې د ځنډ سکرین اضافه کوي."
   },
   "welcomeImportBody": {
     "message": "له بل وسیلې راځئ؟ د هرڅه راوړلو لپاره د FitShield ترتیباتو فایل وارد کړئ. که نه نو دوام ورکړئ."

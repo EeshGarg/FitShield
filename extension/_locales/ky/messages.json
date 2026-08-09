@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Blocker куралдуу, бирок белгиленген сааттан тышкары. Ал $1 тарабынан бөгөттөлөт."
   },
-  "statusShieldUp": {
-    "message": "Калкан. $1 секундалык артка санак, $2 $3 өтүп кетти."
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 жеткирүү сайттарынын $1 иштетилди."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Бөгөттөө параметрлери"
-  },
-  "scheduledHoursLabel": {
-    "message": "Пландаштырылган сааттар"
-  },
-  "scheduledHoursHint": {
-    "message": "Күнүмдүк убакыт терезесинде гана бөгөттөө."
   },
   "customizeBlocklistHeading": {
     "message": "Блок тизмесин ыңгайлаштыруу"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Түстөрдү кийинчерээк Жөндөөлөрдөн так баптай аласыз."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash жана Uber Eats сыяктуу жеткирүү платформаларына тыныгуу экранын кошот."
   },
   "welcomeImportBody": {
     "message": "Башка түзмөктөн келдиңизби? Баарын көчүрүү үчүн FitShield жөндөөлөр файлын импорттоңуз. Болбосо улантыңыз."

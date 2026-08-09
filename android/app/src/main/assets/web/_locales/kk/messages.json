@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Блокатор қарулы, бірақ белгіленген уақыттан тыс. Ол $1 сайтынан блоктайды."
   },
-  "statusShieldUp": {
-    "message": "Қорғаңыз. $1 секунд кері санақ, $2 $3 өту."
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 жеткізу сайттарының $1 қосылды."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Блоктау опциялары"
-  },
-  "scheduledHoursLabel": {
-    "message": "Жоспарланған сағаттар"
-  },
-  "scheduledHoursHint": {
-    "message": "Тек күнделікті уақыт терезесінде блоктау."
   },
   "customizeBlocklistHeading": {
     "message": "Блоктар тізімін теңшеу"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Түстерді кейінірек Параметрлерде дәл баптауға болады."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash және Uber Eats сияқты жеткізу платформаларына үзіліс экранын қосады."
   },
   "welcomeImportBody": {
     "message": "Басқа құрылғыдан келдіңіз бе? Бәрін көшіру үшін FitShield параметрлер файлын импорттаңыз. Әйтпесе жалғастыра беріңіз."

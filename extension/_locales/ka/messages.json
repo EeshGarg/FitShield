@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "ბლოკერი შეიარაღებულია, მაგრამ დაგეგმილ საათებში. ის დაიბლოკება $1-დან."
   },
-  "statusShieldUp": {
-    "message": "დაიფარე. $1 წამის ათვლა, $2 $3 საშვი."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 $2 მიწოდების საიტებიდან ჩართულია."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "დაბლოკვის პარამეტრები"
-  },
-  "scheduledHoursLabel": {
-    "message": "დაგეგმილი საათები"
-  },
-  "scheduledHoursHint": {
-    "message": "დაბლოკვა მხოლოდ ყოველდღიური დროის ფანჯრის დროს."
   },
   "customizeBlocklistHeading": {
     "message": "დაბლოკვის სიის მორგება"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "ფერების დაზუსტება მოგვიანებით პარამეტრებში შეგიძლიათ."
-  },
-  "welcomeDeliveryBody": {
-    "message": "ამატებს პაუზის ეკრანს მიწოდების პლატფორმებზე, როგორიცაა DoorDash და Uber Eats."
   },
   "welcomeImportBody": {
     "message": "სხვა მოწყობილობიდან მოდიხართ? ყველაფრის გადასატანად შემოიტანეთ FitShield-ის პარამეტრების ფაილი. წინააღმდეგ შემთხვევაში უბრალოდ გააგრძელეთ."

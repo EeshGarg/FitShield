@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Blokator is armed, but outside rasporedd hours. It will blokiraj from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 stranice dostave enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Blokiranje Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Zakazani sati"
-  },
-  "scheduledHoursHint": {
-    "message": "Blokiraj only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Blokirajlist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Boje možete kasnije fino podesiti u Postavkama."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Dodaje zaslon pauze na platformama za dostavu poput DoorDasha i Uber Eatsa."
   },
   "welcomeImportBody": {
     "message": "Dolazite s drugog uređaja? Uvezite datoteku postavki FitShielda da prenesete sve. Inače samo nastavite."

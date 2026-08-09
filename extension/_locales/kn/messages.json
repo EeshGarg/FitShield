@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "ಬ್ಲಾಕರ್ ಶಸ್ತ್ರಸಜ್ಜಿತವಾಗಿದೆ, ಆದರೆ ನಿಗದಿತ ಸಮಯದ ಹೊರಗೆ. ಇದು $1 ನಿಂದ ನಿರ್ಬಂಧಿಸುತ್ತದೆ."
   },
-  "statusShieldUp": {
-    "message": "ಶೀಲ್ಡ್ ಅಪ್. $1 ಸೆಕೆಂಡುಗಳ ಕೌಂಟ್‌ಡೌನ್, $2 $3 ಪಾಸ್."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 ಆಫ್ $2 ಡೆಲಿವರಿ ಸೈಟ್‌ಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "ನಿರ್ಬಂಧಿಸುವ ಆಯ್ಕೆಗಳು"
-  },
-  "scheduledHoursLabel": {
-    "message": "ನಿಗದಿತ ಸಮಯ"
-  },
-  "scheduledHoursHint": {
-    "message": "ದೈನಂದಿನ ಸಮಯದ ವಿಂಡೋದಲ್ಲಿ ಮಾತ್ರ ನಿರ್ಬಂಧಿಸಿ."
   },
   "customizeBlocklistHeading": {
     "message": "ಬ್ಲಾಕ್‌ಲಿಸ್ಟ್ ಅನ್ನು ಕಸ್ಟಮೈಸ್ ಮಾಡಿ"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "ಬಣ್ಣಗಳನ್ನು ನಂತರ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಸೂಕ್ಷ್ಮವಾಗಿ ಹೊಂದಿಸಬಹುದು."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash ಮತ್ತು Uber Eats ನಂತಹ ಡೆಲಿವರಿ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್‌ಗಳಲ್ಲಿ ಒಂದು ವಿರಾಮ ಸ್ಕ್ರೀನ್ ಸೇರಿಸುತ್ತದೆ."
   },
   "welcomeImportBody": {
     "message": "ಬೇರೆ ಸಾಧನದಿಂದ ಬರುತ್ತಿದ್ದೀರಾ? ಎಲ್ಲವನ್ನೂ ತರಲು FitShield ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಫೈಲ್ ಆಮದು ಮಾಡಿ. ಇಲ್ಲದಿದ್ದರೆ ಮುಂದುವರಿಯಿರಿ."

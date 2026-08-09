@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "بلاکر مسلح ہے، لیکن مقررہ اوقات سے باہر ہے۔ یہ $1 سے بلاک ہو جائے گا۔"
   },
-  "statusShieldUp": {
-    "message": "ڈھال۔ $1 سیکنڈ الٹی گنتی، $2 $3 پاس۔"
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 ڈیلیوری سائٹس میں سے $1 کو فعال کر دیا گیا۔"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "بلاک کرنے کے اختیارات"
-  },
-  "scheduledHoursLabel": {
-    "message": "طے شدہ اوقات"
-  },
-  "scheduledHoursHint": {
-    "message": "صرف روزانہ ٹائم ونڈو کے دوران بلاک کریں۔"
   },
   "customizeBlocklistHeading": {
     "message": "بلاک لسٹ کو حسب ضرورت بنائیں"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "رنگوں کو بعد میں ترتیبات میں باریکی سے ایڈجسٹ کر سکتے ہیں۔"
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash اور Uber Eats جیسے ڈیلیوری پلیٹ فارمز پر ایک وقفہ اسکرین شامل کرتا ہے۔"
   },
   "welcomeImportBody": {
     "message": "کسی اور آلے سے آ رہے ہیں؟ سب کچھ لانے کے لیے FitShield کی ترتیبات فائل درآمد کریں۔ ورنہ بس جاری رکھیں۔"

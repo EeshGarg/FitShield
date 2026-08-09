@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Блоклогч нь зэвсэглэсэн боловч хуваарьт цагаас гадуур. Энэ нь $1-аас блоклох болно."
   },
-  "statusShieldUp": {
-    "message": "Хамгаалах. $1 секундын тоолол, $2 $3 дамжуулна."
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 хүргэх сайтуудын $1 идэвхжсэн."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Блоклох сонголтууд"
-  },
-  "scheduledHoursLabel": {
-    "message": "Хуваарьт цаг"
-  },
-  "scheduledHoursHint": {
-    "message": "Зөвхөн өдөр тутмын цонхны үеэр блокло."
   },
   "customizeBlocklistHeading": {
     "message": "Блоклох жагсаалтыг тохируулах"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Өнгийг дараа нь Тохиргооноос нарийн тохируулж болно."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash, Uber Eats зэрэг хүргэлтийн платформд завсарлагын дэлгэц нэмнэ."
   },
   "welcomeImportBody": {
     "message": "Өөр төхөөрөмжөөс ирж байна уу? Бүгдийг авчрахын тулд FitShield тохиргооны файлыг импортлоно уу. Үгүй бол үргэлжлүүлээрэй."

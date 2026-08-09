@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "ਬਲਾਕਰ ਤਿਆਰ ਹੈ, ਪਰ ਨਿਰਧਾਰਤ ਘੰਟਿਆਂ ਤੋਂ ਬਾਹਰ ਹੈ। ਇਹ $1 ਤੋਂ ਬਲਾਕ ਕਰੇਗਾ।"
   },
-  "statusShieldUp": {
-    "message": "ਸ਼ੀਲਡ ਚਾਲੂ ਹੈ। $1 ਸਕਿੰਟ ਦੀ ਉਲਟੀ ਗਿਣਤੀ, $2 $3 ਦਾ ਪਾਸ।"
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 ਵਿੱਚੋਂ $1 ਡਿਲਿਵਰੀ ਸਾਈਟਾਂ ਚਾਲੂ ਹਨ।"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "ਬਲਾਕਿੰਗ ਵਿਕਲਪ"
-  },
-  "scheduledHoursLabel": {
-    "message": "ਨਿਰਧਾਰਤ ਘੰਟੇ"
-  },
-  "scheduledHoursHint": {
-    "message": "ਕੇਵਲ ਰੋਜ਼ਾਨਾ ਸਮਾਂ-ਖਿੜਕੀ ਦੌਰਾਨ ਬਲਾਕ ਕਰੋ।"
   },
   "customizeBlocklistHeading": {
     "message": "ਬਲਾਕਲਿਸਟ ਅਨੁਕੂਲਿਤ ਕਰੋ"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "ਰੰਗ ਬਾਅਦ ਵਿੱਚ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਠੀਕ ਕਰ ਸਕਦੇ ਹੋ।"
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash ਅਤੇ Uber Eats ਵਰਗੇ ਡਿਲੀਵਰੀ ਪਲੇਟਫਾਰਮਾਂ ਉੱਤੇ ਇੱਕ ਪੌਜ਼ ਸਕ੍ਰੀਨ ਜੋੜਦਾ ਹੈ।"
   },
   "welcomeImportBody": {
     "message": "ਕਿਸੇ ਹੋਰ ਡਿਵਾਈਸ ਤੋਂ ਆ ਰਹੇ ਹੋ? ਸਭ ਕੁਝ ਲਿਆਉਣ ਲਈ FitShield ਸੈਟਿੰਗ ਫਾਈਲ ਆਯਾਤ ਕਰੋ। ਨਹੀਂ ਤਾਂ ਜਾਰੀ ਰੱਖੋ।"

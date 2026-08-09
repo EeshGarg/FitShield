@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Blocker được trang bị vũ khí, nhưng ngoài giờ dự kiến. Nó sẽ chặn $1."
   },
-  "statusShieldUp": {
-    "message": "Che chắn lại. $1 đếm ngược giây, $2 $3 vượt qua."
-  },
   "deliverySitesEnabledCount": {
     "message": "Đã bật $1 của các trang web phân phối $2."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Tùy chọn chặn"
-  },
-  "scheduledHoursLabel": {
-    "message": "Số giờ đã lên lịch"
-  },
-  "scheduledHoursHint": {
-    "message": "Chỉ chặn trong khoảng thời gian hàng ngày."
   },
   "customizeBlocklistHeading": {
     "message": "Tùy chỉnh danh sách chặn"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Bạn có thể tinh chỉnh màu sau trong Cài đặt."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Thêm màn hình tạm dừng trên các nền tảng giao hàng như DoorDash và Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Chuyển từ thiết bị khác? Nhập một tệp cài đặt FitShield để mang theo mọi thứ. Nếu không, cứ tiếp tục."

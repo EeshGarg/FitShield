@@ -139,8 +139,8 @@
     "description": "$1 is a time range."
   },
   "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass.",
-    "description": "$1 seconds, $2 minutes, $3 minute/minutes unit."
+    "message": "Shield up. $1-second pause, then the site stays open for $2 $3.",
+    "description": "$1 pause length in seconds, $2 how long the site stays open, $3 the localized minute/minutes unit for $2. Same wording as frictionSummary; 'pause' and 'stays open' are the words the rest of the UI uses."
   },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 delivery sites enabled.",
@@ -217,12 +217,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Blocking Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Scheduled hours"
-  },
-  "scheduledHoursHint": {
-    "message": "Block only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Blocklist"
@@ -718,12 +712,53 @@
   "exportSuccessNotice": {
     "message": "Settings exported."
   },
+  "exportErrorNotice": {
+    "message": "FitShield could not save the backup file. Check that downloads are allowed for this browser, then try again.",
+    "description": "Shown when WRITING a backup fails. Nothing the user chose was at fault and no file exists yet, so this must not blame the file."
+  },
   "importSuccessNotice": {
     "message": "Restored $1 settings from the backup.",
     "description": "$1 is the number of settings restored."
   },
+  "importCancelledNotice": {
+    "message": "Import cancelled. Nothing was changed.",
+    "description": "Shown when the user declines the import confirmation. Must make clear that no settings were touched."
+  },
+  "confirmImportBackup": {
+    "message": "Restore $1 settings from this file? They replace what is on this profile, and any active temporary pass and unanswered \"did you make it?\" prompt are cleared. This cannot be undone.",
+    "description": "$1 is the number of settings in the file. Confirmation before a destructive import; it must keep naming the two things that are also cleared."
+  },
   "importErrorNotice": {
-    "message": "That file isn't a valid FitShield backup."
+    "message": "That file isn't a valid FitShield backup.",
+    "description": "Last-resort import failure text. The backupError* strings below are preferred whenever the reason is known."
+  },
+  "backupErrorNotBackup": {
+    "message": "That file is not a FitShield backup.",
+    "description": "Import failure: the file parsed, but it is not a FitShield backup at all."
+  },
+  "backupErrorNewerFormat": {
+    "message": "That backup was written by a newer version of FitShield (format $1). Update FitShield, then import it.",
+    "description": "$1 is the backup's format number. The file IS valid — do not translate this as if the backup were broken, or the user may delete their only copy."
+  },
+  "backupErrorNoSettings": {
+    "message": "That backup contains no FitShield settings.",
+    "description": "Import failure: the file is a backup in shape but carries none of the settings FitShield restores."
+  },
+  "backupErrorEmptyFile": {
+    "message": "That file is empty.",
+    "description": "Import failure: the chosen file has no contents."
+  },
+  "backupErrorTooLarge": {
+    "message": "That file is too large to be a FitShield backup ($1 KB; the limit is $2 KB).",
+    "description": "$1 is the file's size in KB, $2 the limit in KB. KB is the unit symbol."
+  },
+  "backupErrorInvalidJson": {
+    "message": "That file isn't valid JSON.",
+    "description": "Import failure: the file could not be parsed. JSON is a format name and stays untranslated."
+  },
+  "backupErrorValidatorMissing": {
+    "message": "FitShield could not validate that backup. Reload the page and try again.",
+    "description": "Import failure inside FitShield rather than in the file: the shared validator was not available, so the import stopped instead of restoring unchecked settings."
   },
   "reorderCardLabel": {
     "message": "Reorder card: $1. Use arrow keys to move it.",
@@ -890,7 +925,8 @@
     "message": "You can fine-tune colors later in Settings."
   },
   "welcomeDeliveryBody": {
-    "message": "Adds a pause screen on delivery platforms like DoorDash and Uber Eats."
+    "message": "A short pause screen replaces the ordering page, with something you could make instead.",
+    "description": "Body text under the onboarding question 'What should FitShield interrupt?'. Covers every answer (delivery and fast food), so it must not name one kind of site."
   },
   "welcomeImportBody": {
     "message": "Coming from another device? Import a FitShield settings file to bring everything over. Otherwise just continue."
@@ -1545,5 +1581,78 @@
   },
   "onboardingAdvancedNote": {
     "message": "Everything else — countries, categories, individual sites, your kitchen, and your own alternatives — is in settings whenever you want it."
+  },
+  "diagTitle": {
+    "message": "FitShield Diagnostics",
+    "description": "Diagnostics page. Title bar and main heading. 'FitShield' is the product name and stays as-is."
+  },
+  "diagSubtitle": {
+    "message": "Live view of the extension runtime. If blocking isn't working, the answer is here."
+  },
+  "diagRuntimeHeading": {
+    "message": "Runtime",
+    "description": "Section heading: what the extension itself is doing right now."
+  },
+  "diagManifestLabel": {
+    "message": "Manifest",
+    "description": "Row label. The value beside it is the extension name and version."
+  },
+  "diagServiceWorkerLabel": {
+    "message": "Service worker",
+    "description": "Row label. The background process that decides what to block."
+  },
+  "diagEngineLabel": {
+    "message": "FS Engine bundle",
+    "description": "Row label. 'FS Engine' is a component name and stays untranslated."
+  },
+  "diagBlockPageUrlLabel": {
+    "message": "Block page URL",
+    "description": "Row label. The address of the page shown in place of a blocked site."
+  },
+  "diagBlocklistHeading": {
+    "message": "Blocklist & rules",
+    "description": "Section heading."
+  },
+  "diagBrandsLabel": {
+    "message": "Brands loaded",
+    "description": "Row label. How many brands the blocklist data holds."
+  },
+  "diagBucketsLabel": {
+    "message": "Delivery / fast-food",
+    "description": "Row label. The value is two counts separated by a slash, in this order."
+  },
+  "diagRulesLabel": {
+    "message": "Live redirect rules (Chrome)",
+    "description": "Row label. Chrome-only; 'Chrome' is a browser name and stays untranslated."
+  },
+  "diagLastDecisionLabel": {
+    "message": "Last blocking decision"
+  },
+  "diagLastErrorLabel": {
+    "message": "Last error"
+  },
+  "diagTestHeading": {
+    "message": "Test a domain",
+    "description": "Section heading for the check-one-domain tool."
+  },
+  "diagDomainLabel": {
+    "message": "Domain to check",
+    "description": "Accessible name for the domain input. It is a name, not an instruction."
+  },
+  "diagDomainPlaceholder": {
+    "message": "e.g. order.doordash.com",
+    "description": "Placeholder text. The domain is an example and must stay exactly as written; translate only the 'e.g.' abbreviation."
+  },
+  "diagCheckButton": {
+    "message": "Check",
+    "description": "Button that runs the typed domain through the engine."
+  },
+  "diagTestNote": {
+    "message": "Runs the domain through the engine — no navigation, nothing stored.",
+    "description": "Reassurance under the domain test: checking a domain neither opens it nor records it."
+  },
+  "diagRefreshButton": {
+    "message": "Refresh",
+    "description": "Button that re-reads every value on the diagnostics page."
   }
 }

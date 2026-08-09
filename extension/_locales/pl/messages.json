@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Blokada is armed, but outside harmonogramd hours. It will blokuj from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 strony dostaw enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Blokowanie Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Zaplanowane godziny"
-  },
-  "scheduledHoursHint": {
-    "message": "Blokuj only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Blokujlist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Kolory dostroisz później w Ustawieniach."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Dodaje ekran pauzy na platformach dostaw, takich jak DoorDash i Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Przechodzisz z innego urządzenia? Zaimportuj plik ustawień FitShield, aby przenieść wszystko. W przeciwnym razie po prostu kontynuuj."

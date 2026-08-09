@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Estäjä is armed, but outside aikataulud hours. It will estä from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 toimitussivustot enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Estäminen Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Ajoitetut tunnit"
-  },
-  "scheduledHoursHint": {
-    "message": "Estä only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Estälist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Voit hienosäätää värejä myöhemmin Asetuksissa."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Lisää taukonäytön toimitusalustoille, kuten DoorDash ja Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Tuletko toiselta laitteelta? Tuo FitShield-asetustiedosto siirtääksesi kaiken. Muuten vain jatka."

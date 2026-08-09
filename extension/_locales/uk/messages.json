@@ -74,9 +74,6 @@
   "popupCustomLabel": {
     "message": "Користувацькі URL"
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "warningBackButton": {
     "message": "Назад"
   },
@@ -85,9 +82,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Блокування Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Заплановані години"
   },
   "customizeBlocklistHeading": {
     "message": "Customize Блокуватиlist"
@@ -595,9 +589,6 @@
   },
   "welcomeThemeBody": {
     "message": "Кольори можна налаштувати пізніше в налаштуваннях."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Додає екран паузи на платформах доставки на кшталт DoorDash і Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Переходите з іншого пристрою? Імпортуйте файл налаштувань FitShield, щоб перенести все. Інакше просто продовжуйте."

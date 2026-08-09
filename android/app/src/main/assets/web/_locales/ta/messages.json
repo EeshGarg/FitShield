@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "தடுப்பான் தயாராக உள்ளது, ஆனால் அட்டவணையிட்ட நேரத்திற்கு வெளியே உள்ளது. இது $1 முதல் தடுக்கத் தொடங்கும்."
   },
-  "statusShieldUp": {
-    "message": "கவசம் இயக்கத்தில் உள்ளது. $1 வினாடி கவுண்ட்டவுன், $2 $3 பாஸ்."
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 டெலிவரி தளங்களில் $1 இயக்கப்பட்டுள்ளது."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "தடை விருப்பங்கள்"
-  },
-  "scheduledHoursLabel": {
-    "message": "அட்டவணையிட்ட நேரங்கள்"
-  },
-  "scheduledHoursHint": {
-    "message": "தினசரி நேர சாளரத்தில் மட்டும் தடுக்கவும்."
   },
   "customizeBlocklistHeading": {
     "message": "தடைப்பட்டியலைத் தனிப்பயனாக்கு"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "நிறங்களை பின்னர் அமைப்புகளில் சரிசெய்யலாம்."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash மற்றும் Uber Eats போன்ற டெலிவரி தளங்களில் ஒரு இடைநிறுத்தத் திரையைச் சேர்க்கிறது."
   },
   "welcomeImportBody": {
     "message": "வேறு சாதனத்திலிருந்து வருகிறீர்களா? எல்லாவற்றையும் கொண்டுவர FitShield அமைப்புக் கோப்பை இறக்குமதி செய்யுங்கள். இல்லையெனில் தொடருங்கள்."

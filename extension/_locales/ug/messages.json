@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "توسقۇچى قوراللانغان ، ئەمما پىلانلانغان ۋاقىت سىرتىدا. ئۇ $1 نى توسىدۇ."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 سېكۇنت ھېسابلاش ، $2 $3 ئۆتۈش."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 $2 يەتكۈزۈش تور بېكەتلىرى قوزغىتىلدى."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "چەكلەش تاللانمىلىرى"
-  },
-  "scheduledHoursLabel": {
-    "message": "ۋاقىت جەدۋىلى"
-  },
-  "scheduledHoursHint": {
-    "message": "پەقەت كۈندىلىك ۋاقىت كۆزنىكىدىلا چەكلەڭ."
   },
   "customizeBlocklistHeading": {
     "message": "چەكلەش تىزىملىكىنى ئىختىيارىي قىلىڭ"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "رەڭلەرنى كېيىن تەڭشەكتە نازۇك تەڭشىيەلەيسىز."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash ۋە Uber Eats دەك يەتكۈزۈش سۇپىلىرىغا ئارام ئېكرانى قوشىدۇ."
   },
   "welcomeImportBody": {
     "message": "باشقا ئۈسكۈنىدىن كېلىۋاتامسىز؟ ھەممىنى ئېلىپ كېلىش ئۈچۈن FitShield تەڭشەك ھۆججىتىنى ئەكىرىڭ. بولمىسا داۋاملاشتۇرۇڭ."

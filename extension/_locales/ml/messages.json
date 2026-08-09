@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "ബ്ലോക്കർ സായുധനാണ്, എന്നാൽ ഷെഡ്യൂൾ ചെയ്ത സമയത്തിന് പുറത്ത്. ഇത് $1-ൽ നിന്ന് തടയും."
   },
-  "statusShieldUp": {
-    "message": "കവചം. $1 സെക്കൻഡ് കൗണ്ട്ഡൗൺ, $2 $3 പാസ്."
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 ഡെലിവറി സൈറ്റുകളുടെ $1 പ്രവർത്തനക്ഷമമാക്കി."
   },
@@ -151,12 +148,6 @@
   },
   "blockingOptionsHeading": {
     "message": "തടയൽ ഓപ്ഷനുകൾ"
-  },
-  "scheduledHoursLabel": {
-    "message": "ഷെഡ്യൂൾ ചെയ്ത സമയം"
-  },
-  "scheduledHoursHint": {
-    "message": "ദൈനംദിന സമയ വിൻഡോയിൽ മാത്രം തടയുക."
   },
   "customizeBlocklistHeading": {
     "message": "ബ്ലോക്ക്‌ലിസ്റ്റ് ഇഷ്ടാനുസൃതമാക്കുക"
@@ -745,9 +736,6 @@
   },
   "welcomeThemeBody": {
     "message": "നിറങ്ങൾ പിന്നീട് സജ്ജീകരണങ്ങളിൽ സൂക്ഷ്മമായി ക്രമീകരിക്കാം."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash, Uber Eats പോലുള്ള ഡെലിവറി പ്ലാറ്റ്‌ഫോമുകളിൽ ഒരു വിരാമ സ്ക്രീൻ ചേർക്കുന്നു."
   },
   "welcomeImportBody": {
     "message": "മറ്റൊരു ഉപകരണത്തിൽ നിന്ന് വരുന്നോ? എല്ലാം കൊണ്ടുവരാൻ ഒരു FitShield സജ്ജീകരണ ഫയൽ ഇറക്കുമതി ചെയ്യുക. അല്ലെങ്കിൽ തുടരുക."

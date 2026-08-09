@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Le bloqueur est prêt, mais hors des heures programmées. Il bloquera à partir de $1."
   },
-  "statusShieldUp": {
-    "message": "Bouclier activé. Compte à rebours de $1 secondes, pass de $2 $3."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 sur $2 sites de livraison activés."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Options de blocage"
-  },
-  "scheduledHoursLabel": {
-    "message": "Heures programmées"
-  },
-  "scheduledHoursHint": {
-    "message": "Bloquer uniquement pendant une plage horaire quotidienne."
   },
   "customizeBlocklistHeading": {
     "message": "Personnaliser la liste de blocage"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Vous pourrez ajuster les couleurs plus tard dans les Paramètres."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Ajoute un écran de pause sur les plateformes de livraison comme DoorDash et Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Vous venez d'un autre appareil ? Importez un fichier de réglages FitShield pour tout récupérer. Sinon, continuez simplement."

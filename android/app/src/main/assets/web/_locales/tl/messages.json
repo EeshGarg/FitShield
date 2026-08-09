@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Ang blocker ay armado, ngunit sa labas ng naka-iskedyul na oras. Haharangan ito mula sa $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 segundo countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 ng $2 na mga site ng paghahatid ay pinagana."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Mga Opsyon sa Pag-block"
-  },
-  "scheduledHoursLabel": {
-    "message": "Mga nakaiskedyul na oras"
-  },
-  "scheduledHoursHint": {
-    "message": "I-block lang sa panahon ng araw-araw na window ng oras."
   },
   "customizeBlocklistHeading": {
     "message": "I-customize ang Blocklist"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Maaari mong i-fine-tune ang mga kulay mamaya sa Mga Setting."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Nagdadagdag ng pause screen sa mga delivery platform tulad ng DoorDash at Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Galing ka sa ibang device? Mag-import ng FitShield settings file para dalhin lahat. Kung hindi, magpatuloy lang."

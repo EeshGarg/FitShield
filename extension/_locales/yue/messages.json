@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "封鎖器已準備好，但而家唔喺排程時間內。會由 $1 開始封鎖。"
   },
-  "statusShieldUp": {
-    "message": "防護已啟動。倒數 $1 秒，通行證 $2 $3。"
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 個外賣網站中已啟用 $1 個。"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "封鎖選項"
-  },
-  "scheduledHoursLabel": {
-    "message": "排程時間"
-  },
-  "scheduledHoursHint": {
-    "message": "只喺每日某段時間內封鎖。"
   },
   "customizeBlocklistHeading": {
     "message": "自訂封鎖清單"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "遲啲可以喺設定度微調顏色。"
-  },
-  "welcomeDeliveryBody": {
-    "message": "喺 DoorDash、Uber Eats 等外賣平台加個暫停頁面。"
   },
   "welcomeImportBody": {
     "message": "由另一部機過嚟？匯入 FitShield 設定檔就可以帶埋所有嘢。如果唔係就繼續。"

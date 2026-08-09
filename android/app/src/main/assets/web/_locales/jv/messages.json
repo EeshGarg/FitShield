@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Blocker bersenjata, nanging ing njaba jam sing dijadwalake. Iku bakal mblokir saka $1."
   },
-  "statusShieldUp": {
-    "message": "Tameng munggah. $1 detik countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 saka $2 situs pangiriman diaktifake."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Pilihan pamblokiran"
-  },
-  "scheduledHoursLabel": {
-    "message": "Jam sing dijadwalake"
-  },
-  "scheduledHoursHint": {
-    "message": "Blokir mung sajrone jendela wektu saben dina."
   },
   "customizeBlocklistHeading": {
     "message": "Kustomisasi Blocklist"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Sampeyan bisa nyetel werna mengko ing Setelan."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Nambahake layar jeda ing platform pangiriman kaya DoorDash lan Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Pindhah saka piranti liya? Impor file setelan FitShield kanggo nggawa kabeh. Yen ora, terusake wae."

@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "អ្នកទប់ស្កាត់មានប្រដាប់អាវុធ ប៉ុន្តែនៅខាងក្រៅម៉ោងដែលបានកំណត់។ វានឹងរារាំងពី $1 ។"
   },
-  "statusShieldUp": {
-    "message": "ការពារ។ $1 រាប់វិនាទី $2 $3 ឆ្លងផុត។"
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 នៃគេហទំព័រចែកចាយ $2 ត្រូវបានបើក។"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "ជម្រើសទប់ស្កាត់"
-  },
-  "scheduledHoursLabel": {
-    "message": "ម៉ោងដែលបានកំណត់"
-  },
-  "scheduledHoursHint": {
-    "message": "ទប់ស្កាត់តែក្នុងអំឡុងពេលបង្អួចម៉ោងប្រចាំថ្ងៃប៉ុណ្ណោះ។"
   },
   "customizeBlocklistHeading": {
     "message": "ប្ដូរបញ្ជីប្លុកតាមបំណង"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "អ្នកអាចកែសម្រួលពណ៌ពេលក្រោយក្នុងការកំណត់។"
-  },
-  "welcomeDeliveryBody": {
-    "message": "បន្ថែមអេក្រង់ផ្អាកនៅលើវេទិកាដឹកជញ្ជូនដូចជា DoorDash និង Uber Eats។"
   },
   "welcomeImportBody": {
     "message": "មកពីឧបករណ៍ផ្សេងឬ? នាំចូលឯកសារការកំណត់ FitShield ដើម្បីយកអ្វីៗទាំងអស់មក។ បើមិនដូច្នេះទេ គ្រាន់តែបន្ត។"

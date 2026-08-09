@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Blokeatzailea is armed, but outside ordutegiad hours. It will blokeatu from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 banaketa guneak enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Blokeoa Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Programatutako orduak"
-  },
-  "scheduledHoursHint": {
-    "message": "Blokeatu only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Blokeatulist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Koloreak geroago doi ditzakezu Ezarpenetan."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Etenaldi-pantaila bat gehitzen du DoorDash eta Uber Eats bezalako banaketa-plataformetan."
   },
   "welcomeImportBody": {
     "message": "Beste gailu batetik zatoz? Inportatu FitShield ezarpen-fitxategi bat dena ekartzeko. Bestela, jarraitu besterik gabe."

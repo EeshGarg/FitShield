@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Blokátor is armed, but outside plánd hours. It will blokovať from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 doručovacie stránky enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Blokovanie Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Naplánované hodiny"
-  },
-  "scheduledHoursHint": {
-    "message": "Blokovať only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Blokovaťlist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Farby môžete doladiť neskôr v Nastaveniach."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Pridá pauzovaciu obrazovku na donáškové platformy ako DoorDash a Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Prechádzate z iného zariadenia? Naimportujte súbor nastavení FitShieldu a preneste všetko. Inak jednoducho pokračujte."

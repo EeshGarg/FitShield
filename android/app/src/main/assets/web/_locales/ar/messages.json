@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "مانع مسلح، ولكن خارج الساعات المقررة. سيتم حظره من $1."
   },
-  "statusShieldUp": {
-    "message": "درع يصل. $1 العد التنازلي للثواني، تمرير $2 $3."
-  },
   "deliverySitesEnabledCount": {
     "message": "تم تمكين $1 لمواقع التسليم $2."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "خيارات الحظر"
-  },
-  "scheduledHoursLabel": {
-    "message": "الساعات المقررة"
-  },
-  "scheduledHoursHint": {
-    "message": "الحظر فقط خلال نافذة زمنية يومية."
   },
   "customizeBlocklistHeading": {
     "message": "تخصيص قائمة الحظر"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "يمكنك ضبط الألوان لاحقًا في الإعدادات."
-  },
-  "welcomeDeliveryBody": {
-    "message": "يضيف شاشة توقّف على منصات التوصيل مثل DoorDash و Uber Eats."
   },
   "welcomeImportBody": {
     "message": "قادم من جهاز آخر؟ استورد ملف إعدادات FitShield لنقل كل شيء. وإلا فتابع فحسب."

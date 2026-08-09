@@ -137,9 +137,6 @@
   "searchMatchSuffix": {
     "message": " $1 inalingana na utaftaji."
   },
-  "statusShieldUp": {
-    "message": "Jilinde. $1 kuhesabu sekunde, $2 $3 kupita."
-  },
   "warningPageTitle": {
     "message": "Vuta Pumzi"
   },
@@ -152,17 +149,11 @@
   "warningErrorHint": {
     "message": "Hitilafu fulani imetokea wakati wa kufungua tovuti. Tafadhali jaribu tena."
   },
-  "scheduledHoursHint": {
-    "message": "Zuia tu wakati wa dirisha la kila siku."
-  },
   "customizeBlocklistHeading": {
     "message": "Customize Blocklist"
   },
   "blockingOptionsHeading": {
     "message": "Chaguzi za Kuzuia"
-  },
-  "scheduledHoursLabel": {
-    "message": "Saa zilizopangwa"
   },
   "customUrlsHeading": {
     "message": "URL maalum"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Unaweza kurekebisha rangi baadaye katika Mipangilio."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Huongeza skrini ya pumziko kwenye majukwaa ya uwasilishaji kama DoorDash na Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Unatoka kwenye kifaa kingine? Leta faili ya mipangilio ya FitShield ili kuhamisha kila kitu. Vinginevyo endelea tu."

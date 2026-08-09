@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Blocker мусаллаҳ аст, аммо берун аз соатҳои муқарраршуда. Он аз $1 баста мешавад."
   },
-  "statusShieldUp": {
-    "message": "Сипар кунед. $1 сонияҳои ҳисоб, $2 $3 мегузарад."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 аз сайтҳои интиқоли $2 фаъол карда шудааст."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Имконоти басташавӣ"
-  },
-  "scheduledHoursLabel": {
-    "message": "Соатҳои ба нақша гирифташуда"
-  },
-  "scheduledHoursHint": {
-    "message": "Танҳо дар давоми равзанаи вақти ҳаррӯза блок кунед."
   },
   "customizeBlocklistHeading": {
     "message": "Рӯйхати блокҳоро танзим кунед"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Рангҳоро баъдтар дар Танзимот танзим карда метавонед."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Дар платформаҳои расонидан мисли DoorDash ва Uber Eats экрани таваққуф илова мекунад."
   },
   "welcomeImportBody": {
     "message": "Аз дастгоҳи дигар меоед? Барои интиқоли ҳама чиз файли танзимоти FitShield-ро ворид кунед. Вагарна танҳо идома диҳед."

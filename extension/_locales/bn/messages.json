@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "ব্লকার সশস্ত্র, কিন্তু নির্ধারিত সময়ের বাইরে। এটি $1 থেকে ব্লক করবে।"
   },
-  "statusShieldUp": {
-    "message": "ঝাল আপ. $1 সেকেন্ডের কাউন্টডাউন, $2 $3 পাস।"
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 ডেলিভারি সাইটগুলির মধ্যে $1 সক্ষম৷"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "ব্লকিং অপশন"
-  },
-  "scheduledHoursLabel": {
-    "message": "নির্ধারিত সময়"
-  },
-  "scheduledHoursHint": {
-    "message": "শুধুমাত্র একটি দৈনিক সময় উইন্ডোর সময় ব্লক করুন."
   },
   "customizeBlocklistHeading": {
     "message": "ব্লকলিস্ট কাস্টমাইজ করুন"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "রং পরে সেটিংসে সূক্ষ্মভাবে ঠিক করতে পারেন।"
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash ও Uber Eats-এর মতো ডেলিভারি প্ল্যাটফর্মে একটি বিরতি স্ক্রিন যোগ করে।"
   },
   "welcomeImportBody": {
     "message": "অন্য ডিভাইস থেকে আসছেন? সবকিছু আনতে একটি FitShield সেটিংস ফাইল ইম্পোর্ট করুন। নয়তো এগিয়ে যান।"

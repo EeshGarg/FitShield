@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Blokkering is armed, but outside tidspland hours. It will blokker from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 leveringssider enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Blokkering Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Planlagte timer"
-  },
-  "scheduledHoursHint": {
-    "message": "Blokker only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Blokkerlist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Du kan finjustere fargene senere i Innstillinger."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Legger til en pauseskjerm på leveringsplattformer som DoorDash og Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Kommer du fra en annen enhet? Importer en FitShield-innstillingsfil for å ta med alt. Ellers er det bare å fortsette."

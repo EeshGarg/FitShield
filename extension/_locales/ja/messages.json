@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "ブロッカーは待機中ですが、指定時間外です。$1 にブロックを開始します。"
   },
-  "statusShieldUp": {
-    "message": "シールド作動中。カウントダウン $1 秒、パス $2 $3。"
-  },
   "deliverySitesEnabledCount": {
     "message": "デリバリーサイト $2 件中 $1 件が有効です。"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "ブロック設定"
-  },
-  "scheduledHoursLabel": {
-    "message": "スケジュール時間"
-  },
-  "scheduledHoursHint": {
-    "message": "毎日の指定した時間帯のみブロックします。"
   },
   "customizeBlocklistHeading": {
     "message": "ブロックリストのカスタマイズ"
@@ -757,9 +748,6 @@
   },
   "welcomeThemeBody": {
     "message": "色は後で設定で細かく調整できます。"
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash や Uber Eats などのデリバリーサービスに一時停止画面を追加します。"
   },
   "welcomeImportBody": {
     "message": "別の端末から移行しますか？FitShield の設定ファイルをインポートすると、すべて引き継げます。そうでなければそのまま続けてください。"

@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Blockeraerare is armed, but outside schemad hours. It will blockera from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 leveranssidor enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Blockeraerareing Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Schemalagda timmar"
-  },
-  "scheduledHoursHint": {
-    "message": "Blockera only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Blockeralist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Du kan finjustera färgerna senare i Inställningar."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Lägger till en pausskärm på leveransplattformar som DoorDash och Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Kommer du från en annan enhet? Importera en FitShield-inställningsfil för att ta med allt. Annars är det bara att fortsätta."

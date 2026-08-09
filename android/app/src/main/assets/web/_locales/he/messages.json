@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "החוסם חמוש, אך מחוץ לשעות המתוכננות. זה יחסום מ-$1."
   },
-  "statusShieldUp": {
-    "message": "מגן למעלה. $1 שניות ספירה לאחור, $2 $3 עוברים."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 של אתרי משלוח $2 מופעלים."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "אפשרויות חסימה"
-  },
-  "scheduledHoursLabel": {
-    "message": "שעות מתוזמנות"
-  },
-  "scheduledHoursHint": {
-    "message": "חסום רק במהלך חלון זמן יומי."
   },
   "customizeBlocklistHeading": {
     "message": "התאם אישית את רשימת החסימות"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "אפשר לכוונן צבעים מאוחר יותר בהגדרות."
-  },
-  "welcomeDeliveryBody": {
-    "message": "מוסיף מסך השהיה בפלטפורמות משלוחים כמו DoorDash ו-Uber Eats."
   },
   "welcomeImportBody": {
     "message": "מגיע ממכשיר אחר? ייבא קובץ הגדרות של FitShield כדי להעביר הכול. אחרת פשוט המשך."

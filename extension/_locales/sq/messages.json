@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Bllokuesi is armed, but outside orarid hours. It will blloko from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 faqe dërgese enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Bllokimi Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Orë të planifikuara"
-  },
-  "scheduledHoursHint": {
-    "message": "Blloko only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Bllokolist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Ngjyrat mund t'i rregulloni më vonë te Cilësimet."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Shton një ekran pauze në platformat e dorëzimit si DoorDash dhe Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Po vini nga një pajisje tjetër? Importoni një skedar cilësimesh të FitShield për të sjellë gjithçka. Përndryshe thjesht vazhdoni."

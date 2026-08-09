@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Bloker qurollangan, ammo belgilangan soatlardan tashqarida. U $1 dan bloklanadi."
   },
-  "statusShieldUp": {
-    "message": "Himoya qiling. $1 soniyalarni ortga hisoblash, $2 $3 o'tadi."
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 yetkazib berish saytlarining $1 yoqilgan."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Bloklash opsiyalari"
-  },
-  "scheduledHoursLabel": {
-    "message": "Rejalashtirilgan soatlar"
-  },
-  "scheduledHoursHint": {
-    "message": "Faqat kundalik vaqt oynasida blokirovka qiling."
   },
   "customizeBlocklistHeading": {
     "message": "Bloklash roʻyxatini moslashtiring"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Ranglarni keyinroq Sozlamalarda aniq sozlashingiz mumkin."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash va Uber Eats kabi yetkazib berish platformalariga pauza ekranini qo'shadi."
   },
   "welcomeImportBody": {
     "message": "Boshqa qurilmadan kelyapsizmi? Hammasini ko'chirish uchun FitShield sozlamalar faylini import qiling. Aks holda davom eting."

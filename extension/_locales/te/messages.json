@@ -122,9 +122,6 @@
   "statusOutsideSchedule": {
     "message": "బ్లాకర్ ఆయుధాలు కలిగి ఉన్నాడు, కానీ షెడ్యూల్ చేసిన సమయాల వెలుపల. ఇది $1 నుండి బ్లాక్ చేయబడుతుంది."
   },
-  "statusShieldUp": {
-    "message": "రక్షణ కవచం. $1 సెకన్ల కౌంట్‌డౌన్, $2 $3 పాస్."
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 డెలివరీ సైట్‌లలో $1 ప్రారంభించబడింది."
   },
@@ -148,12 +145,6 @@
   },
   "blockingOptionsHeading": {
     "message": "నిరోధించే ఎంపికలు"
-  },
-  "scheduledHoursLabel": {
-    "message": "షెడ్యూల్ చేయబడిన గంటలు"
-  },
-  "scheduledHoursHint": {
-    "message": "రోజువారీ సమయ విండోలో మాత్రమే బ్లాక్ చేయండి."
   },
   "customizeBlocklistHeading": {
     "message": "బ్లాక్‌లిస్ట్‌ని అనుకూలీకరించండి"
@@ -742,9 +733,6 @@
   },
   "welcomeThemeBody": {
     "message": "రంగులను తర్వాత సెట్టింగ్‌లలో సరిచేయవచ్చు."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash, Uber Eats వంటి డెలివరీ ప్లాట్‌ఫారమ్‌లలో ఒక పాజ్ స్క్రీన్‌ను జోడిస్తుంది."
   },
   "welcomeImportBody": {
     "message": "మరో పరికరం నుండి వస్తున్నారా? అంతా తీసుకురావడానికి FitShield సెట్టింగ్‌ల ఫైల్‌ను దిగుమతి చేయండి. లేకుంటే కొనసాగండి."

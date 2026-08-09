@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Rhwystrydd is armed, but outside amserlend hours. It will rhwystro from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 gwefannau danfon enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Rhwystro Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Oriau wedi'u hamserlennu"
-  },
-  "scheduledHoursHint": {
-    "message": "Rhwystro only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Rhwystrolist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Gallwch fireinio'r lliwiau yn nes ymlaen yn y Gosodiadau."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Yn ychwanegu sgrin saib ar lwyfannau danfon fel DoorDash ac Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Yn dod o ddyfais arall? Mewnforiwch ffeil gosodiadau FitShield i ddod â phopeth drosodd. Fel arall, parhewch."

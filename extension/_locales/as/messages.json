@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "ব্লকাৰ অস্ত্ৰধাৰী, কিন্তু নিৰ্ধাৰিত সময়ৰ বাহিৰত। ই $1 ৰ পৰা ব্লক কৰিব।"
   },
-  "statusShieldUp": {
-    "message": "শ্বিল্ড আপ। $1 ছেকেণ্ডৰ কাউণ্টডাউন, $2 $3 পাছ।"
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 ৰ $2 ডেলিভাৰী চাইটসমূহ সামৰ্থবান কৰা হৈছে।"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "ব্লক কৰা বিকল্পসমূহ"
-  },
-  "scheduledHoursLabel": {
-    "message": "নিৰ্ধাৰিত সময়"
-  },
-  "scheduledHoursHint": {
-    "message": "কেৱল দৈনিক সময়ৰ উইণ্ড’ৰ সময়ত ব্লক কৰক।"
   },
   "customizeBlocklistHeading": {
     "message": "ব্লকলিষ্ট কাষ্টমাইজ কৰক"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "ৰংবোৰ পিছত ছেটিংছত সূক্ষ্মভাৱে মিলাব পাৰি।"
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash আৰু Uber Eats-ৰ দৰে ডেলিভাৰী প্লেটফৰ্মত এটা বিৰতি স্ক্ৰীন যোগ কৰে।"
   },
   "welcomeImportBody": {
     "message": "আন এটা ডিভাইচৰ পৰা আহিছেনে? সকলো আনিবলৈ এটা FitShield ছেটিং ফাইল ইম্পৰ্ট কৰক। নহ’লে আগবাঢ়ক।"

@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "अवरोधक सशस्त्र छ, तर निर्धारित समय भन्दा बाहिर। यो $1 बाट रोकिनेछ।"
   },
-  "statusShieldUp": {
-    "message": "ढाल गर्नुहोस्। $1 सेकेन्ड काउन्टडाउन, $2 $3 पास।"
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 डेलिभरी साइटहरूको $1 सक्षम गरियो।"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "अवरुद्ध विकल्पहरू"
-  },
-  "scheduledHoursLabel": {
-    "message": "अनुसूचित घण्टा"
-  },
-  "scheduledHoursHint": {
-    "message": "दैनिक समय विन्डोको समयमा मात्र ब्लक गर्नुहोस्।"
   },
   "customizeBlocklistHeading": {
     "message": "ब्लकलिस्ट अनुकूलित गर्नुहोस्"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "रङहरू पछि सेटिङमा मिलाउन सक्नुहुन्छ।"
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash र Uber Eats जस्ता डेलिभरी प्लेटफर्ममा एउटा रोकाइ स्क्रिन थप्छ।"
   },
   "welcomeImportBody": {
     "message": "अर्को उपकरणबाट आउँदै हुनुहुन्छ? सबै ल्याउन FitShield सेटिङ फाइल आयात गर्नुहोस्। अन्यथा जारी राख्नुहोस्।"

@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "ब्लॉकर तैयार है, लेकिन निर्धारित घंटों के बाहर है। यह $1 से ब्लॉक करेगा।"
   },
-  "statusShieldUp": {
-    "message": "शील्ड चालू। $1 सेकंड की उलटी गिनती, $2 $3 का पास।"
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 में से $1 डिलीवरी साइटें सक्षम हैं।"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "ब्लॉकिंग विकल्प"
-  },
-  "scheduledHoursLabel": {
-    "message": "निर्धारित घंटे"
-  },
-  "scheduledHoursHint": {
-    "message": "केवल प्रतिदिन के एक समय-विंडो में ब्लॉक करें।"
   },
   "customizeBlocklistHeading": {
     "message": "ब्लॉकलिस्ट अनुकूलित करें"
@@ -757,9 +748,6 @@
   },
   "welcomeThemeBody": {
     "message": "रंग बाद में सेटिंग्स में बारीकी से ठीक कर सकते हैं।"
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash और Uber Eats जैसी डिलीवरी प्लेटफ़ॉर्म पर एक पॉज़ स्क्रीन जोड़ता है।"
   },
   "welcomeImportBody": {
     "message": "दूसरे डिवाइस से आ रहे हैं? सब कुछ लाने के लिए FitShield सेटिंग्स फ़ाइल आयात करें। नहीं तो बस जारी रखें।"

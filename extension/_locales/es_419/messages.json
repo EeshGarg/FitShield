@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "El bloqueador está listo, pero fuera del horario programado. Bloqueará a partir de $1."
   },
-  "statusShieldUp": {
-    "message": "Escudo activado. Cuenta regresiva de $1 segundos, pase de $2 $3."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 de $2 sitios de entrega activados."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Opciones de bloqueo"
-  },
-  "scheduledHoursLabel": {
-    "message": "Horario programado"
-  },
-  "scheduledHoursHint": {
-    "message": "Bloquear solo durante una franja horaria diaria."
   },
   "customizeBlocklistHeading": {
     "message": "Personalizar lista de bloqueo"
@@ -757,9 +748,6 @@
   },
   "welcomeThemeBody": {
     "message": "Puedes ajustar los colores más tarde en Ajustes."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Añade una pantalla de pausa en plataformas de entrega como DoorDash y Uber Eats."
   },
   "welcomeImportBody": {
     "message": "¿Vienes de otro dispositivo? Importa un archivo de ajustes de FitShield para traerlo todo. Si no, simplemente continúa."

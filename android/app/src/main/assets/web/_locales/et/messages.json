@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Blokeerija is armed, but outside ajakavad hours. It will blokeeri from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 kohaletoimetamise saidid enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Blokeerimine Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Ajastatud tunnid"
-  },
-  "scheduledHoursHint": {
-    "message": "Blokeeri only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Blokeerilist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Värve saad hiljem Seadetes peenhäälestada."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Lisab pausiekraani kohaletoimetamisplatvormidele nagu DoorDash ja Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Tuled teisest seadmest? Impordi FitShieldi seadete fail, et kõik kaasa võtta. Vastasel juhul lihtsalt jätka."

@@ -135,10 +135,6 @@
     "message": "Blocker ist scharf, aber außerhalb der geplanten Zeiten. Er sperrt ab $1.",
     "description": "$1 is a time range."
   },
-  "statusShieldUp": {
-    "message": "Schild oben. $1 Sekunden Countdown, $2 $3 Zugang.",
-    "description": "$1 seconds, $2 minutes, $3 minute/minutes unit."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 von $2 Lieferseiten aktiviert.",
     "description": "$1 enabled count, $2 total count."
@@ -196,12 +192,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Sperroptionen"
-  },
-  "scheduledHoursLabel": {
-    "message": "Geplante Zeiten"
-  },
-  "scheduledHoursHint": {
-    "message": "Nur während eines täglichen Zeitfensters sperren."
   },
   "customizeBlocklistHeading": {
     "message": "Sperrliste anpassen"
@@ -771,9 +761,6 @@
   },
   "welcomeThemeBody": {
     "message": "Die Farben kannst du später in den Einstellungen feinabstimmen."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Fügt einen Pausenbildschirm auf Lieferplattformen wie DoorDash und Uber Eats hinzu."
   },
   "welcomeImportBody": {
     "message": "Kommst du von einem anderen Gerät? Importiere eine FitShield-Einstellungsdatei, um alles zu übernehmen. Andernfalls fahre einfach fort."

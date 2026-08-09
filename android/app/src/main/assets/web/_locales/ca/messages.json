@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Bloquejador is armed, but outside programaciód hours. It will bloqueja from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 llocs de lliurament enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Bloqueig Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Hores programades"
-  },
-  "scheduledHoursHint": {
-    "message": "Bloqueja only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Bloquejalist"
@@ -712,9 +703,6 @@
   },
   "welcomeThemeBody": {
     "message": "Pots ajustar els colors més tard a Configuració."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Afegeix una pantalla de pausa a plataformes de lliurament com DoorDash i Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Véns d'un altre dispositiu? Importa un fitxer de configuració de FitShield per portar-ho tot. Si no, simplement continua."

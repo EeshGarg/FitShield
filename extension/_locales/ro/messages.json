@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Blocator is armed, but outside programd hours. It will blochează from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 site-uri de livrare enabled."
   },
@@ -133,12 +130,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Blocare Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Ore programate"
-  },
-  "scheduledHoursHint": {
-    "message": "Blochează only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Blocheazălist"
@@ -712,9 +703,6 @@
   },
   "welcomeThemeBody": {
     "message": "Poți ajusta culorile mai târziu în Setări."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Adaugă un ecran de pauză pe platforme de livrare precum DoorDash și Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Vii de pe alt dispozitiv? Importă un fișier de setări FitShield ca să aduci totul. Altfel, continuă pur și simplu."

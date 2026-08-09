@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "封鎖器已待命，但目前不在排程時段內。將於 $1 開始封鎖。"
   },
-  "statusShieldUp": {
-    "message": "防護已啟動。倒數 $1 秒，通行 $2 $3。"
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 個外送網站中已啟用 $1 個。"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "封鎖選項"
-  },
-  "scheduledHoursLabel": {
-    "message": "排程時段"
-  },
-  "scheduledHoursHint": {
-    "message": "僅在每天的指定時段內封鎖。"
   },
   "customizeBlocklistHeading": {
     "message": "自訂封鎖清單"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "稍後可在設定中微調顏色。"
-  },
-  "welcomeDeliveryBody": {
-    "message": "在 DoorDash、Uber Eats 等外送平台加入一個暫停頁面。"
   },
   "welcomeImportBody": {
     "message": "從另一台裝置過來？匯入 FitShield 設定檔即可帶上一切。否則直接繼續。"

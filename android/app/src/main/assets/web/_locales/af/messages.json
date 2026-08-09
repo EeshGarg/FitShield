@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Blokkeerder is armed, but outside skeduled hours. It will blokkeer from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 afleweringswerwe enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Blokkering Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Geskeduleerde ure"
-  },
-  "scheduledHoursHint": {
-    "message": "Blokkeer only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Blokkeerlist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Jy kan die kleure later in Instellings fynstel."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Voeg ’n pouseskerm by op afleweringsplatforms soos DoorDash en Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Kom jy van ’n ander toestel af? Voer ’n FitShield-instellingslêer in om alles oor te bring. Andersins gaan net voort."

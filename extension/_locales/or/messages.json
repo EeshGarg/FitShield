@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": " |\nଅବରୋଧକାରୀ ସଶସ୍ତ୍ର, କିନ୍ତୁ ନିର୍ଦ୍ଧାରିତ ଘଣ୍ଟା ବାହାରେ | ଏହା $1 ରୁ ଅବରୋଧ କରିବ |"
   },
-  "statusShieldUp": {
-    "message": " |\nSh ାଲ $1 ସେକେଣ୍ଡ କାଉଣ୍ଟଡାଉନ୍, $2 $3 ପାସ୍ |"
-  },
   "deliverySitesEnabledCount": {
     "message": " |\n$2 ବିତରଣ ସାଇଟଗୁଡ଼ିକର $1 ସକ୍ଷମ ହୋଇଛି |"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": " |\nଅବରୋଧ ବିକଳ୍ପଗୁଡ଼ିକ"
-  },
-  "scheduledHoursLabel": {
-    "message": "ନିର୍ଧାରିତ ଘଣ୍ଟା |"
-  },
-  "scheduledHoursHint": {
-    "message": " |\nକେବଳ ଦ daily ନିକ ସମୟ ୱିଣ୍ଡୋ ସମୟରେ ଅବରୋଧ କରନ୍ତୁ |"
   },
   "customizeBlocklistHeading": {
     "message": " |\nବ୍ଲକଲିଷ୍ଟ କଷ୍ଟୋମାଇଜ୍ କରନ୍ତୁ |"
@@ -730,9 +721,6 @@
   },
   "welcomeThemeBody": {
     "message": "ରଙ୍ଗ ପରେ ସେଟିଂସରେ ସୂକ୍ଷ୍ମ ଭାବେ ସଜାଇ ପାରିବେ।"
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash ଓ Uber Eats ପରି ଡେଲିଭରୀ ପ୍ଲାଟଫର୍ମରେ ଏକ ବିରତି ସ୍କ୍ରିନ ଯୋଡ଼େ।"
   },
   "welcomeImportBody": {
     "message": "ଅନ୍ୟ ଡିଭାଇସରୁ ଆସୁଛନ୍ତି? ସବୁକିଛି ଆଣିବାକୁ ଏକ FitShield ସେଟିଂସ ଫାଇଲ ଆମଦାନୀ କରନ୍ତୁ। ନ ହେଲେ ଜାରି ରଖନ୍ତୁ।"

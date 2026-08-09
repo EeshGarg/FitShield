@@ -235,12 +235,123 @@ test("the block page's own strings all exist in English", () => {
   assert.deepEqual(missing, [], `block page uses English strings that do not exist: ${missing.join(", ")}`);
 });
 
+test("every message key a page script names by hand exists in English", () => {
+  // The gap this closes, twice over. backup.js shipped seven actionable import
+  // failures — "that backup was written by a newer version of FitShield", "that
+  // file is empty" — under keys that existed in NO locale, English included. `t`
+  // returns the key when a message is missing, so the settings page rendered
+  // "backupErrorNewerFormat" at a user who had just tried to restore their only
+  // copy of their settings. settings.js had three more (confirmImportBackup,
+  // importCancelledNotice, exportErrorNotice) and had to carry hand-written
+  // English fallbacks through `tOr` to stay readable.
+  //
+  // English is the one locale that must be complete, because every other locale
+  // falls back to it. So the check is: every key a script names as a literal is
+  // in en/messages.json. Keys the code COMPOSES (`catLabel${pascal}`,
+  // `diet_${...}`) are template literals, not double-quoted strings, and are
+  // deliberately out of scope here — tools/locale-prune.js exempts them by
+  // prefix and re-verifies each construction site instead.
+  const scripts = [
+    "backup.js",
+    "settings.js",
+    "preferences.js",
+    "popup.js",
+    "welcome.js",
+    "warning.js",
+    "whats-new.js",
+    "diagnostics.js"
+  ];
+
+  const patterns = [
+    // t("key") and t("key", [subs])
+    /\bt\(\s*"([A-Za-z0-9_]+)"/g,
+    // t(count === 1 ? "unitSite" : "unitSites") — both arms are real keys
+    /\bt\(\s*[^()]*?\?\s*"([A-Za-z0-9_]+)"\s*:\s*"([A-Za-z0-9_]+)"/g,
+    // tOr("key", "English fallback") — settings.js, often across two lines
+    /\btOr\(\s*"([A-Za-z0-9_]+)"/g,
+    // backupError("key", "English sentence", [subs]) — backup.js
+    /\bbackupError\(\s*"([A-Za-z0-9_]+)"/g,
+    // Keys carried in data tables rather than passed straight to `t`
+    /\b(?:labelKey|titleKey|scopeKey|noticeKey|messageKey)\s*:\s*"([A-Za-z0-9_]+)"/g
+  ];
+
+  const missing = [];
+  let total = 0;
+
+  for (const script of scripts) {
+    const source = fs.readFileSync(path.join(__dirname, "..", "extension", script), "utf8");
+    const used = new Set();
+
+    for (const pattern of patterns) {
+      for (const match of source.matchAll(pattern)) {
+        match.slice(1).filter(Boolean).forEach((key) => used.add(key));
+      }
+    }
+
+    total += used.size;
+    [...used].filter((key) => !enSet.has(key)).forEach((key) => missing.push(`${script}: ${key}`));
+  }
+
+  // A floor, so a refactor that breaks the patterns fails loudly instead of
+  // passing vacuously with nothing to check.
+  assert.ok(total > 150, `expected the page scripts to name many strings, found ${total}`);
+  assert.deepEqual(missing, [], `scripts name English strings that do not exist:\n  ${missing.join("\n  ")}`);
+});
+
+test("every backup and import failure reason is a real English string", () => {
+  // The specific regression, pinned by key rather than by scan, so a rewrite of
+  // the scan above cannot quietly stop covering them. Each of these was rendered
+  // to a user as its own key. The placeholder counts are pinned too: backup.js
+  // passes the substitutions positionally, so a message that drops or adds a
+  // placeholder renders with a hole in it or leaks an unfilled $2.
+  const expected = {
+    backupErrorNotBackup: 0,
+    backupErrorNewerFormat: 1,
+    backupErrorNoSettings: 0,
+    backupErrorEmptyFile: 0,
+    backupErrorTooLarge: 2,
+    backupErrorInvalidJson: 0,
+    backupErrorValidatorMissing: 0,
+    confirmImportBackup: 1,
+    importCancelledNotice: 0,
+    exportErrorNotice: 0
+  };
+
+  const highest = (message) =>
+    (message.match(/\$[1-9]/g) || []).reduce((max, token) => Math.max(max, Number(token.slice(1))), 0);
+
+  for (const [key, placeholders] of Object.entries(expected)) {
+    assert.ok(en[key], `${key} is missing from English — it would render as its own key`);
+    assert.equal(highest(en[key].message), placeholders, `${key} takes ${placeholders} placeholder(s)`);
+  }
+
+  // And the sources really do still ask for them, so the pins cannot outlive the
+  // code — a key removed from backup.js should be removed here, not left frozen.
+  const backupJs = fs.readFileSync(path.join(__dirname, "..", "extension", "backup.js"), "utf8");
+  const settingsJs = fs.readFileSync(path.join(__dirname, "..", "extension", "settings.js"), "utf8");
+  const sources = `${backupJs}\n${settingsJs}`;
+
+  for (const key of Object.keys(expected)) {
+    assert.ok(new RegExp(`\\b${key}\\b`).test(sources), `${key} is pinned but no source asks for it`);
+  }
+
+  // The confirmation names what an import destroys beyond the settings it
+  // replaces. Those two clauses are the whole reason the prompt exists.
+  assert.match(en.confirmImportBackup.message, /temporary pass/i);
+  assert.match(en.confirmImportBackup.message, /did you make it/i);
+});
+
 test("HTML data-i18n attributes all resolve in English", () => {
-  const pages = ["warning.html", "popup.html", "settings.html", "welcome.html", "whats-new.html"];
+  // Enumerated, not listed: diagnostics.html was localized after this test was
+  // written and a hardcoded page list would not have covered it.
+  const extensionDir = path.join(__dirname, "..", "extension");
+  const pages = fs.readdirSync(extensionDir).filter((name) => name.endsWith(".html")).sort();
   const missing = [];
 
+  assert.ok(pages.length >= 5, `expected several extension pages, found ${pages.length}`);
+
   for (const page of pages) {
-    const html = fs.readFileSync(path.join(__dirname, "..", "extension", page), "utf8");
+    const html = fs.readFileSync(path.join(extensionDir, page), "utf8");
     for (const match of html.matchAll(/data-i18n(?:-[a-z-]+)?="([A-Za-z0-9_]+)"/g)) {
       if (!enSet.has(match[1])) {
         missing.push(`${page}: ${match[1]}`);

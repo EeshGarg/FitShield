@@ -134,9 +134,6 @@
   "deliverySitesEnabledCount": {
     "message": "$1 dos locais de entrega $2 habilitados."
   },
-  "statusShieldUp": {
-    "message": "Proteja-se. Contagem regressiva de segundos $1, passagem $2 $3."
-  },
   "searchMatchSuffix": {
     "message": " $1 corresponde à pesquisa."
   },
@@ -149,17 +146,11 @@
   "warningErrorHint": {
     "message": "Algo deu errado ao abrir o site. Por favor, tente novamente."
   },
-  "scheduledHoursHint": {
-    "message": "Bloqueie apenas durante uma janela de horário diária."
-  },
   "settingsTitle": {
     "message": "Configurações FitShield"
   },
   "blockingOptionsHeading": {
     "message": "Opções de bloqueio"
-  },
-  "scheduledHoursLabel": {
-    "message": "Horário agendado"
   },
   "customizeBlocklistIntro": {
     "message": "Escolha quais grupos integrados estão ativos, ative ou desative sites individuais e adicione seus próprios domínios."
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Você pode ajustar as cores depois nas Configurações."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Adiciona uma tela de pausa em plataformas de entrega como DoorDash e Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Veio de outro dispositivo? Importe um arquivo de configurações do FitShield para trazer tudo. Senão, é só continuar."

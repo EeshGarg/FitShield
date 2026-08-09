@@ -74,9 +74,6 @@
   "popupCustomLabel": {
     "message": "Пользовательские URL"
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "warningBackButton": {
     "message": "Назад"
   },
@@ -85,9 +82,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Блокировка Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Запланированные часы"
   },
   "customizeBlocklistHeading": {
     "message": "Customize Блокироватьlist"
@@ -595,9 +589,6 @@
   },
   "welcomeThemeBody": {
     "message": "Цвета можно настроить позже в настройках."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Добавляет экран паузы на платформах доставки вроде DoorDash и Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Переходите с другого устройства? Импортируйте файл настроек FitShield, чтобы перенести всё. Иначе просто продолжайте."

@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Pemblokir bersenjata, tetapi di luar jam yang dijadwalkan. Ini akan memblokir dari $1."
   },
-  "statusShieldUp": {
-    "message": "Lindungi. Hitung mundur $1 detik, $2 $3 lolos."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 dari situs pengiriman $2 diaktifkan."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Opsi Pemblokiran"
-  },
-  "scheduledHoursLabel": {
-    "message": "Jam yang dijadwalkan"
-  },
-  "scheduledHoursHint": {
-    "message": "Blokir hanya selama jendela waktu harian."
   },
   "customizeBlocklistHeading": {
     "message": "Sesuaikan Daftar Blokir"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Kamu bisa menyesuaikan warna nanti di Pengaturan."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Menambahkan layar jeda di platform pengantaran seperti DoorDash dan Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Pindah dari perangkat lain? Impor file pengaturan FitShield untuk membawa semuanya. Jika tidak, lanjut saja."

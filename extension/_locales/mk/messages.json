@@ -74,9 +74,6 @@
   "popupCustomLabel": {
     "message": "Прилагодени URL-адреси"
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "warningBackButton": {
     "message": "Назад"
   },
@@ -85,9 +82,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Блокирање Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Закажани часови"
   },
   "customizeBlocklistHeading": {
     "message": "Customize Блокирајlist"
@@ -595,9 +589,6 @@
   },
   "welcomeThemeBody": {
     "message": "Боите можете да ги дотерате подоцна во Поставки."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Додава екран за пауза на платформи за достава како DoorDash и Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Доаѓате од друг уред? Увезете датотека со поставки на FitShield за да пренесете сѐ. Инаку само продолжете."

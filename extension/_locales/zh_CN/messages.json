@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "屏蔽器已就绪，但当前不在计划时段内。将于 $1 开始屏蔽。"
   },
-  "statusShieldUp": {
-    "message": "防护已开启。倒计时 $1 秒，通行 $2 $3。"
-  },
   "deliverySitesEnabledCount": {
     "message": "已启用 $2 个外卖网站中的 $1 个。"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "屏蔽选项"
-  },
-  "scheduledHoursLabel": {
-    "message": "计划时段"
-  },
-  "scheduledHoursHint": {
-    "message": "仅在每天的某个时间段内屏蔽。"
   },
   "customizeBlocklistHeading": {
     "message": "自定义屏蔽列表"
@@ -757,9 +748,6 @@
   },
   "welcomeThemeBody": {
     "message": "稍后可在设置中微调颜色。"
-  },
-  "welcomeDeliveryBody": {
-    "message": "在 DoorDash、Uber Eats 等外卖平台加入一个暂停页面。"
   },
   "welcomeImportBody": {
     "message": "从另一台设备过来？导入 FitShield 设置文件即可带上一切。否则直接继续。"

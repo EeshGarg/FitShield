@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Blocco is armed, but outside programmad hours. It will blocca from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 siti di consegna enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Blocco Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Ore programmate"
-  },
-  "scheduledHoursHint": {
-    "message": "Blocca only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Bloccalist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Potrai regolare i colori più tardi nelle Impostazioni."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Aggiunge una schermata di pausa su piattaforme di consegna come DoorDash e Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Arrivi da un altro dispositivo? Importa un file di impostazioni FitShield per portare tutto con te. Altrimenti continua pure."

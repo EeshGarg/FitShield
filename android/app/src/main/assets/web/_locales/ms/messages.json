@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Penghalang bersenjata, tetapi di luar waktu yang dijadualkan. Ia akan menyekat daripada $1."
   },
-  "statusShieldUp": {
-    "message": "Perisai. $1 saat undur, $2 $3 lulus."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 daripada tapak penghantaran $2 didayakan."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Pilihan Menyekat"
-  },
-  "scheduledHoursLabel": {
-    "message": "Waktu yang dijadualkan"
-  },
-  "scheduledHoursHint": {
-    "message": "Sekat hanya semasa tetingkap masa harian."
   },
   "customizeBlocklistHeading": {
     "message": "Sesuaikan Senarai Sekat"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Anda boleh perhalusi warna kemudian dalam Tetapan."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Menambah skrin jeda pada platform penghantaran seperti DoorDash dan Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Datang dari peranti lain? Import fail tetapan FitShield untuk membawa semuanya. Jika tidak, teruskan sahaja."

@@ -74,9 +74,6 @@
   "popupCustomLabel": {
     "message": "Προσαρμοσμένα URL"
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "warningBackButton": {
     "message": "Πίσω"
   },
@@ -85,9 +82,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Αποκλεισμός Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Προγραμματισμένες ώρες"
   },
   "customizeBlocklistHeading": {
     "message": "Customize Αποκλεισμόςlist"
@@ -595,9 +589,6 @@
   },
   "welcomeThemeBody": {
     "message": "Μπορείτε να ρυθμίσετε τα χρώματα αργότερα στις Ρυθμίσεις."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Προσθέτει μια οθόνη παύσης σε πλατφόρμες παράδοσης όπως DoorDash και Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Έρχεστε από άλλη συσκευή; Εισαγάγετε ένα αρχείο ρυθμίσεων FitShield για να μεταφέρετε τα πάντα. Διαφορετικά απλώς συνεχίστε."

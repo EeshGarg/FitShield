@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "مسدود کننده مسلح است، اما خارج از ساعات برنامه ریزی شده. از $1 مسدود می شود."
   },
-  "statusShieldUp": {
-    "message": "سپر. $1 ثانیه شمارش معکوس، $2 $3 پاس."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 از سایت های تحویل $2 فعال است."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "مسدود کردن گزینه ها"
-  },
-  "scheduledHoursLabel": {
-    "message": "ساعت های برنامه ریزی شده"
-  },
-  "scheduledHoursHint": {
-    "message": "مسدود کردن فقط در طول یک پنجره زمانی روزانه."
   },
   "customizeBlocklistHeading": {
     "message": "سفارشی کردن لیست مسدود"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "رنگ‌ها را بعداً در تنظیمات می‌توانید تنظیم کنید."
-  },
-  "welcomeDeliveryBody": {
-    "message": "یک صفحهٔ مکث در پلتفرم‌های تحویل مانند DoorDash و Uber Eats اضافه می‌کند."
   },
   "welcomeImportBody": {
     "message": "از دستگاه دیگری می‌آیید؟ یک فایل تنظیمات FitShield را وارد کنید تا همه‌چیز منتقل شود. وگرنه ادامه دهید."

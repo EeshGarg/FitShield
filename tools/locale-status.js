@@ -47,7 +47,15 @@ const SURFACES = [
   [/^friction|^schedule|^day|^kitchen|^pantry|^equipment|^allergen|^customAlt|^recap|^report/, "settings"],
   [/^stats|^catLabel|^protection/, "statistics"],
   [/^language/, "language picker"],
-  [/^whatsNew|^changelog/, "what's new"]
+  [/^whatsNew|^changelog/, "what's new"],
+  // Backup, restore, and the confirmations around them. Split out from
+  // "settings" because the register is different: these are the sentences a
+  // person reads at the moment an import has just failed, and several of them
+  // decide whether they keep or delete the only copy of their settings.
+  [/^backup|^import|^export|^confirm/, "backup & restore"],
+  // The diagnostics page. Dense two-column rows, so a label that runs long wraps
+  // away from its value — worth telling a translator before they start.
+  [/^diag/, "diagnostics"]
 ];
 
 function surfaceFor(key) {

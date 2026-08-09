@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Արգելափակիչը զինված է, բայց նախատեսված ժամերից դուրս: Այն կարգելափակվի $1-ից:"
   },
-  "statusShieldUp": {
-    "message": "Պաշտպանեք: $1 վայրկյան հետհաշվարկ, $2 $3 անցում:"
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 $2 առաքման կայքերից միացված է:"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Արգելափակման ընտրանքներ"
-  },
-  "scheduledHoursLabel": {
-    "message": "Պլանավորված ժամեր"
-  },
-  "scheduledHoursHint": {
-    "message": "Արգելափակել միայն ամենօրյա ժամանակային պատուհանի ընթացքում:"
   },
   "customizeBlocklistHeading": {
     "message": "Անհատականացրեք արգելափակման ցուցակը"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Գույները կարող եք ավելի ուշ ճշգրտել Կարգավորումներում։"
-  },
-  "welcomeDeliveryBody": {
-    "message": "Ավելացնում է դադարի էկրան առաքման հարթակներում, ինչպիսիք են DoorDash-ը և Uber Eats-ը։"
   },
   "welcomeImportBody": {
     "message": "Գալի՞ս եք այլ սարքից։ Ներմուծեք FitShield-ի կարգավորումների ֆայլը՝ ամեն ինչ տեղափոխելու համար։ Հակառակ դեպքում պարզապես շարունակեք։"

@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Lokari is armed, but outside áætlund hours. It will loka from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 afhendingarsíður enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Lokun Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Áætlaðir tímar"
-  },
-  "scheduledHoursHint": {
-    "message": "Loka only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Lokalist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Þú getur fínstillt litina síðar í Stillingum."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Bætir hléskjá við sendingarvettvanga eins og DoorDash og Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Kemur þú úr öðru tæki? Flyttu inn FitShield-stillingaskrá til að taka allt með. Annars haltu bara áfram."

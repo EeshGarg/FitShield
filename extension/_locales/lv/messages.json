@@ -116,9 +116,6 @@
   "statusOutsideSchedule": {
     "message": "Bloķētājs is armed, but outside grafiksd hours. It will bloķēt from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 piegādes vietnes enabled."
   },
@@ -136,12 +133,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Bloķēšana Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Ieplānotās stundas"
-  },
-  "scheduledHoursHint": {
-    "message": "Bloķēt only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Bloķētlist"
@@ -715,9 +706,6 @@
   },
   "welcomeThemeBody": {
     "message": "Krāsas vēlāk varat precīzi pielāgot Iestatījumos."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Pievieno pauzes ekrānu piegādes platformās, piemēram, DoorDash un Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Nākat no citas ierīces? Importējiet FitShield iestatījumu failu, lai pārnestu visu. Pretējā gadījumā vienkārši turpiniet."

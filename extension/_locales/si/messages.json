@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "අවහිර කරන්නා සන්නද්ධ, නමුත් නියමිත වේලාවෙන් පිටත. එය $1 වෙතින් අවහිර කරනු ඇත."
   },
-  "statusShieldUp": {
-    "message": "ආරක්ෂා කරන්න. $1 තත්පර ගණන් කිරීම, $2 $3 සමත්."
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 බෙදාහැරීමේ අඩවි වලින් $1 සබල කර ඇත."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "අවහිර කිරීමේ විකල්ප"
-  },
-  "scheduledHoursLabel": {
-    "message": "නියමිත වේලාවන්"
-  },
-  "scheduledHoursHint": {
-    "message": "දෛනික කාල කවුළුවක් තුළ පමණක් අවහිර කරන්න."
   },
   "customizeBlocklistHeading": {
     "message": "වාරණ ලැයිස්තුව අභිරුචිකරණය කරන්න"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "වර්ණ පසුව සැකසීම්වල මනාව සකස් කළ හැක."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash සහ Uber Eats වැනි බෙදාහැරීමේ වේදිකාවලට විරාම තිරයක් එක් කරයි."
   },
   "welcomeImportBody": {
     "message": "වෙනත් උපාංගයකින්ද? සියල්ල ගෙන ඒමට FitShield සැකසීම් ගොනුවක් ආයාත කරන්න. නැතිනම් ඉදිරියට යන්න."

@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Bloker ýaragly, ýöne meýilleşdirilen sagatlaryň daşynda. $1-den bloklanar."
   },
-  "statusShieldUp": {
-    "message": "Galkan. $1 sekunt sanamak, $2 $3 geçiş."
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 iberiş saýtlarynyň $1 açyk."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Blokirlemegiň opsiýalary"
-  },
-  "scheduledHoursLabel": {
-    "message": "Meýilleşdirilen sagatlar"
-  },
-  "scheduledHoursHint": {
-    "message": "Diňe gündelik wagt penjiresinde blokirläň."
   },
   "customizeBlocklistHeading": {
     "message": "Blok sanawyny özleşdiriň"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "Reňkleri soňra Sazlamalarda inçe sazlap bilersiňiz."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash we Uber Eats ýaly eltip beriş platformalaryna arakesme ekranyny goşýar."
   },
   "welcomeImportBody": {
     "message": "Başga enjamdan gelýärsiňizmi? Hemmesini getirmek üçin FitShield sazlama faýlyny import ediň. Bolmasa dowam ediň."

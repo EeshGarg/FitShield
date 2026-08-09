@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "차단기가 준비되었지만 지정 시간이 아닙니다. $1부터 차단합니다."
   },
-  "statusShieldUp": {
-    "message": "보호 작동 중. 카운트다운 $1초, 통행 $2 $3."
-  },
   "deliverySitesEnabledCount": {
     "message": "배달 사이트 $2개 중 $1개가 활성화되었습니다."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "차단 옵션"
-  },
-  "scheduledHoursLabel": {
-    "message": "예약 시간"
-  },
-  "scheduledHoursHint": {
-    "message": "매일 지정한 시간대에만 차단합니다."
   },
   "customizeBlocklistHeading": {
     "message": "차단 목록 사용자 지정"
@@ -757,9 +748,6 @@
   },
   "welcomeThemeBody": {
     "message": "색상은 나중에 설정에서 세밀하게 조정할 수 있어요."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash, Uber Eats 같은 배달 플랫폼에 일시정지 화면을 추가합니다."
   },
   "welcomeImportBody": {
     "message": "다른 기기에서 오셨나요? FitShield 설정 파일을 가져오면 모두 옮길 수 있어요. 아니면 그냥 계속하세요."

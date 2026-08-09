@@ -110,9 +110,6 @@
   "statusOutsideSchedule": {
     "message": "Bloqueador is armed, but outside agendad hours. It will bloquear from $1."
   },
-  "statusShieldUp": {
-    "message": "Shield up. $1 seconds countdown, $2 $3 pass."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 of $2 sites de entrega enabled."
   },
@@ -127,12 +124,6 @@
   },
   "blockingOptionsHeading": {
     "message": "Bloqueio Options"
-  },
-  "scheduledHoursLabel": {
-    "message": "Horas agendadas"
-  },
-  "scheduledHoursHint": {
-    "message": "Bloquear only during a daily time window."
   },
   "customizeBlocklistHeading": {
     "message": "Customize Bloquearlist"
@@ -703,9 +694,6 @@
   },
   "welcomeThemeBody": {
     "message": "Pode ajustar as cores mais tarde nas Definições."
-  },
-  "welcomeDeliveryBody": {
-    "message": "Adiciona uma tela de pausa em plataformas de entrega como DoorDash e Uber Eats."
   },
   "welcomeImportBody": {
     "message": "Veio de outro dispositivo? Importe um arquivo de configurações do FitShield para trazer tudo. Senão, é só continuar."

@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Blocker သည် လက်နက်ကိုင်ဆောင်ထားသော်လည်း သတ်မှတ်ချိန်ပြင်ပတွင် ရှိနေသည်။ ၎င်းသည် $1 မှပိတ်ဆို့လိမ့်မည်။"
   },
-  "statusShieldUp": {
-    "message": "အကာအကွယ်။ $1 စက္ကန့်နှစ်သစ်၊ $2 $3 ကျော်ပါ။"
-  },
   "searchMatchSuffix": {
     "message": " $1 ရှာဖွေမှုနှင့် ကိုက်ညီသည်။"
   },
@@ -148,12 +145,6 @@
   },
   "blockingOptionsHeading": {
     "message": "ပိတ်ဆို့ခြင်း ရွေးချယ်မှုများ"
-  },
-  "scheduledHoursLabel": {
-    "message": "အချိန်ဇယားဆွဲထားသည်။"
-  },
-  "scheduledHoursHint": {
-    "message": "နေ့စဉ်အချိန်ဝင်းဒိုးတစ်ခုအတွင်းသာ ပိတ်ပါ။"
   },
   "customizeBlocklistHeading": {
     "message": "Blocklist ကို စိတ်ကြိုက်လုပ်ပါ။"
@@ -742,9 +733,6 @@
   },
   "welcomeThemeBody": {
     "message": "အရောင်များကို နောက်မှ ဆက်တင်များတွင် သေသပ်စွာ ချိန်ညှိနိုင်သည်။"
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash နှင့် Uber Eats ကဲ့သို့ ပို့ဆောင်ရေးပလက်ဖောင်းများတွင် ခေတ္တရပ်နားမျက်နှာပြင်တစ်ခု ထည့်သည်။"
   },
   "welcomeImportBody": {
     "message": "အခြားစက်မှ လာသလား? အရာအားလုံးကို ယူဆောင်ရန် FitShield ဆက်တင်ဖိုင်တစ်ခု တင်သွင်းပါ။ မဟုတ်ပါက ဆက်လုပ်ပါ။"

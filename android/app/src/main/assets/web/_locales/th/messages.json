@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "ตัวบล็อกพร้อมทำงาน แต่ขณะนี้อยู่นอกช่วงเวลาที่กำหนด จะเริ่มบล็อกตั้งแต่ $1."
   },
-  "statusShieldUp": {
-    "message": "เปิดเกราะแล้ว นับถอยหลัง $1 วินาที บัตรผ่าน $2 $3."
-  },
   "deliverySitesEnabledCount": {
     "message": "เปิดใช้ไซต์เดลิเวอรี $1 จาก $2 ไซต์"
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "ตัวเลือกการบล็อก"
-  },
-  "scheduledHoursLabel": {
-    "message": "ช่วงเวลาที่กำหนด"
-  },
-  "scheduledHoursHint": {
-    "message": "บล็อกเฉพาะในช่วงเวลาประจำวัน"
   },
   "customizeBlocklistHeading": {
     "message": "ปรับแต่งรายการบล็อก"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "ปรับสีอย่างละเอียดได้ภายหลังในการตั้งค่า"
-  },
-  "welcomeDeliveryBody": {
-    "message": "เพิ่มหน้าจอหยุดพักบนแพลตฟอร์มเดลิเวอรีอย่าง DoorDash และ Uber Eats"
   },
   "welcomeImportBody": {
     "message": "ย้ายมาจากอุปกรณ์อื่นใช่ไหม นำเข้าไฟล์การตั้งค่า FitShield เพื่อย้ายทุกอย่างมา ถ้าไม่ ก็ดำเนินการต่อได้เลย"

@@ -61,7 +61,14 @@ const RETIRED_ENGLISH = {
   warningLockedButton: ["Locked"],
   warningContinueButton: ["Continue"],
   blockReasonHeading: ["Why you're seeing this"],
-  alternativeAnnounce: ["$1, $2 minutes. Option $3 of $4."]
+  alternativeAnnounce: ["$1, $2 minutes. Option $3 of $4."],
+  // "5 minutes pass" read as a verb phrase, and "pass" was jargon the popup never
+  // defined — the same value is "Site open time" on one control and "Temporary
+  // pass" on another. Retired in favour of the wording frictionSummary uses.
+  statusShieldUp: ["Shield up. $1 seconds countdown, $2 $3 pass."],
+  // Named delivery only, under an onboarding question whose answers include fast
+  // food, so the body contradicted the choices directly beneath it.
+  welcomeDeliveryBody: ["Adds a pause screen on delivery platforms like DoorDash and Uber Eats."]
 };
 
 // Detect duplicate top-level keys, which JSON.parse silently collapses.

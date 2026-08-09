@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "Blocker ແມ່ນປະກອບອາວຸດ, ແຕ່ຢູ່ນອກຊົ່ວໂມງທີ່ກໍານົດໄວ້. ມັນຈະບລັອກຈາກ $1."
   },
-  "statusShieldUp": {
-    "message": "ປ້ອງກັນ. $1 ວິນາທີນັບຖອຍຫຼັງ, $2 $3 ຜ່ານ."
-  },
   "deliverySitesEnabledCount": {
     "message": "$1 ຂອງ $2 ສະຖານທີ່ຈັດສົ່ງໄດ້ຖືກເປີດໃຊ້."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "ຕົວເລືອກການຂັດຂວາງ"
-  },
-  "scheduledHoursLabel": {
-    "message": "ຊົ່ວໂມງທີ່ກຳນົດໄວ້"
-  },
-  "scheduledHoursHint": {
-    "message": "ບລັອກພຽງແຕ່ໃນລະຫວ່າງປ່ອງຢ້ຽມເວລາປະຈໍາວັນ."
   },
   "customizeBlocklistHeading": {
     "message": "ປັບແຕ່ງບັນຊີບລັອກ"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "ເຈົ້າສາມາດປັບສີໄດ້ໃນພາຍຫຼັງໃນການຕັ້ງຄ່າ."
-  },
-  "welcomeDeliveryBody": {
-    "message": "ເພີ່ມໜ້າຈໍຢຸດຊົ່ວຄາວໃນແພລດຟອມສົ່ງ ເຊັ່ນ DoorDash ແລະ Uber Eats."
   },
   "welcomeImportBody": {
     "message": "ມາຈາກອຸປະກອນອື່ນບໍ? ນຳເຂົ້າໄຟລ໌ການຕັ້ງຄ່າ FitShield ເພື່ອນຳທຸກຢ່າງມາ. ຖ້າບໍ່ດັ່ງນັ້ນ ກໍສືບຕໍ່."

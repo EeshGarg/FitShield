@@ -128,9 +128,6 @@
   "statusOutsideSchedule": {
     "message": "બ્લોકર સશસ્ત્ર છે, પરંતુ નિર્ધારિત કલાકોની બહાર. તે $1 થી અવરોધિત કરશે."
   },
-  "statusShieldUp": {
-    "message": "ઉપર ઢાલ. $1 સેકન્ડનું કાઉન્ટડાઉન, $2 $3 પાસ."
-  },
   "deliverySitesEnabledCount": {
     "message": "$2 ડિલિવરી સાઇટ્સમાંથી $1 સક્ષમ."
   },
@@ -154,12 +151,6 @@
   },
   "blockingOptionsHeading": {
     "message": "બ્લોકીંગ વિકલ્પો"
-  },
-  "scheduledHoursLabel": {
-    "message": "સુનિશ્ચિત કલાકો"
-  },
-  "scheduledHoursHint": {
-    "message": "માત્ર દૈનિક સમય વિન્ડો દરમિયાન અવરોધિત કરો."
   },
   "customizeBlocklistHeading": {
     "message": "બ્લોકલિસ્ટ કસ્ટમાઇઝ કરો"
@@ -748,9 +739,6 @@
   },
   "welcomeThemeBody": {
     "message": "રંગો પછીથી સેટિંગ્સમાં બારીકાઈથી ગોઠવી શકો છો."
-  },
-  "welcomeDeliveryBody": {
-    "message": "DoorDash અને Uber Eats જેવા ડિલિવરી પ્લેટફોર્મ પર એક વિરામ સ્ક્રીન ઉમેરે છે."
   },
   "welcomeImportBody": {
     "message": "બીજા ઉપકરણથી આવો છો? બધું લાવવા FitShield સેટિંગ્સ ફાઇલ આયાત કરો. નહીંતર ચાલુ રાખો."
