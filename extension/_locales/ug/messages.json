@@ -15,7 +15,7 @@
     "message": "ئىزدەش"
   },
   "clearButton": {
-    "message": "Clear"
+    "message": "تازىلاش"
   },
   "openButton": {
     "message": "ئېچىڭ"
@@ -45,7 +45,7 @@
     "message": "ۋاقىت ئاخىرلاشقاندىن كېيىن قانچىلىك تور بېكەتنىڭ ئوچۇق ھالەتتە تۇرىدىغانلىقىنى تاللاڭ."
   },
   "customMinutesLabel": {
-    "message": "Custom minutes"
+    "message": "ئىختىيارى مىنۇت"
   },
   "startTimeLabel": {
     "message": "باشلىنىش ۋاقتى"
@@ -296,14 +296,8 @@
   "languageFrench": {
     "message": "فىرانسۇزچە"
   },
-  "languageCantonese": {
-    "message": "Cantonese"
-  },
   "languageThai": {
     "message": "تايلاند"
-  },
-  "languagePunjabi": {
-    "message": "Punjabi"
   },
   "languageTamil": {
     "message": "تامىل"
@@ -315,7 +309,7 @@
     "message": "كورېيە"
   },
   "languageHindi": {
-    "message": "Hindi"
+    "message": "ھىندىچە"
   },
   "languageSpanishLatam": {
     "message": "ئىسپانچە (لاتىن ئامېرىكىسى)"
@@ -329,26 +323,17 @@
   "languageAlbanian": {
     "message": "ئالبانىيە"
   },
-  "languageBasque": {
-    "message": "Basque"
-  },
   "languageBelarusian": {
     "message": "بېلورۇسىيە"
   },
   "languageBulgarian": {
     "message": "بۇلغارىيە"
   },
-  "languageCatalan": {
-    "message": "Catalan"
-  },
   "languageCroatian": {
     "message": "كىرودىيە"
   },
   "languageCzech": {
     "message": "چېخ"
-  },
-  "languageDanish": {
-    "message": "Danish"
   },
   "languageDutch": {
     "message": "گوللاندىيە"
@@ -372,19 +357,13 @@
     "message": "ئىرېلاندىيە"
   },
   "languageItalian": {
-    "message": "Italian"
-  },
-  "languageLatvian": {
-    "message": "Latvian"
+    "message": "ئىتالىيانچە"
   },
   "languageLithuanian": {
     "message": "لىتۋانىيە"
   },
   "languageMacedonian": {
     "message": "ماكېدونىيە"
-  },
-  "languageMaltese": {
-    "message": "Maltese"
   },
   "languageNorwegian": {
     "message": "نورۋېگچە"
@@ -394,9 +373,6 @@
   },
   "languagePortuguesePortugal": {
     "message": "پورتۇگال تىلى (پورتۇگالىيە)"
-  },
-  "languageRomanian": {
-    "message": "Romanian"
   },
   "languageRussian": {
     "message": "رۇسچە"
@@ -419,41 +395,11 @@
   "languageUkrainian": {
     "message": "ئۇكرائىنا"
   },
-  "languageWelsh": {
-    "message": "Welsh"
-  },
-  "languageBengali": {
-    "message": "Bengali"
-  },
-  "languageGujarati": {
-    "message": "Gujarati"
-  },
-  "languageKannada": {
-    "message": "Kannada"
-  },
-  "languageMalayalam": {
-    "message": "Malayalam"
-  },
-  "languageMarathi": {
-    "message": "Marathi"
-  },
   "languageNepali": {
     "message": "نېپال"
   },
-  "languageOdia": {
-    "message": "Odia"
-  },
-  "languageSinhala": {
-    "message": "Sinhala"
-  },
-  "languageTelugu": {
-    "message": "Telugu"
-  },
   "languageUrdu": {
     "message": "ئوردۇچە"
-  },
-  "languageAssamese": {
-    "message": "Assamese"
   },
   "languageIndonesian": {
     "message": "ھىندونېزىيە"
@@ -464,9 +410,6 @@
   "languageVietnamese": {
     "message": "ۋېيتنام"
   },
-  "languageKhmer": {
-    "message": "Khmer"
-  },
   "languageLao": {
     "message": "لائوس"
   },
@@ -475,12 +418,6 @@
   },
   "languageFilipinoTagalog": {
     "message": "فىلىپپىنچە / تاگال تىلى"
-  },
-  "languageJavanese": {
-    "message": "Javanese"
-  },
-  "languageSundanese": {
-    "message": "Sundanese"
   },
   "languageArabic": {
     "message": "ئەرەبچە"
@@ -554,9 +491,6 @@
   "themeBackground": {
     "message": "تەگلىك"
   },
-  "themePanel": {
-    "message": "Panel"
-  },
   "themeBorder": {
     "message": "چېگرا"
   },
@@ -565,9 +499,6 @@
   },
   "themeMutedText": {
     "message": "ئاۋازسىز تېكىست"
-  },
-  "themeAccent": {
-    "message": "Accent"
   },
   "cornerRadiusLabel": {
     "message": "Corner Radius"
@@ -581,20 +512,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "تەركىبلەر"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "باسقۇچلار"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +528,7 @@
     "message": "سانلىق مەلۇمات ۋە تەڭشەكلەرنى ئەكىرىش"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "تەڭشەكلەر چىقىرىلدى."
   },
   "blockReasonDomain": {
     "message": "بېكەت"
@@ -747,7 +669,7 @@
     "message": "نەشرى $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "گېرمانچە"
   },
   "statsMostBlockedSites": {
     "message": "ئەڭ كۆپ چەكلەنگەن بەتلەر"
@@ -762,54 +684,72 @@
     "message": "تېخى چەكلەش خاتىرىلەنمىدى."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "ھامبۇرگېر"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "پىسا"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "توخۇ"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "قەھۋە"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "چاي"
   },
   "catLabelDessert": {
-    "message": "Dessert"
-  },
-  "catLabelBakery": {
-    "message": "Bakery"
+    "message": "تاتلىق"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "ساندۋىچ"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "مېكسىكا تامىقى"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "ئاسىيا تامىقى"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
-  },
-  "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "دېڭىز تامىقى"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
-  },
-  "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "كورېيە تامىقى"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
-  },
-  "catLabelCatering": {
-    "message": "Catering"
+    "message": "يېمەكلىك دۇكىنى"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "رېستوران"
+  },
+  "currencyAuto": {
+    "message": "تىلىمغا ماس — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "يەتكۈزۈش"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "تور بازىرى"
+  },
+  "catLabelFastFood": {
+    "message": "تېز تاماق"
+  },
+  "catLabelLocalServices": {
+    "message": "يەرلىك مۇلازىمەت"
+  },
+  "catLabelLogistics": {
+    "message": "لوگىستىكا"
+  },
+  "catLabelMarketplace": {
+    "message": "بازار"
+  },
+  "catLabelMealDelivery": {
+    "message": "تاماق يەتكۈزۈش"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "رېستوران ئىزدەش"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "رېستوران گۇرۇپپىسى"
   }
 }

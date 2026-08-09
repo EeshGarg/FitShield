@@ -84,7 +84,7 @@
     "message": "FitShield బ్లాకర్"
   },
   "popupMetadataLabel": {
-    "message": "Country & category blocking"
+    "message": "దేశం & వర్గం బ్లాకింగ్"
   },
   "popupMetadataSubtitle": {
     "message": "దేశం లేదా ఆహార వర్గం ద్వారా సైట్‌ల మొత్తం సమూహాలను బ్లాక్ చేయండి."
@@ -93,10 +93,10 @@
     "message": "డెలివరీ సైట్లు"
   },
   "popupDeliveryDefault": {
-    "message": "Delivery ordering domains."
+    "message": "డెలివరీ ఆర్డరింగ్ డొమైన్‌లు."
   },
   "popupFastFoodLabel": {
-    "message": "Fast food sites"
+    "message": "ఫాస్ట్ ఫుడ్ సైట్లు"
   },
   "popupFastFoodDefault": {
     "message": "ప్రధాన గొలుసు ఆర్డరింగ్ డొమైన్‌లు."
@@ -578,20 +578,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "కావలసిన పదార్థాలు"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "దశలు"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -603,7 +594,7 @@
     "message": "డేటా & సెట్టింగ్‌లను దిగుమతి చేయండి"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "సెట్టింగ్‌లు ఎగుమతి చేయబడ్డాయి."
   },
   "blockReasonDomain": {
     "message": "సైట్"
@@ -744,7 +735,7 @@
     "message": "వెర్షన్ $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "జర్మన్"
   },
   "statsMostBlockedSites": {
     "message": "ఎక్కువగా బ్లాక్ చేసిన సైట్‌లు"
@@ -759,54 +750,117 @@
     "message": "ఇంకా బ్లాక్‌లు రికార్డ్ కాలేదు."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "బర్గర్"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "పిజ్జా"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "చికెన్"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "కాఫీ"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "టీ"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "డెజర్ట్"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "బేకరీ"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "శాండ్‌విచ్"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "మెక్సికన్"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "ఆసియా"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "సముద్ర ఆహారం"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "స్మూతీ"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "కొరియన్ ఆహారం"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "ఫాస్ట్ క్యాజువల్"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "కిరాణా"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "క్యాటరింగ్"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "రెస్టారెంట్"
+  },
+  "currencyAuto": {
+    "message": "నా భాష ప్రకారం — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "డెలివరీ"
+  },
+  "catLabelFastFood": {
+    "message": "ఫాస్ట్ ఫుడ్"
+  },
+  "catLabelCourier": {
+    "message": "కొరియర్"
+  },
+  "catLabelLogistics": {
+    "message": "లాజిస్టిక్స్"
+  },
+  "catLabelMarketplace": {
+    "message": "మార్కెట్‌ప్లేస్"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "ఆన్‌లైన్ మార్కెట్‌ప్లేస్"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "బి2బి మార్కెట్‌ప్లేస్"
+  },
+  "catLabelMealDelivery": {
+    "message": "భోజన డెలివరీ"
+  },
+  "catLabelMealKit": {
+    "message": "భోజన కిట్"
+  },
+  "catLabelMealService": {
+    "message": "భోజన సేవ"
+  },
+  "catLabelLocalServices": {
+    "message": "స్థానిక సేవలు"
+  },
+  "catLabelPickupOrdering": {
+    "message": "పికప్ ఆర్డర్"
+  },
+  "catLabelVenueOrdering": {
+    "message": "వేదిక వద్ద ఆర్డర్"
+  },
+  "catLabelQuickCommerce": {
+    "message": "క్విక్ కామర్స్"
+  },
+  "catLabelSuperApp": {
+    "message": "సూపర్ యాప్"
+  },
+  "catLabelFoodContent": {
+    "message": "ఆహార కంటెంట్"
+  },
+  "catLabelRecipe": {
+    "message": "రెసిపీలు"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "రెస్టారెంట్ శోధన"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "రెస్టారెంట్ సమూహం"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "రెస్టారెంట్ సాఫ్ట్‌వేర్"
   }
 }

@@ -581,15 +581,6 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -811,5 +802,23 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "currencyAuto": {
+    "message": "តាមភាសាដែលខ្ញុំប្រើ — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "អ្នកបានបើក"
+  },
+  "catLabelDelivery": {
+    "message": "ការដឹកជញ្ជូន"
+  },
+  "catLabelFastFood": {
+    "message": "អាហាររហ័ស"
+  },
+  "catLabelMealDelivery": {
+    "message": "ការដឹកជញ្ជូនអាហារ"
+  },
+  "catLabelRecipe": {
+    "message": "រូបមន្តម្ហូប"
   }
 }

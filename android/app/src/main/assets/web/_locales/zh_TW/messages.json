@@ -296,9 +296,6 @@
   "languageFrench": {
     "message": "法文"
   },
-  "languageCantonese": {
-    "message": "粵語"
-  },
   "languageThai": {
     "message": "泰文"
   },
@@ -384,217 +381,16 @@
     "message": "Buy Me a Coffee"
   },
   "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
-  "languageAlbanian": {
-    "message": "Shqip"
-  },
-  "languageBasque": {
-    "message": "Euskara"
-  },
-  "languageBelarusian": {
-    "message": "Беларуская"
-  },
-  "languageBulgarian": {
-    "message": "Български"
-  },
-  "languageCatalan": {
-    "message": "Català"
-  },
-  "languageCroatian": {
-    "message": "Hrvatski"
-  },
-  "languageCzech": {
-    "message": "Čeština"
-  },
-  "languageDanish": {
-    "message": "Dansk"
-  },
-  "languageDutch": {
-    "message": "Nederlands"
-  },
-  "languageEstonian": {
-    "message": "Eesti"
-  },
-  "languageFinnish": {
-    "message": "Suomi"
-  },
-  "languageGreek": {
-    "message": "Ελληνικά"
-  },
-  "languageHungarian": {
-    "message": "Magyar"
-  },
-  "languageIcelandic": {
-    "message": "Íslenska"
-  },
-  "languageIrish": {
-    "message": "Gaeilge"
-  },
-  "languageItalian": {
-    "message": "Italiano"
-  },
-  "languageLatvian": {
-    "message": "Latviešu"
-  },
-  "languageLithuanian": {
-    "message": "Lietuvių"
-  },
-  "languageMacedonian": {
-    "message": "Македонски"
-  },
-  "languageMaltese": {
-    "message": "Malti"
-  },
-  "languageNorwegian": {
-    "message": "Norsk"
-  },
-  "languagePolish": {
-    "message": "Polski"
-  },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
-  "languageRomanian": {
-    "message": "Română"
-  },
-  "languageRussian": {
-    "message": "Русский"
-  },
-  "languageSerbian": {
-    "message": "Српски"
-  },
-  "languageSlovak": {
-    "message": "Slovenčina"
-  },
-  "languageSlovenian": {
-    "message": "Slovenščina"
-  },
-  "languageSwedish": {
-    "message": "Svenska"
-  },
-  "languageTurkish": {
-    "message": "Türkçe"
-  },
-  "languageUkrainian": {
-    "message": "Українська"
-  },
-  "languageWelsh": {
-    "message": "Cymraeg"
-  },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
-  "languageGujarati": {
-    "message": "ગુજરાતી"
-  },
-  "languageKannada": {
-    "message": "ಕನ್ನಡ"
-  },
-  "languageMalayalam": {
-    "message": "മലയാളം"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
-  },
-  "languageNepali": {
-    "message": "नेपाली"
-  },
-  "languageOdia": {
-    "message": "ଓଡ଼ିଆ"
-  },
-  "languageSinhala": {
-    "message": "සිංහල"
-  },
-  "languageTelugu": {
-    "message": "తెలుగు"
-  },
-  "languageUrdu": {
-    "message": "اردو"
-  },
-  "languageAssamese": {
-    "message": "অসমীয়া"
-  },
-  "languageIndonesian": {
-    "message": "Bahasa Indonesia"
-  },
-  "languageMalay": {
-    "message": "Bahasa Melayu"
-  },
-  "languageVietnamese": {
-    "message": "Tiếng Việt"
-  },
-  "languageKhmer": {
-    "message": "ខ្មែរ"
-  },
-  "languageLao": {
-    "message": "ລາວ"
-  },
-  "languageBurmese": {
-    "message": "မြန်မာ"
+    "message": "南非荷蘭語"
   },
   "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
-  "languageJavanese": {
-    "message": "Basa Jawa"
-  },
-  "languageSundanese": {
-    "message": "Basa Sunda"
-  },
-  "languageArabic": {
-    "message": "العربية"
-  },
-  "languagePersian": {
-    "message": "فارسی"
-  },
-  "languageHebrew": {
-    "message": "עברית"
-  },
-  "languageArmenian": {
-    "message": "Հայերեն"
-  },
-  "languageGeorgian": {
-    "message": "ქართული"
-  },
-  "languageKazakh": {
-    "message": "Қазақша"
-  },
-  "languageKyrgyz": {
-    "message": "Кыргызча"
-  },
-  "languageMongolian": {
-    "message": "Монгол"
-  },
-  "languagePashto": {
-    "message": "پښتو"
-  },
-  "languageTajik": {
-    "message": "Тоҷикӣ"
-  },
-  "languageTurkmen": {
-    "message": "Türkmençe"
-  },
-  "languageUyghur": {
-    "message": "ئۇيغۇرچە"
-  },
-  "languageUzbek": {
-    "message": "Oʻzbekcha"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
+    "message": "菲律賓語 / 他加祿語"
   },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "食材"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "步驟"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +402,7 @@
     "message": "匯入資料與設定"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "設定已匯出。"
   },
   "blockReasonDomain": {
     "message": "網站"
@@ -811,5 +607,71 @@
   },
   "catLabelRestaurant": {
     "message": "餐廳"
+  },
+  "currencyAuto": {
+    "message": "跟隨顯示語言 — $1（$2）"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "你開啟了"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "企業間交易平台"
+  },
+  "catLabelCourier": {
+    "message": "快遞"
+  },
+  "catLabelDelivery": {
+    "message": "外送"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "電商平台"
+  },
+  "catLabelFastFood": {
+    "message": "速食"
+  },
+  "catLabelFoodContent": {
+    "message": "美食內容"
+  },
+  "catLabelLocalServices": {
+    "message": "在地服務"
+  },
+  "catLabelLogistics": {
+    "message": "物流"
+  },
+  "catLabelMarketplace": {
+    "message": "交易平台"
+  },
+  "catLabelMealDelivery": {
+    "message": "餐點外送"
+  },
+  "catLabelMealKit": {
+    "message": "食材包"
+  },
+  "catLabelMealService": {
+    "message": "配餐服務"
+  },
+  "catLabelPickupOrdering": {
+    "message": "到店自取"
+  },
+  "catLabelQuickCommerce": {
+    "message": "即時零售"
+  },
+  "catLabelRecipe": {
+    "message": "食譜"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "餐廳評論"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "餐飲集團"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "餐飲軟體"
+  },
+  "catLabelSuperApp": {
+    "message": "超級應用程式"
+  },
+  "catLabelVenueOrdering": {
+    "message": "場館點餐"
   }
 }

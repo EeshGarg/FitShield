@@ -23,6 +23,18 @@
     try { return AB ? JSON.parse(AB.getInfo()) : {}; } catch (e) { return {}; }
   }
 
+  // Same namer the extension's block page and Settings use, from the i18n.js
+  // this page loads above. The COPY table below is TONE — a title and a nudge
+  // for eight categories — and it was doing double duty as the category NAME,
+  // which it is not equipped for: the curated data carries 37 categories, so
+  // `copyFor` answered the other 29 with COPY.fast_food and a blocked tea shop
+  // was labelled "Fast food", in English, in all 83 locales.
+  function categoryName(id) {
+    return (self.FitShieldI18n && self.FitShieldI18n.categoryName)
+      ? self.FitShieldI18n.categoryName(id)
+      : String(id || "");
+  }
+
   // ---- theme (respect the user's stored dark/light + custom colors) ---------
   // Uses the shared FitShieldTheme (theme.js) — same application as the dashboard.
   async function applyTheme() {
@@ -95,8 +107,13 @@
 
   // ---- one quick recipe alternative ----------------------------------------
   // ---- block reason + schedule status --------------------------------------
-  function renderReason(copy) {
-    $("reason").textContent = `Blocked because app blocking is on for ${copy.label.toLowerCase()} apps.`;
+  // The reason line was an English template literal, so it stayed English on a
+  // Japanese phone however well the rest of the screen was translated — and it
+  // lower-cased an English label to build it, which no other language can be
+  // asked to do. One key, one placeholder, the localized category name in it.
+  function renderReason(category) {
+    const name = categoryName(category);
+    $("reason").textContent = name ? t("blockReasonAppCategory", [name]) : "";
   }
   async function renderSchedule() {
     const el = $("sched");
@@ -169,10 +186,10 @@
     const meta = info();
     const name = meta.displayName || "this app";
     const copy = copyFor(meta.category);
-    $("catLabel").textContent = copy.label;
+    $("catLabel").textContent = categoryName(meta.category) || copy.label;
     $("title").textContent = copy.title(name);
     $("message").textContent = copy.message;
-    renderReason(copy);
+    renderReason(meta.category);
     document.documentElement.classList.add("on"); // warm accent bloom
 
     applyTheme();

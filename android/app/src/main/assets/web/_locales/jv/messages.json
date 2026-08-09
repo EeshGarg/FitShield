@@ -473,9 +473,6 @@
   "languageBurmese": {
     "message": "Burma (Myanmar)"
   },
-  "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
   "languageJavanese": {
     "message": "basa jawa"
   },
@@ -580,15 +577,6 @@
   },
   "bmcAlt": {
     "message": "Buy Me a Coffee"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
   },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
@@ -811,5 +799,29 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "currencyAuto": {
+    "message": "Manut basaku — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Sampeyan mbukak"
+  },
+  "catLabelCourier": {
+    "message": "Kurir"
+  },
+  "catLabelDelivery": {
+    "message": "Pangiriman"
+  },
+  "catLabelFastFood": {
+    "message": "Panganan cepet"
+  },
+  "catLabelLogistics": {
+    "message": "Logistik"
+  },
+  "catLabelMealDelivery": {
+    "message": "Pangiriman panganan"
+  },
+  "catLabelRecipe": {
+    "message": "Resep"
   }
 }

@@ -323,9 +323,6 @@
   "languageSpanishSpain": {
     "message": "Sepanyol (Sepanyol)"
   },
-  "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
   "languageAlbanian": {
     "message": "bahasa Albania"
   },
@@ -581,15 +578,6 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -811,5 +799,71 @@
   },
   "catLabelRestaurant": {
     "message": "Restoran"
+  },
+  "currencyAuto": {
+    "message": "Ikut bahasa saya — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Anda membuka"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Pasar B2B"
+  },
+  "catLabelCourier": {
+    "message": "Kurier"
+  },
+  "catLabelDelivery": {
+    "message": "Penghantaran"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Pasar dalam talian"
+  },
+  "catLabelFastFood": {
+    "message": "Makanan segera"
+  },
+  "catLabelFoodContent": {
+    "message": "Kandungan makanan"
+  },
+  "catLabelLocalServices": {
+    "message": "Perkhidmatan tempatan"
+  },
+  "catLabelLogistics": {
+    "message": "Logistik"
+  },
+  "catLabelMarketplace": {
+    "message": "Platform jual beli"
+  },
+  "catLabelMealDelivery": {
+    "message": "Penghantaran makanan"
+  },
+  "catLabelMealKit": {
+    "message": "Pek bahan masakan"
+  },
+  "catLabelMealService": {
+    "message": "Perkhidmatan hidangan"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Pesan dan ambil sendiri"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Penghantaran pantas"
+  },
+  "catLabelRecipe": {
+    "message": "Resipi"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Cari restoran"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Kumpulan restoran"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Perisian restoran"
+  },
+  "catLabelSuperApp": {
+    "message": "Aplikasi super"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Pesan dari tempat duduk"
   }
 }

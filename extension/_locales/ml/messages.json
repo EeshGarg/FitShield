@@ -578,20 +578,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "ചേരുവകൾ"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "ഘട്ടങ്ങൾ"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -603,7 +594,7 @@
     "message": "ഡാറ്റയും ക്രമീകരണങ്ങളും ഇറക്കുമതി ചെയ്യുക"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "ക്രമീകരണങ്ങൾ കയറ്റുമതി ചെയ്തു."
   },
   "blockReasonDomain": {
     "message": "സൈറ്റ്"
@@ -744,7 +735,7 @@
     "message": "പതിപ്പ് $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "ജർമ്മൻ"
   },
   "statsMostBlockedSites": {
     "message": "ഏറ്റവും കൂടുതൽ തടഞ്ഞ സൈറ്റുകൾ"
@@ -759,54 +750,117 @@
     "message": "ഇതുവരെ തടയലുകളൊന്നും രേഖപ്പെടുത്തിയിട്ടില്ല."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "ബർഗർ"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "പിസ്സ"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "ചിക്കൻ"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "കാപ്പി"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "ചായ"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "മധുരപലഹാരം"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "ബേക്കറി"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "സാൻഡ്‌വിച്ച്"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "മെക്സിക്കൻ"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "ഏഷ്യൻ"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "സീഫുഡ്"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "സ്മൂത്തി"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "കൊറിയൻ ഭക്ഷണം"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "ഫാസ്റ്റ് കാഷ്വൽ"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "പലചരക്ക്"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "കാറ്ററിംഗ്"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "റെസ്റ്റോറന്റ്"
+  },
+  "currencyAuto": {
+    "message": "എന്റെ ഭാഷ അനുസരിച്ച് — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "ഡെലിവറി"
+  },
+  "catLabelFastFood": {
+    "message": "ഫാസ്റ്റ് ഫുഡ്"
+  },
+  "catLabelCourier": {
+    "message": "കൊറിയർ"
+  },
+  "catLabelLogistics": {
+    "message": "ലോജിസ്റ്റിക്സ്"
+  },
+  "catLabelMarketplace": {
+    "message": "മാർക്കറ്റ്പ്ലേസ്"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "ഓൺലൈൻ മാർക്കറ്റ്പ്ലേസ്"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "ബി2ബി മാർക്കറ്റ്പ്ലേസ്"
+  },
+  "catLabelMealDelivery": {
+    "message": "ഭക്ഷണ ഡെലിവറി"
+  },
+  "catLabelMealKit": {
+    "message": "ഭക്ഷണ കിറ്റ്"
+  },
+  "catLabelMealService": {
+    "message": "ഭക്ഷണ സേവനം"
+  },
+  "catLabelLocalServices": {
+    "message": "പ്രാദേശിക സേവനങ്ങൾ"
+  },
+  "catLabelPickupOrdering": {
+    "message": "പിക്കപ്പ് ഓർഡർ"
+  },
+  "catLabelVenueOrdering": {
+    "message": "വേദിയിൽ ഓർഡർ"
+  },
+  "catLabelQuickCommerce": {
+    "message": "ക്വിക്ക് കൊമേഴ്സ്"
+  },
+  "catLabelSuperApp": {
+    "message": "സൂപ്പർ ആപ്പ്"
+  },
+  "catLabelFoodContent": {
+    "message": "ഭക്ഷണ കണ്ടെന്റ്"
+  },
+  "catLabelRecipe": {
+    "message": "പാചകക്കുറിപ്പുകൾ"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "റെസ്റ്റോറന്റ് തിരയൽ"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "റെസ്റ്റോറന്റ് ഗ്രൂപ്പ്"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "റെസ്റ്റോറന്റ് സോഫ്റ്റ്‌വെയർ"
   }
 }

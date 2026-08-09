@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "Ингредиенттер"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "Қадамдар"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "Деректер мен параметрлерді импорттау"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "Параметрлер экспортталды."
   },
   "blockReasonDomain": {
     "message": "Сайт"
@@ -747,7 +738,7 @@
     "message": "Нұсқа $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "неміс"
   },
   "statsMostBlockedSites": {
     "message": "Ең көп бұғатталған сайттар"
@@ -762,54 +753,114 @@
     "message": "Әзірге бұғаттаулар тіркелмеген."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "Бургер"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "Пицца"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "Тауық"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "Кофе"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "Шай"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "Десерт"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "Наубайхана"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "Сэндвич"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "Мексика тағамдары"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "Азия тағамдары"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "Теңіз өнімдері"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "Смузи"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
-  },
-  "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "Корея тағамдары"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "Азық-түлік"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "Кейтеринг"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "Мейрамхана"
+  },
+  "currencyAuto": {
+    "message": "Тіліме сай — $1 ($2)"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Кәсіпорындар арасындағы сауда алаңы"
+  },
+  "catLabelCourier": {
+    "message": "Курьер"
+  },
+  "catLabelDelivery": {
+    "message": "Жеткізу"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Онлайн сауда алаңы"
+  },
+  "catLabelFastFood": {
+    "message": "Жылдам тағам"
+  },
+  "catLabelFoodContent": {
+    "message": "Тағам контенті"
+  },
+  "catLabelLocalServices": {
+    "message": "Жергілікті қызметтер"
+  },
+  "catLabelLogistics": {
+    "message": "Логистика"
+  },
+  "catLabelMarketplace": {
+    "message": "Сауда алаңы"
+  },
+  "catLabelMealDelivery": {
+    "message": "Тағам жеткізу"
+  },
+  "catLabelMealKit": {
+    "message": "Ингредиенттер жинағы"
+  },
+  "catLabelMealService": {
+    "message": "Тағам жазылымы"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Өзі алып кетуге тапсырыс"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Жылдам сауда"
+  },
+  "catLabelRecipe": {
+    "message": "Рецепттер"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Мейрамхана іздеу"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Мейрамханалар тобы"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Мейрамхана бағдарламалары"
+  },
+  "catLabelSuperApp": {
+    "message": "Супер қолданба"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Орнында тапсырыс беру"
   }
 }

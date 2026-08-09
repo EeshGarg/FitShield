@@ -811,5 +811,47 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "currencyAuto": {
+    "message": "እንደ ቋንቋዬ — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "ማድረስ"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "የመስመር ላይ ገበያ"
+  },
+  "catLabelFastFood": {
+    "message": "ፈጣን ምግብ"
+  },
+  "catLabelFoodContent": {
+    "message": "የምግብ ይዘት"
+  },
+  "catLabelLocalServices": {
+    "message": "የአካባቢ አገልግሎቶች"
+  },
+  "catLabelLogistics": {
+    "message": "ሎጂስቲክስ"
+  },
+  "catLabelMarketplace": {
+    "message": "ገበያ"
+  },
+  "catLabelMealDelivery": {
+    "message": "የምግብ ማድረስ"
+  },
+  "catLabelQuickCommerce": {
+    "message": "ፈጣን ንግድ"
+  },
+  "catLabelRecipe": {
+    "message": "የምግብ አዘገጃጀት"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "ምግብ ቤት መፈለጊያ"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "የምግብ ቤቶች ቡድን"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "የምግብ ቤት ሶፍትዌር"
   }
 }

@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "اجزاء"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "مراحل"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "ڈیٹا اور ترتیبات درآمد کریں"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "ترتیبات برآمد ہو گئیں۔"
   },
   "blockReasonDomain": {
     "message": "سائٹ"
@@ -747,7 +738,7 @@
     "message": "ورژن $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "جرمن"
   },
   "statsMostBlockedSites": {
     "message": "سب سے زیادہ بلاک کی گئی سائٹس"
@@ -762,54 +753,117 @@
     "message": "ابھی تک کوئی بلاک ریکارڈ نہیں ہوا۔"
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "برگر"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "پیزا"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "چکن"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "کافی"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "چائے"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "میٹھا"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "بیکری"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "سینڈوچ"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "میکسیکن"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "ایشیائی"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "سمندری غذا"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "اسموتھی"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "کورین کھانا"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "فاسٹ کیژوئل"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "گروسری"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "کیٹرنگ"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "ریستوران"
+  },
+  "currencyAuto": {
+    "message": "میری زبان کے مطابق — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "ڈیلیوری"
+  },
+  "catLabelFastFood": {
+    "message": "فاسٹ فوڈ"
+  },
+  "catLabelCourier": {
+    "message": "کوریئر"
+  },
+  "catLabelLogistics": {
+    "message": "لاجسٹکس"
+  },
+  "catLabelMarketplace": {
+    "message": "مارکیٹ پلیس"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "آن لائن مارکیٹ پلیس"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "بی ٹو بی مارکیٹ پلیس"
+  },
+  "catLabelMealDelivery": {
+    "message": "کھانے کی ڈیلیوری"
+  },
+  "catLabelMealKit": {
+    "message": "کھانے کی کٹ"
+  },
+  "catLabelMealService": {
+    "message": "کھانے کی سروس"
+  },
+  "catLabelLocalServices": {
+    "message": "مقامی خدمات"
+  },
+  "catLabelPickupOrdering": {
+    "message": "پک اپ آرڈر"
+  },
+  "catLabelVenueOrdering": {
+    "message": "مقام پر آرڈر"
+  },
+  "catLabelQuickCommerce": {
+    "message": "کوئیک کامرس"
+  },
+  "catLabelSuperApp": {
+    "message": "سپر ایپ"
+  },
+  "catLabelFoodContent": {
+    "message": "کھانے کا مواد"
+  },
+  "catLabelRecipe": {
+    "message": "ترکیبیں"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "ریستوران کی تلاش"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "ریستوران گروپ"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "ریستوران سافٹ ویئر"
   }
 }

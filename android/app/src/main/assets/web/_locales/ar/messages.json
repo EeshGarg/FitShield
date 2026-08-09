@@ -15,7 +15,7 @@
     "message": "بحث"
   },
   "clearButton": {
-    "message": "واضح"
+    "message": "مسح"
   },
   "openButton": {
     "message": "مفتوح"
@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "المكونات"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "الخطوات"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "استيراد البيانات والإعدادات"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "تم تصدير الإعدادات."
   },
   "blockReasonDomain": {
     "message": "الموقع"
@@ -811,5 +802,71 @@
   },
   "catLabelRestaurant": {
     "message": "مطعم"
+  },
+  "currencyAuto": {
+    "message": "حسب لغتي — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "لقد فتحت"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "سوق بين الشركات"
+  },
+  "catLabelCourier": {
+    "message": "بريد سريع"
+  },
+  "catLabelDelivery": {
+    "message": "توصيل"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "سوق إلكتروني"
+  },
+  "catLabelFastFood": {
+    "message": "وجبات سريعة"
+  },
+  "catLabelFoodContent": {
+    "message": "محتوى طعام"
+  },
+  "catLabelLocalServices": {
+    "message": "خدمات محلية"
+  },
+  "catLabelLogistics": {
+    "message": "خدمات لوجستية"
+  },
+  "catLabelMarketplace": {
+    "message": "سوق"
+  },
+  "catLabelMealDelivery": {
+    "message": "توصيل وجبات"
+  },
+  "catLabelMealKit": {
+    "message": "صندوق مكونات"
+  },
+  "catLabelMealService": {
+    "message": "اشتراك وجبات"
+  },
+  "catLabelPickupOrdering": {
+    "message": "طلب للاستلام"
+  },
+  "catLabelQuickCommerce": {
+    "message": "تجارة سريعة"
+  },
+  "catLabelRecipe": {
+    "message": "وصفات"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "اكتشاف مطاعم"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "مجموعة مطاعم"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "برمجيات مطاعم"
+  },
+  "catLabelSuperApp": {
+    "message": "تطبيق شامل"
+  },
+  "catLabelVenueOrdering": {
+    "message": "طلب داخل المكان"
   }
 }

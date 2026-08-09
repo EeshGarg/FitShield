@@ -1,15 +1,12 @@
 {
   "appName": {
-    "message": "FitShield",
-    "description": "Extension name shown in the browser."
+    "message": "FitShield"
   },
   "appDescription": {
-    "message": "FitShield-Browsererweiterung, die dir hilft, bei Essenslieferungen und Fastfood-Bestellungen achtsam zu bleiben.",
-    "description": "Extension description shown in the browser."
+    "message": "FitShield-Browsererweiterung, die dir hilft, bei Essenslieferungen und Fastfood-Bestellungen achtsam zu bleiben."
   },
   "actionTitle": {
-    "message": "FitShield",
-    "description": "Toolbar button tooltip."
+    "message": "FitShield"
   },
   "searchSitePlaceholder": {
     "message": "Seitenname oder URL suchen"
@@ -60,15 +57,13 @@
     "message": "Die Sperrung folgt deinem Tagesplan, wenn dies aktiviert ist."
   },
   "currentScheduleSummary": {
-    "message": "Aktueller Zeitplan: $1.",
-    "description": "$1 is a time range, optionally followed by ' every day'."
+    "message": "Aktueller Zeitplan: $1."
   },
   "everyDaySuffix": {
     "message": " täglich"
   },
   "scheduleRange": {
-    "message": "$1 bis $2",
-    "description": "$1 start time, $2 end time."
+    "message": "$1 bis $2"
   },
   "unitMinute": {
     "message": "Minute"
@@ -119,20 +114,16 @@
     "message": "Nützlich für Essensbudgets, nächtliches Bestellen oder Arbeitszeiten."
   },
   "statusBypassActive": {
-    "message": "Temporärer Zugang aktiv. Sperrung wird in $1 fortgesetzt.",
-    "description": "$1 is a remaining-time string such as '4m 12s'."
+    "message": "Temporärer Zugang aktiv. Sperrung wird in $1 fortgesetzt."
   },
   "deliverySitesEnabledCount": {
-    "message": "$1 von $2 Lieferseiten aktiviert.",
-    "description": "$1 enabled count, $2 total count."
+    "message": "$1 von $2 Lieferseiten aktiviert."
   },
   "fastFoodSitesEnabledCount": {
-    "message": "$1 von $2 Fastfood-Seiten aktiviert.",
-    "description": "$1 enabled count, $2 total count."
+    "message": "$1 von $2 Fastfood-Seiten aktiviert."
   },
   "searchMatchSuffix": {
-    "message": " $1 entsprechen der Suche.",
-    "description": "$1 is the count of matching sites; appended to a count line."
+    "message": " $1 entsprechen der Suche."
   },
   "warningBackButton": {
     "message": "Zurück"
@@ -162,8 +153,7 @@
     "message": "Eigene Regel"
   },
   "blockReasonMoreCountries": {
-    "message": "+$1 weitere",
-    "description": "$1 is the number of additional countries not shown."
+    "message": "+$1 weitere"
   },
   "recipeIngredientsLabel": {
     "message": "Zutaten"
@@ -238,23 +228,19 @@
     "message": "Keine Fastfood-Seiten entsprechen dieser Suche."
   },
   "noticeMatched": {
-    "message": "$1 $2 entsprachen „$3“.",
-    "description": "$1 count, $2 site/sites unit, $3 the search term."
+    "message": "$1 $2 entsprachen „$3“."
   },
   "invalidUrlNotice": {
     "message": "Diese URL sieht noch nicht gültig aus. Versuch eine Domain wie example.com."
   },
   "alreadyOnBlocklist": {
-    "message": "$1 steht bereits auf der Sperrliste und wurde wieder aktiviert.",
-    "description": "$1 is a domain."
+    "message": "$1 steht bereits auf der Sperrliste und wurde wieder aktiviert."
   },
   "addedToBlocklist": {
-    "message": "$1 wurde zur eigenen Sperrliste hinzugefügt.",
-    "description": "$1 is a domain."
+    "message": "$1 wurde zur eigenen Sperrliste hinzugefügt."
   },
   "removedFromBlocklist": {
-    "message": "$1 wurde von der eigenen Sperrliste entfernt.",
-    "description": "$1 is a domain."
+    "message": "$1 wurde von der eigenen Sperrliste entfernt."
   },
   "metadataHeading": {
     "message": "Sperrung nach Land & Kategorie"
@@ -366,9 +352,6 @@
   },
   "languageSpanishSpain": {
     "message": "Spanisch (Spanien)"
-  },
-  "languageAfrikaans": {
-    "message": "Afrikaans"
   },
   "languageAlbanian": {
     "message": "Albanisch"
@@ -517,9 +500,6 @@
   "languageBurmese": {
     "message": "Birmanisch (Myanmar)"
   },
-  "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
   "languageJavanese": {
     "message": "Javanisch"
   },
@@ -581,8 +561,7 @@
     "message": "Sperrung"
   },
   "mbChipRemoveAria": {
-    "message": "$1 aus dem Schnellzugriff entfernen",
-    "description": "$1 is a country or category label."
+    "message": "$1 aus dem Schnellzugriff entfernen"
   },
   "themeHeading": {
     "message": "Design"
@@ -645,15 +624,13 @@
     "message": "Einstellungen exportiert."
   },
   "importSuccessNotice": {
-    "message": "$1 Einstellungen aus der Sicherung wiederhergestellt.",
-    "description": "$1 is the number of settings restored."
+    "message": "$1 Einstellungen aus der Sicherung wiederhergestellt."
   },
   "importErrorNotice": {
     "message": "Diese Datei ist keine gültige FitShield-Sicherung."
   },
   "reorderCardLabel": {
-    "message": "Karte neu anordnen: $1. Mit den Pfeiltasten verschieben.",
-    "description": "$1 is the card's title. Accessible label for the drag handle."
+    "message": "Karte neu anordnen: $1. Mit den Pfeiltasten verschieben."
   },
   "protectionStatusHeading": {
     "message": "Deine Statistiken"
@@ -704,8 +681,7 @@
     "message": "FitShield auf Werkseinstellungen zurücksetzen? Dies löscht alle Einstellungen, eigenen Seiten und Statistiken auf diesem Gerät. Das kann nicht rückgängig gemacht werden."
   },
   "confirmRemoveCustomSite": {
-    "message": "$1 aus deiner eigenen Sperrliste entfernen?",
-    "description": "$1 is the domain being removed."
+    "message": "$1 aus deiner eigenen Sperrliste entfernen?"
   },
   "resetDoneNotice": {
     "message": "Fertig. Wird neu geladen…"
@@ -744,8 +720,7 @@
     "message": "Fertig"
   },
   "welcomeStepLabel": {
-    "message": "Schritt $1 von $2",
-    "description": "$1 is the current step number, $2 is the total."
+    "message": "Schritt $1 von $2"
   },
   "whatsNewTitle": {
     "message": "Neuigkeiten"
@@ -766,8 +741,7 @@
     "message": "Neu"
   },
   "whatsNewVersion": {
-    "message": "Version $1",
-    "description": "$1 is the version number."
+    "message": "Version $1"
   },
   "supportFooterText": {
     "message": "Wenn FitShield dir geholfen hat, eine unnötige Lieferbestellung zu vermeiden, hilft optionale Unterstützung, Sperrlisten und Doku am Laufen zu halten."
@@ -840,5 +814,68 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "currencyAuto": {
+    "message": "Meiner Sprache folgen — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "Lieferung"
+  },
+  "catLabelFastFood": {
+    "message": "Fastfood"
+  },
+  "catLabelMealDelivery": {
+    "message": "Essenslieferung"
+  },
+  "catLabelMealKit": {
+    "message": "Kochbox"
+  },
+  "catLabelMealService": {
+    "message": "Essensservice"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Restaurantsuche"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Restaurantgruppe"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Restaurant-Software"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Bestellung zur Abholung"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Bestellung am Platz"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Blitzlieferung"
+  },
+  "catLabelSuperApp": {
+    "message": "Super-App"
+  },
+  "catLabelCourier": {
+    "message": "Kurierdienst"
+  },
+  "catLabelLogistics": {
+    "message": "Logistik"
+  },
+  "catLabelLocalServices": {
+    "message": "Lokale Dienste"
+  },
+  "catLabelMarketplace": {
+    "message": "Marktplatz"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Online-Marktplatz"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "B2B-Marktplatz"
+  },
+  "catLabelFoodContent": {
+    "message": "Food-Inhalte"
+  },
+  "catLabelRecipe": {
+    "message": "Rezepte"
   }
 }

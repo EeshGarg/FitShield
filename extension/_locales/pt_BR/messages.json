@@ -425,9 +425,6 @@
   "languageGujarati": {
     "message": "Guzerate"
   },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
   "languageKannada": {
     "message": "Kannada"
   },
@@ -811,5 +808,71 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurante"
+  },
+  "currencyAuto": {
+    "message": "Seguir meu idioma — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "Entrega"
+  },
+  "catLabelFastFood": {
+    "message": "Fast-food"
+  },
+  "catLabelMealDelivery": {
+    "message": "Entrega de refeições"
+  },
+  "catLabelMealKit": {
+    "message": "Kit de refeição"
+  },
+  "catLabelMealService": {
+    "message": "Serviço de refeições"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Busca de restaurantes"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Grupo de restaurantes"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Software para restaurantes"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Pedidos para retirada"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Pedidos no local"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Entrega ultrarrápida"
+  },
+  "catLabelSuperApp": {
+    "message": "Superapp"
+  },
+  "catLabelCourier": {
+    "message": "Entregador"
+  },
+  "catLabelLogistics": {
+    "message": "Logística"
+  },
+  "catLabelLocalServices": {
+    "message": "Serviços locais"
+  },
+  "catLabelMarketplace": {
+    "message": "Marketplace"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Marketplace online"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Marketplace B2B"
+  },
+  "catLabelFoodContent": {
+    "message": "Conteúdo gastronômico"
+  },
+  "catLabelRecipe": {
+    "message": "Receitas"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Você abriu"
   }
 }

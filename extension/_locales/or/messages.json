@@ -3,580 +3,511 @@
     "message": "FitShield"
   },
   "appDescription": {
-    "message": "FitShield ବ୍ରାଉଜର୍ ଏକ୍ସଟେନ୍ସନ୍ ଯାହା ଆପଣଙ୍କୁ ଖାଦ୍ୟ ବିତରଣ ଏବଂ ଫାଷ୍ଟଫୁଡ୍ ଅର୍ଡର ବିଷୟରେ ମନେ ରଖିବାରେ ସାହାଯ୍ୟ କରେ |"
+    "message": "FitShield ବ୍ରାଉଜର୍ ଏକ୍ସଟେନ୍ସନ୍ ଯାହା ଆପଣଙ୍କୁ ଖାଦ୍ୟ ବିତରଣ ଏବଂ ଫାଷ୍ଟଫୁଡ୍ ଅର୍ଡର ବିଷୟରେ ମନେ ରଖିବାରେ ସାହାଯ୍ୟ କରେ।"
   },
   "actionTitle": {
     "message": "FitShield"
   },
   "searchSitePlaceholder": {
-    "message": "ସାଇଟ୍ ନାମ କିମ୍ବା URL ଖୋଜ |"
+    "message": "ସାଇଟ୍ ନାମ କିମ୍ବା URL ଖୋଜ"
   },
   "searchButton": {
-    "message": "ସନ୍ଧାନ କର |"
+    "message": "ସନ୍ଧାନ କର"
   },
   "clearButton": {
     "message": "ସଫା"
   },
   "openButton": {
-    "message": "ଖୋଲନ୍ତୁ |"
+    "message": "ଖୋଲନ୍ତୁ"
   },
   "addButton": {
-    "message": "ଯୋଡନ୍ତୁ |"
+    "message": "ଯୋଡନ୍ତୁ"
   },
   "removeButton": {
-    "message": "ଅପସାରଣ କରନ୍ତୁ |"
+    "message": "ଅପସାରଣ କରନ୍ତୁ"
   },
   "viewBlocklistButton": {
-    "message": "ବ୍ଲକଲିଷ୍ଟ ଦେଖନ୍ତୁ |"
+    "message": "ବ୍ଲକଲିଷ୍ଟ ଦେଖନ୍ତୁ"
   },
   "timerDurationLabel": {
     "message": "ସମୟ ଅବଧି"
   },
   "timerDurationHint": {
-    "message": "ଜାରି ରଖିବା ପୂର୍ବରୁ କାଉଣ୍ଟଡାଉନ୍ ଆଡଜଷ୍ଟ କରନ୍ତୁ |"
+    "message": "ଜାରି ରଖିବା ପୂର୍ବରୁ କାଉଣ୍ଟଡାଉନ୍ ଆଡଜଷ୍ଟ କରନ୍ତୁ।"
   },
   "customSecondsLabel": {
-    "message": "କଷ୍ଟମ୍ ସେକେଣ୍ଡ୍ |"
+    "message": "କଷ୍ଟମ୍ ସେକେଣ୍ଡ୍"
   },
   "siteOpenTimeLabel": {
-    "message": "ସାଇଟ୍ ଖୋଲା ସମୟ |"
-  },
-  "siteOpenTimeHint": {
-    "message": "ଟାଇମର୍ ସମାପ୍ତ ହେବା ପରେ କେତେ ଦିନ ସାଇଟ୍ ଖୋଲା ରହିବ ତାହା ବାଛନ୍ତୁ |"
+    "message": "ସାଇଟ୍ ଖୋଲା ସମୟ"
   },
   "customMinutesLabel": {
-    "message": " |\nକଷ୍ଟମ୍ ମିନିଟ୍ |"
+    "message": "କଷ୍ଟମ୍ ମିନିଟ୍"
   },
   "startTimeLabel": {
-    "message": " |\nଆରମ୍ଭ ସମୟ"
+    "message": "ଆରମ୍ଭ ସମୟ"
   },
   "endTimeLabel": {
-    "message": " |\nଶେଷ ସମୟ"
-  },
-  "scheduleDefaultSummary": {
-    "message": " |\nଏହା ସକ୍ଷମ ହେଲେ ଅବରୋଧ କରିବା ଆପଣଙ୍କର ଦ daily ନନ୍ଦିନ କାର୍ଯ୍ୟସୂଚୀ ଅନୁସରଣ କରିବ |"
+    "message": "ଶେଷ ସମୟ"
   },
   "currentScheduleSummary": {
-    "message": " |\nସାମ୍ପ୍ରତିକ କାର୍ଯ୍ୟସୂଚୀ: $1 |"
+    "message": "ସାମ୍ପ୍ରତିକ କାର୍ଯ୍ୟସୂଚୀ: $1।"
   },
   "everyDaySuffix": {
-    "message": " |\n ପ୍ରତ୍ୟେକ ଦିନ"
+    "message": "ପ୍ରତ୍ୟେକ ଦିନ"
   },
   "scheduleRange": {
-    "message": " |\n$1 ରୁ $2"
+    "message": "$1 ରୁ $2"
   },
   "unitMinute": {
-    "message": " |\nମିନିଟ୍"
+    "message": "ମିନିଟ୍"
   },
   "unitMinutes": {
-    "message": " |\nମିନିଟ୍ |"
+    "message": "ମିନିଟ୍"
   },
   "unitSite": {
-    "message": " |\nସାଇଟ୍ |"
+    "message": "ସାଇଟ୍"
   },
   "unitSites": {
-    "message": " |\nସାଇଟଗୁଡିକ"
+    "message": "ସାଇଟଗୁଡିକ"
   },
   "popupSettingsButton": {
     "message": "ସେଟିଂସମୂହ"
   },
   "popupBlockerTitle": {
-    "message": " |\nFitShield ବ୍ଲକର୍ |"
+    "message": "FitShield ବ୍ଲକର୍"
   },
   "popupMetadataLabel": {
-    "message": " |\nଦେଶ ଏବଂ ବର୍ଗ ଅବରୋଧ"
+    "message": "ଦେଶ ଏବଂ ବର୍ଗ ଅବରୋଧ"
   },
   "popupMetadataSubtitle": {
-    "message": " |\nଦେଶ କିମ୍ବା ଖାଦ୍ୟ ବର୍ଗ ଅନୁଯାୟୀ ସାଇଟଗୁଡିକର ସମ୍ପୂର୍ଣ୍ଣ ଗୋଷ୍ଠୀକୁ ଅବରୋଧ କରନ୍ତୁ |"
+    "message": "ଦେଶ କିମ୍ବା ଖାଦ୍ୟ ବର୍ଗ ଅନୁଯାୟୀ ସାଇଟଗୁଡିକର ସମ୍ପୂର୍ଣ୍ଣ ଗୋଷ୍ଠୀକୁ ଅବରୋଧ କରନ୍ତୁ।"
   },
   "popupDeliveryLabel": {
-    "message": " |\nବିତରଣ ସାଇଟଗୁଡିକ |"
-  },
-  "popupDeliveryDefault": {
-    "message": " |\nଡୋମେନ୍ ଅର୍ଡର ଅର୍ଡର |"
+    "message": "ବିତରଣ ସାଇଟଗୁଡିକ"
   },
   "popupFastFoodLabel": {
-    "message": " |\nଫାଷ୍ଟଫୁଡ୍ ସାଇଟ୍ |"
+    "message": "ଫାଷ୍ଟଫୁଡ୍ ସାଇଟ୍"
   },
   "popupFastFoodDefault": {
-    "message": " |\nପ୍ରମୁଖ ଶୃଙ୍ଖଳା ଅର୍ଡର ଡୋମେନ୍ |"
+    "message": "ପ୍ରମୁଖ ଶୃଙ୍ଖଳା ଅର୍ଡର ଡୋମେନ୍।"
   },
   "popupCustomLabel": {
-    "message": " |\nକଷ୍ଟମ୍ URL ଗୁଡିକ |"
+    "message": "କଷ୍ଟମ୍ URL ଗୁଡିକ"
   },
   "popupCustomSubtitle": {
-    "message": " |\nଆପଣଙ୍କର ନିଜସ୍ୱ ସାଇଟ୍ ଯୋଡନ୍ତୁ ଏବଂ ସେମାନଙ୍କୁ ପୃଥକ ଭାବରେ ଅକ୍ଷମ କରନ୍ତୁ |"
+    "message": "ଆପଣଙ୍କର ନିଜସ୍ୱ ସାଇଟ୍ ଯୋଡନ୍ତୁ ଏବଂ ସେମାନଙ୍କୁ ପୃଥକ ଭାବରେ ଅକ୍ଷମ କରନ୍ତୁ।"
   },
   "popupScheduleLabel": {
-    "message": " |\nକେବଳ ନିର୍ଦ୍ଧାରିତ ଘଣ୍ଟା ମଧ୍ୟରେ ଅବରୋଧ କରନ୍ତୁ |"
+    "message": "କେବଳ ନିର୍ଦ୍ଧାରିତ ଘଣ୍ଟା ମଧ୍ୟରେ ଅବରୋଧ କରନ୍ତୁ"
   },
   "popupScheduleSubtitle": {
-    "message": "ଭୋଜନ ବଜେଟ୍, ବିଳମ୍ବିତ ରାତିର ଅର୍ଡର, କିମ୍ବା କାର୍ଯ୍ୟ ସମୟ ପାଇଁ ଉପଯୋଗୀ |"
-  },
-  "statusBypassActive": {
-    "message": " |\nଅସ୍ଥାୟୀ ପାସ୍ ସକ୍ରିୟ ଅଛି | $1 ରେ ପୁନ umes ଅବରୋଧ କରିବା |"
+    "message": "ଭୋଜନ ବଜେଟ୍, ବିଳମ୍ବିତ ରାତିର ଅର୍ଡର, କିମ୍ବା କାର୍ଯ୍ୟ ସମୟ ପାଇଁ ଉପଯୋଗୀ।"
   },
   "deliverySitesEnabledCount": {
-    "message": " |\n$2 ବିତରଣ ସାଇଟଗୁଡ଼ିକର $1 ସକ୍ଷମ ହୋଇଛି |"
+    "message": "$2 ବିତରଣ ସାଇଟଗୁଡ଼ିକର $1 ସକ୍ଷମ ହୋଇଛି।"
   },
   "fastFoodSitesEnabledCount": {
-    "message": " |\n$2 ଫାଷ୍ଟଫୁଡ୍ ସାଇଟଗୁଡିକର $1 ସକ୍ଷମ |"
+    "message": "$2 ଫାଷ୍ଟଫୁଡ୍ ସାଇଟଗୁଡିକର $1 ସକ୍ଷମ।"
   },
   "searchMatchSuffix": {
-    "message": " |\n $1 ସନ୍ଧାନ ସହିତ ମେଳ ଖାଏ |"
+    "message": "$1 ସନ୍ଧାନ ସହିତ ମେଳ ଖାଏ।"
   },
   "warningBackButton": {
-    "message": " |\nଫେରିଯାଅ |"
+    "message": "ଫେରିଯାଅ"
   },
   "warningErrorHint": {
-    "message": " |\nସାଇଟ୍ ଖୋଲିବାବେଳେ କିଛି ଭୁଲ୍ ହୋଇଗଲା | ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ |"
+    "message": "ସାଇଟ୍ ଖୋଲିବାବେଳେ କିଛି ଭୁଲ୍ ହୋଇଗଲା। ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ।"
   },
   "settingsTitle": {
-    "message": " |\nFitShield ସେଟିଂସମୂହ |"
+    "message": "FitShield ସେଟିଂସମୂହ"
   },
   "blockingOptionsHeading": {
-    "message": " |\nଅବରୋଧ ବିକଳ୍ପଗୁଡ଼ିକ"
+    "message": "ଅବରୋଧ ବିକଳ୍ପଗୁଡ଼ିକ"
   },
   "customizeBlocklistHeading": {
-    "message": " |\nବ୍ଲକଲିଷ୍ଟ କଷ୍ଟୋମାଇଜ୍ କରନ୍ତୁ |"
+    "message": "ବ୍ଲକଲିଷ୍ଟ କଷ୍ଟୋମାଇଜ୍ କରନ୍ତୁ"
   },
   "customizeBlocklistIntro": {
-    "message": " |\nକେଉଁ ବିଲ୍ଟ-ଇନ୍ ଗୋଷ୍ଠୀ ସକ୍ରିୟ ଅଛି ତାହା ବାଛନ୍ତୁ, ବ୍ୟକ୍ତିଗତ ସାଇଟ୍ ଅନ୍ କିମ୍ବା ଅଫ୍ କରନ୍ତୁ, ଏବଂ ଆପଣଙ୍କର ନିଜ ଡୋମେନ୍ ଯୋଡନ୍ତୁ |"
+    "message": "କେଉଁ ବିଲ୍ଟ-ଇନ୍ ଗୋଷ୍ଠୀ ସକ୍ରିୟ ଅଛି ତାହା ବାଛନ୍ତୁ, ବ୍ୟକ୍ତିଗତ ସାଇଟ୍ ଅନ୍ କିମ୍ବା ଅଫ୍ କରନ୍ତୁ, ଏବଂ ଆପଣଙ୍କର ନିଜ ଡୋମେନ୍ ଯୋଡନ୍ତୁ।"
   },
   "deliverySitesHeading": {
-    "message": " |\nବିତରଣ ସାଇଟଗୁଡିକ |"
+    "message": "ବିତରଣ ସାଇଟଗୁଡିକ"
   },
   "fastFoodSitesHeading": {
-    "message": " |\nଫାଷ୍ଟଫୁଡ୍ ସାଇଟ୍ |"
+    "message": "ଫାଷ୍ଟଫୁଡ୍ ସାଇଟ୍"
   },
   "customUrlsHeading": {
-    "message": "କଷ୍ଟମ୍ URL ଗୁଡିକ |"
+    "message": "କଷ୍ଟମ୍ URL ଗୁଡିକ"
   },
   "customUrlsSettingsSubtitle": {
-    "message": " |\nଆପଣଙ୍କର ନିଜ ଡୋମେନ୍ ଯୋଡନ୍ତୁ ଏବଂ ସେମାନଙ୍କୁ ପୃଥକ ଭାବରେ ଅକ୍ଷମ କରନ୍ତୁ |"
+    "message": "ଆପଣଙ୍କର ନିଜ ଡୋମେନ୍ ଯୋଡନ୍ତୁ ଏବଂ ସେମାନଙ୍କୁ ପୃଥକ ଭାବରେ ଅକ୍ଷମ କରନ୍ତୁ।"
   },
   "showSitesButton": {
-    "message": " |\nସାଇଟ୍ ଦେଖାନ୍ତୁ |"
+    "message": "ସାଇଟ୍ ଦେଖାନ୍ତୁ"
   },
   "hideSitesButton": {
-    "message": "ସାଇଟ୍ ଲୁଚାନ୍ତୁ |"
+    "message": "ସାଇଟ୍ ଲୁଚାନ୍ତୁ"
   },
   "showUrlsButton": {
-    "message": " |\nURL ଗୁଡିକ ଦେଖାନ୍ତୁ |"
+    "message": "URL ଗୁଡିକ ଦେଖାନ୍ତୁ"
   },
   "hideUrlsButton": {
-    "message": " |\nURL ଗୁଡିକ ଲୁଚାନ୍ତୁ |"
+    "message": "URL ଗୁଡିକ ଲୁଚାନ୍ତୁ"
   },
   "deliveryToggleTitle": {
-    "message": "ବିତରଣ ସାଇଟ୍ ଅବରୋଧକୁ ସକ୍ଷମ କରନ୍ତୁ |"
+    "message": "ବିତରଣ ସାଇଟ୍ ଅବରୋଧକୁ ସକ୍ଷମ କରନ୍ତୁ"
   },
   "fastFoodToggleTitle": {
-    "message": " |\nଫାଷ୍ଟଫୁଡ୍ ସାଇଟ୍ ବ୍ଲକିଂ ସକ୍ଷମ କରନ୍ତୁ |"
+    "message": "ଫାଷ୍ଟଫୁଡ୍ ସାଇଟ୍ ବ୍ଲକିଂ ସକ୍ଷମ କରନ୍ତୁ"
   },
   "customToggleTitle": {
-    "message": " |\nକଷ୍ଟମ୍ URL ଅବରୋଧକୁ ସକ୍ଷମ କରନ୍ତୁ |"
+    "message": "କଷ୍ଟମ୍ URL ଅବରୋଧକୁ ସକ୍ଷମ କରନ୍ତୁ"
   },
   "addCustomUrlLabel": {
-    "message": " |\nଏକ କଷ୍ଟମ୍ ଅବରୋଧିତ URL ଯୋଡନ୍ତୁ |"
+    "message": "ଏକ କଷ୍ଟମ୍ ଅବରୋଧିତ URL ଯୋଡନ୍ତୁ"
   },
   "customSitePlaceholder": {
-    "message": " |\nexample.com କିମ୍ବା https://example.com |"
-  },
-  "customNormalizeHint": {
-    "message": " |\nଡୋମେନଗୁଡିକରେ ଏଣ୍ଟ୍ରିଗୁଡିକ ସ୍ ized ାଭାବିକ ଏବଂ ସମସ୍ତ ପୃଷ୍ଠାରେ ଅବରୋଧିତ |"
+    "message": "example.com କିମ୍ବା https://example.com"
   },
   "customEmptyDefault": {
     "message": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି କଷ୍ଟମ୍ ଅବରୋଧିତ ସାଇଟ୍ ନାହିଁ। ଅବରୋଧ ଆରମ୍ଭ କରିବାକୁ ଉପରେ example.com ପରି ଏକ ଡୋମେନ ଯୋଡ଼ନ୍ତୁ।"
   },
   "noticeMatched": {
-    "message": " |\n$1 $2 \"$3\" ସହିତ ମେଳ ହେଲା |"
-  },
-  "invalidUrlNotice": {
-    "message": " |\nସେହି URL ଏପର୍ଯ୍ୟନ୍ତ ବ valid ଧ ଦେଖାଯାଉନାହିଁ | example.com ପରି ଏକ ଡୋମେନ୍ ଚେଷ୍ଟା କରନ୍ତୁ |"
+    "message": "$1 $2 \"$3\" ସହିତ ମେଳ ହେଲା।"
   },
   "alreadyOnBlocklist": {
-    "message": "$1 ପୂର୍ବରୁ ବ୍ଲକଲିଷ୍ଟରେ ଅଛି, ତେଣୁ ଏହାକୁ ପୁନ - ସକ୍ଷମ କରାଯାଇଛି |"
+    "message": "$1 ପୂର୍ବରୁ ବ୍ଲକଲିଷ୍ଟରେ ଅଛି, ତେଣୁ ଏହାକୁ ପୁନ - ସକ୍ଷମ କରାଯାଇଛି।"
   },
   "addedToBlocklist": {
-    "message": " |\n$1 କଷ୍ଟମ୍ ବ୍ଲକ୍ ତାଲିକାରେ ଯୋଡା ଯାଇଛି |"
+    "message": "$1 କଷ୍ଟମ୍ ବ୍ଲକ୍ ତାଲିକାରେ ଯୋଡା ଯାଇଛି।"
   },
   "removedFromBlocklist": {
-    "message": " |\n$1 କଷ୍ଟମ୍ ବ୍ଲକ୍ ତାଲିକାରୁ ଅପସାରିତ ହେଲା |"
+    "message": "$1 କଷ୍ଟମ୍ ବ୍ଲକ୍ ତାଲିକାରୁ ଅପସାରିତ ହେଲା।"
   },
   "metadataHeading": {
-    "message": " |\nଦେଶ ଏବଂ ବର୍ଗ ଅବରୋଧ"
-  },
-  "metadataIntro": {
-    "message": " |\nଏକ ବ୍ରାଣ୍ଡ କାର୍ଯ୍ୟ କରୁଥିବା କିମ୍ବା ଏହା କେଉଁ ପ୍ରକାରର ଖାଦ୍ୟ ଯୋଗାଇଥାଏ ଦେଶ ଦ୍ sites ାରା ସାଇଟଗୁଡିକର ସମଗ୍ର ଗୋଷ୍ଠୀକୁ ଅବରୋଧ କରନ୍ତୁ | ଏହି ବ୍ଲକଗୁଡିକ ଆପଣଙ୍କର ବିଦ୍ୟମାନ ସାଇଟ୍ ଏବଂ କଷ୍ଟମ୍- URL ବ୍ଲକ୍ ଗୁଡିକରେ ଯୋଗ କରେ |"
+    "message": "ଦେଶ ଏବଂ ବର୍ଗ ଅବରୋଧ"
   },
   "blockByCountryLabel": {
-    "message": " |\nଦେଶ ଦ୍ୱାରା ଅବରୋଧ କରନ୍ତୁ |"
-  },
-  "blockByCountryHint": {
-    "message": " |\nଦେଶ ନାମ କିମ୍ବା କୋଡ୍ ଦ୍ୱାରା ସନ୍ଧାନ କରନ୍ତୁ, ଯଥା। \"ୟୁନାଇଟେଡ୍\" କିମ୍ବା \"US\" | ଏକ ଦେଶ ସକ୍ଷମ କରିବା ସେଠାରେ ପ୍ରତ୍ୟେକ ବ୍ରାଣ୍ଡକୁ ସକ୍ରିୟ କରିଥାଏ |"
+    "message": "ଦେଶ ଦ୍ୱାରା ଅବରୋଧ କରନ୍ତୁ"
   },
   "countrySearchPlaceholder": {
-    "message": " |\nସନ୍ଧାନ ଦେଶଗୁଡିକ…"
+    "message": "ସନ୍ଧାନ ଦେଶଗୁଡିକ…"
   },
   "quickAccessCountries": {
-    "message": " |\nଶୀଘ୍ର ପ୍ରବେଶ - ଦେଶଗୁଡିକ |"
+    "message": "ଶୀଘ୍ର ପ୍ରବେଶ - ଦେଶଗୁଡିକ"
   },
   "countryQuickEmpty": {
-    "message": " |\nସନ୍ଧାନରୁ ଏକ ଦେଶକୁ ଏଠାରେ ପିନ୍ କରିବାକୁ ସକ୍ଷମ କର |"
+    "message": "ସନ୍ଧାନରୁ ଏକ ଦେଶକୁ ଏଠାରେ ପିନ୍ କରିବାକୁ ସକ୍ଷମ କର।"
   },
   "blockByCategoryLabel": {
-    "message": " |\nବର୍ଗ ଅନୁଯାୟୀ ଅବରୋଧ କରନ୍ତୁ |"
-  },
-  "blockByCategoryHint": {
-    "message": " |\nବର୍ଗ, ପିଜା, କିମ୍ବା କଫି ପରି ବର୍ଗଗୁଡିକ ସନ୍ଧାନ କରନ୍ତୁ | ବିଶେଷତା ମଧ୍ୟ ସନ୍ଧାନଯୋଗ୍ୟ; ବର୍ଗ ଅନୁଯାୟୀ ବ୍ଲକ ପ୍ରଯୁଜ୍ୟ |"
+    "message": "ବର୍ଗ ଅନୁଯାୟୀ ଅବରୋଧ କରନ୍ତୁ"
   },
   "categorySearchPlaceholder": {
     "message": "ସନ୍ଧାନ ବର୍ଗଗୁଡିକ…"
   },
   "quickAccessCategories": {
-    "message": " |\nଶୀଘ୍ର ପ୍ରବେଶ - ବର୍ଗଗୁଡିକ |"
+    "message": "ଶୀଘ୍ର ପ୍ରବେଶ - ବର୍ଗଗୁଡିକ"
   },
   "categoryQuickEmpty": {
-    "message": " |\nଏହାକୁ ଏଠାରେ ପିନ୍ କରିବା ପାଇଁ ସନ୍ଧାନରୁ ଏକ ବର୍ଗ ସକ୍ଷମ କରନ୍ତୁ |"
+    "message": "ଏହାକୁ ଏଠାରେ ପିନ୍ କରିବା ପାଇଁ ସନ୍ଧାନରୁ ଏକ ବର୍ଗ ସକ୍ଷମ କରନ୍ତୁ।"
   },
   "languageHeading": {
-    "message": " |\nଭାଷା"
+    "message": "ଭାଷା"
   },
   "languageIntro": {
-    "message": " |\nନିଜ ପରଦାରେ ବ୍ୟବହାର କରୁଥିବା FitShield ଭାଷା ବାଛନ୍ତୁ | ଏହା କେବଳ ଏକ୍ସଟେନ୍ସନ୍ ପାଇଁ ଆପଣଙ୍କର ବ୍ରାଉଜର୍ ଭାଷାକୁ ନବଲିଖନ କରେ |"
+    "message": "ନିଜ ପରଦାରେ ବ୍ୟବହାର କରୁଥିବା FitShield ଭାଷା ବାଛନ୍ତୁ। ଏହା କେବଳ ଏକ୍ସଟେନ୍ସନ୍ ପାଇଁ ଆପଣଙ୍କର ବ୍ରାଉଜର୍ ଭାଷାକୁ ନବଲିଖନ କରେ।"
   },
   "languageSelectLabel": {
-    "message": " |\nଭାଷା ପ୍ରଦର୍ଶନ କରନ୍ତୁ |"
+    "message": "ପ୍ରଦର୍ଶନ ଭାଷା"
   },
   "languageHint": {
-    "message": " |\nଏକ ଭାଷା ଖୋଜ ଏବଂ ଏହାକୁ ବାଛ | ଆପଣଙ୍କର ବ୍ରାଉଜର୍ ଅନୁସରଣ କରିବାକୁ ସିଷ୍ଟମ୍ ଡିଫଲ୍ଟ ବାଛନ୍ତୁ |"
+    "message": "ଏକ ଭାଷା ଖୋଜ ଏବଂ ଏହାକୁ ବାଛ। ଆପଣଙ୍କର ବ୍ରାଉଜର୍ ଅନୁସରଣ କରିବାକୁ ସିଷ୍ଟମ୍ ଡିଫଲ୍ଟ ବାଛନ୍ତୁ।"
   },
   "languageSearchPlaceholder": {
-    "message": " |\nଭାଷା ଖୋଜ…"
+    "message": "ଭାଷା ଖୋଜ…"
   },
   "currentLanguageHead": {
-    "message": " |\nସାମ୍ପ୍ରତିକ ଭାଷା |"
+    "message": "ସାମ୍ପ୍ରତିକ ଭାଷା"
   },
   "languageUseButton": {
-    "message": " |\nବ୍ୟବହାର କରନ୍ତୁ |"
+    "message": "ବ୍ୟବହାର କରନ୍ତୁ"
   },
   "languageActiveButton": {
-    "message": "ସକ୍ରିୟ |"
+    "message": "ସକ୍ରିୟ"
   },
   "languageSystem": {
-    "message": " |\nସିଷ୍ଟମ୍ ଡିଫଲ୍ଟ |"
+    "message": "ସିଷ୍ଟମ୍ ଡିଫଲ୍ଟ"
   },
   "languageSystemSub": {
-    "message": " |\nଆପଣଙ୍କର ବ୍ରାଉଜର୍ ଭାଷା ଅନୁସରଣ କରନ୍ତୁ |"
+    "message": "ଆପଣଙ୍କର ବ୍ରାଉଜର୍ ଭାଷା ଅନୁସରଣ କରନ୍ତୁ"
   },
   "languageEnglish": {
-    "message": " |\nଇଂରାଜୀ |"
+    "message": "ଇଂରାଜୀ"
   },
   "languageJapanese": {
-    "message": " |\nଜାପାନିଜ୍"
+    "message": "ଜାପାନିଜ୍"
   },
   "languageChinese": {
-    "message": " |\nଚାଇନିଜ୍ (ସରଳୀକୃତ)"
+    "message": "ଚାଇନିଜ୍ (ସରଳୀକୃତ)"
   },
   "languageFrench": {
-    "message": " |\nଫରାସୀ"
+    "message": "ଫରାସୀ"
   },
   "languageCantonese": {
-    "message": " |\nକାଣ୍ଟୋନେସ୍"
+    "message": "କାଣ୍ଟୋନେସ୍"
   },
   "languageThai": {
-    "message": " |\nଥାଇ"
+    "message": "ଥାଇ"
   },
   "languagePunjabi": {
-    "message": " |\nପଞ୍ଜାବୀ |"
+    "message": "ପଞ୍ଜାବୀ"
   },
   "languageTamil": {
-    "message": " |\nତାମିଲ୍ |"
+    "message": "ତାମିଲ୍"
   },
   "languageChineseTraditionalTaiwan": {
-    "message": " |\nଚାଇନିଜ୍ (ପାରମ୍ପାରିକ, ତାଇୱାନ୍)"
+    "message": "ଚାଇନିଜ୍ (ପାରମ୍ପାରିକ, ତାଇୱାନ୍)"
   },
   "languageKorean": {
     "message": "କୋରିଆନ୍"
   },
   "languageHindi": {
-    "message": " |\nହିନ୍ଦୀ"
+    "message": "ହିନ୍ଦୀ"
   },
   "languageSpanishLatam": {
-    "message": " |\nସ୍ପାନିସ୍ (ଲାଟିନ୍ ଆମେରିକା)"
+    "message": "ସ୍ପାନିସ୍ (ଲାଟିନ୍ ଆମେରିକା)"
   },
   "languageSpanishSpain": {
-    "message": " |\nସ୍ପାନିସ୍ (ସ୍ପେନ୍)"
+    "message": "ସ୍ପାନିସ୍ (ସ୍ପେନ୍)"
   },
   "languageAfrikaans": {
-    "message": " |\nଆଫ୍ରିକୀୟ"
+    "message": "ଆଫ୍ରିକୀୟ"
   },
   "languageAlbanian": {
-    "message": " |\nଆଲବାନ୍"
+    "message": "ଆଲବାନ୍"
   },
   "languageBasque": {
-    "message": " |\nବାସ୍କେ |"
+    "message": "ବାସ୍କେ"
   },
   "languageBelarusian": {
-    "message": " |\nବେଲା Belarusian ଷ"
-  },
-  "languageBulgarian": {
-    "message": " |\nବୁଲଗେରିଆ |"
+    "message": "ବେଲାରୁଷିଆନ୍"
   },
   "languageCatalan": {
-    "message": " |\nକାଟାଲାନ୍"
-  },
-  "languageCroatian": {
-    "message": " |\nକ୍ରୋଏସିଆ"
+    "message": "କାଟାଲାନ୍"
   },
   "languageCzech": {
-    "message": " |\nଚେକ"
+    "message": "ଚେକ"
   },
   "languageDanish": {
     "message": "ଡାନିଶ୍"
   },
   "languageDutch": {
-    "message": " |\nଡଚ୍"
+    "message": "ଡଚ୍"
   },
   "languageEstonian": {
-    "message": " |\nଇଷ୍ଟୋନିଆନ୍ |"
-  },
-  "languageFinnish": {
-    "message": " |\nଫିନଲ୍ୟାଣ୍ଡ"
+    "message": "ଇଷ୍ଟୋନିଆନ୍"
   },
   "languageGreek": {
-    "message": " |\nଗ୍ରୀକ୍"
-  },
-  "languageHungarian": {
-    "message": " |\nହଙ୍ଗେରୀ"
-  },
-  "languageIcelandic": {
-    "message": " |\nଆଇସଲ୍ୟାଣ୍ଡ୍"
+    "message": "ଗ୍ରୀକ୍"
   },
   "languageIrish": {
-    "message": " |\nଇଂରେଜ୍"
+    "message": "ଆଇରିସ୍"
   },
   "languageItalian": {
-    "message": " |\nଇଟାଲୀୟ |"
+    "message": "ଇଟାଲୀୟ"
   },
   "languageLatvian": {
-    "message": " |\nଲାଟଭିଆନ୍"
-  },
-  "languageLithuanian": {
-    "message": " |\nଲିଥୁଆନିଆ"
+    "message": "ଲାଟଭିଆନ୍"
   },
   "languageMacedonian": {
-    "message": " |\nମାକେଡୋନିଆନ୍ |"
+    "message": "ମାକେଡୋନିଆନ୍"
   },
   "languageMaltese": {
     "message": "ମାଲ୍ଟି"
   },
-  "languageNorwegian": {
-    "message": " |\nନରୱେଜ୍"
-  },
-  "languagePolish": {
-    "message": "ପୋଲାଣ୍ଡ |"
-  },
   "languagePortuguesePortugal": {
-    "message": " |\nପର୍ତ୍ତୁଗୀଜ୍ (ପର୍ତ୍ତୁଗାଲ୍)"
+    "message": "ପର୍ତ୍ତୁଗୀଜ୍ (ପର୍ତ୍ତୁଗାଲ୍)"
   },
   "languageRomanian": {
-    "message": " |\nରୋମାନିଆନ୍"
+    "message": "ରୋମାନିଆନ୍"
   },
   "languageRussian": {
-    "message": " |\nRussian ଷିୟ |"
-  },
-  "languageSerbian": {
-    "message": "ସର୍ବିଆ |"
-  },
-  "languageSlovak": {
-    "message": " |\nସ୍ଲୋଭାକିଆ"
+    "message": "ରୁଷିଆନ୍"
   },
   "languageSlovenian": {
-    "message": " |\nସ୍ଲୋଭେନିଆନ୍"
+    "message": "ସ୍ଲୋଭେନିଆନ୍"
   },
   "languageSwedish": {
-    "message": " |\nସ୍ Swedish ିଡିଶ୍"
+    "message": "ସ୍ୱିଡିଶ୍"
   },
   "languageTurkish": {
-    "message": " |\nତୁର୍କୀ"
-  },
-  "languageUkrainian": {
-    "message": " |\nୟୁକ୍ରେନ୍"
+    "message": "ତୁର୍କୀ"
   },
   "languageWelsh": {
-    "message": "ୱେଲ୍ସ |"
+    "message": "ୱେଲ୍ସ"
   },
   "languageBengali": {
-    "message": " |\nବଙ୍ଗାଳୀ"
+    "message": "ବଙ୍ଗାଳୀ"
   },
   "languageGujarati": {
-    "message": " |\nଗୁଜରାଟୀ"
+    "message": "ଗୁଜରାଟୀ"
   },
   "languageKannada": {
-    "message": " |\nକନ୍ନଡ |"
+    "message": "କନ୍ନଡ"
   },
   "languageMalayalam": {
-    "message": " |\nମାଲାୟାଲମ୍"
+    "message": "ମାଲାୟାଲମ୍"
   },
   "languageMarathi": {
-    "message": " |\nମରାଠୀ"
+    "message": "ମରାଠୀ"
   },
   "languageNepali": {
-    "message": " |\nନେପାଳୀ"
+    "message": "ନେପାଳୀ"
   },
   "languageOdia": {
-    "message": " |\nଓଡିଆ"
+    "message": "ଓଡିଆ"
   },
   "languageSinhala": {
-    "message": " |\nସିହ୍ନା"
+    "message": "ସିହ୍ନା"
   },
   "languageTelugu": {
-    "message": " |\nତେଲୁଗୁ"
+    "message": "ତେଲୁଗୁ"
   },
   "languageUrdu": {
-    "message": " |\nଉର୍ଦ୍ଦୁ"
+    "message": "ଉର୍ଦ୍ଦୁ"
   },
   "languageAssamese": {
-    "message": " |\nଆସାମୀୟ |"
+    "message": "ଆସାମୀୟ"
   },
   "languageIndonesian": {
     "message": "ଇଣ୍ଡୋନେସିଆ"
   },
   "languageMalay": {
-    "message": " |\nମାଲାୟା |"
+    "message": "ମାଲାୟା"
   },
   "languageVietnamese": {
-    "message": " |\nଭିଏତନାମ"
+    "message": "ଭିଏତନାମ"
   },
   "languageKhmer": {
-    "message": " |\nଖେମର"
+    "message": "ଖେମର"
   },
   "languageLao": {
-    "message": " |\nଲାଓ"
+    "message": "ଲାଓ"
   },
   "languageBurmese": {
-    "message": " |\nବର୍ମା (ମିଆଁମାର)"
+    "message": "ବର୍ମା (ମିଆଁମାର)"
   },
   "languageFilipinoTagalog": {
-    "message": " |\nଫିଲିପିନୋ / ଟାଗଲଗ୍ |"
+    "message": "ଫିଲିପିନୋ / ଟାଗଲଗ୍"
   },
   "languageJavanese": {
-    "message": " |\nଯବାନ"
+    "message": "ଯବାନ"
   },
   "languageSundanese": {
-    "message": " |\nସୁନ୍ଦରୀ"
+    "message": "ସୁନ୍ଦରୀ"
   },
   "languageArabic": {
-    "message": " |\nଆରବୀ |"
+    "message": "ଆରବୀ"
   },
   "languagePersian": {
-    "message": " |\nପାର୍ସୀ (ଫାର୍ସୀ)"
+    "message": "ପାର୍ସୀ (ଫାର୍ସୀ)"
   },
   "languageHebrew": {
-    "message": " |\nହିବ୍ରୁ"
+    "message": "ହିବ୍ରୁ"
   },
   "languageArmenian": {
     "message": "ଆର୍ମେନିଆ"
   },
   "languageGeorgian": {
-    "message": " |\nଜର୍ଜିଆନ୍"
+    "message": "ଜର୍ଜିଆନ୍"
   },
   "languageKazakh": {
-    "message": " |\nକାଜାକ୍"
+    "message": "କାଜାକ୍"
   },
   "languageKyrgyz": {
-    "message": " |\nକିର୍ଗିଜ୍"
+    "message": "କିର୍ଗିଜ୍"
   },
   "languageMongolian": {
-    "message": " |\nମଙ୍ଗୋଲିଆ"
+    "message": "ମଙ୍ଗୋଲିଆ"
   },
   "languagePashto": {
-    "message": " |\nପାଶ୍ଟୁ"
+    "message": "ପାଶ୍ଟୁ"
   },
   "languageTajik": {
-    "message": " |\nତାଜିକ୍ |"
+    "message": "ତାଜିକ୍"
   },
   "languageTurkmen": {
-    "message": " |\nତୁର୍କମେନ"
+    "message": "ତୁର୍କମେନ"
   },
   "languageUyghur": {
-    "message": " |\nଉଇଗୁର୍"
+    "message": "ଉଇଗୁର୍"
   },
   "languageUzbek": {
-    "message": " |\nଉଜବେକିସ୍ତାନ"
+    "message": "ଉଜବେକିସ୍ତାନ"
   },
   "mbBlocking": {
-    "message": " |\nଅବରୋଧ"
+    "message": "ଅବରୋଧ"
   },
   "mbChipRemoveAria": {
-    "message": " |\nଶୀଘ୍ର ପ୍ରବେଶରୁ $1 ଅପସାରଣ କରନ୍ତୁ |"
+    "message": "ଶୀଘ୍ର ପ୍ରବେଶରୁ $1 ଅପସାରଣ କରନ୍ତୁ"
   },
   "themeHeading": {
-    "message": " |\nଥିମ୍"
+    "message": "ଥିମ୍"
   },
   "resetThemeButton": {
-    "message": " |\nଥିମ୍ ପୁନ Res ସେଟ୍ କରନ୍ତୁ |"
+    "message": "ଥିମ୍ ପୁନଃସେଟ୍ କରନ୍ତୁ"
   },
   "systemThemeLabel": {
-    "message": " |\nସିଷ୍ଟମ୍ ଥିମ୍ |"
+    "message": "ସିଷ୍ଟମ୍ ଥିମ୍"
   },
   "systemThemeHint": {
-    "message": " |\nଉପକରଣ ପସନ୍ଦ କିମ୍ବା ଏକ ସ୍ଥିର ମୋଡ୍ |"
+    "message": "ଉପକରଣ ପସନ୍ଦ କିମ୍ବା ଏକ ସ୍ଥିର ମୋଡ୍।"
   },
   "themeSystem": {
-    "message": " |\nସିଷ୍ଟମ୍"
+    "message": "ସିଷ୍ଟମ୍"
   },
   "themeLight": {
     "message": "ଆଲୋକ"
   },
   "themeDark": {
-    "message": " |\nଅନ୍ଧାର"
+    "message": "ଅନ୍ଧାର"
   },
   "themeBackground": {
-    "message": " |\nପୃଷ୍ଠଭୂମି"
+    "message": "ପୃଷ୍ଠଭୂମି"
   },
   "themePanel": {
-    "message": " |\nପ୍ୟାନେଲ୍ |"
+    "message": "ପ୍ୟାନେଲ୍"
   },
   "themeBorder": {
-    "message": " |\nସୀମା"
+    "message": "ସୀମା"
   },
   "themeText": {
-    "message": " |\nପାଠ"
+    "message": "ପାଠ"
   },
   "themeMutedText": {
-    "message": " |\nମ୍ୟୁଟ୍ ଟେକ୍ସଟ୍ |"
+    "message": "ମ୍ୟୁଟ୍ ଟେକ୍ସଟ୍"
   },
   "themeAccent": {
-    "message": " |\nAccent"
+    "message": "ଆକ୍ସେଣ୍ଟ"
   },
   "cornerRadiusLabel": {
-    "message": " |\nକୋଣାର୍କ ରେଡିଓ"
+    "message": "କୋଣାର୍କ ରେଡିଓ"
   },
   "popupWidthLabel": {
-    "message": " |\nପପ୍ଅପ୍ ଓସାର |"
+    "message": "ପପ୍ଅପ୍ ଓସାର"
   },
   "supportFooterText": {
-    "message": " |\nଯଦି FitShield ଆପଣଙ୍କୁ ଏକ ଅନାବଶ୍ୟକ ବିତରଣ କ୍ରମକୁ ଏଡ଼ାଇବାରେ ସାହାଯ୍ୟ କରେ, ଇଚ୍ଛାଧୀନ ସମର୍ଥନ ବ୍ଲକଲିଷ୍ଟ ଏବଂ ଡକଗୁଡ଼ିକୁ ଚଳାଇବାରେ ସାହାଯ୍ୟ କରେ |"
+    "message": "ଯଦି FitShield ଆପଣଙ୍କୁ ଏକ ଅନାବଶ୍ୟକ ବିତରଣ କ୍ରମକୁ ଏଡ଼ାଇବାରେ ସାହାଯ୍ୟ କରେ, ଇଚ୍ଛାଧୀନ ସମର୍ଥନ ବ୍ଲକଲିଷ୍ଟ ଏବଂ ଡକଗୁଡ଼ିକୁ ଚଳାଇବାରେ ସାହାଯ୍ୟ କରେ।"
   },
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "ଉପକରଣ"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "ପଦକ୍ଷେପ"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -588,7 +519,7 @@
     "message": "ଡାଟା ଓ ସେଟିଂସ୍ ଆମଦାନି କରନ୍ତୁ"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "ସେଟିଂସ୍ ରପ୍ତାନି ହେଲା।"
   },
   "blockReasonDomain": {
     "message": "ସାଇଟ୍"
@@ -729,7 +660,7 @@
     "message": "ସଂସ୍କରଣ $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "ଜର୍ମାନ"
   },
   "statsMostBlockedSites": {
     "message": "ସର୍ବାଧିକ ବ୍ଲକ୍ ହୋଇଥିବା ସାଇଟ୍"
@@ -744,54 +675,99 @@
     "message": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ବ୍ଲକ୍ ରେକର୍ଡ ହୋଇନାହିଁ।"
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "ବର୍ଗର୍"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "ପିଜା"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "ଚିକେନ୍"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "କଫି"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "ଚା"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "ଡେଜର୍ଟ"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "ବେକରୀ"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "ସାଣ୍ଡୱିଚ୍"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "ମେକ୍ସିକାନ୍"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "ଏସୀୟ"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
-  },
-  "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "ସାମୁଦ୍ରିକ ଖାଦ୍ୟ"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "କୋରିଆନ୍ ଖାଦ୍ୟ"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "ଫାଷ୍ଟ କାଜୁଆଲ୍"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "କିରାଣା"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "କେଟରିଂ"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "ରେଷ୍ଟୁରାଣ୍ଟ"
+  },
+  "currencyAuto": {
+    "message": "ମୋ ଭାଷା ଅନୁସାରେ — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "ଡେଲିଭରୀ"
+  },
+  "catLabelFastFood": {
+    "message": "ଫାଷ୍ଟ ଫୁଡ୍"
+  },
+  "catLabelCourier": {
+    "message": "କୁରିଅର୍"
+  },
+  "catLabelLogistics": {
+    "message": "ଲଜିଷ୍ଟିକ୍ସ"
+  },
+  "catLabelMarketplace": {
+    "message": "ମାର୍କେଟପ୍ଲେସ୍"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "ଅନଲାଇନ୍ ମାର୍କେଟପ୍ଲେସ୍"
+  },
+  "catLabelMealDelivery": {
+    "message": "ଖାଦ୍ୟ ଡେଲିଭରୀ"
+  },
+  "catLabelMealKit": {
+    "message": "ଖାଦ୍ୟ କିଟ୍"
+  },
+  "catLabelMealService": {
+    "message": "ଖାଦ୍ୟ ସେବା"
+  },
+  "catLabelLocalServices": {
+    "message": "ସ୍ଥାନୀୟ ସେବା"
+  },
+  "catLabelPickupOrdering": {
+    "message": "ପିକଅପ୍ ଅର୍ଡର"
+  },
+  "catLabelRecipe": {
+    "message": "ରନ୍ଧନ ପ୍ରଣାଳୀ"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "ରେଷ୍ଟୁରାଣ୍ଟ ସନ୍ଧାନ"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "ରେଷ୍ଟୁରାଣ୍ଟ ଗୋଷ୍ଠୀ"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "ରେଷ୍ଟୁରାଣ୍ଟ ସଫ୍ଟୱେୟାର"
   }
 }

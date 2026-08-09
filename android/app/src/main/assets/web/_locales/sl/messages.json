@@ -198,7 +198,7 @@
     "message": "Blokiraj whole groups of spletna mesta by the država a brand operates in or the kind of food it serves. These blokirajs add to your existing spletno mesto and custom-URL blokirajs."
   },
   "blockByCountryLabel": {
-    "message": "Blokiraj by država"
+    "message": "Blokiraj po državi"
   },
   "blockByCountryHint": {
     "message": "Išči by država name or code, e.g. \"United\" or \"US\". Enabling a država blokirajs every brand active there."
@@ -213,7 +213,7 @@
     "message": "Omogoči a država from search to pin it here."
   },
   "blockByCategoryLabel": {
-    "message": "Blokiraj by kategorija"
+    "message": "Blokiraj po kategoriji"
   },
   "blockByCategoryHint": {
     "message": "Išči kategorije like burger, pizza, or coffee. Specialties are searchable too; the blokiraj applies by kategorija."
@@ -257,143 +257,11 @@
   "languageSystem": {
     "message": "Sistem default"
   },
-  "languageEnglish": {
-    "message": "English"
-  },
-  "languageJapanese": {
-    "message": "日本語"
-  },
-  "languageChinese": {
-    "message": "简体中文"
-  },
-  "languageFrench": {
-    "message": "Français"
-  },
-  "languageCantonese": {
-    "message": "粵語"
-  },
-  "languageThai": {
-    "message": "ไทย"
-  },
-  "languagePunjabi": {
-    "message": "ਪੰਜਾਬੀ"
-  },
-  "languageTamil": {
-    "message": "தமிழ்"
-  },
-  "languageChineseTraditionalTaiwan": {
-    "message": "繁體中文（台灣）"
-  },
-  "languageKorean": {
-    "message": "한국어"
-  },
-  "languageHindi": {
-    "message": "हिन्दी"
-  },
   "languageSpanishLatam": {
     "message": "Español (Latinoamérica)"
   },
-  "languageSpanishSpain": {
-    "message": "Español (España)"
-  },
-  "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
-  "languageAlbanian": {
-    "message": "Shqip"
-  },
-  "languageBasque": {
-    "message": "Euskara"
-  },
-  "languageBelarusian": {
-    "message": "Беларуская"
-  },
-  "languageBulgarian": {
-    "message": "Български"
-  },
-  "languageCatalan": {
-    "message": "Català"
-  },
-  "languageCroatian": {
-    "message": "Hrvatski"
-  },
-  "languageCzech": {
-    "message": "Čeština"
-  },
-  "languageDanish": {
-    "message": "Dansk"
-  },
-  "languageDutch": {
-    "message": "Nederlands"
-  },
-  "languageEstonian": {
-    "message": "Eesti"
-  },
-  "languageFinnish": {
-    "message": "Suomi"
-  },
-  "languageGreek": {
-    "message": "Ελληνικά"
-  },
-  "languageHungarian": {
-    "message": "Magyar"
-  },
-  "languageIcelandic": {
-    "message": "Íslenska"
-  },
-  "languageIrish": {
-    "message": "Gaeilge"
-  },
-  "languageItalian": {
-    "message": "Italiano"
-  },
-  "languageLatvian": {
-    "message": "Latviešu"
-  },
-  "languageLithuanian": {
-    "message": "Lietuvių"
-  },
-  "languageMacedonian": {
-    "message": "Македонски"
-  },
-  "languageMaltese": {
-    "message": "Malti"
-  },
-  "languageNorwegian": {
-    "message": "Norsk"
-  },
-  "languagePolish": {
-    "message": "Polski"
-  },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
-  "languageRomanian": {
-    "message": "Română"
-  },
-  "languageRussian": {
-    "message": "Русский"
-  },
-  "languageSerbian": {
-    "message": "Српски"
-  },
-  "languageSlovak": {
-    "message": "Slovenčina"
-  },
   "languageSlovenian": {
     "message": "Slovenščina"
-  },
-  "languageSwedish": {
-    "message": "Svenska"
-  },
-  "languageTurkish": {
-    "message": "Türkçe"
-  },
-  "languageUkrainian": {
-    "message": "Українська"
-  },
-  "languageWelsh": {
-    "message": "Cymraeg"
   },
   "noLanguagesMatch": {
     "message": "Noben jezik se ne ujema z iskanjem."
@@ -451,114 +319,6 @@
   },
   "bmcAlt": {
     "message": "Buy Me a Coffee"
-  },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
-  "languageGujarati": {
-    "message": "ગુજરાતી"
-  },
-  "languageKannada": {
-    "message": "ಕನ್ನಡ"
-  },
-  "languageMalayalam": {
-    "message": "മലയാളം"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
-  },
-  "languageNepali": {
-    "message": "नेपाली"
-  },
-  "languageOdia": {
-    "message": "ଓଡ଼ିଆ"
-  },
-  "languageSinhala": {
-    "message": "සිංහල"
-  },
-  "languageTelugu": {
-    "message": "తెలుగు"
-  },
-  "languageUrdu": {
-    "message": "اردو"
-  },
-  "languageAssamese": {
-    "message": "অসমীয়া"
-  },
-  "languageIndonesian": {
-    "message": "Bahasa Indonesia"
-  },
-  "languageMalay": {
-    "message": "Bahasa Melayu"
-  },
-  "languageVietnamese": {
-    "message": "Tiếng Việt"
-  },
-  "languageKhmer": {
-    "message": "ខ្មែរ"
-  },
-  "languageLao": {
-    "message": "ລາວ"
-  },
-  "languageBurmese": {
-    "message": "မြန်မာ"
-  },
-  "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
-  "languageJavanese": {
-    "message": "Basa Jawa"
-  },
-  "languageSundanese": {
-    "message": "Basa Sunda"
-  },
-  "languageArabic": {
-    "message": "العربية"
-  },
-  "languagePersian": {
-    "message": "فارسی"
-  },
-  "languageHebrew": {
-    "message": "עברית"
-  },
-  "languageArmenian": {
-    "message": "Հայերեն"
-  },
-  "languageGeorgian": {
-    "message": "ქართული"
-  },
-  "languageKazakh": {
-    "message": "Қазақша"
-  },
-  "languageKyrgyz": {
-    "message": "Кыргызча"
-  },
-  "languageMongolian": {
-    "message": "Монгол"
-  },
-  "languagePashto": {
-    "message": "پښتو"
-  },
-  "languageTajik": {
-    "message": "Тоҷикӣ"
-  },
-  "languageTurkmen": {
-    "message": "Türkmençe"
-  },
-  "languageUyghur": {
-    "message": "ئۇيغۇرچە"
-  },
-  "languageUzbek": {
-    "message": "Oʻzbekcha"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
   },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
@@ -781,5 +541,74 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "appDescription": {
+    "message": "Razširitev FitShield vam pomaga, da bolj zavestno naročate dostavo hrane in hitro prehrano."
+  },
+  "currencyAuto": {
+    "message": "Glede na moj jezik — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Odprli ste"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "B2B tržnica"
+  },
+  "catLabelCourier": {
+    "message": "Kurirska služba"
+  },
+  "catLabelDelivery": {
+    "message": "Dostava"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Spletna tržnica"
+  },
+  "catLabelFastFood": {
+    "message": "Hitra prehrana"
+  },
+  "catLabelFoodContent": {
+    "message": "Kulinarične vsebine"
+  },
+  "catLabelLocalServices": {
+    "message": "Lokalne storitve"
+  },
+  "catLabelLogistics": {
+    "message": "Logistika"
+  },
+  "catLabelMarketplace": {
+    "message": "Tržnica"
+  },
+  "catLabelMealDelivery": {
+    "message": "Dostava hrane"
+  },
+  "catLabelMealKit": {
+    "message": "Kompleti za kuhanje"
+  },
+  "catLabelMealService": {
+    "message": "Pripravljeni obroki"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Naročilo za prevzem"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Ekspresna dostava"
+  },
+  "catLabelRecipe": {
+    "message": "Recepti"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Iskanje restavracij"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Restavracijska skupina"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Programska oprema za restavracije"
+  },
+  "catLabelSuperApp": {
+    "message": "Super aplikacija"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Naročilo na prizorišču"
   }
 }

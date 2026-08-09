@@ -1,0 +1,107 @@
+[
+  {
+    "id": "F008",
+    "status": "closed",
+    "verification": "Reproduced by reading extension/diagnostics.html and extension/diagnostics.js as they ship. The finding's symptoms are gone: the page now carries 19 data-i18n attributes and the script routes all 17 user-facing sentences through tOr(key, englishFallback), including the remediation text, which now reads 'Turn FitShield off and back on from your browser's extensions page' instead of naming a build command. The strings 'node build.js', 'dist/chrome' and 'warning.html' still appear in the file, but only inside its own header comment recording that this used to happen; running locale-prune.stripJsComments over the source and re-testing leaves none of them. Added a regression test that strips comments first and then asserts none of those four patterns appears in either the script or the markup, and that every tOr key resolves in the English catalog.",
+    "test": "test/locales.test.js",
+    "evidenceAfter": "diagnostics.js: 17 tOr() message keys, 0 missing from en; diagnostics.html: 19 data-i18n keys, 0 missing; build-command text present only in the header comment"
+  },
+  {
+    "id": "F009",
+    "status": "closed",
+    "verification": "Reproduced against current code. warning.js no longer contains capitalize(info.category); warning.js:25-28 delegates to FitShieldI18n.categoryName and warning.js:30-33 to countryName, the same resolvers Settings uses at settings.js:1677-1681, so both surfaces read one vocabulary. I then checked the property the fix depends on rather than the fix itself: scanned every shipped .js under extension/ and android/app/src/main/assets/web for code that builds a catLabel key from a PascalCased id, and found the Android dashboard still carried its own copy, whose fallback branch had dropped the .filter(Boolean) the canonical prettifier has and threw a TypeError on an empty or leading-underscore id. Replaced it with a delegation to the shared namer and added a test that fails if a second construction site ever reappears.",
+    "test": "test/block-page.test.js",
+    "evidenceAfter": "catLabel key construction now exists in exactly two files, extension/i18n.js and its byte-identical Android mirror; the block page renders no category containing an underscore"
+  },
+  {
+    "id": "F010",
+    "status": "closed",
+    "verification": "Read the current strings and the popup logic. passTitle is now 'How do you want to continue?' rather than 'Continue to this site', and passSubtitle reads 'Choose how long. Each option says what it covers — this site only, or all blocking.' instead of promising FitShield stays on for everything else. The two global buttons read 'Turn off all blocking for 30 minutes' and '... until tomorrow', so the panel no longer contradicts them. The second half of the finding is also closed: popup.js:325-356 passStatusMessage branches on pass scope and target count into statusPassSite, statusPassSitesNamed and statusPassSites, each of which exists in English, so a site-scoped pass now names the site instead of claiming all blocking has stopped.",
+    "test": "test/locales.test.js",
+    "evidenceAfter": "statusPassSite = '$1 is open for $2. Everything else is still blocked.'"
+  },
+  {
+    "id": "F011",
+    "status": "closed",
+    "verification": "Reproduced by reading both paths. The export catch no longer reports importErrorNotice: settings.js reports exportErrorNotice, 'FitShield could not save the backup file. Check that downloads are allowed for this browser, then try again.' On the import side backup.js raises backupError(i18nKey, englishSentence, substitutions) at seven call sites and settings.js backupErrorMessage prefers error.i18nKey, falling back to the written English sentence and only then to the generic notice. I extracted every i18nKey literal from backup.js and confirmed all seven resolve in the English catalog, so a user importing a newer-format backup is told exactly that rather than that the file is invalid.",
+    "test": "test/locales.test.js",
+    "evidenceAfter": "backupErrorNotBackup, backupErrorNewerFormat, backupErrorNoSettings, backupErrorEmptyFile, backupErrorTooLarge, backupErrorInvalidJson, backupErrorValidatorMissing all present in en"
+  },
+  {
+    "id": "F012",
+    "status": "closed",
+    "verification": "Scanned every English message value against the fifteen Title Case headings and buttons the finding listed, and searched settings.html for each as literal markup text. All are now sentence case. The only two that still carry capitals are showUrlsButton 'Show URLs' and hideUrlsButton 'Hide URLs', where the capitals are the acronym URL and sentence case is exactly that spelling — the finding's own suggested fix lists 'Custom URLs' unchanged for the same reason. The repo's sentence-case test enumerates proper nouns and acronyms and passes over the whole catalog.",
+    "test": "test/locales.test.js",
+    "evidenceAfter": "of the 15 listed Title Case strings, 0 remain in the catalog or the markup"
+  },
+  {
+    "id": "F013",
+    "status": "closed",
+    "verification": "Reproduced the residue rather than assuming the pass had finished it. The tooltips had already been reworded to 'Blocking — click to stop blocking' and 'Not blocking — click to block', and settings.js:1010 renders mbBlocking/mbBlock on both the search rows and the pinned chips, so the four-labels-for-one-concept defect was gone. But mbOn and mbOff still existed in en/messages.json, defined there alone, one t() call away from putting an English state word beside a translated one. They had survived every audit run because extension/settings.js:1006 carries a comment naming them and locale-prune's reference scan matched the comment as a use. I fixed the scan to strip comments, which reported them as unreferenced for the first time, then removed both keys and their baseline digests. The test was asserting that the two pairs held the same English; it now asserts the second pair is absent, so it cannot come back.",
+    "test": "test/locales.test.js",
+    "evidenceAfter": "before the scan fix: 'Nothing to prune: no unreferenced, orphaned, stale, or copied locale entries'; after: '2 key(s) in English that no source file references: mbOn, mbOff'"
+  },
+  {
+    "id": "F014",
+    "status": "closed",
+    "verification": "Searched every English message for the '(s)' construct and found none. The three strings the finding named now have real singular partners: scheduleWindowsSummary '$1 time windows set.' with scheduleWindowsSummaryOne '1 time window set.'; estimateBasis with estimateBasisOne '1 alternative you marked as made, at $1 each.'; and searchMatchSuffix ' $1 match the search.' with searchMatchSuffixOne ' 1 matches the search.', which carries the correct singular verb agreement the finding said was wrong. Confirmed the placeholder sets of the singular variants differ deliberately from their plural partners and are internally consistent, since the count is fixed at one.",
+    "test": "test/locales.test.js",
+    "evidenceAfter": "0 English messages contain '(s)'; scheduleWindowsSummaryOne, estimateBasisOne and searchMatchSuffixOne all present"
+  },
+  {
+    "id": "F015",
+    "status": "closed",
+    "verification": "The accessible-name collision is fixed: currencyLabel 'Currency' exists and settings.html gives the select its own label for=\"currencyMode\", so it no longer borrows avgMealCostLabel. The globe emoji is gone from settings.js and the auto entry now renders currencyAuto, 'Match my language — $1 ($2)', which distinguishes it in words. Checking the same control on the other platform found the defect still live there — android/app/src/main/assets/web/app.js still built the entry as a globe emoji followed by the identical name and symbol — so I replaced it with the same message key, and the two pickers now say one thing. I also strengthened the locale test: every translated currencyAuto must keep both $1 and $2 and must contain a letter outside the substitutions, so no translation can collapse it back into the pinned form.",
+    "test": "test/currency.test.js",
+    "evidenceAfter": "no globe emoji remains in extension/settings.js or android/app/src/main/assets/web/app.js"
+  },
+  {
+    "id": "F016",
+    "status": "closed",
+    "verification": "All three names for the rolling window now agree. recapHeading and popupRecapTitle both read 'Last 7 days', recapNoActivity reads 'Nothing to summarize for the last 7 days.' and recapHidden reads 'The 7-day summary is switched off.' — so the calendar-week reading of 'This week' is gone from every surface that renders weeklyRecap output. Verified by reading all four values out of the catalog and by the repo test that pins the popup and Settings names together.",
+    "test": "test/locales.test.js",
+    "evidenceAfter": "recapHeading = popupRecapTitle = 'Last 7 days'"
+  },
+  {
+    "id": "F017",
+    "status": "closed",
+    "verification": "warningPageTitle now reads 'Take a moment' and warningTitle 'Take a moment.', so the tab title is the heading minus its terminal stop and a user who tabs away and back sees the same headline. The unpunctuated brand line is fixed in code rather than in copy: warning.js:309 appends a '.' text node after the bolded brand, which is necessary because the brand name comes from the blocklist rather than from a message. The duplicate the finding asked to remove, warningTriggeredBy, is absent from English and from all 82 other locales.",
+    "test": "test/locales.test.js",
+    "evidenceAfter": "warningTriggeredBy absent from all 83 catalogs; warningPageTitle 'Take a moment' matches warningTitle 'Take a moment.' minus punctuation"
+  },
+  {
+    "id": "F047",
+    "status": "closed",
+    "verification": "learnMoreLink reads 'About FitShield' in English and is defined in zero non-English locales, so all 82 now fall back to the current English rather than to the retired 'Visit fitshield.net'. I scanned every one of the 83 catalogs for that exact retired string and found no occurrences, and locale-parity pins it by exact string in its RETIRED_ENGLISH table independently of the digest baseline. The finding also asked for a check that flags any non-English message that is pure-ASCII Latin in a non-Latin-script locale. That check did not exist, so I implemented englishInNonLatinScript() in tools/locale-hybrid-audit.js: it classifies a locale by the script its own corpus actually uses and reports entries that are pure Latin and byte-identical to English, exempting only proper nouns. On first run it found 761 such entries across 39 locales, which were then translated or deleted, and the check now guards the corpus.",
+    "test": "test/locales.test.js",
+    "evidenceAfter": "0 of 83 locales contain 'Visit fitshield.net'; englishInNonLatinScript() reports 0 stranded entries"
+  },
+  {
+    "id": "F048",
+    "status": "closed",
+    "verification": "Reproduced the state the finding describes and found it had changed shape rather than been fixed: the verbatim English copies had been deleted, so locale-prune reported the corpus clean, but 33 locales simply had no appDescription at all and the store listing still showed English for them. Deleting the copy made the corpus honest without changing what a Dutch or Italian shopper reads. Translated appDescription into all 33, keeping 'FitShield' untranslated as a brand name and every translation under the 132-character store limit. All 83 locales now carry a genuine translation and none is byte-identical to the English.",
+    "evidenceAfter": "appDescription present in 83/83 locales, 0 byte-identical to English, longest translation under the 132-character store limit",
+    "test": "test/locales.test.js"
+  },
+  {
+    "id": "F064",
+    "status": "closed",
+    "verification": "The English catalog is clean: scanning every message for favourite, summaris, cancelled, colour, behaviour, organis, recognis, analys, centre and licence returns nothing, so the four locale strings the finding named have been Americanised. Two occurrences the finding named were still live outside _locales — changelog.json says 'favourites' in two release notes, and that file is rendered on the What's New page, in the same product as the block page's 'Save as a favorite'. Changed both to 'favorites' in changelog.json and in its synced copy extension/changelog.json, and confirmed tools/sync-audit.js still reports all five committed artifacts in sync. The remaining 'colour' matches are inside CSS comments, not user-facing copy. Extended the spelling test to read both changelog files, which it did not previously cover.",
+    "test": "test/locales.test.js",
+    "evidenceAfter": "0 British spellings in en/messages.json, changelog.json and extension/changelog.json"
+  },
+  {
+    "id": "F072",
+    "status": "closed",
+    "verification": "The specific claims the finding quoted are already gone — the doc no longer says 508 keys, 61 percent, 309 translated, or that everything predating 0.55 is fully translated everywhere, and it now names npm run locales:status as the authority. Two stale facts remained, which is exactly the failure mode the finding is about: the headline said 578 English keys when the corpus held 577, and the statistic-verb table still cited recapTopCategory, a key retired this session. Corrected both. Because a transcribed number goes stale silently, I added a test that parses the doc's headline key and locale counts and compares them to the live corpus, and that every message key cited in the doc's tables still exists; prose is exempt, since the doc legitimately narrates retirements.",
+    "test": "test/locales.test.js",
+    "evidenceAfter": "doc headline now reads 577 English keys across 83 locales, matching the corpus exactly"
+  },
+  {
+    "id": "F073",
+    "status": "closed",
+    "verification": "The dead half is closed: warningTriggeredBy is absent from English and from all 82 other locales, so no translator effort sits in a key nothing can render. The check the finding asked for — that every key in en/messages.json is referenced by code — existed as locale-prune unusedKeys() but could not do its job, because the reference scan matched comments, so a key whose last call site had been deleted stayed 'live' by virtue of the comment explaining the deletion, and it never searched the Android web assets at all. Fixed both: the scan now strips JavaScript and HTML comments with a string-and-regex-aware scanner, and reads android/app/src/main/assets/web as well as extension/. Added a test asserting unusedKeys() is empty. The live key warningTriggeredByPrefix, which was English in all 82 locales, is now translated in every locale whose word order permits a leading verb before the bolded brand name; the verb-final languages keep the complete English fallback rather than a forced construction.",
+    "test": "test/locales.test.js",
+    "evidenceAfter": "warningTriggeredBy absent from all 83 catalogs; unusedKeys() returns [] with comment stripping and Android sources both enabled"
+  }
+]

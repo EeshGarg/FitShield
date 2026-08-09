@@ -15,7 +15,7 @@
     "message": "Որոնում"
   },
   "clearButton": {
-    "message": "Պարզ"
+    "message": "Մաքրել"
   },
   "openButton": {
     "message": "Բաց"
@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "Բաղադրիչներ"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "Քայլեր"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "Ներմուծել տվյալները և կարգավորումները"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "Կարգավորումներն արտահանվել են։"
   },
   "blockReasonDomain": {
     "message": "Կայք"
@@ -747,7 +738,7 @@
     "message": "Տարբերակ $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "գերմաներեն"
   },
   "statsMostBlockedSites": {
     "message": "Ամենաշատ արգելափակված կայքերը"
@@ -762,54 +753,114 @@
     "message": "Արգելափակումներ դեռ չեն գրանցվել։"
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "Բուրգեր"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "Պիցցա"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "Հավ"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "Սուրճ"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "Թեյ"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "Դեսերտ"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "Հացաբուլկեղեն"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "Սենդվիչ"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "Մեքսիկական"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "Ասիական"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "Ծովամթերք"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "Սմուզի"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
-  },
-  "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "Կորեական սնունդ"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "Մթերային խանութ"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "Քեյթրինգ"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "Ռեստորան"
+  },
+  "currencyAuto": {
+    "message": "Ըստ իմ լեզվի — $1 ($2)"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Բիզնես-բիզնես շուկա"
+  },
+  "catLabelCourier": {
+    "message": "Սուրհանդակ"
+  },
+  "catLabelDelivery": {
+    "message": "Առաքում"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Առցանց շուկա"
+  },
+  "catLabelFastFood": {
+    "message": "Արագ սնունդ"
+  },
+  "catLabelFoodContent": {
+    "message": "Սննդի բովանդակություն"
+  },
+  "catLabelLocalServices": {
+    "message": "Տեղական ծառայություններ"
+  },
+  "catLabelLogistics": {
+    "message": "Լոգիստիկա"
+  },
+  "catLabelMarketplace": {
+    "message": "Շուկա"
+  },
+  "catLabelMealDelivery": {
+    "message": "Ճաշի առաքում"
+  },
+  "catLabelMealKit": {
+    "message": "Բաղադրիչների հավաքածու"
+  },
+  "catLabelMealService": {
+    "message": "Ճաշի բաժանորդագրություն"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Պատվեր տեղում վերցնելու համար"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Արագ առևտուր"
+  },
+  "catLabelRecipe": {
+    "message": "Բաղադրատոմսեր"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Ռեստորանների որոնում"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Ռեստորանային խումբ"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Ռեստորանային ծրագրեր"
+  },
+  "catLabelSuperApp": {
+    "message": "Սուպեր հավելված"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Տեղում պատվիրում"
   }
 }

@@ -383,213 +383,6 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
-  "languageAlbanian": {
-    "message": "Shqip"
-  },
-  "languageBasque": {
-    "message": "Euskara"
-  },
-  "languageBelarusian": {
-    "message": "Беларуская"
-  },
-  "languageBulgarian": {
-    "message": "Български"
-  },
-  "languageCatalan": {
-    "message": "Català"
-  },
-  "languageCroatian": {
-    "message": "Hrvatski"
-  },
-  "languageCzech": {
-    "message": "Čeština"
-  },
-  "languageDanish": {
-    "message": "Dansk"
-  },
-  "languageDutch": {
-    "message": "Nederlands"
-  },
-  "languageEstonian": {
-    "message": "Eesti"
-  },
-  "languageFinnish": {
-    "message": "Suomi"
-  },
-  "languageGreek": {
-    "message": "Ελληνικά"
-  },
-  "languageHungarian": {
-    "message": "Magyar"
-  },
-  "languageIcelandic": {
-    "message": "Íslenska"
-  },
-  "languageIrish": {
-    "message": "Gaeilge"
-  },
-  "languageItalian": {
-    "message": "Italiano"
-  },
-  "languageLatvian": {
-    "message": "Latviešu"
-  },
-  "languageLithuanian": {
-    "message": "Lietuvių"
-  },
-  "languageMacedonian": {
-    "message": "Македонски"
-  },
-  "languageMaltese": {
-    "message": "Malti"
-  },
-  "languageNorwegian": {
-    "message": "Norsk"
-  },
-  "languagePolish": {
-    "message": "Polski"
-  },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
-  "languageRomanian": {
-    "message": "Română"
-  },
-  "languageRussian": {
-    "message": "Русский"
-  },
-  "languageSerbian": {
-    "message": "Српски"
-  },
-  "languageSlovak": {
-    "message": "Slovenčina"
-  },
-  "languageSlovenian": {
-    "message": "Slovenščina"
-  },
-  "languageSwedish": {
-    "message": "Svenska"
-  },
-  "languageTurkish": {
-    "message": "Türkçe"
-  },
-  "languageUkrainian": {
-    "message": "Українська"
-  },
-  "languageWelsh": {
-    "message": "Cymraeg"
-  },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
-  "languageGujarati": {
-    "message": "ગુજરાતી"
-  },
-  "languageKannada": {
-    "message": "ಕನ್ನಡ"
-  },
-  "languageMalayalam": {
-    "message": "മലയാളം"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
-  },
-  "languageNepali": {
-    "message": "नेपाली"
-  },
-  "languageOdia": {
-    "message": "ଓଡ଼ିଆ"
-  },
-  "languageSinhala": {
-    "message": "සිංහල"
-  },
-  "languageTelugu": {
-    "message": "తెలుగు"
-  },
-  "languageUrdu": {
-    "message": "اردو"
-  },
-  "languageAssamese": {
-    "message": "অসমীয়া"
-  },
-  "languageIndonesian": {
-    "message": "Bahasa Indonesia"
-  },
-  "languageMalay": {
-    "message": "Bahasa Melayu"
-  },
-  "languageVietnamese": {
-    "message": "Tiếng Việt"
-  },
-  "languageKhmer": {
-    "message": "ខ្មែរ"
-  },
-  "languageLao": {
-    "message": "ລາວ"
-  },
-  "languageBurmese": {
-    "message": "မြန်မာ"
-  },
-  "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
-  "languageJavanese": {
-    "message": "Basa Jawa"
-  },
-  "languageSundanese": {
-    "message": "Basa Sunda"
-  },
-  "languageArabic": {
-    "message": "العربية"
-  },
-  "languagePersian": {
-    "message": "فارسی"
-  },
-  "languageHebrew": {
-    "message": "עברית"
-  },
-  "languageArmenian": {
-    "message": "Հայերեն"
-  },
-  "languageGeorgian": {
-    "message": "ქართული"
-  },
-  "languageKazakh": {
-    "message": "Қазақша"
-  },
-  "languageKyrgyz": {
-    "message": "Кыргызча"
-  },
-  "languageMongolian": {
-    "message": "Монгол"
-  },
-  "languagePashto": {
-    "message": "پښتو"
-  },
-  "languageTajik": {
-    "message": "Тоҷикӣ"
-  },
-  "languageTurkmen": {
-    "message": "Türkmençe"
-  },
-  "languageUyghur": {
-    "message": "ئۇيغۇرچە"
-  },
-  "languageUzbek": {
-    "message": "Oʻzbekcha"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -811,5 +604,71 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "currencyAuto": {
+    "message": "Suivre ma langue — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "Livraison"
+  },
+  "catLabelFastFood": {
+    "message": "Restauration rapide"
+  },
+  "catLabelMealDelivery": {
+    "message": "Livraison de repas"
+  },
+  "catLabelMealKit": {
+    "message": "Kit repas"
+  },
+  "catLabelMealService": {
+    "message": "Service de repas"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Recherche de restaurants"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Groupe de restauration"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Logiciel de restauration"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Commande à retirer"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Commande sur place"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Livraison express"
+  },
+  "catLabelSuperApp": {
+    "message": "Super app"
+  },
+  "catLabelCourier": {
+    "message": "Coursier"
+  },
+  "catLabelLogistics": {
+    "message": "Logistique"
+  },
+  "catLabelLocalServices": {
+    "message": "Services locaux"
+  },
+  "catLabelMarketplace": {
+    "message": "Place de marché"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Place de marché en ligne"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Place de marché B2B"
+  },
+  "catLabelFoodContent": {
+    "message": "Contenu culinaire"
+  },
+  "catLabelRecipe": {
+    "message": "Recettes"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Vous avez ouvert"
   }
 }

@@ -314,9 +314,6 @@
   "languageKorean": {
     "message": "कोरियाली"
   },
-  "languageHindi": {
-    "message": "हिन्दी"
-  },
   "languageSpanishLatam": {
     "message": "स्पेनिश (ल्याटिन अमेरिका)"
   },
@@ -433,9 +430,6 @@
   },
   "languageMalayalam": {
     "message": "मलयालम"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
   },
   "languageNepali": {
     "message": "नेपाली"
@@ -581,20 +575,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "सामग्री"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "चरणहरू"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +591,7 @@
     "message": "डेटा र सेटिङहरू आयात गर्नुहोस्"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "सेटिङहरू निर्यात गरियो।"
   },
   "blockReasonDomain": {
     "message": "साइट"
@@ -747,7 +732,7 @@
     "message": "संस्करण $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "जर्मन"
   },
   "statsMostBlockedSites": {
     "message": "सबैभन्दा बढी ब्लक गरिएका साइटहरू"
@@ -762,54 +747,111 @@
     "message": "अहिलेसम्म कुनै ब्लक रेकर्ड भएको छैन।"
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "बर्गर"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "पिज्जा"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "चिकन"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "कफी"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "चिया"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "मिठाई"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "बेकरी"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "स्यान्डविच"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "मेक्सिकन"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "एसियाली"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "समुद्री खाना"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "स्मूदी"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "कोरियाली खाना"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "फास्ट क्याजुअल"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "किराना"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "क्याटरिङ"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "रेस्टुरेन्ट"
+  },
+  "currencyAuto": {
+    "message": "मेरो भाषा अनुसार — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "डेलिभरी"
+  },
+  "catLabelFastFood": {
+    "message": "फास्ट फुड"
+  },
+  "catLabelCourier": {
+    "message": "कुरियर"
+  },
+  "catLabelLogistics": {
+    "message": "लोजिस्टिक्स"
+  },
+  "catLabelMarketplace": {
+    "message": "मार्केटप्लेस"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "अनलाइन मार्केटप्लेस"
+  },
+  "catLabelMealDelivery": {
+    "message": "खाना डेलिभरी"
+  },
+  "catLabelMealKit": {
+    "message": "खाना किट"
+  },
+  "catLabelMealService": {
+    "message": "खाना सेवा"
+  },
+  "catLabelLocalServices": {
+    "message": "स्थानीय सेवाहरू"
+  },
+  "catLabelPickupOrdering": {
+    "message": "पिकअप अर्डर"
+  },
+  "catLabelVenueOrdering": {
+    "message": "स्थानमा अर्डर"
+  },
+  "catLabelSuperApp": {
+    "message": "सुपर एप"
+  },
+  "catLabelFoodContent": {
+    "message": "फुड कन्टेन्ट"
+  },
+  "catLabelRecipe": {
+    "message": "रेसिपी"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "रेस्टुरेन्ट खोज"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "रेस्टुरेन्ट समूह"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "रेस्टुरेन्ट सफ्टवेयर"
   }
 }

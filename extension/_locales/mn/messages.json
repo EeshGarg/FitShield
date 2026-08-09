@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "Орц"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "Алхмууд"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "Өгөгдөл ба тохиргоог импортлох"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "Тохиргоог экспортлолоо."
   },
   "blockReasonDomain": {
     "message": "Сайт"
@@ -747,7 +738,7 @@
     "message": "Хувилбар $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "Герман"
   },
   "statsMostBlockedSites": {
     "message": "Хамгийн их хориглосон сайтууд"
@@ -762,54 +753,114 @@
     "message": "Одоогоор хориг бүртгэгдээгүй байна."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "Бургер"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "Пицца"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "Тахиа"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "Кофе"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "Цай"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "Амттан"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "Талх, нарийн боов"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "Сэндвич"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "Мексик хоол"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "Азийн хоол"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "Далайн хүнс"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "Смузи"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
-  },
-  "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "Солонгос хоол"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "Хүнсний бараа"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "Кейтеринг"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "Ресторан"
+  },
+  "currencyAuto": {
+    "message": "Миний хэлээр — $1 ($2)"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Байгууллага хоорондын зах зээл"
+  },
+  "catLabelCourier": {
+    "message": "Курьер"
+  },
+  "catLabelDelivery": {
+    "message": "Хүргэлт"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Онлайн зах зээл"
+  },
+  "catLabelFastFood": {
+    "message": "Түргэн хоол"
+  },
+  "catLabelFoodContent": {
+    "message": "Хоолны контент"
+  },
+  "catLabelLocalServices": {
+    "message": "Орон нутгийн үйлчилгээ"
+  },
+  "catLabelLogistics": {
+    "message": "Ложистик"
+  },
+  "catLabelMarketplace": {
+    "message": "Зах зээл"
+  },
+  "catLabelMealDelivery": {
+    "message": "Хоол хүргэлт"
+  },
+  "catLabelMealKit": {
+    "message": "Орцны багц"
+  },
+  "catLabelMealService": {
+    "message": "Хоолны захиалгат үйлчилгээ"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Очиж авах захиалга"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Шуурхай худалдаа"
+  },
+  "catLabelRecipe": {
+    "message": "Жорууд"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Ресторан хайх"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Ресторануудын нэгдэл"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Рестораны программ хангамж"
+  },
+  "catLabelSuperApp": {
+    "message": "Супер апп"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Суудлаас захиалах"
   }
 }

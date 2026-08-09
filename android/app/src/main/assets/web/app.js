@@ -28,11 +28,18 @@
     try { regionNames = regionNames || new Intl.DisplayNames([locale()], { type: "region" }); return regionNames.of(code) || code; }
     catch (e) { return code; }
   }
+  // One namer for the whole product, and it lives in i18n.js — which this page
+  // already loads, immediately above this file. The local copy that used to sit
+  // here had drifted twice over: its fallback branch dropped the `.filter(Boolean)`
+  // the canonical prettifier has, so an empty or leading-underscore category id
+  // reached `w[0].toUpperCase()` on `undefined` and threw; and resolving `t()`
+  // itself meant any future change to the rule in i18n.js silently stopped at
+  // the extension. Delegating is what keeps Android, the block page and Settings
+  // saying one word for one category.
   function categoryName(id) {
-    const pascal = String(id || "").split(/[_\s]+/).filter(Boolean).map((w) => w[0].toUpperCase() + w.slice(1)).join("");
-    const key = pascal ? "catLabel" + pascal : "";
-    const loc = key ? t(key) : "";
-    return (loc && loc !== key) ? loc : String(id).split(/[_\s]+/).map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
+    return (self.FitShieldI18n && self.FitShieldI18n.categoryName)
+      ? self.FitShieldI18n.categoryName(id)
+      : String(id || "");
   }
 
   // ---- dashboard / status --------------------------------------------------
@@ -100,7 +107,13 @@
     const autoCode = cur.localeDefaults(loc).currency;
     sel.replaceChildren();
     const auto = document.createElement("option");
-    auto.value = ""; auto.textContent = `🌐 ${cur.displayName(autoCode, loc)} (${cur.symbolFor(autoCode, loc)})`;
+    // The globe was the ONLY thing separating this entry from the pinned entry
+    // for the very same currency further down the list — two options reading
+    // "US Dollar ($)", one with an emoji — and a screen reader drops the emoji,
+    // so it announced them identically. Same key and same wording the extension
+    // uses, so the two pickers say one thing.
+    auto.value = "";
+    auto.textContent = t("currencyAuto", [cur.displayName(autoCode, loc), cur.symbolFor(autoCode, loc)]);
     sel.appendChild(auto);
     cur.currencyCodes().forEach((code) => {
       const opt = document.createElement("option");

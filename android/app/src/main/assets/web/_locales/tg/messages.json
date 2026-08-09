@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "Маводи лозимӣ"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "Қадамҳо"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "Воридоти маълумот ва танзимот"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "Танзимот экспорт карда шуд."
   },
   "blockReasonDomain": {
     "message": "Сомона"
@@ -747,7 +738,7 @@
     "message": "Нусхаи $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "олмонӣ"
   },
   "statsMostBlockedSites": {
     "message": "Сомонаҳои бештар басташуда"
@@ -762,54 +753,87 @@
     "message": "Ҳанӯз ягон басташавӣ сабт нашудааст."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "Бургер"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "Питса"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "Мурғ"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "Қаҳва"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "Чой"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "Ширинӣ"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "Нонвойхона"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "Сандвич"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "Хӯроки мексикоӣ"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "Хӯроки осиёӣ"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "Маҳсулоти баҳрӣ"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "Смузи"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
-  },
-  "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "Хӯроки кореягӣ"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "Маҳсулоти хӯрокворӣ"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "Кейтеринг"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "Тарабхона"
+  },
+  "currencyAuto": {
+    "message": "Мутобиқи забони ман — $1 ($2)"
+  },
+  "catLabelCourier": {
+    "message": "Пайк"
+  },
+  "catLabelDelivery": {
+    "message": "Расонидан"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Бозори онлайн"
+  },
+  "catLabelFastFood": {
+    "message": "Фастфуд"
+  },
+  "catLabelLocalServices": {
+    "message": "Хидматҳои маҳаллӣ"
+  },
+  "catLabelLogistics": {
+    "message": "Логистика"
+  },
+  "catLabelMarketplace": {
+    "message": "Бозор"
+  },
+  "catLabelMealDelivery": {
+    "message": "Расонидани хӯрок"
+  },
+  "catLabelRecipe": {
+    "message": "Рецептҳо"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Гурӯҳи тарабхонаҳо"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Нармафзори тарабхона"
   }
 }

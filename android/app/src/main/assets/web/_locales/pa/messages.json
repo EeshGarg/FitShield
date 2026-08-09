@@ -384,217 +384,16 @@
     "message": "Buy Me a Coffee"
   },
   "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
-  "languageAlbanian": {
-    "message": "Shqip"
-  },
-  "languageBasque": {
-    "message": "Euskara"
-  },
-  "languageBelarusian": {
-    "message": "Беларуская"
-  },
-  "languageBulgarian": {
-    "message": "Български"
-  },
-  "languageCatalan": {
-    "message": "Català"
-  },
-  "languageCroatian": {
-    "message": "Hrvatski"
-  },
-  "languageCzech": {
-    "message": "Čeština"
-  },
-  "languageDanish": {
-    "message": "Dansk"
-  },
-  "languageDutch": {
-    "message": "Nederlands"
-  },
-  "languageEstonian": {
-    "message": "Eesti"
-  },
-  "languageFinnish": {
-    "message": "Suomi"
-  },
-  "languageGreek": {
-    "message": "Ελληνικά"
-  },
-  "languageHungarian": {
-    "message": "Magyar"
-  },
-  "languageIcelandic": {
-    "message": "Íslenska"
-  },
-  "languageIrish": {
-    "message": "Gaeilge"
-  },
-  "languageItalian": {
-    "message": "Italiano"
-  },
-  "languageLatvian": {
-    "message": "Latviešu"
-  },
-  "languageLithuanian": {
-    "message": "Lietuvių"
-  },
-  "languageMacedonian": {
-    "message": "Македонски"
-  },
-  "languageMaltese": {
-    "message": "Malti"
-  },
-  "languageNorwegian": {
-    "message": "Norsk"
-  },
-  "languagePolish": {
-    "message": "Polski"
-  },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
-  "languageRomanian": {
-    "message": "Română"
-  },
-  "languageRussian": {
-    "message": "Русский"
-  },
-  "languageSerbian": {
-    "message": "Српски"
-  },
-  "languageSlovak": {
-    "message": "Slovenčina"
-  },
-  "languageSlovenian": {
-    "message": "Slovenščina"
-  },
-  "languageSwedish": {
-    "message": "Svenska"
-  },
-  "languageTurkish": {
-    "message": "Türkçe"
-  },
-  "languageUkrainian": {
-    "message": "Українська"
-  },
-  "languageWelsh": {
-    "message": "Cymraeg"
-  },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
-  "languageGujarati": {
-    "message": "ગુજરાતી"
-  },
-  "languageKannada": {
-    "message": "ಕನ್ನಡ"
-  },
-  "languageMalayalam": {
-    "message": "മലയാളം"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
-  },
-  "languageNepali": {
-    "message": "नेपाली"
-  },
-  "languageOdia": {
-    "message": "ଓଡ଼ିଆ"
-  },
-  "languageSinhala": {
-    "message": "සිංහල"
-  },
-  "languageTelugu": {
-    "message": "తెలుగు"
-  },
-  "languageUrdu": {
-    "message": "اردو"
-  },
-  "languageAssamese": {
-    "message": "অসমীয়া"
-  },
-  "languageIndonesian": {
-    "message": "Bahasa Indonesia"
-  },
-  "languageMalay": {
-    "message": "Bahasa Melayu"
-  },
-  "languageVietnamese": {
-    "message": "Tiếng Việt"
-  },
-  "languageKhmer": {
-    "message": "ខ្មែរ"
-  },
-  "languageLao": {
-    "message": "ລາວ"
-  },
-  "languageBurmese": {
-    "message": "မြန်မာ"
+    "message": "ਅਫ਼ਰੀਕਾਂਸ"
   },
   "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
-  "languageJavanese": {
-    "message": "Basa Jawa"
-  },
-  "languageSundanese": {
-    "message": "Basa Sunda"
-  },
-  "languageArabic": {
-    "message": "العربية"
-  },
-  "languagePersian": {
-    "message": "فارسی"
-  },
-  "languageHebrew": {
-    "message": "עברית"
-  },
-  "languageArmenian": {
-    "message": "Հայերեն"
-  },
-  "languageGeorgian": {
-    "message": "ქართული"
-  },
-  "languageKazakh": {
-    "message": "Қазақша"
-  },
-  "languageKyrgyz": {
-    "message": "Кыргызча"
-  },
-  "languageMongolian": {
-    "message": "Монгол"
-  },
-  "languagePashto": {
-    "message": "پښتو"
-  },
-  "languageTajik": {
-    "message": "Тоҷикӣ"
-  },
-  "languageTurkmen": {
-    "message": "Türkmençe"
-  },
-  "languageUyghur": {
-    "message": "ئۇيغۇرچە"
-  },
-  "languageUzbek": {
-    "message": "Oʻzbekcha"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
+    "message": "ਫ਼ਿਲੀਪੀਨੋ / ਤਾਗਾਲੋਗ"
   },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "ਸਮੱਗਰੀ"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "ਕਦਮ"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +405,7 @@
     "message": "ਡਾਟਾ ਅਤੇ ਸੈਟਿੰਗਾਂ ਆਯਾਤ ਕਰੋ"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "ਸੈਟਿੰਗਾਂ ਨਿਰਯਾਤ ਕੀਤੀਆਂ ਗਈਆਂ।"
   },
   "blockReasonDomain": {
     "message": "ਸਾਈਟ"
@@ -762,54 +561,117 @@
     "message": "ਹਾਲੇ ਤੱਕ ਕੋਈ ਬਲੌਕ ਦਰਜ ਨਹੀਂ ਹੋਇਆ।"
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "ਬਰਗਰ"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "ਪੀਜ਼ਾ"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "ਚਿਕਨ"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "ਕੌਫ਼ੀ"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "ਚਾਹ"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "ਮਿਠਾਈ"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "ਬੇਕਰੀ"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "ਸੈਂਡਵਿਚ"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "ਮੈਕਸੀਕਨ"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "ਏਸ਼ੀਆਈ"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "ਸਮੁੰਦਰੀ ਭੋਜਨ"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "ਸਮੂਦੀ"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "ਕੋਰੀਆਈ ਭੋਜਨ"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "ਫਾਸਟ ਕੈਜ਼ੁਅਲ"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "ਕਰਿਆਨਾ"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "ਕੇਟਰਿੰਗ"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "ਰੈਸਟੋਰੈਂਟ"
+  },
+  "currencyAuto": {
+    "message": "ਮੇਰੀ ਭਾਸ਼ਾ ਅਨੁਸਾਰ — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "ਡਿਲੀਵਰੀ"
+  },
+  "catLabelFastFood": {
+    "message": "ਫਾਸਟ ਫੂਡ"
+  },
+  "catLabelCourier": {
+    "message": "ਕੋਰੀਅਰ"
+  },
+  "catLabelLogistics": {
+    "message": "ਲੌਜਿਸਟਿਕਸ"
+  },
+  "catLabelMarketplace": {
+    "message": "ਮਾਰਕੀਟਪਲੇਸ"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "ਔਨਲਾਈਨ ਮਾਰਕੀਟਪਲੇਸ"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "ਬੀ2ਬੀ ਮਾਰਕੀਟਪਲੇਸ"
+  },
+  "catLabelMealDelivery": {
+    "message": "ਖਾਣਾ ਡਿਲੀਵਰੀ"
+  },
+  "catLabelMealKit": {
+    "message": "ਖਾਣਾ ਕਿੱਟ"
+  },
+  "catLabelMealService": {
+    "message": "ਖਾਣਾ ਸੇਵਾ"
+  },
+  "catLabelLocalServices": {
+    "message": "ਸਥਾਨਕ ਸੇਵਾਵਾਂ"
+  },
+  "catLabelPickupOrdering": {
+    "message": "ਪਿਕਅੱਪ ਆਰਡਰ"
+  },
+  "catLabelVenueOrdering": {
+    "message": "ਸਥਾਨ ਉੱਤੇ ਆਰਡਰ"
+  },
+  "catLabelQuickCommerce": {
+    "message": "ਕੁਇੱਕ ਕਾਮਰਸ"
+  },
+  "catLabelSuperApp": {
+    "message": "ਸੁਪਰ ਐਪ"
+  },
+  "catLabelFoodContent": {
+    "message": "ਫੂਡ ਕੰਟੈਂਟ"
+  },
+  "catLabelRecipe": {
+    "message": "ਰੈਸਿਪੀ"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "ਰੈਸਟੋਰੈਂਟ ਖੋਜ"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "ਰੈਸਟੋਰੈਂਟ ਸਮੂਹ"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "ਰੈਸਟੋਰੈਂਟ ਸਾਫਟਵੇਅਰ"
   }
 }

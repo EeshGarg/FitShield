@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "સામગ્રી"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "પગલાં"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "ડેટા અને સેટિંગ્સ આયાત કરો"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "સેટિંગ્સ નિકાસ કરવામાં આવી."
   },
   "blockReasonDomain": {
     "message": "સાઇટ"
@@ -747,7 +738,7 @@
     "message": "આવૃત્તિ $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "જર્મન"
   },
   "statsMostBlockedSites": {
     "message": "સૌથી વધુ બ્લૉક કરેલી સાઇટ્સ"
@@ -762,54 +753,117 @@
     "message": "હજુ સુધી કોઈ બ્લૉક નોંધાયા નથી."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "બર્ગર"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "પિઝા"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "ચિકન"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "કૉફી"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "ચા"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "મીઠાઈ"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "બેકરી"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "સેન્ડવિચ"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "મેક્સિકન"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "એશિયન"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "દરિયાઈ ભોજન"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "સ્મૂધી"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "કોરિયન ભોજન"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "ફાસ્ટ કૅઝ્યુઅલ"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "કરિયાણું"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "કેટરિંગ"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "રેસ્ટોરન્ટ"
+  },
+  "currencyAuto": {
+    "message": "મારી ભાષા મુજબ — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "ડિલિવરી"
+  },
+  "catLabelFastFood": {
+    "message": "ફાસ્ટ ફૂડ"
+  },
+  "catLabelCourier": {
+    "message": "કુરિયર"
+  },
+  "catLabelLogistics": {
+    "message": "લોજિસ્ટિક્સ"
+  },
+  "catLabelMarketplace": {
+    "message": "માર્કેટપ્લેસ"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "ઑનલાઇન માર્કેટપ્લેસ"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "બી2બી માર્કેટપ્લેસ"
+  },
+  "catLabelMealDelivery": {
+    "message": "ભોજન ડિલિવરી"
+  },
+  "catLabelMealKit": {
+    "message": "ભોજન કિટ"
+  },
+  "catLabelMealService": {
+    "message": "ભોજન સેવા"
+  },
+  "catLabelLocalServices": {
+    "message": "સ્થાનિક સેવાઓ"
+  },
+  "catLabelPickupOrdering": {
+    "message": "પિકઅપ ઑર્ડર"
+  },
+  "catLabelVenueOrdering": {
+    "message": "સ્થળ પર ઑર્ડર"
+  },
+  "catLabelQuickCommerce": {
+    "message": "ક્વિક કૉમર્સ"
+  },
+  "catLabelSuperApp": {
+    "message": "સુપર ઍપ"
+  },
+  "catLabelFoodContent": {
+    "message": "ફૂડ કન્ટેન્ટ"
+  },
+  "catLabelRecipe": {
+    "message": "રેસિપી"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "રેસ્ટોરન્ટ શોધ"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "રેસ્ટોરન્ટ ગ્રુપ"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "રેસ્ટોરન્ટ સૉફ્ટવેર"
   }
 }

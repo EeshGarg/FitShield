@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "අමුද්‍රව්‍ය"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "පියවර"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "දත්ත සහ සැකසීම් ආයාත කරන්න"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "සැකසීම් නිර්යාත කරන ලදී."
   },
   "blockReasonDomain": {
     "message": "අඩවිය"
@@ -747,7 +738,7 @@
     "message": "අනුවාදය $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "ජර්මන්"
   },
   "statsMostBlockedSites": {
     "message": "වැඩිපුරම අවහිර කළ අඩවි"
@@ -762,54 +753,111 @@
     "message": "තවම අවහිර කිරීම් වාර්තා වී නැත."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "බර්ගර්"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "පීසා"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "චිකන්"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "කෝපි"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "තේ"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "අතුරුපස"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "බේකරි"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "සැන්ඩ්විච්"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "මෙක්සිකානු"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "ආසියානු"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "මුහුදු ආහාර"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "ස්මූති"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "කොරියානු ආහාර"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "ෆාස්ට් කැෂුවල්"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "සිල්ලර"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "කේටරිං"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "අවන්හල"
+  },
+  "currencyAuto": {
+    "message": "මගේ භාෂාවට අනුව — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "බෙදාහැරීම"
+  },
+  "catLabelFastFood": {
+    "message": "ක්ෂණික ආහාර"
+  },
+  "catLabelCourier": {
+    "message": "කුරියර්"
+  },
+  "catLabelLogistics": {
+    "message": "ලොජිස්ටික්ස්"
+  },
+  "catLabelMarketplace": {
+    "message": "වෙළඳපොළ"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "ඔන්ලයින් වෙළඳපොළ"
+  },
+  "catLabelMealDelivery": {
+    "message": "ආහාර බෙදාහැරීම"
+  },
+  "catLabelMealKit": {
+    "message": "ආහාර කට්ටලය"
+  },
+  "catLabelMealService": {
+    "message": "ආහාර සේවාව"
+  },
+  "catLabelLocalServices": {
+    "message": "ප්‍රාදේශීය සේවා"
+  },
+  "catLabelPickupOrdering": {
+    "message": "පිකප් ඇණවුම"
+  },
+  "catLabelVenueOrdering": {
+    "message": "ස්ථානයේ ඇණවුම"
+  },
+  "catLabelSuperApp": {
+    "message": "සුපිරි යෙදුම"
+  },
+  "catLabelFoodContent": {
+    "message": "ආහාර අන්තර්ගතය"
+  },
+  "catLabelRecipe": {
+    "message": "වට්ටෝරු"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "අවන්හල් සෙවීම"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "අවන්හල් සමූහය"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "අවන්හල් මෘදුකාංග"
   }
 }

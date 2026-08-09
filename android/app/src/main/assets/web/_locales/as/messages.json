@@ -422,9 +422,6 @@
   "languageWelsh": {
     "message": "ৱেলছ"
   },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
   "languageGujarati": {
     "message": "গুজৰাটী"
   },
@@ -581,20 +578,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "উপকৰণ"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "পদক্ষেপ"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +594,7 @@
     "message": "ডেটা আৰু ছেটিংছ আমদানি কৰক"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "ছেটিংছ ৰপ্তানি কৰা হ'ল।"
   },
   "blockReasonDomain": {
     "message": "ছাইট"
@@ -747,7 +735,7 @@
     "message": "সংস্কৰণ $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "জাৰ্মান"
   },
   "statsMostBlockedSites": {
     "message": "আটাইতকৈ বেছি ব্লক কৰা ছাইট"
@@ -762,54 +750,87 @@
     "message": "এতিয়ালৈকে কোনো ব্লক ৰেকৰ্ড কৰা হোৱা নাই।"
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "বাৰ্গাৰ"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "পিজ্জা"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "চিকেন"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "কফি"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "চাহ"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "ডেজাৰ্ট"
   },
   "catLabelBakery": {
-    "message": "Bakery"
-  },
-  "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "বেকাৰী"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "মেক্সিকান"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "এছিয়ান"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
-  },
-  "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "সামুদ্ৰিক খাদ্য"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
-  },
-  "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "কোৰিয়ান খাদ্য"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "মুদি"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "কেটাৰিং"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "ৰেষ্টুৰেণ্ট"
+  },
+  "currencyAuto": {
+    "message": "মোৰ ভাষা অনুসৰি — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "ডেলিভাৰী"
+  },
+  "catLabelFastFood": {
+    "message": "ফাষ্ট ফুড"
+  },
+  "catLabelCourier": {
+    "message": "কুৰিয়াৰ"
+  },
+  "catLabelMarketplace": {
+    "message": "বজাৰ"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "অনলাইন বজাৰ"
+  },
+  "catLabelMealDelivery": {
+    "message": "খাদ্য ডেলিভাৰী"
+  },
+  "catLabelMealKit": {
+    "message": "খাদ্য কিট"
+  },
+  "catLabelMealService": {
+    "message": "খাদ্য সেৱা"
+  },
+  "catLabelLocalServices": {
+    "message": "স্থানীয় সেৱা"
+  },
+  "catLabelPickupOrdering": {
+    "message": "পিকআপ অৰ্ডাৰ"
+  },
+  "catLabelRecipe": {
+    "message": "ৰন্ধন প্ৰণালী"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "ৰেষ্টুৰেণ্ট সন্ধান"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "ৰেষ্টুৰেণ্ট গোট"
   }
 }

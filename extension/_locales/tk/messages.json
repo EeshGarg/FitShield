@@ -581,15 +581,6 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -811,5 +802,44 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "currencyAuto": {
+    "message": "Dilime görä — $1 ($2)"
+  },
+  "catLabelCourier": {
+    "message": "Kurýer"
+  },
+  "catLabelDelivery": {
+    "message": "Eltip beriş"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Onlaýn bazar"
+  },
+  "catLabelFastFood": {
+    "message": "Çalt nahar"
+  },
+  "catLabelLocalServices": {
+    "message": "Ýerli hyzmatlar"
+  },
+  "catLabelLogistics": {
+    "message": "Logistika"
+  },
+  "catLabelMarketplace": {
+    "message": "Bazar"
+  },
+  "catLabelMealDelivery": {
+    "message": "Nahar eltip bermek"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Çalt söwda"
+  },
+  "catLabelRecipe": {
+    "message": "Reseptler"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Restoran gözlemek"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Restoranlar topary"
   }
 }

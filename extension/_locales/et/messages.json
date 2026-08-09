@@ -198,7 +198,7 @@
     "message": "Blokeeri whole groups of saidid by the riik a brand operates in or the kind of food it serves. These blokeeris add to your existing sait and custom-URL blokeeris."
   },
   "blockByCountryLabel": {
-    "message": "Blokeeri by riik"
+    "message": "Blokeeri riigi järgi"
   },
   "blockByCountryHint": {
     "message": "Otsi by riik name or code, e.g. \"United\" or \"US\". Enabling a riik blokeeris every brand active there."
@@ -213,7 +213,7 @@
     "message": "Luba a riik from search to pin it here."
   },
   "blockByCategoryLabel": {
-    "message": "Blokeeri by kategooria"
+    "message": "Blokeeri kategooria järgi"
   },
   "blockByCategoryHint": {
     "message": "Otsi kategooriad like burger, pizza, or coffee. Specialties are searchable too; the blokeeri applies by kategooria."
@@ -257,143 +257,11 @@
   "languageSystem": {
     "message": "Süsteem default"
   },
-  "languageEnglish": {
-    "message": "English"
-  },
-  "languageJapanese": {
-    "message": "日本語"
-  },
-  "languageChinese": {
-    "message": "简体中文"
-  },
-  "languageFrench": {
-    "message": "Français"
-  },
-  "languageCantonese": {
-    "message": "粵語"
-  },
-  "languageThai": {
-    "message": "ไทย"
-  },
-  "languagePunjabi": {
-    "message": "ਪੰਜਾਬੀ"
-  },
-  "languageTamil": {
-    "message": "தமிழ்"
-  },
-  "languageChineseTraditionalTaiwan": {
-    "message": "繁體中文（台灣）"
-  },
-  "languageKorean": {
-    "message": "한국어"
-  },
-  "languageHindi": {
-    "message": "हिन्दी"
-  },
   "languageSpanishLatam": {
     "message": "Español (Latinoamérica)"
   },
-  "languageSpanishSpain": {
-    "message": "Español (España)"
-  },
-  "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
-  "languageAlbanian": {
-    "message": "Shqip"
-  },
-  "languageBasque": {
-    "message": "Euskara"
-  },
-  "languageBelarusian": {
-    "message": "Беларуская"
-  },
-  "languageBulgarian": {
-    "message": "Български"
-  },
-  "languageCatalan": {
-    "message": "Català"
-  },
-  "languageCroatian": {
-    "message": "Hrvatski"
-  },
-  "languageCzech": {
-    "message": "Čeština"
-  },
-  "languageDanish": {
-    "message": "Dansk"
-  },
-  "languageDutch": {
-    "message": "Nederlands"
-  },
   "languageEstonian": {
     "message": "Eesti"
-  },
-  "languageFinnish": {
-    "message": "Suomi"
-  },
-  "languageGreek": {
-    "message": "Ελληνικά"
-  },
-  "languageHungarian": {
-    "message": "Magyar"
-  },
-  "languageIcelandic": {
-    "message": "Íslenska"
-  },
-  "languageIrish": {
-    "message": "Gaeilge"
-  },
-  "languageItalian": {
-    "message": "Italiano"
-  },
-  "languageLatvian": {
-    "message": "Latviešu"
-  },
-  "languageLithuanian": {
-    "message": "Lietuvių"
-  },
-  "languageMacedonian": {
-    "message": "Македонски"
-  },
-  "languageMaltese": {
-    "message": "Malti"
-  },
-  "languageNorwegian": {
-    "message": "Norsk"
-  },
-  "languagePolish": {
-    "message": "Polski"
-  },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
-  "languageRomanian": {
-    "message": "Română"
-  },
-  "languageRussian": {
-    "message": "Русский"
-  },
-  "languageSerbian": {
-    "message": "Српски"
-  },
-  "languageSlovak": {
-    "message": "Slovenčina"
-  },
-  "languageSlovenian": {
-    "message": "Slovenščina"
-  },
-  "languageSwedish": {
-    "message": "Svenska"
-  },
-  "languageTurkish": {
-    "message": "Türkçe"
-  },
-  "languageUkrainian": {
-    "message": "Українська"
-  },
-  "languageWelsh": {
-    "message": "Cymraeg"
   },
   "noLanguagesMatch": {
     "message": "Ükski keel ei vasta otsingule."
@@ -451,114 +319,6 @@
   },
   "bmcAlt": {
     "message": "Buy Me a Coffee"
-  },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
-  "languageGujarati": {
-    "message": "ગુજરાતી"
-  },
-  "languageKannada": {
-    "message": "ಕನ್ನಡ"
-  },
-  "languageMalayalam": {
-    "message": "മലയാളം"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
-  },
-  "languageNepali": {
-    "message": "नेपाली"
-  },
-  "languageOdia": {
-    "message": "ଓଡ଼ିଆ"
-  },
-  "languageSinhala": {
-    "message": "සිංහල"
-  },
-  "languageTelugu": {
-    "message": "తెలుగు"
-  },
-  "languageUrdu": {
-    "message": "اردو"
-  },
-  "languageAssamese": {
-    "message": "অসমীয়া"
-  },
-  "languageIndonesian": {
-    "message": "Bahasa Indonesia"
-  },
-  "languageMalay": {
-    "message": "Bahasa Melayu"
-  },
-  "languageVietnamese": {
-    "message": "Tiếng Việt"
-  },
-  "languageKhmer": {
-    "message": "ខ្មែរ"
-  },
-  "languageLao": {
-    "message": "ລາວ"
-  },
-  "languageBurmese": {
-    "message": "မြန်မာ"
-  },
-  "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
-  "languageJavanese": {
-    "message": "Basa Jawa"
-  },
-  "languageSundanese": {
-    "message": "Basa Sunda"
-  },
-  "languageArabic": {
-    "message": "العربية"
-  },
-  "languagePersian": {
-    "message": "فارسی"
-  },
-  "languageHebrew": {
-    "message": "עברית"
-  },
-  "languageArmenian": {
-    "message": "Հայերեն"
-  },
-  "languageGeorgian": {
-    "message": "ქართული"
-  },
-  "languageKazakh": {
-    "message": "Қазақша"
-  },
-  "languageKyrgyz": {
-    "message": "Кыргызча"
-  },
-  "languageMongolian": {
-    "message": "Монгол"
-  },
-  "languagePashto": {
-    "message": "پښتو"
-  },
-  "languageTajik": {
-    "message": "Тоҷикӣ"
-  },
-  "languageTurkmen": {
-    "message": "Türkmençe"
-  },
-  "languageUyghur": {
-    "message": "ئۇيغۇرچە"
-  },
-  "languageUzbek": {
-    "message": "Oʻzbekcha"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
   },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
@@ -781,5 +541,71 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "appDescription": {
+    "message": "FitShield on brauserilaiendus, mis aitab teadlikumalt suhtuda toidu tellimisse ja kiirtoitu."
+  },
+  "currencyAuto": {
+    "message": "Vastavalt minu keelele — $1 ($2)"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "B2B-turuplats"
+  },
+  "catLabelCourier": {
+    "message": "Kullerteenus"
+  },
+  "catLabelDelivery": {
+    "message": "Kohaletoimetamine"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Veebituruplats"
+  },
+  "catLabelFastFood": {
+    "message": "Kiirtoit"
+  },
+  "catLabelFoodContent": {
+    "message": "Toiduteemaline sisu"
+  },
+  "catLabelLocalServices": {
+    "message": "Kohalikud teenused"
+  },
+  "catLabelLogistics": {
+    "message": "Logistika"
+  },
+  "catLabelMarketplace": {
+    "message": "Turuplats"
+  },
+  "catLabelMealDelivery": {
+    "message": "Toidu kohaletoimetamine"
+  },
+  "catLabelMealKit": {
+    "message": "Toidukomplekt"
+  },
+  "catLabelMealService": {
+    "message": "Valmistoit"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Kaasa tellimine"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Kiire kohaletoimetamine"
+  },
+  "catLabelRecipe": {
+    "message": "Retseptid"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Restoranide otsing"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Restoranigrupp"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Restoranitarkvara"
+  },
+  "catLabelSuperApp": {
+    "message": "Superrakendus"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Tellimine kohapeal"
   }
 }

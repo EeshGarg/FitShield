@@ -15,7 +15,7 @@
     "message": "חפש"
   },
   "clearButton": {
-    "message": "ברור"
+    "message": "נקה"
   },
   "openButton": {
     "message": "פתוח"
@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "מרכיבים"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "שלבים"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "ייבוא נתונים והגדרות"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "ההגדרות יוצאו."
   },
   "blockReasonDomain": {
     "message": "אתר"
@@ -762,54 +753,117 @@
     "message": "עדיין לא נרשמו חסימות."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "המבורגר"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "פיצה"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "עוף"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "קפה"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "תה"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "קינוח"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "מאפייה"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "כריך"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "מקסיקני"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "אסייתי"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "פירות ים"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "סמודי"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
-  },
-  "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "אוכל קוריאני"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "מכולת"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "קייטרינג"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "מסעדה"
+  },
+  "currencyAuto": {
+    "message": "לפי השפה שלי — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "פתחת"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "זירת מסחר בין עסקים"
+  },
+  "catLabelCourier": {
+    "message": "שליחויות"
+  },
+  "catLabelDelivery": {
+    "message": "משלוחים"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "זירת מסחר מקוונת"
+  },
+  "catLabelFastFood": {
+    "message": "מזון מהיר"
+  },
+  "catLabelFoodContent": {
+    "message": "תוכן קולינרי"
+  },
+  "catLabelLocalServices": {
+    "message": "שירותים מקומיים"
+  },
+  "catLabelLogistics": {
+    "message": "לוגיסטיקה"
+  },
+  "catLabelMarketplace": {
+    "message": "זירת מסחר"
+  },
+  "catLabelMealDelivery": {
+    "message": "משלוח ארוחות"
+  },
+  "catLabelMealKit": {
+    "message": "ערכת ארוחה"
+  },
+  "catLabelMealService": {
+    "message": "מנוי ארוחות"
+  },
+  "catLabelPickupOrdering": {
+    "message": "הזמנה לאיסוף"
+  },
+  "catLabelQuickCommerce": {
+    "message": "מסחר מהיר"
+  },
+  "catLabelRecipe": {
+    "message": "מתכונים"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "גילוי מסעדות"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "קבוצת מסעדות"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "תוכנה למסעדות"
+  },
+  "catLabelSuperApp": {
+    "message": "סופר-אפליקציה"
+  },
+  "catLabelVenueOrdering": {
+    "message": "הזמנה במתחם"
   }
 }

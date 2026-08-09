@@ -581,15 +581,6 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -811,5 +802,23 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "currencyAuto": {
+    "message": "ຕາມພາສາທີ່ໃຊ້ — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "ທ່ານໄດ້ເປີດ"
+  },
+  "catLabelDelivery": {
+    "message": "ການຈັດສົ່ງ"
+  },
+  "catLabelFastFood": {
+    "message": "ອາຫານດ່ວນ"
+  },
+  "catLabelMealDelivery": {
+    "message": "ການຈັດສົ່ງອາຫານ"
+  },
+  "catLabelRecipe": {
+    "message": "ສູດອາຫານ"
   }
 }

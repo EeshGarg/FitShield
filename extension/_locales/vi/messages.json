@@ -581,15 +581,6 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -811,5 +802,71 @@
   },
   "catLabelRestaurant": {
     "message": "Nhà hàng"
+  },
+  "currencyAuto": {
+    "message": "Theo ngôn ngữ của tôi — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Bạn đã mở"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Sàn giao dịch doanh nghiệp"
+  },
+  "catLabelCourier": {
+    "message": "Chuyển phát"
+  },
+  "catLabelDelivery": {
+    "message": "Giao hàng"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Sàn thương mại điện tử"
+  },
+  "catLabelFastFood": {
+    "message": "Đồ ăn nhanh"
+  },
+  "catLabelFoodContent": {
+    "message": "Nội dung ẩm thực"
+  },
+  "catLabelLocalServices": {
+    "message": "Dịch vụ địa phương"
+  },
+  "catLabelLogistics": {
+    "message": "Hậu cần"
+  },
+  "catLabelMarketplace": {
+    "message": "Sàn giao dịch"
+  },
+  "catLabelMealDelivery": {
+    "message": "Giao đồ ăn"
+  },
+  "catLabelMealKit": {
+    "message": "Bộ nguyên liệu nấu ăn"
+  },
+  "catLabelMealService": {
+    "message": "Dịch vụ suất ăn"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Đặt trước lấy tại quán"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Giao hàng siêu tốc"
+  },
+  "catLabelRecipe": {
+    "message": "Công thức nấu ăn"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Tìm nhà hàng"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Tập đoàn nhà hàng"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Phần mềm nhà hàng"
+  },
+  "catLabelSuperApp": {
+    "message": "Siêu ứng dụng"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Đặt món tại chỗ ngồi"
   }
 }

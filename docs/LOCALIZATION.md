@@ -42,7 +42,7 @@ Each event has exactly one verb, and they may not borrow each other's:
 
 | Event | Verb | Keys |
 | --- | --- | --- |
-| An ordering page was replaced by the block page | **interrupted** | `recapInterrupted`, `recapTopCategory` |
+| An ordering page was replaced by the block page | **interrupted** | `recapInterrupted` |
 | The user went back | **left** | `recapLeft` |
 | The user went on to the site | **continued** | `recapContinued` |
 | An alternative was displayed | **shown** | `recapViewed` |
@@ -88,12 +88,33 @@ So the rule is:
 
 | Situation | Treated as |
 | --- | --- |
-| A locale is missing an English key | **Warning** — translation debt, measured and reported |
+| A locale is missing an English key | **Note** — translation debt, measured and reported |
 | A locale defines a key English does not have | **Error** — a dead string that can never be shown, usually a half-applied rename |
 | A message is empty, or uses `$name$` syntax | **Error** — it will fail to load |
 | A message's `$1..$9` set differs from English | **Error** — it will render with holes |
 | A translation whose English source has since changed | **Error** — the fallback cannot reach it; see below |
 | A locale entry byte-identical to an English sentence | **Error** — English filed as a translation |
+| A pure-Latin English value in a non-Latin-script locale | **Error** — English filed as a translation, in a form the rule above cannot see |
+| A stray `\|` in any message | **Error** — no English message has one; it is machine-translation residue |
+| Latin letters welded onto a word in a spaced non-Latin script | **Error** — "блокироватьing" is gibberish in the reader's own script |
+
+### Why missing keys are a note and not a warning
+
+Every other row is a fault. A missing key is the **designed** behaviour: both
+runtime paths fall back to English, a test proves the fallback works, and this
+document commits to partial locales on purpose.
+
+Reporting it per locale produced 82 warnings that never went down and never
+could, because the condition they described is the policy. Eighty-two standing
+warnings for an accepted condition is how the one warning that matters gets
+scrolled past — so the coverage figure moved to the notes, where measurements
+belong, and the defect channel was left for defects.
+
+Nothing stopped being checked. The debt is still computed, still printed with its
+full range and its lowest locales, and `npm run locales:status` still breaks it
+down per locale and per surface. The same pass that moved it *added* three error
+classes to the channel it vacated, and those three found 978 real defects that
+the 82 warnings had been loud enough to hide.
 
 Enforced by `tools/locale-parity.js` (`npm run validate:locales`) and
 `test/locales.test.js`. `test/locales.test.js` also proves the English fallback
@@ -277,25 +298,44 @@ transcription can go stale. If the two disagree, the tool is right — and the
 number to quote anywhere else (a store listing, a release note, a README badge)
 is the tool's, not this one's.
 
-After the terminology pass: **578 English keys across 83 locales**. No locale but
-English is complete. The other 82 sit between **40% and 47%**, median 47%,
-averaging 264 translated and 314 untranslated each — 25,726 untranslated strings
-across the corpus, every one of which renders in English.
+After the honesty pass: **578 English keys across 83 locales**. No locale but
+English is complete. The other 82 sit between **30% and 51%**, median 39%,
+averaging 240 translated and 338 untranslated each — 27,682 untranslated strings
+across the corpus, every one of which renders in English. **282** of the English
+keys are translated in no locale at all: those are the strings added since the
+last translation pass, and they are the actionable half of the debt.
 
-Seven locales are lowest, at 40% — the six Cyrillic-script ones (be, bg, mk, ru,
-sr, uk) and Greek (el) — because an earlier pass removed mangled
+Seven locales are lowest, at 30% — the six Cyrillic-script ones (be, bg, mk, ru,
+sr, uk) and Greek (el) — because successive passes removed mangled
 machine-translated strings from them. That is the gap working as intended: a
 missing string reads in English, a mangled one reads as nonsense.
 
-The percentages have fallen twice now while the corpus got *more* honest, not
-less. Four things move the denominator and the numerator in opposite directions:
-verbatim-English entries were deleted rather than counted as translations,
-translations of rewritten English were deleted rather than left rendering retired
-copy, and English strings were added that no locale has yet — the ten backup and
-import failure reasons above, the diagnostics page's labels and its runtime
-sentences, and the strings the terminology pass introduced. Every one of them is
-**English-only by design**: the rest fall back, and none has been machine
-translated to make the number look better.
+The percentages have fallen several times now while the corpus got *more* honest,
+not less. Everything that moved the numerator down removed something that was
+never a translation:
+
+- verbatim-English entries, deleted rather than counted as translated;
+- translations of rewritten English, deleted rather than left rendering retired
+  copy;
+- **761 English strings stranded in non-Latin-script locales** — "Bakery",
+  "Grocery" and "Restaurant" sitting in Cyrillic and Devanagari lists, and
+  `ug.clearButton` rendering the word "Clear" in a page of Uyghur. Now translated
+  or deleted, and gated by `englishInNonLatinScript()`;
+- **3,545 language names that were the endonym already printed beside them.** The
+  picker renders `label · native`, so `ru.languageHebrew` = "עברית" produced
+  "עברית · עברית". Deleting them renders "Hebrew · עברית" instead: informative
+  rather than doubled, and honestly marked as untranslated. A language naming
+  *itself* is correct and was kept;
+- **174 stray pipes in Odia**, 154 of them a leading `" |"` and newline, so every
+  label rendered with a vertical bar and a line break in front of it;
+- **43 words welding an English suffix onto a translated stem** —
+  "блокироватьing", "Customize Блокироватьlist" — and 52 Latin-script locales
+  reading "Blocca by paese" where the preposition was never translated.
+
+And English strings were added that no locale has yet — the backup and import
+failure reasons, the diagnostics page, and the strings the terminology pass
+introduced. Every one of them is **English-only by design**: the rest fall back,
+and none has been machine translated to make the number look better.
 
 The terminology pass itself cost 817 translations across eleven keys, deleted
 rather than left rendering a synonym the product had dropped — "On"/"Off" for a

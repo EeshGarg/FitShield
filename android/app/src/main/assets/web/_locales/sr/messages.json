@@ -21,19 +21,19 @@
     "message": "Уклони"
   },
   "timerDurationLabel": {
-    "message": "Timer duration"
+    "message": "Трајање тајмера"
   },
   "customSecondsLabel": {
-    "message": "Custom seconds"
+    "message": "Прилагођене секунде"
   },
   "customMinutesLabel": {
     "message": "Custom минути"
   },
   "startTimeLabel": {
-    "message": "Start time"
+    "message": "Време почетка"
   },
   "endTimeLabel": {
-    "message": "End time"
+    "message": "Време завршетка"
   },
   "currentScheduleSummary": {
     "message": "Тренутно распоред: $1."
@@ -57,19 +57,19 @@
     "message": "FitShield блокатор"
   },
   "popupMetadataLabel": {
-    "message": "Country & категорија блокирајing"
+    "message": "Блокирање по земљи и категорији"
   },
   "popupDeliveryLabel": {
     "message": "Сајтови доставе"
   },
   "popupDeliveryDefault": {
-    "message": "Delivery ordering domains."
+    "message": "Домени за наручивање доставе."
   },
   "popupFastFoodLabel": {
     "message": "Сајтови брзе хране"
   },
   "popupFastFoodDefault": {
-    "message": "Major chain ordering domains."
+    "message": "Домени за наручивање из великих ланаца."
   },
   "popupCustomLabel": {
     "message": "Прилагођени URL-ови"
@@ -84,7 +84,7 @@
     "message": "Блокирање Options"
   },
   "customizeBlocklistHeading": {
-    "message": "Customize Блокирајlist"
+    "message": "Прилагоди листу блокирања"
   },
   "deliverySitesHeading": {
     "message": "Сајтови доставе"
@@ -108,28 +108,28 @@
     "message": "Сакриј URLs"
   },
   "deliveryToggleTitle": {
-    "message": "Омогући delivery сајт блокирајing"
+    "message": "Омогући блокирање сајтова за доставу"
   },
   "fastFoodToggleTitle": {
-    "message": "Омогући fast food сајт блокирајing"
+    "message": "Омогући блокирање сајтова брзе хране"
   },
   "customToggleTitle": {
-    "message": "Омогући custom URL блокирајing"
+    "message": "Омогући блокирање сопствених URL адреса"
   },
   "addCustomUrlLabel": {
-    "message": "Додај a custom блокирајed URL"
+    "message": "Додај сопствену блокирану URL адресу"
   },
   "customEmptyDefault": {
     "message": "Још нема прилагођених блокираних сајтова. Горе додајте домен попут example.com да почнете да га блокирате."
   },
   "noticeMatched": {
-    "message": "$1 $2 matched \"$3\"."
+    "message": "$1 $2 одговара упиту „$3“."
   },
   "metadataHeading": {
     "message": "Country & Category Блокирање"
   },
   "blockByCountryLabel": {
-    "message": "Блокирај by земља"
+    "message": "Блокирај по земљи"
   },
   "countrySearchPlaceholder": {
     "message": "Претрага земље…"
@@ -138,7 +138,7 @@
     "message": "Брз приступ — земље"
   },
   "blockByCategoryLabel": {
-    "message": "Блокирај by категорија"
+    "message": "Блокирај по категорији"
   },
   "categorySearchPlaceholder": {
     "message": "Претрага категорије…"
@@ -150,7 +150,7 @@
     "message": "Језик"
   },
   "languageSelectLabel": {
-    "message": "Display language"
+    "message": "Језик приказа"
   },
   "languageSearchPlaceholder": {
     "message": "Претрага језика…"
@@ -168,142 +168,16 @@
     "message": "Систем default"
   },
   "languageEnglish": {
-    "message": "English"
-  },
-  "languageJapanese": {
-    "message": "日本語"
-  },
-  "languageChinese": {
-    "message": "简体中文"
-  },
-  "languageFrench": {
-    "message": "Français"
-  },
-  "languageCantonese": {
-    "message": "粵語"
-  },
-  "languageThai": {
-    "message": "ไทย"
-  },
-  "languagePunjabi": {
-    "message": "ਪੰਜਾਬੀ"
-  },
-  "languageTamil": {
-    "message": "தமிழ்"
-  },
-  "languageChineseTraditionalTaiwan": {
-    "message": "繁體中文（台灣）"
-  },
-  "languageKorean": {
-    "message": "한국어"
-  },
-  "languageHindi": {
-    "message": "हिन्दी"
+    "message": "Енглески"
   },
   "languageSpanishLatam": {
     "message": "Español (Latinoamérica)"
   },
-  "languageSpanishSpain": {
-    "message": "Español (España)"
-  },
   "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
-  "languageAlbanian": {
-    "message": "Shqip"
-  },
-  "languageBasque": {
-    "message": "Euskara"
-  },
-  "languageBelarusian": {
-    "message": "Беларуская"
-  },
-  "languageBulgarian": {
-    "message": "Български"
-  },
-  "languageCatalan": {
-    "message": "Català"
-  },
-  "languageCroatian": {
-    "message": "Hrvatski"
-  },
-  "languageCzech": {
-    "message": "Čeština"
-  },
-  "languageDanish": {
-    "message": "Dansk"
-  },
-  "languageDutch": {
-    "message": "Nederlands"
-  },
-  "languageEstonian": {
-    "message": "Eesti"
-  },
-  "languageFinnish": {
-    "message": "Suomi"
-  },
-  "languageGreek": {
-    "message": "Ελληνικά"
-  },
-  "languageHungarian": {
-    "message": "Magyar"
-  },
-  "languageIcelandic": {
-    "message": "Íslenska"
-  },
-  "languageIrish": {
-    "message": "Gaeilge"
-  },
-  "languageItalian": {
-    "message": "Italiano"
-  },
-  "languageLatvian": {
-    "message": "Latviešu"
-  },
-  "languageLithuanian": {
-    "message": "Lietuvių"
-  },
-  "languageMacedonian": {
-    "message": "Македонски"
-  },
-  "languageMaltese": {
-    "message": "Malti"
-  },
-  "languageNorwegian": {
-    "message": "Norsk"
-  },
-  "languagePolish": {
-    "message": "Polski"
-  },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
-  "languageRomanian": {
-    "message": "Română"
-  },
-  "languageRussian": {
-    "message": "Русский"
+    "message": "Африканс"
   },
   "languageSerbian": {
     "message": "Српски"
-  },
-  "languageSlovak": {
-    "message": "Slovenčina"
-  },
-  "languageSlovenian": {
-    "message": "Slovenščina"
-  },
-  "languageSwedish": {
-    "message": "Svenska"
-  },
-  "languageTurkish": {
-    "message": "Türkçe"
-  },
-  "languageUkrainian": {
-    "message": "Українська"
-  },
-  "languageWelsh": {
-    "message": "Cymraeg"
   },
   "noLanguagesMatch": {
     "message": "Нема језика који одговарају претрази."
@@ -356,119 +230,14 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
-  "languageGujarati": {
-    "message": "ગુજરાતી"
-  },
-  "languageKannada": {
-    "message": "ಕನ್ನಡ"
-  },
-  "languageMalayalam": {
-    "message": "മലയാളം"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
-  },
-  "languageNepali": {
-    "message": "नेपाली"
-  },
-  "languageOdia": {
-    "message": "ଓଡ଼ିଆ"
-  },
-  "languageSinhala": {
-    "message": "සිංහල"
-  },
-  "languageTelugu": {
-    "message": "తెలుగు"
-  },
-  "languageUrdu": {
-    "message": "اردو"
-  },
-  "languageAssamese": {
-    "message": "অসমীয়া"
-  },
-  "languageIndonesian": {
-    "message": "Bahasa Indonesia"
-  },
-  "languageMalay": {
-    "message": "Bahasa Melayu"
-  },
-  "languageVietnamese": {
-    "message": "Tiếng Việt"
-  },
-  "languageKhmer": {
-    "message": "ខ្មែរ"
-  },
-  "languageLao": {
-    "message": "ລາວ"
-  },
-  "languageBurmese": {
-    "message": "မြန်မာ"
-  },
   "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
-  "languageJavanese": {
-    "message": "Basa Jawa"
-  },
-  "languageSundanese": {
-    "message": "Basa Sunda"
-  },
-  "languageArabic": {
-    "message": "العربية"
-  },
-  "languagePersian": {
-    "message": "فارسی"
-  },
-  "languageHebrew": {
-    "message": "עברית"
-  },
-  "languageArmenian": {
-    "message": "Հայերեն"
-  },
-  "languageGeorgian": {
-    "message": "ქართული"
-  },
-  "languageKazakh": {
-    "message": "Қазақша"
-  },
-  "languageKyrgyz": {
-    "message": "Кыргызча"
-  },
-  "languageMongolian": {
-    "message": "Монгол"
-  },
-  "languagePashto": {
-    "message": "پښتو"
-  },
-  "languageTajik": {
-    "message": "Тоҷикӣ"
-  },
-  "languageTurkmen": {
-    "message": "Türkmençe"
-  },
-  "languageUyghur": {
-    "message": "ئۇيغۇرچە"
-  },
-  "languageUzbek": {
-    "message": "Oʻzbekcha"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
+    "message": "Филипински / тагалог"
   },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "Састојци"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "Кораци"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -480,7 +249,7 @@
     "message": "Увези податке и подешавања"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "Подешавања су извезена."
   },
   "blockReasonDomain": {
     "message": "Сајт"
@@ -621,7 +390,7 @@
     "message": "Верзија $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "Немачки"
   },
   "statsMostBlockedSites": {
     "message": "Најчешће блокирани сајтови"
@@ -636,54 +405,123 @@
     "message": "Још увек нема забележених блокирања."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "Бургер"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "Пица"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "Пилетина"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "Кафа"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "Чај"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "Десерт"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "Пекара"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "Сендвич"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "Мексичка кухиња"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "Азијска кухиња"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "Морски плодови"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "Смути"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "Корејска кухиња"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "Фаст кежуал"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "Намирнице"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "Кетеринг"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "Ресторан"
+  },
+  "appDescription": {
+    "message": "Додатак FitShield вам помаже да свесније наручујете доставу хране и брзу храну."
+  },
+  "currencyAuto": {
+    "message": "Према мом језику — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Отворили сте"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "B2B маркетплејс"
+  },
+  "catLabelCourier": {
+    "message": "Курирска служба"
+  },
+  "catLabelDelivery": {
+    "message": "Достава"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Онлајн маркетплејс"
+  },
+  "catLabelFastFood": {
+    "message": "Брза храна"
+  },
+  "catLabelFoodContent": {
+    "message": "Кулинарски садржај"
+  },
+  "catLabelLocalServices": {
+    "message": "Локалне услуге"
+  },
+  "catLabelLogistics": {
+    "message": "Логистика"
+  },
+  "catLabelMarketplace": {
+    "message": "Маркетплејс"
+  },
+  "catLabelMealDelivery": {
+    "message": "Достава хране"
+  },
+  "catLabelMealKit": {
+    "message": "Комплети за кување"
+  },
+  "catLabelMealService": {
+    "message": "Готови оброци"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Поруџбина за преузимање"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Експресна достава"
+  },
+  "catLabelRecipe": {
+    "message": "Рецепти"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Претрага ресторана"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Ресторанска група"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Софтвер за ресторане"
+  },
+  "catLabelSuperApp": {
+    "message": "Супер апликација"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Поруџбина на лицу места"
   }
 }

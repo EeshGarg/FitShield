@@ -142,12 +142,147 @@ function english() {
   return readLocale("en");
 }
 
-function sourceBlob() {
-  const parts = fs
-    .readdirSync(EXT)
-    .filter((name) => /\.(js|html)$/.test(name) && name !== "blocklist.js")
-    .map((name) => fs.readFileSync(path.join(EXT, name), "utf8"));
+/**
+ * Remove JavaScript comments, so that PROSE ABOUT a key cannot pass as a use of
+ * it.
+ *
+ * `referenced()` below is a whole-word text match, and a text match cannot tell
+ * "the code reads this key" from "a comment explains why the code stopped
+ * reading this key". The second is the more common of the two, because deleting
+ * a call site is exactly the moment someone writes a paragraph naming what they
+ * deleted — and that paragraph then keeps the dead key alive in this audit
+ * forever.
+ *
+ * `mbOn` and `mbOff` are the worked example. Their only surviving mention in
+ * `extension/` was the comment at settings.js:1006 recording that the chips had
+ * MOVED OFF them onto `mbBlocking`/`mbBlock`. The keys rendered nowhere, yet
+ * this tool reported the corpus clean, because the sentence announcing their
+ * death was itself the evidence they were alive.
+ *
+ * Stripping has to be string-aware in both directions:
+ *
+ *   - a naive `replace(/\/\/.*$/gm, "")` eats `"https://fitshield.net"` and
+ *     everything after it on that line, which would silently drop the real
+ *     `t("someKey")` calls sharing the line and prune keys that ARE live;
+ *   - `extension/fitshield-core.js:1129` contains `/^[a-z][a-z0-9+.-]*:\/\//`,
+ *     a regex literal holding two escaped slashes, so regex literals have to be
+ *     recognised too or that line loses its tail.
+ *
+ * Template literals are treated as opaque: a comment inside `${...}` survives.
+ * That errs toward keeping a key, which is the safe direction — a false "still
+ * referenced" leaves a dead string in the corpus, while a false "unreferenced"
+ * deletes a string the product still renders.
+ */
+function stripJsComments(source) {
+  // Characters after which a `/` opens a regex literal rather than dividing.
+  const REGEX_PRECEDERS = new Set(["(", ",", "=", ":", "[", "!", "&", "|", "?", "{", "}", ";", "+", "-", "*", "%", "~", "^", "<", ">", ""]);
+  const REGEX_KEYWORDS = /(?:^|[^A-Za-z0-9_$])(return|typeof|instanceof|in|of|new|delete|void|throw|do|else|case|yield|await)$/;
 
+  let out = "";
+  let i = 0;
+  let prev = "";
+
+  while (i < source.length) {
+    const c = source[i];
+    const next = source[i + 1];
+
+    if (c === "/" && next === "/") {
+      while (i < source.length && source[i] !== "\n") i += 1;
+      continue;
+    }
+
+    if (c === "/" && next === "*") {
+      i += 2;
+      // Keep the newlines so reported line numbers elsewhere stay meaningful.
+      while (i < source.length && !(source[i] === "*" && source[i + 1] === "/")) {
+        if (source[i] === "\n") out += "\n";
+        i += 1;
+      }
+      i += 2;
+      continue;
+    }
+
+    if (c === '"' || c === "'" || c === "`") {
+      out += c;
+      i += 1;
+      while (i < source.length) {
+        if (source[i] === "\\") {
+          out += source[i] + (source[i + 1] || "");
+          i += 2;
+          continue;
+        }
+        out += source[i];
+        const done = source[i] === c;
+        i += 1;
+        if (done) break;
+      }
+      prev = c;
+      continue;
+    }
+
+    if (c === "/" && (REGEX_PRECEDERS.has(prev) || REGEX_KEYWORDS.test(out.replace(/\s+$/, "")))) {
+      out += c;
+      i += 1;
+      let inClass = false;
+      while (i < source.length && source[i] !== "\n") {
+        if (source[i] === "\\") {
+          out += source[i] + (source[i + 1] || "");
+          i += 2;
+          continue;
+        }
+        if (source[i] === "[") inClass = true;
+        else if (source[i] === "]") inClass = false;
+        out += source[i];
+        const done = source[i] === "/" && !inClass;
+        i += 1;
+        if (done) break;
+      }
+      prev = "/";
+      continue;
+    }
+
+    out += c;
+    if (!/\s/.test(c)) prev = c;
+    i += 1;
+  }
+
+  return out;
+}
+
+// `<!-- … -->` hides prose in markup the same way `//` does in script, and the
+// page comments name message keys too (settings.html:1428 discusses
+// `avgMealCostLabel`). Script blocks inside a page get the JS treatment.
+function stripHtmlComments(source) {
+  return source
+    .replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/(<script\b[^>]*>)([\s\S]*?)(<\/script>)/gi, (all, open, body, close) => open + stripJsComments(body) + close);
+}
+
+// The Android WebView UI reads the SAME `_locales` corpus through the same
+// `FitShieldI18n.t()`, so a key it alone renders is live. Scanning only
+// `extension/` would report every such key as dead and invite a prune that
+// blanks the Android screens — the corpus serves both platforms, so both
+// platforms have to be searched.
+const ANDROID_WEB = path.join(ROOT, "android", "app", "src", "main", "assets", "web");
+
+function readSourceDir(dir) {
+  if (!fs.existsSync(dir)) {
+    return [];
+  }
+
+  return fs
+    .readdirSync(dir)
+    .filter((name) => /\.(js|html)$/.test(name) && name !== "blocklist.js")
+    .map((name) => {
+      const source = fs.readFileSync(path.join(dir, name), "utf8");
+      return name.endsWith(".html") ? stripHtmlComments(source) : stripJsComments(source);
+    });
+}
+
+function sourceBlob() {
+  const parts = [...readSourceDir(EXT), ...readSourceDir(ANDROID_WEB)];
+
+  // JSON has no comments, so the manifest goes in as written.
   parts.push(fs.readFileSync(path.join(EXT, "manifest.json"), "utf8"));
   return parts.join("\n");
 }
@@ -554,6 +689,9 @@ module.exports = {
   readBaseline,
   writeBaseline,
   referenced,
+  sourceBlob,
+  stripJsComments,
+  stripHtmlComments,
   digest,
   total,
   BASELINE_FILE,

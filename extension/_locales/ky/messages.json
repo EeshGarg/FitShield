@@ -18,7 +18,7 @@
     "message": "Таза"
   },
   "openButton": {
-    "message": "Open"
+    "message": "Ачуу"
   },
   "addButton": {
     "message": "кошуу"
@@ -294,7 +294,7 @@
     "message": "Кытай (жөнөкөйлөштүрүлгөн)"
   },
   "languageFrench": {
-    "message": "French"
+    "message": "французча"
   },
   "languageCantonese": {
     "message": "Кантончо"
@@ -303,10 +303,10 @@
     "message": "тай"
   },
   "languagePunjabi": {
-    "message": "Punjabi"
+    "message": "пенжаби"
   },
   "languageTamil": {
-    "message": "Tamil"
+    "message": "тамил"
   },
   "languageChineseTraditionalTaiwan": {
     "message": "Кытай (Салттуу, Тайвань)"
@@ -384,7 +384,7 @@
     "message": "македон"
   },
   "languageMaltese": {
-    "message": "Maltese"
+    "message": "малта"
   },
   "languageNorwegian": {
     "message": "норвегиялык"
@@ -420,10 +420,10 @@
     "message": "украин"
   },
   "languageWelsh": {
-    "message": "Welsh"
+    "message": "уэльс"
   },
   "languageBengali": {
-    "message": "Bengali"
+    "message": "бенгал"
   },
   "languageGujarati": {
     "message": "Гуджарати"
@@ -435,16 +435,16 @@
     "message": "малаялам"
   },
   "languageMarathi": {
-    "message": "Marathi"
+    "message": "маратхи"
   },
   "languageNepali": {
     "message": "Непалча"
   },
   "languageOdia": {
-    "message": "Odia"
+    "message": "ория"
   },
   "languageSinhala": {
-    "message": "Sinhala"
+    "message": "сингал"
   },
   "languageTelugu": {
     "message": "телугу"
@@ -477,7 +477,7 @@
     "message": "Филиппин / Тагалог"
   },
   "languageJavanese": {
-    "message": "Javanese"
+    "message": "яван"
   },
   "languageSundanese": {
     "message": "сундан"
@@ -489,7 +489,7 @@
     "message": "Персче (Фарси)"
   },
   "languageHebrew": {
-    "message": "Hebrew"
+    "message": "иврит"
   },
   "languageArmenian": {
     "message": "армян"
@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "Ингредиенттер"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "Кадамдар"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "Маалыматтар менен жөндөөлөрдү импорттоо"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "Орнотуулар экспорттолду."
   },
   "blockReasonDomain": {
     "message": "Сайт"
@@ -747,7 +738,7 @@
     "message": "Версия $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "немисче"
   },
   "statsMostBlockedSites": {
     "message": "Эң көп бөгөттөлгөн сайттар"
@@ -762,54 +753,114 @@
     "message": "Азырынча бөгөттөөлөр катталган эмес."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "Бургер"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "Пицца"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "Тоок"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "Кофе"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "Чай"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "Десерт"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "Наабайкана"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "Сэндвич"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "Мексика тамактары"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "Азия тамактары"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "Деңиз азыктары"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "Смузи"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
-  },
-  "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "Корея тамактары"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "Азык-түлүк"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "Кейтеринг"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "Ресторан"
+  },
+  "currencyAuto": {
+    "message": "Тилиме жараша — $1 ($2)"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Ишканалар аралык соода аянтчасы"
+  },
+  "catLabelCourier": {
+    "message": "Курьер"
+  },
+  "catLabelDelivery": {
+    "message": "Жеткирүү"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Онлайн базар"
+  },
+  "catLabelFastFood": {
+    "message": "Тез тамак"
+  },
+  "catLabelFoodContent": {
+    "message": "Тамак контенти"
+  },
+  "catLabelLocalServices": {
+    "message": "Жергиликтүү кызматтар"
+  },
+  "catLabelLogistics": {
+    "message": "Логистика"
+  },
+  "catLabelMarketplace": {
+    "message": "Базар"
+  },
+  "catLabelMealDelivery": {
+    "message": "Тамак жеткирүү"
+  },
+  "catLabelMealKit": {
+    "message": "Ингредиенттер топтому"
+  },
+  "catLabelMealService": {
+    "message": "Тамак жазылуусу"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Өзү алып кетүүгө буйрутма"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Тез соода"
+  },
+  "catLabelRecipe": {
+    "message": "Рецепттер"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Ресторан издөө"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Ресторандар тобу"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Ресторан программалары"
+  },
+  "catLabelSuperApp": {
+    "message": "Супер колдонмо"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Ордунда буйрутма берүү"
   }
 }

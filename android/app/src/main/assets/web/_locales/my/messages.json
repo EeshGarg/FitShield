@@ -72,7 +72,7 @@
     "message": "မိနစ်"
   },
   "unitSite": {
-    "message": "site"
+    "message": "ဆိုဒ်"
   },
   "unitSites": {
     "message": "ဆိုဒ်များ"
@@ -81,7 +81,7 @@
     "message": "ဆက်တင်များ"
   },
   "popupBlockerTitle": {
-    "message": "FitShield blocker"
+    "message": "FitShield ပိတ်ဆို့စနစ်"
   },
   "popupMetadataLabel": {
     "message": "နိုင်ငံနှင့် အမျိုးအစား ပိတ်ဆို့ခြင်း။"
@@ -575,20 +575,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "ပါဝင်ပစ္စည်းများ"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "အဆင့်များ"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -600,7 +591,7 @@
     "message": "ဒေတာနှင့် ဆက်တင်များကို တင်သွင်းပါ"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "ဆက်တင်များကို ထုတ်ယူပြီးပါပြီ။"
   },
   "blockReasonDomain": {
     "message": "ဆိုက်"
@@ -741,7 +732,7 @@
     "message": "ဗားရှင်း $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "ဂျာမန်"
   },
   "statsMostBlockedSites": {
     "message": "အများဆုံးပိတ်ဆို့ထားသော ဆိုက်များ"
@@ -756,54 +747,57 @@
     "message": "ပိတ်ဆို့မှု မှတ်တမ်းမရှိသေးပါ။"
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "ဘာဂါ"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "ပီဇာ"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "ကြက်သား"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "ကော်ဖီ"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "လက်ဖက်ရည်"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "အချိုပွဲ"
   },
   "catLabelBakery": {
-    "message": "Bakery"
-  },
-  "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "ဘေကာရီ"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "မက္ကဆီကန်အစားအစာ"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "အာရှအစားအစာ"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
-  },
-  "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "ပင်လယ်စာ"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
-  },
-  "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "ကိုးရီးယားအစားအစာ"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
-  },
-  "catLabelCatering": {
-    "message": "Catering"
+    "message": "ကုန်စုံဆိုင်"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "စားသောက်ဆိုင်"
+  },
+  "currencyAuto": {
+    "message": "ကျွန်ုပ်၏ဘာသာစကားအတိုင်း — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "ပေးပို့ခြင်း"
+  },
+  "catLabelFastFood": {
+    "message": "အမြန်အစားအစာ"
+  },
+  "catLabelMealDelivery": {
+    "message": "အစားအစာပေးပို့ခြင်း"
+  },
+  "catLabelRecipe": {
+    "message": "ချက်ပြုတ်နည်း"
   }
 }

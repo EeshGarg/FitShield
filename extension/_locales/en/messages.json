@@ -205,6 +205,10 @@
   "blockReasonCategory": {
     "message": "Category"
   },
+  "blockReasonAppCategory": {
+    "message": "$1 apps are blocked while app blocking is on.",
+    "description": "Android block screen: why this app was interrupted. $1 is the localized category name (the same catLabel the extension block page and Settings use)."
+  },
   "blockReasonCountries": {
     "message": "Active in"
   },
@@ -649,14 +653,6 @@
   "mbBlock": {
     "message": "Not blocking",
     "description": "State of a country/category in the search results: it is NOT being blocked. Pairs with mbBlocking."
-  },
-  "mbOn": {
-    "message": "Blocking",
-    "description": "Same state as mbBlocking, on the pinned quick-access chips. Both widgets must use the same two words."
-  },
-  "mbOff": {
-    "message": "Not blocking",
-    "description": "Same state as mbBlock, on the pinned quick-access chips. Both widgets must use the same two words."
   },
   "mbChipToggleOnTitle": {
     "message": "Blocking — click to stop blocking"
@@ -1551,9 +1547,6 @@
   "recapMade": {
     "message": "Alternatives you marked as made"
   },
-  "recapTopCategory": {
-    "message": "Most interrupted category"
-  },
   "previewHeading": {
     "message": "Preview and test"
   },
@@ -1790,6 +1783,10 @@
   "diagWorkerDown": {
     "message": "FitShield's background service is not responding, so nothing is being blocked.",
     "description": "Banner shown when the diagnostics page gets no answer at all."
+  },
+  "diagAllGood": {
+    "message": "FitShield is installed and running. The rows below show what it is doing right now.",
+    "description": "Diagnostics banner when every check passed. Stated rather than implied by silence, because an empty banner reads as \"nothing was checked\"."
   },
   "diagWorkerDownFix": {
     "message": "Turn FitShield off and back on from your browser's extensions page. If that does not help, restart your browser.",

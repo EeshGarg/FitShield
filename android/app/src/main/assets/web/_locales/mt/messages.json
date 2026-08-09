@@ -198,7 +198,7 @@
     "message": "Imblokka whole groups of siti by the pajjiż a brand operates in or the kind of food it serves. These imblokkas add to your existing sit and custom-URL imblokkas."
   },
   "blockByCountryLabel": {
-    "message": "Imblokka by pajjiż"
+    "message": "Imblokka skont il-pajjiż"
   },
   "blockByCountryHint": {
     "message": "Fittex by pajjiż name or code, e.g. \"United\" or \"US\". Enabling a pajjiż imblokkas every brand active there."
@@ -213,7 +213,7 @@
     "message": "Ippermetti a pajjiż from search to pin it here."
   },
   "blockByCategoryLabel": {
-    "message": "Imblokka by kategorija"
+    "message": "Imblokka skont il-kategorija"
   },
   "blockByCategoryHint": {
     "message": "Fittex kategoriji like burger, pizza, or coffee. Specialties are searchable too; the imblokka applies by kategorija."
@@ -257,143 +257,11 @@
   "languageSystem": {
     "message": "Sistema default"
   },
-  "languageEnglish": {
-    "message": "English"
-  },
-  "languageJapanese": {
-    "message": "日本語"
-  },
-  "languageChinese": {
-    "message": "简体中文"
-  },
-  "languageFrench": {
-    "message": "Français"
-  },
-  "languageCantonese": {
-    "message": "粵語"
-  },
-  "languageThai": {
-    "message": "ไทย"
-  },
-  "languagePunjabi": {
-    "message": "ਪੰਜਾਬੀ"
-  },
-  "languageTamil": {
-    "message": "தமிழ்"
-  },
-  "languageChineseTraditionalTaiwan": {
-    "message": "繁體中文（台灣）"
-  },
-  "languageKorean": {
-    "message": "한국어"
-  },
-  "languageHindi": {
-    "message": "हिन्दी"
-  },
   "languageSpanishLatam": {
     "message": "Español (Latinoamérica)"
   },
-  "languageSpanishSpain": {
-    "message": "Español (España)"
-  },
-  "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
-  "languageAlbanian": {
-    "message": "Shqip"
-  },
-  "languageBasque": {
-    "message": "Euskara"
-  },
-  "languageBelarusian": {
-    "message": "Беларуская"
-  },
-  "languageBulgarian": {
-    "message": "Български"
-  },
-  "languageCatalan": {
-    "message": "Català"
-  },
-  "languageCroatian": {
-    "message": "Hrvatski"
-  },
-  "languageCzech": {
-    "message": "Čeština"
-  },
-  "languageDanish": {
-    "message": "Dansk"
-  },
-  "languageDutch": {
-    "message": "Nederlands"
-  },
-  "languageEstonian": {
-    "message": "Eesti"
-  },
-  "languageFinnish": {
-    "message": "Suomi"
-  },
-  "languageGreek": {
-    "message": "Ελληνικά"
-  },
-  "languageHungarian": {
-    "message": "Magyar"
-  },
-  "languageIcelandic": {
-    "message": "Íslenska"
-  },
-  "languageIrish": {
-    "message": "Gaeilge"
-  },
-  "languageItalian": {
-    "message": "Italiano"
-  },
-  "languageLatvian": {
-    "message": "Latviešu"
-  },
-  "languageLithuanian": {
-    "message": "Lietuvių"
-  },
-  "languageMacedonian": {
-    "message": "Македонски"
-  },
   "languageMaltese": {
     "message": "Malti"
-  },
-  "languageNorwegian": {
-    "message": "Norsk"
-  },
-  "languagePolish": {
-    "message": "Polski"
-  },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
-  "languageRomanian": {
-    "message": "Română"
-  },
-  "languageRussian": {
-    "message": "Русский"
-  },
-  "languageSerbian": {
-    "message": "Српски"
-  },
-  "languageSlovak": {
-    "message": "Slovenčina"
-  },
-  "languageSlovenian": {
-    "message": "Slovenščina"
-  },
-  "languageSwedish": {
-    "message": "Svenska"
-  },
-  "languageTurkish": {
-    "message": "Türkçe"
-  },
-  "languageUkrainian": {
-    "message": "Українська"
-  },
-  "languageWelsh": {
-    "message": "Cymraeg"
   },
   "noLanguagesMatch": {
     "message": "L-ebda lingwa ma taqbel ma' din it-tfittxija."
@@ -451,114 +319,6 @@
   },
   "bmcAlt": {
     "message": "Buy Me a Coffee"
-  },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
-  "languageGujarati": {
-    "message": "ગુજરાતી"
-  },
-  "languageKannada": {
-    "message": "ಕನ್ನಡ"
-  },
-  "languageMalayalam": {
-    "message": "മലയാളം"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
-  },
-  "languageNepali": {
-    "message": "नेपाली"
-  },
-  "languageOdia": {
-    "message": "ଓଡ଼ିଆ"
-  },
-  "languageSinhala": {
-    "message": "සිංහල"
-  },
-  "languageTelugu": {
-    "message": "తెలుగు"
-  },
-  "languageUrdu": {
-    "message": "اردو"
-  },
-  "languageAssamese": {
-    "message": "অসমীয়া"
-  },
-  "languageIndonesian": {
-    "message": "Bahasa Indonesia"
-  },
-  "languageMalay": {
-    "message": "Bahasa Melayu"
-  },
-  "languageVietnamese": {
-    "message": "Tiếng Việt"
-  },
-  "languageKhmer": {
-    "message": "ខ្មែរ"
-  },
-  "languageLao": {
-    "message": "ລາວ"
-  },
-  "languageBurmese": {
-    "message": "မြန်မာ"
-  },
-  "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
-  "languageJavanese": {
-    "message": "Basa Jawa"
-  },
-  "languageSundanese": {
-    "message": "Basa Sunda"
-  },
-  "languageArabic": {
-    "message": "العربية"
-  },
-  "languagePersian": {
-    "message": "فارسی"
-  },
-  "languageHebrew": {
-    "message": "עברית"
-  },
-  "languageArmenian": {
-    "message": "Հայերեն"
-  },
-  "languageGeorgian": {
-    "message": "ქართული"
-  },
-  "languageKazakh": {
-    "message": "Қазақша"
-  },
-  "languageKyrgyz": {
-    "message": "Кыргызча"
-  },
-  "languageMongolian": {
-    "message": "Монгол"
-  },
-  "languagePashto": {
-    "message": "پښتو"
-  },
-  "languageTajik": {
-    "message": "Тоҷикӣ"
-  },
-  "languageTurkmen": {
-    "message": "Türkmençe"
-  },
-  "languageUyghur": {
-    "message": "ئۇيغۇرچە"
-  },
-  "languageUzbek": {
-    "message": "Oʻzbekcha"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
   },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
@@ -781,5 +541,74 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "currencyAuto": {
+    "message": "Segwi l-lingwa tiegħi — $1 ($2)"
+  },
+  "appDescription": {
+    "message": "Estensjoni tal-brawżer FitShield li tgħinek toqgħod attent meta tordna ikel bil-kunsinna u ikel mgħaġġel."
+  },
+  "catLabelDelivery": {
+    "message": "Kunsinna"
+  },
+  "catLabelFastFood": {
+    "message": "Ikel mgħaġġel"
+  },
+  "catLabelMealDelivery": {
+    "message": "Kunsinna tal-ikliet"
+  },
+  "catLabelMealKit": {
+    "message": "Pakkett tal-ikla"
+  },
+  "catLabelMealService": {
+    "message": "Servizz tal-ikliet"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Tfittxija ta' ristoranti"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Grupp ta' ristoranti"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Softwer għar-ristoranti"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Ordni għall-ġbir"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Ordni fuq il-post"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Kunsinna mgħaġġla"
+  },
+  "catLabelSuperApp": {
+    "message": "Super app"
+  },
+  "catLabelCourier": {
+    "message": "Kurrier"
+  },
+  "catLabelLogistics": {
+    "message": "Loġistika"
+  },
+  "catLabelLocalServices": {
+    "message": "Servizzi lokali"
+  },
+  "catLabelMarketplace": {
+    "message": "Suq"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Suq onlajn"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Suq B2B"
+  },
+  "catLabelFoodContent": {
+    "message": "Kontenut dwar l-ikel"
+  },
+  "catLabelRecipe": {
+    "message": "Riċetti"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Ftaħt"
   }
 }

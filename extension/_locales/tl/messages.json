@@ -323,9 +323,6 @@
   "languageSpanishSpain": {
     "message": "Espanyol (Espanya)"
   },
-  "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
   "languageAlbanian": {
     "message": "Albaniano"
   },
@@ -581,15 +578,6 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -811,5 +799,59 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "currencyAuto": {
+    "message": "Ayon sa wika ko — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Binuksan mo ang"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Pamilihang B2B"
+  },
+  "catLabelDelivery": {
+    "message": "Paghahatid"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Pamilihang online"
+  },
+  "catLabelLocalServices": {
+    "message": "Mga lokal na serbisyo"
+  },
+  "catLabelLogistics": {
+    "message": "Lohistika"
+  },
+  "catLabelMarketplace": {
+    "message": "Pamilihan"
+  },
+  "catLabelMealDelivery": {
+    "message": "Paghahatid ng pagkain"
+  },
+  "catLabelMealKit": {
+    "message": "Pakete ng sangkap"
+  },
+  "catLabelMealService": {
+    "message": "Serbisyo ng pagkain"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Pag-order para kunin"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Mabilisang paghahatid"
+  },
+  "catLabelRecipe": {
+    "message": "Resipe"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Paghahanap ng restawran"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Grupo ng restawran"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Software para sa restawran"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Pag-order sa upuan"
   }
 }

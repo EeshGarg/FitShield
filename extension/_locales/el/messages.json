@@ -21,19 +21,19 @@
     "message": "Αφαίρεση"
   },
   "timerDurationLabel": {
-    "message": "Timer duration"
+    "message": "Διάρκεια χρονομέτρου"
   },
   "customSecondsLabel": {
-    "message": "Custom seconds"
+    "message": "Προσαρμοσμένα δευτερόλεπτα"
   },
   "customMinutesLabel": {
     "message": "Custom λεπτά"
   },
   "startTimeLabel": {
-    "message": "Start time"
+    "message": "Ώρα έναρξης"
   },
   "endTimeLabel": {
-    "message": "End time"
+    "message": "Ώρα λήξης"
   },
   "currentScheduleSummary": {
     "message": "Τρέχον πρόγραμμα: $1."
@@ -57,19 +57,19 @@
     "message": "FitShield αποκλειστής"
   },
   "popupMetadataLabel": {
-    "message": "Country & κατηγορία αποκλεισμόςing"
+    "message": "Αποκλεισμός ανά χώρα και κατηγορία"
   },
   "popupDeliveryLabel": {
     "message": "Ιστότοποι διανομής"
   },
   "popupDeliveryDefault": {
-    "message": "Delivery ordering domains."
+    "message": "Τομείς παραγγελίας διανομής."
   },
   "popupFastFoodLabel": {
     "message": "Ιστότοποι γρήγορου φαγητού"
   },
   "popupFastFoodDefault": {
-    "message": "Major chain ordering domains."
+    "message": "Τομείς παραγγελίας μεγάλων αλυσίδων."
   },
   "popupCustomLabel": {
     "message": "Προσαρμοσμένα URL"
@@ -84,7 +84,7 @@
     "message": "Αποκλεισμός Options"
   },
   "customizeBlocklistHeading": {
-    "message": "Customize Αποκλεισμόςlist"
+    "message": "Προσαρμογή λίστας αποκλεισμού"
   },
   "deliverySitesHeading": {
     "message": "Ιστότοποι διανομής"
@@ -108,28 +108,28 @@
     "message": "Απόκρυψη URLs"
   },
   "deliveryToggleTitle": {
-    "message": "Ενεργοποίηση delivery ιστότοπος αποκλεισμόςing"
+    "message": "Ενεργοποίηση αποκλεισμού ιστότοπων παράδοσης"
   },
   "fastFoodToggleTitle": {
-    "message": "Ενεργοποίηση fast food ιστότοπος αποκλεισμόςing"
+    "message": "Ενεργοποίηση αποκλεισμού ιστότοπων φαστ φουντ"
   },
   "customToggleTitle": {
-    "message": "Ενεργοποίηση custom URL αποκλεισμόςing"
+    "message": "Ενεργοποίηση αποκλεισμού προσαρμοσμένων URL"
   },
   "addCustomUrlLabel": {
-    "message": "Προσθήκη a custom αποκλεισμόςed URL"
+    "message": "Προσθήκη προσαρμοσμένης αποκλεισμένης URL"
   },
   "customEmptyDefault": {
     "message": "Δεν υπάρχουν ακόμη προσαρμοσμένοι αποκλεισμένοι ιστότοποι. Προσθέστε παραπάνω έναν τομέα όπως example.com για να ξεκινήσετε τον αποκλεισμό του."
   },
   "noticeMatched": {
-    "message": "$1 $2 matched \"$3\"."
+    "message": "$1 $2 ταιριάζουν με «$3»."
   },
   "metadataHeading": {
     "message": "Country & Category Αποκλεισμός"
   },
   "blockByCountryLabel": {
-    "message": "Αποκλεισμός by χώρα"
+    "message": "Αποκλεισμός ανά χώρα"
   },
   "countrySearchPlaceholder": {
     "message": "Αναζήτηση χώρες…"
@@ -138,7 +138,7 @@
     "message": "Γρήγορη πρόσβαση — χώρες"
   },
   "blockByCategoryLabel": {
-    "message": "Αποκλεισμός by κατηγορία"
+    "message": "Αποκλεισμός ανά κατηγορία"
   },
   "categorySearchPlaceholder": {
     "message": "Αναζήτηση κατηγορίες…"
@@ -150,7 +150,7 @@
     "message": "Γλώσσα"
   },
   "languageSelectLabel": {
-    "message": "Display language"
+    "message": "Γλώσσα εμφάνισης"
   },
   "languageSearchPlaceholder": {
     "message": "Αναζήτηση γλωσσών…"
@@ -168,142 +168,16 @@
     "message": "Σύστημα default"
   },
   "languageEnglish": {
-    "message": "English"
-  },
-  "languageJapanese": {
-    "message": "日本語"
-  },
-  "languageChinese": {
-    "message": "简体中文"
-  },
-  "languageFrench": {
-    "message": "Français"
-  },
-  "languageCantonese": {
-    "message": "粵語"
-  },
-  "languageThai": {
-    "message": "ไทย"
-  },
-  "languagePunjabi": {
-    "message": "ਪੰਜਾਬੀ"
-  },
-  "languageTamil": {
-    "message": "தமிழ்"
-  },
-  "languageChineseTraditionalTaiwan": {
-    "message": "繁體中文（台灣）"
-  },
-  "languageKorean": {
-    "message": "한국어"
-  },
-  "languageHindi": {
-    "message": "हिन्दी"
+    "message": "Αγγλικά"
   },
   "languageSpanishLatam": {
     "message": "Español (Latinoamérica)"
   },
-  "languageSpanishSpain": {
-    "message": "Español (España)"
-  },
   "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
-  "languageAlbanian": {
-    "message": "Shqip"
-  },
-  "languageBasque": {
-    "message": "Euskara"
-  },
-  "languageBelarusian": {
-    "message": "Беларуская"
-  },
-  "languageBulgarian": {
-    "message": "Български"
-  },
-  "languageCatalan": {
-    "message": "Català"
-  },
-  "languageCroatian": {
-    "message": "Hrvatski"
-  },
-  "languageCzech": {
-    "message": "Čeština"
-  },
-  "languageDanish": {
-    "message": "Dansk"
-  },
-  "languageDutch": {
-    "message": "Nederlands"
-  },
-  "languageEstonian": {
-    "message": "Eesti"
-  },
-  "languageFinnish": {
-    "message": "Suomi"
+    "message": "Αφρικάανς"
   },
   "languageGreek": {
     "message": "Ελληνικά"
-  },
-  "languageHungarian": {
-    "message": "Magyar"
-  },
-  "languageIcelandic": {
-    "message": "Íslenska"
-  },
-  "languageIrish": {
-    "message": "Gaeilge"
-  },
-  "languageItalian": {
-    "message": "Italiano"
-  },
-  "languageLatvian": {
-    "message": "Latviešu"
-  },
-  "languageLithuanian": {
-    "message": "Lietuvių"
-  },
-  "languageMacedonian": {
-    "message": "Македонски"
-  },
-  "languageMaltese": {
-    "message": "Malti"
-  },
-  "languageNorwegian": {
-    "message": "Norsk"
-  },
-  "languagePolish": {
-    "message": "Polski"
-  },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
-  "languageRomanian": {
-    "message": "Română"
-  },
-  "languageRussian": {
-    "message": "Русский"
-  },
-  "languageSerbian": {
-    "message": "Српски"
-  },
-  "languageSlovak": {
-    "message": "Slovenčina"
-  },
-  "languageSlovenian": {
-    "message": "Slovenščina"
-  },
-  "languageSwedish": {
-    "message": "Svenska"
-  },
-  "languageTurkish": {
-    "message": "Türkçe"
-  },
-  "languageUkrainian": {
-    "message": "Українська"
-  },
-  "languageWelsh": {
-    "message": "Cymraeg"
   },
   "noLanguagesMatch": {
     "message": "Καμία γλώσσα δεν ταιριάζει με την αναζήτηση."
@@ -356,119 +230,14 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
-  "languageGujarati": {
-    "message": "ગુજરાતી"
-  },
-  "languageKannada": {
-    "message": "ಕನ್ನಡ"
-  },
-  "languageMalayalam": {
-    "message": "മലയാളം"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
-  },
-  "languageNepali": {
-    "message": "नेपाली"
-  },
-  "languageOdia": {
-    "message": "ଓଡ଼ିଆ"
-  },
-  "languageSinhala": {
-    "message": "සිංහල"
-  },
-  "languageTelugu": {
-    "message": "తెలుగు"
-  },
-  "languageUrdu": {
-    "message": "اردو"
-  },
-  "languageAssamese": {
-    "message": "অসমীয়া"
-  },
-  "languageIndonesian": {
-    "message": "Bahasa Indonesia"
-  },
-  "languageMalay": {
-    "message": "Bahasa Melayu"
-  },
-  "languageVietnamese": {
-    "message": "Tiếng Việt"
-  },
-  "languageKhmer": {
-    "message": "ខ្មែរ"
-  },
-  "languageLao": {
-    "message": "ລາວ"
-  },
-  "languageBurmese": {
-    "message": "မြန်မာ"
-  },
   "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
-  "languageJavanese": {
-    "message": "Basa Jawa"
-  },
-  "languageSundanese": {
-    "message": "Basa Sunda"
-  },
-  "languageArabic": {
-    "message": "العربية"
-  },
-  "languagePersian": {
-    "message": "فارسی"
-  },
-  "languageHebrew": {
-    "message": "עברית"
-  },
-  "languageArmenian": {
-    "message": "Հայերեն"
-  },
-  "languageGeorgian": {
-    "message": "ქართული"
-  },
-  "languageKazakh": {
-    "message": "Қазақша"
-  },
-  "languageKyrgyz": {
-    "message": "Кыргызча"
-  },
-  "languageMongolian": {
-    "message": "Монгол"
-  },
-  "languagePashto": {
-    "message": "پښتو"
-  },
-  "languageTajik": {
-    "message": "Тоҷикӣ"
-  },
-  "languageTurkmen": {
-    "message": "Türkmençe"
-  },
-  "languageUyghur": {
-    "message": "ئۇيغۇرچە"
-  },
-  "languageUzbek": {
-    "message": "Oʻzbekcha"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
+    "message": "Φιλιππινέζικα / Ταγκαλόγκ"
   },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "Συστατικά"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "Βήματα"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -480,7 +249,7 @@
     "message": "Εισαγωγή δεδομένων και ρυθμίσεων"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "Οι ρυθμίσεις εξήχθησαν."
   },
   "blockReasonDomain": {
     "message": "Ιστότοπος"
@@ -636,54 +405,123 @@
     "message": "Δεν έχουν καταγραφεί αποκλεισμοί ακόμη."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "Μπέργκερ"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "Πίτσα"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "Κοτόπουλο"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "Καφές"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "Τσάι"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "Επιδόρπιο"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "Αρτοποιείο"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "Σάντουιτς"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "Μεξικάνικη κουζίνα"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "Ασιατική κουζίνα"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "Θαλασσινά"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "Σμούθι"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "Κορεάτικη κουζίνα"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "Φαστ κάζουαλ"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "Τρόφιμα"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "Κέτερινγκ"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "Εστιατόριο"
+  },
+  "appDescription": {
+    "message": "Η επέκταση FitShield σάς βοηθά να παραγγέλνετε φαγητό και φαστ φουντ πιο συνειδητά."
+  },
+  "currencyAuto": {
+    "message": "Σύμφωνα με τη γλώσσα μου — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Ανοίξατε"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Πλατφόρμα B2B"
+  },
+  "catLabelCourier": {
+    "message": "Ταχυμεταφορές"
+  },
+  "catLabelDelivery": {
+    "message": "Διανομή"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Ηλεκτρονική αγορά"
+  },
+  "catLabelFastFood": {
+    "message": "Φαστ φουντ"
+  },
+  "catLabelFoodContent": {
+    "message": "Γαστρονομικό περιεχόμενο"
+  },
+  "catLabelLocalServices": {
+    "message": "Τοπικές υπηρεσίες"
+  },
+  "catLabelLogistics": {
+    "message": "Εφοδιαστική"
+  },
+  "catLabelMarketplace": {
+    "message": "Πλατφόρμα αγορών"
+  },
+  "catLabelMealDelivery": {
+    "message": "Διανομή γευμάτων"
+  },
+  "catLabelMealKit": {
+    "message": "Κιτ μαγειρικής"
+  },
+  "catLabelMealService": {
+    "message": "Έτοιμα γεύματα"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Παραγγελία για παραλαβή"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Άμεση παράδοση"
+  },
+  "catLabelRecipe": {
+    "message": "Συνταγές"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Αναζήτηση εστιατορίων"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Όμιλος εστίασης"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Λογισμικό εστίασης"
+  },
+  "catLabelSuperApp": {
+    "message": "Σούπερ εφαρμογή"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Παραγγελία στον χώρο"
   }
 }

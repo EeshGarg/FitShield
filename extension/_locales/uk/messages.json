@@ -21,19 +21,19 @@
     "message": "Видалити"
   },
   "timerDurationLabel": {
-    "message": "Timer duration"
+    "message": "Тривалість таймера"
   },
   "customSecondsLabel": {
-    "message": "Custom seconds"
+    "message": "Користувацькі секунди"
   },
   "customMinutesLabel": {
     "message": "Custom хвилини"
   },
   "startTimeLabel": {
-    "message": "Start time"
+    "message": "Час початку"
   },
   "endTimeLabel": {
-    "message": "End time"
+    "message": "Час завершення"
   },
   "currentScheduleSummary": {
     "message": "Поточний розклад: $1."
@@ -57,19 +57,19 @@
     "message": "FitShield блокувальник"
   },
   "popupMetadataLabel": {
-    "message": "Country & категорія блокуватиing"
+    "message": "Блокування за країною та категорією"
   },
   "popupDeliveryLabel": {
     "message": "Сайти доставки"
   },
   "popupDeliveryDefault": {
-    "message": "Delivery ordering domains."
+    "message": "Домени для замовлення доставки."
   },
   "popupFastFoodLabel": {
     "message": "Сайти фастфуду"
   },
   "popupFastFoodDefault": {
-    "message": "Major chain ordering domains."
+    "message": "Домени для замовлення у великих мережах."
   },
   "popupCustomLabel": {
     "message": "Користувацькі URL"
@@ -84,7 +84,7 @@
     "message": "Блокування Options"
   },
   "customizeBlocklistHeading": {
-    "message": "Customize Блокуватиlist"
+    "message": "Налаштувати список блокування"
   },
   "deliverySitesHeading": {
     "message": "Сайти доставки"
@@ -108,28 +108,28 @@
     "message": "Сховати URLs"
   },
   "deliveryToggleTitle": {
-    "message": "Увімкнути delivery сайт блокуватиing"
+    "message": "Увімкнути блокування сайтів доставки"
   },
   "fastFoodToggleTitle": {
-    "message": "Увімкнути fast food сайт блокуватиing"
+    "message": "Увімкнути блокування сайтів фастфуду"
   },
   "customToggleTitle": {
-    "message": "Увімкнути custom URL блокуватиing"
+    "message": "Увімкнути блокування власних URL"
   },
   "addCustomUrlLabel": {
-    "message": "Додати a custom блокуватиed URL"
+    "message": "Додати власну заблоковану URL-адресу"
   },
   "customEmptyDefault": {
     "message": "Поки немає власних заблокованих сайтів. Додайте вище домен на кшталт example.com, щоб почати його блокувати."
   },
   "noticeMatched": {
-    "message": "$1 $2 matched \"$3\"."
+    "message": "$1 $2 відповідає запиту «$3»."
   },
   "metadataHeading": {
     "message": "Country & Category Блокування"
   },
   "blockByCountryLabel": {
-    "message": "Блокувати by країна"
+    "message": "Блокувати за країною"
   },
   "countrySearchPlaceholder": {
     "message": "Пошук країни…"
@@ -138,7 +138,7 @@
     "message": "Швидкий доступ — країни"
   },
   "blockByCategoryLabel": {
-    "message": "Блокувати by категорія"
+    "message": "Блокувати за категорією"
   },
   "categorySearchPlaceholder": {
     "message": "Пошук категорії…"
@@ -150,7 +150,7 @@
     "message": "Мова"
   },
   "languageSelectLabel": {
-    "message": "Display language"
+    "message": "Мова інтерфейсу"
   },
   "languageSearchPlaceholder": {
     "message": "Пошук мов…"
@@ -168,142 +168,16 @@
     "message": "Система default"
   },
   "languageEnglish": {
-    "message": "English"
-  },
-  "languageJapanese": {
-    "message": "日本語"
-  },
-  "languageChinese": {
-    "message": "简体中文"
-  },
-  "languageFrench": {
-    "message": "Français"
-  },
-  "languageCantonese": {
-    "message": "粵語"
-  },
-  "languageThai": {
-    "message": "ไทย"
-  },
-  "languagePunjabi": {
-    "message": "ਪੰਜਾਬੀ"
-  },
-  "languageTamil": {
-    "message": "தமிழ்"
-  },
-  "languageChineseTraditionalTaiwan": {
-    "message": "繁體中文（台灣）"
-  },
-  "languageKorean": {
-    "message": "한국어"
-  },
-  "languageHindi": {
-    "message": "हिन्दी"
+    "message": "Англійська"
   },
   "languageSpanishLatam": {
     "message": "Español (Latinoamérica)"
   },
-  "languageSpanishSpain": {
-    "message": "Español (España)"
-  },
   "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
-  "languageAlbanian": {
-    "message": "Shqip"
-  },
-  "languageBasque": {
-    "message": "Euskara"
-  },
-  "languageBelarusian": {
-    "message": "Беларуская"
-  },
-  "languageBulgarian": {
-    "message": "Български"
-  },
-  "languageCatalan": {
-    "message": "Català"
-  },
-  "languageCroatian": {
-    "message": "Hrvatski"
-  },
-  "languageCzech": {
-    "message": "Čeština"
-  },
-  "languageDanish": {
-    "message": "Dansk"
-  },
-  "languageDutch": {
-    "message": "Nederlands"
-  },
-  "languageEstonian": {
-    "message": "Eesti"
-  },
-  "languageFinnish": {
-    "message": "Suomi"
-  },
-  "languageGreek": {
-    "message": "Ελληνικά"
-  },
-  "languageHungarian": {
-    "message": "Magyar"
-  },
-  "languageIcelandic": {
-    "message": "Íslenska"
-  },
-  "languageIrish": {
-    "message": "Gaeilge"
-  },
-  "languageItalian": {
-    "message": "Italiano"
-  },
-  "languageLatvian": {
-    "message": "Latviešu"
-  },
-  "languageLithuanian": {
-    "message": "Lietuvių"
-  },
-  "languageMacedonian": {
-    "message": "Македонски"
-  },
-  "languageMaltese": {
-    "message": "Malti"
-  },
-  "languageNorwegian": {
-    "message": "Norsk"
-  },
-  "languagePolish": {
-    "message": "Polski"
-  },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
-  "languageRomanian": {
-    "message": "Română"
-  },
-  "languageRussian": {
-    "message": "Русский"
-  },
-  "languageSerbian": {
-    "message": "Српски"
-  },
-  "languageSlovak": {
-    "message": "Slovenčina"
-  },
-  "languageSlovenian": {
-    "message": "Slovenščina"
-  },
-  "languageSwedish": {
-    "message": "Svenska"
-  },
-  "languageTurkish": {
-    "message": "Türkçe"
+    "message": "Африкаанс"
   },
   "languageUkrainian": {
     "message": "Українська"
-  },
-  "languageWelsh": {
-    "message": "Cymraeg"
   },
   "noLanguagesMatch": {
     "message": "Немає мов, що відповідають пошуку."
@@ -356,119 +230,14 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
-  "languageGujarati": {
-    "message": "ગુજરાતી"
-  },
-  "languageKannada": {
-    "message": "ಕನ್ನಡ"
-  },
-  "languageMalayalam": {
-    "message": "മലയാളം"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
-  },
-  "languageNepali": {
-    "message": "नेपाली"
-  },
-  "languageOdia": {
-    "message": "ଓଡ଼ିଆ"
-  },
-  "languageSinhala": {
-    "message": "සිංහල"
-  },
-  "languageTelugu": {
-    "message": "తెలుగు"
-  },
-  "languageUrdu": {
-    "message": "اردو"
-  },
-  "languageAssamese": {
-    "message": "অসমীয়া"
-  },
-  "languageIndonesian": {
-    "message": "Bahasa Indonesia"
-  },
-  "languageMalay": {
-    "message": "Bahasa Melayu"
-  },
-  "languageVietnamese": {
-    "message": "Tiếng Việt"
-  },
-  "languageKhmer": {
-    "message": "ខ្មែរ"
-  },
-  "languageLao": {
-    "message": "ລາວ"
-  },
-  "languageBurmese": {
-    "message": "မြန်မာ"
-  },
   "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
-  "languageJavanese": {
-    "message": "Basa Jawa"
-  },
-  "languageSundanese": {
-    "message": "Basa Sunda"
-  },
-  "languageArabic": {
-    "message": "العربية"
-  },
-  "languagePersian": {
-    "message": "فارسی"
-  },
-  "languageHebrew": {
-    "message": "עברית"
-  },
-  "languageArmenian": {
-    "message": "Հայերեն"
-  },
-  "languageGeorgian": {
-    "message": "ქართული"
-  },
-  "languageKazakh": {
-    "message": "Қазақша"
-  },
-  "languageKyrgyz": {
-    "message": "Кыргызча"
-  },
-  "languageMongolian": {
-    "message": "Монгол"
-  },
-  "languagePashto": {
-    "message": "پښتو"
-  },
-  "languageTajik": {
-    "message": "Тоҷикӣ"
-  },
-  "languageTurkmen": {
-    "message": "Türkmençe"
-  },
-  "languageUyghur": {
-    "message": "ئۇيغۇرچە"
-  },
-  "languageUzbek": {
-    "message": "Oʻzbekcha"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
+    "message": "Філіппінська / тагальська"
   },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "Інгредієнти"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "Кроки"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -480,7 +249,7 @@
     "message": "Імпортувати дані та налаштування"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "Налаштування експортовано."
   },
   "blockReasonDomain": {
     "message": "Сайт"
@@ -685,5 +454,74 @@
   },
   "catLabelRestaurant": {
     "message": "Ресторан"
+  },
+  "appDescription": {
+    "message": "Розширення FitShield допомагає усвідомленіше ставитися до замовлення доставки їжі та фастфуду."
+  },
+  "currencyAuto": {
+    "message": "За мовою інтерфейсу — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Ви відкрили"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "B2B-маркетплейс"
+  },
+  "catLabelCourier": {
+    "message": "Кур’єрська служба"
+  },
+  "catLabelDelivery": {
+    "message": "Доставка"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Онлайн-маркетплейс"
+  },
+  "catLabelFastFood": {
+    "message": "Фастфуд"
+  },
+  "catLabelFoodContent": {
+    "message": "Кулінарний контент"
+  },
+  "catLabelLocalServices": {
+    "message": "Локальні сервіси"
+  },
+  "catLabelLogistics": {
+    "message": "Логістика"
+  },
+  "catLabelMarketplace": {
+    "message": "Маркетплейс"
+  },
+  "catLabelMealDelivery": {
+    "message": "Доставка їжі"
+  },
+  "catLabelMealKit": {
+    "message": "Набори для готування"
+  },
+  "catLabelMealService": {
+    "message": "Готові раціони"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Замовлення із самовивозом"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Експрес-доставка"
+  },
+  "catLabelRecipe": {
+    "message": "Рецепти"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Пошук ресторанів"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Ресторанна група"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "ПЗ для ресторанів"
+  },
+  "catLabelSuperApp": {
+    "message": "Суперзастосунок"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Замовлення на місці"
   }
 }

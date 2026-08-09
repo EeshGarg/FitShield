@@ -21,19 +21,19 @@
     "message": "Удалить"
   },
   "timerDurationLabel": {
-    "message": "Timer duration"
+    "message": "Длительность таймера"
   },
   "customSecondsLabel": {
-    "message": "Custom seconds"
+    "message": "Пользовательские секунды"
   },
   "customMinutesLabel": {
     "message": "Custom минуты"
   },
   "startTimeLabel": {
-    "message": "Start time"
+    "message": "Время начала"
   },
   "endTimeLabel": {
-    "message": "End time"
+    "message": "Время окончания"
   },
   "currentScheduleSummary": {
     "message": "Текущий расписание: $1."
@@ -57,19 +57,19 @@
     "message": "FitShield блокировщик"
   },
   "popupMetadataLabel": {
-    "message": "Country & категория блокироватьing"
+    "message": "Блокировка по стране и категории"
   },
   "popupDeliveryLabel": {
     "message": "Сайты доставки"
   },
   "popupDeliveryDefault": {
-    "message": "Delivery ordering domains."
+    "message": "Домены для заказа доставки."
   },
   "popupFastFoodLabel": {
     "message": "Сайты фастфуда"
   },
   "popupFastFoodDefault": {
-    "message": "Major chain ordering domains."
+    "message": "Домены для заказа в крупных сетях."
   },
   "popupCustomLabel": {
     "message": "Пользовательские URL"
@@ -84,7 +84,7 @@
     "message": "Блокировка Options"
   },
   "customizeBlocklistHeading": {
-    "message": "Customize Блокироватьlist"
+    "message": "Настроить список блокировки"
   },
   "deliverySitesHeading": {
     "message": "Сайты доставки"
@@ -108,28 +108,28 @@
     "message": "Скрыть URLs"
   },
   "deliveryToggleTitle": {
-    "message": "Включить delivery сайт блокироватьing"
+    "message": "Включить блокировку сайтов доставки"
   },
   "fastFoodToggleTitle": {
-    "message": "Включить fast food сайт блокироватьing"
+    "message": "Включить блокировку сайтов фастфуда"
   },
   "customToggleTitle": {
-    "message": "Включить custom URL блокироватьing"
+    "message": "Включить блокировку своих URL"
   },
   "addCustomUrlLabel": {
-    "message": "Добавить a custom блокироватьed URL"
+    "message": "Добавить свой заблокированный URL"
   },
   "customEmptyDefault": {
     "message": "Пока нет своих заблокированных сайтов. Добавьте выше домен вроде example.com, чтобы начать его блокировать."
   },
   "noticeMatched": {
-    "message": "$1 $2 matched \"$3\"."
+    "message": "$1 $2 соответствует запросу «$3»."
   },
   "metadataHeading": {
     "message": "Country & Category Блокировка"
   },
   "blockByCountryLabel": {
-    "message": "Блокировать by страна"
+    "message": "Блокировать по стране"
   },
   "countrySearchPlaceholder": {
     "message": "Поиск страны…"
@@ -138,7 +138,7 @@
     "message": "Быстрый доступ — страны"
   },
   "blockByCategoryLabel": {
-    "message": "Блокировать by категория"
+    "message": "Блокировать по категории"
   },
   "categorySearchPlaceholder": {
     "message": "Поиск категории…"
@@ -150,7 +150,7 @@
     "message": "Язык"
   },
   "languageSelectLabel": {
-    "message": "Display language"
+    "message": "Язык интерфейса"
   },
   "languageSearchPlaceholder": {
     "message": "Поиск языков…"
@@ -168,142 +168,16 @@
     "message": "Система default"
   },
   "languageEnglish": {
-    "message": "English"
-  },
-  "languageJapanese": {
-    "message": "日本語"
-  },
-  "languageChinese": {
-    "message": "简体中文"
-  },
-  "languageFrench": {
-    "message": "Français"
-  },
-  "languageCantonese": {
-    "message": "粵語"
-  },
-  "languageThai": {
-    "message": "ไทย"
-  },
-  "languagePunjabi": {
-    "message": "ਪੰਜਾਬੀ"
-  },
-  "languageTamil": {
-    "message": "தமிழ்"
-  },
-  "languageChineseTraditionalTaiwan": {
-    "message": "繁體中文（台灣）"
-  },
-  "languageKorean": {
-    "message": "한국어"
-  },
-  "languageHindi": {
-    "message": "हिन्दी"
+    "message": "Английский"
   },
   "languageSpanishLatam": {
     "message": "Español (Latinoamérica)"
   },
-  "languageSpanishSpain": {
-    "message": "Español (España)"
-  },
   "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
-  "languageAlbanian": {
-    "message": "Shqip"
-  },
-  "languageBasque": {
-    "message": "Euskara"
-  },
-  "languageBelarusian": {
-    "message": "Беларуская"
-  },
-  "languageBulgarian": {
-    "message": "Български"
-  },
-  "languageCatalan": {
-    "message": "Català"
-  },
-  "languageCroatian": {
-    "message": "Hrvatski"
-  },
-  "languageCzech": {
-    "message": "Čeština"
-  },
-  "languageDanish": {
-    "message": "Dansk"
-  },
-  "languageDutch": {
-    "message": "Nederlands"
-  },
-  "languageEstonian": {
-    "message": "Eesti"
-  },
-  "languageFinnish": {
-    "message": "Suomi"
-  },
-  "languageGreek": {
-    "message": "Ελληνικά"
-  },
-  "languageHungarian": {
-    "message": "Magyar"
-  },
-  "languageIcelandic": {
-    "message": "Íslenska"
-  },
-  "languageIrish": {
-    "message": "Gaeilge"
-  },
-  "languageItalian": {
-    "message": "Italiano"
-  },
-  "languageLatvian": {
-    "message": "Latviešu"
-  },
-  "languageLithuanian": {
-    "message": "Lietuvių"
-  },
-  "languageMacedonian": {
-    "message": "Македонски"
-  },
-  "languageMaltese": {
-    "message": "Malti"
-  },
-  "languageNorwegian": {
-    "message": "Norsk"
-  },
-  "languagePolish": {
-    "message": "Polski"
-  },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
-  "languageRomanian": {
-    "message": "Română"
+    "message": "Африкаанс"
   },
   "languageRussian": {
     "message": "Русский"
-  },
-  "languageSerbian": {
-    "message": "Српски"
-  },
-  "languageSlovak": {
-    "message": "Slovenčina"
-  },
-  "languageSlovenian": {
-    "message": "Slovenščina"
-  },
-  "languageSwedish": {
-    "message": "Svenska"
-  },
-  "languageTurkish": {
-    "message": "Türkçe"
-  },
-  "languageUkrainian": {
-    "message": "Українська"
-  },
-  "languageWelsh": {
-    "message": "Cymraeg"
   },
   "noLanguagesMatch": {
     "message": "Нет языков, соответствующих поиску."
@@ -356,119 +230,14 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
-  "languageGujarati": {
-    "message": "ગુજરાતી"
-  },
-  "languageKannada": {
-    "message": "ಕನ್ನಡ"
-  },
-  "languageMalayalam": {
-    "message": "മലയാളം"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
-  },
-  "languageNepali": {
-    "message": "नेपाली"
-  },
-  "languageOdia": {
-    "message": "ଓଡ଼ିଆ"
-  },
-  "languageSinhala": {
-    "message": "සිංහල"
-  },
-  "languageTelugu": {
-    "message": "తెలుగు"
-  },
-  "languageUrdu": {
-    "message": "اردو"
-  },
-  "languageAssamese": {
-    "message": "অসমীয়া"
-  },
-  "languageIndonesian": {
-    "message": "Bahasa Indonesia"
-  },
-  "languageMalay": {
-    "message": "Bahasa Melayu"
-  },
-  "languageVietnamese": {
-    "message": "Tiếng Việt"
-  },
-  "languageKhmer": {
-    "message": "ខ្មែរ"
-  },
-  "languageLao": {
-    "message": "ລາວ"
-  },
-  "languageBurmese": {
-    "message": "မြန်မာ"
-  },
   "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
-  "languageJavanese": {
-    "message": "Basa Jawa"
-  },
-  "languageSundanese": {
-    "message": "Basa Sunda"
-  },
-  "languageArabic": {
-    "message": "العربية"
-  },
-  "languagePersian": {
-    "message": "فارسی"
-  },
-  "languageHebrew": {
-    "message": "עברית"
-  },
-  "languageArmenian": {
-    "message": "Հայերեն"
-  },
-  "languageGeorgian": {
-    "message": "ქართული"
-  },
-  "languageKazakh": {
-    "message": "Қазақша"
-  },
-  "languageKyrgyz": {
-    "message": "Кыргызча"
-  },
-  "languageMongolian": {
-    "message": "Монгол"
-  },
-  "languagePashto": {
-    "message": "پښتو"
-  },
-  "languageTajik": {
-    "message": "Тоҷикӣ"
-  },
-  "languageTurkmen": {
-    "message": "Türkmençe"
-  },
-  "languageUyghur": {
-    "message": "ئۇيغۇرچە"
-  },
-  "languageUzbek": {
-    "message": "Oʻzbekcha"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
+    "message": "Филиппинский / тагальский"
   },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "Ингредиенты"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "Шаги"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -480,7 +249,7 @@
     "message": "Импорт данных и настроек"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "Настройки экспортированы."
   },
   "blockReasonDomain": {
     "message": "Сайт"
@@ -685,5 +454,74 @@
   },
   "catLabelRestaurant": {
     "message": "Ресторан"
+  },
+  "appDescription": {
+    "message": "Расширение FitShield помогает осознаннее относиться к заказу доставки еды и фастфуда."
+  },
+  "currencyAuto": {
+    "message": "По языку интерфейса — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Вы открыли"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "B2B-маркетплейс"
+  },
+  "catLabelCourier": {
+    "message": "Курьерская служба"
+  },
+  "catLabelDelivery": {
+    "message": "Доставка"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Онлайн-маркетплейс"
+  },
+  "catLabelFastFood": {
+    "message": "Фастфуд"
+  },
+  "catLabelFoodContent": {
+    "message": "Кулинарный контент"
+  },
+  "catLabelLocalServices": {
+    "message": "Локальные сервисы"
+  },
+  "catLabelLogistics": {
+    "message": "Логистика"
+  },
+  "catLabelMarketplace": {
+    "message": "Маркетплейс"
+  },
+  "catLabelMealDelivery": {
+    "message": "Доставка еды"
+  },
+  "catLabelMealKit": {
+    "message": "Наборы для готовки"
+  },
+  "catLabelMealService": {
+    "message": "Готовые рационы"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Заказ с самовывозом"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Экспресс-доставка"
+  },
+  "catLabelRecipe": {
+    "message": "Рецепты"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Поиск ресторанов"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Ресторанная группа"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "ПО для ресторанов"
+  },
+  "catLabelSuperApp": {
+    "message": "Суперприложение"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Заказ на месте"
   }
 }

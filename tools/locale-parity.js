@@ -235,13 +235,24 @@ function localeParity() {
     keys.filter((k) => !enSet.has(k)).forEach((k) => reporter.fail(`${code}: extra key "${k}" (not in English)`));
 
     // A key English HAS but this locale does not simply falls back to English.
+    //
+    // Measured, not warned about. This is the one condition in this file that is
+    // the DESIGNED behaviour rather than a fault: docs/LOCALIZATION.md commits to
+    // partial locales, both runtime paths fall back, and a test proves the
+    // fallback works. Reporting it once per locale produced 82 warnings that
+    // never went down and never could — and 82 standing warnings for an accepted
+    // condition is how the one warning that matters gets scrolled past.
+    //
+    // Nothing stopped being checked. The debt is still computed here, still
+    // stated in the notes below with its full range, and `npm run locales:status`
+    // still prints it per locale and per surface. What changed is the channel:
+    // the defect channel is now reserved for defects, and this pass ADDED one to
+    // it — English left standing in a non-Latin-script locale, which is a real
+    // fault that the 82 warnings were loud enough to hide.
     const missing = enKeys.filter((k) => !keySet.has(k));
     if (code !== "en" && missing.length > 0) {
       const percent = Math.round(((enKeys.length - missing.length) / enKeys.length) * 100);
       coverage.push({ code, missing: missing.length, percent });
-      reporter.warn(
-        `${code}: ${missing.length} untranslated key(s) — ${percent}% translated (these render in English)`
-      );
     }
 
     duplicateKeys(loc.raw).forEach((k) => reporter.fail(`${code}: duplicate key "${k}"`));
@@ -375,16 +386,94 @@ function localeParity() {
     reporter.note(`${drift.length} inline HTML fallback(s) disagree with English (markup edit, not a locale edit)`);
   }
 
+  // English filed as a translation in a locale that does not use the Latin
+  // alphabet. Unlike missing keys, this is NOT the designed fallback: the key is
+  // defined, so nothing can substitute the current English, and the string lands
+  // in a Cyrillic or Devanagari list as a Latin word. It also inflates the
+  // coverage figure and hides the string from every translator worklist, which
+  // is why it survived so long — 761 entries across 39 locales when the check was
+  // first run. Fix by translating it, or by deleting the entry so the fallback
+  // applies honestly.
+  try {
+    const hybrid = require("./locale-hybrid-audit.js");
+
+    hybrid.englishInNonLatinScript().forEach((keys, code) => {
+      reporter.fail(
+        `${code}: ${keys.length} English string(s) filed as translations in a non-Latin-script locale ` +
+          `(${keys.slice(0, 6).join(", ")}${keys.length > 6 ? ", …" : ""}) — translate them or delete the entries ` +
+          `(node tools/locale-hybrid-audit.js --stranded ${code})`
+      );
+    });
+
+    // A stray ASCII pipe, the fingerprint of the machine-translation pass that
+    // left 154 Odia labels rendering with a vertical bar and a line break in
+    // front of them. No English message contains a pipe, so this cannot be a
+    // false positive.
+    hybrid.findMangledPunctuation().forEach((keys, code) => {
+      reporter.fail(
+        `${code}: ${keys.length} message(s) contain a stray "|" left by a machine-translation pass ` +
+          `(${keys.slice(0, 4).join(", ")}${keys.length > 4 ? ", …" : ""}) — no English message has one`
+      );
+    });
+
+    // "блокироватьing", "Блокироватьlist" — an English suffix welded onto a
+    // translated stem by a word-level find-and-replace. The oldest damage in the
+    // corpus and the loudest: it is gibberish in the reader's own script.
+    hybrid.findFusedScripts().forEach((keys, code) => {
+      reporter.fail(
+        `${code}: ${keys.length} message(s) weld Latin letters onto a word in the local script ` +
+          `(${keys.slice(0, 4).join(", ")}${keys.length > 4 ? ", …" : ""}) — retranslate or delete them`
+      );
+    });
+  } catch (error) {
+    reporter.warn(`could not check for stranded English: ${error.message}`);
+  }
+
   const fullyTranslated = dirs.length - coverage.length;
   const averagePercent = coverage.length
     ? Math.round(coverage.reduce((sum, item) => sum + item.percent, 0) / coverage.length)
     : 100;
 
   reporter.note(`${dirs.length} locales · ${enKeys.length} English keys`);
-  reporter.note(
-    `${fullyTranslated}/${dirs.length} locales fully translated · ` +
-      `${coverage.length} partial (average ${averagePercent}% — the rest render in English)`
-  );
+
+  // The translation debt, stated as a measurement. Range as well as average,
+  // because the average alone hides a locale sitting far below its peers.
+  if (coverage.length > 0) {
+    const percents = coverage.map((item) => item.percent).sort((a, b) => a - b);
+    const lowest = percents[0];
+    const highest = percents[percents.length - 1];
+    const median = percents[Math.floor(percents.length / 2)];
+    const debt = coverage.reduce((sum, item) => sum + item.missing, 0);
+    const worst = coverage
+      .filter((item) => item.percent === lowest)
+      .map((item) => item.code)
+      .join(", ");
+
+    reporter.note(
+      `${fullyTranslated}/${dirs.length} locales complete · ${coverage.length} partial, ` +
+        `${lowest}%–${highest}% (median ${median}%, average ${averagePercent}%)`
+    );
+    reporter.note(
+      `translation debt: ${debt} untranslated string(s), every one of which renders in English by design ` +
+        `(docs/LOCALIZATION.md) · lowest coverage: ${worst}`
+    );
+
+    // The actionable slice of that debt: strings the product added and never had
+    // translated ANYWHERE. A locale being behind is a translator's queue; a key
+    // no locale has is a handover that never happened, and it is the shape
+    // `currencyAuto` shipped in — English-only while the Intl-localized text
+    // beside it was not.
+    const neverTranslated = enKeys.filter((key) =>
+      dirs.every((code) => code === "en" || !load.loadLocale(code).data[key])
+    );
+
+    if (neverTranslated.length > 0) {
+      reporter.note(
+        `${neverTranslated.length} English key(s) are translated in no locale at all — ` +
+          `the strings added since the last translation pass (node tools/locale-status.js --todo <locale>)`
+      );
+    }
+  }
   reporter.note(`stats keys: ${statsKeys.length}, category keys: ${catKeys.length}`);
   reporter.note(`categories localized in ${fullyLocalizedCats + 1}/${dirs.length} locales (rest use clean English fallback)`);
   return reporter;

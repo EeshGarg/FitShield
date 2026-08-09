@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "ಪದಾರ್ಥಗಳು"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "ಹಂತಗಳು"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "ಡೇಟಾ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಆಮದು ಮಾಡಿ"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ರಫ್ತು ಮಾಡಲಾಗಿದೆ."
   },
   "blockReasonDomain": {
     "message": "ಸೈಟ್"
@@ -747,7 +738,7 @@
     "message": "ಆವೃತ್ತಿ $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "ಜರ್ಮನ್"
   },
   "statsMostBlockedSites": {
     "message": "ಹೆಚ್ಚು ನಿರ್ಬಂಧಿಸಿದ ಸೈಟ್‌ಗಳು"
@@ -762,54 +753,117 @@
     "message": "ಇನ್ನೂ ಯಾವುದೇ ನಿರ್ಬಂಧಗಳು ದಾಖಲಾಗಿಲ್ಲ."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "ಬರ್ಗರ್"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "ಪಿಜ್ಜಾ"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "ಚಿಕನ್"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "ಕಾಫಿ"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "ಚಹಾ"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "ಸಿಹಿತಿಂಡಿ"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "ಬೇಕರಿ"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "ಸ್ಯಾಂಡ್‌ವಿಚ್"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "ಮೆಕ್ಸಿಕನ್"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "ಏಷ್ಯನ್"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "ಸಮುದ್ರಾಹಾರ"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "ಸ್ಮೂದಿ"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "ಕೊರಿಯನ್ ಆಹಾರ"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "ಫಾಸ್ಟ್ ಕ್ಯಾಶುವಲ್"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "ದಿನಸಿ"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "ಕೇಟರಿಂಗ್"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "ರೆಸ್ಟೋರೆಂಟ್"
+  },
+  "currencyAuto": {
+    "message": "ನನ್ನ ಭಾಷೆಗೆ ಅನುಗುಣವಾಗಿ — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "ಡೆಲಿವರಿ"
+  },
+  "catLabelFastFood": {
+    "message": "ಫಾಸ್ಟ್ ಫುಡ್"
+  },
+  "catLabelCourier": {
+    "message": "ಕೊರಿಯರ್"
+  },
+  "catLabelLogistics": {
+    "message": "ಲಾಜಿಸ್ಟಿಕ್ಸ್"
+  },
+  "catLabelMarketplace": {
+    "message": "ಮಾರುಕಟ್ಟೆ"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "ಆನ್‌ಲೈನ್ ಮಾರುಕಟ್ಟೆ"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "ಬಿ2ಬಿ ಮಾರುಕಟ್ಟೆ"
+  },
+  "catLabelMealDelivery": {
+    "message": "ಊಟದ ಡೆಲಿವರಿ"
+  },
+  "catLabelMealKit": {
+    "message": "ಊಟದ ಕಿಟ್"
+  },
+  "catLabelMealService": {
+    "message": "ಊಟದ ಸೇವೆ"
+  },
+  "catLabelLocalServices": {
+    "message": "ಸ್ಥಳೀಯ ಸೇವೆಗಳು"
+  },
+  "catLabelPickupOrdering": {
+    "message": "ಪಿಕಪ್ ಆರ್ಡರ್"
+  },
+  "catLabelVenueOrdering": {
+    "message": "ಸ್ಥಳದಲ್ಲಿ ಆರ್ಡರ್"
+  },
+  "catLabelQuickCommerce": {
+    "message": "ಕ್ವಿಕ್ ಕಾಮರ್ಸ್"
+  },
+  "catLabelSuperApp": {
+    "message": "ಸೂಪರ್ ಆ್ಯಪ್"
+  },
+  "catLabelFoodContent": {
+    "message": "ಆಹಾರ ಕಂಟೆಂಟ್"
+  },
+  "catLabelRecipe": {
+    "message": "ಪಾಕವಿಧಾನಗಳು"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "ರೆಸ್ಟೋರೆಂಟ್ ಹುಡುಕಾಟ"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "ರೆಸ್ಟೋರೆಂಟ್ ಸಮೂಹ"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "ರೆಸ್ಟೋರೆಂಟ್ ಸಾಫ್ಟ್‌ವೇರ್"
   }
 }

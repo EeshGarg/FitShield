@@ -198,7 +198,7 @@
     "message": "Blockera whole groups of webbplatser by the land a brand operates in or the kind of food it serves. These blockeras add to your existing webbplats and custom-URL blockeras."
   },
   "blockByCountryLabel": {
-    "message": "Blockera by land"
+    "message": "Blockera efter land"
   },
   "blockByCountryHint": {
     "message": "Sök by land name or code, e.g. \"United\" or \"US\". Enabling a land blockeras every brand active there."
@@ -213,7 +213,7 @@
     "message": "Aktivera a land from search to pin it here."
   },
   "blockByCategoryLabel": {
-    "message": "Blockera by kategori"
+    "message": "Blockera efter kategori"
   },
   "blockByCategoryHint": {
     "message": "Sök kategorier like burger, pizza, or coffee. Specialties are searchable too; the blockera applies by kategori."
@@ -257,143 +257,11 @@
   "languageSystem": {
     "message": "System default"
   },
-  "languageEnglish": {
-    "message": "English"
-  },
-  "languageJapanese": {
-    "message": "日本語"
-  },
-  "languageChinese": {
-    "message": "简体中文"
-  },
-  "languageFrench": {
-    "message": "Français"
-  },
-  "languageCantonese": {
-    "message": "粵語"
-  },
-  "languageThai": {
-    "message": "ไทย"
-  },
-  "languagePunjabi": {
-    "message": "ਪੰਜਾਬੀ"
-  },
-  "languageTamil": {
-    "message": "தமிழ்"
-  },
-  "languageChineseTraditionalTaiwan": {
-    "message": "繁體中文（台灣）"
-  },
-  "languageKorean": {
-    "message": "한국어"
-  },
-  "languageHindi": {
-    "message": "हिन्दी"
-  },
   "languageSpanishLatam": {
     "message": "Español (Latinoamérica)"
   },
-  "languageSpanishSpain": {
-    "message": "Español (España)"
-  },
-  "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
-  "languageAlbanian": {
-    "message": "Shqip"
-  },
-  "languageBasque": {
-    "message": "Euskara"
-  },
-  "languageBelarusian": {
-    "message": "Беларуская"
-  },
-  "languageBulgarian": {
-    "message": "Български"
-  },
-  "languageCatalan": {
-    "message": "Català"
-  },
-  "languageCroatian": {
-    "message": "Hrvatski"
-  },
-  "languageCzech": {
-    "message": "Čeština"
-  },
-  "languageDanish": {
-    "message": "Dansk"
-  },
-  "languageDutch": {
-    "message": "Nederlands"
-  },
-  "languageEstonian": {
-    "message": "Eesti"
-  },
-  "languageFinnish": {
-    "message": "Suomi"
-  },
-  "languageGreek": {
-    "message": "Ελληνικά"
-  },
-  "languageHungarian": {
-    "message": "Magyar"
-  },
-  "languageIcelandic": {
-    "message": "Íslenska"
-  },
-  "languageIrish": {
-    "message": "Gaeilge"
-  },
-  "languageItalian": {
-    "message": "Italiano"
-  },
-  "languageLatvian": {
-    "message": "Latviešu"
-  },
-  "languageLithuanian": {
-    "message": "Lietuvių"
-  },
-  "languageMacedonian": {
-    "message": "Македонски"
-  },
-  "languageMaltese": {
-    "message": "Malti"
-  },
-  "languageNorwegian": {
-    "message": "Norsk"
-  },
-  "languagePolish": {
-    "message": "Polski"
-  },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
-  "languageRomanian": {
-    "message": "Română"
-  },
-  "languageRussian": {
-    "message": "Русский"
-  },
-  "languageSerbian": {
-    "message": "Српски"
-  },
-  "languageSlovak": {
-    "message": "Slovenčina"
-  },
-  "languageSlovenian": {
-    "message": "Slovenščina"
-  },
   "languageSwedish": {
     "message": "Svenska"
-  },
-  "languageTurkish": {
-    "message": "Türkçe"
-  },
-  "languageUkrainian": {
-    "message": "Українська"
-  },
-  "languageWelsh": {
-    "message": "Cymraeg"
   },
   "noLanguagesMatch": {
     "message": "Inga språk matchar sökningen."
@@ -451,114 +319,6 @@
   },
   "bmcAlt": {
     "message": "Buy Me a Coffee"
-  },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
-  "languageGujarati": {
-    "message": "ગુજરાતી"
-  },
-  "languageKannada": {
-    "message": "ಕನ್ನಡ"
-  },
-  "languageMalayalam": {
-    "message": "മലയാളം"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
-  },
-  "languageNepali": {
-    "message": "नेपाली"
-  },
-  "languageOdia": {
-    "message": "ଓଡ଼ିଆ"
-  },
-  "languageSinhala": {
-    "message": "සිංහල"
-  },
-  "languageTelugu": {
-    "message": "తెలుగు"
-  },
-  "languageUrdu": {
-    "message": "اردو"
-  },
-  "languageAssamese": {
-    "message": "অসমীয়া"
-  },
-  "languageIndonesian": {
-    "message": "Bahasa Indonesia"
-  },
-  "languageMalay": {
-    "message": "Bahasa Melayu"
-  },
-  "languageVietnamese": {
-    "message": "Tiếng Việt"
-  },
-  "languageKhmer": {
-    "message": "ខ្មែរ"
-  },
-  "languageLao": {
-    "message": "ລາວ"
-  },
-  "languageBurmese": {
-    "message": "မြန်မာ"
-  },
-  "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
-  "languageJavanese": {
-    "message": "Basa Jawa"
-  },
-  "languageSundanese": {
-    "message": "Basa Sunda"
-  },
-  "languageArabic": {
-    "message": "العربية"
-  },
-  "languagePersian": {
-    "message": "فارسی"
-  },
-  "languageHebrew": {
-    "message": "עברית"
-  },
-  "languageArmenian": {
-    "message": "Հայերեն"
-  },
-  "languageGeorgian": {
-    "message": "ქართული"
-  },
-  "languageKazakh": {
-    "message": "Қазақша"
-  },
-  "languageKyrgyz": {
-    "message": "Кыргызча"
-  },
-  "languageMongolian": {
-    "message": "Монгол"
-  },
-  "languagePashto": {
-    "message": "پښتو"
-  },
-  "languageTajik": {
-    "message": "Тоҷикӣ"
-  },
-  "languageTurkmen": {
-    "message": "Türkmençe"
-  },
-  "languageUyghur": {
-    "message": "ئۇيغۇرچە"
-  },
-  "languageUzbek": {
-    "message": "Oʻzbekcha"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
   },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
@@ -781,5 +541,74 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurang"
+  },
+  "currencyAuto": {
+    "message": "Följ mitt språk — $1 ($2)"
+  },
+  "appDescription": {
+    "message": "FitShield-webbläsartillägg som hjälper dig att vara medveten om matleveranser och beställningar av snabbmat."
+  },
+  "catLabelDelivery": {
+    "message": "Leverans"
+  },
+  "catLabelFastFood": {
+    "message": "Snabbmat"
+  },
+  "catLabelMealDelivery": {
+    "message": "Måltidsleverans"
+  },
+  "catLabelMealKit": {
+    "message": "Matkasse"
+  },
+  "catLabelMealService": {
+    "message": "Måltidstjänst"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Restaurangguide"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Restaurangkoncern"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Restaurangprogramvara"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Beställning för avhämtning"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Beställning på plats"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Snabbleverans"
+  },
+  "catLabelSuperApp": {
+    "message": "Superapp"
+  },
+  "catLabelCourier": {
+    "message": "Kurir"
+  },
+  "catLabelLogistics": {
+    "message": "Logistik"
+  },
+  "catLabelLocalServices": {
+    "message": "Lokala tjänster"
+  },
+  "catLabelMarketplace": {
+    "message": "Marknadsplats"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Onlinemarknadsplats"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "B2B-marknadsplats"
+  },
+  "catLabelFoodContent": {
+    "message": "Matinnehåll"
+  },
+  "catLabelRecipe": {
+    "message": "Recept"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Du öppnade"
   }
 }

@@ -323,9 +323,6 @@
   "languageSpanishSpain": {
     "message": "Spanyol (Spanyol)"
   },
-  "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
   "languageAlbanian": {
     "message": "Albania"
   },
@@ -581,15 +578,6 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -811,5 +799,68 @@
   },
   "catLabelRestaurant": {
     "message": "Restoran"
+  },
+  "currencyAuto": {
+    "message": "Ikuti bahasa saya — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Kamu membuka"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Marketplace B2B"
+  },
+  "catLabelCourier": {
+    "message": "Kurir"
+  },
+  "catLabelDelivery": {
+    "message": "Pengiriman"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Marketplace online"
+  },
+  "catLabelFastFood": {
+    "message": "Makanan cepat saji"
+  },
+  "catLabelFoodContent": {
+    "message": "Konten kuliner"
+  },
+  "catLabelLocalServices": {
+    "message": "Layanan lokal"
+  },
+  "catLabelLogistics": {
+    "message": "Logistik"
+  },
+  "catLabelMealDelivery": {
+    "message": "Pengiriman makanan"
+  },
+  "catLabelMealKit": {
+    "message": "Paket bahan masakan"
+  },
+  "catLabelMealService": {
+    "message": "Layanan makanan siap saji"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Pesan lalu ambil sendiri"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Belanja kilat"
+  },
+  "catLabelRecipe": {
+    "message": "Resep"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Cari restoran"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Grup restoran"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Perangkat lunak restoran"
+  },
+  "catLabelSuperApp": {
+    "message": "Aplikasi super"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Pesan dari tempat duduk"
   }
 }

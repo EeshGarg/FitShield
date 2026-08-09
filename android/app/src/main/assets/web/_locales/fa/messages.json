@@ -449,9 +449,6 @@
   "languageTelugu": {
     "message": "تلوگو"
   },
-  "languageUrdu": {
-    "message": "اردو"
-  },
   "languageAssamese": {
     "message": "آسامی"
   },
@@ -581,20 +578,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "مواد لازم"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "مراحل"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +594,7 @@
     "message": "درون‌بری داده‌ها و تنظیمات"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "تنظیمات برون‌بری شد."
   },
   "blockReasonDomain": {
     "message": "سایت"
@@ -762,54 +750,117 @@
     "message": "هنوز مسدودسازی‌ای ثبت نشده است."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "برگر"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "پیتزا"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "مرغ"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "قهوه"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "چای"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "دسر"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "نانوایی"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "ساندویچ"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "مکزیکی"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "آسیایی"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "غذای دریایی"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "اسموتی"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "غذای کره‌ای"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "فست‌کژوال"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "خواربار"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "کترینگ"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "رستوران"
+  },
+  "currencyAuto": {
+    "message": "مطابق زبان من — $1 ($2)"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "بازارگاه بنگاه‌به‌بنگاه"
+  },
+  "catLabelCourier": {
+    "message": "پیک"
+  },
+  "catLabelDelivery": {
+    "message": "تحویل"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "بازارگاه اینترنتی"
+  },
+  "catLabelFastFood": {
+    "message": "فست‌فود"
+  },
+  "catLabelFoodContent": {
+    "message": "محتوای غذا"
+  },
+  "catLabelLocalServices": {
+    "message": "خدمات محلی"
+  },
+  "catLabelLogistics": {
+    "message": "لجستیک"
+  },
+  "catLabelMarketplace": {
+    "message": "بازارگاه"
+  },
+  "catLabelMealDelivery": {
+    "message": "تحویل غذا"
+  },
+  "catLabelMealKit": {
+    "message": "بسته مواد اولیه"
+  },
+  "catLabelMealService": {
+    "message": "اشتراک غذا"
+  },
+  "catLabelPickupOrdering": {
+    "message": "سفارش برای دریافت حضوری"
+  },
+  "catLabelQuickCommerce": {
+    "message": "تجارت سریع"
+  },
+  "catLabelRecipe": {
+    "message": "دستور پخت"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "یافتن رستوران"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "گروه رستورانی"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "نرم‌افزار رستوران"
+  },
+  "catLabelSuperApp": {
+    "message": "سوپر اپلیکیشن"
+  },
+  "catLabelVenueOrdering": {
+    "message": "سفارش در محل"
   }
 }

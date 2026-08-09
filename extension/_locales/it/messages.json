@@ -198,7 +198,7 @@
     "message": "Blocca whole groups of siti by the paese a brand operates in or the kind of food it serves. These bloccas add to your existing sito and custom-URL bloccas."
   },
   "blockByCountryLabel": {
-    "message": "Blocca by paese"
+    "message": "Blocca per paese"
   },
   "blockByCountryHint": {
     "message": "Cerca by paese name or code, e.g. \"United\" or \"US\". Enabling a paese bloccas every brand active there."
@@ -213,7 +213,7 @@
     "message": "Abilita a paese from search to pin it here."
   },
   "blockByCategoryLabel": {
-    "message": "Blocca by categoria"
+    "message": "Blocca per categoria"
   },
   "blockByCategoryHint": {
     "message": "Cerca categorie like burger, pizza, or coffee. Specialties are searchable too; the blocca applies by categoria."
@@ -257,143 +257,11 @@
   "languageSystem": {
     "message": "Sistema default"
   },
-  "languageEnglish": {
-    "message": "English"
-  },
-  "languageJapanese": {
-    "message": "日本語"
-  },
-  "languageChinese": {
-    "message": "简体中文"
-  },
-  "languageFrench": {
-    "message": "Français"
-  },
-  "languageCantonese": {
-    "message": "粵語"
-  },
-  "languageThai": {
-    "message": "ไทย"
-  },
-  "languagePunjabi": {
-    "message": "ਪੰਜਾਬੀ"
-  },
-  "languageTamil": {
-    "message": "தமிழ்"
-  },
-  "languageChineseTraditionalTaiwan": {
-    "message": "繁體中文（台灣）"
-  },
-  "languageKorean": {
-    "message": "한국어"
-  },
-  "languageHindi": {
-    "message": "हिन्दी"
-  },
   "languageSpanishLatam": {
     "message": "Español (Latinoamérica)"
   },
-  "languageSpanishSpain": {
-    "message": "Español (España)"
-  },
-  "languageAfrikaans": {
-    "message": "Afrikaans"
-  },
-  "languageAlbanian": {
-    "message": "Shqip"
-  },
-  "languageBasque": {
-    "message": "Euskara"
-  },
-  "languageBelarusian": {
-    "message": "Беларуская"
-  },
-  "languageBulgarian": {
-    "message": "Български"
-  },
-  "languageCatalan": {
-    "message": "Català"
-  },
-  "languageCroatian": {
-    "message": "Hrvatski"
-  },
-  "languageCzech": {
-    "message": "Čeština"
-  },
-  "languageDanish": {
-    "message": "Dansk"
-  },
-  "languageDutch": {
-    "message": "Nederlands"
-  },
-  "languageEstonian": {
-    "message": "Eesti"
-  },
-  "languageFinnish": {
-    "message": "Suomi"
-  },
-  "languageGreek": {
-    "message": "Ελληνικά"
-  },
-  "languageHungarian": {
-    "message": "Magyar"
-  },
-  "languageIcelandic": {
-    "message": "Íslenska"
-  },
-  "languageIrish": {
-    "message": "Gaeilge"
-  },
   "languageItalian": {
     "message": "Italiano"
-  },
-  "languageLatvian": {
-    "message": "Latviešu"
-  },
-  "languageLithuanian": {
-    "message": "Lietuvių"
-  },
-  "languageMacedonian": {
-    "message": "Македонски"
-  },
-  "languageMaltese": {
-    "message": "Malti"
-  },
-  "languageNorwegian": {
-    "message": "Norsk"
-  },
-  "languagePolish": {
-    "message": "Polski"
-  },
-  "languagePortuguesePortugal": {
-    "message": "Português (Portugal)"
-  },
-  "languageRomanian": {
-    "message": "Română"
-  },
-  "languageRussian": {
-    "message": "Русский"
-  },
-  "languageSerbian": {
-    "message": "Српски"
-  },
-  "languageSlovak": {
-    "message": "Slovenčina"
-  },
-  "languageSlovenian": {
-    "message": "Slovenščina"
-  },
-  "languageSwedish": {
-    "message": "Svenska"
-  },
-  "languageTurkish": {
-    "message": "Türkçe"
-  },
-  "languageUkrainian": {
-    "message": "Українська"
-  },
-  "languageWelsh": {
-    "message": "Cymraeg"
   },
   "noLanguagesMatch": {
     "message": "Nessuna lingua corrisponde alla ricerca."
@@ -451,114 +319,6 @@
   },
   "bmcAlt": {
     "message": "Buy Me a Coffee"
-  },
-  "languageBengali": {
-    "message": "বাংলা"
-  },
-  "languageGujarati": {
-    "message": "ગુજરાતી"
-  },
-  "languageKannada": {
-    "message": "ಕನ್ನಡ"
-  },
-  "languageMalayalam": {
-    "message": "മലയാളം"
-  },
-  "languageMarathi": {
-    "message": "मराठी"
-  },
-  "languageNepali": {
-    "message": "नेपाली"
-  },
-  "languageOdia": {
-    "message": "ଓଡ଼ିଆ"
-  },
-  "languageSinhala": {
-    "message": "සිංහල"
-  },
-  "languageTelugu": {
-    "message": "తెలుగు"
-  },
-  "languageUrdu": {
-    "message": "اردو"
-  },
-  "languageAssamese": {
-    "message": "অসমীয়া"
-  },
-  "languageIndonesian": {
-    "message": "Bahasa Indonesia"
-  },
-  "languageMalay": {
-    "message": "Bahasa Melayu"
-  },
-  "languageVietnamese": {
-    "message": "Tiếng Việt"
-  },
-  "languageKhmer": {
-    "message": "ខ្មែរ"
-  },
-  "languageLao": {
-    "message": "ລາວ"
-  },
-  "languageBurmese": {
-    "message": "မြန်မာ"
-  },
-  "languageFilipinoTagalog": {
-    "message": "Filipino / Tagalog"
-  },
-  "languageJavanese": {
-    "message": "Basa Jawa"
-  },
-  "languageSundanese": {
-    "message": "Basa Sunda"
-  },
-  "languageArabic": {
-    "message": "العربية"
-  },
-  "languagePersian": {
-    "message": "فارسی"
-  },
-  "languageHebrew": {
-    "message": "עברית"
-  },
-  "languageArmenian": {
-    "message": "Հայերեն"
-  },
-  "languageGeorgian": {
-    "message": "ქართული"
-  },
-  "languageKazakh": {
-    "message": "Қазақша"
-  },
-  "languageKyrgyz": {
-    "message": "Кыргызча"
-  },
-  "languageMongolian": {
-    "message": "Монгол"
-  },
-  "languagePashto": {
-    "message": "پښتو"
-  },
-  "languageTajik": {
-    "message": "Тоҷикӣ"
-  },
-  "languageTurkmen": {
-    "message": "Türkmençe"
-  },
-  "languageUyghur": {
-    "message": "ئۇيغۇرچە"
-  },
-  "languageUzbek": {
-    "message": "Oʻzbekcha"
-  },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
   },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
@@ -781,5 +541,74 @@
   },
   "catLabelRestaurant": {
     "message": "Ristorante"
+  },
+  "currencyAuto": {
+    "message": "Segui la mia lingua — $1 ($2)"
+  },
+  "appDescription": {
+    "message": "Estensione per browser FitShield che ti aiuta a essere consapevole degli ordini di cibo a domicilio e fast food."
+  },
+  "catLabelDelivery": {
+    "message": "Consegna"
+  },
+  "catLabelFastFood": {
+    "message": "Fast food"
+  },
+  "catLabelMealDelivery": {
+    "message": "Consegna di pasti"
+  },
+  "catLabelMealKit": {
+    "message": "Kit per pasti"
+  },
+  "catLabelMealService": {
+    "message": "Servizio pasti"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Ricerca ristoranti"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Gruppo di ristorazione"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Software per ristoranti"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Ordini da ritirare"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Ordini sul posto"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Consegna rapida"
+  },
+  "catLabelSuperApp": {
+    "message": "Super app"
+  },
+  "catLabelCourier": {
+    "message": "Corriere"
+  },
+  "catLabelLogistics": {
+    "message": "Logistica"
+  },
+  "catLabelLocalServices": {
+    "message": "Servizi locali"
+  },
+  "catLabelMarketplace": {
+    "message": "Marketplace"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Marketplace online"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Marketplace B2B"
+  },
+  "catLabelFoodContent": {
+    "message": "Contenuti di cucina"
+  },
+  "catLabelRecipe": {
+    "message": "Ricette"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Hai aperto"
   }
 }

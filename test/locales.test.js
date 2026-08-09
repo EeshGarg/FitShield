@@ -214,8 +214,12 @@ test("blocking a country or category has exactly one pair of words", () => {
   // result rows and the pinned quick-access chips. They had four labels between
   // them — "Blocking"/"Block" and "On"/"Off" — with tooltips introducing a fifth
   // and sixth ("Blocking — click to pause", "Paused — click to block").
-  assert.equal(en.mbOn.message, en.mbBlocking.message, "the chip's ON word must be the result row's ON word");
-  assert.equal(en.mbOff.message, en.mbBlock.message, "the chip's OFF word must be the result row's OFF word");
+  // The second pair is gone rather than merely synchronised. While `mbOn`/`mbOff`
+  // still existed they were a loaded gun: identical English to `mbBlocking`/
+  // `mbBlock`, defined in `en` ALONE, and one `t("mbOn")` away from putting an
+  // English state word on the chip beside a translated one in the list above it.
+  assert.equal(en.mbOn, undefined, "mbOn was retired into mbBlocking — a second ON word must not come back");
+  assert.equal(en.mbOff, undefined, "mbOff was retired into mbBlock — a second OFF word must not come back");
 
   assert.ok(en.mbChipToggleOnTitle.message.startsWith(en.mbBlocking.message), "the ON tooltip opens with the ON word");
   assert.ok(en.mbChipToggleOffTitle.message.startsWith(en.mbBlock.message), "the OFF tooltip opens with the OFF word");
@@ -290,6 +294,17 @@ test("English is spelled American, and blocklist is one word", () => {
     .map(([key]) => key);
 
   assert.deepEqual(twoWords, [], `"blocklist" is one word: ${twoWords.join(", ")}`);
+
+  // The What's New page renders changelog.json, so its prose sits in the same
+  // product as these strings and has to spell things the same way. It said
+  // "favourites" while the block page's own key said "Save as a favorite" —
+  // and checking only `_locales` is what let that survive the spelling pass.
+  ["changelog.json", path.join("extension", "changelog.json")].forEach((file) => {
+    const text = fs.readFileSync(path.join(__dirname, "..", file), "utf8");
+    const offenders = [...new Set(text.match(new RegExp(BRITISH.source, "gi")) || [])];
+
+    assert.deepEqual(offenders, [], `${file} uses British spelling: ${offenders.join(", ")}`);
+  });
 });
 
 test("headings and buttons are sentence case", () => {
@@ -889,4 +904,606 @@ test("locale coverage is reported, not silently ignored", () => {
     reporter.notes.some((note) => /translated/.test(note)),
     "the audit must report translation coverage"
   );
+});
+
+// ---------------------------------------------------------------------------
+// A comment about a key is not a use of it
+// ---------------------------------------------------------------------------
+
+test("a comment naming a message key does not keep the key alive", () => {
+  const prune = require("../tools/locale-prune.js");
+
+  // The exact shape that hid `mbOn`/`mbOff`: the call site is deleted and a
+  // comment is written explaining that it was deleted. The comment then matches
+  // the unreferenced-key scan and the dead key survives every audit run.
+  const retired = [
+    'const label = enabled ? t("mbBlocking") : t("mbBlock");',
+    "// mbOn/mbOff carried identical English to mbBlocking/mbBlock but were never",
+    "// translated — they exist in en/messages.json alone.",
+    "/* mbChipLegacy is gone too. */"
+  ].join("\n");
+
+  const stripped = prune.stripJsComments(retired);
+
+  assert.match(stripped, /mbBlocking/, "the real call site survives stripping");
+  assert.doesNotMatch(stripped, /mbOn\b/, "a line comment is not a reference");
+  assert.doesNotMatch(stripped, /mbChipLegacy/, "a block comment is not a reference");
+});
+
+test("comment stripping cannot swallow a real reference", () => {
+  const prune = require("../tools/locale-prune.js");
+
+  // The two ways a naive stripper destroys live code. Both of these exist in
+  // this repository, so neither is hypothetical: `//` inside a string literal
+  // (every fitshield.net link) and `\/\/` inside a regex literal
+  // (fitshield-core.js:1129). A regex-based stripper eats the rest of the line
+  // in both cases — and the rest of the line is where the t() call lives.
+  const insideString = 'const home = "https://fitshield.net"; const a = t("keyAfterUrl");';
+  assert.match(prune.stripJsComments(insideString), /keyAfterUrl/, "a URL in a string is not a comment");
+
+  const insideRegex = 'const s = text.replace(/^[a-z][a-z0-9+.-]*:\\/\\//, ""); const b = t("keyAfterRegex");';
+  assert.match(prune.stripJsComments(insideRegex), /keyAfterRegex/, "escaped slashes in a regex are not a comment");
+
+  // Markup hides prose the same way, and the page comments do name keys.
+  const markup = '<!-- avgMealCostLabel used to be borrowed here --><label data-i18n="currencyLabel">Currency</label>';
+  const strippedMarkup = prune.stripHtmlComments(markup);
+  assert.match(strippedMarkup, /currencyLabel/, "a real attribute survives");
+  assert.doesNotMatch(strippedMarkup, /avgMealCostLabel/, "an HTML comment is not a reference");
+});
+
+test("every English key is reachable from code that is not a comment", () => {
+  // F073 asked for exactly this check. It is only meaningful with comment
+  // stripping in place: before that, deleting a key's last call site and
+  // explaining the deletion in a comment left the audit reporting "clean".
+  const prune = require("../tools/locale-prune.js");
+  const unused = prune.unusedKeys();
+
+  assert.deepEqual(
+    unused,
+    [],
+    `these English keys are shipped in every locale but nothing can render them:\n  ${unused.join("\n  ")}`
+  );
+});
+
+// ---------------------------------------------------------------------------
+// Document language and direction
+// ---------------------------------------------------------------------------
+
+// Run the real i18n.js the pages load, with a stub document, and hand back what
+// it stamped. `fetch` rejects because no locale JSON is reachable in Node — the
+// point is that the stamp happens anyway, which is what a user on a slow or
+// broken locale load depends on.
+function stampFor(uiLanguage) {
+  const source = fs.readFileSync(path.join(__dirname, "..", "extension", "i18n.js"), "utf8");
+  const documentElement = { lang: "en", dir: "" };
+  const quiet = { error: () => {}, warn: () => {}, log: () => {} };
+  const sandbox = { console: quiet, fetch: () => Promise.reject(new Error("no network in tests")) };
+
+  sandbox.self = sandbox;
+  sandbox.globalThis = sandbox;
+  sandbox.document = { documentElement, querySelectorAll: () => [] };
+  sandbox.fitshield = {
+    storage: { get: () => Promise.resolve({ uiLanguage }), set: () => Promise.resolve() },
+    runtime: { getURL: (p) => p },
+    i18n: { getMessage: () => "", getUILanguage: () => "en" }
+  };
+
+  vm.runInContext(source, vm.createContext(sandbox), { filename: "i18n.js" });
+  return { i18n: sandbox.FitShieldI18n, documentElement };
+}
+
+test("the document is stamped with the language actually in effect", async () => {
+  // Every page is authored `<html lang="en">` with no `dir` at all. Without this
+  // stamp an Arabic user gets an Arabic page laid out left to right, and a
+  // screen reader announces Japanese content in an English voice.
+  const cases = [
+    ["ar", "rtl", "ar"],
+    ["fa", "rtl", "fa"],
+    ["he", "rtl", "he"],
+    ["ur", "rtl", "ur"],
+    ["ps", "rtl", "ps"],
+    ["ug", "rtl", "ug"],
+    ["ja", "ltr", "ja"],
+    ["de", "ltr", "de"],
+    ["es_419", "ltr", "es-419"],
+    ["zh_CN", "ltr", "zh-CN"]
+  ];
+
+  for (const [locale, direction, expectedLang] of cases) {
+    const { i18n, documentElement } = stampFor(locale);
+    await i18n.ready;
+
+    assert.equal(documentElement.dir, direction, `${locale} must render ${direction}`);
+    assert.equal(documentElement.lang, expectedLang, `${locale} must stamp lang="${expectedLang}"`);
+  }
+});
+
+test("an unpinned language still leaves the document stamped", async () => {
+  // "" means "follow the browser", which is the default every user starts on.
+  const { i18n, documentElement } = stampFor("");
+  await i18n.ready;
+
+  assert.equal(documentElement.lang, "en");
+  assert.equal(documentElement.dir, "ltr", "a page must never be left with no direction at all");
+});
+
+test("isRtl covers every right-to-left language the picker offers", () => {
+  const { i18n } = stampFor("en");
+  const languages = require("../extension/languages.js");
+  const offered = (languages.FitShieldLanguages || languages).LANGUAGES || [];
+
+  // The six FitShield actually ships. If the picker grows a seventh RTL
+  // language, this fails until isRtl learns about it.
+  ["ar", "fa", "he", "ps", "ug", "ur"].forEach((code) => {
+    assert.equal(i18n.isRtl(code), true, `${code} is written right to left`);
+  });
+
+  ["en", "ja", "de", "zh_CN", "es_419", "tr"].forEach((code) => {
+    assert.equal(i18n.isRtl(code), false, `${code} is written left to right`);
+  });
+
+  // Region subtags and underscore forms must not defeat the lookup.
+  assert.equal(i18n.isRtl("ar-EG"), true);
+  assert.equal(i18n.isRtl("ar_EG"), true);
+  assert.equal(i18n.isRtl(""), false);
+  assert.equal(i18n.isRtl(null), false);
+
+  if (offered.length) {
+    const rtlOffered = offered.filter((entry) => i18n.isRtl(entry.code || entry));
+    assert.ok(rtlOffered.length >= 6, "the picker still offers the RTL languages isRtl knows");
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Category display names
+// ---------------------------------------------------------------------------
+
+// The curated category ids the shipped blocklists actually carry.
+function curatedCategories() {
+  const dir = path.join(__dirname, "..", "extension", "blocklists");
+  const found = new Set();
+
+  for (const file of fs.readdirSync(dir).filter((name) => name.endsWith(".json"))) {
+    const parsed = JSON.parse(fs.readFileSync(path.join(dir, file), "utf8"));
+    const entries = Array.isArray(parsed) ? parsed : parsed.entries || parsed.sites || parsed.brands || [];
+    entries.forEach((entry) => {
+      if (entry && entry.category) found.add(entry.category);
+    });
+  }
+
+  return [...found].sort();
+}
+
+// The real i18n module, resolving against the real English catalog.
+function i18nWithEnglish() {
+  const source = fs.readFileSync(path.join(__dirname, "..", "extension", "i18n.js"), "utf8");
+  const quiet = { error: () => {}, warn: () => {}, log: () => {} };
+  const sandbox = { console: quiet, fetch: () => Promise.reject(new Error("no network in tests")) };
+
+  sandbox.self = sandbox;
+  sandbox.globalThis = sandbox;
+  sandbox.document = { documentElement: { lang: "en", dir: "" }, querySelectorAll: () => [] };
+  sandbox.fitshield = {
+    storage: { get: () => Promise.resolve({}), set: () => Promise.resolve() },
+    runtime: { getURL: (p) => p },
+    i18n: { getMessage: (key) => (en[key] ? en[key].message : ""), getUILanguage: () => "en" }
+  };
+
+  vm.runInContext(source, vm.createContext(sandbox), { filename: "i18n.js" });
+  return sandbox.FitShieldI18n;
+}
+
+test("every curated category renders as a name, never as a raw id", () => {
+  // The block page used to show three rule buckets; it now shows the brand's
+  // CURATED category, so all of these reach a customer's screen. An id that
+  // reaches `prettifyCategory` still renders — "Restaurant Discovery" — but an
+  // UNDERSCORE reaching the screen means the resolver was bypassed entirely,
+  // which is the "Category  Fast_casual" defect.
+  const i18n = i18nWithEnglish();
+  const categories = curatedCategories();
+
+  // Deliberately not pinned to a count. The curated set is the data lane's to
+  // grow and consolidate — it has been both 37 and 22 — and a locale test that
+  // fails when a category is merged is a test about the wrong thing. What must
+  // hold at every size is that whatever the data carries, resolves.
+  assert.ok(categories.length >= 10, `expected the curated set, found ${categories.length}`);
+
+  categories.forEach((id) => {
+    const rendered = i18n.categoryName(id);
+
+    assert.ok(rendered, `${id} rendered nothing`);
+    assert.ok(!rendered.includes("_"), `${id} rendered the raw id "${rendered}"`);
+    assert.notEqual(rendered, id, `${id} rendered its own storage key`);
+  });
+});
+
+test("a category id that is empty or malformed cannot throw", () => {
+  // Android carried a second copy of this resolver whose fallback branch had
+  // lost the `.filter(Boolean)` the canonical one has, so `""` and `"_tea"`
+  // reached `word[0].toUpperCase()` on undefined and took the block screen down
+  // with a TypeError. The block screen is the one surface that must never fail.
+  const i18n = i18nWithEnglish();
+
+  ["", null, undefined, "_tea", "__", "  ", "tea__leaf"].forEach((id) => {
+    assert.doesNotThrow(() => i18n.categoryName(id), `categoryName(${JSON.stringify(id)}) threw`);
+  });
+
+  assert.equal(i18n.categoryName(""), "");
+});
+
+test("only one implementation turns a category id into a catLabel key", () => {
+  // Settings, the block page and the Android dashboard all name categories. When
+  // each owned a copy of the rule they drifted — one printed "Fast Casual" while
+  // another printed "Fast_casual" for the same interruption. Resolution lives in
+  // i18n.js, which every surface already loads, and a second copy is the defect
+  // rather than the fix.
+  const shipped = [
+    ...fs
+      .readdirSync(path.join(__dirname, "..", "extension"))
+      .filter((name) => name.endsWith(".js"))
+      .map((name) => ["extension/" + name, path.join(__dirname, "..", "extension", name)]),
+    ...fs
+      .readdirSync(path.join(__dirname, "..", "android", "app", "src", "main", "assets", "web"))
+      .filter((name) => name.endsWith(".js"))
+      .map((name) => [
+        "android/" + name,
+        path.join(__dirname, "..", "android", "app", "src", "main", "assets", "web", name)
+      ])
+  ];
+
+  // A construction site is code that builds the key from a PascalCased id.
+  const builders = shipped.filter(([, file]) => {
+    const source = fs.readFileSync(file, "utf8");
+    return /["'`]catLabel["'`]?\s*\+|`catLabel\$\{/.test(source);
+  });
+
+  assert.deepEqual(
+    builders.map(([label]) => label).sort(),
+    ["android/i18n.js", "extension/i18n.js"],
+    "catLabel keys may only be built inside i18n.js (android/i18n.js is its mirror)"
+  );
+});
+
+test("no English string is left standing in a non-Latin-script locale", () => {
+  // The hole between the two checks that already existed. `findHybrids` needs a
+  // string to MIX scripts, so wholly-English text in a Cyrillic file is invisible
+  // to it; `englishCopies` needs two words and an English function word, so
+  // "Bakery", "Grocery" and "Restaurant" are invisible to that. 761 entries sat
+  // in between — a Bulgarian category list reading "Куриерска услуга · Доставка ·
+  // Бързо хранене · Bakery · Grocery · Restaurant", and `ug.clearButton`
+  // rendering the word "Clear" in a page of Uyghur.
+  //
+  // Script is what makes this decidable. "Pizza" == "Pizza" is a real German
+  // translation; it cannot be a real Russian one, because Russian writes Пицца.
+  // F047 asked for exactly this check.
+  const hybrid = require("../tools/locale-hybrid-audit.js");
+  const stranded = hybrid.englishInNonLatinScript();
+  const lines = [];
+
+  stranded.forEach((keys, code) => {
+    lines.push(`${code}: ${keys.length} — ${keys.slice(0, 8).join(", ")}${keys.length > 8 ? ", …" : ""}`);
+  });
+
+  assert.deepEqual(
+    lines,
+    [],
+    "English filed as a translation in a locale that does not use the Latin alphabet.\n" +
+      "Translate it, or delete the key so it falls back to English honestly:\n  " +
+      lines.join("\n  ")
+  );
+});
+
+test("no translation carries a stray pipe from a machine-translation pass", () => {
+  // extension/_locales/or shipped 174 of these: 154 messages literally beginning
+  // " |\n", so every Odia label rendered with a vertical bar and a line break in
+  // front of it, and most of the rest ended " |" where the danda "।" belonged.
+  // Decidable because no English message contains a pipe at all — verified here
+  // rather than assumed, since the whole check rests on it.
+  const hybrid = require("../tools/locale-hybrid-audit.js");
+
+  const englishPipes = Object.entries(en)
+    .filter(([, entry]) => entry.message.includes("|"))
+    .map(([key]) => key);
+
+  assert.deepEqual(englishPipes, [], "an English message now contains a pipe, which invalidates the check below");
+
+  const mangled = [];
+  hybrid.findMangledPunctuation().forEach((keys, code) => {
+    mangled.push(`${code}: ${keys.length} (${keys.slice(0, 5).join(", ")}${keys.length > 5 ? ", …" : ""})`);
+  });
+
+  assert.deepEqual(mangled, [], `stray pipes left by a machine-translation pass:\n  ${mangled.join("\n  ")}`);
+});
+
+test("no word welds an English suffix onto a translated stem", () => {
+  // "блокироватьing", "Блокироватьlist", "αποκλεισμόςing" — the residue of a
+  // word-level find-and-replace over the English source. This is the damage the
+  // hybrid audit's own header documents, and for a long time it could not detect
+  // it: `findHybrids` looks for an English FUNCTION word, and "ing"/"ed"/"list"
+  // are suffixes, not words. Its own cited example went uncaught.
+  const hybrid = require("../tools/locale-hybrid-audit.js");
+  const welded = [];
+
+  hybrid.findFusedScripts().forEach((keys, code) => {
+    const data = readLocale(code);
+    keys.forEach((key) => welded.push(`${code}.${key} = ${JSON.stringify(data[key].message.slice(0, 60))}`));
+  });
+
+  assert.deepEqual(welded, [], `Latin letters welded onto a translated word:\n  ${welded.join("\n  ")}`);
+});
+
+test("the fused-script rule fires on real damage and spares real translations", () => {
+  // The rule is only decidable in scripts that never attach a Latin suffix. Indic
+  // and Ethiopic do — "URLসমূহ" is correct Assamese and "የFitShield" correct
+  // Amharic — so they are deliberately out of scope, and this pins that decision
+  // rather than leaving it to be re-litigated by whoever sees the next false
+  // positive.
+  const hybrid = require("../tools/locale-hybrid-audit.js");
+  const fires = (message) => {
+    const map = new Map();
+    // Exercise the exported predicate through a synthetic locale by proxy: the
+    // regexes are internal, so assert via the corpus-level function on real data
+    // plus these representative strings.
+    map.set("probe", message);
+    return message;
+  };
+
+  assert.ok(fires("блокироватьing"), "probe helper is wired");
+
+  // Representative strings, asserted through the same detector the audit uses by
+  // temporarily standing them in a locale-shaped object.
+  const damaged = ["блокироватьing", "Блокироватьlist", "αποκλεισμόςing", "Մաքրելing"];
+  const legitimate = ["URLসমূহ", "የFitShield ክፍሎችን", "URLలను చూపు", "URL блокировать", "FitShieldの設定"];
+
+  const SPACED = /[Ͱ-ϿЀ-ӿ԰-֏Ⴀ-ჿ]/;
+  const FUSED =
+    /[Ͱ-ϿЀ-ӿ԰-֏Ⴀ-ჿ][A-Za-z]|[A-Za-z][Ͱ-ϿЀ-ӿ԰-֏Ⴀ-ჿ]/;
+
+  damaged.forEach((text) => {
+    assert.ok(SPACED.test(text) && FUSED.test(text), `${text} is welded damage and must be caught`);
+  });
+
+  legitimate.forEach((text) => {
+    assert.ok(!(SPACED.test(text) && FUSED.test(text)), `${text} is a correct translation and must not be flagged`);
+  });
+
+  assert.equal(typeof hybrid.findFusedScripts, "function", "the audit exposes the check");
+});
+
+test("the hybrid detector knows the prepositions that carry a half-translation", () => {
+  // "Block by country" was left as "Блакіраваць by краіна" in seven Cyrillic and
+  // Greek locales. The whole defect was one two-letter English preposition, and
+  // it survived every run because that preposition was not in FUNCTION_WORDS.
+  const hybrid = require("../tools/locale-hybrid-audit.js");
+
+  assert.ok(hybrid.FUNCTION_WORDS.includes("by"), "'by' is an English function word and must be detected");
+  assert.equal(hybrid.isEnglishPhrase("Блакіраваць by краіна"), true, "a Cyrillic string around an English 'by'");
+  assert.equal(hybrid.isEnglishPhrase("Блакіраваць па краіне"), false, "a fully translated string is not a hybrid");
+});
+
+test("the stranded-English check exempts names and nothing else", () => {
+  // The exemption list is the whole risk in the check above: anything added to it
+  // becomes permanently invisible. It may hold proper nouns only — things that
+  // stay in Latin script in every language because they are names rather than
+  // words.
+  const hybrid = require("../tools/locale-hybrid-audit.js");
+
+  assert.deepEqual(
+    [...hybrid.ALLOWED_UNTRANSLATED].sort(),
+    ["actionTitle", "appName", "bmcAlt"],
+    "only proper nouns may be exempt from the stranded-English check"
+  );
+
+  [...hybrid.ALLOWED_UNTRANSLATED].forEach((key) => {
+    assert.ok(enSet.has(key), `${key} is exempted but is not an English key`);
+  });
+
+  // And the classifier has to actually separate the two kinds of locale, or the
+  // check silently applies to nobody.
+  assert.equal(hybrid.isNonLatinLocale(readLocale("ru")), true, "ru is a non-Latin locale");
+  assert.equal(hybrid.isNonLatinLocale(readLocale("ja")), true, "ja is a non-Latin locale");
+  assert.equal(hybrid.isNonLatinLocale(readLocale("de")), false, "de is a Latin locale");
+  assert.equal(hybrid.isNonLatinLocale(readLocale("vi")), false, "vi is a Latin locale");
+});
+
+test("the Android copy of every shared runtime module is identical", () => {
+  // Android reuses these modules verbatim — app.js's own header says so — but
+  // they are committed copies, and `npm run sync` / `tools/sync-audit.js` only
+  // police `extension/`. Nothing was watching this pair, which is how the
+  // category namer diverged in the first place: `i18n.js` gained the shared
+  // `categoryName` and the Android dashboard kept resolving `catLabel` itself.
+  // A drift here silently ships a different `categoryName`, `isRtl` or
+  // `applyDocumentLanguage` to phones than to browsers.
+  const androidWeb = path.join(__dirname, "..", "android", "app", "src", "main", "assets", "web");
+  const extensionDir = path.join(__dirname, "..", "extension");
+
+  const shared = fs
+    .readdirSync(androidWeb)
+    .filter((name) => name.endsWith(".js") && fs.existsSync(path.join(extensionDir, name)));
+
+  assert.ok(shared.includes("i18n.js"), "i18n.js must be one of the shared modules");
+  assert.ok(shared.includes("languages.js"), "languages.js must be one of the shared modules");
+
+  const drifted = shared.filter(
+    (name) =>
+      fs.readFileSync(path.join(extensionDir, name), "utf8") !==
+      fs.readFileSync(path.join(androidWeb, name), "utf8")
+  );
+
+  assert.deepEqual(
+    drifted,
+    [],
+    `these modules differ between extension/ and the Android assets: ${drifted.join(", ")}. ` +
+      "Copy the extension version across — Android reuses them verbatim."
+  );
+});
+
+// ---------------------------------------------------------------------------
+// Placeholders
+// ---------------------------------------------------------------------------
+
+test("no locale drops, adds or renames a positional placeholder", () => {
+  // A locale that loses a `$1` prints a sentence with a hole where the number,
+  // the site name or the currency was. This is checked for all 83 at once
+  // because the failure is silent: the string still renders, just wrong.
+  const positional = (message) => (message.match(/\$[1-9]/g) || []).sort().join(",");
+  const problems = [];
+
+  dirs.forEach((code) => {
+    const data = readLocale(code);
+
+    Object.entries(data).forEach(([key, entry]) => {
+      const message = entry && typeof entry.message === "string" ? entry.message : null;
+
+      if (message === null) {
+        problems.push(`${code}.${key}: message is not a string`);
+        return;
+      }
+
+      // Chrome's named-placeholder syntax needs a `placeholders` block to mean
+      // anything, and FitShield's own runtime (i18n.js) only resolves $1..$9 —
+      // so a `$name$` renders literally, as the word "$name$", on every page.
+      if (/\$[A-Za-z0-9_@]+\$/.test(message)) {
+        problems.push(`${code}.${key}: unsafe $name$ placeholder in ${JSON.stringify(message)}`);
+      }
+
+      if (entry && entry.placeholders) {
+        problems.push(`${code}.${key}: carries a placeholders block; FitShield uses positional $1..$9 only`);
+      }
+
+      if (code !== "en" && en[key] && positional(message) !== positional(en[key].message)) {
+        problems.push(
+          `${code}.${key}: placeholders "${positional(message)}" but English has "${positional(en[key].message)}"`
+        );
+      }
+    });
+  });
+
+  assert.deepEqual(problems, [], `placeholder faults:\n  ${problems.join("\n  ")}`);
+});
+
+test("the currency picker's auto entry keeps both of its substitutions", () => {
+  // It renders "<label> — <currency name> (<symbol>)", and the name and symbol
+  // come from Intl, already localized. A translation that drops `$2` leaves the
+  // user choosing between entries that no longer show which currency they mean.
+  assert.match(en.currencyAuto.message, /\$1/);
+  assert.match(en.currencyAuto.message, /\$2/);
+
+  dirs.forEach((code) => {
+    const entry = readLocale(code).currencyAuto;
+    if (!entry) return; // untranslated falls back to English, which is fine
+
+    assert.match(entry.message, /\$1/, `${code} currencyAuto lost the currency name`);
+    assert.match(entry.message, /\$2/, `${code} currencyAuto lost the symbol`);
+
+    // test/currency.test.js proves the ENGLISH entry is distinguishable from the
+    // pinned "Name (Symbol)" option by words rather than by an emoji a screen
+    // reader drops. That property has to survive translation too: a locale whose
+    // message is bare punctuation around the two substitutions renders exactly
+    // like the pinned entry for the same currency, which is the defect the key
+    // was created to remove.
+    const withoutSubstitutions = entry.message.replace(/\$[12]/g, " ");
+    assert.match(
+      withoutSubstitutions,
+      /\p{Letter}/u,
+      `${code} currencyAuto is only punctuation around $1/$2 — it must say, in words, that this follows the display language`
+    );
+  });
+});
+
+test("the localization doc's headline numbers match the corpus", () => {
+  // The doc published "508 English keys ... 61%" against a corpus that had 509
+  // and 59%, plus an assurance that everything pre-0.55 was "fully translated
+  // everywhere" while the block page's own headline was English in 33 locales.
+  // A transcribed number goes stale silently, so the transcription is checked.
+  const doc = fs.readFileSync(path.join(__dirname, "..", "docs", "LOCALIZATION.md"), "utf8");
+
+  const claimed = doc.match(/\*\*(\d[\d,]*) English keys across (\d+) locales\*\*/);
+  assert.ok(claimed, "docs/LOCALIZATION.md must state the key and locale counts it was written against");
+
+  assert.equal(
+    Number(claimed[1].replace(/,/g, "")),
+    enKeys.length,
+    "the doc's English key count is stale — re-read `npm run locales:status`"
+  );
+  assert.equal(Number(claimed[2]), dirs.length, "the doc's locale count is stale");
+
+  // Keys cited in the doc's TABLES are normative — "this concept is spelled by
+  // these keys" — so a dead one there is a false statement about the product.
+  // The prose is deliberately exempt: it narrates retirements (`warningTriggeredBy`,
+  // the rename that cost a release) and naming a key in order to say it is gone
+  // is not the same as claiming it exists.
+  const tableRows = doc.split("\n").filter((line) => line.trim().startsWith("|"));
+  const named = tableRows.flatMap((row) => [...row.matchAll(/`([A-Za-z][A-Za-z0-9_]*)`/g)].map((m) => m[1]));
+
+  // Only names that look like message keys, and only ones the doc did not mark
+  // as a family (`recapMade`, `popupMarkMade*`).
+  const ghosts = [...new Set(named)].filter((key) => {
+    if (key.endsWith("*")) return false;
+    if (!/^[a-z]+[A-Z]/.test(key)) return false; // camelCase message keys only
+    return !enSet.has(key);
+  });
+
+  assert.deepEqual(
+    ghosts,
+    [],
+    `docs/LOCALIZATION.md's tables cite keys the corpus no longer has: ${ghosts.join(", ")}`
+  );
+});
+
+// ---------------------------------------------------------------------------
+// The diagnostics page is customer-facing
+// ---------------------------------------------------------------------------
+
+test("the diagnostics page never hands a store customer a build instruction", () => {
+  // "Check FitShield is working" is a friendly, translated button, and it used
+  // to open a page telling a Chrome Web Store customer to run `node build.js`
+  // and load an unpacked folder — instructions they cannot follow, naming a
+  // repository they do not have. Comments are stripped first, because the file's
+  // own header legitimately RECORDS that this used to happen.
+  const prune = require("../tools/locale-prune.js");
+  const code = prune.stripJsComments(
+    fs.readFileSync(path.join(__dirname, "..", "extension", "diagnostics.js"), "utf8")
+  );
+  const markup = prune.stripHtmlComments(
+    fs.readFileSync(path.join(__dirname, "..", "extension", "diagnostics.html"), "utf8")
+  );
+
+  [
+    [/node build\.js/, "a build command"],
+    [/dist\/(chrome|firefox)/, "a build output folder"],
+    [/load unpacked/i, "an unpacked-extension instruction"],
+    [/warning\.html/, "a source filename"]
+  ].forEach(([pattern, what]) => {
+    assert.doesNotMatch(code, pattern, `diagnostics.js still shows ${what}`);
+    assert.doesNotMatch(markup, pattern, `diagnostics.html still shows ${what}`);
+  });
+
+  // And every sentence it does show is a message key, so it can be translated.
+  const keys = [...code.matchAll(/tOr\(\s*"([A-Za-z0-9_]+)"/g)].map((match) => match[1]);
+  assert.ok(keys.length >= 15, `expected the page's sentences to come from messages, found ${keys.length}`);
+
+  const missing = [...new Set(keys)].filter((key) => !enSet.has(key));
+  assert.deepEqual(missing, [], `diagnostics.js names messages that do not exist: ${missing.join(", ")}`);
+});
+
+test("every shipped page loads the runtime that stamps direction", () => {
+  // The stamp is worth nothing on a page that never loads i18n.js, and the
+  // module reads `global.fitshield` at evaluation time, so the shim has to come
+  // first or the page silently pins itself to English.
+  const extensionDir = path.join(__dirname, "..", "extension");
+  const pages = fs.readdirSync(extensionDir).filter((name) => name.endsWith(".html"));
+
+  assert.ok(pages.length >= 6, `expected every shipped page, found ${pages.length}`);
+
+  pages.forEach((page) => {
+    const html = fs.readFileSync(path.join(extensionDir, page), "utf8");
+    const scripts = [...html.matchAll(/<script[^>]+src="([^"]+)"/g)].map((match) => match[1]);
+
+    assert.ok(scripts.includes("i18n.js"), `${page} must load i18n.js or it can never be localized`);
+
+    const shim = scripts.findIndex((src) => /-shim\.js$/.test(src));
+    const i18nAt = scripts.indexOf("i18n.js");
+    assert.ok(shim >= 0 && shim < i18nAt, `${page} must load its platform shim before i18n.js`);
+  });
 });

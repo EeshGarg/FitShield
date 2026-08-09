@@ -15,7 +15,7 @@
     "message": "ძიება"
   },
   "clearButton": {
-    "message": "წმინდა"
+    "message": "გასუფთავება"
   },
   "openButton": {
     "message": "გახსენით"
@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "ინგრედიენტები"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "ნაბიჯები"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "მონაცემებისა და პარამეტრების იმპორტი"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "პარამეტრები ექსპორტირებულია."
   },
   "blockReasonDomain": {
     "message": "საიტი"
@@ -747,7 +738,7 @@
     "message": "ვერსია $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "გერმანული"
   },
   "statsMostBlockedSites": {
     "message": "ყველაზე ხშირად დაბლოკილი საიტები"
@@ -762,54 +753,114 @@
     "message": "ჯერ ბლოკირება არ დაფიქსირებულა."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "ბურგერი"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "პიცა"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "ქათამი"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "ყავა"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "ჩაი"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "დესერტი"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "საცხობი"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "სენდვიჩი"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "მექსიკური"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "აზიური"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "ზღვის პროდუქტები"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "სმუზი"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
-  },
-  "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "კორეული სამზარეულო"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "სასურსათო მაღაზია"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "კეიტერინგი"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "რესტორანი"
+  },
+  "currencyAuto": {
+    "message": "ჩემი ენის მიხედვით — $1 ($2)"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "ბიზნესებს შორის ბაზარი"
+  },
+  "catLabelCourier": {
+    "message": "კურიერი"
+  },
+  "catLabelDelivery": {
+    "message": "მიწოდება"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "ონლაინ ბაზარი"
+  },
+  "catLabelFastFood": {
+    "message": "სწრაფი კვება"
+  },
+  "catLabelFoodContent": {
+    "message": "საკვების კონტენტი"
+  },
+  "catLabelLocalServices": {
+    "message": "ადგილობრივი სერვისები"
+  },
+  "catLabelLogistics": {
+    "message": "ლოგისტიკა"
+  },
+  "catLabelMarketplace": {
+    "message": "ბაზარი"
+  },
+  "catLabelMealDelivery": {
+    "message": "კვების მიწოდება"
+  },
+  "catLabelMealKit": {
+    "message": "ინგრედიენტების ნაკრები"
+  },
+  "catLabelMealService": {
+    "message": "კვების აბონემენტი"
+  },
+  "catLabelPickupOrdering": {
+    "message": "შეკვეთა და ადგილზე გატანა"
+  },
+  "catLabelQuickCommerce": {
+    "message": "სწრაფი კომერცია"
+  },
+  "catLabelRecipe": {
+    "message": "რეცეპტები"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "რესტორნების ძიება"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "რესტორნების ჯგუფი"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "რესტორნის პროგრამები"
+  },
+  "catLabelSuperApp": {
+    "message": "სუპერაპლიკაცია"
+  },
+  "catLabelVenueOrdering": {
+    "message": "შეკვეთა ადგილზე"
   }
 }

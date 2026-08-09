@@ -811,5 +811,71 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "currencyAuto": {
+    "message": "Fuata lugha yangu — $1 ($2)"
+  },
+  "warningTriggeredByPrefix": {
+    "message": "Umefungua"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Soko la biashara kwa biashara"
+  },
+  "catLabelCourier": {
+    "message": "Huduma ya vifurushi"
+  },
+  "catLabelDelivery": {
+    "message": "Uwasilishaji"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Soko la mtandaoni"
+  },
+  "catLabelFastFood": {
+    "message": "Chakula cha haraka"
+  },
+  "catLabelFoodContent": {
+    "message": "Maudhui ya chakula"
+  },
+  "catLabelLocalServices": {
+    "message": "Huduma za eneo"
+  },
+  "catLabelLogistics": {
+    "message": "Ugavi na usafirishaji"
+  },
+  "catLabelMarketplace": {
+    "message": "Soko"
+  },
+  "catLabelMealDelivery": {
+    "message": "Uwasilishaji wa milo"
+  },
+  "catLabelMealKit": {
+    "message": "Kifurushi cha viungo"
+  },
+  "catLabelMealService": {
+    "message": "Huduma ya milo"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Kuagiza na kuchukua"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Biashara ya haraka"
+  },
+  "catLabelRecipe": {
+    "message": "Mapishi"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Kutafuta migahawa"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Kundi la migahawa"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Programu za migahawa"
+  },
+  "catLabelSuperApp": {
+    "message": "Programu jumuishi"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Kuagiza ukumbini"
   }
 }

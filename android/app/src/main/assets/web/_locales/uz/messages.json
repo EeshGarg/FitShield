@@ -581,15 +581,6 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
     "message": "Ingredients"
   },
@@ -811,5 +802,68 @@
   },
   "catLabelRestaurant": {
     "message": "Restaurant"
+  },
+  "currencyAuto": {
+    "message": "Tilimga mos — $1 ($2)"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "Korxonalararo bozor"
+  },
+  "catLabelCourier": {
+    "message": "Kuryer"
+  },
+  "catLabelDelivery": {
+    "message": "Yetkazib berish"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "Onlayn bozor"
+  },
+  "catLabelFastFood": {
+    "message": "Tez ovqat"
+  },
+  "catLabelFoodContent": {
+    "message": "Taom kontenti"
+  },
+  "catLabelLocalServices": {
+    "message": "Mahalliy xizmatlar"
+  },
+  "catLabelLogistics": {
+    "message": "Logistika"
+  },
+  "catLabelMarketplace": {
+    "message": "Bozor"
+  },
+  "catLabelMealDelivery": {
+    "message": "Ovqat yetkazib berish"
+  },
+  "catLabelMealKit": {
+    "message": "Masalliq to'plami"
+  },
+  "catLabelMealService": {
+    "message": "Ovqat obunasi"
+  },
+  "catLabelPickupOrdering": {
+    "message": "Olib ketish uchun buyurtma"
+  },
+  "catLabelQuickCommerce": {
+    "message": "Tezkor savdo"
+  },
+  "catLabelRecipe": {
+    "message": "Retseptlar"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "Restoran qidirish"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "Restoranlar guruhi"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "Restoran dasturlari"
+  },
+  "catLabelSuperApp": {
+    "message": "Super ilova"
+  },
+  "catLabelVenueOrdering": {
+    "message": "Joyida buyurtma"
   }
 }

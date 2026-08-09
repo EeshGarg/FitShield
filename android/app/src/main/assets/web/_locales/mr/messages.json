@@ -581,20 +581,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "साहित्य"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "पायऱ्या"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +597,7 @@
     "message": "डेटा आणि सेटिंग्ज आयात करा"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "सेटिंग्ज निर्यात केल्या."
   },
   "blockReasonDomain": {
     "message": "साइट"
@@ -747,7 +738,7 @@
     "message": "आवृत्ती $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "जर्मन"
   },
   "statsMostBlockedSites": {
     "message": "सर्वाधिक ब्लॉक केलेल्या साइट"
@@ -762,54 +753,117 @@
     "message": "अद्याप कोणतेही ब्लॉक नोंदवले गेले नाहीत."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "बर्गर"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "पिझ्झा"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "चिकन"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "कॉफी"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "चहा"
   },
   "catLabelDessert": {
-    "message": "Dessert"
+    "message": "मिठाई"
   },
   "catLabelBakery": {
-    "message": "Bakery"
+    "message": "बेकरी"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "सँडविच"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "मेक्सिकन"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "आशियाई"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
+    "message": "सीफूड"
   },
   "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "स्मूदी"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
+    "message": "कोरियन खाद्य"
   },
   "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "फास्ट कॅज्युअल"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
+    "message": "किराणा"
   },
   "catLabelCatering": {
-    "message": "Catering"
+    "message": "केटरिंग"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "रेस्टॉरंट"
+  },
+  "currencyAuto": {
+    "message": "माझ्या भाषेनुसार — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "वितरण"
+  },
+  "catLabelFastFood": {
+    "message": "फास्ट फूड"
+  },
+  "catLabelCourier": {
+    "message": "कुरिअर"
+  },
+  "catLabelLogistics": {
+    "message": "लॉजिस्टिक्स"
+  },
+  "catLabelMarketplace": {
+    "message": "मार्केटप्लेस"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "ऑनलाइन मार्केटप्लेस"
+  },
+  "catLabelB2bMarketplace": {
+    "message": "बी2बी मार्केटप्लेस"
+  },
+  "catLabelMealDelivery": {
+    "message": "जेवण वितरण"
+  },
+  "catLabelMealKit": {
+    "message": "जेवण किट"
+  },
+  "catLabelMealService": {
+    "message": "जेवण सेवा"
+  },
+  "catLabelLocalServices": {
+    "message": "स्थानिक सेवा"
+  },
+  "catLabelPickupOrdering": {
+    "message": "पिकअप ऑर्डर"
+  },
+  "catLabelVenueOrdering": {
+    "message": "स्थळावर ऑर्डर"
+  },
+  "catLabelQuickCommerce": {
+    "message": "क्विक कॉमर्स"
+  },
+  "catLabelSuperApp": {
+    "message": "सुपर ॲप"
+  },
+  "catLabelFoodContent": {
+    "message": "फूड कंटेंट"
+  },
+  "catLabelRecipe": {
+    "message": "पाककृती"
+  },
+  "catLabelRestaurantDiscovery": {
+    "message": "रेस्टॉरंट शोध"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "रेस्टॉरंट समूह"
+  },
+  "catLabelRestaurantSoftware": {
+    "message": "रेस्टॉरंट सॉफ्टवेअर"
   }
 }

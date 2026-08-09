@@ -15,7 +15,7 @@
     "message": "لټون"
   },
   "clearButton": {
-    "message": "روښانه"
+    "message": "پاک کړئ"
   },
   "openButton": {
     "message": "خلاص"
@@ -449,9 +449,6 @@
   "languageTelugu": {
     "message": "تیلګو"
   },
-  "languageUrdu": {
-    "message": "اردو"
-  },
   "languageAssamese": {
     "message": "آسامی"
   },
@@ -581,20 +578,11 @@
   "bmcAlt": {
     "message": "Buy Me a Coffee"
   },
-  "languagePortugueseBrazil": {
-    "message": "Português (Brasil)"
-  },
-  "languageSwahili": {
-    "message": "Kiswahili"
-  },
-  "languageAmharic": {
-    "message": "አማርኛ"
-  },
   "recipeIngredientsLabel": {
-    "message": "Ingredients"
+    "message": "اجزا"
   },
   "recipeStepsLabel": {
-    "message": "Steps"
+    "message": "ګامونه"
   },
   "backupHeading": {
     "message": "Backup & Restore"
@@ -606,7 +594,7 @@
     "message": "ډاټا او تنظیمات وارد کړئ"
   },
   "exportSuccessNotice": {
-    "message": "Settings exported."
+    "message": "تنظیمات صادر شول."
   },
   "blockReasonDomain": {
     "message": "ویب پاڼه"
@@ -747,7 +735,7 @@
     "message": "نسخه $1"
   },
   "languageGerman": {
-    "message": "German"
+    "message": "جرمني"
   },
   "statsMostBlockedSites": {
     "message": "تر ټولو ډیر بلاک شوي سایټونه"
@@ -762,54 +750,72 @@
     "message": "تر اوسه هیڅ بلاک نه دی ثبت شوی."
   },
   "catLabelBurger": {
-    "message": "Burger"
+    "message": "برګر"
   },
   "catLabelPizza": {
-    "message": "Pizza"
+    "message": "پیزا"
   },
   "catLabelChicken": {
-    "message": "Chicken"
+    "message": "چرګ"
   },
   "catLabelCoffee": {
-    "message": "Coffee"
+    "message": "کافي"
   },
   "catLabelTea": {
-    "message": "Tea"
+    "message": "چای"
   },
   "catLabelDessert": {
-    "message": "Dessert"
-  },
-  "catLabelBakery": {
-    "message": "Bakery"
+    "message": "خواږه"
   },
   "catLabelSandwich": {
-    "message": "Sandwich"
+    "message": "ساندویچ"
   },
   "catLabelMexican": {
-    "message": "Mexican"
+    "message": "مکسیکي"
   },
   "catLabelAsian": {
-    "message": "Asian"
+    "message": "آسیایي"
   },
   "catLabelSeafood": {
-    "message": "Seafood"
-  },
-  "catLabelSmoothie": {
-    "message": "Smoothie"
+    "message": "بحري خواړه"
   },
   "catLabelKoreanFood": {
-    "message": "Korean Food"
-  },
-  "catLabelFastCasual": {
-    "message": "Fast Casual"
+    "message": "کوریایي خواړه"
   },
   "catLabelGrocery": {
-    "message": "Grocery"
-  },
-  "catLabelCatering": {
-    "message": "Catering"
+    "message": "خوراکي توکي"
   },
   "catLabelRestaurant": {
-    "message": "Restaurant"
+    "message": "رستورانت"
+  },
+  "currencyAuto": {
+    "message": "زما د ژبې له مخې — $1 ($2)"
+  },
+  "catLabelDelivery": {
+    "message": "رسول"
+  },
+  "catLabelEcommerceMarketplace": {
+    "message": "آنلاین بازار"
+  },
+  "catLabelFastFood": {
+    "message": "ګړندي خواړه"
+  },
+  "catLabelLocalServices": {
+    "message": "محلي خدمات"
+  },
+  "catLabelLogistics": {
+    "message": "لوجستیک"
+  },
+  "catLabelMarketplace": {
+    "message": "بازار"
+  },
+  "catLabelMealDelivery": {
+    "message": "د خوړو رسول"
+  },
+  "catLabelRecipe": {
+    "message": "ترکیبونه"
+  },
+  "catLabelRestaurantGroup": {
+    "message": "د رستورانتونو ډله"
   }
 }
