@@ -897,6 +897,26 @@ function queueStatsUpdate(task) {
   return next;
 }
 
+// The pass list needs the same treatment, and for a worse reason. `grantPass`
+// read the whole list, appended one pass and wrote it back, unserialized — so
+// two block pages granting at the same moment both read the old list and the
+// second write erased the first. Measured in real Chromium against the built
+// package: two brands granted, one stored; three granted, one stored; the same
+// brand in two tabs granted twice, stored once.
+//
+// The customer sat through the pause on both tabs and was told yes on both. The
+// tab whose pass was erased is interrupted again the moment it loads, while
+// "Temporary passes used" counts a pass that does not exist. `repeatHistory`
+// rides on the same write, so the repeat-friction escalation forgets one of the
+// two continues as well.
+let passChain = Promise.resolve();
+
+function queuePassUpdate(task) {
+  const next = passChain.catch(() => {}).then(task);
+  passChain = next.catch(() => {});
+  return next;
+}
+
 // Preview mode must be able to exercise the whole flow without touching real
 // numbers, so every recording path takes the same `preview` escape hatch.
 async function recordEvent(event, options) {
@@ -1211,28 +1231,35 @@ async function grantPass(request) {
     // the pass record.
   });
 
-  const tabs = await openTabIds();
-  const passes = [...FitShieldCore.activePasses(settings.passes, Date.now(), { openTabIds: tabs }), pass];
-
-  // Only written while repeat friction is actually switched on: this map exists
-  // to make the SECOND visit to a brand cost more, and nothing else reads it. A
-  // user who turned the feature off did not ask FitShield to keep noting when
-  // they ordered.
-  const repeatHistory = !settings.repeatFrictionEnabled
-    ? {}
-    : domain
-      ? FitShieldCore.recordContinue(settings.repeatHistory, domain, Date.now(), {
-          windowMinutes: settings.repeatWindowMinutes
-        })
-      : settings.repeatHistory;
-
   // `enabled` is deliberately NOT written here. This used to set it to true,
   // unexplained: a user who had turned FitShield off in the popup, then returned
   // to a block-page tab left open from earlier and clicked "For 5 minutes",
   // silently re-armed the entire extension for after the pass expired. The
   // button says "For 5 minutes", not "turn FitShield back on", and a state
   // change nobody asked for is not a favour.
-  await chrome.storage.local.set({ passes, repeatHistory });
+  //
+  // The list is re-read INSIDE the chain rather than taken from the `settings`
+  // snapshot above: that snapshot was read before any awaiting this call did,
+  // so appending to it is what lost a concurrent grant in the first place.
+  await queuePassUpdate(async () => {
+    const stored = await chrome.storage.local.get(["passes", "repeatHistory"]);
+    const tabs = await openTabIds();
+    const live = FitShieldCore.activePasses(stored.passes, Date.now(), { openTabIds: tabs });
+
+    // Only written while repeat friction is actually switched on: this map
+    // exists to make the SECOND visit to a brand cost more, and nothing else
+    // reads it. A user who turned the feature off did not ask FitShield to keep
+    // noting when they ordered.
+    const repeatHistory = !settings.repeatFrictionEnabled
+      ? {}
+      : domain
+        ? FitShieldCore.recordContinue(stored.repeatHistory, domain, Date.now(), {
+            windowMinutes: settings.repeatWindowMinutes
+          })
+        : stored.repeatHistory || {};
+
+    await chrome.storage.local.set({ passes: [...live, pass], repeatHistory });
+  });
   await recordEvent("passesUsed");
   await recordEvent("continued");
   await queueRefreshBlockingState();
@@ -1249,7 +1276,10 @@ async function grantPass(request) {
 
 async function revokeAllPasses() {
   await ensureMigrated();
-  await chrome.storage.local.set({ passes: [] });
+  // On the same chain as grantPass, so a revoke cannot be quietly undone by a
+  // grant that was already in flight when the user pressed it. "End all passes"
+  // has to mean it.
+  await queuePassUpdate(() => chrome.storage.local.set({ passes: [] }));
   await queueRefreshBlockingState();
   return { ok: true };
 }
