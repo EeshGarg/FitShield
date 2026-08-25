@@ -35,6 +35,7 @@ build. `build.js` runs it automatically before packaging.
 | `npm run validate:extension` | `extension-audit.js` | the staged package is closed — every manifest, page, and runtime reference resolves |
 | `npm run validate:sw` | `service-worker-audit.js` | the worker's `importScripts` targets exist and the engine functions it calls are present in the bundle |
 | `npm run validate:sync` | `sync-audit.js` | `extension/`'s committed artifacts (engine bundle, blocklists, recipes, changelog) match canonical `FS Engine/` + `data/`, so the folder loads unpacked; stale copy → `npm run sync` |
+| `npm run validate:a11y` | `browser-a11y-audit.js` | loads the built package in Chromium and reads the **computed accessibility tree** (`Accessibility.getFullAXTree`) — the tree a screen reader consumes, not the DOM. Every control has a name, no unresolved i18n key reaches a label, nothing focusable is hidden from assistive technology, and no heading level is skipped. Warns and skips when no browser is installed; set `FS_CHROME` to point at one. |
 
 ## Generators (write committed artifacts)
 
@@ -80,6 +81,7 @@ tools/
   locale-hybrid-audit.js  policy-audit.js
   changelog-validator.js  assets-check.js      extension-audit.js
   service-worker-audit.js  sync-audit.js       android-audit.js
+  browser-a11y-audit.js
   validate-android-packages.js
   sync-extension.js     build-alternatives.js
   generate-android-rules.js  generate-android-packages.js

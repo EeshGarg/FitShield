@@ -69,10 +69,19 @@ class Reporter {
 }
 
 // Run a single audit module from the command line: print + exit code.
+// Audits that drive a real browser are async, so the result is awaited; a
+// synchronous audit resolves immediately and behaves exactly as before.
 function runCli(auditFn) {
-  const reporter = auditFn();
-  reporter.print();
-  process.exit(reporter.ok ? 0 : 1);
+  Promise.resolve(auditFn()).then(
+    (reporter) => {
+      reporter.print();
+      process.exit(reporter.ok ? 0 : 1);
+    },
+    (error) => {
+      console.error(error && error.stack ? error.stack : error);
+      process.exit(1);
+    }
+  );
 }
 
 module.exports = { Reporter, runCli, TICK, WARN, CROSS };

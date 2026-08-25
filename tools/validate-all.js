@@ -31,7 +31,11 @@ const AUDITS = [
   require("./assets-check"),
   require("./extension-audit"),
   require("./service-worker-audit"),
-  require("./sync-audit")
+  require("./sync-audit"),
+  // Drives the built package in a real browser and reads the computed
+  // accessibility tree. Self-skips with a warning when no Chromium is present,
+  // so a checkout without one still validates everything else.
+  require("./browser-a11y-audit")
 ];
 
 async function validateAll(options) {
