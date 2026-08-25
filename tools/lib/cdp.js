@@ -109,6 +109,20 @@ async function until(fn, { timeoutMs = 20000, everyMs = 150, what = "condition" 
   }
 }
 
+// Building a full accessibility tree for a 232-control page is far slower than
+// a navigation, and slower again when the whole suite runs in parallel.
+function timeoutFor(method) {
+  if (/^Accessibility\./.test(method)) {
+    return 120000;
+  }
+
+  if (/^Page\.(navigate|captureScreenshot)$/.test(method)) {
+    return 60000;
+  }
+
+  return 30000;
+}
+
 class Connection {
   constructor(ws) {
     this.ws = ws;
@@ -143,12 +157,18 @@ class Connection {
     return new Promise((resolve, reject) => {
       this.pending.set(id, { resolve, reject });
       this.ws.send(JSON.stringify(payload));
+      // Per-method, because a flat 30s was not enough under load. `npm test`
+      // runs ~39 files in parallel and the settings page carries 232 controls,
+      // so Accessibility.getFullAXTree there intermittently blew the deadline
+      // and turned a green suite red for reasons that had nothing to do with
+      // the code under test. An intermittently failing check teaches people to
+      // re-run rather than to read.
       setTimeout(() => {
         if (this.pending.has(id)) {
           this.pending.delete(id);
-          reject(new Error(`CDP timeout: ${method}`));
+          reject(new Error(`CDP timeout after ${timeoutFor(method) / 1000}s: ${method}`));
         }
-      }, 30000);
+      }, timeoutFor(method));
     });
   }
 }
@@ -247,9 +267,18 @@ async function launch({ extensionDir, headless = true, chrome = findChrome() } =
       try {
         for (const id of unpackedExtensionId(dir)) {
           await page.goto(`chrome-extension://${id}/${probePage}`, 600);
-          const size = await page.evaluate("document.body ? document.body.innerHTML.length : 0");
 
-          if (Number(size) > 300) {
+          // Ask the page whether it IS the extension, rather than whether it
+          // rendered something. This used to accept any page with more than 300
+          // bytes of markup — and Chrome's "this extension is not installed"
+          // error page measures 42,205, while the real popup measures 10,099.
+          // So the wrong candidate won deterministically, and which one won
+          // depended on the drive-letter case of the path passed in.
+          const runtimeId = await page.evaluate(
+            'typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.id ? String(chrome.runtime.id) : ""'
+          );
+
+          if (runtimeId === id) {
             return id;
           }
         }
