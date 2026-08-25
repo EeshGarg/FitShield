@@ -83,10 +83,10 @@ npm test             # unit tests + validators
 
 Run a single audit with `npm run validate:datasets`, `:alternatives`, `:aliases`,
 `:countries`, `:categories`, `:android`, `:android-packages`, `:locales`,
-`:docs`, `:assets`, `:extension`, `:sw`, or `:sync` — the same thirteen
-`npm run validate` runs. See [`tools/README.md`](tools/README.md). `:sync` fails
-if `extension/`'s committed artifacts have drifted from canonical — fix with
-`npm run sync`.
+`:hybrids`, `:policy`, `:docs`, `:assets`, `:extension`, `:sw`, or `:sync` — the
+same fifteen `npm run validate` runs. See [`tools/README.md`](tools/README.md).
+`:sync` fails if `extension/`'s committed artifacts have drifted from canonical —
+fix with `npm run sync`.
 
 ### Add a brand
 
@@ -216,7 +216,8 @@ may not be tagged or categorised as coffee.
 
 Settings → **Report a problem** composes the report locally, shows you verbatim
 what it would say, strips paths and query strings down to a bare domain, and then
-lets you copy it or open a mail draft. Nothing is transmitted by FitShield.
+copies it to your clipboard. Nothing is transmitted by FitShield, and there is
+deliberately no send button — where the report goes is your choice.
 
 ### Add or extend a locale
 

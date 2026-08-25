@@ -4,28 +4,33 @@ Living documentation of where FitShield is and where it's heading. This file is
 meant to evolve with the project — update it whenever direction changes. It
 avoids speculative promises; "Future ideas" are candidates, not commitments.
 
-_Last updated: 2026-07-03 (0.54)_
+_Last updated: 2026-08-09 (0.55)_
 
 ## Current version
 
-**0.54 — Play-ready, with complete app coverage.** See [0.54.md](0.54.md).
-Highlights:
+**0.55 — The block succeeded. Now what?** See [0.55.md](0.55.md). Highlights:
 
-- **Complete app-coverage research:** every tracked brand now has a verified
-  Android app status — **1,545 verified packages covering 1,474 brands**, 777
-  brands verified `no_app`, 283 `shared_app` platform storefronts, only 38
-  still `needs_review` (never guessed; every ID confirmed on a live store
-  listing).
-- **Accuracy cleanup:** 10 corrupted blocklist imports removed, including
-  registry namespaces (`com.ao`, `uk.com`, …) that could have over-blocked
-  entire country domain spaces. Fast-food dataset v1.2; 2,575 generated hosts.
-- **Repo separation:** shared engine in `FS Engine/` (code) + `data/`
-  (canonical datasets), browser extension in `extension/`, Android app in `android/` — shipped packages byte-identical in
-  structure; the root is no longer a loadable unpacked extension (build first).
-- **First Play-upload build:** signed AAB at `versionName 0.54` /
-  `versionCode 1`, with the launch paperwork finalized under `docs/`.
+- **The block page became a decision, not a dashboard:** why the page was
+  interrupted, how much pause is left, one alternative with *Show another* and
+  Closest / Fastest / No cooking / Microwave filters, and three ways out.
+- **Scoped passes** replace the all-or-nothing switch — a scope plus a duration,
+  every one carrying an absolute expiry that survives restarts, worker
+  suspension, sleep and clock changes. No "just this once", because the blocking
+  layer cannot observe a single visit and FitShield will not add a navigation
+  listener to fake one.
+- **88 executable alternatives** (46 full recipes + 42 quick fixes) rebuilt from
+  24 sketches, with structured quantities, separate hands-on and elapsed time,
+  equipment, allergens, substitutions and storage — matched deterministically
+  and locally against the blocked brand, your kitchen and your time.
+- **Honest statistics:** seven counters that each name something FitShield can
+  actually observe. "Calories avoided" and "blocked visits × meal cost" are gone.
+- **Real categories everywhere.** The block page and the stats read a brand's
+  curated category instead of an internal rule bucket, and a one-time repair
+  removes the mislabeled `fastfood` / `custom` rows from existing profiles.
+- **One schedule control in Settings** (presets + the multi-window editor)
+  instead of two controls fighting over the same setting.
 
-## Next planned version (0.55)
+## Next planned version (0.56)
 
 Themes under consideration (subject to change):
 
@@ -34,9 +39,12 @@ Themes under consideration (subject to change):
   listing assets (screenshots, feature graphic), internal → closed → staged
   production rollout per
   [PLAY_STORE_RELEASE_CHECKLIST.md](../docs/PLAY_STORE_RELEASE_CHECKLIST.md).
+  The store listing copy in
+  [STORE_LISTING_DRAFT.md](../docs/STORE_LISTING_DRAFT.md) is written against
+  0.55 and needs screenshots and a feature graphic before it can be submitted.
 - **Android hardening.** IPv6 support in the connection filter (instead of
   drop), broader device/OEM testing, instrumented-test runs in CI.
-- **Data quality pass.** Resolve the 38-brand `needs_review` tail; audit the
+- **Data quality pass.** Continue the `needs_review` app-status tail; audit the
   wrong-country metadata cluster the 0.54 sweep flagged (many entries tagged
   `["JP"]` that are not Japanese); periodic re-verification of delisted apps.
 - **Verify Firefox for Android** on-device (extension DNR path).
@@ -86,12 +94,16 @@ Themes under consideration (subject to change):
 
 ## Carried-forward themes (not yet scheduled)
 
-- **Finish category localization.** 28 languages now have localized food-category
-  names; extend native translations to the remaining locales (they currently use
-  a clean English fallback). Same for the Android block screen's category copy.
-- **Continue country coverage.** Expand beyond the 27 global brands to confident
-  major regional chains, and broaden delivery coverage where accurate. Maintain
-  ISO 3166-1 alpha-2 standards; never invent unsupported regions.
+- **Finish category localization.** Every one of the 83 locales carries all 37
+  category keys, so no category can render as a raw id. Native translation is the
+  gap, not coverage: 38 of the 82 non-English locales genuinely translate the
+  core food-category names, and the other 44 currently ship the English term.
+  Extend native translations to those, and to the Android block screen's category
+  copy.
+- **Continue country coverage.** 112 markets are represented across the curated
+  brands today. Extend to confident major regional chains and broaden delivery
+  coverage where it can be verified. Maintain ISO 3166-1 alpha-2 standards; never
+  invent unsupported regions.
 - **Stats time range.** Optional "this week / this month / all time" framing for
   the stats, still computed entirely on-device.
 
@@ -125,6 +137,14 @@ sprawl.
 
 ## Completed milestones
 
+- **0.55** — The moment after the block: a single-decision block page, scoped
+  temporary passes with absolute expiry, an 88-entry executable alternatives
+  catalog with deterministic local matching, seven observable statistics
+  (calorie and prevented-order claims removed), friction presets, multi-window
+  per-weekday schedules, kitchen preferences, custom alternatives, a local
+  weekly recap, preview mode, a local reporting flow, curated brand categories
+  on the block page and in the stats, and one schedule control in Settings
+  instead of two.
 - **0.54** — Play-ready release: complete app-coverage research (1,545
   verified packages / 1,474 brands; verified `no_app` and `shared_app`
   terminal statuses; 38-brand tail), 10 corrupted blocklist imports removed,

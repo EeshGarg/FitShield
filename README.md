@@ -22,26 +22,26 @@ browsing history collection.
 
 **Interrupt**
 
-1. Blocking for delivery platforms and fast-food ordering sites (2,687 curated brands).
+1. Blocking for delivery platforms and fast-food ordering sites (2,535 curated brands across 112 markets).
 2. Custom URL blocking, and per-site exceptions.
-3. Country and category blocking — whole groups of brands by where they operate or what they serve.
-4. Schedules: multiple windows a day, different hours per weekday, and overnight windows. Presets for evenings, late night, and workday lunch.
-5. Friction presets (light / standard / strict) with every underlying value editable.
+3. Country and category blocking — whole groups of brands by where they operate or what they serve (22 curated categories).
+4. Schedules: multiple windows a day, different hours per weekday, and overnight windows. Presets for evenings, late night, workday lunch, and evenings & weekends.
+5. Friction presets (light / standard / strict) that write into the same editable values, so a preset is a starting point rather than a mode you get locked into.
 
 **Then offer something to do**
 
-6. 81 alternatives — 43 full recipes and 38 quick fixes — with exact quantities, servings, temperatures, timings, equipment, allergens, and substitutions.
+6. 88 alternatives — 46 full recipes and 42 quick fixes — with exact quantities, servings, temperatures, timings, equipment, allergens, and substitutions.
 7. Deterministic local matching against the blocked brand's own category and specialties, your diet, allergens, pantry, equipment, and available time.
 8. Show another, plus Closest / Fastest / No cooking / Microwave filters.
 9. Your own custom alternatives, stored locally and included in your backup.
 
 **Then get out of the way**
 
-10. Scoped temporary passes: 5, 10 or 30 minutes on this site, until the tab closes, or pause everything for 30 minutes or until tomorrow. Each one is a scope plus a duration — nothing claims a single-use pass the blocking layer cannot enforce.
-11. Honest local statistics — pages interrupted, times you left, times you continued, passes used, alternatives viewed / chosen / marked as made. Only aggregate counts, never a URL or any browsing history.
+10. Scoped temporary passes: this site for your own site open time (5 minutes by default), 10 minutes, 30 minutes, or until the tab closes — or all blocking off for 30 minutes or until tomorrow. Each one is a scope plus a duration — nothing claims a single-use pass the blocking layer cannot enforce.
+11. Honest local statistics — ordering pages interrupted, times you left, times you continued, temporary passes used, and alternatives shown to you / chosen / marked as made, plus your most-blocked sites, categories and countries. Only aggregate counts of brands already on the blocklist, never a URL or any browsing history.
 12. An optional weekly summary, and a preview mode that shows exactly what an interruption looks like without recording anything.
 13. Export and import everything as one local JSON file.
-14. 80+ display languages with a searchable picker.
+14. 83 display languages with a searchable picker. Anything not yet translated falls back to English rather than rendering blank.
 15. Full colour and theme customization (system / light / dark).
 
 Estimated money and calorie figures are still available, but they are clearly
@@ -160,8 +160,9 @@ useful contributions are usually blocklist corrections and alternatives that
 actually work in a real kitchen.
 
 - **Missing or wrongly-categorised site, or a bad alternative:** use the built-in
-  reporting flow in Settings → Report a problem. It shows you exactly what it
-  would say before anything leaves your device.
+  reporting flow in Settings → Report a problem. It composes the report locally,
+  shows you verbatim what it says, and copies it to your clipboard — FitShield
+  transmits nothing, so where it goes is entirely your choice.
 - **Code and data:** see [`CONTRIBUTING.md`](CONTRIBUTING.md) for the dataset
   formats, the validation rules, and the build steps.
 

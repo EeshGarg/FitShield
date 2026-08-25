@@ -1,21 +1,18 @@
 # FitShield — Google Play Store Listing Draft
 
-> [!WARNING]
-> **This draft is stale as of 0.55 and must not be submitted as written.**
+> [!NOTE]
+> **Copy rewritten against 0.55 (2026-08-09).** The earlier draft described the
+> pre-0.55 product — two fixed recipe cards, a single all-or-nothing bypass, and
+> "calories avoided" as a headline figure — none of which exists any more. Every
+> claim below was re-checked against the shipped code and datasets.
 >
-> It describes the pre-0.55 product: two fixed recipe cards, a single
-> all-or-nothing bypass, and "calories avoided" as a headline figure. None of
-> those exist any more. The listing rewrite is a separate task and is
-> deliberately not done here.
+> What is still outstanding before submission is **assets, not copy**: phone
+> screenshots and the feature graphic have to be captured on a real device, and
+> the Play Console declarations have to be filled in. Those are checklists below.
 >
-> Verified facts to write the new copy from are in
-> [`../README.md`](../README.md) (what it does), [`STORAGE.md`](STORAGE.md)
-> (what is and is not stored — the source for any data-safety disclosure), and
-> [`../changelog/0.55.md`](../changelog/0.55.md) (what changed).
->
-> The claims guardrail below still stands, and 0.55 tightens it: FitShield must
-> not claim a prevented order, avoided calories, money saved, or any weight
-> outcome, because it cannot observe any of them.
+> The claims guardrail stands, and 0.55 tightens it: FitShield must not claim a
+> prevented order, avoided calories, money saved, or any weight outcome, because
+> it cannot observe any of them.
 
 _Draft copy + asset checklists for the Play Console listing. Pairs with
 [PLAY_STORE_RELEASE_CHECKLIST.md](PLAY_STORE_RELEASE_CHECKLIST.md) (build/process)
@@ -44,10 +41,10 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 > **Make food ordering a choice, not a reflex.**
 >
 > FitShield adds a mindful pause between a craving and the checkout button. Open
-> a blocked delivery or fast-food app and FitShield shows a gentle block screen
-> instead — with your stats, a quick homemade recipe idea, and the option to
-> continue anyway after a short reflection timer. You stay in control; FitShield
-> just adds friction.
+> a blocked delivery or fast-food app and FitShield shows a calm pause screen
+> instead — telling you what it interrupted and offering one thing you could
+> make instead, with the option to continue anyway once the timer ends. You stay
+> in control; FitShield just adds friction.
 >
 > **What it does**
 > • Blocks food-delivery & fast-food **websites** system-wide with a local,
@@ -55,12 +52,14 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 > • Blocks food **apps** you choose, with a pause screen instead of the app
 > (opt-in Accessibility service)
 > • 2,500+ curated brands across delivery, fast food, coffee, dessert, grocery,
-> convenience, and meal kits — plus your own custom domains
-> • Schedules (block only during your risky hours), reflection timers, and
-> temporary unlocks ("open anyway for 5 minutes")
-> • Local stats: blocked visits, estimated money saved, calories avoided, and
-> your most-blocked apps and sites — computed on your phone, shown only to you
-> • Quick recipe alternatives matched to what you were about to order
+> and meal kits — plus your own custom domains
+> • Schedules for the hours that actually catch you out, reflection timers, and
+> scoped temporary passes that always say what they cover and how long for
+> • 88 at-home alternatives with real quantities, timings, equipment and
+> allergen labelling, offered on the pause screen instead of just a wall
+> • Honest local stats: pages interrupted, times you left, times you continued,
+> passes used, and alternatives shown, chosen and marked as made — computed on
+> your phone, shown only to you
 > • 83 languages, dark/light themes with full color customization
 >
 > **Privacy first — everything stays on your device**
@@ -84,6 +83,15 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 (Behavioral framing only — verify no "lose weight", "addiction", "diet",
 "health" outcome claims before submitting.)
 
+> **Deliberately not claimed for Android:** that the pause screen's suggestion is
+> matched to the blocked brand's category, or to your diet, allergens, pantry,
+> equipment or available time. That matching is real in the **browser extension**
+> (`selectAlternative`), but the Android block screen currently reaches for a
+> selector name the shared module no longer exports and falls through to a
+> deterministic fallback pick. Do not add a personalisation or allergen-matching
+> claim to this listing until the Android screen is reconnected to
+> `selectAlternative` and re-verified on a device.
+
 ## Category & tags
 
 - **Category:** Lifestyle (alternative: Productivity — Lifestyle better matches
@@ -98,8 +106,9 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 Capture on a real device (Samsung, dark theme, edge-to-edge — the transparent
 status/nav bars look best). Suggested set, in order:
 
-1. **Dashboard** — status card "On", stats (blocked visits / savings / calories).
-2. **Block screen** — DoorDash example: brand, reason, timer, recipes, actions.
+1. **Dashboard** — status card "On", with the honest counters (pages
+   interrupted / times you left / times you continued).
+2. **Block screen** — DoorDash example: brand, reason, timer, alternative, actions.
 3. **App-blocking panel** — category pills + the three status indicators.
 4. **Schedule & timers** — blocking options panel.
 5. **Recipes** — a recipe expanded (ingredients + steps).
@@ -127,6 +136,18 @@ order", "Your stats stay on-device".
 
 ## Release notes — "What's new" (500 chars max per entry)
 
+**versionName 0.55 (versionCode assigned at upload — it must strictly increase):**
+
+> • A calmer pause screen: what was interrupted, how long is left, and one thing
+> you could make instead
+> • Honest statistics — pages interrupted, times you left, times you continued,
+> passes used. No invented "calories avoided"
+> • Temporary passes now say exactly what they cover and how long for
+> • 88 at-home alternatives with real quantities, timings and allergen labelling
+> • Categories now name what a brand actually sells
+
+(392 chars.)
+
 **versionCode 1 · versionName 0.54 (first upload):**
 
 > First release of FitShield for Android.
@@ -137,7 +158,9 @@ order", "Your stats stay on-device".
 > • No account, no ads, no analytics — everything stays on your device
 
 (431 chars. Add each future upload's notes above this line, newest first, and
-record the versionName↔versionCode pair in `changelog/<version>.md`.)
+record the versionName↔versionCode pair in `changelog/<version>.md`.
+`versionName` is injected from `extension/manifest.json` by the Android build, so
+it always matches the canonical version; `versionCode` is supplied per release.)
 
 ## Play Console declaration notes
 

@@ -71,7 +71,7 @@ data/alternatives/*.json          the authored entries, grouped by craving
 data/recipes.json                 one file, fetched in one request by the block page
 ```
 
-Authored in parts because an 81-entry file is unreviewable in a diff; shipped as
+Authored in parts because an 88-entry file is unreviewable in a diff; shipped as
 one file because the block page must load everything it needs before a countdown
 that may only last twenty seconds. `tools/alternatives-audit.js` runs in
 `npm run validate` and `npm test`, and separates decidable **errors** (a missing

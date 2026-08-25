@@ -17,13 +17,14 @@ repo                                  packaged zip / dist/<browser>/
 └── changelog.json                 →  changelog.json
 ```
 
-Because of that split, **`extension/` is not directly loadable** — it has no
-`blocklist.js`, no `blocklists/`, and no `changelog.json`. Always build first
-and load the staged folder:
+Despite that split, **`extension/` loads unpacked in Chromium with no build**,
+because the artifacts it needs at runtime (`blocklist.js`, `blocklists/`,
+`data/recipes.json`, `changelog.json`) are committed there. What must not be
+loaded is the repository **root**.
 
 ```
 npm run sync         # refresh extension/'s committed runtime artifacts (dev loading)
-node build.js        # validates everything, then stages + zips both browsers
+node build.js        # validates everything, then stages + zips all three targets
 ```
 
 | Browser | Load unpacked from | Store artifact |
@@ -31,6 +32,11 @@ node build.js        # validates everything, then stages + zips both browsers
 | Chrome / Brave / Edge (dev, no build) | `extension/` | — |
 | Chrome / Brave / Edge (store-shaped) | `dist/chrome/` | `dist/FitShield-<version>-chrome.zip` |
 | Firefox (about:debugging → Load Temporary Add-on) | `dist/firefox/manifest.json` | `dist/FitShield-<version>-firefox.zip` (AMO) |
+| Safari (nightly; needs macOS + Xcode to wrap) | `dist/apple/extension/` | `dist/FitShield-<version>-nightly-safari.zip` |
+
+Every `node build.js` run writes all three: `dist/chrome/`, `dist/firefox/`, and
+`dist/apple/`. The Apple payload is staged and zipped on any OS; only the Xcode
+wrapping step is macOS-only (see [`SAFARI.md`](SAFARI.md)).
 
 `extension/` loads directly because its runtime artifacts (`blocklist.js`,
 `blocklists/`, `data/recipes.json`, `changelog.json`) are committed there,
@@ -51,8 +57,10 @@ a tiny module registry and emits one deterministic classic script,
 Three consumers, one engine, one data model:
 
 - **`background.js`** (service worker / Firefox event page) —
-  `importScripts("blocklist.js")` in Chromium; in Firefox the derived manifest
-  loads `blocklist.js` ahead of it via `background.scripts`. It calls
+  in Chromium it `importScripts` both `blocklist.js` and `fitshield-core.js`,
+  each guarded by a `typeof` check so the call is skipped when the global is
+  already defined; in Firefox the derived manifest loads both ahead of it via
+  `background.scripts`, and the guards make the worker path a no-op. It calls
   `FitShieldBlocklist.loadBlocklists()` (which fetches the packaged
   `blocklists/*.json`) and turns the entries + user settings into
   `declarativeNetRequest` redirect rules pointing at `warning.html`.
@@ -78,8 +86,9 @@ shipped forms:
 - **Chrome**: strips `browser_specific_settings` (Chromium warns on unknown
   keys).
 - **Firefox**: adds `background.scripts`, which is exactly `build.BACKGROUND_SCRIPTS`
-  with `background.js` last — today `["blocklist.js", "fitshield-core.js",
-  "background.js"]` (Firefox has no background service workers). Stated as the
+  with `background.js` last — today
+  `["blocklist.js", "fitshield-core.js", "background.js"]`
+  (Firefox has no background service workers). Stated as the
   contract rather than as a copied literal, because this list was published here
   with two entries while three shipped, and the audit that is supposed to enforce
   it compares against `build.BACKGROUND_SCRIPTS`, so a copied literal drifts
@@ -97,8 +106,16 @@ uses (`storage`, `declarativeNetRequest`, `alarms`), `<all_urls>` host
 permissions for the redirect rules, `warning.html` in
 `web_accessible_resources` (it is the DNR redirect target), `options_ui`
 pointing at `settings.html`, all four icon sizes present, no inline scripts
-anywhere (the MV3 default CSP is kept), and version agreement between
-`manifest.json`, `package.json`, and `changelog.json`.
+anywhere, and version agreement between `manifest.json`, `package.json`, and
+`changelog.json`.
+
+The manifest declares an explicit `content_security_policy.extension_pages`
+rather than relying on the MV3 default. It is **tighter** than the default, not
+looser: on top of `script-src 'self'` it pins `connect-src 'self'` (the runtime
+makes no network requests, so nothing legitimate needs an outside origin),
+`frame-src`/`child-src` to `'none'`, and `form-action`/`base-uri` to `'none'`.
+`tools/extension-audit.js` warns whenever a custom policy is present, on purpose
+— it is a prompt to re-read the policy, not a defect.
 
 ## Validating and testing
 
@@ -113,10 +130,12 @@ node build.js                # validation-gated packaging (refuses on errors)
 - `tools/service-worker-audit.js` guards the MV3 worker's engine linkage:
   `background.js` must load the engine with `importScripts("blocklist.js")` (the
   generated bundle) and **never** the raw `FS Engine/` CommonJS modules (which
-  throw `require is not defined` as classic worker scripts); no hand-authored
-  `extension/blocklist.js` may shadow the bundle; and the bundle, evaluated as a
-  classic script with no `require`/`module`/`importScripts`, must define
-  `FitShieldBlocklist` with every function `background.js` calls.
+  throw `require is not defined` as classic worker scripts); and the bundle,
+  evaluated as a classic script with no `require`/`module`/`importScripts`, must
+  define `FitShieldBlocklist` with every function `background.js` calls.
+  `extension/blocklist.js` is itself a **committed generated artifact** (so
+  `extension/` loads raw) — drift between it and canonical `FS Engine/` is caught
+  by the sync audit rather than by this one.
 - `tools/extension-audit.js` checks the manifest correctness above **and the
   package graph**: it recomputes the staged file set from `build.js`'s own
   FILES/DIRS mapping and verifies every `<script src>`/`<link>`/`<img>` in the
@@ -144,8 +163,9 @@ node build.js                # validation-gated packaging (refuses on errors)
 
 The block page (`warning.html`) is a `chrome-extension://` page the browser
 navigates to when `declarativeNetRequest` redirects a blocked ordering site. It
-loads five same-origin scripts — `ambient.js`, `browser-shim.js`, `i18n.js`,
-`recipes.js`, `warning.js` — and gets **all** of its data from the background
+loads six same-origin scripts, in order — `ambient.js`, `browser-shim.js`,
+`i18n.js`, `fitshield-core.js`, `recipes.js`, `warning.js` — and gets **all** of
+its data from the background
 worker over `runtime.sendMessage` (the worker is the only holder of engine
 state). So a broken block page almost always traces to one of a few links in
 that chain. Work through them in order:
@@ -171,12 +191,13 @@ that chain. Work through them in order:
    browser-only (CSP, redirect, or a resource that is staged but not
    web-accessible), not logic.
 2. **"Why you're seeing this" / brand line is missing.** The page called
-   `getBlockedSiteInfo`/`getBlockState` and the worker threw. Almost always the
+   `getBlockContext` — the single message it uses to fetch everything about the
+   interruption — and the worker threw. Almost always the
    worker failed to load the engine or its datasets: confirm `blocklist.js` is at
    the package root and `blocklists/*.json` are present (`npm run validate:extension`).
    The engine bundle is generated by `build.js` — never hand-edited — so a stale
    or missing bundle means "rebuild," not "patch the page."
-3. **Recipe columns never appear.** `recipes.js` fetches `data/recipes.json`
+3. **The alternative card never appears.** `recipes.js` fetches `data/recipes.json`
    from the package root. If the dataset moved in `data/` without `build.js`
    remapping it back to `data/recipes.json`, the fetch 404s. `verifyStage` in
    `build.js` now fails the build in this case.

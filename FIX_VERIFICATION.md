@@ -22,7 +22,7 @@ canonical `FS Engine/` + `data/` by `npm run sync`), so Chrome can load
 For a store-shaped package (and Firefox), build it:
 
 ```
-node build.js            # validates, then writes dist/chrome (+ dist/firefox + zips)
+node build.js            # validates, then writes dist/chrome + dist/firefox + dist/apple (+ zips)
 # chrome://extensions → Developer mode → Load unpacked → select dist/chrome
 ```
 
@@ -40,7 +40,7 @@ prints a loud, actionable error instead of failing silently (see “Diagnostics�
 npm run sync                 # regenerate extension/'s committed runtime artifacts
 npm test                     # tests incl. block-page render, engine bundle, sync freshness
 npm run validate             # audits: manifest, permissions, SW↔engine linkage, sync, CSP…
-npm run build                # validation-gated packaging → dist/chrome + dist/firefox
+npm run build                # validation-gated packaging → dist/chrome + dist/firefox + dist/apple
 npm run verify:unpacked          # DYNAMIC: build a package, load its engine, block a real domain
 npm run verify:unpacked extension  # same, but against the extension/ source folder directly
 ```
@@ -68,8 +68,8 @@ source folder loads unpacked; pass nothing to build a temp package and prove tha
 3. **Check for load / service-worker errors**
    - [ ] The card shows no red **Errors** button.
    - [ ] Click **service worker** (the “Inspect views” link) → Console shows
-         `[FitShield] service worker booted · engine loaded · v<version>` and
-         `[FitShield] blocklists loaded — N delivery + M fast-food brands`.
+         `[FitShield] service worker booted · engine loaded · core loaded · v<version>`
+         and `[FitShield] blocklists loaded — N delivery + M fast-food brands (T total)`.
    - [ ] No red errors in that console.
 
 4. **Visit a known blocked domain**
@@ -88,18 +88,21 @@ source folder loads unpacked; pass nothing to build a temp package and prove tha
    - [ ] No CSP or module errors in the block page’s DevTools console.
 
 6. **Confirm the statistics move, and only the right ones**
-   - [ ] Open settings → Protection Status. “Ordering pages interrupted” went up
+   - [ ] Open settings → **Your stats**. “Ordering pages interrupted” went up
          by one after the block page showed.
-   - [ ] Pick **I’ll make this** → “Alternatives you chose” increments and the
+   - [ ] Pick **Choose this** → “Alternatives you chose” increments and the
          page says it has recorded an intention, not a meal.
    - [ ] “Alternatives you marked as made” stays at its previous value until you
          confirm it yourself from the popup.
 
 7. **Confirm the continue flow**
    - [ ] When the countdown reaches 0, **Continue anyway** unlocks.
-   - [ ] Clicking it offers the pass options (once / 10 min / 30 min / until the
-         tab closes / pause everything). Choosing one opens the brand’s site and
-         does not immediately re-block.
+   - [ ] Clicking it offers the pass options, each labelled with its scope —
+         *This site only*: your site open time (5 min by default), 10 min,
+         30 min, until I close this tab; *All blocking*: off for 30 min, off
+         until tomorrow. There is no “just this once”. An entry is hidden when it
+         would duplicate your configured site open time. Choosing one opens the
+         brand’s site and does not immediately re-block.
    - [ ] Returning to the same brand soon afterwards shows a slightly longer
          pause **with an on-screen explanation of why**.
 

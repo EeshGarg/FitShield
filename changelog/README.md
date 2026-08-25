@@ -21,6 +21,7 @@ browser-compatibility notes.
 
 | Version | Date | Theme |
 | --- | --- | --- |
+| [0.55](0.55.md) | 2026-08-09 | The block succeeded. Now what? |
 | [0.54](0.54.md) | 2026-07-03 | Play-ready, with complete app coverage |
 | [0.53](0.53.md) | 2026-07-02 | The native Android app |
 | [0.52](0.52.md) | 2026-06-29 | Data expansion, insights & documentation infrastructure |

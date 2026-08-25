@@ -1,11 +1,34 @@
 # FitShield product-depth audit & implementation plan
 
+> [!IMPORTANT]
+> **This is a historical record of the product as it was BEFORE 0.55. It does not
+> describe the shipped extension, and nothing in it should be read as a current
+> claim.**
+>
+> It was written *before* the 0.55 work, from a full read of the repository at
+> `b0ef409`, and is deliberately preserved in its original present tense — every
+> "current", "today", and "now" below means *before 0.55*. The defects it lists
+> are the defects 0.55 was planned to fix, and it is kept because it explains
+> reasoning the code cannot.
+>
+> Concretely, the sections below still describe things that no longer exist: a
+> three-column recipe board, an "I'll make this instead" button, "calories
+> avoided" and "blocked visits" as statistics, `startTemporaryBypass`, a
+> `vegetarian | meat` diet field, a 24-entry recipe catalog, a single
+> `scheduleStart`/`scheduleEnd` pair as the only schedule control, and an absent
+> schema-version key. All of those were changed by 0.55.
+>
+> **For what the product actually does, read
+> [`../changelog/0.55.md`](../changelog/0.55.md) and
+> [`../README.md`](../README.md), never this file.**
+
 Internal working document. Written before implementation, from a full read of the
 repository at `b0ef409` (branch `harden/block-page-engine-boundary`). It records
-what exists today, what is inconsistent, and the order the work will be done in.
+what existed at that commit, what was inconsistent, and the order the work was
+done in.
 
 Status legend: **[has]** already true · **[gap]** missing/needs work · **[risk]**
-can break existing users.
+can break existing users. All three are as of `b0ef409`.
 
 ---
 
@@ -27,17 +50,19 @@ Hard contracts discovered (must not be broken silently):
 | Contract | Enforced by |
 | --- | --- |
 | `background.js` may `importScripts` **only** `blocklist.js` and `fitshield-core.js` | `tools/service-worker-audit.js` |
-| Firefox manifest `background.scripts` is exactly `build.BACKGROUND_SCRIPTS`, with `background.js` last | `tools/extension-audit.js` |
+| Firefox manifest `background.scripts` is exactly `build.BACKGROUND_SCRIPTS` — `["blocklist.js", "fitshield-core.js", "background.js"]`, with `background.js` last | `tools/extension-audit.js` |
 | Every `.js`/`.html` in `extension/` is staged by `build.js` (no orphans) | `tools/extension-audit.js` |
 | No inline `<script>` on any page (MV3 CSP) | `tools/extension-audit.js` |
 | Packaged block-page dependency graph is closed | `build.js verifyStage`, `test/block-page.test.js` |
 | `extension/{blocklist.js,blocklists/,data/,changelog.json}` byte-match canonical | `tools/sync-audit.js`, `test/extension-synced.test.js` |
 | `package.json` == `manifest.json` == `changelog.json[0]` version | `tools/extension-audit.js` |
-| All 83 locales have the **exact** English key set | `tools/locale-parity.js`, `test/locales.test.js` |
+| No locale has an extra, duplicate, empty or unsafe-placeholder key (a *missing* key is a coverage warning, not an error — see §13) | `tools/locale-parity.js`, `test/locales.test.js` |
 | Permissions are exactly `storage`, `declarativeNetRequest`, `alarms` | `tools/extension-audit.js` |
 
-Baseline before any change: `npm test` = 98 pass / 0 fail; `npm run validate` = 0
-errors.
+Baseline at `b0ef409`, before any of the work below: `npm test` = 98 pass / 0
+fail; `npm run validate` = 0 errors. Both numbers are a historical measurement of
+that commit, not a current one — the suite has grown by an order of magnitude
+since.
 
 ## 2. Current user flow
 
