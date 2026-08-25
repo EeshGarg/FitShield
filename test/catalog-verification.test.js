@@ -20,6 +20,14 @@
  *      brand in the catalog and across real kitchens — including the two shapes
  *      that were broken before (a constant `fastest` slot, and a filter that
  *      removed every answer while reporting nothing).
+ *   4. The bucket rewrite (04e5c8b · 83c9dd2 · b3cda1f) moved 197 rows between
+ *      the two files, deleted 30, renamed 52 brands and recategorised 84. What
+ *      is pinned here is that the deletion cost exactly the 30 hosts it named —
+ *      measured by booting this same worker against the PRE-rewrite datasets and
+ *      diffing the installed rule list host by host, which found 30 lost, 0
+ *      gained and 0 collateral — that every brand it moved now answers to
+ *      exactly one popup switch in BOTH directions, and that the phone and the
+ *      browser still block the same set of hosts.
  *
  * These drive the REAL service worker (test/helpers/background-harness.js), the
  * REAL engine bundle and the REAL extension/recipes.js against the shipped
@@ -375,11 +383,39 @@ test("every brand in the catalog derives at least one craving", async () => {
   assert.deepEqual(silent, [], `blocks the matcher has nothing to say about:\n  ${silent.join("\n  ")}`);
 });
 
+test("the shipped answer is not a constant across the catalog", async () => {
+  // selectAlternative is what BOTH block pages call — extension/warning.js and,
+  // since 12c87c3, Android's block.js. If one entry fills the first slot for a
+  // large share of the catalog, the page is not answering the block, it is
+  // reciting. Swept over the whole spread rather than a handful of brands.
+  await recipes.loadCatalog();
+
+  const first = new Map();
+
+  SPREAD.forEach((entry) => {
+    const selection = recipes.selectAlternative(infoFor(entry), {}, { rotation: 0, seed: entry.domain });
+    assert.ok(selection && selection.entry, `${entry.domain} produced no suggestion at all`);
+    first.set(selection.entry.id, (first.get(selection.entry.id) || 0) + 1);
+  });
+
+  assert.ok(first.size >= 12, `the whole catalog is answered with only ${first.size} different things`);
+
+  const commonest = Math.max(...first.values());
+  assert.ok(
+    commonest / SPREAD.length < 0.35,
+    `one entry answers ${commonest}/${SPREAD.length} brands — that is a constant, not an answer`
+  );
+});
+
 test("the fastest slot is not a constant across the catalog", async () => {
-  // It was: sorting the whole eligible pool by elapsed time returned the
-  // catalog's global minimum every time, so ten unrelated brands — pizza,
-  // tacos, wings, ice cream — all offered Two-Minute Iced Coffee. The shipped
-  // regression checks ten brands; this walks the whole catalog.
+  // selectTrio is NOT shown to anyone — no block page offers three shapes, and
+  // the docstring that said so was corrected in 6a1d4f4. It stays tested because
+  // it is exported matcher capability, and because the bug below is the shape of
+  // mistake that would reappear in whatever consumes it: sorting the whole
+  // eligible pool by elapsed time returned the catalog's global minimum every
+  // time, so ten unrelated brands — pizza, tacos, wings, ice cream — all offered
+  // Two-Minute Iced Coffee. The shipped regression checks ten brands; this walks
+  // the whole catalog.
   await recipes.loadCatalog();
 
   const slots = { closest: new Map(), fastest: new Map(), easiest: new Map() };
@@ -405,10 +441,11 @@ test("the fastest slot is not a constant across the catalog", async () => {
 });
 
 test("every slot in a trio answers the block at the same tier", async () => {
-  // "fastest" and "easiest" must be the fastest and easiest ANSWERS, not the
-  // fastest and easiest rows in the catalog. A salad chain that fills two of
-  // three slots with a turkey sandwich and a rice bowl has answered a different
-  // question in each slot.
+  // Same caveat as above: a capability, not a shipped surface. "fastest" and
+  // "easiest" must be the fastest and easiest ANSWERS, not the fastest and
+  // easiest rows in the catalog. A salad chain that fills two of three slots
+  // with a turkey sandwich and a rice bowl has answered a different question in
+  // each slot.
   const catalog = await recipes.loadCatalog();
   const tierOf = (entryCravings, wanted) => {
     const tags = new Set((entryCravings || []).map((value) => String(value).toLowerCase()));
@@ -609,4 +646,330 @@ test("selecting a category blocks that category and nothing else", async () => {
 
   assert.equal(filters.has("mcdonalds.com"), false, "a category filter must not sweep in other categories");
   assert.equal(filters.size, tea.length, `the tea filter produced ${filters.size} rules for ${tea.length} tea brands`);
+});
+
+// ---------------------------------------------------------------------------
+// 5. The bucket rewrite (04e5c8b · 83c9dd2 · b3cda1f)
+// ---------------------------------------------------------------------------
+//
+// Three commits moved 197 rows between the two files, deleted 30 rows, renamed
+// 52 brands and recategorised 84. Every one of those touched something a user
+// reads or a switch a user throws, and they were made in one pass, so the pass
+// and its tests share whatever the pass got wrong.
+//
+// The independent check that matters most is arithmetic, not opinion: the tree
+// BEFORE those commits installed 2,538 redirect rules for 2,535 records, and
+// the deletion was declared to be 30 hosts. Anything other than 2,508 rules for
+// 2,505 records means a row went missing somewhere nobody counted. Measured by
+// booting the real worker against the pre-rewrite datasets and diffing the
+// installed rule list host by host — 30 hosts lost, 0 gained, 0 collateral.
+
+const PRE_REWRITE_RULES = 2538;
+const PRE_REWRITE_RECORDS = 2535;
+
+// The 30, and WHY each one stopped being a place you can order food.
+const REWRITE_UNBLOCKED = {
+  "a messenger, a gym, and a variety store — not ordering surfaces": [
+    "line.me", "cult.fit", "tokmanni.fi"
+  ],
+  "holding companies and franchise operators, whose brands are listed separately": [
+    "centralgroup.com", "minor.com", "amrest.eu", "bhcgroup.co.kr", "kiwa-group.co.jp",
+    "arclandservice.co.jp", "zamp.com.br", "maruha-net.co.jp"
+  ],
+  "general-commerce marketplaces; the food surface is its own row": [
+    "jumia.ci", "jumia.co.ke", "jumia.ma", "jumia.sn"
+  ],
+  "courier and errand fleets — you hire them, you do not order dinner from them": [
+    "dada.cn", "imdada.cn", "dadajiasong.com", "shansong.com", "flashex.com", "flashhold.com",
+    "fengniao.com", "fengniaodelivery.com", "fengniaozhongbao.cn", "sfcityrush.com",
+    "uupt.com", "uupaotui.com", "sendme.ng", "gokada.ng", "pickndrop.co.ke"
+  ]
+};
+
+// For each removal, the surface the user could still actually order from. A
+// removal is only defensible if the brand's own ordering page stays blocked, or
+// if the removal was of something nobody orders from at all.
+const SURVIVING_ORDERING_SURFACE = [
+  ["bhcgroup.co.kr", "bhc.co.kr"],
+  ["bhcgroup.co.kr", "bhcchicken.global"],
+  ["line.me", "lineman.co.th"],
+  ["cult.fit", "eatfit.in"],
+  ["jumia.ci", "jumiafood.com"],
+  ["jumia.co.ke", "food.jumia.com"],
+  ["minor.com", "thepizzacompany.com"],
+  ["minor.com", "swensens.com"],
+  ["centralgroup.com", "mkrestaurant.com"],
+  ["tokmanni.fi", "prisma.fi"],
+  ["tokmanni.fi", "s-kaupat.fi"],
+  ["fengniao.com", "ele.me"],
+  ["dada.cn", "jddj.com"],
+  ["shansong.com", "meituan.com"]
+];
+
+test("the bucket rewrite unblocked exactly the thirty hosts it named", async () => {
+  const stillBlocked = [];
+
+  for (const [reason, hosts] of Object.entries(REWRITE_UNBLOCKED)) {
+    for (const host of hosts) {
+      if (await isBlockedByWorker(host)) {
+        stillBlocked.push(`${host} (${reason})`);
+      }
+    }
+  }
+
+  assert.deepEqual(stillBlocked, [], `named as removed but still blocking:\n  ${stillBlocked.join("\n  ")}`);
+
+  const named = Object.values(REWRITE_UNBLOCKED).reduce((sum, list) => sum + list.length, 0);
+  assert.equal(named, 30, `the removal was declared to be 30 hosts, and this list holds ${named}`);
+});
+
+test("the rewrite dropped thirty rules and thirty records, and nothing else", async () => {
+  // The whole point. A brand can vanish from the rule list by being deleted, by
+  // being moved to a file the worker does not read, by losing an alias, or by
+  // acquiring a domain Chrome refuses to compile — and every one of those looks
+  // identical to the user: the app stops being interrupted, silently.
+  assert.equal(
+    ALL.length,
+    PRE_REWRITE_RECORDS - 30,
+    `the catalog holds ${ALL.length} records; ${PRE_REWRITE_RECORDS} minus the 30 named removals is ${PRE_REWRITE_RECORDS - 30}`
+  );
+
+  const filters = await blockedHosts();
+  assert.equal(
+    filters.length,
+    PRE_REWRITE_RULES - 30,
+    `the worker installed ${filters.length} rules; ${PRE_REWRITE_RULES} minus the 30 named removals is ${PRE_REWRITE_RULES - 30}`
+  );
+});
+
+test("every record and every alias the catalog still holds reaches the rule list", async () => {
+  const filters = new Set(await blockedHosts());
+  const missing = [];
+
+  ALL.forEach((entry) => {
+    if (entry.enabled === false) {
+      return;
+    }
+
+    [entry.domain, ...(Array.isArray(entry.aliases) ? entry.aliases : [])].forEach((host) => {
+      if (!filters.has(asciiHost(host))) {
+        missing.push(`${entry.domain} -> ${host}`);
+      }
+    });
+  });
+
+  assert.deepEqual(missing, [], `listed in the data but not in the rules:\n  ${missing.join("\n  ")}`);
+});
+
+// The brands whose country domains used to sit in BOTH files, so that turning
+// one popup switch off left the same brand blocked by the other. Each maps to
+// the bucket it now belongs to, whole.
+const ONE_BRAND_ONE_SWITCH = {
+  delivery: {
+    wolt: /^wolt\./, justeat: /^just-?eat\./, foodpanda: /^foodpanda\./,
+    pedidosya: /^pedidosya\./, menulog: /^menulog\./, faasos: /^faasos\./
+  },
+  fast_food: {
+    mcdonalds: /^mcdonalds\./, kfc: /^kfc\./, pizzahut: /^pizzahut\./, dominos: /^dominos\./,
+    burgerking: /^burgerking\./, subway: /^subway\./, lotteria: /^lotteria\./,
+    momstouch: /^momstouch\./, papajohns: /^papajohns\./, pizzaetang: /^pizzaetang\./,
+    pelicana: /^pelicana\./, vips: /^vips\./, outback: /^outback\./, bornga: /^bornga\./,
+    sushiro: /^sushiro\./, gongcha: /^gong-?cha\./, baskinrobbins: /^baskinrobbins\./,
+    dunkin: /^dunkin/
+  }
+};
+
+test("each brand the rewrite moved answers to exactly one popup switch, in both directions", async () => {
+  // Asserted through the switches themselves, not through `type`: a row can
+  // carry the right type and still be swept in by the other bucket, and the
+  // symptom the user reported was "I turned off delivery and McDonald's Korea
+  // kept being blocked".
+  const withSwitches = async (delivery, fastFood) => {
+    const bg = loadBackground({ deliverySitesEnabled: delivery, fastFoodSitesEnabled: fastFood });
+    await bg.context.queueRefreshBlockingState();
+    return new Set(bg.rules().map((rule) => String(rule.condition.urlFilter).replace(/^\|\|/, "")));
+  };
+
+  const deliveryOnly = await withSwitches(true, false);
+  const fastFoodOnly = await withSwitches(false, true);
+  const problems = [];
+  let covered = 0;
+
+  Object.entries(ONE_BRAND_ONE_SWITCH).forEach(([bucket, stems]) => {
+    const mine = bucket === "delivery" ? deliveryOnly : fastFoodOnly;
+    const theirs = bucket === "delivery" ? fastFoodOnly : deliveryOnly;
+
+    Object.entries(stems).forEach(([stem, pattern]) => {
+      const rows = ALL.filter((entry) => pattern.test(entry.domain));
+      assert.ok(rows.length > 1, `${stem} matched ${rows.length} rows — this probe proves nothing`);
+      covered += rows.length;
+
+      rows.forEach((entry) => {
+        const host = asciiHost(entry.domain);
+
+        if (!mine.has(host)) {
+          problems.push(`${entry.domain} is meant to be ${bucket} and the ${bucket} switch alone does not block it`);
+        }
+
+        if (theirs.has(host)) {
+          problems.push(`${entry.domain} is meant to be ${bucket} but the OTHER switch still blocks it`);
+        }
+      });
+    });
+  });
+
+  assert.deepEqual(problems, [], `brands still answering to two switches:\n  ${problems.join("\n  ")}`);
+  assert.ok(covered > 150, `only ${covered} rows checked — the rewrite claimed to move about 191`);
+});
+
+test("turning both bucket switches off leaves nothing blocked", async () => {
+  // The other half of "one brand, one switch": a row filed under neither type
+  // would survive both switches being off and be unreachable from the popup.
+  const bg = loadBackground({ deliverySitesEnabled: false, fastFoodSitesEnabled: false });
+  await bg.context.queueRefreshBlockingState();
+  assert.equal(bg.rules().length, 0, "a row is being blocked that neither popup switch can reach");
+});
+
+test("the ordering surface behind every host removed as corporate is still interrupted", async () => {
+  for (const [removed, surface] of SURVIVING_ORDERING_SURFACE) {
+    assert.equal(
+      await isBlockedByWorker(removed),
+      false,
+      `${removed} was removed and is blocking again`
+    );
+    assert.ok(
+      await isBlockedByWorker(surface),
+      `${removed} was removed because ${surface} covers the brand — and ${surface} is not blocked`
+    );
+  }
+});
+
+test("no courier row survived, and no marketplace was mistaken for one", async () => {
+  const couriers = ALL.filter((entry) => entry.category === "courier").map((entry) => entry.domain);
+  assert.deepEqual(couriers, [], `still filed as couriers: ${couriers.join(", ")}`);
+
+  // The removal criterion was the CATEGORY, not the word "courier" in a
+  // specialty — 34 rows carry "courier delivery" as a specialty and every one
+  // of them is a marketplace you order dinner from.
+  const marketplaces = ALL.filter((entry) =>
+    (entry.specialties || []).some((value) => /courier/i.test(String(value)))
+  );
+  assert.ok(marketplaces.length > 20, `only ${marketplaces.length} rows mention a courier specialty`);
+
+  const swept = [];
+
+  for (const entry of marketplaces) {
+    if (!(await isBlockedByWorker(entry.domain))) {
+      swept.push(`${entry.domain} ("${entry.name}")`);
+    }
+  }
+
+  assert.deepEqual(swept, [], `ordering marketplaces removed with the courier fleets:\n  ${swept.join("\n  ")}`);
+});
+
+// ---------------------------------------------------------------------------
+// 6. What the rename and recategorisation passes left behind
+// ---------------------------------------------------------------------------
+
+// The only brands whose real name contains a dot. Everything else that carried
+// one — "Costa.coffee", "Wolt.ee", "Hesburger .bg" — was a generator artifact
+// printed on the block page. This list is the pin: a new one has to be added
+// here deliberately, by somebody who checked that the brand is written that way.
+const NAMES_THAT_REALLY_CARRY_A_DOT = [
+  "Co.opmart", "Delivery.com", "Ele.me", "Ele.me Hong Kong", "Hungry.ca", "Menu.ca",
+  "Owner.com", "Pyszne.pl", "Takeaway.com", "Takeaway.com Belgium", "Thuisbezorgd.nl",
+  "Tsukurioki.jp"
+];
+
+test("a brand name never carries a top-level domain the brand does not own", () => {
+  const allowed = new Set(NAMES_THAT_REALLY_CARRY_A_DOT);
+  const leaked = ALL.filter((entry) => /\.[a-z]{2,}/.test(entry.name) && !allowed.has(entry.name))
+    .map((entry) => `${entry.domain} -> ${JSON.stringify(entry.name)}`);
+
+  assert.deepEqual(leaked, [], `names that are still domains:\n  ${leaked.join("\n  ")}`);
+
+  // And the allowlist must not rot into a way of hiding new ones.
+  const unused = NAMES_THAT_REALLY_CARRY_A_DOT.filter((name) => !ALL.some((entry) => entry.name === name));
+  assert.deepEqual(unused, [], `allowlisted names no longer in the data: ${unused.join(", ")}`);
+});
+
+test("a brand name never leaves a space stranded before its own suffix", () => {
+  // "Hesburger .bg" and "Hesburger .lv" reached a screen. The space is the tell
+  // that a name was assembled from parts rather than written down.
+  const stranded = ALL.filter((entry) => /\s\./.test(entry.name) || /\s{2,}/.test(entry.name))
+    .map((entry) => `${entry.domain} -> ${JSON.stringify(entry.name)}`);
+
+  assert.deepEqual(stranded, [], `names assembled from parts:\n  ${stranded.join("\n  ")}`);
+});
+
+test("the two rows pulled out of grocery are the two that are not grocers", () => {
+  // `checkers.com` and `willys.com` were filed as supermarkets because two other
+  // brands own the same words: Checkers is a South African supermarket, Willys a
+  // Swedish one. Both of those are listed separately, and both are still
+  // grocery — which is what makes the correction checkable rather than a guess.
+  const by = (domain) => {
+    const entry = BY_DOMAIN.get(domain);
+    assert.ok(entry, `${domain} is no longer listed — this probe proves nothing`);
+    return entry;
+  };
+
+  assert.notEqual(by("checkers.com").category, "grocery", "checkers.com is a US drive-in burger chain");
+  assert.notEqual(by("willys.com").category, "grocery", "willys.com is a US restaurant, not a supermarket");
+
+  assert.equal(by("checkers60.com").category, "grocery", "Checkers Sixty60 IS the South African supermarket");
+  assert.equal(by("willys.se").category, "grocery", "willys.se IS the Swedish supermarket");
+
+  // Checkers and Rally's are the same operator and carry the same three
+  // specialties; the pair is the evidence that checkers.com is the burger chain.
+  assert.equal(by("checkers.com").category, by("rallys.com").category);
+  assert.deepEqual(by("checkers.com").specialties, by("rallys.com").specialties);
+});
+
+test("a grocer refiled in the catalog is refiled in the Android app catalog too", () => {
+  // The recategorisation moved 36 Android packages out of the "Fast food" pill
+  // and under the "Grocery" pill. If the two catalogs disagree, an Android user
+  // sees a supermarket app under a switch they turned off for burger chains.
+  const packages = JSON.parse(
+    fs.readFileSync(path.join(ROOT, "android", "app", "src", "main", "assets", "android-packages.json"), "utf8")
+  ).packages;
+
+  const wrong = [];
+
+  Object.entries(packages).forEach(([id, meta]) => {
+    const entry = BY_DOMAIN.get(meta.brandId);
+
+    if (!entry) {
+      wrong.push(`${id} points at ${meta.brandId}, which the blocklists no longer carry`);
+      return;
+    }
+
+    if (entry.category === "grocery" && meta.category !== "grocery") {
+      wrong.push(`${id} (${meta.brandId}) is grocery in the catalog and "${meta.category}" on Android`);
+    }
+
+    if (meta.category === "grocery" && entry.category !== "grocery") {
+      wrong.push(`${id} (${meta.brandId}) is grocery on Android and "${entry.category}" in the catalog`);
+    }
+  });
+
+  assert.deepEqual(wrong, [], `the two catalogs disagree:\n  ${wrong.join("\n  ")}`);
+});
+
+test("Android blocks exactly the hosts the extension blocks", async () => {
+  // Two generators, one dataset. The Android VPN rule file is built from the
+  // same blocklists as the extension's dynamic rules, and a drift between them
+  // is a brand that is interrupted on the desktop and not on the phone — which
+  // no test on either side alone can see.
+  const rules = JSON.parse(
+    fs.readFileSync(path.join(ROOT, "android", "app", "src", "main", "assets", "fitshield-rules.json"), "utf8")
+  );
+
+  const android = new Set((rules.hosts || []).map(asciiHost));
+  const extension = new Set(await blockedHosts());
+
+  const onlyExtension = [...extension].filter((host) => !android.has(host));
+  const onlyAndroid = [...android].filter((host) => !extension.has(host));
+
+  assert.deepEqual(onlyExtension, [], `blocked in the browser and not on Android: ${onlyExtension.join(", ")}`);
+  assert.deepEqual(onlyAndroid, [], `blocked on Android and not in the browser: ${onlyAndroid.join(", ")}`);
 });
