@@ -15,6 +15,7 @@
  */
 
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 const { spawnSync } = require("child_process");
 
@@ -102,7 +103,7 @@ async function main() {
     console.log(`\nBuilding debug APK with ${gradle.label}…`);
     const result = spawnSync(
       `${gradle.bin} :app:assembleDebug -PfitshieldVersionName=${version}`,
-      { cwd: ANDROID_DIR, stdio: "inherit", shell: true }
+      { cwd: ANDROID_DIR, stdio: "inherit", shell: true, env: toolchainEnv() }
     );
     gradleStatus = result.status;
     if (result.status === 0) {
@@ -247,11 +248,51 @@ function writeBuildTxt({ version, apkName, built, hasGradle, asset }) {
 // including machines with no Java at all. Treating the file's presence as
 // "tooling available" made this step announce "Building debug APK…", hand the
 // user a JAVA_HOME stack trace, and call that a normal day.
+// A locally provisioned toolchain, outside the repository so nothing large is
+// committed and nothing system-wide is modified. Populated by
+// `tools/provision-android-toolchain.js`. Discovering it here is what lets this
+// step actually finish on a machine with no system Java or Android SDK.
+const LOCAL_TOOLCHAIN = path.join(os.homedir(), ".fitshield-toolchain");
+
+function localToolchain() {
+  const jdk = path.join(LOCAL_TOOLCHAIN, "jdk");
+  const sdk = path.join(LOCAL_TOOLCHAIN, "android-sdk");
+
+  return fs.existsSync(path.join(jdk, "bin")) && fs.existsSync(sdk) ? { jdk, sdk } : null;
+}
+
+// Gradle — wrapper or system — cannot do anything without a JDK, and the
+// wrapper script is COMMITTED, so `fs.existsSync(gradlew)` is true on every
+// checkout including machines with no Java at all.
 function hasJava() {
+  if (localToolchain()) {
+    return true;
+  }
+
   if (process.env.JAVA_HOME && fs.existsSync(process.env.JAVA_HOME)) {
     return true;
   }
+
   return spawnSync("java -version", { shell: true }).status === 0;
+}
+
+// Gradle reads JAVA_HOME and ANDROID_HOME from the environment, so pointing it
+// at the local toolchain is a matter of handing the child process its own env
+// rather than asking the user to export anything.
+function toolchainEnv() {
+  const local = localToolchain();
+
+  if (!local) {
+    return process.env;
+  }
+
+  return {
+    ...process.env,
+    JAVA_HOME: local.jdk,
+    ANDROID_HOME: local.sdk,
+    ANDROID_SDK_ROOT: local.sdk,
+    PATH: `${path.join(local.jdk, "bin")}${path.delimiter}${process.env.PATH || ""}`
+  };
 }
 
 function findGradle() {

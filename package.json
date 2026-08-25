@@ -32,6 +32,7 @@
     "port:android-apps": "node tools/port-android-apps.js",
     "build": "node build.js",
     "build:android": "node tools/build-android.js",
+    "toolchain:android": "node tools/provision-android-toolchain.js",
     "build:safari": "node tools/build-safari.js",
     "build:all": "node build.js && node tools/build-android.js"
   },
