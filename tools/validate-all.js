@@ -36,7 +36,12 @@ const AUDITS = [
   // accessibility tree. Self-skips with a warning when no Chromium is present,
   // so a checkout without one still validates everything else.
   require("./browser-a11y-audit"),
-  require("./safari-audit")
+  require("./safari-audit"),
+  // Firefox, driven over WebDriver BiDi. The redirect is decided by the browser
+  // before a request leaves, so this does not depend on the probe domain being
+  // reachable — a tab that is NOT redirected means blocking failed, online or
+  // off. Self-skips with a warning when Firefox is absent.
+  require("./firefox-audit")
 ];
 
 async function validateAll(options) {

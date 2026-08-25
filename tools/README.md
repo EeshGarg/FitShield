@@ -37,6 +37,7 @@ build. `build.js` runs it automatically before packaging.
 | `npm run validate:sync` | `sync-audit.js` | `extension/`'s committed artifacts (engine bundle, blocklists, recipes, changelog) match canonical `FS Engine/` + `data/`, so the folder loads unpacked; stale copy → `npm run sync` |
 | `npm run validate:a11y` | `browser-a11y-audit.js` | loads the built package in Chromium and reads the **computed accessibility tree** (`Accessibility.getFullAXTree`) — the tree a screen reader consumes, not the DOM. Every control has a name, no unresolved i18n key reaches a label, nothing focusable is hidden from assistive technology, and no heading level is skipped. Warns and skips when no browser is installed; set `FS_CHROME` to point at one. |
 | `npm run validate:safari` | `safari-audit.js` | Safari pre-flight for the staged Apple payload: the declared `strict_min_version` covers every API the package actually uses (MV3 service worker and `storage.session` both need 16.4), and no shipped source calls an API Safari does not implement — those are `undefined` there, so the feature silently does nothing rather than failing. Wrapping still needs macOS + Xcode. |
+| `npm run validate:firefox` | `firefox-audit.js` | installs the built Firefox package in real Firefox over WebDriver BiDi, then asks for a blocked site and asserts the browser redirects to the block page — event page booting, dynamic rules installing, Firefox matching one, block page rendering, all in one check. Also fails on any console error or unresolved i18n key. Warns and skips without Firefox; set `FS_FIREFOX`. |
 
 ## Generators (write committed artifacts)
 
@@ -86,6 +87,7 @@ tools/
   service-worker-audit.js  sync-audit.js       android-audit.js
   browser-a11y-audit.js    provision-android-toolchain.js
   safari-audit.js          capture-surfaces.js
+  firefox-audit.js
   validate-android-packages.js
   sync-extension.js     build-alternatives.js
   generate-android-rules.js  generate-android-packages.js
