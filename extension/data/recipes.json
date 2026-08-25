@@ -154,7 +154,6 @@
       "restaurant_discovery",
       "meal_delivery",
       "meal_kit",
-      "courier",
       "catering",
       "custom",
       "general"
@@ -262,11 +261,6 @@
         "comfort",
         "pasta",
         "high-protein"
-      ],
-      "courier": [
-        "convenience",
-        "comfort",
-        "late-night"
       ],
       "catering": [
         "comfort",

@@ -73,8 +73,10 @@ test("turning a brand off in Settings really stops it being blocked", async () =
   // The reproduction that started this: bbq.co.kr was listed twice, so
   // disabling "BBQ Chicken" left a second rule redirecting the same host, and
   // the block page then named the brand "Bbq.co.kr" and placed a Korean chain
-  // in Japan.
-  const probe = DELIVERY.entries.find((entry) => entry.domain === "bbq.co.kr") || DELIVERY.entries[0];
+  // in Japan. bbq.co.kr has since moved to fast-food.json — it is bb.q Chicken's
+  // own ordering site, and the brand's other row was already there — so the
+  // probe is a marketplace that has only ever had one delivery row.
+  const probe = DELIVERY.entries.find((entry) => entry.domain === "doordash.com") || DELIVERY.entries[0];
 
   const before = loadBackground();
   const state = await before.message({ type: "getBlockState" });
@@ -215,6 +217,49 @@ test("a country tag never contradicts the domain's own ccTLD", () => {
   assert.deepEqual(wrong, [], `country tags that the domain itself contradicts:\n  ${wrong.join("\n  ")}`);
 });
 
+test("a brand whose NAME names a country claims that country", () => {
+  // The block page prints the name and the country list one under the other,
+  // so a row that names a market in one and omits it in the other prints a
+  // contradiction. lawson108.com was named "Lawson China" with no countries at
+  // all — and it is not Chinese: its Android package is com.bzbs.lawson, and
+  // bzbs is Buzzebees, the Thai loyalty platform whose only other package in
+  // this catalog is com.bzbs.burgerking -> burgerkingthailand.com. Lawson 108
+  // is the Saha-Lawson Thailand venture. Four more rows had the same shape,
+  // with the market named in the domain as well as the brand.
+  const NAMED = {
+    Korea: "KR", China: "CN", Japan: "JP", Taiwan: "TW", India: "IN", Thailand: "TH",
+    Vietnam: "VN", Malaysia: "MY", Singapore: "SG", Indonesia: "ID", Philippines: "PH",
+    Mexico: "MX", Brasil: "BR", Brazil: "BR", Canada: "CA", Australia: "AU",
+    France: "FR", Germany: "DE", Spain: "ES", Italy: "IT", Poland: "PL", Turkey: "TR",
+    Russia: "RU", Nigeria: "NG", Kenya: "KE", Egypt: "EG", Chile: "CL", Peru: "PE",
+    Colombia: "CO", Argentina: "AR", Portugal: "PT"
+  };
+
+  // A place name inside a brand name that is not a market claim.
+  const NOT_A_MARKET = new Set(["maggianos.com"]); // "Maggiano's Little Italy" is a neighbourhood
+
+  const wrong = [];
+  ALL.filter((entry) => !NOT_A_MARKET.has(entry.domain)).forEach((entry) => {
+    Object.entries(NAMED).forEach(([word, iso]) => {
+      if (new RegExp(`\\b${word}\\b`, "i").test(entry.name || "") && !(entry.countries || []).includes(iso)) {
+        wrong.push(`${entry.domain} is called "${entry.name}" but claims ${JSON.stringify(entry.countries)}`);
+      }
+    });
+  });
+
+  assert.deepEqual(wrong, [], `the name and the country row contradict each other:\n  ${wrong.join("\n  ")}`);
+
+  const stale = [...NOT_A_MARKET].filter((domain) => !BY_DOMAIN.has(domain));
+  assert.deepEqual(stale, [], `exempted brands that are no longer listed: ${stale.join(", ")}`);
+
+  // And the row that started it, asserted directly: a wrong country is worse
+  // than no country, because the user reads it as a fact about the brand.
+  const lawson = BY_DOMAIN.get("lawson108.com");
+  assert.ok(lawson, "lawson108.com is no longer listed");
+  assert.equal(lawson.name, "Lawson 108");
+  assert.deepEqual(lawson.countries, ["TH"]);
+});
+
 test("no single metadata template covers a large share of a file", () => {
   // 804 entries — 38% of fast-food.json — once carried the identical tuple
   // ["JP"] / ["rice dishes","set meals","sides"] / fast_casual. That is what a
@@ -239,6 +284,48 @@ test("no single metadata template covers a large share of a file", () => {
       );
     });
   });
+});
+
+test("a generator's default tuple is not shipped as a description of a brand", () => {
+  // The share test above passes at 100/1991 = 5%, and 5% was still a lie:
+  // ["sandwiches","burgers","salads"] sat on 100 rows, 99 of them the catch-all
+  // `fast_casual`, including Portillo's Hot Dogs, Skyline Chili, Goodberry's
+  // Frozen Custard and The Melting Pot. That is what the classifier wrote when
+  // it had nothing, and it was then read BACK: willys.com was filed `sandwich`
+  // on the strength of it. Cleared to an empty list — an honest "not known" —
+  // the way the fabricated ["JP"]/["rice dishes","set meals","sides"] tuples
+  // were before it.
+  const CLEARED = [["sandwiches", "burgers", "salads"]].map((tuple) => JSON.stringify(tuple));
+
+  const returned = ALL.filter((entry) => CLEARED.includes(JSON.stringify(entry.specialties || [])))
+    .map((entry) => `${entry.domain} ("${entry.name}")`);
+
+  assert.deepEqual(returned, [], `a cleared template is back on these rows:\n  ${returned.join("\n  ")}`);
+
+  // The witnesses, so this cannot be satisfied by shortening the list above.
+  // Each sells something the template never mentioned, and each must now say
+  // nothing rather than something false.
+  [
+    ["goodberrys.com", "frozen custard"],
+    ["portilloshotdogs.com", "hot dogs"],
+    ["skylinechili.com", "chili"],
+    ["meltingpot.com", "fondue"]
+  ].forEach(([domain, sells]) => {
+    const entry = BY_DOMAIN.get(domain);
+    assert.ok(entry, `${domain} is no longer listed — this witness needs replacing`);
+    assert.deepEqual(
+      entry.specialties,
+      [],
+      `${entry.name} sells ${sells}; the block page must not claim otherwise`
+    );
+  });
+
+  // And the row the template was read back off. `grocery` was wrong (that came
+  // from willys.se, the Swedish supermarket) and so was `sandwich`.
+  const willys = BY_DOMAIN.get("willys.com");
+  assert.ok(willys, "willys.com is no longer listed");
+  assert.equal(willys.category, "fast_casual", "a category derived from a template is not a category");
+  assert.equal(BY_DOMAIN.get("willys.se").category, "grocery", "the Swedish grocer is a different brand");
 });
 
 // ---------------------------------------------------------------------------
@@ -382,6 +469,81 @@ test("no brand has its domains split across both blocklists", () => {
   );
 });
 
+// The stem guard above keys on the domain, so it only ever caught brands that
+// straddled the files under ONE domain shape. Nine more straddled under two:
+// HEYTEA as xicha.com and heytea.com, Cotti Coffee as cotti.com and
+// cotticoffee.com, Real Kungfu under four domains, and Angel-in-us, bb.q
+// Chicken, BHC Chicken, Paris Baguette, TGI Fridays and Yandex Lavka under a
+// Korean or Russian domain in one file and an international one in the other.
+// Every one of them survived turning either switch off.
+test("no two rows of one brand answer to different popup switches", () => {
+  const by = new Map();
+  ALL.forEach((e) => { const k = e.name.trim().toLowerCase(); if (!by.has(k)) by.set(k, []); by.get(k).push(e); });
+  const split = [...by.values()].filter((rows) => new Set(rows.map((r) => r.type)).size > 1)
+    .map((rows) => `${rows[0].name}: ${rows.map((r) => r.domain + "=" + r.type).join(", ")}`);
+  assert.deepEqual(split, [], `one brand, two switches:\n  ${split.join("\n  ")}`);
+});
+
+// The same question asked of the OTHER field the two rows disagreed about.
+// rema.no became `grocery` while rema1000.no stayed `fast_casual`, so the
+// category filter in Settings blocked half of one Norwegian supermarket.
+test("no two rows of one brand disagree about their category", () => {
+  const by = new Map();
+  ALL.forEach((e) => { const k = e.name.trim().toLowerCase(); if (!by.has(k)) by.set(k, []); by.get(k).push(e); });
+  const split = [...by.values()].filter((rows) => new Set(rows.map((r) => r.category)).size > 1)
+    .map((rows) => `${rows[0].name}: ${rows.map((r) => r.domain + "=" + r.category).join(", ")}`);
+  assert.deepEqual(split, [], `one brand, two categories:\n  ${split.join("\n  ")}`);
+});
+
+// Exact-name matching is not enough on its own: a brand writes itself
+// "bb.q Chicken" on one row and "BBQ Chicken" on another, "Angel-in-us Coffee"
+// and "Angelinuscoffee", "TGI Fridays Korea" and "Tgifridays". Normalising the
+// punctuation and the trailing market word is what makes the two guards above
+// cover the whole brand rather than the rows that happened to be typed alike.
+function brandKey(name) {
+  const MARKET = /(korea|china|japan|taiwan|hongkong|singapore|malaysia|thailand|vietnam|india|indonesia|philippines|uk|usa|us|canada|australia|mexico|brasil|brazil|france|germany|espana|spain|italia|italy|nederland|polska|poland|turkiye|turkey|russia|global|international)$/;
+  let key = String(name || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const market = key.match(MARKET);
+  return market && key.length > market[1].length + 2 ? key.slice(0, -market[1].length) : key;
+}
+
+// Different companies that normalise to the same key. Each is a decision, and
+// each is checked below for still being real, so the list cannot rot into a
+// way of silencing the guard.
+const NOT_THE_SAME_BRAND = {
+  willys: ["willys.com", "willys.se"],       // Willy's, a US restaurant, and Willys, the Swedish grocer
+  eatclub: ["eatclub.com.au", "eatclub.in"], // an Australian deals app and an Indian cloud kitchen
+  foody: ["foody.com.mx", "foody.vn"]        // unrelated platforms in Mexico and Vietnam
+};
+
+test("one brand means one switch and one category, however the brand writes its name", () => {
+  const by = new Map();
+  ALL.forEach((e) => { const k = brandKey(e.name); if (!by.has(k)) by.set(k, []); by.get(k).push(e); });
+
+  const split = [...by]
+    .filter(([key]) => !NOT_THE_SAME_BRAND[key])
+    .filter(([, rows]) => new Set(rows.map((r) => r.type)).size > 1 || new Set(rows.map((r) => r.category)).size > 1)
+    .map(([, rows]) => `${rows[0].name}: ${rows.map((r) => `${r.domain}=${r.type}/${r.category}`).join(", ")}`);
+
+  assert.deepEqual(split, [], `rows of one brand that disagree:\n  ${split.join("\n  ")}`);
+
+  // Every declared exception must still be two rows that really do disagree —
+  // otherwise it is silencing nothing and should go.
+  const pointless = Object.entries(NOT_THE_SAME_BRAND).filter(([, domains]) => {
+    const rows = domains.map((d) => BY_DOMAIN.get(d));
+    if (rows.some((row) => !row)) {
+      return true;
+    }
+    return new Set(rows.map((r) => r.type)).size === 1 && new Set(rows.map((r) => r.category)).size === 1;
+  });
+
+  assert.deepEqual(
+    pointless.map(([key]) => key),
+    [],
+    "these exceptions no longer describe two rows that disagree, or name a row that is gone"
+  );
+});
+
 test("turning off one blocklist does not leave the other one's brands blocked", async () => {
   const blocked = (rules, domain) =>
     rules.some((rule) => (((rule.condition || {}).urlFilter) || "") === `||${domain}`);
@@ -435,6 +597,13 @@ test("no messenger, fitness app, holding company or courier is blocked", async (
     ["tokmanni.fi", "discount variety retail"],
     ["centralgroup.com", "a retail conglomerate's corporate site"],
     ["minor.com", "a hospitality holding company"],
+    // minorfood.com is the SAME conglomerate's food-division corporate site,
+    // and it carried the exact signature the thirteen other corporate sites
+    // were removed on: fast_food/fast_casual, no specialties, no countries.
+    // It was left listed while minor.com went, which made the criterion a
+    // matter of which domain the sweep happened to look at. Minor's brands are
+    // listed one by one below.
+    ["minorfood.com", "the food division's corporate site, not an ordering surface"],
     ["amrest.eu", "a restaurant franchisor's corporate site"],
     ["bhcgroup.co.kr", "a corporate group site"],
     ["jumia.ma", "general African e-commerce"],
@@ -454,8 +623,105 @@ test("no messenger, fitness app, holding company or courier is blocked", async (
     ["eatfit.in", "cult.fit's food arm"],
     ["jumiafood.com", "Jumia's food arm"],
     ["bhc.co.kr", "BHC's consumer site"],
-    ["minorfood.com", "Minor's food division"]
+    ["thepizzacompany.com", "Minor's pizza chain"],
+    ["swensens.com", "Minor's ice-cream chain"],
+    ["sizzler.com", "Minor's steakhouse chain"],
+    ["burgerkingthailand.com", "Minor's Burger King franchise"]
   ].forEach(([domain, what]) => assert.ok(blocked(domain), `${what} (${domain}) stopped being blocked`));
+
+  // jumia.co.ke was an apex, so removing it stopped covering the surface the
+  // apex was covering: food.jumia.co.ke, Jumia Food's Kenyan storefront.
+  // Neither food.jumia.com nor jumiafood.com reaches it. The same is true of
+  // the other three jumia.<cc> apexes the rewrite removed, so all four markets
+  // are restored as aliases of the brand's existing row — one brand, one
+  // Settings toggle, and the general-commerce apexes stay open.
+  ["food.jumia.ci", "food.jumia.co.ke", "food.jumia.ma", "food.jumia.sn"].forEach((surface) => {
+    const apex = surface.replace(/^food\./, "");
+    assert.ok(blocked(surface), `${surface} is Jumia Food's ordering surface and is not blocked`);
+    assert.ok(!blocked(apex), `${apex} is general African e-commerce and must stay open`);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// A removal must not quietly take a real ordering surface with it
+// ---------------------------------------------------------------------------
+
+test("removing a brand did not orphan another brand's Android app", () => {
+  // Android coverage is keyed on package IDs, and a package can outlive — or
+  // die with — the blocklist row it hung off. Both happened.
+  //
+  //   arclandservice.co.jp was removed as a holding company, correctly. Its
+  //   package li.yapp.appE3F5CA73 is not a corporate app: it is the Yappli-built
+  //   CONSUMER app for Katsuya, the chain Arcland operates. It went with the
+  //   row, and no katsuya.jp row existed to catch it, so a real ordering app
+  //   silently stopped being interrupted on the phone.
+  //
+  //   cult.fit was removed, also correctly — it is a fitness app. eatfit.in
+  //   was `packageStatus: "shared_app"` with no packages of its own, and the
+  //   app it shared was cult.fit's fit.cure.android. The status was left
+  //   pointing at nothing, so the record claimed Android coverage that no
+  //   longer existed anywhere in the catalog.
+  const apps = ["fast-food-apps.json", "delivery-apps.json"].flatMap(
+    (file) => JSON.parse(fs.readFileSync(path.join(ROOT, "data", "android", file), "utf8")).apps
+  );
+  const byBrand = new Map(apps.map((app) => [app.brandId, app]));
+  const packageOwner = new Map();
+  apps.forEach((app) => (app.packageIds || []).forEach((id) => packageOwner.set(id, app.brandId)));
+
+  const ORPHANED_BY_A_REMOVAL = [
+    {
+      removed: "arclandservice.co.jp",
+      package: "li.yapp.appE3F5CA73",
+      rehomedTo: "katsuya.jp",
+      what: "the Yappli-built Katsuya app"
+    },
+    {
+      removed: "cult.fit",
+      package: "fit.cure.android",
+      dependedOnIt: "eatfit.in",
+      what: "the Cult.fit app EatFit was recorded as sharing"
+    }
+  ];
+
+  const problems = [];
+
+  ORPHANED_BY_A_REMOVAL.forEach((row) => {
+    assert.ok(!BY_DOMAIN.has(row.removed), `${row.removed} is listed again — this case no longer applies`);
+
+    if (row.rehomedTo) {
+      // The consumer app must belong to a brand the catalog still lists.
+      const owner = packageOwner.get(row.package);
+      if (owner !== row.rehomedTo) {
+        problems.push(`${row.package} (${row.what}) belongs to ${owner || "nothing"}, not ${row.rehomedTo}`);
+      }
+      if (!BY_DOMAIN.has(row.rehomedTo)) {
+        problems.push(`${row.rehomedTo} carries ${row.package} but is not in the blocklists`);
+      }
+    }
+
+    if (row.dependedOnIt) {
+      // The removed brand's package must be gone...
+      if (packageOwner.has(row.package)) {
+        problems.push(`${row.package} belongs to ${row.removed}, which was removed, yet is still mapped`);
+      }
+      // ...and nothing may still claim to be covered by it.
+      const dependent = byBrand.get(row.dependedOnIt);
+      if (dependent && dependent.packageStatus === "shared_app" && (dependent.packageIds || []).length === 0) {
+        problems.push(
+          `${row.dependedOnIt} still says "shared_app", but ${row.what} left with ${row.removed} — ` +
+            "the status names an app that is not in the catalog"
+        );
+      }
+    }
+  });
+
+  assert.deepEqual(problems, [], `an Android mapping outlived or died with its brand:\n  ${problems.join("\n  ")}`);
+
+  // Katsuya's brand row itself, since the app is only reachable through it.
+  const katsuya = BY_DOMAIN.get("katsuya.jp");
+  assert.ok(katsuya, "katsuya.jp is not listed, so li.yapp.appE3F5CA73 has nothing to hang off");
+  assert.equal(katsuya.type, "fast_food");
+  assert.deepEqual(katsuya.countries, ["JP"]);
 });
 
 test("the courier category is empty, because a courier is not a place to order from", () => {
@@ -474,6 +740,41 @@ test("the courier category is empty, because a courier is not a place to order f
   assert.deepEqual(couriers, [], `courier platforms are still listed: ${couriers.join(", ")}`);
 });
 
+test("the recipe taxonomy carries no branch for a category no brand can have", async () => {
+  // The catalog stopped having couriers, and `taxonomy.categoryCravings` kept a
+  // `courier` branch mapping to convenience/comfort/late-night. Nothing can
+  // reach it — deriveCravings looks the category up from the blocked entry, and
+  // no entry carries that word — so it is a rule about the product that the
+  // product no longer contains.
+  //
+  // This is NOT the same question as the display name: tools/category-audit.js
+  // deliberately keeps catLabelCourier on a RETIRED list, because anyone who
+  // was blocked on a courier before the removal still carries the id in their
+  // lifetime stats and would otherwise see prettified English. A name for
+  // history is not a live branch in the matcher.
+  const catalog = await recipes.loadCatalog();
+  const used = new Set(ALL.map((entry) => entry.category));
+
+  // The three keys that are legitimately not a curated category: two rule
+  // buckets deriveCravings falls back to, and the id a user's own site carries.
+  const NOT_A_BRAND_CATEGORY = new Set(["fast_food", "custom", "general"]);
+
+  const dead = Object.keys(catalog.taxonomy.categoryCravings)
+    .filter((category) => !used.has(category) && !NOT_A_BRAND_CATEGORY.has(category))
+    .sort();
+
+  assert.deepEqual(dead, [], `craving branches no blocked brand can reach: ${dead.join(", ")}`);
+
+  // The fallbacks have to keep working, or removing a dead branch would be a
+  // way of breaking a live one.
+  NOT_A_BRAND_CATEGORY.forEach((key) =>
+    assert.ok(
+      (catalog.taxonomy.categoryCravings[key] || []).length > 0,
+      `${key} is what the matcher falls back to and it maps to nothing`
+    )
+  );
+});
+
 // ---------------------------------------------------------------------------
 // A category is a claim the user reads
 // ---------------------------------------------------------------------------
@@ -487,7 +788,18 @@ test("a grocer is filed as grocery, in both directions", () => {
   const grocers = [
     "iga.com.au", "conad.it", "ica.se", "kiwi.no", "rema.no", "zabka.pl", "vkusvill.ru",
     "lider.cl", "santaisabel.cl", "metro.pe", "marjane.ma", "giant.sg", "family.com.tw",
-    "oda.com", "iki.lt", "barbora.lt", "barbora.lv"
+    "oda.com", "iki.lt", "barbora.lt", "barbora.lv",
+    // Missed by the 41-grocer pass. rema1000.no is the same brand and the same
+    // country as rema.no, which had just been corrected — so the pass created a
+    // split where there had only been a shared mistake, and Settings' category
+    // filter then blocked half of one supermarket.
+    "rema1000.no",
+    // Finnish online grocers left as `fast_casual` while prisma.fi, next to
+    // them in the same market, was moved.
+    "k-ruoka.fi", "s-kaupat.fi", "prisma.fi",
+    // An Algerian hypermarket, and the Russian quick-commerce grocery service
+    // whose two rows disagreed about both their bucket and their category.
+    "uno.dz", "lavka.yandex.ru", "yandexlavka.ru"
   ];
 
   const wrong = grocers

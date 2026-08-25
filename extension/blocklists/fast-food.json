@@ -15,8 +15,8 @@
       "enabled": "Whether this entry should be active by default."
     }
   },
-  "_version": "1.2",
-  "_lastUpdated": "2026-07-03",
+  "_version": "1.3",
+  "_lastUpdated": "2026-08-25",
   "entries": [
     {
       "domain": "100montaditos.com",
@@ -401,11 +401,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -835,11 +831,34 @@
       "enabled": true
     },
     {
-      "domain": "angelinuscoffee.com",
-      "name": "Angelinuscoffee",
+      "domain": "angelinus.com",
+      "name": "Angel-in-us Coffee",
       "type": "fast_food",
-      "countries": [],
-      "regions": [],
+      "countries": [
+        "KR"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "coffee",
+      "specialties": [
+        "coffee",
+        "espresso",
+        "desserts",
+        "mobile ordering"
+      ],
+      "enabled": true
+    },
+    {
+      "domain": "angelinuscoffee.com",
+      "name": "Angel-in-us Coffee",
+      "type": "fast_food",
+      "countries": [
+        "KR"
+      ],
+      "regions": [
+        "AS"
+      ],
       "category": "coffee",
       "specialties": [
         "coffee",
@@ -859,11 +878,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -887,11 +902,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -1382,11 +1393,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -1829,7 +1836,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "mexican",
       "specialties": [],
       "enabled": true
     },
@@ -1951,9 +1958,13 @@
       "domain": "baskinrobbinsindia.com",
       "name": "Baskin-Robbins India",
       "type": "fast_food",
-      "countries": [],
-      "regions": [],
-      "category": "fast_casual",
+      "countries": [
+        "IN"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "dessert",
       "specialties": [],
       "enabled": true
     },
@@ -2029,6 +2040,24 @@
       "regions": [],
       "category": "fast_casual",
       "specialties": [],
+      "enabled": true
+    },
+    {
+      "domain": "bbq.co.kr",
+      "name": "bb.q Chicken",
+      "type": "fast_food",
+      "countries": [
+        "KR"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "chicken",
+      "specialties": [
+        "fried chicken",
+        "chicken wings",
+        "direct delivery"
+      ],
       "enabled": true
     },
     {
@@ -2121,7 +2150,7 @@
       "regions": [
         "AS"
       ],
-      "category": "bakery",
+      "category": "dessert",
       "specialties": [
         "cakes",
         "bread",
@@ -2290,11 +2319,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -2362,11 +2387,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -2388,11 +2409,33 @@
       "enabled": true
     },
     {
-      "domain": "bhcchicken.global",
-      "name": "Bhcchicken",
+      "domain": "bhc.co.kr",
+      "name": "BHC Chicken",
       "type": "fast_food",
-      "countries": [],
-      "regions": [],
+      "countries": [
+        "KR"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "chicken",
+      "specialties": [
+        "fried chicken",
+        "chicken wings",
+        "direct delivery"
+      ],
+      "enabled": true
+    },
+    {
+      "domain": "bhcchicken.global",
+      "name": "BHC Chicken",
+      "type": "fast_food",
+      "countries": [
+        "KR"
+      ],
+      "regions": [
+        "AS"
+      ],
       "category": "chicken",
       "specialties": [
         "chicken",
@@ -2706,11 +2749,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -2784,11 +2823,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -2930,11 +2965,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -2980,11 +3011,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -3503,12 +3530,8 @@
       "regions": [
         "NA"
       ],
-      "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "category": "mexican",
+      "specialties": [],
       "enabled": true
     },
     {
@@ -4362,14 +4385,14 @@
       "domain": "cafedecoral.com",
       "name": "Cafe Decoral",
       "type": "fast_food",
-      "countries": [],
-      "regions": [],
-      "category": "coffee",
-      "specialties": [
-        "coffee",
-        "espresso",
-        "pastries"
+      "countries": [
+        "HK"
       ],
+      "regions": [
+        "AS"
+      ],
+      "category": "asian",
+      "specialties": [],
       "enabled": true
     },
     {
@@ -4475,11 +4498,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -4493,11 +4512,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -4566,7 +4581,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "mexican",
       "specialties": [],
       "enabled": true
     },
@@ -5314,12 +5329,8 @@
       "regions": [
         "NA"
       ],
-      "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "category": "sandwich",
+      "specialties": [],
       "enabled": true
     },
     {
@@ -6160,11 +6171,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -6288,11 +6295,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -6802,11 +6805,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -6890,11 +6889,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -6923,11 +6918,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -7055,11 +7046,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -7072,11 +7059,26 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "coffee",
+      "specialties": [],
+      "enabled": true
+    },
+    {
+      "domain": "cotticoffee.com",
+      "name": "Cotti Coffee",
+      "type": "fast_food",
+      "countries": [
+        "CN"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "coffee",
       "specialties": [
-        "chinese food",
-        "rice dishes",
-        "noodles"
+        "coffee",
+        "espresso",
+        "tea drinks",
+        "mobile ordering"
       ],
       "enabled": true
     },
@@ -7315,11 +7317,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -7333,11 +7331,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -7469,11 +7463,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -7501,11 +7491,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -7987,11 +7973,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -8496,11 +8478,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -8642,11 +8620,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -8659,7 +8633,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "coffee",
       "specialties": [],
       "enabled": true
     },
@@ -8720,9 +8694,13 @@
       "domain": "dunkinindia.com",
       "name": "Dunkin India",
       "type": "fast_food",
-      "countries": [],
-      "regions": [],
-      "category": "fast_casual",
+      "countries": [
+        "IN"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "coffee",
       "specialties": [],
       "enabled": true
     },
@@ -8871,11 +8849,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -9093,11 +9067,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -9175,11 +9145,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -9321,11 +9287,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -9487,11 +9449,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -9560,11 +9518,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -9692,11 +9646,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -9792,7 +9742,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "burger",
       "specialties": [],
       "enabled": true
     },
@@ -10175,7 +10125,7 @@
       "regions": [
         "NA"
       ],
-      "category": "dessert",
+      "category": "burger",
       "specialties": [
         "ice cream",
         "custard",
@@ -10194,11 +10144,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -10294,11 +10240,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -10312,11 +10254,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -10966,11 +10904,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -11068,11 +11002,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -11387,11 +11317,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -11567,11 +11493,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -11795,11 +11717,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -11813,11 +11731,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -12306,11 +12220,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -12394,11 +12304,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -12494,11 +12400,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -12696,6 +12598,30 @@
       "enabled": true
     },
     {
+      "domain": "heytea.com",
+      "name": "HEYTEA",
+      "type": "fast_food",
+      "countries": [
+        "CN",
+        "SG",
+        "GB",
+        "US"
+      ],
+      "regions": [
+        "AS",
+        "EU",
+        "NA"
+      ],
+      "category": "tea",
+      "specialties": [
+        "new-style tea",
+        "fruit tea",
+        "cheese tea",
+        "mobile ordering"
+      ],
+      "enabled": true
+    },
+    {
       "domain": "hibachisan.com",
       "name": "Hibachisan",
       "type": "fast_food",
@@ -12742,11 +12668,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -13050,11 +12972,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -13472,11 +13390,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -13774,11 +13688,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -14219,11 +14129,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -14490,7 +14396,7 @@
     },
     {
       "domain": "k-ruoka.fi",
-      "name": "K Ruoka",
+      "name": "K-Ruoka",
       "type": "fast_food",
       "countries": [
         "FI"
@@ -14498,7 +14404,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -14709,6 +14615,20 @@
       "countries": [],
       "regions": [],
       "category": "fast_casual",
+      "specialties": [],
+      "enabled": true
+    },
+    {
+      "domain": "katsuya.jp",
+      "name": "Katsuya",
+      "type": "fast_food",
+      "countries": [
+        "JP"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "asian",
       "specialties": [],
       "enabled": true
     },
@@ -15462,7 +15382,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "dessert",
       "specialties": [],
       "enabled": true
     },
@@ -15476,7 +15396,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "dessert",
       "specialties": [],
       "enabled": true
     },
@@ -15525,7 +15445,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "dessert",
       "specialties": [],
       "enabled": true
     },
@@ -15539,7 +15459,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "dessert",
       "specialties": [],
       "enabled": true
     },
@@ -15619,6 +15539,25 @@
       "regions": [],
       "category": "fast_casual",
       "specialties": [],
+      "enabled": true
+    },
+    {
+      "domain": "kungfu.com.cn",
+      "name": "Real Kungfu",
+      "type": "fast_food",
+      "countries": [
+        "CN"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "asian",
+      "specialties": [
+        "chinese fast food",
+        "rice meals",
+        "steamed dishes",
+        "direct delivery"
+      ],
       "enabled": true
     },
     {
@@ -15911,12 +15850,8 @@
       "regions": [
         "NA"
       ],
-      "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "category": "pizza",
+      "specialties": [],
       "enabled": true
     },
     {
@@ -15961,7 +15896,7 @@
       "type": "fast_food",
       "countries": [],
       "regions": [],
-      "category": "fast_casual",
+      "category": "coffee",
       "specialties": [],
       "enabled": true
     },
@@ -15993,16 +15928,20 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "coffee",
       "specialties": [],
       "enabled": true
     },
     {
       "domain": "lawson108.com",
-      "name": "Lawson China",
+      "name": "Lawson 108",
       "type": "fast_food",
-      "countries": [],
-      "regions": [],
+      "countries": [
+        "TH"
+      ],
+      "regions": [
+        "AS"
+      ],
       "category": "grocery",
       "specialties": [],
       "enabled": true
@@ -16071,12 +16010,8 @@
       "regions": [
         "NA"
       ],
-      "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "category": "chicken",
+      "specialties": [],
       "enabled": true
     },
     {
@@ -16122,11 +16057,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -16275,12 +16206,8 @@
       "regions": [
         "NA"
       ],
-      "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "category": "mexican",
+      "specialties": [],
       "enabled": true
     },
     {
@@ -16340,11 +16267,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -16357,12 +16280,8 @@
       "regions": [
         "NA"
       ],
-      "category": "fast_casual",
-      "specialties": [
-        "burgers",
-        "sandwiches",
-        "salads"
-      ],
+      "category": "pizza",
+      "specialties": [],
       "enabled": true
     },
     {
@@ -16419,11 +16338,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -16518,7 +16433,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "seafood",
       "specialties": [],
       "enabled": true
     },
@@ -16673,11 +16588,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -17950,11 +17861,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -17988,11 +17895,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -18006,11 +17909,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -18277,11 +18176,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -18364,16 +18259,6 @@
         "fries",
         "shakes"
       ],
-      "enabled": true
-    },
-    {
-      "domain": "minorfood.com",
-      "name": "Minorfood",
-      "type": "fast_food",
-      "countries": [],
-      "regions": [],
-      "category": "fast_casual",
-      "specialties": [],
       "enabled": true
     },
     {
@@ -18743,8 +18628,12 @@
       "domain": "mosburgerthailand.com",
       "name": "Mosburger Thailand",
       "type": "fast_food",
-      "countries": [],
-      "regions": [],
+      "countries": [
+        "TH"
+      ],
+      "regions": [
+        "AS"
+      ],
       "category": "burger",
       "specialties": [
         "burgers",
@@ -18765,11 +18654,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -18851,11 +18736,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -19348,11 +19229,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -19402,11 +19279,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -20290,11 +20163,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -20487,11 +20356,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -20663,11 +20528,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -20906,12 +20767,31 @@
       "enabled": true
     },
     {
+      "domain": "paris.co.kr",
+      "name": "Paris Baguette",
+      "type": "fast_food",
+      "countries": [
+        "KR"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "bakery",
+      "specialties": [
+        "bread",
+        "pastries",
+        "cakes",
+        "coffee"
+      ],
+      "enabled": true
+    },
+    {
       "domain": "parisbaguette.com",
-      "name": "Parisbaguette",
+      "name": "Paris Baguette",
       "type": "fast_food",
       "countries": [],
       "regions": [],
-      "category": "fast_casual",
+      "category": "bakery",
       "specialties": [],
       "enabled": true
     },
@@ -20968,11 +20848,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -21138,11 +21014,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -21216,11 +21088,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -21234,11 +21102,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -21388,11 +21252,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -21494,11 +21354,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -21529,7 +21385,7 @@
       "regions": [
         "NA"
       ],
-      "category": "asian",
+      "category": "sandwich",
       "specialties": [
         "shawarma",
         "pitas",
@@ -22619,7 +22475,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "chicken",
       "specialties": [],
       "enabled": true
     },
@@ -22633,7 +22489,7 @@
       "regions": [
         "SA"
       ],
-      "category": "fast_casual",
+      "category": "chicken",
       "specialties": [],
       "enabled": true
     },
@@ -22684,11 +22540,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -22720,11 +22572,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -22948,11 +22796,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -23200,11 +23044,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -23217,7 +23057,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "sandwich",
       "specialties": [],
       "enabled": true
     },
@@ -23251,11 +23091,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -23445,6 +23281,25 @@
       "enabled": true
     },
     {
+      "domain": "realkungfu.com",
+      "name": "Real Kungfu",
+      "type": "fast_food",
+      "countries": [
+        "CN"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "asian",
+      "specialties": [
+        "chinese fast food",
+        "rice meals",
+        "steamed dishes",
+        "direct delivery"
+      ],
+      "enabled": true
+    },
+    {
       "domain": "redburrito.com",
       "name": "Redburrito",
       "type": "fast_food",
@@ -23473,11 +23328,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -23505,11 +23356,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -23661,7 +23508,7 @@
     },
     {
       "domain": "rema1000.no",
-      "name": "Rema1000",
+      "name": "Rema 1000",
       "type": "fast_food",
       "countries": [
         "NO"
@@ -23669,7 +23516,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -24004,11 +23851,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -24335,7 +24178,7 @@
     },
     {
       "domain": "s-kaupat.fi",
-      "name": "S Kaupat",
+      "name": "S-kaupat",
       "type": "fast_food",
       "countries": [
         "FI"
@@ -24343,7 +24186,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -24438,11 +24281,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -24520,11 +24359,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -24734,11 +24569,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -24949,7 +24780,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "burger",
       "specialties": [],
       "enabled": true
     },
@@ -25122,11 +24953,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -25410,11 +25237,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -25460,11 +25283,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -25758,11 +25577,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -25793,12 +25608,8 @@
       "regions": [
         "NA"
       ],
-      "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "category": "burger",
+      "specialties": [],
       "enabled": true
     },
     {
@@ -25851,8 +25662,12 @@
       "domain": "sparnigeria.com",
       "name": "Spar Nigeria",
       "type": "fast_food",
-      "countries": [],
-      "regions": [],
+      "countries": [
+        "NG"
+      ],
+      "regions": [
+        "AF"
+      ],
       "category": "grocery",
       "specialties": [],
       "enabled": true
@@ -25964,11 +25779,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -26303,11 +26114,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -27811,11 +27618,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -27847,11 +27650,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -28210,8 +28009,27 @@
       "enabled": true
     },
     {
+      "domain": "tgif.co.kr",
+      "name": "TGI Fridays Korea",
+      "type": "fast_food",
+      "countries": [
+        "KR"
+      ],
+      "regions": [
+        "AS"
+      ],
+      "category": "restaurant",
+      "specialties": [
+        "american dining",
+        "burgers",
+        "ribs",
+        "family dining"
+      ],
+      "enabled": true
+    },
+    {
       "domain": "tgifridays.com.tw",
-      "name": "Tgifridays",
+      "name": "TGI Fridays Taiwan",
       "type": "fast_food",
       "countries": [
         "TW"
@@ -28219,7 +28037,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "restaurant",
       "specialties": [],
       "enabled": true
     },
@@ -28591,7 +28409,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "coffee",
       "specialties": [],
       "enabled": true
     },
@@ -28629,7 +28447,7 @@
       "type": "fast_food",
       "countries": [],
       "regions": [],
-      "category": "fast_casual",
+      "category": "coffee",
       "specialties": [],
       "enabled": true
     },
@@ -28828,11 +28646,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -28924,11 +28738,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -28941,12 +28751,8 @@
       "regions": [
         "NA"
       ],
-      "category": "fast_casual",
-      "specialties": [
-        "burgers",
-        "sandwiches",
-        "salads"
-      ],
+      "category": "pizza",
+      "specialties": [],
       "enabled": true
     },
     {
@@ -29172,11 +28978,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -29401,7 +29203,7 @@
       "regions": [
         "AF"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -29852,11 +29654,7 @@
         "NA"
       ],
       "category": "fast_casual",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "specialties": [],
       "enabled": true
     },
     {
@@ -29951,7 +29749,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "asian",
       "specialties": [
         "chinese food",
         "rice dishes",
@@ -30425,12 +30223,8 @@
       "regions": [
         "NA"
       ],
-      "category": "sandwich",
-      "specialties": [
-        "sandwiches",
-        "burgers",
-        "salads"
-      ],
+      "category": "fast_casual",
+      "specialties": [],
       "enabled": true
     },
     {
@@ -30566,7 +30360,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "chicken",
       "specialties": [],
       "enabled": true
     },
@@ -31108,20 +30902,6 @@
       "enabled": true
     },
     {
-      "domain": "yandexlavka.ru",
-      "name": "Yandexlavka",
-      "type": "fast_food",
-      "countries": [
-        "RU"
-      ],
-      "regions": [
-        "EU"
-      ],
-      "category": "fast_casual",
-      "specialties": [],
-      "enabled": true
-    },
-    {
       "domain": "yangguofu.com",
       "name": "Yang Guo Fu",
       "type": "fast_food",
@@ -31539,11 +31319,11 @@
       "regions": [
         "AS"
       ],
-      "category": "chicken",
+      "category": "asian",
       "specialties": [
-        "chicken",
-        "rice dishes",
-        "noodles"
+        "chinese fast food",
+        "rice meals",
+        "steamed dishes"
       ],
       "enabled": true
     },
@@ -31589,11 +31369,11 @@
       "regions": [
         "AS"
       ],
-      "category": "chicken",
+      "category": "asian",
       "specialties": [
-        "fried chicken",
-        "rice dishes",
-        "fries"
+        "chinese fast food",
+        "rice meals",
+        "steamed dishes"
       ],
       "enabled": true
     },

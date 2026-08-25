@@ -5279,6 +5279,12 @@
       "packageStatus": "no_app"
     },
     {
+      "brandId": "katsuya.jp",
+      "packageIds": [
+        "li.yapp.appE3F5CA73"
+      ]
+    },
+    {
       "brandId": "kaufland.de",
       "packageIds": [
         "com.kaufland.Kaufland"
@@ -6523,11 +6529,6 @@
       "packageIds": [
         "com.ce.android.brand.milos"
       ]
-    },
-    {
-      "brandId": "minorfood.com",
-      "packageIds": [],
-      "packageStatus": "shared_app"
     },
     {
       "brandId": "missiontaco.com",

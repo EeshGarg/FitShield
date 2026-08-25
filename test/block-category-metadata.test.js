@@ -102,8 +102,14 @@ test("a delivery brand reports what the dataset curated, not the bucket it was b
   // Both are type "delivery" and both were reported as category "delivery"; the
   // dataset calls one a meal kit and the other a tea brand, which is what
   // Settings' picker offers and what the recipe picker reads.
+  //
+  // The tea probe used to be heytea.com. HEYTEA ran its own stores AND a row in
+  // each blocklist, so one popup switch could not turn the brand off; the row
+  // moved to fast-food.json and its site key moved with it. chagee.com is the
+  // same shape — type "delivery", curated category "tea" — and is not a brand
+  // that straddles the two files.
   const mealKit = await bg.message({ type: "getBlockContext", site: "delivery-hellofresh-com-au" });
-  const tea = await bg.message({ type: "getBlockContext", site: "delivery-heytea-com" });
+  const tea = await bg.message({ type: "getBlockContext", site: "delivery-chagee-com" });
 
   assert.equal(mealKit.site.category, "meal_kit");
   assert.equal(mealKit.site.type, "delivery");

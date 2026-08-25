@@ -15,8 +15,8 @@
       "enabled": "Whether this entry should be active by default."
     }
   },
-  "_version": "1.1",
-  "_lastUpdated": "2026-06-29",
+  "_version": "1.2",
+  "_lastUpdated": "2026-08-25",
   "entries": [
     {
       "domain": "2berega.ru",
@@ -242,25 +242,6 @@
       "specialties": [
         "restaurant ordering",
         "online menu"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "angelinus.com",
-      "name": "Angel-in-us Coffee",
-      "type": "delivery",
-      "countries": [
-        "KR"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "coffee",
-      "specialties": [
-        "coffee",
-        "espresso",
-        "desserts",
-        "mobile ordering"
       ],
       "enabled": true
     },
@@ -589,24 +570,6 @@
       "enabled": true
     },
     {
-      "domain": "bbq.co.kr",
-      "name": "BBQ Chicken",
-      "type": "delivery",
-      "countries": [
-        "KR"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "chicken",
-      "specialties": [
-        "fried chicken",
-        "chicken wings",
-        "direct delivery"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "beepit.com.ph",
       "name": "Beep Delivery",
       "type": "delivery",
@@ -674,24 +637,6 @@
       "specialties": [
         "restaurant delivery",
         "takeout ordering"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "bhc.co.kr",
-      "name": "BHC Chicken",
-      "type": "delivery",
-      "countries": [
-        "KR"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "chicken",
-      "specialties": [
-        "fried chicken",
-        "chicken wings",
-        "direct delivery"
       ],
       "enabled": true
     },
@@ -1505,25 +1450,6 @@
         "coffee",
         "espresso",
         "desserts",
-        "mobile ordering"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "cotticoffee.com",
-      "name": "Cotti Coffee",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "coffee",
-      "specialties": [
-        "coffee",
-        "espresso",
-        "tea drinks",
         "mobile ordering"
       ],
       "enabled": true
@@ -3022,7 +2948,13 @@
         "grocery delivery",
         "marketplace food delivery"
       ],
-      "enabled": true
+      "enabled": true,
+      "aliases": [
+        "food.jumia.ci",
+        "food.jumia.co.ke",
+        "food.jumia.ma",
+        "food.jumia.sn"
+      ]
     },
     {
       "domain": "foodbomb.com.au",
@@ -4515,30 +4447,6 @@
       "enabled": true
     },
     {
-      "domain": "heytea.com",
-      "name": "HEYTEA",
-      "type": "delivery",
-      "countries": [
-        "CN",
-        "SG",
-        "GB",
-        "US"
-      ],
-      "regions": [
-        "AS",
-        "EU",
-        "NA"
-      ],
-      "category": "tea",
-      "specialties": [
-        "new-style tea",
-        "fruit tea",
-        "cheese tea",
-        "mobile ordering"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "hollys.co.kr",
       "name": "Hollys",
       "type": "delivery",
@@ -5624,25 +5532,6 @@
       "specialties": [
         "prepared meals",
         "meal delivery"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "kungfu.com.cn",
-      "name": "Real Kungfu",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "asian",
-      "specialties": [
-        "chinese fast food",
-        "rice meals",
-        "steamed dishes",
-        "direct delivery"
       ],
       "enabled": true
     },
@@ -6900,25 +6789,6 @@
       "enabled": true
     },
     {
-      "domain": "paris.co.kr",
-      "name": "Paris Baguette",
-      "type": "delivery",
-      "countries": [
-        "KR"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "bakery",
-      "specialties": [
-        "bread",
-        "pastries",
-        "cakes",
-        "coffee"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "pathao.com",
       "name": "Pathao",
       "type": "delivery",
@@ -7671,25 +7541,6 @@
       "enabled": true
     },
     {
-      "domain": "realkungfu.com",
-      "name": "Real Kungfu",
-      "type": "delivery",
-      "countries": [
-        "CN"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "asian",
-      "specialties": [
-        "chinese fast food",
-        "rice meals",
-        "steamed dishes",
-        "direct delivery"
-      ],
-      "enabled": true
-    },
-    {
       "domain": "rebelfoods.com",
       "name": "Rebel Foods",
       "type": "delivery",
@@ -8294,25 +8145,6 @@
         "restaurant delivery",
         "grocery delivery",
         "local delivery"
-      ],
-      "enabled": true
-    },
-    {
-      "domain": "tgif.co.kr",
-      "name": "TGI Fridays Korea",
-      "type": "delivery",
-      "countries": [
-        "KR"
-      ],
-      "regions": [
-        "AS"
-      ],
-      "category": "restaurant",
-      "specialties": [
-        "american dining",
-        "burgers",
-        "ribs",
-        "family dining"
       ],
       "enabled": true
     },
@@ -9118,6 +8950,24 @@
         "restaurant delivery",
         "takeout ordering",
         "local food delivery"
+      ],
+      "enabled": true
+    },
+    {
+      "domain": "yandexlavka.ru",
+      "name": "Yandex Lavka",
+      "type": "delivery",
+      "countries": [
+        "RU"
+      ],
+      "regions": [
+        "EU"
+      ],
+      "category": "grocery",
+      "specialties": [
+        "grocery delivery",
+        "quick commerce",
+        "fresh food delivery"
       ],
       "enabled": true
     },
