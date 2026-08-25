@@ -1,0 +1,110 @@
+name: Safari (macOS)
+
+# The gate this project has never run.
+#
+# Safari Web Extensions do not load from a folder. They ship inside a native app
+# that Apple's `safari-web-extension-converter` generates and Xcode compiles,
+# and both are macOS-only. The development machine is Windows, so for the whole
+# life of the project this step has been filed as physically impossible - which
+# was true of that machine and never true of the project. A macos-latest runner
+# has Xcode preinstalled. This is that step, automated.
+#
+# What it establishes:
+#   - dist/apple/extension/ converts without error, and
+#   - the generated Xcode wrapper compiles.
+#
+# What it deliberately does NOT do: sign or notarize. Both need an Apple
+# Developer team and a stored credential, and this CI holds no secrets. The
+# build is forced unsigned (CODE_SIGNING_ALLOWED=NO), which still settles the
+# part that was open - whether the payload converts and the wrapper builds.
+# Installing on a real device, and judging Safari's narrower
+# declarativeNetRequest support on-device, still needs a person with a Mac;
+# dist/apple/BUILD.txt carries that checklist.
+#
+# macOS runner minutes are billed at a higher rate than Linux. If that becomes a
+# concern, narrow the `push` trigger below to the release branches rather than
+# deleting the job - an unverified Safari payload is what this replaced.
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Event name included so a branch push and its pull request do not cancel each
+# other and leave a check that never reports.
+concurrency:
+  group: safari-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  safari:
+    name: Convert and compile the Safari wrapper
+    runs-on: macos-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Use Node 22
+        # Same floor as every other job: tools/lib/cdp.js needs the global
+        # WebSocket that Node exposes unflagged from 22 onward.
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Show the Xcode this runner selected
+        # Not pinned to a specific Xcode_NN.app: that path is an image detail
+        # that changes with every image refresh, and pinning it would turn a
+        # routine runner update into a red build. The version is printed so a
+        # failure can be read against a known toolchain.
+        run: |
+          xcode-select -p
+          xcodebuild -version
+          swift --version
+
+      - name: Confirm the converter exists
+        # `xcrun --find` resolves the tool from the selected Xcode without
+        # running it. If this fails, node build.js below would simply log
+        # "converter not found" and exit 0, and the job would go green having
+        # converted nothing. Fail here instead, where the reason is legible.
+        run: |
+          xcrun --find safari-web-extension-converter
+
+      - name: Build every package, including the Safari payload
+        # On macOS this is the whole conversion: build.js validates, stages
+        # dist/apple/extension/, zips the nightly, and - because the converter
+        # resolves here - runs it into dist/apple/xcode/ and records the outcome
+        # in dist/apple/BUILD.txt. The converter invocation comes from
+        # tools/build-safari.js converterArgs(), which is also what BUILD.txt
+        # prints, so CI runs the documented command by construction rather than
+        # by a copy of it kept in step with luck.
+        run: node build.js
+
+      - name: Convert-and-compile check
+        # Three things, in order: that the command printed in
+        # dist/apple/BUILD.txt is token-for-token the command
+        # tools/build-safari.js executed; that the conversion actually happened
+        # rather than being skipped; and that xcodebuild compiles the generated
+        # macOS scheme unsigned and leaves a real .app behind.
+        run: node .github/ci/safari-xcode.js
+
+      - name: Keep the generated Xcode project and the build log
+        # Uploaded on failure too - the xcodebuild log is the whole point when
+        # something breaks. DerivedData is excluded: it is large and rebuildable.
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: safari-xcode-project
+          path: |
+            dist/apple/xcode
+            dist/apple/logs
+            dist/apple/BUILD.txt
+            dist/FitShield-*-nightly-safari.zip
+          if-no-files-found: warn
+          retention-days: 14

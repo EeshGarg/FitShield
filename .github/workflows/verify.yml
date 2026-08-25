@@ -1,0 +1,270 @@
+name: Verify
+
+# Every gate this project has, run somewhere other than one developer's laptop.
+#
+# Three jobs, split by what each one needs from the machine rather than by what
+# it checks:
+#
+#   gate           tests + validators + the Chrome/Firefox/Safari packages
+#   accessibility  the computed accessibility tree, which needs a Chromium
+#   android        a real debug APK, which needs a JDK and the Android SDK
+#
+# The Safari wrapper needs macOS and lives in safari-macos.yml.
+#
+# Nothing here pushes, publishes, releases, signs, or authenticates. There are
+# no secrets and no deploy steps, and .github/ci/check-workflows.js fails the
+# build if one ever appears.
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+  workflow_dispatch:
+
+# Read-only. This workflow only ever reads the repository.
+permissions:
+  contents: read
+
+# The event name is part of the group on purpose: a branch push and the pull
+# request for that same branch share a ref, and without it the newer run would
+# cancel the older one and leave a check that never reports.
+concurrency:
+  group: verify-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    name: Gate (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    strategy:
+      # One Node version failing should not hide the result of the other.
+      fail-fast: false
+      matrix:
+        node:
+          # 22 is the FLOOR. tools/lib/cdp.js talks CDP over a global
+          # `WebSocket`, which Node exposes without a flag only from 22; on 20
+          # the accessibility audit cannot open a socket at all. 24 is what the
+          # project is developed on. Both are run so the floor stays real and
+          # the current runtime stays green.
+          - 22
+          - 24
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Use Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: There is nothing to install
+        # FitShield ships zero dependencies and zero devDependencies, test
+        # harnesses included, so there is no `npm ci` here and there must never
+        # be one. test/governance.test.js asserts the invariant; this step makes
+        # the absence deliberate rather than something that looks forgotten.
+        run: |
+          node -e "
+          const pkg = require('./package.json');
+          const count = Object.keys(pkg.dependencies || {}).length + Object.keys(pkg.devDependencies || {}).length;
+          if (count) { console.error('package.json declares ' + count + ' dependency/ies'); process.exit(1); }
+          console.log('0 dependencies, 0 devDependencies - nothing to install');
+          "
+
+      - name: Tests
+        # node --test, no harness. Also where the packaging contract is proved:
+        # test/package-integrity.test.js stages its own Chrome and Firefox zips
+        # in a temp directory and asserts, on the packaged BYTES, that Chrome
+        # carries no browser_specific_settings and no background.scripts, that
+        # Firefox carries both plus its gecko id, that each requests exactly
+        # storage/declarativeNetRequest/alarms, and that no developer directory
+        # (tools, test, changelog, docs, android, .git, FS Engine) is in either
+        # archive.
+        run: npm test
+
+      - name: Packages
+        # Builds dist/chrome, dist/firefox and the Safari payload in
+        # dist/apple/, validating first. Off macOS the Safari step stages the
+        # payload and writes dist/apple/BUILD.txt without claiming a conversion
+        # it did not perform; safari-macos.yml is where that gets done.
+        run: node build.js
+
+      - name: Validators
+        # Run again now that dist/chrome exists: tools/browser-a11y-audit.js
+        # drives the BUILT package, so on the pass inside `node build.js` above
+        # there was nothing yet to drive. Zero errors required; warnings are
+        # allowed by design.
+        run: npm run validate
+
+      - name: Check .github itself
+        # Parses every workflow, self-tests the CI guards, and confirms that
+        # every npm script and repository path these workflows name really
+        # exists. Deliberately after the build, so the Safari drift check can
+        # compare the real dist/apple/BUILD.txt against the command
+        # tools/build-safari.js executes.
+        run: node .github/ci/check-workflows.js
+
+      - name: Confirm both engine packages exist
+        run: |
+          ls -l dist/
+          for engine in chrome firefox; do
+            count=$(ls dist/FitShield-*-$engine.zip 2>/dev/null | wc -l)
+            if [ "$count" -ne 1 ]; then
+              echo "expected exactly one $engine package in dist/, found $count"
+              exit 1
+            fi
+          done
+          echo "chrome and firefox packages both built"
+
+      - name: Keep the packages
+        if: matrix.node == 24
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: |
+            dist/*.zip
+            dist/apple/BUILD.txt
+          if-no-files-found: error
+          retention-days: 14
+
+  real-browsers:
+    name: Real browsers (accessibility tree, Firefox blocking)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    # Two audits in one job because they need the same thing: a built package
+    # and a browser to drive it with. Both self-skip with a warning when their
+    # browser is absent - correct on a checkout, a false green here - so both
+    # are run through a guard in .github/ci/ that fails on the skip instead.
+    #
+    # CLAUDE.md's definition of done asks for real-browser checks "for both
+    # Chrome and Firefox". Run only on a developer's laptop, that is a statement
+    # about the laptop. This is where it becomes a statement about the project.
+    env:
+      # GitHub's Ubuntu images ship Google Chrome stable and Firefox at these
+      # paths. Naming them explicitly puts the binary in the log rather than
+      # leaving it to discovery; both guards fall back to their own search if a
+      # path is ever wrong, and FAIL when nothing is found.
+      FS_CHROME: /usr/bin/google-chrome
+      FS_FIREFOX: /usr/bin/firefox
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Use Node 22
+        # Same floor as the gate: the harnesses speak CDP and WebDriver BiDi
+        # over a global WebSocket.
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Show the browsers the runner provides
+        run: |
+          ls -l /usr/bin/google-chrome /usr/bin/firefox
+          /usr/bin/google-chrome --version
+          /usr/bin/firefox --version
+
+      - name: Build the packages the audits drive
+        # Both audits load a BUILT package as an unpacked extension - dist/chrome
+        # and dist/firefox - so they check the shipped surfaces, not the sources.
+        run: node build.js
+
+      - name: Read the computed accessibility tree
+        # Requires positive evidence: all six surfaces audited, named controls
+        # found, live regions seen. Checking only for the absence of a skip
+        # message would quietly stop working the day the message is reworded.
+        run: node .github/ci/run-a11y.js
+
+      - name: Install the package in Firefox and block a real brand
+        # Requires positive evidence too: the package installed, Firefox
+        # assigned it a UUID, and a blocked host was actually redirected to the
+        # block page.
+        run: node .github/ci/run-firefox.js
+
+  android:
+    name: Android debug APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Use Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Use JDK 17
+        # AGP 8.6 + Gradle 8.7 need 17 (android/app/build.gradle compiles to 17).
+        # Pinned rather than inherited so a runner image bumping its default JDK
+        # cannot silently change what this builds.
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Confirm the runner already provides the toolchain
+        # `npm run toolchain:android` is NOT run here on purpose. It downloads a
+        # private JDK + SDK into ~/.fitshield-toolchain for machines that have
+        # neither, and tools/build-android.js then prefers that copy over
+        # everything else. A runner already has both, so provisioning would
+        # download ~400MB and then shadow the SDK the image maintains.
+        #
+        # Instead: assert the discovery path tools/build-android.js will take.
+        # It looks for ~/.fitshield-toolchain, then JAVA_HOME, then java on
+        # PATH. Here the first is absent and the second is set, so it resolves
+        # via JAVA_HOME, and Gradle reads ANDROID_HOME from the environment.
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME"
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+          java -version
+          test -n "$JAVA_HOME" && test -d "$JAVA_HOME" || { echo "JAVA_HOME is not usable"; exit 1; }
+          test -n "$ANDROID_HOME" && test -d "$ANDROID_HOME" || { echo "ANDROID_HOME is not usable"; exit 1; }
+          if [ -d "$HOME/.fitshield-toolchain" ]; then
+            echo "a provisioned toolchain is present and would take priority - not expected on a runner"
+            exit 1
+          fi
+          echo "discovery will resolve the JDK via JAVA_HOME and the SDK via ANDROID_HOME"
+
+      - name: Make the Gradle wrapper executable
+        # android/gradlew is tracked with mode 100644, so a POSIX checkout gets
+        # it without the execute bit and `./gradlew` dies with EACCES. Harmless
+        # on Windows, where the .bat is used. Fixing the tracked mode is a
+        # change to android/, outside this workflow's scope; this keeps the job
+        # correct either way and stays a no-op once the mode is fixed.
+        run: chmod +x android/gradlew
+
+      - name: Build the debug APK
+        # Regenerates the rules asset from the canonical engine, re-bundles the
+        # reused web assets, runs the Android adapter audit, then assembles the
+        # APK. It exits non-zero if Gradle fails or produces no APK.
+        run: npm run build:android
+
+      - name: Prove an APK was actually produced
+        # tools/build-android.js exits 0 when it finds no Android tooling at all
+        # - correct for a laptop, a false green here. The artifact on disk is
+        # the only claim worth trusting.
+        run: |
+          ls -l dist/android/
+          count=$(ls dist/android/*.apk 2>/dev/null | wc -l)
+          if [ "$count" -lt 1 ]; then
+            echo "no APK in dist/android - the build took its 'no tooling here' path and exited 0"
+            exit 1
+          fi
+          echo "APK present"
+
+      - name: Keep the APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-debug-apk
+          path: |
+            dist/android/*.apk
+            dist/android/BUILD.txt
+          if-no-files-found: error
+          retention-days: 14
