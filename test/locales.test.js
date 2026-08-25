@@ -1507,3 +1507,44 @@ test("every shipped page loads the runtime that stamps direction", () => {
     assert.ok(shim >= 0 && shim < i18nAt, `${page} must load its platform shim before i18n.js`);
   });
 });
+
+// ---------------------------------------------------------------------------
+// Retired categories keep their display names
+// ---------------------------------------------------------------------------
+
+// `blockedByCategory` is a lifetime map in each user's own profile and Settings
+// renders "Most blocked categories" from it. Consolidating the curated
+// vocabulary from 37 ids to 22 stopped those ids being WRITTEN; it did not
+// remove them from the stats of everyone already blocked on one.
+//
+// Pruning their labels would not print a raw id — categoryName falls through to
+// a prettifier — which is exactly what makes it easy to get wrong: it silently
+// downgrades a localized name to prettified ENGLISH, only for users with
+// history, in the one panel that is about their past.
+test("categories retired by the 37-to-22 consolidation still have display names", () => {
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const root = path.join(__dirname, "..");
+
+  const en = JSON.parse(
+    fs.readFileSync(path.join(root, "extension", "_locales", "en", "messages.json"), "utf8")
+  );
+
+  const audit = fs.readFileSync(path.join(root, "tools", "category-audit.js"), "utf8");
+  const block = /const RETIRED_CATEGORIES = \[([\s\S]*?)\];/.exec(audit);
+  assert.ok(block, "the audit no longer records which categories were retired");
+
+  const retired = [...block[1].matchAll(/"([a-z0-9_]+)"/g)].map((m) => m[1]);
+  assert.ok(retired.length >= 15, `expected the consolidated ids, found ${retired.length}`);
+
+  const key = (id) =>
+    "catLabel" +
+    id.split(/[_\s]+/).filter(Boolean).map((w) => w[0].toUpperCase() + w.slice(1)).join("");
+
+  const missing = retired.filter((id) => !en[key(id)]);
+  assert.deepEqual(
+    missing,
+    [],
+    `these retired categories lost their display name and would render as prettified English for users who have them in their lifetime stats: ${missing.join(", ")}`
+  );
+});

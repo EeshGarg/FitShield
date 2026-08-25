@@ -61,12 +61,51 @@ function categoryAudit() {
     }
   });
 
-  // Orphaned catLabel keys: a display name with no category using it.
+  // Orphaned catLabel keys: a display name that NO category uses and no user
+  // can be holding.
+  //
+  // "No current category uses it" is not the same question. `blockedByCategory`
+  // is a lifetime, never-decaying map in each user's own profile, and Settings
+  // renders "Most blocked categories" straight from it. When the curated
+  // vocabulary was consolidated from 37 ids to 22, every id below stopped being
+  // written but stayed in the stats of everyone who had already been blocked on
+  // one — so those display names are still reachable on a real install.
+  //
+  // Deleting them would not print the raw id (categoryName falls through to a
+  // prettifier), which is what makes this easy to get wrong: it would silently
+  // downgrade a localized name to prettified ENGLISH, and only for users with
+  // history, in the one panel that is about their own past. So they stay, and
+  // this list is the record of why rather than 15 warnings nobody can action.
+  const RETIRED_CATEGORIES = [
+    "fast_food", "meal_service", "restaurant_group", "restaurant_software",
+    "pickup_ordering", "venue_ordering", "quick_commerce", "super_app",
+    "logistics", "local_services", "marketplace", "ecommerce_marketplace",
+    "b2b_marketplace", "food_content", "recipe"
+  ];
+  const retiredKeys = new Set(RETIRED_CATEGORIES.map((id) => catKey(id)));
+  const stillNamed = RETIRED_CATEGORIES.filter((id) => enKeys.has(catKey(id)));
+
   [...enKeys].filter((k) => k.startsWith("catLabel")).forEach((k) => {
-    if (!expectedKeys.has(k)) {
-      reporter.warn(`orphaned display name "${k}" (no category uses it)`);
+    if (expectedKeys.has(k) || retiredKeys.has(k)) {
+      return;
     }
+
+    reporter.warn(`orphaned display name "${k}" (no category uses it, and it names no retired category)`);
   });
+
+  // A retired id that has LOST its name is the real defect this guards, and it
+  // is an error rather than a warning: it is a silent, history-only regression
+  // that no amount of testing a fresh profile would ever surface.
+  RETIRED_CATEGORIES.filter((id) => !enKeys.has(catKey(id))).forEach((id) => {
+    reporter.fail(
+      `retired category "${id}" has no display name — existing profiles still carry it in blockedByCategory ` +
+        `and would fall back to prettified English`
+    );
+  });
+
+  reporter.note(
+    `${stillNamed.length} retired categor(ies) keep a display name for lifetime stats written before the 37 to 22 consolidation`
+  );
 
   reporter.note(`${categories.size} distinct categories`);
   reporter.note(`localized (catLabel): ${localized.length} — ${localized.join(", ")}`);
