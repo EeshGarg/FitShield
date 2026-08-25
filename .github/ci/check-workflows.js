@@ -134,6 +134,7 @@ function selfTestGuards() {
   const guards = [
     [".github/ci/run-a11y.js", "the accessibility skip guard"],
     [".github/ci/run-firefox.js", "the Firefox skip guard"],
+    [".github/ci/run-validate.js", "the validator-suite skip guard"],
     [".github/ci/safari-xcode.js", "the Safari converter drift check"]
   ];
 

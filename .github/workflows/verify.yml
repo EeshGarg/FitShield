@@ -6,7 +6,8 @@ name: Verify
 # it checks:
 #
 #   gate           tests + validators + the Chrome/Firefox/Safari packages
-#   accessibility  the computed accessibility tree, which needs a Chromium
+#   real-browsers  the computed accessibility tree in Chromium, and the built
+#                  package installed in a real Firefox blocking a real brand
 #   android        a real debug APK, which needs a JDK and the Android SDK
 #
 # The Safari wrapper needs macOS and lives in safari-macos.yml.
@@ -37,7 +38,15 @@ jobs:
   gate:
     name: Gate (Node ${{ matrix.node }})
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
+
+    # Same browser paths as the real-browsers job. The validator suite reaches
+    # them through its own discovery, which already knows these locations; naming
+    # them here means one edit moves both jobs if an image ever relocates a
+    # binary. A wrong value falls back to discovery rather than breaking.
+    env:
+      FS_CHROME: /usr/bin/google-chrome
+      FS_FIREFOX: /usr/bin/firefox
 
     strategy:
       # One Node version failing should not hide the result of the other.
@@ -92,12 +101,26 @@ jobs:
         # it did not perform; safari-macos.yml is where that gets done.
         run: node build.js
 
+      - name: Confirm the browsers the validator suite needs
+        # Two of the 18 audits drive a real browser, and both warn-and-pass when
+        # it is missing. Checked here so a runner image that drops a browser
+        # fails with a legible reason rather than deep inside the suite.
+        run: |
+          ls -l /usr/bin/google-chrome /usr/bin/firefox
+          /usr/bin/google-chrome --version
+          /usr/bin/firefox --version
+
       - name: Validators
-        # Run again now that dist/chrome exists: tools/browser-a11y-audit.js
-        # drives the BUILT package, so on the pass inside `node build.js` above
-        # there was nothing yet to drive. Zero errors required; warnings are
-        # allowed by design.
-        run: npm run validate
+        # Run again now that dist/chrome and dist/firefox exist: both browser
+        # audits drive the BUILT package, so during the pass inside
+        # `node build.js` above there was nothing yet to drive.
+        #
+        # Through the guard, not raw: `npm run validate` prints
+        # "validate-all: PASS - 0 error(s)" whether the browser audits ran or
+        # skipped themselves, which would make this job look stronger than it
+        # is. The guard requires zero errors AND positive evidence that every
+        # audit ran. Ordinary warnings stay allowed, as validate-all intends.
+        run: node .github/ci/run-validate.js
 
       - name: Check .github itself
         # Parses every workflow, self-tests the CI guards, and confirms that
@@ -208,36 +231,42 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Confirm the runner already provides the toolchain
-        # `npm run toolchain:android` is NOT run here on purpose. It downloads a
-        # private JDK + SDK into ~/.fitshield-toolchain for machines that have
-        # neither, and tools/build-android.js then prefers that copy over
-        # everything else. A runner already has both, so provisioning would
-        # download ~400MB and then shadow the SDK the image maintains.
+      - name: Provision the Android toolchain if the image lacks one
+        # A no-op on an image that already has a JDK and an Android SDK: the
+        # script stands down when JAVA_HOME and ANDROID_HOME both resolve and it
+        # has not previously installed a toolchain of its own. That matters more
+        # than the ~400MB it saves, because tools/build-android.js PREFERS
+        # ~/.fitshield-toolchain over JAVA_HOME/ANDROID_HOME - so provisioning
+        # unnecessarily would not merely duplicate the SDK, it would shadow the
+        # one the runner image maintains.
         #
-        # Instead: assert the discovery path tools/build-android.js will take.
-        # It looks for ~/.fitshield-toolchain, then JAVA_HOME, then java on
-        # PATH. Here the first is absent and the second is set, so it resolves
-        # via JAVA_HOME, and Gradle reads ANDROID_HOME from the environment.
+        # Kept in the job so this works on an image that ships neither.
+        run: npm run toolchain:android
+
+      - name: Show which toolchain the build will use
+        # tools/build-android.js looks for ~/.fitshield-toolchain, then
+        # JAVA_HOME, then java on PATH. Printing the resolution makes a later
+        # Gradle failure readable, and the assertion below fails loudly if none
+        # of the three would resolve.
         run: |
           echo "JAVA_HOME=$JAVA_HOME"
           echo "ANDROID_HOME=$ANDROID_HOME"
           echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
           java -version
-          test -n "$JAVA_HOME" && test -d "$JAVA_HOME" || { echo "JAVA_HOME is not usable"; exit 1; }
-          test -n "$ANDROID_HOME" && test -d "$ANDROID_HOME" || { echo "ANDROID_HOME is not usable"; exit 1; }
-          if [ -d "$HOME/.fitshield-toolchain" ]; then
-            echo "a provisioned toolchain is present and would take priority - not expected on a runner"
+          if [ -d "$HOME/.fitshield-toolchain/jdk/bin" ]; then
+            echo "resolution: the provisioned toolchain in ~/.fitshield-toolchain"
+          elif [ -n "$JAVA_HOME" ] && [ -d "$JAVA_HOME" ] && [ -n "$ANDROID_HOME" ] && [ -d "$ANDROID_HOME" ]; then
+            echo "resolution: JDK via JAVA_HOME, SDK via ANDROID_HOME"
+          else
+            echo "no usable JDK + Android SDK - the build would skip the APK and exit 0"
             exit 1
           fi
-          echo "discovery will resolve the JDK via JAVA_HOME and the SDK via ANDROID_HOME"
 
       - name: Make the Gradle wrapper executable
-        # android/gradlew is tracked with mode 100644, so a POSIX checkout gets
-        # it without the execute bit and `./gradlew` dies with EACCES. Harmless
-        # on Windows, where the .bat is used. Fixing the tracked mode is a
-        # change to android/, outside this workflow's scope; this keeps the job
-        # correct either way and stays a no-op once the mode is fixed.
+        # android/gradlew is tracked 100755, so this is a no-op on a normal
+        # checkout. Kept because it is free and because a checkout that loses
+        # POSIX modes - an archive export, a filesystem without them - would
+        # otherwise fail with EACCES inside Gradle rather than here.
         run: chmod +x android/gradlew
 
       - name: Build the debug APK
