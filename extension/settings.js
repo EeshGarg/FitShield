@@ -1510,11 +1510,17 @@ const DEFAULT_AVG_MEAL_COST = 15;
 // The counters, in the order they tell the story: what happened, what you did
 // about it, and what came of the alternative. The labels are shared with the
 // popup's weekly recap so the two surfaces cannot drift into two vocabularies.
+// `passesUsed` is deliberately absent. fitshield-core.js documents it and
+// `continued` as ONE event under two names: grantPass is the only writer of
+// either, so the two numbers are mathematically incapable of differing.
+// Rendering both side by side padded the panel with a second figure that was
+// not a second observation, and invited the reader to draw a conclusion from an
+// agreement guaranteed by construction. The popup and the weekly recap already
+// showed only one; this panel was the last surface that did not.
 const STAT_CARDS = [
   ["interruptions", "recapInterrupted"],
   ["left", "recapLeft"],
   ["continued", "recapContinued"],
-  ["passesUsed", "recapPasses"],
   ["alternativesViewed", "recapViewed"],
   ["alternativesSelected", "recapSelected"],
   ["alternativesMade", "recapMade"]
@@ -1585,12 +1591,17 @@ function formatCount(amount) {
   return (Number(amount) || 0).toLocaleString();
 }
 
-function buildStatCard(value, label, valueClass) {
+// No variant argument. There was a third parameter that chose a `.stat-value.on`
+// or `.stat-value.off` modifier, and no caller ever passed it — so both rules
+// were unreachable and every card rendered in the one neutral style. A styling
+// hook nothing can reach is not a feature waiting to be used; it reads as one
+// that already works.
+function buildStatCard(value, label) {
   const card = document.createElement("div");
   card.className = "stat-card";
 
   const valueEl = document.createElement("div");
-  valueEl.className = valueClass ? `stat-value ${valueClass}` : "stat-value";
+  valueEl.className = "stat-value";
   valueEl.textContent = value;
 
   const labelEl = document.createElement("div");
@@ -2009,7 +2020,16 @@ function confirmAction(message) {
   return new Promise((resolve) => {
     confirmMessageEl.textContent = message;
     confirmOverlay.hidden = false;
-    confirmOkButton.focus();
+
+    // Whatever the user was on when they opened this. Focus goes back there on
+    // close; it used to land on <body>, so a keyboard user was returned to the
+    // top of a 130-control page having lost their place entirely.
+    const opener = document.activeElement;
+
+    // Open on the SAFE choice. This focused the destructive button, so the
+    // Enter or Space that opened the dialog could confirm it on key repeat —
+    // the accidental wipe the dialog exists to prevent.
+    confirmCancelButton.focus();
 
     const cleanup = (result) => {
       confirmOverlay.hidden = true;
@@ -2017,6 +2037,12 @@ function confirmAction(message) {
       confirmCancelButton.removeEventListener("click", onCancel);
       confirmOverlay.removeEventListener("click", onBackdrop);
       document.removeEventListener("keydown", onKey);
+      document.removeEventListener("focusin", onFocusIn);
+
+      if (opener && typeof opener.focus === "function") {
+        opener.focus();
+      }
+
       resolve(result);
     };
 
@@ -2027,9 +2053,38 @@ function confirmAction(message) {
         cleanup(false);
       }
     };
+
+    // The dialog declares aria-modal="true", which tells assistive technology
+    // the rest of the page is inert. Tab did not honour that: one press moved
+    // into the page behind a dimmed overlay, where every control was still
+    // operable and none of it was visible as focused. Two controls, so the trap
+    // is just a wrap in both directions.
     const onKey = (event) => {
       if (event.key === "Escape") {
         cleanup(false);
+        return;
+      }
+
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const stops = [confirmCancelButton, confirmOkButton];
+      const at = stops.indexOf(document.activeElement);
+      const next = event.shiftKey
+        ? stops[(at <= 0 ? stops.length : at) - 1]
+        : stops[(at + 1) % stops.length];
+
+      event.preventDefault();
+      next.focus();
+    };
+
+    // A click on the dimmed page, or focus moved by anything other than Tab,
+    // can still land outside. Pull it back rather than leaving the user
+    // somewhere the dialog claims does not exist.
+    const onFocusIn = (event) => {
+      if (!confirmOverlay.hidden && !confirmOverlay.contains(event.target)) {
+        confirmCancelButton.focus();
       }
     };
 
@@ -2037,6 +2092,7 @@ function confirmAction(message) {
     confirmCancelButton.addEventListener("click", onCancel);
     confirmOverlay.addEventListener("click", onBackdrop);
     document.addEventListener("keydown", onKey);
+    document.addEventListener("focusin", onFocusIn);
   });
 }
 
@@ -2068,10 +2124,10 @@ const BLOCKING_KEYS = [
   "askIntent",
   "repeatFrictionEnabled",
   "repeatExtraSeconds",
-  "repeatWindowMinutes",
-  // `settingsDelaySeconds` was here. It has been retired from the runtime — it
-  // was written, documented and tested, and read by nothing — so a reset must
-  // not name a key the extension no longer owns.
+  // `settingsDelaySeconds` and `repeatWindowMinutes` were both here. Each has
+  // been retired from the runtime — written, documented and tested, and read by
+  // nothing — so a reset must not name a key the extension no longer owns.
+  // Repeat retention is a documented constant now; a stored value is ignored.
   "repeatHistory",
   "enabledCountries",
   "enabledCategories",
