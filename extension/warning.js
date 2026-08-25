@@ -84,6 +84,7 @@ const ui = {
   altAnnounce: el("altAnnounce"),
   passPanel: el("passPanel"),
   passOptions: el("passOptions"),
+  passNote: el("passNote"),
   passCancel: el("passCancel")
 };
 
@@ -132,7 +133,77 @@ function send(type, payload) {
 // Theme
 // ---------------------------------------------------------------------------
 
-function applyTheme(theme) {
+const prefersLightOS = () => !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches);
+
+// Is the palette we are about to paint a light one? Asked of the resulting
+// colour rather than of the mode, so a hand-picked light palette answers "yes"
+// as readily as the shipped preset does. Anything unparseable answers "dark",
+// which is what this page has always defaulted to.
+function isLightColor(value) {
+  const text = String(value || "").trim();
+  let rgb = null;
+
+  const hex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(text);
+  if (hex) {
+    const digits = hex[1].length === 3 ? hex[1].split("").map((c) => c + c).join("") : hex[1];
+    rgb = [0, 2, 4].map((i) => Number.parseInt(digits.slice(i, i + 2), 16));
+  } else {
+    const fn = /^rgba?\(([^)]+)\)$/i.exec(text);
+    if (fn) {
+      const parts = fn[1].split(",").map((n) => Number.parseFloat(n));
+      if (parts.length >= 3 && parts.slice(0, 3).every(Number.isFinite)) {
+        rgb = parts.slice(0, 3);
+      }
+    }
+  }
+
+  if (!rgb) {
+    return false;
+  }
+
+  return (0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]) / 255 > 0.5;
+}
+
+/**
+ * Which palette this page should paint.
+ *
+ * The stored `theme` is not enough on its own. With Theme = System, the popup
+ * and the settings page re-resolve the preset against the OS at every load
+ * (`shouldUseResolvedPreset` → `THEME_MODE_PRESETS[resolveThemeMode(...)]`) and
+ * neither of them writes the result back. So the first time the OS flips
+ * light↔dark after that choice, the stored `theme` is a whole theme out of date
+ * — and this page, which read only `theme`, rendered fully dark while the popup
+ * beside it rendered fully light. Same profile, same session, opposite themes,
+ * on the one screen the product is actually about.
+ *
+ * Reading `themeMode` as well and re-resolving here is the same decision the
+ * other surfaces make, from the same shared helpers, so the pages cannot
+ * disagree. A hand-picked palette is still honoured untouched:
+ * `shouldUseResolvedPreset` is false the moment the stored colours stop matching
+ * either preset.
+ *
+ * `accentDim` is re-derived rather than carried over, because it is a function
+ * of the accent (settings.js: `hexToRgba(accent, 0.22)`); keeping the stored one
+ * would ring a light-theme page with the DARK theme's mint hairlines.
+ */
+function resolvePalette(theme, themeMode) {
+  const core = typeof FitShieldCore !== "undefined" ? FitShieldCore : null;
+
+  if (!core || !core.shouldUseResolvedPreset || !core.shouldUseResolvedPreset(theme, themeMode)) {
+    return { theme, light: isLightColor(theme && theme.bg ? theme.bg : DEFAULT_THEME.bg) };
+  }
+
+  const preset = core.THEME_MODE_PRESETS[core.resolveThemeMode(themeMode, prefersLightOS())];
+  const resolved = { ...(theme || {}), ...preset };
+
+  if (core.hexToRgba) {
+    resolved.accentDim = core.hexToRgba(preset.accent, 0.22);
+  }
+
+  return { theme: resolved, light: isLightColor(preset.bg) };
+}
+
+function applyTheme(theme, options) {
   const merged = { ...DEFAULT_THEME, ...(theme || {}) };
   const root = document.documentElement;
 
@@ -144,6 +215,11 @@ function applyTheme(theme) {
   root.style.setProperty("--accent", merged.accent);
   root.style.setProperty("--accent-dim", merged.accentDim);
   root.style.setProperty("--panel-radius", `${merged.radius}px`);
+
+  // Scrollbars, form-control chrome and the pre-paint canvas come from the UA,
+  // not from these variables, so a light palette under `color-scheme: dark`
+  // still got a dark scrollbar and a dark flash before first paint.
+  root.style.colorScheme = options && options.light ? "light" : "dark";
 }
 
 // ---------------------------------------------------------------------------
@@ -218,17 +294,24 @@ function sameWord(a, b) {
   return strip(a) === strip(b);
 }
 
+// Matched through sameWord rather than by exact string, for the same reason the
+// category guard is: "fast_food" and "fastfood" are one word spelled two ways,
+// and the two records this page can be handed spell it differently. The branded
+// record carries the dataset's `fast_food`; the rule catalog's fallback record
+// carries the DNR bucket `fastfood`, and an exact switch answered "" for it —
+// so the fallback path rendered a Site row, a Category row, a country list, and
+// no Rule at all. Every arm below is an existing string; nothing new is
+// invented for an id this page does not recognise, which is what keeps a raw
+// underscored identifier off the screen.
+const BLOCK_TYPE_LABELS = [
+  { type: "delivery", key: "blockTypeDelivery" },
+  { type: "fast_food", key: "blockTypeFastFood" },
+  { type: "custom", key: "blockTypeCustom" }
+];
+
 function blockTypeLabel(type) {
-  switch (type) {
-    case "delivery":
-      return t("blockTypeDelivery");
-    case "fast_food":
-      return t("blockTypeFastFood");
-    case "custom":
-      return t("blockTypeCustom");
-    default:
-      return "";
-  }
+  const match = BLOCK_TYPE_LABELS.find((entry) => sameWord(entry.type, type));
+  return match ? t(match.key) : "";
 }
 
 function formatCountryList(codes) {
@@ -260,6 +343,12 @@ function appendReasonRow(label, value) {
 
   const valueEl = document.createElement("span");
   valueEl.className = "reason-value";
+  // A brand label, a domain and a country list all arrive from data, and a
+  // right-to-left one dropped into a left-to-right row lets the bidi algorithm
+  // pull the row's neutral characters (the separating commas, the "+7 more")
+  // to the wrong end. `dir="auto"` makes each value its own isolated run, so a
+  // value can only ever reorder itself.
+  valueEl.dir = "auto";
   valueEl.textContent = value;
 
   row.append(labelEl, valueEl);
@@ -301,12 +390,16 @@ function renderStaticText() {
   if (state.info && state.info.label) {
     ui.brand.replaceChildren();
     const strong = document.createElement("strong");
+    // Isolated for the same reason as a reason-value: the sentence ends in a
+    // full stop supplied below, and an unisolated right-to-left brand name lets
+    // that neutral stop be reordered into the middle of the line.
+    strong.dir = "auto";
     strong.textContent = state.info.label;
     // The sentence ends after the brand. Without the stop the line read
     // "You opened DoorDash" between two properly punctuated sentences — and it
     // has to be a text node rather than part of the message, because the brand
     // name is emphasised and the label comes from the blocklist, not from copy.
-    ui.brand.append(document.createTextNode(`${t("warningTriggeredByPrefix")} `), strong, document.createTextNode("."));
+    ui.brand.append(document.createTextNode(`${t("warningTriggeredByPrefix")} `), strong, document.createTextNode(t("warningSentenceEnd")));
     ui.brand.hidden = false;
   } else {
     ui.brand.hidden = true;
@@ -739,8 +832,23 @@ function renderPassOptions() {
   });
 }
 
+// Report an outcome next to the buttons it is about. Clearing first and setting
+// on the next frame re-fires the alert even when the same sentence is written
+// twice — pressing a second option after a failure has to say so again.
+function setPassNote(message) {
+  ui.passNote.textContent = "";
+  ui.passNote.hidden = !message;
+
+  if (message) {
+    window.requestAnimationFrame(() => {
+      ui.passNote.textContent = message;
+    });
+  }
+}
+
 function showPassChooser() {
   renderPassOptions();
+  setPassNote("");
   ui.passPanel.hidden = false;
   const first = ui.passOptions.querySelector("button");
   if (first) {
@@ -754,7 +862,11 @@ async function grantPass(presetId, button, labelEl) {
   labelEl.textContent = t("passOpening");
 
   if (isPreview) {
-    ui.altAnnounce.textContent = t("previewPassNote");
+    // Preview mode grants nothing on purpose, so saying so belongs beside the
+    // option that was just pressed. It used to go only to the screen-reader-only
+    // #altAnnounce inside the ALTERNATIVE card, which is hidden entirely when a
+    // preview is opened straight to the chooser — the press looked ignored.
+    setPassNote(t("previewPassNote"));
     button.disabled = false;
     labelEl.textContent = original;
     return;
@@ -765,7 +877,7 @@ async function grantPass(presetId, button, labelEl) {
   if (!response || !response.ok) {
     button.disabled = false;
     labelEl.textContent = original;
-    ui.hint.textContent = t("warningErrorHint");
+    setPassNote(t("warningErrorHint"));
     return;
   }
 
@@ -804,6 +916,7 @@ ui.continue.addEventListener("click", () => {
 });
 
 ui.passCancel.addEventListener("click", () => {
+  setPassNote("");
   ui.passPanel.hidden = true;
   ui.continue.focus();
 });
@@ -937,10 +1050,11 @@ function markTabCountedThisSite() {
 
 async function initialize() {
   try {
-    const { theme } = await chrome.storage.local.get(["theme"]);
-    applyTheme(theme);
+    const { theme, themeMode } = await chrome.storage.local.get(["theme", "themeMode"]);
+    const palette = resolvePalette(theme, themeMode);
+    applyTheme(palette.theme, { light: palette.light });
   } catch (error) {
-    applyTheme(null);
+    applyTheme(null, { light: false });
   }
 
   const context = await send("getBlockContext", { site: siteKey });

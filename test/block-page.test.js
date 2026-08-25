@@ -1189,3 +1189,44 @@ function parseHTML(html) {
   }
   return root;
 }
+
+test("the sentence naming the interrupted brand ends in the locale's own full stop", async () => {
+  // The block page builds "You opened <strong>Brand</strong>." as three nodes,
+  // because the brand is emphasised and so the sentence cannot be one message
+  // with a placeholder. The terminator was a hardcoded Latin ".", which is the
+  // wrong character in the four locales whose entire corpus uses the ideographic
+  // full stop — zh_CN, zh_TW, ja and yue each use 。 in 54+ other messages and a
+  // Latin period in none.
+  const bg = loadBackground();
+  bg.store.uiLanguage = "zh_CN";
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+
+  const doc = renderBlockPage(bg, "delivery-doordash-com");
+  await waitFor(() => {
+    const brand = doc.getById("brand");
+    return brand && brand.hidden === false && brand.textContent.length > 0;
+  });
+
+  const sentence = doc.getById("brand").textContent;
+  assert.ok(sentence.trim().endsWith("。"), `zh_CN rendered "${sentence}"`);
+  assert.ok(!/\.\s*$/.test(sentence), "a Latin full stop survived into an ideographic locale");
+});
+
+test("Latin-script locales keep the Latin full stop", async () => {
+  // Korean is the control: it uses the Latin period in all 57 of its terminated
+  // messages, so this must not become "every non-English locale gets 。".
+  const bg = loadBackground();
+  bg.store.uiLanguage = "ko";
+  bg.store.askIntent = false;
+  await bg.context.queueRefreshBlockingState();
+
+  const doc = renderBlockPage(bg, "delivery-doordash-com");
+  await waitFor(() => {
+    const brand = doc.getById("brand");
+    return brand && brand.hidden === false && brand.textContent.length > 0;
+  });
+
+  const sentence = doc.getById("brand").textContent;
+  assert.ok(sentence.trim().endsWith("."), `ko rendered "${sentence}"`);
+});
