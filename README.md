@@ -44,10 +44,17 @@ browsing history collection.
 14. 83 display languages with a searchable picker. Anything not yet translated falls back to English rather than rendering blank.
 15. Full colour and theme customization (system / light / dark).
 
-Estimated money and calorie figures are still available, but they are clearly
-labelled as estimates, are off by default, and are never the headline number.
-FitShield cannot see whether you ordered, cooked, or ate anything, and it does
-not claim to.
+One optional estimate remains, off by default: the alternatives you confirmed
+you made, times a price you set. It prints that arithmetic beneath the figure so
+it cannot be mistaken for a measurement, and it is deliberately not based on how
+many pages were interrupted — an interruption says nothing about whether an
+order would have happened.
+
+There is **no calorie estimate**. "Calories avoided" counted a recipe card being
+displayed, which is not a thing anyone avoided; it was removed in 0.55 and the
+number you already had is preserved in your data rather than shown. FitShield
+cannot see whether you ordered, cooked, or ate anything, and it does not claim
+to.
 
 
 # Installation

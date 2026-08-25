@@ -5,11 +5,18 @@ Repository-local findings: **0**
 | Gate | Result |
 | --- | --- |
 | Findings queue | 77 recorded, 77 closed, each with a verification narrative and an anchor |
-| Automated tests | 971 run, 971 pass, 0 fail |
-| Validators | 17 audits, **0 errors, 0 warnings** |
+| Automated tests | `npm test` — 44 test files |
+| Validators | `npm run validate` — **19 audits**, gating the build |
 | Packages | Chrome, Firefox, Safari-nightly and **Android APK** all build |
 | Build reproducibility | two clean builds produce byte-identical zips (sha256 verified) |
-| Commits this pass | 102 (this one included) |
+
+> **On the counts.** This table used to freeze a run — "971 tests, 0 fail; 17
+> audits, 0 warnings; 102 commits". Every one of those decayed within days, and
+> a stale green light is worse than none: it invites a reader to trust a number
+> instead of running the command beside it. The suite and the audit list are
+> named here so they can be *run*; the audit count is pinned by a test, because
+> an audit silently dropping out of `validate-all` is a real regression and a
+> countable one.
 
 Closure was made expensive on purpose. `tools/policy-audit.js` rejects a queue
 record with no verification narrative, one with no anchor, and one whose prose
@@ -24,9 +31,10 @@ I stopped.
 
 ## What the product is, as measured
 
-- 2,535 brands (538 delivery, 1,997 fast food) across 112 countries
+- 2,505 brands (514 delivery, 1,991 fast food) across 111 countries
 - 88 alternatives (46 recipes, 42 quick alternatives), schema v2
-- 22 curated categories, every one with a display name in all 83 locales
+- 21 curated categories, every one with an English display name; a locale with no
+  translation for one falls back to English, never to a raw id
 - Permissions: exactly `storage`, `declarativeNetRequest`, `alarms`
 - Network requests made by the shipped extension, measured in a real browser
   across a full session: **0**
@@ -70,7 +78,36 @@ picker beside it listed the real vocabulary — one page, two vocabularies.
 
 And `recipes.js` reads `category` as its middle craving signal. It was reading
 `"fastfood"`, which the taxonomy does not contain, so that tier was **dead for
-every fast-food brand**. Craving coverage is now 2,535 of 2,535 brands.
+every fast-food brand**. Craving coverage is now 2,505 of 2,505 brands.
+
+### The two blocklists are the two switches, and brands straddled them
+
+The popup offers Delivery and Fast food sites, and those switches *are* the two
+blocklist files. 26 brands had their country domains split across both — two
+McDonald's domains in delivery against fourteen in fast food, three Wolt domains
+in delivery against ten in fast food — so turning **Fast food sites** off
+unblocked delivery platforms and turning **Delivery** off left McDonald's Korea
+blocking. 191 records were involved, and no brand is split now — a property
+`test/docs-claims.test.js` asserts directly against the two files rather than
+by quoting a count that a later data pass would move.
+
+The same pass removed 30 hosts that are not places you can order food from:
+fifteen same-city courier and errand platforms, the LINE messenger, a fitness
+app, four general Jumia storefronts, a discount department store and eight
+corporate or franchisor pages. The rule had been applied unevenly — `pickndrop.co.ke`
+was blocked while `sendyit.com`, the same class in the same country, was not.
+Coverage was checked rather than assumed: LINE MAN, EatFit, Jumia Food and BHC
+Chicken all still block. The `courier` category retired with them and keeps its
+display name for anyone whose lifetime stats carry it.
+
+An earlier draft of this paragraph cited `minorfood.com` in that list too. A
+later data pass removed it, and the sentence went on claiming a site still
+blocks that the catalog no longer carries — the same decay this report was
+rewritten to stop. Every brand named as still-blocked is now pinned by a test,
+so citing one is a commitment rather than a flourish.
+
+Both are user-visible changes in blocking behaviour, so both are written into
+`changelog/0.55.md` in plain language rather than left for a user to discover.
 
 ### A website could author the user's own statistics
 
@@ -167,9 +204,10 @@ open.
 
 ## Judgement calls, and why
 
-**The 15 "orphaned" category labels were kept.** Consolidating 37 category ids
-to 22 left 15 display names that no current category uses, and the audit warned
-on all 15. Acting on that warning would have been wrong: `blockedByCategory` is
+**The 16 "orphaned" category labels were kept.** Consolidating 37 category ids
+to 22 left 15 display names that no current category uses, and retiring `courier`
+with the courier removals made it 16. The audit warned on all of them. Acting on
+that warning would have been wrong: `blockedByCategory` is
 a lifetime map in each user's own profile, so those ids are still present for
 anyone already blocked on one. Deleting the labels would not have printed a raw
 id — the namer falls through to a prettifier — it would have silently downgraded

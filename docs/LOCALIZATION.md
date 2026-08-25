@@ -300,8 +300,8 @@ is the tool's, not this one's.
 
 After the honesty pass: **578 English keys across 83 locales**. No locale but
 English is complete. The other 82 sit between **30% and 51%**, median 39%,
-averaging 240 translated and 338 untranslated each — 27,682 untranslated strings
-across the corpus, every one of which renders in English. **282** of the English
+averaging 240 translated and 338 untranslated each — 27,678 untranslated strings
+across the corpus, every one of which renders in English. **281** of the English
 keys are translated in no locale at all: those are the strings added since the
 last translation pass, and they are the actionable half of the debt.
 

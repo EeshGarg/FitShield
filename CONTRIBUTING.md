@@ -126,10 +126,26 @@ if needed, `COUNTRY_REGION`) in [`tools/lib/load.js`](tools/lib/load.js).
 
 ### Add / change a category
 
-`category` is a single lowercase `snake_case` id. To give it a localized display
-name in the stats, add a `catLabel<PascalCase>` key (e.g. `catLabelKoreanFood`)
-to **every** locale (English is the source). Without one it falls back to a
-clean, title-cased version of the id, so localization is optional but nice.
+`category` is a single lowercase `snake_case` id, and it reaches the user twice —
+the block page's Category row and Settings' most-blocked list — so it is a
+customer-facing string, not an internal one.
+
+**English is required.** Add a `catLabel<PascalCase>` key (e.g.
+`catLabelKoreanFood`) to `extension/_locales/en/messages.json`; a test fails
+without it. Other locales are welcome but optional: both runtimes fall back to
+English (`chrome.i18n` to `default_locale`, `i18n.js` to its cached English map),
+so an untranslated category reads in English rather than as a raw id. Only if
+*English* is missing does it fall back to a title-cased version of the id
+("fast_casual" → "Fast Casual"), which is approximate at best and plainly wrong
+for something like `b2b_marketplace`.
+
+**Retiring a category keeps its label.** `blockedByCategory` is a lifetime map in
+each user's own profile, so an id stops being written long before it stops being
+read. Deleting its `catLabel` would silently downgrade a localized name to
+prettified English for exactly the users who have history. Add the id to
+`RETIRED_CATEGORIES` in [`tools/category-audit.js`](tools/category-audit.js)
+instead — the audit then treats a *missing* retired label as an error.
+
 `npm run validate:categories` reports coverage.
 
 ### Add an alternative (recipe or quick fix)

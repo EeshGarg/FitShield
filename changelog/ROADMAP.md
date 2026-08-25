@@ -4,7 +4,7 @@ Living documentation of where FitShield is and where it's heading. This file is
 meant to evolve with the project — update it whenever direction changes. It
 avoids speculative promises; "Future ideas" are candidates, not commitments.
 
-_Last updated: 2026-08-09 (0.55)_
+_Last updated: 2026-08-25 (0.55)_
 
 ## Current version
 
@@ -29,6 +29,13 @@ _Last updated: 2026-08-09 (0.55)_
   removes the mislabeled `fastfood` / `custom` rows from existing profiles.
 - **One schedule control in Settings** (presets + the multi-window editor)
   instead of two controls fighting over the same setting.
+- **One brand, one switch.** Brands whose country domains were split across the
+  two blocklists — so that "Fast food sites" off unblocked delivery platforms —
+  now sit entirely in one. 26 brands, 191 records.
+- **30 sites are no longer blocked** because you cannot order food from them:
+  couriers, a messenger, a fitness app, general marketplaces and corporate
+  head-office pages. The catalog is 2,505 brands across 111 markets, in 21
+  curated categories.
 
 ## Next planned version (0.56)
 
@@ -94,13 +101,15 @@ Themes under consideration (subject to change):
 
 ## Carried-forward themes (not yet scheduled)
 
-- **Finish category localization.** Every one of the 83 locales carries all 37
-  category keys, so no category can render as a raw id. Native translation is the
-  gap, not coverage: 38 of the 82 non-English locales genuinely translate the
-  core food-category names, and the other 44 currently ship the English term.
-  Extend native translations to those, and to the Android block screen's category
-  copy.
-- **Continue country coverage.** 112 markets are represented across the curated
+- **Finish category localization.** English defines all 37 category keys — the 21
+  the data uses plus 16 retired ids kept so existing lifetime stats keep a proper
+  name. 18 locales are missing at least one of the 21 current keys, and those
+  render the English name rather than a raw id, because both runtimes fall back
+  to English. Translation, not coverage, is the gap: of the 82 non-English
+  locales, 39 translate every current category name they carry and 43 translate
+  some. Extend native translations to the rest, and to the Android block screen's
+  category copy.
+- **Continue country coverage.** 111 markets are represented across the curated
   brands today. Extend to confident major regional chains and broaden delivery
   coverage where it can be verified. Maintain ISO 3166-1 alpha-2 standards; never
   invent unsupported regions.
@@ -143,8 +152,10 @@ sprawl.
   (calorie and prevented-order claims removed), friction presets, multi-window
   per-weekday schedules, kitchen preferences, custom alternatives, a local
   weekly recap, preview mode, a local reporting flow, curated brand categories
-  on the block page and in the stats, and one schedule control in Settings
-  instead of two.
+  on the block page and in the stats, one schedule control in Settings instead
+  of two, one blocklist switch per brand instead of a split across both, and 30
+  non-ordering sites removed from the catalog (2,505 brands / 111 markets / 21
+  categories).
 - **0.54** — Play-ready release: complete app-coverage research (1,545
   verified packages / 1,474 brands; verified `no_app` and `shared_app`
   terminal statuses; 38-brand tail), 10 corrupted blocklist imports removed,
