@@ -80,7 +80,11 @@ function categoryAudit() {
     "fast_food", "meal_service", "restaurant_group", "restaurant_software",
     "pickup_ordering", "venue_ordering", "quick_commerce", "super_app",
     "logistics", "local_services", "marketplace", "ecommerce_marketplace",
-    "b2b_marketplace", "food_content", "recipe"
+    "b2b_marketplace", "food_content", "recipe",
+    // Retired when the courier and errand platforms were removed: you do not
+    // order food from a courier, restaurants hire one. Anyone blocked on one
+    // before that still carries the id in their lifetime stats.
+    "courier"
   ];
   const retiredKeys = new Set(RETIRED_CATEGORIES.map((id) => catKey(id)));
   const stillNamed = RETIRED_CATEGORIES.filter((id) => enKeys.has(catKey(id)));

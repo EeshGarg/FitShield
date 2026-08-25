@@ -319,3 +319,136 @@ test("a bubble-tea chain is filed as tea, and a juice bar as smoothie", () => {
 
   assert.deepEqual(notDrinks, [], `filed as smoothie but sells no smoothies: ${notDrinks.join(", ")}`);
 });
+
+// ---------------------------------------------------------------------------
+// One brand, one bucket
+// ---------------------------------------------------------------------------
+
+// The two files ARE the two switches the popup offers. A brand whose country
+// domains were split across them meant turning one switch off left the same
+// brand blocked by the other: mcdonalds.com.cn and mcdonalds.co.kr sat in
+// delivery while fourteen siblings sat in fast food, and wolt.de, just-eat.fr
+// and foodpanda.vn sat in fast food while wolt.com and just-eat.co.uk sat in
+// delivery. Turning "Fast food sites" off unblocked 27 delivery platforms.
+function bucketsByStem() {
+  const stems = new Map();
+
+  [
+    ["delivery", path.join(ROOT, "data", "blocklists", "delivery.json")],
+    ["fast-food", path.join(ROOT, "data", "blocklists", "fast-food.json")]
+  ].forEach(([bucket, file]) => {
+    JSON.parse(fs.readFileSync(file, "utf8")).entries.forEach((entry) => {
+      const stem = String(entry.domain || "").split(".")[0];
+
+      if (!stems.has(stem)) {
+        stems.set(stem, new Set());
+      }
+
+      stems.get(stem).add(bucket);
+    });
+  });
+
+  return stems;
+}
+
+test("no brand has its domains split across both blocklists", () => {
+  const split = [...bucketsByStem()].filter(([, buckets]) => buckets.size > 1).map(([stem]) => stem);
+
+  assert.deepEqual(
+    split,
+    [],
+    `these brands are in both files, so one switch cannot turn them off: ${split.join(", ")}`
+  );
+});
+
+test("turning off one blocklist does not leave the other one's brands blocked", async () => {
+  const blocked = (rules, domain) =>
+    rules.some((rule) => (((rule.condition || {}).urlFilter) || "") === `||${domain}`);
+
+  // A marketplace and a chain from each of the brands that used to straddle.
+  const marketplaces = ["wolt.de", "just-eat.fr", "foodpanda.vn", "pedidosya.pe"];
+  const chains = ["mcdonalds.co.kr", "subway.co.kr", "pizzahut.com.cn"];
+
+  const noFastFood = loadBackground({ fastFoodSitesEnabled: false });
+  await noFastFood.context.queueRefreshBlockingState();
+  const withoutFastFood = noFastFood.rules();
+
+  marketplaces.forEach((domain) =>
+    assert.ok(blocked(withoutFastFood, domain), `${domain} is a delivery marketplace and must survive turning fast food off`)
+  );
+  chains.forEach((domain) =>
+    assert.ok(!blocked(withoutFastFood, domain), `${domain} is a fast-food chain and must stop blocking when fast food is off`)
+  );
+
+  const noDelivery = loadBackground({ deliverySitesEnabled: false });
+  await noDelivery.context.queueRefreshBlockingState();
+  const withoutDelivery = noDelivery.rules();
+
+  marketplaces.forEach((domain) =>
+    assert.ok(!blocked(withoutDelivery, domain), `${domain} must stop blocking when delivery is off`)
+  );
+  chains.forEach((domain) =>
+    assert.ok(blocked(withoutDelivery, domain), `${domain} is a chain and must survive turning delivery off`)
+  );
+});
+
+// ---------------------------------------------------------------------------
+// Only surfaces you can order food from
+// ---------------------------------------------------------------------------
+
+// Blocking something a person cannot order food from is the most expensive
+// mistake this catalog can make: the user cannot reach a service they need,
+// FitShield is the visible cause, and they uninstall. The rewrite removed
+// parcel carriers and general marketplaces on exactly this basis and left a
+// set behind, so the same rule was being applied to some brands and not others.
+test("no messenger, fitness app, holding company or courier is blocked", async () => {
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+  const rules = bg.rules();
+  const blocked = (domain) =>
+    rules.some((rule) => (((rule.condition || {}).urlFilter) || "") === `||${domain}`);
+
+  const notOrderingSurfaces = [
+    ["line.me", "the LINE messenger — blocking it takes out LINE Login and the web client"],
+    ["cult.fit", "an Indian fitness app"],
+    ["tokmanni.fi", "discount variety retail"],
+    ["centralgroup.com", "a retail conglomerate's corporate site"],
+    ["minor.com", "a hospitality holding company"],
+    ["amrest.eu", "a restaurant franchisor's corporate site"],
+    ["bhcgroup.co.kr", "a corporate group site"],
+    ["jumia.ma", "general African e-commerce"],
+    ["sendme.ng", "a courier and errand platform"],
+    ["pickndrop.co.ke", "a courier and errand platform"],
+    ["dada.cn", "a same-city courier platform"]
+  ];
+
+  notOrderingSurfaces.forEach(([domain, why]) =>
+    assert.ok(!blocked(domain), `${domain} is blocked and should not be — ${why}`)
+  );
+
+  // Removing them must not cost coverage: every one of these brands keeps the
+  // surface a person actually orders from.
+  [
+    ["lineman.co.th", "LINE MAN, the food delivery app"],
+    ["eatfit.in", "cult.fit's food arm"],
+    ["jumiafood.com", "Jumia's food arm"],
+    ["bhc.co.kr", "BHC's consumer site"],
+    ["minorfood.com", "Minor's food division"]
+  ].forEach(([domain, what]) => assert.ok(blocked(domain), `${what} (${domain}) stopped being blocked`));
+});
+
+test("the courier category is empty, because a courier is not a place to order from", () => {
+  const couriers = [];
+
+  ["delivery", "fast-food"].forEach((bucket) => {
+    JSON.parse(fs.readFileSync(path.join(ROOT, "data", "blocklists", `${bucket}.json`), "utf8")).entries.forEach(
+      (entry) => {
+        if (entry.category === "courier") {
+          couriers.push(entry.domain);
+        }
+      }
+    );
+  });
+
+  assert.deepEqual(couriers, [], `courier platforms are still listed: ${couriers.join(", ")}`);
+});

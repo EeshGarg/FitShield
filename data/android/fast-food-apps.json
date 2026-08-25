@@ -282,11 +282,6 @@
       "packageStatus": "no_app"
     },
     {
-      "brandId": "amrest.eu",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
       "brandId": "amul.com",
       "packageIds": [
         "shop.amul.coop"
@@ -382,12 +377,6 @@
       "brandId": "archies.co",
       "packageIds": [],
       "packageStatus": "no_app"
-    },
-    {
-      "brandId": "arclandservice.co.jp",
-      "packageIds": [
-        "li.yapp.appE3F5CA73"
-      ]
     },
     {
       "brandId": "aristocrat.com.ph",
@@ -870,11 +859,6 @@
     },
     {
       "brandId": "bhcchicken.global",
-      "packageIds": [],
-      "packageStatus": "shared_app"
-    },
-    {
-      "brandId": "bhcgroup.co.kr",
       "packageIds": [],
       "packageStatus": "shared_app"
     },
@@ -1813,11 +1797,6 @@
       ]
     },
     {
-      "brandId": "centralgroup.com",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
       "brandId": "cfcindonesia.com",
       "packageIds": [],
       "packageStatus": "no_app"
@@ -2654,12 +2633,6 @@
       "brandId": "csc100.com",
       "packageIds": [],
       "packageStatus": "no_app"
-    },
-    {
-      "brandId": "cult.fit",
-      "packageIds": [
-        "fit.cure.android"
-      ]
     },
     {
       "brandId": "culturesrestaurants.com",
@@ -5178,22 +5151,6 @@
       ]
     },
     {
-      "brandId": "jumia.ci",
-      "packageIds": [
-        "com.jumia.android"
-      ]
-    },
-    {
-      "brandId": "jumia.ma",
-      "packageIds": [],
-      "packageStatus": "shared_app"
-    },
-    {
-      "brandId": "jumia.sn",
-      "packageIds": [],
-      "packageStatus": "shared_app"
-    },
-    {
       "brandId": "juniorkuppanna.com",
       "packageIds": [
         "com.jdomni.jdhoteljuniorkuppanna"
@@ -5467,11 +5424,6 @@
       "packageIds": [
         "jp.co.MENSYOKU.postasconnect.u00631"
       ]
-    },
-    {
-      "brandId": "kiwa-group.co.jp",
-      "packageIds": [],
-      "packageStatus": "no_app"
     },
     {
       "brandId": "kiwi.no",
@@ -5876,11 +5828,6 @@
       "packageStatus": "shared_app"
     },
     {
-      "brandId": "line.me",
-      "packageIds": [],
-      "packageStatus": "needs_review"
-    },
-    {
       "brandId": "lionchoice.com",
       "packageIds": [
         "com.olo.lionschoice"
@@ -6222,11 +6169,6 @@
       "packageIds": [
         "jp.syodai_marugen.members"
       ]
-    },
-    {
-      "brandId": "maruha-net.co.jp",
-      "packageIds": [],
-      "packageStatus": "no_app"
     },
     {
       "brandId": "maruichi.co.jp",
@@ -6581,11 +6523,6 @@
       "packageIds": [
         "com.ce.android.brand.milos"
       ]
-    },
-    {
-      "brandId": "minor.com",
-      "packageIds": [],
-      "packageStatus": "no_app"
     },
     {
       "brandId": "minorfood.com",
@@ -10160,12 +10097,6 @@
       "packageStatus": "no_app"
     },
     {
-      "brandId": "tokmanni.fi",
-      "packageIds": [
-        "fi.tokmanni.store"
-      ]
-    },
-    {
       "brandId": "tokyojoes.com",
       "packageIds": [
         "com.olo.tokyojoes"
@@ -11150,11 +11081,6 @@
       "packageIds": [
         "com.zambrero.ordering.app"
       ]
-    },
-    {
-      "brandId": "zamp.com.br",
-      "packageIds": [],
-      "packageStatus": "shared_app"
     },
     {
       "brandId": "zankouchicken.com",

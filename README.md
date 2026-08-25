@@ -22,9 +22,9 @@ browsing history collection.
 
 **Interrupt**
 
-1. Blocking for delivery platforms and fast-food ordering sites (2,535 curated brands across 112 markets).
+1. Blocking for delivery platforms and fast-food ordering sites (2,505 curated brands across 111 markets).
 2. Custom URL blocking, and per-site exceptions.
-3. Country and category blocking — whole groups of brands by where they operate or what they serve (22 curated categories).
+3. Country and category blocking — whole groups of brands by where they operate or what they serve (21 curated categories).
 4. Schedules: multiple windows a day, different hours per weekday, and overnight windows. Presets for evenings, late night, workday lunch, and evenings & weekends.
 5. Friction presets (light / standard / strict) that write into the same editable values, so a preset is a starting point rather than a mode you get locked into.
 

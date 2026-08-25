@@ -4,11 +4,11 @@
   "schema": 1,
   "generator": "tools/generate-android-packages.js",
   "counts": {
-    "brands": 2534,
-    "packages": 1522,
-    "needsReview": 36,
-    "noApp": 767,
-    "sharedApp": 277
+    "brands": 2504,
+    "packages": 1510,
+    "needsReview": 35,
+    "noApp": 757,
+    "sharedApp": 268
   },
   "packages": {
     "ai.appfront.coffeebeanery": {
@@ -349,11 +349,6 @@
     "cn.dominos.pizza": {
       "brandId": "dominos.com.cn",
       "displayName": "Domino's China",
-      "category": "delivery"
-    },
-    "cn.ishansong": {
-      "brandId": "flashex.com",
-      "displayName": "FlashEx",
       "category": "delivery"
     },
     "co.belgianwaffle.users": {
@@ -1696,16 +1691,6 @@
       "displayName": "Silver Life",
       "category": "delivery"
     },
-    "com.dada.mobile.android": {
-      "brandId": "dada.cn",
-      "displayName": "Dada Now",
-      "category": "delivery"
-    },
-    "com.dada.mobile.shop.android": {
-      "brandId": "dada.cn",
-      "displayName": "Dada Now",
-      "category": "delivery"
-    },
     "com.dailykit.slaycoffee": {
       "brandId": "slay.coffee",
       "displayName": "Slay.coffee",
@@ -2071,11 +2056,6 @@
       "displayName": "The Flame Broiler",
       "category": "fast_food"
     },
-    "com.flash.ex": {
-      "brandId": "shansong.com",
-      "displayName": "Shansong",
-      "category": "delivery"
-    },
     "com.flashcoffee": {
       "brandId": "flashcoffee.com",
       "displayName": "Flashcoffee",
@@ -2299,11 +2279,6 @@
     "com.gojek.app": {
       "brandId": "gojek.com",
       "displayName": "Gojek",
-      "category": "delivery"
-    },
-    "com.gokada.userapp": {
-      "brandId": "gokada.ng",
-      "displayName": "Gokada",
       "category": "delivery"
     },
     "com.goldstarchili.app": {
@@ -2724,11 +2699,6 @@
     "com.jumbo.sg": {
       "brandId": "jumboseafood.com.sg",
       "displayName": "Jumboseafood",
-      "category": "fast_food"
-    },
-    "com.jumia.android": {
-      "brandId": "jumia.ci",
-      "displayName": "Jumia.ci",
       "category": "fast_food"
     },
     "com.jumiafood.android": {
@@ -6191,16 +6161,6 @@
       "displayName": "S Kaupat",
       "category": "fast_food"
     },
-    "fi.tokmanni.store": {
-      "brandId": "tokmanni.fi",
-      "displayName": "Tokmanni",
-      "category": "fast_food"
-    },
-    "fit.cure.android": {
-      "brandId": "cult.fit",
-      "displayName": "Cult.fit",
-      "category": "fast_food"
-    },
     "fr.hippopotamus_steakhouseclub.app": {
       "brandId": "hippopotamus.fr",
       "displayName": "Hippopotamus",
@@ -6861,11 +6821,6 @@
       "displayName": "Yamaokaya",
       "category": "fast_food"
     },
-    "li.yapp.appE3F5CA73": {
-      "brandId": "arclandservice.co.jp",
-      "displayName": "Arclandservice",
-      "category": "fast_food"
-    },
     "li.yapp.appE7F7B1A1": {
       "brandId": "ginza-renoir.co.jp",
       "displayName": "Ginza Renoir",
@@ -6929,11 +6884,6 @@
     "me.ele": {
       "brandId": "ele.me",
       "displayName": "Ele.me",
-      "category": "delivery"
-    },
-    "me.ele.crowdsource": {
-      "brandId": "fengniao.com",
-      "displayName": "Fengniao Delivery",
       "category": "delivery"
     },
     "me.sushiclub.app": {
@@ -7000,16 +6950,6 @@
       "brandId": "havanna.com",
       "displayName": "Havanna",
       "category": "fast_food"
-    },
-    "ng.gokada.superapp_client": {
-      "brandId": "gokada.ng",
-      "displayName": "Gokada",
-      "category": "delivery"
-    },
-    "ng.sendme.orderapp": {
-      "brandId": "sendme.ng",
-      "displayName": "SendMe Nigeria",
-      "category": "delivery"
     },
     "nl.dominos.android": {
       "brandId": "dominos.nl",

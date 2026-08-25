@@ -495,18 +495,6 @@
       ]
     },
     {
-      "brandId": "dada.cn",
-      "packageIds": [
-        "com.dada.mobile.android",
-        "com.dada.mobile.shop.android"
-      ]
-    },
-    {
-      "brandId": "dadajiasong.com",
-      "packageIds": [],
-      "packageStatus": "shared_app"
-    },
-    {
       "brandId": "daichi-m.co.jp",
       "packageIds": [
         "li.yapp.appA46A899B"
@@ -943,22 +931,6 @@
       "packageStatus": "no_app"
     },
     {
-      "brandId": "fengniao.com",
-      "packageIds": [
-        "me.ele.crowdsource"
-      ]
-    },
-    {
-      "brandId": "fengniaodelivery.com",
-      "packageIds": [],
-      "packageStatus": "shared_app"
-    },
-    {
-      "brandId": "fengniaozhongbao.cn",
-      "packageIds": [],
-      "packageStatus": "shared_app"
-    },
-    {
       "brandId": "fine-dine.jp",
       "packageIds": [
         "jp.finedine.android.ec"
@@ -973,17 +945,6 @@
       "brandId": "fitfoodhome.jp",
       "packageIds": [],
       "packageStatus": "no_app"
-    },
-    {
-      "brandId": "flashex.com",
-      "packageIds": [
-        "cn.ishansong"
-      ]
-    },
-    {
-      "brandId": "flashhold.com",
-      "packageIds": [],
-      "packageStatus": "shared_app"
     },
     {
       "brandId": "flipdish.com",
@@ -1331,13 +1292,6 @@
       ]
     },
     {
-      "brandId": "gokada.ng",
-      "packageIds": [
-        "com.gokada.userapp",
-        "ng.gokada.superapp_client"
-      ]
-    },
-    {
       "brandId": "goldbelly.com",
       "packageIds": [],
       "packageStatus": "no_app"
@@ -1543,11 +1497,6 @@
       ]
     },
     {
-      "brandId": "imdada.cn",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
       "brandId": "innerchef.com",
       "packageIds": [
         "com.innerchef.Activities"
@@ -1566,11 +1515,6 @@
     },
     {
       "brandId": "jet.dk",
-      "packageIds": [],
-      "packageStatus": "shared_app"
-    },
-    {
-      "brandId": "jumia.co.ke",
       "packageIds": [],
       "packageStatus": "shared_app"
     },
@@ -2284,11 +2228,6 @@
       ]
     },
     {
-      "brandId": "pickndrop.co.ke",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
       "brandId": "pizzaalvolo.co.kr",
       "packageIds": [
         "m.pizzaalvolo"
@@ -2505,12 +2444,6 @@
       ]
     },
     {
-      "brandId": "sendme.ng",
-      "packageIds": [
-        "ng.sendme.orderapp"
-      ]
-    },
-    {
       "brandId": "sevenbus.com",
       "packageIds": [],
       "packageStatus": "no_app"
@@ -2519,17 +2452,6 @@
       "brandId": "sfbest.com",
       "packageIds": [],
       "packageStatus": "no_app"
-    },
-    {
-      "brandId": "sfcityrush.com",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
-      "brandId": "shansong.com",
-      "packageIds": [
-        "com.flash.ex"
-      ]
     },
     {
       "brandId": "shawarmar.com",
@@ -2762,16 +2684,6 @@
       "packageIds": [
         "com.ubercab.eats"
       ]
-    },
-    {
-      "brandId": "uupaotui.com",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
-      "brandId": "uupt.com",
-      "packageIds": [],
-      "packageStatus": "no_app"
     },
     {
       "brandId": "vips.co.kr",

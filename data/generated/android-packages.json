@@ -19,13 +19,13 @@
     "meal_kit"
   ],
   "counts": {
-    "brands": 2534,
-    "packages": 1522,
-    "needsReview": 36,
-    "noApp": 767,
-    "sharedApp": 277
+    "brands": 2504,
+    "packages": 1510,
+    "needsReview": 35,
+    "noApp": 757,
+    "sharedApp": 268
   },
-  "sha256": "faff81e6da1012cd7e4c67910daf53c5deda7b17f10fc618ef85122aa8396b52",
+  "sha256": "6bcc2294c67e93a5319ee4a888d4c78bd897e3d4f2d2c56b546b9d3fb39e844c",
   "packages": {
     "ai.appfront.coffeebeanery": {
       "brandId": "coffeebeanery.com",
@@ -365,11 +365,6 @@
     "cn.dominos.pizza": {
       "brandId": "dominos.com.cn",
       "displayName": "Domino's China",
-      "category": "delivery"
-    },
-    "cn.ishansong": {
-      "brandId": "flashex.com",
-      "displayName": "FlashEx",
       "category": "delivery"
     },
     "co.belgianwaffle.users": {
@@ -1712,16 +1707,6 @@
       "displayName": "Silver Life",
       "category": "delivery"
     },
-    "com.dada.mobile.android": {
-      "brandId": "dada.cn",
-      "displayName": "Dada Now",
-      "category": "delivery"
-    },
-    "com.dada.mobile.shop.android": {
-      "brandId": "dada.cn",
-      "displayName": "Dada Now",
-      "category": "delivery"
-    },
     "com.dailykit.slaycoffee": {
       "brandId": "slay.coffee",
       "displayName": "Slay.coffee",
@@ -2087,11 +2072,6 @@
       "displayName": "The Flame Broiler",
       "category": "fast_food"
     },
-    "com.flash.ex": {
-      "brandId": "shansong.com",
-      "displayName": "Shansong",
-      "category": "delivery"
-    },
     "com.flashcoffee": {
       "brandId": "flashcoffee.com",
       "displayName": "Flashcoffee",
@@ -2315,11 +2295,6 @@
     "com.gojek.app": {
       "brandId": "gojek.com",
       "displayName": "Gojek",
-      "category": "delivery"
-    },
-    "com.gokada.userapp": {
-      "brandId": "gokada.ng",
-      "displayName": "Gokada",
       "category": "delivery"
     },
     "com.goldstarchili.app": {
@@ -2740,11 +2715,6 @@
     "com.jumbo.sg": {
       "brandId": "jumboseafood.com.sg",
       "displayName": "Jumboseafood",
-      "category": "fast_food"
-    },
-    "com.jumia.android": {
-      "brandId": "jumia.ci",
-      "displayName": "Jumia.ci",
       "category": "fast_food"
     },
     "com.jumiafood.android": {
@@ -6207,16 +6177,6 @@
       "displayName": "S Kaupat",
       "category": "fast_food"
     },
-    "fi.tokmanni.store": {
-      "brandId": "tokmanni.fi",
-      "displayName": "Tokmanni",
-      "category": "fast_food"
-    },
-    "fit.cure.android": {
-      "brandId": "cult.fit",
-      "displayName": "Cult.fit",
-      "category": "fast_food"
-    },
     "fr.hippopotamus_steakhouseclub.app": {
       "brandId": "hippopotamus.fr",
       "displayName": "Hippopotamus",
@@ -6877,11 +6837,6 @@
       "displayName": "Yamaokaya",
       "category": "fast_food"
     },
-    "li.yapp.appE3F5CA73": {
-      "brandId": "arclandservice.co.jp",
-      "displayName": "Arclandservice",
-      "category": "fast_food"
-    },
     "li.yapp.appE7F7B1A1": {
       "brandId": "ginza-renoir.co.jp",
       "displayName": "Ginza Renoir",
@@ -6945,11 +6900,6 @@
     "me.ele": {
       "brandId": "ele.me",
       "displayName": "Ele.me",
-      "category": "delivery"
-    },
-    "me.ele.crowdsource": {
-      "brandId": "fengniao.com",
-      "displayName": "Fengniao Delivery",
       "category": "delivery"
     },
     "me.sushiclub.app": {
@@ -7016,16 +6966,6 @@
       "brandId": "havanna.com",
       "displayName": "Havanna",
       "category": "fast_food"
-    },
-    "ng.gokada.superapp_client": {
-      "brandId": "gokada.ng",
-      "displayName": "Gokada",
-      "category": "delivery"
-    },
-    "ng.sendme.orderapp": {
-      "brandId": "sendme.ng",
-      "displayName": "SendMe Nigeria",
-      "category": "delivery"
     },
     "nl.dominos.android": {
       "brandId": "dominos.nl",
@@ -8850,21 +8790,6 @@
       ]
     },
     {
-      "brandId": "amrest.eu",
-      "displayName": "Amrest.eu",
-      "category": "fast_food",
-      "packageStatus": "no_app",
-      "packageIds": [],
-      "domains": [
-        "amrest.eu"
-      ],
-      "countryCodes": [],
-      "tags": [
-        "fast_casual",
-        "fast_food"
-      ]
-    },
-    {
       "brandId": "amul.com",
       "displayName": "Amul",
       "category": "fast_food",
@@ -9313,25 +9238,6 @@
         "archies.co"
       ],
       "countryCodes": [],
-      "tags": [
-        "fast_casual",
-        "fast_food"
-      ]
-    },
-    {
-      "brandId": "arclandservice.co.jp",
-      "displayName": "Arclandservice",
-      "category": "fast_food",
-      "packageStatus": "active",
-      "packageIds": [
-        "li.yapp.appE3F5CA73"
-      ],
-      "domains": [
-        "arclandservice.co.jp"
-      ],
-      "countryCodes": [
-        "JP"
-      ],
       "tags": [
         "fast_casual",
         "fast_food"
@@ -10717,10 +10623,10 @@
       ],
       "tags": [
         "cakes",
-        "delivery",
         "dessert",
         "desserts",
         "direct_delivery",
+        "fast_food",
         "ice_cream"
       ]
     },
@@ -11436,23 +11342,6 @@
         "fast_food",
         "fries",
         "skewers"
-      ]
-    },
-    {
-      "brandId": "bhcgroup.co.kr",
-      "displayName": "BHC Group",
-      "category": "fast_food",
-      "packageStatus": "shared_app",
-      "packageIds": [],
-      "domains": [
-        "bhcgroup.co.kr"
-      ],
-      "countryCodes": [
-        "KR"
-      ],
-      "tags": [
-        "fast_casual",
-        "fast_food"
       ]
     },
     {
@@ -12703,6 +12592,7 @@
       "tags": [
         "bulgogi",
         "delivery",
+        "fast_food",
         "korean_barbecue",
         "korean_dining",
         "korean_food"
@@ -12721,8 +12611,8 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "korean_food"
       ]
     },
     {
@@ -13588,6 +13478,7 @@
         "chicken",
         "delivery",
         "direct_delivery",
+        "fast_food",
         "fries"
       ]
     },
@@ -13729,6 +13620,7 @@
         "chicken",
         "delivery",
         "direct_delivery",
+        "fast_food",
         "fries"
       ]
     },
@@ -15351,21 +15243,6 @@
       "countryCodes": [
         "PH"
       ],
-      "tags": [
-        "fast_casual",
-        "fast_food"
-      ]
-    },
-    {
-      "brandId": "centralgroup.com",
-      "displayName": "Centralgroup",
-      "category": "fast_food",
-      "packageStatus": "no_app",
-      "packageIds": [],
-      "domains": [
-        "centralgroup.com"
-      ],
-      "countryCodes": [],
       "tags": [
         "fast_casual",
         "fast_food"
@@ -18663,23 +18540,6 @@
       ]
     },
     {
-      "brandId": "cult.fit",
-      "displayName": "Cult.fit",
-      "category": "fast_food",
-      "packageStatus": "active",
-      "packageIds": [
-        "fit.cure.android"
-      ],
-      "domains": [
-        "cult.fit"
-      ],
-      "countryCodes": [],
-      "tags": [
-        "fast_casual",
-        "fast_food"
-      ]
-    },
-    {
       "brandId": "culturesrestaurants.com",
       "displayName": "Cultures",
       "category": "fast_food",
@@ -18765,50 +18625,6 @@
         "fast_food",
         "salads",
         "sandwiches"
-      ]
-    },
-    {
-      "brandId": "dada.cn",
-      "displayName": "Dada Now",
-      "category": "delivery",
-      "packageStatus": "active",
-      "packageIds": [
-        "com.dada.mobile.android",
-        "com.dada.mobile.shop.android"
-      ],
-      "domains": [
-        "dada.cn"
-      ],
-      "countryCodes": [
-        "CN"
-      ],
-      "tags": [
-        "courier",
-        "crowdsourced_delivery",
-        "delivery",
-        "grocery_delivery",
-        "local_retail_delivery",
-        "same-city_courier"
-      ]
-    },
-    {
-      "brandId": "dadajiasong.com",
-      "displayName": "Dada Delivery",
-      "category": "delivery",
-      "packageStatus": "shared_app",
-      "packageIds": [],
-      "domains": [
-        "dadajiasong.com"
-      ],
-      "countryCodes": [
-        "CN"
-      ],
-      "tags": [
-        "courier",
-        "crowdsourced_delivery",
-        "delivery",
-        "errand_delivery",
-        "same-city_courier"
       ]
     },
     {
@@ -20316,6 +20132,7 @@
       "tags": [
         "delivery",
         "direct_delivery",
+        "fast_food",
         "pizza",
         "sides"
       ]
@@ -20463,6 +20280,7 @@
       "tags": [
         "delivery",
         "direct_delivery",
+        "fast_food",
         "pizza",
         "sides"
       ]
@@ -21094,7 +20912,7 @@
     {
       "brandId": "dunkindonuts.co.kr",
       "displayName": "Dunkin' Korea",
-      "category": "dessert",
+      "category": "coffee",
       "packageStatus": "needs_review",
       "packageIds": [],
       "domains": [
@@ -21104,13 +20922,11 @@
         "KR"
       ],
       "tags": [
-        "bakery",
         "breakfast",
         "coffee",
-        "delivery",
-        "dessert",
         "direct_delivery",
-        "doughnuts"
+        "doughnuts",
+        "fast_food"
       ]
     },
     {
@@ -22597,7 +22413,7 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -22976,68 +22792,6 @@
       "tags": [
         "fast_casual",
         "fast_food"
-      ]
-    },
-    {
-      "brandId": "fengniao.com",
-      "displayName": "Fengniao Delivery",
-      "category": "delivery",
-      "packageStatus": "active",
-      "packageIds": [
-        "me.ele.crowdsource"
-      ],
-      "domains": [
-        "fengniao.com"
-      ],
-      "countryCodes": [
-        "CN"
-      ],
-      "tags": [
-        "courier",
-        "courier_network",
-        "delivery",
-        "food_delivery_logistics",
-        "last-mile_delivery"
-      ]
-    },
-    {
-      "brandId": "fengniaodelivery.com",
-      "displayName": "Fengniao Delivery",
-      "category": "delivery",
-      "packageStatus": "shared_app",
-      "packageIds": [],
-      "domains": [
-        "fengniaodelivery.com"
-      ],
-      "countryCodes": [
-        "CN"
-      ],
-      "tags": [
-        "courier",
-        "courier_network",
-        "delivery",
-        "food_delivery_logistics",
-        "last-mile_delivery"
-      ]
-    },
-    {
-      "brandId": "fengniaozhongbao.cn",
-      "displayName": "Fengniao Zhongbao",
-      "category": "delivery",
-      "packageStatus": "shared_app",
-      "packageIds": [],
-      "domains": [
-        "fengniaozhongbao.cn"
-      ],
-      "countryCodes": [
-        "CN"
-      ],
-      "tags": [
-        "courier",
-        "courier_network",
-        "crowdsourced_delivery",
-        "delivery",
-        "food_delivery_logistics"
       ]
     },
     {
@@ -23429,48 +23183,6 @@
         "espresso",
         "fast_food",
         "pastries"
-      ]
-    },
-    {
-      "brandId": "flashex.com",
-      "displayName": "FlashEx",
-      "category": "delivery",
-      "packageStatus": "active",
-      "packageIds": [
-        "cn.ishansong"
-      ],
-      "domains": [
-        "flashex.com"
-      ],
-      "countryCodes": [
-        "CN"
-      ],
-      "tags": [
-        "courier",
-        "delivery",
-        "errand_delivery",
-        "instant_delivery",
-        "same-city_courier"
-      ]
-    },
-    {
-      "brandId": "flashhold.com",
-      "displayName": "FlashEx",
-      "category": "delivery",
-      "packageStatus": "shared_app",
-      "packageIds": [],
-      "domains": [
-        "flashhold.com"
-      ],
-      "countryCodes": [
-        "CN"
-      ],
-      "tags": [
-        "brand_domain",
-        "courier",
-        "delivery",
-        "instant_delivery",
-        "same-city_courier"
       ]
     },
     {
@@ -24148,7 +23860,7 @@
         "BG"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -24328,7 +24040,7 @@
         "RO"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -24364,7 +24076,7 @@
         "SK"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -24400,7 +24112,7 @@
         "VN"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -26456,29 +26168,6 @@
       ]
     },
     {
-      "brandId": "gokada.ng",
-      "displayName": "Gokada",
-      "category": "delivery",
-      "packageStatus": "active",
-      "packageIds": [
-        "com.gokada.userapp",
-        "ng.gokada.superapp_client"
-      ],
-      "domains": [
-        "gokada.ng"
-      ],
-      "countryCodes": [
-        "NG"
-      ],
-      "tags": [
-        "courier",
-        "courier_delivery",
-        "delivery",
-        "last-mile_delivery",
-        "local_delivery"
-      ]
-    },
-    {
       "brandId": "goldbelly.com",
       "displayName": "Goldbelly",
       "category": "delivery",
@@ -26590,6 +26279,7 @@
       "tags": [
         "bubble_tea",
         "delivery",
+        "fast_food",
         "fruit_tea",
         "milk_tea",
         "mobile_ordering",
@@ -30241,26 +29931,6 @@
       ]
     },
     {
-      "brandId": "imdada.cn",
-      "displayName": "Dada Now",
-      "category": "delivery",
-      "packageStatus": "no_app",
-      "packageIds": [],
-      "domains": [
-        "imdada.cn"
-      ],
-      "countryCodes": [
-        "CN"
-      ],
-      "tags": [
-        "courier",
-        "crowdsourced_delivery",
-        "delivery",
-        "local_retail_delivery",
-        "same-city_courier"
-      ]
-    },
-    {
       "brandId": "immergruen.de",
       "displayName": "Immergruen",
       "category": "fast_food",
@@ -31514,79 +31184,6 @@
       ]
     },
     {
-      "brandId": "jumia.ci",
-      "displayName": "Jumia.ci",
-      "category": "fast_food",
-      "packageStatus": "active",
-      "packageIds": [
-        "com.jumia.android"
-      ],
-      "domains": [
-        "jumia.ci"
-      ],
-      "countryCodes": [
-        "CI"
-      ],
-      "tags": [
-        "fast_casual",
-        "fast_food"
-      ]
-    },
-    {
-      "brandId": "jumia.co.ke",
-      "displayName": "Jumia Kenya",
-      "category": "grocery",
-      "packageStatus": "shared_app",
-      "packageIds": [],
-      "domains": [
-        "jumia.co.ke"
-      ],
-      "countryCodes": [
-        "KE"
-      ],
-      "tags": [
-        "delivery",
-        "ecommerce_marketplace",
-        "food_retail",
-        "grocery",
-        "grocery_delivery"
-      ]
-    },
-    {
-      "brandId": "jumia.ma",
-      "displayName": "Jumia",
-      "category": "fast_food",
-      "packageStatus": "shared_app",
-      "packageIds": [],
-      "domains": [
-        "jumia.ma"
-      ],
-      "countryCodes": [
-        "MA"
-      ],
-      "tags": [
-        "fast_casual",
-        "fast_food"
-      ]
-    },
-    {
-      "brandId": "jumia.sn",
-      "displayName": "Jumia.sn",
-      "category": "fast_food",
-      "packageStatus": "shared_app",
-      "packageIds": [],
-      "domains": [
-        "jumia.sn"
-      ],
-      "countryCodes": [
-        "SN"
-      ],
-      "tags": [
-        "fast_casual",
-        "fast_food"
-      ]
-    },
-    {
       "brandId": "jumiafood.com",
       "displayName": "Jumia Food",
       "category": "delivery",
@@ -31635,7 +31232,7 @@
         "CH"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -31697,7 +31294,7 @@
         "DK"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -31714,7 +31311,7 @@
         "ES"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -31731,7 +31328,7 @@
         "FR"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -31768,7 +31365,7 @@
         "IT"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -31785,7 +31382,7 @@
         "NO"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -32649,6 +32246,7 @@
         "chicken",
         "delivery",
         "direct_delivery",
+        "fast_food",
         "fried_chicken",
         "sides"
       ]
@@ -32794,6 +32392,7 @@
         "chicken",
         "delivery",
         "direct_delivery",
+        "fast_food",
         "fried_chicken",
         "rice_meals"
       ]
@@ -33108,23 +32707,6 @@
       ],
       "domains": [
         "kitakata.co.jp"
-      ],
-      "countryCodes": [
-        "JP"
-      ],
-      "tags": [
-        "fast_casual",
-        "fast_food"
-      ]
-    },
-    {
-      "brandId": "kiwa-group.co.jp",
-      "displayName": "Kiwa Group",
-      "category": "fast_food",
-      "packageStatus": "no_app",
-      "packageIds": [],
-      "domains": [
-        "kiwa-group.co.jp"
       ],
       "countryCodes": [
         "JP"
@@ -34756,21 +34338,6 @@
       ]
     },
     {
-      "brandId": "line.me",
-      "displayName": "Line.me",
-      "category": "fast_food",
-      "packageStatus": "needs_review",
-      "packageIds": [],
-      "domains": [
-        "line.me"
-      ],
-      "countryCodes": [],
-      "tags": [
-        "fast_casual",
-        "fast_food"
-      ]
-    },
-    {
       "brandId": "lineman.co.th",
       "displayName": "LINE MAN",
       "category": "delivery",
@@ -35215,6 +34782,7 @@
         "chicken",
         "delivery",
         "direct_delivery",
+        "fast_food",
         "fries"
       ]
     },
@@ -36249,25 +35817,6 @@
       ]
     },
     {
-      "brandId": "maruha-net.co.jp",
-      "displayName": "Maruha Net",
-      "category": "fast_food",
-      "packageStatus": "no_app",
-      "packageIds": [],
-      "domains": [
-        "maruha-net.co.jp"
-      ],
-      "countryCodes": [
-        "JP"
-      ],
-      "tags": [
-        "fast_food",
-        "grilled_fish",
-        "seafood",
-        "sushi"
-      ]
-    },
-    {
       "brandId": "maruichi.co.jp",
       "displayName": "Maruichi",
       "category": "fast_food",
@@ -36714,6 +36263,7 @@
         "burgers",
         "delivery",
         "direct_delivery",
+        "fast_food",
         "fries"
       ]
     },
@@ -36893,6 +36443,7 @@
         "burgers",
         "delivery",
         "direct_delivery",
+        "fast_food",
         "fries"
       ]
     },
@@ -37525,7 +37076,7 @@
         "NZ"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -37951,21 +37502,6 @@
       ]
     },
     {
-      "brandId": "minor.com",
-      "displayName": "Minor",
-      "category": "fast_food",
-      "packageStatus": "no_app",
-      "packageIds": [],
-      "domains": [
-        "minor.com"
-      ],
-      "countryCodes": [],
-      "tags": [
-        "fast_casual",
-        "fast_food"
-      ]
-    },
-    {
       "brandId": "minorfood.com",
       "displayName": "Minorfood",
       "category": "fast_food",
@@ -38298,6 +37834,7 @@
         "chicken_burgers",
         "delivery",
         "direct_delivery",
+        "fast_food",
         "fried_chicken",
         "fries"
       ]
@@ -38315,7 +37852,7 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
+        "burger",
         "fast_food"
       ]
     },
@@ -41070,6 +40607,7 @@
         "delivery",
         "direct_delivery",
         "family_dining",
+        "fast_food",
         "restaurant",
         "ribs",
         "steakhouse"
@@ -41092,8 +40630,8 @@
       "tags": [
         "bloomin_onion",
         "burgers",
-        "fast_casual",
         "fast_food",
+        "restaurant",
         "steaks"
       ]
     },
@@ -41112,8 +40650,8 @@
         "BR"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "restaurant"
       ]
     },
     {
@@ -41615,8 +41153,8 @@
         "CL"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "pizza"
       ]
     },
     {
@@ -41636,6 +41174,7 @@
       "tags": [
         "delivery",
         "direct_delivery",
+        "fast_food",
         "pizza",
         "sides"
       ]
@@ -41655,8 +41194,8 @@
         "GB"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "pizza"
       ]
     },
     {
@@ -41699,8 +41238,8 @@
         "TW"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "pizza"
       ]
     },
     {
@@ -42446,7 +41985,7 @@
         "PE"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -42468,6 +42007,7 @@
         "chicken",
         "delivery",
         "direct_delivery",
+        "fast_food",
         "fried_chicken",
         "seasoned_chicken"
       ]
@@ -42483,7 +42023,7 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
+        "chicken",
         "fast_food"
       ]
     },
@@ -42833,26 +42373,6 @@
         "sandwich",
         "sandwiches",
         "soups"
-      ]
-    },
-    {
-      "brandId": "pickndrop.co.ke",
-      "displayName": "Pick N Drop Kenya",
-      "category": "delivery",
-      "packageStatus": "no_app",
-      "packageIds": [],
-      "domains": [
-        "pickndrop.co.ke"
-      ],
-      "countryCodes": [
-        "KE"
-      ],
-      "tags": [
-        "courier",
-        "courier_delivery",
-        "delivery",
-        "errand_delivery",
-        "local_delivery"
       ]
     },
     {
@@ -43316,6 +42836,7 @@
       "tags": [
         "delivery",
         "direct_delivery",
+        "fast_food",
         "pizza",
         "sides"
       ]
@@ -43420,6 +42941,7 @@
       "tags": [
         "delivery",
         "direct_delivery",
+        "fast_food",
         "pasta",
         "pizza",
         "sides"
@@ -43570,6 +43092,7 @@
       "tags": [
         "delivery",
         "direct_delivery",
+        "fast_food",
         "pasta",
         "pizza",
         "sides"
@@ -43592,6 +43115,7 @@
       "tags": [
         "delivery",
         "direct_delivery",
+        "fast_food",
         "pasta",
         "pizza",
         "sides"
@@ -47828,28 +47352,6 @@
       ]
     },
     {
-      "brandId": "sendme.ng",
-      "displayName": "SendMe Nigeria",
-      "category": "delivery",
-      "packageStatus": "active",
-      "packageIds": [
-        "ng.sendme.orderapp"
-      ],
-      "domains": [
-        "sendme.ng"
-      ],
-      "countryCodes": [
-        "NG"
-      ],
-      "tags": [
-        "courier",
-        "courier_delivery",
-        "delivery",
-        "errand_delivery",
-        "local_delivery"
-      ]
-    },
-    {
       "brandId": "seogaandcook.com",
       "displayName": "Seogaandcook",
       "category": "fast_food",
@@ -47956,26 +47458,6 @@
         "fresh_food_delivery",
         "grocery",
         "grocery_delivery"
-      ]
-    },
-    {
-      "brandId": "sfcityrush.com",
-      "displayName": "SF City Rush",
-      "category": "delivery",
-      "packageStatus": "no_app",
-      "packageIds": [],
-      "domains": [
-        "sfcityrush.com"
-      ],
-      "countryCodes": [
-        "CN"
-      ],
-      "tags": [
-        "courier",
-        "delivery",
-        "instant_courier",
-        "local_delivery",
-        "same-city_delivery"
       ]
     },
     {
@@ -48135,28 +47617,6 @@
         "fast_casual",
         "fast_food",
         "ribs"
-      ]
-    },
-    {
-      "brandId": "shansong.com",
-      "displayName": "Shansong",
-      "category": "delivery",
-      "packageStatus": "active",
-      "packageIds": [
-        "com.flash.ex"
-      ],
-      "domains": [
-        "shansong.com"
-      ],
-      "countryCodes": [
-        "CN"
-      ],
-      "tags": [
-        "courier",
-        "delivery",
-        "errand_delivery",
-        "instant_delivery",
-        "same-city_courier"
       ]
     },
     {
@@ -50130,8 +49590,8 @@
         "CL"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "sandwich"
       ]
     },
     {
@@ -50173,6 +49633,7 @@
       "tags": [
         "delivery",
         "direct_delivery",
+        "fast_food",
         "salads",
         "sandwich",
         "sandwiches",
@@ -50194,8 +49655,8 @@
         "NZ"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "sandwich"
       ]
     },
     {
@@ -50213,8 +49674,8 @@
         "GB"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "sandwich"
       ]
     },
     {
@@ -50274,8 +49735,8 @@
         "AU"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "sandwich"
       ]
     },
     {
@@ -50291,8 +49752,8 @@
         "BR"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "sandwich"
       ]
     },
     {
@@ -50310,8 +49771,8 @@
         "SG"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "sandwich"
       ]
     },
     {
@@ -50327,8 +49788,8 @@
         "TW"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "sandwich"
       ]
     },
     {
@@ -50344,8 +49805,8 @@
         "IN"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "sandwich"
       ]
     },
     {
@@ -50838,6 +50299,7 @@
         "asian",
         "conveyor_belt_sushi",
         "delivery",
+        "fast_food",
         "japanese_food",
         "sushi"
       ]
@@ -53257,25 +52719,6 @@
       ]
     },
     {
-      "brandId": "tokmanni.fi",
-      "displayName": "Tokmanni",
-      "category": "fast_food",
-      "packageStatus": "active",
-      "packageIds": [
-        "fi.tokmanni.store"
-      ],
-      "domains": [
-        "tokmanni.fi"
-      ],
-      "countryCodes": [
-        "FI"
-      ],
-      "tags": [
-        "fast_casual",
-        "fast_food"
-      ]
-    },
-    {
       "brandId": "tokyojoes.com",
       "displayName": "Tokyojoes",
       "category": "fast_food",
@@ -54505,46 +53948,6 @@
       ]
     },
     {
-      "brandId": "uupaotui.com",
-      "displayName": "UU Paotui",
-      "category": "delivery",
-      "packageStatus": "no_app",
-      "packageIds": [],
-      "domains": [
-        "uupaotui.com"
-      ],
-      "countryCodes": [
-        "CN"
-      ],
-      "tags": [
-        "courier",
-        "delivery",
-        "errand_delivery",
-        "instant_delivery",
-        "same-city_courier"
-      ]
-    },
-    {
-      "brandId": "uupt.com",
-      "displayName": "UU Paotui",
-      "category": "delivery",
-      "packageStatus": "no_app",
-      "packageIds": [],
-      "domains": [
-        "uupt.com"
-      ],
-      "countryCodes": [
-        "CN"
-      ],
-      "tags": [
-        "courier",
-        "delivery",
-        "errand_delivery",
-        "instant_delivery",
-        "same-city_courier"
-      ]
-    },
-    {
       "brandId": "vadilalicecreams.com",
       "displayName": "Vadilalicecreams",
       "category": "dessert",
@@ -54829,6 +54232,7 @@
       "tags": [
         "delivery",
         "family_dining",
+        "fast_food",
         "restaurant",
         "salad_bar",
         "steakhouse"
@@ -54850,8 +54254,8 @@
         "ES"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "restaurant"
       ]
     },
     {
@@ -56025,7 +55429,7 @@
         "AT"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -56094,7 +55498,7 @@
         "CZ"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -56111,7 +55515,7 @@
         "DE"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -56128,7 +55532,7 @@
         "EE"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -56145,7 +55549,7 @@
         "FI"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -56162,7 +55566,7 @@
         "HR"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -56218,7 +55622,7 @@
         "LT"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -56235,7 +55639,7 @@
         "LV"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -56252,7 +55656,7 @@
         "PL"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -56269,7 +55673,7 @@
         "RS"
       ],
       "tags": [
-        "fast_casual",
+        "delivery",
         "fast_food"
       ]
     },
@@ -57676,23 +57080,6 @@
       ],
       "countryCodes": [
         "AU"
-      ],
-      "tags": [
-        "fast_casual",
-        "fast_food"
-      ]
-    },
-    {
-      "brandId": "zamp.com.br",
-      "displayName": "Zamp",
-      "category": "fast_food",
-      "packageStatus": "shared_app",
-      "packageIds": [],
-      "domains": [
-        "zamp.com.br"
-      ],
-      "countryCodes": [
-        "BR"
       ],
       "tags": [
         "fast_casual",
