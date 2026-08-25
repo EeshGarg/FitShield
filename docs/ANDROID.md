@@ -351,13 +351,17 @@ disagree in a way neither design intends.
 | 11 | No block page for HTTPS websites | **intentional** | A redirect to a block page would require MITM, which FitShield refuses (§3). Blocked sites get a TCP RST; the full block-page experience exists on the *app* path via `BlockActivity`. |
 | 12 | Countdown presentation, category copy, theme controls, reset grouping | **intentional** | Documented in §2c under "Intentional Android deviations"; none affect whether something is blocked. |
 | 13 | Enforcement scope | **intentional** | The VPN filter is system-wide; the extension only covers its own browser. |
+| 14 | Android still shows the three statistics 0.55 deleted as dishonest | **bug** | The Android home screen renders **"Blocked visits"**, **"Estimated savings"** and **"Calories avoided"** (`index.html` stat tiles; `caloriesAvoided` is incremented by an assumed per-meal figure on every block, in `FitShieldVpnService.kt` and `BlockActivity.kt`). The extension removed all three in 0.55 for a stated reason: an interruption tells FitShield nothing about whether an order would have happened, and a recipe card being displayed is not a calorie anyone avoided. Android therefore ships, as a headline number, the exact claim `changelog/0.55.md` says the product no longer makes. Fix: replace the three tiles with the seven observed counters, keeping the stored keys so upgraded profiles lose nothing — the same migration the extension already performs. |
 
-**Rows 4, 5, and 6 are open bugs, deliberately not patched in this pass.** No
-Android toolchain is available in this environment, so a Kotlin edit could not be
-compiled, let alone run against `SemanticsParityTest`. Shipping an unbuildable
-`AppBlockPolicy.kt` would be a worse outcome than a documented one-minute
-boundary difference. The exact fix for each is written above; they belong in a
-change that can be built and device-tested.
+**Rows 4, 5, 6 and 14 are open bugs.** This paragraph used to excuse rows 4-6
+with "no Android toolchain is available in this environment, so a Kotlin edit
+could not be compiled" — that is no longer true, and per `CLAUDE.md` §3 it was
+the kind of external-item claim that survives because nobody retries it.
+`npm run toolchain:android` provisions a JDK and the Android SDK, `npm run
+build:android` produces an APK here, and `SemanticsParityTest` can be run. The
+exact fix for each row is written above; what remains is the work, not the
+tooling. Only on-device confirmation — the VPN consent prompt and real blocking
+— still needs a physical handset.
 
 The durable fix for rows 1, 2, 4, 5, and 6 together is to feed the Kotlin policy
 from a **generated schedule fixture** the way `RuleEngine` is already fed by
@@ -477,9 +481,13 @@ data/generated/android-packages.json ── bundled ──▶ assets/android-pac
   record (all ~2.5k brands + metadata) lives in `data/generated/`; only
   the small package map is bundled into the APK.
 - **Categories** are derived from each brand's authoritative source `category`
-  (coffee / dessert / grocery / convenience / meal_kit, else the file default —
+  (coffee / dessert / grocery / restaurant / meal_kit, else the file default —
   delivery / fast_food), never guessed from specialties. They drive the
-  per-category Settings toggles and the block-screen messaging.
+  per-category Settings toggles and the block-screen messaging. A `convenience`
+  grouping existed until 0.55 and was removed: no blocklist row ever carried it,
+  so its pill was a control that could never match an app. The groupings, the
+  pills, the `CATS` map in `web/app.js` and `AppBlockPolicy.categoryEnabled` are
+  now held to each other in both directions by `test/android-controls.test.js`.
 - On-device parity is asserted by an instrumented test (`PackageMatcherTest`):
   every package in the bundled dataset must resolve to the same brand through the
   Kotlin `PackageBlocklist`, and an unlisted package must not match.
@@ -514,7 +522,7 @@ data/generated/android-packages.json ── bundled ──▶ assets/android-pac
    to re-open; it grants no access to any app's data.
 
 **Controls:** per-category toggles (Delivery / Fast food / Restaurant / Coffee /
-Dessert / Grocery / Convenience / Meal kit), a searchable **per-app** allow list
+Dessert / Grocery / Meal kit), a searchable **per-app** allow list
 (opt a specific app out even when its category is on), temporary-unlock duration,
 and schedule awareness (shared with the VPN's schedule). All stored locally; the
 service reads them fresh each event.

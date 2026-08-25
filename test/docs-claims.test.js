@@ -640,6 +640,53 @@ test("Android's block screen matches on the brand but not on the person", () => 
   );
 });
 
+test("the Android statistics divergence is documented exactly while it exists", () => {
+  /*
+   * 0.55 deleted "Blocked visits", "Estimated savings" and "Calories avoided"
+   * from the extension, for a stated reason: an interruption says nothing about
+   * whether an order would have happened, and a displayed recipe card is not a
+   * calorie anyone avoided. The Android app still renders all three.
+   *
+   * That is an Android defect, not a docs one — but a docs lane can at least
+   * refuse to let it be silent. This assertion is deliberately BIDIRECTIONAL:
+   *
+   *   - while Android still shows the tiles, docs/ANDROID.md must carry the
+   *     divergence row and changelog/0.55.md must scope its claim to the
+   *     extension;
+   *   - once Android is fixed, this test fails on the now-false documentation,
+   *     so the row cannot outlive the bug either.
+   *
+   * Neither half can rot quietly, which is the whole point.
+   */
+  const androidMarkup = read("android", "app", "src", "main", "assets", "web", "index.html");
+  const androidDoc = read("docs", "ANDROID.md");
+
+  const showsCalories = /id="calories"/.test(androidMarkup);
+  const documented = /Android still shows the three statistics 0\.55 deleted as dishonest/.test(androidDoc);
+  const scoped = /This applies to the browser extension\./.test(CURRENT_NOTES);
+
+  if (showsCalories) {
+    assert.ok(
+      documented,
+      "Android still renders a 'Calories avoided' tile, but docs/ANDROID.md no longer records it as a divergence"
+    );
+    assert.ok(
+      scoped,
+      `Android still renders a 'Calories avoided' tile, but changelog/${VERSION}.md claims the figure is gone ` +
+        "without scoping that to the extension"
+    );
+  } else {
+    assert.ok(
+      !documented,
+      "Android no longer shows the removed statistics — delete the divergence row in docs/ANDROID.md"
+    );
+    assert.ok(
+      !scoped,
+      `Android no longer shows the removed statistics — drop the Android caveat from changelog/${VERSION}.md`
+    );
+  }
+});
+
 test("no shipped document presents a rule bucket as a brand category", () => {
   // The block page and the stats were handed "fastfood"/"custom" as a category
   // until 0.55. Any doc still describing that is describing a product that no
