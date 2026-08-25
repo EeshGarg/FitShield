@@ -92,6 +92,28 @@
     return loadPromise;
   }
 
+  /**
+   * Seed the catalog from a document the HOST already has.
+   *
+   * `readCatalogFile` knows two worlds: a browser extension with
+   * `chrome.runtime.getURL`, and Node with `require("fs")`. The Android WebView
+   * is neither, so every path through it throws there — which is why Android
+   * fetched `data/recipes.json` itself, kept only `d.recipes`, and could not
+   * call the shared selector at all. It fell back to picking by the LENGTH of
+   * the brand id, so McDonald's and Starbucks got the same dish because both
+   * ids are nine characters.
+   *
+   * Handing the whole parsed document in fixes that at the root. It must be the
+   * whole document, not the recipe array: `quickAlternatives` is 42 of the 88
+   * entries, and `taxonomy` carries the category-to-craving mapping the entire
+   * heuristic runs on.
+   */
+  function primeCatalog(data) {
+    catalog = indexCatalog(data);
+    loadPromise = Promise.resolve(catalog);
+    return catalog;
+  }
+
   // Back-compatible name: earlier builds called this and expected the array.
   async function loadRecipes() {
     return (await loadCatalog()).entries;
@@ -679,6 +701,7 @@
     WEIGHTS,
     DIET_ALLOWS,
     loadCatalog,
+    primeCatalog,
     loadRecipes,
     deriveCravings,
     dietAllows,

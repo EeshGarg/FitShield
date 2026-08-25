@@ -136,25 +136,50 @@
   }
 
   async function renderRecipe() {
-    let recipes = [];
-    try { recipes = await fs.recipes.load(); } catch (e) {}
-    if (!recipes.length) return;
-    const meta = info();
-
-    // Category-aware selection — the SAME shared module + heuristic as the
-    // extension block page: a vegetarian and a meat/protein idea matched to the
-    // blocked brand's category. Pass the catalog explicitly, because
-    // FitShieldRecipes' own loader assumes chrome.*/fs (neither exists here).
-    let picks = [];
     const R = self.FitShieldRecipes;
-    if (R && R.selectRecipes) {
-      const sel = R.selectRecipes({ category: meta.category, key: meta.brandId }, recipes);
-      picks = [sel.vegetarian, sel.meat].filter(Boolean);
+
+    if (!R || !R.primeCatalog || !R.selectAlternative) {
+      return;
     }
-    // Fallback: deterministic single pick if the selector is unavailable.
-    if (!picks.length) {
-      picks = [recipes[Number((meta.brandId || "").length) % recipes.length] || recipes[0]].filter(Boolean);
+
+    let doc = null;
+    try { doc = await fs.recipes.load(); } catch (e) {}
+    if (!doc) return;
+
+    // The SAME shared module and the SAME entry point as the extension block
+    // page — extension/warning.js calls selectAlternative with exactly this
+    // shape. It used to call R.selectRecipes, which had been deleted from the
+    // module; the truthy guard around it meant nothing failed, it just fell
+    // through to a fallback that picked by the LENGTH of the brand id. So
+    // McDonald's and Starbucks were answered with the same dish, and Domino's
+    // with a chicken sandwich, under a comment claiming this was category-aware.
+    //
+    // The catalog is primed rather than loaded, because the module's own loader
+    // needs chrome.runtime or Node's fs and a WebView has neither.
+    R.primeCatalog(doc);
+
+    const meta = info();
+    const picks = [];
+    const seen = new Set();
+
+    // Two ideas, as before — stepped through the same ranking the extension
+    // uses rather than pulled from two hardcoded diet buckets.
+    for (let rotation = 0; rotation < 6 && picks.length < 2; rotation++) {
+      const selection = R.selectAlternative(
+        { key: meta.brandId, category: meta.category, type: meta.type, specialties: meta.specialties },
+        {},
+        { rotation, seed: meta.brandId }
+      );
+
+      if (!selection || !selection.entry || seen.has(selection.entry.id)) {
+        continue;
+      }
+
+      seen.add(selection.entry.id);
+      picks.push(selection.entry);
     }
+
+    if (!picks.length) return;
 
     $("recipeList").replaceChildren(...picks.map(recipeCard));
     $("recipeWrap").hidden = false;

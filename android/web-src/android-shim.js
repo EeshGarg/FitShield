@@ -185,7 +185,18 @@
     },
 
     recipes: {
-      load: () => fetch(fitshield.runtime.getURL("data/recipes.json")).then((r) => r.json()).then((d) => d.recipes || [])
+      // The WHOLE document, not `d.recipes`. Keeping only that array dropped
+      // all 42 quickAlternatives — half the catalog — and the taxonomy, which
+      // is the category-to-craving mapping the shared selector runs on. Without
+      // it Android could not use the selector at all and fell back to picking
+      // by the length of the brand id.
+      load: () => fetch(fitshield.runtime.getURL("data/recipes.json")).then((r) => r.json()),
+
+      // Back-compatible: anything that wanted the flat array still gets one.
+      loadEntries: () =>
+        fetch(fitshield.runtime.getURL("data/recipes.json"))
+          .then((r) => r.json())
+          .then((d) => [...(d.recipes || []), ...(d.quickAlternatives || [])])
     },
 
     importExport: {
