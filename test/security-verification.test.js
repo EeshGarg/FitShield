@@ -2209,3 +2209,82 @@ test("every enforced rule carries the token, however many there are", { concurre
     await browser.close();
   }
 });
+
+test("End all passes means it, even with a settings change in flight", { concurrency: 1 }, async (t) => {
+  if (noBrowser) {
+    t.skip("no Chromium found — set FS_CHROME to a browser binary");
+    return;
+  }
+
+  // revokeAllPasses says of itself:
+  //
+  //   "On the same chain as grantPass, so a revoke cannot be quietly undone by a
+  //    grant that was already in flight when the user pressed it. 'End all
+  //    passes' has to mean it."
+  //
+  // The pass chain is not the only writer of that key. Every settings change
+  // fires chrome.storage.onChanged over REFRESH_KEYS, which queues a refresh
+  // nobody awaits, and refreshBlockingState ends by blind-writing the pass list
+  // from the snapshot it read on entry. So a refresh that started before the
+  // revoke restores what the revoke deleted — and because revokeAllPasses awaits
+  // a refresh of its own afterwards, that later refresh reads the resurrected
+  // list and writes it back again.
+  //
+  // Reachable with two ordinary clicks: change any setting, then press End all
+  // passes. This is the same defect as the concurrent-grant loss above, seen
+  // from the side that matters more — a safety control reporting success and
+  // doing nothing.
+  const shipped = stageOnce("shipped", null);
+  const browser = await launch({ extensionDir: shipped });
+
+  try {
+    const id = await extensionId(browser, shipped);
+    const control = await controlPage(browser, id);
+    await waitForRules(control);
+
+    const tab = await browser.newPage();
+    await tab.goto(BLOCKED_URL, 2500);
+    await until(async () => (await tab.evaluate("location.href")).includes("warning.html"), {
+      what: "the block page",
+      timeoutMs: 15000
+    });
+    await tab.evaluate(`(async () => chrome.runtime.sendMessage({
+      type: "grantPass", site: new URLSearchParams(location.search).get("site"), presetId: "site10"
+    }))()`);
+    await sleep(SETTLE_MS * 2);
+    assert.deepEqual(
+      (await readState(control)).passes.map((pass) => pass.target),
+      [BLOCKED_DOMAIN],
+      "the fixture pass was not granted, so the revoke below would prove nothing"
+    );
+
+    // A setting the user might plausibly change on the way to the button. The
+    // refresh it queues is not awaited by anyone.
+    const outcome = JSON.parse(
+      await control.evaluate(`(async () => {
+        await chrome.storage.local.set({ timerSeconds: 45 });
+        const answer = await chrome.runtime.sendMessage({ type: "revokeAllPasses" });
+        const rightAfter = ((await chrome.storage.local.get(["passes"])).passes || []).map(p => p.target);
+        return JSON.stringify({ answer, rightAfter });
+      })()`)
+    );
+
+    assert.equal(outcome.answer.ok, true, "End all passes reported a failure");
+
+    // Give every queued refresh time to land, so this is the settled answer and
+    // not a snapshot taken mid-flight.
+    await sleep(SETTLE_MS * 3);
+    const settled = (await readState(control)).passes.map((pass) => pass.target);
+
+    assert.deepEqual(
+      settled,
+      [],
+      `End all passes answered ok and the pass is still there (right after: ${JSON.stringify(outcome.rightAfter)}). ` +
+        "refreshBlockingState blind-writes `passes` from a snapshot read on entry; a refresh queued by " +
+        "the settings change restores what the revoke deleted. Same fix as the concurrent-grant loss: " +
+        "route that write through queuePassUpdate and re-read the list inside the chain"
+    );
+  } finally {
+    await browser.close();
+  }
+});
