@@ -44,6 +44,7 @@ build. `build.js` runs it automatically before packaging.
 | --- | --- | --- |
 | `npm run sync` | `sync-extension.js` | `extension/`'s runtime artifacts **and** the Android web assets. Run after editing `FS Engine/` or `data/`. |
 | `npm run toolchain:android` | `provision-android-toolchain.js` | fetches JDK 17 + the Android SDK (platform 35, build-tools 35) into `~/.fitshield-toolchain`, outside the repo. Nothing system-wide is changed and nothing is committed; `build-android.js` finds it and hands Gradle its own environment. Idempotent — anything already present is left alone. |
+| `npm run capture` | `capture-surfaces.js` | screenshots every surface into `dist/acceptance/` — both palettes, at the sizes where layouts break. Shrinks human acceptance from installing a build and clicking through twice to opening one folder; the judgement calls it supports are listed in `docs/ACCEPTANCE.md`. |
 | `npm run generate:alternatives` | `build-alternatives.js` | `data/recipes.json` from the `data/alternatives/*.json` parts |
 | `npm run generate:android` | `generate-android-rules.js` | `android/…/fitshield-rules.json` + the on-device semantics fixture |
 | `npm run generate:android-packages` | `generate-android-packages.js` | `data/generated/android-packages.json` → the bundled package map |
@@ -84,7 +85,7 @@ tools/
   changelog-validator.js  assets-check.js      extension-audit.js
   service-worker-audit.js  sync-audit.js       android-audit.js
   browser-a11y-audit.js    provision-android-toolchain.js
-  safari-audit.js
+  safari-audit.js          capture-surfaces.js
   validate-android-packages.js
   sync-extension.js     build-alternatives.js
   generate-android-rules.js  generate-android-packages.js

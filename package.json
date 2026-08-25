@@ -34,6 +34,7 @@
     "build": "node build.js",
     "build:android": "node tools/build-android.js",
     "toolchain:android": "node tools/provision-android-toolchain.js",
+    "capture": "node tools/capture-surfaces.js",
     "build:safari": "node tools/build-safari.js",
     "build:all": "node build.js && node tools/build-android.js"
   },
