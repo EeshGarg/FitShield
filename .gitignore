@@ -23,7 +23,10 @@ android/keystore.properties
 # Translator worklists written by tools/locale-status.js --todo
 translations/
 
-# Session-local acceptance work queue (regenerated per audit pass)
+# Session-local acceptance work queue (regenerated per audit pass).
+# .queue.closures/ is session-local for the same reason: it records how one
+# pass's findings were closed, and a later pass regenerates its own findings.
 .queue.json
 .queue/
 .queue-source.json
+.queue.closures/
