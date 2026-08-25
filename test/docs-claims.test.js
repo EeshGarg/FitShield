@@ -352,7 +352,9 @@ test("ROADMAP's current-version highlights state the real catalog shape", () => 
 test("ROADMAP states the real number of category message keys", () => {
   const totalCatKeys = CURRENT_CAT_KEYS.size + RETIRED_CAT_KEYS.length;
   assertPhrase(ROADMAP, "changelog/ROADMAP.md", "all %d category keys", totalCatKeys, "category message-key count");
-  assertPhrase(ROADMAP, "changelog/ROADMAP.md", "the %d\\s*\\n?\\s*the data uses", CATEGORIES, "current category count");
+  // `\s+` rather than a hand-rolled newline alternation: the phrase wraps, and
+  // where it wraps is a typography decision that must not break an assertion.
+  assertPhrase(ROADMAP, "changelog/ROADMAP.md", "the %d\\s+the data uses", CATEGORIES, "current category count");
   assertPhrase(ROADMAP, "changelog/ROADMAP.md", "%d retired ids", RETIRED_CAT_KEYS.length, "retired category count");
 });
 
