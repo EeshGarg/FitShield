@@ -181,10 +181,15 @@ function render(d) {
   setText("v-sw", tOr("diagValueResponding", "Responding"), "ok");
   setText("v-manifest", `${d.manifestName || "FitShield"} v${d.manifestVersion}`);
 
+  // Whether this snapshot is allowed to claim "everything is fine". Collected as
+  // it is read and answered once, at the end of render().
+  let healthy = true;
+
   if (d.engineLoaded) {
     setText("v-engine", tOr("diagValueLoaded", "Loaded"), "ok");
     hideBanner();
   } else {
+    healthy = false;
     const details = detailsLine(d.bootError);
     setText("v-engine", tOr("diagValueMissing", "Missing"), "bad");
     showBanner(
@@ -212,7 +217,16 @@ function render(d) {
   setText("v-brands", String(brands), brands > 0 ? "ok" : "warn");
   setText("v-buckets", `${Number(d.deliveryCount) || 0} / ${Number(d.fastFoodCount) || 0}`);
 
+  // `blocklistCount` deliberately does NOT gate the verdict. It is populated as
+  // a side effect of the worker loading its datasets, and an MV3 worker is torn
+  // down when idle — so on a perfectly healthy install this row reads 0 whenever
+  // the page happens to be the thing that woke the worker, and the real count
+  // whenever it does not. Hanging "is FitShield working?" on it would make the
+  // answer flicker with worker lifecycle rather than with anything about the
+  // install. The row still shows what it shows.
+
   if (d.dynamicRuleError) {
+    healthy = false;
     setText("v-rules", tOr("diagValueError", "Error: $1", [String(d.dynamicRuleError)]), "bad");
   } else {
     const rules = Number(d.dynamicRuleCount);
@@ -222,10 +236,42 @@ function render(d) {
   setText("v-decision", d.lastDecision || "—", (d.lastDecision || "").startsWith("active") ? "ok" : "");
 
   if (d.lastError && d.lastError.message) {
+    healthy = false;
     const detail = d.lastError.detail ? ` (${d.lastError.detail})` : "";
     setText("v-error", d.lastError.message + detail, "bad");
   } else {
     setText("v-error", tOr("diagValueNone", "None"), "ok");
+  }
+
+  /**
+   * The verdict.
+   *
+   * This page exists to answer one question — "is this working?" — and it only
+   * ever answered it when the answer was NO. A healthy install produced a page
+   * of rows and a hidden banner, so the reader had to assemble a conclusion out
+   * of eight values, and "no banner" was indistinguishable from "the banner
+   * failed to render". For a screen-reader user it was worse than that: #banner
+   * is the page's role="status", so the failure paths announce a verdict and the
+   * healthy path announced nothing at all.
+   *
+   * What it may claim is bounded by what the snapshot proves. Zero live redirect
+   * rules is NOT a fault — it is the correct state with blocking switched off or
+   * outside a schedule window — so the sentence says the extension is installed
+   * and running and points at the rows for what it is doing, rather than
+   * promising protection that the user may have deliberately paused.
+   *
+   * Anything less than fully healthy leaves the banner where it was: the failure
+   * paths above have already spoken, and the remaining cases are marked on the
+   * individual rows. Silence is never used to mean "fine".
+   */
+  if (healthy) {
+    showBanner(
+      "good",
+      tOr(
+        "diagAllGood",
+        "FitShield is installed and running. The rows below show what it is doing right now."
+      )
+    );
   }
 }
 

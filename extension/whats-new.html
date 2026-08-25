@@ -135,6 +135,11 @@
   <script src="ambient.js" data-energy="lively"></script>
   <script src="browser-shim.js"></script>
   <script src="i18n.js"></script>
+  <!-- For the theme-mode helpers only. This page used to read `theme` alone and
+       therefore stayed dark while the popup went light on a System + light-OS
+       profile; resolving the mode the same way every other surface does means
+       re-using the same implementation rather than copying it. -->
+  <script src="fitshield-core.js"></script>
   <script src="whats-new.js"></script>
 </body>
 </html>

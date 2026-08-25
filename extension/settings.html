@@ -214,18 +214,16 @@
       border: 1px solid rgba(255, 255, 255, 0.04);
     }
 
+    /* One appearance, because there is one kind of value in this grid. `.on` and
+       `.off` modifiers used to live here for a live ON/OFF readout the card no
+       longer has — "Your stats" is seven counters, and whether blocking is
+       currently on is answered by the switches that control it, on the same
+       page, rather than by a second read-only copy that could disagree with
+       them. buildStatCard's unused `valueClass` argument went with them. */
     .stat-value {
       font-size: 1.4rem;
       font-weight: 700;
       line-height: 1.1;
-    }
-
-    .stat-value.on {
-      color: var(--accent-text);
-    }
-
-    .stat-value.off {
-      color: var(--muted);
     }
 
     .stat-label {
@@ -364,15 +362,26 @@
     }
 
     /* The savings number gets a slow, living gradient sheen so the stat that
-       grows as you skip orders quietly draws the eye. */
+       grows as you skip orders quietly draws the eye.
+
+       Every stop is TEXT — the number is painted by this gradient, with
+       `color: transparent` below — so every stop carries the 3:1 the 22.4px
+       bold value needs. Three of them were fixed colours picked against the dark
+       panel: raw --accent is 3.39:1 on white, and the literal #5ed1a8 and
+       #66d0e6 were 1.88:1 and 1.79:1. Because the sheen animates over 9s, those
+       two swept through the whole figure rather than tinting one edge of it, so
+       in Light the one number the estimate exists to show went pale on white
+       every few seconds. Deriving from --accent-text (already mixed towards
+       --text) darkens the whole ramp in Light and lightens it in Dark from one
+       rule — same sheen, same direction, same timing. */
     .stat-value.savings {
       background: linear-gradient(
         100deg,
-        var(--accent) 0%,
-        #5ed1a8 26%,
-        #66d0e6 52%,
-        var(--accent) 78%,
-        #5ed1a8 100%
+        var(--accent-text) 0%,
+        color-mix(in srgb, var(--accent-text) 70%, var(--text)) 26%,
+        color-mix(in srgb, var(--accent-text) 45%, var(--text)) 52%,
+        var(--accent-text) 78%,
+        color-mix(in srgb, var(--accent-text) 70%, var(--text)) 100%
       );
       background-size: 220% 100%;
       -webkit-background-clip: text;
@@ -677,6 +686,18 @@
       width: 92px;
     }
 
+    /* No `outline: none` here, and the omission is load-bearing.
+       `input[type="text"]` and `input:focus-visible` have the SAME specificity
+       (0,1,1), so a reset declared in this block — 190 lines below the
+       focus-visible rule — won on source order and silently deleted the ring
+       from every text, search, number and time field on the page: the custom-URL
+       box, all four search boxes, both duration fields, the report subject, the
+       custom-alternative fields and the schedule times. Twelve stops in a real
+       keyboard walk lit up `:focus-visible` and painted nothing.
+       `select` escaped only because it is unqualified here (0,0,1) and therefore
+       lost to `select:focus-visible`.
+       An `outline` on an UNFOCUSED control is invisible anyway, so resetting it
+       bought nothing and cost the caret. */
     input[type="number"],
     input[type="search"],
     input[type="text"],
@@ -687,7 +708,6 @@
       background: #111823;
       color: var(--text);
       padding: 10px 12px;
-      outline: none;
       font: inherit;
     }
 
@@ -1258,6 +1278,15 @@
     }
     .pref-chip[aria-pressed="true"]::before { content: "✓ "; }
 
+    /* The top border always separates this row from something real: every
+       .pref-row on the page follows a heading block, an intro, a chip group or
+       another row. A `.pref-row:first-of-type { border-top: 0 }` rule used to
+       sit here to suppress a hairline under a card title, and it matched
+       NOTHING — each row is a <div> among earlier <div> siblings, so it was
+       never the first of its type. It was removed rather than corrected because
+       the case it guarded against does not exist in this markup; a test pins
+       that, so the day a row does become the first thing in a card, the rule
+       comes back deliberately instead of silently. */
     .pref-row {
       display: flex;
       flex-wrap: wrap;
@@ -1267,7 +1296,6 @@
       padding: 12px 0;
       border-top: 1px solid var(--border);
     }
-    .pref-row:first-of-type { border-top: 0; }
     .pref-row button { min-height: 40px; }
 
     .pref-field { margin: 14px 0; }

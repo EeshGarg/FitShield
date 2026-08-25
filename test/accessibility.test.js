@@ -380,6 +380,16 @@ const CONTRAST_CASES = [
     min: 3,
     pick: (value) => value.split(/\s+solid\s+/)[1]
   },
+  // A pass that could not be granted is reported here, beside the option that
+  // was pressed. Same amber wash as .repeat-note and the same reason for the
+  // sentence being --text: it has to survive a white panel.
+  {
+    page: "warning.html",
+    what: "could-not-continue notice",
+    fg: [".pass-note", "color"],
+    layers: ["var(--bg)", "var(--panel)", [".pass-note", "background"]],
+    min: 4.5
+  },
 
   // --- popup ---------------------------------------------------------------
   {
@@ -404,6 +414,28 @@ const CONTRAST_CASES = [
     min: 4.5,
     lightOnly: { ".button.secondary": "html.theme-light .button.secondary" }
   },
+  // The "FitShield" wordmark is painted BY its gradient — the h1 sets
+  // `color: transparent` and clips the background to the glyphs — so every stop
+  // in that gradient is body text at 18.56px bold, just under the 18.66px
+  // large-text line, and every stop needs 4.5:1. Two of them were fixed colours
+  // chosen for the dark panel: raw --accent is 3.39:1 on white and the literal
+  // #6fd6c0 was 1.74:1. Because the sheen animates over 13s, the washed-out band
+  // travelled through the whole word rather than sitting on two letters.
+  ...[1, 2, 3].map((stop) => ({
+    page: "popup.html",
+    what: `wordmark gradient stop ${stop}`,
+    fg: ["h1", "background"],
+    layers: ["var(--bg)", "var(--panel)"],
+    min: 4.5,
+    pick: (value) => {
+      const inner = /linear-gradient\(([\s\S]*)\)/.exec(value);
+      assert.ok(inner, "the wordmark must still be painted by a gradient");
+      // [0] is the angle; the stops follow, each "<colour> <position>".
+      const stops = splitTop(inner[1], ",").slice(1);
+      assert.ok(stops[stop], `the wordmark gradient has no stop ${stop}`);
+      return stops[stop].replace(/\s+[\d.]+%$/, "").trim();
+    }
+  })),
 
   // --- settings ------------------------------------------------------------
   {
@@ -420,13 +452,29 @@ const CONTRAST_CASES = [
     layers: ["var(--bg)", "var(--panel)", "var(--panel-soft)"],
     min: 4.5
   },
-  {
+  // `.stat-value.on` / `.off` used to be measured here. Neither was ever applied
+  // — buildStatCard's `valueClass` argument had no caller — so the pair was
+  // removed along with the argument, and the live variant is measured instead:
+  // #estimateValue, the one card that does carry a modifier.
+  //
+  // Its `color` is `transparent`: like the popup wordmark, the figure is painted
+  // BY its gradient, so the ratio lives in the stops. Reading `color` here would
+  // have measured nothing at all — which is how three stops chosen against the
+  // dark panel (1.79-3.39:1 on white) survived under a passing contrast suite.
+  ...[0, 1, 2, 3, 4].map((stop) => ({
     page: "settings.html",
-    what: "protection-status ON value (22.4px bold)",
-    fg: [".stat-value.on", "color"],
+    what: `estimate value gradient stop ${stop} (22.4px bold)`,
+    fg: [".stat-value.savings", "background"],
     layers: ["var(--bg)", "var(--panel)", "var(--panel-soft)"],
-    min: 3
-  },
+    min: 3,
+    pick: (value) => {
+      const inner = /linear-gradient\(([\s\S]*)\)/.exec(value);
+      assert.ok(inner, "the estimate value must still be painted by a gradient");
+      const stops = splitTop(inner[1], ",").slice(1);
+      assert.ok(stops[stop], `the estimate gradient has no stop ${stop}`);
+      return stops[stop].replace(/\s+[\d.]+%$/, "").trim();
+    }
+  })),
   {
     page: "settings.html",
     what: "quick-access chip OFF label",
@@ -898,40 +946,169 @@ test("a quick-access chip toggle names its country or category", () => {
   });
 });
 
-// Any control whose native outline the sheet resets has to get one back.
-test("settings.html restores a focus ring on every control it resets", () => {
-  const rules = stylesheet("settings.html");
+// ---------------------------------------------------------------------------
+// 3b. The focus ring survives the CASCADE, not just a grep
+// ---------------------------------------------------------------------------
+//
+// The test that used to live here asked "does some `:focus-visible` rule mention
+// this element's base selector anywhere in the sheet?" and answered yes for
+// settings.html while a real keyboard walk in Chromium found TWELVE stops that
+// matched `:focus-visible` and painted no outline at all — every text, search,
+// number and time field on the page, including the custom-URL box, all four
+// search boxes and both duration fields.
+//
+// The reason a presence check cannot see it: `input[type="text"]` and
+// `input:focus-visible` have the SAME specificity, (0,1,1). A reset declared
+// below the focus rule therefore wins on source order and deletes the ring,
+// while both selectors are still present in the file. `select` survived in the
+// same declaration block purely because it was written unqualified, (0,0,1), and
+// lost to `select:focus-visible`.
+//
+// So this resolves the cascade instead: for each control the sheet styles, take
+// every rule that could match it in its focused state, rank by (specificity,
+// source order) exactly as a browser does, and read the winner.
 
-  // `input:focus-visible` really does cover `input[type="text"]`, so compare on
-  // the base selector: an attribute-qualified selector is a subset of it.
-  const base = (selector) => selector.replace(/\[[^\]]*\]/g, "").trim();
+/** CSS specificity (a, b, c) for one compound selector. */
+function specificity(selector) {
+  let text = ` ${selector} `;
+  let a = 0;
+  let b = 0;
+  let c = 0;
 
-  const reset = new Set();
+  text = text.replace(/#[\w-]+/g, () => { a += 1; return " "; });
+  // Attribute selectors, classes and pseudo-CLASSES all count in column b.
+  text = text.replace(/\[[^\]]*\]/g, () => { b += 1; return " "; });
+  text = text.replace(/::[\w-]+/g, () => { c += 1; return " "; });
+  text = text.replace(/:[\w-]+(\([^)]*\))?/g, () => { b += 1; return " "; });
+  text = text.replace(/\.[\w-]+/g, () => { b += 1; return " "; });
+  text.split(/[\s>+~]+/).forEach((part) => { if (/^[a-z][\w-]*$/i.test(part)) { c += 1; } });
+
+  return [a, b, c];
+}
+
+const specLE = (x, y) => x[0] !== y[0] ? x[0] < y[0] : x[1] !== y[1] ? x[1] < y[1] : x[2] <= y[2];
+
+/**
+ * The `outline` a browser would paint on `<tag type=... class=...>` while it
+ * matches :focus-visible, given a flat rule list in source order.
+ *
+ * Only single-compound selectors are considered, which is every rule that
+ * matters here; a descendant selector is skipped rather than guessed at.
+ */
+function winningOutline(rules, { tag, type, classes = [], id = "" }) {
+  let winner = null;
+  let winnerSpec = [-1, -1, -1];
+
   rules.forEach((rule) => {
-    if (!/^(none|0)\b/.test(rule.decls.outline || "")) { return; }
-    splitTop(rule.prelude, ",").forEach((selector) => {
-      if (selector.includes(":hover") || selector.includes(":focus")) { return; }
-      reset.add(base(selector));
+    if (!("outline" in rule.decls)) { return; }
+
+    splitTop(rule.prelude, ",").forEach((raw) => {
+      const selector = raw.trim();
+      if (/[\s>+~]/.test(selector)) { return; }
+
+      // Peel the compound apart; anything left over means "does not match".
+      let rest = selector;
+      const take = (pattern) => {
+        const found = [];
+        rest = rest.replace(pattern, (match) => { found.push(match); return ""; });
+        return found;
+      };
+
+      const ids = take(/#[\w-]+/g).map((s) => s.slice(1));
+      const attrs = take(/\[[^\]]*\]/g);
+      const pseudos = take(/:{1,2}[\w-]+(\([^)]*\))?/g);
+      const cls = take(/\.[\w-]+/g).map((s) => s.slice(1));
+      const element = rest.trim();
+
+      if (element && element !== "*" && element.toLowerCase() !== tag) { return; }
+      if (ids.some((value) => value !== id)) { return; }
+      if (cls.some((value) => !classes.includes(value))) { return; }
+
+      const attrOk = attrs.every((attr) => {
+        const match = /^\[type\s*=\s*"?([\w-]+)"?\]$/.exec(attr);
+        return match ? match[1] === type : false;
+      });
+      if (!attrOk) { return; }
+
+      // The element is focused and focus-visible; nothing else is simulated.
+      const stateOk = pseudos.every((p) => p === ":focus" || p === ":focus-visible");
+      if (!stateOk) { return; }
+
+      const spec = specificity(selector);
+      if (specLE(winnerSpec, spec)) {
+        winnerSpec = spec;
+        winner = rule.decls.outline;
+      }
     });
   });
 
-  const restored = new Set();
-  rules.forEach((rule) => {
-    if (!rule.decls.outline || /^(none|0)\b/.test(rule.decls.outline)) { return; }
-    splitTop(rule.prelude, ",").forEach((selector) => {
-      if (!selector.includes(":focus-visible")) { return; }
-      restored.add(base(selector.replace(":focus-visible", "")));
-    });
+  return winner;
+}
+
+// Every focusable control the shipped pages actually build. `via` names the
+// element that is expected to carry the ring when the control itself is
+// visually hidden (the switches paint theirs on the adjacent slider).
+const FOCUS_CASES = [
+  ["settings.html", { tag: "input", type: "text", label: "custom-URL / report / custom-alternative fields" }],
+  ["settings.html", { tag: "input", type: "search", label: "blocklist, country, category and language search" }],
+  ["settings.html", { tag: "input", type: "number", label: "pause seconds, pass minutes, meal cost" }],
+  ["settings.html", { tag: "input", type: "time", label: "schedule window start/end" }],
+  ["settings.html", { tag: "select", label: "diet, currency, report type, preview category" }],
+  ["settings.html", { tag: "button", label: "every button, including Factory reset" }],
+  ["settings.html", { tag: "textarea", label: "report body" }],
+  ["settings.html", { tag: "a", label: "the support link" }],
+  ["settings.html", { tag: "summary", label: "the advanced-schedule disclosure" }],
+  ["popup.html", { tag: "input", type: "number", label: "custom seconds / minutes" }],
+  ["popup.html", { tag: "input", type: "search", label: "the site search" }],
+  ["popup.html", { tag: "input", type: "time", label: "schedule start/end" }],
+  ["popup.html", { tag: "button", label: "Settings and the blocklist buttons" }],
+  ["warning.html", { tag: "button", label: "every block-page control" }],
+  ["warning.html", { tag: "a", label: "About FitShield" }],
+  ["warning.html", { tag: "summary", label: "why was this interrupted" }],
+  ["welcome.html", { tag: "select", label: "the language picker" }],
+  ["welcome.html", { tag: "button", label: "the onboarding answers" }],
+  ["whats-new.html", { tag: "button", label: "open settings / close" }]
+];
+
+test("every focusable control wins a visible focus ring in the real cascade", () => {
+  const sheets = new Map();
+  const offenders = [];
+
+  FOCUS_CASES.forEach(([file, control]) => {
+    if (!sheets.has(file)) { sheets.set(file, stylesheet(file)); }
+
+    const outline = winningOutline(sheets.get(file), control);
+    const drawn = outline && !/^(none|0(px)?)\b/.test(outline);
+
+    if (!drawn) {
+      offenders.push(
+        `${file}: <${control.tag}${control.type ? ` type=${control.type}` : ""}> (${control.label}) ` +
+        `resolves to outline: ${outline === null ? "<nothing>" : outline}`
+      );
+    }
   });
 
-  assert.ok(reset.size > 0, "expected the sheet to reset some native outlines");
+  assert.deepEqual(offenders, [], `no visible caret here:\n  ${offenders.join("\n  ")}`);
+});
 
-  const orphans = [...reset].filter((selector) => !restored.has(selector));
-  assert.deepEqual(
-    orphans,
-    [],
-    `these clear the native outline and never draw one: ${orphans.join(", ")}`
-  );
+// The bug above was introduced by a reset sitting BELOW the focus rule with the
+// same specificity. Nothing stops that being reintroduced except noticing it, so
+// this states the rule directly: an `outline` reset may only be scoped to a
+// state that is not focus.
+test("no page resets an outline on a resting or focused control", () => {
+  ["settings.html", "popup.html", "warning.html", "welcome.html", "whats-new.html"].forEach((file) => {
+    stylesheet(file).forEach((rule) => {
+      if (!/^(none|0(px)?)\b/.test(rule.decls.outline || "")) { return; }
+
+      splitTop(rule.prelude, ",").forEach((selector) => {
+        assert.ok(
+          /:hover|:active|::/.test(selector),
+          `${file}: \`${selector}\` clears the outline outside a hover/active state — ` +
+          "it will out-order an equal-specificity :focus-visible rule and delete the caret"
+        );
+      });
+    });
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -1074,6 +1251,179 @@ test('the block page\'s "Skip" is a real target, not a bare word', () => {
     `.intent-skip has ${horizontal} horizontal padding, so its target is only as wide as the word`
   );
   assert.equal(declared(rules, ".intent-skip", "min-height"), null, ".intent-skip must not opt out of --tap");
+});
+
+// The block page's only link, and the only thing in its own paragraph. A real
+// keyboard/pointer walk in Chromium measured it at 92x17 CSS px on a screen
+// otherwise built to 44 — and WCAG 2.2's "inline" exemption from the 24x24
+// minimum is for a target inside a sentence, which this is not.
+test('the block page\'s "About FitShield" link is a real target', () => {
+  const rules = stylesheet("warning.html");
+
+  assert.equal(
+    declared(rules, ".learn-more a", "display"),
+    "inline-block",
+    "an inline box takes no vertical padding, so the link cannot grow past its line box"
+  );
+
+  const padding = required(rules, ".learn-more a", "padding", "warning.html").split(/\s+/).map(parseFloat);
+  const [vertical, horizontal] = padding.length > 1 ? padding : [padding[0], padding[0]];
+
+  // 0.82rem/1.5 gives a ~17px line box; 24 - 17 leaves 7px to find, so >= 4px a
+  // side clears the minimum with room for a font-size change.
+  assert.ok(vertical >= 4, `.learn-more a has ${vertical}px vertical padding — the target stays ~17px tall`);
+  assert.ok(horizontal >= 4, `.learn-more a has ${horizontal}px horizontal padding`);
+});
+
+// ---------------------------------------------------------------------------
+// 5b. No rule in a shipped stylesheet may style nothing
+// ---------------------------------------------------------------------------
+//
+// Three blocks were removed because their markup had gone: `.pref-row
+// :first-of-type` (every .pref-row is a <div> among earlier <div> siblings, so
+// it was never first OF ITS TYPE), `.stat-value.on` / `.off` (buildStatCard's
+// `valueClass` argument had no caller), and welcome.html's whole `.toggle` /
+// `.slider` / `.explainer` set, copied from Settings for an onboarding step that
+// became four `.onboard-choices` buttons instead.
+//
+// A dead rule is not merely clutter. Each of those encoded an INTENTION — no
+// hairline above the first row, a green/grey state for a live readout, a switch
+// — and the reader of the file cannot tell a rule that is waiting for its markup
+// from one whose markup silently stopped satisfying it. These tests state the
+// facts that made each deletion safe, so if the markup comes back, so does the
+// question.
+
+test("every class a page's stylesheet styles is a class the page can actually produce", () => {
+  // Classes applied by script as well as by markup, gathered from the page's own
+  // JS: `x.className = "..."`, `classList.add/toggle("...")`.
+  const PAGES = [
+    "welcome.html", "popup.html", "warning.html", "whats-new.html",
+    "settings.html", "diagnostics.html"
+  ];
+
+  // Comments first. An apostrophe inside prose ("the popup's timer") reads as
+  // the start of a string literal and swallows everything up to the next one,
+  // which silently hid four whole families of class name on the first attempt at
+  // this scan. `://` is spared so a URL inside a real string survives.
+  const stripComments = (js) => js
+    .replace(/\/\*[\s\S]*?\*\//g, " ")
+    .replace(/(^|[^:])\/\/[^\n]*/g, "$1");
+
+  PAGES.forEach((page) => {
+    const html = read(page);
+    const produced = new Set();
+
+    for (const match of html.matchAll(/\sclass="([^"]*)"/g)) {
+      match[1].split(/\s+/).filter(Boolean).forEach((name) => produced.add(name));
+    }
+
+    // Class names are assembled at runtime in every shape JS allows —
+    // `"chip strong"`, a ternary inside a template, a concatenation — so rather
+    // than parsing the expression, every string literal in the page's OWN
+    // scripts is taken apart and each token treated as a name it might apply.
+    // Deliberately generous: this is a tripwire for a block whose markup has
+    // gone, not a proof that one selector is reachable.
+    //
+    // The script list is read from the page rather than written here, so a page
+    // that gains a builder (settings.html loads preferences.js as well as
+    // settings.js) is covered without editing this test.
+    const scripts = [...html.matchAll(/<script src="([^"]+)"/g)]
+      .map((match) => match[1])
+      .filter((src) => fs.existsSync(path.join(EXT, src)));
+
+    assert.ok(scripts.length > 0, `${page} declares no local scripts — the scan is reading the wrong thing`);
+
+    scripts.forEach((script) => {
+      const js = stripComments(read(script));
+      for (const match of js.matchAll(/(["'`])((?:\\.|(?!\1)[^\\])*)\1/g)) {
+        // Split on anything a class name cannot contain, so a nested ternary
+        // inside a template (`mb-pill ${on ? "on" : "off"}`) yields both arms.
+        match[2].split(/[^\w-]+/).filter(Boolean).forEach((name) => produced.add(name));
+      }
+    });
+
+    const orphans = new Set();
+    stylesheet(page).forEach((rule) => {
+      for (const match of rule.prelude.matchAll(/\.([\w-]+)/g)) {
+        if (!produced.has(match[1])) { orphans.add(match[1]); }
+      }
+    });
+
+    assert.deepEqual(
+      [...orphans].sort(),
+      [],
+      `${page} styles classes nothing in the page or its script produces: ${[...orphans].join(", ")}`
+    );
+  });
+});
+
+test("settings.html has no .pref-row that would want its top border suppressed", () => {
+  // The deleted `.pref-row:first-of-type { border-top: 0 }` existed to stop a
+  // hairline appearing directly under a card title. Every .pref-row follows real
+  // content, so the border always separates two things — which is the fact that
+  // made removing the rule safe rather than a silent visual regression.
+  const html = read("settings.html").replace(/<!--[\s\S]*?-->/g, "");
+  const body = html.slice(html.indexOf("<body>"));
+  const VOID = new Set(["input", "img", "br", "hr", "meta", "link", "source", "area", "col"]);
+
+  const stack = [];
+  const firstInParent = [];
+
+  for (const match of body.matchAll(/<(\/?)([a-zA-Z][\w-]*)([^>]*?)(\/?)>/g)) {
+    const [, closing, rawTag, attrs, selfClosing] = match;
+    const tag = rawTag.toLowerCase();
+
+    if (closing) { stack.pop(); continue; }
+
+    const parent = stack[stack.length - 1];
+    const classAttr = /class="([^"]*)"/.exec(attrs);
+    const classes = classAttr ? classAttr[1].split(/\s+/) : [];
+
+    if (parent && classes.includes("pref-row") && parent.childCount === 0) {
+      firstInParent.push(`<${parent.tag}> starts with a .pref-row`);
+    }
+
+    if (parent) { parent.childCount += 1; }
+    if (VOID.has(tag) || selfClosing) { continue; }
+
+    stack.push({ tag, childCount: 0 });
+  }
+
+  assert.ok(
+    (body.match(/class="pref-row"/g) || []).length >= 5,
+    "the scan found almost no .pref-row — it is no longer reading the markup"
+  );
+  assert.deepEqual(
+    firstInParent,
+    [],
+    "a .pref-row is now the first thing in its container, so it draws a hairline under the heading with nothing above it"
+  );
+});
+
+test("buildStatCard builds one kind of value, and the sheet styles one kind", () => {
+  const source = read("settings.js");
+  const declaration = /function buildStatCard\(([^)]*)\)/.exec(source);
+
+  assert.ok(declaration, "settings.js no longer declares buildStatCard");
+  assert.deepEqual(
+    declaration[1].split(",").map((s) => s.trim()).filter(Boolean),
+    ["value", "label"],
+    "a third variant argument is back; every caller must pass it or the variant styles nothing"
+  );
+
+  const variants = stylesheet("settings.html")
+    .flatMap((rule) => splitTop(rule.prelude, ","))
+    .filter((selector) => /^\.stat-value\.[\w-]+$/.test(selector.trim()))
+    .map((selector) => selector.trim().replace(".stat-value.", ""));
+
+  const markup = read("settings.html");
+  variants.forEach((variant) => {
+    assert.match(
+      markup,
+      new RegExp(`class="stat-value ${variant}"`),
+      `.stat-value.${variant} is styled but no element in settings.html carries it`
+    );
+  });
 });
 
 // ---------------------------------------------------------------------------

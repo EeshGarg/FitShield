@@ -419,6 +419,19 @@
     .pass-options button:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
     .pass-options .scope { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
 
+    /* Amber wash, --text sentence — the same pairing as .repeat-note, so it
+       stays readable on a white panel as well as a dark one. */
+    .pass-note {
+      margin: 0 0 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255, 196, 120, 0.12);
+      border: 1px solid rgba(214, 138, 40, 0.42);
+      color: var(--text);
+      font-size: 0.85rem;
+    }
+    .pass-note[hidden] { display: none; }
+
     /* --- why panel ------------------------------------------------------- */
 
     details.reason {
@@ -458,7 +471,17 @@
       font-size: 0.82rem;
       color: var(--muted);
     }
-    .learn-more a { color: var(--accent-text); font-weight: 600; text-decoration: none; }
+    /* The only link on the page, and the only thing in its paragraph — so the
+       "inline, inside a sentence" exemption from the 24x24 minimum does not
+       apply to it. It was a bare 92x17 hit area on a screen otherwise built to
+       44px. Padding, not a font size change, so it looks the same. */
+    .learn-more a {
+      display: inline-block;
+      padding: 6px 10px;
+      color: var(--accent-text);
+      font-weight: 600;
+      text-decoration: none;
+    }
     .learn-more a:hover, .learn-more a:focus-visible { text-decoration: underline; }
 
     .preview-banner {
@@ -602,7 +625,20 @@
     <section class="shell pass" id="passPanel" hidden aria-labelledby="passTitle">
       <div class="pass-title" id="passTitle" data-i18n="passTitle">How do you want to continue?</div>
       <p class="pass-sub" id="passSub" data-i18n="passSubtitle">Choose how long. Each option says what it covers — this site only, or all blocking.</p>
+      <!-- Where a failed or preview-mode "continue" is reported.
+           ABOVE the options, not below them. The failure used to be written only
+           into #hint, in the card above — measured at 830px off the top of a
+           900px viewport while the chooser was open, so the option flickered
+           back to its own label and nothing visibly happened. Below the list it
+           measured 878px DOWN, past the fold of the same viewport, because six
+           options are ~460px tall. Here it is adjacent to the first option and
+           on screen whenever the panel is.
+           role="alert" because this is an error on the one action that lets a
+           user through: it must interrupt, not wait its turn. -->
+      <p class="pass-note" id="passNote" role="alert" hidden></p>
+
       <div class="pass-options" id="passOptions" role="group" aria-labelledby="passTitle"></div>
+
       <div class="actions">
         <button id="passCancel" class="secondary" type="button" data-i18n="passCancel">Never mind</button>
       </div>

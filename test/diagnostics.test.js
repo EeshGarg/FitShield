@@ -380,6 +380,82 @@ const STATES = [
   });
 });
 
+// ---------------------------------------------------------------------------
+// The page answers its own question, in both directions
+// ---------------------------------------------------------------------------
+//
+// "Is FitShield working?" is the only question this page exists to answer, and
+// it only ever answered when the answer was NO. A healthy install produced eight
+// value rows and a hidden banner, so a reader had to assemble the verdict
+// themselves and "no banner" was indistinguishable from "the banner failed to
+// render". #banner is the page's role="status", so a screen-reader user heard a
+// verdict on every failure path and nothing at all on the healthy one.
+
+test("a healthy install is told, in the same place a broken one is", async () => {
+  const page = diagnosticsPage({ answer: HEALTHY });
+  await settle();
+
+  const banner = page.byId.get("banner");
+
+  assert.equal(banner.hidden, false, "a healthy install gets silence where a broken one gets a verdict");
+  assert.match(banner.className, /\bgood\b/, "the success state must not be styled as an error");
+  assert.ok(shownText(banner).trim().length > 0, "the banner is visible but says nothing");
+});
+
+test("a cold service worker does not read as a broken install", async () => {
+  // `blocklistCount` is populated as a side effect of the worker loading its
+  // datasets, and an MV3 worker is torn down when idle — so opening this page is
+  // often the thing that wakes it, and the row legitimately reads 0 on a healthy
+  // install while thousands of redirect rules are live. Observed in Chromium:
+  // "Brands loaded: 0" beside "Live redirect rules: 2538". A verdict that
+  // depended on that number would flicker with worker lifecycle.
+  const page = diagnosticsPage({ answer: { ...HEALTHY, blocklistCount: 0, deliveryCount: 0, fastFoodCount: 0 } });
+  await settle();
+
+  const banner = page.byId.get("banner");
+  assert.equal(banner.hidden, false, "a cold worker made the page withhold its verdict");
+  assert.match(banner.className, /\bgood\b/);
+  assert.equal(page.byId.get("v-brands").textContent, "0", "the row still reports what the worker actually said");
+});
+
+test("the healthy verdict does not claim protection the user may have paused", async () => {
+  // Zero live redirect rules is the CORRECT state with blocking switched off or
+  // outside a schedule window. The banner may say the extension is running; it
+  // may not say the user is currently being protected.
+  const page = diagnosticsPage({
+    answer: { ...HEALTHY, dynamicRuleCount: 0, lastDecision: "paused — blocking is off" }
+  });
+  await settle();
+
+  const banner = page.byId.get("banner");
+  assert.equal(banner.hidden, false, "switching blocking off is not a fault and must not silence the verdict");
+
+  const text = shownText(banner);
+  assert.doesNotMatch(text, /\bprotected\b|\bblocking (?:is )?(?:active|on)\b/i,
+    `the verdict overclaims with blocking paused: "${text}"`);
+  assert.equal(page.byId.get("v-rules").textContent, "0", "the row still reports the real rule count");
+});
+
+// Every state where something is genuinely wrong must NOT be told "all good".
+// Silence is allowed there (the failure banners and the per-row markers already
+// speak); a false all-clear never is.
+[
+  ["the engine did not load", { ...HEALTHY, engineLoaded: false, bootError: "Unexpected end of input" }],
+  ["the rule count could not be read", { ...HEALTHY, dynamicRuleCount: null, dynamicRuleError: "quota exceeded" }],
+  ["the worker recorded an error", { ...HEALTHY, lastError: { message: "rule update rejected" } }]
+].forEach(([what, response]) => {
+  test(`the page never says all-clear when ${what}`, async () => {
+    const page = diagnosticsPage({ answer: response });
+    await settle();
+
+    const banner = page.byId.get("banner");
+    assert.ok(
+      banner.hidden || !/\bgood\b/.test(banner.className),
+      `a success banner was shown while ${what}`
+    );
+  });
+});
+
 test("the banner names what is wrong and what the customer can do about it", async () => {
   const page = diagnosticsPage({ answer: undefined });
   await settle();

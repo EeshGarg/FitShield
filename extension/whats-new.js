@@ -15,6 +15,38 @@ const DEFAULT_THEME = {
   radius: 20
 };
 
+/**
+ * Resolve the stored theme the same way the popup and the settings page do.
+ *
+ * With Theme = System they re-resolve the preset against the OS at every load
+ * and neither writes the result back, so after the first OS light↔dark flip the
+ * stored `theme` is stale. Reading it alone left this page dark while the rest
+ * of the product was light. `shouldUseResolvedPreset` is false as soon as the
+ * user has hand-picked colours, so a custom palette is never overwritten.
+ */
+function resolveTheme(theme, themeMode) {
+  const core = typeof FitShieldCore !== "undefined" ? FitShieldCore : null;
+
+  if (!core || !core.shouldUseResolvedPreset || !core.shouldUseResolvedPreset(theme, themeMode)) {
+    return theme;
+  }
+
+  const prefersLight = !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches);
+  return { ...(theme || {}), ...core.THEME_MODE_PRESETS[core.resolveThemeMode(themeMode, prefersLight)] };
+}
+
+function isLightSurface(color) {
+  const hex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(String(color || "").trim());
+
+  if (!hex) {
+    return false;
+  }
+
+  const digits = hex[1].length === 3 ? hex[1].split("").map((c) => c + c).join("") : hex[1];
+  const [r, g, b] = [0, 2, 4].map((i) => Number.parseInt(digits.slice(i, i + 2), 16));
+  return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.5;
+}
+
 function applyTheme(theme = {}) {
   const merged = { ...DEFAULT_THEME, ...theme };
   const root = document.documentElement;
@@ -24,6 +56,9 @@ function applyTheme(theme = {}) {
   root.style.setProperty("--text", merged.text);
   root.style.setProperty("--muted", merged.muted);
   root.style.setProperty("--accent", merged.accent);
+  // The sheet declares `color-scheme: dark`, which is the UA's answer for the
+  // scrollbar and the pre-paint canvas — wrong the moment the palette is light.
+  root.style.colorScheme = isLightSurface(merged.bg) ? "light" : "dark";
 }
 
 const currentVersion = (() => {
@@ -104,8 +139,8 @@ async function init() {
   }
 
   try {
-    const { theme } = await chrome.storage.local.get(["theme"]);
-    applyTheme(theme);
+    const { theme, themeMode } = await chrome.storage.local.get(["theme", "themeMode"]);
+    applyTheme(resolveTheme(theme, themeMode));
   } catch (error) {
     console.error("Failed to load theme:", error);
   }

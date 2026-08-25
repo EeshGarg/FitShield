@@ -112,14 +112,23 @@
       min-width: 0;
     }
 
+    /* The wordmark is painted BY the gradient (`color: transparent`), so every
+       stop is body text and every stop has to clear 4.5:1 — this is 18.56px
+       bold, just under the 18.66px "large text" line. Two of the stops were
+       fixed colours picked for the dark panel: raw --accent is 3.39:1 on white
+       and the literal #6fd6c0 was 1.74:1, and because the sheen animates, that
+       washed-out band swept through "FitShield" every 13 seconds in Light.
+       Both now derive from --accent-text, which is already mixed towards --text
+       and therefore darkens in Light and lightens in Dark from one rule. Same
+       sheen, same direction, same timing. */
     h1 {
       margin: 0;
       font-size: 1.16rem;
       background: linear-gradient(
         100deg,
         var(--text) 0%,
-        var(--accent) 40%,
-        #6fd6c0 56%,
+        var(--accent-text) 40%,
+        color-mix(in srgb, var(--accent-text) 60%, var(--text)) 56%,
         var(--text) 84%
       );
       background-size: 220% 100%;
@@ -230,13 +239,18 @@
       line-height: 1.35;
     }
 
+    /* No `outline: none`. It is invisible on a resting control, so it only ever
+       gets a chance to matter while the control is focused — and there it is a
+       loaded gun pointed at the focus ring. In settings.html the same habit,
+       written with `input[type="text"]` instead of a class, tied
+       `input:focus-visible` on specificity, won on source order, and left twelve
+       fields with no caret at all. */
     .number-input,
     .time-input,
     .text-input,
     .range-input {
       width: 100%;
       font: inherit;
-      outline: none;
     }
 
     .number-input,
