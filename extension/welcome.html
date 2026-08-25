@@ -184,7 +184,13 @@
       background: color-mix(in srgb, var(--accent) 14%, transparent);
       font-weight: 600;
     }
-    .onboard-choices button[aria-pressed="true"]::before { content: "✓ "; }
+    /* Decoration: the selector is [aria-pressed="true"], so the tree already
+       carries the pressed state this glyph stands for. Left in the accessible
+       name a screen reader says it twice — once as "check mark". The empty ALT
+       TEXT after the slash keeps the tick on screen and out of the name; the
+       plain declaration first is the fallback for a browser too old to parse
+       the alt-text form, which drops only the second declaration. */
+    .onboard-choices button[aria-pressed="true"]::before { content: "✓ "; content: "✓ " / ""; }
     .onboard-choices .sub {
       display: block;
       margin-top: 3px;

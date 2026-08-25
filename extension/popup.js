@@ -202,6 +202,30 @@ function formatPassDisplay(minutes) {
   return `${minutes}m`;
 }
 
+function secondUnit(value) {
+  return t(value === 1 ? "unitSecond" : "unitSeconds");
+}
+
+/**
+ * A range input is announced by its accessible name and its NUMBER. The chip
+ * beside it reads "60s", but that chip is a separate element: a screen reader
+ * reaching the slider itself hears "Timer duration, slider, 60" — sixty of
+ * what, on a card that also carries a "Site open time" slider announced as the
+ * bare number "5"? One is seconds and the other is minutes, and neither said
+ * so. `aria-valuetext` replaces the number with the number AND its unit, and it
+ * is written through the same helper that writes the chip so the two can never
+ * drift apart — including on a language change, which re-runs updateUI.
+ */
+function setTimerDisplay(seconds) {
+  timerDisplay.textContent = formatTimerDisplay(seconds);
+  timerSlider.setAttribute("aria-valuetext", `${seconds} ${secondUnit(seconds)}`);
+}
+
+function setPassDisplay(minutes) {
+  passDurationDisplay.textContent = formatPassDisplay(minutes);
+  passDurationSlider.setAttribute("aria-valuetext", `${minutes} ${minuteUnit(minutes)}`);
+}
+
 // Set from the worker's projection of the canonical schedule.
 let scheduleIsSimple = true;
 
@@ -746,10 +770,10 @@ function updateUI(state) {
   customSitesEnabledInput.checked = customSitesEnabled;
   timerSlider.value = normalizeTimerSeconds(timerSeconds);
   timerSecondsInput.value = normalizeTimerSeconds(timerSeconds);
-  timerDisplay.textContent = formatTimerDisplay(normalizeTimerSeconds(timerSeconds));
+  setTimerDisplay(normalizeTimerSeconds(timerSeconds));
   passDurationSlider.value = normalizePassDurationMinutes(passDurationMinutes);
   passDurationMinutesInput.value = normalizePassDurationMinutes(passDurationMinutes);
-  passDurationDisplay.textContent = formatPassDisplay(normalizePassDurationMinutes(passDurationMinutes));
+  setPassDisplay(normalizePassDurationMinutes(passDurationMinutes));
   scheduleEnabledInput.checked = scheduleEnabled;
   scheduleStartInput.value = scheduleStart;
   scheduleEndInput.value = scheduleEnd;
@@ -870,7 +894,7 @@ async function saveFrictionValues(partial) {
 timerSlider.addEventListener("input", () => {
   const timerSeconds = normalizeTimerSeconds(timerSlider.value);
   timerSecondsInput.value = timerSeconds;
-  timerDisplay.textContent = formatTimerDisplay(timerSeconds);
+  setTimerDisplay(timerSeconds);
   chrome.storage.local.set({ timerSeconds });
 });
 
@@ -882,14 +906,14 @@ timerSecondsInput.addEventListener("change", async () => {
   const timerSeconds = normalizeTimerSeconds(timerSecondsInput.value);
   timerSecondsInput.value = timerSeconds;
   timerSlider.value = timerSeconds;
-  timerDisplay.textContent = formatTimerDisplay(timerSeconds);
+  setTimerDisplay(timerSeconds);
   await saveFrictionValues({ timerSeconds });
 });
 
 passDurationSlider.addEventListener("input", () => {
   const passDurationMinutes = normalizePassDurationMinutes(passDurationSlider.value);
   passDurationMinutesInput.value = passDurationMinutes;
-  passDurationDisplay.textContent = formatPassDisplay(passDurationMinutes);
+  setPassDisplay(passDurationMinutes);
   chrome.storage.local.set({ passDurationMinutes });
 });
 
@@ -903,7 +927,7 @@ passDurationMinutesInput.addEventListener("change", async () => {
   const passDurationMinutes = normalizePassDurationMinutes(passDurationMinutesInput.value);
   passDurationMinutesInput.value = passDurationMinutes;
   passDurationSlider.value = passDurationMinutes;
-  passDurationDisplay.textContent = formatPassDisplay(passDurationMinutes);
+  setPassDisplay(passDurationMinutes);
   await saveFrictionValues({ passDurationMinutes });
 });
 

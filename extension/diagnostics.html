@@ -50,6 +50,14 @@
       margin: 0 0 14px;
     }
 
+    /* Each row is a label/value pair, and the pair is the whole point: this is
+       the page someone opens when blocking is not working. Two sibling spans
+       linearise as two unrelated announcements — "Live redirect rules (Chrome)",
+       then, separately, "0" — because the association lives in the two-column
+       layout and layout is not in the accessibility tree. A list puts one node
+       around both halves, which survives element navigation and the row wrapping
+       at a narrow width. */
+    .rows { list-style: none; margin: 0; padding: 0; }
     .row {
       display: flex;
       justify-content: space-between;
@@ -132,19 +140,23 @@
 
     <section class="panel">
       <h2 data-i18n="diagRuntimeHeading">Runtime</h2>
-      <div class="row"><span class="label" data-i18n="diagManifestLabel">Manifest</span><span class="value" id="v-manifest">…</span></div>
-      <div class="row"><span class="label" data-i18n="diagServiceWorkerLabel">Service worker</span><span class="value" id="v-sw">…</span></div>
-      <div class="row"><span class="label" data-i18n="diagEngineLabel">FS Engine bundle</span><span class="value" id="v-engine">…</span></div>
-      <div class="row"><span class="label" data-i18n="diagBlockPageUrlLabel">Block page URL</span><span class="value" id="v-blockurl">…</span></div>
+      <ul class="rows" role="list">
+        <li class="row"><span class="label" data-i18n="diagManifestLabel">Manifest</span><span class="value" id="v-manifest">…</span></li>
+        <li class="row"><span class="label" data-i18n="diagServiceWorkerLabel">Service worker</span><span class="value" id="v-sw">…</span></li>
+        <li class="row"><span class="label" data-i18n="diagEngineLabel">FS Engine bundle</span><span class="value" id="v-engine">…</span></li>
+        <li class="row"><span class="label" data-i18n="diagBlockPageUrlLabel">Block page URL</span><span class="value" id="v-blockurl">…</span></li>
+      </ul>
     </section>
 
     <section class="panel">
       <h2 data-i18n="diagBlocklistHeading">Blocklist &amp; rules</h2>
-      <div class="row"><span class="label" data-i18n="diagBrandsLabel">Brands loaded</span><span class="value" id="v-brands">…</span></div>
-      <div class="row"><span class="label" data-i18n="diagBucketsLabel">Delivery / fast-food</span><span class="value" id="v-buckets">…</span></div>
-      <div class="row"><span class="label" data-i18n="diagRulesLabel">Live redirect rules (Chrome)</span><span class="value" id="v-rules">…</span></div>
-      <div class="row"><span class="label" data-i18n="diagLastDecisionLabel">Last blocking decision</span><span class="value" id="v-decision">…</span></div>
-      <div class="row"><span class="label" data-i18n="diagLastErrorLabel">Last error</span><span class="value" id="v-error">…</span></div>
+      <ul class="rows" role="list">
+        <li class="row"><span class="label" data-i18n="diagBrandsLabel">Brands loaded</span><span class="value" id="v-brands">…</span></li>
+        <li class="row"><span class="label" data-i18n="diagBucketsLabel">Delivery / fast-food</span><span class="value" id="v-buckets">…</span></li>
+        <li class="row"><span class="label" data-i18n="diagRulesLabel">Live redirect rules (Chrome)</span><span class="value" id="v-rules">…</span></li>
+        <li class="row"><span class="label" data-i18n="diagLastDecisionLabel">Last blocking decision</span><span class="value" id="v-decision">…</span></li>
+        <li class="row"><span class="label" data-i18n="diagLastErrorLabel">Last error</span><span class="value" id="v-error">…</span></li>
+      </ul>
     </section>
 
     <section class="panel">

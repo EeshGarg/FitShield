@@ -114,9 +114,12 @@
 
     p { margin: 0; color: var(--muted); }
 
+    /* Sits directly under the heading, so the margin that separates it from the
+       framing paragraph below is a bottom margin. `hidden` is display:none, so
+       an unbranded block collapses the gap instead of leaving a hole. */
     .brand-line {
       font-size: 0.95rem;
-      margin-top: 6px;
+      margin-bottom: 6px;
     }
     .brand-line strong { color: var(--text); }
 
@@ -452,9 +455,24 @@
       min-height: var(--tap);
     }
     details.reason summary::-webkit-details-marker { display: none; }
-    details.reason summary::before { content: "▸ "; }
-    details.reason[open] summary::before { content: "▾ "; }
+    /* The triangle is decoration: the tree already carries expanded=true/false,
+       so a screen reader that also speaks the glyph says the state twice — once
+       as "black right-pointing small triangle". `content: "▸ " / ""` gives the
+       generated content empty ALT TEXT, which keeps it on screen and removes it
+       from the accessible name. The plain declaration is repeated first on
+       purpose: a browser too old to parse the alt-text form drops only the
+       second declaration and still draws the marker. */
+    details.reason summary::before { content: "▸ "; content: "▸ " / ""; }
+    details.reason[open] summary::before { content: "▾ "; content: "▾ " / ""; }
 
+    /* A real list, because the pair is the point. Linearised, a bare
+       label span next to a bare value span reaches a screen reader as two
+       unrelated announcements — "Site", then, separately, "doordash.com" — and
+       the pairing a sighted user gets from the two columns exists nowhere in
+       the tree. Wrapping each pair in a list item puts one node around both, so
+       the association survives element-by-element navigation and survives the
+       row wrapping onto two lines at a narrow width. */
+    .reason-rows { list-style: none; margin: 0; padding: 0; }
     .reason-row {
       display: flex;
       justify-content: space-between;
@@ -533,8 +551,16 @@
     <section class="shell block-card" aria-labelledby="pauseTitle">
       <span class="eyebrow" data-i18n="warningEyebrow">FitShield</span>
       <h1 id="pauseTitle" data-i18n="warningTitle">Take a moment.</h1>
-      <p data-i18n="warningIntro">Hunger, habit, stress, and convenience all feel the same in the moment. Here is one thing you could make instead.</p>
+      <!-- WHICH site, before the framing. A sighted user takes the whole card in
+           at once and the emphasised brand name is the first thing the eye lands
+           on. A screen reader gets the card as a line at a time, and with this
+           paragraph below the intro the concrete answer to "why am I looking at
+           this?" arrived fourth, after twenty words of general copy. Ordering it
+           the way it is weighted, rather than the way it reads as an essay, costs
+           the layout nothing — the 6px that separated the two paragraphs simply
+           moved to the other side of this one. -->
       <p class="brand-line" id="brand" hidden></p>
+      <p data-i18n="warningIntro">Hunger, habit, stress, and convenience all feel the same in the moment. Here is one thing you could make instead.</p>
 
       <!-- The number itself is not a live region: announcing every second would
            make a screen reader unusable. warning.js posts milestone updates to
@@ -569,7 +595,7 @@
 
       <details class="reason" id="reasonPanel" hidden>
         <summary id="reasonSummary" data-i18n="blockReasonHeading">Why was this interrupted?</summary>
-        <div id="reasonBody"></div>
+        <ul class="reason-rows" id="reasonBody" role="list"></ul>
       </details>
 
       <p class="learn-more">

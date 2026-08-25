@@ -36,6 +36,7 @@ const AUDITS = [
   // accessibility tree. Self-skips with a warning when no Chromium is present,
   // so a checkout without one still validates everything else.
   require("./browser-a11y-audit"),
+  require("./announcement-audit"),
   require("./safari-audit"),
   // Firefox, driven over WebDriver BiDi. The redirect is decided by the browser
   // before a request leaves, so this does not depend on the probe domain being
@@ -59,12 +60,35 @@ async function validateAll(options) {
   const warnings = reporters.reduce((n, r) => n + r.warnings.length, 0);
   const ok = errors === 0;
 
+  // An audit that could not run is not an audit that passed. The browser-driven
+  // ones warn and skip when the package is unbuilt or no browser is installed —
+  // deliberately, so a checkout without Chromium still validates everything else
+  // — but the summary counted them among the audits and reported PASS. With no
+  // dist/ that read "0 error(s), 3 warning(s) across 18 audits" and exited 0
+  // while two audits did nothing at all. The count is the headline most people
+  // read, so it has to say what actually happened.
+  const SKIPPED = /\b(skipped|is not built|not installed|no [A-Za-z]+ found)\b/i;
+  const skipped = reporters.filter((r) => r.warnings.some((w) => SKIPPED.test(w)));
+
   if (!opts.quiet) {
-    const status = ok ? (warnings ? WARN : TICK) : CROSS;
-    console.log(`\n${status} validate-all: ${ok ? "PASS" : "FAIL"} — ${errors} error(s), ${warnings} warning(s) across ${reporters.length} audits\n`);
+    const status = ok ? (warnings || skipped.length ? WARN : TICK) : CROSS;
+    const ran = reporters.length - skipped.length;
+    const scope = skipped.length
+      ? `${ran} of ${reporters.length} audits (${skipped.length} could not run)`
+      : `${reporters.length} audits`;
+
+    console.log(`
+${status} validate-all: ${ok ? "PASS" : "FAIL"} — ${errors} error(s), ${warnings} warning(s) across ${scope}
+`);
+
+    skipped.forEach((r) => console.log(`  ${WARN} did not run: ${r.name}`));
+
+    if (skipped.length) {
+      console.log("");
+    }
   }
 
-  return { ok, errors, warnings, reporters };
+  return { ok, errors, warnings, skipped: skipped.map((r) => r.name), reporters };
 }
 
 if (require.main === module) {

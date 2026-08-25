@@ -171,9 +171,9 @@ function populateInputs(theme) {
   mutedColorInput.value = theme.muted;
   accentColorInput.value = theme.accent;
   radiusRange.value = theme.radius;
-  radiusValue.textContent = String(theme.radius);
+  setRangeDisplay(radiusRange, radiusValue, theme.radius);
   popupWidthRange.value = theme.popupWidth;
-  popupWidthValue.textContent = String(theme.popupWidth);
+  setRangeDisplay(popupWidthRange, popupWidthValue, theme.popupWidth);
 }
 
 
@@ -243,6 +243,47 @@ function formatTimerDisplay(seconds) {
 
 function formatPassDisplay(minutes) {
   return `${minutes}m`;
+}
+
+function secondUnit(value) {
+  return t(value === 1 ? "unitSecond" : "unitSeconds");
+}
+
+function minuteUnit(value) {
+  return t(value === 1 ? "unitMinute" : "unitMinutes");
+}
+
+/**
+ * A range input is announced by its accessible name and its NUMBER, and the
+ * unit lives in a separate element beside it. So "Timer duration" was announced
+ * as "60" and "Site open time" as "5" — one is seconds, the other is minutes,
+ * and neither said which. `aria-valuetext` replaces the bare number with the
+ * number and its unit.
+ *
+ * Written through the same helpers that write the visible chip, so the spoken
+ * value cannot drift from the rendered one — including on a language change,
+ * which re-runs renderBlocklist -> updateBlockingControls.
+ */
+function setTimerDisplay(seconds) {
+  timerDisplay.textContent = formatTimerDisplay(seconds);
+  timerSlider.setAttribute("aria-valuetext", `${seconds} ${secondUnit(seconds)}`);
+}
+
+function setPassDisplay(minutes) {
+  passDurationDisplay.textContent = formatPassDisplay(minutes);
+  passDurationSlider.setAttribute("aria-valuetext", `${minutes} ${minuteUnit(minutes)}`);
+}
+
+/**
+ * The appearance sliders render their unit as a plain "px" after the number,
+ * in the <small> that wraps the value. Reading the spoken value back off that
+ * same line means there is one unit on the page rather than two copies of it
+ * that can disagree.
+ */
+function setRangeDisplay(range, valueNode, value) {
+  valueNode.textContent = String(value);
+  const rendered = String(valueNode.parentElement ? valueNode.parentElement.textContent : value);
+  range.setAttribute("aria-valuetext", rendered.replace(/\s+/g, " ").trim());
 }
 
 // This page used to carry a SECOND schedule control: a start/end pair in
@@ -416,10 +457,10 @@ function updateBlockingControls(state) {
 
   timerSlider.value = normalizeTimerSeconds(timerSeconds);
   timerSecondsInput.value = normalizeTimerSeconds(timerSeconds);
-  timerDisplay.textContent = formatTimerDisplay(normalizeTimerSeconds(timerSeconds));
+  setTimerDisplay(normalizeTimerSeconds(timerSeconds));
   passDurationSlider.value = normalizePassDurationMinutes(passDurationMinutes);
   passDurationMinutesInput.value = normalizePassDurationMinutes(passDurationMinutes);
-  passDurationDisplay.textContent = formatPassDisplay(normalizePassDurationMinutes(passDurationMinutes));
+  setPassDisplay(normalizePassDurationMinutes(passDurationMinutes));
 }
 
 // Keep the "All Blocklists" master toggle in sync with the three group toggles:
@@ -621,12 +662,12 @@ function applyBlocklistSearch(value) {
 });
 
 radiusRange.addEventListener("input", () => {
-  radiusValue.textContent = radiusRange.value;
+  setRangeDisplay(radiusRange, radiusValue, radiusRange.value);
   saveTheme();
 });
 
 popupWidthRange.addEventListener("input", () => {
-  popupWidthValue.textContent = popupWidthRange.value;
+  setRangeDisplay(popupWidthRange, popupWidthValue, popupWidthRange.value);
   saveTheme();
 });
 
@@ -683,7 +724,7 @@ async function saveFrictionValues(partial) {
 timerSlider.addEventListener("input", () => {
   const timerSeconds = normalizeTimerSeconds(timerSlider.value);
   timerSecondsInput.value = timerSeconds;
-  timerDisplay.textContent = formatTimerDisplay(timerSeconds);
+  setTimerDisplay(timerSeconds);
   chrome.storage.local.set({ timerSeconds });
 });
 
@@ -697,14 +738,14 @@ timerSecondsInput.addEventListener("change", async () => {
   const timerSeconds = normalizeTimerSeconds(timerSecondsInput.value);
   timerSecondsInput.value = timerSeconds;
   timerSlider.value = timerSeconds;
-  timerDisplay.textContent = formatTimerDisplay(timerSeconds);
+  setTimerDisplay(timerSeconds);
   await saveFrictionValues({ timerSeconds });
 });
 
 passDurationSlider.addEventListener("input", () => {
   const passDurationMinutes = normalizePassDurationMinutes(passDurationSlider.value);
   passDurationMinutesInput.value = passDurationMinutes;
-  passDurationDisplay.textContent = formatPassDisplay(passDurationMinutes);
+  setPassDisplay(passDurationMinutes);
   chrome.storage.local.set({ passDurationMinutes });
 });
 
@@ -718,7 +759,7 @@ passDurationMinutesInput.addEventListener("change", async () => {
   const passDurationMinutes = normalizePassDurationMinutes(passDurationMinutesInput.value);
   passDurationMinutesInput.value = passDurationMinutes;
   passDurationSlider.value = passDurationMinutes;
-  passDurationDisplay.textContent = formatPassDisplay(passDurationMinutes);
+  setPassDisplay(passDurationMinutes);
   await saveFrictionValues({ passDurationMinutes });
 });
 

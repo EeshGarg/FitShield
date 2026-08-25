@@ -101,6 +101,21 @@ function hideBanner() {
   }
 }
 
+/**
+ * The tick or cross is the non-colour half of the answer: the class alone would
+ * leave a colour-blind reader with two identically shaped sentences. It is
+ * nothing to a LISTENER, though — the sentence beside it already says whether
+ * the domain would be interrupted, so announcing the glyph only prepends
+ * "check mark" to the answer. Marking it aria-hidden keeps it on screen for the
+ * eye and out of what #test-result, a live region, announces.
+ */
+function writeResult(node, mark, message) {
+  const glyph = document.createElement("span");
+  glyph.setAttribute("aria-hidden", "true");
+  glyph.textContent = `${mark} `;
+  node.replaceChildren(glyph, document.createTextNode(message));
+}
+
 // What a customer can actually do when FitShield is not answering or did not
 // load. Shared by both failure banners because the remedy is the same one, and
 // it is the only one available to someone who installed from a store.
@@ -306,20 +321,26 @@ async function testDomain() {
       return;
     }
     if (test.blocked) {
-      // The glyph is the non-colour half of the answer — the class alone would
-      // leave a colour-blind reader with two identically shaped sentences.
-      out.textContent = `✓ ${tOr(
-        "diagTestBlocked",
-        "“$1” would be interrupted — FitShield would show the block page instead.",
-        [test.host]
-      )}`;
+      writeResult(
+        out,
+        "✓",
+        tOr(
+          "diagTestBlocked",
+          "“$1” would be interrupted — FitShield would show the block page instead.",
+          [test.host]
+        )
+      );
       out.className = "test-result ok";
     } else {
-      out.textContent = `✕ ${tOr(
-        "diagTestOpen",
-        "“$1” is not on the blocklist — it would open normally.",
-        [test.host]
-      )}`;
+      writeResult(
+        out,
+        "✕",
+        tOr(
+          "diagTestOpen",
+          "“$1” is not on the blocklist — it would open normally.",
+          [test.host]
+        )
+      );
       out.className = "test-result warn";
     }
   } catch (error) {

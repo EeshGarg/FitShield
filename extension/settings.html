@@ -1276,7 +1276,13 @@
       color: var(--text);
       font-weight: 600;
     }
-    .pref-chip[aria-pressed="true"]::before { content: "✓ "; }
+    /* Decoration: the selector is [aria-pressed="true"], so the tree already
+       carries the pressed state this glyph stands for. Left in the accessible
+       name a screen reader says it twice — once as "check mark". The empty ALT
+       TEXT after the slash keeps the tick on screen and out of the name; the
+       plain declaration first is the fallback for a browser too old to parse
+       the alt-text form, which drops only the second declaration. */
+    .pref-chip[aria-pressed="true"]::before { content: "✓ "; content: "✓ " / ""; }
 
     /* The top border always separates this row from something real: every
        .pref-row on the page follows a heading block, an intro, a chip group or

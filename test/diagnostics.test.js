@@ -182,7 +182,15 @@ function makeElement(tag) {
     removeEventListener() {},
     appendChild(node) { element.children.push(node); return node; },
     append(...nodes) { element.children.push(...nodes); },
-    replaceChildren() { element.children = []; },
+    // The real replaceChildren REPLACES the children with the nodes given, and
+    // a node's textContent is the concatenation of its children's. Modelling it
+    // as "clear, ignore the arguments" left textContent frozen at whatever was
+    // last assigned, so a page that had painted "Checking…" and then written its
+    // real answer through replaceChildren still read as "Checking…".
+    replaceChildren(...nodes) {
+      element.children = [...nodes];
+      element.textContent = nodes.map((node) => (node && node.textContent) || "").join("");
+    },
     remove() {},
     setAttribute(name, value) { element.attributes[name] = String(value); },
     getAttribute(name) { return name in element.attributes ? element.attributes[name] : null; },
@@ -537,6 +545,10 @@ test("the domain check reports in the user's language, whichever answer comes ba
 
     page.byId.get("domain").value = entry.test.input;
     await page.sandbox.testDomain();
+    // testDomain paints "Checking…" and resolves its own promise before the
+    // message round-trip completes, so the result is read one turn too early
+    // without this.
+    await settle();
 
     const result = page.byId.get("test-result").textContent;
 

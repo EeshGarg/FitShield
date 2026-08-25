@@ -334,7 +334,12 @@ function appendReasonRow(label, value) {
     return;
   }
 
-  const row = document.createElement("div");
+  // A list item, not a div: #reasonBody is a list. Two sibling spans reach a
+  // screen reader as two unrelated announcements, because the only thing pairing
+  // "Site" with "doordash.com" is the two-column layout, and layout is not in
+  // the accessibility tree. One node around both is what makes the row a
+  // statement rather than a fragment.
+  const row = document.createElement("li");
   row.className = "reason-row";
 
   const labelEl = document.createElement("span");
