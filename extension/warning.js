@@ -880,9 +880,25 @@ async function grantPass(presetId, button, labelEl) {
   const response = await send("grantPass", { site: siteKey, presetId, intent: state.intent });
 
   if (!response || !response.ok) {
+    // A block page left open across a browser restart can be holding a token
+    // the worker no longer recognises. The page is genuine and so is the
+    // user's decision; it is only the address that went out of date. Asking
+    // for the site again is the way forward — the browser redirects it into a
+    // fresh block page, and Continue works from there. Without this the only
+    // control that still did anything was Back.
+    if (response && response.reason === "staleSurface") {
+      const info = state.info || {};
+      const again = info.home || (info.domain ? `https://${info.domain}/` : "");
+
+      if (again) {
+        window.location.href = again;
+        return;
+      }
+    }
+
     button.disabled = false;
     labelEl.textContent = original;
-    setPassNote(t("warningErrorHint"));
+    setPassNote(t(response && response.reason === "staleSurface" ? "warningStaleHint" : "warningErrorHint"));
     return;
   }
 

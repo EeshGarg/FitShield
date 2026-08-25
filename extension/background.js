@@ -728,8 +728,7 @@ async function refreshBlockingState() {
     FS_DIAG.lastDecision = `inactive — ${reason}`;
     fsLog("blocking inactive —", reason);
     await updateDynamicRules([]);
-    await chrome.storage.local.set({ passes: activePasses });
-    await syncAlarms({ ...settings, passes: activePasses });
+    await syncAlarms({ ...settings, passes: await prunePassesOnChain() });
     return;
   }
 
@@ -737,8 +736,7 @@ async function refreshBlockingState() {
   FS_DIAG.lastDecision = `active — ${rules.length} redirect rule(s)`;
   fsLog(`blocking active — ${rules.length} redirect rule(s)`);
   await updateDynamicRules(rules);
-  await chrome.storage.local.set({ passes: activePasses });
-  await syncAlarms({ ...settings, passes: activePasses });
+  await syncAlarms({ ...settings, passes: await prunePassesOnChain() });
 }
 
 function queueRefreshBlockingState() {
@@ -915,6 +913,35 @@ function queuePassUpdate(task) {
   const next = passChain.catch(() => {}).then(task);
   passChain = next.catch(() => {});
   return next;
+}
+
+/**
+ * Prune expired passes and persist the result, ON THE PASS CHAIN.
+ *
+ * refreshBlockingState used to compute this from the `settings` it read at its
+ * top, then write it back AFTER installing ~2,500 rules — hundreds of
+ * milliseconds later, from a snapshot taken before the wait. Serializing
+ * grantPass alone did not help, because refreshBlockingState runs on a
+ * different chain and every grant ENDS by queueing one, so the racing writer
+ * was on the path every grant took.
+ *
+ * Measured: two block pages granting at once were both told yes, `passesUsed`
+ * reached 2, and one pass was stored — the second tab was re-blocked the
+ * instant it followed the destination it had just been handed. Worse, changing
+ * any setting and then pressing "End all passes" left the pass alive: the
+ * refresh queued by the settings change restored it from its stale snapshot.
+ *
+ * Re-reading inside the chain is what makes the write safe; the caller gets the
+ * list back so it can hand the same one to syncAlarms rather than re-deriving.
+ */
+function prunePassesOnChain() {
+  return queuePassUpdate(async () => {
+    const stored = await chrome.storage.local.get(["passes"]);
+    const live = FitShieldCore.activePasses(stored.passes, Date.now(), { openTabIds: await openTabIds() });
+
+    await chrome.storage.local.set({ passes: live });
+    return live;
+  });
 }
 
 // Preview mode must be able to exercise the whole flow without touching real
@@ -1161,7 +1188,13 @@ async function recordAlternativeSelected(id, options) {
   return recordEvent("alternativesSelected", opts);
 }
 
-async function markAlternativeMade(id) {
+async function markAlternativeMade(id, options) {
+  // Same reason as revokeAllPasses: this clears a pending record and counts an
+  // event, both durable, so preview stops before either.
+  if (options && options.preview === true) {
+    return { ok: true, preview: true };
+  }
+
   await ensureMigrated();
   const { pendingAlternatives } = await chrome.storage.local.get(["pendingAlternatives"]);
   const pending = freshPendingAlternatives(pendingAlternatives, Date.now());
@@ -1274,7 +1307,13 @@ async function grantPass(request) {
   };
 }
 
-async function revokeAllPasses() {
+async function revokeAllPasses(options) {
+  // Preview walks the whole flow without touching real state; ending passes is
+  // durable, so it stops here exactly as grantPass and recordEvent do.
+  if (options && options.preview === true) {
+    return { ok: true, preview: true };
+  }
+
   await ensureMigrated();
   // On the same chain as grantPass, so a revoke cannot be quietly undone by a
   // grant that was already in flight when the user pressed it. "End all passes"
@@ -1594,14 +1633,20 @@ const HANDLERS = {
       ...message,
       tabId: sender && sender.tab && Number.isInteger(sender.tab.id) ? sender.tab.id : message.tabId
     }),
-  revokeAllPasses: () => revokeAllPasses(),
+  // Both of these take the message, because both write durable state and both
+  // must honour `preview`. They used to be called with no argument at all, so
+  // the flag the worker had already resolved never reached them — preview was
+  // honoured by seven of the nine handlers and asserted of all nine. Preview is
+  // the one surface reachable without the redirect token, so a handler that
+  // ignores it is the one place a page could write.
+  revokeAllPasses: (message) => revokeAllPasses(message),
   recordInterruption: (message) => recordEvent("interruptions", message),
   recordLeft: (message) => recordEvent("left", message),
   recordBlockedBrand: (message) => recordBlockedBrand(message.meta, message),
   recordAlternativeShown: (message) => recordAlternativeShown(message.id, message),
   recordAlternativeSelected: (message) => recordAlternativeSelected(message.id, message),
   recordAlternativeDismissed: (message) => recordAlternativeDismissed(message.id, message),
-  markAlternativeMade: (message) => markAlternativeMade(message.id)
+  markAlternativeMade: (message) => markAlternativeMade(message.id, message)
   // A "refreshBlocking" handler lived here. Nothing in the product ever sent it
   // — no page, no shim, no shipped script — while it rebuilt every rule and
   // rewrote passes and repeat history on demand. A message handler with no
@@ -1729,7 +1774,24 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     .then(async () => {
       if (!(await senderMayRun(message.type, surface))) {
         fsError(`Refused "${message.type}" from outside the extension`, sender && sender.url);
-        return { ok: false, error: "Refused: not a FitShield surface." };
+
+        // A genuine block page holding a token this worker no longer knows is
+        // not an attack, it is a tab the user left open. Pause FitShield, close
+        // the browser, reopen with session restore: there are no rules to adopt
+        // a token from, so a new one is minted and the restored tab holds the
+        // old. It is told apart from a forgery by being one of our own pages,
+        // unframed, WITH a token — a hostile page has no token to be stale.
+        //
+        // It is refused all the same, because accepting a retired token means
+        // remembering retired tokens, and the only durable place to keep them
+        // is disk — where the block-page token deliberately never goes. What it
+        // gets instead is a way forward: the page is told to ask for the site
+        // again, which the browser redirects into a fresh block page.
+        const stale = surface && surface.isBlockPage && !surface.preview && surface.token !== "";
+
+        return stale
+          ? { ok: false, error: "This block page is out of date.", reason: "staleSurface" }
+          : { ok: false, error: "Refused: not a FitShield surface." };
       }
 
       // The block page's own address decides whether it is a preview, so a

@@ -193,6 +193,10 @@
   "warningErrorHint": {
     "message": "Something went wrong while opening the site. Please try again."
   },
+  "warningStaleHint": {
+    "message": "This page is out of date. Opening the site again so FitShield can interrupt it properly.",
+    "description": "Shown when a block page left open across a browser restart is holding a redirect token the worker no longer recognises. The page then asks for the site again, which produces a fresh block page."
+  },
   "blockReasonHeading": {
     "message": "Why was this interrupted?"
   },

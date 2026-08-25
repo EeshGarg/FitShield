@@ -667,6 +667,19 @@ test("selecting a category blocks that category and nothing else", async () => {
 const PRE_REWRITE_RULES = 2538;
 const PRE_REWRITE_RECORDS = 2535;
 
+// Rules exceed records by the number of aliases, which is why these two
+// constants differ by 3 to begin with.
+//
+// Removing the four `jumia.<cc>` apexes also removed each market's food
+// surface, because the apex was what covered `food.jumia.<cc>`. Those four came
+// back as ALIASES of the existing `food.jumia.com` row rather than as new rows,
+// so one brand still means one Settings toggle: +4 rules, +0 records.
+//
+// Named rather than folded into the constant, so the arithmetic still
+// reconciles rules against records and a row that vanishes for any other reason
+// still fails this.
+const ALIASES_ADDED_SINCE = 4;
+
 // The 30, and WHY each one stopped being a place you can order food.
 const REWRITE_UNBLOCKED = {
   "a messenger, a gym, and a variety store — not ordering surfaces": [
@@ -737,8 +750,8 @@ test("the rewrite dropped thirty rules and thirty records, and nothing else", as
   const filters = await blockedHosts();
   assert.equal(
     filters.length,
-    PRE_REWRITE_RULES - 30,
-    `the worker installed ${filters.length} rules; ${PRE_REWRITE_RULES} minus the 30 named removals is ${PRE_REWRITE_RULES - 30}`
+    PRE_REWRITE_RULES - 30 + ALIASES_ADDED_SINCE,
+    `the worker installed ${filters.length} rules; ${PRE_REWRITE_RULES} minus the 30 named removals is ${PRE_REWRITE_RULES - 30 + ALIASES_ADDED_SINCE}`
   );
 });
 

@@ -1872,15 +1872,39 @@ test("a block page the user still has open never becomes a dead end", { concurre
       })))()`)
     );
 
+    // This asserted `answer.ok === true` — accept the retired token — and named
+    // the alternative itself: "give a stale-but-genuine block page a way
+    // forward instead of refusing it". The first option was tried and backed
+    // out. Accepting a retired token means REMEMBERING retired tokens, and the
+    // only durable place is disk, where "the block-page token never reaches
+    // disk, a backup, or the diagnostics page" — asserted two tests above —
+    // says it must not go. Two guarantees in this file were in tension and the
+    // disk one protects a promise the product makes to its user.
+    //
+    // So the refusal stands, and what changed is that it is now legible. The
+    // worker answers `staleSurface` instead of the flat "not a FitShield
+    // surface", which a forgery can never earn: it needs to be one of our own
+    // pages, unframed, holding a token, and a hostile page has no token to be
+    // stale. warning.js turns that into asking for the site again, which the
+    // browser redirects into a fresh block page the user can continue from.
+    assert.equal(answer.ok, false, "a retired token must still be refused — it is not remembered anywhere");
     assert.equal(
-      answer.ok,
-      true,
-      "Continue is dead on a block page the user still has open: the worker minted a new token " +
-        "while the page kept the old one, and grantPass answers " +
-        `${JSON.stringify(answer)}. warning.js turns that into the generic error hint and leaves ` +
-        "the user on the screen. Either do not mint a new token while a previous one may still be " +
-        "held (persist it rather than re-deriving it), or give a stale-but-genuine block page a way " +
-        "forward instead of refusing it"
+      answer.reason,
+      "staleSurface",
+      "the refusal must be distinguishable from a forgery, or the page cannot recover from it: " +
+        `got ${JSON.stringify(answer)}`
+    );
+
+    const page = fs.readFileSync(path.join(ROOT, "extension", "warning.js"), "utf8");
+    assert.match(
+      page,
+      /reason === "staleSurface"/,
+      "warning.js must recognise the stale refusal rather than treating it as a generic failure"
+    );
+    assert.match(
+      page,
+      /window\.location\.href = again/,
+      "warning.js must ask for the site again, so the browser issues a fresh block page"
     );
   } finally {
     await browser.close();

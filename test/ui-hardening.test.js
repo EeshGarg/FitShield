@@ -312,8 +312,16 @@ test("warning.js writes both continue failures into the chooser's own notice", (
 
   // Both exits that leave the user on this page: a rejected pass and preview
   // mode, which grants nothing by design.
-  assert.match(grant[0], /setPassNote\(t\("warningErrorHint"\)\)/,
+  // Matched inside a setPassNote call rather than as one exact string: the
+  // rejected-pass branch now chooses between two hints, because a block page
+  // left open across a browser restart holds a token the worker no longer
+  // recognises and is told to ask for the site again rather than being left
+  // with a generic failure. Pinning the exact call text made this fail while
+  // the behaviour it guards was intact — which is the trap CLAUDE.md §6 names.
+  assert.match(grant[0], /setPassNote\([^;]*"warningErrorHint"/,
     "a rejected pass must be reported beside the option that was pressed");
+  assert.match(grant[0], /setPassNote\([^;]*"warningStaleHint"/,
+    "an out-of-date block page must say so, not fall back to the generic failure");
   assert.match(grant[0], /setPassNote\(t\("previewPassNote"\)\)/,
     "preview mode must say so beside the option, not only in the alternative card");
 
