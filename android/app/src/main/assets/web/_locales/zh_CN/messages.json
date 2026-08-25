@@ -685,5 +685,8 @@
   },
   "catLabelVenueOrdering": {
     "message": "场馆点单"
+  },
+  "warningSentenceEnd": {
+    "message": "。"
   }
 }

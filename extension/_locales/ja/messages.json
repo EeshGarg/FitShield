@@ -682,5 +682,8 @@
   },
   "catLabelVenueOrdering": {
     "message": "会場内注文"
+  },
+  "warningSentenceEnd": {
+    "message": "。"
   }
 }

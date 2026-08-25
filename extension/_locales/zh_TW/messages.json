@@ -673,5 +673,8 @@
   },
   "catLabelVenueOrdering": {
     "message": "場館點餐"
+  },
+  "warningSentenceEnd": {
+    "message": "。"
   }
 }

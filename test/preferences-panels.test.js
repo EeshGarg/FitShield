@@ -362,10 +362,17 @@ test("the This week panel does not print one event under two names", async () =>
   const body = el("recapBody").textContent;
 
   assert.ok(body.includes(EN.recapContinued.message), "the continue count is the honest one to show");
+
+  // `recapPasses` used to be asserted absent from the rendered panel. The label
+  // has since been retired from the catalog altogether — Settings was the last
+  // surface rendering it, and `continued` and `passesUsed` are written back to
+  // back by grantPass and can never differ, so showing both invited a reader to
+  // draw a conclusion from a guaranteed agreement. Asserting the key is gone is
+  // the stronger form of the same guarantee: no surface can print it at all.
+  assert.equal(EN.recapPasses, undefined, "recapPasses is back in the catalog; nothing should render it");
   assert.ok(
-    !body.includes(EN.recapPasses.message),
-    `"${EN.recapContinued.message}" and "${EN.recapPasses.message}" are written back to back by grantPass and can ` +
-      `never differ; showing both invites a conclusion drawn from a guaranteed agreement.\nRendered: ${body}`
+    !/temporary passes used/i.test(body),
+    "the panel still prints a second name for the same event. Rendered: " + body
   );
 });
 

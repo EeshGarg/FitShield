@@ -239,3 +239,35 @@ test("localDayKey is local, so an evening event is not pushed into tomorrow", ()
   const lateEvening = new Date(2026, 2, 4, 23, 30);
   assert.equal(core.localDayKey(lateEvening), "2026-03-04");
 });
+
+// ---------------------------------------------------------------------------
+// No surface may present `continued` and `passesUsed` as two measurements
+// ---------------------------------------------------------------------------
+
+// The core's own comment says to show ONE of them: grantPass is the only writer
+// of either counter, so they cannot differ, and a panel showing both invites
+// the reader to read significance into an agreement that is guaranteed by
+// construction. Settings was the last surface still rendering both.
+test("no shipped surface renders both continued and passesUsed as separate cards", () => {
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const root = path.join(__dirname, "..", "extension");
+
+  ["settings.js", "popup.js", "preferences.js"].forEach((file) => {
+    const full = path.join(root, file);
+
+    if (!fs.existsSync(full)) {
+      return;
+    }
+
+    // Only the card/label tables matter — a source that merely mentions the
+    // counter name in a comment or reads it once is not rendering a card.
+    const source = fs.readFileSync(full, "utf8");
+    const cards = [...source.matchAll(/\[\s*"(continued|passesUsed)"\s*,\s*"[A-Za-z]+"\s*\]/g)].map((m) => m[1]);
+
+    assert.ok(
+      !(cards.includes("continued") && cards.includes("passesUsed")),
+      `${file} renders both continued and passesUsed as cards; they are one event under two names`
+    );
+  });
+});

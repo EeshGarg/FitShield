@@ -1084,6 +1084,10 @@
   "warningTriggeredByPrefix": {
     "message": "You opened"
   },
+  "warningSentenceEnd": {
+    "message": ".",
+    "description": "The full stop that ends the \"You opened <brand>\" sentence on the block page. It is a separate key because the brand name is emphasised, so the sentence cannot be one message with a placeholder. Latin-script locales keep \".\"; zh/ja/yue use the ideographic full stop, which is what the rest of their corpus uses."
+  },
   "warningLockedHint": {
     "message": "Continuing unlocks when the pause ends."
   },
@@ -1534,9 +1538,6 @@
   },
   "recapContinued": {
     "message": "Times you continued"
-  },
-  "recapPasses": {
-    "message": "Temporary passes used"
   },
   "recapViewed": {
     "message": "Alternatives shown to you"
