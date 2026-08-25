@@ -55,25 +55,25 @@
   "external_only_allowed": [
     {
       "id": "safari-xcode",
-      "reason": "xcrun safari-web-extension-converter is macOS-only",
-      "requires": "macOS with Xcode",
+      "reason": "conversion and an unsigned compile now run in CI on macOS; signing needs an Apple Developer team, and Safari's narrower declarativeNetRequest support can only be judged on real hardware",
+      "requires": "an Apple Developer team to sign, and a person with a Mac or iPhone to confirm blocking on-device",
       "local_prerequisites_complete": true
     },
     {
       "id": "android-apk",
-      "reason": "Android SDK and Gradle are not installed in this environment",
-      "requires": "a machine with the Android SDK",
+      "reason": "the APK builds here and in CI (`npm run toolchain:android` provisions a JDK and the Android SDK); what remains is the VPN-consent flow and on-device blocking, which need real hardware",
+      "requires": "a physical Android device",
       "local_prerequisites_complete": true
     },
     {
       "id": "screen-reader",
-      "reason": "no assistive technology available to listen with",
-      "requires": "NVDA, JAWS or VoiceOver",
+      "reason": "the computed accessibility tree is verified in a real browser (`npm run validate:a11y`) \u2014 names, roles, states, focus exposure and heading order. What no machine can judge is whether hearing it is USEFUL",
+      "requires": "a person listening with NVDA, JAWS or VoiceOver",
       "local_prerequisites_complete": true
     },
     {
       "id": "human-acceptance",
-      "reason": "subjective judgement cannot be automated",
+      "reason": "subjective judgement cannot be automated; the four questions that genuinely need it are in docs/ACCEPTANCE.md, with every surface captured by `npm run capture`",
       "requires": "a person",
       "local_prerequisites_complete": true
     }

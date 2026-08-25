@@ -175,7 +175,32 @@ async function installAndroidSdk() {
   run(`"${sdkmanager}" --sdk_root="${SDK_DIR}" ${SDK_PACKAGES.map((p) => `"${p}"`).join(" ")}`, { env });
 }
 
+// A machine that already has a usable JDK and Android SDK needs nothing from
+// this script, and provisioning anyway is not merely wasteful: build-android.js
+// prefers ~/.fitshield-toolchain over JAVA_HOME and ANDROID_HOME, so a
+// provisioned copy SHADOWS an SDK the machine already maintains. On a CI runner
+// that means a ~400MB download replacing a working toolchain with a second one.
+function systemToolchain() {
+  const javaHome = process.env.JAVA_HOME;
+  const sdk = process.env.ANDROID_HOME || process.env.ANDROID_SDK_ROOT;
+
+  return javaHome && fs.existsSync(javaHome) && sdk && fs.existsSync(sdk) ? { javaHome, sdk } : null;
+}
+
 async function provision() {
+  const system = systemToolchain();
+
+  // The HOME check keeps an already-provisioned toolchain topping itself up:
+  // once this directory exists the build prefers it, so it has to stay current.
+  if (system && !fs.existsSync(HOME)) {
+    log("A JDK and an Android SDK are already available:");
+    log(`  JAVA_HOME    ${system.javaHome}`);
+    log(`  ANDROID_HOME ${system.sdk}`);
+    log("");
+    log("Nothing to provision. `npm run build:android` will use them directly.");
+    return;
+  }
+
   fs.mkdirSync(HOME, { recursive: true });
   log(`Provisioning the Android toolchain into ${HOME}\n`);
 
