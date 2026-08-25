@@ -6,10 +6,10 @@ Repository-local findings: **0**
 | --- | --- |
 | Findings queue | 77 recorded, 77 closed, each with a verification narrative and an anchor |
 | Automated tests | 971 run, 971 pass, 0 fail |
-| Validators | 15 audits, **0 errors, 0 warnings** |
-| Packages | Chrome, Firefox and Safari-nightly build |
+| Validators | 17 audits, **0 errors, 0 warnings** |
+| Packages | Chrome, Firefox, Safari-nightly and **Android APK** all build |
 | Build reproducibility | two clean builds produce byte-identical zips (sha256 verified) |
-| Commits this pass | 96 |
+| Commits this pass | 102 (this one included) |
 
 Closure was made expensive on purpose. `tools/policy-audit.js` rejects a queue
 record with no verification narrative, one with no anchor, and one whose prose
@@ -193,26 +193,99 @@ must still report.
 
 ---
 
-## What this environment cannot do
+## The four "impossible" items
 
-Four items, each with every repository-local prerequisite complete and
-everything automatable automated.
+An earlier draft of this report listed four things as physically impossible in
+this environment. Two of them were not impossible; they were unattempted, and
+calling them external was the same mistake in a different costume. Both are now
+done.
 
-1. **Safari app** — `dist/FitShield-0.55-nightly-safari.zip` builds here;
-   wrapping it requires `xcrun safari-web-extension-converter` and Xcode, which
-   are macOS only. Steps are in `dist/apple/BUILD.txt`.
-2. **Android APK** — assets, rules and package mapping generate and validate
-   here; the final Gradle step needs a JDK and the Android SDK.
-   `npm run build:android` now exits non-zero when Gradle fails rather than
-   reporting success over a broken APK.
-3. **Screen-reader validation** — every mechanically checkable property is
-   tested (focus order, focus visibility, live-region wiring, accessible names,
-   contrast ratios, reduced-motion, tap targets). Confirming how a real screen
-   reader announces the block page needs assistive technology not present here.
-   No claim of screen-reader testing is made anywhere in this repository.
-4. **Human acceptance** — whether the friction feels right rather than
-   manipulative is a judgement only a person can make.
+### Android APK — built
 
-Real-browser verification WAS performed for everything else, against the built
-packages in Chromium 149 over the DevTools protocol and Firefox over the remote
-debugging protocol, with zero added dependencies.
+There was no JDK and no Android SDK on this machine, and no attempt had been
+made to get either. `npm run toolchain:android` now fetches JDK 17 and the
+Android SDK (platform 35, build-tools 35) into `~/.fitshield-toolchain` —
+outside the repository, with no PATH edit, no registry key and no `JAVA_HOME`
+export, so nothing system-wide changes.
+
+From a clean build, 82 tasks executed: debug and release APKs both build,
+`lintVitalRelease` passes, and the packaged `fitshield-rules.json` and
+`android-packages.json` hash-match the repository's canonical assets.
+`npm run build:android` runs to completion and stages
+`dist/android/FitShield-0.55-debug.apk`.
+
+No project dependency was added. FitShield still ships zero, and its tests and
+validators still add none.
+
+### Screen-reader validation — mostly closed
+
+Claiming this needed assistive technology conflated two things. A screen reader
+does not read the DOM; it reads the platform accessibility tree the browser
+computes after ARIA, label association and the accessible-name algorithm have
+been applied. That tree is readable from here.
+
+`npm run validate:a11y` drives the built package in Chromium and pulls
+`Accessibility.getFullAXTree`. Across the six surfaces: **272 controls with a
+computed accessible name, no unnamed control, no unresolved i18n key reaching a
+label, nothing focusable hidden from assistive technology, and no skipped
+heading level.** Both checks are proven to fire — an icon-only button injected
+into the popup is reported unnamed, and an `h5` injected after settings' `h1` is
+reported as `h1 -> h5`.
+
+What remains is genuinely narrower than "screen-reader validation": whether
+hearing it is *useful*. A machine can establish that the block page exposes a
+name, a role and a state for everything; it cannot judge whether the
+announcements land in a helpful order.
+
+### Safari — reduced to one command
+
+Wrapping the payload still needs macOS and Xcode. That is real. But shipping the
+payload unexamined was not required by it, and the manifest declared no minimum
+Safari version, so the converter would have picked its own deployment target.
+
+Two things here need Safari 16.4 and neither fails loudly below it: the MV3
+background service worker, and `chrome.storage.session`, which holds the
+block-page redirect token and is deliberately written to degrade quietly. On an
+older Safari it would have kept working while re-minting the token per worker
+generation — exactly the kind of thing a device finds out first.
+
+`npm run validate:safari` derives the floor the payload actually requires from
+what it uses, fails when the declared minimum is below it, and greps the shipped
+sources for APIs Safari does not implement (those are `undefined` there, so the
+feature silently does nothing rather than failing). The remaining step is the
+single converter command in `dist/apple/BUILD.txt`.
+
+### Human acceptance — reduced to four questions
+
+Still a person's call, and it should be. What changed is everything around it.
+
+`npm run capture` screenshots all ten surfaces in both palettes at the sizes
+where layouts break. `docs/ACCEPTANCE.md` names the four judgements that
+actually need a human — is the pause the right length, does the page respect a
+decision to continue, is the recipe credible, do the statistics feel honest —
+and lists what is already verified so none of it gets re-checked by hand.
+
+Two bugs in that capture tool were found by looking at its output rather than
+trusting it. Emulating `prefers-color-scheme` alone produced two identical DARK
+sets labelled "dark" and "light", because `themeMode` is a stored setting whose
+default is dark. Setting `themeMode: "light"` did not fix it either: with an
+explicit choice the pages paint the stored palette, which Settings writes at the
+moment the user picks. Both palettes are now captured through Theme = System,
+the path that genuinely resolves against the OS.
+
+A mislabelled screenshot is worse than no screenshot — it shows the reviewer the
+wrong thing under the right name.
+
+---
+
+## Still external
+
+Two, both honestly so:
+
+1. **The macOS/Xcode wrap.** `xcrun safari-web-extension-converter` does not
+   exist off macOS. Every prerequisite is complete, the payload is audited
+   against Safari's actual constraints, and the exact command is in
+   `dist/apple/BUILD.txt`.
+2. **Four judgement calls**, in `docs/ACCEPTANCE.md`, plus listening to a screen
+   reader read the block page. A machine can prove the announcements exist; only
+   a person can say whether they help.
