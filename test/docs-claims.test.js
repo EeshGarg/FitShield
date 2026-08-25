@@ -604,6 +604,42 @@ test("no document promises an estimate the settings page does not render", () =>
   }
 });
 
+test("Android's block screen matches on the brand but not on the person", () => {
+  /*
+   * Two claims the store listing draft has to get exactly right, because an
+   * allergen claim on a store page is a promise about someone's safety.
+   *
+   * The Android screen calls selectAlternative with the brand's own fields and
+   * an EMPTY settings object — Android has no kitchen, diet or allergen
+   * preferences to pass. So it is matched to the site, never to the user, and
+   * the draft says so. The draft used to say the opposite of the first half:
+   * that Android fell through to a fixed pick, which stopped being true when
+   * the screen was reconnected.
+   */
+  const androidBlock = read("android", "app", "src", "main", "assets", "web", "block.js");
+
+  assert.ok(
+    /R\.selectAlternative\(/.test(androidBlock),
+    "android block.js no longer calls selectAlternative; the store draft claims it does"
+  );
+  assert.ok(
+    !/selectRecipes/.test(androidBlock.replace(/\/\*[\s\S]*?\*\/|\/\/[^\n]*/g, "")),
+    "android block.js reaches for selectRecipes again — the shared module does not export it"
+  );
+
+  // The settings argument is the personalisation channel. It is `{}` here, and
+  // the listing must not promise otherwise.
+  assert.ok(
+    /selectAlternative\(\s*\{[\s\S]*?\},\s*\{\s*\}\s*,/.test(androidBlock),
+    "android block.js now passes user settings to the selector — re-check what the store listing may claim"
+  );
+
+  assert.ok(
+    /never put an allergen-matching claim/i.test(STORE_LISTING),
+    "docs/STORE_LISTING_DRAFT.md dropped its allergen-claim prohibition for Android"
+  );
+});
+
 test("no shipped document presents a rule bucket as a brand category", () => {
   // The block page and the stats were handed "fastfood"/"custom" as a category
   // until 0.55. Any doc still describing that is describing a product that no

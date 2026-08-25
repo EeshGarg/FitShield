@@ -83,14 +83,22 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 (Behavioral framing only — verify no "lose weight", "addiction", "diet",
 "health" outcome claims before submitting.)
 
-> **Deliberately not claimed for Android:** that the pause screen's suggestion is
-> matched to the blocked brand's category, or to your diet, allergens, pantry,
-> equipment or available time. That matching is real in the **browser extension**
-> (`selectAlternative`), but the Android block screen currently reaches for a
-> selector name the shared module no longer exports and falls through to a
-> deterministic fallback pick. Do not add a personalisation or allergen-matching
-> claim to this listing until the Android screen is reconnected to
-> `selectAlternative` and re-verified on a device.
+> **What may and may not be claimed for Android.**
+>
+> *May be:* the pause screen's suggestion is matched to the blocked brand. The
+> Android screen now calls `selectAlternative` — the same entry point and the
+> same argument shape `extension/warning.js` uses — with the brand's food
+> category, type and specialties. It previously reached for a selector name the
+> shared module no longer exported and fell through to picking by the character
+> count of the brand id, which is what this note used to warn about; that is
+> fixed and guarded by `test/android-block.test.js`.
+>
+> *May not be:* that the Android suggestion is personalised to the user — diet,
+> allergens, pantry, equipment or available time. Those are the `settings`
+> argument, and Android passes `{}` because the Android app has no kitchen,
+> diet or allergen preferences at all. **Never put an allergen-matching claim on
+> this listing**, and phrase the matching as "matched to the site you were about
+> to order from" rather than to the person.
 
 ## Category & tags
 
