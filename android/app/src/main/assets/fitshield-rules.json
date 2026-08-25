@@ -472,7 +472,7 @@
     },
     {
       "id": "burger",
-      "count": 171
+      "count": 172
     },
     {
       "id": "catering",
@@ -496,11 +496,11 @@
     },
     {
       "id": "fast_casual",
-      "count": 837
+      "count": 796
     },
     {
       "id": "grocery",
-      "count": 122
+      "count": 161
     },
     {
       "id": "korean_food",
@@ -532,7 +532,7 @@
     },
     {
       "id": "sandwich",
-      "count": 63
+      "count": 64
     },
     {
       "id": "seafood",
@@ -1134,11 +1134,11 @@
     },
     "barbora.lt": {
       "c": "LT",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "barbora.lv": {
       "c": "LV",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "barburrito.ca": {
       "c": "CA",
@@ -2202,7 +2202,7 @@
     },
     "checkers.com": {
       "c": "US",
-      "k": "grocery"
+      "k": "burger"
     },
     "checkers60.com": {
       "c": "ZA",
@@ -2574,7 +2574,7 @@
     },
     "conad.it": {
       "c": "IT",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "condadotacos.com": {
       "c": "US",
@@ -3458,7 +3458,7 @@
     },
     "eroski.es": {
       "c": "ES",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "erospizza.com": {
       "c": "US",
@@ -3474,7 +3474,7 @@
     },
     "esselunga.it": {
       "c": "IT",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "eurekaburger.com": {
       "c": "US",
@@ -3542,7 +3542,7 @@
     },
     "family.com.tw": {
       "c": "TW",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "familyset.jp": {
       "c": "JP",
@@ -4114,7 +4114,7 @@
     },
     "giant.sg": {
       "c": "SG",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "gigi-coffee.com": {
       "c": "",
@@ -4602,7 +4602,7 @@
     },
     "harrisfarm.com.au": {
       "c": "AU",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "hartzchicken.com": {
       "c": "US",
@@ -4870,7 +4870,7 @@
     },
     "huaho.com": {
       "c": "",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "huangjihuang.com": {
       "c": "CN",
@@ -5006,11 +5006,11 @@
     },
     "ica.se": {
       "c": "SE",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "iceland.co.uk": {
       "c": "GB",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "ichiran.com": {
       "c": "",
@@ -5026,7 +5026,7 @@
     },
     "iga.com.au": {
       "c": "AU",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "iheartmacandcheese.com": {
       "c": "US",
@@ -5038,7 +5038,7 @@
     },
     "iki.lt": {
       "c": "LT",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "ikki.com.tw": {
       "c": "TW",
@@ -5090,7 +5090,7 @@
     },
     "irma.dk": {
       "c": "DK",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "isaactoast.com": {
       "c": "",
@@ -5614,7 +5614,7 @@
     },
     "kiwi.no": {
       "c": "NO",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "kiyoken.com": {
       "c": "",
@@ -5850,7 +5850,7 @@
     },
     "lawson108.com": {
       "c": "",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "lazeezshawarma.com": {
       "c": "CA",
@@ -5882,7 +5882,7 @@
     },
     "lenta.com": {
       "c": "",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "leon.co": {
       "c": "",
@@ -5910,7 +5910,7 @@
     },
     "lider.cl": {
       "c": "CL",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "lidl.co.uk": {
       "c": "GB",
@@ -5954,7 +5954,7 @@
     },
     "lisek.app": {
       "c": "",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "liten-easy.com.au": {
       "c": "AU",
@@ -6150,7 +6150,7 @@
     },
     "mamut.cl": {
       "c": "CL",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "manchuwok.com": {
       "c": "CA",
@@ -6214,7 +6214,7 @@
     },
     "marjane.ma": {
       "c": "MA",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "marleyspoon.com.au": {
       "c": "AU",
@@ -6410,7 +6410,7 @@
     },
     "megamaxi.com": {
       "c": "",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "meituan.com": {
       "c": "CN",
@@ -6430,7 +6430,7 @@
     },
     "melcom.com": {
       "c": "",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "meltingpot.com": {
       "c": "US",
@@ -6486,7 +6486,7 @@
     },
     "meny.no": {
       "c": "NO",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "menya-itto.com": {
       "c": "",
@@ -6510,7 +6510,7 @@
     },
     "metro.pe": {
       "c": "PE",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "mexicaliblues.com": {
       "c": "US",
@@ -6878,7 +6878,7 @@
     },
     "narvesen.lt": {
       "c": "LT",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "nasilemakshop.com": {
       "c": "",
@@ -6934,7 +6934,7 @@
     },
     "newworld.co.nz": {
       "c": "NZ",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "newyorkfries.com": {
       "c": "CA",
@@ -7062,7 +7062,7 @@
     },
     "oda.com": {
       "c": "",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "oddle.me": {
       "c": "SG",
@@ -7078,7 +7078,7 @@
     },
     "okay.be": {
       "c": "BE",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "oldchangkee.com": {
       "c": "",
@@ -7106,7 +7106,7 @@
     },
     "olimpica.com": {
       "c": "",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "ondoru.com": {
       "c": "",
@@ -7270,7 +7270,7 @@
     },
     "pam.it": {
       "c": "IT",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "panago.com": {
       "c": "CA",
@@ -7810,7 +7810,7 @@
     },
     "plus.nl": {
       "c": "NL",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "pointcoffee.id": {
       "c": "ID",
@@ -8190,7 +8190,7 @@
     },
     "rema.no": {
       "c": "NO",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "rema1000.no": {
       "c": "NO",
@@ -8478,7 +8478,7 @@
     },
     "santaisabel.cl": {
       "c": "CL",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "santouka.co.jp": {
       "c": "JP",
@@ -8550,7 +8550,7 @@
     },
     "selgros.pl": {
       "c": "PL",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "seogaandcook.com": {
       "c": "",
@@ -8858,7 +8858,7 @@
     },
     "sparnigeria.com": {
       "c": "",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "sphinx.pl": {
       "c": "PL",
@@ -9850,7 +9850,7 @@
     },
     "upa.cl": {
       "c": "CL",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "urbanbricks.com": {
       "c": "US",
@@ -9942,7 +9942,7 @@
     },
     "vkusvill.ru": {
       "c": "RU",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "volks-steak.jp": {
       "c": "JP",
@@ -9950,7 +9950,7 @@
     },
     "vprok.ru": {
       "c": "RU",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "waffleandpancakehouse.com": {
       "c": "US",
@@ -10114,7 +10114,7 @@
     },
     "willys.com": {
       "c": "US",
-      "k": "grocery"
+      "k": "sandwich"
     },
     "willys.se": {
       "c": "SE",
@@ -10218,7 +10218,7 @@
     },
     "wong.pe": {
       "c": "PE",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "wongnai.com": {
       "c": "TH",
@@ -10498,7 +10498,7 @@
     },
     "zabka.pl": {
       "c": "PL",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "zambrero.com.au": {
       "c": "AU",

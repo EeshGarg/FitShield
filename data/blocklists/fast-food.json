@@ -1783,7 +1783,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -1797,7 +1797,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -5476,7 +5476,7 @@
       "regions": [
         "NA"
       ],
-      "category": "grocery",
+      "category": "burger",
       "specialties": [
         "burgers",
         "seasoned fries",
@@ -6703,7 +6703,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -9224,7 +9224,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -9288,7 +9288,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -9446,7 +9446,7 @@
     },
     {
       "domain": "family.com.tw",
-      "name": "Family",
+      "name": "FamilyMart Taiwan",
       "type": "fast_food",
       "countries": [
         "TW"
@@ -9454,7 +9454,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -10843,7 +10843,7 @@
       "regions": [
         "AS"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -12233,7 +12233,7 @@
     },
     {
       "domain": "harrisfarm.com.au",
-      "name": "Harrisfarm",
+      "name": "Harris Farm Markets",
       "type": "fast_food",
       "countries": [
         "AU"
@@ -12241,7 +12241,7 @@
       "regions": [
         "OC"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -13137,11 +13137,11 @@
     },
     {
       "domain": "huaho.com",
-      "name": "Huaho",
+      "name": "Hua Ho",
       "type": "fast_food",
       "countries": [],
       "regions": [],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -13407,7 +13407,7 @@
     },
     {
       "domain": "ica.se",
-      "name": "Ica",
+      "name": "ICA",
       "type": "fast_food",
       "countries": [
         "SE"
@@ -13415,7 +13415,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -13429,7 +13429,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -13449,7 +13449,7 @@
     },
     {
       "domain": "iga.com.au",
-      "name": "Iga",
+      "name": "IGA",
       "type": "fast_food",
       "countries": [
         "AU"
@@ -13457,7 +13457,7 @@
       "regions": [
         "OC"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -13507,7 +13507,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -13679,7 +13679,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -15220,7 +15220,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -15999,11 +15999,11 @@
     },
     {
       "domain": "lawson108.com",
-      "name": "Lawson108",
+      "name": "Lawson China",
       "type": "fast_food",
       "countries": [],
       "regions": [],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -16135,7 +16135,7 @@
       "type": "fast_food",
       "countries": [],
       "regions": [],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -16223,7 +16223,7 @@
       "regions": [
         "SA"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -16325,7 +16325,7 @@
       "type": "fast_food",
       "countries": [],
       "regions": [],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -16978,7 +16978,7 @@
       "regions": [
         "SA"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -17224,7 +17224,7 @@
       "regions": [
         "AF"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -17963,7 +17963,7 @@
       "type": "fast_food",
       "countries": [],
       "regions": [],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -17973,7 +17973,7 @@
       "type": "fast_food",
       "countries": [],
       "regions": [],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -18092,7 +18092,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -18168,7 +18168,7 @@
     },
     {
       "domain": "metro.pe",
-      "name": "Metro",
+      "name": "Metro Peru",
       "type": "fast_food",
       "countries": [
         "PE"
@@ -18176,7 +18176,7 @@
       "regions": [
         "SA"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -19305,7 +19305,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -19481,7 +19481,7 @@
     },
     {
       "domain": "newworld.co.nz",
-      "name": "Newworld",
+      "name": "New World",
       "type": "fast_food",
       "countries": [
         "NZ"
@@ -19489,7 +19489,7 @@
       "regions": [
         "OC"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -19931,7 +19931,7 @@
       "type": "fast_food",
       "countries": [],
       "regions": [],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -19947,7 +19947,7 @@
     },
     {
       "domain": "okay.be",
-      "name": "Okay",
+      "name": "OKay",
       "type": "fast_food",
       "countries": [
         "BE"
@@ -19955,7 +19955,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -20053,11 +20053,11 @@
     },
     {
       "domain": "olimpica.com",
-      "name": "Olimpica",
+      "name": "Olímpica",
       "type": "fast_food",
       "countries": [],
       "regions": [],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -20522,7 +20522,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -22404,7 +22404,7 @@
     },
     {
       "domain": "plus.nl",
-      "name": "Plus",
+      "name": "PLUS",
       "type": "fast_food",
       "countries": [
         "NL"
@@ -22412,7 +22412,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -23647,7 +23647,7 @@
     },
     {
       "domain": "rema.no",
-      "name": "Rema",
+      "name": "Rema 1000",
       "type": "fast_food",
       "countries": [
         "NO"
@@ -23655,7 +23655,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -24573,7 +24573,7 @@
     },
     {
       "domain": "santaisabel.cl",
-      "name": "Santaisabel",
+      "name": "Santa Isabel",
       "type": "fast_food",
       "countries": [
         "CL"
@@ -24581,7 +24581,7 @@
       "regions": [
         "SA"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -24823,7 +24823,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -25849,11 +25849,11 @@
     },
     {
       "domain": "sparnigeria.com",
-      "name": "Sparnigeria",
+      "name": "Spar Nigeria",
       "type": "fast_food",
       "countries": [],
       "regions": [],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -29439,7 +29439,7 @@
     },
     {
       "domain": "upa.cl",
-      "name": "Upa",
+      "name": "UPA",
       "type": "fast_food",
       "countries": [
         "CL"
@@ -29447,7 +29447,7 @@
       "regions": [
         "SA"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -29797,7 +29797,7 @@
     },
     {
       "domain": "vkusvill.ru",
-      "name": "Vkusvill",
+      "name": "VkusVill",
       "type": "fast_food",
       "countries": [
         "RU"
@@ -29805,7 +29805,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -29837,7 +29837,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -30425,7 +30425,7 @@
       "regions": [
         "NA"
       ],
-      "category": "grocery",
+      "category": "sandwich",
       "specialties": [
         "sandwiches",
         "burgers",
@@ -30631,7 +30631,7 @@
       "regions": [
         "SA"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },
@@ -31403,7 +31403,7 @@
     },
     {
       "domain": "zabka.pl",
-      "name": "Zabka",
+      "name": "Żabka",
       "type": "fast_food",
       "countries": [
         "PL"
@@ -31411,7 +31411,7 @@
       "regions": [
         "EU"
       ],
-      "category": "fast_casual",
+      "category": "grocery",
       "specialties": [],
       "enabled": true
     },

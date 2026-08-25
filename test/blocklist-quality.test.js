@@ -473,3 +473,62 @@ test("the courier category is empty, because a courier is not a place to order f
 
   assert.deepEqual(couriers, [], `courier platforms are still listed: ${couriers.join(", ")}`);
 });
+
+// ---------------------------------------------------------------------------
+// A category is a claim the user reads
+// ---------------------------------------------------------------------------
+
+// The curated category reaches the screen twice — the block page's Category row
+// and Settings' most-blocked list — so a wrong one is visible, not internal.
+// The shipped guard used to check six hard-coded domains in one direction only,
+// which is why 33 supermarkets sat in `fast_casual` and two restaurants sat in
+// `grocery` through a name collision with supermarkets in other countries.
+test("a grocer is filed as grocery, in both directions", () => {
+  const grocers = [
+    "iga.com.au", "conad.it", "ica.se", "kiwi.no", "rema.no", "zabka.pl", "vkusvill.ru",
+    "lider.cl", "santaisabel.cl", "metro.pe", "marjane.ma", "giant.sg", "family.com.tw",
+    "oda.com", "iki.lt", "barbora.lt", "barbora.lv"
+  ];
+
+  const wrong = grocers
+    .map((domain) => ALL.find((entry) => entry.domain === domain))
+    .filter(Boolean)
+    .filter((entry) => entry.category !== "grocery")
+    .map((entry) => `${entry.domain} is ${entry.category}`);
+
+  assert.deepEqual(wrong, [], `supermarkets filed as something else: ${wrong.join(", ")}`);
+
+  // The other direction, which nothing checked: a record whose OWN specialties
+  // are restaurant food has no business being called a grocer. checkers.com is
+  // Checkers Drive-In (burgers, seasoned fries, wings) and was filed `grocery`.
+  const RESTAURANT_FOOD = /burger|sandwich|fries|wings|pizza|taco|sushi|noodle/i;
+  const misfiled = ALL.filter((entry) => entry.category === "grocery")
+    .filter((entry) => (entry.specialties || []).some((s) => RESTAURANT_FOOD.test(s)))
+    .map((entry) => `${entry.domain} sells ${(entry.specialties || []).join("/")}`);
+
+  assert.deepEqual(misfiled, [], `filed as grocery but selling restaurant food: ${misfiled.join("; ")}`);
+});
+
+test("no category is a value the display layer cannot name", () => {
+  const en = JSON.parse(
+    fs.readFileSync(path.join(ROOT, "extension", "_locales", "en", "messages.json"), "utf8")
+  );
+
+  const key = (id) =>
+    "catLabel" +
+    String(id)
+      .split(/[_\s]+/)
+      .filter(Boolean)
+      .map((word) => word[0].toUpperCase() + word.slice(1))
+      .join("");
+
+  const unnamed = [...new Set(ALL.map((entry) => entry.category))]
+    .filter((category) => category && !en[key(category)])
+    .sort();
+
+  assert.deepEqual(
+    unnamed,
+    [],
+    `these categories would print as a prettified id rather than a real name: ${unnamed.join(", ")}`
+  );
+});

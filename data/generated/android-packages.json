@@ -25,7 +25,7 @@
     "noApp": 757,
     "sharedApp": 268
   },
-  "sha256": "97ba2dac05df0a9380a3dcde409d2b88b73fb549916d86b14ace1f63a9e82265",
+  "sha256": "a6b131c504de22d1388b73f3a01f2403e861f53fb65b7c9635d706656016752f",
   "packages": {
     "ai.appfront.coffeebeanery": {
       "brandId": "coffeebeanery.com",
@@ -55,7 +55,7 @@
     "app.selgros": {
       "brandId": "selgros.pl",
       "displayName": "Selgros",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "apps.spacetap.costacoffee": {
       "brandId": "costa.coffee",
@@ -345,7 +345,7 @@
     "cl.walmart.liderapp": {
       "brandId": "lider.cl",
       "displayName": "Lider",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "cloud.cofe.pret": {
       "brandId": "pret.com",
@@ -605,7 +605,7 @@
     "com.app.narvesen": {
       "brandId": "narvesen.lt",
       "displayName": "Narvesen",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "com.app.oldchangkeerewards": {
       "brandId": "oldchangkee.com",
@@ -989,8 +989,8 @@
     },
     "com.bzbs.lawson": {
       "brandId": "lawson108.com",
-      "displayName": "Lawson108",
-      "category": "fast_food"
+      "displayName": "Lawson China",
+      "category": "grocery"
     },
     "com.ca.fantuan.customer": {
       "brandId": "fantuan.com",
@@ -1219,18 +1219,18 @@
     },
     "com.cencosud.cl.sisa": {
       "brandId": "santaisabel.cl",
-      "displayName": "Santaisabel",
-      "category": "fast_food"
+      "displayName": "Santa Isabel",
+      "category": "grocery"
     },
     "com.cencosud.pe.metro": {
       "brandId": "metro.pe",
-      "displayName": "Metro",
-      "category": "fast_food"
+      "displayName": "Metro Peru",
+      "category": "grocery"
     },
     "com.cencosud.pe.wong": {
       "brandId": "wong.pe",
       "displayName": "Wong",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "com.cfao.carrefour.civ.app": {
       "brandId": "carrefour.ci",
@@ -2540,7 +2540,7 @@
     "com.iceland.android": {
       "brandId": "iceland.co.uk",
       "displayName": "Iceland",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "com.icemobile.albertheijn": {
       "brandId": "ah.nl",
@@ -2835,7 +2835,7 @@
     "com.koala.mobile.willys": {
       "brandId": "willys.com",
       "displayName": "Willy's",
-      "category": "grocery"
+      "category": "fast_food"
     },
     "com.kobe.cacaushow": {
       "brandId": "cacaushow.com.br",
@@ -2970,7 +2970,7 @@
     "com.lisek.app": {
       "brandId": "lisek.app",
       "displayName": "Lisek",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "com.little.javahouse": {
       "brandId": "javahouseafrica.com",
@@ -3075,7 +3075,7 @@
     "com.marjane.app": {
       "brandId": "marjane.ma",
       "displayName": "Marjane",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "com.marleyspoon": {
       "brandId": "marleyspoon.com.au",
@@ -3214,13 +3214,13 @@
     },
     "com.metcash.igarewards.app": {
       "brandId": "iga.com.au",
-      "displayName": "Iga",
-      "category": "fast_food"
+      "displayName": "IGA",
+      "category": "grocery"
     },
     "com.metcash.igashop.app": {
       "brandId": "iga.com.au",
-      "displayName": "Iga",
-      "category": "fast_food"
+      "displayName": "IGA",
+      "category": "grocery"
     },
     "com.meuoutback": {
       "brandId": "outback.com.br",
@@ -3264,8 +3264,8 @@
     },
     "com.mobgen.plus": {
       "brandId": "plus.nl",
-      "displayName": "Plus",
-      "category": "fast_food"
+      "displayName": "PLUS",
+      "category": "grocery"
     },
     "com.mobi2go.fatburger": {
       "brandId": "fatburger.com",
@@ -3850,7 +3850,7 @@
     "com.om.customerflashgroceryapp": {
       "brandId": "melcom.com",
       "displayName": "Melcom",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "com.onosys.chopstopordering": {
       "brandId": "chopstop.com",
@@ -4025,7 +4025,7 @@
     "com.paytronix.client.android.app.checkersandrallys": {
       "brandId": "checkers.com",
       "displayName": "Checkers",
-      "category": "grocery"
+      "category": "fast_food"
     },
     "com.paytronix.client.android.app.chopshop": {
       "brandId": "originalchopshop.com",
@@ -4525,7 +4525,7 @@
     "com.qubits.fw3.mamut": {
       "brandId": "mamut.cl",
       "displayName": "Mamut",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "com.qubits.fw3.tb": {
       "brandId": "tommybeans.cl",
@@ -4619,8 +4619,8 @@
     },
     "com.rivers.sparrewards": {
       "brandId": "sparnigeria.com",
-      "displayName": "Sparnigeria",
-      "category": "fast_food"
+      "displayName": "Spar Nigeria",
+      "category": "grocery"
     },
     "com.rollemup.app": {
       "brandId": "rollemup.com",
@@ -5265,7 +5265,7 @@
     "com.tempos21.eroskiclub.pro": {
       "brandId": "eroski.es",
       "displayName": "Eroski",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "com.tenpoapp2.chain.tac01141": {
       "brandId": "takakuramachi-coffee.co.jp",
@@ -5620,7 +5620,7 @@
     "com.vi8e.giant": {
       "brandId": "giant.sg",
       "displayName": "Giant",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "com.villageinn.app": {
       "brandId": "villageinn.com",
@@ -6214,8 +6214,8 @@
     },
     "grasea.familife": {
       "brandId": "family.com.tw",
-      "displayName": "Family",
-      "category": "fast_food"
+      "displayName": "FamilyMart Taiwan",
+      "category": "grocery"
     },
     "habibs.alphacode.com.br": {
       "brandId": "habibs.com.br",
@@ -6304,8 +6304,8 @@
     },
     "io.cordova.myapp5c2f9d": {
       "brandId": "olimpica.com",
-      "displayName": "Olimpica",
-      "category": "fast_food"
+      "displayName": "Olímpica",
+      "category": "grocery"
     },
     "io.gosnappy.freshslice": {
       "brandId": "freshslice.com",
@@ -6390,12 +6390,12 @@
     "it.conad.mobileapp": {
       "brandId": "conad.it",
       "displayName": "Conad",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "it.esselunga.mobile": {
       "brandId": "esselunga.it",
       "displayName": "Esselunga",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "it.myautogrill.mobile": {
       "brandId": "autogrill.it",
@@ -6405,7 +6405,7 @@
     "it.pampanorama.perteplus": {
       "brandId": "pam.it",
       "displayName": "Pam",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "itogo_beardpapaapp_android.itogo.jp.beardpapaapp_app": {
       "brandId": "beardpapa.jp",
@@ -6860,12 +6860,12 @@
     "lt.barbora": {
       "brandId": "barbora.lt",
       "displayName": "Barbora Lithuania",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "lt.iki.app": {
       "brandId": "iki.lt",
       "displayName": "IKI",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "lt.maxima.aciu": {
       "brandId": "maxima.lt",
@@ -6875,7 +6875,7 @@
     "lv.barbora": {
       "brandId": "barbora.lv",
       "displayName": "Barbora Latvia",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "lv.costa.costacoffee": {
       "brandId": "costa.coffee",
@@ -7005,17 +7005,17 @@
     "no.kolonial.tienda": {
       "brandId": "oda.com",
       "displayName": "Oda",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "no.norgesgruppen.apps.kiwipluss.production": {
       "brandId": "kiwi.no",
       "displayName": "Kiwi",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "no.norgesgruppen.apps.meny": {
       "brandId": "meny.no",
       "displayName": "Meny",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "no.peppes.mobile": {
       "brandId": "peppes.no",
@@ -7024,8 +7024,8 @@
     },
     "no.rema.bella": {
       "brandId": "rema.no",
-      "displayName": "Rema",
-      "category": "fast_food"
+      "displayName": "Rema 1000",
+      "category": "grocery"
     },
     "nz.burgerking.kingfinder": {
       "brandId": "burgerking.co.nz",
@@ -7059,8 +7059,8 @@
     },
     "nz.co.newworld.clubcard": {
       "brandId": "newworld.co.nz",
-      "displayName": "Newworld",
-      "category": "fast_food"
+      "displayName": "New World",
+      "category": "grocery"
     },
     "nz.co.paknsave.app": {
       "brandId": "paknsave.co.nz",
@@ -7169,8 +7169,8 @@
     },
     "pl.zabka.apb2c": {
       "brandId": "zabka.pl",
-      "displayName": "Zabka",
-      "category": "fast_food"
+      "displayName": "Żabka",
+      "category": "grocery"
     },
     "place.order.red.ribbon": {
       "brandId": "redribbon.ph",
@@ -7255,7 +7255,7 @@
     "ru.lenta.lentochka": {
       "brandId": "lenta.com",
       "displayName": "Lenta",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "ru.perekrestok.app": {
       "brandId": "perekrestok.ru",
@@ -7279,13 +7279,13 @@
     },
     "ru.vkusvill": {
       "brandId": "vkusvill.ru",
-      "displayName": "Vkusvill",
-      "category": "fast_food"
+      "displayName": "VkusVill",
+      "category": "grocery"
     },
     "ru.x5.perekrestok.darkstore": {
       "brandId": "vprok.ru",
       "displayName": "Vprok",
-      "category": "fast_food"
+      "category": "grocery"
     },
     "ruby.tuesday.app": {
       "brandId": "rubytuesday.com",
@@ -7329,8 +7329,8 @@
     },
     "se.ica.handla": {
       "brandId": "ica.se",
-      "displayName": "Ica",
-      "category": "fast_food"
+      "displayName": "ICA",
+      "category": "grocery"
     },
     "se.max.android.locator": {
       "brandId": "max.se",
@@ -10401,7 +10401,7 @@
     {
       "brandId": "barbora.lt",
       "displayName": "Barbora Lithuania",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "lt.barbora"
@@ -10413,14 +10413,14 @@
         "LT"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
       "brandId": "barbora.lv",
       "displayName": "Barbora Latvia",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "lv.barbora"
@@ -10432,8 +10432,8 @@
         "LV"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -15755,7 +15755,7 @@
     {
       "brandId": "checkers.com",
       "displayName": "Checkers",
-      "category": "grocery",
+      "category": "fast_food",
       "packageStatus": "active",
       "packageIds": [
         "com.paytronix.client.android.app.checkersandrallys"
@@ -15767,9 +15767,9 @@
         "US"
       ],
       "tags": [
+        "burger",
         "burgers",
         "fast_food",
-        "grocery",
         "seasoned_fries",
         "wings"
       ]
@@ -17596,7 +17596,7 @@
     {
       "brandId": "conad.it",
       "displayName": "Conad",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "it.conad.mobileapp"
@@ -17608,8 +17608,8 @@
         "IT"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -22036,7 +22036,7 @@
     {
       "brandId": "eroski.es",
       "displayName": "Eroski",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.tempos21.eroskiclub.pro"
@@ -22048,8 +22048,8 @@
         "ES"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -22116,7 +22116,7 @@
     {
       "brandId": "esselunga.it",
       "displayName": "Esselunga",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "it.esselunga.mobile"
@@ -22128,8 +22128,8 @@
         "IT"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -22447,8 +22447,8 @@
     },
     {
       "brandId": "family.com.tw",
-      "displayName": "Family",
-      "category": "fast_food",
+      "displayName": "FamilyMart Taiwan",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "grasea.familife"
@@ -22460,8 +22460,8 @@
         "TW"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -25291,7 +25291,7 @@
     {
       "brandId": "giant.sg",
       "displayName": "Giant",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.vi8e.giant"
@@ -25303,8 +25303,8 @@
         "SG"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -27681,8 +27681,8 @@
     },
     {
       "brandId": "harrisfarm.com.au",
-      "displayName": "Harrisfarm",
-      "category": "fast_food",
+      "displayName": "Harris Farm Markets",
+      "category": "grocery",
       "packageStatus": "no_app",
       "packageIds": [],
       "domains": [
@@ -27692,8 +27692,8 @@
         "AU"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -28995,8 +28995,8 @@
     },
     {
       "brandId": "huaho.com",
-      "displayName": "Huaho",
-      "category": "fast_food",
+      "displayName": "Hua Ho",
+      "category": "grocery",
       "packageStatus": "no_app",
       "packageIds": [],
       "domains": [
@@ -29004,8 +29004,8 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -29653,8 +29653,8 @@
     },
     {
       "brandId": "ica.se",
-      "displayName": "Ica",
-      "category": "fast_food",
+      "displayName": "ICA",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "se.ica.handla"
@@ -29666,14 +29666,14 @@
         "SE"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
       "brandId": "iceland.co.uk",
       "displayName": "Iceland",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.iceland.android"
@@ -29685,8 +29685,8 @@
         "GB"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -29752,8 +29752,8 @@
     },
     {
       "brandId": "iga.com.au",
-      "displayName": "Iga",
-      "category": "fast_food",
+      "displayName": "IGA",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.metcash.igarewards.app",
@@ -29766,8 +29766,8 @@
         "AU"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -29817,7 +29817,7 @@
     {
       "brandId": "iki.lt",
       "displayName": "IKI",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "lt.iki.app"
@@ -29829,8 +29829,8 @@
         "LT"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -30065,7 +30065,7 @@
     {
       "brandId": "irma.dk",
       "displayName": "Irma",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "no_app",
       "packageIds": [],
       "domains": [
@@ -30075,8 +30075,8 @@
         "DK"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -32673,7 +32673,7 @@
     {
       "brandId": "kiwi.no",
       "displayName": "Kiwi",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "no.norgesgruppen.apps.kiwipluss.production"
@@ -32685,8 +32685,8 @@
         "NO"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -33819,8 +33819,8 @@
     },
     {
       "brandId": "lawson108.com",
-      "displayName": "Lawson108",
-      "category": "fast_food",
+      "displayName": "Lawson China",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.bzbs.lawson"
@@ -33830,8 +33830,8 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -33983,7 +33983,7 @@
     {
       "brandId": "lenta.com",
       "displayName": "Lenta",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "ru.lenta.lentochka"
@@ -33993,8 +33993,8 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -34118,7 +34118,7 @@
     {
       "brandId": "lider.cl",
       "displayName": "Lider",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "cl.walmart.liderapp"
@@ -34130,8 +34130,8 @@
         "CL"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -34336,7 +34336,7 @@
     {
       "brandId": "lisek.app",
       "displayName": "Lisek",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.lisek.app"
@@ -34346,8 +34346,8 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -35314,7 +35314,7 @@
     {
       "brandId": "mamut.cl",
       "displayName": "Mamut",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.qubits.fw3.mamut"
@@ -35326,8 +35326,8 @@
         "CL"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -35631,7 +35631,7 @@
     {
       "brandId": "marjane.ma",
       "displayName": "Marjane",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.marjane.app"
@@ -35643,8 +35643,8 @@
         "MA"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -36675,7 +36675,7 @@
     {
       "brandId": "megamaxi.com",
       "displayName": "Megamaxi",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "no_app",
       "packageIds": [],
       "domains": [
@@ -36683,8 +36683,8 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -36770,7 +36770,7 @@
     {
       "brandId": "melcom.com",
       "displayName": "Melcom",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.om.customerflashgroceryapp"
@@ -36780,8 +36780,8 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -37053,7 +37053,7 @@
     {
       "brandId": "meny.no",
       "displayName": "Meny",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "no.norgesgruppen.apps.meny"
@@ -37065,8 +37065,8 @@
         "NO"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -37166,8 +37166,8 @@
     },
     {
       "brandId": "metro.pe",
-      "displayName": "Metro",
-      "category": "fast_food",
+      "displayName": "Metro Peru",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.cencosud.pe.metro"
@@ -37179,8 +37179,8 @@
         "PE"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -38962,7 +38962,7 @@
     {
       "brandId": "narvesen.lt",
       "displayName": "Narvesen",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.app.narvesen"
@@ -38974,8 +38974,8 @@
         "LT"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -39238,8 +39238,8 @@
     },
     {
       "brandId": "newworld.co.nz",
-      "displayName": "Newworld",
-      "category": "fast_food",
+      "displayName": "New World",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "nz.co.newworld.clubcard"
@@ -39251,8 +39251,8 @@
         "NZ"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -39846,7 +39846,7 @@
     {
       "brandId": "oda.com",
       "displayName": "Oda",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "no.kolonial.tienda"
@@ -39856,8 +39856,8 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -39921,8 +39921,8 @@
     },
     {
       "brandId": "okay.be",
-      "displayName": "Okay",
-      "category": "fast_food",
+      "displayName": "OKay",
+      "category": "grocery",
       "packageStatus": "no_app",
       "packageIds": [],
       "domains": [
@@ -39932,8 +39932,8 @@
         "BE"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -40055,8 +40055,8 @@
     },
     {
       "brandId": "olimpica.com",
-      "displayName": "Olimpica",
-      "category": "fast_food",
+      "displayName": "Olímpica",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "io.cordova.myapp5c2f9d"
@@ -40066,8 +40066,8 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -40865,7 +40865,7 @@
     {
       "brandId": "pam.it",
       "displayName": "Pam",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "it.pampanorama.perteplus"
@@ -40877,8 +40877,8 @@
         "IT"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -43619,8 +43619,8 @@
     },
     {
       "brandId": "plus.nl",
-      "displayName": "Plus",
-      "category": "fast_food",
+      "displayName": "PLUS",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.mobgen.plus"
@@ -43632,8 +43632,8 @@
         "NL"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -45546,8 +45546,8 @@
     },
     {
       "brandId": "rema.no",
-      "displayName": "Rema",
-      "category": "fast_food",
+      "displayName": "Rema 1000",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "no.rema.bella"
@@ -45559,8 +45559,8 @@
         "NO"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -46911,8 +46911,8 @@
     },
     {
       "brandId": "santaisabel.cl",
-      "displayName": "Santaisabel",
-      "category": "fast_food",
+      "displayName": "Santa Isabel",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.cencosud.cl.sisa"
@@ -46924,8 +46924,8 @@
         "CL"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -47277,7 +47277,7 @@
     {
       "brandId": "selgros.pl",
       "displayName": "Selgros",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "app.selgros"
@@ -47289,8 +47289,8 @@
         "PL"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -48795,8 +48795,8 @@
     },
     {
       "brandId": "sparnigeria.com",
-      "displayName": "Sparnigeria",
-      "category": "fast_food",
+      "displayName": "Spar Nigeria",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.rivers.sparrewards"
@@ -48806,8 +48806,8 @@
       ],
       "countryCodes": [],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -53789,8 +53789,8 @@
     },
     {
       "brandId": "upa.cl",
-      "displayName": "Upa",
-      "category": "fast_food",
+      "displayName": "UPA",
+      "category": "grocery",
       "packageStatus": "no_app",
       "packageIds": [],
       "domains": [
@@ -53800,8 +53800,8 @@
         "CL"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -54240,8 +54240,8 @@
     },
     {
       "brandId": "vkusvill.ru",
-      "displayName": "Vkusvill",
-      "category": "fast_food",
+      "displayName": "VkusVill",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "ru.vkusvill"
@@ -54253,8 +54253,8 @@
         "RU"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -54280,7 +54280,7 @@
     {
       "brandId": "vprok.ru",
       "displayName": "Vprok",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "ru.x5.perekrestok.darkstore"
@@ -54292,8 +54292,8 @@
         "RU"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -55114,7 +55114,7 @@
     {
       "brandId": "willys.com",
       "displayName": "Willy's",
-      "category": "grocery",
+      "category": "fast_food",
       "packageStatus": "active",
       "packageIds": [
         "com.koala.mobile.willys"
@@ -55128,8 +55128,8 @@
       "tags": [
         "burgers",
         "fast_food",
-        "grocery",
         "salads",
+        "sandwich",
         "sandwiches"
       ]
     },
@@ -55622,7 +55622,7 @@
     {
       "brandId": "wong.pe",
       "displayName": "Wong",
-      "category": "fast_food",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "com.cencosud.pe.wong"
@@ -55634,8 +55634,8 @@
         "PE"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
@@ -56992,8 +56992,8 @@
     },
     {
       "brandId": "zabka.pl",
-      "displayName": "Zabka",
-      "category": "fast_food",
+      "displayName": "Żabka",
+      "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
         "pl.zabka.apb2c"
@@ -57005,8 +57005,8 @@
         "PL"
       ],
       "tags": [
-        "fast_casual",
-        "fast_food"
+        "fast_food",
+        "grocery"
       ]
     },
     {
