@@ -190,7 +190,18 @@ function checkDerivedManifests(reporter, manifest) {
   // Safari (nightly): Chromium form (gecko stripped, service worker path) plus
   // the two nightly markers so the wrapped app is unmistakably a nightly build.
   const safari = build.safariManifest(manifest);
-  reporter.check(!("browser_specific_settings" in safari), "safari manifest derivation must strip browser_specific_settings");
+  const safariBss = safari.browser_specific_settings || {};
+
+  // The point of this check was that Firefox's `gecko` block must not ride into
+  // the Safari payload. It was written as "strip the whole key", which was the
+  // same thing only while Safari declared nothing of its own. Safari's own
+  // block is not leakage — `strict_min_version` is what gives the converter a
+  // deployment target instead of letting a device discover the answer.
+  reporter.check(!("gecko" in safariBss), "safari manifest derivation must strip Firefox's gecko settings");
+  reporter.check(
+    typeof safariBss.safari === "object" && !!safariBss.safari.strict_min_version,
+    "safari manifest must declare browser_specific_settings.safari.strict_min_version"
+  );
   reporter.check(
     safari.name === build.SAFARI_NIGHTLY_NAME,
     `safari manifest derivation must set a nightly name "${build.SAFARI_NIGHTLY_NAME}" (got ${JSON.stringify(safari.name)})`

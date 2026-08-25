@@ -35,7 +35,8 @@ const AUDITS = [
   // Drives the built package in a real browser and reads the computed
   // accessibility tree. Self-skips with a warning when no Chromium is present,
   // so a checkout without one still validates everything else.
-  require("./browser-a11y-audit")
+  require("./browser-a11y-audit"),
+  require("./safari-audit")
 ];
 
 async function validateAll(options) {

@@ -82,17 +82,28 @@ test("Safari manifest differs from Chrome only by the nightly markers", () => {
   assert.strictEqual(safari.name, build.SAFARI_NIGHTLY_NAME, 'Safari name must be the nightly name');
   assert.strictEqual(safari.version_name, `${base.version}-nightly`, "Safari version_name must be <version>-nightly");
 
-  // Strip the two nightly-only keys; the rest of the manifest must be identical
-  // to Chrome's (same permissions, host_permissions, background, WAR, icons, …).
+  // Safari declares its own minimum. Two things in this payload need 16.4 and
+  // neither fails loudly below it — the MV3 background service worker, and
+  // chrome.storage.session, which holds the block-page redirect token and is
+  // written to degrade quietly. Without a floor the converter picks its own
+  // deployment target and a device finds out first.
+  const bss = safari.browser_specific_settings || {};
+  assert.ok(bss.safari, "the Safari manifest must declare browser_specific_settings.safari");
+  assert.strictEqual(bss.safari.strict_min_version, build.SAFARI_MIN_VERSION);
+  assert.ok(!("gecko" in bss), "Firefox's gecko settings must not ride into the Safari payload");
+
+  // Everything else must still be identical to Chrome's — same permissions,
+  // host_permissions, background, web_accessible_resources, icons, CSP.
   const chromeRest = { ...chrome };
   delete chromeRest.name;
   const safariRest = { ...safari };
   delete safariRest.name;
   delete safariRest.version_name;
+  delete safariRest.browser_specific_settings;
 
   assert.deepStrictEqual(
     safariRest,
     chromeRest,
-    "Safari manifest must equal Chrome's apart from name + version_name"
+    "Safari manifest must equal Chrome's apart from name, version_name and its own minimum version"
   );
 });

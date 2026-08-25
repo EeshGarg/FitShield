@@ -297,10 +297,25 @@ function chromeManifest(base) {
 // into the macOS + iOS/iPadOS app — see tools/build-safari.js and docs/SAFARI.md.
 const SAFARI_NIGHTLY_NAME = "FitShield Nightly";
 
+// Safari's minimum. Two things in this extension need 16.4 and neither fails
+// loudly on an older build: the MV3 `background.service_worker` form (Safari
+// ran MV3 extensions before that, but background service workers landed in
+// 16.4), and `chrome.storage.session`, which holds the block-page redirect
+// token. The token path is written to degrade — every access is guarded and
+// falls back to adopting the token from the dynamic rules — so on an older
+// Safari it would keep working while quietly re-minting per worker generation.
+// Declaring the floor makes the converter target a Safari where neither is a
+// question, rather than leaving it to be discovered on a device.
+const SAFARI_MIN_VERSION = "16.4";
+
 function safariManifest(base) {
   const manifest = chromeManifest(base);
   manifest.name = SAFARI_NIGHTLY_NAME;
   manifest.version_name = `${manifest.version}-nightly`;
+  manifest.browser_specific_settings = {
+    ...(manifest.browser_specific_settings || {}),
+    safari: { strict_min_version: SAFARI_MIN_VERSION }
+  };
   return manifest;
 }
 
@@ -547,7 +562,8 @@ async function main() {
 // per-browser forms stay a checked contract. Assigned BEFORE main() may run —
 // the audit is reached from main() via validate-all, and a later assignment
 // would hand that circular require an empty exports object.
-module.exports = { bundleEngine, ENGINE_MODULES, FILES, DIRS, BACKGROUND_SCRIPTS, ANDROID_ONLY_PREFIXES, copyInto, verifyStage, assertNoAndroidPayload, zipDir, chromeManifest, firefoxManifest, safariManifest, SAFARI_NIGHTLY_NAME, archiveDate, dosDateTime, removeStaleBrowserZips, BROWSER_ZIP, DOS_EPOCH_MS };
+module.exports = { bundleEngine, ENGINE_MODULES, FILES, DIRS, BACKGROUND_SCRIPTS, ANDROID_ONLY_PREFIXES, copyInto, verifyStage, assertNoAndroidPayload, zipDir, chromeManifest, firefoxManifest, safariManifest,
+  SAFARI_MIN_VERSION, SAFARI_NIGHTLY_NAME, archiveDate, dosDateTime, removeStaleBrowserZips, BROWSER_ZIP, DOS_EPOCH_MS };
 
 if (require.main === module) {
   main().catch((error) => {

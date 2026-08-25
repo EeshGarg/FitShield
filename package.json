@@ -22,6 +22,7 @@
     "validate:sw": "node tools/service-worker-audit.js",
     "validate:sync": "node tools/sync-audit.js",
     "validate:a11y": "node tools/browser-a11y-audit.js",
+    "validate:safari": "node tools/safari-audit.js",
     "sync": "node tools/sync-extension.js",
     "generate:alternatives": "node tools/build-alternatives.js",
     "verify:unpacked": "node tools/verify-unpacked.js",
