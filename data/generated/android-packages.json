@@ -25,7 +25,7 @@
     "noApp": 757,
     "sharedApp": 268
   },
-  "sha256": "6bcc2294c67e93a5319ee4a888d4c78bd897e3d4f2d2c56b546b9d3fb39e844c",
+  "sha256": "97ba2dac05df0a9380a3dcde409d2b88b73fb549916d86b14ace1f63a9e82265",
   "packages": {
     "ai.appfront.coffeebeanery": {
       "brandId": "coffeebeanery.com",
@@ -59,7 +59,7 @@
     },
     "apps.spacetap.costacoffee": {
       "brandId": "costa.coffee",
-      "displayName": "Costa.coffee",
+      "displayName": "Costa Coffee",
       "category": "coffee"
     },
     "appyness.instapizza": {
@@ -429,7 +429,7 @@
     },
     "coffee.fore2.fore": {
       "brandId": "fore.coffee",
-      "displayName": "Fore.coffee",
+      "displayName": "Fore Coffee",
       "category": "coffee"
     },
     "coffee.mojo.android": {
@@ -559,7 +559,7 @@
     },
     "com.alghanim.costakuwait": {
       "brandId": "costa.coffee",
-      "displayName": "Costa.coffee",
+      "displayName": "Costa Coffee",
       "category": "coffee"
     },
     "com.allset.client": {
@@ -604,7 +604,7 @@
     },
     "com.app.narvesen": {
       "brandId": "narvesen.lt",
-      "displayName": "Narvesen.lt",
+      "displayName": "Narvesen",
       "category": "fast_food"
     },
     "com.app.oldchangkeerewards": {
@@ -1024,7 +1024,7 @@
     },
     "com.cama.app": {
       "brandId": "cama.cafe",
-      "displayName": "Cama.cafe",
+      "displayName": "Cama Café",
       "category": "coffee"
     },
     "com.capichi.order": {
@@ -1234,7 +1234,7 @@
     },
     "com.cfao.carrefour.civ.app": {
       "brandId": "carrefour.ci",
-      "displayName": "Carrefour.ci",
+      "displayName": "Carrefour Côte d'Ivoire",
       "category": "grocery"
     },
     "com.chaayos": {
@@ -1649,12 +1649,12 @@
     },
     "com.costacoffee.club.ie": {
       "brandId": "costa.coffee",
-      "displayName": "Costa.coffee",
+      "displayName": "Costa Coffee",
       "category": "coffee"
     },
     "com.costacoffee.india": {
       "brandId": "costa.coffee",
-      "displayName": "Costa.coffee",
+      "displayName": "Costa Coffee",
       "category": "coffee"
     },
     "com.cote.app": {
@@ -1694,7 +1694,7 @@
     },
     "com.crm.rewards.costacoffee": {
       "brandId": "costa.coffee",
-      "displayName": "Costa.coffee",
+      "displayName": "Costa Coffee",
       "category": "coffee"
     },
     "com.culvers.mobile": {
@@ -1709,7 +1709,7 @@
     },
     "com.dailykit.slaycoffee": {
       "brandId": "slay.coffee",
-      "displayName": "Slay.coffee",
+      "displayName": "Slay Coffee",
       "category": "coffee"
     },
     "com.dalkomm.coffee": {
@@ -2589,7 +2589,7 @@
     },
     "com.indolj.costacoffee.pk": {
       "brandId": "costa.coffee",
-      "displayName": "Costa.coffee",
+      "displayName": "Costa Coffee",
       "category": "coffee"
     },
     "com.indomaret.pointcoffee.app": {
@@ -4964,7 +4964,7 @@
     },
     "com.spoonity.costacoffee3": {
       "brandId": "costa.coffee",
-      "displayName": "Costa.coffee",
+      "displayName": "Costa Coffee",
       "category": "coffee"
     },
     "com.spoonity.sweetandcoffee": {
@@ -6119,7 +6119,7 @@
     },
     "ee.maxima": {
       "brandId": "maxima.ee",
-      "displayName": "Maxima.ee",
+      "displayName": "Maxima Estonia",
       "category": "grocery"
     },
     "ee.mtakso.client": {
@@ -6859,37 +6859,37 @@
     },
     "lt.barbora": {
       "brandId": "barbora.lt",
-      "displayName": "Barbora.lt",
+      "displayName": "Barbora Lithuania",
       "category": "fast_food"
     },
     "lt.iki.app": {
       "brandId": "iki.lt",
-      "displayName": "Iki.lt",
+      "displayName": "IKI",
       "category": "fast_food"
     },
     "lt.maxima.aciu": {
       "brandId": "maxima.lt",
-      "displayName": "Maxima.lt",
+      "displayName": "Maxima Lithuania",
       "category": "grocery"
     },
     "lv.barbora": {
       "brandId": "barbora.lv",
-      "displayName": "Barbora.lv",
+      "displayName": "Barbora Latvia",
       "category": "fast_food"
     },
     "lv.costa.costacoffee": {
       "brandId": "costa.coffee",
-      "displayName": "Costa.coffee",
+      "displayName": "Costa Coffee",
       "category": "coffee"
     },
     "lv.maxima": {
       "brandId": "maxima.lv",
-      "displayName": "Maxima.lv",
+      "displayName": "Maxima Latvia",
       "category": "grocery"
     },
     "lv.rimi.card": {
       "brandId": "rimi.ee",
-      "displayName": "Rimi.ee",
+      "displayName": "Rimi Estonia",
       "category": "grocery"
     },
     "m.pizzaalvolo": {
@@ -6919,7 +6919,7 @@
     },
     "mobile.anomali.ui.anomaliandroid": {
       "brandId": "anomali.coffee",
-      "displayName": "Anomali.coffee",
+      "displayName": "Anomali Coffee",
       "category": "coffee"
     },
     "mobile.ezchow.com.flanigans": {
@@ -7304,7 +7304,7 @@
     },
     "se.caspeco.bstl.brodernas": {
       "brandId": "brodernas.nu",
-      "displayName": "Brodernas.nu",
+      "displayName": "Brödernas",
       "category": "fast_food"
     },
     "se.caspeco.bstl.waynes": {
@@ -7574,7 +7574,7 @@
     },
     "za.hungrilion.placeorder": {
       "brandId": "hungrylion.africa",
-      "displayName": "Hungrylion.africa",
+      "displayName": "Hungry Lion",
       "category": "fast_food"
     }
   },
@@ -8013,7 +8013,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -8965,7 +8964,7 @@
     },
     {
       "brandId": "anomali.coffee",
-      "displayName": "Anomali.coffee",
+      "displayName": "Anomali Coffee",
       "category": "coffee",
       "packageStatus": "active",
       "packageIds": [
@@ -9101,7 +9100,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -9120,7 +9118,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -9139,7 +9136,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -10045,7 +10041,6 @@
         "KR"
       ],
       "tags": [
-        "brand_domain",
         "delivery",
         "restaurant_delivery",
         "takeout_ordering"
@@ -10067,7 +10062,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -10187,7 +10181,6 @@
       "tags": [
         "delivery",
         "food_delivery",
-        "legacy_platform",
         "takeout_ordering"
       ]
     },
@@ -10407,7 +10400,7 @@
     },
     {
       "brandId": "barbora.lt",
-      "displayName": "Barbora.lt",
+      "displayName": "Barbora Lithuania",
       "category": "fast_food",
       "packageStatus": "active",
       "packageIds": [
@@ -10426,7 +10419,7 @@
     },
     {
       "brandId": "barbora.lv",
-      "displayName": "Barbora.lv",
+      "displayName": "Barbora Latvia",
       "category": "fast_food",
       "packageStatus": "active",
       "packageIds": [
@@ -13031,7 +13024,7 @@
     },
     {
       "brandId": "brodernas.nu",
-      "displayName": "Brodernas.nu",
+      "displayName": "Brödernas",
       "category": "fast_food",
       "packageStatus": "active",
       "packageIds": [
@@ -14574,7 +14567,7 @@
     },
     {
       "brandId": "cama.cafe",
-      "displayName": "Cama.cafe",
+      "displayName": "Cama Café",
       "category": "coffee",
       "packageStatus": "active",
       "packageIds": [
@@ -14890,7 +14883,7 @@
     },
     {
       "brandId": "carrefour.ci",
-      "displayName": "Carrefour.ci",
+      "displayName": "Carrefour Côte d'Ivoire",
       "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
@@ -15074,7 +15067,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -16836,7 +16828,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -17964,7 +17955,7 @@
     },
     {
       "brandId": "costa.coffee",
-      "displayName": "Costa.coffee",
+      "displayName": "Costa Coffee",
       "category": "coffee",
       "packageStatus": "active",
       "packageIds": [
@@ -19229,7 +19220,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -19326,7 +19316,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -19795,7 +19784,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -22041,7 +22029,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "pizza_delivery",
         "restaurant_delivery"
       ]
@@ -22907,7 +22894,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "premium_restaurant_delivery",
         "restaurant_delivery"
       ]
@@ -23478,7 +23464,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -23637,7 +23622,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -23656,7 +23640,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -23721,7 +23704,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -23742,7 +23724,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -23803,7 +23784,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -23849,7 +23829,7 @@
     },
     {
       "brandId": "foodpanda.bg",
-      "displayName": "Foodpanda.bg",
+      "displayName": "Foodpanda Bulgaria",
       "category": "fast_food",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -23928,7 +23908,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -24065,7 +24044,7 @@
     },
     {
       "brandId": "foodpanda.sk",
-      "displayName": "Foodpanda.sk",
+      "displayName": "Foodpanda Slovakia",
       "category": "fast_food",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -24210,7 +24189,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -24250,7 +24228,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -24299,7 +24276,7 @@
     },
     {
       "brandId": "fore.coffee",
-      "displayName": "Fore.coffee",
+      "displayName": "Fore Coffee",
       "category": "coffee",
       "packageStatus": "active",
       "packageIds": [
@@ -25945,7 +25922,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -27992,7 +27968,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -28011,7 +27986,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -28030,7 +28004,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -28049,7 +28022,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -28068,7 +28040,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -28177,7 +28148,7 @@
     },
     {
       "brandId": "hesburger.bg",
-      "displayName": "Hesburger .bg",
+      "displayName": "Hesburger Bulgaria",
       "category": "fast_food",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -28237,7 +28208,7 @@
     },
     {
       "brandId": "hesburger.ee",
-      "displayName": "Hesburger .ee",
+      "displayName": "Hesburger Estonia",
       "category": "fast_food",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -28277,7 +28248,7 @@
     },
     {
       "brandId": "hesburger.lt",
-      "displayName": "Hesburger .lt",
+      "displayName": "Hesburger Lithuania",
       "category": "fast_food",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -28297,7 +28268,7 @@
     },
     {
       "brandId": "hesburger.lv",
-      "displayName": "Hesburger .lv",
+      "displayName": "Hesburger Latvia",
       "category": "fast_food",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -28317,7 +28288,7 @@
     },
     {
       "brandId": "hesburger.md",
-      "displayName": "Hesburger .md",
+      "displayName": "Hesburger Moldova",
       "category": "fast_food",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -29142,7 +29113,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -29169,7 +29139,6 @@
         "courier_delivery",
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -29196,7 +29165,6 @@
         "courier_delivery",
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -29215,7 +29183,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -29234,7 +29201,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -29253,7 +29219,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -29272,7 +29237,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -29291,7 +29255,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -29310,7 +29273,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -29329,7 +29291,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -29348,7 +29309,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -29519,7 +29479,7 @@
     },
     {
       "brandId": "hungrylion.africa",
-      "displayName": "Hungrylion.africa",
+      "displayName": "Hungry Lion",
       "category": "fast_food",
       "packageStatus": "active",
       "packageIds": [
@@ -29786,7 +29746,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -29857,7 +29816,7 @@
     },
     {
       "brandId": "iki.lt",
-      "displayName": "Iki.lt",
+      "displayName": "IKI",
       "category": "fast_food",
       "packageStatus": "active",
       "packageIds": [
@@ -29982,7 +29941,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "meal_delivery",
         "meal_kits",
         "prepared_meals"
@@ -31198,7 +31156,6 @@
       "tags": [
         "delivery",
         "grocery_delivery",
-        "legacy_platform",
         "restaurant_delivery"
       ]
     },
@@ -31460,7 +31417,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -31501,7 +31457,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -31520,7 +31475,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -31995,7 +31949,7 @@
     },
     {
       "brandId": "kebuke.com",
-      "displayName": "CoCo Tea?",
+      "displayName": "Kebuke",
       "category": "fast_food",
       "packageStatus": "no_app",
       "packageIds": [],
@@ -33333,7 +33287,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "meal_delivery",
         "prepared_meals"
       ]
@@ -35280,7 +35233,6 @@
       "countryCodes": [],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -35984,7 +35936,7 @@
     },
     {
       "brandId": "maxima.ee",
-      "displayName": "Maxima.ee",
+      "displayName": "Maxima Estonia",
       "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
@@ -36003,7 +35955,7 @@
     },
     {
       "brandId": "maxima.lt",
-      "displayName": "Maxima.lt",
+      "displayName": "Maxima Lithuania",
       "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
@@ -36022,7 +35974,7 @@
     },
     {
       "brandId": "maxima.lv",
-      "displayName": "Maxima.lv",
+      "displayName": "Maxima Latvia",
       "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
@@ -36652,7 +36604,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -36813,7 +36764,6 @@
       "tags": [
         "delivery",
         "food_delivery",
-        "legacy_platform",
         "takeout_ordering"
       ]
     },
@@ -37096,7 +37046,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -39012,7 +38961,7 @@
     },
     {
       "brandId": "narvesen.lt",
-      "displayName": "Narvesen.lt",
+      "displayName": "Narvesen",
       "category": "fast_food",
       "packageStatus": "active",
       "packageIds": [
@@ -39735,7 +39684,7 @@
     },
     {
       "brandId": "nostrum.eu",
-      "displayName": "Nostrum.eu",
+      "displayName": "Nostrum",
       "category": "fast_food",
       "packageStatus": "no_app",
       "packageIds": [],
@@ -40325,7 +40274,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -40545,7 +40493,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -43450,7 +43397,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "pizza_delivery",
         "restaurant_delivery"
       ]
@@ -44937,7 +44883,6 @@
       "countryCodes": [],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -45668,7 +45613,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -45687,7 +45631,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_discovery",
         "restaurant_ordering"
       ]
@@ -45706,7 +45649,6 @@
       ],
       "tags": [
         "delivery",
-        "legacy_platform",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -45806,7 +45748,7 @@
     },
     {
       "brandId": "rimi.ee",
-      "displayName": "Rimi.ee",
+      "displayName": "Rimi Estonia",
       "category": "grocery",
       "packageStatus": "active",
       "packageIds": [
@@ -45825,7 +45767,7 @@
     },
     {
       "brandId": "rimi.lt",
-      "displayName": "Rimi.lt",
+      "displayName": "Rimi Lithuania",
       "category": "grocery",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -45842,7 +45784,7 @@
     },
     {
       "brandId": "rimi.lv",
-      "displayName": "Rimi.lv",
+      "displayName": "Rimi Latvia",
       "category": "grocery",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -48306,7 +48248,7 @@
     },
     {
       "brandId": "slay.coffee",
-      "displayName": "Slay.coffee",
+      "displayName": "Slay Coffee",
       "category": "coffee",
       "packageStatus": "active",
       "packageIds": [
@@ -49540,7 +49482,7 @@
     },
     {
       "brandId": "subko.coffee",
-      "displayName": "Subko.coffee",
+      "displayName": "Subko Coffee",
       "category": "coffee",
       "packageStatus": "no_app",
       "packageIds": [],
@@ -53575,7 +53517,7 @@
     },
     {
       "brandId": "tsuta79.tokyo",
-      "displayName": "Tsuta79.tokyo",
+      "displayName": "Tsuta",
       "category": "fast_food",
       "packageStatus": "no_app",
       "packageIds": [],
@@ -53791,7 +53733,7 @@
     },
     {
       "brandId": "uno.dz",
-      "displayName": "Uno.dz",
+      "displayName": "Uno",
       "category": "fast_food",
       "packageStatus": "no_app",
       "packageIds": [],
@@ -55521,7 +55463,7 @@
     },
     {
       "brandId": "wolt.ee",
-      "displayName": "Wolt.ee",
+      "displayName": "Wolt Estonia",
       "category": "fast_food",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -55555,7 +55497,7 @@
     },
     {
       "brandId": "wolt.hr",
-      "displayName": "Wolt.hr",
+      "displayName": "Wolt Croatia",
       "category": "fast_food",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -55611,7 +55553,7 @@
     },
     {
       "brandId": "wolt.lt",
-      "displayName": "Wolt.lt",
+      "displayName": "Wolt Lithuania",
       "category": "fast_food",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -55628,7 +55570,7 @@
     },
     {
       "brandId": "wolt.lv",
-      "displayName": "Wolt.lv",
+      "displayName": "Wolt Latvia",
       "category": "fast_food",
       "packageStatus": "shared_app",
       "packageIds": [],
@@ -55662,7 +55604,7 @@
     },
     {
       "brandId": "wolt.rs",
-      "displayName": "Wolt.rs",
+      "displayName": "Wolt Serbia",
       "category": "fast_food",
       "packageStatus": "shared_app",
       "packageIds": [],

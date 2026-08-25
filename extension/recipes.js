@@ -634,11 +634,21 @@
   }
 
   /**
-   * The three shapes the block page offers for one craving:
+   * Three shapes for one craving:
    *   closest — the best craving match regardless of effort
    *   fastest — the quickest eligible thing
    *   easiest — the least hands-on thing
    * Duplicates are removed, so a single entry that is all three is returned once.
+   *
+   * NOT currently shown to anyone. This said "the three shapes the block page
+   * offers", and no block page offers them: extension/warning.js calls
+   * selectAlternative and steps through one entry at a time, and Android now
+   * does the same. A comment that describes a surface the product does not have
+   * is worse than no comment — the next person reads it as a description of
+   * shipped behaviour and reasons from something that was never true.
+   *
+   * The function itself is correct and tested; it is a matcher capability
+   * waiting for a consumer, not dead code.
    */
   function selectTrio(info, settings, options) {
     const ranked = rankAlternatives(info, settings, options);

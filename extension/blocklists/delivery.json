@@ -67,8 +67,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -298,8 +297,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -316,8 +314,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -334,8 +331,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -500,8 +496,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "brand domain"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -518,8 +513,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -536,8 +530,7 @@
       "category": "delivery",
       "specialties": [
         "food delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -1186,8 +1179,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -1439,8 +1431,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -1766,8 +1757,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -1856,8 +1846,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -2140,8 +2129,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -2693,8 +2681,7 @@
       "category": "delivery",
       "specialties": [
         "pizza delivery",
-        "restaurant delivery",
-        "legacy platform"
+        "restaurant delivery"
       ],
       "enabled": true
     },
@@ -2941,8 +2928,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "premium restaurant delivery",
-        "legacy platform"
+        "premium restaurant delivery"
       ],
       "enabled": true
     },
@@ -3129,8 +3115,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -3238,8 +3223,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -3256,8 +3240,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -3314,8 +3297,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -3332,8 +3314,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -3386,8 +3367,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -3429,7 +3409,7 @@
     },
     {
       "domain": "foodpanda.bg",
-      "name": "Foodpanda.bg",
+      "name": "Foodpanda Bulgaria",
       "type": "delivery",
       "countries": [
         "BG"
@@ -3499,8 +3479,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -3628,7 +3607,7 @@
     },
     {
       "domain": "foodpanda.sk",
-      "name": "Foodpanda.sk",
+      "name": "Foodpanda Slovakia",
       "type": "delivery",
       "countries": [
         "SK"
@@ -3739,8 +3718,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -3775,8 +3753,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -4118,8 +4095,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -4430,8 +4406,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -4448,8 +4423,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -4466,8 +4440,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -4484,8 +4457,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -4502,8 +4474,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -4643,8 +4614,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -4669,8 +4639,7 @@
       "specialties": [
         "restaurant delivery",
         "grocery delivery",
-        "courier delivery",
-        "legacy platform"
+        "courier delivery"
       ],
       "enabled": true
     },
@@ -4695,8 +4664,7 @@
       "specialties": [
         "restaurant delivery",
         "grocery delivery",
-        "courier delivery",
-        "legacy platform"
+        "courier delivery"
       ],
       "enabled": true
     },
@@ -4713,8 +4681,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -4731,8 +4698,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -4749,8 +4715,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -4767,8 +4732,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -4785,8 +4749,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -4803,8 +4766,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -4821,8 +4783,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -4839,8 +4800,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -4953,8 +4913,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -4971,8 +4930,7 @@
       "category": "meal_delivery",
       "specialties": [
         "meal kits",
-        "prepared meals",
-        "legacy platform"
+        "prepared meals"
       ],
       "enabled": true
     },
@@ -5043,8 +5001,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "grocery delivery",
-        "legacy platform"
+        "grocery delivery"
       ],
       "enabled": true
     },
@@ -5251,8 +5208,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -5286,8 +5242,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -5304,8 +5259,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -5669,8 +5623,7 @@
       "category": "meal_delivery",
       "specialties": [
         "prepared meals",
-        "meal delivery",
-        "legacy platform"
+        "meal delivery"
       ],
       "enabled": true
     },
@@ -5969,8 +5922,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -6078,8 +6030,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -6172,8 +6123,7 @@
       "category": "delivery",
       "specialties": [
         "food delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -6293,8 +6243,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -6802,8 +6751,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -6874,8 +6822,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -7373,8 +7320,7 @@
       "category": "delivery",
       "specialties": [
         "pizza delivery",
-        "restaurant delivery",
-        "legacy platform"
+        "restaurant delivery"
       ],
       "enabled": true
     },
@@ -7530,8 +7476,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -7775,8 +7720,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -7793,8 +7737,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant ordering",
-        "restaurant discovery",
-        "legacy platform"
+        "restaurant discovery"
       ],
       "enabled": true
     },
@@ -7811,8 +7754,7 @@
       "category": "delivery",
       "specialties": [
         "restaurant delivery",
-        "takeout ordering",
-        "legacy platform"
+        "takeout ordering"
       ],
       "enabled": true
     },
@@ -8938,7 +8880,7 @@
     },
     {
       "domain": "wolt.ee",
-      "name": "Wolt.ee",
+      "name": "Wolt Estonia",
       "type": "delivery",
       "countries": [
         "EE"
@@ -8966,7 +8908,7 @@
     },
     {
       "domain": "wolt.hr",
-      "name": "Wolt.hr",
+      "name": "Wolt Croatia",
       "type": "delivery",
       "countries": [
         "HR"
@@ -9017,7 +8959,7 @@
     },
     {
       "domain": "wolt.lt",
-      "name": "Wolt.lt",
+      "name": "Wolt Lithuania",
       "type": "delivery",
       "countries": [
         "LT"
@@ -9031,7 +8973,7 @@
     },
     {
       "domain": "wolt.lv",
-      "name": "Wolt.lv",
+      "name": "Wolt Latvia",
       "type": "delivery",
       "countries": [
         "LV"
@@ -9059,7 +9001,7 @@
     },
     {
       "domain": "wolt.rs",
-      "name": "Wolt.rs",
+      "name": "Wolt Serbia",
       "type": "delivery",
       "countries": [
         "RS"

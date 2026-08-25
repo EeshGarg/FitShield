@@ -153,18 +153,39 @@ test("parcel carriers and recipe sites are not in the blocklists", () => {
 // ---------------------------------------------------------------------------
 
 test("no brand name is just its own domain", () => {
-  const TLD_TAIL =
-    /\s*\.\s*(com?|net|org|io|cn|kr|jp|tw|hk|in|br|ru|de|fr|it|es|nl|pl|se|no|dk|fi|cz|hu|ro|gr|tr|ua|au|nz|za|ae|sa|eg|ma|ng|ke|th|vn|ph|id|my|sg|mx|ar|cl|pe|ca|uk|ie|at|ch|be|pt|il|pk|lu)(\s*\.\s*[a-z]{2})?\s*$/i;
+  // Self-maintaining: a name is domain-derived when it ends in a dot plus THIS
+  // record's own final domain label.
+  //
+  // This used to be a hand-written list of 55 TLDs, which is a list that rots.
+  // It omitted .ee .lt .lv .ci .sn .md .hr .rs .bg .sk .dz .nu .eu .coffee
+  // .cafe .fit .africa .tokyo among others, so it passed at zero while
+  // "Costa.coffee", "Wolt.ee", "Maxima.lt", "Hungrylion.africa" and thirty
+  // more shipped as brand names. Deriving the tail from the record removes the
+  // list, and with it the possibility of the list being incomplete.
+  const looksDomainDerived = (entry) => {
+    const labels = String(entry.domain || "").split(".");
+    const tld = labels[labels.length - 1];
+
+    if (!tld) {
+      return false;
+    }
+
+    // Whitespace collapsed first: five records read "Hesburger .bg".
+    // Two backslashes: inside a template literal a single one escapes to a bare
+    // dot, which in a regex is ANY character — "AnomaliCoffee" then matched
+    // ".coffee$" and "AldiUK" matched ".uk$".
+    return new RegExp(`\\.${tld}$`, "i").test(String(entry.name || "").replace(/\s+/g, ""));
+  };
 
   // Companies that genuinely write their own name as a domain. A generated
   // label and a real one have the same shape, so each of these is a decision.
   const DOMAIN_IS_THE_BRAND = new Set([
     "delivery.com", "owner.com", "thuisbezorgd.nl", "takeaway.com", "pyszne.pl",
-    "tsukurioki.jp", "hungry.ca", "menu.ca"
+    "tsukurioki.jp", "hungry.ca", "menu.ca", "ele.me", "e.leclerc"
   ]);
 
   const generated = ALL.filter(
-    (entry) => TLD_TAIL.test(entry.name) && !DOMAIN_IS_THE_BRAND.has(entry.domain)
+    (entry) => looksDomainDerived(entry) && !DOMAIN_IS_THE_BRAND.has(entry.domain)
   ).map((entry) => `${entry.domain} -> "${entry.name}"`);
 
   assert.deepEqual(generated, [], `the block page would print these as the brand:\n  ${generated.join("\n  ")}`);

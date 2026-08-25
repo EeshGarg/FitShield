@@ -896,7 +896,7 @@
     },
     {
       "domain": "anomali.coffee",
-      "name": "Anomali.coffee",
+      "name": "Anomali Coffee",
       "type": "fast_food",
       "countries": [],
       "regions": [],
@@ -1775,7 +1775,7 @@
     },
     {
       "domain": "barbora.lt",
-      "name": "Barbora.lt",
+      "name": "Barbora Lithuania",
       "type": "fast_food",
       "countries": [
         "LT"
@@ -1789,7 +1789,7 @@
     },
     {
       "domain": "barbora.lv",
-      "name": "Barbora.lv",
+      "name": "Barbora Latvia",
       "type": "fast_food",
       "countries": [
         "LV"
@@ -3385,7 +3385,7 @@
     },
     {
       "domain": "brodernas.nu",
-      "name": "Brodernas.nu",
+      "name": "Brödernas",
       "type": "fast_food",
       "countries": [],
       "regions": [],
@@ -4626,7 +4626,7 @@
     },
     {
       "domain": "cama.cafe",
-      "name": "Cama.cafe",
+      "name": "Cama Café",
       "type": "fast_food",
       "countries": [],
       "regions": [],
@@ -4834,7 +4834,7 @@
     },
     {
       "domain": "carrefour.ci",
-      "name": "Carrefour.ci",
+      "name": "Carrefour Côte d'Ivoire",
       "type": "fast_food",
       "countries": [
         "CI"
@@ -6976,7 +6976,7 @@
     },
     {
       "domain": "costa.coffee",
-      "name": "Costa.coffee",
+      "name": "Costa Coffee",
       "type": "fast_food",
       "countries": [],
       "regions": [],
@@ -10037,7 +10037,7 @@
     },
     {
       "domain": "fore.coffee",
-      "name": "Fore.coffee",
+      "name": "Fore Coffee",
       "type": "fast_food",
       "countries": [],
       "regions": [],
@@ -12503,7 +12503,7 @@
     },
     {
       "domain": "hesburger.bg",
-      "name": "Hesburger .bg",
+      "name": "Hesburger Bulgaria",
       "type": "fast_food",
       "countries": [
         "BG"
@@ -12553,7 +12553,7 @@
     },
     {
       "domain": "hesburger.ee",
-      "name": "Hesburger .ee",
+      "name": "Hesburger Estonia",
       "type": "fast_food",
       "countries": [
         "EE"
@@ -12589,7 +12589,7 @@
     },
     {
       "domain": "hesburger.lt",
-      "name": "Hesburger .lt",
+      "name": "Hesburger Lithuania",
       "type": "fast_food",
       "countries": [
         "LT"
@@ -12607,7 +12607,7 @@
     },
     {
       "domain": "hesburger.lv",
-      "name": "Hesburger .lv",
+      "name": "Hesburger Latvia",
       "type": "fast_food",
       "countries": [
         "LV"
@@ -12625,7 +12625,7 @@
     },
     {
       "domain": "hesburger.md",
-      "name": "Hesburger .md",
+      "name": "Hesburger Moldova",
       "type": "fast_food",
       "countries": [
         "MD"
@@ -13275,7 +13275,7 @@
     },
     {
       "domain": "hungrylion.africa",
-      "name": "Hungrylion.africa",
+      "name": "Hungry Lion",
       "type": "fast_food",
       "countries": [],
       "regions": [],
@@ -13499,7 +13499,7 @@
     },
     {
       "domain": "iki.lt",
-      "name": "Iki.lt",
+      "name": "IKI",
       "type": "fast_food",
       "countries": [
         "LT"
@@ -14738,7 +14738,7 @@
     },
     {
       "domain": "kebuke.com",
-      "name": "CoCo Tea?",
+      "name": "Kebuke",
       "type": "fast_food",
       "countries": [
         "CN"
@@ -17416,7 +17416,7 @@
     },
     {
       "domain": "maxima.ee",
-      "name": "Maxima.ee",
+      "name": "Maxima Estonia",
       "type": "fast_food",
       "countries": [
         "EE"
@@ -17430,7 +17430,7 @@
     },
     {
       "domain": "maxima.lt",
-      "name": "Maxima.lt",
+      "name": "Maxima Lithuania",
       "type": "fast_food",
       "countries": [
         "LT"
@@ -17444,7 +17444,7 @@
     },
     {
       "domain": "maxima.lv",
-      "name": "Maxima.lv",
+      "name": "Maxima Latvia",
       "type": "fast_food",
       "countries": [
         "LV"
@@ -19297,7 +19297,7 @@
     },
     {
       "domain": "narvesen.lt",
-      "name": "Narvesen.lt",
+      "name": "Narvesen",
       "type": "fast_food",
       "countries": [
         "LT"
@@ -19797,7 +19797,7 @@
     },
     {
       "domain": "nostrum.eu",
-      "name": "Nostrum.eu",
+      "name": "Nostrum",
       "type": "fast_food",
       "countries": [],
       "regions": [],
@@ -23745,7 +23745,7 @@
     },
     {
       "domain": "rimi.ee",
-      "name": "Rimi.ee",
+      "name": "Rimi Estonia",
       "type": "fast_food",
       "countries": [
         "EE"
@@ -23759,7 +23759,7 @@
     },
     {
       "domain": "rimi.lt",
-      "name": "Rimi.lt",
+      "name": "Rimi Lithuania",
       "type": "fast_food",
       "countries": [
         "LT"
@@ -23773,7 +23773,7 @@
     },
     {
       "domain": "rimi.lv",
-      "name": "Rimi.lv",
+      "name": "Rimi Latvia",
       "type": "fast_food",
       "countries": [
         "LV"
@@ -25437,7 +25437,7 @@
     },
     {
       "domain": "slay.coffee",
-      "name": "Slay.coffee",
+      "name": "Slay Coffee",
       "type": "fast_food",
       "countries": [],
       "regions": [],
@@ -26430,7 +26430,7 @@
     },
     {
       "domain": "subko.coffee",
-      "name": "Subko.coffee",
+      "name": "Subko Coffee",
       "type": "fast_food",
       "countries": [],
       "regions": [],
@@ -29269,7 +29269,7 @@
     },
     {
       "domain": "tsuta79.tokyo",
-      "name": "Tsuta79.tokyo",
+      "name": "Tsuta",
       "type": "fast_food",
       "countries": [],
       "regions": [],
@@ -29393,7 +29393,7 @@
     },
     {
       "domain": "uno.dz",
-      "name": "Uno.dz",
+      "name": "Uno",
       "type": "fast_food",
       "countries": [
         "DZ"
