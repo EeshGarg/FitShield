@@ -5,7 +5,7 @@ Repository-local findings: **0**
 | Gate | Result |
 | --- | --- |
 | Findings queue | 77 recorded, 77 closed, each with a verification narrative and an anchor |
-| Automated tests | `npm test` — 46 test files |
+| Automated tests | `npm test` — 47 test files |
 | Validators | `npm run validate` — **19 audits**, gating the build |
 | Packages | Chrome, Firefox, Safari-nightly and **Android APK** all build |
 | Build reproducibility | two clean builds produce byte-identical zips (sha256 verified) |
@@ -145,6 +145,21 @@ was told yes on both — then the tab whose pass was erased was interrupted agai
 on its next load, while "Temporary passes used" counted a pass that did not
 exist. `repeatHistory` rode on the same write and was lost with it.
 
+**The first fix did not work, and only an independent lane found that out.**
+Serializing `grantPass` closed nothing, because `refreshBlockingState` reads the
+pass list, spends the time it takes to install ~2,500 rules, and then writes it
+back from the snapshot it took before that wait — on a *different* chain, and
+every grant ends by queueing one. So the racing writer sat on the path every
+grant took.
+
+The measurement that settled it was not the race at all: change any setting,
+then press **End all passes**. It answers ok and the pass is still there seven
+seconds later, restored by the refresh the settings change queued, under a
+comment claiming exactly the opposite. Both writes now re-read inside the pass
+chain, and a revoke outranks any grant that began before it — because a user who
+presses that button while a grant is in flight has expressed which one they
+meant.
+
 ### 978 strings that were never translations
 
 761 English strings stranded in non-Latin-script locales — a Bulgarian user read
@@ -182,7 +197,48 @@ nothing ever wrote the custom profile.
 
 ---
 
-## Two things I got wrong
+### The build validated the previous build
+
+`build.js` ran its validators *before* packaging. The three audits that load
+`dist/` were therefore grading the last build, not the one being made — and on a
+clean checkout they skip as warnings, so the first build of any tree ran no
+browser gate at all.
+
+That is what made a real regression look intermittent. One run validated a good
+`dist/`, packaged an extension that installed no blocking rules, and printed
+PASS. The order is now stage → validate → publish, and a refused build writes no
+archive.
+
+### Android answered every brand with the same two ideas
+
+The block screen picked its suggestion by the **character count of the brand
+id**: `selectRecipes` had been deleted from the shared module and the call sat
+behind a truthy guard, so it fell through to
+`recipes[brandId.length % recipes.length]`. McDonald's and Starbucks got the
+identical dish because both ids are nine characters, under a comment claiming
+"the SAME shared module + heuristic as the extension block page".
+
+Reconnecting the selector was necessary and not sufficient, which an independent
+lane caught: the bridge still handed over only the coarse app-grouping category —
+six values — and no specialties, so **963 of 1,511 packages still got the same
+two answers** on a real device. A bubble-tea shop was answered with microwave
+nachos. With the curated category, type and specialties carried across the
+bridge: 167 distinct answers, largest cluster 24%.
+
+### frame-ancestors was omitted for a reason that was not true
+
+The directive was left out on the belief that Chrome accepts it but does not
+apply it to a web-accessible resource. Measured from a real hostile origin:
+without it the framed block page **runs** inside the hostile document, extension
+origin and countdown and all. With it the frame becomes an error page with no
+extension context.
+
+Nothing is recorded through a framed page — any sender with a non-zero frame id
+is refused — so this was never an open hole. But a reason to leave out a defence
+has to be better than "it may be redundant", and this one was not redundant, it
+was wrong.
+
+## What I got wrong
 
 **A broad `git add` swept four other agents' files into my commit.** Three
 times. It cost nothing permanent, but it is the same class of hazard that had
@@ -199,6 +255,30 @@ Related: the queue had never been reconciled at all. 77 findings, not one
 carrying a status. Much of the work had been done, but nothing was ever verified
 closed *against the finding that produced it*, so on the record all 77 were
 open.
+
+**I shipped a pass fix that did not fix it.** It moved the erasure to a
+different chain and I reported it closed. Only an independent lane driving the
+real worker found that out — which is the argument for the verification rounds
+in one sentence.
+
+**I broke the tree and then misdiagnosed the symptom.** Backing out an approach
+in `background.js`, a patch script sliced from a comment marker to the next
+function and took `mintBlockPageToken` with it: both call sites survived, the
+definition did not. Every worker-booting test in the repository went red and two
+lanes hit it.
+
+It also meant `dist/` kept a background script that threw on boot, so Firefox
+stopped blocking entirely. A lane reported that and reasoned it could not be
+theirs. I agreed for the wrong reason — I called it a stale-`dist` artefact
+rather than looking, and it was my own breakage sitting in the build output. The
+structural fix above (validate the package you just made, not the last one) is
+what turns that class of mistake from intermittent into immediate.
+
+**I mislabelled a supermarket's country.** `lawson108.com` became "Lawson
+China". Its Android package is `com.bzbs.lawson`; Buzzebees is a Thai loyalty
+platform and the only other `com.bzbs.*` package in the catalog is Burger King
+Thailand. The block page printed a specific wrong country until a lane checked
+the package id.
 
 ---
 
@@ -327,3 +407,33 @@ Two, both honestly so:
 2. **Four judgement calls**, in `docs/ACCEPTANCE.md`, plus listening to a screen
    reader read the block page. A machine can prove the announcements exist; only
    a person can say whether they help.
+
+Both now run in CI on a `macos-latest` runner for the first of those — the
+conversion and an unsigned compile — so what is left of item 1 is signing, which
+needs an Apple Developer team, and confirming on real hardware. Neither is a
+tooling gap any more; both are a person or a device.
+
+---
+
+## How this pass actually went
+
+Worth recording, because the shape of it is the point.
+
+The first sweep closed 77 findings. Independent lanes then re-derived that work
+and found **nine more**, of which **six were mine** — including a fix I had
+reported closed that had only moved the defect, and a country I had asserted
+about a brand without checking its package id. A second round found nine more
+again, including the build validating the wrong artefact.
+
+Every round of verification cost less than the round before and found defects
+the previous round could not have seen, because each fix changed what was
+observable. The rule-bucket fix is the clearest case: it made 2,687 brands'
+curated categories visible for the first time, which is what exposed that 804 of
+them had been fabricated by a generator. Nothing was wrong with the *catalog
+audit* before that; it simply could not see the data.
+
+The two habits that produced almost all of it: driving the real thing rather
+than a model of it, and proving a guard fails before trusting that it passes.
+Three times a guard I wrote failed on its own explanatory comment or on a
+line-ending assumption — each time in the same shape as the bug it was written
+to catch.
