@@ -233,7 +233,7 @@ connection filter), **deferred**, **N/A**.
 | Category filter | **adapted** — searchable picker, selection saved (pending) |
 | Searchable picker | **ported** — touch search (filters + language) |
 | Recipes | **ported** — browse the canonical recipe catalog |
-| Statistics | **ported** — visits, currency-aware savings, calories, and most-blocked **sites + categories + countries**, all recorded on-device by the VpnService (no fake data) |
+| Statistics | **narrower on purpose** — Android records ONE observed counter, ordering pages interrupted, plus most-blocked sites, categories and countries. It shows no savings or calorie estimate: the extension keeps one optional estimate only because it can ground it in `alternativesMade`, an event the user personally confirms, and the Android pause screen never asks whether an alternative was made. Stored `caloriesAvoided` values are left untouched on the device. |
 | Currency picker | **shared** — reuses `currency.js` (follow-language default + all currencies; per-currency cost/calorie seeds) |
 | Import / Export | **ported** — export via share sheet; **import via Storage Access Framework document picker** (no storage permission) |
 | Themes | **ported** — system / light / dark **+ full color customization** (background / panel / text / accent) and corner radius, glass-preserving, with reset |
@@ -351,7 +351,6 @@ disagree in a way neither design intends.
 | 11 | No block page for HTTPS websites | **intentional** | A redirect to a block page would require MITM, which FitShield refuses (§3). Blocked sites get a TCP RST; the full block-page experience exists on the *app* path via `BlockActivity`. |
 | 12 | Countdown presentation, category copy, theme controls, reset grouping | **intentional** | Documented in §2c under "Intentional Android deviations"; none affect whether something is blocked. |
 | 13 | Enforcement scope | **intentional** | The VPN filter is system-wide; the extension only covers its own browser. |
-| 14 | Android still shows the three statistics 0.55 deleted as dishonest | **bug** | The Android home screen renders **"Blocked visits"**, **"Estimated savings"** and **"Calories avoided"** (`index.html` stat tiles; `caloriesAvoided` is incremented by an assumed per-meal figure on every block, in `FitShieldVpnService.kt` and `BlockActivity.kt`). The extension removed all three in 0.55 for a stated reason: an interruption tells FitShield nothing about whether an order would have happened, and a recipe card being displayed is not a calorie anyone avoided. Android therefore ships, as a headline number, the exact claim `changelog/0.55.md` says the product no longer makes. Fix: replace the three tiles with the seven observed counters, keeping the stored keys so upgraded profiles lose nothing — the same migration the extension already performs. |
 
 **Rows 4, 5, 6 and 14 are open bugs.** This paragraph used to excuse rows 4-6
 with "no Android toolchain is available in this environment, so a Kotlin edit
