@@ -162,10 +162,16 @@
       }
     },
 
+    // Only what a surface actually renders. `caloriesAvoided`, `avgMealCost`,
+    // `avgMealCalories`, `mealStatsCustomized` and `currency` are no longer read
+    // by any screen: the estimate row that used them presented an assumption as
+    // an outcome and was removed. The stored values are NOT deleted — they stay
+    // in SharedPreferences and the "Reset statistics & estimates" control still
+    // sweeps them (see the STATS/SETTINGS lists in app.js) — they are simply no
+    // longer handed to a page that has nothing truthful to do with them.
     stats: {
       get: () => storageGet([
-        "blockedVisits", "blockedByDomain", "blockedByCategory", "blockedByCountry", "blockedByApp",
-        "caloriesAvoided", "avgMealCost", "avgMealCalories", "mealStatsCustomized", "currency"
+        "blockedVisits", "blockedByDomain", "blockedByCategory", "blockedByCountry", "blockedByApp"
       ])
     },
 

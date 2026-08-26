@@ -2,9 +2,9 @@
 <!--
   FitShield native block screen (WebView, hosted by BlockActivity). Shown by the
   AccessibilityService when a blocked delivery / fast-food app is opened. Reuses
-  the SAME shared design system (fitshield.css), ambient background, i18n and
-  currency modules as the dashboard, so it mirrors the browser extension's block
-  page. Block-specific data + actions come from the `AndroidBlock` bridge.
+  the SAME shared design system (fitshield.css), ambient background and i18n
+  module as the dashboard, so it mirrors the browser extension's block page.
+  Block-specific data + actions come from the `AndroidBlock` bridge.
 -->
 <html lang="en">
 <head>
@@ -61,14 +61,23 @@
       <p class="reason muted" id="reason" style="font-size:.82rem;margin:0 0 6px"></p>
       <p class="sched muted" id="sched" hidden style="font-size:.82rem;margin:0 0 12px"></p>
 
+      <!--
+        One counter, and it is the count of a thing that happened. The savings
+        tile multiplied this very number by an assumed meal price, and the
+        calorie tile showed a running total of an assumed per-meal figure that
+        BlockActivity added on every pause. The extension deleted both in 0.55;
+        this screen kept shipping them.
+      -->
       <div class="grid stats">
-        <div class="stat"><div class="v" id="visits">0</div><div class="l" data-i18n="statusBlockedVisits">Blocked visits</div></div>
-        <div class="stat"><div class="v savings" id="savings">—</div><div class="l" data-i18n="statusEstimatedSavings">Estimated savings</div></div>
-        <div class="stat"><div class="v" id="calories">0</div><div class="l" data-i18n="statusCaloriesAvoided">Calories avoided</div></div>
+        <div class="stat"><div class="v" id="visits">0</div><div class="l" data-i18n="recapInterrupted">Ordering pages interrupted</div></div>
       </div>
 
       <div id="recipeWrap" hidden>
-        <div class="l muted" data-i18n="welcomeFeatureRecipeTitle">A quick alternative</div>
+        <!-- No data-i18n: `welcomeFeatureRecipeTitle` is not a key any locale
+             defines, so this line rendered the literal text
+             "welcomeFeatureRecipeTitle" on a device. Requested of the
+             localization lane as `alternativeQuickHeading`. -->
+        <div class="l muted">A quick alternative</div>
         <div id="recipeList"></div>
       </div>
 
@@ -79,7 +88,6 @@
       <button id="openFs" class="linkbtn">Open FitShield</button>
 
       <p class="learn-more">
-        <span data-i18n="learnMoreBody">Learn more about FitShield — privacy, how blocking works, and setup help — at fitshield.net.</span><br>
         <a href="https://fitshield.net" id="learnMore" data-i18n="learnMoreLink">Visit fitshield.net</a>
       </p>
     </div>
@@ -89,7 +97,6 @@
   <script src="android-shim.js"></script>
   <script src="i18n.js"></script>
   <script src="languages.js"></script>
-  <script src="currency.js"></script>
   <script src="theme.js"></script>
   <script src="recipes.js"></script>
   <script src="block.js"></script>

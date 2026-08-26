@@ -39,7 +39,6 @@ const WEB_COPIES = [
   [path.join("android", "web-src", "android-shim.js"), "android-shim.js"],
   [path.join("extension", "i18n.js"), "i18n.js"],
   [path.join("extension", "languages.js"), "languages.js"],
-  [path.join("extension", "currency.js"), "currency.js"],
   [path.join("extension", "ambient.js"), "ambient.js"],
   [path.join("extension", "recipes.js"), "recipes.js"],
   [path.join("extension", "icons", "icon-128.png"), "icon-128.png"],

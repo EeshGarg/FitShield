@@ -69,12 +69,32 @@ class BlockActivity : AppCompatActivity() {
         }
         webView.addJavascriptInterface(WebAppBridge(this), "Android")
         webView.addJavascriptInterface(BlockBridge(), "AndroidBlock")
+
+        // The interruption happened the moment this screen appeared. Recording it
+        // here rather than on the way out is the difference between a counter
+        // that means "ordering pages interrupted" — which is what the tile now
+        // says — and one that quietly means "times you gave up", which is what it
+        // used to be: it incremented only inside the skip path, so tapping
+        // "Open anyway" erased the interruption from the user's own record, in
+        // the flattering direction.
+        //
+        // Only for a genuinely NEW instance. This activity declares no
+        // configChanges, so a rotation destroys and recreates it, and counting
+        // in onCreate unconditionally would score one pause twice for anyone who
+        // turns their phone. A non-null savedInstanceState is the system telling
+        // us this is a recreation of a pause already counted.
+        if (savedInstanceState == null) recordInterruption()
+
         webView.loadUrl("https://appassets.androidplatform.net/assets/web/block.html")
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         readExtras(intent)
+        // A reused activity is still a fresh pause over a fresh app open, so the
+        // once-only latch reopens with the new extras.
+        recorded = false
+        recordInterruption()
         runCatching { webView.reload() }
     }
 
@@ -95,7 +115,6 @@ class BlockActivity : AppCompatActivity() {
     }
 
     private fun goHome() {
-        recordSkip()   // leaving the pause without opening the app = an avoided order
         runCatching {
             startActivity(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
@@ -103,11 +122,26 @@ class BlockActivity : AppCompatActivity() {
         finish()
     }
 
-    // Record an avoided app open (only when the user actually skips — never on
-    // "Open anyway"). Contributes to blocked visits, calories, and the private
-    // "most blocked apps" breakdown, keyed by display name.
+    /**
+     * Record that a blocked app open was interrupted, once per pause.
+     *
+     * Two things this deliberately does NOT do.
+     *
+     * It does not wait to see what the user chooses. The pause is the observed
+     * event; whether they walk away or push through is a different question, and
+     * this app has no counter for it. Counting only the walk-aways, which is what
+     * the previous `recordSkip()` did, made the one number on the screen
+     * under-report every time the user did the thing FitShield was trying to
+     * interrupt.
+     *
+     * And it no longer adds an assumed per-meal calorie figure to
+     * `caloriesAvoided`. No calorie was ever measured here — a pause is not a
+     * meal, and a meal is not a number this app can see. Values already stored
+     * are left untouched; the user's own "Reset statistics & estimates" is the
+     * only thing that clears them.
+     */
     @Volatile private var recorded = false
-    private fun recordSkip() {
+    private fun recordInterruption() {
         if (recorded) return
         recorded = true
         val prefs = getSharedPreferences("fitshield", MODE_PRIVATE)
@@ -116,15 +150,10 @@ class BlockActivity : AppCompatActivity() {
             val byApp = try { JSONObject(prefs.getString("blockedByApp", "{}") ?: "{}") } catch (e: Exception) { JSONObject() }
             val label = displayName.ifEmpty { brandId }
             byApp.put(label, byApp.optInt(label, 0) + 1)
-            val editor = prefs.edit()
+            prefs.edit()
                 .putString("blockedVisits", visits.toString())
                 .putString("blockedByApp", byApp.toString())
-            val mealCal = prefs.getString("avgMealCalories", null)?.trim('"')?.toDoubleOrNull()?.toInt() ?: 0
-            if (mealCal > 0) {
-                val cal = (prefs.getString("caloriesAvoided", "0")?.trim('"')?.toIntOrNull() ?: 0) + mealCal
-                editor.putString("caloriesAvoided", cal.toString())
-            }
-            editor.apply()
+                .apply()
         }
     }
 

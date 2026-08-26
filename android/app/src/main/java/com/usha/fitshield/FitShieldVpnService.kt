@@ -68,8 +68,8 @@ class FitShieldVpnService : VpnService() {
 
             // Same private breakdown the extension keeps (curated brand metadata
             // only): most-blocked category (excluding the delivery/fast_food/custom
-            // buckets) and primary operating country. Plus calories avoided, seeded
-            // from the user's average-meal-calories value stored by the web UI.
+            // buckets) and primary operating country. Every one of these is a
+            // count of something this service observed.
             val meta = rules.metaFor(apex)
             val editor = prefs.edit()
                 .putString("blockedVisits", visits.toString())
@@ -89,12 +89,11 @@ class FitShieldVpnService : VpnService() {
                 editor.putString("blockedByCountry", byCountry.toString())
             }
 
-            val mealCalories = prefs.getString("avgMealCalories", null)
-                ?.trim('"')?.toDoubleOrNull()?.toInt() ?: 0
-            if (mealCalories > 0) {
-                val calories = (prefs.getString("caloriesAvoided", "0")?.trim('"')?.toIntOrNull() ?: 0) + mealCalories
-                editor.putString("caloriesAvoided", calories.toString())
-            }
+            // Nothing adds to `caloriesAvoided` any more. It used to gain an
+            // assumed per-meal figure on every block, which made a number nobody
+            // measured grow forever and put it on the home screen as an outcome.
+            // Any value already on the device is left exactly where it is — see
+            // the STATS reset list in app.js — but no more are manufactured.
 
             editor.apply()
         }

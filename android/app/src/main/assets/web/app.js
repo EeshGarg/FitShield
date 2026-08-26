@@ -1,7 +1,7 @@
 /**
  * FitShield Android UI logic. Talks ONLY to the platform-agnostic fitshield.*
  * API (implemented by android-shim.js over the narrow native bridge) plus the
- * reused FitShieldI18n / FitShieldCurrency modules. No chrome.*, no direct
+ * reused FitShieldI18n module. No chrome.*, no direct
  * Android calls. Blocking-config controls are persisted via fitshield.storage;
  * enforcement of timing/filters is wired in the later DNS step (labelled in UI).
  */
@@ -70,17 +70,19 @@
     }
   }
 
-  // ---- stats (currency-aware; parity with the extension) -------------------
-  const cur = self.FitShieldCurrency;
-  function resolvedCurrency(choice) { return cur ? cur.resolveCurrency(choice || "", locale()) : "USD"; }
-  function formatSavings(amount, currencyChoice) {
-    if (cur) { try { return cur.formatMoney(amount, resolvedCurrency(currencyChoice), locale()); } catch (e) {} }
-    return String(Math.round(amount));
-  }
-  function currencySymbol(choice) {
-    if (cur) { try { return cur.symbolFor(resolvedCurrency(choice), locale()); } catch (e) {} }
-    return "";
-  }
+  // ---- stats (observed counts only; parity with the extension) -------------
+  //
+  // There is no currency helper here any more, and that is the whole point. The
+  // panel used to format `blockedVisits * avgMealCost` as money and call it
+  // "Estimated savings". extension/fitshield-core.js states the objection where
+  // the 0.55 migration lives: an interruption says nothing about whether an
+  // order would have happened, so that multiplication "would invent a saving out
+  // of a page load". The extension kept one estimate only because it could
+  // ground it in `alternativesMade`, an event the user personally confirms.
+  // Android observes no such event — its pause screen shows alternatives and
+  // never asks whether one was made — so there is nothing honest to multiply,
+  // and currency.js is no longer loaded by this page.
+
   // Animated counter: eases a stat value from its previous number to the new one
   // (One UI feel). Instant when reduced-motion is on or the value is unchanged.
   function animateNumber(node, to, fmt) {
@@ -99,28 +101,14 @@
       if (p < 1) requestAnimationFrame(tick);
     })();
   }
-  // Build the picker: a "follow language" option first, then every currency.
-  function buildCurrencyOptions(choice) {
-    const sel = $("currency");
-    if (!sel || !cur) return;
-    const loc = locale();
-    const autoCode = cur.localeDefaults(loc).currency;
-    sel.replaceChildren();
-    const auto = document.createElement("option");
-    // The globe was the ONLY thing separating this entry from the pinned entry
-    // for the very same currency further down the list — two options reading
-    // "US Dollar ($)", one with an emoji — and a screen reader drops the emoji,
-    // so it announced them identically. Same key and same wording the extension
-    // uses, so the two pickers say one thing.
-    auto.value = "";
-    auto.textContent = t("currencyAuto", [cur.displayName(autoCode, loc), cur.symbolFor(autoCode, loc)]);
-    sel.appendChild(auto);
-    cur.currencyCodes().forEach((code) => {
-      const opt = document.createElement("option");
-      opt.value = code; opt.textContent = `${cur.displayName(code, loc)} (${cur.symbolFor(code, loc)})`;
-      sel.appendChild(opt);
-    });
-    sel.value = choice || "";
+  // The SAME formatter and the SAME keys warning.js uses, so a duration reads
+  // identically on both platforms. `recipeTimeLabel` was not a key at all.
+  function formatTime(minutes) {
+    const value = Number(minutes) || 0;
+    if (value < 60) return t("timeMinutes", [String(value)]);
+    const hours = Math.floor(value / 60);
+    const rest = value % 60;
+    return rest === 0 ? t("timeHours", [String(hours)]) : t("timeHoursMinutes", [String(hours), String(rest)]);
   }
   function renderMostBlocked(listId, wrapId, map, labelFor) {
     const entries = Object.entries((map && typeof map === "object") ? map : {})
@@ -132,66 +120,21 @@
   }
   async function renderStats() {
     const data = await fs.stats.get();
-    const customized = !!data.mealStatsCustomized;
-    const choice = typeof data.currency === "string" ? data.currency : "";
-    const code = resolvedCurrency(choice);
-    const visits = Number(data.blockedVisits) || 0;
-    // Seed cost/calories from currency + locale until the user customizes them.
-    const mealCost = customized ? (Number(data.avgMealCost) || (cur ? cur.defaultCost(code) : 15)) : (cur ? cur.defaultCost(code) : 15);
-    const mealCal = customized ? (Number(data.avgMealCalories) || (cur ? cur.defaultCalories(locale()) : 1000)) : (cur ? cur.defaultCalories(locale()) : 1000);
 
-    animateNumber($("visits"), visits);
-    animateNumber($("calories"), Number(data.caloriesAvoided) || 0);
-    animateNumber($("savings"), visits * mealCost, (n) => formatSavings(Math.round(n), choice));
-    if (document.activeElement !== $("mealCost")) $("mealCost").value = mealCost;
-    if (document.activeElement !== $("mealCalories")) $("mealCalories").value = mealCal;
-    if (document.activeElement !== $("currency")) $("currency").value = choice;
-
-    const symbol = currencySymbol(choice);
-    const base = t("avgMealCostLabel");
-    if ($("mealCostLabel")) $("mealCostLabel").textContent = symbol ? `${base} (${symbol})` : base;
+    // `blockedVisits` is the stored name; what it counts is an interruption, and
+    // that is what the tile is labelled. The key is left alone rather than
+    // renamed because renaming it on a phone that already holds a value would
+    // reset a number the user has watched grow.
+    animateNumber($("visits"), Number(data.blockedVisits) || 0);
 
     renderMostBlocked("mostBlocked", "mostBlockedWrap", data.blockedByDomain, (h) => h);
     renderMostBlocked("mostBlockedCat", "mostBlockedCatWrap", data.blockedByCategory, categoryName);
     renderMostBlocked("mostBlockedCountry", "mostBlockedCountryWrap", data.blockedByCountry, countryName);
     renderMostBlocked("mostBlockedApps", "mostBlockedAppsWrap", data.blockedByApp, (n) => n);
   }
-  // Persist the seeded cost/calories on first run (mirrors the extension) so the
-  // native DNS filter has an average-meal-calories value to record per block.
-  async function seedStatsDefaults() {
-    if (!cur) return;
-    const d = await fs.stats.get();
-    if (d.mealStatsCustomized) return;
-    const code = resolvedCurrency(typeof d.currency === "string" ? d.currency : "");
-    const patch = {};
-    if (d.avgMealCost == null) patch.avgMealCost = cur.defaultCost(code);
-    if (d.avgMealCalories == null) patch.avgMealCalories = cur.defaultCalories(locale());
-    if (Object.keys(patch).length) await fs.storage.set(patch);
-  }
-  function wireStats() {
-    const sel = $("currency");
-    if (sel) sel.addEventListener("change", async () => {
-      const c = sel.value || "";
-      const patch = { currency: c };
-      const cust = (await fs.stats.get()).mealStatsCustomized;
-      if (!cust && cur) { patch.avgMealCost = cur.defaultCost(resolvedCurrency(c)); patch.avgMealCalories = cur.defaultCalories(locale()); }
-      await fs.storage.set(patch);
-      renderStats();
-    });
-    $("mealCost").addEventListener("change", async () => {
-      await fs.storage.set({ avgMealCost: Math.max(0, Number($("mealCost").value) || 0), mealStatsCustomized: true });
-      renderStats();
-    });
-    $("mealCalories").addEventListener("change", async () => {
-      await fs.storage.set({ avgMealCalories: Math.max(0, Number($("mealCalories").value) || 0), mealStatsCustomized: true });
-      renderStats();
-    });
-  }
   // Re-render dynamic strings/values (called after language change / reset).
   async function refresh() {
     regionNames = null; // DisplayNames are locale-bound; rebuild for the new locale
-    const d = await fs.stats.get();
-    buildCurrencyOptions(typeof d.currency === "string" ? d.currency : "");
     renderStatus();
     renderStats();
   }
@@ -289,13 +232,24 @@
   // ---- recipes (canonical data) --------------------------------------------
   async function renderRecipes() {
     let recipes = [];
-    try { recipes = await fs.recipes.load(); } catch (e) {}
+    // `load()` resolves the WHOLE catalog document — the selector needs the
+    // taxonomy — and this used to call it and then `.slice(0, 24)` an object.
+    // That threw inside an async function nobody awaited, so there was no crash
+    // and no log: the panel was simply empty on every device, permanently.
+    // `loadEntries()` is the accessor that returns the flat array.
+    try { recipes = await fs.recipes.loadEntries(); } catch (e) {}
     const wrap = $("recipeList"); wrap.replaceChildren();
-    recipes.slice(0, 24).forEach((r) => {
+    (Array.isArray(recipes) ? recipes : []).slice(0, 24).forEach((r) => {
       const card = el("div", "recipe");
       card.appendChild(el("h4", null, r.title));
-      const meta = [t("recipeTimeLabel", [String(r.timeMinutes)])];
-      if (Number.isFinite(Number(r.calories))) meta.push(t("recipeCaloriesLabel", [String(r.calories)]));
+      // `totalMinutes` is what the catalog carries. This read `r.timeMinutes`,
+      // which no entry has ever had, through `t("recipeTimeLabel", …)`, which no
+      // locale has ever defined — so the line would have rendered the literal
+      // "recipeTimeLabel" had the panel ever managed to draw at all. The calorie
+      // chip is gone rather than re-keyed: `r.calories` does not exist either
+      // (the catalog carries `calorieRange`), the extension shows no calorie
+      // figure anywhere, and FitShield is not a calorie tracker.
+      const meta = [formatTime(r.totalMinutes)];
       card.appendChild(el("div", "m", meta.join(" · ")));
       if (r.description) card.appendChild(el("div", "note", r.description));
       const det = el("details");
@@ -397,7 +351,19 @@
     });
   }
   function renderReset() {
+    // `caloriesAvoided` and `recipesChosen` are LEGACY keys, kept on this list
+    // deliberately. Nothing writes either any more — the calorie figure was an
+    // assumed per-meal number multiplied by every block, and it stopped being
+    // computed and stopped being shown — but a phone that ran an earlier build
+    // still holds the value. CLAUDE.md §6 forbids silently resetting it, and the
+    // extension keeps its own copy verbatim for the same reason ("it is no
+    // longer a headline number, but it is their data"). Listing it here is what
+    // makes it the USER's to clear: drop it and the value is orphaned on the
+    // device with no control anywhere that can reach it.
     const STATS = ["blockedVisits", "blockedByDomain", "blockedByCategory", "blockedByCountry", "caloriesAvoided", "recipesChosen"];
+    // `avgMealCost`, `avgMealCalories`, `mealStatsCustomized` and `currency` are
+    // legacy for the same reason: the estimate row they fed is gone, and the
+    // values stay on the device until the user asks for them to go.
     // `appBlockConvenience` is a LEGACY key: the Convenience pill is gone (no
     // blocklist row was ever `convenience`, so it could never match an app), but
     // a phone that ran an earlier build may still hold the value. It stays on the
@@ -591,9 +557,6 @@
     renderReset();
     renderAppBlocking();
     renderStatus();
-    buildCurrencyOptions();
-    wireStats();
-    await seedStatsDefaults();
     renderStats();
     renderFilters();
     renderTiming();

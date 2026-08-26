@@ -95,23 +95,18 @@
   };
   const copyFor = (cat) => COPY[cat] || COPY.fast_food;
 
-  // ---- stats (currency-aware, same math as the dashboard) ------------------
-  const cur = self.FitShieldCurrency;
-  function resolvedCurrency(choice) { return cur ? cur.resolveCurrency(choice || "", locale()) : "USD"; }
-  function formatSavings(amount, choice) {
-    if (cur) { try { return cur.formatMoney(Math.round(amount), resolvedCurrency(choice), locale()); } catch (e) {} }
-    return String(Math.round(amount));
-  }
+  // ---- stats (one observed count, same as the dashboard) -------------------
+  //
+  // This screen used to show the interruption count, that count multiplied by an
+  // assumed meal price as "Estimated savings", and a running total of an assumed
+  // per-meal calorie figure. Two of the three were arithmetic on an assumption
+  // presented as an outcome; the extension deleted both in 0.55 and said why.
+  // What is left is the number the app actually observed. By the time this
+  // renders, BlockActivity has already recorded the pause the user is looking
+  // at, so the figure includes this one.
   async function renderStats() {
     const d = await fs.stats.get();
-    const choice = typeof d.currency === "string" ? d.currency : "";
-    const code = resolvedCurrency(choice);
-    const visits = Number(d.blockedVisits) || 0;
-    const customized = !!d.mealStatsCustomized;
-    const mealCost = customized ? (Number(d.avgMealCost) || (cur ? cur.defaultCost(code) : 15)) : (cur ? cur.defaultCost(code) : 15);
-    $("visits").textContent = visits.toLocaleString();
-    $("calories").textContent = (Number(d.caloriesAvoided) || 0).toLocaleString();
-    $("savings").textContent = formatSavings(visits * mealCost, choice);
+    $("visits").textContent = (Number(d.blockedVisits) || 0).toLocaleString(locale());
   }
 
   // ---- one quick recipe alternative ----------------------------------------
@@ -134,6 +129,15 @@
       : "Blocking is on whenever app blocking is enabled.";
   }
 
+  // The SAME formatter and keys warning.js uses, so one duration reads the same
+  // on both platforms.
+  function formatTime(minutes) {
+    const value = Number(minutes) || 0;
+    if (value < 60) return t("timeMinutes", [String(value)]);
+    const hours = Math.floor(value / 60);
+    const rest = value % 60;
+    return rest === 0 ? t("timeHours", [String(hours)]) : t("timeHoursMinutes", [String(hours), String(rest)]);
+  }
   function recipeCard(r) {
     const card = el("div", "recipe");
     card.appendChild(el("h4", null, r.title));
@@ -141,8 +145,14 @@
     // in this file, and a second thing wearing that name here is how a reader —
     // and the guard in test/android-block.test.js that checks every `meta.*`
     // block.js reads against the keys getInfo() sends — loses the thread.
-    const metaLine = [t("recipeTimeLabel", [String(r.timeMinutes)])];
-    if (Number.isFinite(Number(r.calories))) metaLine.push(t("recipeCaloriesLabel", [String(r.calories)]));
+    // Two dead references in one line. `recipeTimeLabel` / `recipeCaloriesLabel`
+    // are not keys any locale defines, so this rendered those names verbatim on
+    // a device; and `r.timeMinutes` / `r.calories` are not fields any catalog
+    // entry has (they are `totalMinutes` and `calorieRange`), so both were
+    // undefined regardless. Duration now uses warning.js's formatter and keys.
+    // The calorie chip is gone: the extension shows none, and this is not a
+    // calorie app.
+    const metaLine = [formatTime(r.totalMinutes)];
     card.appendChild(el("div", "m", metaLine.join(" · ")));
     if (r.description) card.appendChild(el("div", "note", r.description));
     return card;

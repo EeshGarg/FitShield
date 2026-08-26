@@ -144,7 +144,6 @@ function androidAudit() {
     [path.join("android", "web-src", "android-shim.js"), "android-shim.js"],
     [path.join("extension", "i18n.js"), "i18n.js"],
     [path.join("extension", "languages.js"), "languages.js"],
-    [path.join("extension", "currency.js"), "currency.js"],
     [path.join("extension", "ambient.js"), "ambient.js"],
     [path.join("extension", "recipes.js"), "recipes.js"],
     [path.join("extension", "icons", "icon-128.png"), "icon-128.png"],
@@ -168,7 +167,60 @@ function androidAudit() {
   } else if (localeDrift > 0) {
     reporter.fail(`web bundle _locales drifted from canonical in ${localeDrift} file(s) (run npm run build:android)`);
   } else {
-    reporter.note(`reused web assets: i18n, currency, recipes, icon + ${load.localeDirs().length} locales (copied from canonical, no fork)`);
+    reporter.note(`reused web assets: i18n, recipes, icon + ${load.localeDirs().length} locales (copied from canonical, no fork)`);
+  }
+
+  // 3b-ii. Every locale key the Android UI asks for must be a key that EXISTS.
+  //
+  // `tools/locale-prune.js` already scans this directory — but only in the other
+  // direction, to keep a key Android alone renders from being pruned as dead.
+  // Nothing checked the reverse, and the reverse is the half that reaches a
+  // user: FitShieldI18n.t() returns the RAW KEY when it cannot resolve one
+  // ("so a gap stays visible rather than rendering blank"), and
+  // localizeDocument() then writes that key over the English fallback sitting in
+  // the markup. So a mistyped or retired key does not fall back to English — it
+  // prints its own name on the screen, in every language including English.
+  //
+  // Ten of them were shipping at once. The statistics row read
+  // "statusBlockedVisits / Estimated savings / statusCaloriesAvoided", and every
+  // alternative card's meta line read "recipeTimeLabel · recipeCaloriesLabel".
+  // A source grep could not see it: the attributes were spelled perfectly, the
+  // keys simply no longer existed. Only resolving them can tell.
+  const englishMessages = JSON.parse(fs.readFileSync(path.join(load.LOCALES_DIR, "en", "messages.json"), "utf8"));
+  const dangling = [];
+
+  fs.readdirSync(webDir)
+    .filter((name) => /\.(js|html)$/.test(name))
+    .sort()
+    .forEach((name) => {
+      const raw = fs.readFileSync(path.join(webDir, name), "utf8");
+      // Comments name retired keys while explaining why they are retired, so
+      // they are stripped first. The line pattern carries no end anchor because
+      // these files use CRLF and "." stops at the carriage return.
+      const source = (name.endsWith(".html") ? raw.replace(/<!--[\s\S]*?-->/g, " ") : raw)
+        .replace(/\/\*[\s\S]*?\*\//g, " ")
+        .replace(/\/\/[^\r\n]*/g, " ");
+
+      const requested = new Set();
+      // Markup: data-i18n, data-i18n-title, data-i18n-aria-label, …
+      for (const match of source.matchAll(/data-i18n(?:-[a-z-]+)?="([A-Za-z0-9_]+)"/g)) requested.add(match[1]);
+      // Script: t("key"). A template literal key is dynamic and cannot be
+      // resolved statically, so it is deliberately not matched here.
+      for (const match of source.matchAll(/\bt\(\s*"([A-Za-z0-9_]+)"/g)) requested.add(match[1]);
+
+      [...requested]
+        .filter((key) => !englishMessages[key])
+        .sort()
+        .forEach((key) => dangling.push(`${name} -> ${key}`));
+    });
+
+  if (dangling.length > 0) {
+    reporter.fail(
+      `Android UI requests ${dangling.length} locale key(s) that no locale defines; each renders its own name ` +
+        `on the screen: ${dangling.join(", ")}`
+    );
+  } else {
+    reporter.note("every locale key the Android UI requests resolves to a real string");
   }
 
   // 3c. App-package dataset: the bundled asset must match the generated output

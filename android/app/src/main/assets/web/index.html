@@ -2,10 +2,10 @@
 <!--
   FitShield Android UI (WebView). Reuses the SAME web building blocks as the
   browser extension — i18n.js + all _locales (via fitshield.* / android-shim.js),
-  currency.js, the canonical recipes data, engine-derived filter metadata, and
-  the FitShield visual language. UI-parity pass (0.53); DNS-provider hardening is
-  a later step. Blocking-config controls are stored locally and marked where
-  enforcement is pending a later step.
+  the canonical recipes data, engine-derived filter metadata, and the FitShield
+  visual language. UI-parity pass (0.53); DNS-provider hardening is a later step.
+  Blocking-config controls are stored locally and marked where enforcement is
+  pending a later step.
 -->
 <html lang="en">
 <head>
@@ -47,8 +47,8 @@
       <p class="note">A local-first nudge against impulse food-delivery and fast-food ordering. No accounts, no cloud, no tracking — everything stays on your device.</p>
       <ul class="limits">
         <li>Turn on FitShield to block delivery &amp; fast-food sites; optionally block their apps too.</li>
-        <li>Watch your blocked visits, savings and calories avoided add up.</li>
-        <li>Make it yours: theme colors, language, currency and more below.</li>
+        <li>See what actually happened: every ordering page FitShield interrupted, counted on this device and nowhere else.</li>
+        <li>Make it yours: theme colors, language and more below.</li>
       </ul>
       <button id="welcomeGo">Get started</button>
     </div>
@@ -73,20 +73,30 @@
 
   <!-- Stats -->
   <div class="panel">
-    <h2 data-i18n="protectionStatusHeading">Your Stats</h2>
+    <h2 data-i18n="protectionStatusHeading">Your stats</h2>
+    <!--
+      One counter, because one is all this device observes.
+
+      This row used to read "Blocked visits · Estimated savings · Calories
+      avoided". The extension deleted all three in 0.55 and fitshield-core.js
+      records why: an interruption says nothing about whether an order would
+      have happened, so interruptions x meal price "would invent a saving out of
+      a page load", and no calorie was ever measured by anyone.
+
+      The extension kept ONE optional estimate, and only because it could ground
+      it in `alternativesMade` — an event the user personally confirmed. Android
+      has no such event: the pause screen shows alternatives, it never asks
+      whether one was made. An estimate here would have nothing honest to
+      multiply, so there is none, and the meal-cost / meal-calories / currency
+      inputs that existed solely to feed it are gone with it.
+
+      Stored `caloriesAvoided` values are untouched on the device — see the
+      STATS list in app.js, which still sweeps the key on an explicit reset.
+    -->
+    <p class="note" data-i18n="statsIntro">Counts of things that actually happened, kept on this device. Every number is one observed event — nothing here is inferred, and nothing is uploaded.</p>
     <div class="grid">
-      <div class="stat"><div class="v" id="visits">0</div><div class="l" data-i18n="statusBlockedVisits">Blocked visits</div></div>
-      <div class="stat"><div class="v savings" id="savings">—</div><div class="l" data-i18n="statusEstimatedSavings">Estimated savings</div></div>
-      <div class="stat"><div class="v" id="calories">0</div><div class="l" data-i18n="statusCaloriesAvoided">Calories avoided</div></div>
+      <div class="stat"><div class="v" id="visits">0</div><div class="l" data-i18n="recapInterrupted">Ordering pages interrupted</div></div>
     </div>
-    <label id="mealCostLabel" data-i18n="avgMealCostLabel" for="mealCost">Average meal cost</label>
-    <div class="row">
-      <select id="currency" aria-labelledby="mealCostLabel" style="flex:1.6"></select>
-      <input id="mealCost" type="number" min="0" step="1" inputmode="numeric" style="flex:1">
-    </div>
-    <label data-i18n="avgMealCaloriesLabel" for="mealCalories">Average meal calories</label>
-    <input id="mealCalories" type="number" min="0" step="10" inputmode="numeric">
-    <p class="note" data-i18n="avgMealCostHint">Used to estimate money saved when you skip an order. Stored on your device only.</p>
     <div id="mostBlockedWrap" hidden style="margin-top:12px">
       <div class="l muted" data-i18n="statsMostBlockedSites" style="font-size:.78rem;text-transform:uppercase;letter-spacing:.04em">Most blocked sites</div>
       <ol class="list" id="mostBlocked"></ol>
@@ -200,7 +210,16 @@
   </div></details>
 
   <!-- Recipes -->
-  <details class="panel"><summary data-i18n="welcomeFeatureRecipeTitle">Recipe ideas</summary><div class="body">
+  <!--
+    No data-i18n: `welcomeFeatureRecipeTitle` is not a key any locale defines, so
+    FitShieldI18n.t() returned the key and localizeDocument() wrote the literal
+    text "welcomeFeatureRecipeTitle" into this summary on every device. English
+    copy is the honest state until the localization lane lands a real key
+    (requested: `alternativesBrowseHeading` = "Alternatives"); an English
+    fallback is what a non-English phone would see either way until it is
+    translated, and it is at least a word.
+  -->
+  <details class="panel"><summary>Alternatives</summary><div class="body">
     <div id="recipeList"></div>
   </div></details>
 
@@ -240,7 +259,13 @@
   <details class="panel"><summary data-i18n="resetHeading">Reset &amp; Data</summary><div class="body">
     <p class="note" data-i18n="resetIntro">Restore parts of FitShield to their defaults.</p>
     <div style="display:flex;flex-direction:column;gap:8px">
-      <button class="secondary" id="resetStats" data-i18n="resetPreferencesButton">Reset stats</button>
+      <!--
+        `resetPreferencesButton` is not a key either. `resetStatsButton` is the
+        one Settings uses for the same control, and it is accurate here: this
+        button sweeps the observed counters AND the stored `caloriesAvoided` /
+        `avgMealCost` values left over from the estimates Android no longer shows.
+      -->
+      <button class="secondary" id="resetStats" data-i18n="resetStatsButton">Reset statistics &amp; estimates</button>
       <button class="secondary" id="resetSettings" data-i18n="resetBlockingButton">Reset settings</button>
       <button class="secondary" id="factoryReset" data-i18n="factoryResetButton">Factory reset</button>
     </div>
@@ -286,7 +311,7 @@
   <script src="android-shim.js"></script>
   <script src="i18n.js"></script>
   <script src="languages.js"></script>
-  <script src="currency.js"></script>
+  <!-- currency.js is gone with the estimate it existed to format. -->
   <script src="theme.js"></script>
   <script src="app.js"></script>
 </body>
