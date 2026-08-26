@@ -44,12 +44,24 @@ object AppBlockPolicy {
     fun unlockMinutes(context: Context): Int =
         int(prefs(context), "appUnlockMinutes", int(prefs(context), "passDurationMinutes", 5)).coerceIn(1, 240)
 
+    /**
+     * One branch per APP GROUPING, matching the pills in web/index.html, the
+     * `CATS` map in web/app.js and APP_CATEGORIES in
+     * tools/generate-android-packages.js. All four are held to each other by
+     * test/android-controls.test.js, in both directions:
+     *
+     *  - a grouping with no pill would fall to `else -> true` and be blocked with
+     *    no way for the user to turn it off;
+     *  - a pill with no packages is a control that does nothing.
+     *
+     * `convenience` was the second kind. It had a pill, a key and a branch here,
+     * and no blocklist row is `convenience`, so nothing could ever reach it.
+     */
     private fun categoryEnabled(p: SharedPreferences, category: String): Boolean = when (category) {
         "delivery" -> bool(p, "appBlockDelivery", true)
         "fast_food" -> bool(p, "appBlockFastFood", true)
         "restaurant" -> bool(p, "appBlockRestaurant", true)
         "grocery" -> bool(p, "appBlockGrocery", true)
-        "convenience" -> bool(p, "appBlockConvenience", true)
         "coffee" -> bool(p, "appBlockCoffee", true)
         "dessert" -> bool(p, "appBlockDessert", true)
         "meal_kit" -> bool(p, "appBlockMealKit", true)

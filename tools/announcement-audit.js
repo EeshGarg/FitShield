@@ -160,37 +160,192 @@ async function axNodesFor(tab, selector, order) {
     .filter(Boolean);
 }
 
-async function openPage(browser, extensionId, file, readyExpression) {
+// ---------------------------------------------------------------------------
+// Readiness: "parsed" is not "rendered"
+// ---------------------------------------------------------------------------
+//
+// Every surface here renders TWICE — static markup at parse time, then the real
+// values once an async read returns (chrome.storage, or a getBlockState round
+// trip that has to wake the service worker). An accessibility tree fetched
+// between the two passes is a real tree of a half-rendered page, and almost
+// every property this audit reads is written in the SECOND pass.
+//
+// The readiness probes used to check that an element EXISTED. Every one of the
+// elements they named is in the static markup, so all of them were satisfied
+// before any state had been applied, and the audit raced the page:
+//
+//   #status         static and EMPTY, filled by refreshStatusOnly() after
+//                   loadState() — so the master toggle's aria-describedby
+//                   resolved to an empty description and the audit reported
+//                   "never told whether FitShield is on"
+//   #timerSlider    aria-valuetext written by setTimerDisplay() after
+//                   loadState() — so every slider on the popup AND on settings
+//                   was "announced as a bare number"
+//   #brand          `hidden` in markup until warning.js has the record — and a
+//                   hidden element is not in the tree at all, so the block page
+//                   could report "the line naming the blocked site is absent"
+//   #v-manifest     static placeholder "…" until diagnostics.js fills it
+//
+// Measured on this machine before the fix: one run in three aborted the build,
+// with three popup defects that did not exist. Nothing was wrong with the popup;
+// the audit had read it too early. An intermittently red gate teaches people to
+// re-run instead of read, which is worse than no gate.
+//
+// So a condition here must name a value only the SECOND pass can produce.
+
+const COMPLETE = ["document readyState complete", "document.readyState === 'complete'"];
+
+/** An element exists, is in the tree (not `hidden`), and carries real text. */
+const shown = (selector) => [
+  `${selector} rendered`,
+  `(() => { const e = document.querySelector(${JSON.stringify(selector)});` +
+    " return !!e && !e.hidden && (e.textContent || '').trim().length > 0; })()"
+];
+
+/** An element's text has moved on from a placeholder the markup ships. */
+const filled = (selector, placeholder) => [
+  `${selector} filled`,
+  `(() => { const e = document.querySelector(${JSON.stringify(selector)});` +
+    ` if (!e) { return false; } const text = (e.textContent || '').trim();` +
+    ` return text.length > 0 && text !== ${JSON.stringify(placeholder)}; })()`
+];
+
+const exists = (selector) => [
+  `${selector} present`,
+  `!!document.querySelector(${JSON.stringify(selector)})`
+];
+
+/**
+ * Every range input announces a value WITH its unit.
+ *
+ * Written as "all of them" rather than naming two ids on purpose: this is the
+ * exact property auditSliderUnits goes on to assert, so the audit now waits for
+ * the state it is about to grade, and a slider added later is covered without
+ * anyone remembering to extend a list.
+ */
+const SLIDERS_SETTLED = [
+  "every slider has aria-valuetext",
+  "Array.prototype.every.call(document.querySelectorAll('input[type=range]')," +
+    " (s) => ((s.getAttribute('aria-valuetext') || '').trim().length > 0))"
+];
+
+/**
+ * Every surface's readiness, in one table so test/announcement-readiness.test.js
+ * can run these exact expressions against a half-rendered page and a settled one
+ * and prove they tell the two apart. A probe that cannot is not a probe.
+ */
+const READINESS = {
+  // #brand and #reasonPanel both ship `hidden` and are un-hidden only once
+  // warning.js has resolved the record. A hidden element is absent from the
+  // accessibility tree, so reading early makes this audit report the two things
+  // it exists to check — the blocked site's name and the reason rows — as
+  // missing from a page that renders both correctly.
+  block: [
+    exists("#timer"),
+    shown("#brand"),
+    ["#reasonPanel populated", "!!document.querySelector('#reasonPanel .reason-row')"]
+  ],
+
+  // Both conditions name a value that only loadState() can produce, and
+  // loadState() has to wake the service worker to get it. `#status` is static,
+  // EMPTY markup, so probing for its existence proved only that the HTML had
+  // parsed — and the three defects this audit then reported (two bare-number
+  // sliders and a toggle with no description) were all the same missing second
+  // render pass.
+  popup: [shown("#status"), SLIDERS_SETTLED],
+
+  // The same race as the popup, on four sliders instead of two — Timer duration,
+  // Site open time, Popup width and Corner radius all announced as bare numbers
+  // on a run that read the page before its stored settings were applied.
+  settings: [exists("#timerSlider"), SLIDERS_SETTLED],
+
+  // "…" is the placeholder diagnostics.html ships; diagnostics.js overwrites it
+  // once the report comes back. Grading the row pairing while every value still
+  // reads "…" grades the markup, not the page.
+  diagnostics: [filled("#v-manifest", "…")],
+
+  // The three `.onboard-choices` groups are static and EMPTY; every button
+  // inside them is built by welcome.js renderQuestions(). Probing for an <h1>
+  // let this run before a single button existed — the audit's `interact` step
+  // would then click nothing, and the decoration check would grade a page with
+  // no onboarding controls on it and pass. A clean pass over nothing is the
+  // exact failure this whole audit was written against.
+  welcome: [
+    [
+      "onboarding choices rendered",
+      "document.querySelectorAll('.onboard-choices').length > 0 && " +
+        "Array.prototype.every.call(document.querySelectorAll('.onboard-choices')," +
+        " (g) => !!g.querySelector('button[aria-pressed]'))"
+    ]
+  ],
+
+  // #releases ships empty and is filled by whats-new.js — including the
+  // "nothing yet" node, so a child always arrives and waiting for one is safe.
+  // Without the wait this graded a page whose entire content was still to come.
+  whatsNew: [["#releases rendered", "!!document.querySelector('#releases > *')"]],
+
+  // The countdown section reloads the page itself, so it only needs the timer
+  // and the brand line; it opens its own reason panel checks nowhere.
+  countdown: [exists("#timer"), shown("#brand")]
+};
+
+/**
+ * Wait for EVERY condition, and on timeout say which one never came true.
+ *
+ * A stricter probe is only safe if its failure is legible: "popup.html never
+ * became ready" sends the next person to the wrong page entirely, where
+ * "#status rendered: false" names the pass that did not run.
+ */
+async function openPage(browser, extensionId, file, conditions) {
+  const ready = [COMPLETE, ...conditions];
   const tab = await browser.newPage();
 
   await tab.send("DOM.enable");
   await tab.send("Accessibility.enable");
   await tab.goto(`chrome-extension://${extensionId}/${file}`, 300);
 
-  for (let i = 0; i < 60; i++) {
+  const combined = ready.map(([, expression]) => `(${expression})`).join(" && ");
+
+  // 15s: a cold service worker on a cold profile is the slow case, and this
+  // budget is only ever spent when something is genuinely wrong.
+  for (let i = 0; i < 100; i++) {
     try {
-      if (await tab.evaluate(readyExpression)) {
+      if (await tab.evaluate(combined)) {
         return tab;
       }
     } catch (_) {
       /* still navigating */
     }
 
-    await sleep(120);
+    await sleep(150);
   }
 
-  let diagnosis = "";
+  const unmet = [];
+
+  for (const [label, expression] of ready) {
+    try {
+      if (!(await tab.evaluate(expression))) {
+        unmet.push(label);
+      }
+    } catch (error) {
+      unmet.push(`${label} (threw: ${error.message})`);
+    }
+  }
+
+  let where = "";
 
   try {
-    diagnosis = String(
+    where = String(
       await tab.evaluate("document.location.href + ' | ' + document.title + ' | ' + document.readyState")
     );
   } catch (error) {
-    diagnosis = `evaluate failed: ${error.message}`;
+    where = `evaluate failed: ${error.message}`;
   }
 
   await tab.close();
-  throw new Error(`${file} never became ready (${diagnosis})`);
+  throw new Error(
+    `${file} never became ready — unmet: ${unmet.join("; ") || "(all met on retry — a race in the probe itself)"} [${where}]`
+  );
 }
 
 /**
@@ -211,12 +366,7 @@ async function treeOf(tab) {
 // ---------------------------------------------------------------------------
 
 async function auditBlockPage(browser, extensionId, reporter) {
-  const tab = await openPage(
-    browser,
-    extensionId,
-    BLOCK_PAGE,
-    "document.readyState === 'complete' && !!document.getElementById('timer')"
-  );
+  const tab = await openPage(browser, extensionId, BLOCK_PAGE, READINESS.block);
 
   try {
     // The reason panel is a <details>: its rows are not in the tree until it is
@@ -381,26 +531,99 @@ function auditDecorativeNames(order, label, reporter) {
 // 3 + 4: the countdown, and the moment it ends
 // ---------------------------------------------------------------------------
 
+// `undefined` and `null` are different answers — "the user never set a pause" vs
+// "the pause is stored as null" — and JSON has no `undefined`, so the sentinel
+// travels as null and is read back the same way on both sides.
+const READ_TIMER_SECONDS =
+  "new Promise((done) => chrome.storage.local.get('timerSeconds', (v) =>" +
+  " done(JSON.stringify(v.timerSeconds === undefined ? null : v.timerSeconds))))";
+
+/**
+ * Put `timerSeconds` back, and PROVE it went back.
+ *
+ * This audit borrows the profile every other extension page shares. The restore
+ * was two `try {} catch {}` blocks whose own comment said that leaving 12 behind
+ * "made the popup report slider and status defects that were artefacts of this
+ * audit" — a guard that documented the damage it was there to prevent and then
+ * swallowed its own failure, so the one case it was written for (the tab going
+ * away mid-restore) was also the case where it silently did nothing.
+ *
+ * Three changes: restore the value that was actually there rather than a
+ * hardcoded 60; read it back and confirm; and if the borrowed tab cannot do it,
+ * do it from a fresh page and, failing that, FAIL the audit. A gate that cannot
+ * clean up after itself must say so, because the next thing it does is grade a
+ * page using the profile it just corrupted.
+ */
+async function restoreTimerSeconds(browser, extensionId, tab, previous, reporter) {
+  const expected = JSON.stringify(previous === undefined ? null : previous);
+  const write =
+    previous === undefined || previous === null
+      ? "new Promise((done) => chrome.storage.local.remove('timerSeconds', done))"
+      : `new Promise((done) => chrome.storage.local.set({ timerSeconds: ${JSON.stringify(previous)} }, done))`;
+
+  const attempt = async (page) => {
+    await page.evaluate(write);
+    return (await page.evaluate(READ_TIMER_SECONDS)) === expected;
+  };
+
+  try {
+    if (await attempt(tab)) {
+      return;
+    }
+  } catch (_) {
+    /* the borrowed tab may be on its way out — that is what the retry is for */
+  }
+
+  // A page of our own, which nothing else in this audit is about to close.
+  let fresh;
+
+  try {
+    fresh = await openPage(browser, extensionId, BLOCK_PAGE, [exists("#timer")]);   // the write needs chrome.storage, nothing more
+
+    if (await attempt(fresh)) {
+      return;
+    }
+
+    reporter.fail(
+      `the audit shortened timerSeconds to 12 and could not restore it to ${expected} — ` +
+        "every later run of this audit, and any browser sharing this profile, sees a 12-second pause"
+    );
+  } catch (error) {
+    reporter.fail(
+      `the audit shortened timerSeconds to 12 and could not restore it to ${expected} (${error.message}) — ` +
+        "the profile is left holding a value this audit invented"
+    );
+  } finally {
+    if (fresh) {
+      await fresh.close();
+    }
+  }
+}
+
 /**
  * The pause is the product's core moment and it has two announcement duties:
  * say how much is left without saying it sixty times, and say when it is over.
  *
- * Driven on VIRTUAL time. Emulation.setVirtualTimePolicy advances the page's
- * clock in one-second budgets, so the real countdown code runs its real
- * setInterval sixty times in a couple of seconds. Nothing is stubbed: this is
- * the shipped timer, observed second by second.
+ * Observed on REAL time with the pause shortened to 12 seconds — see the note
+ * at the observation loop for why virtual time is the wrong instrument here.
+ * Nothing is stubbed: this is the shipped timer, watched second by second.
+ *
+ * This is the ONE audit that writes to the profile every other page shares, so
+ * it runs last and it puts what it borrowed back — provably, not hopefully.
  */
 async function auditCountdown(browser, extensionId, reporter) {
-  const tab = await openPage(
-    browser,
-    extensionId,
-    BLOCK_PAGE,
-    "document.readyState === 'complete' && !!document.getElementById('timer')"
-  );
+  const tab = await openPage(browser, extensionId, BLOCK_PAGE, READINESS.countdown);
+  let borrowed = false;
+  let previousTimerSeconds;
 
   try {
+    // Read the stored pause BEFORE shortening it. The restore used to write a
+    // hardcoded 60 — which is the default, not necessarily what was there.
+    previousTimerSeconds = JSON.parse(await tab.evaluate(READ_TIMER_SECONDS));
+
     // Shorten the pause, then reload so the page reads it at start-up. The
     // block page is an extension page, so chrome.storage is reachable from it.
+    borrowed = true;
     await tab.evaluate(
       'new Promise((done) => chrome.storage.local.set({ timerSeconds: 12 }, done))'
     );
@@ -569,27 +792,8 @@ async function auditCountdown(browser, extensionId, reporter) {
       );
     }
   } finally {
-    // Put the pause back. This audit shortens it to observe milestones in real
-    // time, and every later section shares the profile — leaving 12 behind made
-    // the popup report slider and status defects that were artefacts of this
-    // audit rather than anything wrong with the popup.
-    try {
-      await tab.evaluate(
-        'new Promise((done) => chrome.storage.local.set({ timerSeconds: 60 }, done))'
-      );
-    } catch (_) {
-      /* the tab is going away anyway */
-    }
-
-    // Virtual time is a property of the RENDERER, and every page of one
-    // extension shares a renderer. Leaving the budget exhausted freezes the
-    // clock for the next extension page opened in this browser — which showed
-    // up as popup.html sitting in readyState "loading" forever. Handing the
-    // clock back before the tab closes keeps the audits independent.
-    try {
-      await tab.send("Emulation.setVirtualTimePolicy", { policy: "advance" });
-    } catch (_) {
-      /* the tab may already be gone; the reset is best-effort */
+    if (borrowed) {
+      await restoreTimerSeconds(browser, extensionId, tab, previousTimerSeconds, reporter);
     }
 
     await tab.close();
@@ -638,12 +842,7 @@ function auditSliderUnits(order, label, reporter) {
 }
 
 async function auditPopup(browser, extensionId, reporter) {
-  const tab = await openPage(
-    browser,
-    extensionId,
-    "popup.html",
-    "document.readyState === 'complete' && !!document.getElementById('status')"
-  );
+  const tab = await openPage(browser, extensionId, "popup.html", READINESS.popup);
 
   try {
     const tree = await treeOf(tab);
@@ -701,12 +900,7 @@ async function auditPopup(browser, extensionId, reporter) {
 }
 
 async function auditSettings(browser, extensionId, reporter) {
-  const tab = await openPage(
-    browser,
-    extensionId,
-    "settings.html",
-    "document.readyState === 'complete' && !!document.getElementById('timerSlider')"
-  );
+  const tab = await openPage(browser, extensionId, "settings.html", READINESS.settings);
 
   try {
     const tree = await treeOf(tab);
@@ -719,12 +913,7 @@ async function auditSettings(browser, extensionId, reporter) {
 }
 
 async function auditDiagnostics(browser, extensionId, reporter) {
-  const tab = await openPage(
-    browser,
-    extensionId,
-    "diagnostics.html",
-    "document.readyState === 'complete' && !!document.getElementById('v-manifest')"
-  );
+  const tab = await openPage(browser, extensionId, "diagnostics.html", READINESS.diagnostics);
 
   try {
     const tree = await treeOf(tab);
@@ -773,23 +962,43 @@ async function announcementAudit() {
   }
 
   let browser;
+  let extensionId = null;
 
-  try {
-    browser = await launch({ extensionDir: PACKAGE_DIR });
-  } catch (error) {
-    if (error.code === "NO_BROWSER") {
-      reporter.warn("no Chromium found — announcement audit skipped (set FS_CHROME to a browser binary)");
-      return reporter;
+  // Chromium occasionally comes up without ever reporting an extension target
+  // for a package directory that was written moments earlier — the audit now
+  // reads a freshly staged dist/chrome, and on Windows a just-written tree of a
+  // couple of thousand files is not always ready to be loaded. More waiting does
+  // not help: if the browser did not load it at start-up it never will. A second
+  // browser does.
+  //
+  // Two attempts, and the second failure is still a hard failure: "the extension
+  // will not load" is exactly the kind of thing this gate exists to catch.
+  for (let attempt = 1; attempt <= 2 && !extensionId; attempt++) {
+    if (browser) {
+      await browser.close();
+      browser = null;
+      await sleep(1000);
     }
 
-    throw error;
+    try {
+      browser = await launch({ extensionDir: PACKAGE_DIR });
+    } catch (error) {
+      if (error.code === "NO_BROWSER") {
+        reporter.warn("no Chromium found — announcement audit skipped (set FS_CHROME to a browser binary)");
+        return reporter;
+      }
+
+      throw error;
+    }
+
+    extensionId = await resolveLoadedExtensionId(browser, PACKAGE_DIR);
   }
 
   try {
-    const extensionId = await resolveLoadedExtensionId(browser, PACKAGE_DIR);
-
     if (!extensionId) {
-      reporter.fail("the extension did not load in Chromium — no target reported an id the package path can produce");
+      reporter.fail(
+        "the extension did not load in Chromium in two attempts — no target reported an id the package path can produce"
+      );
       return reporter;
     }
 
@@ -804,7 +1013,7 @@ async function announcementAudit() {
       extensionId,
       "welcome.html",
       "welcome",
-      "document.readyState === 'complete' && !!document.querySelector('h1')",
+      READINESS.welcome,
       reporter,
       // Press one choice in every onboarding group: the selected state is drawn
       // with a ::before tick, so an unpressed page hides the very thing being
@@ -818,12 +1027,15 @@ async function announcementAudit() {
       extensionId,
       "whats-new.html",
       "what's new",
-      "document.readyState === 'complete' && !!document.querySelector('h1')",
+      READINESS.whatsNew,
       reporter
     );
 
-    // Last on purpose: this is the only audit that drives virtual time, and a
-    // virtual clock belongs to the renderer that every extension page shares.
+    // Last on purpose: this is the only audit that WRITES to the profile (it
+    // shortens timerSeconds), and one profile is shared by every extension page
+    // in this browser. It restores what it borrowed and proves the restore
+    // landed, so the ordering is a belt to that brace rather than the only thing
+    // holding the later sections' results up.
     await auditCountdown(browser, extensionId, reporter);
 
     reporter.note("read from Accessibility.getFullAXTree in tree order — the sequence a screen reader linearises");
@@ -839,6 +1051,14 @@ async function announcementAudit() {
 
 module.exports = announcementAudit;
 module.exports.resolveLoadedExtensionId = resolveLoadedExtensionId;
+// Exported for test/announcement-readiness.test.js, which runs these exact
+// expressions against a half-rendered page and a settled one, and drives the
+// real restore against a stubbed chrome.storage. Both were intermittent
+// build-gate failures with no test that could see them.
+module.exports.READINESS = READINESS;
+module.exports.COMPLETE = COMPLETE;
+module.exports.restoreTimerSeconds = restoreTimerSeconds;
+module.exports.READ_TIMER_SECONDS = READ_TIMER_SECONDS;
 
 if (require.main === module) {
   runCli(announcementAudit);

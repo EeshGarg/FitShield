@@ -398,6 +398,10 @@
   }
   function renderReset() {
     const STATS = ["blockedVisits", "blockedByDomain", "blockedByCategory", "blockedByCountry", "caloriesAvoided", "recipesChosen"];
+    // `appBlockConvenience` is a LEGACY key: the Convenience pill is gone (no
+    // blocklist row was ever `convenience`, so it could never match an app), but
+    // a phone that ran an earlier build may still hold the value. It stays on the
+    // removal list so "Reset settings" sweeps it instead of orphaning it.
     const SETTINGS = ["timerSeconds", "passDurationMinutes", "scheduleEnabled", "scheduleStart", "scheduleEnd", "customSites", "androidAllowlist", "enabledCountries", "enabledCategories", "themeMode", "themeColors", "avgMealCost", "avgMealCalories", "mealStatsCustomized", "currency", "appBlockingEnabled", "appBlockDelivery", "appBlockFastFood", "appBlockRestaurant", "appBlockGrocery", "appBlockConvenience", "appBlockCoffee", "appBlockDessert", "appBlockMealKit", "appUnlockMinutes", "appUnlocks", "appAllowBrands", "blockedByApp"];
     const note = (m) => { $("resetNote").textContent = m; };
     armConfirm($("resetStats"), async () => { await fs.storage.remove(STATS); note("Stats reset."); refresh(); });
@@ -432,7 +436,12 @@
     if (!panel || !ab || !ab.available) return;   // browser / unsupported: stays hidden
     panel.hidden = false;
 
-    const CATS = { delivery: "appBlockDelivery", fast_food: "appBlockFastFood", restaurant: "appBlockRestaurant", grocery: "appBlockGrocery", convenience: "appBlockConvenience", coffee: "appBlockCoffee", dessert: "appBlockDessert", meal_kit: "appBlockMealKit" };
+    // One entry per app-grouping category, matching the pills in index.html and
+    // AppBlockPolicy.categoryEnabled. `convenience` was here, and in the pills,
+    // and in the policy — and no package could ever carry it, because no
+    // blocklist row is `convenience`. It was a switch that did nothing.
+    // test/android-controls.test.js now holds all four lists to each other.
+    const CATS = { delivery: "appBlockDelivery", fast_food: "appBlockFastFood", restaurant: "appBlockRestaurant", grocery: "appBlockGrocery", coffee: "appBlockCoffee", dessert: "appBlockDessert", meal_kit: "appBlockMealKit" };
 
     function mark(id, on, label) {
       const wrap = $(id);
@@ -483,7 +492,13 @@
 
     try { const n = await ab.packageCount(); if (n) $("appBlockCount").textContent = `${n} app${n === 1 ? "" : "s"} can be blocked (more brands added over time).`; } catch (e) {}
 
-    const s = await fs.storage.get(["appBlockingEnabled", "appBlockDelivery", "appBlockFastFood", "appBlockRestaurant", "appBlockGrocery", "appUnlockMinutes"]);
+    // Read the key for EVERY pill, not a hand-written subset. This listed four of
+    // the eight category keys, so Coffee, Dessert, Meal kit and Convenience read
+    // back `undefined` and took the `default ON` branch below: a user who turned
+    // Coffee off and reopened Settings was shown Coffee on, while the policy —
+    // which reads the stored value — was still not blocking it. The switch and
+    // the behaviour disagreed, and only the switch was visible.
+    const s = await fs.storage.get(["appBlockingEnabled", "appUnlockMinutes", ...Object.values(CATS)]);
     $("appBlockingEnabled").checked = !!s.appBlockingEnabled;
     $("appBlockingEnabled").addEventListener("change", () => { fs.storage.set({ appBlockingEnabled: $("appBlockingEnabled").checked }); refreshA11y(); });
 

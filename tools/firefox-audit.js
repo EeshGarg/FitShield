@@ -23,7 +23,7 @@
 const fs = require("fs");
 const path = require("path");
 const { Reporter, runCli } = require("./lib/report.js");
-const { launchFirefox } = require("./lib/bidi.js");
+const { launchFirefox, sleep } = require("./lib/bidi.js");
 
 const ROOT = path.join(__dirname, "..");
 const PACKAGE_DIR = path.join(ROOT, "dist", "firefox");
@@ -45,6 +45,154 @@ function messageKeys() {
   return new Set(Object.keys(JSON.parse(fs.readFileSync(file, "utf8"))));
 }
 
+/**
+ * The block page has RENDERED — not "four seconds have passed".
+ *
+ * This audit waited on a stopwatch: `goto(url, 4000)`, then read the DOM. The
+ * redirect is a declarativeNetRequest redirect, so `location.href` is the block
+ * page from the first load event, but warning.js still has an async pass to make
+ * before `#brand` is un-hidden and filled. A read landing in between reported a
+ * page that renders perfectly as "rendered almost nothing in Firefox (0 bytes of
+ * markup)", plus four more failures that were all the same missing pass — and it
+ * failed a build roughly one run in three while nothing was wrong.
+ *
+ * Every element named here is one this audit goes on to assert, so it waits for
+ * exactly the state it is about to grade.
+ */
+const BLOCK_PAGE_RENDERED = `(() => {
+  const brand = document.getElementById("brand");
+  return !!document.getElementById("timer")
+    && !!document.getElementById("continue")
+    && !!brand && !brand.hidden && (brand.textContent || "").trim().length > 0
+    && !!document.body && document.body.innerHTML.length > 300;
+})()`;
+
+/**
+ * Ask for a blocked site and wait until the block page is on screen and drawn.
+ *
+ * Two races, not one, and they need different answers:
+ *
+ *   RULES     the extension installs its dynamic rules from the event page
+ *             AFTER Firefox reports the install complete. Measured here: a
+ *             first navigation issued immediately reaches the real network
+ *             about half the time, and the rules are in place within ~10s. No
+ *             amount of waiting on the already-loaded tab fixes that — the
+ *             request has already gone — so the probe must be re-issued.
+ *   RENDER    the redirect is a DNR redirect, so `location.href` is the block
+ *             page from the first load event, but warning.js still has an async
+ *             pass to make before `#brand` is filled. Reading in between
+ *             reported a perfectly good page as "rendered almost nothing".
+ *
+ * Each attempt gets its OWN TAB. That is what makes console-error attribution
+ * exact: a tab that failed to be blocked is provably showing a third-party site,
+ * so its errors (an aborted load logs a bare "0"; a completed one logs Cloudflare
+ * Turnstile and two rejected web fonts) are not FitShield's and are dropped by
+ * name below — while every error from the tab that DID reach our block page
+ * still fails the audit.
+ *
+ * Attempts are spaced rather than hammered, so a slow start-up costs three real
+ * requests, not thirty.
+ */
+async function reachBlockPage(firefox, options = {}) {
+  // Timings are parameters so test/firefox-gate.test.js can drive the retry path
+  // in milliseconds instead of half a minute. The defaults are the shipped ones.
+  const deadlineMs = options.deadlineMs === undefined ? 21000 : options.deadlineMs;
+  const attemptMs = options.attemptMs === undefined ? 3000 : options.attemptMs;
+  const backoffMs = options.backoffMs === undefined ? 3000 : options.backoffMs;
+  const started = Date.now();
+  const foreignContexts = [];
+  let attempt = 0;
+  let tab = null;
+  let url = "";
+
+  while (Date.now() - started < deadlineMs) {
+    attempt += 1;
+    tab = await firefox.newPage();
+
+    try {
+      await tab.goto(BLOCKED_PROBE, 250);
+    } catch (_) {
+      /* a navigation that never completes is answered by the next attempt */
+    }
+
+    // Give THIS attempt a short window: if the rules are installed, the redirect
+    // has already happened and only the render is outstanding.
+    const attemptUntil = Date.now() + attemptMs;
+
+    while (Date.now() < attemptUntil) {
+      try {
+        url = String(await tab.evaluate("location.href"));
+
+        if (url.startsWith("moz-extension://") && (await tab.evaluate(BLOCK_PAGE_RENDERED))) {
+          return { tab, foreignContexts, redirected: true, rendered: true, url, attempt, waitedMs: Date.now() - started };
+        }
+      } catch (_) {
+        /* mid-navigation; the deadline is the arbiter */
+      }
+
+      await sleep(Math.min(200, Math.max(1, Math.floor(attemptMs / 10))));
+    }
+
+    if (url.startsWith("moz-extension://")) {
+      // Reached the block page and never finished drawing it. That is a real
+      // defect, not a race with rule installation — retrying would only hide it.
+      return { tab, foreignContexts, redirected: true, rendered: false, url, attempt, waitedMs: Date.now() - started };
+    }
+
+    // Still on the real site. This tab is showing a third party; note it, close
+    // it, and give the event page room before asking again.
+    foreignContexts.push(tab.context);
+    await tab.close();
+    tab = null;
+    await sleep(backoffMs);
+  }
+
+  // Out of time. Re-open one tab so the caller can report what the user would
+  // actually have seen.
+  tab = await firefox.newPage();
+
+  try {
+    await tab.goto(BLOCKED_PROBE, 1000);
+    url = String(await tab.evaluate("location.href"));
+  } catch (_) {
+    /* report whatever the last attempt saw */
+  }
+
+  foreignContexts.push(tab.context);
+  return { tab, foreignContexts, redirected: false, rendered: false, url, attempt, waitedMs: Date.now() - started };
+}
+
+/**
+ * Firefox's Remote Agent occasionally never answers on a freshly spawned
+ * instance, and `session.new` then times out. That threw straight out of the
+ * audit, so `node build.js` died with a Node stack trace and no verdict —
+ * indistinguishable, to whoever ran it, from the product being broken.
+ *
+ * A transient start-up failure is retried. One that survives three attempts is
+ * reported as a failure with the real message, because "Firefox will not run
+ * here" must not quietly become a pass.
+ */
+async function launchWithRetry(extensionDir, attempts = 3) {
+  let last;
+
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      return await launchFirefox({ extensionDir });
+    } catch (error) {
+      if (error.code === "NO_BROWSER") {
+        throw error;
+      }
+
+      last = error;
+      await sleep(1000 * attempt);
+    }
+  }
+
+  throw Object.assign(new Error(`Firefox would not start after ${attempts} attempts: ${last.message}`), {
+    code: "FIREFOX_UNAVAILABLE"
+  });
+}
+
 async function firefoxAudit() {
   const reporter = new Reporter("Firefox — real browser, built package");
 
@@ -56,10 +204,15 @@ async function firefoxAudit() {
   let firefox;
 
   try {
-    firefox = await launchFirefox({ extensionDir: PACKAGE_DIR });
+    firefox = await launchWithRetry(PACKAGE_DIR);
   } catch (error) {
     if (error.code === "NO_BROWSER") {
       reporter.warn("no Firefox found — real-browser Firefox checks skipped (set FS_FIREFOX to a binary)");
+      return reporter;
+    }
+
+    if (error.code === "FIREFOX_UNAVAILABLE") {
+      reporter.fail(error.message);
       return reporter;
     }
 
@@ -88,11 +241,14 @@ async function firefoxAudit() {
     // This exercises everything at once — the event page booting, the dynamic
     // rules being installed, Firefox matching one, and the block page rendering
     // what it was handed.
-    const tab = await firefox.newPage();
+    const arrival = await reachBlockPage(firefox);
+    const tab = arrival.tab;
+
+    // Tabs that ended up on a THIRD-PARTY page rather than our block page — see
+    // the console-error filter below.
+    const foreignContexts = new Set(arrival.foreignContexts);
 
     try {
-      await tab.goto(BLOCKED_PROBE, 4000);
-
       const landed = await tab.evaluate(`(() => {
         const body = document.body;
         return JSON.stringify({
@@ -110,15 +266,28 @@ async function firefoxAudit() {
       const redirected = state.url.startsWith(`moz-extension://${firefox.uuid}/warning.html`);
 
       if (!redirected) {
+        foreignContexts.add(tab.context);
         reporter.fail(
-          `Firefox did not block ${BLOCKED_PROBE} — the tab ended at ${state.url.slice(0, 120)}. ` +
+          `Firefox did not block ${BLOCKED_PROBE} in ${arrival.attempt} attempt(s) over ` +
+            `${Math.round(arrival.waitedMs / 1000)}s — the tab ended at ${state.url.slice(0, 120)}. ` +
             "Blocking is the product; if this is wrong nothing else matters."
         );
+      } else if (!arrival.rendered) {
+        // Redirected but never finished drawing. Separated from "did not block"
+        // on purpose: they are different defects, and reporting the second as
+        // the first sends the next person to the rule engine for a UI problem.
+        reporter.fail(
+          `the block page was reached but never finished rendering within ${Math.round(arrival.waitedMs / 1000)}s ` +
+            `(${state.html} bytes of markup, brand "${state.brand.slice(0, 40)}")`
+        );
       } else {
-        reporter.note(`blocking works: ${BLOCKED_PROBE} was redirected to the block page`);
+        reporter.note(
+          `blocking works: ${BLOCKED_PROBE} was redirected to the block page and rendered ` +
+            `(attempt ${arrival.attempt}, ${arrival.waitedMs}ms after install)`
+        );
       }
 
-      if (state.html < 300) {
+      if (redirected && state.html < 300) {
         reporter.fail(`the block page rendered almost nothing in Firefox (${state.html} bytes of markup)`);
       }
 
@@ -151,9 +320,22 @@ async function firefoxAudit() {
     }
 
     // Console errors are collected for the whole session, so this catches a
-    // background page that threw on load as well as anything a page did.
+    // background page that threw on load as well as anything OUR pages did.
+    //
+    // The last clause is a correctness fix, not a relaxation. Every attempt that
+    // is NOT blocked leaves a tab showing the real doordash.com, and that page's
+    // own errors were reported as FitShield defects: an aborted load logs a bare
+    // "0", a completed one logs a Cloudflare Turnstile failure and two rejected
+    // web fonts. That is what made this gate red once in three — an audit
+    // failing the product for a third party's console output.
+    //
+    // Errors are dropped only for a tab that provably ended on a third-party
+    // site, identified by browsing context. Anything from the tab that reached
+    // our block page, from the event page, or from anywhere else still fails —
+    // and a probe that never got blocked has already failed above, so no
+    // FitShield defect can hide behind this.
     const errors = firefox.consoleErrors.filter(
-      (entry) => !/favicon|net::ERR_FILE_NOT_FOUND/i.test(entry.text)
+      (entry) => !/favicon|net::ERR_FILE_NOT_FOUND/i.test(entry.text) && !foreignContexts.has(entry.context)
     );
 
     errors.slice(0, 8).forEach((entry) => {
@@ -164,7 +346,11 @@ async function firefoxAudit() {
       reporter.fail(`… and ${errors.length - 8} further console error(s)`);
     }
 
-    reporter.note(`${firefox.consoleErrors.length} console error(s) observed across the session`);
+    const thirdParty = firefox.consoleErrors.length - errors.length;
+    reporter.note(
+      `${errors.length} console error(s) from FitShield across the session` +
+        (thirdParty > 0 ? ` (${thirdParty} more came from a third-party page and are not ours)` : "")
+    );
     reporter.note("driven over WebDriver BiDi — Firefox 153 no longer answers the DevTools protocol");
   } finally {
     await firefox.close();
@@ -174,6 +360,13 @@ async function firefoxAudit() {
 }
 
 module.exports = firefoxAudit;
+// Exported for test/firefox-gate.test.js, which drives the retry, the render
+// wait and the third-party console-error attribution against stub tabs. Every
+// one of those was an intermittent build-gate failure that no test could see.
+module.exports.reachBlockPage = reachBlockPage;
+module.exports.launchWithRetry = launchWithRetry;
+module.exports.BLOCK_PAGE_RENDERED = BLOCK_PAGE_RENDERED;
+module.exports.BLOCKED_PROBE = BLOCKED_PROBE;
 
 if (require.main === module) {
   runCli(firefoxAudit);

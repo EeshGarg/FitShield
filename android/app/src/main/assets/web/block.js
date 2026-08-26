@@ -23,6 +23,16 @@
     try { return AB ? JSON.parse(AB.getInfo()) : {}; } catch (e) { return {}; }
   }
 
+  // What was blocked, in CURATED terms — the same vocabulary the extension's
+  // block page and the recipe selector speak.
+  //
+  // `meta.category` is the APP GROUPING (delivery / fast_food / restaurant /
+  // grocery / coffee / dessert / meal_kit). It decides whether to interrupt at
+  // all, and it is coarse by design: roughly two thirds of all shipped packages
+  // are `fast_food`. It is not a food category and must never be used as one — a
+  // bubble-tea shop, a pizza chain and a burger chain are all `fast_food`.
+  const foodCategory = (meta) => meta.foodCategory || meta.category || "";
+
   // Same namer the extension's block page and Settings use, from the i18n.js
   // this page loads above. The COPY table below is TONE — a title and a nudge
   // for eight categories — and it was doing double duty as the category NAME,
@@ -42,6 +52,10 @@
   }
 
   // ---- category-aware messaging --------------------------------------------
+  // One entry per APP GROUPING (= one per Settings pill). Kept exactly in step
+  // with tools/generate-android-packages.js APP_CATEGORIES by
+  // test/android-controls.test.js — a missing entry silently borrows fast_food's
+  // tone, and a surplus entry is copy no blocked app can ever reach.
   const COPY = {
     delivery: {
       label: "Food delivery",
@@ -77,11 +91,6 @@
       label: "Meal kit",
       title: (n) => `Opening ${n}?`,
       message: "You likely have what you need already. Something simple from your own kitchen wins — your stats prove it."
-    },
-    convenience: {
-      label: "Convenience",
-      title: (n) => `Quick stop at ${n}?`,
-      message: "A quick pause. Small impulse buys add up fast — stick to your plan."
     }
   };
   const copyFor = (cat) => COPY[cat] || COPY.fast_food;
@@ -128,9 +137,13 @@
   function recipeCard(r) {
     const card = el("div", "recipe");
     card.appendChild(el("h4", null, r.title));
-    const meta = [t("recipeTimeLabel", [String(r.timeMinutes)])];
-    if (Number.isFinite(Number(r.calories))) meta.push(t("recipeCaloriesLabel", [String(r.calories)]));
-    card.appendChild(el("div", "m", meta.join(" · ")));
+    // Named `metaLine`, not `meta`: `meta` is the bridge payload everywhere else
+    // in this file, and a second thing wearing that name here is how a reader —
+    // and the guard in test/android-block.test.js that checks every `meta.*`
+    // block.js reads against the keys getInfo() sends — loses the thread.
+    const metaLine = [t("recipeTimeLabel", [String(r.timeMinutes)])];
+    if (Number.isFinite(Number(r.calories))) metaLine.push(t("recipeCaloriesLabel", [String(r.calories)]));
+    card.appendChild(el("div", "m", metaLine.join(" · ")));
     if (r.description) card.appendChild(el("div", "note", r.description));
     return card;
   }
@@ -154,6 +167,16 @@
     // McDonald's and Starbucks were answered with the same dish, and Domino's
     // with a chicken sandwich, under a comment claiming this was category-aware.
     //
+    // Restoring the call was necessary and not sufficient. It was fed
+    // `meta.category` — the app GROUPING — plus `meta.type` and
+    // `meta.specialties`, neither of which getInfo() returned, so on a real
+    // device the selector was asked `fast_food, undefined, undefined` for most of
+    // the catalog. Measured at the time: 963 of 1,511 packages received the
+    // identical two answers — a bubble-tea shop, a sandwich chain and a burger chain were all
+    // answered with microwave nachos and a microwave mug pizza. The only reason
+    // that survived review is that the test drove the selector with blocklist
+    // entries — a shape the bridge has never produced.
+    //
     // The catalog is primed rather than loaded, because the module's own loader
     // needs chrome.runtime or Node's fs and a WebView has neither.
     R.primeCatalog(doc);
@@ -166,7 +189,12 @@
     // uses rather than pulled from two hardcoded diet buckets.
     for (let rotation = 0; rotation < 6 && picks.length < 2; rotation++) {
       const selection = R.selectAlternative(
-        { key: meta.brandId, category: meta.category, type: meta.type, specialties: meta.specialties },
+        {
+          key: meta.brandId,
+          category: foodCategory(meta),
+          type: meta.foodType,
+          specialties: meta.specialties
+        },
         {},
         { rotation, seed: meta.brandId }
       );
@@ -210,10 +238,20 @@
   function start() {
     const meta = info();
     const name = meta.displayName || "this app";
+    // TONE is keyed on the app grouping — COPY has one entry per Settings pill,
+    // and the grouping is the thing that always resolves to one of them.
     const copy = copyFor(meta.category);
-    $("catLabel").textContent = categoryName(meta.category) || copy.label;
+    // The BADGE names what the place is, so it takes the curated category: a
+    // bubble-tea shop reads "Tea", not "Fast food". Swapping the COPY table for
+    // FitShieldI18n.categoryName fixed the mechanism but kept feeding it the
+    // grouping, so on a device that tea shop was still labelled "Fast food".
+    $("catLabel").textContent = categoryName(foodCategory(meta)) || copy.label;
     $("title").textContent = copy.title(name);
     $("message").textContent = copy.message;
+    // The REASON names the switch that caused the interruption, so it stays on
+    // the grouping — AppBlockPolicy.categoryEnabled switches on exactly that, and
+    // "Tea apps are blocked" would send the user hunting for a Tea pill that
+    // Settings does not offer.
     renderReason(meta.category);
     document.documentElement.classList.add("on"); // warm accent bloom
 

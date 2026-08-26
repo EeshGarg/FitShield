@@ -31,7 +31,7 @@
 const fs = require("fs");
 const path = require("path");
 const { Reporter, runCli } = require("./lib/report.js");
-const { launch } = require("./lib/cdp.js");
+const { launch, sleep } = require("./lib/cdp.js");
 
 const ROOT = path.join(__dirname, "..");
 const PACKAGE_DIR = path.join(ROOT, "dist", "chrome");
@@ -178,25 +178,40 @@ async function browserA11yAudit() {
   }
 
   let browser;
+  let extensionId = null;
 
-  try {
-    browser = await launch({ extensionDir: PACKAGE_DIR });
-  } catch (error) {
-    if (error.code === "NO_BROWSER") {
-      // Not a failure: a checkout without Chromium still validates everything
-      // else. Saying so plainly beats a green tick that hides a skipped audit.
-      reporter.warn("no Chromium found — computed-tree audit skipped (set FS_CHROME to a browser binary)");
-      return reporter;
+  // Same two-attempt launch as tools/announcement-audit.js, for the same reason:
+  // Chromium sometimes comes up without loading a package directory that was
+  // written moments earlier, and this audit now reads a freshly staged
+  // dist/chrome. Waiting longer never helps — a browser that did not load the
+  // extension at start-up never will — so the second attempt is a new browser.
+  // Two failures in a row is still a hard failure.
+  for (let attempt = 1; attempt <= 2 && !extensionId; attempt++) {
+    if (browser) {
+      await browser.close();
+      browser = null;
+      await sleep(1000);
     }
 
-    throw error;
+    try {
+      browser = await launch({ extensionDir: PACKAGE_DIR });
+    } catch (error) {
+      if (error.code === "NO_BROWSER") {
+        // Not a failure: a checkout without Chromium still validates everything
+        // else. Saying so plainly beats a green tick that hides a skipped audit.
+        reporter.warn("no Chromium found — computed-tree audit skipped (set FS_CHROME to a browser binary)");
+        return reporter;
+      }
+
+      throw error;
+    }
+
+    extensionId = await browser.resolveExtensionId(PACKAGE_DIR);
   }
 
   try {
-    const extensionId = await browser.resolveExtensionId(PACKAGE_DIR);
-
     if (!extensionId) {
-      reporter.fail("the extension did not load in Chromium — no page answered on any derived id");
+      reporter.fail("the extension did not load in Chromium in two attempts — no page answered on any derived id");
       return reporter;
     }
 

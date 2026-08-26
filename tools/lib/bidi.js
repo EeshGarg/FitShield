@@ -140,7 +140,11 @@ async function launchFirefox({ extensionDir, headless = true, binary = findFiref
     if (message.method === "log.entryAdded" && message.params && message.params.level === "error") {
       consoleErrors.push({
         text: message.params.text || "",
-        source: (message.params.source && message.params.source.realm) || ""
+        source: (message.params.source && message.params.source.realm) || "",
+        // Which browsing context produced it. Without this a caller cannot tell
+        // an error thrown by one of OUR pages from one thrown by a third-party
+        // website it happened to open in a tab.
+        context: (message.params.source && message.params.source.context) || ""
       });
     }
   });

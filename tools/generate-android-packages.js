@@ -33,7 +33,21 @@ const APP_FILES = ["delivery-apps.json", "fast-food-apps.json"];
 // App-grouping categories (drive the Settings toggles). Distinct from the
 // brand's source `type`/`category`; a delivery marketplace app can wrap a brand
 // the blocklist types as `fast_food`.
-const APP_CATEGORIES = ["delivery", "fast_food", "restaurant", "grocery", "convenience", "coffee", "dessert", "meal_kit"];
+//
+// This list is an EXACT contract with three other places — the pills in
+// android/.../web/index.html, the `CATS` map in web/app.js, and
+// AppBlockPolicy.categoryEnabled. test/android-controls.test.js asserts all four
+// agree in BOTH directions, because either mismatch is a defect:
+//   a category offered that no package can carry  = a dead control (CLAUDE.md §5)
+//   a category carried that no pill offers        = an app nobody can stop blocking
+// `convenience` was here and was the first kind: no blocklist row is convenience,
+// so the pill could never match anything. Removing the mapping as well as the pill
+// is deliberate — leaving the mapping behind would turn a future convenience brand
+// into the SECOND kind, blocked unconditionally by `categoryEnabled`'s else branch
+// with no switch to reach it. Without the mapping such a brand keeps its file
+// default (delivery / fast_food) and stays controllable until the pill, the map,
+// the policy and the data are landed together.
+const APP_CATEGORIES = ["delivery", "fast_food", "restaurant", "grocery", "coffee", "dessert", "meal_kit"];
 
 // Map a brand's source `category` (from the blocklists) to a finer app-grouping
 // category, so the Settings toggles can target coffee / dessert / grocery / etc.
@@ -44,7 +58,7 @@ const SRC_CATEGORY_TO_APP = {
   bakery: "dessert", dessert: "dessert", ice_cream: "dessert", donut: "dessert",
   frozen_yogurt: "dessert", frozen_dessert: "dessert", bubble_tea: "dessert", boba: "dessert",
   grocery: "grocery", supermarket: "grocery",
-  convenience: "convenience",
+  restaurant: "restaurant",
   meal_kit: "meal_kit", mealkit: "meal_kit"
 };
 
@@ -100,6 +114,32 @@ function domainsFor(entry) {
   return [...new Set([entry.domain, ...(entry.aliases || [])])].filter(Boolean).sort();
 }
 
+// The CURATED food metadata, carried through to the phone verbatim.
+//
+// The app-grouping `category` above is deliberately coarse — a handful of values,
+// with roughly two thirds of all shipped packages landing on `fast_food` —
+// because its job is to drive the Settings pills. It is NOT a food category, and for a
+// while it was the only thing the block screen received: BlockActivity.getInfo()
+// returned it as `category` and returned no `type` and no `specialties` at all,
+// so block.js drove the shared recipe selector with `fast_food, undefined,
+// undefined`. Every burger, pizza, chicken, sandwich, mexican and bubble-tea
+// brand in that bucket collapsed onto the same two answers — a tea shop was
+// answered with microwave nachos — while test/android-block.test.js fed the
+// selector the blocklist entry directly and certified a shape the device never
+// produced.
+//
+// Shipping these three fields per package is what makes the phone able to ask
+// the selector the same question the extension asks.
+function curatedOf(entry) {
+  return {
+    foodCategory: String((entry && entry.category) || "").trim().toLowerCase() || null,
+    foodType: String((entry && entry.type) || "").trim().toLowerCase() || null,
+    specialties: [...((entry && entry.specialties) || [])]
+      .map((s) => String(s || "").trim())
+      .filter(Boolean)
+  };
+}
+
 // Resolve every app entry against the brand index. Returns enriched brand
 // records (with internal `_source`/`_sourceFile` for the validator) — used by
 // both the generator and the validator so they never diverge.
@@ -111,11 +151,15 @@ function resolve() {
     for (const app of (data && Array.isArray(data.apps) ? data.apps : [])) {
       const source = index.get(app.brandId) || null;
       const category = deriveCategory(source, defaultCategory, app.category);
+      const curated = curatedOf(source);
       brands.push({
         brandId: app.brandId,
         packageIds: [...(app.packageIds || [])].sort(),
         packageStatus: app.packageStatus || "active",
         category,
+        foodCategory: source ? curated.foodCategory : null,
+        foodType: source ? curated.foodType : null,
+        specialties: source ? curated.specialties : [],
         _sourceFile: file,
         _source: source,
         displayName: source ? source.name : null,
@@ -136,6 +180,9 @@ function derive() {
     brandId: b.brandId,
     displayName: b.displayName,
     category: b.category,
+    foodCategory: b.foodCategory,
+    foodType: b.foodType,
+    specialties: b.specialties,
     packageStatus: b.packageStatus,
     packageIds: b.packageIds,
     domains: b.domains,
@@ -144,10 +191,22 @@ function derive() {
   }));
 
   // packageId -> brand meta, for O(1) lookup in the AccessibilityService.
+  //
+  // `category` is the app grouping (the Settings pill / AppBlockPolicy).
+  // `foodCategory` / `foodType` / `specialties` are the curated food metadata the
+  // block screen hands to the shared recipe selector. Both travel: the grouping
+  // decides WHETHER to interrupt, the curated fields decide WHAT to suggest.
   const packages = {};
   for (const b of brandList) {
     for (const pkg of b.packageIds) {
-      packages[pkg] = { brandId: b.brandId, displayName: b.displayName, category: b.category };
+      packages[pkg] = {
+        brandId: b.brandId,
+        displayName: b.displayName,
+        category: b.category,
+        foodCategory: b.foodCategory,
+        foodType: b.foodType,
+        specialties: b.specialties
+      };
     }
   }
   const orderedPackages = {};

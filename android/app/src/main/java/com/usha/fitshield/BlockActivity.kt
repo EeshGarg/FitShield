@@ -31,6 +31,11 @@ class BlockActivity : AppCompatActivity() {
     @Volatile private var displayName: String = ""
     @Volatile private var category: String = ""
     @Volatile private var packageId: String = ""
+    // Curated food metadata (see PackageBlocklist.Brand). Distinct from `category`,
+    // which is the coarse app grouping the Settings pills switch on.
+    @Volatile private var foodCategory: String = ""
+    @Volatile private var foodType: String = ""
+    @Volatile private var specialties: List<String> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +83,9 @@ class BlockActivity : AppCompatActivity() {
         displayName = intent?.getStringExtra(EXTRA_DISPLAY_NAME) ?: ""
         category = intent?.getStringExtra(EXTRA_CATEGORY) ?: ""
         packageId = intent?.getStringExtra(EXTRA_PACKAGE_ID) ?: ""
+        foodCategory = intent?.getStringExtra(EXTRA_FOOD_CATEGORY) ?: ""
+        foodType = intent?.getStringExtra(EXTRA_FOOD_TYPE) ?: ""
+        specialties = intent?.getStringArrayListExtra(EXTRA_SPECIALTIES)?.toList() ?: emptyList()
     }
 
     /** Back button = "Not now": leave to the launcher, never back into the app. */
@@ -123,11 +131,25 @@ class BlockActivity : AppCompatActivity() {
     // ---- bridge exposed to block.js as `AndroidBlock` -----------------------
 
     inner class BlockBridge {
+        /**
+         * Everything block.js reads off `meta`. Every key here is consumed by
+         * android/app/src/main/assets/web/block.js, and every `meta.*` block.js
+         * reads is a key here — test/android-block.test.js asserts that contract
+         * in both directions, because the two halves are in different languages
+         * and nothing else can see across the bridge.
+         *
+         * It used to stop at `category` (the app grouping), so `meta.type` and
+         * `meta.specialties` were `undefined` on every real device while the test
+         * suite fed the selector blocklist entries and reported the fix working.
+         */
         @JavascriptInterface
         fun getInfo(): String = JSONObject()
             .put("brandId", brandId)
             .put("displayName", displayName)
             .put("category", category)
+            .put("foodCategory", foodCategory)
+            .put("foodType", foodType)
+            .put("specialties", org.json.JSONArray(specialties))
             .put("packageId", packageId)
             .put("unlockMinutes", AppBlockPolicy.unlockMinutes(this@BlockActivity))
             .put("timerSeconds", timerSeconds())
@@ -183,5 +205,8 @@ class BlockActivity : AppCompatActivity() {
         const val EXTRA_DISPLAY_NAME = "displayName"
         const val EXTRA_CATEGORY = "category"
         const val EXTRA_PACKAGE_ID = "packageId"
+        const val EXTRA_FOOD_CATEGORY = "foodCategory"
+        const val EXTRA_FOOD_TYPE = "foodType"
+        const val EXTRA_SPECIALTIES = "specialties"
     }
 }

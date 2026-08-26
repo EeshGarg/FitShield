@@ -77,6 +77,12 @@ class FitShieldAccessibilityService : AccessibilityService() {
             .putExtra(BlockActivity.EXTRA_DISPLAY_NAME, brand.displayName)
             .putExtra(BlockActivity.EXTRA_CATEGORY, brand.category)
             .putExtra(BlockActivity.EXTRA_PACKAGE_ID, brand.packageId)
+            // The curated food metadata rides along with the app grouping. Without
+            // it the block screen can only tell the recipe selector "fast_food",
+            // which is what roughly two thirds of all packages share.
+            .putExtra(BlockActivity.EXTRA_FOOD_CATEGORY, brand.foodCategory)
+            .putExtra(BlockActivity.EXTRA_FOOD_TYPE, brand.foodType)
+            .putExtra(BlockActivity.EXTRA_SPECIALTIES, ArrayList(brand.specialties))
         // Let the home transition settle first, otherwise the block screen can
         // land beneath the launcher mid-transition.
         handler.postDelayed({

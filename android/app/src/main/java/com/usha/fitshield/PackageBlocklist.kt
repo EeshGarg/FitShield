@@ -16,8 +16,30 @@ import org.json.JSONObject
 class PackageBlocklist private constructor(
     private val packages: Map<String, Brand>
 ) {
-    /** Curated brand a package belongs to. */
-    data class Brand(val packageId: String, val brandId: String, val displayName: String, val category: String)
+    /**
+     * Curated brand a package belongs to.
+     *
+     * [category] is the APP GROUPING — the value the Settings pills and
+     * [AppBlockPolicy.shouldBlock] switch on. It is coarse on purpose: a handful
+     * of values, with roughly two thirds of all packages sharing `fast_food`.
+     *
+     * [foodCategory], [foodType] and [specialties] are the CURATED food metadata
+     * straight from the blocklists, and they exist because the grouping is not a
+     * food category. The block screen used to receive only the grouping, so the
+     * shared recipe selector was asked "what answers fast_food?" for a burger
+     * chain, a pizza chain, a sandwich chain and a bubble-tea shop alike and gave
+     * all of them the same two answers. These three fields are what let the phone
+     * ask the same question the browser extension asks.
+     */
+    data class Brand(
+        val packageId: String,
+        val brandId: String,
+        val displayName: String,
+        val category: String,
+        val foodCategory: String,
+        val foodType: String,
+        val specialties: List<String>
+    )
 
     val size: Int get() = packages.size
 
@@ -40,11 +62,18 @@ class PackageBlocklist private constructor(
                     while (keys.hasNext()) {
                         val pkg = keys.next()
                         val meta = pkgObj.optJSONObject(pkg) ?: continue
+                        val spec = meta.optJSONArray("specialties")
                         map[pkg] = Brand(
                             packageId = pkg,
                             brandId = meta.optString("brandId", ""),
                             displayName = meta.optString("displayName", pkg),
-                            category = meta.optString("category", "")
+                            category = meta.optString("category", ""),
+                            foodCategory = meta.optString("foodCategory", ""),
+                            foodType = meta.optString("foodType", ""),
+                            specialties = if (spec == null) emptyList() else
+                                (0 until spec.length()).mapNotNull { i ->
+                                    spec.optString(i, "").takeIf { it.isNotEmpty() }
+                                }
                         )
                     }
                     PackageBlocklist(map)

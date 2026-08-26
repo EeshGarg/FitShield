@@ -494,27 +494,21 @@ function removeStaleBrowserZips(version) {
     });
 }
 
-async function main() {
-  // Gate the build on the validators: never package broken datasets, locales,
-  // documentation, missing assets, or an Android ruleset that has drifted from
-  // the canonical engine. Warnings are allowed; errors abort.
-  const { validateAll } = require("./tools/validate-all");
-  console.log("Validating before packaging…");
-  const validation = await validateAll();
-  if (!validation.ok) {
-    console.error(`\nBuild aborted: ${validation.errors} validation error(s). Fix them and re-run.`);
-    process.exit(1);
-  }
-
-  const base = JSON.parse(fs.readFileSync(path.join(EXTENSION_DIR, "manifest.json"), "utf8"));
-  const version = base.version;
-
+/**
+ * Stage both browser payloads from the CURRENT working tree.
+ *
+ * No archive is written here. Staging and publishing are separate steps on
+ * purpose, because the validation gate runs between them.
+ */
+function stageEngines(version) {
   // Clean only the browser stages/zips — leave any dist/android (built by the
   // separate Android step) untouched.
   fs.mkdirSync(DIST, { recursive: true });
   rmrf(path.join(DIST, "chrome"));
   rmrf(path.join(DIST, "firefox"));
   removeStaleBrowserZips(version);
+
+  const base = JSON.parse(fs.readFileSync(path.join(EXTENSION_DIR, "manifest.json"), "utf8"));
 
   // --- Chrome / Chromium: same files, Firefox-only manifest keys removed. -----
   const chromeStage = path.join(DIST, "chrome");
@@ -523,8 +517,6 @@ async function main() {
     path.join(chromeStage, "manifest.json"),
     JSON.stringify(chromeManifest(base), null, 2) + "\n"
   );
-  const chromeZip = path.join(DIST, `FitShield-${version}-chrome.zip`);
-  zipDir(chromeStage, chromeZip);
 
   // --- Firefox / AMO: same files, manifest gains background.scripts. ----------
   const firefoxStage = path.join(DIST, "firefox");
@@ -533,6 +525,56 @@ async function main() {
     path.join(firefoxStage, "manifest.json"),
     JSON.stringify(firefoxManifest(base), null, 2) + "\n"
   );
+
+  return { chromeStage, firefoxStage };
+}
+
+async function main() {
+  const base = JSON.parse(fs.readFileSync(path.join(EXTENSION_DIR, "manifest.json"), "utf8"));
+  const version = base.version;
+
+  // STAGE, then VALIDATE, then PUBLISH — in that order, and the order is the
+  // whole point.
+  //
+  // This used to validate and then package. Three of the nineteen audits —
+  // browser-a11y, announcement and firefox — load the BUILT PACKAGE out of
+  // dist/, so validating first meant those three graded the previous build. A
+  // tree could be packaged and reported PASS while the audits had never seen a
+  // byte of it, and the regression would surface on the NEXT build, reading the
+  // artifact this one wrote. From the outside that is indistinguishable from an
+  // intermittent gate, and it is how one was diagnosed here: a build validated a
+  // good dist, packaged an extension whose background page installed no blocking
+  // rules at all, and printed a clean summary.
+  //
+  // Worse on a clean checkout. With no dist/ at all those three audits report
+  // "not built — run node build.js first" as a WARNING, and warnings do not
+  // abort — so the first build of any tree skipped all three browser gates.
+  //
+  // Staging first costs one file copy and makes the gate mean what it says: the
+  // audits read the bytes that are about to be zipped.
+  console.log("Staging dist/chrome and dist/firefox from the working tree…");
+  const { chromeStage, firefoxStage } = stageEngines(version);
+
+  // Gate the build on the validators: never package broken datasets, locales,
+  // documentation, missing assets, or an Android ruleset that has drifted from
+  // the canonical engine. Warnings are allowed; errors abort.
+  const { validateAll } = require("./tools/validate-all");
+  console.log("Validating the staged package…");
+  const validation = await validateAll();
+  if (!validation.ok) {
+    // The stage stays — so the next run's audits still read this tree — but no
+    // archive is written, and removeStaleBrowserZips already deleted any older
+    // one. A failed build leaves nothing anyone could ship by mistake.
+    throw Object.assign(
+      new Error(`Build aborted: ${validation.errors} validation error(s). Fix them and re-run.`),
+      { code: "VALIDATION_FAILED", errors: validation.errors }
+    );
+  }
+
+  // --- Publish: archives are written only once the gate has passed. -----------
+  const chromeZip = path.join(DIST, `FitShield-${version}-chrome.zip`);
+  zipDir(chromeStage, chromeZip);
+
   const firefoxZip = path.join(DIST, `FitShield-${version}-firefox.zip`);
   zipDir(firefoxStage, firefoxZip);
 
@@ -562,12 +604,15 @@ async function main() {
 // per-browser forms stay a checked contract. Assigned BEFORE main() may run —
 // the audit is reached from main() via validate-all, and a later assignment
 // would hand that circular require an empty exports object.
-module.exports = { bundleEngine, ENGINE_MODULES, FILES, DIRS, BACKGROUND_SCRIPTS, ANDROID_ONLY_PREFIXES, copyInto, verifyStage, assertNoAndroidPayload, zipDir, chromeManifest, firefoxManifest, safariManifest,
+module.exports = { main, stageEngines, bundleEngine, ENGINE_MODULES, FILES, DIRS, BACKGROUND_SCRIPTS, ANDROID_ONLY_PREFIXES, copyInto, verifyStage, assertNoAndroidPayload, zipDir, chromeManifest, firefoxManifest, safariManifest,
   SAFARI_MIN_VERSION, SAFARI_NIGHTLY_NAME, archiveDate, dosDateTime, removeStaleBrowserZips, BROWSER_ZIP, DOS_EPOCH_MS };
 
 if (require.main === module) {
   main().catch((error) => {
-    console.error(error);
+    // A validation abort is a verdict, not a crash: print the sentence, not a
+    // stack trace that buries it under twenty frames of Node internals.
+    // Anything else is a genuine failure and keeps its stack.
+    console.error(error && error.code === "VALIDATION_FAILED" ? `\n${error.message}` : error);
     process.exit(1);
   });
 }
