@@ -53,13 +53,13 @@ of them.
         exempt and may publish straight to production.
         Source: [App testing requirements for new personal developer accounts](https://support.google.com/googleplay/android-developer/answer/14151465).
 
-- [ ] **Target API level.** Play requires **API 36 (Android 16) for new apps and
+- [x] **Target API level.** Play requires **API 36 (Android 16) for new apps and
       updates submitted from 31 August 2026**; API 35 is accepted only until
       then, with an extension available to 1 November 2026.
       Source: [Target API level requirements](https://support.google.com/googleplay/android-developer/answer/11926878).
-      The repository currently sets **`compileSdk 35` / `targetSdk 35`**, which
-      means a submission has to land before 31 August 2026 or the build has to
-      move to 36 first. See §1 for the exact bump.
+      The repository sets **`compileSdk 36` / `targetSdk 36`**, so the deadline is
+      met whenever the submission lands. `tools/android-audit.js` fails the build
+      below 36.
       _Evidence: `test/play-release.test.js` › "the checklist states the SDK level the build actually sets"
       and "the checklist names the target-API deadline in force" — the doc cannot
       claim one level while `android/app/build.gradle` sets another._
@@ -70,10 +70,10 @@ of them.
       August 2021". FitShield is a new app, so an APK is not an upload format it
       has.
       Source: [Download size limits](https://support.google.com/googleplay/android-developer/answer/9859152).
-      `npm run build:android` produces a **debug APK** only
-      (`dist/android/FitShield-<version>-debug.apk`) — there is no repository
-      command that produces a release bundle. §3 has the exact manual command and
-      what is missing.
+      `node tools/build-android.js --bundle --versionCode=<int>` produces the
+      signed bundle at `dist/android/FitShield-<version>-<versionCode>.aab`, and
+      fails rather than reporting success if it comes out unsigned. §3 has the
+      signing steps it still needs from you.
       _Evidence: `test/play-release.test.js` › "the checklist does not claim a release-bundle command the tooling does not have"._
 
 - [ ] **`VpnService` declaration form completed and approved.** `HUMAN — Play
@@ -100,31 +100,28 @@ of them.
       _Evidence: `test/play-release.test.js` › "the applicationId the checklist names is the one the build sets"._
 - [x] **`minSdk 26`** (Android 8.0).
       _Evidence: `test/play-release.test.js` › "the checklist states the minSdk the build sets"._
-- [x] **`compileSdk 35` / `targetSdk 35`**, and they agree with each other.
-      `tools/android-audit.js` fails the build if either drops below 35.
+- [x] **`compileSdk 36` / `targetSdk 36`**, and they agree with each other.
+      `tools/android-audit.js` fails the build if either drops below 36.
       _Evidence: `test/play-release.test.js` › "the checklist states the SDK level the build actually sets"._
-- [ ] **Bump to API 36 before submitting on or after 31 August 2026.**
-      `HUMAN — routed to the build lane; this doc lane does not own android/ or build config.`
-      The minimum viable change, with the versions checked against Google's own
-      compatibility table on 2026-08-26
-      ([About AGP](https://developer.android.com/build/releases/about-agp)):
-      | File | From | To | Why |
+- [x] **API 36 bump — done 2026-08-26.** Versions checked against Google's own
+      compatibility table ([About AGP](https://developer.android.com/build/releases/about-agp)):
+      | File | Now holds | Was | Why |
       | --- | --- | --- | --- |
-      | `android/app/build.gradle` | `compileSdk 35`, `targetSdk 35` | `36`, `36` | the Play gate |
-      | `android/build.gradle` | AGP `8.6.0` | `8.9.1` or newer | **AGP 8.9.1 is the minimum that supports `compileSdk 36`** |
-      | `android/gradle/wrapper/gradle-wrapper.properties` | Gradle `8.7` | `8.11.1` or newer | AGP 8.9 requires it |
-      | `tools/android-audit.js` | `< 35` fails | `< 36` fails | so the gate keeps meaning something |
+      | `android/app/build.gradle` | `compileSdk 36`, `targetSdk 36` | `35`, `35` | the Play gate |
+      | `android/build.gradle` | AGP `8.9.1` | `8.6.0` | **AGP 8.9.1 is the minimum that supports `compileSdk 36`** |
+      | `android/gradle/wrapper/gradle-wrapper.properties` | Gradle `8.11.1` | `8.7` | AGP 8.9 requires it |
+      | `tools/android-audit.js` | `< 36` fails | `< 35` fails | so the gate keeps meaning something |
       Android 16's headline behaviour change for a target-36 app is that
       **edge-to-edge can no longer be opted out of**. FitShield already runs
-      edge-to-edge deliberately — `WindowCompat.setDecorFitsSystemWindows(window, false)`
-      in `MainActivity` and `BlockActivity`, `viewport-fit=cover` in both WebView
-      pages, and `env(safe-area-inset-*)` padding in `fitshield.css` — so this
-      change costs nothing here. Verify on-device anyway.
+      edge-to-edge deliberately, so this cost nothing. `window.statusBarColor` /
+      `navigationBarColor` are no-ops from API 35+; the app sets them transparent,
+      which is what the system now does anyway.
+      _Evidence: `test/android-release-hardening.test.js` › "the audit accepts this build's API level and would reject a lower one"._
 - [x] **`minifyEnabled false`** — deliberate. FitShield ships readable, auditable
       code and R8 is not a Play requirement. State this in the reviewer notes so
       it does not read as an oversight.
       _Evidence: `test/play-release.test.js` › "release hygiene: no debug artefacts, minification stated honestly"._
-- [x] **AGP 8.6.0 / Gradle 8.7 / Kotlin 1.9.24 / JDK 17** — the versions the
+- [x] **AGP 8.9.1 / Gradle 8.11.1 / Kotlin 1.9.24 / JDK 17** — the versions the
       repository actually pins.
       _Evidence: `test/play-release.test.js` › "the checklist states the toolchain versions the repository pins"._
 - [x] **16 KB memory page sizes.** Required for updates from **1 February 2027**
@@ -204,27 +201,23 @@ build is left **unsigned** — a deliberate safe default, not a failure.
       Your keystore then becomes the *upload* key and Google holds the app
       signing key, which is the only configuration where losing your key is
       recoverable.
-- [ ] **Build the release bundle.** `HUMAN — no repository command does this.`
-      `npm run build:android` regenerates the rules, re-bundles the shared web
-      assets, runs the Android audit and builds a **debug APK**. There is no
-      `bundleRelease` path in `tools/build-android.js`, so the release bundle is
-      produced by hand:
+- [ ] **Build the release bundle.** `HUMAN — supply the key; the command is in the repository.`
       ```bash
-      npm run build:android        # regenerate + validate first; ignore the debug APK it makes
-      cd android
-      ./gradlew :app:bundleRelease \
-        -PfitshieldVersionName=0.55 \
-        -PfitshieldVersionCode=<strictly-increasing-int>
-      # -> app/build/outputs/bundle/release/app-release.aab
+      node tools/build-android.js --bundle --versionCode=<strictly-increasing-int>
+      # -> dist/android/FitShield-<version>-<versionCode>.aab
       ```
-      **What is missing is the key, and only the key.** `npm run toolchain:android`
-      installs everything else this needs — JDK 17 and the Android SDK (API 35
-      platform + build-tools 35) into `~/.fitshield-toolchain` — the Gradle
-      wrapper is committed (`android/gradlew`), and `android/local.properties`
-      points Gradle at the SDK. So `:app:bundleRelease` is runnable the moment the
-      keystore steps above are done. The whole gap between this repository and a
-      Play-ready artefact is one signing key that only you can hold.
-      _Evidence: `test/play-release.test.js` › "the checklist does not claim a release-bundle command the tooling does not have" — if a bundle task is ever added to the tooling, this line has to change._
+      It regenerates the rules, re-bundles the shared web assets, runs the
+      Android audit, then runs `:app:bundleRelease` with the canonical
+      `versionName` and the `versionCode` you gave it. `--versionCode` is
+      required and never defaulted: Play rejects a re-used one and there is no
+      way to reclaim it. **An unsigned bundle fails the command** — it reads the
+      JAR signature block out of the `.aab` it just produced and exits 1 when it
+      is absent, rather than reporting success over a file Play will refuse.
+      `npm run toolchain:android` installs the JDK and the Android SDK (API 36
+      platform + build-tools 36) into `~/.fitshield-toolchain`, so the whole gap
+      between this repository and a Play-ready artefact is one signing key that
+      only you can hold.
+      _Evidence: `test/android-release-hardening.test.js` › "an unsigned bundle fails the build instead of reporting success" and "the bundle command refuses to guess a versionCode"._
 - [ ] **Verify the bundle is signed** before uploading. `HUMAN — run it against
       your own output.`
       ```
@@ -280,29 +273,27 @@ notification instead of starting anything. `BOOT_COMPLETED` and
 Android's exemption list for starting a foreground service from the background,
 so the restore is legal rather than a loophole.
 
-**`POST_NOTIFICATIONS` is declared and never requested, and on Android 13+ that
-means it is denied.** Nothing in the app calls `requestPermissions`,
-`registerForActivityResult(RequestPermission())` or any equivalent — the string
-appears exactly once in the whole source tree, in a comment in `RestoreNotice`
-acknowledging that `notify()` will be a no-op. The consequences, in increasing
-order of seriousness:
+**`POST_NOTIFICATIONS` is requested at runtime, at the moment it can be
+justified.** `MainActivity.requestVpnEnable()` asks for it immediately before
+the VPN consent dialog — the first time the user turns filtering on — and
+continues into the consent flow whether the answer is yes or no, so a decline
+never blocks protection. Android shows that dialog once; FitShield never asks
+again.
 
-- the foreground-service notification does not appear in the drawer (the service
-  still runs, and the OS still shows the VPN key and a Task Manager entry, so the
-  user is not misled about whether filtering is on);
-- the opt-in keep-alive's quiet notice does not appear either, which is harmless;
-- **the boot-restore notice is invisible.** That notification is the entire
-  fallback for the case where a restart happens but VPN consent has lapsed — the
-  app deliberately posts one tap-to-fix notice rather than starting anything. On
-  a device that never granted notification permission, it posts into the void,
-  and the user is back to silently unprotected: exactly the failure the boot
-  receiver was added to end.
+If the user declines, or turns notifications off later, the dashboard says what
+stops working rather than leaving it to be discovered:
+`WebAppBridge.notificationsEnabled()` reports the state and the app-blocking
+panel explains that the boot-restore notice cannot appear, with a button to the
+system setting. The order of seriousness is worth keeping in the reviewer notes:
 
-The fix is one runtime request at the point the user first turns filtering on,
-which is also the only moment it can be justified to them. **Routed to the
-Android lane**; until it lands, do not describe a notification prompt anywhere,
-and do not rely on the boot-restore notice being seen.
+- the foreground-service notification not appearing is cosmetic — the service
+  still runs, and the OS still shows the VPN key and a Task Manager entry;
+- the opt-in keep-alive's quiet notice not appearing is harmless;
+- **the boot-restore notice not appearing is not.** It is the entire fallback
+  for a restart where VPN consent has lapsed, so a device that refused
+  notification permission must be told the fallback is unavailable.
 
+_Evidence: `test/play-release.test.js` › "the docs say whether the app can actually post a notification"; `test/android-release-hardening.test.js` › "POST_NOTIFICATIONS is requested at runtime, not merely declared"._
 **`SYSTEM_ALERT_WINDOW` never actually draws an overlay, and saying so is worth
 more than justifying one.** The app holds the permission only for the
 side effect that holding it grants: on Android 10+ an app with "display over
@@ -539,19 +530,16 @@ and [Foreground service requirements](https://support.google.com/googleplay/andr
       shot list is in the draft.
 - [ ] **Feature graphic, 1024×500.** `HUMAN — design.`
 - [ ] **App icon, 512×512, for the store listing.** `HUMAN — design.`
-- [ ] **The app has no launcher icon, and needs one before it ships.**
-      `HUMAN — design, then routed to the Android lane.` `AndroidManifest.xml`
-      declares no `android:icon` or `android:roundIcon`, and `res/` contains no
-      `mipmap-*` resources at all — only `values/` and `xml/`. Android therefore
-      falls back to its **default grey placeholder** on the home screen, in the
-      app drawer, in the share sheet and in Settings. The 512×512 you upload to
-      Play is the *store listing* icon and does not change any of that.
-      What is needed: an adaptive icon (`res/mipmap-anydpi-v26/ic_launcher.xml`
-      with foreground and background drawables, plus PNG fallbacks for
-      `mipmap-mdpi` through `mipmap-xxxhdpi`), and `android:icon="@mipmap/ic_launcher"`
-      `android:roundIcon="@mipmap/ic_launcher_round"` on `<application>`. Reuse
-      the extension's `icon-128.png` lineage so the two platforms match.
-      _Evidence: `test/play-release.test.js` › "the app ships a launcher icon, or the checklist says it does not"._
+- [x] **The app ships its own launcher icon.** An adaptive icon
+      (`res/mipmap-anydpi-v26/ic_launcher.xml` + `ic_launcher_round.xml`) over a
+      white background, with the FitShield "F" as a vector foreground and a
+      `<monochrome>` layer for Android 13+ themed icons, plus `android:icon` /
+      `android:roundIcon` on `<application>`. The green is sampled from
+      `extension/icons/icon-128.png`, so the two platforms wear the same mark.
+      `minSdk 26` makes the `-v26` bucket reachable on every supported device,
+      so no PNG density fallbacks are needed. The 512×512 store-listing icon
+      above is separate and still `HUMAN — design.`
+      _Evidence: `test/android-release-hardening.test.js` › "the app ships its own launcher icon, not Android's placeholder" and "the launcher icon is the mark the browser build already uses"._
 - [x] **No prohibited claims anywhere in the listing** — no medical,
       addiction-treatment or guaranteed-weight-loss language, and no claim of a
       prevented order, avoided calories or money saved, because the app cannot
@@ -656,7 +644,8 @@ Condensed from the `HUMAN` lines above, in the order they block each other.
    this step is done — it is gitignored, so nobody but you can tell, and nothing
    here has opened it.
 3. **Decide the target API level**, which is really deciding the submission date:
-   submit before 31 August 2026 at API 35, or take the API 36 bump in §1 first.
+   the build targets API 36, so the 31 August 2026 deadline is met whenever the
+   submission lands.
 4. **Build and sign the AAB by hand** with the §3 command, and verify it with
    `jarsigner -verify`.
 5. **Complete four declarations**: `VpnService`, `AccessibilityService` (with a

@@ -224,8 +224,13 @@ test("every test the checklist cites as evidence exists", () => {
    * performed. A citation to a test that does not exist is worse than no
    * citation, because it reads as verified.
    */
+  // Every test file, not a hardcoded pair. The pair was enough while only these
+  // two files backed the checklist; the moment a citation named a test living
+  // anywhere else, the check reported a real test as a phantom — failing for the
+  // opposite of its own reason, and inviting whoever hit it to delete the
+  // citation rather than widen the search.
   const testNames = new Set();
-  for (const file of ["play-release.test.js", "docs-claims.test.js"]) {
+  for (const file of fs.readdirSync(path.join(ROOT, "test")).filter((name) => name.endsWith(".test.js"))) {
     const source = read("test", file);
     for (const match of source.matchAll(/^test\("((?:[^"\\]|\\.)*)"/gm)) {
       testNames.add(match[1]);
@@ -397,10 +402,18 @@ test("the Android build takes its versionName from the canonical manifest", () =
     "android/app/build.gradle no longer reads the injected fitshieldVersionName"
   );
 
-  // The hand-run bundle command in §3 hardcodes a version. It has to be THIS one.
+  // §3 used to carry a hand-run Gradle line with the version typed into it, and
+  // this asserted the typed version was the shipped one. The tooling now owns
+  // the bundle command and injects the version, so the stronger property is that
+  // the checklist does NOT hardcode one: a number nobody has to maintain cannot
+  // go stale.
   assert.ok(
-    CHECKLIST.includes(`-PfitshieldVersionName=${manifestJson.version}`),
-    `the checklist's release-bundle command names a version other than the shipped ${manifestJson.version}`
+    CHECKLIST.includes("node tools/build-android.js --bundle"),
+    "the checklist no longer names the repository's bundle command"
+  );
+  assert.ok(
+    !/-PfitshieldVersionName=\d/.test(CHECKLIST),
+    "the checklist hardcodes a versionName again; the build injects it from the canonical manifest"
   );
 });
 
