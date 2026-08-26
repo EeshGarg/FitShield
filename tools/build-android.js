@@ -281,7 +281,7 @@ function isBundleSigned(file) {
 }
 
 /** Entry names from a zip's central directory. Empty when it cannot be read —
- *  which isSigned treats as unsigned, the safe direction. */
+ *  which isBundleSigned treats as unsigned, the safe direction. */
 function zipEntryNames(buf) {
   const EOCD = 0x06054b50;
   let eocd = -1;
