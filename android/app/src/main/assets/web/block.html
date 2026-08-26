@@ -73,11 +73,10 @@
       </div>
 
       <div id="recipeWrap" hidden>
-        <!-- No data-i18n: `welcomeFeatureRecipeTitle` is not a key any locale
-             defines, so this line rendered the literal text
-             "welcomeFeatureRecipeTitle" on a device. Requested of the
-             localization lane as `alternativeQuickHeading`. -->
-        <div class="l muted">A quick alternative</div>
+        <!-- This read `welcomeFeatureRecipeTitle`, a key no locale defines, so
+             the pause screen rendered the literal text
+             "welcomeFeatureRecipeTitle". `alternativeQuickHeading` now exists. -->
+        <div class="l muted" data-i18n="alternativeQuickHeading">A quick alternative</div>
         <div id="recipeList"></div>
       </div>
 

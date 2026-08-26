@@ -298,7 +298,7 @@ transcription can go stale. If the two disagree, the tool is right — and the
 number to quote anywhere else (a store listing, a release note, a README badge)
 is the tool's, not this one's.
 
-After the honesty pass: **579 English keys across 83 locales**. No locale but
+After the honesty pass: **581 English keys across 83 locales**. No locale but
 English is complete. The other 82 sit between **30% and 51%**, median 39%,
 averaging 240 translated and 338 untranslated each — 27,678 untranslated strings
 across the corpus, every one of which renders in English. **281** of the English

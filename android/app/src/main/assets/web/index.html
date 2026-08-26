@@ -211,15 +211,12 @@
 
   <!-- Recipes -->
   <!--
-    No data-i18n: `welcomeFeatureRecipeTitle` is not a key any locale defines, so
+    This read `welcomeFeatureRecipeTitle`, a key no locale defines, so
     FitShieldI18n.t() returned the key and localizeDocument() wrote the literal
-    text "welcomeFeatureRecipeTitle" into this summary on every device. English
-    copy is the honest state until the localization lane lands a real key
-    (requested: `alternativesBrowseHeading` = "Alternatives"); an English
-    fallback is what a non-English phone would see either way until it is
-    translated, and it is at least a word.
+    text "welcomeFeatureRecipeTitle" into this summary on every device — in
+    every language, English included. `alternativesBrowseHeading` now exists.
   -->
-  <details class="panel"><summary>Alternatives</summary><div class="body">
+  <details class="panel"><summary data-i18n="alternativesBrowseHeading">Alternatives</summary><div class="body">
     <div id="recipeList"></div>
   </div></details>
 

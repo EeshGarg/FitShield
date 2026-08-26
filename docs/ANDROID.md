@@ -141,7 +141,7 @@ loaded in a WebView. To keep a single UI without Android-only hacks, the UI is
 migrating off `chrome.*` onto a platform-agnostic **`fitshield.*`** API:
 
 ```
-        web UI (HTML/CSS/JS, i18n, currency, engine)
+        web UI (HTML/CSS/JS, i18n, engine)
                          │  calls fitshield.*
         ┌────────────────┴─────────────────┐
         ▼                                   ▼
@@ -165,7 +165,7 @@ migrating off `chrome.*` onto a platform-agnostic **`fitshield.*`** API:
 - **WebView serving:** assets load from `https://appassets.androidplatform.net/`
   via `WebViewAssetLoader`, so `fetch()` of the bundled `_locales` works under a
   normal https origin.
-- **No fork:** the reused web files (`extension/i18n.js`, `extension/currency.js`,
+- **No fork:** the reused web files (`extension/i18n.js`,
   the `extension/_locales` strings, `android/web-src/android-shim.js`) are
   **copied from canonical** into the APK at build time
   (`tools/build-android.js` → `bundleWeb`), and `tools/android-audit.js`
@@ -190,7 +190,7 @@ migrating off `chrome.*` onto a platform-agnostic **`fitshield.*`** API:
 - ✅ `i18n.js` migrated to `fitshield.*` (public `FitShieldI18n` API unchanged), so
   the **real localization runs verbatim on both platforms**.
 - ✅ Polished Android entry (`assets/web/index.html` + `app.js`) reusing `i18n.js`,
-  `currency.js`, the real string keys, the bundled icon, and the FitShield visual
+  the real string keys, the bundled icon, and the FitShield visual
   language. Shows branding, enable/disable + status, rules version + domain count,
   live stats, a "how it works"/privacy explanation, an on-device domain tester,
   and a neutral limitations section. Talks to the VpnService via
@@ -212,7 +212,7 @@ migrating off `chrome.*` onto a platform-agnostic **`fitshield.*`** API:
 ## 2c. Feature parity (UI + visual pass)
 
 The Android UI is an **adapted** reuse of the shared building blocks (engine,
-all 83 locales, recipes data, currency, `ambient.js`, visual language), not the
+all 83 locales, recipes data, `ambient.js`, visual language), not the
 verbatim DNR-coupled desktop `settings.js`. Status legend: **shared** (same
 canonical output), **ported** (works on Android now), **adapted** (Android
 equivalent), **saved/pending** (UI + storage now; not yet wired into the
@@ -234,10 +234,10 @@ connection filter), **deferred**, **N/A**.
 | Searchable picker | **ported** — touch search (filters + language) |
 | Recipes | **ported** — browse the canonical recipe catalog |
 | Statistics | **narrower on purpose** — Android records ONE observed counter, ordering pages interrupted, plus most-blocked sites, categories and countries. It shows no savings or calorie estimate: the extension keeps one optional estimate only because it can ground it in `alternativesMade`, an event the user personally confirms, and the Android pause screen never asks whether an alternative was made. Stored `caloriesAvoided` values are left untouched on the device. |
-| Currency picker | **shared** — reuses `currency.js` (follow-language default + all currencies; per-currency cost/calorie seeds) |
+| Currency picker | **removed** — it existed only to format the savings estimate. With no estimate to format there is nothing for it to change, and a picker that changes nothing is a dead control. |
 | Import / Export | **ported** — export via share sheet; **import via Storage Access Framework document picker** (no storage permission) |
 | Themes | **ported** — system / light / dark **+ full color customization** (background / panel / text / accent) and corner radius, glass-preserving, with reset |
-| Visual identity | **ported** — living `ambient.js` gradient background, translucent Aero/One-UI glass panels, animated gradient title + savings sheen, press-tilt "tiles" (all reduced-motion aware) |
+| Visual identity | **ported** — living `ambient.js` gradient background, translucent Aero/One-UI glass panels, animated gradient title, press-tilt "tiles" (all reduced-motion aware) |
 | Support link | **ported** — optional Buy Me a Coffee button (opens via the bridge; no in-app purchase, no pressure) |
 | First-run welcome | **ported** — one-time on-device welcome overlay (dismissal stored locally) |
 | Localization | **shared** — all 83 locales reused via i18n.js |
@@ -288,14 +288,12 @@ Documented so parity audits don't re-flag them; none change blocking behavior:
 ## 2d. Manual UI test checklist (device)
 
 - [ ] APK installs; app launches; dashboard renders with the living gradient +
-      glass panels + animated gradient title/savings.
+      glass panels + animated gradient title.
 - [ ] First run shows the welcome overlay once; "Get started" dismisses it and
       it does not reappear on restart.
 - [ ] Localization loads (device language or English fallback).
 - [ ] Theme mode (system/light/dark) applies; color pickers + radius live-update
       and persist; "Reset theme" restores the preset.
-- [ ] Currency picker changes the savings currency + cost/calorie seeds; manual
-      meal cost/calories override and persist.
 - [ ] Enable → VPN consent → status flips to On; Disable works.
 - [ ] Timer / schedule / post-timer inputs persist after app restart.
 - [ ] Whitelist (always-allow) + custom blocklist add/remove persist.
@@ -305,7 +303,7 @@ Documented so parity audits don't re-flag them; none change blocking behavior:
       (ERR_CONNECTION_RESET) while normal sites (e.g. wikipedia.org) load fine —
       **works with Private DNS / NextDNS still on**.
 - [ ] Internet and DNS are unaffected; the Private DNS setting is unchanged.
-- [ ] Stats show honest local counts (no fake numbers); blocked visits + most-
+- [ ] Stats show honest local counts (no fake numbers); ordering pages interrupted + most-
       blocked sites, categories and countries populate after real blocks.
 - [ ] Export opens the share sheet; Import opens the document picker, merges a
       backup, and reloads with the imported values.
@@ -508,11 +506,11 @@ data/generated/android-packages.json ── bundled ──▶ assets/android-pac
 4. `BlockActivity` (a WebView on the shared design system) shows the pause screen —
    mirroring the extension's block page: FitShield branding, the blocked brand
    name, a **block reason**, category-aware message, **schedule status**,
-   savings/calories stats, a quick recipe, a reflection countdown, a localized
+   the interruption count, a quick alternative, a reflection countdown, a localized
    **"Learn more" link to fitshield.net** (opens in an external browser), and
    **Not now** / **Open anyway** / **Open FitShield**.
 5. **Not now** sends the user to the launcher (never back into the app) and
-   records an avoided open (blocked visits, calories, and the private
+   records nothing here — the interruption was already counted when the pause appeared (see `recordInterruption()`), so **Open anyway** no longer escapes the count. The private
    "most-blocked apps" breakdown). **Open anyway** grants a temporary unlock
    (minutes) and **re-opens the app by its launch intent** (it was sent to the
    background in step 3, so it is no longer behind the screen) — recording

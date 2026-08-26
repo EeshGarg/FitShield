@@ -36,11 +36,11 @@ any FitShield server, and shares nothing with third parties.
 
 ### Data stored on-device only (never transmitted)
 - **Settings**: which categories/apps/domains to block, schedule, timer/unlock
-  durations, theme, currency, language — plain app preferences.
-- **Local statistics**: counts of blocked visits, estimated savings, calories
-  avoided, and a private "most-blocked" breakdown by app/site/category/country.
-  These are aggregate counters, computed and shown **on the device**; they are
-  never uploaded.
+  durations, theme, language — plain app preferences.
+- **Local statistics**: a count of ordering pages interrupted, plus a private
+  "most-blocked" breakdown by app/site/category/country. No savings or calorie
+  estimate is computed or stored. These are aggregate counters, computed and
+  shown **on the device**; they are never uploaded.
 
 ### Network behavior (be precise)
 - The optional **VpnService is a local, on-device connection filter**. It reads

@@ -132,9 +132,10 @@ extension whose whole promise is that it has none. A tight `extension_pages`
 policy is now declared, and the audit that used to warn about *having* a custom
 CSP now fails on a policy that re-opens egress instead.
 
-`frame-ancestors 'none'` was measured and deliberately omitted: Chrome accepts
-it but does not apply it to a web-accessible resource loaded by a website, so it
-would read as protection while providing none.
+`frame-ancestors 'none'` was omitted on the grounds that Chrome accepts it but
+does not apply it to a web-accessible resource. A later measurement from a real
+hostile origin contradicted that, and the directive is now set — see
+"frame-ancestors was omitted for a reason that was not true" below.
 
 ### Concurrent pass grants erased each other
 

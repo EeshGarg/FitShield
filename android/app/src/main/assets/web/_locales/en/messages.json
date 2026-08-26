@@ -1828,5 +1828,13 @@
   "diagTestNoAnswer": {
     "message": "FitShield's background service did not respond: $1",
     "description": "$1 is the underlying error."
+  },
+  "alternativesBrowseHeading": {
+    "message": "Alternatives",
+    "description": "Android: the summary label on the collapsible panel listing every alternative. The extension has no equivalent panel, so this key is Android-only."
+  },
+  "alternativeQuickHeading": {
+    "message": "A quick alternative",
+    "description": "Android: the label above the two alternative cards on the pause screen. The extension block page introduces its single alternative differently, so this key is Android-only."
   }
 }
