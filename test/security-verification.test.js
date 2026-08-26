@@ -922,15 +922,24 @@ test("the extension pages work under the declared CSP, and load nothing remote",
  * earlier version of this check read the console — which cannot tell a refused
  * frame from a frame that loaded and logged something.
  */
-async function frameTheBlockPage(extraCsp) {
+async function frameTheBlockPage(extraCsp, options = {}) {
   const hostile = await hostileOrigin();
+  const strip = options.withoutFrameAncestors === true;
   const dir = stageOnce(
-    extraCsp ? `csp:${extraCsp}` : "shipped",
+    extraCsp ? `csp:${extraCsp}` : strip ? "csp:no-frame-ancestors" : "shipped",
     extraCsp
       ? (manifest) => {
           manifest.content_security_policy.extension_pages += `; ${extraCsp}`;
         }
-      : null
+      : strip
+        ? (manifest) => {
+            manifest.content_security_policy.extension_pages = manifest.content_security_policy.extension_pages
+              .split(";")
+              .map((part) => part.trim())
+              .filter((part) => !part.startsWith("frame-ancestors"))
+              .join("; ");
+          }
+        : null
   );
   const browser = await launch({ extensionDir: dir });
 
@@ -1009,7 +1018,13 @@ test("a hostile page can embed the running block page, and frame-ancestors stops
   // any sender with a frameId other than 0 — so this is not an open hole. It is
   // the evidence for the manifest decision, and it says the stated reason for
   // that decision does not hold.
-  const shipped = await frameTheBlockPage(null);
+  // The "before" run stages a copy with the directive REMOVED. It used to use
+  // the shipped manifest, which was correct while the manifest omitted
+  // frame-ancestors — and this measurement is why it no longer does. Left as it
+  // was, the pair would have quietly stopped proving anything: the unguarded
+  // half would report "did not load in a hostile frame" and the test would fail
+  // for the reason the fix exists.
+  const shipped = await frameTheBlockPage(null, { withoutFrameAncestors: true });
   assert.equal(
     shipped.framed,
     true,

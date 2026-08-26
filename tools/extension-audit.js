@@ -145,6 +145,21 @@ function checkManifestShape(reporter, manifest, pkg) {
       }
     });
 
+    // frame-ancestors was left out on the stated grounds that Chrome accepts the
+    // directive but does not apply it to a web-accessible resource. That
+    // reasoning was challenged by a verification lane which measured the framed
+    // block page RUNNING inside a hostile document without it. Whether or not
+    // Chrome enforces it in every case, it is one line, both engines accept it,
+    // and the block page is never legitimately framed — it is a top-level
+    // redirect target. A reason to omit a defence has to be better than "it may
+    // be redundant".
+    if (!/frame-ancestors\s+'none'/.test(pages)) {
+      reporter.fail(
+        "content_security_policy does not set frame-ancestors 'none' — the block page is web-accessible, " +
+          "so any site can try to frame it"
+      );
+    }
+
     reporter.note("content_security_policy tightens the MV3 default (script, connect, img and object all 'self')");
   } else {
     reporter.warn(
