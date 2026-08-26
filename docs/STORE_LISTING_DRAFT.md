@@ -1,10 +1,19 @@
 # FitShield — Google Play Store Listing Draft
 
 > [!NOTE]
-> **Copy rewritten against 0.55 (2026-08-09).** The earlier draft described the
-> pre-0.55 product — two fixed recipe cards, a single all-or-nothing bypass, and
-> "calories avoided" as a headline figure — none of which exists any more. Every
-> claim below was re-checked against the shipped code and datasets.
+> **Copy re-checked against the Android build on 2026-08-26.** The 0.55 rewrite
+> removed the pre-0.55 product's claims — two fixed recipe cards, an
+> all-or-nothing bypass, "calories avoided" as a headline — but it described the
+> *extension's* feature set on a page that sells the *phone app*, and the two had
+> already diverged. Three bullets promised things the Android build does not do:
+> a four-part statistics row where the phone keeps one counter, ingredient
+> quantities and allergen labelling on the pause screen where the phone shows a
+> title, a duration and a sentence, and passes that "say how long for" where the
+> phone states a scope but never a duration. All three are corrected below.
+>
+> **This page sells the Android app.** Where the extension does more, the listing
+> says nothing rather than borrowing the extension's behaviour. Anything asserted
+> here about the phone is checked by `test/play-release.test.js`.
 >
 > What is still outstanding before submission is **assets, not copy**: phone
 > screenshots and the feature graphic have to be captured on a real device, and
@@ -51,15 +60,17 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 > on-device connection filter (works with Private DNS / NextDNS enabled)
 > • Blocks food **apps** you choose, with a pause screen instead of the app
 > (opt-in Accessibility service)
-> • 2,500+ curated brands across delivery, fast food, coffee, dessert, grocery,
-> and meal kits — plus your own custom domains
+> • 2,500+ curated brands across delivery, fast food, coffee, dessert, grocery
+> and meal kits — every one of them blockable as a **site**, and the ones that
+> have their own Android app blockable as an **app** as well
+> • Add your own domains for anything the catalog misses
 > • Schedules for the hours that actually catch you out, reflection timers, and
-> scoped temporary passes that always say what they cover and how long for
-> • 88 at-home alternatives with real quantities, timings, equipment and
-> allergen labelling, offered on the pause screen instead of just a wall
-> • Honest local stats: pages interrupted, times you left, times you continued,
-> passes used, and alternatives shown, chosen and marked as made — computed on
-> your phone, shown only to you
+> temporary passes scoped to the one brand you opened, not a blanket switch-off
+> • 88 at-home alternatives — the pause screen suggests one matched to the brand
+> you were about to order from, with how long it takes, instead of just a wall
+> • One honest number: ordering pages interrupted. Plus a private breakdown of
+> what you were blocked from most — computed on your phone, shown only to you,
+> never uploaded. No invented savings, no invented calories
 > • 83 languages, dark/light themes with full color customization
 >
 > **Privacy first — everything stays on your device**
@@ -77,8 +88,9 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 > • Disable or uninstall anytime — no lock-in, no guilt trips
 >
 > FitShield is the Android companion of the FitShield browser extension — same
-> data, same features, same respect for your privacy. Learn more at
-> fitshield.net.
+> catalog, same blocking engine, same respect for your privacy. The extension
+> also knows your diet and kitchen preferences; the phone app deliberately does
+> not ask for them. Learn more at fitshield.net.
 
 (Behavioral framing only — verify no "lose weight", "addiction", "diet",
 "health" outcome claims before submitting.)
@@ -99,6 +111,27 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 > diet or allergen preferences at all. **Never put an allergen-matching claim on
 > this listing**, and phrase the matching as "matched to the site you were about
 > to order from" rather than to the person.
+>
+> *May not be, and this is newer:* that the pause screen shows **ingredient
+> quantities, equipment or allergen labelling**. It shows the title, the total
+> time and the description — `recipeCard()` in `android/.../web/block.js` builds
+> exactly those three and nothing else. The extension's block page shows the
+> full card; the phone's does not, and the two must not be described as one.
+>
+> *May not be, until the Android lane lands the fix:* that the in-app
+> **Alternatives** panel lets you browse the catalog with ingredients and steps.
+> Two things are wrong with it today, and both have been routed: it renders only
+> the first 24 of the 88 entries, and its ingredient line is
+> `(r.ingredients || []).join(", ")` over an array of `{quantity, unit, item}`
+> objects, so a real device prints `[object Object], [object Object], …`. When
+> that is fixed, add the bullet back — `test/play-release.test.js` will fail
+> until this paragraph goes with it.
+>
+> *May not be:* that a temporary pass **says how long it lasts**. On Android the
+> pass is genuinely scoped — `AppBlockPolicy.unlock()` stores an expiry against
+> the single `brandId`, so it never unlocks anything else — but the pause screen
+> only ever labels its button "Open <app>". The duration is real and is not
+> stated. Claim the scope; do not claim the disclosure.
 
 ## Category & tags
 
@@ -114,20 +147,22 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 Capture on a real device (Samsung, dark theme, edge-to-edge — the transparent
 status/nav bars look best). Suggested set, in order:
 
-1. **Dashboard** — status card "On", with the honest counters (pages
-   interrupted / times you left / times you continued).
+1. **Dashboard** — status card "On", with the one counter the app keeps:
+   *Ordering pages interrupted*. Do not stage a shot implying more tiles exist.
 2. **Block screen** — DoorDash example: brand, reason, timer, alternative, actions.
 3. **App-blocking panel** — category pills + the three status indicators.
 4. **Schedule & timers** — blocking options panel.
-5. **Recipes** — a recipe expanded (ingredients + steps).
+5. **Alternatives** — a card expanded. **Hold this shot** until the ingredient
+   rendering is fixed; today it screenshots as `[object Object]`.
 6. **Theme customization** — color pickers mid-edit, a non-default accent.
 7. **Language picker** — showing localization breadth.
-8. **Stats detail** — most-blocked apps/sites breakdown.
+8. **Stats detail** — most-blocked sites / categories / countries / apps.
 
 Overlay short captions (≤6 words) per screenshot, e.g. "Pause before you
 order", "Your stats stay on-device".
 
-- [ ] 8 phone screenshots (1080×2340 native is fine)
+- [ ] 7 phone screenshots now, 8 once shot 5 is unblocked (1080×2340 native is
+      fine; Play requires at least 2)
 - [ ] Optional: 7"/10" tablet set (WebView UI scales; capture if targeting tablets)
 
 ## Feature graphic checklist (1024×500, required)
@@ -139,8 +174,14 @@ order", "Your stats stay on-device".
 
 ## App icon
 
-- [ ] 512×512 PNG, matches the launcher icon (green "F" on white / adaptive)
+- [ ] 512×512 PNG for the store listing
 - [ ] Consistent with extension branding (icon-128.png lineage)
+- [ ] **The app itself currently has no launcher icon** — no `mipmap-*` resources
+      and no `android:icon` on `<application>`, so it installs with Android's
+      grey placeholder. The store icon does not fix that. Design both from the
+      same artwork and see
+      [PLAY_STORE_RELEASE_CHECKLIST.md §8](PLAY_STORE_RELEASE_CHECKLIST.md#8-store-listing-and-assets)
+      for exactly what the Android lane needs.
 
 ## Release notes — "What's new" (500 chars max per entry)
 
@@ -148,48 +189,73 @@ order", "Your stats stay on-device".
 
 > • A calmer pause screen: what was interrupted, how long is left, and one thing
 > you could make instead
-> • Honest statistics — pages interrupted, times you left, times you continued,
-> passes used. No invented "calories avoided"
-> • Temporary passes now say exactly what they cover and how long for
-> • 88 at-home alternatives with real quantities, timings and allergen labelling
+> • Honest statistics — one counter for ordering pages interrupted, plus a
+> private breakdown of what blocked you most. No invented savings or calories
+> • Temporary passes are scoped to the one app you opened, never a blanket
+> switch-off
+> • The pause screen suggests something matched to the brand you opened
 > • Categories now name what a brand actually sells
 
-(392 chars.)
+(454 chars of the 500 allowed. Counted, not estimated — the previous draft
+claimed 392 for a block that was a different length.)
 
 **versionCode 1 · versionName 0.54 (first upload):**
 
 > First release of FitShield for Android.
 > • Blocks food-delivery & fast-food websites with a local, on-device filter — no traffic ever leaves your phone
 > • Optional app blocking with a mindful pause screen, stats, and recipe ideas
-> • 2,500+ curated brands, every app mapping verified by hand
+> • 2,500+ curated brands, with app mappings researched by hand
 > • 83 languages, dark/light themes
 > • No account, no ads, no analytics — everything stays on your device
 
-(431 chars. Add each future upload's notes above this line, newest first, and
+(390 chars — recounted; the draft claimed 431. "every app mapping verified by
+hand" was also not true and is gone: 36 brands are still `needs_review` and one
+has no port record at all, so the honest word is "researched". Add each future upload's notes above this line, newest first, and
 record the versionName↔versionCode pair in `changelog/<version>.md`.
 `versionName` is injected from `extension/manifest.json` by the Android build, so
 it always matches the canonical version; `versionCode` is supplied per release.)
 
 ## Play Console declaration notes
 
-(Details in [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md).)
+Full wording and the exact form answers live in
+[PLAY_STORE_RELEASE_CHECKLIST.md §7](PLAY_STORE_RELEASE_CHECKLIST.md#7-play-console-declarations)
+and [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md). Summary:
 
-- **Data safety:** no data collected/shared; on-device only; deletion =
-  uninstall or in-app reset.
-- **VpnService:** local content filter; no tunneling/inspection/DNS changes.
-- **AccessibilityService:** prominent in-app disclosure exists (app-blocking
-  panel); reads foreground package name only; user opt-in.
+- **Developer account must be an organization**, not a personal one — Google
+  requires it for apps approved to use `VpnService`, and it cannot be changed
+  after signup. This gates everything else on this page.
+- **Data safety:** no data collected, none shared, on-device only. Because
+  collection is No, Play never asks the encryption-in-transit or
+  deletion-request follow-ups.
+- **VpnService:** declare it as a **local firewall / content filter**, not a VPN.
+  No tunnel, no endpoint, no inspection beyond the cleartext destination host,
+  no DNS changes.
+- **AccessibilityService:** reads the foreground package name only; user opt-in;
+  `isAccessibilityTool` deliberately not claimed. A demo video is required.
 - **Foreground services:** `specialUse` ×2 (VPN filter, optional keep-alive) with
-  manifest `<property>` justifications.
-- **Ads:** none. **IAP:** none. **Target audience:** 18+ general (not
-  child-directed). **Content rating:** complete IARC questionnaire (expect
-  Everyone).
+  the manifest `<property>` justifications quoted verbatim.
+- **Ads:** none. **Advertising ID:** none. **IAP:** none. **Target audience:**
+  adults, not child-directed. **Content rating:** complete IARC (expect
+  Everyone). **Government apps:** no. **Health apps:** no — FitShield reads no
+  health or fitness data of any kind.
 - **Login credentials for review:** none needed (no account).
 - **App access notes for reviewers:** "All features work without an account.
   To see app blocking: Settings → enable app blocking → enable the FitShield
   accessibility service when prompted → open any blocked food app (e.g.
   McDonald's). To see site blocking: tap Enable FitShield → accept the VPN
-  consent → visit doordash.com in any browser."
+  consent → visit doordash.com in any browser. The release build is not
+  minified; this is deliberate, as the project ships auditable source."
+- **Say this before the reviewer has to ask it.** `VpnService` +
+  `AccessibilityService` + display-over-other-apps + a boot receiver + a
+  foreground service is, in combination, the permission profile of stalkerware.
+  Volunteer the shape of it: every one of the five is user-initiated and
+  individually revocable, the accessibility service is configured
+  `canRetrieveWindowContent="false"` so it cannot read screen content at all, the
+  VPN has no remote endpoint and relays allowed traffic byte-for-byte to the
+  destination the client chose, the overlay permission draws nothing (it is held
+  only so the pause screen may be launched from the background), the boot
+  receiver restores only the setting the user themselves last chose, and the
+  whole thing is open source with no network destination of its own.
 
 ## Closed testing instructions (for testers)
 
@@ -201,11 +267,17 @@ it always matches the canonical version; `versionCode` is supplied per release.)
 4. App blocking: open **Block apps on this phone**, toggle **Enable app
    blocking**, tap **Open Accessibility settings** and enable FitShield, then
    open a blocked food app → the pause screen should appear and stay.
-5. Try: "Not now", "Open anyway" (timer, then temporary unlock), schedule
-   on/off, keep-alive toggle (quiet notification appears/disappears), reboot
-   (accessibility survives; VPN re-enable is manual by design), battery
-   optimization on/off.
-6. Report: device model, Android version, and any case where a *non-food* app
+5. Try: "Not now", "Open anyway" (timer, then temporary unlock — it should
+   unlock only the app you opened, not everything), schedule on/off, keep-alive
+   toggle, battery optimization on/off. **Report whether you ever see any
+   FitShield notification at all** — on Android 13+ the app has never asked
+   for notification permission, so you probably will not, and we need to know
+   which devices that bites on.
+6. **Reboot the phone and then check both halves of blocking separately.** Both
+   should come back on their own. Then turn FitShield **off**, reboot again, and
+   confirm it stays off — it must never switch itself on for someone who turned
+   it off.
+7. Report: device model, Android version, and any case where a *non-food* app
    was blocked (should never happen) or a block screen flashed and vanished.
 
 ## Production rollout plan
@@ -213,8 +285,12 @@ it always matches the canonical version; `versionCode` is supplied per release.)
 1. **Internal testing** (up to 100 testers) — the team, 1–2 weeks: verify AAB
    install path, all §6 checklist behaviors on ≥3 OEMs (Samsung, Pixel, one
    budget device).
-2. **Closed beta** — 2+ weeks or 20+ testers (Play's new-personal-account
-   requirement if applicable): watch pre-launch report, ANR/crash-free ≥99.5%.
+2. **Closed beta** — 2+ weeks: watch the pre-launch report, ANR/crash-free
+   ≥99.5%. Play's "12 testers opted in for 14 continuous days" rule applies only
+   to *personal* accounts created after 13 November 2023, and `VpnService`
+   forces an organization account, so it does not apply here. Do a closed beta
+   anyway — real devices are the only place the VPN-consent and accessibility
+   flows get exercised.
 3. **Production, staged:** 10% → 3 days clean → 50% → 3 days → 100%.
 4. **Halt criteria:** any false-positive blocking of non-food apps, VPN
    breaking general connectivity, accessibility loop, or crash-free <99%.

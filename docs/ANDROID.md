@@ -129,8 +129,10 @@ this documentation. Everything else is shared.
 Android 14): the connection filter blocks delivery/fast-food sites (works with
 strict Private DNS / NextDNS on), and the opt-in app blocker shows the native
 intervention screen for blocked apps. It is still **preview-quality** — debug-
-signed, no store release, IPv6 currently dropped (see §7). Both mechanisms are
-**additive**: the app blocker never replaces the connection filter.
+signed, no store release — but the two behaviours §7 used to list as limitations
+are fixed: IPv6 is filtered rather than dropped, and the filter restores itself
+after a restart for the user who had it on. Both mechanisms are **additive**: the
+app blocker never replaces the connection filter.
 
 ---
 
@@ -425,9 +427,10 @@ It **does not**:
    the connection is relayed transparently, exactly as if FitShield were absent.
 
 **QUIC / IPv6:** QUIC (UDP/443) is dropped so browsers fall back to TCP where the
-SNI is visible; other UDP is relayed. IPv6 is currently captured and dropped
-(forcing IPv4 fallback) — a documented preview limitation; IPv6-only networks are
-not yet supported.
+SNI is visible; other UDP is relayed. **IPv6 is parsed and filtered on the same
+terms as IPv4** — it used to be captured and discarded, which left an IPv6-only
+network with no working connection at all while the filter was on. See the
+Limitations note in this section for why the `::/0` route stayed.
 
 **Scope difference from the browser path:** the VPN-based filter is **system-
 wide** (any app/browser on the device), whereas the Firefox-for-Android
@@ -468,8 +471,15 @@ data/generated/android-packages.json ── bundled ──▶ assets/android-pac
   (confirmed packages), `no_app` (verified no official Android app), or
   `shared_app` (the brand's official app is another blocked brand's package —
   e.g. a platform's country storefront — recorded once on the owning brand so
-  every package ID maps to exactly one brand). As of 0.55: 1,545 packages
-  across 1,474 brands; 777 no_app; 283 shared_app; 38 needs_review.
+  every package ID maps to exactly one brand). The current split — 1,511 packages
+  across 1,445 brands; 757 `no_app`; 266 `shared_app`; 36 `needs_review` — is
+  re-derived from the data by
+  `test/play-release.test.js`, and the full table with the curated-brand
+  denominator is in
+  [PLAY_STORE_RELEASE_CHECKLIST.md §9](PLAY_STORE_RELEASE_CHECKLIST.md#9-app-blocking-coverage-numbers-re-derived).
+  (These five numbers read 1,545 / 1,474 / 777 / 283 / 38 here for a whole
+  release after the catalog had moved past every one of them, which is why they
+  are now asserted rather than written.)
 - Designed to scale to thousands of packages: add entries to the app files and
   rebuild; everything flows through the generated dataset (no hardcoded checks).
 - **Additive port:** `tools/port-android-apps.js` (`npm run port:android-apps`)
@@ -715,15 +725,43 @@ opt-in AccessibilityService blocks native *apps* by their foreground package nam
 
 **Limitations — be honest.**
 
+Two things that were listed here as limitations were defects wearing the word,
+and both are **fixed as of 2026-08-26**. They are recorded rather than deleted so
+that nobody re-derives them as tradeoffs, and both are bound to
+`test/play-release.test.js` in both directions — this section cannot claim a
+limitation the code no longer has, and cannot drop one that comes back.
+
+- **IPv6 is filtered, not dropped.** It used to be captured and discarded, which
+  degraded silently to IPv4 on a dual-stack network and left an IPv6-only carrier
+  with **no working internet at all** while FitShield was on. It is now parsed
+  and subjected to the same SNI/Host decision. Simply removing the `::/0` route
+  would have restored connectivity by letting IPv6 bypass the filter, turning a
+  visible failure into an invisible one — a blocked brand reachable over IPv6
+  would just not be blocked — so the packets are handled instead. QUIC (UDP/443)
+  is still dropped deliberately, so browsers fall back to TCP where the SNI is
+  visible; that part is by design.
+- **The filter comes back after a restart.** `BootReceiver` handles
+  `BOOT_COMPLETED` and `MY_PACKAGE_REPLACED`, and restores the tunnel only for a
+  user whose stored instruction says they had it on and whose VPN consent Android
+  still holds; otherwise it posts one notification rather than starting anything.
+  Before this, app blocking silently resumed (the OS re-binds the
+  AccessibilityService) while site blocking silently did not, so the user saw
+  FitShield working and reasonably concluded all of it was.
+
+The rest are genuine properties of the design:
+
 - **Preview-quality** — implemented and verified on-device (Samsung, Android 14),
   but debug-signed with no store release; treat it as a preview, not a 1.0.
-- **IPv6 dropped** — the filter currently drops IPv6 to force IPv4 fallback (where
-  the SNI/Host is visible); IPv6-only networks are not yet supported. QUIC
-  (UDP/443) is dropped so browsers fall back to TCP.
 - **Cooperative, not enforced** — a user can stop the VPN, disable the
   AccessibilityService, uninstall, or use a browser/protocol that hides the SNI.
-- **Curated coverage** — only hosts the engine derives are filtered; app blocking
-  covers the curated package map (more brands added over time).
+- **Curated coverage, and the two halves differ** — site blocking covers every
+  curated brand, because it filters by host. App blocking covers only the brands
+  that have a known Android package: a brand marked `no_app`, `shared_app` or
+  `needs_review` carries no package ID and is therefore **not** blocked as an
+  app, though its sites still are. The exact split is in
+  [PLAY_STORE_RELEASE_CHECKLIST.md §9](PLAY_STORE_RELEASE_CHECKLIST.md#9-app-blocking-coverage-numbers-re-derived),
+  where it is re-derived from the data by a test rather than written down here
+  to go stale.
 - **No traffic protection** — FitShield provides no encryption/anonymity; it is
   not a privacy VPN and makes no such claim.
 - **Browser path** blocks only inside Firefox for Android, and its on-device DNR
@@ -733,15 +771,18 @@ opt-in AccessibilityService blocks native *apps* by their foreground package nam
 conflicts with another VPN app); foreground-service and notification policies
 vary by OS version; encrypted DNS can route around a local filter.
 
-**Known unsupported / unverified cases.** IPv6-only networks (IPv6 is dropped);
-Encrypted ClientHello (ECH) would hide the SNI and bypass the host filter;
-on-device DNR on Firefox for Android; any non-Firefox Android browser for the
-extension path. (Encrypted DNS — DoH/DoT/Private DNS — is *not* a problem: the
-filter reads the connection host, not DNS, so it works with Private DNS on.)
+**Known unsupported / unverified cases.** Encrypted ClientHello (ECH) would hide
+the SNI and bypass the host filter; on-device DNR on Firefox for Android; any
+non-Firefox Android browser for the extension path. (Encrypted DNS — DoH/DoT/
+Private DNS — is *not* a problem: the filter reads the connection host, not DNS,
+so it works with Private DNS on.) IPv6-only networks are no longer on this list:
+they are filtered like any other, and what remains is on-device confirmation.
 
-**Future improvements.** Add IPv6 support (instead of dropping it), broaden
-device/network testing, add a signed release build, and verify the Firefox-for-
-Android DNR path on-device.
+**Future improvements.** Broaden device/network testing, produce the first signed
+release bundle — the signing *configuration* has been in the tree since 0.53, but
+no bundle has ever been built or uploaded, and no repository command builds one
+(see [PLAY_STORE_RELEASE_CHECKLIST.md §3](PLAY_STORE_RELEASE_CHECKLIST.md#3-signing-and-the-release-bundle))
+— and verify the Firefox-for-Android DNR path on-device.
 
 ---
 
@@ -758,8 +799,13 @@ summarized in `changelog.json`. For Android, each release should answer:
   whether Firefox for Android (extension) and the native APK were tested
   **on-device** or only built/validated.
 - **What still requires manual verification?** — currently: on-device DNR on
-  Firefox for Android, IPv6-only networks, and broader device/OS coverage for the
-  native connection filter + app blocker (verified so far on Samsung, Android 14).
+  Firefox for Android, IPv6-only networks, behaviour across a reboot, and broader
+  device/OS coverage for the native connection filter + app blocker (verified so
+  far on Samsung, Android 14).
+- **For a Play upload specifically** — every gate, declaration and human step is
+  in [PLAY_STORE_RELEASE_CHECKLIST.md](PLAY_STORE_RELEASE_CHECKLIST.md), and the
+  parts of it that can be checked mechanically are checked by
+  `test/play-release.test.js`.
 
 > Maintainer note: the Android rules asset is **generated** — never hand-edit it.
 > If canonical data changes, run `npm run generate:android` (and the audit/tests

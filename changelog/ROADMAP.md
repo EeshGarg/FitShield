@@ -41,16 +41,21 @@ _Last updated: 2026-08-25 (0.55)_
 
 Themes under consideration (subject to change):
 
-- **Google Play rollout.** Console-side execution: account + declarations
-  (Data safety, VpnService, AccessibilityService, foreground services),
-  listing assets (screenshots, feature graphic), internal → closed → staged
-  production rollout per
+- **Google Play rollout.** Console-side execution: an **organization** developer
+  account with a D-U-N-S number (Google requires one for any app using
+  `VpnService`, and a personal account cannot be converted afterwards), the four
+  declarations (Data safety, VpnService, AccessibilityService, foreground
+  services), listing assets (screenshots, feature graphic), and an internal →
+  closed → staged production rollout per
   [PLAY_STORE_RELEASE_CHECKLIST.md](../docs/PLAY_STORE_RELEASE_CHECKLIST.md).
+  Any submission from 31 August 2026 must also target API 36.
   The store listing copy in
   [STORE_LISTING_DRAFT.md](../docs/STORE_LISTING_DRAFT.md) is written against
   0.55 and needs screenshots and a feature graphic before it can be submitted.
-- **Android hardening.** IPv6 support in the connection filter (instead of
-  drop), broader device/OEM testing, instrumented-test runs in CI.
+- **Android hardening.** IPv6 filtering and boot restore both landed on
+  2026-08-26 and are off this list; what is left is broader device/OEM testing
+  (including an IPv6-only network and a reboot on real hardware) and
+  instrumented-test runs in CI.
 - **Data quality pass.** Continue the `needs_review` app-status tail; audit the
   wrong-country metadata cluster the 0.54 sweep flagged (many entries tagged
   `["JP"]` that are not Japanese); periodic re-verification of delisted apps.
@@ -156,16 +161,17 @@ sprawl.
   of two, one blocklist switch per brand instead of a split across both, and 30
   non-ordering sites removed from the catalog (2,505 brands / 111 markets / 21
   categories).
-- **0.54** — Play-ready release: complete app-coverage research (1,545
-  verified packages / 1,474 brands; verified `no_app` and `shared_app`
-  terminal statuses; 38-brand tail), 10 corrupted blocklist imports removed,
-  engine/extension/android repo separation, first signed Play-upload build
-  (0.54 ↔ versionCode 1).
+- **0.54** — Play groundwork: app-coverage research down to a 38-brand
+  `needs_review` tail (1,545 verified packages / 1,474 brands *at that release*;
+  verified `no_app` and `shared_app` terminal statuses), 10 corrupted blocklist
+  imports removed, engine/extension/android repo separation, and the release
+  **signing configuration** — not a signed build. The 0.54 ↔ versionCode 1 pair
+  is reserved, not uploaded.
 - **0.53** — Native Android app (preview): WebView UI on the `fitshield.*`
   abstraction, TLS-SNI/HTTP-Host connection filter (Private-DNS-safe), opt-in
   AccessibilityService app blocking with a parity block screen, 870 verified
   app→package mappings, edge-to-edge One UI styling, Play Store groundwork
-  (API 35, signed AAB, debug-gated logging, launch document pack).
+  (API 35, release signing config, debug-gated logging, launch document pack).
 - **0.52** — Most-blocked insights (primary-country heuristic), fast-food country
   coverage 14 → 56, localized food categories, Data & Settings backup,
   validation-gated build with a `tools/` audit suite, `CONTRIBUTING.md`,

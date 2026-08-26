@@ -36,9 +36,20 @@ A report is the consequence of finishing, not permission to stop: the policy
 audit fails the build if the acceptance report claims completion while its own
 repository-local queue is non-empty, or if it contains an unverified
 "probably fixed". The only unfinished items a report may carry are the four this
-machine physically cannot do — the Safari Xcode wrapper (macOS), an Android APK
-(the SDK), real screen-reader validation (assistive technology), and human
-subjective acceptance.
+machine physically cannot do, and they are **hardware and people, not tooling**:
+an Apple Developer team to sign the Safari wrapper, a physical Android device for
+the VPN-consent flow and on-device blocking, a person listening with a screen
+reader to judge whether the announcements are *useful* rather than merely present,
+and a person answering the four questions in
+[`docs/ACCEPTANCE.md`](docs/ACCEPTANCE.md).
+
+Three things that used to sit on that list were never impossible, only
+unattempted: the Android APK builds here and in CI (`npm run toolchain:android`
+provisions a JDK and the SDK), the Safari conversion and an unsigned compile run
+in CI on macOS, and the computed accessibility tree is verified in a real browser
+(`npm run validate:a11y`). Before writing anything down as external, try it —
+[`development-policy.json`](development-policy.json) is the authoritative list
+and `tools/policy-audit.js` enforces it.
 
 Specialist agents in [`.claude/agents/`](.claude/agents/) are mandatory for
 substantial work, run in parallel, and are partitioned by **file ownership** so

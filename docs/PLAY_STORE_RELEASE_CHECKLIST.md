@@ -1,168 +1,676 @@
-# FitShield — Google Play Release Checklist
+# FitShield — Google Play release checklist
 
-_Android app: `com.usha.fitshield`. This file is the operational checklist for
-cutting a Play Store build. Keep it in sync with `android/app/build.gradle`,
-`AndroidManifest.xml`, [ANDROID.md](ANDROID.md), and
-[PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md)._
+_Android app: `com.usha.fitshield`. This is the operational checklist for cutting
+a Play Store build. Pairs with [ANDROID.md](ANDROID.md) (how the app works),
+[PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md) (disclosures
+and the Data safety answers) and [STORE_LISTING_DRAFT.md](STORE_LISTING_DRAFT.md)
+(copy and assets)._
 
-Status legend: ✅ done in-repo · ⚙️ requires the release operator (keystore /
-Play Console) · 🔁 verify each release.
+> **Why this file was rebuilt (2026-08-26).** The previous version was prose with
+> ✅ marks and no evidence: it asserted that things were true rather than
+> recording how anyone could tell. It drifted exactly as you would expect — the
+> dataset section quoted 1,545 packages over 1,474 brands with 38 `needs_review`
+> against a catalog that had moved to 1,511 over 1,445 with 36, and it stated a
+> target API level that Play stops accepting five days from this rewrite.
+>
+> Every line below is now one of two things, and the format is enforced:
+>
+> - **a checkbox with machine evidence** — a named test or tool that fails when
+>   the claim stops being true. `test/play-release.test.js` exists for this
+>   purpose; `tools/android-audit.js` runs inside `npm run validate`.
+> - **a checkbox marked `HUMAN`** — something this repository physically cannot
+>   do (it needs the Play Console, a signing key, a device, or a person), with
+>   the exact action written out.
+>
+> A line with neither fails `test/play-release.test.js` ›
+> _"every checklist line carries evidence or is marked HUMAN"_. That is the
+> whole point: prose is how the numbers rotted last time.
+
+**Play policy statements below were re-read from Google's own documentation on
+2026-08-26.** Each carries its source. Re-check before each submission — Play
+policy moves and this file is a snapshot.
+
+---
+
+## 0. Gates that decide whether a submission is even accepted
+
+These five get a submission rejected, blocked, or — in the last case — quietly
+uninstallable months after it ships. Everything else in this file is downstream
+of them.
+
+- [ ] **Developer account must be an ORGANIZATION, not a personal account.**
+      `HUMAN — Play Console, before anything else.` Google requires an
+      organization account for "apps approved to use the `VpnService` class"
+      (alongside financial, health and government apps). FitShield uses
+      `VpnService`, so this applies. An organization account needs a **D-U-N-S
+      number**, and **you cannot convert a personal account to an organization
+      account later** — choosing wrong at signup means starting over with a new
+      account and a new $25 fee.
+      Source: [Play Console requirements](https://support.google.com/googleplay/android-developer/answer/10788890).
+      - Side effect, and a welcome one: the "12 testers opted in for 14
+        continuous days" closed-testing requirement applies **only to personal
+        accounts created after 13 November 2023**. An organization account is
+        exempt and may publish straight to production.
+        Source: [App testing requirements for new personal developer accounts](https://support.google.com/googleplay/android-developer/answer/14151465).
+
+- [ ] **Target API level.** Play requires **API 36 (Android 16) for new apps and
+      updates submitted from 31 August 2026**; API 35 is accepted only until
+      then, with an extension available to 1 November 2026.
+      Source: [Target API level requirements](https://support.google.com/googleplay/android-developer/answer/11926878).
+      The repository currently sets **`compileSdk 35` / `targetSdk 35`**, which
+      means a submission has to land before 31 August 2026 or the build has to
+      move to 36 first. See §1 for the exact bump.
+      _Evidence: `test/play-release.test.js` › "the checklist states the SDK level the build actually sets"
+      and "the checklist names the target-API deadline in force" — the doc cannot
+      claim one level while `android/app/build.gradle` sets another._
+
+- [ ] **A release AAB, not an APK.** Play has required an Android App Bundle for
+      new apps since August 2021 — Google's own size limits page still carries
+      the tell, capping APK downloads "only applicable to apps created before
+      August 2021". FitShield is a new app, so an APK is not an upload format it
+      has.
+      Source: [Download size limits](https://support.google.com/googleplay/android-developer/answer/9859152).
+      `npm run build:android` produces a **debug APK** only
+      (`dist/android/FitShield-<version>-debug.apk`) — there is no repository
+      command that produces a release bundle. §3 has the exact manual command and
+      what is missing.
+      _Evidence: `test/play-release.test.js` › "the checklist does not claim a release-bundle command the tooling does not have"._
+
+- [ ] **`VpnService` declaration form completed and approved.** `HUMAN — Play
+      Console.` Mandatory for every app that uses `VpnService`; §7 has the exact
+      answers to give. Source:
+      [Understanding Google Play's VpnService policy](https://support.google.com/googleplay/android-developer/answer/12564964).
+
+- [ ] **Register the package name for Android developer verification.**
+      `HUMAN — Play Console home page.` From **30 September 2026**, an app not
+      tied to a verified developer identity will not install on certified Android
+      devices in Brazil, Indonesia, Singapore and Thailand, with more countries
+      following. Play auto-registers most apps, so this is usually a check rather
+      than a task — but check it, and note that it covers **sideloaded APKs too**,
+      which matters here because the debug APK is handed to testers directly.
+      Sources: [Registering Play package names](https://support.google.com/googleplay/android-developer/answer/16984799)
+      and [Android developer verification](https://developer.android.com/developer-verification/guides).
 
 ---
 
 ## 1. Build configuration
 
-- ✅ **Target API level** — `compileSdk 35` / `targetSdk 35` (Android 15).
-  Enforced by `tools/android-audit.js` (fails if either drops below 35).
-- ✅ **minSdk 26** (Android 8.0) — covers ~the whole active install base.
-- ✅ **AGP 8.6.0 / Gradle 8.7 / Kotlin 1.9.24 / JDK 17.**
-- ✅ **No minification/obfuscation** (`minifyEnabled false`) — deliberate: the
-  app is auditable, no hidden behavior. (R8 is not required for Play.)
-- ✅ **`applicationId com.usha.fitshield`** — must never change after first
-  publish (Play identity).
+- [x] **`applicationId com.usha.fitshield`** — the Play identity. It can never
+      change after first publish.
+      _Evidence: `test/play-release.test.js` › "the applicationId the checklist names is the one the build sets"._
+- [x] **`minSdk 26`** (Android 8.0).
+      _Evidence: `test/play-release.test.js` › "the checklist states the minSdk the build sets"._
+- [x] **`compileSdk 35` / `targetSdk 35`**, and they agree with each other.
+      `tools/android-audit.js` fails the build if either drops below 35.
+      _Evidence: `test/play-release.test.js` › "the checklist states the SDK level the build actually sets"._
+- [ ] **Bump to API 36 before submitting on or after 31 August 2026.**
+      `HUMAN — routed to the build lane; this doc lane does not own android/ or build config.`
+      The minimum viable change, with the versions checked against Google's own
+      compatibility table on 2026-08-26
+      ([About AGP](https://developer.android.com/build/releases/about-agp)):
+      | File | From | To | Why |
+      | --- | --- | --- | --- |
+      | `android/app/build.gradle` | `compileSdk 35`, `targetSdk 35` | `36`, `36` | the Play gate |
+      | `android/build.gradle` | AGP `8.6.0` | `8.9.1` or newer | **AGP 8.9.1 is the minimum that supports `compileSdk 36`** |
+      | `android/gradle/wrapper/gradle-wrapper.properties` | Gradle `8.7` | `8.11.1` or newer | AGP 8.9 requires it |
+      | `tools/android-audit.js` | `< 35` fails | `< 36` fails | so the gate keeps meaning something |
+      Android 16's headline behaviour change for a target-36 app is that
+      **edge-to-edge can no longer be opted out of**. FitShield already runs
+      edge-to-edge deliberately — `WindowCompat.setDecorFitsSystemWindows(window, false)`
+      in `MainActivity` and `BlockActivity`, `viewport-fit=cover` in both WebView
+      pages, and `env(safe-area-inset-*)` padding in `fitshield.css` — so this
+      change costs nothing here. Verify on-device anyway.
+- [x] **`minifyEnabled false`** — deliberate. FitShield ships readable, auditable
+      code and R8 is not a Play requirement. State this in the reviewer notes so
+      it does not read as an oversight.
+      _Evidence: `test/play-release.test.js` › "release hygiene: no debug artefacts, minification stated honestly"._
+- [x] **AGP 8.6.0 / Gradle 8.7 / Kotlin 1.9.24 / JDK 17** — the versions the
+      repository actually pins.
+      _Evidence: `test/play-release.test.js` › "the checklist states the toolchain versions the repository pins"._
+- [x] **16 KB memory page sizes.** Required for updates from **1 February 2027**
+      for apps targeting API 35+ on 64-bit devices. Google's own wording: _"If
+      your app only uses code written in the Java programming language or in
+      Kotlin, including all libraries or SDKs, then your app already supports
+      16 KB devices."_ FitShield has **no native code at all** — no `.so`, no
+      `jniLibs`, no `externalNativeBuild`, no NDK block, and its three
+      dependencies are AndroidX. So it is compliant by construction, not by
+      configuration.
+      Source: [Support 16 KB page sizes](https://developer.android.com/guide/practices/page-sizes).
+      _Evidence: `test/play-release.test.js` › "the app carries no native code, so the 16 KB page-size rule is satisfied by construction"._
+- [x] **64-bit support.** Required since August 2019 for any app containing
+      native code. FitShield contains none, so there is nothing to provide and
+      nothing to get wrong — the same fact that settles the 16 KB rule settles
+      this one.
+      _Evidence: `test/play-release.test.js` › "the app carries no native code, so the 16 KB page-size rule is satisfied by construction"._
+- [ ] **Check the bundle size against Play's 200 MB base-module limit.**
+      `HUMAN — measure your own output.` It will not be close: the app ships no
+      native code, no media, and its largest assets are 83 locale files and two
+      JSON datasets. Worth measuring once so the number is known rather than
+      assumed.
+- [ ] **Run the Play pre-launch report on a 16 KB device image anyway.**
+      `HUMAN — Play Console, internal testing track.` Compliance by construction
+      is not the same as tested.
 
 ## 2. Versioning
 
-- ✅ `versionName` is injected from the canonical `manifest.json` via
-  `-PfitshieldVersionName` (one version across extension + Android).
-- ✅ `versionCode` is injected via `-PfitshieldVersionCode` (defaults to `1`).
-- 🔁 **`versionCode` MUST strictly increase every Play upload** (integer). Track
-  it in the changelog. Suggested scheme: start at `1` and increment by one per
-  uploaded build (independent of `versionName`).
-- 🔁 Record the `versionName`↔`versionCode` pair for each release in
-  `changelog/`.
+- [x] **One `versionName` across every platform.** `tools/build-android.js`
+      injects `-PfitshieldVersionName` from the canonical
+      `extension/manifest.json`, so the Android build cannot drift from the
+      extension.
+      _Evidence: `test/play-release.test.js` › "the Android build takes its versionName from the canonical manifest"._
+- [ ] **`versionCode` strictly increases on every upload.** `HUMAN — supplied per
+      release as `-PfitshieldVersionCode=<int>`.` It defaults to `1` and the
+      default exists only for a bare `gradlew` run; **never upload a build that
+      used the default twice.** Play rejects a re-used `versionCode` and there
+      is no way to reclaim one.
+- [ ] **Record the `versionName` ↔ `versionCode` pair** in
+      `changelog/<versionName>.md` at upload time. `HUMAN — the pair is only
+      known once you choose it.`
+- [x] The version is stated identically in `extension/manifest.json`,
+      `package.json`, `changelog.json` and `changelog/<version>.md`.
+      _Evidence: `test/docs-claims.test.js` › "manifest, package.json and changelog.json agree on the version"._
 
-## 3. Signing → AAB
+## 3. Signing and the release bundle
 
-- ✅ Release signing reads from a **gitignored** `android/keystore.properties`
-  (or `-P` / env), so **no keystore or password is ever committed**. If absent,
-  the release build is left unsigned (safe default).
-- ⚙️ Create the upload keystore **once** and store it securely OUTSIDE the repo:
-  ```
-  keytool -genkeypair -v -keystore fitshield-upload.jks -alias fitshield \
-    -keyalg RSA -keysize 2048 -validity 10000
-  ```
-- ⚙️ Create `android/keystore.properties` (gitignored) with:
-  ```
-  storeFile=/absolute/path/to/fitshield-upload.jks
-  storePassword=...
-  keyAlias=fitshield
-  keyPassword=...
-  ```
-  (Alternatively pass `-PFITSHIELD_STORE_FILE=… -PFITSHIELD_STORE_PASSWORD=… -PFITSHIELD_KEY_ALIAS=… -PFITSHIELD_KEY_PASSWORD=…`.)
-- ⚙️ **Enable Play App Signing** in the Console (recommended). Your keystore is
-  then the *upload* key; Google manages the app signing key.
-- ✅ **Build the AAB** (see §9 for the exact command). Output:
-  `android/app/build/outputs/bundle/release/app-release.aab`.
-- 🔁 Verify the AAB is signed: `jarsigner -verify app-release.aab` → `jar verified`.
+**What the repository does automatically:** nothing that touches a key. Release
+signing is read at build time from a gitignored `android/keystore.properties`
+(or `-P` properties, or environment variables). If none is present, the release
+build is left **unsigned** — a deliberate safe default, not a failure.
 
-## 4. Release hygiene (no dev artifacts in release)
+- [x] **No keystore, password or upload key is committed, and cannot be.**
+      `.gitignore` covers `keystore.properties`, `android/keystore.properties`,
+      `*.jks`, `*.keystore`, `*.apk` and `*.aab`.
+      _Evidence: `test/play-release.test.js` › "no signing material is tracked, and the ignore rules that keep it out are present"._
+- [ ] **Create the upload keystore once, and store it outside the repository.**
+      `HUMAN — only you can hold this key.`
+      ```
+      keytool -genkeypair -v -keystore fitshield-upload.jks -alias fitshield \
+        -keyalg RSA -keysize 2048 -validity 10000
+      ```
+      Back it up somewhere you will still have in five years. Without Play App
+      Signing, losing it means you can never update the app again.
+- [ ] **Write `android/keystore.properties`** (gitignored) with exactly these
+      four keys. `HUMAN — it holds your passwords.`
+      ```
+      storeFile=/absolute/path/to/fitshield-upload.jks
+      storePassword=...
+      keyAlias=fitshield
+      keyPassword=...
+      ```
+      Equivalent `-P` form:
+      `-PFITSHIELD_STORE_FILE=… -PFITSHIELD_STORE_PASSWORD=… -PFITSHIELD_KEY_ALIAS=… -PFITSHIELD_KEY_PASSWORD=…`
+      _Evidence for the key names: `test/play-release.test.js` › "the four signing property names the checklist gives are the four the build reads"._
+- [ ] **Enable Play App Signing** in the Console. `HUMAN — Play Console.`
+      Your keystore then becomes the *upload* key and Google holds the app
+      signing key, which is the only configuration where losing your key is
+      recoverable.
+- [ ] **Build the release bundle.** `HUMAN — no repository command does this.`
+      `npm run build:android` regenerates the rules, re-bundles the shared web
+      assets, runs the Android audit and builds a **debug APK**. There is no
+      `bundleRelease` path in `tools/build-android.js`, so the release bundle is
+      produced by hand:
+      ```bash
+      npm run build:android        # regenerate + validate first; ignore the debug APK it makes
+      cd android
+      ./gradlew :app:bundleRelease \
+        -PfitshieldVersionName=0.55 \
+        -PfitshieldVersionCode=<strictly-increasing-int>
+      # -> app/build/outputs/bundle/release/app-release.aab
+      ```
+      **What is missing is the key, and only the key.** `npm run toolchain:android`
+      installs everything else this needs — JDK 17 and the Android SDK (API 35
+      platform + build-tools 35) into `~/.fitshield-toolchain` — the Gradle
+      wrapper is committed (`android/gradlew`), and `android/local.properties`
+      points Gradle at the SDK. So `:app:bundleRelease` is runnable the moment the
+      keystore steps above are done. The whole gap between this repository and a
+      Play-ready artefact is one signing key that only you can hold.
+      _Evidence: `test/play-release.test.js` › "the checklist does not claim a release-bundle command the tooling does not have" — if a bundle task is ever added to the tooling, this line has to change._
+- [ ] **Verify the bundle is signed** before uploading. `HUMAN — run it against
+      your own output.`
+      ```
+      jarsigner -verify app/build/outputs/bundle/release/app-release.aab   # expect "jar verified"
+      ```
+      An unsigned bundle is what you get when `keystore.properties` was missing
+      or mistyped, and Play's error message for it is not obvious.
 
-- ✅ **WebView remote debugging** (`setWebContentsDebuggingEnabled`) is guarded
-  by `BuildConfig.DEBUG` in `MainActivity` and `BlockActivity` — off in release.
-  Enforced by `tools/android-audit.js`.
-- ✅ **Verbose logging gated to debug:** WebView console logging and the
-  per-connection RST log in `Tun2Filter` (which names the blocked host) are both
-  `if (BuildConfig.DEBUG)` — **no hostnames or filtering decisions in release
-  logcat**.
-- ✅ No `android:debuggable="true"` in the manifest (AGP sets it false for
-  release; audit-enforced).
-- ✅ No hardcoded dev URLs / `localhost` / `10.0.2.2`, no mock data, no test
-  flags in `src/main/`.
-- ✅ Instrumented tests live in `src/androidTest/` and are **not** packaged in
-  the release build.
+## 4. Release hygiene — no development artefacts ship
 
-## 5. Permissions — all justified (in-app + docs)
+- [x] **WebView remote debugging is off in release.**
+      `setWebContentsDebuggingEnabled(true)` is guarded by `BuildConfig.DEBUG` in
+      both `MainActivity` and `BlockActivity`.
+      _Evidence: `tools/android-audit.js` (fails an unguarded call) and `test/play-release.test.js` › "release hygiene: no debug artefacts, minification stated honestly"._
+- [x] **No hostnames or filtering decisions reach release logcat.** WebView
+      console logging and `Tun2Filter`'s per-connection RST log — which names the
+      blocked host — are both inside `if (BuildConfig.DEBUG)`.
+      _Evidence: `test/play-release.test.js` › "release hygiene: no debug artefacts, minification stated honestly"._
+- [x] **The manifest never forces `android:debuggable="true"`.** AGP sets it false
+      for release.
+      _Evidence: `tools/android-audit.js` and `test/play-release.test.js` › "release hygiene: no debug artefacts, minification stated honestly"._
+- [x] **No dev URLs, `localhost`, `10.0.2.2` or other development endpoints in
+      `src/main/`.** This line used to credit `tools/android-audit.js`, which has
+      never looked for one — an assertion citing nothing, which is the failure
+      this rewrite exists for. It is now actually checked.
+      _Evidence: `test/play-release.test.js` › "no development endpoint is reachable from the shipped source set"._
+- [x] **Instrumented tests live in `src/androidTest/`** and are not packaged into
+      a release build.
+      _Evidence: `test/play-release.test.js` › "instrumented tests stay out of the shipped source set"._
 
-| Permission | Why | User-facing |
+## 5. Permissions
+
+Every permission the app declares, why it exists, and what the user sees. This
+table is checked against the manifest — adding a permission without adding a row
+fails the test, and so does the reverse.
+
+| Permission | Why | What the user sees |
 | --- | --- | --- |
 | `INTERNET` | relay allowed connections to the destination the client already chose | — |
-| `FOREGROUND_SERVICE` (+ `_SPECIAL_USE`) | the VpnService and the optional keep-alive run as foreground services | ongoing notification |
-| `POST_NOTIFICATIONS` | the required foreground-service notification (Android 13+) | runtime prompt |
-| `SYSTEM_ALERT_WINDOW` | optional "display over other apps" so the block screen launches reliably | user-granted, explained in-app |
-| `BIND_VPN_SERVICE` | OS gate for the VpnService | one-time VPN consent dialog |
-| `BIND_ACCESSIBILITY_SERVICE` | OS gate for the opt-in app blocker (reads only the foreground package name) | user opt-in in system Accessibility settings, explained in-app |
+| `FOREGROUND_SERVICE` | the VpnService and the optional keep-alive run as foreground services | an ongoing notification, *if* notification permission was granted — see below |
+| `FOREGROUND_SERVICE_SPECIAL_USE` | required on Android 14+ for the `specialUse` FGS type both services declare | — |
+| `POST_NOTIFICATIONS` | the foreground-service notification, the opt-in keep-alive notice, and the boot-restore notice (Android 13+) | nothing — see below |
+| `SYSTEM_ALERT_WINDOW` | optional "display over other apps", so the block screen launches reliably over a blocked app | user-granted in system settings, explained in-app |
+| `RECEIVE_BOOT_COMPLETED` | bring the connection filter back after a restart or an app update — and only for a user who had it on | protection is simply still there |
 
-- ✅ Scoped `<queries>` (MAIN/LAUNCHER) — **not** `QUERY_ALL_PACKAGES`.
-- ✅ Enforced allowlist in `tools/android-audit.js`.
-- 🔁 In Play Console, complete the **Permissions declaration**, the
-  **VpnService** usage, and the **AccessibilityService** declaration (see §7).
+`RECEIVE_BOOT_COMPLETED` is worth a sentence to a reviewer, because a boot
+receiver that starts a foreground service is a pattern Play looks at. FitShield's
+starts nothing unless the stored instruction — written only by an explicit
+enable or disable in the app — says the user had the filter on, and unless
+Android still holds their VPN consent. If consent has lapsed it posts one
+notification instead of starting anything. `BOOT_COMPLETED` and
+`MY_PACKAGE_REPLACED` are both protected system broadcasts and both sit on
+Android's exemption list for starting a foreground service from the background,
+so the restore is legal rather than a loophole.
 
-## 6. Behavior guarantees (🔁 verify on-device each release)
+**`POST_NOTIFICATIONS` is declared and never requested, and on Android 13+ that
+means it is denied.** Nothing in the app calls `requestPermissions`,
+`registerForActivityResult(RequestPermission())` or any equivalent — the string
+appears exactly once in the whole source tree, in a comment in `RestoreNotice`
+acknowledging that `notify()` will be a no-op. The consequences, in increasing
+order of seriousness:
 
-- 🔁 **No blocking unless the user enables it.** `appBlockingEnabled` defaults
-  **false**; the VPN requires the one-time consent dialog; the AccessibilityService
-  is a system opt-in. A fresh install blocks nothing.
-- 🔁 Survives **enable/disable cycles**, **reboot** (accessibility service is
-  re-bound by the OS; VPN requires manual re-enable by design), **battery
-  optimization** (optional keep-alive + "unrestricted battery" helper),
-  **Accessibility toggles**, and **VPN restarts**.
-- 🔁 **Keep-alive is opt-in and OFF by default**; when on it shows a quiet
-  `IMPORTANCE_MIN` notification and does no work.
-- 🔁 Non-blocked apps are ignored (no false blocks); no accessibility/overlay loops.
+- the foreground-service notification does not appear in the drawer (the service
+  still runs, and the OS still shows the VPN key and a Task Manager entry, so the
+  user is not misled about whether filtering is on);
+- the opt-in keep-alive's quiet notice does not appear either, which is harmless;
+- **the boot-restore notice is invisible.** That notification is the entire
+  fallback for the case where a restart happens but VPN consent has lapsed — the
+  app deliberately posts one tap-to-fix notice rather than starting anything. On
+  a device that never granted notification permission, it posts into the void,
+  and the user is back to silently unprotected: exactly the failure the boot
+  receiver was added to end.
+
+The fix is one runtime request at the point the user first turns filtering on,
+which is also the only moment it can be justified to them. **Routed to the
+Android lane**; until it lands, do not describe a notification prompt anywhere,
+and do not rely on the boot-restore notice being seen.
+
+**`SYSTEM_ALERT_WINDOW` never actually draws an overlay, and saying so is worth
+more than justifying one.** The app holds the permission only for the
+side effect that holding it grants: on Android 10+ an app with "display over
+other apps" may start an activity from the background, which is what lets the
+pause screen appear over a blocked app. FitShield never constructs a
+`TYPE_APPLICATION_OVERLAY` window and never calls `WindowManager.addView` — the
+only place the permission is touched at all is a `Settings.canDrawOverlays()`
+check in `WebAppBridge`, used to tell the user whether the feature will be
+reliable. Nothing is ever drawn on top of another app's UI.
+
+**Expect the permission profile itself to draw attention.** `VpnService` +
+`AccessibilityService` + "display over other apps" + a boot receiver + a
+foreground service is, in combination, the exact shape of stalkerware, and a
+reviewer who pattern-matches on it is doing their job. Get in front of it in the
+reviewer notes: every one of the five is user-initiated and individually
+revocable, the accessibility service cannot read window content, the VPN has no
+remote endpoint, the overlay permission draws nothing, the boot receiver only
+restores a setting the user themselves last set, and the app is open source with
+no network destination of its own. The individual justifications are in §7; this
+paragraph is about the picture they make together.
+
+Two more are **OS gates declared on the services**, not requested from the user:
+
+| Gate | On | What the user sees |
+| --- | --- | --- |
+| `BIND_VPN_SERVICE` | `FitShieldVpnService` | the one-time system VPN consent dialog |
+| `BIND_ACCESSIBILITY_SERVICE` | `FitShieldAccessibilityService` | opt-in in system Accessibility settings |
+
+- [x] **The manifest declares exactly those six `uses-permission` entries and no
+      others**, and the audit's allowlist agrees with this table.
+      _Evidence: `test/play-release.test.js` › "the permission table names exactly the permissions the manifest declares"._
+- [x] **Package visibility is a scoped `<queries>` for MAIN/LAUNCHER, not
+      `QUERY_ALL_PACKAGES`.** This matters twice: it is the narrower request, and
+      `QUERY_ALL_PACKAGES` would trigger a Play declaration form that FitShield
+      then does not have to file.
+      _Evidence: `test/play-release.test.js` › "the permission table names exactly the permissions the manifest declares"._
+- [ ] **Nothing requests `POST_NOTIFICATIONS`, so on Android 13+ it is denied
+      and the boot-restore notice cannot be seen.** `HUMAN — routed to the Android
+      lane.` See the note above for why this matters more than a missing
+      foreground-service notification would.
+      _Evidence: `test/play-release.test.js` › "the docs say whether the app can actually post a notification"._
+- [x] **No overlay window is ever created**, so the "display over other apps"
+      permission is held for the background-activity-launch exemption alone.
+      _Evidence: `test/play-release.test.js` › "the overlay permission draws nothing, which is the strongest thing to tell a reviewer"._
+- [x] **None of Play's other declaration-triggering permissions is present** —
+      no SMS or call log, no `MANAGE_EXTERNAL_STORAGE`, no background location,
+      no `READ_MEDIA_*`, no exact alarms, no `USE_FULL_SCREEN_INTENT`, no body
+      sensors, no Health Connect, and no advertising ID. That is what makes §7's
+      declaration list as short as it is.
+      Source: [Permissions and APIs that access sensitive information](https://support.google.com/googleplay/android-developer/answer/16585319).
+      _Evidence: `test/play-release.test.js` › "no permission is present that would pull in a further Play declaration form"._
+
+## 6. Behaviour to verify on a device each release
+
+These cannot be asserted from a repository. Each needs a phone.
+
+- [ ] **A fresh install blocks nothing.** `HUMAN — device.` `appBlockingEnabled`
+      defaults false, the VPN needs the one-time consent dialog, and the
+      accessibility service is a system opt-in.
+- [ ] **Enable/disable cycles, VPN restarts, Accessibility toggles.** `HUMAN — device.`
+- [ ] **Reboot, twice.** `HUMAN — device.` Once with the filter **on** — it must
+      come back by itself — and once with it **off**, which must stay off. Then
+      revoke VPN consent (Settings → VPN → forget FitShield) and reboot again:
+      the app must post a single notification offering one tap rather than
+      starting anything or staying silent. Also reboot with app blocking on, and
+      confirm both halves are back rather than just the accessibility one.
+- [ ] **Battery optimisation on and off**, with and without the opt-in keep-alive.
+      `HUMAN — device.`
+- [ ] **Keep-alive is off by default**, and when on does no work. `HUMAN — device.`
+      Its quiet `IMPORTANCE_MIN` notification only appears if notification
+      permission happens to have been granted — test on a fresh Android 13+
+      install, where it will not have been.
+- [ ] **No false blocks.** A non-food app must never be interrupted, and there
+      must be no accessibility/overlay loop. `HUMAN — device.` This is also the
+      first halt criterion in the rollout plan.
+- [ ] **Blocking works with strict Private DNS on** (e.g. NextDNS). `HUMAN — device.`
+      The filter reads TLS SNI / HTTP Host and never touches DNS, so it should —
+      but "should" is why this line exists.
+- [ ] **An IPv6-only network still has working internet, and is still filtered.**
+      `HUMAN — device.` Both halves matter: the filter now parses IPv6 rather
+      than dropping it, so a mobile network with no IPv4 must neither go dark nor
+      let a blocked brand through.
 
 ## 7. Play Console declarations
 
-- 🔁 **Data safety form** — see [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md#data-safety):
-  no data collected, shared, or transmitted off device.
-- 🔁 **Privacy policy URL** — host the Android privacy notes (or the fitshield.net
-  privacy page) and link it.
-- 🔁 **VpnService use** — declare the local, on-device content filter (no traffic
-  leaves the device to any FitShield server; no traffic inspection beyond the
-  cleartext SNI/Host).
-- 🔁 **AccessibilityService use** — declare the *prominent disclosure* + purpose:
-  used **only** to detect when a user-selected food app is opened, to show the
-  block screen. Reads only the foreground package name; no screen/message content.
-  (Google requires an in-app prominent disclosure for accessibility use — the
-  app-blocking panel provides this.)
-- 🔁 **Foreground service types** — `specialUse` for the VpnService and the
-  keep-alive; provide the subtype justification (already declared in the manifest
-  `<property>`).
-- 🔁 **Target audience / content rating** — not directed at children; complete
-  the content-rating questionnaire (expected: Everyone/PEGI 3).
-- 🔁 **Ads:** none. **In-app purchases:** none.
+Everything here is `HUMAN — Play Console`. The wording is drafted so it can be
+pasted, and the parts that quote the app are checked against the app.
 
-## 8. Store listing & assets
+### 7.1 `VpnService` declaration
 
-- 🔁 See [STORE_LISTING_DRAFT.md](STORE_LISTING_DRAFT.md) for copy, screenshots,
-  and the feature graphic checklist.
-- 🔁 **No prohibited claims** — no medical / addiction-treatment / guaranteed
-  weight-loss language anywhere in the listing (see the draft's guardrails).
+Mandatory for every app using `VpnService`.
+Source: [VpnService policy](https://support.google.com/googleplay/android-developer/answer/12564964).
 
-## 9. Build & test commands
+- [ ] **Declare the use case.** `HUMAN — Play Console.` The policy's permitted non-VPN uses are parental
+      control and enterprise management, app usage tracking, device security
+      (anti-virus, MDM, **firewall**), network tools, web browsing apps, and
+      carrier apps. FitShield's honest fit is **a local firewall / content
+      filter** — say that, not "VPN".
+- [ ] **Answer the encryption question precisely.** `HUMAN — Play Console.` The policy says apps "must
+      encrypt the data from the device to the VPN tunnel endpoint". FitShield has
+      no tunnel endpoint, and the right answer is to say so rather than to tick a
+      box: _"FitShield's `VpnService` is a local, on-device connection filter with
+      no tunnel and no remote endpoint. No traffic is sent to any FitShield
+      server — there are none. Blocked connections are reset locally; allowed
+      connections are relayed byte-for-byte to the exact destination IP the
+      client already chose, over a `protect()`ed socket, so the app never
+      terminates, decrypts, re-encrypts or modifies TLS. End-to-end encryption is
+      preserved unchanged because FitShield is never an endpoint."_
+- [ ] **State what is read.** `HUMAN — Play Console.` Only the cleartext destination host the client
+      already sends — TLS SNI on 443, HTTP `Host` on 80. No payload inspection,
+      no certificate installation, no MITM, no DNS interception or forwarding.
+- [ ] **Document the VPN use in the store listing itself.** `HUMAN — Play Console.` The policy
+      requires separately from the form. The full description in
+      [STORE_LISTING_DRAFT.md](STORE_LISTING_DRAFT.md) carries this.
 
-```bash
-# Full validation gate (datasets, locales, docs, Android audit incl. release checks)
-npm run validate            # tools/validate-all.js — 9 audits
-npm test                    # 73 tests
+### 7.2 `AccessibilityService` declaration
 
-# Debug APK (for on-device testing)
-npm run build:android       # regenerates + validates, then builds the debug APK
+Mandatory, and one of the two most scrutinised declarations on the store.
+Source: [Permissions and APIs that access sensitive information](https://support.google.com/googleplay/android-developer/answer/16585319).
 
-# --- Play-ready signed AAB (requires android/keystore.properties) ---
-cd android
-./gradlew :app:bundleRelease -PfitshieldVersionName=<name> -PfitshieldVersionCode=<int>
-# -> app/build/outputs/bundle/release/app-release.aab   (upload this to Play)
-jarsigner -verify app/build/outputs/bundle/release/app-release.aab   # expect "jar verified"
-```
+- [x] **`isAccessibilityTool` is deliberately not claimed.** That flag is only for apps whose
+      core function is to directly support people with disabilities. FitShield is
+      not one, so the flag is correctly absent from
+      `res/xml/accessibility_service_config.xml` and must stay absent.
+      _Evidence: `test/play-release.test.js` › "the accessibility service reads only what the disclosure says it reads"._
+- [ ] **Submit the Permission Declaration Form with a demo video.**
+      `HUMAN — Play Console, and the video has to be recorded on a device.`
+      Show, in order: the app-blocking panel with the disclosure text visible → tapping
+      through to system Accessibility settings → enabling FitShield → opening a
+      blocked food app → the pause screen appearing. Google wants to see the
+      disclosure and the consent, not just the feature.
+- [ ] **Purpose to declare.** `HUMAN — Play Console.` Paste:
+      _"Detects when a food-delivery or fast-food app the
+      user has explicitly selected comes to the foreground, so FitShield can show
+      its pause screen. It reads only the foreground package name
+      (`canRetrieveWindowContent="false"`) — never screen content, text fields,
+      messages or passwords. Nothing is transmitted; the package name is used
+      in-memory and is not logged in release builds. The service is off until the
+      user enables it in system Accessibility settings and stops completely when
+      disabled."_
+- [ ] **The disclosure a user reads in system Accessibility settings is
+      English-only.** `HUMAN — routed to the localization lane.`
+      `accessibility_description` and `accessibility_summary` live in
+      `res/values/strings.xml` and there is no `res/values-<lang>/` directory at
+      all, while the app itself bundles **83** translated locales for its WebView
+      UI. So the one screen where Android asks a user to grant a powerful
+      permission — and the only text Google's prominent-disclosure rule can be
+      satisfied by at that moment — is in a language most of the app's users did
+      not choose. The strings are three short sentences; translating them into
+      the locales already shipped is the whole fix.
+      _Evidence: `test/play-release.test.js` › "the accessibility disclosure is available in the languages the app ships"._
+- [ ] **Confirm the in-app prominent disclosure meets all five of Google's
+      conditions.** It must be in the app (not only the listing), shown during
+      normal use rather than buried in settings, describe the data accessed,
+      explain how it is used and shared, and **require affirmative user action for
+      consent**. FitShield's disclosure text is present and accurate — the
+      app-blocking panel states _"It only reads which app comes to the front —
+      never screen content"_ before the button that opens Accessibility settings,
+      and `accessibility_description` repeats it inside the system settings screen
+      — but it is passive text inside a collapsed panel, with no explicit consent
+      step. **A dedicated confirm-before-you-continue disclosure step has been
+      routed to the Android lane**; re-check this box against the shipped build.
+      _Evidence: `test/play-release.test.js` › "the accessibility disclosure the docs quote is the text the app shows"._
 
-Requirements: Android SDK **API 35** platform + build-tools 35, Gradle 8.7, JDK 17.
+### 7.3 Foreground service types
+
+`specialUse` is reviewed by hand, and the reviewer reads the free-form subtype
+string from the manifest.
+Source: [Foreground service types](https://developer.android.com/develop/background-work/services/fgs/service-types)
+and [Foreground service requirements](https://support.google.com/googleplay/android-developer/answer/13392821).
+
+- [ ] **Declare both `specialUse` services** on the App content page.
+      `HUMAN — Play Console.` Quote the manifest's own justifications verbatim:
+      - `FitShieldVpnService` — _"Local on-device TLS-SNI/HTTP-Host connection
+        filtering for mindful food-ordering blocking"_
+      - `AppBlockKeepAliveService` — _"Keeps on-device food-app blocking
+        responsive in the background"_
+      The keep-alive is the weaker of the two to justify, because "stay resident"
+      is close to the thing FGS review exists to catch. Strengthen it in the form:
+      it is **opt-in and off by default**, it exists only because some OEM battery
+      managers pause the accessibility service after long idle, it posts an
+      `IMPORTANCE_MIN` notification, and it performs no work of any kind while
+      running. If the reviewer pushes back, the feature can be dropped without
+      breaking app blocking on stock Android.
+- [x] **Every `specialUse` service in the manifest carries a
+      `PROPERTY_SPECIAL_USE_FGS_SUBTYPE` property**, and the strings quoted above
+      are the strings the manifest holds.
+      _Evidence: `test/play-release.test.js` › "every specialUse foreground service declares the subtype the checklist quotes"._
+
+### 7.4 Data safety
+
+- [ ] **Fill in the Data safety form.** `HUMAN — Play Console.` Use the exact
+      answers in
+      [PRIVACY_POLICY_ANDROID_NOTES.md § Data safety — the exact answers](PRIVACY_POLICY_ANDROID_NOTES.md#data-safety--the-exact-answers).
+      Short version: **no data collected, none shared**, everything on-device.
+      Because collection is answered No, Play does not ask the encryption-in-
+      transit or deletion-request follow-ups at all.
+- [ ] **Host the privacy policy at a public URL and link it.** `HUMAN — you need
+      somewhere to host it.` The content is
+      [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md); the
+      listing points at fitshield.net.
+- [x] **The Data safety answers match what the app actually stores and shows.**
+      Android keeps settings and one counter — ordering pages interrupted — plus
+      a private most-blocked breakdown, in the app's private `SharedPreferences`.
+      No savings figure and no calorie figure are computed or stored, and nothing
+      is uploaded.
+      _Evidence: `test/play-release.test.js` › "the Data safety answers match the statistics the app actually keeps"._
+
+### 7.5 The rest of the App content page
+
+- [ ] **Ads: No.** `HUMAN — Play Console.` There are none.
+- [ ] **Advertising ID: No.** `HUMAN — Play Console.` The app declares no
+      `AD_ID` permission and links no ad SDK.
+- [ ] **In-app purchases: none.** `HUMAN — Play Console.`
+- [ ] **Content rating questionnaire (IARC).** `HUMAN — Play Console.` Expect
+      Everyone / PEGI 3.
+- [ ] **Target audience: adults, not child-directed.** `HUMAN — Play Console.`
+- [ ] **Government apps: No.** `HUMAN — Play Console.`
+- [ ] **Health apps declaration: No.** `HUMAN — Play Console.` FitShield accesses
+      no health or fitness data, requests no Health Connect or body-sensor
+      permission, and makes no medical claim. If the Console's phrasing gives you
+      pause, the deciding fact is that the app reads no health data of any kind.
+- [ ] **Financial features: none. News: no.** `HUMAN — Play Console.`
+- [ ] **App access instructions for reviewers.** `HUMAN — Play Console.` No
+      account exists, so give the reviewer the path instead — the exact text is in
+      [STORE_LISTING_DRAFT.md § Play Console declaration notes](STORE_LISTING_DRAFT.md#play-console-declaration-notes).
+      Add: _"The release build has no minification. This is deliberate — the
+      project ships auditable source."_
+
+## 8. Store listing and assets
+
+- [ ] **Copy** — use [STORE_LISTING_DRAFT.md](STORE_LISTING_DRAFT.md). `HUMAN — Play Console.`
+- [ ] **8 phone screenshots**, captured on a real device. `HUMAN — device.` The
+      shot list is in the draft.
+- [ ] **Feature graphic, 1024×500.** `HUMAN — design.`
+- [ ] **App icon, 512×512, for the store listing.** `HUMAN — design.`
+- [ ] **The app has no launcher icon, and needs one before it ships.**
+      `HUMAN — design, then routed to the Android lane.` `AndroidManifest.xml`
+      declares no `android:icon` or `android:roundIcon`, and `res/` contains no
+      `mipmap-*` resources at all — only `values/` and `xml/`. Android therefore
+      falls back to its **default grey placeholder** on the home screen, in the
+      app drawer, in the share sheet and in Settings. The 512×512 you upload to
+      Play is the *store listing* icon and does not change any of that.
+      What is needed: an adaptive icon (`res/mipmap-anydpi-v26/ic_launcher.xml`
+      with foreground and background drawables, plus PNG fallbacks for
+      `mipmap-mdpi` through `mipmap-xxxhdpi`), and `android:icon="@mipmap/ic_launcher"`
+      `android:roundIcon="@mipmap/ic_launcher_round"` on `<application>`. Reuse
+      the extension's `icon-128.png` lineage so the two platforms match.
+      _Evidence: `test/play-release.test.js` › "the app ships a launcher icon, or the checklist says it does not"._
+- [x] **No prohibited claims anywhere in the listing** — no medical,
+      addiction-treatment or guaranteed-weight-loss language, and no claim of a
+      prevented order, avoided calories or money saved, because the app cannot
+      observe any of them.
+      _Evidence: `test/play-release.test.js` › "the store listing promises only statistics the Android app renders" and `test/docs-claims.test.js` › "Android's block screen matches on the brand but not on the person"._
+
+## 9. App-blocking coverage (numbers, re-derived)
+
+Stated as of **2026-08-26**, from `data/generated/android-packages.json`. These
+are asserted against the data, never against another document — the previous
+version of this file quoted a catalog that had moved on twice.
+
+| Figure | Count |
+| --- | --- |
+| Curated brands in the blocklists | 2,505 |
+| Brands with an Android port record | 2,504 |
+| Brands that carry at least one app package | 1,445 |
+| Unique Android package IDs bundled | 1,511 |
+| Brands verified as having no app (`no_app`) | 757 |
+| Brands whose only app is a shared platform storefront (`shared_app`) | 266 |
+| Brands still `needs_review` | 36 |
+
+- [x] Those seven numbers are the data's own.
+      _Evidence: `test/play-release.test.js` › "the coverage table states the counts the generated Android bundle holds"._
+- [ ] **One curated brand has no Android port record at all: Sweetgreen
+      (`sweetgreen.com`).** `HUMAN — routed to the data lane.` It is neither
+      mapped, nor marked `no_app`, nor flagged `needs_review` — it is simply
+      absent from `data/android/fast-food-apps.json`, which is why the port
+      record count is 2,504 against 2,505 brands. Until it is added, the honest
+      claim is "2,504 of 2,505", not "every brand".
+      _Evidence: `test/play-release.test.js` › "the checklist names every curated brand missing an Android port record" — when the gap is filled this line has to go._
+- [x] `shared_app` and `needs_review` brands carry **no** package IDs, so they are
+      **not** blocked as apps. Site blocking still covers them. Do not describe
+      app coverage as if it were catalog coverage.
+      _Evidence: `test/play-release.test.js` › "the coverage table states the counts the generated Android bundle holds"._
 
 ## 10. Rollout
 
-- 🔁 **Internal testing** → **Closed testing (beta)** → **Production** with a
-  **staged rollout** (e.g. 10% → 50% → 100%), watching crash-free rate / ANRs.
-- 🔁 Pre-launch report: review Play's automated device results.
-- 🔁 Keep the upload keystore backed up; losing it (without Play App Signing)
-  means you can never update the app.
+- [ ] **Internal testing** first — up to 100 testers, install path and every §6
+      behaviour on at least three OEMs. `HUMAN — Play Console.`
+- [ ] **Closed testing.** `HUMAN — Play Console.` Not mandatory on an organization
+      account (see §0), but do it anyway: the pre-launch report and real devices
+      are the only place the VPN-consent and accessibility flows get exercised.
+- [ ] **Production, staged:** 10% → three clean days → 50% → three days → 100%.
+      `HUMAN — Play Console.`
+- [ ] **Halt criteria**, decided before launch, not during: any false block of a
+      non-food app, the VPN breaking general connectivity, an accessibility loop,
+      or crash-free below 99%. `HUMAN — judgement.`
+- [ ] **Review the pre-launch report** on each track. `HUMAN — Play Console.`
+- [ ] **Keep the upload keystore backed up.** `HUMAN — you.` Repeated here because
+      it is the one mistake with no recovery.
+
+## 11. Two things this file used to call "known non-blockers"
+
+They were not non-blockers. An earlier version of this checklist listed both
+under that heading, which is how a defect gets to look like a decision:
+
+> - IPv6-only networks: the connection filter currently drops IPv6 (forces IPv4).
+> - Reboot VPN auto-restart is intentionally manual.
+
+The first meant a user on an IPv6-only carrier lost **all** connectivity while
+FitShield was on — not filtered, none. The second meant a user turned protection
+on, their phone restarted overnight, and in the morning nothing was blocked and
+nothing had said so. Neither is something a user would recognise as a design
+choice, so neither was one.
+
+**Both are fixed in the code as of 2026-08-26**, and the fixes are bound to tests
+so that this section cannot drift in either direction — it cannot keep claiming a
+limitation the code no longer has, and it cannot quietly drop one that comes back.
+
+- [x] **IPv6 is filtered, not dropped.** `Tun2Filter` parses IPv6 packets and
+      applies the same SNI/Host decision to them. Deleting the `::/0` route was
+      the tempting fix and the wrong one: it would have restored connectivity by
+      letting IPv6 bypass the filter entirely, turning a visible failure into an
+      invisible one where a blocked brand reachable over IPv6 simply is not
+      blocked. QUIC (UDP/443) is still dropped deliberately and separately, so
+      browsers fall back to TCP where the SNI is visible.
+      _Evidence: `test/play-release.test.js` › "the docs describe IPv6 exactly as the filter handles it" — bidirectional._
+- [x] **Protection comes back after a restart, for the user who asked for it.**
+      `BootReceiver` handles `BOOT_COMPLETED` and `MY_PACKAGE_REPLACED`, reads
+      the stored instruction, and starts the filter only when that says the user
+      had it on **and** Android still holds VPN consent. Otherwise it posts one
+      notification rather than starting anything. The decision is a pure function
+      (`BootRestore.decide`) so the rule that matters — never turn protection on
+      for someone who turned it off — is executed by tests rather than trusted.
+      _Evidence: `test/play-release.test.js` › "the docs describe the reboot behaviour the app actually has" — bidirectional._
+- [ ] **Confirm both on a device before submitting.** `HUMAN — device.` The §6
+      reboot and IPv6 lines are where. Code that is right in the repository and
+      wrong on a phone is the failure mode a VPN app has most of.
 
 ---
 
-## Known non-blockers / follow-ups
-- IPv6-only networks: the connection filter currently drops IPv6 (forces IPv4).
-  Documented in [ANDROID.md](ANDROID.md) §7.
-- Reboot VPN auto-restart is intentionally manual (no `RECEIVE_BOOT_COMPLETED`).
-- App-blocking package coverage is fully researched as of 0.54 (see the
-  dataset in `data/android/` — 1,545 verified packages covering 1,474
-  brands; 777 brands verified `no_app`; 283 `shared_app` platform storefronts;
-  only 38 still `needs_review`).
+## 12. What you personally have to do
+
+Condensed from the `HUMAN` lines above, in the order they block each other.
+
+1. **Register an organization Play developer account** with a D-U-N-S number.
+   Not a personal account — `VpnService` makes that a hard requirement, and it
+   cannot be changed later.
+2. **Generate and back up the upload keystore**, then write
+   `android/keystore.properties`. If that file already exists on your machine,
+   this step is done — it is gitignored, so nobody but you can tell, and nothing
+   here has opened it.
+3. **Decide the target API level**, which is really deciding the submission date:
+   submit before 31 August 2026 at API 35, or take the API 36 bump in §1 first.
+4. **Build and sign the AAB by hand** with the §3 command, and verify it with
+   `jarsigner -verify`.
+5. **Complete four declarations**: `VpnService`, `AccessibilityService` (with a
+   demo video), foreground service `specialUse` ×2, and Data safety.
+6. **Host the privacy policy** somewhere public and link it.
+7. **Commission the icon artwork — twice.** The 512×512 store icon, and the
+   **launcher icon the app does not currently have at all** (§8). Without the
+   second one FitShield installs as a grey Android silhouette.
+8. **Capture the phone screenshots and the feature graphic.**
+9. **Run the §6 device checks** on at least three OEMs.
+10. **Roll out in stages** and watch the pre-launch report.
+
+Steps 3 and 7 have repository halves — the API-36 bump in §1 and the launcher
+icon resources in §8 — both written out for the lanes that own those files.
+Everything else needs your Play Console, your signing key, your phone or your
+judgement, and none of it is attempted here. This checklist is preparation; the
+submission is yours.
