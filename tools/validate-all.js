@@ -100,4 +100,4 @@ if (require.main === module) {
     });
 }
 
-module.exports = { validateAll };
+module.exports = { AUDITS, validateAll };

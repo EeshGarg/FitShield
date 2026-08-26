@@ -8,13 +8,13 @@
     "blocklists/delivery.json"
   ],
   "datasetVersions": {
-    "fast-food": "1.2",
-    "delivery": "1.1"
+    "fast-food": "1.3",
+    "delivery": "1.2"
   },
   "appVersion": "0.55",
   "matching": "apex-or-subdomain",
-  "count": 2508,
-  "sha256": "e4b9055d33e3f48430bfdbfbea727c2d37f5710142b0ee719e28d320974744bb",
+  "count": 2512,
+  "sha256": "4008f7c315b2ff28ecbd3e05f8e573f05334c1bf3e97cf5ae03d99fdd755e62a",
   "countries": [
     {
       "code": "AL",
@@ -174,7 +174,7 @@
     },
     {
       "code": "HK",
-      "count": 32
+      "count": 33
     },
     {
       "code": "HU",
@@ -186,7 +186,7 @@
     },
     {
       "code": "IN",
-      "count": 72
+      "count": 74
     },
     {
       "code": "ID",
@@ -214,7 +214,7 @@
     },
     {
       "code": "JP",
-      "count": 153
+      "count": 154
     },
     {
       "code": "KZ",
@@ -302,7 +302,7 @@
     },
     {
       "code": "NG",
-      "count": 17
+      "count": 18
     },
     {
       "code": "MK",
@@ -378,7 +378,7 @@
     },
     {
       "code": "KR",
-      "count": 124
+      "count": 126
     },
     {
       "code": "ES",
@@ -402,7 +402,7 @@
     },
     {
       "code": "TH",
-      "count": 12
+      "count": 14
     },
     {
       "code": "TG",
@@ -464,7 +464,7 @@
   "categories": [
     {
       "id": "asian",
-      "count": 160
+      "count": 164
     },
     {
       "id": "bakery",
@@ -472,7 +472,7 @@
     },
     {
       "id": "burger",
-      "count": 172
+      "count": 176
     },
     {
       "id": "catering",
@@ -480,11 +480,11 @@
     },
     {
       "id": "chicken",
-      "count": 95
+      "count": 97
     },
     {
       "id": "coffee",
-      "count": 137
+      "count": 143
     },
     {
       "id": "delivery",
@@ -492,15 +492,15 @@
     },
     {
       "id": "dessert",
-      "count": 85
+      "count": 90
     },
     {
       "id": "fast_casual",
-      "count": 796
+      "count": 759
     },
     {
       "id": "grocery",
-      "count": 161
+      "count": 166
     },
     {
       "id": "korean_food",
@@ -516,15 +516,15 @@
     },
     {
       "id": "mexican",
-      "count": 61
+      "count": 65
     },
     {
       "id": "pizza",
-      "count": 178
+      "count": 181
     },
     {
       "id": "restaurant",
-      "count": 15
+      "count": 16
     },
     {
       "id": "restaurant_discovery",
@@ -532,11 +532,11 @@
     },
     {
       "id": "sandwich",
-      "count": 64
+      "count": 66
     },
     {
       "id": "seafood",
-      "count": 17
+      "count": 18
     },
     {
       "id": "smoothie",
@@ -821,7 +821,7 @@
       "k": "coffee"
     },
     "angelinuscoffee.com": {
-      "c": "",
+      "c": "KR",
       "k": "coffee"
     },
     "angelos.com": {
@@ -1146,7 +1146,7 @@
     },
     "barburrito.co.uk": {
       "c": "GB",
-      "k": "fast_casual"
+      "k": "mexican"
     },
     "bargainbox.co.nz": {
       "c": "NZ",
@@ -1181,8 +1181,8 @@
       "k": "dessert"
     },
     "baskinrobbinsindia.com": {
-      "c": "",
-      "k": "fast_casual"
+      "c": "IN",
+      "k": "dessert"
     },
     "bastardburgers.com": {
       "c": "",
@@ -1230,7 +1230,7 @@
     },
     "beardpapa.com.cn": {
       "c": "CN",
-      "k": "bakery"
+      "k": "dessert"
     },
     "beardpapa.jp": {
       "c": "JP",
@@ -1313,7 +1313,7 @@
       "k": "chicken"
     },
     "bhcchicken.global": {
-      "c": "",
+      "c": "KR",
       "k": "chicken"
     },
     "bibibop.com": {
@@ -1698,7 +1698,7 @@
     },
     "bubbakoos.com": {
       "c": "US",
-      "k": "fast_casual"
+      "k": "mexican"
     },
     "bubbakoosburritos.com": {
       "c": "US",
@@ -1893,8 +1893,8 @@
       "k": "coffee"
     },
     "cafedecoral.com": {
-      "c": "",
-      "k": "coffee"
+      "c": "HK",
+      "k": "asian"
     },
     "cafedecoral.com.hk": {
       "c": "HK",
@@ -1946,7 +1946,7 @@
     },
     "californiaburrito.in": {
       "c": "IN",
-      "k": "fast_casual"
+      "k": "mexican"
     },
     "californiapizzakitchen.com": {
       "c": "US",
@@ -2166,7 +2166,7 @@
     },
     "charleyscheesesteaks.com": {
       "c": "US",
-      "k": "fast_casual"
+      "k": "sandwich"
     },
     "charleysphillysteaks.com": {
       "c": "US",
@@ -2670,7 +2670,7 @@
     },
     "cotti.com": {
       "c": "CN",
-      "k": "fast_casual"
+      "k": "coffee"
     },
     "cotticoffee.com": {
       "c": "CN",
@@ -3226,7 +3226,7 @@
     },
     "dunkin.co.uk": {
       "c": "GB",
-      "k": "fast_casual"
+      "k": "coffee"
     },
     "dunkindonuts.co.kr": {
       "c": "KR",
@@ -3237,8 +3237,8 @@
       "k": "coffee"
     },
     "dunkinindia.com": {
-      "c": "",
-      "k": "fast_casual"
+      "c": "IN",
+      "k": "coffee"
     },
     "duyichu.com": {
       "c": "CN",
@@ -3662,7 +3662,7 @@
     },
     "fiveguys.co.uk": {
       "c": "GB",
-      "k": "fast_casual"
+      "k": "burger"
     },
     "fiveguys.com": {
       "c": "US",
@@ -3716,7 +3716,23 @@
       "c": "SG",
       "k": "delivery"
     },
+    "food.jumia.ci": {
+      "c": "NG",
+      "k": "delivery"
+    },
+    "food.jumia.co.ke": {
+      "c": "NG",
+      "k": "delivery"
+    },
     "food.jumia.com": {
+      "c": "NG",
+      "k": "delivery"
+    },
+    "food.jumia.ma": {
+      "c": "NG",
+      "k": "delivery"
+    },
+    "food.jumia.sn": {
       "c": "NG",
       "k": "delivery"
     },
@@ -3942,7 +3958,7 @@
     },
     "freddysfrozencustard.com": {
       "c": "US",
-      "k": "dessert"
+      "k": "burger"
     },
     "freshbrothers.com": {
       "c": "US",
@@ -5402,7 +5418,7 @@
     },
     "k-ruoka.fi": {
       "c": "FI",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "kabaa.delivery": {
       "c": "KE",
@@ -5467,6 +5483,10 @@
     "katiroll.com": {
       "c": "",
       "k": "fast_casual"
+    },
+    "katsuya.jp": {
+      "c": "JP",
+      "k": "asian"
     },
     "kaufland.de": {
       "c": "DE",
@@ -5698,11 +5718,11 @@
     },
     "krispykreme.co.kr": {
       "c": "KR",
-      "k": "fast_casual"
+      "k": "dessert"
     },
     "krispykreme.co.uk": {
       "c": "GB",
-      "k": "fast_casual"
+      "k": "dessert"
     },
     "krispykreme.com": {
       "c": "US",
@@ -5710,11 +5730,11 @@
     },
     "krispykreme.com.tw": {
       "c": "TW",
-      "k": "fast_casual"
+      "k": "dessert"
     },
     "krispykreme.in": {
       "c": "IN",
-      "k": "fast_casual"
+      "k": "dessert"
     },
     "krispykreme.jp": {
       "c": "JP",
@@ -5822,7 +5842,7 @@
     },
     "larosaspizzeria.com": {
       "c": "US",
-      "k": "fast_casual"
+      "k": "pizza"
     },
     "laspalapas.com": {
       "c": "US",
@@ -5834,7 +5854,7 @@
     },
     "lavazza.com": {
       "c": "",
-      "k": "fast_casual"
+      "k": "coffee"
     },
     "lavazza.com.cn": {
       "c": "CN",
@@ -5842,14 +5862,14 @@
     },
     "lavazza.it": {
       "c": "IT",
-      "k": "fast_casual"
+      "k": "coffee"
     },
     "lavka.yandex.ru": {
       "c": "RU",
       "k": "grocery"
     },
     "lawson108.com": {
-      "c": "",
+      "c": "TH",
       "k": "grocery"
     },
     "lazeezshawarma.com": {
@@ -5866,7 +5886,7 @@
     },
     "leesfamousrecipe.com": {
       "c": "US",
-      "k": "fast_casual"
+      "k": "chicken"
     },
     "leezen.com.tw": {
       "c": "TW",
@@ -5938,7 +5958,7 @@
     },
     "limefresh.com": {
       "c": "US",
-      "k": "fast_casual"
+      "k": "mexican"
     },
     "limefreshmexicangrill.com": {
       "c": "US",
@@ -5966,7 +5986,7 @@
     },
     "littlecaesars.ca": {
       "c": "CA",
-      "k": "fast_casual"
+      "k": "pizza"
     },
     "littlecaesars.com": {
       "c": "US",
@@ -6006,7 +6026,7 @@
     },
     "longjohnsilvers.com.sg": {
       "c": "SG",
-      "k": "fast_casual"
+      "k": "seafood"
     },
     "losbetos.com": {
       "c": "US",
@@ -6564,10 +6584,6 @@
       "c": "US",
       "k": "burger"
     },
-    "minorfood.com": {
-      "c": "",
-      "k": "fast_casual"
-    },
     "missiontaco.com": {
       "c": "US",
       "k": "mexican"
@@ -6685,7 +6701,7 @@
       "k": "burger"
     },
     "mosburgerthailand.com": {
-      "c": "",
+      "c": "TH",
       "k": "burger"
     },
     "moxies.com": {
@@ -7374,7 +7390,7 @@
     },
     "parisbaguette.com": {
       "c": "",
-      "k": "fast_casual"
+      "k": "bakery"
     },
     "parisbaguette.com.cn": {
       "c": "CN",
@@ -7610,7 +7626,7 @@
     },
     "pitapit.ca": {
       "c": "CA",
-      "k": "asian"
+      "k": "sandwich"
     },
     "pitapit.com": {
       "c": "CA",
@@ -7858,11 +7874,11 @@
     },
     "popeyes.vn": {
       "c": "VN",
-      "k": "fast_casual"
+      "k": "chicken"
     },
     "popeyesbrasil.com.br": {
       "c": "BR",
-      "k": "fast_casual"
+      "k": "chicken"
     },
     "popspizza.com": {
       "c": "US",
@@ -8018,7 +8034,7 @@
     },
     "quiznos.co.kr": {
       "c": "KR",
-      "k": "fast_casual"
+      "k": "sandwich"
     },
     "quiznos.com": {
       "c": "US",
@@ -8194,7 +8210,7 @@
     },
     "rema1000.no": {
       "c": "NO",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "renospizza.com": {
       "c": "US",
@@ -8402,7 +8418,7 @@
     },
     "s-kaupat.fi": {
       "c": "FI",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "saboten.com": {
       "c": "",
@@ -8594,7 +8610,7 @@
     },
     "shakeshack.kr": {
       "c": "KR",
-      "k": "fast_casual"
+      "k": "burger"
     },
     "shakeys.jp": {
       "c": "JP",
@@ -8842,7 +8858,7 @@
     },
     "spangles.com": {
       "c": "US",
-      "k": "fast_casual"
+      "k": "burger"
     },
     "spanglesinc.com": {
       "c": "US",
@@ -8857,7 +8873,7 @@
       "k": "grocery"
     },
     "sparnigeria.com": {
-      "c": "",
+      "c": "NG",
       "k": "grocery"
     },
     "sphinx.pl": {
@@ -9458,7 +9474,7 @@
     },
     "tgifridays.com.tw": {
       "c": "TW",
-      "k": "fast_casual"
+      "k": "restaurant"
     },
     "thaiexpress.ca": {
       "c": "CA",
@@ -9566,7 +9582,7 @@
     },
     "timhortons.co.uk": {
       "c": "GB",
-      "k": "fast_casual"
+      "k": "coffee"
     },
     "timhortons.com": {
       "c": "CA",
@@ -9574,7 +9590,7 @@
     },
     "timhortonsindia.com": {
       "c": "",
-      "k": "fast_casual"
+      "k": "coffee"
     },
     "timschina.com": {
       "c": "CN",
@@ -9682,7 +9698,7 @@
     },
     "toppers.ca": {
       "c": "CA",
-      "k": "fast_casual"
+      "k": "pizza"
     },
     "topperspizza.com": {
       "c": "US",
@@ -9838,7 +9854,7 @@
     },
     "uno.dz": {
       "c": "DZ",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "unos.com": {
       "c": "US",
@@ -9982,7 +9998,7 @@
     },
     "waipojia.com.cn": {
       "c": "CN",
-      "k": "fast_casual"
+      "k": "asian"
     },
     "waitrapp.com": {
       "c": "US",
@@ -10114,7 +10130,7 @@
     },
     "willys.com": {
       "c": "US",
-      "k": "sandwich"
+      "k": "fast_casual"
     },
     "willys.se": {
       "c": "SE",
@@ -10150,7 +10166,7 @@
     },
     "wingstop.com.sg": {
       "c": "SG",
-      "k": "fast_casual"
+      "k": "chicken"
     },
     "wingzone.com": {
       "c": "US",
@@ -10366,7 +10382,7 @@
     },
     "yandexlavka.ru": {
       "c": "RU",
-      "k": "fast_casual"
+      "k": "grocery"
     },
     "yangguofu.com": {
       "c": "CN",
@@ -10530,7 +10546,7 @@
     },
     "zhenkungfu.com": {
       "c": "CN",
-      "k": "chicken"
+      "k": "asian"
     },
     "zihaiguo.com": {
       "c": "CN",
@@ -10542,7 +10558,7 @@
     },
     "zkungfu.com": {
       "c": "CN",
-      "k": "chicken"
+      "k": "asian"
     },
     "zoeskitchen.com": {
       "c": "US",
@@ -11374,7 +11390,11 @@
     "foetex.dk",
     "food-kr.com",
     "food.grab.com",
+    "food.jumia.ci",
+    "food.jumia.co.ke",
     "food.jumia.com",
+    "food.jumia.ma",
+    "food.jumia.sn",
     "foodbomb.com.au",
     "foodbooking.com",
     "foodcourt.app",
@@ -11812,6 +11832,7 @@
     "kathination.com",
     "katinat.vn",
     "katiroll.com",
+    "katsuya.jp",
     "kaufland.de",
     "kcdas.com",
     "kebuke.com",
@@ -12086,7 +12107,6 @@
     "milkmoo.com.br",
     "milkshoptea.com",
     "miloshamburgers.com",
-    "minorfood.com",
     "missiontaco.com",
     "mitsuboshi-kaidou.com",
     "mixue.com",

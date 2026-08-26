@@ -214,3 +214,46 @@ test("no dead `convenience` mapping survives anywhere", () => {
       "would be blocked with no way to turn it off"
   );
 });
+
+// ---------------------------------------------------------------------------
+// The schema may not permit a category nothing can govern
+// ---------------------------------------------------------------------------
+
+// `convenience` outlived its pill. The validator enforces the generator's
+// APP_CATEGORIES rather than this schema, so behaviour was safe — but a schema
+// that still ACCEPTS the value is an invitation: the next brand given it would
+// pass review, fall through `categoryEnabled`'s permissive default, and be
+// blocked with no switch anywhere in Settings to turn it off.
+test("the package schema permits exactly the categories the generator produces", () => {
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const gen = require("../tools/generate-android-packages.js");
+
+  const schema = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "..", "data", "android", "packages.schema.json"), "utf8")
+  );
+
+  const enums = [];
+  (function walk(node) {
+    if (!node || typeof node !== "object") {
+      return;
+    }
+
+    if (Array.isArray(node.enum) && node.enum.includes("delivery")) {
+      enums.push(node.enum);
+    }
+
+    Object.values(node).forEach(walk);
+  })(schema);
+
+  assert.ok(enums.length > 0, "the schema no longer constrains the category at all");
+
+  enums.forEach((list) => {
+    assert.deepEqual(
+      [...list].sort(),
+      [...gen.APP_CATEGORIES].sort(),
+      `the schema accepts ${list.filter((c) => !gen.APP_CATEGORIES.includes(c)).join(", ") || "(nothing extra)"} ` +
+        "which the generator cannot produce and no Settings pill governs"
+    );
+  });
+});

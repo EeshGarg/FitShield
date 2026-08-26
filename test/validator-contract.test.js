@@ -632,15 +632,32 @@ test("every packaging contract ARCHITECTURE.md claims has a live audit", () => {
 });
 
 test("every audit named in validate-all is reachable and returns a reporter", async () => {
-  const { validateAll } = require("../tools/validate-all.js");
-  const result = await validateAll({ quiet: true });
+  // Reachability, not a full run. This used to call validateAll(), which now
+  // launches Chromium AND Firefox — two browsers, inside a suite that runs its
+  // files in parallel. The ports clashed and the failure had nothing to do with
+  // the contract being checked.
+  //
+  // The browser-driven audits are exercised by `npm run validate` and by their
+  // own tests; what belongs here is that every entry in the list is callable
+  // and answers with a reporter.
+  const { AUDITS } = require("../tools/validate-all.js");
 
-  assert.ok(result.reporters.length >= 12, `expected the full audit set, got ${result.reporters.length}`);
-  result.reporters.forEach((reporter) => {
-    assert.ok(Array.isArray(reporter.errors));
-    assert.ok(Array.isArray(reporter.warnings));
-    assert.equal(typeof reporter.name, "string");
-  });
+  assert.ok(AUDITS.length >= 12, `expected the full audit set, got ${AUDITS.length}`);
+
+  const DRIVES_A_BROWSER = new Set(["browserA11yAudit", "announcementAudit", "firefoxAudit"]);
+
+  for (const audit of AUDITS) {
+    assert.equal(typeof audit, "function", "every entry must be callable");
+
+    if (DRIVES_A_BROWSER.has(audit.name)) {
+      continue;
+    }
+
+    const reporter = await audit();
+    assert.ok(Array.isArray(reporter.errors), `${audit.name} must report errors as an array`);
+    assert.ok(Array.isArray(reporter.warnings), `${audit.name} must report warnings as an array`);
+    assert.equal(typeof reporter.name, "string", `${audit.name} must name itself`);
+  }
 });
 
 // ---------------------------------------------------------------------------

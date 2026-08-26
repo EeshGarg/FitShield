@@ -934,6 +934,15 @@ function queuePassUpdate(task) {
  * Re-reading inside the chain is what makes the write safe; the caller gets the
  * list back so it can hand the same one to syncAlarms rather than re-deriving.
  */
+// When the user last said "end all passes".
+//
+// Serializing the writes is not enough on its own: a grant that began before
+// the revoke can still be queued behind it, and its pass then lands in an
+// emptied list. Nothing is corrupted — the ordering is simply not the one the
+// user expressed. They pressed End all passes knowing a grant was under way,
+// and the button has to mean it.
+let lastRevokeAt = 0;
+
 function prunePassesOnChain() {
   return queuePassUpdate(async () => {
     const stored = await chrome.storage.local.get(["passes"]);
@@ -1217,6 +1226,9 @@ async function markAlternativeMade(id, options) {
  */
 async function grantPass(request) {
   const input = request && typeof request === "object" ? request : {};
+  // Read before the first await, so a revoke pressed while this grant is in
+  // flight can be told apart from one pressed before it started.
+  const startedAt = Date.now();
 
   if (input.preview === true) {
     return { ok: true, granted: false, preview: true, destination: "" };
@@ -1275,6 +1287,12 @@ async function grantPass(request) {
   // snapshot above: that snapshot was read before any awaiting this call did,
   // so appending to it is what lost a concurrent grant in the first place.
   await queuePassUpdate(async () => {
+    // A revoke issued after this grant started outranks it, however the two
+    // ended up ordered on the chain.
+    if (lastRevokeAt >= startedAt) {
+      return;
+    }
+
     const stored = await chrome.storage.local.get(["passes", "repeatHistory"]);
     const tabs = await openTabIds();
     const live = FitShieldCore.activePasses(stored.passes, Date.now(), { openTabIds: tabs });
@@ -1318,6 +1336,7 @@ async function revokeAllPasses(options) {
   // On the same chain as grantPass, so a revoke cannot be quietly undone by a
   // grant that was already in flight when the user pressed it. "End all passes"
   // has to mean it.
+  lastRevokeAt = Date.now();
   await queuePassUpdate(() => chrome.storage.local.set({ passes: [] }));
   await queueRefreshBlockingState();
   return { ok: true };
