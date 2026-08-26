@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Adaptive launcher icon. minSdk is 26, so every device FitShield runs on
+  supports this and no density-bucket PNG fallback can ever be reached.
+
+  Before this existed the app declared no icon at all and installed as Android's
+  grey placeholder — the first thing a user sees after downloading, and the one
+  the 512x512 store listing icon does nothing to fix.
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+    <monochrome android:drawable="@drawable/ic_launcher_monochrome" />
+</adaptive-icon>

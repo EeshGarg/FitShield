@@ -17,7 +17,7 @@
  * step is reproducible rather than a note in a document.
  *
  * Downloads roughly 400MB the first time (JDK 17, SDK command-line tools,
- * platform 35, build-tools 35). Re-running is cheap: anything already present
+ * platform 36, build-tools 36). Re-running is cheap: anything already present
  * is left alone.
  */
 
@@ -34,7 +34,7 @@ const SDK_DIR = path.join(HOME, "android-sdk");
 // from android/app/build.gradle; they are pinned here so a mismatch is a
 // deliberate edit rather than a silent drift.
 const JDK_FEATURE = 17;
-const SDK_PACKAGES = ["platform-tools", "platforms;android-35", "build-tools;35.0.0"];
+const SDK_PACKAGES = ["platform-tools", "platforms;android-36", "build-tools;36.0.0"];
 
 const isWin = process.platform === "win32";
 

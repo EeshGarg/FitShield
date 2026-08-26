@@ -3,9 +3,11 @@ package com.usha.fitshield
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.net.VpnService
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.webkit.ConsoleMessage
@@ -15,6 +17,7 @@ import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.webkit.WebViewAssetLoader
@@ -72,10 +75,72 @@ class MainActivity : AppCompatActivity() {
         }
         webView.addJavascriptInterface(WebAppBridge(this), "Android")
         webView.loadUrl("https://appassets.androidplatform.net/assets/web/index.html")
+
+        handleRestoreRequest(intent)
     }
 
-    /** Called from the bridge when the user taps Enable: request VPN consent. */
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleRestoreRequest(intent)
+    }
+
+    /**
+     * The "protection is off after your restart" notification was tapped. The
+     * consent dialog can only be raised from an Activity, which is the whole
+     * reason that notification exists — so raise it now.
+     */
+    private fun handleRestoreRequest(intent: Intent?) {
+        if (intent?.getBooleanExtra(RestoreNotice.EXTRA_RESTORE_VPN, false) != true) return
+        intent.removeExtra(RestoreNotice.EXTRA_RESTORE_VPN)   // one tap, one dialog
+        RestoreNotice.clear(this)
+        requestVpnEnable()
+    }
+
+    /**
+     * Called from the bridge when the user taps Enable.
+     *
+     * Notification permission comes FIRST, and this is not cosmetic. On Android
+     * 13+ POST_NOTIFICATIONS is a runtime grant, and it was declared in the
+     * manifest and never requested — so it was denied, always. Losing the ongoing
+     * foreground notice would only be untidy; losing the "protection is off after
+     * your restart" notice is the difference between a user being told and a user
+     * finding out by ordering. That notice is posted into the void without this.
+     *
+     * The system dialog is asked for once and never nagged: if the user declines,
+     * [WebAppBridge.notificationsEnabled] reports it and the dashboard explains
+     * what stops working, with a link to the system setting.
+     */
     fun requestVpnEnable() {
+        if (requestNotificationPermission()) return   // resumed from onRequestPermissionsResult
+        continueVpnEnable()
+    }
+
+    /**
+     * @return true when a permission dialog was raised and the VPN flow should
+     *   wait for its answer.
+     */
+    private fun requestNotificationPermission(): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return false
+        val permission = android.Manifest.permission.POST_NOTIFICATIONS
+        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) return false
+        // Android shows this dialog once; after a denial the call is a silent
+        // no-op and onRequestPermissionsResult still fires, so the VPN flow
+        // continues either way and the user is never asked twice by us.
+        return runCatching {
+            ActivityCompat.requestPermissions(this, arrayOf(permission), REQUEST_NOTIFICATIONS)
+            true
+        }.getOrDefault(false)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        // Granted or not, the user asked for protection — carry on and let the
+        // dashboard say what a denial costs.
+        if (requestCode == REQUEST_NOTIFICATIONS) continueVpnEnable()
+    }
+
+    private fun continueVpnEnable() {
         val consent = VpnService.prepare(this)
         if (consent != null) {
             startActivityForResult(consent, REQUEST_VPN)
@@ -167,5 +232,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val REQUEST_VPN = 1001
         private const val REQUEST_IMPORT = 1002
+        private const val REQUEST_NOTIFICATIONS = 1003
     }
 }

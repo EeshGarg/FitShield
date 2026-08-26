@@ -15,22 +15,33 @@
                            blocking still works without it on most devices. Used
                            ONLY to show the block screen for selected food apps;
                            FitShield never reads screen/message content.
+    RECEIVE_BOOT_COMPLETED - restore the user's OWN setting after a restart.
+                           Rebooting kills the VpnService, and without this the
+                           user is left unprotected with nothing telling them so
+                           — the opposite of what a blocker promises. FitShield
+                           restarts filtering ONLY when the user had it switched
+                           on when the device shut down (the stored instruction
+                           is written solely by an explicit enable/disable, never
+                           by the OS ending the service); a user who had it off
+                           gets no service and no notification. No other work is
+                           done at boot: nothing is uploaded, no data is read,
+                           and no other component is started. See BootReceiver.kt
+                           and RestorePolicy.kt.
 
   App-blocking uses an AccessibilityService (guarded by BIND_ACCESSIBILITY_SERVICE
   on the <service>, which the OS grants). It is configured to read ONLY the
   foreground package name (canRetrieveWindowContent="false") — never screen
   content — and is a user opt-in enabled from system Accessibility settings.
 
-  Deliberately NOT requested: RECEIVE_BOOT_COMPLETED (no boot startup),
-  PACKAGE_USAGE_STATS (no usage access), QUERY_ALL_PACKAGES (a narrowly
-  scoped <queries> for launchable apps is used instead — see below),
-  device admin.
+  Deliberately NOT requested: PACKAGE_USAGE_STATS (no usage access),
+  QUERY_ALL_PACKAGES (a narrowly scoped <queries> for launchable apps is used
+  instead — see below), device admin.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <!-- Required on Android 14+ (targetSdk 34) to run a foreground service of
+    <!-- Required on Android 14+ (the build targets 36) to run a foreground service of
          type "specialUse" — the type the VpnService declares below. -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -38,6 +49,10 @@
          over a blocked app. Used only to show the FitShield block screen for
          selected food apps; no screen/message content is ever read. -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- Restore the user's own choice after a restart. Used for nothing else:
+         the receiver below starts the connection filter if — and only if — the
+         user had it switched on, and otherwise does nothing at all. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <!--
       Package visibility (Android 11+). The block screen sends the blocked app to
@@ -53,8 +68,16 @@
         </intent>
     </queries>
 
+    <!--
+      android:icon was missing entirely, so FitShield installed as Android's grey
+      placeholder — the first thing a user sees after downloading, and something
+      the 512x512 Play listing icon does not fix. Both entries point at adaptive
+      icons; minSdk is 26, so there is no device that cannot resolve them.
+    -->
     <application
         android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitShield">
@@ -124,6 +147,27 @@
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Keeps on-device food-app blocking responsive in the background" />
         </service>
+
+        <!--
+          Restart the connection filter after a reboot or an app update — both
+          of which end the VpnService without the user asking for anything.
+
+          It restores ONLY what the user chose: BootReceiver reads the stored
+          instruction (written exclusively by an explicit enable/disable in the
+          app) and does nothing at all when that says off. When Android no longer
+          holds VPN consent, it posts one notification offering a single tap
+          rather than starting anything. Both actions are protected system
+          broadcasts, so no other app can trigger this.
+        -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true"
+            android:directBootAware="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
 
         <!--
           Native block/intervention screen (WebView), launched over a blocked app.

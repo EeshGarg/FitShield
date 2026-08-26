@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The FitShield "F", as three round-capped strokes.
+
+  Geometry traced from extension/icons/icon-128.png (the browser icon): a stem
+  with a top arm that rises slightly to the right and a shorter middle arm. Drawn
+  into the 108x108dp adaptive-icon viewport with every stroke inside the 66dp
+  safe zone, so no launcher mask can clip part of the letter off.
+
+  A vector rather than five PNG densities: it is the same mark at every size, it
+  adds a few hundred bytes to the bundle instead of a few hundred kilobytes, and
+  there is nothing to regenerate when the mark changes.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M43,36 L43,73 M43,36 L71,33 M43,53 L63,51"
+        android:strokeColor="@color/fitshield_green"
+        android:strokeWidth="11"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

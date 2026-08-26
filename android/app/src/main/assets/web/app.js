@@ -230,6 +230,59 @@
   }
 
   // ---- recipes (canonical data) --------------------------------------------
+
+  // "piece" is a bare counter, not a measure — it exists in the data so every
+  // ingredient has a unit, but printing it gives "2 piece naan breads".
+  const FILLER_UNIT = "piece";
+  // Countable units read naturally with "of" and need pluralising: "2 cloves of
+  // garlic". Measures (tbsp, cup, g, ml) do not: "2 tbsp oil".
+  const COUNTABLE_UNITS = {
+    slice: "slices", clove: "cloves", leaf: "leaves", pinch: "pinches",
+    pouch: "pouches", packet: "packets", scoop: "scoops"
+  };
+
+  /**
+   * Render one catalog ingredient as a phrase.
+   *
+   * This panel did `(r.ingredients || []).join(", ")` over a list of
+   * `{quantity, unit, item}` objects, so every alternative's ingredient line read
+   * "[object Object], [object Object], …" on the device — a panel whose entire
+   * job is telling you what you could make instead.
+   *
+   * The rules are the extension's, from `formatIngredient` in
+   * extension/warning.js. They are restated here rather than imported because
+   * extension/warning.js is not one of the modules bundled into the APK, and
+   * test/android-alternatives.test.js drives BOTH implementations across every
+   * ingredient in the shipped catalog and fails if they ever disagree — so this
+   * is a mirror with a gate on it, not a fork. The right end state is one copy in
+   * extension/recipes.js, which is already bundled; that file belongs to another
+   * lane.
+   */
+  function formatIngredient(ingredient) {
+    if (!ingredient || typeof ingredient !== "object") {
+      return String(ingredient || "");
+    }
+    const item = String(ingredient.item || "");
+    const quantity = Number(ingredient.quantity);
+    const unit = String(ingredient.unit || "");
+    let text = item;
+
+    if (Number.isFinite(quantity) && unit) {
+      if (unit === FILLER_UNIT) {
+        text = `${quantity} ${item}`;
+      } else if (COUNTABLE_UNITS[unit]) {
+        const word = quantity === 1 ? unit : COUNTABLE_UNITS[unit];
+        text = `${quantity} ${word} of ${item}`;
+      } else {
+        text = `${quantity} ${unit} ${item}`;
+      }
+    }
+    if (ingredient.note) {
+      text += ` (${ingredient.note})`;
+    }
+    return text;
+  }
+
   async function renderRecipes() {
     let recipes = [];
     // `load()` resolves the WHOLE catalog document — the selector needs the
@@ -238,8 +291,38 @@
     // and no log: the panel was simply empty on every device, permanently.
     // `loadEntries()` is the accessor that returns the flat array.
     try { recipes = await fs.recipes.loadEntries(); } catch (e) {}
-    const wrap = $("recipeList"); wrap.replaceChildren();
-    (Array.isArray(recipes) ? recipes : []).slice(0, 24).forEach((r) => {
+    const all = Array.isArray(recipes) ? recipes : [];
+    const wrap = $("recipeList");
+    const search = $("recipeSearch");
+    const count = $("recipeCount");
+
+    // This drew `.slice(0, 24)` of 88 entries and said nothing about the other
+    // 64 — a browse panel that quietly hid two thirds of the catalog. Everything
+    // is rendered now, with a filter for finding one and a count that states
+    // plainly how many of how many are on screen.
+    function draw() {
+      const query = (search && search.value || "").trim().toLowerCase();
+      const matches = query
+        ? all.filter((r) => matchText(r).includes(query))
+        : all;
+      if (count) {
+        count.textContent = query
+          ? `${matches.length} of ${all.length} alternatives match “${search.value.trim()}”.`
+          : `${all.length} alternative${all.length === 1 ? "" : "s"}.`;
+      }
+      wrap.replaceChildren();
+      matches.forEach(renderRecipeCard);
+    }
+
+    function matchText(r) {
+      return [
+        r.title,
+        r.description,
+        ...(Array.isArray(r.ingredients) ? r.ingredients.map(formatIngredient) : [])
+      ].filter(Boolean).join(" ").toLowerCase();
+    }
+
+    function renderRecipeCard(r) {
       const card = el("div", "recipe");
       card.appendChild(el("h4", null, r.title));
       // `totalMinutes` is what the catalog carries. This read `r.timeMinutes`,
@@ -254,11 +337,15 @@
       if (r.description) card.appendChild(el("div", "note", r.description));
       const det = el("details");
       det.appendChild(el("summary", null, `${t("recipeIngredientsLabel")} · ${t("recipeStepsLabel")}`));
-      det.appendChild(el("div", "note", `${t("recipeIngredientsLabel")}: ${(r.ingredients || []).join(", ")}`));
+      const ingredients = (Array.isArray(r.ingredients) ? r.ingredients : []).map(formatIngredient).filter(Boolean);
+      det.appendChild(el("div", "note", `${t("recipeIngredientsLabel")}: ${ingredients.join(", ")}`));
       const ol = el("ol", "limits"); (r.steps || []).forEach((s) => ol.appendChild(el("li", null, s))); det.appendChild(ol);
       card.appendChild(det);
       wrap.appendChild(card);
-    });
+    }
+
+    if (search) search.addEventListener("input", draw);
+    draw();
   }
 
   // ---- theme (mode + full color customization; glass-preserving) ----------
@@ -430,6 +517,24 @@
         : "Turn on the FitShield accessibility service to block apps. It only reads which app comes to the front — never screen content.";
       $("a11yOpen").hidden = a11y;
       $("overlayCard").hidden = overlay;   // shown only when the permission is missing
+
+      // Notifications. POST_NOTIFICATIONS was declared and never requested, so on
+      // Android 13+ it was denied on every device — and the notice that says
+      // "protection is off after your restart" was posting into nothing. It is
+      // requested now when site blocking is first enabled; this is what happens
+      // when the user declines, or turns notifications off later.
+      if ($("notifStatus") && ab.notificationsEnabled) {
+        let notifications = true;
+        try { notifications = await ab.notificationsEnabled(); } catch (e) {}
+        $("notifStatus").hidden = notifications;
+        $("notifOpen").hidden = notifications;
+        if (!notifications) {
+          $("notifStatus").textContent =
+            "Notifications are turned off for FitShield. If your phone restarts and Android needs your VPN " +
+            "confirmation again, FitShield cannot tell you that site blocking stopped — you would find out by " +
+            "opening a site that should have been blocked.";
+        }
+      }
       // Optional background-protection status (battery-optimization exemption).
       if ($("batteryStatus") && ab.batteryUnrestricted) {
         let unrestricted = false;
@@ -441,8 +546,43 @@
       }
     }
     const refreshA11y = refreshStatuses;   // (name kept for the toggle handler below)
-    $("a11yOpen").addEventListener("click", () => ab.openSettings());
+
+    // Prominent disclosure before the accessibility request.
+    //
+    // "Open Accessibility settings" used to open the system screen immediately.
+    // Google requires the disclosure to be shown in the app, before the request,
+    // and accepted by an affirmative action — and the AccessibilityService
+    // declaration is one of the two most scrutinised things on this listing. The
+    // native bridge refuses to open anything until recordConsent() has run, so
+    // this is a gate rather than a courtesy.
+    const disclosure = $("a11yDisclosure");
+    function showDisclosure() {
+      if (!disclosure) { ab.openSettings(); return; }
+      disclosure.hidden = false;
+      $("a11yAccept").focus();
+    }
+    $("a11yOpen").addEventListener("click", async () => {
+      let consented = false;
+      try { consented = ab.consentGiven ? await ab.consentGiven() : true; } catch (e) {}
+      if (consented) { ab.openSettings(); return; }
+      showDisclosure();
+    });
+    if (disclosure) {
+      $("a11yAccept").addEventListener("click", async () => {
+        try { if (ab.recordConsent) await ab.recordConsent(); } catch (e) {}
+        disclosure.hidden = true;
+        ab.openSettings();
+      });
+      $("a11yDecline").addEventListener("click", () => {
+        // Declining records nothing and enables nothing. App blocking stays off
+        // and site blocking is unaffected.
+        disclosure.hidden = true;
+      });
+    }
     $("overlayOpen").addEventListener("click", () => ab.openOverlaySettings());
+    if ($("notifOpen") && ab.openNotificationSettings) {
+      $("notifOpen").addEventListener("click", () => ab.openNotificationSettings());
+    }
     // Optional "background protection" keep-alive toggle + battery exemption.
     if ($("keepAliveEnabled") && ab.keepAliveEnabled) {
       try { $("keepAliveEnabled").checked = await ab.keepAliveEnabled(); } catch (e) {}

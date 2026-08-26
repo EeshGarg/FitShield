@@ -35,6 +35,7 @@
     "port:android-apps": "node tools/port-android-apps.js",
     "build": "node build.js",
     "build:android": "node tools/build-android.js",
+    "bundle:android": "node tools/build-android.js --bundle",
     "toolchain:android": "node tools/provision-android-toolchain.js",
     "capture": "node tools/capture-surfaces.js",
     "build:safari": "node tools/build-safari.js",

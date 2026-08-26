@@ -130,7 +130,18 @@
     appBlocking: {
       available: true,
       accessibilityEnabled: () => Promise.resolve(!!(A.accessibilityEnabled && A.accessibilityEnabled())),
+      // openSettings does nothing until consentGiven() is true. Google's
+      // prominent-disclosure rules require the explanation to be shown in the
+      // app and accepted by an affirmative action BEFORE the request, so the
+      // native side refuses an ungated call rather than trusting this page.
       openSettings: () => { if (A.openAccessibilitySettings) A.openAccessibilitySettings(); return Promise.resolve(); },
+      consentGiven: () => Promise.resolve(!!(A.accessibilityConsentGiven && A.accessibilityConsentGiven())),
+      recordConsent: () => { if (A.recordAccessibilityConsent) A.recordAccessibilityConsent(); return Promise.resolve(); },
+      clearConsent: () => { if (A.clearAccessibilityConsent) A.clearAccessibilityConsent(); return Promise.resolve(); },
+      // Whether FitShield may post notifications at all. The restore notice
+      // after a reboot is the one that matters — see MainActivity.
+      notificationsEnabled: () => Promise.resolve(A.notificationsEnabled ? !!A.notificationsEnabled() : true),
+      openNotificationSettings: () => { if (A.openNotificationSettings) A.openNotificationSettings(); return Promise.resolve(); },
       packageCount: () => Promise.resolve(A.appPackageCount ? A.appPackageCount() : 0),
       list: () => { try { return Promise.resolve(JSON.parse(A.blockableApps ? A.blockableApps() : "[]")); } catch (e) { return Promise.resolve([]); } },
       // "Display over other apps" — makes the block screen launch reliably.

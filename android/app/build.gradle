@@ -28,12 +28,12 @@ def hasReleaseSigning = relStoreFile != null
 
 android {
     namespace 'com.usha.fitshield'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId 'com.usha.fitshield'
         minSdk 26
-        targetSdk 35
+        targetSdk 36
         versionCode fitshieldVersionCode
         versionName fitshieldVersion
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'

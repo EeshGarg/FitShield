@@ -17,7 +17,10 @@ import java.util.concurrent.LinkedBlockingQueue
  * host out of the connection itself.
  *
  * What it does:
- *  - Reads IPv4 packets from the TUN.
+ *  - Reads IPv4 AND IPv6 packets from the TUN. Layer 3 is parsed by [IpPacket],
+ *    which hands back a transport offset and the two address slices; from that
+ *    point on the two families run the same code, and a 16-byte address reaches
+ *    an IPv6 destination because `InetAddress.getByAddress` accepts both widths.
  *  - TCP: terminates the client side locally (the app<->TUN path is lossless and
  *    in-order, so no congestion control / retransmit is needed on our side),
  *    peeks the first client payload for the SNI/Host, and either
@@ -26,7 +29,14 @@ import java.util.concurrent.LinkedBlockingQueue
  *        transparently relays bytes both ways (the OS handles real TCP).
  *  - UDP: drops QUIC (UDP/443) so browsers fall back to TCP where the SNI is
  *    visible; relays other UDP (e.g. NTP) through a protected socket.
- *  - IPv6 is captured and dropped (forces IPv4 fallback); documented limitation.
+ *
+ * IPv6 used to be captured and then discarded here. On a dual-stack network that
+ * silently degraded to IPv4; on an IPv6-only carrier it left the device with no
+ * working internet at all for as long as FitShield was on. Removing the `::/0`
+ * route would have restored connectivity by letting IPv6 bypass the filter
+ * entirely, which would have turned a visible failure into an invisible one — a
+ * blocked brand reachable over IPv6 simply would not be blocked. So the packets
+ * are parsed instead.
  *
  * What it is NOT: no HTTPS interception/decryption, no certificates, no MITM, no
  * content inspection, no telemetry. Only the plaintext SNI/Host (already sent in
@@ -74,36 +84,34 @@ class Tun2Filter(
     }
 
     private fun dispatch(pkt: ByteArray, len: Int) {
-        val version = (pkt[0].toInt() ushr 4) and 0xF
-        if (version != 4) return                    // IPv6 captured but dropped (forces IPv4)
-        val ihl = (pkt[0].toInt() and 0xF) * 4
-        if (ihl < 20 || ihl > len) return
-        when (pkt[9].toInt() and 0xFF) {
-            6 -> handleTcp(pkt, ihl, len)
-            17 -> handleUdp(pkt, ihl, len)
-            // other protocols (ICMP, etc.) dropped
+        // Null covers every packet this filter must not act on: truncated,
+        // fragmented, an unwalkable IPv6 extension chain, or a protocol we do
+        // not handle (ICMP/ICMPv6, ESP, …). Dropping is the pre-existing
+        // behaviour for those; what changed is that IPv6 is no longer one.
+        val ip = IpPacket.parse(pkt, len) ?: return
+        when (ip.protocol) {
+            IpPacket.PROTO_TCP -> handleTcp(pkt, ip, len)
+            IpPacket.PROTO_UDP -> handleUdp(pkt, ip, len)
         }
     }
 
     // ---- TCP ----------------------------------------------------------------
 
-    private fun handleTcp(pkt: ByteArray, ihl: Int, len: Int) {
-        val srcIp = pkt.copyOfRange(12, 16)
-        val dstIp = pkt.copyOfRange(16, 20)
-        val tcp = ihl
+    private fun handleTcp(pkt: ByteArray, ip: IpPacket.Header, len: Int) {
+        val tcp = ip.transportOffset
         if (tcp + 20 > len) return
-        val srcPort = u16(pkt, tcp)
-        val dstPort = u16(pkt, tcp + 2)
-        val seq = u32(pkt, tcp + 4)
-        val ack = u32(pkt, tcp + 8)
+        val srcPort = IpPacket.u16(pkt, tcp)
+        val dstPort = IpPacket.u16(pkt, tcp + 2)
+        val seq = IpPacket.u32(pkt, tcp + 4)
+        val ack = IpPacket.u32(pkt, tcp + 8)
         val dataOff = ((pkt[tcp + 12].toInt() and 0xFF) ushr 4) * 4
         val flags = pkt[tcp + 13].toInt() and 0xFF
-        val window = u16(pkt, tcp + 14)
+        val window = IpPacket.u16(pkt, tcp + 14)
         val payloadOff = tcp + dataOff
         val payloadLen = len - payloadOff
-        if (payloadOff > len) return
+        if (dataOff < 20 || payloadOff > len) return
 
-        val key = "${ip(srcIp)}:$srcPort>${ip(dstIp)}:$dstPort"
+        val key = flowKey(ip, srcPort, dstPort)
         val syn = flags and 0x02 != 0
         val rst = flags and 0x04 != 0
         val fin = flags and 0x01 != 0
@@ -115,7 +123,7 @@ class Tun2Filter(
 
         if (syn && flow == null) {
             if (flows.size > MAX_FLOWS) { flows.entries.firstOrNull()?.let { it.value.close(false); flows.remove(it.key) } }
-            flow = TcpFlow(key, srcIp, dstIp, srcPort, dstPort, seq)
+            flow = TcpFlow(key, ip.src, ip.dst, srcPort, dstPort, seq)
             flows[key] = flow
             flow.onSyn()
             return
@@ -193,8 +201,8 @@ class Tun2Filter(
         private fun decide() {
             val bytes = pre.toByteArray()
             val host = when (serverPort) {
-                443 -> parseTlsSni(bytes, bytes.size)
-                80 -> parseHttpHost(bytes, bytes.size)
+                443 -> HostPeek.tlsSni(bytes, bytes.size)
+                80 -> HostPeek.httpHost(bytes, bytes.size)
                 else -> ""                                 // no name available → allow
             }
             if (host == null && pre.size() < PEEK_CAP) return   // need more data
@@ -217,6 +225,8 @@ class Tun2Filter(
                     // Open via a channel so the OS socket (fd) exists BEFORE protect():
                     // a plain `Socket()` has no fd until connect, so protect() would
                     // no-op and the upstream would loop back through our own tunnel.
+                    // The fd Android opens here is AF_INET6 with V6ONLY off, so the
+                    // same channel reaches a 4-byte and a 16-byte destination alike.
                     val ch = java.nio.channels.SocketChannel.open()
                     if (!vpn.protectSocket(ch.socket())) throw IllegalStateException("protect failed")
                     ch.socket().tcpNoDelay = true
@@ -304,7 +314,10 @@ class Tun2Filter(
         private fun ackOnly() { send(FLAG_ACK, withMss = false, payload = null) }
 
         private fun send(flags: Int, withMss: Boolean, payload: ByteArray?) {
-            val pkt = buildIpTcp(serverIp, clientIp, serverPort, clientPort, sndNxt, rcvNxt, flags, 65535, payload, withMss)
+            val pkt = IpPacket.buildTcp(
+                serverIp, clientIp, serverPort, clientPort, sndNxt, rcvNxt, flags, 65535,
+                payload, if (withMss) MSS else null
+            )
             emit(pkt, pkt.size)
         }
 
@@ -320,20 +333,18 @@ class Tun2Filter(
 
     // ---- UDP ----------------------------------------------------------------
 
-    private fun handleUdp(pkt: ByteArray, ihl: Int, len: Int) {
-        val udp = ihl
+    private fun handleUdp(pkt: ByteArray, ip: IpPacket.Header, len: Int) {
+        val udp = ip.transportOffset
         if (udp + 8 > len) return
-        val srcPort = u16(pkt, udp)
-        val dstPort = u16(pkt, udp + 2)
+        val srcPort = IpPacket.u16(pkt, udp)
+        val dstPort = IpPacket.u16(pkt, udp + 2)
         if (dstPort == 443) return                       // drop QUIC → forces TCP fallback (SNI visible)
         val payloadOff = udp + 8
         val payloadLen = len - payloadOff
         if (payloadLen <= 0) return
-        val srcIp = pkt.copyOfRange(12, 16)
-        val dstIp = pkt.copyOfRange(16, 20)
-        val key = "${ip(srcIp)}:$srcPort>${ip(dstIp)}:$dstPort"
+        val key = flowKey(ip, srcPort, dstPort)
         val flow = udpFlows.getOrPut(key) {
-            UdpFlow(key, srcIp, dstIp, srcPort, dstPort).also { it.start() }
+            UdpFlow(key, ip.src, ip.dst, srcPort, dstPort).also { it.start() }
         }
         flow.send(pkt.copyOfRange(payloadOff, payloadOff + payloadLen))
     }
@@ -359,7 +370,7 @@ class Tun2Filter(
                     while (alive) {
                         val dp = java.net.DatagramPacket(buf, buf.size)
                         socket.receive(dp)
-                        val reply = buildIpUdp(serverIp, clientIp, serverPort, clientPort, buf, dp.length)
+                        val reply = IpPacket.buildUdp(serverIp, clientIp, serverPort, clientPort, buf, dp.length)
                         emit(reply, reply.size)
                     }
                 } catch (e: Exception) {
@@ -379,144 +390,20 @@ class Tun2Filter(
         }
     }
 
-    // ---- packet builders ----------------------------------------------------
+    // ---- helpers ------------------------------------------------------------
 
-    private fun buildIpTcp(
-        src: ByteArray, dst: ByteArray, srcPort: Int, dstPort: Int,
-        seq: Int, ack: Int, flags: Int, window: Int, payload: ByteArray?, withMss: Boolean
-    ): ByteArray {
-        val opts = if (withMss) 4 else 0
-        val tcpLen = 20 + opts + (payload?.size ?: 0)
-        val total = 20 + tcpLen
-        val out = ByteArray(total)
-        // IPv4 header
-        out[0] = 0x45; out[1] = 0
-        out[2] = (total ushr 8).toByte(); out[3] = total.toByte()
-        out[4] = 0; out[5] = 0; out[6] = 0x40; out[7] = 0     // id 0, DF
-        out[8] = 64; out[9] = 6                                 // ttl, proto=TCP
-        System.arraycopy(src, 0, out, 12, 4)
-        System.arraycopy(dst, 0, out, 16, 4)
-        val ipSum = checksum(out, 0, 20)
-        out[10] = (ipSum ushr 8).toByte(); out[11] = ipSum.toByte()
-        // TCP header
-        val t = 20
-        put16(out, t, srcPort); put16(out, t + 2, dstPort)
-        put32(out, t + 4, seq); put32(out, t + 8, ack)
-        val dataOffWords = (20 + opts) / 4
-        out[t + 12] = (dataOffWords shl 4).toByte()
-        out[t + 13] = flags.toByte()
-        put16(out, t + 14, window)
-        // checksum (t+16) left 0 for now; urgent (t+18) = 0
-        if (withMss) { out[t + 20] = 2; out[t + 21] = 4; put16(out, t + 22, MSS) }
-        payload?.let { System.arraycopy(it, 0, out, t + 20 + opts, it.size) }
-        val tcpSum = tcpUdpChecksum(src, dst, 6, out, t, tcpLen)
-        put16(out, t + 16, tcpSum)
-        return out
-    }
+    /** Flow-table key. IPv6 addresses are bracketed so they cannot run together
+     *  with the port, and the two families can never collide on one key. */
+    private fun flowKey(ip: IpPacket.Header, srcPort: Int, dstPort: Int): String =
+        "${IpPacket.addressKey(ip.src)}:$srcPort>${IpPacket.addressKey(ip.dst)}:$dstPort"
 
-    private fun buildIpUdp(
-        src: ByteArray, dst: ByteArray, srcPort: Int, dstPort: Int, payload: ByteArray, plen: Int
-    ): ByteArray {
-        val udpLen = 8 + plen
-        val total = 20 + udpLen
-        val out = ByteArray(total)
-        out[0] = 0x45; out[2] = (total ushr 8).toByte(); out[3] = total.toByte()
-        out[6] = 0x40; out[8] = 64; out[9] = 17
-        System.arraycopy(src, 0, out, 12, 4)
-        System.arraycopy(dst, 0, out, 16, 4)
-        val ipSum = checksum(out, 0, 20)
-        out[10] = (ipSum ushr 8).toByte(); out[11] = ipSum.toByte()
-        val u = 20
-        put16(out, u, srcPort); put16(out, u + 2, dstPort)
-        put16(out, u + 4, udpLen)
-        System.arraycopy(payload, 0, out, u + 8, plen)
-        val udpSum = tcpUdpChecksum(src, dst, 17, out, u, udpLen)
-        put16(out, u + 6, if (udpSum == 0) 0xFFFF else udpSum)
-        return out
-    }
-
-    // ---- SNI / Host parsing (need-more = null, no-name = "", else host) ------
-
-    private fun parseTlsSni(b: ByteArray, len: Int): String? {
-        if (len < 5) return null
-        if ((b[0].toInt() and 0xFF) != 0x16) return ""            // not a TLS handshake
-        val recEnd = 5 + u16(b, 3)
-        if (len < recEnd) return null                              // ClientHello record incomplete
-        var p = 5
-        if (p >= len || (b[p].toInt() and 0xFF) != 0x01) return "" // not ClientHello
-        val hsEnd = p + 4 + u24(b, p + 1)
-        if (hsEnd > len) return null
-        p += 4 + 2 + 32                                            // hdr + version + random
-        if (p + 1 > len) return null
-        val sidLen = b[p].toInt() and 0xFF; p += 1 + sidLen
-        if (p + 2 > len) return null
-        p += 2 + u16(b, p)                                         // cipher suites
-        if (p + 1 > len) return null
-        p += 1 + (b[p].toInt() and 0xFF)                          // compression methods
-        if (p + 2 > len) return ""
-        val extEnd = minOf(p + 2 + u16(b, p), len); p += 2
-        while (p + 4 <= extEnd) {
-            val type = u16(b, p); val el = u16(b, p + 2); p += 4
-            if (type == 0x0000) {                                  // server_name
-                var q = p + 2                                       // skip server_name_list length
-                while (q + 3 <= minOf(p + el, len)) {
-                    val nameType = b[q].toInt() and 0xFF
-                    val nameLen = u16(b, q + 1); q += 3
-                    if (nameType == 0 && q + nameLen <= len) {
-                        return String(b, q, nameLen, Charsets.US_ASCII).lowercase()
-                    }
-                    q += nameLen
-                }
-                return ""
-            }
-            p += el
-        }
-        return ""
-    }
-
-    private fun parseHttpHost(b: ByteArray, len: Int): String? {
-        val s = String(b, 0, minOf(len, 4096), Charsets.ISO_8859_1)
-        val m = Regex("(?im)^Host:[ \\t]*([^\\r\\n:]+)").find(s)
-        if (m != null) return m.groupValues[1].trim().lowercase()
-        if (s.contains("\r\n\r\n") || len > 4096) return ""        // headers done, no Host
-        return null
-    }
-
-    // ---- byte helpers -------------------------------------------------------
-
-    private fun u16(b: ByteArray, o: Int) = ((b[o].toInt() and 0xFF) shl 8) or (b[o + 1].toInt() and 0xFF)
-    private fun u24(b: ByteArray, o: Int) = ((b[o].toInt() and 0xFF) shl 16) or ((b[o + 1].toInt() and 0xFF) shl 8) or (b[o + 2].toInt() and 0xFF)
-    private fun u32(b: ByteArray, o: Int) = ((b[o].toInt() and 0xFF) shl 24) or ((b[o + 1].toInt() and 0xFF) shl 16) or ((b[o + 2].toInt() and 0xFF) shl 8) or (b[o + 3].toInt() and 0xFF)
-    private fun put16(b: ByteArray, o: Int, v: Int) { b[o] = (v ushr 8).toByte(); b[o + 1] = v.toByte() }
-    private fun put32(b: ByteArray, o: Int, v: Int) { b[o] = (v ushr 24).toByte(); b[o + 1] = (v ushr 16).toByte(); b[o + 2] = (v ushr 8).toByte(); b[o + 3] = v.toByte() }
-    private fun ip(a: ByteArray) = "${a[0].toInt() and 0xFF}.${a[1].toInt() and 0xFF}.${a[2].toInt() and 0xFF}.${a[3].toInt() and 0xFF}"
     private fun seqGt(a: Int, b: Int): Boolean = (a - b) in 1..Int.MAX_VALUE
-
-    private fun checksum(buf: ByteArray, off: Int, len: Int): Int {
-        var sum = 0L; var i = off; var rem = len
-        while (rem > 1) { sum += (((buf[i].toInt() and 0xFF) shl 8) or (buf[i + 1].toInt() and 0xFF)).toLong(); i += 2; rem -= 2 }
-        if (rem == 1) sum += ((buf[i].toInt() and 0xFF) shl 8).toLong()
-        while ((sum shr 16) != 0L) sum = (sum and 0xFFFFL) + (sum shr 16)
-        return (sum.inv() and 0xFFFFL).toInt()
-    }
-
-    /** TCP/UDP checksum over the IPv4 pseudo-header + segment. */
-    private fun tcpUdpChecksum(src: ByteArray, dst: ByteArray, proto: Int, buf: ByteArray, off: Int, segLen: Int): Int {
-        var sum = 0L
-        for (k in 0 until 4 step 2) sum += (((src[k].toInt() and 0xFF) shl 8) or (src[k + 1].toInt() and 0xFF)).toLong()
-        for (k in 0 until 4 step 2) sum += (((dst[k].toInt() and 0xFF) shl 8) or (dst[k + 1].toInt() and 0xFF)).toLong()
-        sum += proto.toLong()
-        sum += segLen.toLong()
-        var i = off; var rem = segLen
-        while (rem > 1) { sum += (((buf[i].toInt() and 0xFF) shl 8) or (buf[i + 1].toInt() and 0xFF)).toLong(); i += 2; rem -= 2 }
-        if (rem == 1) sum += ((buf[i].toInt() and 0xFF) shl 8).toLong()
-        while ((sum shr 16) != 0L) sum = (sum and 0xFFFFL) + (sum shr 16)
-        return (sum.inv() and 0xFFFFL).toInt()
-    }
 
     companion object {
         private const val TAG = "FitShieldFilter"
         private const val MAX_PACKET = 32767
+        /** One value for both families: 1400 + 40 (IPv6) + 20 (TCP) = 1460,
+         *  still inside the tun's 1500-byte MTU, and unchanged for IPv4. */
         private const val MSS = 1400
         private const val MAX_FLOWS = 512
         private const val CONNECT_TIMEOUT = 8000

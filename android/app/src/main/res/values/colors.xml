@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Brand colours, sampled from the shipped browser icon (extension/icons/icon-128.png)
+  so the Android launcher icon is the SAME mark users already recognise rather
+  than a second interpretation of it.
+-->
+<resources>
+    <color name="fitshield_green">#FF22B14C</color>
+    <color name="ic_launcher_background">#FFFFFFFF</color>
+</resources>

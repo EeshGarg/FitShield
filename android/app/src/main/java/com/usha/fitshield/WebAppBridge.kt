@@ -76,14 +76,85 @@ class WebAppBridge(private val activity: AppCompatActivity) {
         }.getOrDefault(false)
     }
 
-    /** Open the system Accessibility settings so the user can enable the service. */
+    /**
+     * Open the system Accessibility settings so the user can enable the service.
+     *
+     * Guarded by [recordAccessibilityConsent]. Google's prominent-disclosure rules
+     * for an AccessibilityService require the disclosure to appear in the app
+     * itself, before the request, and to be accepted by an affirmative action —
+     * not a dialog the user can swipe away, and not a line in a privacy policy.
+     * This screen used to open the moment the button was tapped, with the
+     * explanation sitting elsewhere on the page, which satisfies none of that.
+     *
+     * The gate lives here rather than only in the WebView so that a UI change can
+     * never route around it: without a recorded consent this does nothing.
+     */
     @JavascriptInterface
     fun openAccessibilitySettings() {
+        if (!accessibilityConsentGiven()) return
         activity.runOnUiThread {
             runCatching {
                 activity.startActivity(
                     Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
+            }
+        }
+    }
+
+    /** True once the user has accepted the in-app disclosure. */
+    @JavascriptInterface
+    fun accessibilityConsentGiven(): Boolean =
+        prefs.getString(ACCESSIBILITY_CONSENT_KEY, null)?.trim()?.trim('"').isNullOrEmpty().not()
+
+    /**
+     * Record the user's affirmative acceptance of the accessibility disclosure.
+     * Stored as the ISO timestamp of the acceptance so it is auditable rather
+     * than a bare boolean somebody could have flipped by accident.
+     */
+    @JavascriptInterface
+    fun recordAccessibilityConsent() {
+        prefs.edit()
+            .putString(ACCESSIBILITY_CONSENT_KEY, "\"${java.time.Instant.now()}\"")
+            .apply()
+    }
+
+    /** Withdraw it, so the disclosure is shown again next time. */
+    @JavascriptInterface
+    fun clearAccessibilityConsent() {
+        prefs.edit().remove(ACCESSIBILITY_CONSENT_KEY).apply()
+    }
+
+    /**
+     * True when this app may actually post notifications.
+     *
+     * POST_NOTIFICATIONS is a runtime grant on Android 13+, and it was declared
+     * and never requested — so it was denied on every modern device. The ongoing
+     * foreground notice going missing is cosmetic; the "protection is off after
+     * your restart" notice going missing is not, so the dashboard needs to be
+     * able to say when it cannot appear.
+     */
+    @JavascriptInterface
+    fun notificationsEnabled(): Boolean = runCatching {
+        androidx.core.app.NotificationManagerCompat.from(context).areNotificationsEnabled()
+    }.getOrDefault(true)
+
+    /** Open this app's notification settings. */
+    @JavascriptInterface
+    fun openNotificationSettings() {
+        activity.runOnUiThread {
+            runCatching {
+                activity.startActivity(
+                    Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                        .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
+            }.onFailure {
+                runCatching {
+                    activity.startActivity(
+                        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:${context.packageName}"))
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    )
+                }
             }
         }
     }
@@ -289,5 +360,10 @@ class WebAppBridge(private val activity: AppCompatActivity) {
     @JavascriptInterface
     fun importSettings() {
         activity.runOnUiThread { (activity as? MainActivity)?.requestImportSettings() }
+    }
+
+    private companion object {
+        /** ISO timestamp of the user's acceptance of the accessibility disclosure. */
+        const val ACCESSIBILITY_CONSENT_KEY = "accessibilityDisclosureAcceptedAt"
     }
 }

@@ -33,6 +33,10 @@ import java.net.Socket
  * system resolver / Private DNS keeps working exactly as configured. Allowed
  * connections are relayed byte-for-byte to the same IP the client chose. See
  * docs/ANDROID.md.
+ *
+ * The service also owns the user's standing instruction ([VpnIntent.KEY]): it is
+ * the only place that can know whether the tunnel went down because the user
+ * asked or because the OS took it away. [BootReceiver] reads it after a restart.
  */
 class FitShieldVpnService : VpnService() {
 
@@ -105,16 +109,45 @@ class FitShieldVpnService : VpnService() {
         Log.i(TAG, "Loaded ${rules.count} blockable hosts from the generated asset")
     }
 
+    /**
+     * Persist (or deliberately leave alone) the user's standing instruction.
+     *
+     * The decision of which events may write is [VpnIntent.record], kept pure so
+     * the suite can execute it. The one that matters is SERVICE_DESTROYED: a
+     * reboot, a low-memory kill and an app update all destroy this service
+     * without the user asking for anything, and if any of them wrote "off" then
+     * protection would stay off forever afterwards with nobody having chosen it.
+     */
+    private fun recordIntent(event: VpnIntent.Event) {
+        val value = VpnIntent.record(event) ?: return
+        synchronized(prefs) {
+            prefs.edit().putString(VpnIntent.KEY, VpnIntent.encode(value)).apply()
+        }
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == ACTION_STOP) {
+            recordIntent(VpnIntent.Event.USER_DISABLED)
             stop()
             return Service.START_NOT_STICKY
         }
-        start()
+        start(fromBoot = intent?.action == ACTION_BOOT_RESTORE)
         return Service.START_STICKY
     }
 
-    private fun start() {
+    /**
+     * Android revoked the tunnel — the user withdrew VPN consent, or another VPN
+     * app took over. Either way FitShield is not filtering because of something
+     * the user did outside the app, so the standing instruction becomes "off"
+     * and no restart will quietly bring it back.
+     */
+    override fun onRevoke() {
+        recordIntent(VpnIntent.Event.CONSENT_REVOKED)
+        stop()
+        super.onRevoke()
+    }
+
+    private fun start(fromBoot: Boolean = false) {
         if (active) return
         startForeground(NOTIF_ID, buildNotification())
 
@@ -130,13 +163,18 @@ class FitShieldVpnService : VpnService() {
             .addAddress(TUN_ADDRESS, 32)
             .addRoute("0.0.0.0", 0)                 // capture all IPv4 → filter by SNI/Host
             .addAddress(TUN_ADDRESS6, 128)
-            .addRoute("::", 0)                       // capture IPv6 (dropped → forces IPv4 fallback)
+            .addRoute("::", 0)                       // capture all IPv6 → filtered on the same terms (Tun2Filter/IpPacket)
             .setBlocking(true)
         // Deliberately NO addDnsServer: FitShield does not intercept or change DNS.
         val pfd = builder.establish()
 
         if (pfd == null) {
             Log.e(TAG, "establish() returned null (VPN consent not granted?)")
+            recordIntent(VpnIntent.Event.ESTABLISH_FAILED)
+            // A restart that could not finish must not end in silence: the user
+            // asked for protection, so tell them it is off and offer the one tap
+            // that fixes it. A user-initiated start already has the app on screen.
+            if (fromBoot) RestoreNotice.post(this)
             stopSelf()
             return
         }
@@ -144,6 +182,8 @@ class FitShieldVpnService : VpnService() {
         tunnel = pfd
         active = true
         isRunning = true
+        recordIntent(if (fromBoot) VpnIntent.Event.BOOT_RESTORE_STARTED else VpnIntent.Event.USER_ENABLED)
+        RestoreNotice.clear(this)
         worker = Thread({ run(pfd) }, "fitshield-filter").also { it.start() }
     }
 
@@ -190,6 +230,9 @@ class FitShieldVpnService : VpnService() {
     }
 
     override fun onDestroy() {
+        // Deliberately no recordIntent here. onDestroy fires for a shutdown, a
+        // low-memory kill and an app update as well as for a user's explicit
+        // stop, and only the explicit stop (ACTION_STOP, above) means "off".
         stop()
         super.onDestroy()
     }
@@ -219,6 +262,11 @@ class FitShieldVpnService : VpnService() {
         private const val TAG = "FitShieldVpn"
         const val ACTION_START = "com.usha.fitshield.START"
         const val ACTION_STOP = "com.usha.fitshield.STOP"
+
+        /** Started by [BootReceiver] after a restart, never by the UI. Distinct
+         *  from ACTION_START so a failure here can speak up instead of exiting
+         *  quietly, and so a restore never rewrites the user's instruction. */
+        const val ACTION_BOOT_RESTORE = "com.usha.fitshield.BOOT_RESTORE"
 
         /** Lightweight running flag for the UI toggle (process-local). */
         @Volatile var isRunning = false
