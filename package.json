@@ -38,6 +38,7 @@
     "bundle:android": "node tools/build-android.js --bundle",
     "toolchain:android": "node tools/provision-android-toolchain.js",
     "capture": "node tools/capture-surfaces.js",
+    "icon:android": "node tools/make-android-icon.js",
     "build:safari": "node tools/build-safari.js",
     "build:all": "node build.js && node tools/build-android.js"
   },

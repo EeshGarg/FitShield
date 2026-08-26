@@ -66,28 +66,51 @@ test("the app ships its own launcher icon, not Android's placeholder", () => {
 });
 
 test("the launcher icon is the mark the browser build already uses", () => {
-  // The green was sampled from extension/icons/icon-128.png. If the brand colour
-  // in the icon ever stops matching the shipped browser icon, the same product
-  // is wearing two faces.
-  const colors = fs.readFileSync(path.join(RES, "values", "colors.xml"), "utf8");
-  const declared = (colors.match(/name="fitshield_green">#FF([0-9A-Fa-f]{6})</) || [])[1];
-  assert.ok(declared, "res/values/colors.xml no longer declares fitshield_green");
+  // The icon was a vector hand-traced from the browser icon. It was close, and
+  // "close" is the wrong standard for the mark on someone's home screen — so it
+  // is now RENDERED from the brand master, `brand/fitshield-f-512.png`, by
+  // `tools/make-android-icon.js`. The same file is the 512x512 Play listing
+  // icon, which is what stops the store and the launcher wearing two faces.
+  const generator = require("../tools/make-android-icon.js");
 
-  assert.equal(declared.toUpperCase(), dominantInk(path.join(ROOT, "extension", "icons", "icon-128.png")),
-    "the launcher icon's green is not the green of extension/icons/icon-128.png");
-
-  const foreground = fs.readFileSync(path.join(RES, "drawable", "ic_launcher_foreground.xml"), "utf8");
-  assert.match(foreground, /android:strokeColor="@color\/fitshield_green"/);
-  // Adaptive-icon safe zone: the 108dp viewport's central 66dp circle. Every
-  // stroke endpoint plus its round cap has to sit inside it, or a launcher mask
-  // clips part of the letter off.
-  const half = Number(foreground.match(/android:strokeWidth="([\d.]+)"/)[1]) / 2;
-  const points = [...foreground.match(/[ML](\d+),(\d+)/g)].map((token) => token.slice(1).split(",").map(Number));
-  assert.ok(points.length >= 4, "the icon path has too few points to be the F mark");
-  points.forEach(([x, y]) => {
-    const distance = Math.hypot(x - 54, y - 54) + half;
-    assert.ok(distance <= 33, `icon point ${x},${y} reaches ${distance.toFixed(1)}dp from centre — outside the 33dp safe radius`);
+  [generator.OUT, generator.OUT_MONO].forEach((file) => {
+    assert.ok(fs.existsSync(file), `${path.basename(file)} is missing — run node tools/make-android-icon.js`);
   });
+
+  // Regenerating must reproduce the committed bytes. If it does not, either the
+  // artwork moved and the icon was not rebuilt, or someone edited the output by
+  // hand and the next regeneration will silently throw their work away.
+  const before = [generator.OUT, generator.OUT_MONO].map((file) => fs.readFileSync(file));
+  generator.build();
+  [generator.OUT, generator.OUT_MONO].forEach((file, index) => {
+    assert.ok(
+      before[index].equals(fs.readFileSync(file)),
+      `${path.basename(file)} is not what the generator produces from brand/fitshield-f-512.png`
+    );
+  });
+
+  // Same green as the browser icon, within the tolerance two exports of one
+  // logo differ by. They are separate files, so an exact match would be luck.
+  const master = generator.dominantHex(generator.SOURCE);
+  const browser = dominantInk(path.join(ROOT, "extension", "icons", "icon-128.png"));
+  const channels = (hex) => [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  const drift = channels(master).map((value, i) => Math.abs(value - channels(browser)[i]));
+  assert.ok(
+    Math.max(...drift) <= 24,
+    `the brand master's green (#${master}) and the browser icon's (#${browser}) are different colours`
+  );
+
+  // The artwork must sit inside the adaptive-icon safe zone: Android masks the
+  // 108dp canvas down to its central 72dp, and the F in the master bleeds off
+  // the bottom edge, so dropped in at full size the letter would be cut.
+  const drawn = generator.build();
+  assert.ok(drawn.drawW <= generator.SAFE && drawn.drawH <= generator.SAFE,
+    `artwork ${drawn.drawW}x${drawn.drawH} exceeds the ${generator.SAFE}px safe zone`);
+  assert.ok(drawn.originX >= 0 && drawn.originY >= 0, "the artwork is positioned off the canvas");
+  assert.ok(
+    drawn.originX + drawn.drawW <= generator.CANVAS && drawn.originY + drawn.drawH <= generator.CANVAS,
+    "the artwork runs past the edge of the canvas"
+  );
 });
 
 // ---------------------------------------------------------------------------
