@@ -59,16 +59,11 @@ to.
 
 # Installation
 
-**Install it — one click, and it stays updated:**
+**Chrome Web Store (recommended, one-click):**
 
-| Platform | Install |
-| --- | --- |
-| **Chrome / Brave / Edge** | [Chrome Web Store](https://chromewebstore.google.com/detail/fitshield/oedcadhhfcgggacgljhnochcjdibfjed) |
-| **Firefox** | [addons.mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/fitshield/) |
-| **Android** | link coming soon |
-| **Safari** (macOS / iOS / iPadOS) — nightly | on a Mac: `bash scripts/install-safari.command` |
+https://chromewebstore.google.com/detail/fitshield/oedcadhhfcgggacgljhnochcjdibfjed
 
-Everything below is for building from source or loading an unpacked build.
+This is the easiest way to install FitShield and keeps it updated automatically.
 
 FitShield builds from a single source tree, split into `FS Engine/` (the
 blocking engine — see its README for the full API, also reused by the Android
