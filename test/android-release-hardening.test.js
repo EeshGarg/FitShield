@@ -100,17 +100,59 @@ test("the launcher icon is the mark the browser build already uses", () => {
     `the brand master's green (#${master}) and the browser icon's (#${browser}) are different colours`
   );
 
-  // The artwork must sit inside the adaptive-icon safe zone: Android masks the
-  // 108dp canvas down to its central 72dp, and the F in the master bleeds off
-  // the bottom edge, so dropped in at full size the letter would be cut.
+  // The artwork must survive the launcher's MASK — the part that arithmetic on a
+  // bounding box cannot tell you. Android composites an adaptive icon by masking
+  // the 108dp canvas down to its central 72dp, but the SHAPE of that mask is the
+  // launcher's choice: circle, squircle, teardrop, rounded square. Only the
+  // centred circle of 66dp diameter is guaranteed to survive all of them.
+  //
+  // Fitting the bounding box inside the 72dp square is therefore not enough, and
+  // asserting only that is how this test passed while the icon was visibly cut:
+  // on a Galaxy S24 Ultra (One UI 8.5) the F's stem — which sits left of centre,
+  // where a squircle curves inward — was sliced flat across the bottom. So the
+  // assertion is on the PIXELS of the generated file rather than on the
+  // generator's own numbers, because those two disagreed and only one of them
+  // was on the home screen.
   const drawn = generator.build();
-  assert.ok(drawn.drawW <= generator.SAFE && drawn.drawH <= generator.SAFE,
-    `artwork ${drawn.drawW}x${drawn.drawH} exceeds the ${generator.SAFE}px safe zone`);
   assert.ok(drawn.originX >= 0 && drawn.originY >= 0, "the artwork is positioned off the canvas");
   assert.ok(
     drawn.originX + drawn.drawW <= generator.CANVAS && drawn.originY + drawn.drawH <= generator.CANVAS,
     "the artwork runs past the edge of the canvas"
   );
+
+  const perDp = generator.CANVAS / 108;
+  const safeRadius = 33 * perDp; // 66dp diameter, centred
+
+  [generator.OUT, generator.OUT_MONO].forEach((file) => {
+    const layer = generator.decodePng(file);
+    const centre = layer.width / 2;
+    let furthest = 0;
+    let furthestAt = null;
+
+    for (let y = 0; y < layer.height; y += 1) {
+      for (let x = 0; x < layer.width; x += 1) {
+        if (layer.data[(y * layer.width + x) * 4 + 3] <= 8) continue;
+
+        const distance = Math.hypot(x + 0.5 - centre, y + 0.5 - centre);
+
+        if (distance > furthest) {
+          furthest = distance;
+          furthestAt = `${x},${y}`;
+        }
+      }
+    }
+
+    assert.ok(
+      furthest > 0,
+      `${path.basename(file)} has no ink in it at all`
+    );
+    assert.ok(
+      furthest <= safeRadius,
+      `${path.basename(file)}: ink reaches ${(furthest / perDp).toFixed(1)}dp from the centre (pixel ` +
+        `${furthestAt}), outside the ${(safeRadius / perDp).toFixed(1)}dp safe circle — a round or ` +
+        "squircle launcher mask cuts the letter"
+    );
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -371,3 +413,38 @@ function dominantInk(file) {
   }
   return [...counts.entries()].sort((a, b) => b[1] - a[1])[0][0];
 }
+
+// ---------------------------------------------------------------------------
+// The pause survives a rotation
+// ---------------------------------------------------------------------------
+
+test("rotating the phone does not restart the pause countdown", () => {
+  // Measured on a Galaxy S24 Ultra (Android 16 / One UI 8.5): the countdown ran
+  // 25s -> 18s, the phone was rotated, and it came back reading 57s. Android had
+  // destroyed and recreated BlockActivity, the WebView reloaded block.html, and
+  // startTimer() began again from timerSeconds.
+  //
+  // The countdown IS the intervention. Restarting it on a turn of the wrist
+  // makes the wait unbounded and teaches the user the number is arbitrary. This
+  // manifest attribute is the whole mechanism: with these configurations
+  // declared the activity is not recreated, the WebView keeps running, and the
+  // timer keeps counting.
+  const activity = manifestBody.match(/<activity[^>]*BlockActivity[^>]*>/);
+  assert.ok(activity, "BlockActivity is missing from the manifest");
+
+  const configChanges = activity[0].match(/android:configChanges="([^"]*)"/);
+  assert.ok(
+    configChanges,
+    "BlockActivity declares no android:configChanges, so every rotation recreates it " +
+      "and the pause countdown starts over"
+  );
+
+  const handled = configChanges[1].split("|").map((value) => value.trim());
+  ["orientation", "screenSize"].forEach((change) => {
+    assert.ok(
+      handled.includes(change),
+      `BlockActivity must handle "${change}" itself — without it a rotation destroys ` +
+        "the activity and the countdown restarts from the top"
+    );
+  });
+});

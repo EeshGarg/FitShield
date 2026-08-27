@@ -7,11 +7,14 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.os.SystemClock
 import android.net.VpnService
 import android.provider.Settings
 import android.os.Build
 import android.os.ParcelFileDescriptor
 import android.util.Log
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -44,6 +47,9 @@ class FitShieldVpnService : VpnService() {
     private var worker: Thread? = null
     private var filter: Tun2Filter? = null
     @Volatile private var active = false
+    /** When an upstream IPv6 connect last reported the network unreachable;
+     *  0 while IPv6 is believed to work. */
+    @Volatile private var ipv6FailedAt = 0L
     private lateinit var rules: RuleEngine
 
     // Local, on-device stats — written to the SAME SharedPreferences the web UI
@@ -52,6 +58,49 @@ class FitShieldVpnService : VpnService() {
     // over-counting the many connections a single page triggers.
     private val prefs by lazy { getSharedPreferences("fitshield", Context.MODE_PRIVATE) }
     private val lastBlocked = HashMap<String, Long>()
+
+    // The web UI writes the always-allow list straight into these prefs, so the
+    // filter watches them rather than being told. Without this the list was
+    // write-only: stored, listed back to the user, and never consulted.
+    private val settingsWatcher = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+        if (key == null || key == ALLOWLIST_KEY || key == CUSTOM_SITES_KEY) applyUserLists()
+    }
+
+    /**
+     * Push the user's two domain lists into the matcher.
+     *
+     * Until this existed both were write-only: stored, listed back to the user,
+     * and never consulted. An allow entry did not rescue a domain and a custom
+     * URL did not block one, while the UI reported both as in effect.
+     */
+    private fun applyUserLists() {
+        if (!::rules.isInitialized) return
+        rules.setAllowlist(readHostList(ALLOWLIST_KEY))
+        rules.setCustomSites(readHostList(CUSTOM_SITES_KEY))
+        Log.i(TAG, "User lists: ${rules.allowlist.size} allowed, ${rules.customSites.size} custom")
+    }
+
+    /**
+     * Host names out of a stored JSON array. Entries are either plain strings
+     * (the allow list) or {domain, enabled} objects (custom URLs, the shape the
+     * extension uses) — and a disabled entry is not a domain to block.
+     */
+    private fun readHostList(key: String): List<String> {
+        val hosts = ArrayList<String>()
+        runCatching {
+            val array = JSONArray(prefs.getString(key, "[]") ?: "[]")
+            for (i in 0 until array.length()) {
+                val entry = array.opt(i)
+                val host = if (entry is JSONObject) {
+                    if (entry.optBoolean("enabled", true)) entry.optString("domain", "") else ""
+                } else {
+                    entry?.toString() ?: ""
+                }
+                if (host.isNotBlank()) hosts.add(host)
+            }
+        }
+        return hosts
+    }
 
     private fun readObj(key: String): JSONObject = try {
         JSONObject(prefs.getString(key, "{}") ?: "{}")
@@ -107,6 +156,8 @@ class FitShieldVpnService : VpnService() {
         super.onCreate()
         rules = RuleEngine.fromAssets(this)
         Log.i(TAG, "Loaded ${rules.count} blockable hosts from the generated asset")
+        applyUserLists()
+        prefs.registerOnSharedPreferenceChangeListener(settingsWatcher)
     }
 
     /**
@@ -202,6 +253,51 @@ class FitShieldVpnService : VpnService() {
         }
     }
 
+    /**
+     * Whether the user's schedule permits blocking at this moment. Consulted per
+     * flow rather than cached, because a window can close while the tunnel is up
+     * and the next connection is the one that has to notice.
+     */
+    fun blockingAllowedNow(): Boolean = runCatching { AppBlockPolicy.scheduleAllows(this) }.getOrDefault(true)
+
+    /**
+     * The filter's whole decision for a matched [apex]: the schedule must permit
+     * blocking, and the brand must not be inside a temporary unlock the pause
+     * screen granted. Without the second half, "Open anyway" opened an app that
+     * could not reach its own servers.
+     */
+    fun shouldReset(apex: String): Boolean = BlockDecision.shouldReset(
+        apex,
+        blockingAllowedNow(),
+        runCatching { AppBlockPolicy.unlockExpiry(this, apex) }.getOrNull(),
+        System.currentTimeMillis()
+    )
+
+    /**
+     * Whether the network under the tunnel can actually carry IPv6.
+     *
+     * Answered from EVIDENCE rather than inspection: the upstream sockets are
+     * protected, so they take the same path our relayed traffic takes, and
+     * whether one of them can reach an IPv6 address is the only question that
+     * matters. Asking ConnectivityManager instead does not work — this phone
+     * held an IPv4-only Wi-Fi as the default while an idle cellular network
+     * still advertised a global IPv6 address and a ::/0 route, so "does any
+     * network have IPv6" answered yes while every IPv6 connection failed.
+     *
+     * Starts optimistic and stays that way until an upstream connect actually
+     * reports the network unreachable; a failure is re-probed after
+     * [IPV6_RETRY_MS] so regaining IPv6 needs nothing from the user.
+     */
+    fun ipv6Upstreamable(): Boolean {
+        val failedAt = ipv6FailedAt
+        return failedAt == 0L || SystemClock.elapsedRealtime() - failedAt >= IPV6_RETRY_MS
+    }
+
+    /** Record what an upstream IPv6 connect actually did. */
+    fun noteIpv6Reachable(reachable: Boolean) {
+        ipv6FailedAt = if (reachable) 0L else SystemClock.elapsedRealtime()
+    }
+
     /** Exposed to [Tun2Filter] so relayed upstream sockets bypass our own tunnel. */
     fun protectSocket(s: Socket): Boolean = protect(s)
     fun protectSocket(s: DatagramSocket): Boolean = protect(s)
@@ -233,6 +329,7 @@ class FitShieldVpnService : VpnService() {
         // Deliberately no recordIntent here. onDestroy fires for a shutdown, a
         // low-memory kill and an app update as well as for a user's explicit
         // stop, and only the explicit stop (ACTION_STOP, above) means "off".
+        runCatching { prefs.unregisterOnSharedPreferenceChangeListener(settingsWatcher) }
         stop()
         super.onDestroy()
     }
@@ -276,6 +373,14 @@ class FitShieldVpnService : VpnService() {
          *  not touch DNS; surfaced neutrally in the UI. */
         @Volatile var privateDnsActive = false
             private set
+
+        /** Keys the web UI stores the two domain lists under (JSON arrays). */
+        const val ALLOWLIST_KEY = "androidAllowlist"
+        const val CUSTOM_SITES_KEY = "customSites"
+
+        /** How long IPv6 stays written off after an unreachable upstream
+         *  connect, before it is tried again. */
+        private const val IPV6_RETRY_MS = 60_000L
 
         private const val NOTIF_ID = 1
         private const val DEDUPE_MS = 30000L

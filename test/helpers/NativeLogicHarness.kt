@@ -102,6 +102,38 @@ private fun run(line: String): String {
 
         "key_name" -> "s=${hexText(VpnIntent.KEY)}"
 
+        // apex <apexesHex|-> <allowHex|-> <hostHex> [customHex|-]
+        // The real host matcher, allow layer included. All three travel as hex
+        // (the sets are comma-joined first) so a value may contain a space, which
+        // is exactly the case that must not be lost: a blank allow entry.
+        "apex" -> {
+            val apexes = if (a[1] == "-") emptySet()
+                else String(unhex(a[1]), Charsets.UTF_8).split(",").toSet()
+            val allow = if (a[2] == "-") emptySet()
+                else HostMatch.allowSet(String(unhex(a[2]), Charsets.UTF_8).split(","))
+            val host = String(unhex(a[3]), Charsets.UTF_8)
+            val custom = if (a.size < 5 || a[4] == "-") emptySet()
+                else HostMatch.customSet(String(unhex(a[4]), Charsets.UTF_8).split(","))
+            HostMatch.blockedApex(apexes, custom, allow, host)?.let { "apex=${hexText(it)}" } ?: "null"
+        }
+
+        // notice <afterReboot>
+        "notice" -> "s=${hexText(BootRestore.noticeText(a[1] == "true"))}"
+
+        // refuse <destIsIpv6> <ipv6Upstream>
+        "refuse" -> BlockDecision.shouldRefuseSyn(a[1] == "true", a[2] == "true").toString()
+
+        // reset <apexHex|-> <scheduleAllows> <unlockedUntil|-> <now>
+        "reset" -> BlockDecision.shouldReset(
+            if (a[1] == "-") null else String(unhex(a[1]), Charsets.UTF_8),
+            a[2] == "true",
+            if (a[3] == "-") null else a[3].toLong(),
+            a[4].toLong()
+        ).toString()
+
+        // sched <true|false> <start> <end> <nowMinutes>
+        "sched" -> Schedule.withinWindow(a[1] == "true", a[2], a[3], a[4].toInt()).toString()
+
         else -> "ERR:unknown-command"
     }
 }

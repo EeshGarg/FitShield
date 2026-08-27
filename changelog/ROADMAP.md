@@ -4,9 +4,21 @@ Living documentation of where FitShield is and where it's heading. This file is
 meant to evolve with the project — update it whenever direction changes. It
 avoids speculative promises; "Future ideas" are candidates, not commitments.
 
-_Last updated: 2026-08-25 (0.55)_
+_Last updated: 2026-08-26 (0.56)_
 
 ## Current version
+
+**0.56 — Contact with a real phone.** See [0.56.md](0.56.md). FitShield ran on
+real Android hardware for the first time, and seven defects that no test could
+see were found and fixed — the worst of them broke unrelated sites on any
+network without working IPv6. Two controls that did nothing now work, the pause
+countdown survives a rotation, and the decisions behind all of it are executed by
+the suite rather than inferred from source.
+
+The catalog is unchanged by this release: 2,505 brands across 111 markets,
+in 21 curated categories, answered by 88 alternatives.
+
+## Previous version
 
 **0.55 — The block succeeded. Now what?** See [0.55.md](0.55.md). Highlights:
 
@@ -37,7 +49,7 @@ _Last updated: 2026-08-25 (0.55)_
   head-office pages. The catalog is 2,505 brands across 111 markets, in 21
   curated categories.
 
-## Next planned version (0.56)
+## Next planned version (0.57)
 
 Themes under consideration (subject to change):
 
@@ -151,6 +163,13 @@ sprawl.
 
 ## Completed milestones
 
+- **0.56** — First contact with real hardware (Galaxy S24 Ultra, Android 16 /
+  One UI 8.5): seven device-only defects fixed, including IPv6 connections being
+  accepted and reset on networks without IPv6 (which broke unrelated browsing),
+  two dead controls — always-allow domains and custom URLs — wired into the
+  filter, a pause countdown that restarted on every rotation, an "Open anyway"
+  that unlocked the app but not the connection filter, and a launcher icon
+  clipped by the mask. The 0.56 ↔ versionCode 8 pair.
 - **0.55** — The moment after the block: a single-decision block page, scoped
   temporary passes with absolute expiry, an 88-entry executable alternatives
   catalog with deterministic local matching, seven observable statistics

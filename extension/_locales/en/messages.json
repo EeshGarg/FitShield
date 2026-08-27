@@ -7,6 +7,10 @@
     "message": "FitShield browser extension that helps you stay mindful of food delivery and fast-food ordering.",
     "description": "Extension description shown in the browser."
   },
+  "androidAppTagline": {
+    "message": "Stay mindful of food delivery and fast-food ordering.",
+    "description": "Android: the one-line tagline under the app name on the dashboard. appDescription calls FitShield a browser extension, which is true in a browser and false in the APK, where it is a native app with a VpnService — so the native UI uses this key instead."
+  },
   "actionTitle": {
     "message": "FitShield",
     "description": "Toolbar button tooltip."

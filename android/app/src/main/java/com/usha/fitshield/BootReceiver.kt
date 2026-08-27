@@ -34,6 +34,9 @@ class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val action = intent.action
         if (action != Intent.ACTION_BOOT_COMPLETED && action != Intent.ACTION_MY_PACKAGE_REPLACED) return
+        // Both destroy the service without the user asking, but they are not the
+        // same event and the notice must not claim the phone rebooted when it did not.
+        val afterReboot = action == Intent.ACTION_BOOT_COMPLETED
 
         val prefs = context.getSharedPreferences("fitshield", Context.MODE_PRIVATE)
         val stored = runCatching { prefs.getString(VpnIntent.KEY, null) }.getOrNull()
@@ -57,10 +60,10 @@ class BootReceiver : BroadcastReceiver() {
                 // The start itself was refused (OEM policy, restricted bucket).
                 // Say so rather than leaving the user believing they are covered.
                 Log.w(TAG, "boot restore could not start the service")
-                RestoreNotice.post(context)
+                RestoreNotice.post(context, afterReboot)
             }
 
-            BootRestore.Action.ASK_TO_RESTORE -> RestoreNotice.post(context)
+            BootRestore.Action.ASK_TO_RESTORE -> RestoreNotice.post(context, afterReboot)
         }
     }
 

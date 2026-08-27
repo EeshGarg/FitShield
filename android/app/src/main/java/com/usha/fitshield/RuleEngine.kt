@@ -30,31 +30,50 @@ class RuleEngine private constructor(
     /** Metadata for the matched apex/host, or null when the asset has none. */
     fun metaFor(host: String?): BlockMeta? = if (host == null) null else meta[host.lowercase()]
 
+    /** The always-allow layer, for tests and callers that need to see it. */
+    val allowlist: Set<String> get() = allow
+
+    /** The user's own blocked domains. */
+    val customSites: Set<String> get() = custom
+
+    /**
+     * Hosts the user put on the always-allow list, which the UI promises are
+     * "never blocked". Kept as a separate layer rather than subtracted from
+     * [apexes] so the generated asset remains the only answer to what IS
+     * blockable, and the user's exemptions stay visible as exemptions.
+     *
+     * This layer existed only in the UI until it was tested on a device: the
+     * list was stored and displayed, the filter never read it, and a domain the
+     * user had explicitly allowed was still reset. A control that does nothing
+     * is worse than one that is absent, because the user believes it worked.
+     */
+    @Volatile private var allow: Set<String> = emptySet()
+
+    /**
+     * Domains typed into "Custom URLs". The generated asset can only ever hold
+     * the curated brands, so without this layer that section accepted a domain,
+     * listed it back with a Remove button, and never blocked it. The extension
+     * treats its custom list as a union with the curated buckets; so does this.
+     */
+    @Volatile private var custom: Set<String> = emptySet()
+
+    /** Replace the always-allow layer. Safe to call while the filter runs. */
+    fun setAllowlist(hosts: Collection<String>) {
+        allow = HostMatch.allowSet(hosts)
+    }
+
+    /** Replace the user's own blocked domains. Safe to call while it runs. */
+    fun setCustomSites(hosts: Collection<String>) {
+        custom = HostMatch.customSet(hosts)
+    }
+
     /** True when [host] is an apex in the set or a subdomain of one. */
     fun isBlocked(host: String?): Boolean = blockedApex(host) != null
 
     /** The matching apex for [host] (the suffix found in the set), or null. Used
      *  for stats so "most blocked sites" is keyed by the curated apex, not the
      *  full query name. Same apex/subdomain rule as the engine's domainMatches. */
-    fun blockedApex(host: String?): String? {
-        val normalized = normalize(host) ?: return null
-        // Walk suffixes: a.b.example.com -> b.example.com -> example.com -> com
-        var candidate = normalized
-        while (true) {
-            if (apexes.contains(candidate)) return candidate
-            val index = candidate.indexOf('.')
-            if (index < 0) return null
-            candidate = candidate.substring(index + 1)
-        }
-    }
-
-    private fun normalize(host: String?): String? {
-        if (host.isNullOrBlank()) return null
-        var h = host.trim().lowercase()
-        h = h.trimEnd('.')                 // trailing root dot
-        if (h.startsWith("www.")) h = h.substring(4)
-        return if (h.isEmpty()) null else h
-    }
+    fun blockedApex(host: String?): String? = HostMatch.blockedApex(apexes, custom, allow, host)
 
     companion object {
         const val ASSET_NAME = "fitshield-rules.json"

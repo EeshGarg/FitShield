@@ -173,6 +173,14 @@
           Native block/intervention screen (WebView), launched over a blocked app.
           Own task + excluded from recents so dismissing it never lands the user
           back inside the blocked app (see BlockActivity.goHome()).
+
+          android:configChanges — the pause is a COUNTDOWN, and without it Android
+          destroys and recreates this activity on every rotation. The WebView
+          reloads block.html, startTimer() runs again from timerSeconds, and the
+          wait starts over: measured on a Galaxy S24 Ultra it ran 25s -> 18s, and
+          then a rotation put it back to 57s. Turning the phone should not reset
+          the thing the user is waiting out. Handling these configurations here
+          keeps the WebView alive; it reflows through CSS.
         -->
         <activity
             android:name=".BlockActivity"
@@ -180,6 +188,7 @@
             android:launchMode="singleTask"
             android:taskAffinity=""
             android:excludeFromRecents="true"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden|uiMode"
             android:theme="@style/Theme.FitShield" />
     </application>
 </manifest>

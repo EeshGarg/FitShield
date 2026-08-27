@@ -22,7 +22,7 @@
  *      pixels. Android masks an adaptive icon down to the central 72 of 108dp,
  *      so dropped in at full size the bottom of the letter is simply cut away.
  *
- * So the ink is found, cropped, and scaled to sit inside the 72dp safe zone,
+ * So the ink is found, cropped, and scaled to sit inside the 66dp safe circle,
  * on transparency, with the white supplied by the background layer where it
  * belongs. Nothing here is hand-measured: the bounding box is read from the
  * pixels, so re-running after an artwork change produces a correct icon rather
@@ -44,10 +44,28 @@ const OUT = path.join(RES, "ic_launcher_foreground.png");
 // real icon being two slightly different letters.
 const OUT_MONO = path.join(RES, "ic_launcher_monochrome.png");
 
-// 108dp canvas at 4x. Android masks to the central 72dp, so the artwork is
-// scaled to fit that square and centred in the rest.
+// 108dp canvas at 4x. Android masks the canvas down to its central 72dp — but
+// the SHAPE of that mask belongs to the launcher, and every OEM picks its own:
+// circle, squircle, teardrop, rounded square. The only region guaranteed to
+// survive all of them is the centred circle of 66dp diameter.
+//
+// Fitting the artwork to the 72dp SQUARE, which is what this file used to do,
+// produces an icon that is clipped on most real launchers, because the corners
+// of that square lie well outside the circle. It shipped that way: on a Galaxy
+// S24 Ultra (One UI 8.5) the F's stem was sliced flat across the bottom. The
+// check meant to catch it compared the bounding box against the same square it
+// had just been fitted to, so it agreed with itself and never saw a mask.
+//
+// The artwork is therefore fitted to the CIRCLE — no ink further than 33dp from
+// the centre. SAFE stays as a second, weaker bound; the circle is the one that
+// binds for anything taller than it is wide, which a letter F is.
 const CANVAS = 432;
 const SAFE = Math.round(CANVAS * (72 / 108));
+const SAFE_RADIUS = CANVAS * (33 / 108);
+// Absorbs the half-pixel of rounding in the origin and the antialiased edge the
+// bilinear resample leaves behind, so the generated file clears the circle by
+// measurement rather than by intention.
+const RADIUS_MARGIN = 2;
 
 function decodePng(file) {
   const buf = fs.readFileSync(file);
@@ -178,12 +196,48 @@ function inkBounds({ width, height, data }) {
   return { minX, minY, width: maxX - minX + 1, height: maxY - minY + 1 };
 }
 
+// The furthest any ink sits from the centre of its own bounding box, in source
+// pixels. Centring that box on the canvas puts the point at "radius * scale"
+// from the canvas centre, which is precisely what the mask circle constrains.
+// Measured over pixels rather than box corners, because a letter does not fill
+// its corners and pretending it does shrinks the icon for no reason.
+function inkRadius({ width, data }, ink) {
+  const cx = ink.minX + ink.width / 2;
+  const cy = ink.minY + ink.height / 2;
+  let furthest = 0;
+
+  for (let y = ink.minY; y < ink.minY + ink.height; y += 1) {
+    for (let x = ink.minX; x < ink.minX + ink.width; x += 1) {
+      const i = (y * width + x) * 4;
+
+      if (data[i + 3] < 128) continue;
+      if (data[i] > 240 && data[i + 1] > 240 && data[i + 2] > 240) continue;
+
+      const distance = Math.hypot(x + 0.5 - cx, y + 0.5 - cy);
+
+      if (distance > furthest) furthest = distance;
+    }
+  }
+
+  if (furthest === 0) {
+    throw new Error("the brand master has no ink in it");
+  }
+
+  return furthest;
+}
+
 function build() {
   const source = decodePng(SOURCE);
   const ink = inkBounds(source);
 
-  // Fit the ink inside the safe square, preserving aspect.
-  const scale = Math.min(SAFE / ink.width, SAFE / ink.height);
+  // Fit the ink inside the safe CIRCLE, preserving aspect. The square bounds
+  // stay as a floor so a very wide, very short mark cannot escape sideways.
+  const radius = inkRadius(source, ink);
+  const scale = Math.min(
+    SAFE / ink.width,
+    SAFE / ink.height,
+    (SAFE_RADIUS - RADIUS_MARGIN) / radius
+  );
   const drawW = Math.max(1, Math.round(ink.width * scale));
   const drawH = Math.max(1, Math.round(ink.height * scale));
   const originX = Math.round((CANVAS - drawW) / 2);
@@ -246,7 +300,7 @@ function build() {
   }
   fs.writeFileSync(OUT_MONO, encodePng(CANVAS, CANVAS, mono));
 
-  return { ink, drawW, drawH, originX, originY };
+  return { ink, drawW, drawH, originX, originY, scale, radius: radius * scale };
 }
 
 // The most common ink colour, as an uppercase RRGGBB. Exposed so a test can ask
@@ -275,13 +329,17 @@ function dominantHex(file) {
     .toUpperCase();
 }
 
-module.exports = { build, decodePng, inkBounds, dominantHex, CANVAS, SAFE, SOURCE, OUT, OUT_MONO };
+module.exports = {
+  build, decodePng, inkBounds, inkRadius, dominantHex,
+  CANVAS, SAFE, SAFE_RADIUS, SOURCE, OUT, OUT_MONO
+};
 
 if (require.main === module) {
   const result = build();
   console.log(
     `wrote ${path.relative(ROOT, OUT).split(path.sep).join("/")} — ` +
       `${CANVAS}x${CANVAS}, artwork ${result.drawW}x${result.drawH} at ${result.originX},${result.originY} ` +
-      `(safe zone ${SAFE}px), cropped from ink ${result.ink.width}x${result.ink.height} in the master`
+      `(ink reaches ${(result.radius / (CANVAS / 108)).toFixed(1)}dp of the 33dp safe circle), ` +
+      `cropped from ink ${result.ink.width}x${result.ink.height} in the master`
   );
 }

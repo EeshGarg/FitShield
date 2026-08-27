@@ -31,6 +31,9 @@ const KOTLIN_DIR = path.join(ROOT, "android", "app", "src", "main", "java", "com
 const SOURCES = [
   path.join(KOTLIN_DIR, "IpPacket.kt"),
   path.join(KOTLIN_DIR, "RestorePolicy.kt"),
+  path.join(KOTLIN_DIR, "HostMatch.kt"),
+  path.join(KOTLIN_DIR, "Schedule.kt"),
+  path.join(KOTLIN_DIR, "BlockDecision.kt"),
   path.join(__dirname, "NativeLogicHarness.kt")
 ];
 
@@ -53,10 +56,15 @@ function findJava() {
   return probe.error ? null : exe("java");
 }
 
-/** Newest jar for a cached Maven artifact, or null. */
-function cachedJar(group, artifact) {
+/** Compare two Maven version strings numerically ("1.9.24" < "2.1.0"). */
+function compareVersions(a, b) {
+  return a.localeCompare(b, undefined, { numeric: true });
+}
+
+/** Every cached jar for a Maven artifact, oldest first. */
+function cachedJars(group, artifact) {
   const dir = path.join(GRADLE_CACHE, group, artifact);
-  if (!fs.existsSync(dir)) return null;
+  if (!fs.existsSync(dir)) return [];
   const jars = [];
   for (const version of fs.readdirSync(dir)) {
     const versionDir = path.join(dir, version);
@@ -71,23 +79,50 @@ function cachedJar(group, artifact) {
       }
     }
   }
+  jars.sort((a, b) => compareVersions(a.version, b.version));
+  return jars;
+}
+
+/**
+ * A cached jar for an artifact. With [wanted], the jar of exactly that version,
+ * else the newest one no newer than it; without, simply the newest.
+ *
+ * The version has to be steerable because the Gradle cache is shared with every
+ * other project on the machine, and "newest of each artifact, chosen
+ * independently" is not a working toolchain. This cache held one compiler
+ * (1.9.24) beside three stdlibs (1.9.20, 1.9.24, 2.1.0), so the newest-wins rule
+ * paired a 1.9 compiler with a 2.1 stdlib and every compile died on
+ * "module was compiled with an incompatible version of Kotlin". It looked like a
+ * broken harness rather than a mismatched pair, and it only surfaced when a
+ * source was added and the compile cache — keyed on the sources — was missed.
+ */
+function cachedJar(group, artifact, wanted) {
+  const jars = cachedJars(group, artifact);
   if (jars.length === 0) return null;
-  jars.sort((a, b) => a.version.localeCompare(b.version, undefined, { numeric: true }));
+  if (wanted) {
+    const exact = jars.filter((jar) => jar.version === wanted).pop();
+    if (exact) return exact.file;
+    const notNewer = jars.filter((jar) => compareVersions(jar.version, wanted) <= 0).pop();
+    if (notNewer) return notNewer.file;
+  }
   return jars[jars.length - 1].file;
 }
 
 /** Everything needed to run the embeddable Kotlin compiler, or null. */
 function findKotlin() {
-  const compiler = cachedJar("org.jetbrains.kotlin", "kotlin-compiler-embeddable");
-  const stdlib = cachedJar("org.jetbrains.kotlin", "kotlin-stdlib");
-  if (!compiler || !stdlib) return null;
+  // The compiler decides the version; everything else is matched to it.
+  const compilers = cachedJars("org.jetbrains.kotlin", "kotlin-compiler-embeddable");
+  if (compilers.length === 0) return null;
+  const { file: compiler, version } = compilers[compilers.length - 1];
+  const stdlib = cachedJar("org.jetbrains.kotlin", "kotlin-stdlib", version);
+  if (!stdlib) return null;
   const support = [
-    cachedJar("org.jetbrains.kotlin", "kotlin-script-runtime"),
-    cachedJar("org.jetbrains.kotlin", "kotlin-daemon-embeddable"),
+    cachedJar("org.jetbrains.kotlin", "kotlin-script-runtime", version),
+    cachedJar("org.jetbrains.kotlin", "kotlin-daemon-embeddable", version),
     cachedJar("org.jetbrains.intellij.deps", "trove4j"),
     cachedJar("org.jetbrains", "annotations")
   ].filter(Boolean);
-  return { compiler, stdlib, support };
+  return { compiler, stdlib, support, version };
 }
 
 /** Why the harness cannot run here, or null when it can. */

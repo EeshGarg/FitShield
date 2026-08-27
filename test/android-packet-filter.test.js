@@ -427,3 +427,260 @@ test("flow keys cannot collide between the two families", opts, () => {
     "an IPv6 key must be bracketed, or its colons run into the port that follows it");
   assert.equal(new Set(answers).size, answers.length);
 });
+
+// ---------------------------------------------------------------------------
+// The always-allow layer
+// ---------------------------------------------------------------------------
+//
+// "Always-allow domains" told the user, in the app, that "domains here are
+// never blocked". The list was written to SharedPreferences, read back, and
+// rendered with a Remove button — and the filter never consulted it. On a
+// Galaxy S24 Ultra a domain sitting in that list was still reset:
+//
+//     androidAllowlist = ["doordash.com"]
+//     curl https://www.doordash.com  ->  Recv failure: Connection reset by peer
+//
+// A control that does nothing is worse than one that is absent, because the
+// user believes it worked. These run the real matcher, allow layer included.
+
+const CURATED = "doordash.com,mcdonalds.com";
+
+/** Hex for a piece of text, so a value may safely contain a space. */
+const asHex = (text) => P.hex(Buffer.from(text, "utf8"));
+
+/** blockedApex through the shipped Kotlin: the apex, or null. */
+function apex(host, allow, custom) {
+  const list = allow && allow.length ? asHex(allow.join(",")) : "-";
+  const own = custom && custom.length ? asHex(custom.join(",")) : "-";
+  const answer = kotlin.one(`apex ${asHex(CURATED)} ${list} ${asHex(host)} ${own}`);
+  return answer === "null" ? null : kotlin.text(kotlin.fields(answer).apex);
+}
+
+test("a curated brand is blocked when nothing exempts it", opts, () => {
+  assert.equal(apex("doordash.com", []), "doordash.com");
+  assert.equal(apex("www.doordash.com", []), "doordash.com");
+  assert.equal(apex("order.doordash.com", []), "doordash.com", "subdomains match their apex");
+  assert.equal(apex("example.com", []), null, "an uncurated host is not blocked");
+});
+
+test("a domain on the always-allow list is never blocked", opts, () => {
+  assert.equal(
+    apex("doordash.com", ["doordash.com"]), null,
+    "the always-allow list is what the UI calls a per-site whitelist; it must win"
+  );
+  assert.equal(
+    apex("www.doordash.com", ["doordash.com"]), null,
+    "allowing a domain has to cover the www host the user actually types"
+  );
+  assert.equal(
+    apex("order.doordash.com", ["doordash.com"]), null,
+    "an exemption covers subdomains by the same rule blocking uses"
+  );
+});
+
+test("an exemption frees only what it names", opts, () => {
+  assert.equal(
+    apex("mcdonalds.com", ["doordash.com"]), "mcdonalds.com",
+    "allowing one brand must not switch off the rest of the list"
+  );
+  assert.equal(
+    apex("notdoordash.com", ["doordash.com"]), null,
+    "a suffix match is on label boundaries, so this is neither blocked nor an exemption"
+  );
+  assert.equal(
+    apex("doordash.com.evil.test", ["doordash.com"]), null,
+    "a lookalike that merely CONTAINS the name is not the domain"
+  );
+});
+
+test("allow entries are normalised the same way hosts are", opts, () => {
+  assert.equal(apex("doordash.com", ["www.doordash.com"]), null, "a www. entry means the domain");
+  assert.equal(apex("doordash.com", ["DoorDash.COM"]), null, "case cannot decide whether blocking happens");
+  assert.equal(apex("doordash.com", ["doordash.com."]), null, "a trailing root dot is the same name");
+  assert.equal(apex("doordash.com", ["  "]), "doordash.com", "blank entries exempt nothing");
+});
+
+// ---------------------------------------------------------------------------
+// Custom URLs
+// ---------------------------------------------------------------------------
+//
+// The generated asset holds the curated brands and nothing else, so a domain
+// the user types into "Custom URLs" can never appear in it. That section took a
+// domain, listed it back with a Remove button, and the filter never saw it: on
+// the device a custom entry was simply not blocked. The extension builds its
+// catalog as a UNION — delivery + fast food + custom URLs — and these assert the
+// native filter does the same, with the allow layer still winning over both.
+
+test("a custom domain the user added is blocked", opts, () => {
+  assert.equal(
+    apex("nowhere.test", [], ["nowhere.test"]), "nowhere.test",
+    "a domain in Custom URLs must actually be blocked"
+  );
+  assert.equal(
+    apex("shop.nowhere.test", [], ["nowhere.test"]), "nowhere.test",
+    "a custom entry covers its subdomains, like every other rule here"
+  );
+  assert.equal(
+    apex("nowhere.test", [], []), null,
+    "and only because the user asked — it is not curated"
+  );
+});
+
+test("custom URLs are a union with the curated set, not a replacement", opts, () => {
+  assert.equal(
+    apex("mcdonalds.com", [], ["nowhere.test"]), "mcdonalds.com",
+    "adding a custom domain must not narrow blocking to only that domain"
+  );
+  assert.equal(
+    apex("doordash.com", [], ["nowhere.test"]), "doordash.com",
+    "the curated brands stay blocked alongside the user's own"
+  );
+});
+
+test("the allow layer wins over a custom entry too", opts, () => {
+  assert.equal(
+    apex("nowhere.test", ["nowhere.test"], ["nowhere.test"]), null,
+    "a domain on both lists is allowed; the escape hatch has to be the stronger one"
+  );
+});
+
+test("a custom entry is normalised like every other host", opts, () => {
+  assert.equal(apex("nowhere.test", [], ["www.nowhere.test"]), "nowhere.test", "a www. entry means the domain");
+  assert.equal(apex("nowhere.test", [], ["NoWhere.TEST"]), "nowhere.test", "case cannot decide whether blocking happens");
+  assert.equal(apex("nowhere.test", [], ["  "]), null, "a blank entry blocks nothing");
+});
+
+// ---------------------------------------------------------------------------
+// The blocking schedule
+// ---------------------------------------------------------------------------
+//
+// "Block only during scheduled hours" lives in Blocking Options, which reads as
+// covering everything FitShield blocks. It did not: AppBlockPolicy honoured the
+// window for APPS while the connection filter reset SITES around the clock. One
+// switch, two answers, and nothing in the UI said so.
+//
+// The window is inclusive at both ends, and an overnight window wraps midnight —
+// the case where the obvious "now in start..end" is false for every minute of it.
+
+/** Schedule.withinWindow through the shipped Kotlin. */
+function within(enabled, start, end, nowMinutes) {
+  return kotlin.one(`sched ${enabled} ${start} ${end} ${nowMinutes}`) === "true";
+}
+
+const at = (h, m) => h * 60 + (m || 0);
+
+test("scheduling off means blocking is always active", opts, () => {
+  assert.equal(within(false, "18:00", "23:00", at(3)), true);
+  assert.equal(within(false, "18:00", "23:00", at(20)), true);
+});
+
+test("a daytime window blocks inside it and only inside it", opts, () => {
+  assert.equal(within(true, "18:00", "23:00", at(17, 59)), false, "a minute before the window");
+  assert.equal(within(true, "18:00", "23:00", at(18)), true, "the window is inclusive at the start");
+  assert.equal(within(true, "18:00", "23:00", at(20, 30)), true, "the middle");
+  assert.equal(within(true, "18:00", "23:00", at(23)), true, "inclusive at the end");
+  assert.equal(within(true, "18:00", "23:00", at(23, 1)), false, "a minute after");
+});
+
+test("an overnight window wraps past midnight", opts, () => {
+  assert.equal(within(true, "22:00", "02:00", at(23)), true, "before midnight is inside");
+  assert.equal(within(true, "22:00", "02:00", at(0, 30)), true, "after midnight is still inside");
+  assert.equal(within(true, "22:00", "02:00", at(2)), true, "inclusive at the wrapped end");
+  assert.equal(within(true, "22:00", "02:00", at(2, 1)), false, "and closes");
+  assert.equal(within(true, "22:00", "02:00", at(12)), false, "midday is outside");
+});
+
+test("a window that cannot be read leaves protection ON", opts, () => {
+  // The direction this has to fail in: a malformed time must never become a
+  // quiet way to switch blocking off.
+  assert.equal(within(true, "nonsense", "23:00", at(3)), true);
+  assert.equal(within(true, "18:00", "", at(3)), true);
+  assert.equal(within(true, "25:00", "23:00", at(3)), true, "an hour that does not exist");
+  assert.equal(within(true, "18:70", "23:00", at(3)), true, "a minute that does not exist");
+});
+
+// ---------------------------------------------------------------------------
+// "Open anyway" has to reach the connection filter too
+// ---------------------------------------------------------------------------
+//
+// The pause screen's "Open anyway" grants a temporary unlock, and the UI calls
+// it "unlocks that app for this many minutes". Only the AccessibilityService
+// honoured it. The VpnService went on resetting the brand's domains, so on a
+// Galaxy S24 Ultra Grubhub opened straight into "We weren't able to load this
+// screen" — and every retry counted as another interruption. An unlock the user
+// explicitly chose has to hold across both layers or it is not an unlock.
+
+/** BlockDecision.shouldReset through the shipped Kotlin. */
+function shouldReset(apex, scheduleAllows, unlockedUntil, now) {
+  const a = apex === null ? "-" : asHex(apex);
+  const u = unlockedUntil === null ? "-" : String(unlockedUntil);
+  return kotlin.one(`reset ${a} ${scheduleAllows} ${u} ${now}`) === "true";
+}
+
+const NOW = 1_700_000_000_000;
+
+test("a matched brand is reset when nothing exempts it", opts, () => {
+  assert.equal(shouldReset("grubhub.com", true, null, NOW), true);
+});
+
+test("an unmatched host is never reset", opts, () => {
+  assert.equal(shouldReset(null, true, null, NOW), false, "no apex means nothing to block");
+});
+
+test("an active unlock stops the filter resetting that brand", opts, () => {
+  assert.equal(
+    shouldReset("grubhub.com", true, NOW + 60_000, NOW), false,
+    "the app the user just chose to open must be able to reach its own servers"
+  );
+});
+
+test("an expired unlock does not keep a brand open forever", opts, () => {
+  assert.equal(shouldReset("grubhub.com", true, NOW - 1, NOW), true, "one millisecond past is past");
+  assert.equal(shouldReset("grubhub.com", true, NOW, NOW), true, "the expiry instant itself is over");
+});
+
+test("the schedule still wins when it is closed", opts, () => {
+  assert.equal(shouldReset("grubhub.com", false, null, NOW), false, "outside the window nothing is reset");
+  assert.equal(shouldReset("grubhub.com", false, NOW + 60_000, NOW), false, "both reasons agree");
+});
+
+// ---------------------------------------------------------------------------
+// IPv6 on a network that has no IPv6
+// ---------------------------------------------------------------------------
+//
+// ::/0 is routed into the tun so IPv6 is filtered rather than bypassing the
+// filter. On a network with no IPv6 route that backfired: the client's IPv6
+// attempt was accepted by the tunnel, the handshake completed locally, the
+// upstream connect failed, and the client got an RST. Having seen a connection
+// ESTABLISH, the browser reported the site as reset instead of falling back to
+// IPv4 — so on an IPv4-only Wi-Fi, FitShield broke unrelated dual-stack sites.
+//
+// Measured on a Galaxy S24 Ultra joined to an IPv4-only hotspot: with FitShield
+// on, en.wikipedia.org gave "This site can't be reached. The connection was
+// reset."; with it off, the same page loaded, because the IPv6 connect failed
+// in 5ms and Happy Eyeballs moved to IPv4. Refusing the SYN reproduces that
+// fast failure.
+
+/** BlockDecision.shouldRefuseSyn through the shipped Kotlin. */
+function refuses(destIsIpv6, ipv6Upstream) {
+  return kotlin.one(`refuse ${destIsIpv6} ${ipv6Upstream}`) === "true";
+}
+
+test("an IPv6 connection is refused when the network has no IPv6", opts, () => {
+  assert.equal(
+    refuses(true, false), true,
+    "accepting it would establish a connection that cannot be honoured, and the client would not fail over"
+  );
+});
+
+test("IPv6 is untouched on a network that really has it", opts, () => {
+  assert.equal(
+    refuses(true, true), false,
+    "this is the dual-stack case that must keep working, and keep being filtered"
+  );
+});
+
+test("IPv4 is never refused by this rule", opts, () => {
+  assert.equal(refuses(false, false), false, "no IPv6 upstream says nothing about IPv4");
+  assert.equal(refuses(false, true), false);
+});

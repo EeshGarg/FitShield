@@ -1,6 +1,6 @@
 {
   "name": "fitshield",
-  "version": "0.55.0",
+  "version": "0.56.0",
   "description": "FitShield browser extension: it interrupts impulsive food-delivery and fast-food ordering, then offers something you could make instead. Entirely local.",
   "private": true,
   "scripts": {

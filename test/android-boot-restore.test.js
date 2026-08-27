@@ -273,3 +273,34 @@ test("the audit refuses every shape of an unconstrained boot path", () => {
   assert.deepEqual(errorsFor(manifestBody, [BOOT]), [],
     "the shipped manifest must satisfy the gate it is guarded by");
 });
+
+// ---------------------------------------------------------------------------
+// The restore notice says which thing happened
+// ---------------------------------------------------------------------------
+//
+// One notice covers a reboot and an app update, because both destroy the
+// service without the user asking for it. It always read "Your phone
+// restarted", which is untrue after an update — observed on the device, where an
+// `adb install -r` produced a notification telling the user their phone had
+// rebooted when it had not.
+
+/** BootRestore.noticeText through the shipped Kotlin. */
+function notice(afterReboot) {
+  return kotlin.text(kotlin.fields(kotlin.one(`notice ${afterReboot}`)).s);
+}
+
+test("the restore notice names the event that actually happened", opts, () => {
+  const rebooted = notice(true);
+  const updated = notice(false);
+
+  assert.match(rebooted, /restarted/i, "after a reboot it should say the phone restarted");
+  assert.doesNotMatch(updated, /restart/i, "after an app update it must not claim the phone restarted");
+  assert.match(updated, /updated/i, "and it should say what did happen");
+  assert.notEqual(rebooted, updated, "one string for two different events is how the wrong one gets shown");
+});
+
+test("both restore notices still tell the user what to do", opts, () => {
+  [notice(true), notice(false)].forEach((text) => {
+    assert.match(text, /tap/i, "the notice is the only route back to protection; it must say so");
+  });
+});

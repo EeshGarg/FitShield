@@ -34,7 +34,7 @@ FitShield reaches Android **two** ways, both riding the same data:
 | Path | What it is | Blocking mechanism | Status |
 | --- | --- | --- | --- |
 | **A. Extension on Firefox for Android** | the exact same WebExtension as desktop | `declarativeNetRequest` (in-browser) | declared (manifest `gecko_android` 142+); on-device DNR not yet verified |
-| **B. Native Android APK** | a native adapter (WebView UI + Kotlin) | local `VpnService` **TLS-SNI/HTTP-Host** connection filter (websites) **+** opt-in **AccessibilityService** app blocking | built and verified on-device (Samsung, Android 14); still preview-quality (debug-signed, no store release) |
+| **B. Native Android APK** | a native adapter (WebView UI + Kotlin) | local `VpnService` **TLS-SNI/HTTP-Host** connection filter (websites) **+** opt-in **AccessibilityService** app blocking | verified on-device (Samsung Galaxy S24 Ultra, Android 16 / One UI 8.5) — see docs/DEVICE_DEBUG_HANDOFF.md §3 for what each claim actually did; still preview-quality (debug-signed, no store release) |
 
 > **The single most important rule:** Android does **not** have its own
 > blocklist or matcher. Its rules are **generated from the canonical data via

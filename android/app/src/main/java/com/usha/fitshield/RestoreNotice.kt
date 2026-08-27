@@ -29,7 +29,7 @@ internal object RestoreNotice {
     /** Extra on the tap intent: MainActivity runs the enable flow when set. */
     const val EXTRA_RESTORE_VPN = "com.usha.fitshield.RESTORE_VPN"
 
-    fun post(context: Context) {
+    fun post(context: Context, afterReboot: Boolean = true) {
         val manager = context.getSystemService(NotificationManager::class.java) ?: return
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             manager.createNotificationChannel(
@@ -52,12 +52,9 @@ internal object RestoreNotice {
         )
         val notification = android.app.Notification.Builder(context, CHANNEL_ID)
             .setContentTitle("FitShield site blocking is off")
-            .setContentText("Your phone restarted. Tap to turn it back on.")
+            .setContentText(BootRestore.noticeText(afterReboot))
             .setStyle(
-                android.app.Notification.BigTextStyle().bigText(
-                    "Your phone restarted and Android needs your confirmation before " +
-                        "FitShield can filter connections again. Tap to turn site blocking back on."
-                )
+                android.app.Notification.BigTextStyle().bigText(BootRestore.noticeBigText(afterReboot))
             )
             .setSmallIcon(android.R.drawable.ic_lock_lock)
             .setContentIntent(tap)

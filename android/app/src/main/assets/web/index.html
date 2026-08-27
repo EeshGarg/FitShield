@@ -104,7 +104,13 @@
     <h1 data-i18n="appName">FitShield</h1>
     <span class="badge">Android preview</span>
   </header>
-  <p class="sub" data-i18n="appDescription">Stay mindful of food delivery and fast-food ordering.</p>
+  <!--
+    Not appDescription: that is the EXTENSION's store description and opens with
+    "FitShield browser extension", which the APK is not. It rendered on the
+    native dashboard, under the app's own icon, calling itself a browser
+    extension.
+  -->
+  <p class="sub" data-i18n="androidAppTagline">Stay mindful of food delivery and fast-food ordering.</p>
 
   <!-- Dashboard / status -->
   <div class="panel" data-tilt>
@@ -250,7 +256,15 @@
 
   <!-- Timer / schedule / post-timer -->
   <details class="panel"><summary data-i18n="blockingOptionsHeading">Blocking Options</summary><div class="body">
-    <p class="pending">Saved on device — timing enforcement lands in a later step.</p>
+    <!--
+      This said "timing enforcement lands in a later step" long after it had
+      landed: AppBlockPolicy was already refusing to block outside the window,
+      and BlockActivity was already counting down timerSeconds. Telling someone
+      a setting does nothing while it silently does something is the same defect
+      as a dead control, pointed the other way — they turn it on and disbelieve
+      the result. The schedule now covers the connection filter too.
+    -->
+    <p class="note">Saved on device. The schedule applies to both site blocking and app blocking. The timer is the countdown on the pause screen a blocked app shows.</p>
     <label data-i18n="timerDurationLabel" for="timerSeconds">Timer duration</label>
     <input id="timerSeconds" type="number" min="10" step="5" inputmode="numeric">
     <label data-i18n="siteOpenTimeLabel" for="passMinutes">Site open time</label>
@@ -350,7 +364,8 @@
     <p class="note">FitShield asks Android to let it <strong>start at device startup</strong> (<code>RECEIVE_BOOT_COMPLETED</code>), and uses it for exactly one thing: if site blocking was <strong>on</strong> when your phone shut down — or when FitShield updated itself — it is turned back on when the phone comes back. If you had it off, nothing starts and nothing appears. If Android needs your VPN confirmation again, FitShield shows one notification telling you protection is off, with a single tap to restore it, rather than starting anything behind your back or saying nothing. Nothing else runs at startup and nothing is uploaded.</p>
     <ul class="limits" style="margin-top:8px">
       <li>This Android build is <strong>preview quality</strong>. Site blocking works alongside encrypted / Private DNS. There is no custom block page for HTTPS sites (that would require interception FitShield won't do) — blocked sites simply fail to connect.</li>
-      <li>Timing, and country/category selections above are saved on device; wiring them into the connection filter is a later step.</li>
+      <li>The schedule and the timer above <strong>do</strong> apply — the schedule to both site and app blocking, the timer to the pause screen a blocked app shows.</li>
+      <li>Country and category selections are saved on device but do not change what the connection filter blocks. It already blocks every curated delivery and fast-food brand, and those selections only ever <em>add</em> to that set, so there is nothing left for them to add.</li>
     </ul>
     <details style="margin-top:8px"><summary class="muted">How to test this preview</summary><ol class="limits">
       <li>Enable and approve the one-time VPN consent dialog.</li>

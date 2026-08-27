@@ -87,6 +87,25 @@ internal object BootRestore {
         ASK_TO_RESTORE
     }
 
+    /**
+     * What the restore notice should say, given what actually woke us.
+     *
+     * The same notice is posted after a reboot AND after an app update, because
+     * both destroy the service without the user asking. It always claimed "Your
+     * phone restarted", which is simply untrue after an update — the user is
+     * told their phone rebooted when it did not. The trigger is known at the
+     * call site, so it says which one happened.
+     */
+    fun noticeText(afterReboot: Boolean): String =
+        if (afterReboot) "Your phone restarted. Tap to turn it back on."
+        else "FitShield was updated. Tap to turn it back on."
+
+    /** The expanded form of [noticeText]. */
+    fun noticeBigText(afterReboot: Boolean): String =
+        (if (afterReboot) "Your phone restarted and " else "FitShield was updated and ") +
+            "Android needs your confirmation before FitShield can filter connections " +
+            "again. Tap to turn site blocking back on."
+
     fun decide(storedIntent: String?, consentAlreadyGranted: Boolean): Action {
         if (!VpnIntent.decode(storedIntent)) return Action.NOTHING
         return if (consentAlreadyGranted) Action.START_TUNNEL else Action.ASK_TO_RESTORE

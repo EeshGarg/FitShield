@@ -2,6 +2,22 @@
   "_note": "Local changelog rendered by whats-new.html. No network fetch — privacy-first. The full, canonical release history lives in changelog/*.md.",
   "entries": [
     {
+      "version": "0.56",
+      "date": "2026-08-26",
+      "title": "Contact with a real phone",
+      "changes": [
+        "FitShield ran on real Android hardware for the first time (Galaxy S24 Ultra, Android 16 / One UI 8.5). Seven defects were found that no test could see, and all seven are fixed.",
+        "On a network with no working IPv6, the tunnel accepted IPv6 connections it could not carry and reset them after the handshake — so the browser never fell back to IPv4 and unrelated sites broke. IPv6 is now refused cleanly when it does not work, decided from what FitShield own upstream sockets actually do.",
+        "Always-allow domains and Custom URLs both did nothing: stored, listed back, and never consulted by the filter. Both now reach the matcher, and apply without restarting the tunnel.",
+        "The pause countdown restarted on every screen rotation, making the wait unbounded.",
+        "Open anyway unlocked the blocked app but not the connection filter, so the app opened and could not load — and each retry inflated the interruption count.",
+        "The launcher icon was clipped by the launcher mask: it was fitted to the 72dp square rather than the 66dp circle that survives every mask shape.",
+        "The restore notice claimed the phone had restarted after an app update. The blocking schedule now covers site blocking as well as app blocking, and country/category selections are documented as what they are.",
+        "The pure decisions behind all of this (host matching, the schedule window, the reset decision) are now executed by the test suite instead of inferred from source.",
+        "The catalog is unchanged: 2,505 curated brands across 111 markets in 21 categories, answered by 88 alternatives — 46 full recipes and 42 quick fixes."
+      ]
+    },
+    {
       "version": "0.55",
       "date": "2026-08-09",
       "title": "The block succeeded. Now what?",

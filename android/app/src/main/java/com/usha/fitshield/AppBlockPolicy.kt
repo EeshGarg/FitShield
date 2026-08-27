@@ -68,22 +68,24 @@ object AppBlockPolicy {
         else -> true
     }
 
-    /** True only during the scheduled window when scheduling is on; always true otherwise. */
-    private fun withinSchedule(p: SharedPreferences): Boolean {
-        if (!bool(p, "scheduleEnabled", false)) return true
-        val start = parseMinutes(str(p, "scheduleStart", "18:00")) ?: return true
-        val end = parseMinutes(str(p, "scheduleEnd", "23:00")) ?: return true
-        val now = Calendar.getInstance().let { it.get(Calendar.HOUR_OF_DAY) * 60 + it.get(Calendar.MINUTE) }
-        return if (start <= end) now in start..end else (now >= start || now <= end)  // overnight window
-    }
+    /** True only during the scheduled window when scheduling is on; always true
+     *  otherwise. The arithmetic is [Schedule], which the suite can execute. */
+    private fun withinSchedule(p: SharedPreferences): Boolean = Schedule.withinWindow(
+        bool(p, "scheduleEnabled", false),
+        str(p, "scheduleStart", "18:00"),
+        str(p, "scheduleEnd", "23:00"),
+        Calendar.getInstance().let { it.get(Calendar.HOUR_OF_DAY) * 60 + it.get(Calendar.MINUTE) }
+    )
 
-    private fun parseMinutes(hhmm: String): Int? {
-        val parts = hhmm.split(":")
-        if (parts.size != 2) return null
-        val h = parts[0].toIntOrNull() ?: return null
-        val m = parts[1].toIntOrNull() ?: return null
-        return h * 60 + m
-    }
+    /**
+     * Whether the schedule permits blocking right now.
+     *
+     * Exposed because "Block only during scheduled hours" sits in Blocking
+     * Options, which reads as covering everything FitShield blocks — and it did
+     * not: app blocking honoured it while the connection filter kept resetting
+     * sites around the clock. One switch, two answers, and nothing said so.
+     */
+    fun scheduleAllows(context: Context): Boolean = withinSchedule(prefs(context))
 
     // ---- temporary unlock ----------------------------------------------------
 
@@ -92,8 +94,16 @@ object AppBlockPolicy {
     } catch (e: Exception) { JSONObject() }
 
     fun isUnlocked(context: Context, brandId: String): Boolean {
-        val expiry = unlocks(prefs(context)).optLong(brandId, 0L)
+        val expiry = unlockExpiry(context, brandId) ?: return false
         return expiry > System.currentTimeMillis()
+    }
+
+    /** When [brandId]'s temporary unlock expires, or null when it has none.
+     *  Exposed so the connection filter can honour the same unlock the pause
+     *  screen granted, instead of resetting the app the user just chose to open. */
+    fun unlockExpiry(context: Context, brandId: String): Long? {
+        val expiry = unlocks(prefs(context)).optLong(brandId, 0L)
+        return if (expiry > 0L) expiry else null
     }
 
     // Per-app "always allow" list (brandIds the user has opted out of blocking).

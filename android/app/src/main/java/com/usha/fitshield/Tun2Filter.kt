@@ -122,6 +122,13 @@ class Tun2Filter(
         if (rst) { flow?.close(false); flows.remove(key); return }
 
         if (syn && flow == null) {
+            // Refuse an IPv6 connection outright when this network has no IPv6
+            // upstream, instead of completing a handshake we cannot honour and
+            // resetting afterwards. See BlockDecision.shouldRefuseSyn.
+            if (BlockDecision.shouldRefuseSyn(ip.dst.size == 16, vpn.ipv6Upstreamable())) {
+                TcpFlow(key, ip.src, ip.dst, srcPort, dstPort, seq).refuse()
+                return
+            }
             if (flows.size > MAX_FLOWS) { flows.entries.firstOrNull()?.let { it.value.close(false); flows.remove(it.key) } }
             flow = TcpFlow(key, ip.src, ip.dst, srcPort, dstPort, seq)
             flows[key] = flow
@@ -164,6 +171,13 @@ class Tun2Filter(
             sndUna = ourIsn
             send(FLAG_SYN or FLAG_ACK, withMss = true, payload = null)
             sndNxt = ourIsn + 1                            // SYN consumes one seq
+        }
+
+        /** Refuse this connection before the handshake: RST the SYN and stay
+         *  out of the flow table, so the client fails over immediately. */
+        fun refuse() {
+            sendRst()
+            closed = true
         }
 
         fun onAck(ackNo: Int, window: Int) {
@@ -210,7 +224,10 @@ class Tun2Filter(
             val name = host ?: ""
             val apex = if (name.isNotEmpty()) rules.blockedApex(name) else null
             // NOTE: never log the hostname — FitShield does not record browsing.
-            if (apex != null) {
+            // Outside the scheduled window — or inside a temporary unlock the
+            // pause screen granted — the connection is relayed like any other.
+            // The tunnel stays up so blocking resumes without the user acting.
+            if (apex != null && vpn.shouldReset(apex)) {
                 onBlock(apex)
                 sendRst()
                 close(false)
@@ -221,6 +238,8 @@ class Tun2Filter(
 
         private fun connectAndRelay(preBytes: ByteArray) {
             Thread({
+                val toIpv6 = serverIp.size == 16
+                var connected = false
                 try {
                     // Open via a channel so the OS socket (fd) exists BEFORE protect():
                     // a plain `Socket()` has no fd until connect, so protect() would
@@ -231,6 +250,10 @@ class Tun2Filter(
                     if (!vpn.protectSocket(ch.socket())) throw IllegalStateException("protect failed")
                     ch.socket().tcpNoDelay = true
                     ch.socket().connect(InetSocketAddress(InetAddress.getByAddress(serverIp), serverPort), CONNECT_TIMEOUT)
+                    connected = true
+                    // Evidence for BlockDecision.shouldRefuseSyn: this path reached
+                    // an IPv6 address, so IPv6 works on whatever we are riding.
+                    if (toIpv6) vpn.noteIpv6Reachable(true)
                     ch.configureBlocking(true)        // timed connect may leave it non-blocking
                     channel = ch
                     // Feed the buffered pre-decision bytes FIRST, before the queue
@@ -244,9 +267,26 @@ class Tun2Filter(
                     // reader: server -> client (this thread)
                     pumpToClient(ch)
                 } catch (e: Exception) {
+                    // Only a failure to CONNECT says anything about the network,
+                    // and only "unreachable" does — a site being down is not the
+                    // address family being unusable.
+                    if (toIpv6 && !connected && unreachable(e)) vpn.noteIpv6Reachable(false)
                     sendRst(); close(false)   // upstream connect/relay failed
                 }
             }, "fs-c").also { it.isDaemon = true; it.start() }
+        }
+
+        /** True when [e] says the network itself could not be reached, rather
+         *  than the far end refusing or timing out. */
+        private fun unreachable(e: Exception): Boolean {
+            if (e is java.net.NoRouteToHostException) return true
+            var cause: Throwable? = e
+            while (cause != null) {
+                val message = cause.message ?: ""
+                if (message.contains("ENETUNREACH") || message.contains("unreachable", ignoreCase = true)) return true
+                cause = cause.cause
+            }
+            return false
         }
 
         private fun writeFully(ch: java.nio.channels.SocketChannel, data: ByteArray) {

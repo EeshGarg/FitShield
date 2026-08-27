@@ -11,7 +11,7 @@
     "fast-food": "1.3",
     "delivery": "1.2"
   },
-  "appVersion": "0.55",
+  "appVersion": "0.56",
   "matching": "apex-or-subdomain",
   "count": 2512,
   "sha256": "4008f7c315b2ff28ecbd3e05f8e573f05334c1bf3e97cf5ae03d99fdd755e62a",
