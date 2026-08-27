@@ -654,8 +654,23 @@ test("a genuine block still redirects, renders, and counts exactly once", { conc
     await sleep(3000);
     await browser.cdp.send("Target.closeTarget", { targetId: windowTarget }).catch(() => {});
 
-    await sleep(SETTLE_MS);
-    state = await readState(control);
+    // The service worker writes the counters AFTER the navigation completes, so
+    // a fixed settle races it: under load this failed with the total already at
+    // 6 while the per-brand breakdown was still one behind — the write had
+    // happened, the test just looked too early.
+    //
+    // The assertions are unchanged and still exact. Only the waiting is: poll
+    // for the state the test demands, and if it never arrives, fall through and
+    // let the same assertions fail with the same message. Loosening the numbers
+    // would have hidden a real regression; waiting for them does not.
+    await until(
+      async () => {
+        state = await readState(control);
+        return state.interruptions === 6 && state.byDomain[BLOCKED_DOMAIN] === 3;
+      },
+      { what: "six interruptions and their brand breakdown to settle", timeoutMs: 20000 }
+    ).catch(() => { /* fall through to the assertions below for a real message */ });
+
     assert.equal(state.interruptions, 6, `expected 6 real interruptions, got ${state.interruptions}`);
     assert.equal(state.byDomain[BLOCKED_DOMAIN], 3, "the brand breakdown lost a genuine block");
     assert.equal(state.byDomain[fourth.domain], 1, `the block in a second window was not recorded for ${fourth.domain}`);

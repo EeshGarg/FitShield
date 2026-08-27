@@ -1,10 +1,13 @@
-# FitShield on Safari (macOS / iOS / iPadOS) — NIGHTLY
+# FitShield on Safari (macOS / iOS / iPadOS) — EXPERIMENTAL
 
-> **Nightly / experimental.** These builds are unsigned, not on the App Store,
-> and Safari's blocking APIs are narrower than Chromium's — treat this as a
-> preview. The manifest ships as **“FitShield Nightly”** (`version_name
-> <version>-nightly`) so it is unmistakable in Safari's Extensions pane and the
-> wrapper app.
+> **Experimental.** Everything Apple here is a preview, not a release: the
+> builds are unsigned, they are not on the App Store, and Safari's blocking APIs
+> are narrower than Chromium's, so sites the other browsers stop can get through.
+> The manifest ships as **“FitShield Nightly”** (`version_name
+> <version>-nightly`) so an experimental build is unmistakable in Safari's
+> Extensions pane and the wrapper app — that name is asserted by the parity
+> tests, which is why the artifact keeps it while the documentation says
+> experimental.
 
 FitShield is a single web-extension source tree. Safari Web Extensions can't be
 loaded from a folder like Chrome/Firefox — they run inside a **native app** built
