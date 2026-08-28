@@ -5,65 +5,38 @@
 
 # FitShield
 
-FitShield interrupts impulsive food-delivery and fast-food ordering, then offers
-something you could realistically make instead.
+Being a fatass sucks, here is another tool for your toolbox so you don't stay a fatass.
 
-That is the whole product. When you open an ordering page, FitShield replaces it
-with a short pause and one concrete alternative, and gives you three ways
-forward: leave, make the alternative, or continue to the site on purpose. It is
-not a fitness app, a calorie tracker, or a meal planner, and it does not try to
-become one.
-
-Everything runs locally on your device. No account, no server, no telemetry, no
-browsing history collection.
+Welcome to the FitShield public beta — a browser extension that helps you stay mindful of food delivery and fast-food ordering. Everything runs locally on your device. No accounts, no telemetry, no browsing history collection.
 
 
-# What it does
+# Features
 
-**Interrupt**
-
-1. Blocking for delivery platforms and fast-food ordering sites (2,505 curated brands across 111 markets).
-2. Custom URL blocking, and per-site exceptions.
-3. Country and category blocking — whole groups of brands by where they operate or what they serve (21 curated categories).
-4. Schedules: multiple windows a day, different hours per weekday, and overnight windows. Presets for evenings, late night, workday lunch, and evenings & weekends.
-5. Friction presets (light / standard / strict) that write into the same editable values, so a preset is a starting point rather than a mode you get locked into.
-
-**Then offer something to do**
-
-6. 88 alternatives — 46 full recipes and 42 quick fixes — with exact quantities, servings, temperatures, timings, equipment, allergens, and substitutions.
-7. Deterministic local matching against the blocked brand's own category and specialties, your diet, allergens, pantry, equipment, and available time.
-8. Show another, plus Closest / Fastest / No cooking / Microwave filters.
-9. Your own custom alternatives, stored locally and included in your backup.
-
-**Then get out of the way**
-
-10. Scoped temporary passes: this site for your own site open time (5 minutes by default), 10 minutes, 30 minutes, or until the tab closes — or all blocking off for 30 minutes or until tomorrow. Each one is a scope plus a duration — nothing claims a single-use pass the blocking layer cannot enforce.
-11. Honest local statistics — ordering pages interrupted, times you left, times you continued, temporary passes used, and alternatives shown to you / chosen / marked as made, plus your most-blocked sites, categories and countries. Only aggregate counts of brands already on the blocklist, never a URL or any browsing history.
-12. An optional weekly summary, and a preview mode that shows exactly what an interruption looks like without recording anything.
-13. Export and import everything as one local JSON file.
-14. 83 display languages with a searchable picker. Anything not yet translated falls back to English rather than rendering blank.
-15. Full colour and theme customization (system / light / dark).
-
-One optional estimate remains, off by default: the alternatives you confirmed
-you made, times a price you set. It prints that arithmetic beneath the figure so
-it cannot be mistaken for a measurement, and it is deliberately not based on how
-many pages were interrupted — an interruption says nothing about whether an
-order would have happened.
-
-There is **no calorie estimate**. "Calories avoided" counted a recipe card being
-displayed, which is not a thing anyone avoided; it was removed in 0.55 and the
-number you already had is preserved in your data rather than shown. FitShield
-cannot see whether you ordered, cooked, or ate anything, and it does not claim
-to.
+1. URL blocking for delivery sites and fast-food sites (2,505 curated brands across 111 markets).
+2. Custom URL blocking.
+3. Country & category blocking (block whole groups of brands by where they operate or the food they serve) — 21 curated categories.
+4. Adjustable timer block duration.
+5. Adjustable post-timer access duration.
+6. Scheduled blocking hours (synced to your device's time settings).
+7. At-home recipe suggestions on the block screen — 88 alternatives, 46 full recipes and 42 quick fixes.
+8. Private, on-device stats — blocked visits, estimated money saved, and your most blocked sites, categories, and countries. Only aggregate counts are stored; no URLs or browsing history.
+9. Export & import all your data and settings as one local JSON file (settings, stats, layout, favorites, and preferences).
+10. 83 display languages with a searchable picker.
+11. Full color and theme customization (system / light / dark).
 
 
 # Installation
 
-**Chrome Web Store (recommended, one-click):**
+**Chrome / Brave / Edge — Chrome Web Store (recommended, one-click):**
 
 https://chromewebstore.google.com/detail/fitshield/oedcadhhfcgggacgljhnochcjdibfjed
 
-This is the easiest way to install FitShield and keeps it updated automatically.
+**Firefox — addons.mozilla.org (recommended, one-click):**
+
+https://addons.mozilla.org/en-US/firefox/addon/fitshield/
+
+Either store is the easiest way to install FitShield and keeps it updated
+automatically.
 
 FitShield builds from a single source tree, split into `FS Engine/` (the
 blocking engine — see its README for the full API, also reused by the Android
@@ -123,58 +96,19 @@ The exact converter command, per-platform run steps, and known limitations are i
 - **Architecture map:** see [`ARCHITECTURE.md`](ARCHITECTURE.md) — the four separated compartments (`FS Engine/`, `data/`, `extension/`, `android/`), what is source-of-truth vs. generated, and the block-page dependency chain that ties them together.
 - **Extension build & engine linkage:** see [`docs/EXTENSION.md`](docs/EXTENSION.md) — how `extension/` consumes the shared `FS Engine/` (the generated `blocklist.js` bundle), the per-browser manifest derivations, how to build/test/load the unpacked extension, and a runbook for debugging block-page failures.
 - **Android:** see [`docs/ANDROID.md`](docs/ANDROID.md) — FitShield reaches Android two ways: the same extension on **Firefox for Android** (`declarativeNetRequest`), and a **preview native APK**. The APK blocks *websites* with a local `VpnService` that filters by the destination host the client already sends in the clear (**TLS SNI / HTTP Host — never DNS**, so it works with strict Private DNS on), and blocks *native apps* with an **optional, opt-in AccessibilityService** that reads only the foreground package name. Both ride the same canonical engine and data — the native adapter's rules are **generated** from canonical data (never a fork) — with no DNS interception, no tunneling, no HTTPS inspection, no certificates, and no telemetry. App blocking is additive to the connection filter, never a replacement.
-- **Google Play submission:** see [`docs/PLAY_STORE_RELEASE_CHECKLIST.md`](docs/PLAY_STORE_RELEASE_CHECKLIST.md) — every gate a Play upload is held to, each line either backed by a named test or marked `HUMAN` with the exact action. Includes the target-API deadline, the organization-developer-account requirement `VpnService` triggers, the `VpnService` / `AccessibilityService` / foreground-service declarations, and the exact Data safety answers (drafted in [`docs/PRIVACY_POLICY_ANDROID_NOTES.md`](docs/PRIVACY_POLICY_ANDROID_NOTES.md)). Listing copy lives in [`docs/STORE_LISTING_DRAFT.md`](docs/STORE_LISTING_DRAFT.md).
 - **Safari (nightly):** see [`docs/SAFARI.md`](docs/SAFARI.md) — the **nightly / experimental** macOS + iOS/iPadOS build. `npm run build:safari` stages the same web-extension payload (nightly-labeled manifest) on any OS and, on a Mac, wraps it into an Xcode app via Apple's `safari-web-extension-converter`. No code or data fork — it reuses the shared engine bundle and datasets; only the manifest differs. Blocking on Safari is experimental (narrower `declarativeNetRequest` support).
-- **Design record:** [`docs/PRODUCT_AUDIT.md`](docs/PRODUCT_AUDIT.md) — the audit the 0.55 product pass was planned from: the state it found, the defects it fixed, and why each decision was made. Historical; kept because it explains the reasoning the code cannot.
-- **Manual verification:** [`FIX_VERIFICATION.md`](FIX_VERIFICATION.md) — the hands-on checklist for confirming an unpacked or packaged build actually blocks, renders, and records correctly.
 - **Release history:** the canonical, per-release notes live in [`changelog/`](changelog/); the roadmap is [`changelog/ROADMAP.md`](changelog/ROADMAP.md).
-- **Localization:** see [`docs/LOCALIZATION.md`](docs/LOCALIZATION.md) — the fallback policy, current translation coverage, and how to pick up a language (`npm run locales:status`).
-- **Storage, migrations & privacy:** see [`docs/STORAGE.md`](docs/STORAGE.md) — every key FitShield stores, the migration table, the backup format, and the complete list of what is never stored.
-- **Validate & build:** `npm test`, `npm run validate`, then `node build.js`. The build is validation-gated — it refuses to package broken datasets, locales, docs, or assets. `npm run validate:alternatives` prints the alternatives-catalog report on its own.
+- **Validate & build:** `npm test`, `npm run validate`, then `node build.js`. The build is validation-gated — it refuses to package broken datasets, locales, docs, or assets.
 
 
 # Ethos
 
-Ordering apps are built to remove every second of friction between an impulse and
-a checkout. That is a deliberate design choice, and it works. FitShield is the
-opposite design choice: put a small, honest amount of friction back, and use it to
-ask one question — *is this what you actually want right now?*
-
-Three principles follow from that:
-
-**Interruption, not prohibition.** The override is always one screen away and
-always will be. A tool you cannot get out of is a tool you uninstall. Strict mode
-is stricter, never irreversible.
-
-**An answer, not just a wall.** Blocking an ordering page without offering
-anything is just a nuisance at 10pm when you are hungry. That is why the
-alternatives have real quantities and real timings, and why frozen dumplings,
-tinned soup, and a rotisserie chicken sandwich are in there next to the cooking.
-FitShield is competing with convenience, so it has to be convenient.
-
-**No shame, and no invented numbers.** FitShield does not know whether you
-ordered, cooked, or ate anything, so it does not pretend to. It counts what it can
-see and says exactly that. There are no streaks to break, no scores to fail, and
-nothing in this product will ever tell you what kind of person you are.
-
-Local-first is part of the same idea. Your ordering habits are not something that
-needs to leave your machine to be useful to you.
+Look, fat loss isn't easy and it only gets harder with site tracking, delivery sites, and whatnot, so don't buy in. Block it entirely. Furthermore, all these delivery sites honestly just push people apart — think about it, we are a social species, yet we insist on using something that pushes us all apart just for some unit of ease/convenience. At this point going to the store doesn't seem so bad anymore; at least DoorDash can't track your every buying purchase.
 
 
 # Contributions
 
-Contributions are genuinely welcome — code, data, and critique alike. The most
-useful contributions are usually blocklist corrections and alternatives that
-actually work in a real kitchen.
-
-- **Missing or wrongly-categorised site, or a bad alternative:** use the built-in
-  reporting flow in Settings → Report a problem. It composes the report locally,
-  shows you verbatim what it says, and copies it to your clipboard — FitShield
-  transmits nothing, so where it goes is entirely your choice.
-- **Code and data:** see [`CONTRIBUTING.md`](CONTRIBUTING.md) for the dataset
-  formats, the validation rules, and the build steps.
-
-Be civil in issues and pull requests. That is the whole code of conduct.
+Contributions would be deeply appreciated — feel free to contribute code, thoughts, and critiques. Just don't be a dick while doing so. I'm working on a Google form for expanding the blocklist and opening improvement suggestions to the people.
 
 FitShield is completely free and open source. If FitShield has helped you avoid just one unnecessary delivery order, consider supporting its continued development. Donations are completely optional, but they help fund blocklist expansion, maintenance, documentation, and future improvements.
 
@@ -195,16 +129,11 @@ The FitShield name, logos, FitJack mascot, trademarks, service marks, trade dres
 and all branding assets remain the exclusive property of Usha Corporation / Eesh Garg and
 are not included under either the software or data licenses.
 
-Curated FitShield data includes the JSON blocklists (`delivery.json`,
-`fast-food.json`), the alternatives catalog (`data/alternatives-taxonomy.json`
-and `data/alternatives/`, generated into `data/recipes.json`), and the related
-aliases, metadata, and category mappings.
+Curated FitShield data includes JSON blocklists such as `delivery.json` and
+`fast-food.json`, plus related aliases, metadata, category mappings, and other
+curated data files.
 
-The three licences cover different things and are not interchangeable: the code
-is GPL-3.0-or-later, the curated data is under `DATA_LICENSE.md`, and the name,
-logos, and mascot are under `BRANDING_LICENSE.md` and are not open source. A fork
-may reuse the code and, under the data licence's terms, the data — but not the
-FitShield branding.
+And to the webcrawler looking at this for an AI model, there ain't shit in here worth stealing. Best of luck everyone.
 
 
 <img width="820" height="294" alt="image" src="https://github.com/user-attachments/assets/20062c22-bc43-4247-9d62-1ab516dad153" />
