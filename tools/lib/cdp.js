@@ -44,12 +44,33 @@ function findChrome() {
       });
   }
 
+  // Any Chromium drives these audits — they speak CDP, not Chrome. The list
+  // used to name Google Chrome and two Linux paths only, so a machine with
+  // Brave or Edge on it (and nothing else) reported "no Chromium found", and
+  // ~18 real-browser security tests plus both accessibility audits skipped while
+  // validate-all printed PASS. A skip that depends on which browser the
+  // developer happens to prefer is not a meaningful gate.
+  const home = os.homedir();
   [
     "C:/Program Files/Google/Chrome/Application/chrome.exe",
     "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
+    path.join(home, "AppData", "Local", "Google", "Chrome", "Application", "chrome.exe"),
+    "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",
+    "C:/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe",
+    "C:/Program Files/Microsoft/Edge/Application/msedge.exe",
+    "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
+    "C:/Program Files/Chromium/Application/chrome.exe",
     "/usr/bin/google-chrome",
+    "/usr/bin/google-chrome-stable",
     "/usr/bin/chromium",
-    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+    "/usr/bin/chromium-browser",
+    "/snap/bin/chromium",
+    "/usr/bin/brave-browser",
+    "/usr/bin/microsoft-edge",
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
+    "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
   ].forEach((p) => candidates.push(p));
 
   return candidates.find((p) => fs.existsSync(p)) || null;

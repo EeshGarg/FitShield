@@ -24,7 +24,20 @@ import android.os.Build
 internal object RestoreNotice {
 
     const val CHANNEL_ID = "fitshield_restore"
-    const val NOTIF_ID = 2
+
+    /**
+     * 3, not 2. AppBlockKeepAliveService holds 2 as its FOREGROUND notification,
+     * so the two collided in both directions: posting this notice replaced the
+     * keep-alive's ongoing notification, and [dismiss] cancelled it outright —
+     * cancelling the notification a foreground service is running on. The notice
+     * itself fared no better, since the keep-alive re-posts id 2 on every start
+     * and would erase the one prompt telling the user their protection did not
+     * come back after a reboot.
+     *
+     * KEEP DISTINCT: 1 = FitShieldVpnService, 2 = AppBlockKeepAliveService,
+     * 3 = this. test/android-controls.test.js fails if two of them ever match.
+     */
+    const val NOTIF_ID = 3
 
     /** Extra on the tap intent: MainActivity runs the enable flow when set. */
     const val EXTRA_RESTORE_VPN = "com.usha.fitshield.RESTORE_VPN"

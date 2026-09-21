@@ -306,3 +306,34 @@ test("app blocking, and every category under it, defaults ON in both the policy 
       "while AppBlockPolicy reads it as ON — the switch and the behaviour would disagree"
   );
 });
+
+// ---------------------------------------------------------------------------
+// Notification ids
+// ---------------------------------------------------------------------------
+//
+// RestoreNotice and AppBlockKeepAliveService were both id 2, and 2 is the id the
+// keep-alive runs its FOREGROUND notification on. So the keep-alive erased the
+// one prompt that tells a user their protection did not come back after a
+// reboot, and RestoreNotice.dismiss() cancelled a live foreground service's
+// notification. Neither is visible in isolation: each file was self-consistent.
+test("every Android notification id is distinct", () => {
+  const dir = path.join(__dirname, "..", "android", "app", "src", "main", "java", "com", "usha", "fitshield");
+  const ids = new Map();
+
+  fs.readdirSync(dir).filter((f) => f.endsWith(".kt")).forEach((file) => {
+    const src = fs.readFileSync(path.join(dir, file), "utf8");
+    const m = /(?:private\s+)?const\s+val\s+NOTIF_ID\s*=\s*(\d+)/.exec(src);
+    if (m) ids.set(file.replace(/\.kt$/, ""), Number(m[1]));
+  });
+
+  assert.ok(ids.size >= 3, `expected at least three NOTIF_ID holders, found ${[...ids.keys()].join(", ") || "none"}`);
+
+  const seen = new Map();
+  const clashes = [];
+  [...ids.entries()].forEach(([owner, id]) => {
+    if (seen.has(id)) clashes.push(`${seen.get(id)} and ${owner} both post notification id ${id}`);
+    else seen.set(id, owner);
+  });
+
+  assert.deepEqual(clashes, [], clashes.join("; "));
+});

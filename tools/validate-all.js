@@ -67,7 +67,13 @@ async function validateAll(options) {
   // dist/ that read "0 error(s), 3 warning(s) across 18 audits" and exited 0
   // while two audits did nothing at all. The count is the headline most people
   // read, so it has to say what actually happened.
-  const SKIPPED = /\b(skipped|is not built|not installed|no [A-Za-z]+ found)\b/i;
+  // "is not staged" is here because the Safari audit says that, not "is not
+  // built", and the one phrasing this pattern did not cover was the one audit
+  // that then reported PASS over a payload it had never opened — the exact
+  // failure the paragraph above describes, surviving in the detector written to
+  // stop it. The three built/staged messages and the three "no <browser> found"
+  // ones are now all matched; tools/validate-all.test.js pins each string.
+  const SKIPPED = /\b(skipped|is not (?:built|staged)|not installed|no [A-Za-z]+ found)\b/i;
   const skipped = reporters.filter((r) => r.warnings.some((w) => SKIPPED.test(w)));
 
   if (!opts.quiet) {

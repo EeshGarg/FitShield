@@ -71,6 +71,7 @@ const ANDROID_INDEX = read("android", "app", "src", "main", "assets", "web", "in
 const ANDROID_APP_JS = read("android", "app", "src", "main", "assets", "web", "app.js");
 const ANDROID_BLOCK_JS = read("android", "app", "src", "main", "assets", "web", "block.js");
 const TUN2FILTER = read("android", "app", "src", "main", "java", "com", "usha", "fitshield", "Tun2Filter.kt");
+const IPPACKET = read("android", "app", "src", "main", "java", "com", "usha", "fitshield", "IpPacket.kt");
 
 /**
  * XML comments in this manifest deliberately NAME permissions the app refuses to
@@ -1341,7 +1342,26 @@ test("the docs describe IPv6 exactly as the filter handles it", () => {
    * the documentation may not keep claiming a limitation the code dropped, and
    * may not go quiet if the drop comes back.
    */
-  const dropsIpv6 = /if\s*\(\s*version\s*!=\s*4\s*\)\s*return/.test(TUN2FILTER);
+  /*
+   * Read from IpPacket.kt, which is where IP version parsing lives. This used to
+   * grep Tun2Filter.kt for `if (version != 4) return`, and the word "version"
+   * does not occur in that file at all any more — so `dropsIpv6` was permanently
+   * false, the `if (dropsIpv6)` branch below could never execute, and the
+   * "may not go quiet if the drop comes back" half this test advertises was dead.
+   * A guard that can only take one branch is testing one thing while claiming two.
+   *
+   * The positive fact is asserted instead of the absent one: IpPacket parses a v6
+   * header and hands back `version = 6`. If IPv6 is ever dropped again that
+   * constructor is what goes, and this flips — which is the direction that
+   * matters, because dropping IPv6 on an IPv6-only network is a total loss of
+   * connectivity and the docs must say so.
+   */
+  assert.match(
+    IPPACKET,
+    /version\s*=\s*6/,
+    "IpPacket.kt no longer builds an IPv6 header — this guard cannot tell whether IPv6 is filtered or dropped"
+  );
+  const dropsIpv6 = !/version\s*=\s*6/.test(IPPACKET);
 
   const documents = [
     ["docs/ANDROID.md", ANDROID_DOC],

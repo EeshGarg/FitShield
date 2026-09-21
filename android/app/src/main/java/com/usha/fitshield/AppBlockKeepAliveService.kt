@@ -54,7 +54,9 @@ class AppBlockKeepAliveService : Service() {
     }
 
     companion object {
-        private const val NOTIF_ID = 2   // FitShieldVpnService uses 1
+        // 1 = FitShieldVpnService, 2 = this, 3 = RestoreNotice. The comment used
+        // to name only the VpnService, and RestoreNotice was given 2 as well.
+        private const val NOTIF_ID = 2
 
         fun start(context: Context) {
             val i = Intent(context, AppBlockKeepAliveService::class.java)

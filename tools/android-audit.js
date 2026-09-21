@@ -297,11 +297,47 @@ function androidAudit() {
       }
     });
   });
+  // Verbose logging must be gated too, and this used to be asserted by nothing
+  // while the note below reported it as checked. Two kinds ship in this app and
+  // neither belongs in a release: the WebView console bridge, which copies every
+  // console.* line out of the page, and the per-connection RST line in
+  // Tun2Filter, which names a host for every connection the filter refuses —
+  // logcat is readable by the user and by anything with an adb shell, so that
+  // one is a record of where they browse.
+  let gatedLogs = 0;
+  kotlinSources().forEach((file) => {
+    fs.readFileSync(file, "utf8").split(/\r?\n/).forEach((line, i) => {
+      const isConsoleBridge = /Log\.[a-z]+\(\s*"FitShieldWeb"\s*,[\s\S]*m\.message\(\)/.test(line);
+      const isPerConnection = /Log\.[a-z]+\(\s*TAG\s*,\s*"RST /.test(line);
+
+      if (!isConsoleBridge && !isPerConnection) return;
+
+      if (/BuildConfig\.DEBUG/.test(line)) {
+        gatedLogs++;
+        return;
+      }
+
+      reporter.fail(
+        `${path.basename(file)}:${i + 1}: ${isConsoleBridge ? "WebView console" : "per-connection RST"} ` +
+          "logging must be guarded by BuildConfig.DEBUG — it ships in release otherwise"
+      );
+    });
+  });
+
+  // The note said this was checked when nothing looked. If the lines are ever
+  // renamed out from under the patterns above, saying "0 gated" is the honest
+  // answer, not repeating the claim.
+  if (gatedLogs === 0) {
+    reporter.warn("no verbose-logging call sites matched — the release-logging check examined nothing");
+  }
+
   // The manifest must never force debuggable on (AGP sets it per build type).
   if (fs.existsSync(MANIFEST) && /android:debuggable\s*=\s*"true"/.test(fs.readFileSync(MANIFEST, "utf8"))) {
     reporter.fail("manifest forces android:debuggable=\"true\" — must not ship in a release build");
   }
-  reporter.note(`release readiness: API ${PLAY_MIN_SDK}+, WebView debugging + console/RST logging gated to debug, not force-debuggable`);
+  reporter.note(
+    `release readiness: API ${PLAY_MIN_SDK}+, WebView debugging + ${gatedLogs} verbose log site(s) gated to debug, not force-debuggable`
+  );
 
   return reporter;
 }
