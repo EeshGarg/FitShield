@@ -427,8 +427,37 @@ test("a readiness failure names the condition that never came true", () => {
     assert.match(label, /\S/, "every condition carries a human-readable label");
   });
   assert.ok(
-    labels.some((l) => /status/.test(l)) && labels.some((l) => /valuetext/i.test(l)),
+    labels.some((l) => /status/.test(l)) && labels.some((l) => /slider/i.test(l)),
     `the diagnosis must name #status and the sliders, got: ${labels.join("; ")}`
+  );
+});
+
+// The state that actually shipped a false failure. The unit comes from t(), and
+// before the locale cache resolves t() returns "", so the first render pass
+// writes "60 " — an aria-valuetext that is PRESENT and useless. A probe that
+// only asked whether the attribute was non-empty called that page settled and
+// handed the grader the bare number it was about to fail, six times, on a popup
+// whose DOM was correct a few hundred milliseconds later.
+test("a slider carrying a bare number is not settled — a present aria-valuetext is not a useful one", () => {
+  const halfLocalised = makeDocument(
+    element({
+      children: [
+        element({ tag: "input", id: "toggle", attrs: { type: "checkbox", "aria-describedby": "status" } }),
+        element({ id: "status", classes: ["status"], text: "FitShield is on." }),
+        slider("timerSlider", "60 "),
+        slider("passDurationSlider", "5 ")
+      ]
+    })
+  );
+
+  assert.ok(
+    !settled(READINESS.popup, halfLocalised),
+    "an aria-valuetext of \"60 \" carries no unit — waiting must continue, not grade it"
+  );
+
+  assert.ok(
+    settled(READINESS.popup, popupSettled()),
+    "and the same probe must still accept the page once the unit is there"
   );
 });
 

@@ -222,11 +222,17 @@ const exists = (selector) => [
  * exact property auditSliderUnits goes on to assert, so the audit now waits for
  * the state it is about to grade, and a slider added later is covered without
  * anyone remembering to extend a list.
+ *
+ * It requires a NON-DIGIT in the value, not merely a non-empty string. The unit
+ * comes from t(), and before the locale cache resolves t() returns "" — so the
+ * first render pass can write "60 " and a length>0 probe would call that page
+ * settled and hand the grader the bare number it is about to fail. The probe has
+ * to be able to tell the two states apart; that is the whole reason it exists.
  */
 const SLIDERS_SETTLED = [
-  "every slider has aria-valuetext",
+  "every slider announces a unit, not just a number",
   "Array.prototype.every.call(document.querySelectorAll('input[type=range]')," +
-    " (s) => ((s.getAttribute('aria-valuetext') || '').trim().length > 0))"
+    " (s) => /[^\\d\\s.,:-]/.test((s.getAttribute('aria-valuetext') || '')))"
 ];
 
 /**
@@ -809,14 +815,50 @@ async function auditCountdown(browser, extensionId, reporter) {
  * lives in a separate element beside it, which the user never hears next to the
  * value — so "Timer duration, 60" and "Site open time, 5" were, to a listener,
  * two numbers with no units, one in seconds and one in minutes.
+ *
+ * READ FROM THE DOM, NOT FROM THE CDP `valuetext` PROPERTY. This check used to
+ * take the AX node's `valuetext`, and as of Chrome 153 that property no longer
+ * reflects `aria-valuetext` on a range input at all — it reports the raw number.
+ * Reduced to a page with no FitShield code on it:
+ *
+ *   <input type="range" value="60" aria-valuetext="60 seconds">
+ *   -> Accessibility.getFullAXTree: value=60, valuetext="60"
+ *
+ * and a `<div role="slider" aria-valuetext="60 seconds">` comes back with
+ * valuetext="" entirely. So the old assertion failed six correct sliders on
+ * every run, on a page whose DOM carried "60 seconds" from first paint. The
+ * attribute is what the platform accessibility API (UIA/IA2) hands a real
+ * screen reader; CDP is the thing that stopped reporting it, so the attribute
+ * is what this now reads. Everything else here still comes from the AX tree,
+ * which remains correct for names, roles and order.
  */
-function auditSliderUnits(order, label, reporter) {
+async function auditSliderUnits(tab, order, label, reporter) {
   const sliders = order.filter((n) => roleOf(n) === "slider");
+
+  const domValues = JSON.parse(
+    await tab.evaluate(
+      "JSON.stringify(Array.prototype.map.call(" +
+        "document.querySelectorAll('input[type=range], [role=slider]'), " +
+        "(s) => (s.getAttribute('aria-valuetext') || '')))"
+    )
+  );
+
+  // The AX tree lists sliders in the same order the DOM does. If those two ever
+  // disagree in COUNT, pairing them by index would quietly grade the wrong
+  // control, so say so instead of guessing.
+  if (domValues.length !== sliders.length) {
+    reporter.fail(
+      `${label}: ${sliders.length} slider(s) in the accessibility tree but ${domValues.length} in the DOM — ` +
+        "the two cannot be paired, so their units went ungraded"
+    );
+    return 0;
+  }
+
   let checked = 0;
 
-  sliders.forEach((node) => {
+  sliders.forEach((node, index) => {
     checked++;
-    const text = String(propertyOf(node, "valuetext") || "").trim();
+    const text = String(domValues[index] || "").trim();
     const name = nameOf(node) || "«unnamed»";
 
     if (!text) {
@@ -848,7 +890,7 @@ async function auditPopup(browser, extensionId, reporter) {
     const tree = await treeOf(tab);
     const order = tree.order;
 
-    auditSliderUnits(order, "popup", reporter);
+    await auditSliderUnits(tab, order, "popup", reporter);
     auditDecorativeNames(order, "popup", reporter);
 
     // --- 7. Politeness -----------------------------------------------------
@@ -905,7 +947,7 @@ async function auditSettings(browser, extensionId, reporter) {
   try {
     const tree = await treeOf(tab);
     const order = tree.order;
-    auditSliderUnits(order, "settings", reporter);
+    await auditSliderUnits(tab, order, "settings", reporter);
     auditDecorativeNames(order, "settings", reporter);
   } finally {
     await tab.close();

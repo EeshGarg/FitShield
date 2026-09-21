@@ -173,14 +173,23 @@ class Connection {
   }
 }
 
-async function launch({ extensionDir, headless = true, chrome = findChrome() } = {}) {
+/**
+ * `profileDir` pins the user-data directory instead of making a throwaway one,
+ * which is the only way to ask "does this survive the browser being closed and
+ * reopened?". A pinned profile is the CALLER's: it is not deleted on close, and
+ * close() quits the browser politely so the profile is flushed the way a real
+ * one is rather than killed mid-write. `extraArgs` exists for the same caller —
+ * `--restore-last-session` is meaningless without a profile to restore.
+ */
+async function launch({ extensionDir, headless = true, chrome = findChrome(), profileDir = null, extraArgs = [] } = {}) {
   if (!chrome) {
     const error = new Error("no Chrome/Chromium binary found");
     error.code = "NO_BROWSER";
     throw error;
   }
 
-  const profile = fs.mkdtempSync(path.join(os.tmpdir(), "fs-cdp-"));
+  const ownsProfile = !profileDir;
+  const profile = profileDir || fs.mkdtempSync(path.join(os.tmpdir(), "fs-cdp-"));
   const args = [
     "--remote-debugging-port=0",
     `--user-data-dir=${profile}`,
@@ -189,6 +198,7 @@ async function launch({ extensionDir, headless = true, chrome = findChrome() } =
     "--disable-background-networking",
     "--disable-component-update",
     "--disable-sync",
+    ...extraArgs,
     "about:blank"
   ];
 
@@ -198,7 +208,16 @@ async function launch({ extensionDir, headless = true, chrome = findChrome() } =
 
   if (extensionDir) {
     const abs = path.resolve(extensionDir);
-    args.unshift(`--disable-extensions-except=${abs}`, `--load-extension=${abs}`);
+
+    // --load-extension only: NOT --disable-extensions-except. That second flag
+    // turns the extension system off except for an allowlist, and on Chrome 137+
+    // it also suppresses the extension this module now loads over CDP below —
+    // Extensions.loadUnpacked returns the right id and no extension target ever
+    // appears, which reads exactly like a package that will not load. Measured on
+    // Chrome 153: with both flags the target is absent, with --load-extension
+    // alone it is present. The profile here is a fresh mkdtemp with no other
+    // extension in it, so restricting an allowlist was never buying anything.
+    args.unshift(`--load-extension=${abs}`);
   }
 
   const proc = spawn(chrome, args, { stdio: ["ignore", "pipe", "pipe"] });
@@ -227,6 +246,53 @@ async function launch({ extensionDir, headless = true, chrome = findChrome() } =
 
   const cdp = new Connection(ws);
   await cdp.send("Target.setDiscoverTargets", { discover: true });
+
+  // Chrome 137 removed --load-extension: the switch is parsed and then
+  // ignored, so the browser comes up with no extension and the only symptom
+  // is "no target reported an id the package path can produce" — the audit
+  // blaming the package for a flag the browser dropped. Extensions.loadUnpacked
+  // is the CDP command Chrome provides in its place, and it needs no special
+  // launch flag. The --load-extension arguments above are kept because older
+  // Chromium builds (and Brave) still honour them and do not implement this
+  // domain; whichever of the two works, the extension is loaded exactly once —
+  // a second load of the same path returns the same id rather than a duplicate.
+  if (extensionDir) {
+    // Only install it if it is not already there. A pinned profile KEEPS an
+    // extension installed this way, and re-installing it on the next launch
+    // restarts it — which tears down every page it owns, including one that
+    // --restore-last-session has just brought back. Installing over the top is
+    // also how a restored extension tab ends up on chrome-error://chromewebdata:
+    // the tab is restored at start-up and the extension it belongs to does not
+    // exist until a moment later.
+    const candidates = new Set(unpackedExtensionId(extensionDir));
+    const alreadyLoaded = async () => {
+      const { targetInfos } = await cdp.send("Target.getTargets");
+      return targetInfos.some((target) => {
+        try {
+          return target.url.startsWith("chrome-extension://") && candidates.has(new URL(target.url).host);
+        } catch (_) {
+          return false;
+        }
+      });
+    };
+
+    let present = false;
+    for (let i = 0; i < 12 && !present; i++) {
+      present = await alreadyLoaded();
+      if (!present) {
+        await sleep(150);
+      }
+    }
+
+    if (!present) {
+      try {
+        await cdp.send("Extensions.loadUnpacked", { path: path.resolve(extensionDir) });
+      } catch (_) {
+        // Not implemented (older Chromium), where --load-extension above did the
+        // job. Not fatal either way: the caller resolves the id and decides.
+      }
+    }
+  }
 
   const browser = {
     cdp,
@@ -289,6 +355,23 @@ async function launch({ extensionDir, headless = true, chrome = findChrome() } =
       return null;
     },
     async close() {
+      // A pinned profile is going to be reopened, so the browser is asked to
+      // quit and given time to do it. Killing the process instead leaves the
+      // session state half-written, and "it did not survive the restart" would
+      // then be a fact about this teardown rather than about the product.
+      if (!ownsProfile) {
+        await cdp.send("Browser.close").catch(() => {});
+        await new Promise((done) => {
+          proc.on("exit", done);
+          setTimeout(() => {
+            proc.kill();
+            done();
+          }, 8000);
+        });
+        await sleep(400);
+        return;
+      }
+
       try {
         ws.close();
       } catch (_) {

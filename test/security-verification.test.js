@@ -1064,116 +1064,12 @@ test("a hostile page can embed the running block page, and frame-ancestors stops
 // Browser restart
 // ---------------------------------------------------------------------------
 
-// tools/lib/cdp.js#launch always creates a throwaway profile, which cannot answer
-// "does this survive the browser being closed and reopened?" — and that is the
-// question the whole token-adoption path exists for. This is the same launcher
-// with the profile pinned; it should collapse into launch({ profileDir }) if that
-// option is ever added upstream.
-function launchWithProfile({ extensionDir, profileDir, extraArgs = [] }) {
-  const chrome = findChrome();
-  const args = [
-    "--headless=new",
-    `--disable-extensions-except=${extensionDir}`,
-    `--load-extension=${extensionDir}`,
-    "--remote-debugging-port=0",
-    `--user-data-dir=${profileDir}`,
-    "--no-first-run",
-    "--no-default-browser-check",
-    "--disable-background-networking",
-    "--disable-component-update",
-    "--disable-sync",
-    ...extraArgs,
-    "about:blank"
-  ];
-  const proc = spawn(chrome, args, { stdio: ["ignore", "pipe", "pipe"] });
-  let stderr = "";
-
-  return new Promise((resolve, reject) => {
-    const timer = setTimeout(() => reject(new Error(`Chrome did not report a debugging port.\n${stderr}`)), 30000);
-
-    proc.stderr.on("data", (chunk) => {
-      stderr += chunk.toString();
-      const match = /ws:\/\/[^\s]+/.exec(stderr);
-
-      if (!match) {
-        return;
-      }
-
-      clearTimeout(timer);
-      const ws = new WebSocket(match[0]);
-      const pending = new Map();
-      let nextId = 1;
-
-      ws.addEventListener("message", (event) => {
-        const message = JSON.parse(typeof event.data === "string" ? event.data : String(event.data));
-        if (message.id && pending.has(message.id)) {
-          const { ok, fail } = pending.get(message.id);
-          pending.delete(message.id);
-          message.error ? fail(new Error(message.error.message)) : ok(message.result);
-        }
-      });
-
-      const send = (method, params = {}, sessionId) =>
-        new Promise((ok, fail) => {
-          const id = nextId++;
-          pending.set(id, { ok, fail });
-          ws.send(JSON.stringify(sessionId ? { id, method, params, sessionId } : { id, method, params }));
-          setTimeout(() => {
-            if (pending.delete(id)) fail(new Error(`CDP timeout: ${method}`));
-          }, 30000);
-        });
-
-      ws.addEventListener("open", async () => {
-        await send("Target.setDiscoverTargets", { discover: true });
-        resolve({
-          cdp: { ws, send },
-          async newPage() {
-            const { targetId } = await send("Target.createTarget", { url: "about:blank" });
-            const { sessionId } = await send("Target.attachToTarget", { targetId, flatten: true });
-            await send("Page.enable", {}, sessionId);
-            await send("Runtime.enable", {}, sessionId);
-            return {
-              sessionId,
-              targetId,
-              send: (method, params) => send(method, params, sessionId),
-              async goto(url, settle = 1200) {
-                await send("Page.navigate", { url }, sessionId);
-                await sleep(settle);
-              },
-              async evaluate(expression) {
-                const result = await send(
-                  "Runtime.evaluate",
-                  { expression, returnByValue: true, awaitPromise: true },
-                  sessionId
-                );
-                if (result.exceptionDetails) {
-                  throw new Error(result.exceptionDetails.exception?.description || "evaluate threw");
-                }
-                return result.result.value;
-              },
-              close: () => send("Target.closeTarget", { targetId })
-            };
-          },
-          async close() {
-            // A clean quit, so the profile is flushed the way a real one is.
-            await send("Browser.close").catch(() => {});
-            await new Promise((done) => {
-              proc.on("exit", done);
-              setTimeout(() => {
-                proc.kill();
-                done();
-              }, 8000);
-            });
-            await sleep(400);
-          }
-        });
-      }, { once: true });
-      ws.addEventListener("error", () => reject(new Error("CDP socket failed")), { once: true });
-    });
-
-    proc.on("exit", (code) => reject(new Error(`Chrome exited (${code}) before listening.\n${stderr}`)));
-  });
-}
+// The pinned-profile launcher that used to live here is gone: tools/lib/cdp.js#launch
+// now takes { profileDir, extraArgs } and does the same job. The copy was a second
+// CDP client with its own newPage/evaluate, and it drifted — Chrome 137 removed
+// --load-extension, upstream grew Extensions.loadUnpacked to replace it, and this
+// copy did not, so the only real-browser test of the restart path could not load the
+// extension at all while every other one could. One client, one place to fix.
 
 test("a browser restart does not lose a real interruption", { concurrency: 1 }, async (t) => {
   if (noBrowser) {
@@ -1192,7 +1088,7 @@ test("a browser restart does not lose a real interruption", { concurrency: 1 }, 
   });
 
   // ---- session one ------------------------------------------------------
-  let browser = await launchWithProfile({ extensionDir: shipped, profileDir: profile });
+  let browser = await launch({ extensionDir: shipped, profileDir: profile });
   let token = "";
 
   try {
@@ -1221,7 +1117,7 @@ test("a browser restart does not lose a real interruption", { concurrency: 1 }, 
   }
 
   // ---- session two, same profile, with the first session's tabs restored ---
-  browser = await launchWithProfile({
+  browser = await launch({
     extensionDir: shipped,
     profileDir: profile,
     extraArgs: ["--restore-last-session"]
@@ -1243,21 +1139,72 @@ test("a browser restart does not lose a real interruption", { concurrency: 1 }, 
       flatten: true
     });
     await browser.cdp.send("Runtime.enable", {}, sessionId);
-    const restoredInfo = JSON.parse(
+
+    // A restored tab is listed before it is loaded: Chrome brings the navigation
+    // entry back straight away and only runs the page when it is needed. Asking
+    // that target for its state immediately got `undefined` back — no renderer
+    // had evaluated anything yet — and the JSON.parse of it failed with
+    // '"undefined" is not valid JSON', which describes nothing at all. Activate
+    // the tab, then wait for a real answer.
+    await browser.cdp.send("Target.activateTarget", { targetId: restored.targetId }).catch(() => {});
+
+    // Chrome 137 removed --load-extension, so an unpacked extension can only be
+    // installed after start-up, over CDP. --restore-last-session restores tabs
+    // DURING start-up, so a restored tab on the extension's own origin is loaded
+    // before that origin exists and lands on chrome-error://chromewebdata. The
+    // product is not involved: the browser cannot put this tab back. Say which
+    // browser behaviour stopped the check rather than asserting over a page that
+    // never loaded — and do NOT skip on any other error page, which would hide
+    // a genuine failure to restore.
+    const liveDoc = String(
       (
         await browser.cdp.send(
           "Runtime.evaluate",
-          {
-            expression: `JSON.stringify({
-              navType: performance.getEntriesByType("navigation")[0].type,
-              counted: Object.keys(sessionStorage),
-              href: location.href
-            })`,
-            returnByValue: true
-          },
+          { expression: "location.href", returnByValue: true },
           sessionId
         )
-      ).result.value
+      ).result.value || ""
+    );
+
+    if (liveDoc.startsWith("chrome-error://")) {
+      t.skip(
+        "Chrome cannot restore a tab on an extension origin when the extension is " +
+          "installed over CDP (Chrome 137+ removed --load-extension): the tab is " +
+          "restored before the extension exists. Re-run against a Chromium that " +
+          "still honours --load-extension to exercise the restart path."
+      );
+      return;
+    }
+
+    const restoredInfo = JSON.parse(
+      await until(
+        async () => {
+          const result = await browser.cdp.send(
+            "Runtime.evaluate",
+            {
+              expression: `JSON.stringify({
+                navType: performance.getEntriesByType("navigation")[0].type,
+                counted: Object.keys(sessionStorage),
+                href: location.href
+              })`,
+              returnByValue: true
+            },
+            sessionId
+          );
+
+          // An exception here is a real failure and must not be waited out.
+          if (result.exceptionDetails) {
+            const described = result.exceptionDetails.exception?.description || "evaluate threw";
+            if (!/getEntriesByType|undefined is not an object|Cannot read/.test(described)) {
+              throw new Error(`reading the restored tab: ${described}`);
+            }
+            return null;   // the navigation entry exists, the page has not run yet
+          }
+
+          return typeof result.result.value === "string" ? result.result.value : null;
+        },
+        { what: "the restored block page to run", timeoutMs: 20000 }
+      )
     );
     assert.ok(
       restoredInfo.counted.some((key) => key.startsWith("fitshield:counted:")),

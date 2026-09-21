@@ -87,7 +87,18 @@ async function launchFirefox({ extensionDir, headless = true, binary = findFiref
   // one machine do not collide.
   const chosen = port || 9500 + (process.pid % 400);
   const profile = fs.mkdtempSync(path.join(os.tmpdir(), "fs-bidi-"));
-  const args = [`--remote-debugging-port=${chosen}`, "--profile", profile, "--no-remote", "about:blank"];
+  // --remote-allow-system-access is REQUIRED from Firefox 139 onward: without
+  // it script.evaluate in the system sandbox fails with "System access is
+  // required", and that is the call this module uses to read the per-profile
+  // extension UUID out of prefs. Firefox 156 refuses it outright, so this
+  // audit could not run at all until the flag was passed.
+  const args = [
+    `--remote-debugging-port=${chosen}`,
+    "--remote-allow-system-access",
+    "--profile", profile,
+    "--no-remote",
+    "about:blank"
+  ];
 
   if (headless) {
     args.unshift("--headless");

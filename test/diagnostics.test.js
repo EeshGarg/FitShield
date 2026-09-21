@@ -339,6 +339,32 @@ function diagnosticsPage({ messages = "en", answer } = {}) {
 
 const settle = (ms = 60) => new Promise((resolve) => setTimeout(resolve, ms));
 
+/**
+ * Wait for something to actually be true, rather than for 60ms and a hope.
+ *
+ * `npm test` runs every file in parallel, and with a browser-backed suite also
+ * running the machine is loaded enough that a fixed settle() expires before the
+ * page has written its banner. The assertion then reads an empty string and the
+ * whole suite goes red for a reason that has nothing to do with the code under
+ * test — the same "an intermittently red gate teaches people to re-run instead
+ * of read" failure the announcement audit was rebuilt to avoid.
+ */
+async function settleUntil(predicate, { timeoutMs = 4000, everyMs = 25 } = {}) {
+  const deadline = Date.now() + timeoutMs;
+
+  for (;;) {
+    if (predicate()) {
+      return true;
+    }
+
+    if (Date.now() > deadline) {
+      return false;   // let the caller's own assertion report what was missing
+    }
+
+    await settle(everyMs);
+  }
+}
+
 // A healthy snapshot, and the shapes of the three failures the page exists for.
 const HEALTHY = {
   ok: true,
@@ -509,7 +535,7 @@ test("our own timeout adds no untranslated line under the banner", async () => {
 test("what the browser DID report is still quoted, so it can be pasted into a support message", async () => {
   const reported = "Could not establish connection. Receiving end does not exist.";
   const page = diagnosticsPage({ answer: { lastError: reported } });
-  await settle();
+  await settleUntil(() => shownText(page.byId.get("banner")).includes(reported));
 
   assert.match(shownText(page.byId.get("banner")), new RegExp(reported.replace(/[.]/g, "\\.")));
 });
