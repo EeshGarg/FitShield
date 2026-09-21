@@ -257,3 +257,52 @@ test("the package schema permits exactly the categories the generator produces",
     );
   });
 });
+
+// ---------------------------------------------------------------------------
+// The master switch
+// ---------------------------------------------------------------------------
+//
+// `appBlockingEnabled` defaulted false while every category under it defaulted
+// true, so a phone with the accessibility service granted still opened DoorDash
+// normally: the feature was off behind a switch the user had never been shown.
+// A master switch defaulting off silently disables everything beneath it, and
+// nothing in the suite noticed, because each half was individually consistent.
+//
+// Both Kotlin reads and the web UI that draws the switch carry their own
+// fallback. They are asserted together because the failure that matters is them
+// DISAGREEING — the switch showing one state while the policy applies the other.
+test("app blocking, and every category under it, defaults ON in both the policy and the UI", () => {
+  const policy = read(POLICY_KT);
+
+  const reads = [...policy.matchAll(/bool\(\s*p(?:refs\(context\))?\s*,\s*"appBlockingEnabled"\s*,\s*(true|false)\s*\)/g)]
+    .map((m) => m[1]);
+
+  assert.ok(
+    reads.length >= 2,
+    `expected AppBlockPolicy to read "appBlockingEnabled" in both isEnabled and shouldBlock, found ${reads.length}`
+  );
+  reads.forEach((value, i) => {
+    assert.equal(value, "true", `AppBlockPolicy read #${i + 1} of "appBlockingEnabled" defaults ${value}, not true`);
+  });
+
+  // Every category branch defaults on too, so the master switch is not the only
+  // thing this guards.
+  [...policyBranches().values()].forEach((key) => {
+    const branch = new RegExp(String.raw`bool\(p,\s*"${key}",\s*(true|false)\)`).exec(policy);
+    assert.ok(branch, `categoryEnabled no longer reads ${key} in a form this guard can check`);
+    assert.equal(branch[1], "true", `${key} defaults off, so that pill blocks nothing until it is touched`);
+  });
+
+  // app.js must render the switch ON when storage holds nothing. `!!s.x` is the
+  // shape that got this wrong: falsy-when-absent, which is the opposite of the
+  // policy above.
+  const appJs = read(APP_JS);
+  const render = /\$\("appBlockingEnabled"\)\.checked\s*=\s*([^;]+);/.exec(appJs);
+  assert.ok(render, "app.js no longer assigns the appBlockingEnabled checkbox in a form this guard can read");
+  assert.match(
+    render[1],
+    /!==\s*false/,
+    `app.js renders the master switch from \`${render[1].trim()}\`, which reads absent storage as OFF ` +
+      "while AppBlockPolicy reads it as ON — the switch and the behaviour would disagree"
+  );
+});

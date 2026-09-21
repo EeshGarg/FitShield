@@ -192,6 +192,54 @@ shipping a blank page:
   page end-to-end against the real engine-backed worker (brand, block reason,
   recipes, stats, locale, theme).
 
+## Defaults: a switch that is off is a feature that does not exist
+
+Every blocking control ships **on**, and the only thing standing between a fresh
+install and working protection is a permission the user must grant. That is a
+deliberate rule, and it was broken once in a way worth recording.
+
+`AppBlockPolicy.appBlockingEnabled` defaulted **false** while every `appBlock*`
+category under it defaulted **true**. The visible result was that a user could
+turn FitShield on, grant the accessibility service, watch sites get blocked, and
+still have DoorDash open normally — with nothing on screen explaining why, because
+the one switch that mattered was off and had never been shown to them. A default
+of `false` on a master switch silently disables everything beneath it, however
+correct those things are.
+
+The rule, in both platforms:
+
+- **Preferences default to on.** `deliverySitesEnabled`, `fastFoodSitesEnabled`,
+  `customSitesEnabled` (extension, `defaultState()` in `fitshield-core.js`) and
+  `appBlockingEnabled` plus every `appBlock*` category (Android,
+  `AppBlockPolicy.kt`). Absent from storage must read as **enabled**.
+- **Permissions are the only gate.** A default of `true` grants nothing by
+  itself: site blocking still needs the VPN consent dialog, and app blocking
+  still needs the AccessibilityService, which only the user can turn on and only
+  after the in-app disclosure. "Blocks nothing until you turn it on" is enforced
+  by the permission, not by a preference being off.
+- **A default is stored in two places and they must agree.** The Kotlin reader
+  and the web UI that renders the switch each carry their own fallback
+  (`AppBlockPolicy.isEnabled` / `shouldBlock`, and `app.js`). When those two
+  disagree the switch shows one state and the behaviour is the other, which is
+  strictly worse than either being wrong on its own. `test/android-controls.test.js`
+  holds the category lists together; the master switch is asserted alongside them.
+- **Say what is still missing, on the dashboard.** App blocking needs a
+  permission the user grants elsewhere, so the main status card carries the
+  prompt for it (`#appBlockSetup`), shown only when site blocking is running and
+  the accessibility service is not. It routes through the same disclosure gate as
+  the settings-panel button — a second entry point that skipped the disclosure
+  would be a Play violation, not a shortcut.
+- **Permission rows are polled, not latched.** `refreshPermissionStatuses()` runs
+  on the same 2s interval as the headline and after the main toggle. It used to
+  run only on load and on `visibilitychange`, so granting VPN consent left every
+  permission row reading "Off" next to a dashboard already reading "On".
+
+Force-stopping the app (Settings → Force stop, or an aggressive task killer)
+makes Android drop the AccessibilityService: `enabled_accessibility_services`
+becomes `null` and app blocking stops until the user turns it back on. Nothing in
+the app can prevent that; the dashboard prompt above is what makes it visible
+rather than silent.
+
 ## Build & verify
 
 ```

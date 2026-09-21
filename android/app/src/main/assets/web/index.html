@@ -120,6 +120,20 @@
     </div>
     <div class="meta" id="meta"></div>
     <p class="note" id="dnsNote" hidden></p>
+    <!--
+      The one remaining step, on the dashboard rather than four screens down.
+
+      App blocking needs the accessibility service, and the only thing that ever
+      said so lived inside the collapsed "Block apps on this phone" section. So
+      the honest report of a half-finished setup — site blocking on, app blocking
+      waiting on a permission — was somewhere the user had no reason to open, and
+      FitShield looked like it simply did not block apps. The button goes through
+      the same disclosure gate as the one in that section; it does not shortcut it.
+    -->
+    <div id="appBlockSetup" hidden style="margin-top:12px;padding:12px;border-radius:12px;background:rgba(127,255,180,.07);border:1px solid rgba(127,255,180,.22)">
+      <p class="note" id="appBlockSetupText" style="margin:0 0 10px"></p>
+      <button id="appBlockSetupOpen" class="secondary" style="margin:0">Turn on app blocking</button>
+    </div>
   </div>
 
   <!-- Stats -->

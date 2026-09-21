@@ -38,7 +38,22 @@ object AppBlockPolicy {
         return raw.toDoubleOrNull()?.toInt() ?: def
     }
 
-    fun isEnabled(context: Context): Boolean = bool(prefs(context), "appBlockingEnabled", false)
+    /**
+     * App blocking is ON by default, like every category below it.
+     *
+     * It used to default false, which made "turn FitShield on" a half-measure:
+     * sites were filtered and the DoorDash app still opened, because a second
+     * switch nobody had been shown was still off. Every `appBlock*` category
+     * already defaulted true, so the master switch was the only thing in this
+     * file that did not — and the effect of that one `false` was that the
+     * feature appeared not to work at all.
+     *
+     * Defaulting it true grants nothing on its own. App blocking cannot act
+     * without the AccessibilityService, which only the user can turn on in
+     * system settings, after the disclosure in index.html. This decides what
+     * happens once they have: it works, rather than silently not.
+     */
+    fun isEnabled(context: Context): Boolean = bool(prefs(context), "appBlockingEnabled", true)
 
     /** Minutes a temporary unlock lasts (reuses the extension's pass duration). */
     fun unlockMinutes(context: Context): Int =
@@ -131,7 +146,10 @@ object AppBlockPolicy {
     /** The full decision: should FitShield intervene on this brand right now? */
     fun shouldBlock(context: Context, brand: PackageBlocklist.Brand): Boolean {
         val p = prefs(context)
-        if (!bool(p, "appBlockingEnabled", false)) return false
+        // Same default as isEnabled() above, and it has to stay the same: these
+        // two disagreeing would mean the UI reporting app blocking as on while
+        // this returned false for every app.
+        if (!bool(p, "appBlockingEnabled", true)) return false
         if (allowedBrands(p).contains(brand.brandId)) return false   // per-app opt-out
         if (!categoryEnabled(p, brand.category)) return false
         if (!withinSchedule(p)) return false

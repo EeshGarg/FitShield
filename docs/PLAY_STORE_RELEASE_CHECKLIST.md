@@ -350,9 +350,17 @@ Two more are **OS gates declared on the services**, not requested from the user:
 
 These cannot be asserted from a repository. Each needs a phone.
 
-- [ ] **A fresh install blocks nothing.** `HUMAN — device.` `appBlockingEnabled`
-      defaults false, the VPN needs the one-time consent dialog, and the
-      accessibility service is a system opt-in.
+- [ ] **A fresh install blocks nothing until the user turns it on.** `HUMAN — device.`
+      Nothing is blocked before consent, and both halves are gated by a
+      permission only the user can grant: site blocking needs the one-time VPN
+      consent dialog, and app blocking needs the accessibility service, which is
+      a system opt-in shown after the in-app disclosure.
+      `appBlockingEnabled` itself defaults **true** as of 0.56 — every
+      `appBlock*` category already did, and the master switch defaulting false
+      meant a user who enabled FitShield and granted accessibility still had
+      every food app open normally, with no visible reason why. The default
+      grants nothing on its own: with no accessibility service there is nothing
+      to act on it.
 - [ ] **Enable/disable cycles, VPN restarts, Accessibility toggles.** `HUMAN — device.`
 - [ ] **Reboot, twice.** `HUMAN — device.` Once with the filter **on** — it must
       come back by itself — and once with it **off**, which must stay off. Then

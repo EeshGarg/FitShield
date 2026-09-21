@@ -482,6 +482,24 @@
     });
   }
 
+  // Permission/status refresh, published out of renderAppBlocking so the poll
+  // below and the main toggle can both run it.
+  //
+  // It used to be reachable only from inside that function and from a
+  // `visibilitychange` listener, and the 2s interval refreshed the headline and
+  // the stats but none of the permission rows. So granting VPN consent left
+  // "Site blocking (VPN) · Off" on screen next to a dashboard that already said
+  // "On — blocking locally", until the app happened to be backgrounded and
+  // brought back. Every row this function owns had the same staleness.
+  let refreshPermissionStatuses = () => {};
+
+  // Mirrors the stored `appBlockingEnabled`, defaulting ON like AppBlockPolicy.
+  // Held here rather than re-read inside refreshStatuses so renderAppBlocking
+  // keeps reading its whole state in ONE storage.get — the shape
+  // test/android-controls.test.js relies on to prove every pill it draws is
+  // drawn from storage.
+  let appBlockingOn = true;
+
   // ---- native app blocking (Android AccessibilityService) ------------------
   async function renderAppBlocking() {
     const ab = fs.appBlocking;
@@ -518,6 +536,24 @@
       $("a11yOpen").hidden = a11y;
       $("overlayCard").hidden = overlay;   // shown only when the permission is missing
 
+      // Dashboard prompt for the one step that is left. Shown only when app
+      // blocking is switched on (it defaults on) and the service that carries
+      // it out is not, which is exactly the state where opening a food app does
+      // nothing and there is otherwise no sign of why.
+      const setup = $("appBlockSetup");
+      if (setup) {
+        // `vpn` matters as well as `a11y`: before FitShield is switched on at
+        // all, nothing is blocked, and a card opening "Sites are blocked" over
+        // a dashboard reading "Off" would be the product contradicting itself
+        // on its own front page.
+        setup.hidden = a11y || !appBlockingOn || !vpn;
+        if (!setup.hidden) {
+          $("appBlockSetupText").textContent =
+            "Sites are blocked. To also pause food APPS on this phone, FitShield needs Android's " +
+            "accessibility service — it only reads which app comes to the front, never screen content.";
+        }
+      }
+
       // Notifications. POST_NOTIFICATIONS was declared and never requested, so on
       // Android 13+ it was denied on every device — and the notice that says
       // "protection is off after your restart" was posting into nothing. It is
@@ -546,6 +582,7 @@
       }
     }
     const refreshA11y = refreshStatuses;   // (name kept for the toggle handler below)
+    refreshPermissionStatuses = refreshStatuses;
 
     // Prominent disclosure before the accessibility request.
     //
@@ -561,12 +598,21 @@
       disclosure.hidden = false;
       $("a11yAccept").focus();
     }
-    $("a11yOpen").addEventListener("click", async () => {
+    async function requestAccessibility() {
       let consented = false;
       try { consented = ab.consentGiven ? await ab.consentGiven() : true; } catch (e) {}
       if (consented) { ab.openSettings(); return; }
       showDisclosure();
-    });
+    }
+
+    $("a11yOpen").addEventListener("click", requestAccessibility);
+
+    // The dashboard prompt takes the SAME path: the disclosure is a Play
+    // requirement and a second entry point that skipped it would be the
+    // violation, not a shortcut.
+    if ($("appBlockSetupOpen")) {
+      $("appBlockSetupOpen").addEventListener("click", requestAccessibility);
+    }
     if (disclosure) {
       $("a11yAccept").addEventListener("click", async () => {
         try { if (ab.recordConsent) await ab.recordConsent(); } catch (e) {}
@@ -605,8 +651,17 @@
     // which reads the stored value — was still not blocking it. The switch and
     // the behaviour disagreed, and only the switch was visible.
     const s = await fs.storage.get(["appBlockingEnabled", "appUnlockMinutes", ...Object.values(CATS)]);
-    $("appBlockingEnabled").checked = !!s.appBlockingEnabled;
-    $("appBlockingEnabled").addEventListener("change", () => { fs.storage.set({ appBlockingEnabled: $("appBlockingEnabled").checked }); refreshA11y(); });
+    // Defaults ON when absent, matching AppBlockPolicy.isEnabled and the pills
+    // below. `!!s.appBlockingEnabled` showed a fresh install this switch OFF
+    // while every category under it read ON — the same switch-disagrees-with-
+    // behaviour bug the pills had, in the opposite direction.
+    $("appBlockingEnabled").checked = s.appBlockingEnabled !== false;
+    appBlockingOn = s.appBlockingEnabled !== false;
+    $("appBlockingEnabled").addEventListener("change", () => {
+      appBlockingOn = $("appBlockingEnabled").checked;
+      fs.storage.set({ appBlockingEnabled: appBlockingOn });
+      refreshA11y();
+    });
 
     document.querySelectorAll("#appBlockPanel .pill[data-cat]").forEach((pill) => {
       const key = CATS[pill.dataset.cat];
@@ -662,7 +717,9 @@
   function wire() {
     $("toggle").addEventListener("click", async () => {
       (await fs.blocking.isEnabled()) ? await fs.blocking.disable() : await fs.blocking.enable();
-      setTimeout(renderStatus, 600);
+      // The permission rows move with this too — turning FitShield on is exactly
+      // when "Site blocking (VPN)" becomes true.
+      setTimeout(() => { renderStatus(); refreshPermissionStatuses(); }, 600);
     });
     $("checkBtn").addEventListener("click", runCheck);
     $("checkInput").addEventListener("keydown", (e) => { if (e.key === "Enter") runCheck(); });
@@ -704,7 +761,7 @@
     listEditor("customInput", "customAdd", "customList", "customSites", (x) => (x && x.domain) ? x.domain : String(x));
     listEditor("allowInput", "allowAdd", "allowList", "androidAllowlist", (x) => String(x));
     initTilt();
-    setInterval(() => { renderStatus(); renderStats(); }, 2000);
+    setInterval(() => { renderStatus(); renderStats(); refreshPermissionStatuses(); }, 2000);
   }
 
   if (self.FitShieldI18n && self.FitShieldI18n.ready) self.FitShieldI18n.ready.then(start, start);

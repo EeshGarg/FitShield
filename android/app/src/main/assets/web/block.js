@@ -124,9 +124,15 @@
     if (!el) return;
     const s = await fs.storage.get(["scheduleEnabled", "scheduleStart", "scheduleEnd"]);
     el.hidden = false;
+    // The no-schedule branch said "Blocking is on whenever app blocking is
+    // enabled" — true by definition, and therefore telling the reader nothing
+    // about the one thing this line exists for: WHEN blocking applies. It was
+    // also hardcoded English on a screen that is otherwise fully localized, the
+    // exact fault renderReason above was rewritten to stop committing.
+    // scheduleAlwaysSummary already says it, and already ships in all 83 locales.
     el.textContent = s.scheduleEnabled
       ? `On your schedule · ${s.scheduleStart || "18:00"}–${s.scheduleEnd || "23:00"}`
-      : "Blocking is on whenever app blocking is enabled.";
+      : t("scheduleAlwaysSummary", []);
   }
 
   // The SAME formatter and keys warning.js uses, so one duration reads the same
