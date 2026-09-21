@@ -1,6 +1,6 @@
 # FitShield — Google Play release checklist
 
-_Android app: `com.usha.fitshield`. This is the operational checklist for cutting
+_Android app: `com.FitShield.UshaCorporation`. This is the operational checklist for cutting
 a Play Store build. Pairs with [ANDROID.md](ANDROID.md) (how the app works),
 [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md) (disclosures
 and the Data safety answers) and [STORE_LISTING_DRAFT.md](STORE_LISTING_DRAFT.md)
@@ -95,8 +95,19 @@ of them.
 
 ## 1. Build configuration
 
-- [x] **`applicationId com.usha.fitshield`** — the Play identity. It can never
-      change after first publish.
+- [x] **`applicationId com.FitShield.UshaCorporation`** — the Play identity, and
+      the listing this ships to. It can never change after first publish; it was
+      changed from `com.usha.fitshield` before any publish, when the listing moved
+      to a new app in the Console, and that is the only window in which it could
+      have been.
+      The **`namespace` stays `com.usha.fitshield`** on purpose. That is the code
+      package — the R class, every Kotlin `package` line, the component names the
+      manifest points at and the test harness entry point all live under it, and
+      AGP keeps the two separate so a store identity can change without renaming
+      a source file. So the installed component is
+      `com.FitShield.UshaCorporation/com.usha.fitshield.MainActivity`, and both
+      strings appearing in the bundle is correct rather than a leftover.
+      Note the case: an applicationId is compared literally.
       _Evidence: `test/play-release.test.js` › "the applicationId the checklist names is the one the build sets"._
 - [x] **`minSdk 26`** (Android 8.0).
       _Evidence: `test/play-release.test.js` › "the checklist states the minSdk the build sets"._

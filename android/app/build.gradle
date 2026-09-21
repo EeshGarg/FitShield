@@ -31,7 +31,16 @@ android {
     compileSdk 36
 
     defaultConfig {
-        applicationId 'com.usha.fitshield'
+        // The Play identity, and the ONLY thing that had to change when the
+        // listing moved to a new app. `namespace` above stays com.usha.fitshield
+        // because that is the CODE package — the R class, every Kotlin `package`
+        // line, and the test harness's entry point all live under it. AGP keeps
+        // the two separate precisely so a store identity can change without
+        // renaming a single source file.
+        //
+        // Case matters: Play registered com.FitShield.UshaCorporation, and an
+        // applicationId is compared literally.
+        applicationId 'com.FitShield.UshaCorporation'
         minSdk 26
         targetSdk 36
         versionCode fitshieldVersionCode

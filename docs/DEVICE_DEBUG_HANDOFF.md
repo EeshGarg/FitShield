@@ -84,7 +84,7 @@ because the remaining items need the same setup.
 > - **Watch the screen, do not only read logcat.** A silent failure that logs
 >   nothing is exactly the class of bug this session exists to catch. Screenshot
 >   with `adb exec-out screencap -p > shot.png` and actually look at the image.
-> - **Clear state between scenarios.** `adb shell pm clear com.usha.fitshield`
+> - **Clear state between scenarios.** `adb shell pm clear com.FitShield.UshaCorporation`
 >   resets the app; re-granting VPN consent is part of what you are testing, so
 >   do not skip it to save time.
 > - **A defect you find is work.** Fix it in the repository, add a test that
@@ -348,7 +348,7 @@ It did not turn itself on for someone who turned it off, verified by traffic.
 reboot: `BootReceiver` handles `MY_PACKAGE_REPLACED` as well as `BOOT_COMPLETED`
 and both reach the same `BootRestore.decide`, so an `adb install -r` exercises
 the identical path. With the standing instruction left ON and consent revoked
-(`appops set com.usha.fitshield ACTIVATE_VPN deny`):
+(`appops set com.FitShield.UshaCorporation ACTIVATE_VPN deny`):
 
 ```
 tun0: 0                       -> it did NOT start silently, which is correct
@@ -516,9 +516,9 @@ adb logcat -c                                   # clear
 adb logcat FitShield:V AndroidRuntime:E *:S     # app + crashes only
 adb exec-out screencap -p > shot.png            # screenshot
 adb shell screenrecord /sdcard/x.mp4            # recording (ctrl-C, then adb pull)
-adb shell dumpsys activity service com.usha.fitshield
-adb shell dumpsys package com.usha.fitshield | grep -A20 "runtime permissions"
-adb shell pm clear com.usha.fitshield           # full reset
+adb shell dumpsys activity service com.FitShield.UshaCorporation
+adb shell dumpsys package com.FitShield.UshaCorporation | grep -A20 "runtime permissions"
+adb shell pm clear com.FitShield.UshaCorporation           # full reset
 adb reboot
 ```
 
