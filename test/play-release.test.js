@@ -674,6 +674,19 @@ test("the accessibility service reads only what the disclosure says it reads", (
       "directly supporting people with disabilities; FitShield is not one, and claiming it is a policy violation."
   );
 
+  // Declared false, not merely not-true. This assertion used to be the negative
+  // above on its own, which an ABSENT attribute satisfies just as well as a
+  // declared one — and the Play Console rejected the listing for exactly that
+  // difference: "the isAccessibilityTool attribute has not been set in your
+  // app's accessibility service metadata file". Absent and false mean the same
+  // thing to Android and different things to review, so the file has to say it.
+  assert.ok(
+    /android:isAccessibilityTool\s*=\s*"false"/.test(A11Y_CONFIG),
+    "the service does not DECLARE android:isAccessibilityTool=\"false\". Leaving it absent defaults to false " +
+      "at runtime but reads to Play review as undeclared, which is what got the accessibility declaration " +
+      "flagged. State it."
+  );
+
   assert.ok(
     /android:description=/.test(A11Y_CONFIG),
     "the AccessibilityService has no description, so system Accessibility settings show the user nothing"

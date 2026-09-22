@@ -6,11 +6,25 @@
   app came to the foreground (event.getPackageName()). It does NOT retrieve window
   content (canRetrieveWindowContent="false"), so it cannot read on-screen text,
   messages, or passwords. Nothing leaves the device.
+
+  android:isAccessibilityTool="false" is stated rather than left to default.
+  FitShield is NOT an accessibility tool: it does not assist users with
+  disabilities, it interrupts the person using it on purpose. `false` is the
+  honest answer and it is also the default — but Play reported
+  "the isAccessibilityTool attribute has not been set", because an ABSENT
+  attribute and a declared `false` are different things to the review system.
+  Declaring it is what commits the app to the prominent-disclosure and consent
+  requirements of Play's User Data policy, which MainActivity's disclosure
+  dialog and WebAppBridge.recordConsent() implement: the native bridge refuses
+  to open Accessibility settings until consent has been recorded.
+
+  Requires API 29+; minSdk here is 26, where the attribute is simply ignored.
 -->
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
     android:accessibilityEventTypes="typeWindowStateChanged"
     android:accessibilityFeedbackType="feedbackGeneric"
     android:canRetrieveWindowContent="false"
+    android:isAccessibilityTool="false"
     android:notificationTimeout="100"
     android:summary="@string/accessibility_summary"
     android:description="@string/accessibility_description" />
