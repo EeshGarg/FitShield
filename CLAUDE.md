@@ -72,21 +72,20 @@ physically cannot do. For each one:
 3. state the exact external validation step;
 4. state why this environment cannot perform it.
 
-Current genuinely-external items are **hardware and people**, not tooling. Three
+Current genuinely-external items are **hardware and people**, not tooling. Two
 things that used to sit on this list were never impossible — they were
 unattempted, and calling them external was this same failure wearing a different
 costume:
 
 - the Android APK builds here (`npm run toolchain:android`) and in CI;
-- the Safari conversion and an unsigned compile run in CI on macOS;
 - the computed accessibility tree is verified in a real browser
   (`npm run validate:a11y`), which is most of what "screen-reader validation"
   was standing in for.
 
-What is left: an Apple Developer team to sign, a physical Android device for the
-VPN-consent flow, a person listening with a screen reader to judge whether the
-announcements are *useful* rather than merely present, and a person answering the
-four questions in `docs/ACCEPTANCE.md`.
+What is left: a physical Android device for the VPN-consent flow, a person
+listening with a screen reader to judge whether the announcements are *useful*
+rather than merely present, and a person answering the four questions in
+`docs/ACCEPTANCE.md`.
 
 Before writing any item down as external, try it. These never justify leaving
 unrelated repository work unfinished.
@@ -146,7 +145,7 @@ A session ends only when all of the following hold:
 - repository-local open findings: **0**
 - automated tests: **0 failures**
 - validators: **0 errors** (no validator loosened to achieve it)
-- Chrome, Firefox and Safari-nightly packages build
+- Chrome and Firefox packages build
 - real-browser checks pass for both Chrome and Firefox
 - no known data-loss path
 - no dead customer-facing control

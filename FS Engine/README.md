@@ -44,9 +44,9 @@ script, shipped as **`blocklist.js`** at the package root. Loading it (via
 `importScripts("blocklist.js")` in the service worker, or ahead of
 `background.js` in Firefox's `background.scripts`) defines the global. The
 loader resolves its datasets through whichever WebExtension namespace is
-present — `chrome.runtime.getURL` (Chrome/Brave/Edge, and also exposed by Safari
-and Firefox) or `browser.runtime.getURL` — so the same bundle runs on every
-supported browser, including the Safari (macOS/iOS/iPadOS) build:
+present — `chrome.runtime.getURL` (Chrome/Brave/Edge, and also exposed by
+Firefox) or `browser.runtime.getURL` — so the same bundle runs on every
+supported browser:
 
 ```js
 importScripts("blocklist.js");
@@ -141,6 +141,8 @@ an optional entry list and fall back to the most recently loaded datasets.
 | `getAvailableCategories(entries?)` | `[{ category, count, specialties }]` sorted by category. **[defaults to cache]** |
 | `shouldBlockByCountry(entry, enabledCountries)` | `boolean` — entry is active in ANY enabled country. Empty/missing either side ⇒ `false`. |
 | `shouldBlockByCategory(entry, enabledCategories)` | `boolean` — entry's primary `category` is enabled (specialties deliberately don't match). |
+| `countryFilter(enabledCountries)` | `(entry) => boolean` — the same policy as `shouldBlockByCountry`, with the enabled-code set built once instead of once per entry. Use this when testing many entries against one list. |
+| `categoryFilter(enabledCategories)` | `(entry) => boolean` — likewise for `shouldBlockByCategory`. |
 
 ---
 

@@ -25,10 +25,60 @@ class WebAppBridge(private val activity: AppCompatActivity) {
     private val prefs = context.getSharedPreferences("fitshield", Context.MODE_PRIVATE)
     private val engine by lazy { runCatching { RuleEngine.fromAssets(context) }.getOrNull() }
 
+    /**
+     * The SAME loader the AccessibilityService uses, parsed once for this bridge.
+     *
+     * Both `appPackageCount()` and `blockableApps()` used to re-read and re-parse
+     * `android-packages.json` themselves, and `appPackageCount()` read the asset's
+     * `counts.packages` field rather than the map. So a malformed asset — the case
+     * [PackageBlocklist.fromAssets] deliberately absorbs — could leave the dashboard
+     * announcing "1511 apps can be blocked" while the matcher held zero and nothing
+     * could be blocked at all. Reading the count off the matcher makes it impossible
+     * for the number on screen to disagree with the number in effect, which is what
+     * lets app.js treat 0 as the honest signal that the dataset did not load.
+     */
+    private val packages by lazy { PackageBlocklist.fromAssets(context) }
+
     // ---- storage (backs fitshield.storage) ----------------------------------
 
     @JavascriptInterface
     fun storageGet(key: String): String? = prefs.getString(key, null)
+
+    /**
+     * Every key in [keysJson] in ONE bridge hop.
+     *
+     * A `@JavascriptInterface` call is a synchronous JS→native crossing, and
+     * [storageGet] costs one of them per key: `renderAppBlocking` needed 9 and
+     * `stats.get()` needed 5 — the second of those on the dashboard's 2s status
+     * poll. Nothing about this is expensive on the Kotlin side: [prefs] is already
+     * an in-memory map (SharedPreferences loads the whole file once), so the only
+     * cost being paid per key was the crossing itself.
+     *
+     * The answer is a JSON object of key -> the SAME raw stored string
+     * [storageGet] returns, which keeps the shim's parsing identical. A key this
+     * store does not hold is simply LEFT OUT, so a missing key reads as absent —
+     * byte-for-byte the behaviour of `storageGet` returning null for it.
+     *
+     * Each key is read inside its own `runCatching`, so a preference holding a
+     * non-String (which makes `getString` throw) costs only itself. Reading them
+     * one at a time already had that isolation, because a throwing
+     * `@JavascriptInterface` method returns undefined for that call alone, and
+     * losing it here would have been a regression dressed as an optimisation.
+     *
+     * @param keysJson a JSON array of preference key names
+     */
+    @JavascriptInterface
+    fun storageGetMany(keysJson: String): String {
+        val keys = runCatching { JSONArray(keysJson) }.getOrNull() ?: JSONArray()
+        val out = JSONObject()
+        for (i in 0 until keys.length()) {
+            val key = keys.optString(i, "")
+            if (key.isEmpty()) continue
+            val value = runCatching { prefs.getString(key, null) }.getOrNull() ?: continue
+            out.put(key, value)
+        }
+        return out.toString()
+    }
 
     @JavascriptInterface
     fun storageSet(key: String, value: String) {
@@ -188,31 +238,19 @@ class WebAppBridge(private val activity: AppCompatActivity) {
 
     /** Number of Android app packages FitShield can block (from the generated set). */
     @JavascriptInterface
-    fun appPackageCount(): Int = runCatching {
-        val raw = context.assets.open("android-packages.json").use {
-            it.readBytes().toString(Charsets.UTF_8)
-        }
-        JSONObject(raw).optJSONObject("counts")?.optInt("packages") ?: 0
-    }.getOrDefault(0)
+    fun appPackageCount(): Int = packages.size
 
     /** The distinct blockable brands (for per-app toggles): [{brandId, displayName, category}]. */
     @JavascriptInterface
     fun blockableApps(): String = runCatching {
-        val raw = context.assets.open("android-packages.json").use {
-            it.readBytes().toString(Charsets.UTF_8)
-        }
-        val packages = JSONObject(raw).optJSONObject("packages") ?: JSONObject()
         val seen = HashSet<String>()
         val out = JSONArray()
-        val keys = packages.keys()
-        while (keys.hasNext()) {
-            val meta = packages.optJSONObject(keys.next()) ?: continue
-            val brandId = meta.optString("brandId")
-            if (brandId.isEmpty() || !seen.add(brandId)) continue
+        packages.brands().forEach { brand ->
+            if (brand.brandId.isEmpty() || !seen.add(brand.brandId)) return@forEach
             out.put(JSONObject()
-                .put("brandId", brandId)
-                .put("displayName", meta.optString("displayName", brandId))
-                .put("category", meta.optString("category", "")))
+                .put("brandId", brand.brandId)
+                .put("displayName", brand.displayName)
+                .put("category", brand.category))
         }
         out.toString()
     }.getOrDefault("[]")

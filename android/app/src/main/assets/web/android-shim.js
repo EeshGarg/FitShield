@@ -25,8 +25,9 @@
     return; // not the Android WebView; browser-shim.js handles browsers.
   }
 
-  function readKey(key) {
-    const raw = A.storageGet(key);
+  // A stored value is a JSON string, or absent. An unparseable one reads as
+  // absent rather than throwing — a corrupt preference must not take the UI down.
+  function parseValue(raw) {
     if (raw === null || raw === undefined || raw === "") {
       return undefined;
     }
@@ -35,6 +36,57 @@
     } catch (e) {
       return undefined;
     }
+  }
+
+  function readKey(key) {
+    return parseValue(A.storageGet(key));
+  }
+
+  /**
+   * Read a whole key list in ONE bridge hop.
+   *
+   * `storageGet` costs one synchronous @JavascriptInterface call plus one
+   * JSON.parse PER KEY. `renderAppBlocking` asks for 9 keys, so 9 hops; the
+   * domain-list editors ask for 1 each; and `stats.get()` asks for 5 — on the
+   * dashboard's 2s status poll, which made it 2.5 bridge hops a second for the
+   * whole time the app was open. WebAppBridge answers from the in-memory
+   * SharedPreferences map, so serving all of them together costs it one
+   * JSONObject and collapses each of those reads to a single hop.
+   *
+   * The contract is byte-identical to reading the keys one at a time: the native
+   * side returns the same RAW stored strings, keyed by name, and simply omits
+   * any key it does not hold — so a missing key is absent from the object and
+   * reads as `undefined` here, exactly as it does per-key. Each value is parsed
+   * independently, so one corrupt preference still costs only itself.
+   *
+   * A native side without the method (an older APK shell than this bundle, or a
+   * harness that stubs the bridge) falls back to the per-key path, so this is an
+   * optimisation and never a requirement.
+   */
+  function readMany(keys) {
+    const perKey = () => {
+      const out = {};
+      keys.forEach((k) => { out[k] = readKey(k); });
+      return out;
+    };
+
+    if (!A.storageGetMany) {
+      return perKey();
+    }
+
+    let raw;
+    try {
+      raw = JSON.parse(A.storageGetMany(JSON.stringify(keys)) || "{}");
+    } catch (e) {
+      raw = null;
+    }
+    if (!raw || typeof raw !== "object") {
+      return perKey();
+    }
+
+    const out = {};
+    keys.forEach((k) => { out[k] = parseValue(raw[k]); });
+    return out;
   }
 
   function allKeys() {
@@ -64,8 +116,10 @@
       list = [];
     }
 
+    const values = readMany(list);
+
     list.forEach((k) => {
-      const value = readKey(k);
+      const value = values[k];
       if (value !== undefined) {
         out[k] = value;
       } else if (defaults && k in defaults) {
@@ -86,6 +140,39 @@
   function storageRemove(keys) {
     (Array.isArray(keys) ? keys : [keys]).forEach((k) => A.storageRemove(k));
     return Promise.resolve();
+  }
+
+  // ---- values that cannot change while this process lives -------------------
+  //
+  // Both of these sat on the dashboard's 2s status poll, and both answer with
+  // something fixed at process start:
+  //
+  //   A.getVersion()  the APK's own versionName, which the native side reads via
+  //     PackageManager.getPackageInfo — a real binder round-trip to system_server.
+  //     It cannot change without this process being replaced, because installing
+  //     a new version kills it. It was being fetched twice a second, from three
+  //     callers (blocking.rulesVersion, runtime.getManifest, version.get).
+  //   A.ruleCount()   the size of the host set RuleEngine parses ONCE from a
+  //     read-only packaged asset when the service starts.
+  //
+  // Memoising them removes the PackageManager IPC from the poll entirely. Only a
+  // usable answer is cached, so a bridge that is not ready yet is asked again
+  // rather than pinned to "" or 0 for the rest of the session.
+  let cachedVersion = null;
+  let cachedHostCount = 0;
+
+  function appVersion() {
+    if (!cachedVersion) {
+      cachedVersion = A.getVersion();
+    }
+    return cachedVersion;
+  }
+
+  function hostCount() {
+    if (!cachedHostCount) {
+      cachedHostCount = A.ruleCount();
+    }
+    return cachedHostCount;
   }
 
   global.fitshield = {
@@ -109,7 +196,7 @@
       // The WebView base is the bundled web/ dir, so relative paths resolve to
       // the bundled assets (e.g. _locales/en/messages.json).
       getURL: (path) => path,
-      getManifest: () => ({ version: A.getVersion() })
+      getManifest: () => ({ version: appVersion() })
     },
 
     i18n: {
@@ -162,8 +249,10 @@
       isEnabled: () => Promise.resolve(A.vpnIsEnabled()),
       enable: () => { A.vpnEnable(); return Promise.resolve(); },
       disable: () => { A.vpnDisable(); return Promise.resolve(); },
-      rulesVersion: () => Promise.resolve(A.getVersion()),
-      hostCount: () => Promise.resolve(A.ruleCount()),
+      // Memoised: see appVersion()/hostCount() above. Both of these are polled
+      // every 2s by the dashboard and neither can change while this process runs.
+      rulesVersion: () => Promise.resolve(appVersion()),
+      hostCount: () => Promise.resolve(hostCount()),
       privateDnsActive: () => Promise.resolve(A.privateDnsActive()),
       // Convenience domain checker (reuses the on-device engine). Returns the
       // matched curated apex, or null when not blocked.
@@ -230,7 +319,7 @@
     },
 
     version: {
-      get: () => Promise.resolve(A.getVersion())
+      get: () => Promise.resolve(appVersion())
     }
   };
 })(typeof self !== "undefined" ? self : globalThis);

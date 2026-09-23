@@ -75,7 +75,18 @@ async function extensionUuid(profile, geckoId, timeoutMs = 15000) {
   }
 }
 
-async function launchFirefox({ extensionDir, headless = true, binary = findFirefox(), port = 0 } = {}) {
+async function launchFirefox({
+  extensionDir,
+  headless = true,
+  binary = findFirefox(),
+  port = 0,
+  // Extra command-line arguments, e.g. ["-width", "320"]. BiDi's
+  // browsingContext.setViewport refuses a privileged (moz-extension://) context
+  // — "The command does not support browsing contexts in privileged scope" — so
+  // sizing the WINDOW at launch is the only way to put an extension page in a
+  // narrow viewport in Firefox, which the minimum-layout regression test needs.
+  extraArgs = []
+} = {}) {
   if (!binary) {
     const error = new Error("no Firefox binary found");
     error.code = "NO_BROWSER";
@@ -97,6 +108,7 @@ async function launchFirefox({ extensionDir, headless = true, binary = findFiref
     "--remote-allow-system-access",
     "--profile", profile,
     "--no-remote",
+    ...extraArgs,
     "about:blank"
   ];
 

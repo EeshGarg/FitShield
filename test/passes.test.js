@@ -200,23 +200,27 @@ test("no pass record carries state nothing can ever set", () => {
   assert.ok(!("used" in pass), "used was never written by anything");
 });
 
-test("a pass written under the retired 'once' preset keeps working", () => {
-  const legacy = {
+// The named shim for 0.55's development-only "once" / "site5" presets was removed
+// in 0.57: neither ever shipped, and a pass lives minutes to hours, so no profile
+// can hold one. What has to keep holding is the property that made that shim
+// unnecessary — an unrecognised preset must never cost the user the pass they were
+// granted. That is what this asserts, for any unknown label.
+test("a pass carrying an unrecognised preset keeps running, it is not dropped", () => {
+  const stranger = {
     id: "p1",
-    preset: "once",
+    preset: "someLabelThisBuildDoesNotKnow",
     scope: "site",
     target: "doordash.com",
     createdAt: T0,
     expiresAt: T0 + minutes(5),
-    maxDurationMs: minutes(5),
-    oneShot: true,
-    used: false
+    maxDurationMs: minutes(5)
   };
 
-  const [active] = core.activePasses([legacy], T0 + minutes(1));
+  const [active] = core.activePasses([stranger], T0 + minutes(1));
 
-  assert.ok(active, "the pass survives the upgrade rather than being dropped");
-  assert.equal(active.preset, "siteDefault", "renamed to what it always behaved as");
+  assert.ok(active, "the pass was dropped out from under whoever granted it");
+  assert.equal(active.preset, "custom", "an unknown label reads as a custom pass");
+  assert.equal(active.scope, "site", "its scope is untouched");
   assert.equal(active.target, "doordash.com");
   assert.equal(active.expiresAt, T0 + minutes(5), "its expiry is untouched");
 });

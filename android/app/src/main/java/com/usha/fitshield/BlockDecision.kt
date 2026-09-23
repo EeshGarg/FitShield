@@ -24,6 +24,9 @@ object BlockDecision {
      *
      * @param apex           the matched blocked apex, or null when nothing matched
      * @param scheduleAllows whether the user's window permits blocking right now
+     * @param brandAllowed   whether the user put this brand on the per-app
+     *                       "Allowed" list, which is a standing choice rather than
+     *                       a timed one
      * @param unlockedUntil  epoch millis this brand's temporary unlock expires,
      *                       or null when there is no unlock for it
      * @param now            epoch millis
@@ -51,9 +54,24 @@ object BlockDecision {
     fun shouldRefuseSyn(destinationIsIpv6: Boolean, ipv6Upstream: Boolean): Boolean =
         destinationIsIpv6 && !ipv6Upstream
 
-    fun shouldReset(apex: String?, scheduleAllows: Boolean, unlockedUntil: Long?, now: Long): Boolean {
+    fun shouldReset(
+        apex: String?,
+        scheduleAllows: Boolean,
+        brandAllowed: Boolean,
+        unlockedUntil: Long?,
+        now: Long
+    ): Boolean {
         if (apex == null) return false
         if (!scheduleAllows) return false
+        // The per-app "Allowed" pill. It used to be read ONLY by AppBlockPolicy —
+        // the app path — so marking DoorDash allowed stopped the pause screen and
+        // left the filter resetting doordash.com. The app opened and could not
+        // reach its own servers: the user was shown "Allowed" and handed a broken
+        // app, which is worse than either blocking it or allowing it cleanly.
+        //
+        // It sits ABOVE the unlock check because it is a standing choice, not a
+        // timed one: there is nothing to expire.
+        if (brandAllowed) return false
         if (unlockedUntil != null && unlockedUntil > now) return false
         return true
     }

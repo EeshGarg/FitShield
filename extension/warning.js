@@ -450,15 +450,29 @@ const INTENTS = [
   { id: "someone-else", labelKey: "intentSomeoneElse" }
 ];
 
-function renderIntentOptions() {
-  ui.intentOptions.replaceChildren();
+// Built once, then relabelled in place.
+//
+// `#intentOptions` is empty in warning.html, so these five buttons are the only
+// thing in it. This used to destroy all five, build five replacements and attach
+// five fresh click listeners on every call — including on a language change,
+// where the only thing that actually differs is the label. Adding listeners
+// inside a function that is called more than once is the pattern worth removing
+// even where, as here, five buttons make the CPU cost nothing.
+const intentButtons = new Map();
 
+function renderIntentOptions() {
   INTENTS.forEach((intent) => {
-    const button = document.createElement("button");
-    button.type = "button";
+    let button = intentButtons.get(intent.id);
+
+    if (!button) {
+      button = document.createElement("button");
+      button.type = "button";
+      button.addEventListener("click", () => applyIntent(intent.id));
+      intentButtons.set(intent.id, button);
+      ui.intentOptions.appendChild(button);
+    }
+
     button.textContent = t(intent.labelKey);
-    button.addEventListener("click", () => applyIntent(intent.id));
-    ui.intentOptions.appendChild(button);
   });
 }
 
@@ -501,21 +515,39 @@ const FILTERS = [
   { id: "microwave", labelKey: "filterMicrowave" }
 ];
 
-function renderFilters() {
-  ui.filters.replaceChildren();
+// Built once, then updated in place.
+//
+// `#filters` is empty in warning.html, so these four buttons are all of it. This
+// function is re-entered from inside its own click handler, from applyIntent and
+// from the i18n change handler, and it used to throw all four buttons away and
+// build four replacements with four fresh listeners each time — when the only
+// thing that differs between calls is `aria-pressed` (plus the label, on a
+// language change). Same elements, same order, same accessible names, same toggle
+// semantics; the pressed state is now written onto the buttons that are already
+// there. It also stops the button the user just activated being replaced
+// underneath them, which is what moved keyboard focus back to the top of the
+// document every time a filter was toggled with the keyboard.
+const filterButtons = new Map();
 
+function renderFilters() {
   FILTERS.forEach((filter) => {
-    const button = document.createElement("button");
-    button.type = "button";
+    let button = filterButtons.get(filter.id);
+
+    if (!button) {
+      button = document.createElement("button");
+      button.type = "button";
+      button.addEventListener("click", () => {
+        state.filter = state.filter === filter.id ? "all" : filter.id;
+        state.rotation = 0;
+        renderFilters();
+        showAlternative({});
+      });
+      filterButtons.set(filter.id, button);
+      ui.filters.appendChild(button);
+    }
+
     button.textContent = t(filter.labelKey);
     button.setAttribute("aria-pressed", String(state.filter === filter.id));
-    button.addEventListener("click", () => {
-      state.filter = state.filter === filter.id ? "all" : filter.id;
-      state.rotation = 0;
-      renderFilters();
-      showAlternative({});
-    });
-    ui.filters.appendChild(button);
   });
 }
 

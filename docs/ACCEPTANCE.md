@@ -1,9 +1,11 @@
 # Human acceptance
 
-Everything a machine can settle about this build is settled: 971 tests, 17
-validators at zero errors and zero warnings, the computed accessibility tree
-checked in a real browser, and Chrome, Firefox, Safari-nightly and Android
-packages all building. None of that answers the one question that matters most.
+Everything a machine can settle about this build is settled: `npm test` green,
+`npm run validate` reporting 18 audits at zero errors, the computed accessibility
+tree checked in a real browser, and the Chrome, Firefox and Android packages all
+building. (The commands are named rather than a run frozen into a count — a
+stale number invites a reader to trust it instead of running the command beside
+it.) None of that answers the one question that matters most.
 
 **Does the friction feel fair, or does it feel manipulative?**
 

@@ -351,14 +351,22 @@
     return COUNTRY_SHORT_FORMS[normalized] || normalized;
   }
 
-  // Map of data attribute (camelCase dataset key) -> how to apply the string.
+  // Map of data attribute (camelCase dataset key) -> the literal attribute name
+  // -> how to apply the string. The attribute name is written out rather than
+  // derived from the camelCase key with a regex on every localizeDocument()
+  // call, which is thousands of times per session for five constants.
   const TARGETS = [
-    ["i18n", (el, value) => { el.textContent = value; }],
-    ["i18nPlaceholder", (el, value) => { el.setAttribute("placeholder", value); }],
-    ["i18nTitle", (el, value) => { el.setAttribute("title", value); }],
-    ["i18nAriaLabel", (el, value) => { el.setAttribute("aria-label", value); }],
-    ["i18nAlt", (el, value) => { el.setAttribute("alt", value); }]
+    ["i18n", "data-i18n", (el, value) => { el.textContent = value; }],
+    ["i18nPlaceholder", "data-i18n-placeholder", (el, value) => { el.setAttribute("placeholder", value); }],
+    ["i18nTitle", "data-i18n-title", (el, value) => { el.setAttribute("title", value); }],
+    ["i18nAriaLabel", "data-i18n-aria-label", (el, value) => { el.setAttribute("aria-label", value); }],
+    ["i18nAlt", "data-i18n-alt", (el, value) => { el.setAttribute("alt", value); }]
   ];
+
+  // One selector for all five, so localizeDocument walks the document once
+  // instead of once per attribute. Settings has 518 elements, so the old
+  // five-pass version touched ~2,590 to localize a few hundred.
+  const TARGET_SELECTOR = TARGETS.map((entry) => "[" + entry[1] + "]").join(",");
 
   // Walk the document (or a subtree) and localize every tagged element.
   // Languages written right to left. FitShield ships all six, and until the
@@ -401,15 +409,28 @@
       applyDocumentLanguage();
     }
 
-    TARGETS.forEach(([datasetKey, apply]) => {
-      const attribute = `data-${datasetKey.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}`;
-      scope.querySelectorAll(`[${attribute}]`).forEach((element) => {
-        const value = t(element.dataset[datasetKey]);
+    // Collect every tagged element in a single pass, then dispatch per element
+    // on the attributes it actually carries. Equivalent to the previous
+    // attribute-at-a-time walk: querySelectorAll returns document order either
+    // way, t() is pure, and the five appliers touch five independent things
+    // (textContent plus four attributes), so per-element ordering cannot differ
+    // from per-attribute ordering in the result.
+    scope.querySelectorAll(TARGET_SELECTOR).forEach((element) => {
+      const data = element.dataset;
+
+      for (let i = 0; i < TARGETS.length; i += 1) {
+        const key = TARGETS[i][0];
+
+        if (data[key] === undefined) {
+          continue;
+        }
+
+        const value = t(data[key]);
 
         if (value) {
-          apply(element, value);
+          TARGETS[i][2](element, value);
         }
-      });
+      }
     });
   }
 

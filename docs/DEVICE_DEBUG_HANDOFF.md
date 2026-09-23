@@ -526,7 +526,6 @@ adb reboot
 
 ## 5. Not this session
 
-- **Safari.** Experimental, explicitly out of scope.
 - **Anything needing the Play Console**, a keystore or an organization
   developer account — those are in
   [`PLAY_STORE_RELEASE_CHECKLIST.md`](PLAY_STORE_RELEASE_CHECKLIST.md) §12 and

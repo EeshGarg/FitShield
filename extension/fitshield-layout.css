@@ -1,0 +1,56 @@
+/**
+ * FitShield's minimum layout contract — the one place it is stated.
+ *
+ * THE NUMBER IS NOT ARBITRARY. 420px is the narrowest width the product already
+ * offers: Settings' "Popup width" slider is `min="420" max="620"`, so 420 is the
+ * narrowest layout FitShield has ever asked a user to accept. It is mirrored by
+ * `FitShieldCore.MIN_LAYOUT_WIDTH`, and a test fails if the slider, the core
+ * constant and this file ever disagree.
+ *
+ * WHAT WENT WRONG. No surface had a floor. The popup sized itself purely from the
+ * viewport (`width: min(var(--popup-width), 100vw)`) and every other page used
+ * `width: min(100%, Npx)` or a bare `max-width`, so the layout followed the
+ * viewport down without limit. Measured in Chromium before this file existed: at
+ * a 120px viewport the Settings content box was 49px wide and the popup card was
+ * 100px — the interface collapsed into an unreadable vertical strip.
+ *
+ * Chromium hands an extension page whatever width its container has — a narrow
+ * window, a side panel, a split view. Firefox clamps its browser window instead:
+ * asked for a 320px and then a 120px window, it produced a 500px viewport both
+ * times, so the same missing floor was simply unreachable there. This is one
+ * cross-browser CSS defect that only one engine could expose, not a Chromium
+ * quirk to be patched around.
+ *
+ * WHY min-width AND NOT A MEDIA QUERY. Below the floor the layout must stay laid
+ * out and become reachable, not reflow into something narrower. `min-width` on
+ * the document keeps the page at its usable width and lets the viewport scroll
+ * horizontally, which is the sane overflow behaviour when the browser owns the
+ * outer width and the extension cannot widen it.
+ *
+ * WHY NOT JAVASCRIPT. An extension cannot resize the window that contains it —
+ * a side panel or a user-resized window is the browser's to size, and
+ * `window.resizeTo` is refused for a page it does not own. The floor has to be a
+ * layout rule or it is not a guarantee.
+ *
+ * INTERACTION WITH HIGH ZOOM — this is the constraint that removed the original
+ * floor, so it is the one to keep satisfied. Chrome caps a browser-action popup
+ * at 800px and renders it at browser zoom, so at high zoom the popup's CSS
+ * viewport shrinks. The old floor was paired with `overflow-x: hidden`, which put
+ * the master switch and Settings past the edge with no scrollbar to reach them.
+ * A BOUNDED floor plus scrollable overflow satisfies both: at 155% zoom the popup
+ * still has ~516 CSS px, comfortably above 420, and anything clipped below that
+ * stays reachable because no surface hides horizontal overflow.
+ *
+ * NOT LOADED BY ANDROID. The Android WebView ships its own `fitshield.css`, and a
+ * 420px floor would force horizontal scrolling on a 360px phone. This file is an
+ * extension-surface contract; `tools/build-android.js` does not copy it.
+ */
+
+:root {
+  --fs-min-layout-width: 420px;
+}
+
+html,
+body {
+  min-width: var(--fs-min-layout-width);
+}

@@ -1271,59 +1271,58 @@ test("the store listing's pause-screen claims match what the pause screen render
   }
 });
 
-test("the alternatives-browser claim stays off the listing while its rendering is broken", () => {
+test("the listing describes the Alternatives panel the app actually renders", async () => {
   /*
-   * The catalog stores ingredients as objects — {quantity, unit, item} — and
-   * `extension/warning.js` has a formatIngredient() for exactly that. The Android
-   * browser has no formatter: it calls .join(", ") on the array, so String()
-   * runs on each object and a real device prints "[object Object]".
+   * This replaces two source-text greps that had quietly inverted.
    *
-   * The data shape is asserted first, so this cannot pass vacuously if the
-   * catalog ever flattens to strings — at which point the join would be correct
-   * and the listing could claim the feature again.
+   * They looked for `(r.ingredients || []).join(", ")` and for a `.slice(0, N)`
+   * near `$("recipeList")` in the Android app.js, and disclaimed the feature on
+   * the listing whenever either matched. Both defects were fixed — but the greps
+   * kept matching, because the COMMENTS left behind to explain the fixes quote
+   * the very strings being searched for. So the test went on certifying a panel
+   * as broken after it worked, and held two false claims on the store listing:
+   * that the phone prints "[object Object]", and that it shows only the first 24
+   * of 88 entries. A screenshot instruction pointed at a screen that was fine.
+   *
+   * The panel is therefore RENDERED here rather than read. A grep cannot tell a
+   * fix from a comment about a fix.
    */
+  const { loadPage } = require("./helpers/android-webview.js");
+  const page = await loadPage({ page: "index.html", script: "app.js", store: { androidWelcomed: true } });
+  const rendered = page.text("recipeList");
+
+  assert.ok(rendered && rendered.length > 0, "the Alternatives panel rendered nothing at all");
+
+  // Premise check: ingredients are still structured, so formatting them is still
+  // a thing this panel still has to do.
   const ingredient = recipes.recipes[0].ingredients[0];
-  assert.equal(
-    typeof ingredient,
-    "object",
-    "catalog ingredients are no longer structured objects; re-check every renderer that formats them"
-  );
-  assert.equal(
-    String(ingredient),
-    "[object Object]",
-    "a structured ingredient no longer stringifies to [object Object]; this assertion's premise is gone"
+  assert.equal(typeof ingredient, "object", "catalog ingredients are no longer objects; re-check every renderer");
+  assert.equal(String(ingredient), "[object Object]", "a raw object no longer stringifies the broken way");
+
+  assert.ok(
+    !rendered.includes("[object Object]"),
+    "the Alternatives panel is stringifying ingredient objects again: " + JSON.stringify(rendered.slice(0, 300))
   );
 
-  const joinsRaw = ANDROID_APP_JS.includes('(r.ingredients || []).join(", ")');
-  const disclaimed = flat(LISTING).includes("[object Object]");
+  // Every entry is browsable, not a silent subset. A browse panel that hides two
+  // thirds of what it browses is not a shorter list; it is a wrong one.
+  const titles = [...recipes.recipes, ...recipes.quickAlternatives].map((entry) => entry.title);
+  const missing = titles.filter((title) => !rendered.includes(title));
 
-  if (joinsRaw) {
-    assert.ok(
-      disclaimed,
-      "android app.js still stringifies ingredient OBJECTS straight into the Alternatives panel, so a device " +
-        'renders "[object Object]". The listing must keep saying so until it is fixed — otherwise a ' +
-        "screenshot instruction points at a broken screen."
-    );
+  assert.deepEqual(
+    missing,
+    [],
+    `the Alternatives panel renders ${titles.length - missing.length} of ${ALTERNATIVES} entries; the listing ` +
+      "describes browsing the catalog"
+  );
 
-    // The same panel shows only a slice of the catalog. The listing quotes both
-    // numbers, so both are checked.
-    // Anchored to the Alternatives renderer. A bare .slice() search finds the
-    // most-blocked lists first and would check the listing against the wrong
-    // number.
-    const slice = ANDROID_APP_JS.match(/\$\("recipeList"\)[\s\S]{0,300}?\.slice\(0,\s*(\d+)\)/);
-    assert.ok(slice, "the Alternatives panel no longer slices the catalog; the listing quotes the limit");
-    assert.ok(
-      flat(LISTING).includes(`first ${slice[1]} of the ${ALTERNATIVES} entries`),
-      `the listing states a different cap than the panel applies (it renders the first ${slice[1]} of ` +
-        `${ALTERNATIVES})`
-    );
-  } else {
-    assert.ok(
-      !disclaimed,
-      "the Alternatives panel no longer stringifies raw ingredient objects — remove the [object Object] " +
-        "caveat from the listing and put the browse bullet back"
-    );
-  }
+  // …and the listing must not still disclaim either defect.
+  const listing = flat(LISTING);
+  assert.ok(!listing.includes("[object Object]"), "the listing still says the phone prints [object Object]");
+  assert.ok(
+    !/first \d+ of the \d+ entries/.test(listing),
+    "the listing still claims the Alternatives panel shows only part of the catalog"
+  );
 });
 
 test("the temporary pass is scoped the way the listing says it is", () => {

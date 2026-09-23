@@ -37,7 +37,6 @@ const AUDITS = [
   // so a checkout without one still validates everything else.
   require("./browser-a11y-audit"),
   require("./announcement-audit"),
-  require("./safari-audit"),
   // Firefox, driven over WebDriver BiDi. The redirect is decided by the browser
   // before a request leaves, so this does not depend on the probe domain being
   // reachable — a tab that is NOT redirected means blocking failed, online or
@@ -67,13 +66,16 @@ async function validateAll(options) {
   // dist/ that read "0 error(s), 3 warning(s) across 18 audits" and exited 0
   // while two audits did nothing at all. The count is the headline most people
   // read, so it has to say what actually happened.
-  // "is not staged" is here because the Safari audit says that, not "is not
-  // built", and the one phrasing this pattern did not cover was the one audit
-  // that then reported PASS over a payload it had never opened — the exact
-  // failure the paragraph above describes, surviving in the detector written to
-  // stop it. The three built/staged messages and the three "no <browser> found"
-  // ones are now all matched; tools/validate-all.test.js pins each string.
-  const SKIPPED = /\b(skipped|is not (?:built|staged)|not installed|no [A-Za-z]+ found)\b/i;
+  // The pattern used to match "is not staged" as well, because one audit phrased
+  // its skip that way. Nothing skips with that wording any more, and "not staged"
+  // now appears in exactly one place — tools/extension-audit.js reporting a REAL
+  // packaging defect ("extension/x.js is not staged by build.js"). A skip
+  // detector that claims a finding is the mirror image of the bug this paragraph
+  // describes: it would discount an audit that ran and file its finding as
+  // "could not run". So the wording goes when the skip that used it goes.
+  // test/validate-all-skip.test.js pins both directions: every real skip message
+  // any tool emits must match, and none of these findings may.
+  const SKIPPED = /\b(skipped|is not built|not installed|no [A-Za-z]+ found)\b/i;
   const skipped = reporters.filter((r) => r.warnings.some((w) => SKIPPED.test(w)));
 
   if (!opts.quiet) {

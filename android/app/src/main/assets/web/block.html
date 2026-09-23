@@ -95,7 +95,17 @@
   <script src="ambient.js" data-energy="block"></script>
   <script src="android-shim.js"></script>
   <script src="i18n.js"></script>
-  <script src="languages.js"></script>
+  <!--
+    languages.js is NOT loaded here, deliberately. It defines the 85-entry
+    display-language metadata array, and the only thing that reads
+    FITSHIELD_LANGUAGE_OPTIONS is the dashboard's language picker in app.js —
+    block.js touches two globals, FitShieldTheme and FitShieldRecipes, and neither
+    comes from it. So this was ~7 KB of parse plus 85 object allocations on the
+    most latency-sensitive surface in the product: a screen that appears over an
+    app the user has just opened and starts a countdown immediately. The file is
+    still bundled and still verified against extension/languages.js, because
+    index.html loads it.
+  -->
   <script src="theme.js"></script>
   <script src="recipes.js"></script>
   <script src="block.js"></script>

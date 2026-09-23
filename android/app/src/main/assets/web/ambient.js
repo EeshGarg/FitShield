@@ -157,8 +157,12 @@
       "@keyframes fsHue{0%{filter:hue-rotate(-8deg);}50%{filter:hue-rotate(10deg);}",
       "100%{filter:hue-rotate(-8deg);}}",
       ".fs-ambient-layer{position:absolute;inset:-30%;",
-      "transform:translate3d(calc(var(--amb-sx,0px)*var(--f,0)),calc(var(--amb-sy,0px)*var(--f,0)),0);",
-      "will-change:transform;}",
+      // No will-change here. The layer's transform is a translate3d(), which
+      // already promotes it to its own compositing layer, and on `subtle` pages
+      // (the popup, parY: 0) the value never changes at all — so the hint only
+      // ever cost GPU memory for up to five full-viewport layers. The blobs keep
+      // theirs: their keyframes run continuously.
+      "transform:translate3d(calc(var(--amb-sx,0px)*var(--f,0)),calc(var(--amb-sy,0px)*var(--f,0)),0);}",
       ".fs-ambient-blob{position:absolute;border-radius:50%;will-change:transform;}",
       // distinct drift directions ----------------------------------------
       "@keyframes fsA{from{transform:translate3d(" + A + "-7%)," + A + "-1%),0) scale(1);}",
@@ -173,7 +177,11 @@
       "50%{transform:translate3d(" + A + "4%)," + A + "5%),0) scale(1.12);}",
       "100%{transform:translate3d(" + A + "-3%)," + A + "2%),0) scale(1.04);}}", // orbital
       "@media (prefers-reduced-motion: reduce){",
-      ".fs-ambient-blob{animation:none !important;}",
+      // Nothing moves under reduced motion, so the blob's compositing hint is
+      // pure GPU memory here too — the same waste that was removed from the
+      // layer rule above. will-change never affects pixels, so releasing it
+      // changes nothing anyone can see.
+      ".fs-ambient-blob{animation:none !important;will-change:auto !important;}",
       ".fs-ambient-layer{transform:none !important;}",
       ".fs-ambient-bg{transform:none !important;transition:none !important;",
       "animation:none !important;filter:none !important;}}"
@@ -194,9 +202,17 @@
   // Livelier pages breathe their hue a little faster (see fsHue in the sheet).
   container.style.setProperty("--amb-energy", energy.amp.toFixed(2));
 
+  // What the last paint was keyed to, so the refresh tick below can tell whether
+  // anything a repaint would change has actually changed.
+  let lastPeriod = "";
+  let lastLight = null;
+
   function paint() {
     const light = isLightSurface();
-    const bias = PERIOD_BIAS[periodFor(new Date().getHours())];
+    const period = periodFor(new Date().getHours());
+    const bias = PERIOD_BIAS[period];
+    lastPeriod = period;
+    lastLight = light;
     const active = LAYERS.slice(0, energy.blobs);
     container.innerHTML = active.map((cfg) => {
       const size = cfg.size[0] + Math.random() * (cfg.size[1] - cfg.size[0]);
@@ -263,5 +279,27 @@
 
   // Repaint (fresh colors + time-of-day bias) only if the page lives long
   // enough to cross a time boundary; keeps a long-lived options page current.
-  setInterval(paint, 12 * 60 * 1000);
+  //
+  // This tick used to repaint unconditionally: 120 fires a day, each one an
+  // innerHTML teardown and rebuild of every layer with freshly randomized
+  // colors, sizes and negative animation delays. periodFor() has only FOUR
+  // boundaries (05:00 / 12:00 / 17:00 / 21:00), so at least 116 of those
+  // repaints changed nothing anyone asked for while restarting every blob
+  // animation from a new random phase — a visible discontinuity, for free. The
+  // tick now does what the comment above always claimed and repaints only when
+  // something a repaint depends on moved: the time-of-day period, or the
+  // light/dark surface the colors are tuned against (a theme switch on a
+  // long-lived options page). Deliberately still an interval rather than a
+  // timeout aimed at the next boundary, so a wall-clock or DST jump, a
+  // sleep/resume, or a wrong system clock self-corrects on the next tick.
+  // Deliberately not gated on document.hidden either: a page revealed after a
+  // boundary must already be correct, and the check below is two getComputedStyle
+  // reads every twelve minutes.
+  setInterval(() => {
+    if (periodFor(new Date().getHours()) === lastPeriod && isLightSurface() === lastLight) {
+      return;
+    }
+
+    paint();
+  }, 12 * 60 * 1000);
 })();

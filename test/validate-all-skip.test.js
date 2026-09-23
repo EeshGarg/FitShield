@@ -3,9 +3,9 @@
  * An audit that could not run must never be counted as an audit that passed.
  *
  * tools/validate-all.js decides that by matching each reporter's warnings
- * against one regex. The regex listed "is not built", and the Safari audit says
+ * against one regex. The regex once listed "is not built" while an audit said
  * "is not staged" — so with no dist/, validate-all reported
- * "PASS — 0 error(s), N warning(s) across 19 audits" while one of those 19 had
+ * "PASS — 0 error(s), N warning(s) across 18 audits" while one of those 18 had
  * opened nothing at all. A detector that misses a phrasing is worse than no
  * detector, because the headline it produces is the one people read.
  *
@@ -55,7 +55,6 @@ function warningStrings() {
 // the point is to notice when a tool starts saying something new.
 const MUST_BE_SKIPS = [
   /is not built/,
-  /is not staged/,
   /no Chromium found/,
   /no Firefox found/,
   /audit skipped/,
@@ -94,7 +93,10 @@ test("the skip pattern does not swallow a real finding", () => {
   // matched one of these, validate-all would quietly stop counting a real audit
   // and its finding would be filed as "could not run".
   const realFindings = [
-    "the Safari payload is not marked as a nightly build",
+    // "not staged" used to be read as a skip. Nothing skips with that wording any
+    // more; the only tool that says it says it about a REAL packaging defect, so
+    // the skip pattern must not claim it.
+    "extension/ambient.js is not staged by build.js — ship it or delete it",
     "Branding/ is missing or empty",
     "missing top-level README.md",
     "missing changelog/README.md index",

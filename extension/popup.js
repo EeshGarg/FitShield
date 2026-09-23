@@ -292,6 +292,50 @@ function activePassesOf(state, now) {
 }
 
 /**
+ * Enabled-site counts derived from a block state.
+ *
+ * Counting them means walking 2,505 curated site objects (514 delivery, 1,991
+ * fast food) plus the custom list. getStatusMessage() did that on every tick of
+ * the one-second ticker — to use the total for a single `=== 0` test — and
+ * updateUI() computed the same two numbers twice in the same call. They are a
+ * pure function of the state object, so they are memoized against its identity:
+ * a different state object (the only thing updateUI is ever handed) recomputes
+ * them automatically, which means there is no cache to remember to invalidate.
+ *
+ * The three counts are kept ungated here because the two callers gate them
+ * differently: the status sentence counts only the buckets that are switched on,
+ * while the two count labels report a bucket's own enabled total regardless.
+ */
+let derivedCounts = null;
+
+function countEnabled(sites) {
+  let count = 0;
+
+  for (let index = 0; index < sites.length; index += 1) {
+    if (sites[index] && sites[index].enabled) {
+      count += 1;
+    }
+  }
+
+  return count;
+}
+
+function enabledCountsOf(state) {
+  if (derivedCounts && derivedCounts.state === state) {
+    return derivedCounts;
+  }
+
+  derivedCounts = {
+    state,
+    delivery: countEnabled(state.deliverySites || []),
+    fastFood: countEnabled(state.fastFoodSites || []),
+    custom: countEnabled(state.customSites || [])
+  };
+
+  return derivedCounts;
+}
+
+/**
  * How many sites the status line will NAME before it falls back to counting.
  *
  * Naming them is the guarantee: a count tells you that something is open, not
@@ -392,19 +436,20 @@ function getStatusMessage(state) {
     scheduleActive = false,
     deliverySitesEnabled = true,
     fastFoodSitesEnabled = true,
-    customSitesEnabled = true,
-    deliverySites = [],
-    fastFoodSites = [],
-    customSites = []
+    customSitesEnabled = true
+    // The three site arrays are deliberately not pulled out here any more: the
+    // only thing this function ever wanted from them was how many of their
+    // entries are enabled, which enabledCountsOf() now derives once per state.
   } = state;
 
   const now = Date.now();
   const passes = activePassesOf(state, now);
   const bypassActive = enabled && bypassUntil > now;
+  const counts = enabledCountsOf(state);
   const activeSiteCount =
-    (deliverySitesEnabled ? deliverySites.filter((site) => site.enabled).length : 0) +
-    (fastFoodSitesEnabled ? fastFoodSites.filter((site) => site.enabled).length : 0) +
-    (customSitesEnabled ? customSites.filter((site) => site.enabled).length : 0);
+    (deliverySitesEnabled ? counts.delivery : 0) +
+    (fastFoodSitesEnabled ? counts.fastFood : 0) +
+    (customSitesEnabled ? counts.custom : 0);
 
   if (!enabled) {
     return t("statusInactive");
@@ -502,10 +547,46 @@ function renderPassControls(state) {
 // the STRING, which is the only thing the DOM cares about.
 let lastStatusText = null;
 
-function refreshStatusOnly() {
+/**
+ * Can the status sentence change between one tick and the next?
+ *
+ * Only two things in it move with the wall clock: the remaining time on
+ * `bypassUntil`, and the pass records `activePassesOf` filters by `expiresAt`.
+ * Everything else in getStatusMessage() (the master switch, the bucket switches,
+ * `scheduleActive`, the friction values) comes out of the state object, and the
+ * state object only changes through updateUI().
+ */
+function statusCanTick(state, now) {
+  return (Number(state.bypassUntil) || 0) > now || activePassesOf(state, now).length > 0;
+}
+
+// Whether the last render was one of those moving sentences. The tick after a
+// countdown ends has nothing left to count, but it is still the tick that has to
+// replace "Blocking resumes in…" with the resting sentence — so one more render
+// is allowed through before the ticker goes quiet.
+let statusWasCountingDown = false;
+
+/**
+ * `force` is passed by updateUI, which has just replaced the state (and nulled
+ * the memo below) and therefore must render whatever the guard thinks.
+ */
+function refreshStatusOnly(force) {
   if (!latestState) {
     return;
   }
+
+  // Cheapest possible tick: with no pass running and no bypass pending, the
+  // sentence provably cannot differ from the one already on screen, so there is
+  // nothing to recompute. This used to filter all 2,505 curated site objects and
+  // rebuild the whole sentence once a second for the entire time the popup was
+  // open, only for the memo below to throw the identical string away.
+  const counting = statusCanTick(latestState, Date.now());
+
+  if (!force && !counting && !statusWasCountingDown) {
+    return;
+  }
+
+  statusWasCountingDown = counting;
 
   const text = getStatusMessage(latestState);
 
@@ -759,10 +840,14 @@ function updateUI(state) {
   scheduleIsSimple = scheduleSimple !== false;
 
   const bypassActive = enabled && bypassUntil > Date.now();
+  // One walk of the site arrays for this state, shared with the two count labels
+  // below (which used to re-filter the same 2,505 objects a second time) and with
+  // getStatusMessage() further down the same call.
+  const counts = enabledCountsOf(state);
   const activeSiteCount =
-    (deliverySitesEnabled ? deliverySites.filter((site) => site.enabled).length : 0) +
-    (fastFoodSitesEnabled ? fastFoodSites.filter((site) => site.enabled).length : 0) +
-    (customSitesEnabled ? customSites.filter((site) => site.enabled).length : 0);
+    (deliverySitesEnabled ? counts.delivery : 0) +
+    (fastFoodSitesEnabled ? counts.fastFood : 0) +
+    (customSitesEnabled ? counts.custom : 0);
 
   toggle.checked = enabled;
   deliverySitesEnabledInput.checked = deliverySitesEnabled;
@@ -779,11 +864,11 @@ function updateUI(state) {
   scheduleEndInput.value = scheduleEnd;
   updateScheduleControls(scheduleEnabled);
   deliveryCount.textContent = t("deliverySitesEnabledCount", [
-    String(deliverySites.filter((site) => site.enabled).length),
+    String(counts.delivery),
     String(deliverySites.length)
   ]);
   fastFoodCount.textContent = t("fastFoodSitesEnabledCount", [
-    String(fastFoodSites.filter((site) => site.enabled).length),
+    String(counts.fastFood),
     String(fastFoodSites.length)
   ]);
 
@@ -798,7 +883,7 @@ function updateUI(state) {
   // the same as the last tick — otherwise the memo above would swallow a
   // language change, which rewrites every string without changing the state.
   lastStatusText = null;
-  refreshStatusOnly();
+  refreshStatusOnly(true);
 }
 
 async function loadState() {
@@ -866,20 +951,14 @@ toggleCustomListButton.addEventListener("click", () => openBlocklistSettings());
 //
 // Every surface now derives the label when it renders, so nothing shows the
 // wrong one — but storage and the backup were still wrong, and the backup is
-// the copy that outlives this machine. Same derivation as settings.js, from the
-// same `frictionProfileValues`, so the two pages cannot drift apart.
+// the copy that outlives this machine. The derivation is core's: this page,
+// settings.js and preferences.js each carried an identical private copy, written
+// because core compared only two of the six fields. Core compares all six now.
 const FRICTION_VALUE_KEYS = Object.keys(core.frictionProfileValues("standard")).filter(
   (key) => key !== "frictionProfile"
 );
 
-function frictionProfileFor(values) {
-  return (
-    core.FRICTION_PROFILE_IDS.find((id) => {
-      const preset = core.frictionProfileValues(id);
-      return FRICTION_VALUE_KEYS.every((key) => preset[key] === values[key]);
-    }) || "custom"
-  );
-}
+const frictionProfileFor = (values) => core.detectFrictionProfile(values);
 
 async function saveFrictionValues(partial) {
   const stored = await chrome.storage.local.get(FRICTION_VALUE_KEYS);
@@ -978,7 +1057,9 @@ const i18nReady = (typeof FitShieldI18n !== "undefined" && FitShieldI18n.ready)
 
 i18nReady.then(loadState).then(renderMadePrompt);
 loadTheme();
-setInterval(refreshStatusOnly, 1000);
+// Called with no argument on purpose: the ticker never forces a render past the
+// guard inside refreshStatusOnly, so an idle popup costs one comparison a second.
+setInterval(() => refreshStatusOnly(), 1000);
 
 // Re-render dynamic strings when the language changes. Static data-i18n
 // elements are handled by i18n.js itself.

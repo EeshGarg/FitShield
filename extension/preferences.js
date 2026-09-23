@@ -35,7 +35,12 @@
   let editingIndex = null;
 
   async function load() {
-    const raw = await chrome.storage.local.get(null);
+    // Fetch exactly the keys readSettings reads, not the whole profile. `get(null)`
+    // also returned `blockedByDomain` / `blockedByCategory` / `blockedByCountry` —
+    // three unbounded, lifetime-cumulative count maps — plus every custom
+    // alternative, on every one of the ten save() round trips. None of it is read
+    // here. The list lives in core because that is what defines it.
+    const raw = await chrome.storage.local.get(core.SETTINGS_KEYS);
     settings = core.readSettings(raw);
     return settings;
   }
@@ -88,22 +93,12 @@
   // "300-second pause". The stored id is therefore a cache, not the truth: what
   // the chips claim is derived from the numbers themselves.
   //
-  // The field list comes from `frictionProfileValues` so it cannot drift from
-  // what a preset writes — core.detectFrictionProfile compares only two of the
-  // six, which is why turning "Ask what brought me here" off never moved the
-  // label either.
-  const FRICTION_VALUE_KEYS = Object.keys(core.frictionProfileValues("standard")).filter(
-    (key) => key !== "frictionProfile"
-  );
-
-  function frictionProfileFor(values) {
-    return (
-      core.FRICTION_PROFILE_IDS.find((id) => {
-        const preset = core.frictionProfileValues(id);
-        return FRICTION_VALUE_KEYS.every((key) => preset[key] === values[key]);
-      }) || "custom"
-    );
-  }
+  // core.detectFrictionProfile compares every field a preset writes, derived from
+  // `frictionProfileValues` so it cannot drift from what a preset actually sets.
+  // This page, settings.js and popup.js each used to carry an identical private
+  // copy of that comparison, because core's version looked at only two of the six
+  // — so turning "Ask what brought me here" off never moved the label.
+  const frictionProfileFor = (values) => core.detectFrictionProfile(values);
 
   // Persist a friction value AND the profile that now describes the result, so
   // the stored label agrees with the stored numbers on every other surface too.
@@ -928,23 +923,53 @@
   // is re-rendered. The schedule and custom-alternative editors are live text
   // and time inputs, and rebuilding them from another tab's write would take the
   // focus out from under someone mid-edit — a cure worse than the disagreement.
-  // `load()` runs first so the re-render sees the same settings object the rest
-  // of the page does, and a failure here is logged rather than thrown: this is a
-  // refresh, not a load path.
-  const RECAP_KEYS = ["stats", "recapEnabled"];
-
+  // A failure here is logged rather than thrown: this is a refresh, not a load
+  // path.
+  //
+  // The re-render used to go through `load()` first, which is
+  // `chrome.storage.local.get(null)` — the whole store, including all three
+  // unbounded blockedBy* maps and every custom site — followed by a full
+  // `core.readSettings` of it, to repaint one panel. The worker records a stats
+  // write on EVERY interruption, so with Settings open that was a complete
+  // storage read and a complete settings normalization per interruption. The
+  // change notification already carries the new value of the key that changed,
+  // so the two fields the recap actually reads are updated in place from it,
+  // normalized through the same core helpers `readSettings` uses so the shape is
+  // identical (including the absent/removed case: no stats becomes empty totals,
+  // and a missing recapEnabled reads as on). This is the idiom settings.js's own
+  // onChanged handler already uses for `stats`.
   function watchStorage() {
     if (typeof chrome === "undefined" || !chrome.storage || !chrome.storage.onChanged) {
       return;
     }
 
     chrome.storage.onChanged.addListener((changes, area) => {
-      if (area !== "local" || !RECAP_KEYS.some((key) => key in changes)) {
+      if (area !== "local" || !settings) {
         return;
       }
 
-      load()
-        .then(() => renderRecap())
+      let affectsRecap = false;
+
+      if (changes.stats) {
+        const raw = core.safeObject(changes.stats.newValue);
+
+        settings.stats = {
+          totals: core.normalizeStatTotals(raw.totals),
+          history: core.normalizeStatHistory(raw.history)
+        };
+        affectsRecap = true;
+      }
+
+      if (changes.recapEnabled) {
+        settings.recapEnabled = changes.recapEnabled.newValue !== false;
+        affectsRecap = true;
+      }
+
+      if (!affectsRecap) {
+        return;
+      }
+
+      renderRecap()
         .catch((error) => console.error("FitShield: could not refresh the weekly recap", error));
     });
   }

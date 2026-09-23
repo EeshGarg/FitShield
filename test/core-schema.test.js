@@ -390,3 +390,125 @@ test("recapDismissedFor is not carried by a schema nothing reads it from", () =>
   assert.ok(!("recapDismissedFor" in core.readSettings({ recapDismissedFor: "2026-08-09" })));
   assert.equal(core.readSettings({}).recapEnabled, true, "the recap gate that IS real still works");
 });
+
+// ---------------------------------------------------------------------------
+// SETTINGS_KEYS must stay in step with what readSettings actually reads.
+//
+// Two callers fetch storage before calling readSettings. If this list misses a
+// key, that caller silently reads a default instead of the user's saved value —
+// the kind of bug that looks like "my setting reset itself". The guard is
+// differential: narrow the fetch and the result must equal the whole profile.
+// ---------------------------------------------------------------------------
+
+test("reading only SETTINGS_KEYS gives the same settings as reading everything", () => {
+  // A populated profile, deliberately including keys readSettings does NOT read
+  // (the three unbounded count maps, presentation keys, a retired legacy key) so
+  // that a list which over-fetches is not mistaken for a correct one.
+  const profile = {
+    [core.SCHEMA_KEY]: core.SCHEMA_VERSION,
+    enabled: false,
+    timerSeconds: 120,
+    passDurationMinutes: 30,
+    frictionProfile: "strict",
+    askIntent: false,
+    repeatFrictionEnabled: false,
+    repeatExtraSeconds: 45,
+    schedule: { mode: "windows", windows: [{ days: core.WEEKDAYS, start: "18:00", end: "22:00" }], until: null },
+    scheduleEnabled: true,
+    scheduleStart: "18:00",
+    scheduleEnd: "22:00",
+    deliverySitesEnabled: false,
+    fastFoodSitesEnabled: true,
+    customSitesEnabled: true,
+    disabledDeliverySiteKeys: ["delivery-grubhub-com"],
+    disabledFastFoodSiteKeys: ["fastfood-kfc-com"],
+    customSites: [{ domain: "example-food.test", enabled: true }],
+    passes: [],
+    repeatHistory: {},
+    enabledCountries: ["US", "GB"],
+    enabledCategories: ["pizza"],
+    quickAccessCountries: ["US"],
+    quickAccessCategories: ["pizza"],
+    dietPreference: "vegetarian",
+    pantry: ["rice"],
+    equipment: ["microwave"],
+    avoidAllergens: ["peanut"],
+    alternativeFavorites: ["a1"],
+    recentAlternatives: ["a2"],
+    dismissedAlternatives: ["a3"],
+    customAlternatives: [],
+    stats: { totals: core.emptyStatTotals(), history: [] },
+    showEstimates: true,
+    recapEnabled: false,
+
+    // Present in a real profile, but not settings readSettings reads.
+    blockedByDomain: { "doordash.com": 9 },
+    blockedByCategory: { pizza: 4 },
+    blockedByCountry: { US: 9 },
+    theme: { bg: "#000000" },
+    themeMode: "light",
+    cardOrder: ["stats"],
+    siteBypasses: { "delivery-doordash-com": 1 }
+  };
+
+  const narrow = {};
+  core.SETTINGS_KEYS.forEach((key) => {
+    if (Object.prototype.hasOwnProperty.call(profile, key)) {
+      narrow[key] = profile[key];
+    }
+  });
+
+  const at = Date.UTC(2026, 8, 22, 12, 0, 0);
+  assert.deepEqual(
+    core.readSettings(narrow, { now: at }),
+    core.readSettings(profile, { now: at }),
+    "SETTINGS_KEYS is missing a key readSettings reads"
+  );
+
+  // The list must not carry keys readSettings does not read. `siteBypasses` is the
+  // one that was in the worker's old copy: readSettings drops it outright, so
+  // fetching it was pure cost.
+  assert.equal(core.SETTINGS_KEYS.includes("siteBypasses"), false, "readSettings drops siteBypasses");
+  assert.equal(core.SETTINGS_KEYS.includes("cardOrder"), false, "cardOrder is presentation, not a setting");
+  assert.equal(core.SETTINGS_KEYS.includes("uiLanguage"), false);
+  assert.equal(new Set(core.SETTINGS_KEYS).size, core.SETTINGS_KEYS.length, "duplicate key in SETTINGS_KEYS");
+
+  // Again for a LEGACY profile. Several keys are read only on that path — the flat
+  // scheduleEnabled/Start/End trio is ignored whenever a structured `schedule`
+  // exists, and customSites may still be the historical string[] — so a list that
+  // covered only modern profiles would look complete above and still lose a
+  // pre-0.55 user's settings here.
+  const legacy = {
+    enabled: true,
+    timerSeconds: 90,
+    scheduleEnabled: true,
+    scheduleStart: "19:00",
+    scheduleEnd: "23:00",
+    customSites: ["legacy-food.test", "second.test"],
+    blockedVisits: 12,
+    recipesChosen: 3,
+    caloriesAvoided: 900,
+    siteBypasses: { "delivery-doordash-com": 1 }
+  };
+
+  const legacyNarrow = {};
+  core.SETTINGS_KEYS.forEach((key) => {
+    if (Object.prototype.hasOwnProperty.call(legacy, key)) {
+      legacyNarrow[key] = legacy[key];
+    }
+  });
+
+  const fromNarrow = core.readSettings(legacyNarrow, { now: at });
+
+  assert.deepEqual(
+    fromNarrow,
+    core.readSettings(legacy, { now: at }),
+    "SETTINGS_KEYS is missing a key readSettings reads on the legacy path"
+  );
+
+  // Spot-check that the legacy values actually survived the narrow read, so this
+  // is not two identical empty answers agreeing with each other.
+  assert.equal(fromNarrow.timerSeconds, 90);
+  assert.equal(fromNarrow.scheduleStart, "19:00");
+  assert.deepEqual(fromNarrow.customSites.map((site) => site.domain), ["legacy-food.test", "second.test"]);
+});

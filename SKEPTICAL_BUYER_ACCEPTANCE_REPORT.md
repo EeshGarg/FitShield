@@ -5,9 +5,9 @@ Repository-local findings: **0**
 | Gate | Result |
 | --- | --- |
 | Findings queue | 77 recorded, 77 closed, each with a verification narrative and an anchor |
-| Automated tests | `npm test` — 53 test files |
-| Validators | `npm run validate` — **19 audits**, gating the build |
-| Packages | Chrome, Firefox, Safari-nightly and **Android APK** all build |
+| Automated tests | `npm test` — 55 test files |
+| Validators | `npm run validate` — **18 audits**, gating the build |
+| Packages | Chrome, Firefox and **Android APK** all build |
 | Build reproducibility | two clean builds produce byte-identical zips (sha256 verified) |
 
 > **On the counts.** This table used to freeze a run — "971 tests, 0 fail; 17
@@ -356,24 +356,6 @@ hearing it is *useful*. A machine can establish that the block page exposes a
 name, a role and a state for everything; it cannot judge whether the
 announcements land in a helpful order.
 
-### Safari — reduced to one command
-
-Wrapping the payload still needs macOS and Xcode. That is real. But shipping the
-payload unexamined was not required by it, and the manifest declared no minimum
-Safari version, so the converter would have picked its own deployment target.
-
-Two things here need Safari 16.4 and neither fails loudly below it: the MV3
-background service worker, and `chrome.storage.session`, which holds the
-block-page redirect token and is deliberately written to degrade quietly. On an
-older Safari it would have kept working while re-minting the token per worker
-generation — exactly the kind of thing a device finds out first.
-
-`npm run validate:safari` derives the floor the payload actually requires from
-what it uses, fails when the declared minimum is below it, and greps the shipped
-sources for APIs Safari does not implement (those are `undefined` there, so the
-feature silently does nothing rather than failing). The remaining step is the
-single converter command in `dist/apple/BUILD.txt`.
-
 ### Human acceptance — reduced to four questions
 
 Still a person's call, and it should be. What changed is everything around it.
@@ -399,20 +381,19 @@ wrong thing under the right name.
 
 ## Still external
 
-Two, both honestly so:
+Two, both honestly so — and both are a person or a device, not a tooling gap:
 
-1. **The macOS/Xcode wrap.** `xcrun safari-web-extension-converter` does not
-   exist off macOS. Every prerequisite is complete, the payload is audited
-   against Safari's actual constraints, and the exact command is in
-   `dist/apple/BUILD.txt`.
+1. **A physical Android device.** The debug APK builds here and in CI
+   (`npm run toolchain:android` provisions the JDK and the SDK), so nothing about
+   producing it is external. What no emulator settles is the VPN-consent flow and
+   on-device blocking, which need real hardware.
 2. **Four judgement calls**, in `docs/ACCEPTANCE.md`, plus listening to a screen
    reader read the block page. A machine can prove the announcements exist; only
    a person can say whether they help.
 
-Both now run in CI on a `macos-latest` runner for the first of those — the
-conversion and an unsigned compile — so what is left of item 1 is signing, which
-needs an Apple Developer team, and confirming on real hardware. Neither is a
-tooling gap any more; both are a person or a device.
+These are the items `development-policy.json` names under
+`external_only_allowed`, and nothing else. Item 1 covers `android-apk`; item 2
+covers `screen-reader` and `human-acceptance`.
 
 ---
 

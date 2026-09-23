@@ -1116,15 +1116,39 @@ test("no page resets an outline on a resting or focused control", () => {
 // ---------------------------------------------------------------------------
 
 // Chrome caps a browser-action popup at 800px and renders it at browser zoom, so
-// a hard `min-width` floor pushes the right-hand column — master switch, three
-// blocklist switches, Settings — off the edge above ~155% zoom. With
+// an UNBOUNDED `min-width` floor pushes the right-hand column — master switch,
+// three blocklist switches, Settings — off the edge above ~155% zoom. With
 // `overflow-x: hidden` there was then no scrollbar to reach it with. Low-vision
 // users are exactly the population running that zoom level.
+//
+// This test used to forbid a floor outright, and 0.57 found the other half of
+// that trade: with nothing holding the layout up, a Chromium viewport narrow
+// enough (a side panel, a narrow window) collapsed the popup to ~100px. The
+// invariant is not "no floor" — it is "a floor low enough that zoom still fits,
+// and nothing hidden when it does not".
+//
+// At 155% zoom the popup still has ~516 CSS px, comfortably above the 420px
+// contract, so the case this test was written for never reaches the floor at all.
+// The floor itself lives in extension/fitshield-layout.css and is exercised
+// against real browsers in test/layout-contract.test.js.
 test("the popup shrinks to the viewport and never hides horizontal overflow", () => {
   const rules = stylesheet("popup.html");
 
-  const floor = declared(rules, "body", "min-width");
-  assert.equal(floor, null, `the popup must not have a hard width floor (found min-width: ${floor})`);
+  // The page must not reintroduce a floor of its own: one contract, one place.
+  const local = declared(rules, "body", "min-width");
+  assert.equal(local, null, `the popup declares a page-local width floor (min-width: ${local})`);
+
+  const contract = fs.readFileSync(path.join(EXT, "fitshield-layout.css"), "utf8");
+  const floor = /--fs-min-layout-width:\s*(\d+)px/.exec(contract);
+  assert.ok(floor, "the shared layout contract no longer declares a floor");
+
+  // Bounded: a floor at or above the popup's own width could never shrink, which
+  // is precisely the shape that broke high zoom.
+  const defaultWidth = Number(/--popup-width:\s*(\d+)px/.exec(read("popup.html"))[1]);
+  assert.ok(
+    Number(floor[1]) < defaultWidth,
+    `the floor (${floor[1]}px) must be below the popup's default width (${defaultWidth}px) or it cannot yield to zoom`
+  );
 
   const width = required(rules, "body", "width", "popup.html");
   assert.match(width, /min\(\s*var\(--popup-width\)\s*,\s*100vw\s*\)/, "the popup width must yield to the viewport");

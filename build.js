@@ -24,13 +24,9 @@
  * warning on either.
  *
  *   node build.js            -> dist/ staging + the packaged zips in dist/, for
- *                               EVERY browser target on each run:
+ *                               BOTH browser targets on each run:
  *                               dist/chrome/  + dist/FitShield-<version>-chrome.zip  (Chrome Web Store)
  *                               dist/firefox/ + dist/FitShield-<version>-firefox.zip (Firefox/AMO)
- *                               dist/apple/   + dist/FitShield-<version>-nightly-safari.zip
- *                                             (Safari macOS/iOS/iPadOS — NIGHTLY; the
- *                                              Xcode wrap runs only on macOS, see
- *                                              tools/build-safari.js + docs/SAFARI.md)
  *                               Android is a separate native pipeline: npm run build:android
  *                               (or `npm run build:all` to do browsers + Android in one go).
  *
@@ -62,6 +58,10 @@ const FILES = [
   [path.join(EXTENSION_DIR, "currency.js"), "currency.js"],
   [path.join(EXTENSION_DIR, "diagnostics.js"), "diagnostics.js"],
   [path.join(EXTENSION_DIR, "fitshield-core.js"), "fitshield-core.js"],
+  // The minimum layout contract, linked by every page. It ships to BOTH browser
+  // packages from this one entry, which is what stops per-browser packaging from
+  // dropping the floor on one of them.
+  [path.join(EXTENSION_DIR, "fitshield-layout.css"), "fitshield-layout.css"],
   [path.join(EXTENSION_DIR, "i18n.js"), "i18n.js"],
   [path.join(EXTENSION_DIR, "languages.js"), "languages.js"],
   [path.join(EXTENSION_DIR, "popup.js"), "popup.js"],
@@ -148,6 +148,37 @@ function rmrf(target) {
   fs.rmSync(target, { recursive: true, force: true });
 }
 
+/**
+ * Copy a file into the stage, compacting it if it is JSON.
+ *
+ * The canonical datasets are indented for review — a 2,505-brand blocklist is
+ * unreadable in a diff otherwise — but the indentation is 775 KB of the shipped
+ * package (26.8% of all its JSON: 326 KB across the 83 locale files, 274 KB in
+ * fast-food.json, 93 KB in recipes.json, 82 KB in delivery.json). Nothing reads
+ * it: every consumer is JSON.parse, the browser's i18n loader, or the engine.
+ *
+ * Compacting at STAGE time keeps the sources reviewable and the package lean,
+ * which is the right side of that trade. It is byte-deterministic — JSON.parse
+ * preserves key order and JSON.stringify re-emits it — and it fails loudly rather
+ * than shipping a half-written file if a dataset is ever not valid JSON.
+ */
+function stageFile(src, target) {
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+
+  if (!src.endsWith(".json")) {
+    fs.copyFileSync(src, target);
+    return;
+  }
+
+  const text = fs.readFileSync(src, "utf8");
+
+  try {
+    fs.writeFileSync(target, JSON.stringify(JSON.parse(text)));
+  } catch (error) {
+    throw new Error(`${path.relative(ROOT, src)} is not valid JSON: ${error.message}`);
+  }
+}
+
 function copyInto(stageDir) {
   fs.mkdirSync(stageDir, { recursive: true });
 
@@ -155,16 +186,20 @@ function copyInto(stageDir) {
     if (!fs.existsSync(src)) {
       throw new Error(`Missing required file: ${path.relative(ROOT, src)}`);
     }
-    const target = path.join(stageDir, dest);
-    fs.mkdirSync(path.dirname(target), { recursive: true });
-    fs.copyFileSync(src, target);
+    stageFile(src, path.join(stageDir, dest));
   }
 
   for (const [src, dest] of DIRS) {
     if (!fs.existsSync(src)) {
       throw new Error(`Missing required directory: ${path.relative(ROOT, src)}`);
     }
-    fs.cpSync(src, path.join(stageDir, dest), { recursive: true });
+
+    for (const entry of fs.readdirSync(src, { withFileTypes: true, recursive: true })) {
+      if (entry.isFile()) {
+        const from = path.join(entry.parentPath || entry.path, entry.name);
+        stageFile(from, path.join(stageDir, dest, path.relative(src, from)));
+      }
+    }
   }
 
   // The engine ships as one generated classic script (see bundleEngine above).
@@ -262,10 +297,11 @@ function assertNoAndroidPayload(stageDir) {
 }
 
 // Firefox needs an event page (background.scripts). Order matters: background.js
-// references both FitShieldBlocklist (the engine bundle) and FitShieldCore (the
-// shared decision layer), so both must be evaluated first. On Chromium the same
-// two files are pulled in by background.js's own importScripts call.
-const BACKGROUND_SCRIPTS = ["blocklist.js", "fitshield-core.js", "background.js"];
+// references FitShieldBlocklist (the engine bundle), FitShieldCore (the shared
+// decision layer) and FitShieldBlocklistRecords (the shared site-record helpers),
+// so all three must be evaluated first. On Chromium the same three files are
+// pulled in by background.js's own importScripts call.
+const BACKGROUND_SCRIPTS = ["blocklist.js", "fitshield-core.js", "blocklist-records.js", "background.js"];
 
 function firefoxManifest(base) {
   const manifest = JSON.parse(JSON.stringify(base));
@@ -283,39 +319,6 @@ function firefoxManifest(base) {
 function chromeManifest(base) {
   const manifest = JSON.parse(JSON.stringify(base));
   delete manifest.browser_specific_settings;
-  return manifest;
-}
-
-// Safari (macOS / iOS / iPadOS) web extension — NIGHTLY / experimental.
-// Safari is MV3 and supports the same service worker + importScripts("blocklist.js")
-// path as Chromium, so the Safari payload is the Chromium form (Firefox-only
-// gecko keys stripped) with two nightly markers so the build is unmistakable in
-// Safari's Extensions pane, the wrapper app, and every locale:
-//   - name        -> literal "FitShield Nightly" (overrides __MSG_appName__)
-//   - version_name -> "<version>-nightly"
-// Apple's `safari-web-extension-converter` (macOS + Xcode only) wraps this folder
-// into the macOS + iOS/iPadOS app — see tools/build-safari.js and docs/SAFARI.md.
-const SAFARI_NIGHTLY_NAME = "FitShield Nightly";
-
-// Safari's minimum. Two things in this extension need 16.4 and neither fails
-// loudly on an older build: the MV3 `background.service_worker` form (Safari
-// ran MV3 extensions before that, but background service workers landed in
-// 16.4), and `chrome.storage.session`, which holds the block-page redirect
-// token. The token path is written to degrade — every access is guarded and
-// falls back to adopting the token from the dynamic rules — so on an older
-// Safari it would keep working while quietly re-minting per worker generation.
-// Declaring the floor makes the converter target a Safari where neither is a
-// question, rather than leaving it to be discovered on a device.
-const SAFARI_MIN_VERSION = "16.4";
-
-function safariManifest(base) {
-  const manifest = chromeManifest(base);
-  manifest.name = SAFARI_NIGHTLY_NAME;
-  manifest.version_name = `${manifest.version}-nightly`;
-  manifest.browser_specific_settings = {
-    ...(manifest.browser_specific_settings || {}),
-    safari: { strict_min_version: SAFARI_MIN_VERSION }
-  };
   return manifest;
 }
 
@@ -476,13 +479,12 @@ function zipDir(stageDir, outputZip) {
 // discovered by a user on the wrong build. Sweeps browser artifacts only:
 // dist/android belongs to the separate `npm run build:android` pipeline and is
 // deliberately left alone.
-const BROWSER_ZIP = /^FitShield-.+-(?:chrome|firefox|nightly-safari)\.zip$/;
+const BROWSER_ZIP = /^FitShield-.+-(?:chrome|firefox)\.zip$/;
 
 function removeStaleBrowserZips(version) {
   const current = new Set([
     `FitShield-${version}-chrome.zip`,
-    `FitShield-${version}-firefox.zip`,
-    `FitShield-${version}-nightly-safari.zip`
+    `FitShield-${version}-firefox.zip`
   ]);
 
   return fs
@@ -492,6 +494,43 @@ function removeStaleBrowserZips(version) {
       rmrf(path.join(DIST, name));
       return name;
     });
+}
+
+// Release 0.57 dropped Safari: FitShield targets Chromium, Firefox and Android.
+// Deleting the builder is not enough, because a tree that last built at 0.56 or
+// earlier still has the Apple output on disk — a complete staged payload in
+// dist/apple/ and a FitShield-<older>-nightly-safari.zip beside the current zips
+// — and with nothing left to overwrite either, they would sit there
+// indefinitely: stale, read by no tool, and one more wrong answer to "upload the
+// build in dist/". That is precisely what removeStaleBrowserZips exists to
+// prevent for superseded versions, so the retired target gets the same
+// treatment. BROWSER_ZIP deliberately does NOT match the Safari name any more —
+// it describes what this build PRODUCES — so the retired name is matched here
+// instead, by its own pattern, where the reason is written down.
+//
+// THIS HAS A SHELF LIFE. It exists to clean up trees that crossed the 0.56 -> 0.57
+// boundary, and it is the only reason the word "safari" still appears in the
+// build. Delete it (and its test) at 1.0: by then a `dist/` that has not been
+// rebuilt since 0.56 is not a case worth carrying code for.
+const RETIRED_SAFARI_ZIP = /^FitShield-.+-nightly-safari\.zip$/;
+
+function removeRetiredAppleArtifacts() {
+  const removed = [];
+  const apple = path.join(DIST, "apple");
+
+  if (fs.existsSync(apple)) {
+    rmrf(apple);
+    removed.push("apple/");
+  }
+
+  for (const name of fs.readdirSync(DIST)) {
+    if (RETIRED_SAFARI_ZIP.test(name)) {
+      rmrf(path.join(DIST, name));
+      removed.push(name);
+    }
+  }
+
+  return removed;
 }
 
 /**
@@ -506,25 +545,31 @@ function stageEngines(version) {
   fs.mkdirSync(DIST, { recursive: true });
   rmrf(path.join(DIST, "chrome"));
   rmrf(path.join(DIST, "firefox"));
+  removeRetiredAppleArtifacts();
   removeStaleBrowserZips(version);
 
   const base = JSON.parse(fs.readFileSync(path.join(EXTENSION_DIR, "manifest.json"), "utf8"));
 
-  // --- Chrome / Chromium: same files, Firefox-only manifest keys removed. -----
-  const chromeStage = path.join(DIST, "chrome");
-  copyInto(chromeStage);
-  fs.writeFileSync(
-    path.join(chromeStage, "manifest.json"),
-    JSON.stringify(chromeManifest(base), null, 2) + "\n"
-  );
+  // Both targets stage the IDENTICAL file set (copyInto) and differ in exactly
+  // one file: manifest.json. That one difference is the entire reason this build
+  // step exists, so the shared half is written once here and each target below
+  // is one line naming the derivation that makes it itself — nothing is hidden,
+  // and the two manifests can still be diffed straight out of dist/.
+  const stage = (name, deriveManifest) => {
+    const dir = path.join(DIST, name);
+    copyInto(dir);
+    fs.writeFileSync(
+      path.join(dir, "manifest.json"),
+      JSON.stringify(deriveManifest(base), null, 2) + "\n"
+    );
+    return dir;
+  };
 
-  // --- Firefox / AMO: same files, manifest gains background.scripts. ----------
-  const firefoxStage = path.join(DIST, "firefox");
-  copyInto(firefoxStage);
-  fs.writeFileSync(
-    path.join(firefoxStage, "manifest.json"),
-    JSON.stringify(firefoxManifest(base), null, 2) + "\n"
-  );
+  // --- Chrome / Chromium: Firefox-only manifest keys removed. -----------------
+  const chromeStage = stage("chrome", chromeManifest);
+
+  // --- Firefox / AMO: manifest gains background.scripts (the event page). -----
+  const firefoxStage = stage("firefox", firefoxManifest);
 
   return { chromeStage, firefoxStage };
 }
@@ -536,7 +581,7 @@ async function main() {
   // STAGE, then VALIDATE, then PUBLISH — in that order, and the order is the
   // whole point.
   //
-  // This used to validate and then package. Three of the nineteen audits —
+  // This used to validate and then package. Three of the eighteen audits —
   // browser-a11y, announcement and firefox — load the BUILT PACKAGE out of
   // dist/, so validating first meant those three graded the previous build. A
   // tree could be packaged and reported PASS while the audits had never seen a
@@ -578,22 +623,9 @@ async function main() {
   const firefoxZip = path.join(DIST, `FitShield-${version}-firefox.zip`);
   zipDir(firefoxStage, firefoxZip);
 
-  // --- Apple / Safari (macOS + iOS/iPadOS) — NIGHTLY. Same payload, Safari
-  //     manifest; staged + zipped into dist/apple on EVERY build. The Xcode wrap
-  //     runs only on macOS (handled inside run()); off-Mac it stages + writes
-  //     BUILD.txt. validate:false — validateAll already ran above; announce:false
-  //     — the combined summary below reports it. Required lazily to avoid a
-  //     require cycle (build-safari.js requires this module).
-  const apple = await require("./tools/build-safari").run({ validate: false, announce: false });
-  const appleZipRel = path.relative(ROOT, apple.zipPath).split(path.sep).join("/");
-
-  console.log(`\nBuilt FitShield ${version} — all browser targets in dist/:`);
+  console.log(`\nBuilt FitShield ${version} — both browser targets in dist/:`);
   console.log(`  Chrome / CWS  : ${path.relative(ROOT, chromeZip).split(path.sep).join("/")}`);
   console.log(`  Firefox / AMO : ${path.relative(ROOT, firefoxZip).split(path.sep).join("/")}`);
-  console.log(
-    `  Apple / Safari: ${appleZipRel} (nightly)` +
-      (apple.converted ? " + dist/apple/xcode" : " — run on macOS for the Xcode app (dist/apple/BUILD.txt)")
-  );
   console.log(`  Android APK   : run \`npm run build:android\` (requires the Android SDK/Gradle)`);
 }
 
@@ -604,8 +636,9 @@ async function main() {
 // per-browser forms stay a checked contract. Assigned BEFORE main() may run —
 // the audit is reached from main() via validate-all, and a later assignment
 // would hand that circular require an empty exports object.
-module.exports = { main, stageEngines, bundleEngine, ENGINE_MODULES, FILES, DIRS, BACKGROUND_SCRIPTS, ANDROID_ONLY_PREFIXES, copyInto, verifyStage, assertNoAndroidPayload, zipDir, chromeManifest, firefoxManifest, safariManifest,
-  SAFARI_MIN_VERSION, SAFARI_NIGHTLY_NAME, archiveDate, dosDateTime, removeStaleBrowserZips, BROWSER_ZIP, DOS_EPOCH_MS };
+module.exports = { main, stageEngines, bundleEngine, ENGINE_MODULES, FILES, DIRS, BACKGROUND_SCRIPTS, ANDROID_ONLY_PREFIXES, copyInto, verifyStage, assertNoAndroidPayload, zipDir, chromeManifest, firefoxManifest,
+  archiveDate, dosDateTime, removeStaleBrowserZips, BROWSER_ZIP,
+  removeRetiredAppleArtifacts, RETIRED_SAFARI_ZIP, DOS_EPOCH_MS };
 
 if (require.main === module) {
   main().catch((error) => {

@@ -130,9 +130,12 @@ browser-wide navigation listener — a permission and an observation surface
 FitShield does not take. During 0.55's development this menu carried a `once`
 preset labelled "Just this once" that was in fact a five-minute site pass, plus
 `oneShot`/`used` fields nothing ever read or wrote. It is now `siteDefault`,
-which carries no baked-in duration and therefore honours the user's own "Site
-open time" setting, and the dead fields are gone; a pass persisted under `once`
-or `site5` is read as `siteDefault` with its scope, target, and expiry untouched.
+which carries no baked-in duration and therefore honours the user’s own “Site
+open time” setting, and the dead fields are gone. 0.57 removed the named shim that
+read `once`/`site5` as `siteDefault`: neither label ever shipped and a pass lives
+minutes to hours, so no profile can hold one. An unrecognised preset still reads as
+`custom` with its scope, target and expiry untouched, so no pass is ever dropped
+out from under the user who was granted it.
 
 The `preset` union above is the complete set a screen can produce. There is
 **no** `category30`: it was defined, exported, documented here and unit-tested

@@ -5,12 +5,10 @@ name: Verify
 # Three jobs, split by what each one needs from the machine rather than by what
 # it checks:
 #
-#   gate           tests + validators + the Chrome/Firefox/Safari packages
+#   gate           tests + validators + the Chrome and Firefox packages
 #   real-browsers  the computed accessibility tree in Chromium, and the built
 #                  package installed in a real Firefox blocking a real brand
 #   android        a real debug APK, which needs a JDK and the Android SDK
-#
-# The Safari wrapper needs macOS and lives in safari-macos.yml.
 #
 # Nothing here pushes, publishes, releases, signs, or authenticates. There are
 # no secrets and no deploy steps, and .github/ci/check-workflows.js fails the
@@ -95,10 +93,9 @@ jobs:
         run: npm test
 
       - name: Packages
-        # Builds dist/chrome, dist/firefox and the Safari payload in
-        # dist/apple/, validating first. Off macOS the Safari step stages the
-        # payload and writes dist/apple/BUILD.txt without claiming a conversion
-        # it did not perform; safari-macos.yml is where that gets done.
+        # Builds dist/chrome and dist/firefox, validating first: the archives are
+        # written only after the validator gate passes, so a failing tree leaves
+        # nothing anyone could ship by mistake.
         run: node build.js
 
       - name: Confirm the browsers the validator suite needs
@@ -125,9 +122,8 @@ jobs:
       - name: Check .github itself
         # Parses every workflow, self-tests the CI guards, and confirms that
         # every npm script and repository path these workflows name really
-        # exists. Deliberately after the build, so the Safari drift check can
-        # compare the real dist/apple/BUILD.txt against the command
-        # tools/build-safari.js executes.
+        # exists — so a workflow that names a deleted tool or a dropped npm
+        # script fails here instead of on the step that would have used it.
         run: node .github/ci/check-workflows.js
 
       - name: Confirm both engine packages exist
@@ -149,7 +145,6 @@ jobs:
           name: packages
           path: |
             dist/*.zip
-            dist/apple/BUILD.txt
           if-no-files-found: error
           retention-days: 14
 

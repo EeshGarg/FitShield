@@ -226,7 +226,24 @@ class BlockActivity : AppCompatActivity() {
             .getString("timerSeconds", null)?.trim('"')
         // Default 60s to match the extension's reflection timer and the value the
         // dashboard shows when the user hasn't customized it.
-        return (raw?.toDoubleOrNull()?.toInt() ?: 60).coerceIn(0, 300)
+        //
+        // The range is the PRODUCT's range: extension/fitshield-core.js clamps
+        // this key to MIN_TIMER_SECONDS..MAX_TIMER_SECONDS = 10..900 and is the
+        // source of truth for it. This said `coerceIn(0, 300)`, and the dashboard
+        // input had a min and no max, so a user could set 600, watch it be
+        // stored, reopen Settings and be shown 600 — and then get a 300-second
+        // countdown, with nothing anywhere saying the number had been overruled.
+        // A setting that is accepted, persisted and displayed but not honoured is
+        // the same defect as a dead control.
+        //
+        // The floor moved from 0 to 10 with it. 0 was never reachable from any
+        // FitShield UI (the dashboard has min="10", app.js clamps to 10, core
+        // clamps to 10) and it meant "no pause at all", so honouring it would
+        // have been a silent way to disable the one screen this Activity exists
+        // to show. test/android-controls.test.js reads core's exported constants
+        // and fails if this line, the dashboard clamp or the input's attributes
+        // drift from them again.
+        return (raw?.toDoubleOrNull()?.toInt() ?: 60).coerceIn(10, 900)
     }
 
     companion object {

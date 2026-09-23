@@ -1,7 +1,12 @@
 # FitShield on Android
 
-_Accurate as of FitShield 0.55. Update this file in the same change as any
+_Accurate as of FitShield 0.57. Update this file in the same change as any
 behavior it describes._
+
+_The version above is part of the content, not decoration: it said 0.55 while the
+shipped rules asset carried 0.56, and §2e's parity table said the same. A doc that
+names the wrong version is worse than one that names none, because it invites the
+reader to trust a comparison that was never made against the code in front of them._
 
 > **Native blocking summary (read this first):** the APK blocks *websites* with a
 > local, on-device `VpnService` that filters by the destination host the client
@@ -217,8 +222,14 @@ The Android UI is an **adapted** reuse of the shared building blocks (engine,
 all 83 locales, recipes data, `ambient.js`, visual language), not the
 verbatim DNR-coupled desktop `settings.js`. Status legend: **shared** (same
 canonical output), **ported** (works on Android now), **adapted** (Android
-equivalent), **saved/pending** (UI + storage now; not yet wired into the
-connection filter), **deferred**, **N/A**.
+equivalent), **saved/pending** (UI + storage now; read by NO enforcement path —
+neither the connection filter nor the app path), **deferred**, **N/A**.
+
+`saved/pending` means *nothing reads it*. Several rows carried that label while
+the code did read them, which is the same defect as a dead control pointed the
+other way: the user turns something on, disbelieves the result, and the docs
+back them up. Where a setting is honoured on one path and not the other, the
+row now says which — see §2e for the full list.
 
 | Extension feature | Android status |
 | --- | --- |
@@ -226,11 +237,11 @@ connection filter), **deferred**, **N/A**.
 | Enable / disable | **ported** — local VpnService + consent |
 | Enforcement (web) | **ported** — system-wide **TLS SNI / HTTP Host** connection filter (works with Private DNS on) |
 | App blocking (native apps) | **ported** — AccessibilityService detects blocked apps → native BlockActivity intervention (opt-in); dataset generated from the blocklists |
-| Timer duration | **saved/pending** (not yet wired into the filter) |
-| Schedule | **saved/pending** (not yet wired into the filter) |
-| Post-timer window | **saved/pending** (not yet wired into the filter) |
-| Whitelist | **adapted** — "always-allow domains" list (saved/pending) |
-| Custom blocklist | **adapted** — add/remove domains (saved/pending) |
+| Timer duration | **ported (app path)** — `BlockActivity.timerSeconds()` reads `timerSeconds` and runs the pause countdown from it, clamped to the product's 10..900 (`extension/fitshield-core.js`). There is no countdown on the website path, because there is no block page for HTTPS (row 11). |
+| Schedule | **ported** — honoured on BOTH paths. The app path via `AppBlockPolicy.withinSchedule`; the connection filter via `FitShieldVpnService.blockingAllowedNow()` → `Tun2Filter` (`test/android-packet-filter.test.js`). Boundary semantics match `extension/fitshield-core.js` exactly as of 0.57 — inclusive start, exclusive end, `start == end` means all day — and one test drives both implementations over a boundary table rather than asserting each separately (§2e rows 4-6). |
+| Post-timer window | **adapted (app path)** — `passDurationMinutes` is the fallback for `appUnlockMinutes` in `AppBlockPolicy.unlockMinutes`, so it sets how long "Open anyway" exempts a brand; clamped to 1..240 on both platforms. The filter honours that same unlock (`BlockDecision.shouldReset`). It is not a post-countdown *page* window, because there is no page. |
+| Whitelist | **ported** — "always-allow domains"; `FitShieldVpnService` calls `rules.setAllowlist()` and the layer wins over both curated and custom entries (`test/android-packet-filter.test.js`). User-typed URLs, ports and trailing dots are normalised by the engine's own rules (§2e row 16). |
+| Custom blocklist | **ported** — add/remove domains; `FitShieldVpnService` calls `rules.setCustomSites()` and the filter treats them as a union with the curated set, as the extension does. |
 | Country filter | **adapted** — searchable picker, selection saved (pending) |
 | Category filter | **adapted** — searchable picker, selection saved (pending) |
 | Searchable picker | **ported** — touch search (filters + language) |
@@ -249,11 +260,32 @@ connection filter), **deferred**, **N/A**.
 | Notifications | **adapted** — Android foreground VPN notification |
 | Warning/blocked page | **ported for apps** — native BlockActivity intervention screen; for HTTPS *websites* there is no block page without MITM (connection is reset) |
 
-Most-blocked category/country recording reuses the extension's exact heuristic
-(category excludes the delivery/fast_food/custom buckets; country is the brand's
-**primary/first-listed** market). It is driven by a per-host `meta` map in the
-generated rules asset (host → `{c: primaryCountry, k: category}`), produced by
-`tools/generate-android-rules.js` from the same engine — no second data source.
+Most-blocked category/country recording is driven by a per-host `meta` map in the
+generated rules asset (host → `{c: primaryCountry, k: category, b: brandId}`),
+produced by `tools/generate-android-rules.js` from the same engine — no second
+data source. Country is the brand's **primary/first-listed** market. `b` is
+present only on ALIAS hosts and names the brand a temporary unlock is keyed by
+(§2e row 15).
+
+This paragraph used to claim the category half "reuses the extension's exact
+heuristic (category excludes the delivery/fast_food/custom buckets)". That was
+wrong in both halves, and it asserted parity on the one row that demonstrably
+diverged. `extension/background.js` excludes only the two RULE BUCKET spellings
+`fastfood` and `custom`, and states directly above its set that dropping
+`delivery` was the bug it had already fixed. `FitShieldVpnService.kt` was still
+running the pre-fix condition — and since both platforms write the same
+`blockedByCategory` key, read by the same shared UI, Android was corrupting a
+shared statistic.
+
+It is fixed, and fixed in the generator rather than in Kotlin: the exclusion is
+applied where the value is derived, so the native side now records any non-empty
+category and holds no category vocabulary at all. Two of the old condition's
+three clauses were inert — the curated vocabulary has 21 categories and neither
+`fast_food` nor `custom` is among them — so the whole real effect was that
+`delivery` (369 brands, 373 hosts, offered by Settings' own category picker)
+could never appear in Android's "Most blocked categories".
+`test/android-controls.test.js` reads the extension's set out of
+`extension/background.js` and fails if the two ever stop being the same strings.
 
 ### Intentional Android deviations from the extension
 
@@ -311,6 +343,27 @@ Documented so parity audits don't re-flag them; none change blocking behavior:
       backup, and reloads with the imported values.
 - [ ] Buy Me a Coffee button opens the link in the browser.
 - [ ] Domain tester reports doordash.com blocked, example.com not.
+- [ ] Domain tester and the always-allow list accept a PASTED URL: adding
+      `https://doordash.com/` (and `doordash.com:443`) exempts `www.doordash.com`,
+      rather than storing an entry that matches nothing (§2e row 16).
+- [ ] Set Timer duration to 600 and open a blocked app: the pause screen counts
+      down from 600, not 300 (§2e row 17). Values above 900 are refused by the
+      input rather than silently truncated.
+- [ ] "Open anyway" on a brand with an ALIAS domain — Burger King is the easy one —
+      opens the app AND lets it reach the network for the unlock duration, instead
+      of the app opening and failing to load (§2e row 15).
+- [ ] Mark a food app "Allowed" in the per-app list, then open it: it opens AND
+      loads its own content. Before 0.57 the pause screen was suppressed and the
+      VPN still reset its traffic, so it opened to a network error (§2e row 18).
+      Switch it back to "Blocked" and confirm the pause screen returns.
+- [ ] Set the schedule to 18:00-23:00 and check a blocked site at exactly 23:00:
+      it loads. At 22:59 it is blocked (§2e row 5).
+- [ ] Set the schedule start and end to the SAME time and confirm blocking applies
+      all day, not for one minute (§2e row 4).
+- [ ] Leave the app in the background for several minutes with battery stats open:
+      FitShield's foreground CPU time stays flat. The dashboard's status poll does
+      not run while the app is off-screen; returning to it refreshes the headline,
+      the statistics and the permission rows together.
 - [ ] Scrolling works; sections are touch-friendly; back button behaves.
 - [ ] No permission prompts beyond the one-time VPN consent.
 - [ ] No telemetry / unexpected network; no visited hostnames in logcat.
@@ -321,7 +374,15 @@ Documented so parity audits don't re-flag them; none change blocking behavior:
 The table in §2c says what *ships* on each platform. This section says where the
 two platforms **decide differently**, which is the thing that can surprise a
 user. Every entry was read off both implementations (`extension/fitshield-core.js`
-vs `AppBlockPolicy.kt` / `android-shim.js`) at 0.55.
+vs `AppBlockPolicy.kt` / `BlockActivity.kt` / `FitShieldVpnService.kt` /
+`HostMatch.kt` / `android-shim.js`) **during release 0.57**.
+
+The version here is load-bearing and it was wrong: it said "at 0.55" while the
+shipped rules asset carried `"appVersion": "0.56"`. A parity table is only worth
+reading if you know which two things were compared, so rather than restate a
+number that goes stale on the next bump: the version this was read at is the
+`appVersion` field of `android/app/src/main/assets/fitshield-rules.json`, which is
+generated from the manifest and re-derived by `npm run generate:android`.
 
 **The one structural fact behind most of this row set:** the browser extension
 routes every decision through `extension/fitshield-core.js` — the shared layer
@@ -341,18 +402,39 @@ disagree in a way neither design intends.
 | 1 | Decision layer not shared — no `fitshield-core.js` in the APK | **temporary** | Matching and data are shared and enforced; schedule/pass/stat *semantics* are a Kotlin re-implementation. Every bug below is a symptom of this. |
 | 2 | No storage schema or migrations on Android | **temporary** | Android writes no `schemaVersion` and runs no migration. An extension backup imported on Android is stored as-is; an Android profile carries no version marker, so a future shape change has nothing to migrate from. |
 | 3 | Android reads the **flat** schedule keys, the extension reads the **structured** one | **intentional (with a caveat)** | `scheduleEnabled` / `scheduleStart` / `scheduleEnd` are deliberately kept in step by both schedule editors, precisely so Android keeps working. Caveat: only a **single** window can be mirrored, so a multi-window advanced schedule reaches Android as whichever single window was last mirrored. |
-| 4 | `start == end` means **all day** on the extension, **one minute** on Android | **bug** | Core: `startMinutes === endMinutes` → the whole day. Kotlin: `now in start..end` → true only during that exact minute. Directly opposite outcomes for the same saved value. Fix: special-case `start == end` in `withinSchedule` before the range test. |
-| 5 | Window end is **exclusive** on the extension, **inclusive** on Android | **bug** | Core evaluates `minutes < endMinutes`; Kotlin `now in start..end`. Android blocks for one extra minute at the end of every window. Fix: `now >= start && now < end` (and `now >= start \|\| now < end` overnight). |
-| 6 | Per-day windows are ignored on Android | **bug** | Core windows carry a `days` array; `AppBlockPolicy.withinSchedule` has no day-of-week concept, so a weekday-only schedule is enforced on weekends too. Reaching Android at all depends on row 3's mirror. |
+| 4 | `start == end` means **all day** on the extension, **one minute** on Android | **fixed in 0.57** | Core: `startMinutes === endMinutes` → the whole day. Kotlin: `now in start..end` → true only during that exact minute — so the most absolute thing this control can say was the weakest schedule it could express. `Schedule.withinWindow` now special-cases `start == end` before the range test. |
+| 5 | Window end is **exclusive** on the extension, **inclusive** on Android | **fixed in 0.57** | Core evaluates `minutes < endMinutes`; Kotlin was `now in start..end`, so Android blocked one extra minute at the end of every window the user ever set. Core is the reference implementation, so **Kotlin was changed**, not core: `now >= start && now < end`, and `now >= start \|\| now < end` overnight. Both platforms are now driven over one boundary table by `test/android-packet-filter.test.js` ("compiled Schedule.withinWindow agrees with core's evaluateSchedule at every boundary"), so the agreement is executed rather than asserted twice in opposite directions. |
+| 6 | Per-day windows are ignored on Android | **intentional (unreachable)** | Core windows carry a `days` array; `Schedule` has no day-of-week concept. This is *documented* rather than fixed because it cannot be reached from Android: the Android schedule UI is the flat `scheduleStart`/`scheduleEnd` pair with no day list, so an Android-authored schedule always means every day, which is what the parity table above feeds core (`days: core.ALL_DAYS`). It can only arise through row 3's mirror — a multi-window, day-scoped schedule authored in the extension and mirrored down to a single flat window — and in that case the window that reaches Android has already lost its day list on the way. Giving Android a day concept without giving it a day UI would add a setting nothing can set. |
 | 7 | The temporary schedule override (`schedule.until`) has no Android equivalent | **temporary** | "Block until tomorrow" is extension-only; it is not mirrored into the flat keys, so Android ignores it entirely. |
-| 8 | Passes vs unlocks | **intentional** | The extension has scoped passes (domain / category / all, optionally tab-scoped) with a `maxDurationMs` ceiling. Android has a flat per-brand unlock map clamped to 1–240 minutes. Both use absolute expiry timestamps, so neither is defeated by moving the clock back. |
+| 8 | Passes vs unlocks | **intentional** | The extension has scoped passes (domain / category / all, optionally tab-scoped) with a `maxDurationMs` ceiling. Android has a flat per-brand unlock map clamped to 1–240 minutes, which is now the same range the dashboard offers (row 17) and which the connection filter honours as well as the app path. Both use absolute expiry timestamps, so neither is defeated by moving the clock back. |
 | 9 | Friction profiles, the intent prompt, and repeat-access friction are extension-only | **temporary** | `frictionProfile`, `askIntent`, `repeatFrictionEnabled` appear in no Android source. The Android block screen shows a fixed countdown. |
 | 10 | Weekly recap, custom alternatives, diet/allergen filtering | **temporary** | `recapEnabled` and `customAlternatives` are unread on Android; `dietPreference` / `avoidAllergens` are stored but do not filter the Android recipe list. |
 | 11 | No block page for HTTPS websites | **intentional** | A redirect to a block page would require MITM, which FitShield refuses (§3). Blocked sites get a TCP RST; the full block-page experience exists on the *app* path via `BlockActivity`. |
 | 12 | Countdown presentation, category copy, theme controls, reset grouping | **intentional** | Documented in §2c under "Intentional Android deviations"; none affect whether something is blocked. |
 | 13 | Enforcement scope | **intentional** | The VPN filter is system-wide; the extension only covers its own browser. |
+| 14 | `blockedByCategory` excluded different categories on each platform | **fixed in 0.57** | `FitShieldVpnService.kt` ran `category != "delivery" && category != "fast_food" && category != "custom"` — the extension's PRE-FIX guard. `extension/background.js` excludes only the bucket spellings `fastfood` and `custom`. Both platforms write the SAME `blockedByCategory` key, read by the same shared UI, so Android was corrupting a shared statistic: `delivery` (369 brands, offered by the category picker) could never appear in "Most blocked categories". Two of the three clauses were inert — the curated vocabulary has 21 categories and neither `fast_food` nor `custom` is among them. Fixed in the GENERATOR (`STATS_EXCLUDED_CATEGORIES`), so Kotlin now carries no category vocabulary; the two sets are pinned to each other by `test/android-controls.test.js`. |
+| 15 | "Open anyway" did not exempt a brand's ALIAS domains | **fixed in 0.57** | `BlockActivity` stores the unlock keyed by `brandId` (the entry's canonical domain); the filter looked it up by the host it had MATCHED. Those differ for every alias domain, and four shipped brands have both an Android app and an alias — `burgerking.com`/`bk.com`, `nandos.co.uk`/`nandos.com`, `wingstop.com`/`wingstop.co.uk`, and `food.jumia.com`'s four country domains. The user chose "Open anyway", the app was launched for them, and the next connection to the alias was reset. Fixed as DATA: `meta[host].b` carries the brand id for alias hosts and `RuleEngine.brandIdFor` resolves it. |
+| 16 | `HostMatch.normalize` was not the engine's `normalizeHostname` | **fixed in 0.57** | The engine strips scheme, userinfo, path, query, fragment, port, trailing dots and `www.`; Kotlin did only trim/lowercase/trailing-dot/`www.`. Harmless on the VPN path (SNI is a bare name and `IpPacket` excludes the port) but the same function normalises USER-TYPED text — `allowSet`/`customSet` for the always-allow list and Custom URLs, and `WebAppBridge.checkHost` for the domain tester. So `https://doordash.com/` or `doordash.com:443` was stored as an entry that could never match, listed back with a Remove button, on a list whose promise is "never blocked". Both implementations are now driven over one fixture in `test/android-packet-filter.test.js`, which asserts Kotlin's answer EQUALS the engine's rather than asserting either alone. |
+| 17 | `timerSeconds` / `passDurationMinutes` were clamped to different ranges | **fixed in 0.57** | `extension/fitshield-core.js` clamps `timerSeconds` to 10..900 and `passDurationMinutes` to 1..240 and exports those constants. Android's dashboard input had a `min` and **no `max`** and `app.js` clamped with a bare `Math.max`, so the user could set 600 seconds, see it stored, reopen Settings and be shown 600 — and then `BlockActivity`'s `.coerceIn(0, 300)` counted down for five minutes, with nothing saying so. The UI now honours core's range and Kotlin was corrected to `coerceIn(10, 900)`; `appUnlockMinutes`/`passDurationMinutes` gained the missing 240 maximum. All three layers are held to core's exported constants by `test/android-controls.test.js`. |
+| 18 | `appAllowBrands` never reached the connection filter | **fixed in 0.57** | The per-app "Allowed" pill wrote `appAllowBrands` and `AppBlockPolicy` (the APP path) was the only reader, so marking an app "Allowed" stopped the pause screen while the VPN went on resetting that brand's domains: the app opened and could not reach its own servers. That is worse than either honest outcome, so the control now means what it says. `FitShieldVpnService` caches `AppBlockPolicy.allowedBrands` — refreshed by the same preference listener that already watches the two domain lists, so no JSON is parsed per connection — and resolves the brand through `RuleEngine.brandIdFor`, the same lookup row 15 added, so the pill covers a brand's ALIAS domains too. The decision itself is a parameter of `BlockDecision.shouldReset`, which the Node Kotlin harness executes. |
+| 19 | Country / category filter selections are enforced on the extension and inert on Android | **temporary** | `enabledCountries` / `enabledCategories` appear in NO Kotlin source; `extension/background.js` builds its rule set from them. The pickers store and display the selection, and every curated host stays blocked on Android regardless. §2c labels both rows "(pending)", so this is disclosed rather than hidden, but it is a control whose effect is nil on this platform. |
+| 20 | A corrupt asset THROWS on one loader and fails open on the other | **intentional (made observable in 0.57)** | `RuleEngine.fromAssets` uses `require(json.optBoolean("_generated"))`, so a missing or hand-edited rules asset throws and the VpnService does not come up pretending to filter — which is safe because a service that refuses to start reads as "off" in the UI. `PackageBlocklist.fromAssets` deliberately does NOT throw: it is loaded by `FitShieldAccessibilityService.onServiceConnected`, so throwing would crash-loop the accessibility service every time the system reconnected it, which the user cannot diagnose and which is worse for them than app blocking being off. An AccessibilityService that dies on connect looks exactly like one that is running. What was wrong was that it was **silent** — every category pill still read "on" above a feature that could not match a single app. It now logs at error level naming the consequence ("app blocking is inactive"), and `WebAppBridge.appPackageCount()` reports the size of that matcher instead of re-reading the asset's own `counts.packages` field, so the dashboard's readiness line cannot announce "1511 apps can be blocked" over a matcher holding zero. `app.js` was `if (n)` and left the line blank at zero; it now says app blocking is inactive and that site blocking is unaffected, reusing the existing line rather than adding a control. |
+| 21 | Cross-language matcher coverage is thin ON DEVICE | **temporary** | The only assertion that the Kotlin matcher and the JS engine agree *on a handset* is `SemanticsParityTest` over the 8 hosts in `semantics-fixture.json`. Off-device coverage is much better — `test/android-packet-filter.test.js` compiles and runs the real `HostMatch`, `Schedule`, `BlockDecision`, `IpPacket` and `RestorePolicy` through `test/helpers/kotlin-runner.js` — but the fixture the instrumentation test uses is still 8 cases. |
 
-**Rows 4, 5, 6 and 14 are open bugs.** This paragraph used to excuse rows 4-6
+**No row in this table is an open bug.** Rows 4, 5, 14, 15, 16, 17 and 18 were
+bugs and are fixed; rows 6 and 20 were re-classified after being examined rather
+than fixed, with the reason recorded in each. Rows 19 and 21 remain **temporary** —
+wanted parity that is not built — which is a different statement from a defect.
+
+Corrected rows are kept in the table rather than deleted, because a parity table
+that silently loses them cannot be used to tell "we decided this" from "nobody has
+looked".
+
+There is no row 14 in the version of this table that claimed "Rows 4, 5, 6 and 14
+are open bugs" — the table ended at 13. The sentence below is the rest of that
+paragraph, which is still accurate about the tooling.
+
+This paragraph used to excuse rows 4-6
 with "no Android toolchain is available in this environment, so a Kotlin edit
 could not be compiled" — that is no longer true, and per `CLAUDE.md` §3 it was
 the kind of external-item claim that survives because nobody retries it.
@@ -362,10 +444,41 @@ exact fix for each row is written above; what remains is the work, not the
 tooling. Only on-device confirmation — the VPN consent prompt and real blocking
 — still needs a physical handset.
 
-The durable fix for rows 1, 2, 4, 5, and 6 together is to feed the Kotlin policy
-from a **generated schedule fixture** the way `RuleEngine` is already fed by
-`semantics-fixture.json` — then the schedule semantics stop being a second
-implementation that can drift, and `SemanticsParityTest` fails when it does.
+The durable fix for rows 1, 2, 4 and 5 was **not** a generated schedule fixture in
+the end, though that was the plan recorded here. It was simpler: `Schedule.kt` is
+already pure Kotlin with no Android in it, so the Node harness can compile and run
+it, and `extension/fitshield-core.js` can be required in the same test. The parity
+check therefore drives BOTH implementations directly instead of comparing each to a
+committed file — no artefact to regenerate, and no way for the fixture to be stale.
+`SemanticsParityTest` on-device is still the only thing that proves it in the APK's
+own runtime.
+
+**How the row 4/5 divergence survived: two green suites certified it.** Before
+0.57, both of these passed while asserting opposite things about the same saved
+value:
+
+- `test/schedule.test.js` — *"a window boundary is inclusive at the start and
+  exclusive at the end"*: for `18:00`-`23:00`, `22:59` active, **`23:00` not**.
+- `test/android-packet-filter.test.js` — *"a daytime window blocks inside it and
+  only inside it"*: for the same window, `at(23)` **`true`**, labelled *"inclusive
+  at the end"*.
+
+Each platform had a test saying it was right, and nothing asked them the same
+question. Core is the reference implementation, so Kotlin was corrected and the
+Android expectations were inverted in place — annotated with why, rather than
+deleted, so the change is legible to whoever reads that file next. The lesson is
+the general one: **a parity claim asserted twice is not a parity check.** The two
+implementations now meet in one test.
+
+One thing that looked like a divergence and is not: a window whose times cannot be
+parsed. `Schedule.withinWindow` returns `true` directly — a typo must never be a
+silent way to switch protection off — while core's `windowActive` returns `false`
+for the same window, which reads like the opposite answer. It is not:
+`normalizeSchedule` has already DROPPED that window before `windowActive` is
+reached, an empty window list normalizes the mode to `always`, and
+`evaluateSchedule` answers `{active: true, reason: "always"}`. Both platforms fail
+safe, by different routes. The malformed cases are in the parity table for exactly
+this reason — the natural reading of the two sources says otherwise.
 
 ## 3. VPN design — local connection filtering (TLS SNI)
 

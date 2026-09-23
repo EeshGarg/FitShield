@@ -201,34 +201,6 @@ function checkDerivedManifests(reporter, manifest) {
     scripts[scripts.length - 1] === "background.js",
     "background.js must be the LAST firefox background script (it depends on the others)"
   );
-
-  // Safari (nightly): Chromium form (gecko stripped, service worker path) plus
-  // the two nightly markers so the wrapped app is unmistakably a nightly build.
-  const safari = build.safariManifest(manifest);
-  const safariBss = safari.browser_specific_settings || {};
-
-  // The point of this check was that Firefox's `gecko` block must not ride into
-  // the Safari payload. It was written as "strip the whole key", which was the
-  // same thing only while Safari declared nothing of its own. Safari's own
-  // block is not leakage — `strict_min_version` is what gives the converter a
-  // deployment target instead of letting a device discover the answer.
-  reporter.check(!("gecko" in safariBss), "safari manifest derivation must strip Firefox's gecko settings");
-  reporter.check(
-    typeof safariBss.safari === "object" && !!safariBss.safari.strict_min_version,
-    "safari manifest must declare browser_specific_settings.safari.strict_min_version"
-  );
-  reporter.check(
-    safari.name === build.SAFARI_NIGHTLY_NAME,
-    `safari manifest derivation must set a nightly name "${build.SAFARI_NIGHTLY_NAME}" (got ${JSON.stringify(safari.name)})`
-  );
-  reporter.check(
-    safari.version_name === `${manifest.version}-nightly`,
-    `safari manifest derivation must set version_name "${manifest.version}-nightly" (got ${JSON.stringify(safari.version_name)})`
-  );
-  reporter.check(
-    (safari.background || {}).service_worker === "background.js" && !(safari.background || {}).scripts,
-    "safari manifest derivation must use the service-worker background (no background.scripts)"
-  );
 }
 
 // Every resource the manifest points at must exist in the staged package.
@@ -303,10 +275,87 @@ function checkNoOrphans(reporter) {
   const shipped = new Set(build.FILES.map(([src]) => posix(path.relative(load.EXTENSION_DIR, src))));
   const sources = fs
     .readdirSync(load.EXTENSION_DIR)
-    .filter((name) => (name.endsWith(".js") || name.endsWith(".html")) && !GENERATED_SOURCES.has(name));
+    // .css is in this list because the minimum-layout contract lives in one:
+    // a stylesheet that exists but is not staged would take the layout floor
+    // out of the shipped package while every source-level check still passed.
+    .filter(
+      (name) =>
+        (name.endsWith(".js") || name.endsWith(".html") || name.endsWith(".css")) &&
+        !GENERATED_SOURCES.has(name)
+    );
   for (const name of sources) {
     reporter.check(shipped.has(name), `extension/${name} is not staged by build.js — ship it or delete it`);
   }
+  return sources.length;
+}
+
+// Extension APIs the shipped package must never touch, and why each one is
+// named. The invariant is FitShield's own, not any one browser's: this extension
+// declares exactly three permissions — storage, declarativeNetRequest, alarms —
+// and promises no network calls, no telemetry, no accounts and no cloud. Every
+// API below reaches outside that box. A call to one is not a crash to be caught
+// in review either: in an engine that does not implement it the namespace is
+// simply `undefined`, so the feature silently does nothing, and in an engine
+// that DOES implement it the call may well succeed — which is the worse
+// outcome, because it works and the promise is broken.
+//
+// Grepping the shipped bytes is the only check that holds. A permission audit
+// alone does not: several of these need no manifest permission at all, so a
+// single line added to any page script would ship a capability the manifest
+// never declared and the privacy policy denies.
+const FORBIDDEN_APIS = [
+  ["chrome.gcm", "a Google Cloud Messaging push channel — a live network dependency on Google, and telemetry by construction"],
+  ["chrome.identity.getProfileUserInfo", "reads the signed-in Google account's email and id — FitShield has no accounts and wants no identity"],
+  ["chrome.system", "host hardware and network interface inventory — device fingerprinting surface, and nothing here needs it"],
+  ["chrome.enterprise", "enterprise device/platform keys — managed-device identity well outside a food blocker"],
+  ["chrome.offscreen", "an offscreen document, i.e. hidden page execution outside the declared pages"],
+  ["chrome.sidePanel", "a UI surface the manifest does not declare"],
+  ["chrome.userScripts", "arbitrary user script injection — a code-execution surface, and not a declared permission"],
+  ["chrome.declarativeContent", "page-content-driven actions, undeclared and redundant beside declarativeNetRequest"],
+  ["chrome.declarativeNetRequestFeedback", "rule-match feedback, i.e. a log of which sites the user visited — the exact data FitShield promises never to collect"]
+];
+
+// Every JS byte the package ships: the hand-authored sources build.js copies
+// (read from their real source paths, which ARE the staged bytes) plus the
+// generated engine bundle, which is produced here rather than read from dist/ so
+// this runs on a clean checkout with no build. The HTML pages are scanned too —
+// inline <script> is rejected elsewhere, but an inline event-handler attribute
+// would not be, and it is still shipped script.
+function shippedScriptSources() {
+  const sources = build.FILES.filter(([, dest]) => /\.(js|html)$/.test(dest)).map(([src, dest]) => ({
+    name: posix(dest),
+    text: fs.readFileSync(src, "utf8")
+  }));
+  sources.push({ name: "blocklist.js", text: build.bundleEngine() });
+  return sources;
+}
+
+const normalise = (text) => text.replace(/\s*\.\s*/g, ".").replace(/\bbrowser\./g, "chrome.");
+
+// No shipped source may reach for an API outside the three declared permissions.
+function checkApiSurface(reporter) {
+  const sources = shippedScriptSources();
+
+  for (const [api, why] of FORBIDDEN_APIS) {
+    for (const source of sources) {
+      // Compared against a normalised copy, not the raw text: whitespace around
+      // a dot is not meaningful to the engine, and the `browser.` alias the shim
+      // exposes is the same API as `chrome.`. Without both, the check would be a
+      // formatting convention rather than an invariant.
+      if (normalise(source.text).includes(api)) {
+        reporter.fail(
+          `${source.name} uses ${api}, which the shipped package must not touch: ${why}. ` +
+            `FitShield declares exactly ${JSON.stringify(REQUIRED_PERMISSIONS)} and promises no network calls, ` +
+            `telemetry, accounts or cloud — remove the call, or the permission set and that promise are both false.`
+        );
+      }
+    }
+  }
+
+  reporter.note(
+    `${sources.length} shipped source file(s) scanned for APIs outside the declared permission set ` +
+      `(${FORBIDDEN_APIS.length} checked)`
+  );
   return sources.length;
 }
 
@@ -330,6 +379,7 @@ function extensionAudit() {
   const manifestRefs = checkManifestResources(reporter, manifest, staged);
   const pageRefs = checkPageGraph(reporter, staged);
   checkRuntimeTargets(reporter, staged);
+  checkApiSurface(reporter);
   const sources = checkNoOrphans(reporter);
 
   reporter.note(

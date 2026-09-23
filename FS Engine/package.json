@@ -1,6 +1,6 @@
 {
   "name": "@fitshield/engine",
-  "version": "0.54.0",
+  "version": "0.57.0",
   "description": "FitShield's metadata-driven domain-blocking engine: deterministic apex/subdomain matching, alias-aware brand entries, and country/category block policies. Zero dependencies; runs in Node and as a single-file browser bundle.",
   "main": "index.js",
   "private": true,

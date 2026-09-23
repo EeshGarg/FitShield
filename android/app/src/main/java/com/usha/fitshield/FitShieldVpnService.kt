@@ -63,8 +63,21 @@ class FitShieldVpnService : VpnService() {
     // filter watches them rather than being told. Without this the list was
     // write-only: stored, listed back to the user, and never consulted.
     private val settingsWatcher = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-        if (key == null || key == ALLOWLIST_KEY || key == CUSTOM_SITES_KEY) applyUserLists()
+        if (key == null || key == ALLOWLIST_KEY || key == CUSTOM_SITES_KEY ||
+            key == AppBlockPolicy.KEY_ALLOW_BRANDS
+        ) applyUserLists()
     }
+
+    /**
+     * Brands the user switched to "Allowed", CACHED.
+     *
+     * Read here rather than per connection on purpose: [AppBlockPolicy.allowedBrands]
+     * parses a JSON array out of SharedPreferences, and [shouldReset] runs for every
+     * new flow the tunnel sees. The web UI writes the key and the listener above
+     * refreshes this, which is exactly how the two domain lists already work — the
+     * filter watches the store rather than being told.
+     */
+    @Volatile private var allowedBrands: Set<String> = emptySet()
 
     /**
      * Push the user's two domain lists into the matcher.
@@ -77,7 +90,14 @@ class FitShieldVpnService : VpnService() {
         if (!::rules.isInitialized) return
         rules.setAllowlist(readHostList(ALLOWLIST_KEY))
         rules.setCustomSites(readHostList(CUSTOM_SITES_KEY))
-        Log.i(TAG, "User lists: ${rules.allowlist.size} allowed, ${rules.customSites.size} custom")
+        // The per-app "Allowed" list is a THIRD user list this filter has to
+        // honour, and it was the one that was not read here at all.
+        allowedBrands = runCatching { AppBlockPolicy.allowedBrands(this) }.getOrDefault(emptySet())
+        Log.i(
+            TAG,
+            "User lists: ${rules.allowlist.size} allowed domains, ${rules.customSites.size} custom, " +
+                "${allowedBrands.size} allowed brands"
+        )
     }
 
     /**
@@ -128,8 +148,36 @@ class FitShieldVpnService : VpnService() {
                 .putString("blockedVisits", visits.toString())
                 .putString("blockedByDomain", byDomain.toString())
 
+            // Most-blocked category, recorded from whatever the asset carries.
+            //
+            // This used to read
+            //   `category != "delivery" && category != "fast_food" && category != "custom"`
+            // which is the extension's PRE-FIX guard. extension/background.js
+            // excludes only the two RULE BUCKET spellings, `fastfood` and `custom`,
+            // and says so directly above its set: "The guard here used to drop
+            // them, so the single largest curated delivery category could never
+            // appear in 'Most blocked categories'."
+            //
+            // Of the three clauses above, only the FIRST ever did anything, and
+            // what it did was the defect: `delivery` is a genuine curated category
+            // that Settings' picker offers (369 brands, 373 blockable hosts), so
+            // Android could never show it in "Most blocked categories" while the
+            // picker one panel away offered it. The other two clauses were inert —
+            // the curated vocabulary has 21 categories and neither `fast_food` nor
+            // `custom` is among them — and the `fastfood` spelling the JS guard
+            // actually exists for was never checked here at all.
+            //
+            // Both platforms write this same `blockedByCategory` key and the same
+            // shared UI ranks it, so this was Android writing a corrupted version
+            // of a shared statistic with a bug the extension had already fixed.
+            //
+            // There is no list here now, on purpose: the asset's `k` is produced by
+            // tools/generate-android-rules.js, which applies the extension's
+            // exclusion where the value is derived (STATS_EXCLUDED_CATEGORIES) and
+            // emits an empty category for a bucket spelling. So this side holds no
+            // category vocabulary at all and has nothing to drift.
             val category = meta?.category ?: ""
-            if (category.isNotEmpty() && category != "delivery" && category != "fast_food" && category != "custom") {
+            if (category.isNotEmpty()) {
                 val byCategory = readObj("blockedByCategory")
                 byCategory.put(category, byCategory.optInt(category, 0) + 1)
                 editor.putString("blockedByCategory", byCategory.toString())
@@ -266,12 +314,26 @@ class FitShieldVpnService : VpnService() {
      * screen granted. Without the second half, "Open anyway" opened an app that
      * could not reach its own servers.
      */
-    fun shouldReset(apex: String): Boolean = BlockDecision.shouldReset(
-        apex,
-        blockingAllowedNow(),
-        runCatching { AppBlockPolicy.unlockExpiry(this, apex) }.getOrNull(),
-        System.currentTimeMillis()
-    )
+    fun shouldReset(apex: String): Boolean {
+        // Resolved ONCE and used for both brand-scoped questions below.
+        //
+        // The unlock and the "Allowed" list are both keyed by BRAND, not by the host
+        // that matched. BlockActivity stores the unlock under `brandId` (the entry's
+        // canonical domain) and the per-app pill writes brandIds too; this used to
+        // pass `apex` straight through, which is the same string for almost every
+        // host and a different one for every ALIAS domain. So on the four shipped
+        // brands with both an Android app and an alias, neither control reached the
+        // traffic. RuleEngine.brandIdFor returns the host unchanged when there is no
+        // alias, so nothing else moves — and it is a map lookup, not a parse.
+        val brand = rules.brandIdFor(apex)
+        return BlockDecision.shouldReset(
+            apex,
+            blockingAllowedNow(),
+            allowedBrands.contains(brand),
+            runCatching { AppBlockPolicy.unlockExpiry(this, brand) }.getOrNull(),
+            System.currentTimeMillis()
+        )
+    }
 
     /**
      * Whether the network under the tunnel can actually carry IPv6.

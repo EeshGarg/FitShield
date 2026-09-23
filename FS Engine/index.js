@@ -51,7 +51,13 @@ const api = {
   getAvailableCountries: (list, locale) => metadata.getAvailableCountries(withDefault(list), locale),
   getAvailableCategories: (list) => metadata.getAvailableCategories(withDefault(list)),
   shouldBlockByCountry: metadata.shouldBlockByCountry,
-  shouldBlockByCategory: metadata.shouldBlockByCategory
+  shouldBlockByCategory: metadata.shouldBlockByCategory,
+
+  // Hoisted forms of the two policies above, for callers testing MANY entries
+  // against one enabled-list. Same answers; the code set is built once instead
+  // of once per entry.
+  countryFilter: metadata.countryFilter,
+  categoryFilter: metadata.categoryFilter
 };
 
 // The service worker / event page consumes the engine through this global

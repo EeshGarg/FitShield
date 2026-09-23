@@ -1,6 +1,6 @@
 {
   "name": "fitshield",
-  "version": "0.56.0",
+  "version": "0.57.0",
   "description": "FitShield browser extension: it interrupts impulsive food-delivery and fast-food ordering, then offers something you could make instead. Entirely local.",
   "private": true,
   "scripts": {
@@ -23,7 +23,6 @@
     "validate:sync": "node tools/sync-audit.js",
     "validate:a11y": "node tools/browser-a11y-audit.js",
     "validate:announce": "node tools/announcement-audit.js",
-    "validate:safari": "node tools/safari-audit.js",
     "validate:firefox": "node tools/firefox-audit.js",
     "sync": "node tools/sync-extension.js",
     "generate:alternatives": "node tools/build-alternatives.js",
@@ -39,7 +38,6 @@
     "toolchain:android": "node tools/provision-android-toolchain.js",
     "capture": "node tools/capture-surfaces.js",
     "icon:android": "node tools/make-android-icon.js",
-    "build:safari": "node tools/build-safari.js",
     "build:all": "node build.js && node tools/build-android.js"
   },
   "license": "GPL-3.0-or-later"

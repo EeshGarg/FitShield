@@ -154,16 +154,43 @@
   const FRICTION_PROFILE_IDS = Object.keys(FRICTION_PROFILES);
 
   // Which stored profile id best describes these values, or "custom".
+  /**
+   * Which named profile, if any, describes these values.
+   *
+   * Compares EVERY field a preset writes, derived from `frictionProfileValues`
+   * rather than a hand-written list so it cannot drift from what a preset
+   * actually sets. It used to compare only `timerSeconds` and
+   * `passDurationMinutes`, which meant turning "Ask what brought me here" off
+   * left the label still reading "Standard" — a label that did not describe the
+   * numbers under it.
+   *
+   * Three pages had each written their own stricter copy of this to work around
+   * that, with a comment in each naming this function as the durable home. This
+   * is that home; the copies are gone.
+   */
   function detectFrictionProfile(state) {
     const source = safeObject(state);
+    const keys = Object.keys(frictionProfileValues(FRICTION_PROFILE_IDS[0])).filter(
+      (key) => key !== "frictionProfile"
+    );
+
+    // Each key is resolved EXACTLY as readSettings resolves it, so an absent key
+    // means here what it means everywhere else. Comparing raw storage instead
+    // would call a profile "custom" merely because it had never written
+    // `askIntent`, which is the default rather than a deviation.
+    const normalizers = {
+      timerSeconds: (value) => normalizeTimerSeconds(value),
+      passDurationMinutes: (value) => normalizePassDurationMinutes(value),
+      askIntent: (value) => value !== false,
+      repeatFrictionEnabled: (value) => value !== false,
+      repeatExtraSeconds: (value) => clampInt(value, 0, 120, FRICTION_PROFILES.standard.repeatExtraSeconds)
+    };
+    const valueOf = (key) => (normalizers[key] ? normalizers[key](source[key]) : source[key]);
 
     return (
       FRICTION_PROFILE_IDS.find((id) => {
-        const profile = FRICTION_PROFILES[id];
-        return (
-          normalizeTimerSeconds(source.timerSeconds) === profile.timerSeconds &&
-          normalizePassDurationMinutes(source.passDurationMinutes) === profile.passDurationMinutes
-        );
+        const preset = frictionProfileValues(id);
+        return keys.every((key) => preset[key] === valueOf(key));
       }) || "custom"
     );
   }
@@ -721,15 +748,14 @@
       return null;
     }
 
-    // Earlier 0.55 development builds wrote passes under "once" and then
-    // "site5". Their scope, target, and expiry are all still valid, so such a
-    // pass keeps running rather than being dropped out from under whoever
-    // granted it; only the label it reports changes.
-    const preset = value.preset === "once" || value.preset === "site5" ? "siteDefault" : value.preset;
-
+    // The "once" / "site5" preset shim that used to sit here is gone. Those two
+    // labels existed only inside 0.55's development and never shipped, and a pass
+    // lives minutes to hours — so no profile can hold one. An unrecognised preset
+    // still degrades to "custom" below with its scope, target and expiry intact,
+    // which is what kept such a pass running in the first place.
     return {
       id: String(value.id || "").slice(0, 64) || `p${createdAt}`,
-      preset: PASS_PRESET_IDS.includes(preset) ? preset : "custom",
+      preset: PASS_PRESET_IDS.includes(value.preset) ? value.preset : "custom",
       scope: PASS_SCOPES.includes(value.scope) ? value.scope : "site",
       target: String(value.target || "").trim().toLowerCase().slice(0, 253),
       createdAt,
@@ -1327,6 +1353,30 @@
   // if the popup and the settings page disagree about what "system" resolves to,
   // the user sees two different themes in the same product.
 
+  /**
+   * The narrowest layout FitShield supports, in CSS pixels.
+   *
+   * Stated once here, mirrored by `--fs-min-layout-width` in
+   * extension/fitshield-layout.css and by the "Popup width" slider's `min`
+   * attribute in settings.html. A test fails if the three disagree.
+   *
+   * 420 is not a new number: it is what that slider has always offered as its
+   * narrowest popup, so it is the narrowest width the product already asks a
+   * user to accept.
+   */
+  const MIN_LAYOUT_WIDTH = 420;
+
+  /**
+   * The popup-width range, matching the slider that sets it.
+   *
+   * normalizeTheme used to clamp this to 0..1000 while the only control that
+   * writes it offered 420..620 — so a hand-edited profile or an imported backup
+   * could carry `popupWidth: 12`, and the popup rendered 12 pixels wide with
+   * nothing to stop it. The CSS floor now catches that visually; clamping here
+   * means the stored value and the control that edits it finally agree.
+   */
+  const MAX_POPUP_WIDTH = 620;
+
   const DEFAULT_THEME_MODE = "dark";
   const THEME_MODE_OPTIONS = ["system", "light", "dark"];
   const THEME_MODE_COLOR_KEYS = ["bg", "panel", "border", "text", "muted", "accent"];
@@ -1368,7 +1418,17 @@
     Object.keys(source).forEach((key) => {
       const raw = source[key];
 
-      if (key === "radius" || key === "popupWidth") {
+      if (key === "popupWidth") {
+        const number = Number(raw);
+
+        if (Number.isFinite(number)) {
+          out[key] = Math.min(MAX_POPUP_WIDTH, Math.max(MIN_LAYOUT_WIDTH, Math.round(number)));
+        }
+
+        return;
+      }
+
+      if (key === "radius") {
         const number = Number(raw);
 
         if (Number.isFinite(number)) {
@@ -1831,6 +1891,69 @@
    * consumer goes through this, so a missing or junk value can never mean
    * something different in two places.
    */
+  /**
+   * Every storage key `readSettings` reads — and therefore the exact set a caller
+   * needs to fetch before calling it.
+   *
+   * It lives here because it is a property of readSettings, and because the two
+   * callers that need it were each solving the problem differently and wrongly:
+   * background.js kept its own hand-maintained copy (which still listed
+   * `siteBypasses`, a key readSettings drops), and preferences.js gave up and
+   * called `storage.local.get(null)` — pulling the whole profile, including the
+   * three unbounded lifetime `blockedBy*` count maps, on every preference save.
+   *
+   * A test asserts that readSettings(get(SETTINGS_KEYS)) equals
+   * readSettings(get(null)) for a populated profile, so this cannot drift out of
+   * step with what readSettings actually reads.
+   */
+  const SETTINGS_KEYS = [
+    SCHEMA_KEY,
+    "enabled",
+    "timerSeconds",
+    "passDurationMinutes",
+    "frictionProfile",
+    "askIntent",
+    "repeatFrictionEnabled",
+    "repeatExtraSeconds",
+    "schedule",
+    "scheduleEnabled",
+    "scheduleStart",
+    "scheduleEnd",
+    "deliverySitesEnabled",
+    "fastFoodSitesEnabled",
+    "customSitesEnabled",
+    "disabledDeliverySiteKeys",
+    "disabledFastFoodSiteKeys",
+    "customSites",
+    "passes",
+    "repeatHistory",
+    "enabledCountries",
+    "enabledCategories",
+    "quickAccessCountries",
+    "quickAccessCategories",
+    "dietPreference",
+    "pantry",
+    "equipment",
+    "avoidAllergens",
+    "alternativeFavorites",
+    "recentAlternatives",
+    "dismissedAlternatives",
+    "customAlternatives",
+    "stats",
+    "showEstimates",
+    "recapEnabled",
+
+    // readSettings normalizes these too, so a caller that omits them gets a
+    // defaulted value rather than the user's. background.js's hand-maintained
+    // copy of this list omitted all five — exactly the drift the paired test
+    // exists to catch.
+    "blockedByDomain",
+    "blockedByCategory",
+    "blockedByCountry",
+    "theme",
+    "themeMode"
+  ];
+
   function readSettings(raw, options) {
     const defaults = defaultState();
     const source = safeObject(raw);
@@ -1949,6 +2072,7 @@
     defaultState,
     migrateState,
     readSettings,
+    SETTINGS_KEYS,
     storedVersion,
     recoverLegacyBypassDomain,
 
@@ -2031,6 +2155,8 @@
     normalizeDietPreference,
 
     // theme mode (pure; applying a theme stays per-page)
+    MIN_LAYOUT_WIDTH,
+    MAX_POPUP_WIDTH,
     DEFAULT_THEME_MODE,
     THEME_MODE_OPTIONS,
     THEME_MODE_COLOR_KEYS,

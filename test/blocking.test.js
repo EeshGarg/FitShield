@@ -835,3 +835,190 @@ test("an unknown message type is ignored rather than answered", async () => {
 
   assert.equal(await bg.message({ type: "notARealMessage" }), null);
 });
+
+// ---------------------------------------------------------------------------
+// Cost of a refresh
+//
+// These pin behaviour that 0.57 relies on: the worker must not rebuild the
+// ~2,500-rule declarativeNetRequest set for a setting that cannot change it, and
+// must not rewrite a rule set that is already installed. Both were real: dragging
+// the pause-length slider queued a full teardown-and-rewrite per input event.
+// ---------------------------------------------------------------------------
+
+test("changing the pause length does not touch the rule set", async () => {
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  const before = bg.rules().map((rule) => rule.condition.urlFilter).sort();
+  const writes = bg.ruleWrites();
+
+  await bg.changeStorage({ timerSeconds: 300 });
+  await bg.changeStorage({ passDurationMinutes: 45 });
+
+  assert.equal(bg.ruleWrites(), writes, "a pause-length change wrote rules");
+  assert.deepEqual(bg.rules().map((rule) => rule.condition.urlFilter).sort(), before);
+
+  // …and the new value is still what the block page is told.
+  const context = await bg.message({ type: "getBlockContext", siteKey: "delivery-doordash-com" });
+  assert.equal(context.timerSeconds, 300);
+});
+
+test("a setting that DOES change the rules still rebuilds them", async () => {
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  const before = bg.rules().length;
+  await bg.changeStorage({ deliverySitesEnabled: false });
+
+  assert.ok(bg.rules().length < before, "turning delivery off left the rule count unchanged");
+});
+
+test("an unchanged rule set is not rewritten", async () => {
+  const bg = loadBackground();
+
+  await bg.context.queueRefreshBlockingState();
+  const first = bg.ruleWrites();
+  const installed = bg.rules().length;
+  assert.ok(first >= 1, "the first refresh must install rules");
+
+  // Nothing about the catalog changed, so there is nothing to install.
+  await bg.context.queueRefreshBlockingState();
+  await bg.context.queueRefreshBlockingState();
+
+  assert.equal(bg.ruleWrites(), first, "an identical refresh rewrote the whole rule set");
+  assert.equal(bg.rules().length, installed, "the installed rules changed");
+
+  // A real catalog change must still get through.
+  await bg.changeStorage({ fastFoodSitesEnabled: false });
+  assert.ok(bg.ruleWrites() > first, "a catalog change did not write rules");
+});
+
+test("the block-page redirect URL is exactly the site key and the token", async () => {
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  const token = await bg.evalIn("ensureBlockPageToken()");
+  const rule = bg.rules().find((r) => r.condition.urlFilter === "||doordash.com");
+
+  assert.ok(rule, "doordash.com is not blocked by default");
+
+  // Byte-for-byte what URL + searchParams produced before the loop was hoisted.
+  const expected = new URL("chrome-extension://test/warning.html");
+  expected.searchParams.set("site", "delivery-doordash-com");
+  expected.searchParams.set("k", token);
+
+  assert.equal(rule.action.redirect.url, expected.toString());
+});
+
+test("a site record handed out is not shared mutable state", async () => {
+  const bg = loadBackground();
+  await bg.context.queueRefreshBlockingState();
+
+  // getSettings hands out freshly built records. This is what stops one reader's
+  // stray write reaching the rule builder, and it is why the enabled-stamped
+  // catalogs are NOT memoized — see mergeSitesWithEnabledState. Caching them
+  // saves 0.12 ms and costs this guarantee.
+  await bg.evalIn("(async () => { const s = await getSettings(); s.deliverySites[0].enabled = 'poisoned'; })()");
+
+  const after = await bg.evalIn("getSettings()");
+  assert.equal(after.deliverySites[0].enabled, true, "a mutated record leaked into the next read");
+});
+
+// ---------------------------------------------------------------------------
+// Cost of a worker wake-up
+//
+// An MV3 worker is torn down after about 30 seconds idle, so everything on the
+// entry path of a cheap handler is paid over and over. ensureMigrated sat there
+// and unconditionally loaded both blocklists (814 KB of JSON) and read the whole
+// profile, in order to discover that an up-to-date profile needs no migration.
+// The block page hits that path three times while a countdown is already running.
+// ---------------------------------------------------------------------------
+
+test("an up-to-date profile records an interruption without loading the catalog", async () => {
+  const bg = loadBackground({ [core.SCHEMA_KEY]: core.SCHEMA_VERSION });
+
+  const result = await bg.message({ type: "recordInterruption" });
+
+  assert.equal(result.ok, true);
+  assert.equal(result.recorded, true);
+  assert.equal(result.totals.interruptions, 1);
+  assert.equal(bg.fetchCount(), 0, "recording one interruption fetched the blocklists");
+  assert.equal(bg.store.stats.totals.interruptions, 1);
+
+  const diagnostics = await bg.message({ type: "getDiagnostics", domain: "kfc.com" });
+  assert.equal(diagnostics.schemaVersion, core.SCHEMA_VERSION);
+});
+
+test("a legacy profile still migrates on that same path, catalog and all", async () => {
+  // No schema marker: this is what every pre-0.55 profile looks like. The catalog
+  // IS needed here, to recover the domain behind a 0.54 flattened pass key.
+  const bg = loadBackground({
+    blockedVisits: 7,
+    recipesChosen: 2,
+    siteBypasses: { "delivery-doordash-com": Date.now() + 60_000 }
+  });
+
+  await bg.message({ type: "recordInterruption" });
+
+  assert.ok(bg.fetchCount() > 0, "a legacy profile migrated without reading the catalog");
+  assert.equal(bg.store[core.SCHEMA_KEY], core.SCHEMA_VERSION);
+  // The migration carried the old counters forward rather than resetting them,
+  // and then counted the new interruption on top.
+  assert.equal(bg.store.stats.totals.interruptions, 8);
+  assert.equal(bg.store.stats.totals.alternativesSelected, 2);
+});
+
+// ---------------------------------------------------------------------------
+// Custom sites: one normalizer, everywhere
+//
+// background.js and settings.js each used to carry their own `new URL()`-based
+// normalizer, so what the worker blocked and what the UI confirmed could differ.
+// The permissive version accepted anything the URL parser could parse, which made
+// the product claim blocks it was not performing.
+// ---------------------------------------------------------------------------
+
+test("a pasted URL, a www. prefix and a trailing dot all block the same host", async () => {
+  const bg = loadBackground({
+    customSites: [
+      { domain: "https://www.example-food.test/menu?x=1", enabled: true },
+      { domain: "other-food.test.", enabled: true }
+    ]
+  });
+  await bg.context.queueRefreshBlockingState();
+
+  assert.ok(hasDomain(bg.rules(), "example-food.test"), "a pasted URL must block its host");
+
+  // The trailing dot used to survive into the urlFilter, producing ||other-food.test.
+  // — a rule that can never match, for a block page that could not resolve it either.
+  assert.ok(hasDomain(bg.rules(), "other-food.test"), "a trailing dot must normalize away");
+  assert.equal(hasDomain(bg.rules(), "other-food.test."), false, "no rule may carry a trailing dot");
+});
+
+test("a custom entry that is not a domain produces no rule at all", async () => {
+  // "doordash" (a typo for doordash.com) and ".com" both parsed as hostnames, so
+  // the old code created ||doordash and ||.com and Settings said "Added to
+  // blocklist" — a block the product was not performing.
+  const bg = loadBackground({
+    customSites: [
+      { domain: "doordash", enabled: true },
+      { domain: ".com", enabled: true }
+    ]
+  });
+  await bg.context.queueRefreshBlockingState();
+
+  assert.equal(hasDomain(bg.rules(), "doordash"), false);
+  assert.equal(hasDomain(bg.rules(), ".com"), false);
+
+  // …and the worker does not report them as custom sites either, so the Settings
+  // list and the rules agree.
+  const state = await bg.message({ type: "getBlockState" });
+  assert.deepEqual(plain(state.customSites), []);
+});
+
+test("the historical string[] form of customSites still blocks", async () => {
+  const bg = loadBackground({ customSites: ["legacy-food.test", "https://www.second.test/"] });
+  await bg.context.queueRefreshBlockingState();
+
+  assert.ok(hasDomain(bg.rules(), "legacy-food.test"));
+  assert.ok(hasDomain(bg.rules(), "second.test"));
+});

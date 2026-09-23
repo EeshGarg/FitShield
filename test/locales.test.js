@@ -1029,8 +1029,17 @@ test("an unpinned language still leaves the document stamped", async () => {
 
 test("isRtl covers every right-to-left language the picker offers", () => {
   const { i18n } = stampFor("en");
-  const languages = require("../extension/languages.js");
-  const offered = (languages.FitShieldLanguages || languages).LANGUAGES || [];
+
+  // languages.js exports the picker's option list as a bare array, and each
+  // option carries its locale under `value`. This read used to be
+  // `(languages.FitShieldLanguages || languages).LANGUAGES || []`, which resolved
+  // to `[]` on every run — and then filtered on `entry.code`, a key no option has.
+  // So the guard below never executed and the promise in the comment could not be
+  // kept: the picker could have grown a seventh RTL language and this test would
+  // still have passed. It now reads the real list.
+  const offered = require("../extension/languages.js")
+    .map((option) => option.value)
+    .filter((value) => typeof value === "string" && value !== "");
 
   // The six FitShield actually ships. If the picker grows a seventh RTL
   // language, this fails until isRtl learns about it.
@@ -1048,10 +1057,14 @@ test("isRtl covers every right-to-left language the picker offers", () => {
   assert.equal(i18n.isRtl(""), false);
   assert.equal(i18n.isRtl(null), false);
 
-  if (offered.length) {
-    const rtlOffered = offered.filter((entry) => i18n.isRtl(entry.code || entry));
-    assert.ok(rtlOffered.length >= 6, "the picker still offers the RTL languages isRtl knows");
-  }
+  assert.ok(offered.length > 50, `expected the real picker list, got ${offered.length} entries`);
+
+  // The picker and isRtl must agree in BOTH directions. The six above are the
+  // ones FitShield ships; if a seventh RTL language is added to the picker and
+  // isRtl is not taught about it, that language renders left-to-right and this
+  // fails — which is what the guard was always meant to do.
+  const rtlOffered = offered.filter((value) => i18n.isRtl(value));
+  assert.deepEqual(rtlOffered.sort(), ["ar", "fa", "he", "ps", "ug", "ur"]);
 });
 
 // ---------------------------------------------------------------------------

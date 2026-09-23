@@ -11,7 +11,7 @@
     "fast-food": "1.3",
     "delivery": "1.2"
   },
-  "appVersion": "0.56",
+  "appVersion": "0.57",
   "matching": "apex-or-subdomain",
   "count": 2512,
   "sha256": "4008f7c315b2ff28ecbd3e05f8e573f05334c1bf3e97cf5ae03d99fdd755e62a",
@@ -1406,7 +1406,8 @@
     },
     "bk.com": {
       "c": "US",
-      "k": "burger"
+      "k": "burger",
+      "b": "burgerking.com"
     },
     "blackbeardiner.com": {
       "c": "US",
@@ -3718,11 +3719,13 @@
     },
     "food.jumia.ci": {
       "c": "NG",
-      "k": "delivery"
+      "k": "delivery",
+      "b": "food.jumia.com"
     },
     "food.jumia.co.ke": {
       "c": "NG",
-      "k": "delivery"
+      "k": "delivery",
+      "b": "food.jumia.com"
     },
     "food.jumia.com": {
       "c": "NG",
@@ -3730,11 +3733,13 @@
     },
     "food.jumia.ma": {
       "c": "NG",
-      "k": "delivery"
+      "k": "delivery",
+      "b": "food.jumia.com"
     },
     "food.jumia.sn": {
       "c": "NG",
-      "k": "delivery"
+      "k": "delivery",
+      "b": "food.jumia.com"
     },
     "foodbomb.com.au": {
       "c": "AU",
@@ -6870,7 +6875,8 @@
     },
     "nandos.com": {
       "c": "GB",
-      "k": "fast_casual"
+      "k": "fast_casual",
+      "b": "nandos.co.uk"
     },
     "nandos.com.au": {
       "c": "AU",
@@ -10158,7 +10164,8 @@
     },
     "wingstop.co.uk": {
       "c": "US",
-      "k": "chicken"
+      "k": "chicken",
+      "b": "wingstop.com"
     },
     "wingstop.com": {
       "c": "US",

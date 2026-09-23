@@ -619,8 +619,8 @@ test("every packaging contract ARCHITECTURE.md claims has a live audit", () => {
     const file = path.join(ROOT, tool);
     assert.ok(fs.existsSync(file), `ARCHITECTURE.md names ${tool}, which does not exist`);
 
-    // Audits export the audit function directly; builders (build-safari,
-    // build-alternatives) export an object of callables. Either is runnable —
+    // Audits export the audit function directly; builders (build-alternatives,
+    // build-android) export an object of callables. Either is runnable —
     // what must not happen is the document naming a tool that does nothing.
     const exported = require(file);
     const runnable =

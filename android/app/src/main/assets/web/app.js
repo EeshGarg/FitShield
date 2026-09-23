@@ -12,21 +12,34 @@
   const t = (k, s) => (self.FitShieldI18n ? self.FitShieldI18n.t(k, s) : k);
   const $ = (id) => document.getElementById(id);
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  // Write only when there is something different to write — the rule
+  // extension/popup.js states outright, and the reason is the same here: an
+  // unconditional `textContent` assignment destroys the existing text node and
+  // builds a new one. Most callers below sit on the 2s status poll, where the
+  // string is identical to the one already on screen almost every time.
+  const setText = (node, text) => { if (node && node.textContent !== text) node.textContent = text; };
 
-  function locale() {
-    const ui = (self.FitShieldI18n && self.FitShieldI18n.getLanguage) ? self.FitShieldI18n.getLanguage() : "";
-    return (ui || "en").replace(/_/g, "-");
-  }
   function normalizeDomain(v) {
     let d = String(v || "").trim().toLowerCase();
     if (!d) return "";
     d = d.replace(/^[a-z]+:\/\//, "").split("/")[0].split("?")[0].replace(/^www\./, "");
     return /^[a-z0-9.-]+\.[a-z0-9.-]+$/.test(d) ? d : "";
   }
-  let regionNames = null;
+  // Countries are named by the SAME function as everywhere else, for the same
+  // reason `categoryName` below delegates — and this one was simply missed when
+  // that fix landed. What sat here was a bare `Intl.DisplayNames`, with its own
+  // locale helper and its own memo, and no curated overrides: so "Most blocked
+  // countries" and the country picker rendered Intl's "Hong Kong SAR China"
+  // where every extension surface says "Hong Kong". FitShieldI18n.countryName
+  // carries the curated short forms (mirroring FS Engine's COUNTRY_NAMES), keys
+  // its own Intl memo by locale so a language change invalidates it without
+  // anyone remembering to, and upper-cases/echoes unknown codes. Delegating
+  // deletes a namer, a memo and the `locale()` helper that existed only to feed
+  // them.
   function countryName(code) {
-    try { regionNames = regionNames || new Intl.DisplayNames([locale()], { type: "region" }); return regionNames.of(code) || code; }
-    catch (e) { return code; }
+    return (self.FitShieldI18n && self.FitShieldI18n.countryName)
+      ? self.FitShieldI18n.countryName(code)
+      : String(code || "");
   }
   // One namer for the whole product, and it lives in i18n.js — which this page
   // already loads, immediately above this file. The local copy that used to sit
@@ -43,25 +56,54 @@
   }
 
   // ---- dashboard / status --------------------------------------------------
+  //
+  // WRITE-IF-CHANGED. extension/popup.js states the rule where it implements the
+  // same idiom: "assigning textContent unconditionally destroys and rebuilds the
+  // text node… Write only when there is something different to write." This
+  // function is on a 2s poll, and it was rewriting four textContents, a class
+  // name, a classList flag and a `hidden` flag on every tick of it — for a
+  // dashboard that had not changed since the tick before.
+  //
+  // Only the two values that CAN differ between ticks are in the signature. The
+  // version/host line is drawn once: see below.
+  let statusSig = null;
+  let statusMetaDrawn = false;
   async function renderStatus() {
     const enabled = await fs.blocking.isEnabled();
+    const pdns = fs.blocking.privateDnsActive ? await fs.blocking.privateDnsActive() : false;
+
+    // IMMUTABLE for the life of the process, so derived once rather than per
+    // tick: `rulesVersion` is the APK's own version string, and `hostCount` is
+    // the count in a packaged read-only asset. Neither can change without the
+    // process being replaced. (The shim memoises both bridge calls too — see
+    // android-shim.js — which is what takes the PackageManager binder IPC out of
+    // the poll entirely.) `statusMetaDrawn` is only latched once a version has
+    // actually come back, so a bridge that is not ready yet is retried instead
+    // of pinning an empty line forever.
+    if (!statusMetaDrawn) {
+      const [version, hosts] = await Promise.all([fs.blocking.rulesVersion(), fs.blocking.hostCount()]);
+      const parts = [];
+      if (hosts != null) parts.push(`${Number(hosts).toLocaleString()} blocked domains`);
+      if (version) parts.push(`rules v${version}`);
+      $("meta").textContent = parts.join(" · ");
+      $("footerVersion").textContent = version ? `FitShield ${version}` : "FitShield";
+      statusMetaDrawn = !!version;
+    }
+
+    const sig = `${enabled}|${pdns}`;
+    if (sig === statusSig) return;
+    statusSig = sig;
+
     $("status").className = enabled ? "status on" : "status";
     document.documentElement.classList.toggle("on", enabled); // context-aware accent lighting
 
     $("statusText").textContent = enabled ? "On — blocking locally" : "Off";
     $("toggle").textContent = enabled ? "Disable FitShield" : "Enable FitShield";
-    const [version, hosts] = await Promise.all([fs.blocking.rulesVersion(), fs.blocking.hostCount()]);
-    const parts = [];
-    if (hosts != null) parts.push(`${Number(hosts).toLocaleString()} blocked domains`);
-    if (version) parts.push(`rules v${version}`);
-    $("meta").textContent = parts.join(" · ");
-    $("footerVersion").textContent = version ? `FitShield ${version}` : "FitShield";
 
     // FitShield blocks by the connection's site name (TLS SNI / HTTP Host), not
     // DNS — so it works alongside encrypted / Private DNS, which it never touches.
     // When Private DNS is active, reassure the user their DNS is untouched.
     const note = $("dnsNote");
-    const pdns = fs.blocking.privateDnsActive ? await fs.blocking.privateDnsActive() : false;
     if (pdns && enabled) {
       note.hidden = false;
       note.textContent = "Your encrypted Private DNS is untouched — FitShield blocks by each connection's site name, so it works alongside your DNS provider.";
@@ -90,8 +132,12 @@
     fmt = fmt || ((n) => Math.round(n).toLocaleString());
     const target = Number(to) || 0;
     const from = Number(node.dataset.n);
+    // Already showing this number: return without touching it. Writing the same
+    // string back destroys and rebuilds the text node for no visible reason, and
+    // on the 2s poll below that was the overwhelmingly common case.
+    if (from === target) return;
     node.dataset.n = String(target);
-    if (reduceMotion || !isFinite(from) || from === target) { node.textContent = fmt(target); return; }
+    if (reduceMotion || !isFinite(from)) { node.textContent = fmt(target); return; }
     const now = () => (self.performance ? performance.now() : Date.now());
     const dur = 650, t0 = now();
     const ease = (p) => 1 - Math.pow(1 - p, 3);
@@ -110,13 +156,30 @@
     const rest = value % 60;
     return rest === 0 ? t("timeHours", [String(hours)]) : t("timeHoursMinutes", [String(hours), String(rest)]);
   }
+  // Write-if-changed, per list — the same rule renderStatus follows above, and it
+  // matters more here. Four of these run per tick, and each one unconditionally
+  // `replaceChildren()`-ed its list and rebuilt up to five rows of two spans, so
+  // a poll that found nothing new still discarded and re-created ~60 nodes every
+  // two seconds.
+  //
+  // The signature holds the RENDERED LABELS, not just the counts. That is what
+  // makes a language change redraw on its own: the numbers are identical after
+  // `setLanguage`, but "Hong Kong" becoming "Hongkong" is a different row, so the
+  // signature differs and the list is rebuilt. Twenty memoised label lookups is
+  // a far cheaper way to be correct than clearing a cache from every caller and
+  // hoping none is forgotten.
+  const mostBlockedSig = new Map();
   function renderMostBlocked(listId, wrapId, map, labelFor) {
     const entries = Object.entries((map && typeof map === "object") ? map : {})
       .filter(([, n]) => Number(n) > 0)
       .sort((a, b) => b[1] - a[1] || String(a[0]).localeCompare(String(b[0]))).slice(0, 5);
+    const rows = entries.map(([k, n]) => [labelFor(k), `${n}×`]);
+    const sig = JSON.stringify(rows);
+    if (mostBlockedSig.get(listId) === sig) return;
+    mostBlockedSig.set(listId, sig);
     const list = $(listId); list.replaceChildren();
-    entries.forEach(([k, n]) => { const li = el("li", "item"); li.append(el("span", null, labelFor(k)), el("span", "c", `${n}×`)); list.appendChild(li); });
-    $(wrapId).hidden = entries.length === 0;
+    rows.forEach(([label, count]) => { const li = el("li", "item"); li.append(el("span", null, label), el("span", "c", count)); list.appendChild(li); });
+    $(wrapId).hidden = rows.length === 0;
   }
   async function renderStats() {
     const data = await fs.stats.get();
@@ -133,8 +196,10 @@
     renderMostBlocked("mostBlockedApps", "mostBlockedAppsWrap", data.blockedByApp, (n) => n);
   }
   // Re-render dynamic strings/values (called after language change / reset).
+  // There is no namer to invalidate here any more: FitShieldI18n.countryName keys
+  // its own Intl memo by locale, and renderMostBlocked's signature is built from
+  // the rendered labels, so a language change redraws the ranked lists by itself.
   async function refresh() {
-    regionNames = null; // DisplayNames are locale-bound; rebuild for the new locale
     renderStatus();
     renderStats();
   }
@@ -211,6 +276,48 @@
   }
 
   // ---- timer / schedule / post-timer (stored; enforcement: DNS step) -------
+
+  // The product's ranges, stated ONCE for the Android UI.
+  //
+  // extension/fitshield-core.js is the source of truth and exports these numbers
+  // (MIN/MAX_TIMER_SECONDS = 10..900, MIN/MAX_PASS_DURATION_MINUTES = 1..240).
+  // Android disagreed with it at the top end of both, in a way the user could
+  // only discover by being overruled:
+  //
+  //   `timerSeconds`  index.html had min="10" and NO max, and the clamp here was
+  //     `Math.max(10, …)` — a floor with nothing above it. So the dashboard
+  //     accepted 600, stored 600 and showed 600 back, and then
+  //     BlockActivity.timerSeconds() applied `.coerceIn(0, 300)` and counted down
+  //     for five minutes. The setting was accepted, persisted, displayed, and
+  //     silently not honoured.
+  //   `passDurationMinutes`  same open top against AppBlockPolicy.unlockMinutes'
+  //     `.coerceIn(1, 240)`.
+  //
+  // ARCHITECTURE.md states the failure mode for the neighbouring case: when the
+  // two places a setting lives disagree, "the switch shows one state and the
+  // behaviour is the other, which is strictly worse than either being wrong on
+  // its own." A range is the same kind of fact as a default. The UI honours
+  // core's range rather than narrowing itself to Kotlin's old 300, because
+  // 10..900 is what the product says it offers — so BlockActivity was corrected
+  // instead. All three layers (the input's min/max, this clamp, the Kotlin
+  // coerceIn) now carry the same two numbers, and test/android-controls.test.js
+  // reads core's exported constants and holds every layer to them.
+  const LIMITS = { timerSeconds: [10, 900], passDurationMinutes: [1, 240], appUnlockMinutes: [1, 240] };
+  // `clampInt` from extension/fitshield-core.js, to the letter: parse as an
+  // integer, fall back only when that is not a number at all, and otherwise clamp.
+  //
+  // The distinction matters for ONE input and it is the kind that hides: with
+  // `Number(value) || fallback`, a typed `0` is falsy and becomes the DEFAULT, so
+  // Android stored 5 minutes where core stores 1, and 60 seconds where core stores
+  // 10. Both are defensible in isolation; disagreeing is not, and the whole point
+  // of this block is that the two platforms answer the same way.
+  const clampLimit = (key, value, fallback) => {
+    const [min, max] = LIMITS[key];
+    const parsed = Number.parseInt(value, 10);
+    if (!Number.isFinite(parsed)) return fallback;
+    return Math.min(max, Math.max(min, parsed));
+  };
+
   async function renderTiming() {
     const s = await fs.storage.get(["timerSeconds", "passDurationMinutes", "scheduleEnabled", "scheduleStart", "scheduleEnd"]);
     $("timerSeconds").value = Number(s.timerSeconds) || 60;
@@ -219,8 +326,8 @@
     $("scheduleStart").value = s.scheduleStart || "18:00";
     $("scheduleEnd").value = s.scheduleEnd || "23:00";
     const save = () => fs.storage.set({
-      timerSeconds: Math.max(10, Number($("timerSeconds").value) || 60),
-      passDurationMinutes: Math.max(1, Number($("passMinutes").value) || 5),
+      timerSeconds: clampLimit("timerSeconds", $("timerSeconds").value, 60),
+      passDurationMinutes: clampLimit("passDurationMinutes", $("passMinutes").value, 5),
       scheduleEnabled: $("scheduleEnabled").checked,
       scheduleStart: $("scheduleStart").value || "18:00",
       scheduleEnd: $("scheduleEnd").value || "23:00"
@@ -296,6 +403,16 @@
     const search = $("recipeSearch");
     const count = $("recipeCount");
 
+    // The search haystack, derived ONCE, parallel to `all`.
+    //
+    // `draw()` is the search box's `input` handler, so it runs per keystroke, and
+    // it used to call `matchText` for all 88 entries inside the filter — a join
+    // of the title, the description and every ingredient run through
+    // formatIngredient, then `.toLowerCase()`, ~88 times per character typed. The
+    // catalog is fetched once and never mutated, so the text it is searched by
+    // cannot change either.
+    const haystack = all.map((r) => matchText(r));
+
     // This drew `.slice(0, 24)` of 88 entries and said nothing about the other
     // 64 — a browse panel that quietly hid two thirds of the catalog. Everything
     // is rendered now, with a filter for finding one and a count that states
@@ -303,7 +420,7 @@
     function draw() {
       const query = (search && search.value || "").trim().toLowerCase();
       const matches = query
-        ? all.filter((r) => matchText(r).includes(query))
+        ? all.filter((r, i) => haystack[i].includes(query))
         : all;
       if (count) {
         count.textContent = query
@@ -468,15 +585,43 @@
     if (reduceMotion) return;
     document.querySelectorAll(".stat, [data-tilt]").forEach((tile) => {
       let pressed = false;
-      const move = (e) => {
-        const r = tile.getBoundingClientRect();
-        const px = ((e.clientX - r.left) / r.width) - 0.5;   // -0.5 … 0.5
-        const py = ((e.clientY - r.top) / r.height) - 0.5;
+      // The rect is read ONCE per press, not per sample. `getBoundingClientRect`
+      // forces a synchronous layout flush, and this read it inside the
+      // `pointermove` handler and then wrote `style.transform` straight after —
+      // so every touch sample was read-after-write against a dirty layout tree.
+      // A tile cannot move or resize while a finger is held down on it, so one
+      // measurement covers the whole gesture.
+      let rect = null;
+      // …and the write is coalesced to ONE per frame. `pointermove` is delivered
+      // at the touch digitiser's rate (120-240 Hz on current phones), while the
+      // display can only show one transform per frame, so the extra writes were
+      // layout work with no pixel to show for it — on the same main thread the
+      // synchronous storage bridge runs on. extension/settings.js already
+      // rAF-coalesces its equivalent; this was the platform-local regression from
+      // that shared design. The rendered output is unchanged: the transform is
+      // still computed from the newest pointer position, just once per frame.
+      let queued = null, frame = 0;
+      const apply = () => {
+        frame = 0;
+        const e = queued;
+        queued = null;
+        if (!e || !rect || !rect.width || !rect.height) return;
+        const px = ((e.clientX - rect.left) / rect.width) - 0.5;   // -0.5 … 0.5
+        const py = ((e.clientY - rect.top) / rect.height) - 0.5;
         const max = 7;
         tile.style.transform = `perspective(760px) rotateX(${(-py * max).toFixed(2)}deg) rotateY(${(px * max).toFixed(2)}deg) scale(.985)`;
       };
-      const reset = () => { pressed = false; tile.style.transform = ""; };
-      tile.addEventListener("pointerdown", (e) => { pressed = true; move(e); });
+      const move = (e) => {
+        queued = { clientX: e.clientX, clientY: e.clientY };
+        if (!frame) frame = requestAnimationFrame(apply);
+      };
+      const reset = () => {
+        pressed = false;
+        queued = null;
+        if (frame) { cancelAnimationFrame(frame); frame = 0; }
+        tile.style.transform = "";
+      };
+      tile.addEventListener("pointerdown", (e) => { pressed = true; rect = tile.getBoundingClientRect(); move(e); });
       tile.addEventListener("pointermove", (e) => { if (pressed) move(e); });
       ["pointerup", "pointercancel", "pointerleave"].forEach((ev) => tile.addEventListener(ev, reset));
     });
@@ -517,6 +662,18 @@
     function mark(id, on, label) {
       const wrap = $(id);
       if (!wrap) return;
+      // Write-if-changed. Three of these run on every tick of the 2s poll and the
+      // answer is the same almost every time. The signature carries the LABEL as
+      // well as the boolean, because the label is localised text that a language
+      // change moves while the boolean stands still.
+      //
+      // The visible text and the aria-label are behind the SAME comparison on
+      // purpose: guarding only the text would leave a screen reader announcing
+      // "off" on a row a sighted user reads as "On" — the row's state is one fact
+      // and both renderings of it move together or neither does.
+      const sig = `${on}|${label}`;
+      if (wrap.dataset.mark === sig) return;
+      wrap.dataset.mark = sig;
       wrap.classList.toggle("on", on);
       const tspan = wrap.querySelector(".t");
       if (tspan) tspan.textContent = `${label} · ${on ? "On" : "Off"}`;
@@ -530,9 +687,9 @@
       mark("stAccessibility", a11y, "Accessibility service");
       mark("stVpn", vpn, "Site blocking (VPN)");
       mark("stOverlay", overlay, "Display over other apps");
-      $("a11yStatus").textContent = a11y
+      setText($("a11yStatus"), a11y
         ? "Accessibility service is on — app blocking can run."
-        : "Turn on the FitShield accessibility service to block apps. It only reads which app comes to the front — never screen content.";
+        : "Turn on the FitShield accessibility service to block apps. It only reads which app comes to the front — never screen content.");
       $("a11yOpen").hidden = a11y;
       $("overlayCard").hidden = overlay;   // shown only when the permission is missing
 
@@ -548,9 +705,9 @@
         // on its own front page.
         setup.hidden = a11y || !appBlockingOn || !vpn;
         if (!setup.hidden) {
-          $("appBlockSetupText").textContent =
+          setText($("appBlockSetupText"),
             "Sites are blocked. To also pause food APPS on this phone, FitShield needs Android's " +
-            "accessibility service — it only reads which app comes to the front, never screen content.";
+            "accessibility service — it only reads which app comes to the front, never screen content.");
         }
       }
 
@@ -565,19 +722,19 @@
         $("notifStatus").hidden = notifications;
         $("notifOpen").hidden = notifications;
         if (!notifications) {
-          $("notifStatus").textContent =
+          setText($("notifStatus"),
             "Notifications are turned off for FitShield. If your phone restarts and Android needs your VPN " +
             "confirmation again, FitShield cannot tell you that site blocking stopped — you would find out by " +
-            "opening a site that should have been blocked.";
+            "opening a site that should have been blocked.");
         }
       }
       // Optional background-protection status (battery-optimization exemption).
       if ($("batteryStatus") && ab.batteryUnrestricted) {
         let unrestricted = false;
         try { unrestricted = await ab.batteryUnrestricted(); } catch (e) {}
-        $("batteryStatus").textContent = unrestricted
+        setText($("batteryStatus"), unrestricted
           ? "Battery: unrestricted — the background service won't be paused."
-          : "Battery: optimized. For best reliability, set FitShield to unrestricted.";
+          : "Battery: optimized. For best reliability, set FitShield to unrestricted.");
         $("batteryOpen").hidden = unrestricted;
       }
     }
@@ -639,10 +796,32 @@
     if ($("batteryOpen") && ab.openBatterySettings) {
       $("batteryOpen").addEventListener("click", () => ab.openBatterySettings());
     }
-    // Re-check when returning from a system settings screen.
-    document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshStatuses(); });
+    // Returning from a system settings screen is covered by the single resume
+    // handler in start(), which refreshes the headline and the stats as well as
+    // these rows. The listener that used to sit here refreshed only the
+    // permission rows — and it was registered INSIDE this function, so on any
+    // build where the early return above fires there was no resume refresh at
+    // all.
 
-    try { const n = await ab.packageCount(); if (n) $("appBlockCount").textContent = `${n} app${n === 1 ? "" : "s"} can be blocked (more brands added over time).`; } catch (e) {}
+    // How many apps can be blocked — and, when that is ZERO, saying so.
+    //
+    // This was `if (n)`, so a count of 0 left the line blank. Zero is not a boring
+    // case: `WebAppBridge.appPackageCount()` now reports the size of the matcher the
+    // AccessibilityService actually holds, and the one way it reaches 0 is
+    // `PackageBlocklist.fromAssets` failing to read the generated dataset. That
+    // failure is deliberately absorbed rather than thrown — a crash-looping
+    // accessibility service is worse for the user than app blocking being off — but
+    // absorbing it silently left every category pill showing "on" above a feature
+    // that could not match a single app. This is the existing line for app-blocking
+    // readiness, so it carries the news rather than a new control being invented for
+    // it.
+    try {
+      const n = await ab.packageCount();
+      setText($("appBlockCount"), n
+        ? `${n} app${n === 1 ? "" : "s"} can be blocked (more brands added over time).`
+        : "No apps can be blocked on this build — FitShield could not read its bundled app list, so app blocking " +
+          "is inactive. Site blocking is unaffected. Reinstalling the app should restore it.");
+    } catch (e) {}
 
     // Read the key for EVERY pill, not a hand-written subset. This listed four of
     // the eight category keys, so Coffee, Dessert, Meal kit and Convenience read
@@ -676,7 +855,7 @@
 
     $("appUnlockMinutes").value = Number(s.appUnlockMinutes) || 5;
     $("appUnlockMinutes").addEventListener("change", () =>
-      fs.storage.set({ appUnlockMinutes: Math.max(1, Math.min(240, Number($("appUnlockMinutes").value) || 5)) }));
+      fs.storage.set({ appUnlockMinutes: clampLimit("appUnlockMinutes", $("appUnlockMinutes").value, 5) }));
 
     renderAppList();
     refreshA11y();
@@ -761,7 +940,36 @@
     listEditor("customInput", "customAdd", "customList", "customSites", (x) => (x && x.domain) ? x.domain : String(x));
     listEditor("allowInput", "allowAdd", "allowList", "androidAllowlist", (x) => String(x));
     initTilt();
-    setInterval(() => { renderStatus(); renderStats(); refreshPermissionStatuses(); }, 2000);
+
+    // Everything the poll refreshes, in one place, so the poll and the resume
+    // path cannot drift apart.
+    const tick = () => { renderStatus(); renderStats(); refreshPermissionStatuses(); };
+
+    // ONE resume refresh, and it covers all three.
+    //
+    // The only `visibilitychange` listener used to live inside renderAppBlocking
+    // and call refreshStatuses alone, so the permission rows were re-read on
+    // resume while the headline and the stats were not — and with the poll now
+    // paused while hidden, that would have been the difference between "nothing
+    // is stale on resume" and "two thirds of the screen is". It is registered
+    // here, unconditionally, rather than behind renderAppBlocking's early return.
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) tick(); });
+
+    // THE POLL STAYS, AT THE SAME PERIOD. ARCHITECTURE.md records why: the
+    // permission rows are polled rather than latched because Android publishes no
+    // change event for accessibility-enabled, overlay-granted, notifications-
+    // enabled or battery-unrestricted. Lengthening the period is a user-visible
+    // latency change that wants a device to judge, so it is left alone.
+    //
+    // What changes is that it no longer runs with the app off-screen. MainActivity
+    // has no `onPause` override, so WebView timers are never paused for us, and
+    // this interval was making roughly seven synchronous bridge hops a second —
+    // several of them real binder IPCs (PackageManager, Settings.Global,
+    // Settings.Secure, canDrawOverlays, NotificationManagerCompat, PowerManager) —
+    // forever, including while the user was in another app entirely. That was the
+    // single largest avoidable battery cost in the product, and nothing on screen
+    // could be read while it was being paid.
+    setInterval(() => { if (!document.hidden) tick(); }, 2000);
   }
 
   if (self.FitShieldI18n && self.FitShieldI18n.ready) self.FitShieldI18n.ready.then(start, start);

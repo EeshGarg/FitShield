@@ -97,14 +97,12 @@ them together.
 | Blocklists | `data/blocklists/*.json` | `data/generated/*`, `extension/blocklists/`, `dist/*/blocklists/` |
 | Alternatives | `data/alternatives-taxonomy.json`, `data/alternatives/*.json` | `data/recipes.json`, `extension/data/`, `dist/*/data/` |
 | Changelog | `changelog.json` (root) | `extension/changelog.json` (synced) |
-| Extension shell | `extension/` (hand-authored js/html/manifest) | `dist/chrome/`, `dist/firefox/`, `dist/apple/`, `dist/*.zip` |
-| Manifests | `extension/manifest.json` (Chromium base) | `dist/chrome/manifest.json`, `dist/firefox/manifest.json`, `dist/apple/extension/manifest.json` (Safari, nightly) |
+| Extension shell | `extension/` (hand-authored js/html/manifest) | `dist/chrome/`, `dist/firefox/`, `dist/*.zip` |
+| Manifests | `extension/manifest.json` (Chromium base) | `dist/chrome/manifest.json`, `dist/firefox/manifest.json` |
 
-`node build.js` compiles **every browser target** on each run — Chrome, Firefox,
-and Apple/Safari (macOS + iOS/iPadOS, **nightly**, staged to `dist/apple/` and
-wrapped into an Xcode app on macOS via `tools/build-safari.js`). All three are
-the same payload with a per-browser manifest derivation (`chromeManifest` /
-`firefoxManifest` / `safariManifest` in `build.js`). Android is a separate native
+`node build.js` compiles **both browser targets** on each run — Chrome and
+Firefox. Both are the same payload with a per-browser manifest derivation
+(`chromeManifest` / `firefoxManifest` in `build.js`). Android is a separate native
 pipeline (`npm run build:android`); `npm run build:all` runs everything.
 
 `dist/` is git-ignored — it is entirely reproducible with `node build.js`.

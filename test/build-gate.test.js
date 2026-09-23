@@ -52,13 +52,55 @@ const version = () => JSON.parse(fs.readFileSync(path.join(ROOT, "extension", "m
 // a crash between the two must not be how someone loses their dist/.
 let parked = null;
 
+/**
+ * Rename, retrying briefly while another process still holds the directory.
+ *
+ * `node --test` runs files concurrently, and test/tools.test.js runs the whole
+ * validate-all — which launches Chrome and Firefox with dist/chrome and
+ * dist/firefox as UNPACKED EXTENSION directories. On Windows a directory with an
+ * open handle inside it cannot be renamed, so parking intermittently failed with
+ * EPERM and took all four tests in this file down with it. The browsers release
+ * dist/ as soon as they exit, so the contention is short; waiting it out is the
+ * fix, and giving up loudly is the alternative to silently not parking (which
+ * would let the deliberately-failed-gate test below delete a real dist/).
+ */
+function renameWhenFree(from, to, what) {
+  const deadline = Date.now() + 30000;
+  let last = null;
+
+  for (;;) {
+    try {
+      fs.renameSync(from, to);
+      return;
+    } catch (error) {
+      if (error.code !== "EPERM" && error.code !== "EBUSY" && error.code !== "EACCES") {
+        throw error;
+      }
+
+      last = error;
+
+      if (Date.now() > deadline) {
+        throw new Error(
+          `could not ${what} dist/ after 30s — something still holds it open (${last.code}). ` +
+            "A browser launched by another suite against dist/chrome or dist/firefox is the usual cause."
+        );
+      }
+
+      // Synchronous wait: before/after hooks here are sync, and this must not
+      // interleave with the very work it is waiting to finish.
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 250);
+    }
+  }
+}
+
 function park() {
   if (parked || !fs.existsSync(DIST)) {
     return;
   }
 
-  parked = path.join(os.tmpdir(), `fs-dist-parked-${process.pid}-${Date.now()}`);
-  fs.renameSync(DIST, parked);
+  const target = path.join(os.tmpdir(), `fs-dist-parked-${process.pid}-${Date.now()}`);
+  renameWhenFree(DIST, target, "park");
+  parked = target;
 }
 
 function unpark() {
@@ -69,7 +111,7 @@ function unpark() {
   const from = parked;
   parked = null;
   fs.rmSync(DIST, { recursive: true, force: true });
-  fs.renameSync(from, DIST);
+  renameWhenFree(from, DIST, "restore");
 }
 
 before(park);

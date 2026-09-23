@@ -24,7 +24,7 @@ loaded is the repository **root**.
 
 ```
 npm run sync         # refresh extension/'s committed runtime artifacts (dev loading)
-node build.js        # validates everything, then stages + zips all three targets
+node build.js        # validates everything, then stages + zips both targets
 ```
 
 | Browser | Load unpacked from | Store artifact |
@@ -32,11 +32,9 @@ node build.js        # validates everything, then stages + zips all three target
 | Chrome / Brave / Edge (dev, no build) | `extension/` | — |
 | Chrome / Brave / Edge (store-shaped) | `dist/chrome/` | `dist/FitShield-<version>-chrome.zip` |
 | Firefox (about:debugging → Load Temporary Add-on) | `dist/firefox/manifest.json` | `dist/FitShield-<version>-firefox.zip` (AMO) |
-| Safari (nightly; needs macOS + Xcode to wrap) | `dist/apple/extension/` | `dist/FitShield-<version>-nightly-safari.zip` |
 
-Every `node build.js` run writes all three: `dist/chrome/`, `dist/firefox/`, and
-`dist/apple/`. The Apple payload is staged and zipped on any OS; only the Xcode
-wrapping step is macOS-only (see [`SAFARI.md`](SAFARI.md)).
+Every `node build.js` run writes both: `dist/chrome/` and `dist/firefox/`, each
+with its own manifest derivation and its own zip.
 
 `extension/` loads directly because its runtime artifacts (`blocklist.js`,
 `blocklists/`, `data/recipes.json`, `changelog.json`) are committed there,
@@ -87,7 +85,7 @@ shipped forms:
   keys).
 - **Firefox**: adds `background.scripts`, which is exactly `build.BACKGROUND_SCRIPTS`
   with `background.js` last — today
-  `["blocklist.js", "fitshield-core.js", "background.js"]`
+  `["blocklist.js", "fitshield-core.js", "blocklist-records.js", "background.js"]`
   (Firefox has no background service workers). Stated as the
   contract rather than as a copied literal, because this list was published here
   with two entries while three shipped, and the audit that is supposed to enforce

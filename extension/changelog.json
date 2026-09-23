@@ -2,6 +2,33 @@
   "_note": "Local changelog rendered by whats-new.html. No network fetch — privacy-first. The full, canonical release history lives in changelog/*.md.",
   "entries": [
     {
+      "version": "0.57",
+      "date": "2026-09-22",
+      "title": "Less machinery behind the same product",
+      "changes": [
+        "Every feature, screen and stored setting is unchanged. This release removed work, not behavior: upgrading from 0.56 should feel like nothing happened.",
+        "Apple/Safari support is gone — the build target, the converter tooling, the macOS CI job, the installer, the audit and the docs implying current support. FitShield targets Chromium browsers, Firefox and Android. Old release notes still mention Safari because they were accurate when written.",
+        "A service-worker wake-up no longer parses 814 KB of blocklist JSON and reads the whole profile just to find there is no migration to run — which it did on the path a block page takes while its countdown is already running.",
+        "Dragging the pause-length slider no longer rebuilds about 2,500 blocking rules per input event: neither the pause length nor the pass length is an input to the rule set.",
+        "An unchanged rule set is no longer torn down and rewritten, and one user action now queues one refresh instead of two.",
+        "Country and category policy is evaluated once per pass instead of once per brand — about 10,000 fewer throwaway sets per refresh, identical answers for all 2,505 entries, and 8x faster.",
+        "Settings stopped building about 25,000 DOM nodes for two lists that start collapsed, and the popup stopped re-filtering 2,505 sites every second.",
+        "The animated background now repaints when the time of day actually changes rather than every twelve minutes, which is what its own comment always said it was for.",
+        "Android's two-second permission poll now stops while the app is off screen, and each tick costs roughly half what it did: immutable values are no longer fetched across the bridge, several stored values are read in one crossing instead of one each, and the status card and lists are only rewritten when they differ.",
+        "Android accepted a pause length it then refused to honor: the dashboard took any value from 10 seconds upward and the block screen counted down at most 300. Both sides now agree on the stated 10-900 range.",
+        "Android was dropping 'delivery' - 373 hosts, and a category the picker offers - from the shared most-blocked counter, because it still carried the pre-fix form of the rule-bucket exclusion.",
+        "'Open anyway' now covers a brand's alias domains. The unlock was stored against the brand but looked up by exact host, so four shipped brands re-blocked the user on the site they had just been let through.",
+        "A custom site that is not a domain is refused instead of confirmed: typing 'doordash' or '.com' produced a rule that could never match while Settings said it had been added. Three separate validators for this became one.",
+        "The friction label (Light / Standard / Strict / Custom) now reflects every value a preset writes, not two of six - so turning 'Ask what brought me here' off no longer leaves the label reading 'Standard'.",
+        "Android now normalizes a typed hostname exactly as the engine does, verified by running the compiled Kotlin and the engine over the same 27 inputs. A pasted URL or a trailing dot in the allow list used to produce an entry that could never match.",
+        "The Play listing stopped describing two Android defects that were already fixed; the test meant to catch that had been matching the comments left behind explaining the fixes.",
+        "One implementation instead of several: the worker no longer duplicates the shared site-record logic, the settings-key list has a single home, Android uses the shared country namer, and the asset-copy list is no longer duplicated between the bundler and its own audit.",
+        "Packages got slightly larger, not smaller - the Chrome archive from 732,062 to 742,371 bytes - because the cheaper paths carry the explanation of why they are equivalent, plus new tests that execute behavior rather than grep for it.",
+        "Still local-only: no telemetry, no accounts, no network calls, no cloud, and the same three permissions.",
+        "The catalog is unchanged: 2,505 brands across 111 markets in 21 curated categories, answered by 88 alternatives - 46 full recipes and 42 quick fixes. Nothing was added, removed or recategorized."
+      ]
+    },
+    {
       "version": "0.56",
       "date": "2026-08-26",
       "title": "Contact with a real phone",

@@ -21,6 +21,7 @@ browser-compatibility notes.
 
 | Version | Date | Theme |
 | --- | --- | --- |
+| [0.57](0.57.md) | 2026-09-22 | Less machinery behind the same product |
 | [0.56](0.56.md) | 2026-08-26 | Contact with a real phone |
 | [0.55](0.55.md) | 2026-08-09 | The block succeeded. Now what? |
 | [0.54](0.54.md) | 2026-07-03 | Play groundwork, with the app-coverage tail closed |

@@ -4,9 +4,31 @@ Living documentation of where FitShield is and where it's heading. This file is
 meant to evolve with the project — update it whenever direction changes. It
 avoids speculative promises; "Future ideas" are candidates, not commitments.
 
-_Last updated: 2026-08-26 (0.56)_
+_Last updated: 2026-09-22 (0.57)_
 
 ## Current version
+
+**0.57 — Less machinery behind the same product.** See [0.57.md](0.57.md). The last
+release before 1.0, and deliberately boring from the outside: every feature,
+screen and stored setting is unchanged. Underneath, the service worker stopped
+parsing 814 KB of blocklist JSON on every wake-up to discover it had nothing to
+do, a slider drag stopped rebuilding ~2,500 blocking rules per input event, an
+unchanged rule set stopped being rewritten, Settings stopped building ~25,000 DOM
+nodes for two collapsed lists, and Android's two-second poll stopped running while
+the app is off screen. Seven real defects were fixed along the way, including a
+pause length Android accepted and then refused to honour, a custom-site validator
+that confirmed blocks it was not performing, and an "Open anyway" that did not
+cover a brand's alias domains.
+
+**Apple/Safari support was removed.** It was experimental, needed macOS and Xcode
+to finish, and could never be verified on the hardware it targeted. FitShield
+targets Chromium browsers, Firefox and Android. Historical release notes still
+mention Safari, because they were accurate when written.
+
+The catalog is unchanged by this release: 2,505 brands across 111 markets,
+in 21 curated categories, answered by 88 alternatives.
+
+## Previous version
 
 **0.56 — Contact with a real phone.** See [0.56.md](0.56.md). FitShield ran on
 real Android hardware for the first time, and seven defects that no test could
@@ -15,10 +37,7 @@ network without working IPv6. Two controls that did nothing now work, the pause
 countdown survives a rotation, and the decisions behind all of it are executed by
 the suite rather than inferred from source.
 
-The catalog is unchanged by this release: 2,505 brands across 111 markets,
-in 21 curated categories, answered by 88 alternatives.
-
-## Previous version
+## Earlier version
 
 **0.55 — The block succeeded. Now what?** See [0.55.md](0.55.md). Highlights:
 
@@ -49,7 +68,11 @@ in 21 curated categories, answered by 88 alternatives.
   head-office pages. The catalog is 2,505 brands across 111 markets, in 21
   curated categories.
 
-## Next planned version (0.57)
+## Next planned version (1.0)
+
+0.57 was the last pre-1.0 release, and it was spent on leanness rather than
+features. What is left for 1.0 is mostly execution that needs people, hardware or
+a store console rather than more code.
 
 Themes under consideration (subject to change):
 
@@ -62,16 +85,24 @@ Themes under consideration (subject to change):
   [PLAY_STORE_RELEASE_CHECKLIST.md](../docs/PLAY_STORE_RELEASE_CHECKLIST.md).
   Any submission from 31 August 2026 must also target API 36.
   The store listing copy in
-  [STORE_LISTING_DRAFT.md](../docs/STORE_LISTING_DRAFT.md) is written against
-  0.55 and needs screenshots and a feature graphic before it can be submitted.
-- **Android hardening.** IPv6 filtering and boot restore both landed on
-  2026-08-26 and are off this list; what is left is broader device/OEM testing
-  (including an IPv6-only network and a reboot on real hardware) and
-  instrumented-test runs in CI.
+  [STORE_LISTING_DRAFT.md](../docs/STORE_LISTING_DRAFT.md) still needs screenshots
+  and a feature graphic before it can be submitted.
+- **Android hardening.** What is left is broader device/OEM testing (including an
+  IPv6-only network and a reboot on real hardware) and instrumented-test runs in
+  CI.
+- **Two Android divergences 0.57 documented rather than settled**, both in
+  [docs/ANDROID.md](../docs/ANDROID.md) §2e: the schedule's day-of-week list has
+  no Android equivalent (unreachable today, because the Android schedule UI is a
+  single start/end pair), and marking an app "Allowed" stops the pause screen
+  while the traffic filter decides separately.
 - **Data quality pass.** Continue the `needs_review` app-status tail; audit the
   wrong-country metadata cluster the 0.54 sweep flagged (many entries tagged
   `["JP"]` that are not Japanese); periodic re-verification of delisted apps.
 - **Verify Firefox for Android** on-device (extension DNR path).
+- **Delete the retired-Safari cleanup from `build.js`.** `removeRetiredAppleArtifacts`
+  and `RETIRED_SAFARI_ZIP` exist only to sweep a `dist/` that last built at 0.56,
+  and they are the one remaining reason the word "safari" appears in the build. At
+  1.0 that case is not worth carrying code for; remove them with their test.
 
 ## Earlier milestone detail (0.53 Android steps)
 

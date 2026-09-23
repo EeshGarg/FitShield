@@ -125,8 +125,8 @@ test("packaged block page: engine datasets and the recipe catalog are in the pac
 // app-package datasets — ~1.5 MB of `com.dd.doordash`-style ANDROID package
 // names. No browser can act on an Android package name, and no file under
 // extension/ reads them: the only data/ path the browser runtime ever fetches
-// is data/recipes.json. They were nevertheless copied into the Chrome, Firefox
-// and Safari packages on every build and shipped to every user and both store
+// is data/recipes.json. They were nevertheless copied into both the Chrome and
+// Firefox packages on every build and shipped to every user and both store
 // reviews. The exclusion is asserted against the staged BYTES, not against the
 // DIRS table, so re-adding them by any route fails here.
 // ---------------------------------------------------------------------------

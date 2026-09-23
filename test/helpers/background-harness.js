@@ -119,7 +119,9 @@ function loadBackground(initialStore, options) {
           (Array.isArray(keys) ? keys : [keys]).forEach((k) => delete store[k]);
         }
       },
-      onChanged: { addListener: () => {} }
+      // Was a no-op, which left the worker's storage-change path — how nearly
+      // every settings edit reaches the rule builder — unreachable from a test.
+      onChanged: { addListener: (fn) => { listeners.changed = fn; } }
     },
     tabs: {
       query: async () => openTabs.slice(),
@@ -134,8 +136,14 @@ function loadBackground(initialStore, options) {
     },
     declarativeNetRequest: {
       _rules: [],
+      // How many times the worker actually asked the browser to REPLACE the rule
+      // set. Chrome persists dynamic rules and re-indexes its matcher on every
+      // such call, so "did this action write rules at all" is a behaviour worth
+      // asserting, not just "what rules ended up installed".
+      _writes: 0,
       getDynamicRules: (cb) => cb(chrome.declarativeNetRequest._rules),
       updateDynamicRules: (config, cb) => {
+        chrome.declarativeNetRequest._writes += 1;
         chrome.declarativeNetRequest._rules = config.addRules || [];
         cb();
       }
@@ -222,7 +230,31 @@ function loadBackground(initialStore, options) {
     createdTabs: () => listeners.created || [],
     setOpenTabs: (tabs) => { openTabs = tabs; },
     rules: () => chrome.declarativeNetRequest._rules,
-    fetchCount: () => fetchCount
+    ruleWrites: () => chrome.declarativeNetRequest._writes,
+    fetchCount: () => fetchCount,
+
+    /**
+     * Write keys and fire storage.onChanged the way the browser does — same
+     * `{ key: { oldValue, newValue } }` shape, same "local" area — so a test can
+     * exercise the path a real settings edit takes instead of calling the
+     * worker's internals. Returns the listener's promise where there is one, so
+     * a test can await the refresh it triggers.
+     */
+    changeStorage: async (changes, area) => {
+      const payload = {};
+
+      Object.keys(changes).forEach((key) => {
+        payload[key] = { oldValue: store[key], newValue: changes[key] };
+        store[key] = changes[key];
+      });
+
+      if (listeners.changed) {
+        await listeners.changed(payload, area || "local");
+      }
+
+      // Let the worker's refresh chain settle before the test looks.
+      await evalIn("refreshChain").catch(() => {});
+    }
   };
 }
 

@@ -279,10 +279,19 @@
       the result. The schedule now covers the connection filter too.
     -->
     <p class="note">Saved on device. The schedule applies to both site blocking and app blocking. The timer is the countdown on the pause screen a blocked app shows.</p>
+    <!--
+      min AND max on both, matching the ranges extension/fitshield-core.js
+      exports (timerSeconds 10..900, passDurationMinutes 1..240) and the
+      `coerceIn` in BlockActivity.kt / AppBlockPolicy.kt. Both of these carried a
+      min and no max, so the dashboard accepted 600 seconds, stored it and showed
+      it back while the pause screen counted down for 300 — a value the user set,
+      that the product kept, and that nothing honoured. The maxima are the whole
+      fix on this side: see the LIMITS table in app.js.
+    -->
     <label data-i18n="timerDurationLabel" for="timerSeconds">Timer duration</label>
-    <input id="timerSeconds" type="number" min="10" step="5" inputmode="numeric">
+    <input id="timerSeconds" type="number" min="10" max="900" step="5" inputmode="numeric">
     <label data-i18n="siteOpenTimeLabel" for="passMinutes">Site open time</label>
-    <input id="passMinutes" type="number" min="1" step="1" inputmode="numeric">
+    <input id="passMinutes" type="number" min="1" max="240" step="1" inputmode="numeric">
     <label><input type="checkbox" id="scheduleEnabled"> <span data-i18n="popupScheduleLabel">Block only during scheduled hours</span></label>
     <div class="row" style="margin-top:8px">
       <div style="flex:1"><label data-i18n="startTimeLabel" for="scheduleStart">Start time</label><input id="scheduleStart" type="time"></div>

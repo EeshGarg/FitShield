@@ -22,10 +22,10 @@ const BLOCKLIST_FILES = ["blocklists/fast-food.json", "blocklists/delivery.json"
 let loadedEntries = [];
 
 // Resolve the WebExtension runtime from whichever namespace the engine is loaded
-// under: `chrome` (Chrome/Brave/Edge, and also exposed by Safari and Firefox) or
-// `browser` (the WebExtension standard, some Firefox contexts). Either lets the
-// engine fetch its datasets by extension-relative URL, so the same bundle runs
-// on every supported browser; in Node both are absent and we read from disk.
+// under: `chrome` (Chrome/Brave/Edge, and also exposed by Firefox) or `browser`
+// (the WebExtension standard, some Firefox contexts). Either lets the engine
+// fetch its datasets by extension-relative URL, so the same bundle runs on every
+// supported browser; in Node both are absent and we read from disk.
 const webextRuntime =
   (typeof chrome !== "undefined" && chrome.runtime && typeof chrome.runtime.getURL === "function")
     ? chrome.runtime
@@ -60,7 +60,32 @@ async function readBlocklistFile(relativePath, options) {
  *
  * @param {object} [options] - { dataDir } (Node only; ignored in extensions)
  */
+// In an extension the datasets are immutable files at fixed extension-relative
+// paths, so loading them twice in one page can only ever produce the same list.
+// It was producing it twice: the settings page calls loadBlocklists from two
+// independent initializers, which meant fetching and JSON.parsing 814 KB twice on
+// one page load. Held as the promise, so two concurrent callers share one read.
+//
+// Node is deliberately NOT cached: `dataDir` is a per-call argument there, and
+// the tooling loads different datasets in one process.
+let extensionLoadPromise = null;
+
 async function loadBlocklists(options) {
+  if (isExtension) {
+    if (!extensionLoadPromise) {
+      extensionLoadPromise = readAllBlocklists(options).catch((error) => {
+        extensionLoadPromise = null; // a failed load must not be remembered
+        throw error;
+      });
+    }
+
+    return extensionLoadPromise;
+  }
+
+  return readAllBlocklists(options);
+}
+
+async function readAllBlocklists(options) {
   const datasets = await Promise.all(
     BLOCKLIST_FILES.map((file) => readBlocklistFile(file, options))
   );

@@ -164,12 +164,12 @@ test("a deferral bucket in the report is rejected", () => {
 });
 
 test("external-only items are classified separately from repository-local work", () => {
-  // The four genuinely-unavailable environments are named in the policy, each
+  // The three genuinely-unavailable environments are named in the policy, each
   // with its local prerequisites already complete — so they can never be used to
   // shelter unrelated repository work.
   const ids = POLICY.external_only_allowed.map((item) => item.id);
 
-  assert.deepEqual(ids.sort(), ["android-apk", "human-acceptance", "safari-xcode", "screen-reader"]);
+  assert.deepEqual(ids.sort(), ["android-apk", "human-acceptance", "screen-reader"]);
 
   POLICY.external_only_allowed.forEach((item) => {
     assert.ok(item.reason && item.requires, `${item.id} must say why and what it needs`);
@@ -178,7 +178,7 @@ test("external-only items are classified separately from repository-local work",
 
   // A report may list these; they are not repository-local findings.
   withReport(
-    `${CLEAN_REPORT}\n\n## External validation items\n\n- Safari Xcode wrapper — needs macOS\n`,
+    `${CLEAN_REPORT}\n\n## External validation items\n\n- On-device Android blocking — needs a physical device\n`,
     () => assert.deepEqual(policyAudit().errors, [])
   );
 });

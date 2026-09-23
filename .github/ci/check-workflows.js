@@ -119,10 +119,10 @@ function selfTestParser() {
 /* ------------------------------------------------------------------ *
  * 1b. Prove the two guards that stand between CI and a false green.
  *
- * run-a11y.js exists to catch an audit that skipped; safari-xcode.js exists to
- * catch a converter command that drifted from its documentation. Both are
- * checks, and an unchecked check is decoration — so they carry self-tests and
- * this runs them.
+ * Each of these exists to catch a CI step that reported success without doing
+ * its job — an audit that skipped, a browser run that never started, a
+ * validator suite that did nothing. They are checks, and an unchecked check is
+ * decoration — so they carry self-tests and this runs them.
  * ------------------------------------------------------------------ */
 
 function selfTestGuards() {
@@ -134,8 +134,7 @@ function selfTestGuards() {
   const guards = [
     [".github/ci/run-a11y.js", "the accessibility skip guard"],
     [".github/ci/run-firefox.js", "the Firefox skip guard"],
-    [".github/ci/run-validate.js", "the validator-suite skip guard"],
-    [".github/ci/safari-xcode.js", "the Safari converter drift check"]
+    [".github/ci/run-validate.js", "the validator-suite skip guard"]
   ];
 
   const results = [];

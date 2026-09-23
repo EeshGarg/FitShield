@@ -118,14 +118,15 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 > exactly those three and nothing else. The extension's block page shows the
 > full card; the phone's does not, and the two must not be described as one.
 >
-> *May not be, until the Android lane lands the fix:* that the in-app
-> **Alternatives** panel lets you browse the catalog with ingredients and steps.
-> Two things are wrong with it today, and both have been routed: it renders only
-> the first 24 of the 88 entries, and its ingredient line is
-> `(r.ingredients || []).join(", ")` over an array of `{quantity, unit, item}`
-> objects, so a real device prints `[object Object], [object Object], …`. When
-> that is fixed, add the bullet back — `test/play-release.test.js` will fail
-> until this paragraph goes with it.
+> *May be:* that the in-app **Alternatives** panel lets you browse the whole
+> catalog with ingredients. Every entry is rendered, with a search field and a
+> count stating how many of how many are on screen, and each ingredient reads as a
+> phrase the extension would use — `test/android-alternatives.test.js` runs the
+> extension's own formatter over every ingredient in the shipped catalog and fails
+> if the phone phrases one differently. (This note used to disclaim two defects
+> here; both are fixed, and `changelog/0.57.md` records them.)
+>
+> *May not be:* that the panel shows **steps**. It shows ingredients.
 >
 > *May not be:* that a temporary pass **says how long it lasts**. On Android the
 > pass is genuinely scoped — `AppBlockPolicy.unlock()` stores an expiry against
@@ -152,8 +153,8 @@ status/nav bars look best). Suggested set, in order:
 2. **Block screen** — DoorDash example: brand, reason, timer, alternative, actions.
 3. **App-blocking panel** — category pills + the three status indicators.
 4. **Schedule & timers** — blocking options panel.
-5. **Alternatives** — a card expanded. **Hold this shot** until the ingredient
-   rendering is fixed; today it screenshots as `[object Object]`.
+5. **Alternatives** — a card expanded, with the search field visible and the
+   count line reading how many of how many match.
 6. **Theme customization** — color pickers mid-edit, a non-default accent.
 7. **Language picker** — showing localization breadth.
 8. **Stats detail** — most-blocked sites / categories / countries / apps.
@@ -199,7 +200,10 @@ order", "Your stats stay on-device".
 (454 chars of the 500 allowed. Counted, not estimated — the previous draft
 claimed 392 for a block that was a different length.)
 
-**versionCode 1 · versionName 0.54 (first upload):**
+**versionCode 1 · first upload** (the `versionName` is whatever
+`extension/manifest.json` carries at build time — `tools/build-android.js`
+injects it, so there is no number to maintain here; this draft said `0.54` for
+three releases):
 
 > First release of FitShield for Android.
 > • Blocks food-delivery & fast-food websites with a local, on-device filter — no traffic ever leaves your phone

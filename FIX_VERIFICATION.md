@@ -22,7 +22,7 @@ canonical `FS Engine/` + `data/` by `npm run sync`), so Chrome can load
 For a store-shaped package (and Firefox), build it:
 
 ```
-node build.js            # validates, then writes dist/chrome + dist/firefox + dist/apple (+ zips)
+node build.js            # validates, then writes dist/chrome + dist/firefox (+ zips)
 # chrome://extensions → Developer mode → Load unpacked → select dist/chrome
 ```
 
@@ -40,7 +40,7 @@ prints a loud, actionable error instead of failing silently (see “Diagnostics�
 npm run sync                 # regenerate extension/'s committed runtime artifacts
 npm test                     # tests incl. block-page render, engine bundle, sync freshness
 npm run validate             # audits: manifest, permissions, SW↔engine linkage, sync, CSP…
-npm run build                # validation-gated packaging → dist/chrome + dist/firefox + dist/apple
+npm run build                # validation-gated packaging → dist/chrome + dist/firefox
 npm run verify:unpacked          # DYNAMIC: build a package, load its engine, block a real domain
 npm run verify:unpacked extension  # same, but against the extension/ source folder directly
 ```

@@ -42,7 +42,7 @@ FS Engine/   blocking engine, CommonJS, code only, zero data, zero deps
 data/        canonical datasets (blocklists/, recipes.json, android/, generated/)
 extension/   Chrome/Firefox shell (manifest, pages, shims, _locales, icons)
 android/     native app reusing the engine's generated rules + shared web assets
-build.js     FS Engine + data + extension  ->  dist/{chrome,firefox,apple} + zips
+build.js     FS Engine + data + extension  ->  dist/{chrome,firefox} + zips
 ```
 
 Hard contracts discovered (must not be broken silently):
@@ -50,7 +50,7 @@ Hard contracts discovered (must not be broken silently):
 | Contract | Enforced by |
 | --- | --- |
 | `background.js` may `importScripts` **only** `blocklist.js` and `fitshield-core.js` | `tools/service-worker-audit.js` |
-| Firefox manifest `background.scripts` is exactly `build.BACKGROUND_SCRIPTS` — `["blocklist.js", "fitshield-core.js", "background.js"]`, with `background.js` last | `tools/extension-audit.js` |
+| Firefox manifest `background.scripts` is exactly `build.BACKGROUND_SCRIPTS` — `["blocklist.js", "fitshield-core.js", "blocklist-records.js", "background.js"]`, with `background.js` last | `tools/extension-audit.js` |
 | Every `.js`/`.html` in `extension/` is staged by `build.js` (no orphans) | `tools/extension-audit.js` |
 | No inline `<script>` on any page (MV3 CSP) | `tools/extension-audit.js` |
 | Packaged block-page dependency graph is closed | `build.js verifyStage`, `test/block-page.test.js` |

@@ -50,10 +50,15 @@ if (typeof importScripts === "function") {
     if (typeof FitShieldCore === "undefined") {
       importScripts("fitshield-core.js");
     }
+
+    if (typeof FitShieldBlocklistRecords === "undefined") {
+      importScripts("blocklist-records.js");
+    }
   } catch (error) {
     FS_DIAG.bootError =
-      'Could not load "blocklist.js" (the FS Engine bundle) and/or "fitshield-core.js" ' +
-      "(the shared decision layer). The loaded folder is missing a runtime file. " +
+      'Could not load "blocklist.js" (the FS Engine bundle), "fitshield-core.js" ' +
+      '(the shared decision layer) and/or "blocklist-records.js" (the shared site-record ' +
+      "helpers). The loaded folder is missing a runtime file. " +
       "Fix: run `npm run sync` (regenerates extension/blocklist.js) or `node build.js`, " +
       "then Load unpacked from extension/ or dist/chrome.";
     console.error("[FitShield] FATAL:", FS_DIAG.bootError, error);
@@ -94,44 +99,25 @@ const SCHEDULE_ALARM = "scheduleBoundaryReached";
 
 // Storage keys the worker reads. Kept explicit rather than get(null) so the
 // worker never depends on unrelated keys existing.
-const SETTINGS_KEYS = [
-  "schemaVersion",
-  "enabled",
-  "timerSeconds",
-  "passDurationMinutes",
-  "frictionProfile",
-  "askIntent",
-  "repeatFrictionEnabled",
-  "repeatExtraSeconds",
-  "schedule",
-  "scheduleEnabled",
-  "scheduleStart",
-  "scheduleEnd",
-  "deliverySitesEnabled",
-  "fastFoodSitesEnabled",
-  "customSitesEnabled",
-  "disabledDeliverySiteKeys",
-  "disabledFastFoodSiteKeys",
-  "customSites",
-  "passes",
-  "siteBypasses",
-  "repeatHistory",
-  "enabledCountries",
-  "enabledCategories",
-  "quickAccessCountries",
-  "quickAccessCategories",
-  "dietPreference",
-  "pantry",
-  "equipment",
-  "avoidAllergens",
-  "alternativeFavorites",
-  "recentAlternatives",
-  "dismissedAlternatives",
-  "customAlternatives",
-  "stats",
-  "showEstimates",
-  "recapEnabled"
-];
+// Sourced from FitShieldCore.SETTINGS_KEYS so there is one list, minus what the
+// worker has no use for. The copy this replaces was hand-maintained and had
+// drifted twice over: it fetched `siteBypasses` (which readSettings drops) and
+// omitted the five keys below without meaning to.
+//
+// The subtraction is deliberate, not an oversight. The worker never renders a
+// theme, and it reads the three count maps directly where it increments them
+// (recordBlockedBrand) rather than through readSettings. Keeping them out also
+// keeps them out of getBlockState's reply, which is cloned to every page that
+// asks — and `blockedBy*` are unbounded, lifetime-cumulative maps.
+const WORKER_UNUSED_SETTINGS = new Set([
+  "blockedByDomain",
+  "blockedByCategory",
+  "blockedByCountry",
+  "theme",
+  "themeMode"
+]);
+
+const SETTINGS_KEYS = FitShieldCore.SETTINGS_KEYS.filter((key) => !WORKER_UNUSED_SETTINGS.has(key));
 
 // The legacy delivery/fast-food site lists are sourced from the JSON blocklists.
 // They are populated on demand by ensureBlocklistsLoaded() and keep the
@@ -141,51 +127,14 @@ let FAST_FOOD_SITES = [];
 let blocklistsLoaded = false;
 let blocklistLoadPromise = null;
 
-// Legacy keys stripped the TLD, which caused regional domains to collide
-// ("mcdonalds.com" and "mcdonalds.cl" both became "mcdonalds"). Kept only so
-// existing saved disabled-site preferences still apply.
-function legacyDomainToKey(domain) {
-  return String(domain || "")
-    .toLowerCase()
-    .replace(/\.[a-z]+$/, "")
-    .replace(/[^a-z0-9]/g, "");
-}
-
-function domainToKey(domain, type) {
-  const bucket = String(type || "site")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-  const host = String(domain || "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-  return `${bucket}-${host}`;
-}
-
-function entryToSiteRecord(entry) {
-  const domains = FitShieldBlocklist.getEntryDomains(entry);
-  const domain = domains[0] || FitShieldBlocklist.normalizeHostname(entry.domain);
-  const aliases = domains.slice(1);
-
-  return {
-    key: domainToKey(domain, entry.type),
-    legacyKey: legacyDomainToKey(domain),
-    label: entry.name || domain,
-    match: domain,
-    home: `https://www.${domain}/`,
-    domain,
-    apex: domain,
-    aliases,
-    type: entry.type || "",
-    countries: Array.isArray(entry.countries) ? entry.countries : [],
-    regions: Array.isArray(entry.regions) ? entry.regions : [],
-    category: entry.category || "",
-    specialties: Array.isArray(entry.specialties) ? entry.specialties : [],
-    enabled: entry.enabled !== false
-  };
-}
+// Site-record shape and key derivation come from FitShieldBlocklistRecords
+// (blocklist-records.js). This file used to carry its own copies of
+// legacyDomainToKey, domainToKey, entryToSiteRecord and the type:domain dedupe,
+// byte-identical to that module by hand — the site keys the settings page writes
+// (disabled*SiteKeys) are the ones this worker reads, so any drift silently
+// unblocks or re-blocks brands. A test pinned the two copies equal, which is a
+// guard against a duplication that no longer needs to exist: there is now one
+// implementation and both callers use it.
 
 async function ensureBlocklistsLoaded() {
   if (blocklistsLoaded) {
@@ -199,17 +148,7 @@ async function ensureBlocklistsLoaded() {
   if (!blocklistLoadPromise) {
     blocklistLoadPromise = FitShieldBlocklist.loadBlocklists()
       .then((entries) => {
-        const recordsByTypeAndDomain = new Map();
-
-        entries.map(entryToSiteRecord).forEach((record) => {
-          const dedupeKey = `${record.type}:${record.domain}`;
-
-          if (!recordsByTypeAndDomain.has(dedupeKey)) {
-            recordsByTypeAndDomain.set(dedupeKey, record);
-          }
-        });
-
-        const records = [...recordsByTypeAndDomain.values()];
+        const records = FitShieldBlocklistRecords.buildSiteRecords(entries, FitShieldBlocklist);
         DELIVERY_SITES = records.filter((record) => record.type === "delivery");
         FAST_FOOD_SITES = records.filter((record) => record.type === "fast_food");
         blocklistsLoaded = true;
@@ -244,6 +183,21 @@ let migrationPromise = null;
 async function ensureMigrated() {
   if (!migrationPromise) {
     migrationPromise = (async () => {
+      // Check the schema stamp before doing any of the expensive work below.
+      // migrateState returns `changed: false` without writing anything once the
+      // profile is at SCHEMA_VERSION, so for every profile past its first wake
+      // the catalog load (814 KB of JSON) and the full-storage read were pure
+      // cost — paid on every worker generation, and paid on the entry path of
+      // recordEvent / recordAlternativeShown / getSettings, which a block page
+      // hits while a countdown is already running.
+      const stamp = await chrome.storage.local.get([FitShieldCore.SCHEMA_KEY]);
+
+      if (FitShieldCore.storedVersion(stamp) >= FitShieldCore.SCHEMA_VERSION) {
+        FS_DIAG.schemaVersion = FitShieldCore.SCHEMA_VERSION;
+        FS_DIAG.migration = "up to date";
+        return;
+      }
+
       // A 0.54 site key flattened dots AND hyphens to "-", so recovering the
       // domain behind "delivery-just-eat-com" needs the real catalog to say
       // whether it was just-eat.com or just.eat.com. Loading it here is best
@@ -299,45 +253,31 @@ async function openTabIds() {
   }
 }
 
-function mergeSitesWithEnabledState(sites, disabledKeys) {
-  const disabledSet = new Set(disabledKeys || []);
-  return sites.map((site) => ({
-    ...site,
-    enabled: !disabledSet.has(site.key) && !disabledSet.has(site.legacyKey)
-  }));
-}
+// Deliberately builds fresh records on every call rather than memoizing them.
+//
+// Memoizing was tried and reverted: the catalogs are stable per worker generation
+// so a cache is easy, but it makes every caller share one set of mutable objects,
+// and a single stray `site.enabled = …` anywhere would then silently change what
+// the next reader — including the rule builder — sees. Measured, the copying it
+// would save is 0.12 ms per call against ~2,500 records. That is not a price
+// worth paying for shared mutable state in the blocking path.
+const mergeSitesWithEnabledState = (sites, disabledKeys) =>
+  FitShieldBlocklistRecords.mergeEnabledState(sites, disabledKeys);
 
-function normalizeCustomDomain(value) {
-  const trimmed = String(value || "").trim().toLowerCase();
-
-  if (!trimmed) {
-    return null;
-  }
-
-  const withProtocol = trimmed.includes("://") ? trimmed : `https://${trimmed}`;
-
-  try {
-    const url = new URL(withProtocol);
-    return url.hostname.replace(/^www\./, "");
-  } catch {
-    return null;
-  }
-}
-
-function createCustomSiteRecord(entry) {
-  if (typeof entry === "string") {
-    const domain = normalizeCustomDomain(entry);
-    return domain ? { domain, enabled: true } : null;
-  }
-
-  if (!entry || typeof entry !== "object") {
-    return null;
-  }
-
-  const domain = normalizeCustomDomain(entry.domain);
-  return domain ? { domain, enabled: entry.enabled !== false } : null;
-}
-
+// Custom-site normalization lives in FitShieldCore.normalizeCustomSites, and it
+// is now the only copy. This file and settings.js each carried their own, built on
+// `new URL()`, which accepted anything the URL parser could parse:
+//
+//   "doordash"     -> a rule for ||doordash, which matches nothing, while the
+//                     Settings page said "Added to blocklist: doordash"
+//   ".com"         -> the same
+//   "example.com." -> a rule with the trailing dot, which never matches, and a
+//                     block page that could not resolve it either
+//
+// So the product confirmed a block it was not performing. Core requires the value
+// to look like a domain and returns the same host for a pasted URL, a "www."
+// prefix or a trailing dot — and it already deduplicates and caps the list, which
+// is why getSettings no longer does either.
 function getCustomSiteKey(domain) {
   return `custom-${domain.replace(/[^a-z0-9]+/g, "-")}`;
 }
@@ -348,15 +288,14 @@ async function getSettings() {
 
   const raw = await chrome.storage.local.get(SETTINGS_KEYS);
   const settings = FitShieldCore.readSettings(raw);
-  const customSites = Array.isArray(raw.customSites)
-    ? raw.customSites.map(createCustomSiteRecord).filter(Boolean)
-    : [];
 
+  // readSettings has already normalized customSites through core. This used to
+  // re-derive them with a local, more permissive normalizer and overwrite core's
+  // answer, which is what let the two disagree.
   return {
     ...settings,
     deliverySites: mergeSitesWithEnabledState(DELIVERY_SITES, settings.disabledDeliverySiteKeys),
-    fastFoodSites: mergeSitesWithEnabledState(FAST_FOOD_SITES, settings.disabledFastFoodSiteKeys),
-    customSites: [...new Map(customSites.map((site) => [site.domain, site])).values()]
+    fastFoodSites: mergeSitesWithEnabledState(FAST_FOOD_SITES, settings.disabledFastFoodSiteKeys)
   };
 }
 
@@ -408,16 +347,23 @@ function getRuleCatalog(settings) {
       );
   }
 
-  const brandedSites = [...settings.deliverySites, ...settings.fastFoodSites];
+  // Built once for the whole pass, not once per entry. shouldBlockByCountry /
+  // shouldBlockByCategory each build a code Set from the user's enabled list on
+  // every call, so testing ~2,500 entries meant ~5,000 Set allocations per pass.
+  // Same policy, same answers — see countryFilter / categoryFilter in FS Engine.
+  const blockedByCountry = FitShieldBlocklist.countryFilter(settings.enabledCountries);
+  const blockedByCategory = FitShieldBlocklist.categoryFilter(settings.enabledCategories);
 
-  brandedSites.forEach((site) => {
-    const blockedByCountry = FitShieldBlocklist.shouldBlockByCountry(site, settings.enabledCountries);
-    const blockedByCategory = FitShieldBlocklist.shouldBlockByCategory(site, settings.enabledCategories);
-
-    if (blockedByCountry || blockedByCategory) {
+  const considerBranded = (site) => {
+    if (blockedByCountry(site) || blockedByCategory(site)) {
       addSite(site, site.type === "delivery" ? "delivery" : "fastfood");
     }
-  });
+  };
+
+  // Two walks rather than one spread: the spread built a fresh ~2,500-element
+  // array on every catalog pass purely to iterate it once.
+  settings.deliverySites.forEach(considerBranded);
+  settings.fastFoodSites.forEach(considerBranded);
 
   return [...byDomain.values()];
 }
@@ -448,15 +394,19 @@ function toUrlFilterHost(domain) {
 function createRules(settings, blockToken) {
   const rules = [];
 
-  getRuleCatalog(settings).forEach((site) => {
-    const warningUrl = new URL(chrome.runtime.getURL("warning.html"));
-    warningUrl.searchParams.set("site", site.key);
+  // Built once, not per site. A `URL` + two `searchParams.set` + `toString()` per
+  // site cost ~9ms across the catalog against ~0.3ms for concatenation, on the
+  // worker, on the path a pass grant waits for. The result is byte-identical:
+  // every site key is `[a-z0-9-]+` (domainToKey / getCustomSiteKey both collapse
+  // to it) and the token is hex, so nothing here ever needed escaping.
+  //
+  // Provenance: the token is what separates a block page WE redirected to from
+  // one a website navigated the tab to itself. See ensureBlockPageToken.
+  const urlBase = `${chrome.runtime.getURL("warning.html")}?site=`;
+  const urlToken = blockToken ? `&${BLOCK_TOKEN_PARAM}=${blockToken}` : "";
 
-    // Provenance. See ensureBlockPageToken: this is what separates a block page
-    // WE redirected to from one a website navigated the tab to itself.
-    if (blockToken) {
-      warningUrl.searchParams.set(BLOCK_TOKEN_PARAM, blockToken);
-    }
+  getRuleCatalog(settings).forEach((site) => {
+    const redirectUrl = urlBase + site.key + urlToken;
 
     const matchDomains = [site.match, ...(Array.isArray(site.aliases) ? site.aliases : [])]
       .map(toUrlFilterHost)
@@ -465,7 +415,7 @@ function createRules(settings, blockToken) {
     new Set(matchDomains).forEach((matchDomain) => {
       rules.push({
         priority: 1,
-        action: { type: "redirect", redirect: { url: warningUrl.toString() } },
+        action: { type: "redirect", redirect: { url: redirectUrl } },
         condition: {
           // "||" anchors to a domain-name boundary so subdomains match but
           // look-alikes (e.g. fake-mcdonalds.com) do not.
@@ -611,16 +561,34 @@ async function ensureBlockPageToken() {
   return blockTokenPromise;
 }
 
+// The rule set that is currently installed, as written by this worker. Module
+// state ON PURPOSE: it dies with the worker generation, so a fresh worker always
+// performs one real write and can never believe it installed something it did
+// not. Without it, every refresh tore down and rewrote ~2500 identical rules —
+// each of which Chrome persists to disk and re-indexes in the matcher.
+let installedRuleSignature = null;
+
 async function updateDynamicRules(addRules) {
+  const signature = JSON.stringify(addRules);
+
+  if (installedRuleSignature === signature) {
+    return undefined;
+  }
+
   const currentRules = await getDynamicRules();
   const removeRuleIds = currentRules.map((rule) => rule.id);
 
   return new Promise((resolve, reject) => {
     chrome.declarativeNetRequest.updateDynamicRules({ removeRuleIds, addRules }, () => {
       if (chrome.runtime.lastError) {
+        // Nothing is known about what is installed after a failure — the next
+        // call must do the real work rather than trust this cache.
+        installedRuleSignature = null;
         reject(new Error(chrome.runtime.lastError.message));
         return;
       }
+
+      installedRuleSignature = signature;
       resolve();
     });
   });
@@ -739,8 +707,31 @@ async function refreshBlockingState() {
   await syncAlarms({ ...settings, passes: await prunePassesOnChain() });
 }
 
+// Coalesce refreshes that have not started yet. One user action commonly asks
+// for two: `grantPass` writes `passes` (which the storage listener sees) and
+// then awaits a refresh itself, so a single "continue anyway" queued two full
+// rebuilds on the path the user is waiting on.
+//
+// Only PENDING refreshes collapse, never a running one. That is what makes it
+// safe: `storage.onChanged` fires after the write is committed, so a refresh
+// that has not yet begun is guaranteed to read the new value when it does. A
+// change arriving while a refresh is already in flight finds `refreshPending`
+// false and queues its own, so nothing is dropped.
+let refreshPending = false;
+
 function queueRefreshBlockingState() {
-  refreshChain = refreshChain.catch(() => {}).then(() => refreshBlockingState());
+  if (refreshPending) {
+    return refreshChain;
+  }
+
+  refreshPending = true;
+  refreshChain = refreshChain
+    .catch(() => {})
+    .then(() => {
+      refreshPending = false;
+      return refreshBlockingState();
+    });
+
   return refreshChain;
 }
 
@@ -798,11 +789,16 @@ function customRecordsFor(settings) {
 // to its full record (`type: "custom"`) rather than the catalog's stub, which
 // carried no type at all and left the block page's Rule row blank.
 function findSite(settings, siteKey) {
-  const described = [
-    ...settings.deliverySites,
-    ...settings.fastFoodSites,
-    ...customRecordsFor(settings)
-  ].find((entry) => entry.key === siteKey);
+  const matches = (entry) => entry.key === siteKey;
+
+  // Searched in sequence rather than spread into one array. The spread allocated
+  // a fresh ~2,500-element array on every block-page load and popup open, and it
+  // also ran customRecordsFor unconditionally; behind the `||` it only runs when
+  // the branded catalogs miss. First-match order is unchanged.
+  const described =
+    settings.deliverySites.find(matches) ||
+    settings.fastFoodSites.find(matches) ||
+    customRecordsFor(settings).find(matches);
 
   if (described) {
     return described;
@@ -948,7 +944,15 @@ function prunePassesOnChain() {
     const stored = await chrome.storage.local.get(["passes"]);
     const live = FitShieldCore.activePasses(stored.passes, Date.now(), { openTabIds: await openTabIds() });
 
-    await chrome.storage.local.set({ passes: live });
+    // Every refresh calls this, and for the ordinary profile `live` and what is
+    // stored are both `[]`. Writing that back was a disk write per refresh, and
+    // `passes` is a REFRESH_KEY — so on an engine that fires onChanged for an
+    // unchanged set(), it was also a refresh that queued another refresh.
+    // Same comparison pruneStoredRepeatHistory already uses.
+    if (JSON.stringify(stored.passes ?? null) !== JSON.stringify(live)) {
+      await chrome.storage.local.set({ passes: live });
+    }
+
     return live;
   });
 }
@@ -1028,10 +1032,22 @@ const RULE_BUCKET_CATEGORIES = new Set(["fastfood", "custom"]);
 // it actually removes something, it is safe on missing or malformed input, and
 // it says what it did in the worker log. It runs on the stats chain so it cannot
 // race a concurrent recordBlockedBrand read-modify-write.
+// A one-time repair that every refresh re-checked forever. Once a clean pass has
+// been seen, nothing in this worker generation can reintroduce such a key (the
+// corrected reader never writes one), so the storage read is skipped from then
+// on. A new worker checks once more, which is cheap and keeps this safe against
+// a profile edited by an older build.
+let ruleBucketStatsClean = false;
+
 async function pruneRuleBucketCategoryStats() {
+  if (ruleBucketStatsClean) {
+    return;
+  }
+
   const { blockedByCategory } = await chrome.storage.local.get(["blockedByCategory"]);
 
   if (!blockedByCategory || typeof blockedByCategory !== "object" || Array.isArray(blockedByCategory)) {
+    ruleBucketStatsClean = true;
     return;
   }
 
@@ -1040,6 +1056,7 @@ async function pruneRuleBucketCategoryStats() {
   );
 
   if (buckets.length === 0) {
+    ruleBucketStatsClean = true;
     return;
   }
 
@@ -1090,22 +1107,35 @@ async function recordBlockedBrand(meta, options) {
   return queueStatsUpdate(async () => {
     const stored = await chrome.storage.local.get(["blockedByDomain", "blockedByCategory", "blockedByCountry"]);
 
-    const blockedByDomain = domain ? incrementCount(stored.blockedByDomain, domain, 1) : stored.blockedByDomain || {};
-    const blockedByCategory =
-      category && !RULE_BUCKET_CATEGORIES.has(category)
-        ? incrementCount(stored.blockedByCategory, category, 1)
-        : stored.blockedByCategory || {};
+    // Write only the maps that actually moved. All three were rewritten on every
+    // interruption even though a block usually advances one or two of them, and
+    // each is an unbounded lifetime-cumulative map — so the untouched ones were
+    // being serialized to disk for nothing.
+    const payload = {};
+
+    if (domain) {
+      payload.blockedByDomain = incrementCount(stored.blockedByDomain, domain, 1);
+    }
+
+    if (category && !RULE_BUCKET_CATEGORIES.has(category)) {
+      payload.blockedByCategory = incrementCount(stored.blockedByCategory, category, 1);
+    }
 
     // Count only the brand's PRIMARY (first-listed) operating market. Many
     // brands operate in dozens of countries; counting every one would let a
     // single block inflate the whole list. This still uses only curated brand
     // metadata — never the user's real location.
     const primaryCountry = countries[0];
-    const blockedByCountry = primaryCountry
-      ? incrementCount(stored.blockedByCountry, primaryCountry, 1)
-      : stored.blockedByCountry || {};
 
-    await chrome.storage.local.set({ blockedByDomain, blockedByCategory, blockedByCountry });
+    if (primaryCountry) {
+      payload.blockedByCountry = incrementCount(stored.blockedByCountry, primaryCountry, 1);
+    }
+
+    if (Object.keys(payload).length === 0) {
+      return { ok: true, recorded: false };
+    }
+
+    await chrome.storage.local.set(payload);
     return { ok: true, recorded: true };
   });
 }
@@ -1502,9 +1532,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
       customSitesEnabled: settings.customSitesEnabled,
       disabledDeliverySiteKeys: settings.disabledDeliverySiteKeys,
       disabledFastFoodSiteKeys: settings.disabledFastFoodSiteKeys,
-      customSites: Array.isArray(raw.customSites)
-        ? [...new Map(raw.customSites.map(createCustomSiteRecord).filter(Boolean).map((site) => [site.domain, site])).values()]
-        : [],
+      customSites: settings.customSites,
       passes: settings.passes,
       enabledCountries: settings.enabledCountries,
       enabledCategories: settings.enabledCategories,
@@ -1548,10 +1576,17 @@ chrome.tabs.onRemoved.addListener((tabId) => {
     .catch((error) => fsError("Failed to clear tab-scoped passes", error));
 });
 
+// Keys whose change requires the rule set to be rebuilt. Adding one that is not
+// a rule input is not free: the sliders write their key on every `input` event,
+// so a single drag queued dozens of full ~2500-rule teardown-and-rewrites.
+//
+// `timerSeconds` and `passDurationMinutes` were in this list and are NOT rule
+// inputs — nothing `refreshBlockingState` reads depends on either. They change
+// how long a pause lasts and how long a pass lasts, both of which are read back
+// on demand by `getBlockContext` / `getBlockState`. Dragging a slider therefore
+// no longer touches declarativeNetRequest at all.
 const REFRESH_KEYS = [
   "enabled",
-  "timerSeconds",
-  "passDurationMinutes",
   "schedule",
   "scheduleEnabled",
   "scheduleStart",

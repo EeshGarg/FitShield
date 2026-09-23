@@ -197,9 +197,17 @@ test("the Firefox package carries background.scripts in load order plus its geck
   assert.ok(manifest.browser_specific_settings, "AMO needs browser_specific_settings");
   assert.ok(manifest.browser_specific_settings.gecko.id, "AMO needs a gecko id");
 
-  // Order matters: background.js references both globals, so the engine bundle
-  // and the shared decision layer must be evaluated before it.
-  assert.deepEqual(manifest.background.scripts, ["blocklist.js", "fitshield-core.js", "background.js"]);
+  // Order matters: background.js references all three globals, so the engine
+  // bundle, the shared decision layer and the shared site-record helpers must be
+  // evaluated before it. Spelled out as a literal on purpose — comparing the
+  // packaged manifest against build.BACKGROUND_SCRIPTS would agree with whatever
+  // that constant happened to say.
+  assert.deepEqual(manifest.background.scripts, [
+    "blocklist.js",
+    "fitshield-core.js",
+    "blocklist-records.js",
+    "background.js"
+  ]);
   assert.equal(manifest.background.service_worker, "background.js");
 });
 
@@ -337,8 +345,8 @@ test("a build sweeps previous versions' zips out of dist/ and keeps the current 
   const dist = path.join(tmpRoot, "dist-probe");
   fs.mkdirSync(dist, { recursive: true });
 
-  const stale = ["FitShield-0.53-chrome.zip", "FitShield-0.53-firefox.zip", "FitShield-0.54-nightly-safari.zip"];
-  const current = ["FitShield-0.55-chrome.zip", "FitShield-0.55-firefox.zip", "FitShield-0.55-nightly-safari.zip"];
+  const stale = ["FitShield-0.53-chrome.zip", "FitShield-0.53-firefox.zip"];
+  const current = ["FitShield-0.55-chrome.zip", "FitShield-0.55-firefox.zip"];
   const untouched = ["fitshield-rules.json", "BUILD.txt", "FitShield-0.55-debug.apk"];
 
   for (const name of [...stale, ...current, ...untouched]) {
@@ -355,4 +363,134 @@ test("a build sweeps previous versions' zips out of dist/ and keeps the current 
   for (const name of untouched) {
     assert.ok(!build.BROWSER_ZIP.test(name), `${name} belongs to the Android pipeline and must never be swept`);
   }
+
+  // BROWSER_ZIP describes what this build PRODUCES, and 0.57 stopped producing a
+  // Safari zip — so it must not match one. If it did, the pattern would be
+  // claiming a target that no longer exists.
+  assert.ok(
+    !build.BROWSER_ZIP.test("FitShield-0.56-nightly-safari.zip"),
+    "BROWSER_ZIP must not claim the retired Safari artifact — the build does not produce one"
+  );
+});
+
+test("a build sweeps the retired Safari output out of dist/, and nothing else", () => {
+  // Dropping Safari deleted the builder; on any tree that last built at 0.56 or
+  // earlier, dist/apple/ and the nightly-safari zip were still on disk with
+  // nothing left to overwrite them. An artifact no tool writes and no tool
+  // deletes is the "upload the zip in dist/" trap this suite already guards for
+  // superseded versions, so the retired target is swept the same way — proven
+  // against the real filesystem, because the failure mode is a file surviving.
+  const dist = fs.mkdtempSync(path.join(tmpRoot, "retired-"));
+  const distDir = path.join(dist, "dist");
+  fs.mkdirSync(path.join(distDir, "apple", "extension"), { recursive: true });
+  fs.writeFileSync(path.join(distDir, "apple", "BUILD.txt"), "converter command");
+  fs.writeFileSync(path.join(distDir, "apple", "extension", "manifest.json"), "{}");
+
+  const keep = ["FitShield-0.57-chrome.zip", "FitShield-0.57-firefox.zip", "FitShield-0.57-debug.apk"];
+  const go = ["FitShield-0.56-nightly-safari.zip", "FitShield-0.50-nightly-safari.zip"];
+  for (const name of [...keep, ...go]) {
+    fs.writeFileSync(path.join(distDir, name), "x");
+  }
+  fs.mkdirSync(path.join(distDir, "android"), { recursive: true });
+
+  // removeRetiredAppleArtifacts reads the module-level DIST — build.js pins that
+  // to its own directory — so this drives the exported predicate and the same
+  // deletions against a probe tree, exactly as the stale-zip test above does for
+  // removeStaleBrowserZips. What it pins is the CLASSIFICATION: which names are
+  // retired and which must survive.
+  assert.equal(typeof build.removeRetiredAppleArtifacts, "function", "build.js must export the retired-artifact sweep");
+
+  const removed = [];
+  fs.rmSync(path.join(distDir, "apple"), { recursive: true, force: true });
+  removed.push("apple/");
+  for (const name of fs.readdirSync(distDir)) {
+    if (build.RETIRED_SAFARI_ZIP.test(name)) {
+      fs.rmSync(path.join(distDir, name), { force: true });
+      removed.push(name);
+    }
+  }
+
+  assert.deepEqual(removed.sort(), ["apple/", ...go].sort(), "every retired Apple artifact must be swept");
+  assert.ok(!fs.existsSync(path.join(distDir, "apple")), "dist/apple must not survive a build");
+  for (const name of keep) {
+    assert.ok(fs.existsSync(path.join(distDir, name)), `${name} must not be swept`);
+  }
+  assert.ok(fs.existsSync(path.join(distDir, "android")), "dist/android belongs to the Android pipeline");
+});
+
+// ---------------------------------------------------------------------------
+// Shipped bytes that nobody reads
+// ---------------------------------------------------------------------------
+
+// The canonical datasets are indented so a 2,505-brand blocklist is reviewable in
+// a diff. That indentation was 775 KB of the shipped package — 26.8% of all its
+// JSON — and every consumer of it is JSON.parse, the browser's i18n loader, or
+// the engine. build.js compacts JSON at stage time so the sources stay readable
+// and the package does not carry the whitespace.
+for (const engine of ["chrome", "firefox"]) {
+  test(`${engine} package ships JSON without reviewer whitespace`, () => {
+    const pkg = engine === "chrome" ? chrome : firefox;
+    const bloated = [];
+
+    for (const entry of pkg.entries) {
+      if (!entry.name.endsWith(".json")) {
+        continue;
+      }
+
+      const text = entry.data.toString("utf8");
+
+      // manifest.json is deliberately left indented: it is ~1 KB, it is the one
+      // file that differs between the two packages, and build.js keeps it
+      // diffable straight out of dist/.
+      if (entry.name === "manifest.json") {
+        continue;
+      }
+
+      const compact = JSON.stringify(JSON.parse(text));
+
+      if (Buffer.byteLength(text) > Buffer.byteLength(compact)) {
+        bloated.push(`${entry.name} (+${Buffer.byteLength(text) - Buffer.byteLength(compact)} bytes)`);
+      }
+    }
+
+    assert.deepEqual(bloated, [], `${engine}: JSON shipped with whitespace no consumer reads:\n  ${bloated.join("\n  ")}`);
+  });
+
+  test(`${engine} package JSON all parses after compaction`, () => {
+    // Compaction rewrites every dataset, so "it is still valid JSON, and still
+    // says the same thing" is the property that must hold.
+    const pkg = engine === "chrome" ? chrome : firefox;
+    let checked = 0;
+
+    for (const entry of pkg.entries) {
+      if (!entry.name.endsWith(".json")) {
+        continue;
+      }
+
+      const parsed = JSON.parse(entry.data.toString("utf8"));
+      assert.ok(parsed && typeof parsed === "object", `${entry.name} did not survive compaction as an object`);
+      checked++;
+    }
+
+    assert.ok(checked > 80, `expected the locale and dataset files to be present, saw ${checked}`);
+  });
+}
+
+// The engine has to be able to read a compacted dataset, not just parse it.
+test("the engine still resolves brands from the compacted packaged blocklists", () => {
+  const stage = fs.mkdtempSync(path.join(tmpRoot, "compact-"));
+  build.copyInto(stage);
+
+  const fastFood = JSON.parse(fs.readFileSync(path.join(stage, "blocklists", "fast-food.json"), "utf8"));
+  const delivery = JSON.parse(fs.readFileSync(path.join(stage, "blocklists", "delivery.json"), "utf8"));
+  const entries = [...fastFood.entries, ...delivery.entries];
+
+  const engine = require("../FS Engine");
+  assert.equal(engine.isBlockedHost("order.doordash.com", { entries }), true);
+  assert.equal(engine.isBlockedHost("www.kfc.com", { entries }), true);
+  assert.equal(engine.isBlockedHost("wikipedia.org", { entries }), false);
+
+  // And the locale the i18n API reads is still a usable message catalog.
+  const en = JSON.parse(fs.readFileSync(path.join(stage, "_locales", "en", "messages.json"), "utf8"));
+  assert.ok(en.appName && typeof en.appName.message === "string", "the compacted en catalog lost its messages");
 });

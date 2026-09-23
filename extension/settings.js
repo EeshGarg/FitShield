@@ -112,6 +112,9 @@ const customSiteEmpty = document.getElementById("customSiteEmpty");
 const blocklistNotice = document.getElementById("blocklistNotice");
 
 let latestBlockState = null;
+// domain -> curated display label, derived once per block state for
+// brandLabelForDomain(). See the note there for what this replaced.
+let brandLabelByDomain = new Map();
 let currentSearch = "";
 
 const expandedSiteLists = {
@@ -301,21 +304,15 @@ function setRangeDisplay(range, valueNode, value) {
 // #scheduleAdvanced), built by preferences.js. The popup keeps its own
 // at-a-glance pair on purpose; that is a different surface, in popup.js.
 
+// One normalizer for the whole product: FitShieldCore.normalizeCustomSites, which
+// the worker and every import path also use. The local copy this replaces was
+// built on `new URL()` and accepted anything parseable, so typing "doordash" or
+// ".com" was confirmed with "Added to blocklist" while the rule it produced could
+// never match, and "example.com." kept its trailing dot for the same result.
+// Returns the normalized host, or null when the value is not a domain.
 function normalizeCustomDomain(value) {
-  const trimmed = String(value || "").trim().toLowerCase();
-
-  if (!trimmed) {
-    return null;
-  }
-
-  const withProtocol = trimmed.includes("://") ? trimmed : `https://${trimmed}`;
-
-  try {
-    const url = new URL(withProtocol);
-    return url.hostname.replace(/^www\./, "");
-  } catch {
-    return null;
-  }
+  const [record] = core.normalizeCustomSites([{ domain: value, enabled: true }]);
+  return record ? record.domain : null;
 }
 
 function getDisabledKeys(sites) {
@@ -403,8 +400,28 @@ function createSiteRow(site, category) {
   return row;
 }
 
-function renderSiteList(container, sites, category, emptyMessage) {
+// Build rows only for a list the user can actually see.
+//
+// The curated blocklist is 2,505 sites and createSiteRow() makes eight elements
+// plus two text nodes each, so rendering both curated lists unconditionally built
+// roughly 20,000 elements and 5,000 text nodes — straight into two containers
+// that the next three lines of renderBlocklist() set `hidden`, because both
+// lists start collapsed. And it did it again on every saveSettings() round trip:
+// every bucket toggle, every friction-slider release, every per-site checkbox,
+// every custom-site add or remove.
+//
+// Nothing outside the container reads those rows: the count labels come from the
+// unfiltered arrays, the "matched N" notice from the filtered lengths, and the
+// per-site `change` handlers rebuild from latestBlockState rather than from the
+// DOM. Every path that can expand a list (the toggle buttons, and
+// applyBlocklistSearch, which force-expands all three) re-renders afterwards, so
+// the rows are built the moment they become visible.
+function renderSiteList(container, sites, category, emptyMessage, expanded) {
   container.replaceChildren();
+
+  if (!expanded) {
+    return;
+  }
 
   if (sites.length === 0) {
     container.appendChild(createEmptyRow(emptyMessage));
@@ -495,8 +512,33 @@ function searchMatchSuffix(count) {
   return t(count === 1 ? "searchMatchSuffixOne" : "searchMatchSuffix", [String(count)]);
 }
 
+// Index the curated brands by the domain brandLabelForDomain() is asked about.
+//
+// Delivery is inserted first and an existing key is never overwritten, which
+// reproduces exactly what the previous linear `find` over
+// [...deliverySites, ...fastFoodSites] resolved to: the FIRST record for a
+// domain wins, so a domain in both buckets keeps its delivery label. A
+// label-less first record is still recorded (as ""), because `find` would have
+// stopped on it too and fallen back to the domain rather than looking further.
+function indexBrandLabels(state) {
+  const map = new Map();
+
+  [state.deliverySites || [], state.fastFoodSites || []].forEach((sites) => {
+    sites.forEach((site) => {
+      const domain = site.domain || site.match;
+
+      if (domain && !map.has(domain)) {
+        map.set(domain, site.label || "");
+      }
+    });
+  });
+
+  return map;
+}
+
 function renderBlocklist(state) {
   latestBlockState = state;
+  brandLabelByDomain = indexBrandLabels(state);
   updateBlockingControls(state);
 
   const {
@@ -523,8 +565,8 @@ function renderBlocklist(state) {
   fastFoodCount.textContent = t("fastFoodSitesEnabledCount", [String(fastFoodEnabledCount), String(fastFoodSites.length)])
     + searchMatchSuffix(filteredFastFoodSites.length);
 
-  renderSiteList(deliveryList, filteredDeliverySites, "delivery", t("emptyDeliverySearch"));
-  renderSiteList(fastFoodList, filteredFastFoodSites, "fastfood", t("emptyFastFoodSearch"));
+  renderSiteList(deliveryList, filteredDeliverySites, "delivery", t("emptyDeliverySearch"), expandedSiteLists.delivery);
+  renderSiteList(fastFoodList, filteredFastFoodSites, "fastfood", t("emptyFastFoodSearch"), expandedSiteLists.fastfood);
   renderCustomSites(filteredCustomSites);
 
   deliveryList.hidden = !expandedSiteLists.delivery;
@@ -590,13 +632,11 @@ async function buildLocalBlockState() {
     }
   }
 
-  const customSites = Array.isArray(stored.customSites)
-    ? stored.customSites
-        .map((site) => (site && typeof site === "object" && site.domain
-          ? { domain: String(site.domain), enabled: site.enabled !== false }
-          : null))
-        .filter(Boolean)
-    : [];
+  // Through core, like every other reader. This accepted only the object form, so
+  // a profile still holding the historical `string[]` showed no custom sites at
+  // all on this fallback path — and it normalized nothing, so the offline list
+  // could disagree with the worker's about the very same stored value.
+  const customSites = core.normalizeCustomSites(stored.customSites);
 
   return {
     ok: true,
@@ -696,21 +736,16 @@ resetThemeButton.addEventListener("click", async () => {
 //
 // The comparison is derived from `frictionProfileValues` itself rather than a
 // hand-written field list, so it cannot drift from what a preset actually
-// writes. (core.detectFrictionProfile compares only timerSeconds and
-// passDurationMinutes, so turning "Ask what brought me here" off would not move
-// the label; extending it there is the durable home for this.)
+// writes. It lives in core: this page, popup.js and preferences.js each carried
+// an identical private copy, because core.detectFrictionProfile compared only
+// timerSeconds and passDurationMinutes and so never moved the label when "Ask
+// what brought me here" was turned off. Core compares all six fields now, and
+// resolves each one the way readSettings does.
 const FRICTION_VALUE_KEYS = Object.keys(core.frictionProfileValues("standard")).filter(
   (key) => key !== "frictionProfile"
 );
 
-function frictionProfileFor(values) {
-  return (
-    core.FRICTION_PROFILE_IDS.find((id) => {
-      const preset = core.frictionProfileValues(id);
-      return FRICTION_VALUE_KEYS.every((key) => preset[key] === values[key]);
-    }) || "custom"
-  );
-}
+const frictionProfileFor = (values) => core.detectFrictionProfile(values);
 
 // Persist a friction value AND whichever profile now describes the result, so
 // every other surface reads a label that matches the numbers underneath it.
@@ -1707,15 +1742,16 @@ function renderEstimate() {
 // Resolve a curated brand's apex domain to its display label (e.g.
 // "doordash.com" -> "DoorDash") from the loaded blocklist. Falls back to the
 // domain itself for custom sites or anything not currently loaded.
+//
+// This used to spread both curated arrays into one fresh 2,505-element array and
+// linear-scan it, per row. renderMostBlocked() shows MOST_BLOCKED_LIMIT (5) rows
+// and runs from renderBlocklist(), renderProtectionStatus() AND the
+// storage.onChanged handler, so every stats write the worker made while Settings
+// was open copied ~12,525 array elements to answer five lookups. The index is
+// built once per block state (indexBrandLabels, above) and resolves the same
+// label with one Map.get.
 function brandLabelForDomain(domain) {
-  if (latestBlockState) {
-    const sites = [...(latestBlockState.deliverySites || []), ...(latestBlockState.fastFoodSites || [])];
-    const match = sites.find((site) => (site.domain || site.match) === domain);
-    if (match && match.label) {
-      return match.label;
-    }
-  }
-  return domain;
+  return brandLabelByDomain.get(domain) || domain;
 }
 
 // Display names for category ids and ISO country codes.
@@ -2279,6 +2315,39 @@ if (factoryResetButton) {
 
   let draggingEl = null;
   let pointerActive = false;
+  // At most one card is tilted and at most one is armed for drag at any moment
+  // (a tilt is only written for the card the pointer is inside, and `draggable`
+  // is only armed by that card's own handle). Naming them means a press or a
+  // release touches one element instead of re-querying all fifteen sections and
+  // writing to every one of them — which the document-level pointerdown and
+  // pointerup handlers below used to do on every click anywhere on the page.
+  let tiltedSection = null;
+  let armedSection = null;
+
+  function clearTilt() {
+    if (tiltedSection) {
+      tiltedSection.style.transform = "";
+      tiltedSection = null;
+    }
+  }
+
+  function disarmDrag() {
+    if (armedSection) {
+      armedSection.removeAttribute("draggable");
+      armedSection = null;
+    }
+  }
+
+  // A card's box moves only when the page scrolls, the window resizes, the cards
+  // are reordered, or something is pressed or released (expanding a blocklist,
+  // say, pushes every card below it down). Bumping a counter on all of those
+  // keeps the per-section rect caches in setupTilt honest for the price of one
+  // integer, instead of a forced layout flush on every animation frame.
+  let geometryEpoch = 0;
+
+  function invalidateGeometry() {
+    geometryEpoch += 1;
+  }
 
   function persistOrder() {
     const order = getSections().map((section) => section.id).filter(Boolean);
@@ -2301,6 +2370,7 @@ if (factoryResetButton) {
     const rest = current.filter((section) => !saved.has(section.id));
 
     [...inSaved, ...rest].forEach((section) => layout.appendChild(section));
+    invalidateGeometry();
   }
 
   function moveSection(section, direction) {
@@ -2318,6 +2388,7 @@ if (factoryResetButton) {
       layout.insertBefore(section, list[target].nextSibling);
     }
 
+    invalidateGeometry();
     persistOrder();
   }
 
@@ -2332,7 +2403,15 @@ if (factoryResetButton) {
     handle.title = label;
 
     // A drag only begins from the handle: arm draggable on press, disarm after.
+    // Disarming whatever was armed before keeps "at most one armed card" true
+    // even if a second pointer presses a second handle, which is what lets
+    // disarmDrag() replace a sweep over every section.
     handle.addEventListener("pointerdown", () => {
+      if (armedSection && armedSection !== section) {
+        armedSection.removeAttribute("draggable");
+      }
+
+      armedSection = section;
       section.setAttribute("draggable", "true");
     });
 
@@ -2357,6 +2436,11 @@ if (factoryResetButton) {
     draggingEl = section;
     section.classList.add("dragging");
     section.style.transform = "";
+
+    if (tiltedSection === section) {
+      tiltedSection = null;
+    }
+
     event.dataTransfer.effectAllowed = "move";
 
     try {
@@ -2369,7 +2453,13 @@ if (factoryResetButton) {
   function onDragEnd(section) {
     section.classList.remove("dragging");
     section.removeAttribute("draggable");
+
+    if (armedSection === section) {
+      armedSection = null;
+    }
+
     draggingEl = null;
+    invalidateGeometry();
     persistOrder();
   }
 
@@ -2389,6 +2479,8 @@ if (factoryResetButton) {
     } else {
       layout.insertBefore(draggingEl, section.nextSibling);
     }
+
+    invalidateGeometry();
   }
 
   function setupTilt(section) {
@@ -2398,12 +2490,28 @@ if (factoryResetButton) {
 
     let rafId = 0;
     let lastEvent = null;
+    let hovering = false;
+    // The card's measured rect. It used to be re-read with
+    // getBoundingClientRect() inside the frame callback, immediately before the
+    // style.transform write below — a forced layout flush on every single frame
+    // of every hover, and the textbook read-after-write thrash. The geometry
+    // cannot move while the pointer merely slides across the card, so it is
+    // measured at most once per hover and dropped whenever the shared
+    // geometryEpoch says something could have moved it.
+    let box = null;
+    let boxEpoch = -1;
+
+    section.addEventListener("pointerenter", () => {
+      hovering = true;
+      box = null;
+    });
 
     section.addEventListener("pointermove", (event) => {
       if (draggingEl || pointerActive || event.pointerType === "touch") {
         return;
       }
 
+      hovering = true;
       lastEvent = event;
 
       if (rafId) {
@@ -2413,22 +2521,37 @@ if (factoryResetButton) {
       rafId = requestAnimationFrame(() => {
         rafId = 0;
 
-        if (draggingEl || pointerActive || !lastEvent) {
+        // `hovering` also covers the frame that was already queued when the
+        // pointer left: without it that frame re-tilted a card the pointer was
+        // no longer over, and the stale tilt then survived until the next press.
+        if (draggingEl || pointerActive || !lastEvent || !hovering) {
           return;
         }
 
-        const box = section.getBoundingClientRect();
+        if (!box || boxEpoch !== geometryEpoch) {
+          box = section.getBoundingClientRect();
+          boxEpoch = geometryEpoch;
+        }
+
         const px = (lastEvent.clientX - box.left) / box.width - 0.5;
         const py = (lastEvent.clientY - box.top) / box.height - 0.5;
         const max = 2.2;
 
         section.style.transform =
           `perspective(900px) rotateX(${(-py * max).toFixed(2)}deg) rotateY(${(px * max).toFixed(2)}deg)`;
+        tiltedSection = section;
       });
     });
 
     section.addEventListener("pointerleave", () => {
+      hovering = false;
+      lastEvent = null;
+      box = null;
       section.style.transform = "";
+
+      if (tiltedSection === section) {
+        tiltedSection = null;
+      }
     });
   }
 
@@ -2453,18 +2576,29 @@ if (factoryResetButton) {
 
     layout.addEventListener("drop", (event) => event.preventDefault());
 
+    // Scrolling and resizing move every card's box without any pointer event
+    // saying so, so they retire the cached rects. One listener each, not one per
+    // card.
+    window.addEventListener("scroll", invalidateGeometry, { passive: true });
+    window.addEventListener("resize", invalidateGeometry);
+
     // Flatten any tilt while the pointer is pressed so editing sliders/inputs
     // stays stable, and never leave a card "armed" for drag after a release.
+    // A press or release is also the moment a card's height can change (a
+    // blocklist expands, a panel opens), hence the geometry invalidation.
     document.addEventListener("pointerdown", () => {
       pointerActive = true;
+      invalidateGeometry();
+
       if (!reduceMotion) {
-        getSections().forEach((section) => { section.style.transform = ""; });
+        clearTilt();
       }
     });
 
     document.addEventListener("pointerup", () => {
       pointerActive = false;
-      getSections().forEach((section) => section.removeAttribute("draggable"));
+      invalidateGeometry();
+      disarmDrag();
     });
   }
 

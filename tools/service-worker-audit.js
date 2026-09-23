@@ -45,7 +45,11 @@ const RAW_ENGINE_MODULES = build.ENGINE_MODULES; // hostnames.js, entries.js, â€
 // one must define afterwards. Anything else is a packaging mistake.
 const ALLOWED_IMPORTS = {
   "blocklist.js": "FitShieldBlocklist",
-  "fitshield-core.js": "FitShieldCore"
+  "fitshield-core.js": "FitShieldCore",
+  // The site-record helpers the settings page also uses. The worker used to carry
+  // its own byte-identical copy of this logic; sharing the one module is what
+  // stops the site keys the page writes drifting from the ones the worker reads.
+  "blocklist-records.js": "FitShieldBlocklistRecords"
 };
 
 // Extract the string arguments of every importScripts(...) call in `source`,

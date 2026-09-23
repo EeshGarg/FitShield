@@ -73,3 +73,25 @@ test("bundle is deterministic and bundles index.js last", () => {
   assert.equal(bundleEngine(), bundleEngine(), "two bundles differ");
   assert.equal(ENGINE_MODULES[ENGINE_MODULES.length - 1], "index.js");
 });
+
+// The engine is versioned separately (it is published as @fitshield/engine and is
+// meant to be consumable on its own), but it is released FROM this repo, and its
+// package version had been left at 0.54.0 while the product shipped 0.56 — two
+// releases stale, with nothing checking it. A version that lies about which
+// engine you have is worse than no version at all.
+test("the engine's package version tracks the product it ships in", () => {
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const ROOT = path.join(__dirname, "..");
+
+  const enginePkg = JSON.parse(fs.readFileSync(path.join(ROOT, "FS Engine", "package.json"), "utf8"));
+  const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, "extension", "manifest.json"), "utf8"));
+
+  // The manifest carries x.y; the engine carries semver x.y.z. They must agree on
+  // the release, not on the patch field.
+  assert.equal(
+    enginePkg.version.split(".").slice(0, 2).join("."),
+    manifest.version,
+    `FS Engine/package.json says ${enginePkg.version} but this release is ${manifest.version}`
+  );
+});

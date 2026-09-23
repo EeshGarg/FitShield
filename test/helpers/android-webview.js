@@ -241,6 +241,7 @@ function parseMarkup(html) {
 function makeDocument(html) {
   const { elements, byId } = parseMarkup(html);
   const documentElement = new El("html");
+  const listeners = new Map();
 
   const matchesSelector = (element, selector) =>
     selector
@@ -262,8 +263,23 @@ function makeDocument(html) {
     createTextNode: (text) => new TextNode(text),
     querySelectorAll: (selector) => elements.filter((el) => matchesSelector(el, selector)),
     querySelector: (selector) => elements.find((el) => matchesSelector(el, selector)) || null,
-    addEventListener: () => {},
-    removeEventListener: () => {},
+    // Document-level listeners are RECORDED rather than swallowed, and `hidden` is
+    // a real settable property. Both exist because the dashboard's status poll is
+    // now guarded on `document.hidden` and its resume refresh hangs off
+    // `visibilitychange`, and neither is assertable against a document that cannot
+    // be hidden or told that it has come back. `hidden` defaults false, so every
+    // existing caller sees exactly the behaviour it saw before.
+    listeners,
+    hidden: false,
+    addEventListener: (type, handler) => {
+      if (!listeners.has(type)) listeners.set(type, []);
+      listeners.get(type).push(handler);
+    },
+    removeEventListener: (type, handler) => {
+      const list = listeners.get(type) || [];
+      const index = list.indexOf(handler);
+      if (index >= 0) list.splice(index, 1);
+    },
     get activeElement() {
       return null;
     },
@@ -287,7 +303,7 @@ function recipeDocument() {
   return recipeDocumentCache;
 }
 
-function makeShim(store) {
+function makeShim(store, recipeEntries, appBlockingStub) {
   const pick = (keys) => {
     const out = {};
     keys.forEach((key) => {
@@ -348,15 +364,29 @@ function makeShim(store) {
       getSelected: () => Promise.resolve(pick(["enabledCountries", "enabledCategories"])),
       setSelected: () => Promise.resolve()
     },
-    appBlocking: { list: () => Promise.resolve([]) },
+    // `available` is absent by default, which is what a BROWSER looks like — so
+    // `renderAppBlocking` takes its early return and the panel stays hidden, exactly
+    // as it did before this was overridable. A caller that passes `appBlocking`
+    // replaces this wholesale and gets the panel rendered, which is the only way to
+    // assert on what it says.
+    appBlocking: appBlockingStub || { list: () => Promise.resolve([]) },
     // Exactly what android-shim.js resolves: `load` hands back the WHOLE
     // document (the selector needs the taxonomy), `loadEntries` the flat array.
     // Faithfulness matters here — a harness that returned an array from `load`
     // would hide a caller that treats the document as one.
+    // `recipeEntries`, when a caller supplies it, replaces the flat array
+    // `loadEntries` resolves. It exists so a test can hand the panel entries that
+    // COUNT how often their fields are read — which is the only way, from outside,
+    // to tell a search haystack derived once from one rebuilt on every keystroke.
+    // The document `load` resolves is left canonical either way, because the
+    // shared selector runs on its taxonomy.
     recipes: {
       load: () => Promise.resolve(recipeDocument()),
       loadEntries: () =>
-        Promise.resolve([...(recipeDocument().recipes || []), ...(recipeDocument().quickAlternatives || [])])
+        Promise.resolve(
+          recipeEntries
+            || [...(recipeDocument().recipes || []), ...(recipeDocument().quickAlternatives || [])]
+        )
     },
     importExport: { export: () => Promise.resolve(), import: () => Promise.resolve({ supported: true }) },
     theme: { getMode: () => Promise.resolve("system"), setMode: () => Promise.resolve() },
@@ -407,13 +437,23 @@ async function settle(ticks = 60) {
  *   bridge   optional AndroidBlock stand-in for the pause screen
  * @returns {{ document, store, context, text(id), allText() }}
  */
-async function loadPage({ page, script, store = {}, bridge = null, language = "en" }) {
+async function loadPage({
+  page, script, store = {}, bridge = null, language = "en", recipeEntries = null, reduceMotion = true,
+  appBlocking = null
+}) {
   const document = makeDocument(readWeb(page));
+  // Every repeating callback the page registers, KEPT rather than discarded. The
+  // dashboard's 2s status poll is the largest piece of recurring work in the
+  // product, and a harness that threw its callback away could only ever assert on
+  // the source of it. Nothing here fires on a timer: a test runs a tick when it
+  // wants one, which is also what makes "this tick did nothing while hidden"
+  // an assertion rather than a claim.
+  const intervals = [];
   const sandbox = {
     console,
     setTimeout,
     clearTimeout,
-    setInterval: () => 0,
+    setInterval: (fn, ms) => { intervals.push({ fn, ms }); return intervals.length; },
     clearInterval: () => {},
     setImmediate,
     requestAnimationFrame: (fn) => setTimeout(fn, 0),
@@ -427,9 +467,17 @@ async function loadPage({ page, script, store = {}, bridge = null, language = "e
     navigator: { language },
     location: { reload: () => {}, href: "https://appassets.androidplatform.net/assets/web/" + page },
     performance: { now: () => Date.now() },
-    matchMedia: () => ({ matches: true, addEventListener: () => {}, addListener: () => {} }),
+    // `matches: true` for everything, which is what every existing caller sees —
+    // including `(prefers-reduced-motion: reduce)`, so animations and the press
+    // tilt are off by default. `reduceMotion: false` flips only that one query, for
+    // the tests that need the tilt handler to actually be wired up.
+    matchMedia: (query) => ({
+      matches: /prefers-reduced-motion/.test(String(query)) ? reduceMotion : true,
+      addEventListener: () => {},
+      addListener: () => {}
+    }),
     fetch: makeFetch(),
-    fitshield: makeShim(store)
+    fitshield: makeShim(store, recipeEntries, appBlocking)
   };
 
   if (bridge) sandbox.AndroidBlock = bridge;
@@ -461,6 +509,19 @@ async function loadPage({ page, script, store = {}, bridge = null, language = "e
     document,
     store,
     context: sandbox,
+    /** Every setInterval the page registered, in order: `{ fn, ms }`. */
+    intervals,
+    /** Run one tick of the page's status poll and let the awaits inside it settle. */
+    tick: async (index = 0) => {
+      if (!intervals[index]) throw new Error(`the page registered no interval #${index}`);
+      intervals[index].fn();
+      await settle();
+    },
+    /** Fire a document-level event the page listened for (e.g. "visibilitychange"). */
+    dispatch: async (type) => {
+      (document.listeners.get(type) || []).forEach((handler) => handler({ type }));
+      await settle();
+    },
     /** What the element with this id says, descendants included. */
     text: (id) => {
       const element = document.getElementById(id);

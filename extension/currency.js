@@ -208,17 +208,6 @@
     return [...PRIORITY, ...rest];
   }
 
-  // How many fractional digits a currency normally shows (JPY/KRW/etc. show 0).
-  function currencyFractionDigits(code, locale) {
-    try {
-      const fmt = new Intl.NumberFormat(locale || "en", { style: "currency", currency: code });
-      const opts = fmt.resolvedOptions();
-      return typeof opts.maximumFractionDigits === "number" ? opts.maximumFractionDigits : 2;
-    } catch (error) {
-      return 2;
-    }
-  }
-
   // Format an amount as currency for the given locale, e.g. "$1,234" / "¥1,234".
   // Whole numbers drop the decimals so the stat reads cleanly.
   function formatMoney(amount, code, locale) {
@@ -239,11 +228,52 @@
     }
   }
 
+  // Building an Intl object is not free — each one is a full locale-data lookup —
+  // and the currency picker resolves a symbol *and* a display name for every one
+  // of the 67 supported codes each time it is rebuilt (at init, and again on
+  // every language change): ~135 constructions, all of them recomputing an
+  // answer that cannot change for a given locale + code. Both are memoized, and
+  // the DisplayNames instance is reused across codes. Keyed by locale, so
+  // switching language invalidates nothing anyone has to remember to clear.
+  // Same precedent as i18n.js's regionNamerFor and FS Engine's metadata caches.
+  const symbolCache = new Map();
+  const displayNameCache = new Map();
+  let currencyNamer = null;
+  let currencyNamerLocale = null;
+
+  function currencyNamerFor(locale) {
+    if (currencyNamerLocale === locale) {
+      return currencyNamer;
+    }
+
+    currencyNamerLocale = locale;
+    currencyNamer = null;
+
+    try {
+      if (typeof Intl !== "undefined" && typeof Intl.DisplayNames === "function") {
+        currencyNamer = new Intl.DisplayNames([locale], { type: "currency" });
+      }
+    } catch (error) {
+      // A locale tag Intl will not accept. The raw code answers, as before.
+      currencyNamer = null;
+    }
+
+    return currencyNamer;
+  }
+
   // Just the currency symbol ("$", "¥", "₹"), pulled from Intl when possible.
   function symbolFor(code, locale) {
     const currency = String(code || "USD").toUpperCase();
+    const loc = locale || "en";
+    const cacheKey = loc + "|" + currency;
+
+    if (symbolCache.has(cacheKey)) {
+      return symbolCache.get(cacheKey);
+    }
+
+    let symbol = "";
     try {
-      const parts = new Intl.NumberFormat(locale || "en", {
+      const parts = new Intl.NumberFormat(loc, {
         style: "currency",
         currency,
         minimumFractionDigits: 0,
@@ -251,27 +281,42 @@
       }).formatToParts(0);
       const part = parts.find((p) => p.type === "currency");
       if (part && part.value) {
-        return part.value;
+        symbol = part.value;
       }
     } catch (error) {
       // fall through to table
     }
-    return SYMBOL_FALLBACK[currency] || currency;
+    if (!symbol) {
+      symbol = SYMBOL_FALLBACK[currency] || currency;
+    }
+
+    symbolCache.set(cacheKey, symbol);
+    return symbol;
   }
 
   // Localized display name for a currency ("US Dollar", "日元" …) for the picker.
   function displayName(code, locale) {
     const currency = String(code || "USD").toUpperCase();
+    const loc = locale || "en";
+    const cacheKey = loc + "|" + currency;
+
+    if (displayNameCache.has(cacheKey)) {
+      return displayNameCache.get(cacheKey);
+    }
+
+    let resolved = currency;
     try {
-      const names = new Intl.DisplayNames([locale || "en"], { type: "currency" });
-      const name = names.of(currency);
+      const names = currencyNamerFor(loc);
+      const name = names ? names.of(currency) : "";
       if (name && name !== currency) {
-        return name;
+        resolved = name;
       }
     } catch (error) {
       // fall through
     }
-    return currency;
+
+    displayNameCache.set(cacheKey, resolved);
+    return resolved;
   }
 
   const api = {
@@ -284,7 +329,6 @@
     defaultCost,
     defaultCalories,
     currencyCodes,
-    currencyFractionDigits,
     formatMoney,
     symbolFor,
     displayName

@@ -41,6 +41,7 @@ const assert = require("node:assert/strict");
 
 const kotlin = require("./helpers/kotlin-runner.js");
 const P = require("./helpers/packets.js");
+const core = require("../extension/fitshield-core.js");
 
 const SKIP = kotlin.unavailable();
 const opts = SKIP ? { skip: `Kotlin harness ${SKIP}` } : {};
@@ -559,8 +560,27 @@ test("a custom entry is normalised like every other host", opts, () => {
 // window for APPS while the connection filter reset SITES around the clock. One
 // switch, two answers, and nothing in the UI said so.
 //
-// The window is inclusive at both ends, and an overnight window wraps midnight —
-// the case where the obvious "now in start..end" is false for every minute of it.
+// The window is inclusive at the start and EXCLUSIVE at the end, `start == end`
+// means the whole day, and an overnight window wraps midnight — the case where the
+// obvious "now in start..end" is false for every minute of it.
+//
+// THE EXPECTATIONS BELOW CHANGED IN 0.57, and the reason is worth stating because
+// the old ones were not careless. This file used to assert `at(23) === true` for an
+// 18:00-23:00 window, labelled "inclusive at the end", and it passed — while
+// `test/schedule.test.js` asserted the opposite for the same stored window
+// ("a window boundary is inclusive at the start and exclusive at the end":
+// 22:59 active, 23:00 not) and also passed. Two green suites certified a
+// disagreement about the same saved value for as long as neither compared itself
+// to the other.
+//
+// `extension/fitshield-core.js` is the reference implementation — it is what the
+// extension ships and what the documented behaviour is — so Kotlin was wrong, by
+// one minute, at the end of every window the user ever set. `start == end` was
+// wrong in a larger way: core reads it as the whole day and Kotlin read it as that
+// single minute, so the most absolute thing this setting can say was the weakest
+// schedule it could express. `Schedule.kt` now matches core and these assertions
+// follow it, with the parity test below making the agreement executed rather than
+// asserted twice.
 
 /** Schedule.withinWindow through the shipped Kotlin. */
 function within(enabled, start, end, nowMinutes) {
@@ -578,16 +598,37 @@ test("a daytime window blocks inside it and only inside it", opts, () => {
   assert.equal(within(true, "18:00", "23:00", at(17, 59)), false, "a minute before the window");
   assert.equal(within(true, "18:00", "23:00", at(18)), true, "the window is inclusive at the start");
   assert.equal(within(true, "18:00", "23:00", at(20, 30)), true, "the middle");
-  assert.equal(within(true, "18:00", "23:00", at(23)), true, "inclusive at the end");
+  assert.equal(
+    within(true, "18:00", "23:00", at(22, 59)), true,
+    "the last minute inside the window"
+  );
+  assert.equal(
+    within(true, "18:00", "23:00", at(23)), false,
+    "EXCLUSIVE at the end, as extension/fitshield-core.js is. This asserted `true` until 0.57, which is one extra " +
+      "minute of blocking the user never asked for, every single window"
+  );
   assert.equal(within(true, "18:00", "23:00", at(23, 1)), false, "a minute after");
 });
 
 test("an overnight window wraps past midnight", opts, () => {
   assert.equal(within(true, "22:00", "02:00", at(23)), true, "before midnight is inside");
   assert.equal(within(true, "22:00", "02:00", at(0, 30)), true, "after midnight is still inside");
-  assert.equal(within(true, "22:00", "02:00", at(2)), true, "inclusive at the wrapped end");
-  assert.equal(within(true, "22:00", "02:00", at(2, 1)), false, "and closes");
+  assert.equal(within(true, "22:00", "02:00", at(1, 59)), true, "the last minute inside the wrapped window");
+  assert.equal(within(true, "22:00", "02:00", at(2)), false, "exclusive at the wrapped end too");
   assert.equal(within(true, "22:00", "02:00", at(12)), false, "midday is outside");
+});
+
+test("start == end means the WHOLE DAY, not that one minute", opts, () => {
+  // Core: `startMinutes === endMinutes` -> the day. Kotlin's `now in from..to`
+  // made it exactly 60 seconds, so a user asking for round-the-clock blocking got
+  // the least blocking the control can express — and the schedule UI cannot warn
+  // them, because both times are simply what they chose.
+  [at(0), at(3), at(12), at(18), at(23, 59)].forEach((minute) => {
+    assert.equal(
+      within(true, "18:00", "18:00", minute), true,
+      `an all-day window must block at ${minute} minutes past midnight`
+    );
+  });
 });
 
 test("a window that cannot be read leaves protection ON", opts, () => {
@@ -597,6 +638,107 @@ test("a window that cannot be read leaves protection ON", opts, () => {
   assert.equal(within(true, "18:00", "", at(3)), true);
   assert.equal(within(true, "25:00", "23:00", at(3)), true, "an hour that does not exist");
   assert.equal(within(true, "18:70", "23:00", at(3)), true, "a minute that does not exist");
+});
+
+// The agreement itself, EXECUTED — compiled Kotlin against the reference
+// implementation, over the minutes where an off-by-one hides.
+//
+// This is the same move that closed the normalisation gap above: rather than each
+// platform having a test that states its own answer, one test asks both and
+// compares. It is what would have caught the end-boundary divergence the day it
+// appeared, instead of two suites certifying it indefinitely.
+//
+// Android's schedule UI is a single flat start/end pair with no day list, so the
+// core side is built with `days: ALL_DAYS` — that is precisely what an Android
+// profile means, and it is why the day-of-week divergence documented in
+// docs/ANDROID.md §2e row 6 is unreachable from an Android-authored schedule.
+const ALL_DAY_WINDOW = (start, end) => ({
+  mode: "windows",
+  windows: [{ days: core.ALL_DAYS, start, end }],
+  until: null
+});
+
+/** A local Date on a fixed Wednesday at `minutes` past midnight. */
+const wednesdayAt = (minutes) =>
+  new Date(2026, 2, 4, Math.floor(minutes / 60), minutes % 60, 0, 0);
+
+test("compiled Schedule.withinWindow agrees with core's evaluateSchedule at every boundary", opts, () => {
+  // Same-day, overnight, all-day, and the two degenerate one-minute windows.
+  const WINDOWS = [
+    ["18:00", "23:00"],
+    ["00:00", "06:00"],
+    ["22:00", "02:00"],
+    ["18:00", "18:00"],   // start == end -> whole day on both sides
+    ["00:00", "00:00"],
+    ["23:59", "00:00"],   // wraps by one minute
+    ["00:00", "00:01"]
+  ];
+
+  const disagreements = [];
+
+  for (const [start, end] of WINDOWS) {
+    const from = Number(start.slice(0, 2)) * 60 + Number(start.slice(3));
+    const to = Number(end.slice(0, 2)) * 60 + Number(end.slice(3));
+
+    // Every minute that can expose an off-by-one, plus a couple of interior and
+    // exterior samples, clamped into the day.
+    const probes = new Set();
+    [from - 1, from, from + 1, to - 1, to, to + 1, 0, 1439, 720].forEach((m) => {
+      probes.add(((m % 1440) + 1440) % 1440);
+    });
+
+    for (const minute of [...probes].sort((a, b) => a - b)) {
+      const fromKotlin = within(true, start, end, minute);
+      const fromCore = core.evaluateSchedule(ALL_DAY_WINDOW(start, end), wednesdayAt(minute)).active;
+      if (fromKotlin !== fromCore) {
+        disagreements.push(`${start}-${end} at ${minute}min: Kotlin ${fromKotlin} vs core ${fromCore}`);
+      }
+    }
+  }
+
+  assert.deepEqual(
+    disagreements, [],
+    "the two platforms answer differently for the same stored window, so the same saved setting blocks at a " +
+      "different moment depending on which one the user happens to be looking at"
+  );
+});
+
+// A malformed window fails SAFE on both platforms — and they get there differently,
+// which is why reading either one alone suggests a divergence that is not real.
+//
+// Kotlin returns true directly: a typo must never be a silent way to switch
+// protection off. Core's `windowActive` returns FALSE for the same window, which
+// looks like the opposite answer — but `normalizeSchedule` has already DROPPED that
+// window before `windowActive` is ever reached, an empty window list normalizes the
+// mode to "always", and `evaluateSchedule` answers `{active: true, reason: "always"}`.
+//
+// So the fail-safe direction is shared. This is asserted rather than assumed because
+// the natural reading of the two sources says otherwise, and a future "alignment"
+// that made Kotlin return false would break the property both platforms actually
+// have.
+test("a malformed window fails safe on BOTH platforms, by different routes", opts, () => {
+  const MALFORMED = [["nonsense", "23:00"], ["18:00", ""], ["25:00", "23:00"], ["18:70", "23:00"]];
+
+  MALFORMED.forEach(([start, end]) => {
+    const fromKotlin = within(true, start, end, at(3));
+    const evaluated = core.evaluateSchedule(ALL_DAY_WINDOW(start, end), wednesdayAt(at(3)));
+
+    assert.equal(
+      fromKotlin, true,
+      `Kotlin must keep blocking for an unreadable window (${start}-${end}); failing open here would make a typo a ` +
+        "silent way to switch protection off"
+    );
+    assert.equal(
+      evaluated.active, fromKotlin,
+      `core and Kotlin disagree about an unreadable window (${start}-${end}) — one of them now treats a typo as ` +
+        "permission to stop blocking"
+    );
+    assert.equal(
+      evaluated.reason, "always",
+      "core is expected to reach that answer by discarding the window and falling back to always-on; a different " +
+        "reason means normalizeSchedule changed and this agreement is now accidental"
+    );
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -610,11 +752,16 @@ test("a window that cannot be read leaves protection ON", opts, () => {
 // screen" — and every retry counted as another interruption. An unlock the user
 // explicitly chose has to hold across both layers or it is not an unlock.
 
-/** BlockDecision.shouldReset through the shipped Kotlin. */
-function shouldReset(apex, scheduleAllows, unlockedUntil, now) {
+/**
+ * BlockDecision.shouldReset through the shipped Kotlin.
+ *
+ * `brandAllowed` is last and defaults to false, so every call written before the
+ * per-app allow list reached the filter still asks what it asked.
+ */
+function shouldReset(apex, scheduleAllows, unlockedUntil, now, brandAllowed = false) {
   const a = apex === null ? "-" : asHex(apex);
   const u = unlockedUntil === null ? "-" : String(unlockedUntil);
-  return kotlin.one(`reset ${a} ${scheduleAllows} ${u} ${now}`) === "true";
+  return kotlin.one(`reset ${a} ${scheduleAllows} ${u} ${now} ${brandAllowed}`) === "true";
 }
 
 const NOW = 1_700_000_000_000;
@@ -683,4 +830,201 @@ test("IPv6 is untouched on a network that really has it", opts, () => {
 test("IPv4 is never refused by this rule", opts, () => {
   assert.equal(refuses(false, false), false, "no IPv6 upstream says nothing about IPv4");
   assert.equal(refuses(false, true), false);
+});
+
+// ---------------------------------------------------------------------------
+// Hostname normalisation: the SAME function on both platforms
+// ---------------------------------------------------------------------------
+//
+// This was the repo's largest cross-language coverage gap. `FS Engine`'s
+// `normalizeHostname` strips scheme, userinfo, path, query, fragment, port,
+// trailing dots and a leading "www."; `HostMatch.normalize` did only
+// trim/lowercase/trailing-dot/www., and NOTHING compared the two.
+//
+// For the VPN path the difference was harmless: a TLS SNI value is a bare name
+// and IpPacket already excludes the port. But the same Kotlin function is applied
+// to USER-TYPED text — `HostMatch.allowSet` / `customSet` normalise the
+// always-allow list and Custom URLs, and WebAppBridge.checkHost normalises
+// whatever is typed into the domain tester. So a user who entered what anyone
+// would naturally copy out of a browser —
+//
+//     https://doordash.com/      ->  stored as "https://doordash.com"
+//     doordash.com:443           ->  stored as "doordash.com:443"
+//
+// got a list entry that could never match any host, saved and listed back with a
+// Remove button. The always-allow list's entire promise is "domains here are
+// never blocked", and for those entries it silently did not apply.
+//
+// Every case below asserts KOTLIN'S ANSWER EQUALS THE ENGINE'S, computed by
+// actually calling both — not against a string typed into this file, which would
+// only pin whatever either side happened to do. Kotlin spells "no host" as null
+// and the engine spells it "", so those are treated as the one answer they are.
+const { normalizeHostname } = require("../FS Engine/hostnames.js");
+
+/** HostMatch.normalize through the shipped Kotlin; "" for null, like the engine. */
+function normalize(host) {
+  const answer = kotlin.one(`norm ${asHex(host)}`);
+  return answer === "null" ? "" : kotlin.text(kotlin.fields(answer).host);
+}
+
+// Ordinary input, then everything a person can paste or mistype. The degenerate
+// tail matters as much as the rest: these are the inputs where two
+// implementations drift without anyone noticing, because no one looks at them.
+const NORMALIZE_CASES = [
+  "doordash.com",
+  "DoorDash.COM",
+  "  doordash.com  ",
+  "www.doordash.com",
+  "WWW.DoorDash.com",
+  "order.ubereats.com",
+  "https://doordash.com/",
+  "http://www.doordash.com/order?x=1#f",
+  "ftp://doordash.com",
+  "doordash.com:443",
+  "https://doordash.com:8443/a/b",
+  "doordash.com.",
+  "doordash.com...",
+  "HTTPS://WWW.DOORDASH.COM.:443/x",
+  "doordash.com/order",
+  "doordash.com?q=1",
+  "doordash.com#f",
+  "https://user:pass@doordash.com/x",
+  "user:pass@doordash.com",
+  "user@doordash.com",
+  "//doordash.com",
+  "http://",
+  "://",
+  "www.",
+  ".",
+  "   ",
+  "wingstop.co.uk"
+];
+
+test("HostMatch.normalize answers exactly what the engine's normalizeHostname answers", opts, () => {
+  const disagreements = [];
+
+  NORMALIZE_CASES.forEach((input) => {
+    const fromKotlin = normalize(input);
+    const fromEngine = normalizeHostname(input);
+    if (fromKotlin !== fromEngine) {
+      disagreements.push(`${JSON.stringify(input)}: Kotlin ${JSON.stringify(fromKotlin)} vs engine ${JSON.stringify(fromEngine)}`);
+    }
+  });
+
+  assert.deepEqual(
+    disagreements, [],
+    "the two platforms normalise the same text differently, so a user's entry matches on one and not the other"
+  );
+});
+
+// The half of that which reaches a user: a pasted URL or a host:port typed into
+// the always-allow list has to exempt the site it names. This drives the REAL
+// matcher, so it fails if normalisation regresses even if the comparison above is
+// somehow satisfied.
+test("a pasted URL or a host:port on the always-allow list still exempts the site", opts, () => {
+  ["https://doordash.com/", "doordash.com:443", "HTTPS://WWW.DoorDash.com/orders?x=1", "doordash.com."].forEach((typed) => {
+    assert.equal(
+      apex("www.doordash.com", [typed]), null,
+      `"${typed}" on the always-allow list did not exempt the brand it names`
+    );
+  });
+});
+
+test("the same shapes typed into Custom URLs block the site they name", opts, () => {
+  ["https://example.com/menu", "example.com:8443", "WWW.Example.com."].forEach((typed) => {
+    assert.equal(
+      apex("order.example.com", [], [typed]), "example.com",
+      `"${typed}" in Custom URLs blocked nothing`
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// The per-app "Allowed" pill has to reach the connection filter
+// ---------------------------------------------------------------------------
+//
+// `appAllowBrands` was written by the per-app pill and read ONLY by
+// `AppBlockPolicy` — the app path. So marking DoorDash "Allowed" stopped the
+// AccessibilityService showing the pause screen, and the VpnService went on
+// resetting doordash.com. The app opened, then could not reach its own servers.
+//
+// That is the worst of the three possible outcomes. Blocking the app is honest.
+// Allowing it is honest. Telling the user it is allowed and then breaking its
+// network is neither, and CLAUDE.md §5 forbids a dead customer-facing control —
+// this one was not dead so much as silently overruled by a layer it never named.
+//
+// The decision is a parameter of `BlockDecision.shouldReset`, so these run the real
+// compiled Kotlin rather than describing what the service is supposed to do with it.
+
+test("a brand on the per-app allow list is never reset", opts, () => {
+  assert.equal(
+    shouldReset("doordash.com", true, null, NOW, true), false,
+    'the user switched this app to "Allowed"; resetting its connections opens the app into a network error'
+  );
+});
+
+test("the allow list wins over an open schedule and needs no unlock", opts, () => {
+  // Inside the window, no unlock, nothing else exempting it: the only thing
+  // standing between this brand and an RST is the pill.
+  assert.equal(shouldReset("doordash.com", true, null, NOW), true, "the control group — without the pill it resets");
+  assert.equal(shouldReset("doordash.com", true, null, NOW, true), false);
+
+  // It is a STANDING choice, not a timed one, so an expired unlock is irrelevant to
+  // it. This is the ordering bug that would appear if the allow check sat below the
+  // unlock check and shared its expiry logic.
+  assert.equal(
+    shouldReset("doordash.com", true, NOW - 60_000, NOW, true), false,
+    "an expired temporary unlock must not resurrect blocking for a brand the user allowed outright"
+  );
+});
+
+test("removing a brand from the allow list restores blocking", opts, () => {
+  // The same brand, the same moment, the same schedule — only the pill moves.
+  assert.equal(shouldReset("mcdonalds.com", true, null, NOW, true), false, "allowed");
+  assert.equal(
+    shouldReset("mcdonalds.com", true, null, NOW, false), true,
+    "un-allowing has to take effect; a one-way control is the same defect pointed the other way"
+  );
+});
+
+test("the allow list does not block-by-omission or override the other exemptions", opts, () => {
+  // Not allowed and nothing matched: still no reset, for the earlier reason.
+  assert.equal(shouldReset(null, true, null, NOW, false), false, "an unmatched host is never reset");
+  // A closed schedule still wins regardless of the pill.
+  assert.equal(shouldReset("doordash.com", false, null, NOW, false), false);
+  assert.equal(shouldReset("doordash.com", false, null, NOW, true), false);
+  // And an active unlock still exempts a brand that is NOT on the allow list.
+  assert.equal(shouldReset("doordash.com", true, NOW + 60_000, NOW, false), false);
+});
+
+// The wiring, by inspection: the service has to resolve the brand the same way the
+// unlock does, or the four alias brands get the pill honoured on their apex and
+// ignored on their alias — the exact shape of the bug fixed alongside this one.
+test("the filter resolves the allow list by brand and caches it off the hot path", () => {
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const source = fs
+    .readFileSync(
+      path.join(__dirname, "..", "android", "app", "src", "main", "java", "com", "usha", "fitshield", "FitShieldVpnService.kt"),
+      "utf8"
+    )
+    .replace(/\/\*[\s\S]*?\*\//g, " ")
+    .replace(/\/\/[^\r\n]*/g, " ");
+
+  assert.match(
+    source, /allowedBrands\.contains\(/,
+    "FitShieldVpnService does not consult the per-app allow list, so the pill still stops only the pause screen"
+  );
+  assert.match(
+    source, /val brand = rules\.brandIdFor\(apex\)/,
+    "the allow lookup must go through brandIdFor, or an alias domain is judged by a brand id it does not carry"
+  );
+  assert.match(
+    source, /allowedBrands = runCatching \{ AppBlockPolicy\.allowedBrands\(this\) \}/,
+    "the list must be cached by applyUserLists; parsing JSON out of SharedPreferences per connection is the hot path"
+  );
+  assert.match(
+    source, /key == AppBlockPolicy\.KEY_ALLOW_BRANDS/,
+    "the preference watcher must refresh the cache, or the pill only takes effect after a restart"
+  );
 });

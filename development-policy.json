@@ -54,12 +54,6 @@
   ],
   "external_only_allowed": [
     {
-      "id": "safari-xcode",
-      "reason": "conversion and an unsigned compile now run in CI on macOS; signing needs an Apple Developer team, and Safari's narrower declarativeNetRequest support can only be judged on real hardware",
-      "requires": "an Apple Developer team to sign, and a person with a Mac or iPhone to confirm blocking on-device",
-      "local_prerequisites_complete": true
-    },
-    {
       "id": "android-apk",
       "reason": "the APK builds here and in CI (`npm run toolchain:android` provisions a JDK and the Android SDK); what remains is the VPN-consent flow and on-device blocking, which need real hardware",
       "requires": "a physical Android device",

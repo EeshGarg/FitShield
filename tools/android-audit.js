@@ -150,24 +150,32 @@ function androidAudit() {
 
   // 3b. Reused web bundle: authored entries present + copied files match
   // canonical (no fork/drift). Mirrors the rules-asset drift guarantee.
-  const webDir = path.join(ANDROID_DIR, "app", "src", "main", "assets", "web");
+  //
+  // The copy manifest is IMPORTED from the builder rather than restated here.
+  // There used to be a verbatim second copy of WEB_COPIES below, under a comment
+  // reading "KEEP IN SYNC with the WEB_COPIES list in tools/build-android.js" —
+  // an instruction to a human, guarding the drift check with the exact class of
+  // drift it exists to catch. It had already lost: the copy omitted
+  // WEB_DIR_COPIES entirely and re-hardcoded the `_locales` path, so a second
+  // directory copy added to the builder would have been staged into the APK and
+  // never verified by anything.
+  //
+  // The require is LAZY, and has to be: tools/build-android.js requires THIS
+  // module at its top level, so a top-level require here would close the cycle
+  // and hand whichever module loaded second a half-initialised `exports` — with
+  // WEB_COPIES undefined, or the audit function missing, depending on the entry
+  // point. Resolving it at the point of use means the registry is complete
+  // whichever of the two was entered first.
+  const builder = require("./build-android");
+  const { WEB_COPIES, WEB_DIR_COPIES, WEB_DIR: webDir } = builder;
+
   ["index.html", "app.js"].forEach((f) => {
     if (!fs.existsSync(path.join(webDir, f))) {
       reporter.fail(`web entry missing: android/app/src/main/assets/web/${f}`);
     }
   });
   // Canonical sources: extension/ (shared web UI modules), data/ (canonical
-  // data), android/web-src/ (the Android-authored shim). KEEP IN SYNC with the
-  // WEB_COPIES list in tools/build-android.js.
-  const WEB_COPIES = [
-    [path.join("android", "web-src", "android-shim.js"), "android-shim.js"],
-    [path.join("extension", "i18n.js"), "i18n.js"],
-    [path.join("extension", "languages.js"), "languages.js"],
-    [path.join("extension", "ambient.js"), "ambient.js"],
-    [path.join("extension", "recipes.js"), "recipes.js"],
-    [path.join("extension", "icons", "icon-128.png"), "icon-128.png"],
-    [path.join("data", "recipes.json"), path.join("data", "recipes.json")]
-  ];
+  // data), android/web-src/ (the Android-authored shim) — see WEB_COPIES above.
   WEB_COPIES.forEach(([src, dest]) => {
     const canonical = path.join(load.ROOT, src);
     const bundled = path.join(webDir, dest);
@@ -178,15 +186,24 @@ function androidAudit() {
     }
   });
 
-  // All locales are reused (copied) — verify the bundled tree matches canonical
-  // exactly, so there is no Android-only locale fork.
-  const localeDrift = compareTree(load.LOCALES_DIR, path.join(webDir, "_locales"));
-  if (localeDrift === null) {
-    reporter.fail("web bundle missing _locales (run npm run build:android)");
-  } else if (localeDrift > 0) {
-    reporter.fail(`web bundle _locales drifted from canonical in ${localeDrift} file(s) (run npm run build:android)`);
-  } else {
-    reporter.note(`reused web assets: i18n, recipes, icon + ${load.localeDirs().length} locales (copied from canonical, no fork)`);
+  // Whole directories are reused (copied recursively) — verify each bundled tree
+  // matches canonical exactly, so there is no Android-only fork. Driven from the
+  // builder's WEB_DIR_COPIES rather than naming `_locales`, which is what the copy
+  // of this manifest used to do: a second directory added to the builder was
+  // staged into the APK and checked by nothing.
+  let dirsVerified = 0;
+  WEB_DIR_COPIES.forEach(([src, dest]) => {
+    const drift = compareTree(path.join(load.ROOT, src), path.join(webDir, dest));
+    if (drift === null) {
+      reporter.fail(`web bundle missing ${dest} (run npm run build:android)`);
+    } else if (drift > 0) {
+      reporter.fail(`web bundle ${dest} drifted from canonical in ${drift} file(s) (run npm run build:android)`);
+    } else {
+      dirsVerified += 1;
+    }
+  });
+  if (dirsVerified === WEB_DIR_COPIES.length) {
+    reporter.note(`reused web assets: ${WEB_COPIES.length} copied file(s) + ${load.localeDirs().length} locales (copied from canonical, no fork)`);
   }
 
   // 3b-ii. Every locale key the Android UI asks for must be a key that EXISTS.
@@ -655,8 +672,30 @@ async function audit() {
     } else if (JSON.stringify(asset.hosts) !== JSON.stringify(derived.hosts)) {
       reporter.fail("rules asset host list does not match the engine output");
     } else {
-      reporter.note(`${derived.count} hosts match the separated engine (sha256 ${derived.sha256.slice(0, 12)}…)`);
-      reporter.note(`derived from canonical data v${Object.values(derived.datasetVersions).join("/")} via ${derived.engine}`);
+      // EVERY field, not just the host list.
+      //
+      // `sha256` is a hash of `hosts` alone, so those two checks together proved
+      // exactly one thing about the asset and said "DRIFTED from the engine
+      // output" as though they had proved all of it. `meta` — the per-host
+      // country, food category and brand id the VpnService records statistics and
+      // resolves temporary unlocks from — was compared by nothing, so a change to
+      // how it is derived left a stale map on disk, shipped it into the APK, and
+      // passed. The brandId the alias-unlock fix depends on was added that way.
+      //
+      // The mismatching keys are named because the remedy differs by field: a
+      // `meta` or `hosts` difference means the canonical data or this generator
+      // moved, while `appVersion` / `datasetVersions` usually means a version bump
+      // landed without the asset being regenerated after it.
+      const drifted = [...new Set([...Object.keys(derived), ...Object.keys(asset)])]
+        .filter((key) => JSON.stringify(asset[key]) !== JSON.stringify(derived[key]))
+        .sort();
+      if (drifted.length) {
+        reporter.fail(`rules asset DRIFTED from engine output in ${drifted.join(", ")} — run npm run generate:android`);
+      } else {
+        reporter.note(`${derived.count} hosts match the separated engine (sha256 ${derived.sha256.slice(0, 12)}…)`);
+        reporter.note(`rules asset matches the engine in every field, including the ${Object.keys(derived.meta).length}-host meta map`);
+        reporter.note(`derived from canonical data v${Object.values(derived.datasetVersions).join("/")} via ${derived.engine}`);
+      }
     }
   }
   return reporter;

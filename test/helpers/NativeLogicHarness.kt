@@ -117,16 +117,31 @@ private fun run(line: String): String {
             HostMatch.blockedApex(apexes, custom, allow, host)?.let { "apex=${hexText(it)}" } ?: "null"
         }
 
+        // norm <hostHex>
+        // HostMatch.normalize on its own, so it can be held against the JS
+        // engine's normalizeHostname case for case. It is reached through
+        // `apex` as well, but only for inputs that are already clean hostnames —
+        // and the inputs that were broken are the ones a USER types into the
+        // allow list or the domain tester: a pasted URL, a port, a trailing dot.
+        // Kotlin's null ("no host") travels as the literal "null"; the engine
+        // spells the same answer "".
+        "norm" -> HostMatch.normalize(String(unhex(a[1]), Charsets.UTF_8))
+            ?.let { "host=${hexText(it)}" } ?: "null"
+
         // notice <afterReboot>
         "notice" -> "s=${hexText(BootRestore.noticeText(a[1] == "true"))}"
 
         // refuse <destIsIpv6> <ipv6Upstream>
         "refuse" -> BlockDecision.shouldRefuseSyn(a[1] == "true", a[2] == "true").toString()
 
-        // reset <apexHex|-> <scheduleAllows> <unlockedUntil|-> <now>
+        // reset <apexHex|-> <scheduleAllows> <unlockedUntil|-> <now> [brandAllowed]
+        // `brandAllowed` is LAST and defaults to absent ("-" -> false) so every
+        // command string written before the per-app allow list reached the filter
+        // still means what it meant.
         "reset" -> BlockDecision.shouldReset(
             if (a[1] == "-") null else String(unhex(a[1]), Charsets.UTF_8),
             a[2] == "true",
+            a[5] == "true",
             if (a[3] == "-") null else a[3].toLong(),
             a[4].toLong()
         ).toString()

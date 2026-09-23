@@ -22,13 +22,40 @@ class RuleEngine private constructor(
 ) {
 
     /** Curated, engine-derived metadata for a blockable host: the brand's food
-     *  [category] and PRIMARY operating [country]. Empty strings when unknown. */
-    data class BlockMeta(val country: String, val category: String)
+     *  [category], PRIMARY operating [country], and — for an ALIAS host only —
+     *  the [brandId] that host belongs to. Empty strings when unknown. */
+    data class BlockMeta(val country: String, val category: String, val brandId: String = "")
 
     val count: Int get() = apexes.size
 
     /** Metadata for the matched apex/host, or null when the asset has none. */
     fun metaFor(host: String?): BlockMeta? = if (host == null) null else meta[host.lowercase()]
+
+    /**
+     * The brand id [host] belongs to — the key a temporary unlock is stored under.
+     *
+     * This exists because the filter was ASSUMING the matched host is the brand
+     * id. BlockActivity records "Open anyway" under `brandId`, which is the
+     * entry's canonical domain, while the filter looked the unlock up by the host
+     * it had just matched. Those are the same string for almost every host and
+     * different for every ALIAS domain, and four shipped brands have both an
+     * Android app and an alias: burgerking.com/bk.com, nandos.co.uk/nandos.com,
+     * wingstop.com/wingstop.co.uk and food.jumia.com's four country domains. For
+     * those, the user chose "Open anyway", the app was opened for them, and every
+     * connection it made to the alias domain was reset — re-blocked on the very
+     * host they had just been let through.
+     *
+     * The mapping is DATA: `meta[host].b`, emitted by
+     * tools/generate-android-rules.js only where it differs from the host, because
+     * it is a property of the curated datasets rather than of this code. Falling
+     * back to [host] is correct for every non-alias host and for the user's own
+     * custom domains, which belong to no brand.
+     */
+    fun brandIdFor(host: String?): String {
+        val normalized = host ?: return ""
+        val brand = metaFor(normalized)?.brandId
+        return if (brand != null && brand.isNotEmpty()) brand else normalized
+    }
 
     /** The always-allow layer, for tests and callers that need to see it. */
     val allowlist: Set<String> get() = allow
@@ -101,7 +128,9 @@ class RuleEngine private constructor(
                         metaJson.optJSONObject(key)?.let { entry ->
                             metaMap[key.lowercase()] = BlockMeta(
                                 entry.optString("c", ""),
-                                entry.optString("k", "")
+                                entry.optString("k", ""),
+                                // Present only on an alias host; see brandIdFor.
+                                entry.optString("b", "").lowercase()
                             )
                         }
                     }
