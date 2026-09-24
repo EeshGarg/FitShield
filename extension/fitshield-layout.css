@@ -54,3 +54,27 @@ html,
 body {
   min-width: var(--fs-min-layout-width);
 }
+
+/**
+ * The document scrollbar, in FitShield's colours.
+ *
+ * At the floor the scrollbars are the most visible thing on the surface — a
+ * constrained panel scrolls in both axes — and they were the browser default:
+ * a bright grey bar down the side of a near-black panel. warning.html already
+ * had the fix and nothing else did, so this is that rule, applied to every
+ * surface rather than one.
+ *
+ * Both colours are named deliberately. `color-scheme` alone leaves a light
+ * palette with a scrollbar the browser picks, which is how the dark and light
+ * themes ended up with the same grey. Derived from --text and --bg, so a custom
+ * theme colours its own scrollbar and no page needs a value of its own.
+ *
+ * COLOUR ONLY, deliberately. `scrollbar-width: thin` would suit a 420px panel
+ * visually, but a scrollbar is a pointer target and narrowing it makes that
+ * target harder to hit — worst for the users least able to afford it. The
+ * project reserves `thin` for an inner list (warning.html's `.alt-scroll`) and
+ * leaves the document scrollbar at the size the platform chose.
+ */
+html {
+  scrollbar-color: color-mix(in srgb, var(--text) 32%, var(--bg)) var(--bg);
+}

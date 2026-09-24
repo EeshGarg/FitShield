@@ -65,7 +65,14 @@ let parked = null;
  * would let the deliberately-failed-gate test below delete a real dist/).
  */
 function renameWhenFree(from, to, what) {
-  const deadline = Date.now() + 30000;
+  // Generous on purpose. test/tools.test.js runs the whole validate-all, which
+  // launches Chrome for the accessibility audit and then Firefox for the
+  // packaged-extension audit, each against dist/. Both together routinely hold
+  // the directory for over a minute, and a 30s ceiling turned that into an
+  // intermittent failure of this file rather than a wait. The assertion below is
+  // unchanged — this only decides how long to wait for an unrelated process to
+  // let go before giving up and saying so.
+  const deadline = Date.now() + 240000;
   let last = null;
 
   for (;;) {
@@ -81,7 +88,7 @@ function renameWhenFree(from, to, what) {
 
       if (Date.now() > deadline) {
         throw new Error(
-          `could not ${what} dist/ after 30s — something still holds it open (${last.code}). ` +
+          `could not ${what} dist/ after 240s — something still holds it open (${last.code}). ` +
             "A browser launched by another suite against dist/chrome or dist/firefox is the usual cause."
         );
       }

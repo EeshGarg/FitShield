@@ -25,7 +25,9 @@
         "One implementation instead of several: the worker no longer duplicates the shared site-record logic, the settings-key list has a single home, Android uses the shared country namer, and the asset-copy list is no longer duplicated between the bundler and its own audit.",
         "Packages got slightly larger, not smaller - the Chrome archive from 732,062 to 742,371 bytes - because the cheaper paths carry the explanation of why they are equivalent, plus new tests that execute behavior rather than grep for it.",
         "Still local-only: no telemetry, no accounts, no network calls, no cloud, and the same three permissions.",
-        "The catalog is unchanged: 2,505 brands across 111 markets in 21 curated categories, answered by 88 alternatives - 46 full recipes and 42 quick fixes. Nothing was added, removed or recategorized."
+        "The catalog is unchanged: 2,505 brands across 111 markets in 21 curated categories, answered by 88 alternatives - 46 full recipes and 42 quick fixes. Nothing was added, removed or recategorized.",
+        "Fixed a Chromium/Brave regression where a FitShield page in a narrow container collapsed into an unusable vertical strip - at a 120px viewport the Settings content box measured 49 pixels. Every extension surface now honors one minimum layout contract of 420px, the narrowest popup the width slider has always offered, and scrolls instead of crushing below it. Firefox never showed the bug because it will not produce a viewport that narrow.",
+        "The installed package is 21% smaller - 2.82 MB against 3.56 MB - because the build now compacts JSON as it stages it. The datasets stay pretty-printed for review; 775 KB of indentation that only JSON.parse ever saw no longer ships."
       ]
     },
     {
