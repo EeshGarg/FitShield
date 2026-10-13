@@ -20,6 +20,9 @@ android/keystore.properties
 *.jks
 *.keystore
 
+# graphify knowledge-graph output (local analysis, rebuilt on demand).
+graphify-out/
+
 # Translator worklists written by tools/locale-status.js --todo
 translations/
 

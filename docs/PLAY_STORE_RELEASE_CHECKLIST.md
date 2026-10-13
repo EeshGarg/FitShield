@@ -574,22 +574,15 @@ version of this file quoted a catalog that had moved on twice.
 | Figure | Count |
 | --- | --- |
 | Curated brands in the blocklists | 2,505 |
-| Brands with an Android port record | 2,504 |
+| Brands with an Android port record | 2,505 |
 | Brands that carry at least one app package | 1,445 |
 | Unique Android package IDs bundled | 1,511 |
 | Brands verified as having no app (`no_app`) | 757 |
 | Brands whose only app is a shared platform storefront (`shared_app`) | 266 |
-| Brands still `needs_review` | 36 |
+| Brands still `needs_review` | 37 |
 
 - [x] Those seven numbers are the data's own.
       _Evidence: `test/play-release.test.js` › "the coverage table states the counts the generated Android bundle holds"._
-- [ ] **One curated brand has no Android port record at all: Sweetgreen
-      (`sweetgreen.com`).** `HUMAN — routed to the data lane.` It is neither
-      mapped, nor marked `no_app`, nor flagged `needs_review` — it is simply
-      absent from `data/android/fast-food-apps.json`, which is why the port
-      record count is 2,504 against 2,505 brands. Until it is added, the honest
-      claim is "2,504 of 2,505", not "every brand".
-      _Evidence: `test/play-release.test.js` › "the checklist names every curated brand missing an Android port record" — when the gap is filled this line has to go._
 - [x] `shared_app` and `needs_review` brands carry **no** package IDs, so they are
       **not** blocked as apps. Site blocking still covers them. Do not describe
       app coverage as if it were catalog coverage.

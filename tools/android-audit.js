@@ -24,6 +24,7 @@ const { Reporter, runCli } = require("./lib/report");
 const load = require("./lib/load");
 const gen = require("./generate-android-rules");
 const genPackages = require("./generate-android-packages");
+const { WEB_COPIES, WEB_DIR_COPIES, WEB_DIR } = require("./lib/android-web");
 
 const ANDROID_DIR = path.join(load.ROOT, "android");
 const MANIFEST = path.join(ANDROID_DIR, "app", "src", "main", "AndroidManifest.xml");
@@ -151,23 +152,11 @@ function androidAudit() {
   // 3b. Reused web bundle: authored entries present + copied files match
   // canonical (no fork/drift). Mirrors the rules-asset drift guarantee.
   //
-  // The copy manifest is IMPORTED from the builder rather than restated here.
-  // There used to be a verbatim second copy of WEB_COPIES below, under a comment
-  // reading "KEEP IN SYNC with the WEB_COPIES list in tools/build-android.js" —
-  // an instruction to a human, guarding the drift check with the exact class of
-  // drift it exists to catch. It had already lost: the copy omitted
-  // WEB_DIR_COPIES entirely and re-hardcoded the `_locales` path, so a second
-  // directory copy added to the builder would have been staged into the APK and
-  // never verified by anything.
-  //
-  // The require is LAZY, and has to be: tools/build-android.js requires THIS
-  // module at its top level, so a top-level require here would close the cycle
-  // and hand whichever module loaded second a half-initialised `exports` — with
-  // WEB_COPIES undefined, or the audit function missing, depending on the entry
-  // point. Resolving it at the point of use means the registry is complete
-  // whichever of the two was entered first.
-  const builder = require("./build-android");
-  const { WEB_COPIES, WEB_DIR_COPIES, WEB_DIR: webDir } = builder;
+  // The copy manifest is IMPORTED (tools/lib/android-web.js, shared with the
+  // builder) rather than restated here. There used to be a verbatim second copy
+  // of WEB_COPIES below, under a comment reading "KEEP IN SYNC" — it had already
+  // drifted: it omitted WEB_DIR_COPIES and re-hardcoded the `_locales` path.
+  const webDir = WEB_DIR;
 
   ["index.html", "app.js"].forEach((f) => {
     if (!fs.existsSync(path.join(webDir, f))) {

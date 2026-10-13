@@ -4,9 +4,9 @@
   "schema": 1,
   "generator": "tools/generate-android-packages.js",
   "counts": {
-    "brands": 2504,
+    "brands": 2505,
     "packages": 1511,
-    "needsReview": 36,
+    "needsReview": 37,
     "noApp": 757,
     "sharedApp": 266
   },
@@ -679,7 +679,7 @@
     "cn.atpchina.mobileapp": {
       "brandId": "burgerking.com.cn",
       "displayName": "Burger King China",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -692,7 +692,7 @@
     "cn.dominos.pizza": {
       "brandId": "dominos.com.cn",
       "displayName": "Domino's China",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -4017,7 +4017,7 @@
     "com.easymembership.gongcha": {
       "brandId": "gong-cha.co.kr",
       "displayName": "Gong Cha Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "tea",
       "foodType": "fast_food",
       "specialties": [
@@ -4271,7 +4271,7 @@
     "com.faasos": {
       "brandId": "faasos.io",
       "displayName": "Faasos",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": []
@@ -4549,7 +4549,7 @@
     "com.foodtechkorea.bhc": {
       "brandId": "bhc.co.kr",
       "displayName": "BHC Chicken",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -4649,7 +4649,7 @@
     "com.fuse_smart_pizzaetang": {
       "brandId": "pizzaetang.com",
       "displayName": "Pizza Etang",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -5243,7 +5243,7 @@
     "com.heyteago": {
       "brandId": "heytea.com",
       "displayName": "HEYTEA",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "tea",
       "foodType": "fast_food",
       "specialties": [
@@ -6690,7 +6690,7 @@
     "com.mcdonalds.gma.cn": {
       "brandId": "mcdonalds.com.cn",
       "displayName": "McDonald's China",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -7216,7 +7216,7 @@
     "com.mwos2.mcdelivery": {
       "brandId": "mcdonalds.co.kr",
       "displayName": "McDonald's Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -9105,7 +9105,7 @@
     "com.pizzahut.android": {
       "brandId": "pizzahut.co.kr",
       "displayName": "Pizza Hut Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -9118,7 +9118,7 @@
     "com.pizzahut.app": {
       "brandId": "pizzahut.com.hk",
       "displayName": "Pizza Hut Hong Kong",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -14372,7 +14372,7 @@
     "kfc_ko.kore.kg.kfc_korea": {
       "brandId": "kfc.co.kr",
       "displayName": "KFC Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -14424,7 +14424,7 @@
     "kr.co.burgerkinghybrid": {
       "brandId": "burgerking.co.kr",
       "displayName": "Burger King Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -14445,7 +14445,7 @@
     "kr.co.d2.dominos": {
       "brandId": "dominos.co.kr",
       "displayName": "Domino's Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -14457,7 +14457,7 @@
     "kr.co.genesiskorea.bbqchicken": {
       "brandId": "bbq.co.kr",
       "displayName": "bb.q Chicken",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -14489,7 +14489,7 @@
     "kr.co.pelicana.android": {
       "brandId": "pelicana.co.kr",
       "displayName": "Pelicana Chicken",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -14501,7 +14501,7 @@
     "kr.co.pji.android": {
       "brandId": "papajohns.co.kr",
       "displayName": "Papa Johns Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -14521,7 +14521,7 @@
     "kr.co.subway.preorder": {
       "brandId": "subway.co.kr",
       "displayName": "Subway Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "sandwich",
       "foodType": "fast_food",
       "specialties": [
@@ -15132,7 +15132,7 @@
     "nz.co.menulog.m": {
       "brandId": "menulog.co.nz",
       "displayName": "Menulog",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": []

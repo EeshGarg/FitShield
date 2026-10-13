@@ -177,12 +177,10 @@ order", "Your stats stay on-device".
 
 - [ ] 512×512 PNG for the store listing
 - [ ] Consistent with extension branding (icon-128.png lineage)
-- [ ] **The app itself currently has no launcher icon** — no `mipmap-*` resources
-      and no `android:icon` on `<application>`, so it installs with Android's
-      grey placeholder. The store icon does not fix that. Design both from the
-      same artwork and see
-      [PLAY_STORE_RELEASE_CHECKLIST.md §8](PLAY_STORE_RELEASE_CHECKLIST.md#8-store-listing-and-assets)
-      for exactly what the Android lane needs.
+- [x] **The app ships its own launcher icon** (adaptive `@mipmap/ic_launcher`,
+      the same F mark as the browser build). The 512×512 store icon is a
+      separate upload; draw it from the same artwork — see
+      [PLAY_STORE_RELEASE_CHECKLIST.md §8](PLAY_STORE_RELEASE_CHECKLIST.md#8-store-listing-and-assets).
 
 ## Release notes — "What's new" (500 chars max per entry)
 
@@ -213,8 +211,8 @@ three releases):
 > • No account, no ads, no analytics — everything stays on your device
 
 (390 chars — recounted; the draft claimed 431. "every app mapping verified by
-hand" was also not true and is gone: 36 brands are still `needs_review` and one
-has no port record at all, so the honest word is "researched". Add each future upload's notes above this line, newest first, and
+hand" was also not true and is gone: 37 brands are still `needs_review`, so the
+honest word is "researched". Add each future upload's notes above this line, newest first, and
 record the versionName↔versionCode pair in `changelog/<version>.md`.
 `versionName` is injected from `extension/manifest.json` by the Android build, so
 it always matches the canonical version; `versionCode` is supplied per release.)

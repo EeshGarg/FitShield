@@ -585,7 +585,7 @@ data/generated/android-packages.json ── bundled ──▶ assets/android-pac
   `shared_app` (the brand's official app is another blocked brand's package —
   e.g. a platform's country storefront — recorded once on the owning brand so
   every package ID maps to exactly one brand). The current split — 1,511 packages
-  across 1,445 brands; 757 `no_app`; 266 `shared_app`; 36 `needs_review` — is
+  across 1,445 brands; 757 `no_app`; 266 `shared_app`; 37 `needs_review` — is
   re-derived from the data by
   `test/play-release.test.js`, and the full table with the curated-brand
   denominator is in

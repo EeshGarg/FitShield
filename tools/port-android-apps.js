@@ -15,8 +15,11 @@
  *     brandId); no brand is skipped just because its package ID is unknown.
  *   - CONFIRMED package IDs are PRESERVED across runs (read from the existing app
  *     files) so re-running never loses a human-entered mapping and never guesses.
- *   - brands without a confirmed package ID become packageStatus:"needs_review"
- *     with empty packageIds.
+ *   - a recorded packageStatus on an empty-package brand ("no_app",
+ *     "shared_app", "needs_review") is PRESERVED: those are human verdicts, and
+ *     resetting them to needs_review would silently discard the review work.
+ *   - brands with neither a confirmed package ID nor a recorded status become
+ *     packageStatus:"needs_review" with empty packageIds.
  *   - a brand listed in both blocklists is ported once (delivery wins) to keep
  *     brandId globally unique.
  *   - output is deterministic (sorted by brandId), so re-running is a clean diff.
@@ -27,6 +30,9 @@
 const fs = require("fs");
 const path = require("path");
 const load = require("./lib/load");
+
+// Statuses that legitimately carry empty packageIds (see validate-android-packages.js).
+const EMPTY_STATUSES = new Set(["needs_review", "no_app", "shared_app"]);
 
 const ANDROID_DIR = path.join(load.DATA_DIR, "android");
 const FILES = [
@@ -47,6 +53,7 @@ function existingByBrand() {
       if (a && a.brandId) {
         map.set(a.brandId, {
           packageIds: Array.isArray(a.packageIds) ? a.packageIds.slice() : [],
+          packageStatus: a.packageStatus,
           category: a.category
         });
       }
@@ -73,7 +80,9 @@ function port() {
       const prev = existing.get(brandId);
       const packageIds = prev && prev.packageIds.length ? prev.packageIds.slice().sort() : [];
       const app_ = { brandId, packageIds };
-      if (packageIds.length === 0) app_.packageStatus = "needs_review";
+      if (packageIds.length === 0) {
+        app_.packageStatus = (prev && EMPTY_STATUSES.has(prev.packageStatus)) ? prev.packageStatus : "needs_review";
+      }
       if (prev && prev.category) app_.category = prev.category;
       apps.push(app_);
     });
@@ -81,16 +90,16 @@ function port() {
     apps.sort((a, b) => a.brandId.localeCompare(b.brandId));
 
     const withPkg = apps.filter((a) => a.packageIds.length).length;
-    const lines = apps.map((a) => "    " + JSON.stringify(a));
-    const body =
-      "{\n" +
-      `  "_schema": "fitshield-android-apps/1",\n` +
-      `  "_note": "PORTED from data/blocklists/${blocklist} by tools/port-android-apps.js (additive; the blocklist stays authoritative). One entry per brand; brandId is the brand's canonical domain and all display metadata is generated from the blocklists. Confirmed packageIds are preserved on re-run; unknown ones stay needs_review — never guess a package ID.",\n` +
-      `  "defaultCategory": "${category}",\n` +
-      `  "apps": [\n${lines.join(",\n")}\n  ]\n}\n`;
+    const body = JSON.stringify({
+      _schema: "fitshield-android-apps/1",
+      _note: `PORTED from data/blocklists/${blocklist} by tools/port-android-apps.js (additive; the blocklist stays authoritative). One entry per brand; brandId is the brand's canonical domain and all display metadata is generated from the blocklists. Confirmed packageIds and recorded packageStatus verdicts are preserved on re-run; unknown ones stay needs_review — never guess a package ID.`,
+      defaultCategory: category,
+      apps
+    }, null, 2) + "\n";
 
     fs.writeFileSync(path.join(ANDROID_DIR, app), body);
-    summary.push(`${app}: ${apps.length} brands ported (${withPkg} with confirmed packages, ${apps.length - withPkg} needs_review)`);
+    const needsReview = apps.filter((a) => a.packageStatus === "needs_review").length;
+    summary.push(`${app}: ${apps.length} brands ported (${withPkg} with confirmed packages, ${needsReview} needs_review)`);
   }
 
   summary.forEach((s) => console.log(s));

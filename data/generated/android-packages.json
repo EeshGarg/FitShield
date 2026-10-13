@@ -18,13 +18,13 @@
     "meal_kit"
   ],
   "counts": {
-    "brands": 2504,
+    "brands": 2505,
     "packages": 1511,
-    "needsReview": 36,
+    "needsReview": 37,
     "noApp": 757,
     "sharedApp": 266
   },
-  "sha256": "076bfe34dc3c907dcae1b190d723d9cf94f39d6193d59ba37dba2cdceca900a2",
+  "sha256": "a9ca98818f4f7122924e8e7268c5e022a3ad03d70810d3847cb2f79cacfba6f6",
   "packages": {
     "ai.appfront.coffeebeanery": {
       "brandId": "coffeebeanery.com",
@@ -694,7 +694,7 @@
     "cn.atpchina.mobileapp": {
       "brandId": "burgerking.com.cn",
       "displayName": "Burger King China",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -707,7 +707,7 @@
     "cn.dominos.pizza": {
       "brandId": "dominos.com.cn",
       "displayName": "Domino's China",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -4032,7 +4032,7 @@
     "com.easymembership.gongcha": {
       "brandId": "gong-cha.co.kr",
       "displayName": "Gong Cha Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "tea",
       "foodType": "fast_food",
       "specialties": [
@@ -4286,7 +4286,7 @@
     "com.faasos": {
       "brandId": "faasos.io",
       "displayName": "Faasos",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": []
@@ -4564,7 +4564,7 @@
     "com.foodtechkorea.bhc": {
       "brandId": "bhc.co.kr",
       "displayName": "BHC Chicken",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -4664,7 +4664,7 @@
     "com.fuse_smart_pizzaetang": {
       "brandId": "pizzaetang.com",
       "displayName": "Pizza Etang",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -5258,7 +5258,7 @@
     "com.heyteago": {
       "brandId": "heytea.com",
       "displayName": "HEYTEA",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "tea",
       "foodType": "fast_food",
       "specialties": [
@@ -6705,7 +6705,7 @@
     "com.mcdonalds.gma.cn": {
       "brandId": "mcdonalds.com.cn",
       "displayName": "McDonald's China",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -7231,7 +7231,7 @@
     "com.mwos2.mcdelivery": {
       "brandId": "mcdonalds.co.kr",
       "displayName": "McDonald's Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -9120,7 +9120,7 @@
     "com.pizzahut.android": {
       "brandId": "pizzahut.co.kr",
       "displayName": "Pizza Hut Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -9133,7 +9133,7 @@
     "com.pizzahut.app": {
       "brandId": "pizzahut.com.hk",
       "displayName": "Pizza Hut Hong Kong",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -14387,7 +14387,7 @@
     "kfc_ko.kore.kg.kfc_korea": {
       "brandId": "kfc.co.kr",
       "displayName": "KFC Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -14439,7 +14439,7 @@
     "kr.co.burgerkinghybrid": {
       "brandId": "burgerking.co.kr",
       "displayName": "Burger King Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -14460,7 +14460,7 @@
     "kr.co.d2.dominos": {
       "brandId": "dominos.co.kr",
       "displayName": "Domino's Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -14472,7 +14472,7 @@
     "kr.co.genesiskorea.bbqchicken": {
       "brandId": "bbq.co.kr",
       "displayName": "bb.q Chicken",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -14504,7 +14504,7 @@
     "kr.co.pelicana.android": {
       "brandId": "pelicana.co.kr",
       "displayName": "Pelicana Chicken",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -14516,7 +14516,7 @@
     "kr.co.pji.android": {
       "brandId": "papajohns.co.kr",
       "displayName": "Papa Johns Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -14536,7 +14536,7 @@
     "kr.co.subway.preorder": {
       "brandId": "subway.co.kr",
       "displayName": "Subway Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "sandwich",
       "foodType": "fast_food",
       "specialties": [
@@ -15147,7 +15147,7 @@
     "nz.co.menulog.m": {
       "brandId": "menulog.co.nz",
       "displayName": "Menulog",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": []
@@ -20223,7 +20223,7 @@
     {
       "brandId": "bbq.co.kr",
       "displayName": "bb.q Chicken",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -20244,7 +20244,6 @@
       "tags": [
         "chicken",
         "chicken_wings",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "fried_chicken"
@@ -20914,7 +20913,7 @@
     {
       "brandId": "bhc.co.kr",
       "displayName": "BHC Chicken",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -20935,7 +20934,6 @@
       "tags": [
         "chicken",
         "chicken_wings",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "fried_chicken"
@@ -22525,7 +22523,7 @@
     {
       "brandId": "bornga.co.kr",
       "displayName": "Bornga",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "korean_food",
       "foodType": "fast_food",
       "specialties": [
@@ -22543,7 +22541,6 @@
       ],
       "tags": [
         "bulgogi",
-        "delivery",
         "fast_food",
         "korean_barbecue",
         "korean_dining",
@@ -23659,7 +23656,7 @@
     {
       "brandId": "burgerking.co.kr",
       "displayName": "Burger King Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -23682,7 +23679,6 @@
         "burger",
         "burgers",
         "chicken",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "fries"
@@ -23837,7 +23833,7 @@
     {
       "brandId": "burgerking.com.cn",
       "displayName": "Burger King China",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -23860,7 +23856,6 @@
         "burger",
         "burgers",
         "chicken",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "fries"
@@ -32172,7 +32167,7 @@
     {
       "brandId": "dominos.co.kr",
       "displayName": "Domino's Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -32191,7 +32186,6 @@
         "KR"
       ],
       "tags": [
-        "delivery",
         "direct_delivery",
         "fast_food",
         "pizza",
@@ -32363,7 +32357,7 @@
     {
       "brandId": "dominos.com.cn",
       "displayName": "Domino's China",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -32382,7 +32376,6 @@
         "CN"
       ],
       "tags": [
-        "delivery",
         "direct_delivery",
         "fast_food",
         "pizza",
@@ -35098,7 +35091,7 @@
     {
       "brandId": "faasos.io",
       "displayName": "Faasos",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -35111,8 +35104,7 @@
       ],
       "countryCodes": [],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
@@ -36963,7 +36955,7 @@
     {
       "brandId": "foodpanda.bg",
       "displayName": "Foodpanda Bulgaria",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -36976,8 +36968,7 @@
         "BG"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
@@ -37200,7 +37191,7 @@
     {
       "brandId": "foodpanda.ro",
       "displayName": "Foodpanda",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -37213,8 +37204,7 @@
         "RO"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
@@ -37246,7 +37236,7 @@
     {
       "brandId": "foodpanda.sk",
       "displayName": "Foodpanda Slovakia",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -37259,8 +37249,7 @@
         "SK"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
@@ -37292,7 +37281,7 @@
     {
       "brandId": "foodpanda.vn",
       "displayName": "Foodpanda",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -37305,8 +37294,7 @@
         "VN"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
@@ -40049,7 +40037,7 @@
     {
       "brandId": "gong-cha.co.kr",
       "displayName": "Gong Cha Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "tea",
       "foodType": "fast_food",
       "specialties": [
@@ -40070,7 +40058,6 @@
       ],
       "tags": [
         "bubble_tea",
-        "delivery",
         "fast_food",
         "fruit_tea",
         "milk_tea",
@@ -42777,7 +42764,7 @@
     {
       "brandId": "heytea.com",
       "displayName": "HEYTEA",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "tea",
       "foodType": "fast_food",
       "specialties": [
@@ -42801,7 +42788,6 @@
       ],
       "tags": [
         "cheese_tea",
-        "delivery",
         "fast_food",
         "fruit_tea",
         "mobile_ordering",
@@ -46343,7 +46329,7 @@
     {
       "brandId": "just-eat.ch",
       "displayName": "Just Eat",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -46356,8 +46342,7 @@
         "CH"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
@@ -46422,7 +46407,7 @@
     {
       "brandId": "just-eat.dk",
       "displayName": "Just Eat",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -46435,14 +46420,13 @@
         "DK"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
       "brandId": "just-eat.es",
       "displayName": "Just Eat",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -46455,14 +46439,13 @@
         "ES"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
       "brandId": "just-eat.fr",
       "displayName": "Just Eat",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -46475,8 +46458,7 @@
         "FR"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
@@ -46508,7 +46490,7 @@
     {
       "brandId": "just-eat.it",
       "displayName": "Just Eat",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -46521,14 +46503,13 @@
         "IT"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
       "brandId": "just-eat.no",
       "displayName": "Just Eat",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -46541,14 +46522,13 @@
         "NO"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
       "brandId": "justeat.com",
       "displayName": "Just Eat",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [
@@ -46563,7 +46543,6 @@
       "countryCodes": [],
       "tags": [
         "delivery",
-        "fast_food",
         "restaurant_delivery",
         "takeout_ordering"
       ]
@@ -47658,7 +47637,7 @@
     {
       "brandId": "kfc.co.kr",
       "displayName": "KFC Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -47680,7 +47659,6 @@
       "tags": [
         "burgers",
         "chicken",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "fried_chicken",
@@ -47842,7 +47820,7 @@
     {
       "brandId": "kfc.com.cn",
       "displayName": "KFC China",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -47862,7 +47840,6 @@
       "tags": [
         "breakfast",
         "chicken",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "fried_chicken",
@@ -49075,7 +49052,7 @@
     {
       "brandId": "kungfu.com.cn",
       "displayName": "Real Kungfu",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "asian",
       "foodType": "fast_food",
       "specialties": [
@@ -49095,7 +49072,6 @@
       "tags": [
         "asian",
         "chinese_fast_food",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "rice_meals",
@@ -50864,7 +50840,7 @@
     {
       "brandId": "lotteria.com",
       "displayName": "Lotteria",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -50886,7 +50862,6 @@
         "burger",
         "burgers",
         "chicken",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "fries"
@@ -52785,7 +52760,7 @@
     {
       "brandId": "mcdonalds.co.kr",
       "displayName": "McDonald's Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -52808,7 +52783,6 @@
         "breakfast",
         "burger",
         "burgers",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "fries"
@@ -53009,7 +52983,7 @@
     {
       "brandId": "mcdonalds.com.cn",
       "displayName": "McDonald's China",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -53032,7 +53006,6 @@
         "breakfast",
         "burger",
         "burgers",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "fries"
@@ -53831,7 +53804,7 @@
     {
       "brandId": "menulog.co.nz",
       "displayName": "Menulog",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -53846,8 +53819,7 @@
         "NZ"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
@@ -54779,7 +54751,7 @@
     {
       "brandId": "momstouch.co.kr",
       "displayName": "Mom's Touch",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "burger",
       "foodType": "fast_food",
       "specialties": [
@@ -54799,7 +54771,6 @@
       "tags": [
         "burger",
         "chicken_burgers",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "fried_chicken",
@@ -59038,7 +59009,7 @@
     {
       "brandId": "papajohns.co.kr",
       "displayName": "Papa Johns Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -59057,7 +59028,6 @@
         "KR"
       ],
       "tags": [
-        "delivery",
         "direct_delivery",
         "fast_food",
         "pizza",
@@ -60088,7 +60058,7 @@
     {
       "brandId": "pedidosya.pe",
       "displayName": "Pedidosya",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -60101,14 +60071,13 @@
         "PE"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
       "brandId": "pelicana.co.kr",
       "displayName": "Pelicana Chicken",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "chicken",
       "foodType": "fast_food",
       "specialties": [
@@ -60128,7 +60097,6 @@
       ],
       "tags": [
         "chicken",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "fried_chicken",
@@ -61162,7 +61130,7 @@
     {
       "brandId": "pizzaetang.com",
       "displayName": "Pizza Etang",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -61181,7 +61149,6 @@
         "KR"
       ],
       "tags": [
-        "delivery",
         "direct_delivery",
         "fast_food",
         "pizza",
@@ -61302,7 +61269,7 @@
     {
       "brandId": "pizzahut.co.kr",
       "displayName": "Pizza Hut Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -61322,7 +61289,6 @@
         "KR"
       ],
       "tags": [
-        "delivery",
         "direct_delivery",
         "fast_food",
         "pasta",
@@ -61499,7 +61465,7 @@
     {
       "brandId": "pizzahut.com.cn",
       "displayName": "Pizza Hut China",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -61517,7 +61483,6 @@
         "CN"
       ],
       "tags": [
-        "delivery",
         "direct_delivery",
         "fast_food",
         "pasta",
@@ -61528,7 +61493,7 @@
     {
       "brandId": "pizzahut.com.hk",
       "displayName": "Pizza Hut Hong Kong",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "pizza",
       "foodType": "fast_food",
       "specialties": [
@@ -61548,7 +61513,6 @@
         "HK"
       ],
       "tags": [
-        "delivery",
         "direct_delivery",
         "fast_food",
         "pasta",
@@ -64400,7 +64364,7 @@
     {
       "brandId": "realkungfu.com",
       "displayName": "Real Kungfu",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "asian",
       "foodType": "fast_food",
       "specialties": [
@@ -64420,7 +64384,6 @@
       "tags": [
         "asian",
         "chinese_fast_food",
-        "delivery",
         "direct_delivery",
         "fast_food",
         "rice_meals",
@@ -69859,7 +69822,7 @@
     {
       "brandId": "subway.co.kr",
       "displayName": "Subway Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "sandwich",
       "foodType": "fast_food",
       "specialties": [
@@ -69879,7 +69842,6 @@
         "KR"
       ],
       "tags": [
-        "delivery",
         "direct_delivery",
         "fast_food",
         "salads",
@@ -70698,7 +70660,7 @@
     {
       "brandId": "sushiro.co.kr",
       "displayName": "Sushiro Korea",
-      "category": "delivery",
+      "category": "fast_food",
       "foodCategory": "asian",
       "foodType": "fast_food",
       "specialties": [
@@ -70717,7 +70679,6 @@
       "tags": [
         "asian",
         "conveyor_belt_sushi",
-        "delivery",
         "fast_food",
         "japanese_food",
         "sushi"
@@ -70915,6 +70876,33 @@
         "frozen_yogurt",
         "smoothies",
         "toppings"
+      ]
+    },
+    {
+      "brandId": "sweetgreen.com",
+      "displayName": "Sweetgreen",
+      "category": "fast_food",
+      "foodCategory": "fast_casual",
+      "foodType": "fast_food",
+      "specialties": [
+        "salads",
+        "grain bowls",
+        "warm bowls"
+      ],
+      "packageStatus": "needs_review",
+      "packageIds": [],
+      "domains": [
+        "sweetgreen.com"
+      ],
+      "countryCodes": [
+        "US"
+      ],
+      "tags": [
+        "fast_casual",
+        "fast_food",
+        "grain_bowls",
+        "salads",
+        "warm_bowls"
       ]
     },
     {
@@ -77305,7 +77293,7 @@
     {
       "brandId": "wolt.at",
       "displayName": "Wolt",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -77318,8 +77306,7 @@
         "AT"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
@@ -77385,7 +77372,7 @@
     {
       "brandId": "wolt.cz",
       "displayName": "Wolt",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -77398,14 +77385,13 @@
         "CZ"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
       "brandId": "wolt.de",
       "displayName": "Wolt",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -77418,14 +77404,13 @@
         "DE"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
       "brandId": "wolt.ee",
       "displayName": "Wolt Estonia",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -77438,14 +77423,13 @@
         "EE"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
       "brandId": "wolt.fi",
       "displayName": "Wolt",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -77458,14 +77442,13 @@
         "FI"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
       "brandId": "wolt.hr",
       "displayName": "Wolt Croatia",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -77478,8 +77461,7 @@
         "HR"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
@@ -77539,7 +77521,7 @@
     {
       "brandId": "wolt.lt",
       "displayName": "Wolt Lithuania",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -77552,14 +77534,13 @@
         "LT"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
       "brandId": "wolt.lv",
       "displayName": "Wolt Latvia",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -77572,14 +77553,13 @@
         "LV"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
       "brandId": "wolt.pl",
       "displayName": "Wolt",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -77592,14 +77572,13 @@
         "PL"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {
       "brandId": "wolt.rs",
       "displayName": "Wolt Serbia",
-      "category": "fast_food",
+      "category": "delivery",
       "foodCategory": "delivery",
       "foodType": "delivery",
       "specialties": [],
@@ -77612,8 +77591,7 @@
         "RS"
       ],
       "tags": [
-        "delivery",
-        "fast_food"
+        "delivery"
       ]
     },
     {

@@ -1,6 +1,6 @@
 {
   "_schema": "fitshield-android-apps/1",
-  "_note": "PORTED from engine/blocklists/delivery.json by tools/port-android-apps.js (additive; the blocklist stays authoritative). One entry per brand; brandId is the brand's canonical domain and all display metadata is generated from the blocklists. Confirmed packageIds are preserved on re-run; unknown ones stay needs_review — never guess a package ID.",
+  "_note": "PORTED from data/blocklists/delivery.json by tools/port-android-apps.js (additive; the blocklist stays authoritative). One entry per brand; brandId is the brand's canonical domain and all display metadata is generated from the blocklists. Confirmed packageIds and recorded packageStatus verdicts are preserved on re-run; unknown ones stay needs_review — never guess a package ID.",
   "defaultCategory": "delivery",
   "apps": [
     {
@@ -73,12 +73,6 @@
       "brandId": "ambassador.ai",
       "packageIds": [],
       "packageStatus": "no_app"
-    },
-    {
-      "brandId": "angelinus.com",
-      "packageIds": [
-        "kr.co.angelinus.gift.m"
-      ]
     },
     {
       "brandId": "anota.ai",
@@ -177,18 +171,6 @@
       ]
     },
     {
-      "brandId": "baskinrobbins.co.kr",
-      "packageIds": [
-        "kr.co.baskinrobbins.client"
-      ]
-    },
-    {
-      "brandId": "bbq.co.kr",
-      "packageIds": [
-        "kr.co.genesiskorea.bbqchicken"
-      ]
-    },
-    {
       "brandId": "beepit.com.ph",
       "packageIds": [
         "com.storehub.beep"
@@ -210,12 +192,6 @@
       "brandId": "beyondmenu.com",
       "packageIds": [
         "com.beyondmenu"
-      ]
-    },
-    {
-      "brandId": "bhc.co.kr",
-      "packageIds": [
-        "com.foodtechkorea.bhc"
       ]
     },
     {
@@ -313,11 +289,6 @@
       ]
     },
     {
-      "brandId": "bornga.co.kr",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
       "brandId": "bottlesapp.co.za",
       "packageIds": [
         "com.bottles"
@@ -339,18 +310,6 @@
       "brandId": "broniboy.ru",
       "packageIds": [
         "com.broniboy.client"
-      ]
-    },
-    {
-      "brandId": "burgerking.co.kr",
-      "packageIds": [
-        "kr.co.burgerkinghybrid"
-      ]
-    },
-    {
-      "brandId": "burgerking.com.cn",
-      "packageIds": [
-        "cn.atpchina.mobileapp"
       ]
     },
     {
@@ -482,11 +441,6 @@
       "packageIds": [
         "ci.dvn.composecoffee.app"
       ]
-    },
-    {
-      "brandId": "cotticoffee.com",
-      "packageIds": [],
-      "packageStatus": "shared_app"
     },
     {
       "brandId": "coupangeats.com",
@@ -709,18 +663,6 @@
       ]
     },
     {
-      "brandId": "dominos.co.kr",
-      "packageIds": [
-        "kr.co.d2.dominos"
-      ]
-    },
-    {
-      "brandId": "dominos.com.cn",
-      "packageIds": [
-        "cn.dominos.pizza"
-      ]
-    },
-    {
       "brandId": "doordash.com",
       "packageIds": [
         "com.dd.doordash"
@@ -736,11 +678,6 @@
       "brandId": "drvegefru.com",
       "packageIds": [],
       "packageStatus": "no_app"
-    },
-    {
-      "brandId": "dunkindonuts.co.kr",
-      "packageIds": [],
-      "packageStatus": "needs_review"
     },
     {
       "brandId": "easi.com.au",
@@ -889,6 +826,12 @@
       "brandId": "faasos.com",
       "packageIds": [],
       "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "faasos.io",
+      "packageIds": [
+        "com.faasos"
+      ]
     },
     {
       "brandId": "familyset.jp",
@@ -1079,6 +1022,11 @@
       "packageStatus": "shared_app"
     },
     {
+      "brandId": "foodpanda.bg",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
       "brandId": "foodpanda.com",
       "packageIds": [
         "com.global.foodpanda.android"
@@ -1120,12 +1068,27 @@
       "packageStatus": "shared_app"
     },
     {
+      "brandId": "foodpanda.ro",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
       "brandId": "foodpanda.sg",
       "packageIds": [],
       "packageStatus": "shared_app"
     },
     {
+      "brandId": "foodpanda.sk",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
       "brandId": "foodpanda.tw",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "foodpanda.vn",
       "packageIds": [],
       "packageStatus": "shared_app"
     },
@@ -1297,12 +1260,6 @@
       "packageStatus": "no_app"
     },
     {
-      "brandId": "gong-cha.co.kr",
-      "packageIds": [
-        "com.easymembership.gongcha"
-      ]
-    },
-    {
       "brandId": "goobne.co.kr",
       "packageIds": [
         "kr.co.goobne.chicken"
@@ -1380,12 +1337,6 @@
       "brandId": "hellofresh.com.au",
       "packageIds": [
         "com.hellofresh.androidapp"
-      ]
-    },
-    {
-      "brandId": "heytea.com",
-      "packageIds": [
-        "com.heyteago"
       ]
     },
     {
@@ -1524,6 +1475,11 @@
       "packageStatus": "no_app"
     },
     {
+      "brandId": "just-eat.ch",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
       "brandId": "just-eat.co.uk",
       "packageIds": [
         "com.justeat.app.uk"
@@ -1535,10 +1491,40 @@
       "packageStatus": "shared_app"
     },
     {
+      "brandId": "just-eat.dk",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "just-eat.es",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "just-eat.fr",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
       "brandId": "just-eat.ie",
       "packageIds": [
         "com.justeat.app.ie"
       ]
+    },
+    {
+      "brandId": "just-eat.it",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "just-eat.no",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "justeat.com",
+      "packageIds": [],
+      "packageStatus": "shared_app"
     },
     {
       "brandId": "justeat.dk",
@@ -1633,17 +1619,6 @@
       "packageStatus": "shared_app"
     },
     {
-      "brandId": "kfc.co.kr",
-      "packageIds": [
-        "kfc_ko.kore.kg.kfc_korea"
-      ]
-    },
-    {
-      "brandId": "kfc.com.cn",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
       "brandId": "khedmah.app",
       "packageIds": [
         "com.springtech.orderApp"
@@ -1688,11 +1663,6 @@
     },
     {
       "brandId": "kunefood.com",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
-      "brandId": "kungfu.com.cn",
       "packageIds": [],
       "packageStatus": "no_app"
     },
@@ -1755,11 +1725,6 @@
       ]
     },
     {
-      "brandId": "lotteria.com",
-      "packageIds": [],
-      "packageStatus": "shared_app"
-    },
-    {
       "brandId": "luckincoffee.com",
       "packageIds": [
         "com.lucky.luckyclient"
@@ -1818,18 +1783,6 @@
       "brandId": "mcdelivery.com.hk",
       "packageIds": [],
       "packageStatus": "shared_app"
-    },
-    {
-      "brandId": "mcdonalds.co.kr",
-      "packageIds": [
-        "com.mwos2.mcdelivery"
-      ]
-    },
-    {
-      "brandId": "mcdonalds.com.cn",
-      "packageIds": [
-        "com.mcdonalds.gma.cn"
-      ]
     },
     {
       "brandId": "mealtemple.com",
@@ -1893,6 +1846,12 @@
       ]
     },
     {
+      "brandId": "menulog.co.nz",
+      "packageIds": [
+        "nz.co.menulog.m"
+      ]
+    },
+    {
       "brandId": "menulog.com.au",
       "packageIds": [
         "com.menulog.m"
@@ -1925,11 +1884,6 @@
       "packageIds": [
         "com.mojopizza"
       ]
-    },
-    {
-      "brandId": "momstouch.co.kr",
-      "packageIds": [],
-      "packageStatus": "shared_app"
     },
     {
       "brandId": "monchis.com.py",
@@ -2082,12 +2036,6 @@
       ]
     },
     {
-      "brandId": "outback.co.kr",
-      "packageIds": [
-        "kr.co.Outback"
-      ]
-    },
-    {
       "brandId": "ovenstory.in",
       "packageIds": [
         "in.ovenstory"
@@ -2108,18 +2056,6 @@
       "brandId": "pal-system.co.jp",
       "packageIds": [
         "jp.co.pal_system.pochipal"
-      ]
-    },
-    {
-      "brandId": "papajohns.co.kr",
-      "packageIds": [
-        "kr.co.pji.android"
-      ]
-    },
-    {
-      "brandId": "paris.co.kr",
-      "packageIds": [
-        "com.pb.android"
       ]
     },
     {
@@ -2211,10 +2147,9 @@
       "packageStatus": "shared_app"
     },
     {
-      "brandId": "pelicana.co.kr",
-      "packageIds": [
-        "kr.co.pelicana.android"
-      ]
+      "brandId": "pedidosya.pe",
+      "packageIds": [],
+      "packageStatus": "shared_app"
     },
     {
       "brandId": "phoever.co.kr",
@@ -2231,29 +2166,6 @@
       "brandId": "pizzaalvolo.co.kr",
       "packageIds": [
         "m.pizzaalvolo"
-      ]
-    },
-    {
-      "brandId": "pizzaetang.com",
-      "packageIds": [
-        "com.fuse_smart_pizzaetang"
-      ]
-    },
-    {
-      "brandId": "pizzahut.co.kr",
-      "packageIds": [
-        "com.pizzahut.android"
-      ]
-    },
-    {
-      "brandId": "pizzahut.com.cn",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
-      "brandId": "pizzahut.com.hk",
-      "packageIds": [
-        "com.pizzahut.app"
       ]
     },
     {
@@ -2365,11 +2277,6 @@
       "brandId": "rappi.pe",
       "packageIds": [],
       "packageStatus": "shared_app"
-    },
-    {
-      "brandId": "realkungfu.com",
-      "packageIds": [],
-      "packageStatus": "no_app"
     },
     {
       "brandId": "rebelfoods.com",
@@ -2510,17 +2417,6 @@
       ]
     },
     {
-      "brandId": "subway.co.kr",
-      "packageIds": [
-        "kr.co.subway.preorder"
-      ]
-    },
-    {
-      "brandId": "sushiro.co.kr",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
       "brandId": "swiggy.com",
       "packageIds": [
         "in.swiggy.android"
@@ -2569,11 +2465,6 @@
     },
     {
       "brandId": "tezsum.uz",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
-      "brandId": "tgif.co.kr",
       "packageIds": [],
       "packageStatus": "no_app"
     },
@@ -2686,11 +2577,6 @@
       ]
     },
     {
-      "brandId": "vips.co.kr",
-      "packageIds": [],
-      "packageStatus": "no_app"
-    },
-    {
       "brandId": "waimai.baidu.com",
       "packageIds": [],
       "packageStatus": "no_app"
@@ -2725,10 +2611,40 @@
       ]
     },
     {
+      "brandId": "wolt.at",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
       "brandId": "wolt.com",
       "packageIds": [
         "com.wolt.android"
       ]
+    },
+    {
+      "brandId": "wolt.cz",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "wolt.de",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "wolt.ee",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "wolt.fi",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "wolt.hr",
+      "packageIds": [],
+      "packageStatus": "shared_app"
     },
     {
       "brandId": "wolt.jp",
@@ -2737,6 +2653,26 @@
     },
     {
       "brandId": "wolt.kz",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "wolt.lt",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "wolt.lv",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "wolt.pl",
+      "packageIds": [],
+      "packageStatus": "shared_app"
+    },
+    {
+      "brandId": "wolt.rs",
       "packageIds": [],
       "packageStatus": "shared_app"
     },
@@ -2772,6 +2708,12 @@
       "brandId": "yammyfood.kz",
       "packageIds": [],
       "packageStatus": "no_app"
+    },
+    {
+      "brandId": "yandexlavka.ru",
+      "packageIds": [
+        "com.yandex.lavka"
+      ]
     },
     {
       "brandId": "yassir.app",
