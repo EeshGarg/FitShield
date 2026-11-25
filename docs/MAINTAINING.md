@@ -74,7 +74,8 @@ Chrome and Firefox packages, on Node 22 and 24), `real-browsers` (accessibility
 tree in Chromium, built package installed in real Firefox) and `android` (debug
 APK). It never signs, publishes or holds secrets.
 
-Two audits drive real browsers and only do so against a **built** package, so
+Three audits (`validate:a11y`, `validate:announce`, `validate:firefox`) drive real
+browsers and only do so against a **built** package, so
 run `node build.js` before `npm run validate` on a fresh checkout. Set
 `FS_CHROME` / `FS_FIREFOX` if browser discovery fails. Locally a missing browser
 makes those audits warn and pass; CI uses guards (`.github/ci/run-validate.js`,
@@ -91,13 +92,14 @@ they really ran.
 | --- | --- | --- |
 | `extension/manifest.json` | `"version"` (currently `"1.0"`) | The canonical version. Both browser manifests and the Android `versionName` derive from it |
 | `package.json` | `"version"` (currently `"1.0.0"`) | Must start with the manifest version (`tools/changelog-validator.js` fails otherwise) |
-| `FS Engine/package.json` | `"version"` (currently `"1.0.0"`) | Keep equal to `package.json`. Not enforced by a validator, so check by hand |
+| `FS Engine/package.json` | `"version"` (currently `"1.0.0"`) | Must equal `package.json` exactly (`tools/changelog-validator.js` fails otherwise) |
 | `changelog.json` (repo root) | newest `entries[]` item | Must contain an entry whose `version` equals the manifest version |
 | `extension/changelog.json` | copy of the root file | Generated: run `npm run sync`. `tools/sync-audit.js` fails on drift |
 | `changelog/<version>.md` | one file per release | Required by `tools/changelog-validator.js` |
 | `changelog/README.md` | releases table | Add a row |
 | `changelog/ROADMAP.md` | "Current version" and "Completed milestones" | Validator only warns if it does not mention the version; update it anyway |
-| `tools/capture-surfaces.js` | stub `getVersion: () => "1.0"` | Screenshot harness fixture; update so captures show the right version |
+| `tools/capture-surfaces.js` | none, it reads the manifest version | Nothing to bump |
+| `.claude/agents/release-engineer.md` | the "Current:" line | Update with every release (not validated) |
 
 A patch release is a version like `1.0.1`. The manifest uses a short form
 (`1.0.1` is valid for Chrome and Firefox), so set the manifest to `1.0.1` and
@@ -106,9 +108,12 @@ trivially satisfied. Chrome Web Store requires each upload to have a strictly
 greater version than the last published one. A version that was ever uploaded is
 never reused.
 
-`android/app/build.gradle` has a fallback `fitshieldVersionName` (`'0.52'`) that
-is always overridden by `tools/build-android.js`; do not treat it as a version
-carrier.
+`android/app/build.gradle` falls back to `fitshieldVersionName` `'0.0-dev'` (and
+`versionCode` 1) for a bare `gradlew` run; `tools/build-android.js` always
+overrides both, so do not treat it as a version carrier. The Play docs
+(`docs/PLAY_1.0_RESUBMISSION.md`, `docs/PLAY_STORE_RELEASE_CHECKLIST.md`,
+`docs/STORE_LISTING_DRAFT.md`) record the versionName/versionCode pair for each
+Android release; update them when the pair changes.
 
 ### 3.2 Steps
 
@@ -120,9 +125,10 @@ carrier.
    [`changelog/README.md`](../changelog/README.md); only list what shipped. Add the
    short entry to `changelog.json` (it feeds the in-extension What's New) and run
    `npm run sync` to refresh `extension/changelog.json`.
-5. `npm test` then `npm run validate` (zero failures, zero errors; never loosen a
+5. `node build.js` first, so the browser audits grade the current package; then
+   `npm test` and `npm run validate` (zero failures, zero errors; never loosen a
    validator to pass).
-6. `node build.js`. It stages `dist/chrome` and `dist/firefox`, validates, and only
+6. Package with `node build.js`. It stages `dist/chrome` and `dist/firefox`, validates, and only
    then writes the archives. It removes superseded zips, so `dist/` contains
    exactly:
    - `dist/FitShield-<version>-chrome.zip` for the Chrome Web Store
@@ -236,11 +242,11 @@ flowchart TD
     A[Fix + tests green] --> B[Pick next unused versionCode, 11 or higher]
     B --> C[node tools/build-android.js --bundle --versionCode=N]
     C --> D{Signed and no forbidden manifest content?}
-    D -- no --> D1[Fix keystore config or manifest; rebuild with a NEW code only if N was uploaded]
+    D -- no --> D1["Fix keystore config or manifest, then rebuild with a NEW code (never reuse one, uploaded or not)"]
     D1 --> C
     D -- yes --> E[jarsigner -verify, record SHA-256 and size]
     E --> F[Upload same AAB to every track]
-    F --> G[Update listing, declarations, What's new if needed]
+    F --> G["Update listing, declarations, What's new if needed"]
     G --> H[Send for review, staged rollout]
     H --> I{Play verdict}
     I -- approved --> J[Record pair versionName/versionCode, merge and tag]
@@ -368,8 +374,8 @@ dates); each is a prompt to check the source, not a known deadline:
 | 4 | versionCode is new and strictly greater (11 or higher) | | x | Play App bundle explorer |
 | 5 | `changelog/<v>.md`, `changelog.json`, `npm run sync`, README table, ROADMAP | x | x | `npm run validate:docs`, `validate:sync` |
 | 6 | `npm test`: 0 failures | x | x | |
-| 7 | `npm run validate`: 0 errors, browser audits actually ran | x | x | `node .github/ci/run-validate.js` |
-| 8 | `node build.js`: chrome and firefox zips in `dist/` | x | | `test/package-integrity.test.js` |
+| 7 | `node build.js`: chrome and firefox zips in `dist/` | x | | `test/package-integrity.test.js` |
+| 8 | `npm run validate`: 0 errors, browser audits actually ran (build first) | x | x | `node .github/ci/run-validate.js` |
 | 9 | `node tools/build-android.js --bundle --versionCode=N` produces a signed `.aab` | | x | `BUILD.txt` |
 | 10 | `jarsigner -verify` says "jar verified"; SHA-256 and size recorded | | x | |
 | 11 | No permission added; no `INTERNET`, VPN or boot receiver | x | x | `test/android-no-vpn.test.js` |

@@ -59,6 +59,7 @@ for Android with the extension for sites on a phone.
 | A contributor (brands, recipes, locales, code) | [`docs/GETTING_STARTED.md`](docs/GETTING_STARTED.md) |
 | A maintainer or releaser | [`docs/MAINTAINING.md`](docs/MAINTAINING.md) |
 | An AI agent working in this repo | [`CLAUDE.md`](CLAUDE.md) and [`.claude/agents/`](.claude/agents/) |
+| Reporting a bug or a security issue | [`SUPPORT.md`](SUPPORT.md) and [`SECURITY.md`](SECURITY.md) |
 | Looking for any other document | [`docs/README.md`](docs/README.md) |
 
 ## Install
@@ -70,7 +71,7 @@ for Android with the extension for sites on a phone.
 
 ## Quick start for developers
 
-Requires Node.js 18+ and zero npm dependencies.
+Requires Node.js 22 or newer (CI runs 22 and 24) and zero npm dependencies.
 
 ```sh
 npm test                  # unit and policy tests
@@ -99,6 +100,8 @@ npm run build:all         # extension and Android
 
 Deeper maps: [`ARCHITECTURE.md`](ARCHITECTURE.md), [`CONTRIBUTING.md`](CONTRIBUTING.md),
 [`docs/EXTENSION.md`](docs/EXTENSION.md), [`docs/ANDROID.md`](docs/ANDROID.md).
+
+Need help or found a bug? See [`SUPPORT.md`](SUPPORT.md). Security vulnerabilities: [`SECURITY.md`](SECURITY.md) (report privately, never as a public issue).
 
 ## Privacy
 

@@ -190,7 +190,7 @@ dashboard says so rather than failing silently.
 - **No network at all.** The manifest does not request `INTERNET`; the app
   cannot open a connection. No telemetry, no accounts, no analytics.
 - The `AccessibilityService` is opt-in, reads only the foreground package name,
-  and uses it in memory; nothing is logged in release builds or transmitted.
+  and uses it in memory; the package name is never logged or transmitted.
 - Settings and statistics live in private `SharedPreferences`;
   `android:allowBackup="false"` keeps them off Google's cloud backup.
 - Content stays behavioural: FitShield is a decision-friction tool, not a medical

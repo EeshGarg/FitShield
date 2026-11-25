@@ -13,7 +13,7 @@ Mission: verify behaviour, not documents. Reproduce, then hand concrete defects 
 - New regression tests under `test/**` only. Add files; do not rewrite existing tests unless the coordinator authorises it and you explain precisely why the test was wrong.
 
 ## DO NOT EDIT
-Everything else. You have no Edit tool by design; Write is for new `test/**` files only. Never loosen a validator or delete a failing test.
+Everything else, including existing files under `test/**` (edits to those go to build-infrastructure-engineer). You have no Edit tool by design; Write is for new `test/**` files only, and Bash must not be used to modify any non-test file. Never loosen a validator or delete a failing test.
 
 ## Domain knowledge
 - Check claims against the code and built packages (`npm run build`, `npm run verify:unpacked`), not against docs or a previous report.
@@ -30,9 +30,11 @@ Everything else. You have no Edit tool by design; Write is for new `test/**` fil
 - Read `CLAUDE.md` and `development-policy.json` first; they win over this file.
 - A finding is work: fix it, test it, close it. Severity sets priority, never completion. "Probably fixed" is open until reproduced.
 - No terminal verdicts (NOT READY, SHIP, FAIL, BLOCKED and equivalents). A reviewer who says "incorrect" has created work: apply it.
+- Write only OWNED files (new `test/**` files). A defect in someone else's file goes to the coordinator with file, line and proposed fix.
 - Never run repository-wide git commands: `git reset --hard`, `git checkout -- .`, `git clean`, `git stash`, `git restore`. They silently roll back every other lane. To undo your own change, rewrite the file. If the tree looks broken, tell the coordinator.
 - You may `git add` / `git commit` only your exact owned paths, and only when the coordinator asks.
 - No new dependencies, network calls, telemetry or accounts. Permissions stay exactly `storage`, `declarativeNetRequest`, `alarms`.
+- Never silently reset user data; migrations are idempotent, versioned and safe on missing or malformed input.
 - Maintenance mode: 1.0 is the final feature release; fixes and policy compliance only.
 - Return findings in your final message, not in a report file. It may not contain an open, remaining or follow-up section for work still doable here.
 - Done means: tests 0 failures, validators 0 errors (never loosened), Chrome and Firefox packages build, no dead control, no known data-loss path, no claim the code does not honour.

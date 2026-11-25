@@ -1,7 +1,8 @@
 # Getting started
 
-Zero to a first verified change. About fifteen minutes, most of it waiting for
-the test suite.
+Zero to a first verified change. Allow roughly half an hour; most of it is
+waiting for `npm test` and the real-browser audits (add time for the one-off
+Android toolchain download if you build the APK).
 
 FitShield has **no dependencies**: no `npm install`, no bundler, no framework.
 Everything below uses Node built-ins and the scripts in `package.json`.
@@ -27,7 +28,7 @@ a user-facing surface should be checked in both browsers before you call it done
 git clone <repository-url> FitShield
 cd FitShield
 npm test            # node --test: unit tests, scenario tests, and the validators
-npm run validate    # all 18 audits, run directly
+npm run validate    # every audit, run directly
 ```
 
 Both should finish with zero failures and zero errors before you change
@@ -86,11 +87,11 @@ picks up the change (`npm test` and `npm run validate` fail on a stale copy).
 ```mermaid
 flowchart TD
     A[Edit a source file] --> B{What did you touch?}
-    B -->|FS Engine, data, locales| C["npm run generate:alternatives\n(only if data/alternatives changed)"]
+    B -->|FS Engine, data, locales| C["npm run generate:alternatives<br/>(only if data/alternatives changed)"]
     C --> D[npm run sync]
     B -->|extension, tools, tests| E[npm run validate]
     D --> E
-    E --> F["node --test test/&lt;file&gt;.test.js"]
+    E --> F["node --test test/NAME.test.js"]
     F --> G{Green?}
     G -->|no| A
     G -->|yes| H[npm test]
@@ -152,6 +153,10 @@ release procedure is in
 A brand is one entry in a curated dataset. This walks the whole loop on real
 files.
 
+This is a rehearsal. Use a real brand if you have a verified correction.
+Otherwise use the placeholder below, do not commit it, and discard your own
+experiment when you finish.
+
 1. **Edit the source.** Add an object to `entries` in
    `data/blocklists/fast-food.json` (or `delivery.json`). The fields are
    documented in each file's `_schema`, and the recipe is in
@@ -170,7 +175,8 @@ files.
    }
    ```
 
-   Use only a domain, name and market you can verify.
+   Use only a domain, name and market you can verify. `aliases` is an optional
+   field (CONTRIBUTING's sample shows it); this sample omits it.
 2. **Validate the data.**
 
    ```bash
@@ -179,11 +185,14 @@ files.
    npm run validate:countries
    npm run validate:categories
    ```
-3. **Android mapping.** `data/android/*.json` is ported from the blocklists by
-   `npm run port:android-apps`, and `npm run validate:android-packages` checks
-   it stays in step. A brand with no
-   confirmed package stays `needs_review`; never guess a package id. Then
-   `npm run generate:android-packages`.
+3. **Android mapping.** Run `npm run port:android-apps` (adds your brand to
+   `data/android/*-apps.json` as `needs_review`, preserving existing human
+   verdicts), then `npm run generate:android-packages` (rewrites
+   `data/generated/android-packages.json`), then
+   `npm run validate:android-packages`. A brand with no confirmed package stays
+   `needs_review`; never guess a package id. Commit the changed
+   `data/android/*.json` and `data/generated/android-packages.json` with your
+   data change.
 4. **Sync.** `npm run sync` refreshes the committed copies in `extension/` and
    the Android web assets.
 5. **Test and look.** `npm test`, then `node build.js`, load `dist/chrome`, and
@@ -206,10 +215,10 @@ corrections; see the scope section of CONTRIBUTING.
   Fix: `npm run sync`.
 - **Loading the repository root** as an extension. Load `dist/chrome`,
   `dist/firefox`, or `extension/`.
-- **Line endings.** Git on Windows may convert LF to CRLF on checkout. Some
-  tests and generators compare bytes. If a byte-comparison test fails on a file
-  you did not touch, check `git config core.autocrlf` (use `false` or `input`)
-  and re-checkout.
+- **Line endings.** Git on Windows may convert LF to CRLF on checkout. The
+  sync check ignores CRLF vs LF and the tests tolerate CRLF, so `autocrlf`
+  should not matter. If a test fails on a file you did not touch, re-run it on
+  a clean checkout before assuming it is a line-ending problem.
 - **Browser tests flake under load.** The real-browser audits and the Firefox
   gate start real browsers; running them alongside heavy work (another
   `npm test`, a Gradle build) can time them out. Re-run the single audit

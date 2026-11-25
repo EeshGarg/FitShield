@@ -32,8 +32,11 @@ const GOVERNANCE_FILE = path.join(ROOT, "CLAUDE.md");
 const REPORT_FILE = path.join(ROOT, "docs", "history", "SKEPTICAL_BUYER_ACCEPTANCE_REPORT.md");
 const AGENTS_DIR = path.join(ROOT, ".claude", "agents");
 
-// Instruction files that must not re-introduce a stopping condition. `.claude/`
-// is git-ignored local tooling, so it is checked only when present.
+// Instruction files that must not re-introduce a stopping condition. The
+// specialist agent definitions in `.claude/agents/` are tracked in git and
+// required by CLAUDE.md section 4, so a missing directory is an error (checked
+// in step 2); `.claude/commands` and `.claude/templates` are local-only and are
+// scanned only when present.
 function instructionFiles() {
   const files = [GOVERNANCE_FILE, path.join(ROOT, "CONTRIBUTING.md")];
 
@@ -86,6 +89,9 @@ function deferralHeadings(text, policy) {
 // do with it — the tests would be asserting against a moving tree rather than
 // against a fixture. Production callers pass nothing and get the repo root.
 function policyAudit(paths = {}) {
+  // Tests pass fixture paths here; they must never overwrite the real files.
+  const agentsDir = paths.agentsDir || AGENTS_DIR;
+  const reportFile = paths.reportFile || REPORT_FILE;
   const reporter = new Reporter("Development governance");
 
   if (!fs.existsSync(POLICY_FILE)) {
@@ -142,11 +148,11 @@ function policyAudit(paths = {}) {
   }
 
   // --- 2. every required agent definition is registered ---------------------
-  if (!fs.existsSync(AGENTS_DIR)) {
-    reporter.note(".claude/agents is absent (git-ignored local tooling) — agent registration not checked here");
+  if (!fs.existsSync(agentsDir)) {
+    reporter.fail(".claude/agents is missing — CLAUDE.md section 4 requires the tracked specialist agent definitions");
   } else {
     const present = fs
-      .readdirSync(AGENTS_DIR)
+      .readdirSync(agentsDir)
       .filter((name) => name.endsWith(".md"))
       .map((name) => name.replace(/\.md$/, ""));
 
@@ -193,8 +199,8 @@ function policyAudit(paths = {}) {
   reporter.note(`${files.length} instruction file(s) checked for stopping conditions`);
 
   // --- 4. the acceptance report may not ship an open local queue ------------
-  if (fs.existsSync(REPORT_FILE)) {
-    const report = fs.readFileSync(REPORT_FILE, "utf8");
+  if (fs.existsSync(reportFile)) {
+    const report = fs.readFileSync(reportFile, "utf8");
 
     policy.forbidden_terminal_verdicts.forEach((verdict) => {
       // A verdict as a heading or as a bolded standalone line is the pattern

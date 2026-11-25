@@ -1,7 +1,7 @@
 # test/ — the test suite
 
 Zero dependencies: tests use only `node:test`, `node:assert` and other Node
-built-ins (Node 22 is the floor; 24 is what development uses). One file per
+built-ins (Node 22 is the floor, because browser audits use the global `WebSocket`; 24 is what development uses). One file per
 concern, named `<topic>.test.js`; shared fixtures live in `helpers/`.
 `npm test` is `node --test`, which runs every `*.test.js`. The suite also
 includes every validator in `tools/` (via `tools.test.js`), so it is the single

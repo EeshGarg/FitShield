@@ -161,8 +161,9 @@ canonical datasets (`data/`), and the browser-extension source (`extension/`);
 the packaged zip stays flat (`build.js` composes it from `extension/*` +
 `data/*` + the root `changelog.json`, and bundles the engine modules into the
 shipped `blocklist.js`). The repository
-root is **not** a loadable unpacked extension — build first, then load
-`dist/chrome` or `dist/firefox` (see below).
+root is **not** a loadable unpacked extension. Load `extension/` (Chromium
+only) or a built package (`dist/chrome`, `dist/firefox`); see Build and package
+below.
 
 | Path | What it is |
 | --- | --- |
@@ -172,9 +173,9 @@ root is **not** a loadable unpacked extension — build first, then load
 | `data/android/` | Android app-package mappings (brandId → packageIds) |
 | `extension/manifest.json` | Chromium MV3 manifest (Firefox manifest is derived by `build.js`) |
 | `extension/background.js` | Service worker: rules, bypasses, stats recording |
-| `extension/popup / settings / warning / welcome / whats-new` | UI surfaces (`.html` + `.js`) |
+| `extension/popup / settings / warning / welcome / whats-new / diagnostics` | UI surfaces (`.html` + `.js`) |
 | `extension/fitshield-core.js` | Storage schema, migrations, schedules, passes, statistics — shared by the worker, every page, and the tests |
-| `extension/currency.js`, `i18n.js`, `languages.js`, `recipes.js`, `preferences.js`, `backup.js` | Shared web modules |
+| `extension/currency.js`, `i18n.js`, `languages.js`, `recipes.js`, `preferences.js`, `backup.js`, `ambient.js`, `blocklist-records.js`, `browser-shim.js`, `fitshield-layout.css` | Shared web modules |
 | `extension/_locales/<code>/messages.json` | Translations (83 locales, English is the source) |
 | `android/` | Native Android adapter (see [`docs/ANDROID.md`](docs/ANDROID.md)); `android/web-src/` holds the Android-authored shim |
 | `changelog/` | Canonical release history + `ROADMAP.md` |

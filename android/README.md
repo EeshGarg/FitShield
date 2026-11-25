@@ -58,14 +58,15 @@ All under `app/src/main/java/com/usha/fitshield/`.
 | `i18n.js`, `languages.js`, `ambient.js`, `recipes.js`, `icon-128.png`, `data/recipes.json`, `_locales/` (83 locales) | **Copied** from `extension/` and `data/`. |
 
 Never edit a copied file in `assets/web/`; edit its source and run
-**`npm run sync`** (`tools/sync-extension.js`, which calls `bundleWeb()` from
-`tools/lib/android-web.js`; `npm run build:android` runs the same copy).
+**`npm run sync`** (`tools/sync-extension.js`, which calls `bundleWeb()`, defined in
+`tools/lib/android-web.js` and re-exported by `tools/build-android.js`; `npm run build:android` runs the same copy).
 The copy list is `WEB_COPIES` / `WEB_DIR_COPIES` in that file. Drift is caught by
 `tools/android-audit.js` (`npm run validate:android`) and `test/android-shim.test.js`.
 
 `assets/android-packages.json` is likewise generated: edit `data/android/*.json`,
 then run `npm run build:android`, which regenerates `data/generated/android-packages.json`
 and writes the slim bundled map (see [`data/README.md`](../data/README.md)).
+(`npm run generate:android-packages` refreshes only `data/generated/`, with no SDK needed; `npm run build:android` also refreshes the bundled copy.)
 
 ## Build commands
 

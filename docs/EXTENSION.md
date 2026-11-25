@@ -67,9 +67,10 @@ a tiny module registry and emits one deterministic classic script,
 Three consumers, one engine, one data model:
 
 - **`background.js`** (service worker / Firefox event page) —
-  in Chromium it `importScripts` both `blocklist.js` and `fitshield-core.js`,
+  in Chromium it `importScripts` `blocklist.js`, `fitshield-core.js` and
+  `blocklist-records.js`,
   each guarded by a `typeof` check so the call is skipped when the global is
-  already defined; in Firefox the derived manifest loads both ahead of it via
+  already defined; in Firefox the derived manifest loads all three ahead of it via
   `background.scripts`, and the guards make the worker path a no-op. It calls
   `FitShieldBlocklist.loadBlocklists()` (which fetches the packaged
   `blocklists/*.json`) and turns the entries + user settings into
@@ -103,10 +104,11 @@ shipped forms:
   with two entries while three shipped, and the audit that is supposed to enforce
   it compares against `build.BACKGROUND_SCRIPTS`, so a copied literal drifts
   silently. Order matters and
-  `background.js` must be last: it references both `FitShieldBlocklist` (the
-  engine bundle) and `FitShieldCore` (the shared decision layer — schema,
-  schedules, passes, stats), so both have to be evaluated before it. On
-  Chromium the same two files are pulled in by `background.js`'s own
+  `background.js` must be last: it references `FitShieldBlocklist` (the
+  engine bundle), `FitShieldCore` (the shared decision layer — schema,
+  schedules, passes, stats) and `FitShieldBlocklistRecords`, so all three have
+  to be evaluated before it. On
+  Chromium the same three files are pulled in by `background.js`'s own
   `importScripts` call. The single source of truth is `BACKGROUND_SCRIPTS` in
   `build.js`; `test/tools.test.js` fails if this list drifts from it.
 

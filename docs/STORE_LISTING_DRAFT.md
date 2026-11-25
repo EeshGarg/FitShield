@@ -143,7 +143,7 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
   eating, impulse control, screen-time for food, self-control, distraction
   blocker, save money, cook at home.
 
-## Screenshot checklist (phone, 16:9 or 9:16, 2–8 required)
+## Screenshot checklist (phone, 16:9 or 9:16; Play requires at least 2, accepts at most 8)
 
 Capture on a real device (Samsung, dark theme, edge-to-edge — the transparent
 status/nav bars look best). Suggested set, in order:
@@ -163,8 +163,8 @@ status/nav bars look best). Suggested set, in order:
 Overlay short captions (≤6 words) per screenshot, e.g. "Pause before you
 order", "Your stats stay on-device".
 
-- [ ] 7 phone screenshots now, 8 once shot 5 is unblocked (1080×2340 native is
-      fine; Play requires at least 2)
+- [ ] 8 phone screenshots (1080×2340 native is fine; Play requires at least 2
+      and accepts at most 8)
 - [ ] Optional: 7"/10" tablet set (WebView UI scales; capture if targeting tablets)
 
 ## Feature graphic checklist (1024×500, required)
@@ -220,7 +220,7 @@ three releases):
 > • No account, no ads, no analytics — everything stays on your device
 
 (390 chars — recounted; the draft claimed 431. "every app mapping verified by
-hand" was also not true and is gone: 37 brands are still `needs_review`, so the
+hand" was also not true and is gone: 36 brands are still `needs_review`, so the
 honest word is "researched". Add each future upload's notes above this line, newest first, and
 record the versionName↔versionCode pair in `changelog/<version>.md`.
 `versionName` is injected from `extension/manifest.json` by the Android build, so
@@ -296,7 +296,8 @@ and [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md). Summary:
 4. **Halt criteria:** any false-positive blocking of non-food apps,
    accessibility loop, or crash-free <99%.
 5. Each release: bump `versionCode`, tag `versionName` in `changelog/`, rebuild
-   AAB with the exact command in the release checklist §9.
+   AAB with the exact command in the release checklist
+   [§3](PLAY_STORE_RELEASE_CHECKLIST.md#3-signing-and-the-release-bundle).
 
 ---
 

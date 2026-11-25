@@ -39,9 +39,9 @@ safety guidance ([source](https://support.google.com/googleplay/android-develope
 > User data accessed by your app that is only processed locally on the user's
 > device and not sent off device **does not need to be disclosed**.
 
-That last sentence is the whole answer for FitShield. The app reads plenty — the
-destination host of each connection, the package name of the app in front, a
-running count of interruptions — and transmits none of it. Data a device keeps to
+That last sentence is the whole answer for FitShield. The app reads very little —
+the package name of the app in front and a running count of interruptions — and
+transmits neither. Data a device keeps to
 itself is not collected, no matter how personal it looks. **Answer the form
 against that definition, not against instinct**, or you will over-declare and
 end up with a store page implying FitShield sends somewhere the things it
@@ -86,8 +86,9 @@ cloud backup is off. (Android 12+ device-to-device transfer moves data phone to
 phone without a server, so it does not change the answer either.)
 
 ### Data stored on-device only (never transmitted)
-- **Settings**: which categories/apps/domains to block, schedule, timer/unlock
-  durations, theme, language — plain app preferences.
+- **Settings**: which categories and apps to block or allow, schedule,
+  timer/unlock durations, keep-alive, theme, language — plain app preferences.
+  The accessibility-disclosure consent (an ISO timestamp) is stored with them.
 - **Local statistics**: a count of pauses shown (`blockedVisits`), plus a per-app
   count (`blockedByApp`), stored on-device only. No savings or calorie
   estimate is computed or stored. These are aggregate counters, computed and
@@ -101,8 +102,14 @@ phone without a server, so it does not change the answer either.)
 - The previous connection filter (0.56 and earlier) was removed because Google
   Play does not permit `VpnService` for this use case. Website blocking is now
   provided only by the FitShield browser extension.
-- **Nothing is logged off-device, and no package names or filtering decisions are
-  written to logcat in release builds** (debug-only, gated by `BuildConfig.DEBUG`).
+- **Nothing is logged off-device.** In a release build the app writes no package
+  name, app name or block decision to logcat. The only ungated log lines are
+  non-identifying status messages: "app-blocking active (N packages)" when the
+  accessibility service connects (`FitShieldAccessibilityService`), "could not
+  show block screen" (same file), "Import failed" with the exception when a
+  settings import is rejected (`MainActivity`), and an error saying the bundled
+  package list could not be read (`PackageBlocklist`). WebView console output is
+  logged only when `BuildConfig.DEBUG` is true.
 
 ## Accessibility Service disclosure (required prominent disclosure)
 
@@ -128,14 +135,16 @@ that the disclosure be *inside the app* (not only the listing or a website), be
 *explain how it is used and shared*, and *require affirmative user action for
 consent*.
 
-FitShield satisfies the first four plainly: the app-blocking panel states that
-the service reads only which app comes to the front and never screen content,
-directly above the button that opens Accessibility settings, and
+FitShield satisfies all five. The app-blocking panel states that the service
+reads only which app comes to the front and never screen content, and
 `accessibility_description` repeats it inside the system settings screen itself.
-The fifth is the weak one — today the disclosure is passive text inside a
-collapsed panel, with no explicit "I understand" step. **Do not claim otherwise
-on the declaration form.** A dedicated consent step is being added; check the
-shipped build before answering.
+Before Accessibility settings can be opened, a disclosure dialog
+(`a11yDisclosure` in `web/app.js`) requires an affirmative Accept; Decline
+records nothing and enables nothing. Acceptance is stored as an ISO timestamp
+(`WebAppBridge.recordAccessibilityConsent`), and the native bridge refuses to
+open Accessibility settings until it exists
+(`WebAppBridge.openAccessibilitySettings`), so a UI change cannot route around
+it.
 
 FitShield does **not** set `isAccessibilityTool`. That flag is reserved for apps
 whose core function is directly supporting people with disabilities, and

@@ -82,7 +82,7 @@ of that day.
 
 Everything is evaluated against the device's local wall clock. There is no stored
 offset and no remote time service, which is what makes an "evenings" window still
-mean 18:00 local after a daylight-saving shift. The single alarm the worker arms
+mean 18:00 local after a daylight-saving shift. The schedule-boundary alarm (`scheduleBoundaryReached`) the worker arms
 is computed the same way: an all-day window's real transition is local midnight,
 and a wall-clock time that daylight saving *skips* resolves to the instant the
 clock jumps rather than to the hour it rolls forward into.
@@ -103,7 +103,7 @@ the protection it enforces.
 
 Written only when the user deliberately continues to a blocked brand, and read
 only by `repeatFrictionFor` to decide whether this is a second visit inside the
-repeat window. It is bounded three ways:
+repeat window. It is bounded four ways:
 
 - **by age** — entries older than three times the repeat window are dropped, and
   a domain left with no entries loses its row entirely. The window is a constant
@@ -347,12 +347,15 @@ the real worker, in [`test/blocking.test.js`](../test/blocking.test.js).
 {
   "_type": "fitshield-settings-backup",
   "schema": 2,
-  "version": "0.55",
+  "version": "1.0",
   "exportedAt": "2026-07-31T00:00:00.000Z",
   "keyCount": 31,
   "settings": { ... }
 }
 ```
+
+(Illustrative values: `version` is the exporting build, `schema` is the backup
+format version, and `keyCount` is the number of keys in `settings`.)
 
 Export uses an **allowlist** (`DURABLE_KEYS`). Import treats the file as hostile
 input, because it is — it is written straight into the store the service worker

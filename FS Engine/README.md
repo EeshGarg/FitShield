@@ -28,6 +28,7 @@ FS Engine/
 ```js
 const engine = require("./FS Engine"); // resolves via package.json → index.js
 
+// inside an async function (or an ES module)
 await engine.loadBlocklists();                    // reads ../data/blocklists/*
 // or point it at any dataset directory:
 await engine.loadBlocklists({ dataDir: "/path/to/data" });
@@ -112,14 +113,12 @@ an optional entry list and fall back to the most recently loaded datasets.
 | --- | --- |
 | `BLOCKLIST_FILES` | `string[]` — dataset paths, relative to the data dir (Node) / extension root (browser). |
 | `loadBlocklists(options?)` | `Promise<Entry[]>` — loads every file in `BLOCKLIST_FILES`, flattens their `entries`, caches and returns the list. `options.dataDir` (Node only) overrides the default `../data`. |
-| `getLoadedEntries()` | `Entry[]` — a **copy** of the cached entries; `[]` before the first load. |
 
 ### Hostnames
 
 | | |
 | --- | --- |
 | `normalizeHostname(hostname)` | `string` — normalized host (see §Matching). Accepts URLs. Returns `""` for empty input. |
-| `normalizeDomain(entryOrString)` | `string` — like `normalizeHostname`, but also accepts an entry object (uses its `.domain`). |
 | `domainMatches(hostname, domain)` | `boolean` — apex-or-subdomain match, label-anchored. |
 
 ### Entries — matching & filtering
@@ -136,7 +135,7 @@ an optional entry list and fall back to the most recently loaded datasets.
 
 | | |
 | --- | --- |
-| `getCountryName(code, locale?)` | `string` — display name for an ISO 3166-1 alpha-2 code. Curated short forms win for English; otherwise resolved via `Intl.DisplayNames` (complete for every ISO code in modern browsers + Node 18+), falling back to the raw code. Pass a BCP-47 `locale` to localize. |
+| `getCountryName(code, locale?)` | `string` — display name for an ISO 3166-1 alpha-2 code. Curated short forms win for English; otherwise resolved via `Intl.DisplayNames` (complete for every ISO code in modern browsers + Node 22+), falling back to the raw code. Pass a BCP-47 `locale` to localize. |
 | `getAvailableCountries(entries?, locale?)` | `[{ code, name, count }]` sorted by name — distinct countries in the data, named via `getCountryName`. **[defaults to cache]** |
 | `getAvailableCategories(entries?)` | `[{ category, count, specialties }]` sorted by category. **[defaults to cache]** |
 | `shouldBlockByCountry(entry, enabledCountries)` | `boolean` — entry is active in ANY enabled country. Empty/missing either side ⇒ `false`. |

@@ -78,20 +78,22 @@ test("the repository currently satisfies its own governance", () => {
 // The audit actually catches the shapes that failed before
 // ---------------------------------------------------------------------------
 
-// policy-audit reads from the repo root, so a probe is written in place and
-// removed again. Each one is the literal thing that slipped through last time.
+// Each probe is written to its own temp file and handed to the audit as a path
+// override. It used to be swapped into the real report and restored in a
+// finally block — two overlapping test runs then saved each other's probe as the
+// "original" and the real report was lost. Never write to the real file here.
+let probeReport = null;
+const auditReport = () => policyAudit({ reportFile: probeReport });
+
 function withReport(contents, fn) {
-  const file = path.join(ROOT, "docs", "history", "SKEPTICAL_BUYER_ACCEPTANCE_REPORT.md");
-  const had = fs.existsSync(file);
-  const previous = had ? fs.readFileSync(file, "utf8") : null;
-
-  fs.writeFileSync(file, contents);
-
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "fitshield-report-"));
+  probeReport = path.join(dir, "report.md");
+  fs.writeFileSync(probeReport, contents);
   try {
     return fn();
   } finally {
-    if (had) fs.writeFileSync(file, previous);
-    else fs.unlinkSync(file);
+    probeReport = null;
+    fs.rmSync(dir, { recursive: true, force: true });
   }
 }
 
@@ -106,13 +108,13 @@ const CLEAN_REPORT = [
 
 test("a clean report passes", () => {
   withReport(CLEAN_REPORT, () => {
-    assert.deepEqual(policyAudit().errors, []);
+    assert.deepEqual(auditReport().errors, []);
   });
 });
 
 test("a report cannot claim completion while its own local queue is non-empty", () => {
   withReport(CLEAN_REPORT.replace("Repository-local findings: 0", "Repository-local findings: 7"), () => {
-    const errors = policyAudit().errors;
+    const errors = auditReport().errors;
     assert.ok(
       errors.some((e) => /7 repository-local finding/.test(e)),
       `expected the open-queue failure, got:\n${errors.join("\n")}`
@@ -122,7 +124,7 @@ test("a report cannot claim completion while its own local queue is non-empty", 
 
 test("a report that never states its local count is rejected", () => {
   withReport("# Completion status\n\nAll good, trust me.\n", () => {
-    const errors = policyAudit().errors;
+    const errors = auditReport().errors;
     assert.ok(errors.some((e) => /must state/.test(e)), errors.join("\n"));
   });
 });
@@ -130,7 +132,7 @@ test("a report that never states its local count is rejected", () => {
 test('"probably fixed" cannot satisfy verification', () => {
   ["probably fixed", "not re-verified", "likely resolved"].forEach((phrase) => {
     withReport(`${CLEAN_REPORT}\n\nThe popup issue is ${phrase} by the schedule projection.\n`, () => {
-      const errors = policyAudit().errors;
+      const errors = auditReport().errors;
       assert.ok(
         errors.some((e) => /unverified claim/.test(e)),
         `"${phrase}" should have been rejected; got:\n${errors.join("\n")}`
@@ -142,7 +144,7 @@ test('"probably fixed" cannot satisfy verification', () => {
 test("a terminal verdict in the report is rejected", () => {
   POLICY.forbidden_terminal_verdicts.forEach((verdict) => {
     withReport(`# Completion status\n\nRepository-local findings: 0\n\n## ${verdict}\n`, () => {
-      const errors = policyAudit().errors;
+      const errors = auditReport().errors;
       assert.ok(
         errors.some((e) => e.includes(verdict)),
         `"${verdict}" should have been rejected; got:\n${errors.join("\n")}`
@@ -154,7 +156,7 @@ test("a terminal verdict in the report is rejected", () => {
 test("a deferral bucket in the report is rejected", () => {
   ["Deferred", "Follow-ups", "Remaining work", "Open findings", "Next session"].forEach((heading) => {
     withReport(`${CLEAN_REPORT}\n\n## ${heading}\n\n- something for later\n`, () => {
-      const errors = policyAudit().errors;
+      const errors = auditReport().errors;
       assert.ok(
         errors.some((e) => e.includes(heading)),
         `"${heading}" should have been rejected; got:\n${errors.join("\n")}`
@@ -179,7 +181,7 @@ test("external-only items are classified separately from repository-local work",
   // A report may list these; they are not repository-local findings.
   withReport(
     `${CLEAN_REPORT}\n\n## External validation items\n\n- On-device Android blocking — needs a physical device\n`,
-    () => assert.deepEqual(policyAudit().errors, [])
+    () => assert.deepEqual(auditReport().errors, [])
   );
 });
 
@@ -335,4 +337,21 @@ test("a closure for a finding nobody recorded is rejected", () => {
     const errors = audit(paths).errors;
     assert.ok(errors.some((e) => /unknown finding/.test(e)), errors.join("\n"));
   });
+});
+
+test("a missing .claude/agents directory is an error, not a note", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "fitshield-agents-"));
+  try {
+    const errors = policyAudit({ agentsDir: path.join(dir, "absent") }).errors;
+    assert.ok(errors.some((e) => e.includes(".claude/agents is missing")), errors.join("\n"));
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("governance probes never touch the real acceptance report", () => {
+  const real = path.join(ROOT, "docs", "history", "SKEPTICAL_BUYER_ACCEPTANCE_REPORT.md");
+  const before = fs.readFileSync(real, "utf8");
+  withReport("# Completion status\n\n## Deferred\n", () => auditReport());
+  assert.equal(fs.readFileSync(real, "utf8"), before);
 });

@@ -12,6 +12,7 @@ Mission: keep all 83 locales structurally identical to English, free of hybrid o
 ## OWNED (may write)
 - `extension/_locales/**` (`en` is the source of truth; others may be partial)
 - `tools/locale-parity.js`, `tools/locale-hybrid-audit.js`, `tools/locale-status.js`, `tools/locale-prune.js`, `tools/locale-source-baseline.json`
+- `docs/LOCALIZATION.md` (the canonical vocabulary guide; the only file under `docs/` not owned by release-engineer)
 
 ## DO NOT EDIT
 `android/app/src/main/assets/web/_locales/**` is a copy of `extension/_locales`: never hand-edit; `npm run build:android` refreshes it and `npm run validate:android` fails on drift. Also off limits: `data/**`, page markup, `extension/*.js`, other `tools/**`, `test/**`.

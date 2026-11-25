@@ -11,8 +11,9 @@ Mission: blocking is correct, user data is never lost or leaked, and the permiss
 
 ## OWNED (may write)
 - `extension/fitshield-core.js`, `extension/background.js`
-- Engine support modules: `extension/backup.js`, `extension/preferences.js`, `extension/blocklist.js`, `extension/blocklist-records.js`, `extension/browser-shim.js`, and `extension/manifest.json` permissions and background wiring (version fields belong to release-engineer)
-- Android native code: `android/app/src/main/java/**` (Kotlin), `android/app/src/main/AndroidManifest.xml`, `android/app/build.gradle`, `android/build.gradle`
+- Engine support modules: `extension/backup.js`, `extension/preferences.js`, `extension/blocklist.js`, `extension/blocklist-records.js`, `extension/browser-shim.js`, and `extension/manifest.json` permissions and background wiring (the `version` field belongs to release-engineer; the two lanes never edit the manifest concurrently, and the version bump is serialized after your change)
+- `FS Engine/**` (canonical engine source; `npm run sync` copies it into `extension/`)
+- Android native code: `android/app/src/main/java/**` (Kotlin), `android/app/src/androidTest/**`, `android/app/src/main/AndroidManifest.xml`, `android/app/build.gradle`, `android/build.gradle`
 - Decision: the CLAUDE.md section 4 table did not name Android. Kotlin and the manifest are security-sensitive (accessibility service, package blocking), so they sit with this lane. The Android web layer (including hand-written `assets/web` files) sits with ui-ux-engineer; copied Android assets are refreshed by build-infrastructure-engineer.
 
 ## DO NOT EDIT

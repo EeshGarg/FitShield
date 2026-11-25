@@ -2,7 +2,7 @@
 
 Living documentation of where FitShield is and where it's heading. This file is
 meant to evolve with the project — update it whenever direction changes. It
-avoids speculative promises; "Future ideas" are candidates, not commitments.
+avoids speculative promises; the ideas section lists candidates that will not be built.
 
 _Last updated: 2026-11-25 (1.0)_
 
@@ -18,6 +18,9 @@ and is unchanged. App blocking, schedules, the pause timer, categories, per-app
 allow, the keep-alive, 83 locales, export/import and stored data are unchanged.
 The catalog is unchanged: 2,505 brands across 111 markets, in 21 curated
 categories, answered by 88 alternatives. FitShield now enters maintenance mode.
+
+Google Play review of 1.0 is pending; 1.0 is not tagged or merged to `main` until
+it is approved.
 
 ## Previous version
 
@@ -101,7 +104,8 @@ verification of the accessibility app-block flow, and of Firefox for Android's
   - *Step 1 (UI first, done):* WebView shell on the shared `fitshield.*` platform
     abstraction (`platform/storage/i18n/blocking/stats`), reusing the real web UI
     building blocks; polished preview screen; installable debug APK. Neutral
-    Private DNS messaging (no detection/pressure).
+    Private DNS messaging (no detection/pressure; historical, the VPN and its
+    Private DNS messaging were removed in 1.0).
   - *Step 1b (visual + feature parity, done):* full FitShield look on mobile —
     the living `ambient.js` gradient background, translucent Aero/One-UI glass
     panels, animated gradient title + savings sheen, and press-tilt tiles (all
@@ -127,18 +131,18 @@ verification of the accessibility app-block flow, and of Firefox for Android's
     [`docs/ANDROID.md`](../docs/ANDROID.md).
   - *Step 3 (native app blocking, done):* an **AccessibilityService** shows a
     native FitShield intervention screen (`BlockActivity`) when a blocked
-    delivery/fast-food *app* is opened — the counterpart of the VPN, which covers
-    websites/network traffic. The app→brand mapping is a new **generated dataset**
+    delivery/fast-food *app* is opened — (historical 0.53 note: the VPN it complemented was removed in
+    1.0; this app blocking is what remains). The app→brand mapping is a new **generated dataset**
     (`data/android/*-apps.json` + blocklists → `data/generated/android-packages.json`,
     deterministic, validated: no orphans/dupes, packageStatus rules, drift) — no
     duplicated metadata, built to scale to thousands of packages. The block screen
     reuses the shared design system (`fitshield.css`), i18n, stats, recipes and
     Aero glass, with a reflection timer, per-category toggles, schedule awareness
     and temporary unlock. Verified on-device: detection → block, loop-safe
-    Not-now/unlock/re-block, non-blocked apps ignored, VPN coexists. See
+    Not-now/unlock/re-block, non-blocked apps ignored, VPN coexisted (removed in 1.0). See
     [`docs/ANDROID.md`](../docs/ANDROID.md) §3b.
 
-## Carried-forward themes (not yet scheduled)
+## Carried-forward themes (maintenance scope only)
 
 - **Finish category localization.** English defines all 37 category keys — the 21
   the data uses plus 16 retired ids kept so existing lifetime stats keep a proper
@@ -152,12 +156,11 @@ verification of the accessibility app-block flow, and of Firefox for Android's
   brands today. Extend to confident major regional chains and broaden delivery
   coverage where it can be verified. Maintain ISO 3166-1 alpha-2 standards; never
   invent unsupported regions.
-- **Stats time range.** Optional "this week / this month / all time" framing for
-  the stats, still computed entirely on-device.
 
-## Future ideas
+## Ideas that will not be built in maintenance mode (kept for history)
 
-Candidates, not commitments:
+These were candidates before 1.0 and are not planned; maintenance mode accepts no
+new features. Optional stats time-range framing belonged here too:
 
 - Localized recipe content.
 - Richer metadata fields (normalized brand, parent company, confidence) if and
@@ -180,8 +183,8 @@ delivery and fast-food ordering:
 - Documentation (this folder) grows into the project's complete historical
   record, so each release is cheap to document and easy to look back on.
 
-The path toward 1.0 is about depth and polish on these foundations, not feature
-sprawl.
+After 1.0 the project is in maintenance mode: depth and polish only, no feature
+work.
 
 ## Completed milestones
 

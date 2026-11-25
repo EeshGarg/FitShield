@@ -139,12 +139,19 @@ explicit do-not-edit list.
 | Agent | Owns |
 | --- | --- |
 | `curated-data-engineer` | `data/**` |
-| `localization-engineer` | `extension/_locales/**`, locale tools |
-| `ui-ux-engineer` | page markup and `<style>` blocks |
-| `privacy-security-engineer` | `extension/fitshield-core.js`, `extension/background.js`, Android Kotlin `android/app/src/main/java/**`, `AndroidManifest.xml`, Gradle files |
-| `build-infrastructure-engineer` | `build.js`, `tools/**`, `test/**`; runs generators for synced and generated copies (`extension/blocklists`, `extension/data`, and the copied files in `android/app/src/main/assets/web/`) |
-| `release-engineer` | `changelog/**`, version metadata, release docs |
-| `qa-engineer` | adversarial verification; may add `test/**` |
+| `localization-engineer` | `extension/_locales/**`; the locale tools `tools/locale-parity.js`, `locale-hybrid-audit.js`, `locale-status.js`, `locale-prune.js` and `locale-source-baseline.json`; `docs/LOCALIZATION.md` |
+| `ui-ux-engineer` | page markup, `<style>` blocks, page scripts and layout CSS (`extension/popup.*`, `settings.*`, `warning.*`, `welcome.*`, `whats-new.*`, `diagnostics.*`, `ambient.js`, `i18n.js`, `currency.js`, `recipes.js`, `languages.js`, `fitshield-layout.css`); `extension/icons/**`; `android/app/src/main/res/**` |
+| `privacy-security-engineer` | `extension/fitshield-core.js`, `extension/background.js`, the engine support modules (`backup.js`, `preferences.js`, `blocklist.js`, `blocklist-records.js`, `browser-shim.js`), `extension/manifest.json` permissions and wiring, `FS Engine/**` (canonical engine source), Android Kotlin `android/app/src/main/java/**` and `android/app/src/androidTest/**`, `AndroidManifest.xml`, `android/app/build.gradle`, `android/build.gradle` |
+| `build-infrastructure-engineer` | `build.js`, `tools/**` (except the locale tools above), `test/**`, `package.json` (except `version`), `.github/**`, `.gitignore`, Gradle wrapper and settings files (`android/gradle.properties`, `android/settings.gradle`, `android/gradlew*`, `android/gradle/wrapper/**`); runs generators for synced and generated copies (`extension/blocklists`, `extension/data`, `android/app/src/main/assets/android-packages.json`, and the copied files in `android/app/src/main/assets/web/`) |
+| `release-engineer` | `changelog/**`, version fields (`package.json` `version`, `extension/manifest.json` `version`), and all documentation not listed against another lane: `docs/**` (including `docs/history/**`, except `docs/LOCALIZATION.md`), root `README.md`, `ARCHITECTURE.md`, `CONTRIBUTING.md`, `SECURITY.md`, `SUPPORT.md`, `CONSUMERS.md`, `LICENSE`, `DATA_LICENSE.md`, `BRANDING_LICENSE.md`, `android/README.md`, `brand/**` |
+| `qa-engineer` | adversarial verification; adds new files under `test/**` only (edits to existing tests go to `build-infrastructure-engineer`) |
+
+Every file under `docs/` has exactly one owner: `docs/LOCALIZATION.md` belongs to
+`localization-engineer`, every other `docs/**` file to `release-engineer`. There
+is no separate docs lane. `extension/manifest.json` is written by two lanes
+(`privacy-security-engineer` for permissions and wiring, `release-engineer` for
+`version`), so the version bump is serialized after any permissions or wiring
+change: never edit it concurrently.
 
 Android is assigned as follows: native code and manifest to
 `privacy-security-engineer`; the web layer source `android/web-src/**` to

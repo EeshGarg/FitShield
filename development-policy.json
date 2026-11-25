@@ -40,7 +40,10 @@
     "SKEPTICAL-BUYER READY",
     "PASS WITH LIMITATIONS",
     "DO NOT SHIP",
-    "NEEDS ANOTHER PASS"
+    "NEEDS ANOTHER PASS",
+    "SHIP",
+    "FAIL",
+    "BLOCKED"
   ],
   "_deferral_note": "Section headings a final report may not use for work that is still performable in this repository. External-only items are classified separately.",
   "forbidden_report_sections": [

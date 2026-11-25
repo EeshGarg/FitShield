@@ -98,7 +98,7 @@ Open the popup and choose Settings, or use your browser's extension options.
 | **Your stats** | Aggregate counts of pauses and your most-blocked sites, categories and countries. Never URLs. One optional estimate of money saved (off unless you enable it). |
 | **Blocking options** | The pause timer (how long the countdown runs) and the post-timer access duration (how long a site stays open after you continue). |
 | **How much friction** | Light, Standard or Strict presets for the above. Changing any value moves you to Custom. Optionally "Longer pause on repeat visits": one small, fixed extra delay if you return to a site soon after continuing. |
-| **When FitShield is on** | Schedule presets (always, evenings, late night, weekday lunch, evenings and weekends) or your own windows. Times follow your device clock. "Block until tomorrow" overrides the schedule; "Cancel that" undoes it. |
+| **When FitShield is on** | Schedule presets (always, evenings, late night, workday lunch, evenings and weekends) or your own windows. Times follow your device clock. "Block until tomorrow" overrides the schedule; "Cancel that" undoes it. |
 | **Your kitchen** | Diet, allergens, equipment and pantry, used only to rank the alternatives shown to you. |
 | **Your own alternatives** | Add your own recipes or fixes to the pause page. |
 | **Customize blocklist** | Search every site; switch delivery sites, fast-food sites or custom URLs on or off as groups; add your own sites. |
@@ -132,7 +132,7 @@ at all.
 **What you can set**
 
 - **Enable FitShield**, the main switch for app blocking.
-- **Block which apps:** categories (delivery, fast food, restaurant, coffee, dessert, grocery, meal kit), plus a list to turn individual apps off.
+- In the **Block apps on this phone** panel, under **Block which apps**: categories (delivery, fast food, restaurant, coffee, dessert, grocery, meal kit), plus a list to turn individual apps off.
 - **Temporary unlock (minutes):** how long "Open anyway" unlocks that app.
 - **Pause timer and schedule:** under Blocking Options.
 - **Optional keep-alive:** "Extra reliability" runs a quiet always-on notification so your phone doesn't stop app blocking after long idle. Turn it on only if blocking stops working after FitShield has been closed for a while. You may also be asked to allow display over other apps (so the pause screen reliably appears) and unrestricted battery use.
@@ -160,7 +160,7 @@ at all.
 
 **How do I export my settings?** Settings, Backup and restore, Export. Import the file on another browser or after a reinstall. On Android the same buttons are at the bottom of the app.
 
-**Will a reset delete my stats?** Reset statistics clears them; Reset settings and Reset appearance keep them. Factory reset clears everything.
+**Will a reset delete my stats?** Reset statistics & estimates clears them (and your favorites); Reset blocking settings and Reset appearance keep them. Factory reset clears everything.
 
 ## Reporting a problem
 

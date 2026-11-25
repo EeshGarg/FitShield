@@ -109,7 +109,6 @@ flowchart TD
   WARN -- "getBlockContext (one message)" --> BG["background.js service worker or Firefox event page"]
   BG --> CORE["FitShieldCore: schedule, passes, repeat friction, pause length"]
   BG --> ENGINE["FitShieldBlocklist: brand and policy lookup"]
-  CORE <--> STORE[("chrome.storage.local")]
   BG <--> STORE
   BG -- "context: brand, pause, pass options" --> WARN
   WARN --> CHOICE{"User decision"}
@@ -246,10 +245,12 @@ Chromium service worker (`importScripts`), the Firefox event page
 testable without a browser, and what stops the popup and the worker disagreeing
 about what "evenings" or "until tomorrow" means.
 
-Load order matters and is enforced: `background.js` references both globals, so
-it is imported last in the Firefox `background.scripts` array
-(`tools/extension-audit.js`) and importScripts only those two files
-(`tools/service-worker-audit.js`).
+Load order matters and is enforced: `background.js` references three globals
+(`FitShieldBlocklist`, `FitShieldCore`, `FitShieldBlocklistRecords`), so it is
+last in the Firefox `background.scripts` array (checked against
+`build.BACKGROUND_SCRIPTS` by `tools/extension-audit.js`), and on Chromium it
+`importScripts` exactly those three files (`tools/service-worker-audit.js`
+`ALLOWED_IMPORTS`).
 
 The same rule applies to the **pages**, and is easier to get wrong there. These
 are classic scripts sharing one global scope, so a `<script>` that captures
@@ -412,8 +413,8 @@ deliberate rule, and it was broken once in a way worth recording.
 
 `AppBlockPolicy.appBlockingEnabled` defaulted **false** while every `appBlock*`
 category under it defaulted **true**. The visible result was that a user could
-turn FitShield on, grant the accessibility service, watch sites get blocked, and
-still have DoorDash open normally — with nothing on screen explaining why, because
+turn FitShield on, grant the accessibility service, and still have the DoorDash
+app open normally — with nothing on screen explaining why, because
 the one switch that mattered was off and had never been shown to them. A default
 of `false` on a master switch silently disables everything beneath it, however
 correct those things are.

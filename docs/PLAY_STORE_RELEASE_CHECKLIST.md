@@ -179,7 +179,7 @@ of them.
       used the default twice.** Play rejects a re-used `versionCode` and there
       is no way to reclaim one.
 - [ ] **Record the `versionName` ↔ `versionCode` pair** in
-      `changelog/<versionName>.md` at upload time (1.0 ↔ 9; 0.56 ↔ 8 was the
+      `changelog/<versionName>.md` at upload time (1.0 ↔ 10; 1.0's first build, 9, was superseded and burned; 0.56 ↔ 8 was the
       rejected build and is burned). `HUMAN — the pair is only
       known once you choose it.`
 - [x] The version is stated identically in `extension/manifest.json`,
@@ -240,7 +240,7 @@ build is left **unsigned** — a deliberate safe default, not a failure.
 - [ ] **Verify the bundle is signed** before uploading. `HUMAN — run it against
       your own output.`
       ```
-      jarsigner -verify app/build/outputs/bundle/release/app-release.aab   # expect "jar verified"
+      jarsigner -verify dist/android/FitShield-<version>-<versionCode>.aab   # expect "jar verified"
       ```
       An unsigned bundle is what you get when `keystore.properties` was missing
       or mistyped, and Play's error message for it is not obvious.
@@ -252,7 +252,10 @@ build is left **unsigned** — a deliberate safe default, not a failure.
       both `MainActivity` and `BlockActivity`.
       _Evidence: `tools/android-audit.js` (fails an unguarded call) and `test/play-release.test.js` › "release hygiene: no debug artefacts, minification stated honestly"._
 - [x] **No package names or blocking decisions reach release logcat.** WebView
-      console logging and any per-event logging are inside `if (BuildConfig.DEBUG)`.
+      console logging is inside `if (BuildConfig.DEBUG)`. The ungated `Log.*`
+      calls are non-identifying status lines only: service connected with a
+      package count, "could not show block screen", "Import failed" (with the
+      exception), and the unreadable-package-list error in `PackageBlocklist`.
       _Evidence: `test/play-release.test.js` › "release hygiene: no debug artefacts, minification stated honestly"._
 - [x] **The manifest never forces `android:debuggable="true"`.** AGP sets it false
       for release.
@@ -427,13 +430,15 @@ Source: [Permissions and APIs that access sensitive information](https://support
       conditions.** It must be in the app (not only the listing), shown during
       normal use rather than buried in settings, describe the data accessed,
       explain how it is used and shared, and **require affirmative user action for
-      consent**. FitShield's disclosure text is present and accurate — the
-      app-blocking panel states _"It only reads which app comes to the front —
-      never screen content"_ before the button that opens Accessibility settings,
-      and `accessibility_description` repeats it inside the system settings screen
-      — but it is passive text inside a collapsed panel, with no explicit consent
-      step. **A dedicated confirm-before-you-continue disclosure step has been
-      routed to the Android lane**; re-check this box against the shipped build.
+      consent**. The app-blocking panel states _"It only reads which app comes to
+      the front — never screen content"_, and FitShield also shows a dedicated
+      disclosure dialog with Accept and Decline (`a11yDisclosure` in
+      `web/app.js`) before the request. The native bridge refuses to
+      open Accessibility settings until `recordAccessibilityConsent()` has stored
+      the acceptance timestamp, and `accessibility_description` repeats the
+      disclosure inside the system settings screen. `HUMAN — device:` confirm on
+      a real device that Decline leaves the service off and Accept opens settings,
+      then tick.
       _Evidence: `test/play-release.test.js` › "the accessibility disclosure the docs quote is the text the app shows"._
 
 ### 7.3 Foreground service types

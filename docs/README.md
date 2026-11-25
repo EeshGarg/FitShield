@@ -12,6 +12,7 @@ FitShield 1.0 is the final feature release; the project is in maintenance mode
 | --- | --- |
 | [`../CONSUMERS.md`](../CONSUMERS.md) | Install, set up and use FitShield (end-user guide) |
 | [`../README.md`](../README.md) | The project front page |
+| [`../SUPPORT.md`](../SUPPORT.md) | Getting help, and what maintenance mode accepts |
 
 ## Learning the codebase
 
@@ -37,7 +38,8 @@ FitShield 1.0 is the final feature release; the project is in maintenance mode
 | Doc | What it is for |
 | --- | --- |
 | [`MAINTAINING.md`](MAINTAINING.md) | Running the project in maintenance mode, and cutting a release |
-| [`../changelog/README.md`](../changelog/README.md) | The canonical release history (one file per version) and the roadmap |
+| [`../changelog/README.md`](../changelog/README.md) | The canonical release history (one file per version); the roadmap is [`../changelog/ROADMAP.md`](../changelog/ROADMAP.md) |
+| [`../SECURITY.md`](../SECURITY.md) | How to report a vulnerability privately |
 | [`ACCEPTANCE.md`](ACCEPTANCE.md) | The four human judgements no machine can make, and how to review them quickly |
 
 ## Platform deep-dives
@@ -70,6 +72,7 @@ FitShield 1.0 is the final feature release; the project is in maintenance mode
 | Doc | What it is for |
 | --- | --- |
 | [`../CLAUDE.md`](../CLAUDE.md) | The governance rules for automated and assisted sessions. Where any other file disagrees, this one wins |
+| [`../AGENTS.md`](../AGENTS.md) | Short pointer for non-Claude coding agents |
 | [`../.claude/agents/`](../.claude/agents/) | The specialist agent definitions, partitioned by file ownership |
 | [`../development-policy.json`](../development-policy.json) | The machine-readable form of the rules, enforced by `npm run validate:policy` |
 
