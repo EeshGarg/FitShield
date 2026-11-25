@@ -383,7 +383,7 @@ ever filed for this app, withdraw it or let it lapse — see
       service.** `HUMAN — Play Console.` Google's rejection applies to "all
       artifacts across all release tracks", so a still-live versionCode 8 (or
       earlier) release on production, open, closed or internal testing keeps the
-      violation. Upload 1.0 (versionCode 9) to those tracks or retire the old
+      violation. Upload 1.0 (versionCode 10) to those tracks or retire the old
       releases.
 
 ### 7.2 `AccessibilityService` declaration
@@ -583,7 +583,7 @@ resubmission-specific steps are in [PLAY_1.0_RESUBMISSION.md](PLAY_1.0_RESUBMISS
    this step is done — it is gitignored, so nobody but you can tell, and nothing
    here has opened it.
 2. **Build and sign the AAB** with `node tools/build-android.js --bundle
-   --versionCode=9`, and verify it with `jarsigner -verify`.
+   --versionCode=10`, and verify it with `jarsigner -verify`.
 3. **Upload it to every track** that still holds a `VpnService` artifact, or
    retire those releases.
 4. **Complete the remaining declarations**: `AccessibilityService` (with a demo

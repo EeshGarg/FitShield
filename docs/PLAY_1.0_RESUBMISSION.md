@@ -7,7 +7,7 @@ equivalent. Nothing here can be done from the repository._
 **Why this is needed.** Play rejected `com.FitShield.UshaCorporation`
 versionCode 8 (0.56): _"Use of VpnService is not a permitted use case. Remove the
 relevant service element from the app manifest, for all artifacts across all
-release tracks."_ Version 1.0 (versionCode 9) has no `VpnService`, no
+release tracks."_ Version 1.0 (versionCode 10) has no `VpnService`, no
 `BIND_VPN_SERVICE`, no boot receiver and no `INTERNET` permission. The Android app
 now blocks apps only; it no longer blocks websites. A rejection of an artifact
 does not remove other artifacts that still contain the service, which is why step
@@ -18,26 +18,27 @@ for review.
 
 ## Before you start: build the artifact
 
-1. `node tools/build-android.js --bundle --versionCode=9` (needs your upload
+1. `node tools/build-android.js --bundle --versionCode=10` (needs your upload
    keystore, see [PLAY_STORE_RELEASE_CHECKLIST.md](PLAY_STORE_RELEASE_CHECKLIST.md) §3).
-   Output: `dist/android/FitShield-1.0-9.aab`.
-2. Verify it is signed: `jarsigner -verify dist/android/FitShield-1.0-9.aab`.
+   Output: `dist/android/FitShield-1.0-10.aab`.
+2. Verify it is signed: `jarsigner -verify dist/android/FitShield-1.0-10.aab`.
 3. Optional sanity check that the bundle has no VPN service: open the AAB in
    Android Studio's APK Analyzer, or run `bundletool dump manifest` on it, and
    confirm there is no `android.net.VpnService` action, no
    `BIND_VPN_SERVICE`, and no `INTERNET` or `RECEIVE_BOOT_COMPLETED`.
 
-versionCode 9 is the next unused code: the highest one ever recorded in this
-repository is 8 (0.56, the rejected build).
+Upload versionCode 10. The highest code recorded in this repository before 1.0
+is 8 (0.56, the rejected build); versionCode 9 was an earlier 1.0 build that was
+superseded by 10 and must not be reused, whether or not it was ever uploaded.
 
 **The verified 1.0 artifact** (built and signed 2026-11-25, `jar verified`, signed
 by the existing FitShield upload certificate):
 
 | | |
 | --- | --- |
-| File | `FitShield-1.0-9.aab` (3,075,616 bytes) |
-| versionName / versionCode | 1.0 / 9 |
-| SHA-256 | `dd3384e80b2074bc9d78ac3cee426ae904f891699be0dbdeb42c66cc8f29bf18` |
+| File | `FitShield-1.0-10.aab` (3,075,626 bytes) |
+| versionName / versionCode | 1.0 / 10 |
+| SHA-256 | `e284ebe970378e8eb46f60b016bae94f22fcb772c7d3683b7d5c522af956332a` |
 
 Upload exactly this file. A rebuild produces a different checksum (signatures and
 timestamps differ), so if you rebuild, record the new checksum here before
@@ -54,7 +55,7 @@ no live or draft release still carries a bundle with the service:
 2. For each track, look at the current release and the release history. Any
    bundle with versionCode 8 (or any earlier code that contained the VPN service)
    is a problem.
-3. Either **create a new release on that track and upload `FitShield-1.0-9.aab`**
+3. Either **create a new release on that track and upload `FitShield-1.0-10.aab`**
    (this supersedes the old bundle for testers on that track), or **deactivate /
    retire** the old release and the track if you no longer use it.
 4. Check the App bundle explorer (under the app's release or app-bundle section)
@@ -118,7 +119,7 @@ Use [STORE_LISTING_DRAFT.md](STORE_LISTING_DRAFT.md), which has been rewritten f
    website blocking, a "Site blocking (VPN)" row, the VPN consent dialog, or the
    always-allow domain or custom URL screens. Capture fresh ones from the 1.0
    build.
-3. "What's new" for versionCode 9: use the 1.0 text in the draft.
+3. "What's new" for versionCode 10: use the 1.0 text in the draft.
 4. Check any translated listings for the same claims.
 
 ## (e) Send for review
@@ -132,9 +133,9 @@ Use [STORE_LISTING_DRAFT.md](STORE_LISTING_DRAFT.md), which has been rewritten f
 
 ## After you submit
 
-Record the pair `versionName 1.0 ↔ versionCode 9` (already noted in
-`changelog/1.0.md`). Do not reuse versionCode 9 for any other upload; if this
-bundle is rejected and you rebuild, use 10.
+Record the pair `versionName 1.0 ↔ versionCode 10` (already noted in
+`changelog/1.0.md`). Do not reuse versionCodes 9 or 10 for any other upload; if this
+bundle is rejected and you rebuild, use 11.
 
 If Play rejects 1.0 for a different reason, read the message, fix it in the
 repository (FitShield is in maintenance mode, so fixes are welcome), and upload

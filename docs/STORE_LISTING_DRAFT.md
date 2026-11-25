@@ -182,7 +182,7 @@ order", "Your stats stay on-device".
 
 ## Release notes — "What's new" (500 chars max per entry)
 
-**versionName 1.0 (versionCode 9):**
+**versionName 1.0 (versionCode 10):**
 
 > • FitShield now blocks food-delivery and fast-food apps only. Website
 > blocking has been removed from the Android app, along with the internet and
