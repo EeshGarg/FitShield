@@ -1,0 +1,48 @@
+name: Store policy or publication blocker
+description: A store (Chrome Web Store, Firefox Add-ons, Google Play) rejected or blocks FitShield.
+title: "[Store] "
+labels:
+  - publication
+body:
+  - type: markdown
+    attributes:
+      value: |
+        FitShield is in **maintenance mode**. Publication blockers are accepted: a store rejection, a policy change FitShield no longer satisfies, or a listing problem that stops installs.
+  - type: dropdown
+    id: store
+    attributes:
+      label: Store
+      options:
+        - Chrome Web Store
+        - Firefox Add-ons (AMO)
+        - Google Play
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or versionCode submitted
+      placeholder: "1.0.0 / versionCode 10"
+    validations:
+      required: true
+  - type: textarea
+    id: message
+    attributes:
+      label: Rejection or policy message
+      description: Paste the store's message verbatim, including any policy name or reference.
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link to the policy or the store notice
+      placeholder: "https://"
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: What you think needs to change
+    validations:
+      required: false

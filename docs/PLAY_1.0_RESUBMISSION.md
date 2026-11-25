@@ -2,7 +2,8 @@
 
 _What to do in the Play Console after the 1.0 build. Menu names below are
 described generically because the Console's layout changes; look for the
-equivalent. Nothing here can be done from the repository._
+equivalent. Nothing here can be done from the repository. For future patch
+releases and the general rejection playbook, see [MAINTAINING.md](MAINTAINING.md)._
 
 **Why this is needed.** Play rejected `com.FitShield.UshaCorporation`
 versionCode 8 (0.56): _"Use of VpnService is not a permitted use case. Remove the

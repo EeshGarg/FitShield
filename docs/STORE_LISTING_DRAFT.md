@@ -1,5 +1,8 @@
 # FitShield — Google Play Store Listing Draft
 
+_At a glance: the copy and asset list for the Play listing of the Android app.
+Build and release steps are in [MAINTAINING.md](MAINTAINING.md)._
+
 > [!NOTE]
 > **Copy re-checked against the Android build on 2026-08-26.** The 0.55 rewrite
 > removed the pre-0.55 product's claims — two fixed recipe cards, an

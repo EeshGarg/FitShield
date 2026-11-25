@@ -7,7 +7,7 @@ plugins {
 // manifest.json so all platform outputs share one version. versionCode is
 // injected per Play release and must strictly increase (see
 // docs/PLAY_STORE_RELEASE_CHECKLIST.md). Defaults are only used for a bare `gradlew`.
-def fitshieldVersion = project.findProperty('fitshieldVersionName') ?: '0.52'
+def fitshieldVersion = project.findProperty('fitshieldVersionName') ?: '0.0-dev'
 def fitshieldVersionCode = ((project.findProperty('fitshieldVersionCode') ?: '1') as String) as Integer
 
 // Release signing is loaded from keystore.properties (gitignored) OR -P / env

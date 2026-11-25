@@ -22,6 +22,17 @@ Schedules, the pause timer, categories, per-app allow, the opt-in keep-alive,
 83 locales, settings export/import and all stored data are unchanged; an
 install over 0.56 keeps its preferences.
 
+## At a glance
+
+| | |
+| --- | --- |
+| **What** | A native Android app that interrupts food-delivery and fast-food **apps** (not websites) with a pause screen and a home-cooked alternative. Fully offline: no `INTERNET` permission. |
+| **Where** | [`android/`](../android/README.md) — Kotlin in `android/app/src/main/java/com/usha/fitshield/`, web UI in `android/app/src/main/assets/web/` |
+| **Key files** | [`FitShieldAccessibilityService.kt`](../android/app/src/main/java/com/usha/fitshield/FitShieldAccessibilityService.kt) (foreground package) → [`AppBlockPolicy.kt`](../android/app/src/main/java/com/usha/fitshield/AppBlockPolicy.kt) (decision) → [`BlockActivity.kt`](../android/app/src/main/java/com/usha/fitshield/BlockActivity.kt) (pause screen); [`WebAppBridge.kt`](../android/app/src/main/java/com/usha/fitshield/WebAppBridge.kt) connects the WebView UI to `SharedPreferences` |
+| **Data** | [`data/android/*.json`](../data/README.md) → generated `android-packages.json` (brand → package ids) |
+| **Build** | `npm run build:android` (debug APK), `node tools/build-android.js --bundle --versionCode=N` (signed AAB) — see [§6](#6-build) |
+| **Diagrams** | runtime flow: [ARCHITECTURE.md](../ARCHITECTURE.md#3-android-runtime) |
+
 ---
 
 ## 1. Two ways FitShield reaches Android
@@ -234,7 +245,7 @@ validation-gated (it includes the Android audit).
   described in [PLAY_STORE_RELEASE_CHECKLIST.md](PLAY_STORE_RELEASE_CHECKLIST.md) §3.
 - **Version:** every output uses the single `extension/manifest.json` version
   (`-PfitshieldVersionName` is injected), so the platforms never diverge.
-  Recorded pairs: 0.54 ↔ 1, 0.56 ↔ 8 (rejected), **1.0 ↔ 9**.
+  Recorded pairs: 0.54 ↔ 1, 0.56 ↔ 8 (rejected), **1.0 ↔ 10** (an earlier 1.0 build used 9 and is superseded; never reuse 9 or 10).
 - Install a debug build: `adb install -r dist/android/FitShield-<version>-debug.apk`.
 
 ### Manual device test checklist (native app)
@@ -283,4 +294,6 @@ app-block flow on a physical phone, across OEMs and Android versions.
 
 > Maintainer note: `data/generated/android-packages.json` and the bundled
 > `android-packages.json` are **generated** — never hand-edit them. After editing
-> `data/android/*.json`, run `npm run generate:android-packages`.
+> `data/android/*.json`, run `npm run generate:android-packages` (refreshes
+> `data/generated/`), then `npm run build:android` (refreshes the bundled copy;
+> `npm run validate:android` fails on drift until you do).

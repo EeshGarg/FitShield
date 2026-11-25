@@ -28,7 +28,8 @@
       "git reset --hard",
       "git checkout -- .",
       "git clean",
-      "git stash"
+      "git stash",
+      "git restore"
     ],
     "_lane_command_note": "Repository-wide commands. A lane running one rolls back every other lane writing concurrently, with no error. Observed this session: one lane reset and stashed the tree and another lane's completed work vanished from disk. A lane writes only the files it owns and reports a broken tree to the coordinator rather than repairing it."
   },

@@ -1,0 +1,60 @@
+name: Data correction
+description: A brand, domain or Android package in the curated data is wrong or missing.
+title: "[Data] "
+labels:
+  - data
+body:
+  - type: markdown
+    attributes:
+      value: |
+        FitShield is in **maintenance mode**, but data corrections are accepted: a wrong or missing food-delivery or fast-food brand, domain, or Android app package id.
+        Requests for new categories, alternatives, recipes or unrelated sites are features and will be closed.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is wrong?
+      options:
+        - Missing brand
+        - Missing domain for an existing brand
+        - Missing Android package id
+        - Wrong domain
+        - Wrong Android package id
+        - Brand no longer exists or has changed domain
+    validations:
+      required: true
+  - type: input
+    id: brand
+    attributes:
+      label: Brand
+      placeholder: "Example Eats"
+    validations:
+      required: true
+  - type: input
+    id: identifier
+    attributes:
+      label: Domain or Android package id
+      description: The exact domain (e.g. order.example.com) or package id (e.g. com.example.eats).
+    validations:
+      required: true
+  - type: input
+    id: country
+    attributes:
+      label: Country or countries
+      description: Where the brand operates, ideally ISO country codes.
+      placeholder: "US, CA"
+    validations:
+      required: true
+  - type: input
+    id: evidence
+    attributes:
+      label: Evidence link
+      description: The brand's official site, or its Google Play listing showing the package id.
+      placeholder: "https://"
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+    validations:
+      required: false

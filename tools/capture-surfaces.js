@@ -11,6 +11,11 @@
  * the reviewer opens one folder.
  *
  *   node tools/capture-surfaces.js
+ *   node tools/capture-surfaces.js --docs   # the five consumer-guide shots
+ *
+ * --docs writes light-theme English screenshots into docs/assets/screenshots/
+ * (block-page, popup, settings, welcome, android-dashboard). The Android shot
+ * serves the real WebView bundle over loopback with a stubbed `Android` bridge.
  *
  * Needs a built dist/chrome and a Chromium. Writes nothing into the repository.
  */
@@ -130,10 +135,119 @@ async function capture() {
   console.log("Review against docs/ACCEPTANCE.md — the judgement calls are listed there.");
 }
 
+// The Android stub reports the real version, so screenshots never show a stale one.
+const MANIFEST_VERSION = JSON.parse(fs.readFileSync(path.join(ROOT, "extension", "manifest.json"), "utf8")).version;
+const DOCS_DIR = path.join(ROOT, "docs", "assets", "screenshots");
+const DOCS_SHOTS = [
+  { page: "warning.html?site=delivery-doordash-com", name: "block-page", width: 1280, height: 1000, click: "#intentOptions button" },
+  { page: "popup.html", name: "popup", width: 560, height: 700, fit: true },
+  { page: "settings.html", name: "settings", width: 1280, height: 800 },
+  { page: "welcome.html", name: "welcome", width: 1280, height: 800 }
+];
+
+async function shoot(tab, file, clip) {
+  const params = { format: "png" };
+  if (clip) params.clip = { x: 0, y: 0, ...clip, scale: 1 };
+  const { data } = await tab.send("Page.captureScreenshot", params);
+  fs.writeFileSync(file, Buffer.from(data, "base64"));
+  console.log(`  ${path.relative(ROOT, file).split(path.sep).join("/")} (${Math.round(fs.statSync(file).size / 1024)} KB)`);
+}
+
+// A stand-in for the native bridge, backed by an in-memory map. Only the
+// Android side is stubbed; every file the page runs is the shipped one.
+const ANDROID_STUB = `(() => {
+  const store = {
+    themeMode: JSON.stringify("light"),
+    androidWelcomed: JSON.stringify(true),
+    accessibilityConsent: JSON.stringify(true)
+  };
+  window.Android = {
+    storageGet: (k) => (k in store ? store[k] : null),
+    storageGetMany: (ks) => { const o = {}; JSON.parse(ks).forEach((k) => { if (k in store) o[k] = store[k]; }); return JSON.stringify(o); },
+    storageSet: (k, v) => { store[k] = v; }, storageRemove: (k) => { delete store[k]; },
+    storageClear: () => {}, storageKeys: () => JSON.stringify(Object.keys(store)),
+    accessibilityConsentGiven: () => true, accessibilityEnabled: () => true,
+    overlayEnabled: () => true, notificationsEnabled: () => true, batteryUnrestricted: () => true,
+    keepAliveEnabled: () => true, appPackageCount: () => 6, blockableApps: () => "[]",
+    getUiLanguage: () => "en", getVersion: () => ${JSON.stringify(MANIFEST_VERSION)},
+    recordAccessibilityConsent: () => {}, clearAccessibilityConsent: () => {}, setKeepAlive: () => {},
+    openAccessibilitySettings: () => {}, openBatterySettings: () => {}, openNotificationSettings: () => {},
+    openOverlaySettings: () => {}, openUrl: () => {}, exportSettings: () => "{}", importSettings: () => "{}"
+  };
+})();`;
+
+async function captureDocs() {
+  const http = require("http");
+  if (!fs.existsSync(path.join(PACKAGE_DIR, "manifest.json"))) {
+    console.error("dist/chrome is not built — run `node build.js` first.");
+    process.exit(1);
+  }
+  const webDir = path.join(ROOT, "android", "app", "src", "main", "assets", "web");
+  const types = { ".html": "text/html", ".js": "text/javascript", ".json": "application/json", ".png": "image/png", ".css": "text/css" };
+  const server = http.createServer((req, res) => {
+    const file = path.join(webDir, decodeURIComponent(req.url.split("?")[0]).replace(/^\/+/, "") || "index.html");
+    if (!file.startsWith(webDir) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
+      res.writeHead(404).end();
+      return;
+    }
+    res.writeHead(200, { "content-type": types[path.extname(file)] || "application/octet-stream" }).end(fs.readFileSync(file));
+  });
+  await new Promise((r) => server.listen(0, "127.0.0.1", r));
+
+  const browser = await launch({ extensionDir: PACKAGE_DIR });
+  fs.mkdirSync(DOCS_DIR, { recursive: true });
+
+  try {
+    const id = await browser.resolveExtensionId(PACKAGE_DIR);
+    if (!id) throw new Error("The extension did not load.");
+
+    for (const shot of DOCS_SHOTS) {
+      const tab = await browser.newPage();
+      try {
+        await tab.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: "light" }] });
+        await tab.send("Emulation.setDeviceMetricsOverride", { width: shot.width, height: shot.height, deviceScaleFactor: 1, mobile: false });
+        await tab.goto(`chrome-extension://${id}/${shot.page}`, 900);
+        await tab.evaluate(`new Promise((done) => chrome.storage.local.set({ themeMode: "system" }, done))`);
+        await tab.goto(`chrome-extension://${id}/${shot.page}`, 2200);
+        await sleep(900);
+        if (shot.click) {
+          // Answer the optional intent prompt so the recipe alternative shows.
+          await tab.evaluate(`document.querySelector(${JSON.stringify(shot.click)}).click()`);
+          await sleep(1200);
+        }
+        let clip = null;
+        if (shot.fit) {
+          const h = await tab.evaluate("document.documentElement.scrollHeight");
+          clip = { width: shot.width, height: Math.min(Math.max(h, 200), 1100) };
+          await tab.send("Emulation.setDeviceMetricsOverride", { width: shot.width, height: clip.height, deviceScaleFactor: 1, mobile: false });
+          await sleep(300);
+        }
+        await shoot(tab, path.join(DOCS_DIR, `${shot.name}.png`), clip);
+      } finally {
+        await tab.close();
+      }
+    }
+
+    const tab = await browser.newPage();
+    try {
+      await tab.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: "light" }] });
+      await tab.send("Emulation.setDeviceMetricsOverride", { width: 412, height: 915, deviceScaleFactor: 2, mobile: true });
+      await tab.send("Page.addScriptToEvaluateOnNewDocument", { source: ANDROID_STUB });
+      await tab.goto(`http://127.0.0.1:${server.address().port}/index.html`, 3000);
+      await shoot(tab, path.join(DOCS_DIR, "android-dashboard.png"));
+    } finally {
+      await tab.close();
+    }
+  } finally {
+    await browser.close();
+    server.close();
+  }
+}
+
 module.exports = capture;
 
 if (require.main === module) {
-  capture().catch((error) => {
+  (process.argv.includes("--docs") ? captureDocs().then(() => process.exit(0)) : capture()).catch((error) => {
     console.error(error.stack || error.message);
     process.exit(1);
   });

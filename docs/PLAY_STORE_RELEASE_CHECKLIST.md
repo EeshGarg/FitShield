@@ -4,7 +4,8 @@ _Android app: `com.FitShield.UshaCorporation`. This is the operational checklist
 a Play Store build. Pairs with [ANDROID.md](ANDROID.md) (how the app works),
 [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md) (disclosures
 and the Data safety answers) and [STORE_LISTING_DRAFT.md](STORE_LISTING_DRAFT.md)
-(copy and assets)._
+(copy and assets). For the end-to-end patch-release runbook (extension and
+Android) and the rejection playbook, see [MAINTAINING.md](MAINTAINING.md)._
 
 > **Why this file was rebuilt (2026-08-26).** The previous version was prose with
 > ✅ marks and no evidence: it asserted that things were true rather than

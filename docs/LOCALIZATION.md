@@ -1,5 +1,29 @@
 # Localization
 
+## At a glance
+
+| | |
+| --- | --- |
+| **What** | 83 UI locales in Chrome `_locales` format. English is the source of truth for wording *and* for completeness; every other locale may be partial and falls back to English per key. |
+| **Where** | [`extension/_locales/<code>/messages.json`](../extension/_locales/en/messages.json) is canonical. `npm run sync` copies the whole tree into the Android app (`android/app/src/main/assets/web/_locales/`). |
+| **Runtime** | `chrome.i18n.getMessage()` and [`extension/i18n.js`](../extension/i18n.js) (manual language override, shared with Android); [`extension/languages.js`](../extension/languages.js) lists the picker entries |
+| **Tools** | `npm run locales:status` (coverage, `--todo` / `--merge`), `npm run validate:locales` ([`tools/locale-parity.js`](../tools/locale-parity.js)), `npm run validate:hybrids`, `npm run locales:prune` |
+| **Tests** | [`test/locales.test.js`](../test/locales.test.js) (vocabulary, parity, fallback, doc numbers) |
+
+```mermaid
+flowchart LR
+  EN["extension/_locales/en/messages.json (source)"] --> ST["locale-status.js --todo xx"]
+  ST --> TODO["translations/xx.todo.json (git-ignored worklist)"]
+  TODO -- "translator fills in" --> MERGE["locale-status.js --merge xx"]
+  MERGE -- "rejects bad placeholders and English copies" --> LOC["extension/_locales/xx/messages.json"]
+  LOC --> VAL["validate:locales, validate:hybrids, locales:prune, test/locales.test.js"]
+  VAL --> SYNC["npm run sync"]
+  SYNC --> AND["android assets/web/_locales"]
+  LOC --> PKG["build.js: package _locales"]
+  PKG --> RUN["Runtime: chrome.i18n or i18n.js, missing key falls back to English"]
+  AND --> RUN
+```
+
 FitShield ships in **83 locales**. English is the source of truth and is always
 complete; the others may be partial.
 
@@ -429,7 +453,7 @@ This is deliberate for 0.55 rather than an oversight. Machine-translated cooking
 instructions are genuinely unsafe — temperatures, doneness cues, and food-safety
 wording are exactly the sentences that must not drift. Localizing the catalog
 properly means per-locale review by someone who cooks, and probably per-region
-entries rather than translations of the same 81 dishes, since the "fastest thing
+entries rather than translations of the same 88 dishes and quick fixes, since the "fastest thing
 you can make instead" is not the same food everywhere.
 
 The UI around a recipe **is** localized, so the labels, filters, times, and diet

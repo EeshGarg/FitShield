@@ -37,6 +37,10 @@ git history and store listings. New releases should each add a file here.
 
 ## Writing a new release note
 
+FitShield is in maintenance mode after 1.0; the full patch-release procedure
+(version bump locations, validators, store upload) is in
+[`docs/MAINTAINING.md`](../docs/MAINTAINING.md).
+
 When cutting a release:
 
 1. Copy the section layout from the most recent file (overview → major features

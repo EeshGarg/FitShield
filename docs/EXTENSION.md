@@ -1,5 +1,17 @@
 # The browser extension — build, engine linkage, and packaging
 
+## At a glance
+
+| | |
+| --- | --- |
+| **What** | A Manifest V3 extension (Chrome, Brave, Edge; Firefox 140+; Firefox for Android 142+) that redirects food-delivery and fast-food **websites** to a pause page with an at-home alternative. Entirely local. |
+| **Where** | [`extension/`](../extension/) (loads unpacked as-is); packaged by [`build.js`](../build.js) into `dist/chrome/` and `dist/firefox/` |
+| **Runtime** | [`background.js`](../extension/background.js) builds `declarativeNetRequest` rules and answers every page; [`fitshield-core.js`](../extension/fitshield-core.js) is the pure decision layer (schema, schedules, passes, stats); `blocklist.js` is the generated engine bundle |
+| **Pages** | [block page](../extension/warning.html), [popup](../extension/popup.html), [settings](../extension/settings.html), [welcome](../extension/welcome.html), [diagnostics](../extension/diagnostics.html), [what's new](../extension/whats-new.html) |
+| **Shared with Android** | the WebView reuses `i18n.js`, `languages.js`, `ambient.js`, `recipes.js`, `_locales/` and `data/recipes.json` (see [ANDROID.md](ANDROID.md)) |
+| **Storage** | `chrome.storage.local` only — [STORAGE.md](STORAGE.md) |
+| **Diagrams** | request flow and component map: [ARCHITECTURE.md](../ARCHITECTURE.md#2-extension-runtime) |
+
 How the Chrome/Firefox extension in [`extension/`](../extension/) consumes the
 shared [FS Engine](../FS%20Engine/README.md) and the canonical
 [`data/`](../data/) sets, and how to build, test, and load it.
@@ -62,8 +74,8 @@ Three consumers, one engine, one data model:
   `FitShieldBlocklist.loadBlocklists()` (which fetches the packaged
   `blocklists/*.json`) and turns the entries + user settings into
   `declarativeNetRequest` redirect rules pointing at `warning.html`.
-- **`settings.html`** — loads `blocklist.js` with a plain `<script>` tag and
-  uses the same metadata API (`getAvailableCountries`, `getAvailableCategories`,
+- **`settings.html`** — loads `blocklist.js` (and `blocklist-records.js`) with plain
+  `<script>` tags and uses the same metadata API (`getAvailableCountries`, `getAvailableCategories`,
   …) to render the country/category pickers from the live dataset.
 - **`warning.html` / `popup.html`** — talk to the background worker over
   `runtime.sendMessage`, so every block decision, bypass, and stat flows
@@ -111,7 +123,9 @@ The manifest declares an explicit `content_security_policy.extension_pages`
 rather than relying on the MV3 default. It is **tighter** than the default, not
 looser: on top of `script-src 'self'` it pins `connect-src 'self'` (the runtime
 makes no network requests, so nothing legitimate needs an outside origin),
-`frame-src`/`child-src` to `'none'`, and `form-action`/`base-uri` to `'none'`.
+`img-src`/`font-src`/`media-src` to the package, `frame-src`/`child-src` to
+`'none'`, `frame-ancestors 'none'` (no site can embed an extension page), and
+`form-action`/`base-uri` to `'none'`.
 `tools/extension-audit.js` warns whenever a custom policy is present, on purpose
 — it is a prompt to re-read the policy, not a defect.
 

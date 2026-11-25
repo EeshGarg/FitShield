@@ -1,0 +1,78 @@
+name: Bug report
+description: Something in FitShield 1.0 is broken (critical defects and compatibility problems only).
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        FitShield is in **maintenance mode**. Only critical defects, security issues, compatibility updates, publication blockers and data corrections are accepted. Feature requests and cosmetic wishes will be closed.
+        Security vulnerabilities: do not file here, see SECURITY.md.
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Chrome (extension)
+        - Firefox (desktop extension)
+        - Firefox for Android (extension)
+        - Android app
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: FitShield version
+      description: Expected form 1.0.x.
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser or Android version, and device
+      placeholder: "Chrome 131 on Windows 11 / Android 14, Pixel 8"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: |
+        Extension: open the extension's diagnostics page (FitShield diagnostics) and paste the Runtime and Blocklist and rules sections (manifest, service worker, engine bundle, brands loaded, live redirect rules, last blocking decision, last error). Use "Test a domain" to check a specific site.
+        Android app: say whether the accessibility service is enabled and whether display over other apps is granted.
+        Do not paste anything you consider private.
+    validations:
+      required: false
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Checks
+      options:
+        - label: This is a defect, not a feature request.
+          required: true
+        - label: This is not a security vulnerability (those go through SECURITY.md).
+          required: true

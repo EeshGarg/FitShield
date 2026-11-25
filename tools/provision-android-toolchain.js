@@ -30,7 +30,7 @@ const HOME = path.join(os.homedir(), ".fitshield-toolchain");
 const JDK_DIR = path.join(HOME, "jdk");
 const SDK_DIR = path.join(HOME, "android-sdk");
 
-// AGP 8.6 / Gradle 8.7 require JDK 17, and compileSdk is 35. Both are read
+// AGP 8.6 / Gradle 8.7 require JDK 17, and compileSdk is 36. Both are read
 // from android/app/build.gradle; they are pinned here so a mismatch is a
 // deliberate edit rather than a silent drift.
 const JDK_FEATURE = 17;

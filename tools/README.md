@@ -10,13 +10,13 @@ dependencies).
 
 ```bash
 npm test                # the test suite
-npm run validate        # node tools/validate-all.js — all 18 audits
+npm run validate        # node tools/validate-all.js — all 19 audits
 ```
 
 `validate` exits non-zero if any audit reports an error; warnings never fail a
 build. `build.js` runs it automatically before packaging.
 
-## Validators (all 18 run by `npm run validate`)
+## Validators (all 19 run by `npm run validate`)
 
 | Command | Tool | Checks |
 | --- | --- | --- |
@@ -25,7 +25,7 @@ build. `build.js` runs it automatically before packaging.
 | `npm run validate:aliases` | `alias-audit.js` | malformed/duplicate aliases, alias↔primary collisions, www-variant warnings |
 | `npm run validate:countries` | `country-audit.js` | ISO 3166-1 alpha-2 codes, unknown/duplicate codes, region↔country consistency |
 | `npm run validate:categories` | `category-audit.js` | category id format, localized-name (`catLabel*`) coverage, orphaned display names |
-| `npm run validate:android` | `android-audit.js` | the generated rules asset still matches the engine, no Android data fork, no unapproved permissions or analytics |
+| `npm run validate:android` | `android-audit.js` | the manifest requests exactly the four allowed permissions; no `VpnService`, `INTERNET`, boot receiver, Android data fork or analytics in the manifest or Kotlin sources |
 | `npm run validate:android-packages` | `validate-android-packages.js` | package-map schema, orphaned brands, duplicate brand/package, `packageStatus`, determinism, drift |
 | `npm run validate:locales` | `locale-parity.js` | identical key sets, empty messages, `$name$` placeholders, positional-placeholder parity, duplicate keys, unreferenced keys (warning) |
 | `npm run validate:hybrids` | `locale-hybrid-audit.js` | strings that are neither translated nor English but a mangled mix (`"Take one минута."`, `"блокироватьing"`); `--apply` removes them so they fall back to English |
@@ -37,6 +37,7 @@ build. `build.js` runs it automatically before packaging.
 | `npm run validate:sync` | `sync-audit.js` | `extension/`'s committed artifacts (engine bundle, blocklists, recipes, changelog) match canonical `FS Engine/` + `data/`, so the folder loads unpacked; stale copy → `npm run sync` |
 | `npm run validate:a11y` | `browser-a11y-audit.js` | loads the built package in Chromium and reads the **computed accessibility tree** (`Accessibility.getFullAXTree`) — the tree a screen reader consumes, not the DOM. Every control has a name, no unresolved i18n key reaches a label, nothing focusable is hidden from assistive technology, and no heading level is skipped. Warns and skips when no browser is installed; set `FS_CHROME` to point at one. |
 | `npm run validate:announce` | `announcement-audit.js` | reads the accessibility tree in ORDER — what a screen reader is handed, not just whether a name exists. Checks reading order, that a label and its value announce as one statement, that the countdown speaks on milestones only and says what it is counting, that the pause ending is announced, that sliders carry their unit, and that no decorative glyph is inside a name. |
+| `npm run validate:links` | `check-doc-links.js` | every relative link and `#anchor` in the repository's Markdown resolves (GitHub heading slugs, case-exact paths); archived `docs/history/` and old `changelog/*.md` are not scanned as sources, but links into them are checked |
 | `npm run validate:firefox` | `firefox-audit.js` | installs the built Firefox package in real Firefox over WebDriver BiDi, then asks for a blocked site and asserts the browser redirects to the block page — event page booting, dynamic rules installing, Firefox matching one, block page rendering, all in one check. Also fails on any console error or unresolved i18n key. Warns and skips without Firefox; set `FS_FIREFOX`. |
 
 ## Generators (write committed artifacts)
@@ -44,8 +45,9 @@ build. `build.js` runs it automatically before packaging.
 | Command | Tool | Writes |
 | --- | --- | --- |
 | `npm run sync` | `sync-extension.js` | `extension/`'s runtime artifacts **and** the Android web assets. Run after editing `FS Engine/` or `data/`. |
-| `npm run toolchain:android` | `provision-android-toolchain.js` | fetches JDK 17 + the Android SDK (platform 35, build-tools 35) into `~/.fitshield-toolchain`, outside the repo. Nothing system-wide is changed and nothing is committed; `build-android.js` finds it and hands Gradle its own environment. Idempotent — anything already present is left alone. |
+| `npm run toolchain:android` | `provision-android-toolchain.js` | fetches JDK 17 + the Android SDK (platform 36, build-tools 36) into `~/.fitshield-toolchain`, outside the repo. Nothing system-wide is changed and nothing is committed; `build-android.js` finds it and hands Gradle its own environment. Idempotent — anything already present is left alone. |
 | `npm run capture` | `capture-surfaces.js` | screenshots every surface into `dist/acceptance/` — both palettes, at the sizes where layouts break. Shrinks human acceptance from installing a build and clicking through twice to opening one folder; the judgement calls it supports are listed in `docs/ACCEPTANCE.md`. |
+| `npm run capture:docs` | `capture-surfaces.js --docs` | the five screenshots used by `CONSUMERS.md` and `README.md` into `docs/assets/screenshots/` (light theme, English). Needs `dist/chrome` (`node build.js`) and a Chromium. |
 | `npm run icon:android` | `make-android-icon.js` | renders the Android adaptive-icon foreground and monochrome layers from the brand master `brand/fitshield-f-512.png` — the same artwork that goes to the Play listing. Finds the ink by bounding box rather than a hand-typed offset, drops the master's opaque white field to transparency, and scales the letter into the 72dp safe zone so no launcher mask clips it. A test re-runs it and compares bytes, so the committed icon cannot drift from the artwork. |
 | `npm run generate:alternatives` | `build-alternatives.js` | `data/recipes.json` from the `data/alternatives/*.json` parts |
 | `npm run generate:android-packages` | `generate-android-packages.js` | `data/generated/android-packages.json` → the bundled package map |
@@ -59,7 +61,7 @@ fails `npm run validate` and `npm test` rather than shipping silently.
 | Command | Tool | Does |
 | --- | --- | --- |
 | `npm run build` | `../build.js` | validation-gated `dist/chrome/`, `dist/firefox/`, and the store zips |
-| `npm run build:android` | `build-android.js` | stages `dist/android/` and builds a debug APK when the SDK + Gradle are present |
+| `npm run build:android` | `build-android.js` | stages `dist/android/` and builds a debug APK when the SDK + Gradle are present; `--bundle --versionCode=N` builds the signed release AAB (needs the local, gitignored `android/keystore.properties`) and refuses a bundle whose manifest carries a forbidden permission or service |
 | `npm run verify:unpacked` | `verify-unpacked.js` | loads a built package and proves the engine blocks a real brand |
 | `npm run locales:status` | `locale-status.js` | translation coverage per locale; `--todo <locale>` writes a worklist |
 | `npm run locales:prune` | `locale-prune.js` | finds (and removes) unreachable locale keys: those no source file references, and those English has dropped but translations still carry |
@@ -78,7 +80,7 @@ tools/
     report.js   # Reporter class + CLI runner
     load.js     # paths, loaders, locale dirs, ISO country set,
                 # country→region map, isApexDomain()
-  validate-all.js               # runs the 18 audits above
+  validate-all.js               # runs the 19 audits above
   validate-datasets.js  alternatives-audit.js  alias-audit.js
   country-audit.js      category-audit.js      locale-parity.js
   locale-hybrid-audit.js  policy-audit.js
@@ -87,6 +89,7 @@ tools/
   browser-a11y-audit.js    provision-android-toolchain.js
   capture-surfaces.js      make-android-icon.js
   firefox-audit.js         announcement-audit.js
+  check-doc-links.js
   validate-android-packages.js
   sync-extension.js     build-alternatives.js
   generate-android-packages.js

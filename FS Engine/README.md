@@ -164,6 +164,6 @@ an optional entry list and fall back to the most recently loaded datasets.
 - `hostnames.js` / `entries.js` / `metadata.js` must stay pure (no I/O, no
   state, no environment probes) — only `loader.js` may touch the outside world.
 - Never break the browser global: `FitShieldBlocklist` and its call signatures
-  are the compatibility contract with the shipped extension and Android WebView.
+  are the compatibility contract with the shipped extension (the Android WebView no longer loads the engine).
 - Matching-semantics changes require the audits to pass. (The Android Kotlin
   host matcher and its parity fixture were removed in 1.0.)

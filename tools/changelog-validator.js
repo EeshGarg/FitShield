@@ -26,6 +26,16 @@ function changelogValidator() {
     reporter.fail(`package.json version (${pkgVersion}) does not match manifest (${manifestVersion})`);
   }
 
+  // FS Engine/package.json carries the same version; nothing else would notice it
+  // going stale on a bump.
+  const enginePkgFile = path.join(load.ROOT, "FS Engine", "package.json");
+  if (fs.existsSync(enginePkgFile)) {
+    const engineVersion = JSON.parse(fs.readFileSync(enginePkgFile, "utf8")).version;
+    if (engineVersion !== pkgVersion) {
+      reporter.fail(`FS Engine/package.json version (${engineVersion}) does not match package.json (${pkgVersion})`);
+    }
+  }
+
   // changelog.json (in-extension What's New).
   let changelog;
   try {

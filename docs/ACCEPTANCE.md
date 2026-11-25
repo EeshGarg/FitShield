@@ -1,7 +1,7 @@
 # Human acceptance
 
 Everything a machine can settle about this build is settled: `npm test` green,
-`npm run validate` reporting 18 audits at zero errors, the computed accessibility
+`npm run validate` reporting 19 audits at zero errors, the computed accessibility
 tree checked in a real browser, and the Chrome, Firefox and Android packages all
 building. (The commands are named rather than a run frozen into a count — a
 stale number invites a reader to trust it instead of running the command beside
@@ -12,6 +12,10 @@ it.) None of that answers the one question that matters most.
 That is a judgement, and it is yours. This document exists to make it a short
 judgement rather than an afternoon: everything around it that is not judgement
 has been removed.
+
+(Setting up the repository first? See [`GETTING_STARTED.md`](GETTING_STARTED.md).
+Older one-off acceptance and audit reports are archived in
+[`history/`](history/README.md).)
 
 ---
 

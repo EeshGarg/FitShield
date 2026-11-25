@@ -17,6 +17,7 @@
     "locales:status": "node tools/locale-status.js",
     "locales:prune": "node tools/locale-prune.js",
     "validate:docs": "node tools/changelog-validator.js",
+    "validate:links": "node tools/check-doc-links.js",
     "validate:assets": "node tools/assets-check.js",
     "validate:extension": "node tools/extension-audit.js",
     "validate:sw": "node tools/service-worker-audit.js",
@@ -36,6 +37,7 @@
     "bundle:android": "node tools/build-android.js --bundle",
     "toolchain:android": "node tools/provision-android-toolchain.js",
     "capture": "node tools/capture-surfaces.js",
+    "capture:docs": "node tools/capture-surfaces.js --docs",
     "icon:android": "node tools/make-android-icon.js",
     "build:all": "node build.js && node tools/build-android.js"
   },

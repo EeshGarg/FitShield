@@ -5,8 +5,8 @@ Repository-local findings: **0**
 | Gate | Result |
 | --- | --- |
 | Findings queue | 77 recorded, 77 closed, each with a verification narrative and an anchor |
-| Automated tests | `npm test` — 54 test files |
-| Validators | `npm run validate` — **18 audits**, gating the build |
+| Automated tests | `npm test` — 55 test files |
+| Validators | `npm run validate` — **19 audits**, gating the build |
 | Packages | Chrome, Firefox and **Android APK** all build |
 | Build reproducibility | two clean builds produce byte-identical zips (sha256 verified) |
 

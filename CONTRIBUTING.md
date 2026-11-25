@@ -1,20 +1,119 @@
 # Contributing to FitShield
 
-FitShield is a **local-first, privacy-first** browser extension that adds a
-mindful pause before food-delivery and fast-food ordering. It runs on Firefox
-and Chromium (Chrome, Brave, Edge) from a single source tree, on Manifest V3.
+FitShield is a **local-first, privacy-first** browser extension (with a native
+Android companion) that adds a mindful pause before food-delivery and fast-food
+ordering. It runs on Firefox and Chromium (Chrome, Brave, Edge) from a single
+source tree, on Manifest V3.
 
-There is **no build framework and no runtime dependencies** — the extension is
-plain JS/HTML/JSON. The only Node usage is for the test suite and the developer
+There is **no build framework and no runtime dependencies**: the extension is
+plain JS/HTML/JSON. The only Node usage is the test suite and the developer
 tools in [`tools/`](tools/).
 
-## Golden rules
+New here? Read [`docs/GETTING_STARTED.md`](docs/GETTING_STARTED.md) first (clone
+to first verified change), keep [`docs/GLOSSARY.md`](docs/GLOSSARY.md) open for
+the vocabulary, and see [`docs/README.md`](docs/README.md) for every other doc.
 
-- **No telemetry, no cloud, no network calls.** Everything stays on the device.
+## What we accept (maintenance mode)
+
+FitShield 1.0 is the final feature release. The project is in **maintenance
+mode**: fixes and policy compliance only, no new features. Changes in scope:
+
+- **Critical defects**: blocking that does not block, data loss, a control that
+  does nothing, a claim in the product or docs that the code does not honour.
+- **Security and privacy**: anything that weakens the no-network, no-telemetry,
+  three-permission guarantees.
+- **Compatibility**: a browser or Android release that breaks FitShield.
+- **Publication blockers**: whatever stops the Chrome Web Store, Firefox
+  Add-ons or Google Play from accepting a build.
+- **Data corrections**: a wrong or dead domain, country, category, alias,
+  Android package id, recipe, or translation.
+
+Out of scope: new features, new surfaces, new platforms, and anything that turns
+FitShield into a fitness app, calorie tracker, meal planner or social product.
+It is a blocker and a decision-friction tool, nothing more.
+
+## How to propose a change
+
+1. **Open an issue first** for anything beyond an obvious typo or data
+   correction. Say what is wrong, how to reproduce it, and which of the scopes
+   above it falls under. A data problem can be reported from Settings →
+   **Report a problem** (see below) with no code at all.
+2. **Branch** from `main` with a short descriptive name (for example
+   `fix/pass-expiry` or `docs/overhaul`).
+3. **Make the change**, following the rules below, and add or strengthen a test
+   that would have caught the problem.
+4. **Run everything** (see [Tests and validators](#tests-and-validators)).
+5. **Open a pull request** against `main` describing what was wrong, why the
+   fix is right, and how you verified it. CI (`.github/workflows/verify.yml`)
+   runs the tests, the validators, both browser builds, the real-browser checks
+   and an Android debug APK build; all of it must be green.
+
+## Rules
+
+- **Zero dependencies.** No `dependencies` or `devDependencies`, test harnesses
+  included. A test enforces this.
+- **Permissions are exactly** `storage`, `declarativeNetRequest` and `alarms`.
+  Never add one for convenience.
+- **No telemetry, no cloud, no network calls, no accounts.** Everything stays on
+  the device.
+- **Never silently reset user data.** Migrations are idempotent, versioned, and
+  safe on missing or malformed input (see [`docs/STORAGE.md`](docs/STORAGE.md)).
 - **Don't fabricate data.** Prefer correctness over quantity; only add brands,
-  countries, or translations you can verify.
+  countries, package ids or translations you can verify.
 - **Keep it fast.** Don't add work to popup startup, blocking, or stats.
-- **Validate before you commit:** `npm run validate` (and `npm test`).
+- **Fix root causes.** Do not delete or loosen a failing test or validator to get
+  green. Prefer tests that assert behaviour over source-text greps.
+- **Docs may not claim what the code does not do.** If you change behaviour,
+  change the doc that describes it in the same change.
+- **Edit sources, not generated files** (`data/recipes.json`,
+  `data/generated/*`, the engine bundle and data copies in `extension/`).
+  Regenerate them.
+
+## Tests and validators
+
+Before you open a pull request:
+
+```bash
+npm run sync         # refresh extension/ AND the Android bundle after engine/data/locale edits
+npm run validate     # all 19 audits (datasets, locales, docs, assets, extension sync, ...)
+npm test             # unit tests + validators
+node build.js        # Chrome and Firefox packages build (validates first, aborts on error)
+```
+
+A green suite is necessary, not sufficient: reason about behaviour, and for a
+user-facing change load the built package in both browsers
+(see [`docs/GETTING_STARTED.md`](docs/GETTING_STARTED.md#4-load-it-in-a-browser)).
+
+Run a single audit with `npm run validate:datasets`, `:alternatives`, `:aliases`,
+`:countries`, `:categories`, `:android`, `:android-packages`, `:locales`,
+`:hybrids`, `:policy`, `:docs`, `:assets`, `:extension`, `:sw`, `:sync`, `:a11y`,
+`:announce`, `:firefox` or `:links` (the same nineteen `npm run validate` runs). See
+[`tools/README.md`](tools/README.md). `:sync` fails if `extension/`'s committed
+artifacts have drifted from canonical; fix with `npm run sync`. The `:a11y`,
+`:announce` and `:firefox` audits drive a real browser and report "did not run"
+when none is installed.
+
+## Commits and pull requests
+
+The history uses a conventional, lowercase, imperative style:
+
+```
+type(scope): short subject saying what changed
+```
+
+with types such as `fix`, `feat`, `docs`, `test`, `ci`, `build`, `chore` and
+`release`, and an optional scope (`android`, `catalog`, `passes`, `a11y`,
+`csp`, `play`, ...). Examples from the log:
+
+- `fix(passes): the erasure was not fixed, it had moved`
+- `docs(android): stop the release notes implying Android dropped the dishonest statistics`
+- `test(catalog): verify the bucket rewrite from outside the pass that made it`
+- `ci: stop the gate passing on validators that never ran, and provision Android`
+- `release(1.0): remove VpnService for Google Play compliance`
+
+Put the **why** in the subject or body: what was actually wrong, not just what
+file changed. Keep commits focused, one concern each. Do not commit
+`android/keystore.properties`, keystores, passwords or `dist/`.
 
 ## Working with an assistant
 
@@ -52,7 +151,8 @@ and `tools/policy-audit.js` enforces it.
 
 Specialist agents in [`.claude/agents/`](.claude/agents/) are mandatory for
 substantial work, run in parallel, and are partitioned by **file ownership** so
-two writers never touch one file.
+two writers never touch one file. A lane never runs a repository-wide git
+command (`reset --hard`, `checkout -- .`, `clean`, `stash`).
 
 ## Project layout
 
@@ -66,7 +166,7 @@ root is **not** a loadable unpacked extension — build first, then load
 
 | Path | What it is |
 | --- | --- |
-| `FS Engine/` | The blocking engine (`index.js` API + modules; see its README for the full API reference). Shipped to browsers as a generated single-file `blocklist.js` |
+| `FS Engine/` | The blocking engine (`index.js` API + modules; see its [README](FS%20Engine/README.md) for the full API reference). Shipped to browsers as a generated single-file `blocklist.js` |
 | `data/blocklists/*.json` | Curated datasets (`fast-food.json`, `delivery.json`) |
 | `data/alternatives-taxonomy.json`, `data/alternatives/*.json` | The alternatives catalog (source). Generated into `data/recipes.json`. |
 | `data/android/` | Android app-package mappings (brandId → packageIds) |
@@ -76,27 +176,14 @@ root is **not** a loadable unpacked extension — build first, then load
 | `extension/fitshield-core.js` | Storage schema, migrations, schedules, passes, statistics — shared by the worker, every page, and the tests |
 | `extension/currency.js`, `i18n.js`, `languages.js`, `recipes.js`, `preferences.js`, `backup.js` | Shared web modules |
 | `extension/_locales/<code>/messages.json` | Translations (83 locales, English is the source) |
-| `android/` | Native Android adapter (see `docs/ANDROID.md`); `android/web-src/` holds the Android-authored shim |
+| `android/` | Native Android adapter (see [`docs/ANDROID.md`](docs/ANDROID.md)); `android/web-src/` holds the Android-authored shim |
 | `changelog/` | Canonical release history + `ROADMAP.md` |
 | `tools/` | Developer validators + generators (not shipped) |
 | `test/` | `node --test` suites |
+| `docs/` | Documentation ([index](docs/README.md)) |
+| `brand/` | Logos and store imagery |
 
-## Common tasks
-
-### Validate
-
-```bash
-npm run sync         # refresh extension/ AND the Android bundle after engine/data/locale edits
-npm run validate     # all audits (datasets, locales, docs, assets, extension sync)
-npm test             # unit tests + validators
-```
-
-Run a single audit with `npm run validate:datasets`, `:alternatives`, `:aliases`,
-`:countries`, `:categories`, `:android`, `:android-packages`, `:locales`,
-`:hybrids`, `:policy`, `:docs`, `:assets`, `:extension`, `:sw`, or `:sync` — the
-same fifteen `npm run validate` runs. See [`tools/README.md`](tools/README.md).
-`:sync` fails if `extension/`'s committed artifacts have drifted from canonical —
-fix with `npm run sync`.
+## Recipes for common corrections
 
 ### Add a brand
 
@@ -263,7 +350,7 @@ can fill in and merge back safely.
    `$name$` placeholders.
 4. `npm run validate:locales` enforces all of this.
 
-### Build & package
+## Build and package
 
 ```bash
 npm run build        # validates, then writes dist/ + the store zips
@@ -289,7 +376,15 @@ package or Firefox, `node build.js`, then *Load unpacked* → `dist/chrome`, or
 > Always build with `node build.js`. Don't zip by hand — the built-in writer
 > forces forward-slash archive paths, which Windows' `Compress-Archive` breaks.
 
-### Cut a release
+The Android app builds with `npm run build:android` (debug APK) and
+`npm run bundle:android -- --versionCode=<n>` (signed release bundle); see
+[`docs/GETTING_STARTED.md`](docs/GETTING_STARTED.md#6-build-the-android-app).
+Release signing material is local and gitignored; never commit it.
+
+## Cutting a release
+
+Release work is for maintainers; the full procedure is in
+[`docs/MAINTAINING.md`](docs/MAINTAINING.md). In short:
 
 1. Bump the version in `extension/manifest.json` and `package.json` (keep them in sync).
 2. Add an entry to `changelog.json` (the in-extension *What's New*).

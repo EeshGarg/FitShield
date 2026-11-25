@@ -19,8 +19,8 @@
 > schema-version key. All of those were changed by 0.55.
 >
 > **For what the product actually does, read
-> [`../changelog/0.55.md`](../changelog/0.55.md) and
-> [`../README.md`](../README.md), never this file.**
+> [`../changelog/0.55.md`](../../changelog/0.55.md) and
+> [`../README.md`](../../README.md), never this file.**
 
 Internal working document. Written before implementation, from a full read of the
 repository at `b0ef409` (branch `harden/block-page-engine-boundary`). It records

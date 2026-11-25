@@ -4,7 +4,8 @@ _Source-of-truth notes for the Google Play **Data safety** form, the privacy
 policy, and the required Accessibility disclosure. Everything here is
 verifiable in the code (`android/app/src/main/java/com/usha/fitshield/`) and is
 enforced by `tools/android-audit.js` (no analytics dependency) and the
-permission allowlist._
+permission allowlist. Re-read before every Android release; see
+[MAINTAINING.md](MAINTAINING.md)._
 
 FitShield is **local-first**: it is a self-control / mindfulness tool that adds
 friction before opening food-delivery and fast-food **apps** (the Android app

@@ -41,7 +41,9 @@ const AUDITS = [
   // before a request leaves, so this does not depend on the probe domain being
   // reachable — a tab that is NOT redirected means blocking failed, online or
   // off. Self-skips with a warning when Firefox is absent.
-  require("./firefox-audit")
+  require("./firefox-audit"),
+  // Every relative Markdown link and #anchor in the docs must resolve.
+  require("./check-doc-links")
 ];
 
 async function validateAll(options) {

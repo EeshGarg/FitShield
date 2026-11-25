@@ -83,6 +83,8 @@ the suite rather than inferred from source.
 
 ## Maintenance mode (after 1.0)
 
+The runbook for this phase is [`docs/MAINTAINING.md`](../docs/MAINTAINING.md).
+
 FitShield 1.0 is the final feature release. From here the project is in
 **maintenance mode**: fixes, data corrections (the `needs_review` app tail,
 delisted-app re-verification, wrong-country metadata), platform and store-policy

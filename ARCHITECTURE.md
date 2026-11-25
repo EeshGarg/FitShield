@@ -1,20 +1,234 @@
 # FitShield architecture
 
-FitShield is one product with **four separated compartments** and a build step
-that recombines them into the flat artifacts each store expects. Keeping them
-apart is deliberate: the blocking engine is reusable across the browser
-extension and the Android app, and neither ships a copy of the other's code.
+FitShield is a **blocker and a decision-friction tool**, shipped as two products
+from one repository:
+
+- a **browser extension** (Chrome, Firefox, Firefox for Android; Manifest V3)
+  that interrupts food-delivery and fast-food **websites** with a pause page and
+  a home-cooked alternative, and
+- an **Android app** that does the same for the food-delivery and fast-food
+  **apps** (by package name, through an opt-in accessibility service). It does
+  not block websites; VpnService and website blocking were removed in 1.0.
+
+Both are entirely local: no accounts, no network calls, no telemetry. FitShield
+1.0 is the final feature release; the project is in maintenance mode.
+
+Where to read next: [docs/EXTENSION.md](docs/EXTENSION.md) (build, manifests,
+block-page runbook), [docs/ANDROID.md](docs/ANDROID.md) (the native app),
+[docs/STORAGE.md](docs/STORAGE.md) (every stored key and migration),
+[docs/LOCALIZATION.md](docs/LOCALIZATION.md) (83 locales),
+[FS Engine/README.md](FS%20Engine/README.md) (engine API and dataset contract),
+[tools/README.md](tools/README.md) (every validator and generator), and the
+folder READMEs: [data/](data/README.md), [android/](android/README.md),
+[test/](test/README.md), [brand/](brand/README.md).
+
+## 1. The repository at a glance
+
+Four compartments, plus the tools that recombine them. Keeping them apart is
+deliberate: the blocking engine is reusable, and neither product ships a copy of
+the other's code.
 
 ```
 FS Engine/   the blocking engine — CODE ONLY, zero data, zero deps
 data/        the canonical datasets — blocklists, alternatives, android app maps
 extension/   the Chrome/Firefox extension shell — manifest, pages, shims, _locales, icons
-android/     the Android app — reuses the engine's rules + the shared web assets
-
+android/     the Android app — Kotlin + a WebView UI sharing the extension's web code
+tools/       validators, generators, packagers (developer-only, never shipped)
 build.js     recombines FS Engine + data + extension  →  dist/<browser>/ + zips
 ```
 
-## The two runtime globals
+```mermaid
+flowchart LR
+  subgraph SRC["Canonical sources (edit here)"]
+    ENG["FS Engine/ (matching code)"]
+    BL["data/blocklists/*.json"]
+    ALT["data/alternatives/*.json + taxonomy"]
+    APPS["data/android/*.json (brandId to packageIds)"]
+    CORE["extension/ hand-authored: fitshield-core.js, pages, _locales"]
+    SHIM["android/web-src/android-shim.js"]
+    KT["android/app/src/main/java (Kotlin)"]
+    CL["changelog.json"]
+  end
+
+  subgraph TOOLS["tools/ and build.js"]
+    GALT["build-alternatives.js"]
+    GAND["generate-android-packages.js"]
+    SYNC["sync-extension.js (npm run sync)"]
+    BUILD["build.js (validation-gated)"]
+    BAND["build-android.js"]
+    VAL["validate-all.js + tests"]
+  end
+
+  subgraph GEN["Generated, committed (never hand-edit)"]
+    REC["data/recipes.json"]
+    GPK["data/generated/android-packages.json"]
+    EXTART["extension/ blocklist.js, blocklists/, data/recipes.json, changelog.json"]
+    ANDASSET["android assets/web/ (shared UI, _locales, shim, recipes) + assets/android-packages.json"]
+  end
+
+  subgraph OUT["Shipped artifacts"]
+    DIST["dist/chrome, dist/firefox + zips (not committed)"]
+    APK["dist/android debug APK / release AAB (not committed)"]
+  end
+
+  ALT --> GALT --> REC
+  APPS --> GAND
+  BL --> GAND --> GPK
+  ENG --> SYNC
+  BL --> SYNC
+  REC --> SYNC
+  CL --> SYNC
+  SYNC --> EXTART
+  CORE --> SYNC
+  SHIM --> SYNC
+  SYNC -- "bundleWeb: shared UI, _locales, shim" --> ANDASSET
+  GPK --> BAND
+  BAND -- "bundleWeb + slim package map" --> ANDASSET
+  EXTART --> BUILD --> DIST
+  ENG --> BUILD
+  ANDASSET --> BAND
+  KT --> BAND --> APK
+  VAL -. "fails if any committed copy drifts" .-> GEN
+  VAL -. "gates" .-> BUILD
+```
+
+Only the generated copies are ever loaded at runtime. After editing the engine,
+`data/`, the shared web modules or locales, run `npm run sync`; after editing
+alternatives run `npm run generate:alternatives`; after editing `data/android/*.json`
+run `npm run build:android`, which regenerates and re-bundles the package map
+(see [data/README.md](data/README.md)).
+
+## 2. Extension runtime
+
+```mermaid
+flowchart TD
+  NAV["User navigates to an ordering site"] --> DNR{"Dynamic declarativeNetRequest rule matches? (main_frame, ||domain)"}
+  DNR -- "no" --> PASS1["Page loads normally"]
+  DNR -- "yes" --> REDIR["Redirect to warning.html with provenance token"]
+  REDIR --> WARN["warning.js renders the block page"]
+  WARN -- "getBlockContext (one message)" --> BG["background.js service worker or Firefox event page"]
+  BG --> CORE["FitShieldCore: schedule, passes, repeat friction, pause length"]
+  BG --> ENGINE["FitShieldBlocklist: brand and policy lookup"]
+  CORE <--> STORE[("chrome.storage.local")]
+  BG <--> STORE
+  BG -- "context: brand, pause, pass options" --> WARN
+  WARN --> CHOICE{"User decision"}
+  CHOICE -- "Leave or pick an alternative" --> LEFT["recordLeft or recordAlternative*, stats updated"]
+  CHOICE -- "Continue after the pause" --> GRANT["grantPass writes an absolute-expiry pass"]
+  GRANT --> RULES["Worker rebuilds rules; PASS_ALARM wakes it at expiry"]
+  RULES --> PASS2["Site loads; rule returns when the pass expires"]
+  SET["settings.js, popup.js"] -- "messages" --> BG
+  ALARM["alarms: temporaryPassExpired, scheduleBoundaryReached"] --> BG
+```
+
+Key points (details in the sections below and in
+[docs/EXTENSION.md](docs/EXTENSION.md)):
+
+- **Rules are derived, not stored.** The worker turns blocklist entries plus the
+  user's settings into dynamic redirect rules (`updateDynamicRules`). Passes
+  and schedule boundaries change the rules; the two alarms re-arm the worker
+  because an MV3 worker can be torn down at any moment.
+- **The worker is the only holder of decisions.** Pages never read the engine;
+  they message the worker, and the worker resolves everything against
+  `FitShieldBlocklist` (matching) and `FitShieldCore` (everything around it).
+- **State lives in `chrome.storage.local` only**, schema-versioned and migrated
+  on wake-up (`ensureMigrated`). See [docs/STORAGE.md](docs/STORAGE.md).
+- **Provenance token.** The block page is a web-accessible resource, so the
+  worker only honours it when its URL carries the token of a redirect the worker
+  itself issued; a site cannot frame or forge it.
+
+## 3. Android runtime
+
+```mermaid
+flowchart TD
+  EVT["AccessibilityEvent TYPE_WINDOW_STATE_CHANGED (foreground package name only)"] --> SVC["FitShieldAccessibilityService"]
+  SVC --> SELF{"Own package, or app blocking disabled?"}
+  SELF -- "yes" --> IGN["Ignore"]
+  SELF -- "no" --> MATCH["PackageBlocklist.match(package) from assets/android-packages.json"]
+  MATCH -- "no brand" --> IGN
+  MATCH -- "brand" --> POL{"AppBlockPolicy.shouldBlock"}
+  POL -- "any check fails: switch off, app allowed, category off, outside schedule, unlocked" --> IGN
+  POL -- "all checks pass" --> DEB{"Same package within 1.5 s cooldown?"}
+  DEB -- "yes" --> IGN
+  DEB -- "no" --> HOME["performGlobalAction HOME"]
+  HOME --> BA["BlockActivity: pause, alternative, Not now / Open anyway"]
+  BA -- "Open anyway" --> UNL["AppBlockPolicy.unlock(brand, minutes)"]
+  UNL --> PREFS
+  subgraph UI["WebView UI: index.html + app.js"]
+    JS["fitshield.* facade (android-shim.js)"]
+  end
+  JS <-- "storageGet/Set, permission status, export/import" --> BR["WebAppBridge (JavascriptInterface)"]
+  BR <--> PREFS[("SharedPreferences 'fitshield', values stored as JSON strings")]
+  POL -. "reads" .-> PREFS
+```
+
+The five `shouldBlock` checks run in this order: `appBlockingEnabled` (default
+on), brand not in `appAllowBrands`, category toggle on, `Schedule.withinWindow`,
+no live `appUnlocks` entry for the brand.
+
+- The web UI and the Kotlin policy meet **only** through `SharedPreferences`
+  (`fitshield`). The shim writes JSON-encoded values; `AppBlockPolicy` strips
+  the quoting when it reads them, so a default has to be declared on both sides
+  (see [Defaults](#11-defaults-a-switch-that-is-off-is-a-feature-that-does-not-exist)).
+- Nothing in the app opens a network connection: no `INTERNET` permission.
+- File-by-file notes: [android/README.md](android/README.md); behaviour,
+  permissions and device checklist: [docs/ANDROID.md](docs/ANDROID.md).
+
+## 4. Data pipeline
+
+```mermaid
+flowchart LR
+  subgraph AUTH["Authored"]
+    B1["data/blocklists/delivery.json"]
+    B2["data/blocklists/fast-food.json"]
+    A1["data/alternatives/NN-*.json"]
+    A2["data/alternatives-taxonomy.json"]
+    P1["data/android/delivery-apps.json"]
+    P2["data/android/fast-food-apps.json"]
+  end
+  A1 --> G1["tools/build-alternatives.js"]
+  A2 --> G1
+  G1 --> R["data/recipes.json"]
+  B1 --> G2["tools/generate-android-packages.js"]
+  B2 --> G2
+  P1 --> G2
+  P2 --> G2
+  G2 --> GP["data/generated/android-packages.json"]
+  B1 --> S["tools/sync-extension.js"]
+  B2 --> S
+  R --> S
+  S --> XB["extension/blocklists/*.json, extension/data/recipes.json"]
+  S --> AR["android assets: web/data/recipes.json"]
+  GP --> BA["tools/build-android.js (npm run build:android)"]
+  BA --> AP["android assets: android-packages.json (slim bundle)"]
+  B1 --> V["validate-datasets, alias, country, category audits"]
+  B2 --> V
+  GP --> V2["validate-android-packages.js"]
+  R --> V3["alternatives-audit.js (also fails if recipes.json is stale)"]
+```
+
+`data/android/` and `data/generated/` never enter a browser package
+(`build.js` `ANDROID_ONLY_PREFIXES`); the browser fetches only `blocklists/*.json`
+and `data/recipes.json`.
+
+## 5. Invariants and where each is enforced
+
+| Invariant | Enforced by |
+| --- | --- |
+| **Zero dependencies**, test harnesses included | `test/governance.test.js` ("the project still ships with no dependencies"); the CI "nothing to install" step in `.github/workflows/verify.yml` |
+| **Permissions are exactly** `storage`, `declarativeNetRequest`, `alarms` (extension) | `tools/extension-audit.js` (manifest and API-surface grep), `test/package-integrity.test.js` on the packaged bytes, `test/governance.test.js` against `development-policy.json` |
+| **Android permissions are a fixed list** (no `INTERNET`, no VPN, no `QUERY_ALL_PACKAGES`) | `tools/android-audit.js`, `test/play-release.test.js`, `test/android-no-vpn.test.js` |
+| **Local-first: no network, telemetry, accounts or cloud** | extension `connect-src 'self'` CSP (`tools/extension-audit.js`), `test/security.test.js`, `test/security-verification.test.js`; Android has no `INTERNET` permission |
+| **Migrations are idempotent, versioned, never reset data** | `FitShieldCore.migrateState`; `test/core-schema.test.js`, `test/backup.test.js`, `test/resilience.test.js`. See [docs/STORAGE.md](docs/STORAGE.md#migrations) |
+| **Generated files match their sources** | `tools/sync-audit.js`, `test/extension-synced.test.js`, `tools/alternatives-audit.js`, `tools/validate-android-packages.js`, `tools/android-audit.js` (Android web bundle drift) |
+| **Packages contain only runtime files** | `build.js` `verifyStage`, `test/package-integrity.test.js` |
+| **Docs make no claim the code does not honour** | `test/docs-claims.test.js`, `tools/check-doc-links.js`, counts re-derived from data |
+| **A finding is work; no terminal verdicts** | `tools/policy-audit.js`, `test/governance.test.js` ([CLAUDE.md](CLAUDE.md), [development-policy.json](development-policy.json)) |
+
+`npm test` runs the whole suite (which includes every audit); `npm run validate`
+prints the human-readable audit report. See [test/README.md](test/README.md).
+
+## 6. The two runtime globals
 
 Everything in the extension talks to exactly two shared modules, and never to
 each other's internals:
@@ -57,9 +271,9 @@ tested.
 `FitShieldCore` is shared across the extension's own surfaces — **not** with the
 Android app, which does not bundle it and re-implements the subset it needs in
 Kotlin. Every resulting behavioral difference is enumerated and classified in
-[`docs/ANDROID.md`](docs/ANDROID.md) §2e.
+[`docs/ANDROID.md`](docs/ANDROID.md) ("Intentional Android deviations").
 
-## The alternatives catalog
+## 7. The alternatives catalog
 
 `data/recipes.json` keeps its historical name and `recipes` array (the Android
 WebView and older readers still fetch it), but it is now **generated**:
@@ -88,7 +302,7 @@ contract) and **[docs/EXTENSION.md](docs/EXTENSION.md)** (build, engine linkage,
 manifests, and the block-page debugging runbook). This file is the map that ties
 them together.
 
-## Source of truth vs. generated output
+## 8. Source of truth vs. generated output
 
 | Concern | Source of truth (edit here) | Generated (never hand-edit) |
 | --- | --- | --- |
@@ -117,7 +331,7 @@ web assets, so the two can never drift from one ordinary edit.
 The repo *root* is still not loadable — load `extension/` (fastest) or the built
 `dist/chrome/` / `dist/firefox/` (store-shaped).
 
-## How the extension consumes the engine
+## 9. How the extension consumes the engine
 
 The engine is authored as CommonJS modules in `FS Engine/` and is **never
 hand-copied** into the extension. `build.js` (`bundleEngine`) wraps those modules
@@ -145,7 +359,7 @@ into engine internals by relative path:
   They message the background worker (`runtime.sendMessage`), so every block
   decision, bypass, and stat flows through the single engine-backed worker.
 
-## The block page dependency chain
+## 10. The block page dependency chain
 
 The block page is the surface most sensitive to the engine split, because it
 depends on the engine *transitively* through the worker. The chain:
@@ -190,7 +404,7 @@ shipping a blank page:
   page end-to-end against the real engine-backed worker (brand, block reason,
   recipes, stats, locale, theme).
 
-## Defaults: a switch that is off is a feature that does not exist
+## 11. Defaults: a switch that is off is a feature that does not exist
 
 Every blocking control ships **on**, and the only thing standing between a fresh
 install and working protection is a permission the user must grant. That is a
@@ -238,7 +452,7 @@ becomes `null` and app blocking stops until the user turns it back on. Nothing i
 the app can prevent that; the dashboard prompt above is what makes it visible
 rather than silent.
 
-## Build & verify
+## 12. Build & verify
 
 ```
 node build.js        # validate → stage FS Engine + data + extension → dist/ + zips

@@ -6,7 +6,7 @@
  *   node .github/ci/run-validate.js
  *   node .github/ci/run-validate.js --selftest    (no browsers needed)
  *
- * `npm run validate` is 18 audits, and two of them drive a real browser:
+ * `npm run validate` is 19 audits, and two of them drive a real browser:
  * tools/browser-a11y-audit.js reads the computed accessibility tree in
  * Chromium, and tools/firefox-audit.js installs the built package in Firefox
  * and checks that a blocked brand really redirects. Both warn-and-pass when
@@ -160,7 +160,7 @@ function fixture(options) {
       (opts.failing ? "2" : "0") +
       " error(s), " +
       (opts.harmlessWarning ? "1" : "0") +
-      " warning(s) across 18 audits",
+      " warning(s) across 19 audits",
     ""
   ].join("\n");
 }

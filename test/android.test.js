@@ -36,7 +36,7 @@ test("android-audit passes (no VPN/INTERNET/boot, approved permissions only)", a
 });
 
 // The APK does NOT bundle fitshield-core.js — the Android decision layer is the
-// Kotlin AppBlockPolicy, not the shared core (docs/ANDROID.md §2e row 1). A page
+// Kotlin AppBlockPolicy, not the shared core (docs/ANDROID.md, "Intentional Android deviations"). A page
 // script that starts using FitShieldCore would therefore find it undefined at
 // runtime and fail silently in the WebView, which is exactly the failure the
 // extension already hit once on its restore path. Either bundle core or do not

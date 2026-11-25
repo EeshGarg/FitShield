@@ -6,6 +6,35 @@ complete list of what the extension holds about you.
 
 Owned by [`extension/fitshield-core.js`](../extension/fitshield-core.js).
 
+## At a glance
+
+| | |
+| --- | --- |
+| **What** | The complete list of what the extension stores — every key, its bounds, how old profiles are upgraded, and what is deliberately never stored. |
+| **Where** | `chrome.storage.local` only (no `storage.sync`, no server, no account). Android's native app keeps its own preferences in `SharedPreferences "fitshield"` — see [ANDROID.md](ANDROID.md). |
+| **Key files** | [`extension/fitshield-core.js`](../extension/fitshield-core.js) (schema, `migrateState`, validation), [`extension/background.js`](../extension/background.js) (`ensureMigrated`), [`extension/backup.js`](../extension/backup.js) (export/import) |
+| **Tests** | [`test/core-schema.test.js`](../test/core-schema.test.js), [`test/backup.test.js`](../test/backup.test.js), [`test/passes.test.js`](../test/passes.test.js), [`test/security.test.js`](../test/security.test.js) |
+
+### Key lifecycle
+
+```mermaid
+flowchart TD
+  WAKE["Service worker wakes (any message, alarm or startup)"] --> STAMP{"schemaVersion in storage >= SCHEMA_VERSION?"}
+  STAMP -- "yes" --> READ["readSettings: normalize and clamp every key on read"]
+  STAMP -- "no" --> MIG["migrateState: ordered steps, each from-version to next"]
+  MIG --> OK{"Any step throws?"}
+  OK -- "yes" --> KEEP["Return original state untouched and report through diagnostics"]
+  OK -- "no" --> WRITE["Write migrated keys and stamp schemaVersion"]
+  KEEP --> READ
+  WRITE --> READ
+  READ --> USE["Settings, passes, stats, repeatHistory used by the worker and pages"]
+  USE --> EXP["Expiring data pruned on read and on write: passes, repeatHistory, pendingAlternatives"]
+  USE --> BK["Export: allowlist DURABLE_KEYS only"]
+  IMP["Import: size cap, type check, drop unknown keys, strip __proto__, re-normalize, validate fully"] --> WRITE2["Write only after the whole file validates"]
+  WRITE2 --> READ
+```
+
+
 ## Current version
 
 `schemaVersion: 2` — written by `FitShieldCore.SCHEMA_VERSION`.

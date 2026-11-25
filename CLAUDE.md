@@ -10,6 +10,34 @@ otherwise.
 
 ---
 
+## Start here (for agents)
+
+FitShield blocks fast-food and delivery sites and apps (browser extension plus
+Android app). Local-first, zero dependencies, three permissions.
+
+Repo map:
+
+- `extension/` — the shipped MV3 extension; `fitshield-core.js` engine, `background.js` worker, pages, `_locales/` (83)
+- `FS Engine/` — canonical engine source; `npm run sync` copies it and `data/` into `extension/`
+- `data/` — curated brand blocklists, recipes, Android package maps
+- `android/` — Kotlin app (`app/src/main/java`), WebView UI in `assets/web/`: hand-written `index.html`/`app.js`/`fitshield.css` (plus `block.*`, `theme.js`), the rest copied by `tools/lib/android-web.js`
+- `tools/` — validators and generators (`tools/README.md`); `build.js` packages Chrome and Firefox
+- `test/` — `node --test` suite; `changelog/` — release notes; `.claude/agents/` — lane definitions
+
+Commands: `npm test` · `npm run validate` · `npm run build` · `npm run sync` ·
+`npm run build:android`.
+
+Docs: [`docs/README.md`](docs/README.md) is the index. Then
+[`docs/GETTING_STARTED.md`](docs/GETTING_STARTED.md),
+[`ARCHITECTURE.md`](ARCHITECTURE.md), [`docs/MAINTAINING.md`](docs/MAINTAINING.md)
+and [`docs/GLOSSARY.md`](docs/GLOSSARY.md).
+
+Scope: FitShield 1.0 is the final feature release. This is maintenance mode —
+fixes and policy compliance only, no new features. The lane map in §4 says who
+owns which files; agent definitions are in [`.claude/agents/`](.claude/agents/).
+
+---
+
 ## 1. A finding is work
 
 **Severity changes priority. Severity does not change completion requirements.**
@@ -113,14 +141,23 @@ explicit do-not-edit list.
 | `curated-data-engineer` | `data/**` |
 | `localization-engineer` | `extension/_locales/**`, locale tools |
 | `ui-ux-engineer` | page markup and `<style>` blocks |
-| `privacy-security-engineer` | `extension/fitshield-core.js`, `extension/background.js` |
-| `build-infrastructure-engineer` | `build.js`, `tools/**`, `test/**` |
+| `privacy-security-engineer` | `extension/fitshield-core.js`, `extension/background.js`, Android Kotlin `android/app/src/main/java/**`, `AndroidManifest.xml`, Gradle files |
+| `build-infrastructure-engineer` | `build.js`, `tools/**`, `test/**`; runs generators for synced and generated copies (`extension/blocklists`, `extension/data`, and the copied files in `android/app/src/main/assets/web/`) |
 | `release-engineer` | `changelog/**`, version metadata, release docs |
 | `qa-engineer` | adversarial verification; may add `test/**` |
 
+Android is assigned as follows: native code and manifest to
+`privacy-security-engineer`; the web layer source `android/web-src/**` to
+`ui-ux-engineer`, together with the hand-written WebView files in
+`android/app/src/main/assets/web/` (`index.html`, `app.js`, `fitshield.css`, `block.html`, `block.js`, `theme.js`). The rest of that folder
+(`android-shim.js`, `i18n.js`, `languages.js`, `ambient.js`, `recipes.js`, `icon-128.png`, `data/recipes.json` and `_locales/`) is copied from `extension/`, `data/` and `android/web-src/` by
+`tools/lib/android-web.js` during `npm run build:android`; never hand-edit it,
+because `npm run validate:android` fails on drift. Full per-lane owned and
+do-not-edit lists are in each file under [`.claude/agents/`](.claude/agents/).
+
 ### Never run a destructive or repository-wide git command in a lane
 
-`git reset --hard`, `git checkout -- .`, `git clean`, and `git stash` are
+`git reset --hard`, `git checkout -- .`, `git clean`, `git stash`, and `git restore` are
 **repository-wide**. A lane that runs one does not roll back its own work — it
 rolls back every other lane writing concurrently, silently, with no error.
 

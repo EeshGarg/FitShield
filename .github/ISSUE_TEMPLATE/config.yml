@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability (report privately)
+    url: https://github.com/EeshGarg/FitShield/security/advisories/new
+    about: Do not open a public issue. Use GitHub private vulnerability reporting. See SECURITY.md.
+  - name: Usage question
+    url: https://github.com/EeshGarg/FitShield/blob/main/CONSUMERS.md
+    about: How to install and use FitShield, plus the FAQ. See CONSUMERS.md and SUPPORT.md.
+  - name: Feature request
+    url: https://github.com/EeshGarg/FitShield/blob/main/SUPPORT.md#maintenance-mode
+    about: FitShield 1.0 is the final feature release. New features are not being accepted; only critical defects, security issues, compatibility updates, publication blockers and data corrections.

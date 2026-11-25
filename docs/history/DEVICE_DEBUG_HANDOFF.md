@@ -542,5 +542,5 @@ adb reboot
 
 - **Anything needing the Play Console**, a keystore or an organization
   developer account — those are in
-  [`PLAY_STORE_RELEASE_CHECKLIST.md`](PLAY_STORE_RELEASE_CHECKLIST.md) §12 and
+  [`PLAY_STORE_RELEASE_CHECKLIST.md`](../PLAY_STORE_RELEASE_CHECKLIST.md) §12 and
   belong to the user, not to a debugging session.
