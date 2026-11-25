@@ -83,9 +83,9 @@ thrown on.
 
 ## Matching semantics
 
-These are the engine's contract; the Android adapter's Kotlin matcher
-implements the identical rule and is audit-enforced against it
-(`tools/android-audit.js`).
+These are the engine's contract, used by the browser extension and by the
+tooling and tests. (Before 1.0 the Android adapter's Kotlin matcher mirrored it;
+that matcher was removed with Android website blocking.)
 
 1. **Normalization** (`normalizeHostname`): lowercase; strip scheme, path,
    query, fragment, port, trailing dots, and one leading `www.`. Full URLs are
@@ -150,10 +150,10 @@ an optional entry list and fall back to the most recently loaded datasets.
 
 - **Browser extension** — `extension/background.js` via the bundled
   `blocklist.js` global (packaged by `../build.js`).
-- **Android adapter** — `tools/generate-android-rules.js` runs the engine over
-  the canonical data to emit `fitshield-rules.json` for the native VPN filter;
-  the Kotlin matcher mirrors `domainMatches` and an instrumentation test proves
-  parity on a generated fixture.
+- **Android adapter** — the native app (1.0) blocks apps only, by package name,
+  from `data/android/`; it no longer consumes the engine's host matching. (The
+  VPN-based site filter and its generated `fitshield-rules.json` were removed in
+  1.0 for Google Play policy compliance.)
 - **Tooling & tests** — validators require the engine directly
   (`require("../FS Engine")`).
 
@@ -165,6 +165,5 @@ an optional entry list and fall back to the most recently loaded datasets.
   state, no environment probes) — only `loader.js` may touch the outside world.
 - Never break the browser global: `FitShieldBlocklist` and its call signatures
   are the compatibility contract with the shipped extension and Android WebView.
-- Matching-semantics changes require the Android parity fixture to be
-  regenerated (`npm run generate:android`) and the audits to pass — the Kotlin
-  matcher must be updated in the same change.
+- Matching-semantics changes require the audits to pass. (The Android Kotlin
+  host matcher and its parity fixture were removed in 1.0.)

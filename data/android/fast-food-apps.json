@@ -9664,8 +9664,9 @@
     },
     {
       "brandId": "sweetgreen.com",
-      "packageIds": [],
-      "packageStatus": "needs_review"
+      "packageIds": [
+        "com.sweetgreen.android.app"
+      ]
     },
     {
       "brandId": "sweetkiwi.com",

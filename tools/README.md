@@ -48,7 +48,6 @@ build. `build.js` runs it automatically before packaging.
 | `npm run capture` | `capture-surfaces.js` | screenshots every surface into `dist/acceptance/` — both palettes, at the sizes where layouts break. Shrinks human acceptance from installing a build and clicking through twice to opening one folder; the judgement calls it supports are listed in `docs/ACCEPTANCE.md`. |
 | `npm run icon:android` | `make-android-icon.js` | renders the Android adaptive-icon foreground and monochrome layers from the brand master `brand/fitshield-f-512.png` — the same artwork that goes to the Play listing. Finds the ink by bounding box rather than a hand-typed offset, drops the master's opaque white field to transparency, and scales the letter into the 72dp safe zone so no launcher mask clips it. A test re-runs it and compares bytes, so the committed icon cannot drift from the artwork. |
 | `npm run generate:alternatives` | `build-alternatives.js` | `data/recipes.json` from the `data/alternatives/*.json` parts |
-| `npm run generate:android` | `generate-android-rules.js` | `android/…/fitshield-rules.json` + the on-device semantics fixture |
 | `npm run generate:android-packages` | `generate-android-packages.js` | `data/generated/android-packages.json` → the bundled package map |
 | `npm run port:android-apps` | `port-android-apps.js` | mirrors every enabled brand into the app files, preserving confirmed package IDs |
 
@@ -90,7 +89,7 @@ tools/
   firefox-audit.js         announcement-audit.js
   validate-android-packages.js
   sync-extension.js     build-alternatives.js
-  generate-android-rules.js  generate-android-packages.js
+  generate-android-packages.js
   port-android-apps.js
   build-android.js      verify-unpacked.js
   locale-status.js      locale-prune.js

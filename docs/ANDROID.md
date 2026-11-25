@@ -1,925 +1,286 @@
 # FitShield on Android
 
-_Accurate as of FitShield 0.57. Update this file in the same change as any
-behavior it describes._
+_Accurate as of FitShield 1.0 (2026-11-25). Update this file in the same change
+as any behaviour it describes. FitShield 1.0 is the final feature release; the
+project is in maintenance mode afterwards._
 
-_The version above is part of the content, not decoration: it said 0.55 while the
-shipped rules asset carried 0.56, and §2e's parity table said the same. A doc that
-names the wrong version is worse than one that names none, because it invites the
-reader to trust a comparison that was never made against the code in front of them._
+> **What changed in 1.0 (read this first).** Google Play rejected 0.56
+> (versionCode 8): _"Use of VpnService is not a permitted use case."_ FitShield
+> 1.0 removes the `VpnService` and everything that existed to serve it — the
+> userspace packet filter, the boot receiver and restore notice, the generated
+> host-rules asset, and the `INTERNET` and `RECEIVE_BOOT_COMPLETED` permissions.
+>
+> **The Android app now blocks food-delivery and fast-food _apps_ only**, through
+> an opt-in `AccessibilityService` that reads only the foreground package name.
+> **It does not block websites.** Website blocking is the job of the FitShield
+> browser extension (Chrome, Firefox, and Firefox for Android), which is
+> unchanged. History written about the VPN filter in older release notes
+> (`changelog/0.53.md` – `changelog/0.57.md`) was accurate when written and is not
+> rewritten.
 
-> **Native blocking summary (read this first):** the APK blocks *websites* with a
-> local, on-device `VpnService` that filters by the destination host the client
-> already sends in the clear — **TLS SNI / HTTP Host, never DNS** — and blocks
-> *native apps* with an **opt-in AccessibilityService** that reads only the
-> foreground package name. The two run together and are **additive**; app blocking
-> never replaces the connection filter. No DNS is intercepted, no traffic is
-> tunnelled to any server, no TLS is decrypted, and no screen/message content is
-> read.
-
-FitShield is **one product** with **one canonical dataset** and **one separated
-engine**. Browsers and Android are **platform adapters** on top of that shared
-core — not separate products and not forks:
-
-```
-                 canonical data  (data/blocklists/*.json)
-                          │
-              separated engine  (FS Engine/)
-                          │
-        ┌─────────────────┼──────────────────────────┐
-        ▼                 ▼                           ▼
-  browser adapter   browser adapter            android adapter
-  (background.js,   (Firefox for Android,      (native APK: VpnService
-   Chrome/Brave/    same extension via          TLS-SNI/HTTP-Host filter
-   Edge via DNR)    declarativeNetRequest)      + opt-in app blocking)
-```
-
-FitShield reaches Android **two** ways, both riding the same data:
-
-| Path | What it is | Blocking mechanism | Status |
-| --- | --- | --- | --- |
-| **A. Extension on Firefox for Android** | the exact same WebExtension as desktop | `declarativeNetRequest` (in-browser) | declared (manifest `gecko_android` 142+); on-device DNR not yet verified |
-| **B. Native Android APK** | a native adapter (WebView UI + Kotlin) | local `VpnService` **TLS-SNI/HTTP-Host** connection filter (websites) **+** opt-in **AccessibilityService** app blocking | verified on-device (Samsung Galaxy S24 Ultra, Android 16 / One UI 8.5) — see docs/DEVICE_DEBUG_HANDOFF.md §3 for what each claim actually did; still preview-quality (debug-signed, no store release) |
-
-> **The single most important rule:** Android does **not** have its own
-> blocklist or matcher. Its rules are **generated from the canonical data via
-> the separated engine** and validated to match it (`tools/android-audit.js`).
-> Any drift fails the build.
+Schedules, the pause timer, categories, per-app allow, the opt-in keep-alive,
+83 locales, settings export/import and all stored data are unchanged; an
+install over 0.56 keeps its preferences.
 
 ---
 
-## 1. Shared engine & canonical data (no fork)
+## 1. Two ways FitShield reaches Android
 
-- **Canonical data:** `data/blocklists/fast-food.json`,
-  `data/blocklists/delivery.json`.
-- **Separated engine:** `FS Engine/` — dataset loading + the matching
-  semantics (`normalizeHostname`, `domainMatches`, `getEntryDomains`,
-  `getEnabledEntries`, `isBlockedHost`). It runs unchanged in the browser
-  (service worker / event page) **and** in Node (tools/tests).
-- **Browser adapter:** `extension/background.js` turns the engine's output into
-  `declarativeNetRequest` redirect rules.
-- **Android adapter:** the native app consumes a **generated** host list (below)
-  and applies the engine's exact match rule.
+| Path | What it is | What it blocks |
+| --- | --- | --- |
+| **A. Firefox for Android** | the same extension, via `declarativeNetRequest` (Firefox 142+) | **websites**, in that browser |
+| **B. Native Android app** | a native adapter: a WebView UI plus Kotlin | **apps** (food-delivery and fast-food), by package name |
 
-Because the APK is native (Kotlin) it cannot execute the JavaScript engine
-directly. The canonical pipeline bridges this **without** duplicating logic:
+The native app shares the extension's UI code, catalog and locales; it does not
+bundle the extension's blocking engine and has no host matcher of its own.
 
 ```
-data/blocklists/*.json ──▶ FS Engine/ ──▶ tools/generate-android-rules.js
-                                                        │
-                                                        ▼
-                              android/app/src/main/assets/fitshield-rules.json
-                                          (GENERATED — do not hand-edit)
-                                                        │
-                                                        ▼
-                              RuleEngine.kt  (apex/subdomain match,
-                                              identical to domainMatches)
+data/blocklists/*.json ─┬─▶ FS Engine/ ─▶ extension (website blocking)
+                        │
+data/android/*.json ────┴─▶ tools/generate-android-packages.js
+                              ─▶ data/generated/android-packages.json
+                              ─▶ android/app/src/main/assets/android-packages.json
+                                 (brandId -> packageIds; read by PackageBlocklist.kt)
 ```
 
-- `tools/generate-android-rules.js` calls the **engine** (`getEnabledEntries` +
-  `getEntryDomains`) over the **canonical data** and emits a deterministic,
-  hash-stamped asset of every blockable apex/alias host (2,575 hosts at 0.55).
-- `RuleEngine.kt` loads **only** that generated asset and implements the same
-  contract as the engine's `domainMatches` (`FS Engine/hostnames.js`): a host is blocked iff it
-  equals an apex or is a subdomain of one. No second semantics.
-- **Rule consistency is enforced, not hoped for:** `tools/android-audit.js`
-  re-derives the host set from the engine and fails if the committed asset's
-  hash/host-list differs. A generated `semantics-fixture.json` (also engine-
-  produced) is checked on-device by `SemanticsParityTest.kt` so the Kotlin
-  matcher must agree with the engine's block/allow decisions.
-- **No duplicated blocklist, no Android-only data fork, no hand-maintained
-  rules** — all three are blocked by the audit and the tests.
+Native sources live in `android/app/src/main/java/com/usha/fitshield/`:
 
----
-
-## 2. Native APK adapter
-
-Repository layout (`android/`, tracked; build output gitignored):
-
-```
-android/
-  settings.gradle, build.gradle, gradle.properties
-  web-src/android-shim.js           (Android-authored `fitshield.*` shim — the
-                                     canonical source copied into assets/web/)
-  app/build.gradle
-  app/src/main/AndroidManifest.xml
-  app/src/main/assets/fitshield-rules.json          (GENERATED — SNI/host rules)
-  app/src/main/assets/android-packages.json         (GENERATED — slim app→brand map)
-  app/src/main/assets/web/                           (the shared web UI + copied modules)
-  app/src/main/java/com/usha/fitshield/
-      RuleEngine.kt                 (asset-only host matcher, engine semantics)
-      FitShieldVpnService.kt        (foreground VpnService; tun lifecycle)
-      Tun2Filter.kt                 (userspace TLS-SNI/HTTP-Host connection filter)
-      FitShieldAccessibilityService.kt (opt-in app blocking; foreground pkg only)
-      AppBlockPolicy.kt             (enable/category/schedule/unlock decision)
-      PackageBlocklist.kt           (packageId → brand, O(1), from generated asset)
-      BlockActivity.kt              (native intervention screen; WebView block.html)
-      AppBlockKeepAliveService.kt   (OPTIONAL keep-alive FGS; off by default)
-      WebAppBridge.kt               (the narrow `Android` @JavascriptInterface bridge)
-      MainActivity.kt               (WebView host: consent, import, VPN control)
-  app/src/main/res/xml/accessibility_service_config.xml
-  app/src/main/res/...              (strings, theme)
-  app/src/androidTest/.../SemanticsParityTest.kt     (Kotlin matcher == engine)
-  app/src/androidTest/.../PackageMatcherTest.kt      (packageId → brand parity)
-  app/src/androidTest/assets/semantics-fixture.json  (GENERATED)
-```
-
-**What the adapter adds (only what the browser cannot):** Android project
-scaffolding, the `VpnService` **TLS-SNI/HTTP-Host connection filter**, the opt-in
-**AccessibilityService** app blocker, the WebView UI reusing the shared web
-modules, the manifest, the build/export step, Android-specific validation, and
-this documentation. Everything else is shared.
-
-**Status:** the native adapter is **implemented and verified on-device** (Samsung,
-Android 14): the connection filter blocks delivery/fast-food sites (works with
-strict Private DNS / NextDNS on), and the opt-in app blocker shows the native
-intervention screen for blocked apps. It is still **preview-quality** — debug-
-signed, no store release — but the two behaviours §7 used to list as limitations
-are fixed: IPv6 is filtered rather than dropped, and the filter restores itself
-after a restart for the user who had it on. Both mechanisms are **additive**: the
-app blocker never replaces the connection filter.
-
----
-
-## 2b. UI architecture — one web UI, `fitshield.*` platform abstraction
-
-The Android app's UI is the **same web codebase** as the browser extension,
-loaded in a WebView. To keep a single UI without Android-only hacks, the UI is
-migrating off `chrome.*` onto a platform-agnostic **`fitshield.*`** API:
-
-```
-        web UI (HTML/CSS/JS, i18n, engine)
-                         │  calls fitshield.*
-        ┌────────────────┴─────────────────┐
-        ▼                                   ▼
-  browser-shim.js                     android-shim.js
-  (delegates to chrome.*)             (delegates to the native bridge)
-        ▼                                   ▼
-  Chrome / Firefox APIs        WebAppBridge (@JavascriptInterface)
-                                 ├─ SharedPreferences  (fitshield.storage / stats)
-                                 ├─ FitShieldVpnService (fitshield.blocking)
-                                 └─ assets / engine     (i18n, hostCount, check)
-```
-
-- **`fitshield.*` contract** (same on both shims): `platform`; `storage`
-  (get/set/remove/clear/onChanged); `i18n` (getMessage/getUILanguage);
-  `blocking` (isEnabled/enable/disable/rulesVersion/hostCount/check); `stats`
-  (get); plus supporting `runtime` (getURL/getManifest/sendMessage) and `tabs`.
-  The narrow native bridge exposes **only** these — no file system, no arbitrary
-  commands, no broad native APIs.
-- **One UI, one engine, one dataset.** Only the two shims + the native
-  `WebAppBridge` are platform-specific; everything else is shared.
-- **WebView serving:** assets load from `https://appassets.androidplatform.net/`
-  via `WebViewAssetLoader`, so `fetch()` of the bundled `_locales` works under a
-  normal https origin.
-- **No fork:** the reused web files (`extension/i18n.js`,
-  the `extension/_locales` strings, `android/web-src/android-shim.js`) are
-  **copied from canonical** into the APK at build time
-  (`tools/build-android.js` → `bundleWeb`), and `tools/android-audit.js`
-  fails the build if any copy drifts. (Note: `androidResources.ignoreAssetsPattern`
-  is overridden so `_locales` — an underscore dir aapt ignores by default — ships.)
-
-**The native app shipped in steps** (full list in
-[`../changelog/ROADMAP.md`](../changelog/ROADMAP.md)):
-
-- **Step 1 — UI first:** the Android UI shell, the shared `fitshield.*` platform
-  abstraction, and an installable APK preview.
-- **Step 2 — enforcement:** the **TLS-SNI / HTTP-Host connection filter** for
-  websites, which works with strict Private DNS on — it is **not** a DNS filter
-  (see §3).
-- **Step 3 — native app blocking:** the opt-in AccessibilityService intervention
-  (see §3b), **additive** to the connection filter.
-
-**UI-migration status (step 1):**
-
-- ✅ `fitshield.*` abstraction (`platform/storage/i18n/blocking/stats` + supporting
-  `runtime/tabs`) + `browser-shim.js` + `android-shim.js`.
-- ✅ `i18n.js` migrated to `fitshield.*` (public `FitShieldI18n` API unchanged), so
-  the **real localization runs verbatim on both platforms**.
-- ✅ Polished Android entry (`assets/web/index.html` + `app.js`) reusing `i18n.js`,
-  the real string keys, the bundled icon, and the FitShield visual
-  language. Shows branding, enable/disable + status, rules version + domain count,
-  live stats, a "how it works"/privacy explanation, an on-device domain tester,
-  and a neutral limitations section. Talks to the VpnService via
-  `fitshield.blocking` and reads counters via `fitshield.stats`.
-- ✅ **Neutral Private DNS messaging.** The UI does **not** detect, pressure, or
-  open Private DNS settings. It only notes neutrally that some providers (e.g.
-  NextDNS) or Private DNS may bypass local filtering and that FitShield won't
-  interfere — provider compatibility is a step-2 item.
-- ⏭️ **Next (needs a browser smoke test):** migrate the remaining page scripts
-  (`settings.js`, `popup.js`, `warning.js`, `welcome.js`, `whats-new.js`,
-  `backup.js`) from `chrome.*` to `fitshield.*`, then load those pages verbatim in
-  the WebView.
-
-> Why incremental: the browser extension is mature and can't be runtime-tested in
-> this environment, so the UI is migrated piece-by-piece behind `fitshield.*`
-> (browser behavior preserved 1:1 by `browser-shim.js`) and verified on each
-> platform, rather than risking a big-bang rewrite.
-
-## 2c. Feature parity (UI + visual pass)
-
-The Android UI is an **adapted** reuse of the shared building blocks (engine,
-all 83 locales, recipes data, `ambient.js`, visual language), not the
-verbatim DNR-coupled desktop `settings.js`. Status legend: **shared** (same
-canonical output), **ported** (works on Android now), **adapted** (Android
-equivalent), **saved/pending** (UI + storage now; read by NO enforcement path —
-neither the connection filter nor the app path), **deferred**, **N/A**.
-
-`saved/pending` means *nothing reads it*. Several rows carried that label while
-the code did read them, which is the same defect as a dead control pointed the
-other way: the user turns something on, disbelieves the result, and the docs
-back them up. Where a setting is honoured on one path and not the other, the
-row now says which — see §2e for the full list.
-
-| Extension feature | Android status |
+| File | Role |
 | --- | --- |
-| Blocking engine | **shared** — rules generated from the one dataset |
-| Enable / disable | **ported** — local VpnService + consent |
-| Enforcement (web) | **ported** — system-wide **TLS SNI / HTTP Host** connection filter (works with Private DNS on) |
-| App blocking (native apps) | **ported** — AccessibilityService detects blocked apps → native BlockActivity intervention (opt-in); dataset generated from the blocklists |
-| Timer duration | **ported (app path)** — `BlockActivity.timerSeconds()` reads `timerSeconds` and runs the pause countdown from it, clamped to the product's 10..900 (`extension/fitshield-core.js`). There is no countdown on the website path, because there is no block page for HTTPS (row 11). |
-| Schedule | **ported** — honoured on BOTH paths. The app path via `AppBlockPolicy.withinSchedule`; the connection filter via `FitShieldVpnService.blockingAllowedNow()` → `Tun2Filter` (`test/android-packet-filter.test.js`). Boundary semantics match `extension/fitshield-core.js` exactly as of 0.57 — inclusive start, exclusive end, `start == end` means all day — and one test drives both implementations over a boundary table rather than asserting each separately (§2e rows 4-6). |
-| Post-timer window | **adapted (app path)** — `passDurationMinutes` is the fallback for `appUnlockMinutes` in `AppBlockPolicy.unlockMinutes`, so it sets how long "Open anyway" exempts a brand; clamped to 1..240 on both platforms. The filter honours that same unlock (`BlockDecision.shouldReset`). It is not a post-countdown *page* window, because there is no page. |
-| Whitelist | **ported** — "always-allow domains"; `FitShieldVpnService` calls `rules.setAllowlist()` and the layer wins over both curated and custom entries (`test/android-packet-filter.test.js`). User-typed URLs, ports and trailing dots are normalised by the engine's own rules (§2e row 16). |
-| Custom blocklist | **ported** — add/remove domains; `FitShieldVpnService` calls `rules.setCustomSites()` and the filter treats them as a union with the curated set, as the extension does. |
-| Country filter | **adapted** — searchable picker, selection saved (pending) |
-| Category filter | **adapted** — searchable picker, selection saved (pending) |
-| Searchable picker | **ported** — touch search (filters + language) |
-| Recipes | **ported** — browse the canonical recipe catalog |
-| Statistics | **narrower on purpose** — Android records ONE observed counter, ordering pages interrupted, plus most-blocked sites, categories and countries. It shows no savings or calorie estimate: the extension keeps one optional estimate only because it can ground it in `alternativesMade`, an event the user personally confirms, and the Android pause screen never asks whether an alternative was made. Stored `caloriesAvoided` values are left untouched on the device. |
-| Currency picker | **removed** — it existed only to format the savings estimate. With no estimate to format there is nothing for it to change, and a picker that changes nothing is a dead control. |
-| Import / Export | **ported** — export via share sheet; **import via Storage Access Framework document picker** (no storage permission) |
-| Themes | **ported** — system / light / dark **+ full color customization** (background / panel / text / accent) and corner radius, glass-preserving, with reset |
-| Visual identity | **ported** — living `ambient.js` gradient background, translucent Aero/One-UI glass panels, animated gradient title, press-tilt "tiles" (all reduced-motion aware) |
-| Support link | **ported** — optional Buy Me a Coffee button (opens via the bridge; no in-app purchase, no pressure) |
-| First-run welcome | **ported** — one-time on-device welcome overlay (dismissal stored locally) |
-| Localization | **shared** — all 83 locales reused via i18n.js |
-| Privacy text | **ported** — neutral, local-first |
-| Help / about | **adapted** — about + privacy panel |
-| Changelog / roadmap | **deferred** — not embedded on-device yet |
-| Notifications | **adapted** — Android foreground VPN notification |
-| Warning/blocked page | **ported for apps** — native BlockActivity intervention screen; for HTTPS *websites* there is no block page without MITM (connection is reset) |
+| `MainActivity.kt` | WebView host: loads the shared UI, import/export, permission screens |
+| `WebAppBridge.kt` | the `@JavascriptInterface` the UI talks to (preferences, statistics, permission status) |
+| `FitShieldAccessibilityService.kt` | foreground-package detection and launch of the pause screen |
+| `PackageBlocklist.kt` | package id → brand lookup from the bundled dataset |
+| `AppBlockPolicy.kt` | enable flag, per-category toggles, per-app allow, unlocks, schedule decision |
+| `Schedule.kt` | the schedule window arithmetic |
+| `BlockActivity.kt` | the pause screen (a WebView on the shared design system) |
+| `AppBlockKeepAliveService.kt` | the opt-in, off-by-default `specialUse` foreground service |
 
-Most-blocked category/country recording is driven by a per-host `meta` map in the
-generated rules asset (host → `{c: primaryCountry, k: category, b: brandId}`),
-produced by `tools/generate-android-rules.js` from the same engine — no second
-data source. Country is the brand's **primary/first-listed** market. `b` is
-present only on ALIAS hosts and names the brand a temporary unlock is keyed by
-(§2e row 15).
+---
 
-This paragraph used to claim the category half "reuses the extension's exact
-heuristic (category excludes the delivery/fast_food/custom buckets)". That was
-wrong in both halves, and it asserted parity on the one row that demonstrably
-diverged. `extension/background.js` excludes only the two RULE BUCKET spellings
-`fastfood` and `custom`, and states directly above its set that dropping
-`delivery` was the bug it had already fixed. `FitShieldVpnService.kt` was still
-running the pre-fix condition — and since both platforms write the same
-`blockedByCategory` key, read by the same shared UI, Android was corrupting a
-shared statistic.
+## 2. UI architecture — one web UI, a `fitshield.*` platform layer
 
-It is fixed, and fixed in the generator rather than in Kotlin: the exclusion is
-applied where the value is derived, so the native side now records any non-empty
-category and holds no category vocabulary at all. Two of the old condition's
-three clauses were inert — the curated vocabulary has 21 categories and neither
-`fast_food` nor `custom` is among them — so the whole real effect was that
-`delivery` (369 brands, 373 hosts, offered by Settings' own category picker)
-could never appear in Android's "Most blocked categories".
-`test/android-controls.test.js` reads the extension's set out of
-`extension/background.js` and fails if the two ever stop being the same strings.
+The UI is the same web codebase as the extension. It calls a platform-agnostic
+`fitshield.*` façade: `browser-shim.js` delegates to `chrome.*` in the
+extension, `android-shim.js` delegates to `WebAppBridge` in the app. Engine and
+platform are the two boundaries; UI code targets those names, not raw APIs.
+
+- **Main toggle.** On Android the "Enable FitShield" switch controls **app
+  blocking** (preference `appBlockingEnabled`). It defaults to on, which grants
+  nothing by itself: with no accessibility service there is nothing to act on it.
+- **Controls kept:** per-category toggles, searchable per-app allow list,
+  schedule, pause timer, temporary-unlock duration, keep-alive, theme, language,
+  settings export/import, statistics.
+- **Controls gone:** the site-blocking status row, "Always-allow domains",
+  "Custom URLs" and the domain tester — they only ever fed the connection filter.
+- **Statistics** are one counter — ordering pages interrupted — plus a per-app
+  count (`blockedByApp`; the counter is `blockedVisits`), kept in the app's private
+  `SharedPreferences`. No savings and no calorie figure is computed or stored.
 
 ### Intentional Android deviations from the extension
 
-Documented so parity audits don't re-flag them; none change blocking behavior:
-
-- **Countdown presentation** — the extension's block page shows a prominent
-  ring + number; the Android block screen shows the countdown inside the
-  primary button label ("Open DoorDash · 58s"). Compact-by-design for phones;
-  the timer semantics and default (60s) are identical.
-- **Category-copy language** — the block screen's category-specific
-  motivational copy (titles/messages per delivery/fast_food/coffee/…) is inline
-  English on Android; action buttons ARE localized via the extension's existing
-  translated keys. Localizing the category copy would add English-only keys to
-  all 83 locales (mechanism without translations), so it's deferred until real
-  translations exist.
-- **Theme controls** — Android exposes background/panel/text/accent + radius;
-  the extension additionally exposes border + muted-text colors and popup width
-  (popup width is meaningless in a full-screen WebView). Same `theme.js`
-  variables underneath.
-- **Reset granularity** — Android groups resets as stats/settings/factory (3);
-  the extension as blocking/appearance/preferences/factory (4). Same storage
-  keys; different grouping for a smaller settings surface.
-- **Enforcement wiring** — timer/schedule/post-timer/custom-list/whitelist
-  settings are shared and persisted identically, but on Android the *website*
-  path enforces via the SNI connection filter (no per-request page redirect is
-  possible without MITM), so "warning page for websites" is replaced by a
-  connection reset; the *app* path (BlockActivity) carries the full block-page
-  experience instead.
-- **Platform-only surfaces** — VPN status/consent, Accessibility status,
-  overlay ("display over other apps"), keep-alive toggle, and battery guidance
-  exist only on Android; the browser shim stubs them (`appBlocking.available =
-  false`) so the shared UI hides them on the extension.
-
-## 2d. Manual UI test checklist (device)
-
-- [ ] APK installs; app launches; dashboard renders with the living gradient +
-      glass panels + animated gradient title.
-- [ ] First run shows the welcome overlay once; "Get started" dismisses it and
-      it does not reappear on restart.
-- [ ] Localization loads (device language or English fallback).
-- [ ] Theme mode (system/light/dark) applies; color pickers + radius live-update
-      and persist; "Reset theme" restores the preset.
-- [ ] Enable → VPN consent → status flips to On; Disable works.
-- [ ] Timer / schedule / post-timer inputs persist after app restart.
-- [ ] Whitelist (always-allow) + custom blocklist add/remove persist.
-- [ ] Country + category + language pickers search and toggle; selections persist.
-- [ ] Recipes display and expand; readable on a phone.
-- [ ] With FitShield on, doordash.com / ubereats.com fail to load
-      (ERR_CONNECTION_RESET) while normal sites (e.g. wikipedia.org) load fine —
-      **works with Private DNS / NextDNS still on**.
-- [ ] Internet and DNS are unaffected; the Private DNS setting is unchanged.
-- [ ] Stats show honest local counts (no fake numbers); ordering pages interrupted + most-
-      blocked sites, categories and countries populate after real blocks.
-- [ ] Export opens the share sheet; Import opens the document picker, merges a
-      backup, and reloads with the imported values.
-- [ ] Buy Me a Coffee button opens the link in the browser.
-- [ ] Domain tester reports doordash.com blocked, example.com not.
-- [ ] Domain tester and the always-allow list accept a PASTED URL: adding
-      `https://doordash.com/` (and `doordash.com:443`) exempts `www.doordash.com`,
-      rather than storing an entry that matches nothing (§2e row 16).
-- [ ] Set Timer duration to 600 and open a blocked app: the pause screen counts
-      down from 600, not 300 (§2e row 17). Values above 900 are refused by the
-      input rather than silently truncated.
-- [ ] "Open anyway" on a brand with an ALIAS domain — Burger King is the easy one —
-      opens the app AND lets it reach the network for the unlock duration, instead
-      of the app opening and failing to load (§2e row 15).
-- [ ] Mark a food app "Allowed" in the per-app list, then open it: it opens AND
-      loads its own content. Before 0.57 the pause screen was suppressed and the
-      VPN still reset its traffic, so it opened to a network error (§2e row 18).
-      Switch it back to "Blocked" and confirm the pause screen returns.
-- [ ] Set the schedule to 18:00-23:00 and check a blocked site at exactly 23:00:
-      it loads. At 22:59 it is blocked (§2e row 5).
-- [ ] Set the schedule start and end to the SAME time and confirm blocking applies
-      all day, not for one minute (§2e row 4).
-- [ ] Leave the app in the background for several minutes with battery stats open:
-      FitShield's foreground CPU time stays flat. The dashboard's status poll does
-      not run while the app is off-screen; returning to it refreshes the headline,
-      the statistics and the permission rows together.
-- [ ] Scrolling works; sections are touch-friendly; back button behaves.
-- [ ] No permission prompts beyond the one-time VPN consent.
-- [ ] No telemetry / unexpected network; no visited hostnames in logcat.
-- [ ] Browser extension still works (smoke-test a localized screen).
-
-## 2e. Behavioral parity — every difference, classified
-
-The table in §2c says what *ships* on each platform. This section says where the
-two platforms **decide differently**, which is the thing that can surprise a
-user. Every entry was read off both implementations (`extension/fitshield-core.js`
-vs `AppBlockPolicy.kt` / `BlockActivity.kt` / `FitShieldVpnService.kt` /
-`HostMatch.kt` / `android-shim.js`) **during release 0.57**.
-
-The version here is load-bearing and it was wrong: it said "at 0.55" while the
-shipped rules asset carried `"appVersion": "0.56"`. A parity table is only worth
-reading if you know which two things were compared, so rather than restate a
-number that goes stale on the next bump: the version this was read at is the
-`appVersion` field of `android/app/src/main/assets/fitshield-rules.json`, which is
-generated from the manifest and re-derived by `npm run generate:android`.
-
-**The one structural fact behind most of this row set:** the browser extension
-routes every decision through `extension/fitshield-core.js` — the shared layer
-that owns the storage schema, migrations, schedule evaluation, passes, friction,
-and statistics. **`fitshield-core.js` is not bundled into the APK.** Android
-re-implements the subset it needs in Kotlin (`AppBlockPolicy`) and reads raw
-SharedPreferences from JS. So "one engine, one dataset" is exact for *matching*
-(`RuleEngine.kt` is fixture-tested against the engine) and exact for *data*, but
-the **decision layer is not shared**. Everything below follows from that.
-
-Classification: **intentional** — a deliberate platform choice, will not change;
-**temporary** — parity is wanted, not built yet; **bug** — the platforms
-disagree in a way neither design intends.
-
-| # | Difference | Class | Detail |
-| --- | --- | --- | --- |
-| 1 | Decision layer not shared — no `fitshield-core.js` in the APK | **temporary** | Matching and data are shared and enforced; schedule/pass/stat *semantics* are a Kotlin re-implementation. Every bug below is a symptom of this. |
-| 2 | No storage schema or migrations on Android | **temporary** | Android writes no `schemaVersion` and runs no migration. An extension backup imported on Android is stored as-is; an Android profile carries no version marker, so a future shape change has nothing to migrate from. |
-| 3 | Android reads the **flat** schedule keys, the extension reads the **structured** one | **intentional (with a caveat)** | `scheduleEnabled` / `scheduleStart` / `scheduleEnd` are deliberately kept in step by both schedule editors, precisely so Android keeps working. Caveat: only a **single** window can be mirrored, so a multi-window advanced schedule reaches Android as whichever single window was last mirrored. |
-| 4 | `start == end` means **all day** on the extension, **one minute** on Android | **fixed in 0.57** | Core: `startMinutes === endMinutes` → the whole day. Kotlin: `now in start..end` → true only during that exact minute — so the most absolute thing this control can say was the weakest schedule it could express. `Schedule.withinWindow` now special-cases `start == end` before the range test. |
-| 5 | Window end is **exclusive** on the extension, **inclusive** on Android | **fixed in 0.57** | Core evaluates `minutes < endMinutes`; Kotlin was `now in start..end`, so Android blocked one extra minute at the end of every window the user ever set. Core is the reference implementation, so **Kotlin was changed**, not core: `now >= start && now < end`, and `now >= start \|\| now < end` overnight. Both platforms are now driven over one boundary table by `test/android-packet-filter.test.js` ("compiled Schedule.withinWindow agrees with core's evaluateSchedule at every boundary"), so the agreement is executed rather than asserted twice in opposite directions. |
-| 6 | Per-day windows are ignored on Android | **intentional (unreachable)** | Core windows carry a `days` array; `Schedule` has no day-of-week concept. This is *documented* rather than fixed because it cannot be reached from Android: the Android schedule UI is the flat `scheduleStart`/`scheduleEnd` pair with no day list, so an Android-authored schedule always means every day, which is what the parity table above feeds core (`days: core.ALL_DAYS`). It can only arise through row 3's mirror — a multi-window, day-scoped schedule authored in the extension and mirrored down to a single flat window — and in that case the window that reaches Android has already lost its day list on the way. Giving Android a day concept without giving it a day UI would add a setting nothing can set. |
-| 7 | The temporary schedule override (`schedule.until`) has no Android equivalent | **temporary** | "Block until tomorrow" is extension-only; it is not mirrored into the flat keys, so Android ignores it entirely. |
-| 8 | Passes vs unlocks | **intentional** | The extension has scoped passes (domain / category / all, optionally tab-scoped) with a `maxDurationMs` ceiling. Android has a flat per-brand unlock map clamped to 1–240 minutes, which is now the same range the dashboard offers (row 17) and which the connection filter honours as well as the app path. Both use absolute expiry timestamps, so neither is defeated by moving the clock back. |
-| 9 | Friction profiles, the intent prompt, and repeat-access friction are extension-only | **temporary** | `frictionProfile`, `askIntent`, `repeatFrictionEnabled` appear in no Android source. The Android block screen shows a fixed countdown. |
-| 10 | Weekly recap, custom alternatives, diet/allergen filtering | **temporary** | `recapEnabled` and `customAlternatives` are unread on Android; `dietPreference` / `avoidAllergens` are stored but do not filter the Android recipe list. |
-| 11 | No block page for HTTPS websites | **intentional** | A redirect to a block page would require MITM, which FitShield refuses (§3). Blocked sites get a TCP RST; the full block-page experience exists on the *app* path via `BlockActivity`. |
-| 12 | Countdown presentation, category copy, theme controls, reset grouping | **intentional** | Documented in §2c under "Intentional Android deviations"; none affect whether something is blocked. |
-| 13 | Enforcement scope | **intentional** | The VPN filter is system-wide; the extension only covers its own browser. |
-| 14 | `blockedByCategory` excluded different categories on each platform | **fixed in 0.57** | `FitShieldVpnService.kt` ran `category != "delivery" && category != "fast_food" && category != "custom"` — the extension's PRE-FIX guard. `extension/background.js` excludes only the bucket spellings `fastfood` and `custom`. Both platforms write the SAME `blockedByCategory` key, read by the same shared UI, so Android was corrupting a shared statistic: `delivery` (369 brands, offered by the category picker) could never appear in "Most blocked categories". Two of the three clauses were inert — the curated vocabulary has 21 categories and neither `fast_food` nor `custom` is among them. Fixed in the GENERATOR (`STATS_EXCLUDED_CATEGORIES`), so Kotlin now carries no category vocabulary; the two sets are pinned to each other by `test/android-controls.test.js`. |
-| 15 | "Open anyway" did not exempt a brand's ALIAS domains | **fixed in 0.57** | `BlockActivity` stores the unlock keyed by `brandId` (the entry's canonical domain); the filter looked it up by the host it had MATCHED. Those differ for every alias domain, and four shipped brands have both an Android app and an alias — `burgerking.com`/`bk.com`, `nandos.co.uk`/`nandos.com`, `wingstop.com`/`wingstop.co.uk`, and `food.jumia.com`'s four country domains. The user chose "Open anyway", the app was launched for them, and the next connection to the alias was reset. Fixed as DATA: `meta[host].b` carries the brand id for alias hosts and `RuleEngine.brandIdFor` resolves it. |
-| 16 | `HostMatch.normalize` was not the engine's `normalizeHostname` | **fixed in 0.57** | The engine strips scheme, userinfo, path, query, fragment, port, trailing dots and `www.`; Kotlin did only trim/lowercase/trailing-dot/`www.`. Harmless on the VPN path (SNI is a bare name and `IpPacket` excludes the port) but the same function normalises USER-TYPED text — `allowSet`/`customSet` for the always-allow list and Custom URLs, and `WebAppBridge.checkHost` for the domain tester. So `https://doordash.com/` or `doordash.com:443` was stored as an entry that could never match, listed back with a Remove button, on a list whose promise is "never blocked". Both implementations are now driven over one fixture in `test/android-packet-filter.test.js`, which asserts Kotlin's answer EQUALS the engine's rather than asserting either alone. |
-| 17 | `timerSeconds` / `passDurationMinutes` were clamped to different ranges | **fixed in 0.57** | `extension/fitshield-core.js` clamps `timerSeconds` to 10..900 and `passDurationMinutes` to 1..240 and exports those constants. Android's dashboard input had a `min` and **no `max`** and `app.js` clamped with a bare `Math.max`, so the user could set 600 seconds, see it stored, reopen Settings and be shown 600 — and then `BlockActivity`'s `.coerceIn(0, 300)` counted down for five minutes, with nothing saying so. The UI now honours core's range and Kotlin was corrected to `coerceIn(10, 900)`; `appUnlockMinutes`/`passDurationMinutes` gained the missing 240 maximum. All three layers are held to core's exported constants by `test/android-controls.test.js`. |
-| 18 | `appAllowBrands` never reached the connection filter | **fixed in 0.57** | The per-app "Allowed" pill wrote `appAllowBrands` and `AppBlockPolicy` (the APP path) was the only reader, so marking an app "Allowed" stopped the pause screen while the VPN went on resetting that brand's domains: the app opened and could not reach its own servers. That is worse than either honest outcome, so the control now means what it says. `FitShieldVpnService` caches `AppBlockPolicy.allowedBrands` — refreshed by the same preference listener that already watches the two domain lists, so no JSON is parsed per connection — and resolves the brand through `RuleEngine.brandIdFor`, the same lookup row 15 added, so the pill covers a brand's ALIAS domains too. The decision itself is a parameter of `BlockDecision.shouldReset`, which the Node Kotlin harness executes. |
-| 19 | Country / category filter selections are enforced on the extension and inert on Android | **temporary** | `enabledCountries` / `enabledCategories` appear in NO Kotlin source; `extension/background.js` builds its rule set from them. The pickers store and display the selection, and every curated host stays blocked on Android regardless. §2c labels both rows "(pending)", so this is disclosed rather than hidden, but it is a control whose effect is nil on this platform. |
-| 20 | A corrupt asset THROWS on one loader and fails open on the other | **intentional (made observable in 0.57)** | `RuleEngine.fromAssets` uses `require(json.optBoolean("_generated"))`, so a missing or hand-edited rules asset throws and the VpnService does not come up pretending to filter — which is safe because a service that refuses to start reads as "off" in the UI. `PackageBlocklist.fromAssets` deliberately does NOT throw: it is loaded by `FitShieldAccessibilityService.onServiceConnected`, so throwing would crash-loop the accessibility service every time the system reconnected it, which the user cannot diagnose and which is worse for them than app blocking being off. An AccessibilityService that dies on connect looks exactly like one that is running. What was wrong was that it was **silent** — every category pill still read "on" above a feature that could not match a single app. It now logs at error level naming the consequence ("app blocking is inactive"), and `WebAppBridge.appPackageCount()` reports the size of that matcher instead of re-reading the asset's own `counts.packages` field, so the dashboard's readiness line cannot announce "1511 apps can be blocked" over a matcher holding zero. `app.js` was `if (n)` and left the line blank at zero; it now says app blocking is inactive and that site blocking is unaffected, reusing the existing line rather than adding a control. |
-| 21 | Cross-language matcher coverage is thin ON DEVICE | **temporary** | The only assertion that the Kotlin matcher and the JS engine agree *on a handset* is `SemanticsParityTest` over the 8 hosts in `semantics-fixture.json`. Off-device coverage is much better — `test/android-packet-filter.test.js` compiles and runs the real `HostMatch`, `Schedule`, `BlockDecision`, `IpPacket` and `RestorePolicy` through `test/helpers/kotlin-runner.js` — but the fixture the instrumentation test uses is still 8 cases. |
-
-**No row in this table is an open bug.** Rows 4, 5, 14, 15, 16, 17 and 18 were
-bugs and are fixed; rows 6 and 20 were re-classified after being examined rather
-than fixed, with the reason recorded in each. Rows 19 and 21 remain **temporary** —
-wanted parity that is not built — which is a different statement from a defect.
-
-Corrected rows are kept in the table rather than deleted, because a parity table
-that silently loses them cannot be used to tell "we decided this" from "nobody has
-looked".
-
-There is no row 14 in the version of this table that claimed "Rows 4, 5, 6 and 14
-are open bugs" — the table ended at 13. The sentence below is the rest of that
-paragraph, which is still accurate about the tooling.
-
-This paragraph used to excuse rows 4-6
-with "no Android toolchain is available in this environment, so a Kotlin edit
-could not be compiled" — that is no longer true, and per `CLAUDE.md` §3 it was
-the kind of external-item claim that survives because nobody retries it.
-`npm run toolchain:android` provisions a JDK and the Android SDK, `npm run
-build:android` produces an APK here, and `SemanticsParityTest` can be run. The
-exact fix for each row is written above; what remains is the work, not the
-tooling. Only on-device confirmation — the VPN consent prompt and real blocking
-— still needs a physical handset.
-
-The durable fix for rows 1, 2, 4 and 5 was **not** a generated schedule fixture in
-the end, though that was the plan recorded here. It was simpler: `Schedule.kt` is
-already pure Kotlin with no Android in it, so the Node harness can compile and run
-it, and `extension/fitshield-core.js` can be required in the same test. The parity
-check therefore drives BOTH implementations directly instead of comparing each to a
-committed file — no artefact to regenerate, and no way for the fixture to be stale.
-`SemanticsParityTest` on-device is still the only thing that proves it in the APK's
-own runtime.
-
-**How the row 4/5 divergence survived: two green suites certified it.** Before
-0.57, both of these passed while asserting opposite things about the same saved
-value:
-
-- `test/schedule.test.js` — *"a window boundary is inclusive at the start and
-  exclusive at the end"*: for `18:00`-`23:00`, `22:59` active, **`23:00` not**.
-- `test/android-packet-filter.test.js` — *"a daytime window blocks inside it and
-  only inside it"*: for the same window, `at(23)` **`true`**, labelled *"inclusive
-  at the end"*.
-
-Each platform had a test saying it was right, and nothing asked them the same
-question. Core is the reference implementation, so Kotlin was corrected and the
-Android expectations were inverted in place — annotated with why, rather than
-deleted, so the change is legible to whoever reads that file next. The lesson is
-the general one: **a parity claim asserted twice is not a parity check.** The two
-implementations now meet in one test.
-
-One thing that looked like a divergence and is not: a window whose times cannot be
-parsed. `Schedule.withinWindow` returns `true` directly — a typo must never be a
-silent way to switch protection off — while core's `windowActive` returns `false`
-for the same window, which reads like the opposite answer. It is not:
-`normalizeSchedule` has already DROPPED that window before `windowActive` is
-reached, an empty window list normalizes the mode to `always`, and
-`evaluateSchedule` answers `{active: true, reason: "always"}`. Both platforms fail
-safe, by different routes. The malformed cases are in the parity table for exactly
-this reason — the natural reading of the two sources says otherwise.
-
-## 3. VPN design — local connection filtering (TLS SNI)
-
-The native app uses Android's `VpnService` as a **local, on-device connection
-filter**. It blocks by the destination host the client already sends **in the
-clear** — the **TLS SNI** in the ClientHello (port 443) or the **HTTP Host**
-header (port 80) — **not** by DNS. See `Tun2Filter.kt`.
-
-### Why SNI, not DNS (Private DNS coexistence)
-
-Strict **Private DNS** (DNS-over-TLS to a provider such as NextDNS, mode
-`hostname`) encrypts **all** DNS and sends it straight to the provider, so a
-local DNS filter never sees it — DNS-layer blocking is impossible there without
-breaking the user's setup. FitShield instead reads the destination host from the
-**connection itself**, which works regardless of how DNS is resolved.
-
-Consequences (verified on-device with NextDNS strict `hostname`):
-
-- **DNS is never intercepted or changed** (no `addDnsServer`). The system
-  resolver / Private DNS keeps working exactly as configured; the encrypted DNS
-  connection simply flows **through** the relay as an opaque TCP stream to the
-  provider. NextDNS/Private DNS is completely untouched.
-- Blocking works **with Private DNS on or off** — DoorDash and Uber Eats are
-  blocked while normal browsing (and the internet) is unaffected.
-- `Settings.Global.private_dns_mode` is still read, only to show a neutral note
-  that DNS is untouched (`fitshield.blocking.privateDnsActive()`).
-
-It **does**:
-
-- ✅ run a **local, on-device** VPN that routes traffic through a userspace filter.
-- ✅ read the **plaintext SNI / HTTP Host** (already sent unencrypted by the client).
-- ✅ check it against the engine-derived rules and **reset** blocked connections.
-- ✅ relay **allowed** connections byte-for-byte to the same IP the client chose,
-  via **`protect()`ed** sockets (so they leave over the real network, not the VPN).
-
-It **does not**:
-
-- ❌ act as a commercial VPN.
-- ❌ tunnel browsing through FitShield (or any) servers — there are none.
-- ❌ **decrypt, inspect, or proxy** TLS/HTTPS payloads — only the cleartext SNI
-  is read; allowed bytes are relayed opaquely.
-- ❌ install or trust any certificate / root CA (**no MITM**).
-- ❌ intercept, alter, or log DNS.
-- ❌ send any data off the device or log visited hostnames (not even to logcat).
-
-**Connection lifecycle:**
-
-1. **Captured** — all traffic is routed to the local VPN. For each new TCP flow,
-   FitShield terminates the client side locally (the app↔TUN path is lossless and
-   in-order, so no congestion control is needed on that side).
-2. **Host peeked** — the first client payload is parsed for the TLS SNI (443) or
-   HTTP Host (80). `RuleEngine.blockedApex(host)` walks the domain's suffixes
-   against the apex set (engine semantics). Look-alikes (`fake-doordash.com`) and
-   suffix tricks (`doordash.com.evil.com`) do **not** match.
-3. **Blocked** — FitShield sends a TCP **RST**; the browser/app shows a connection
-   reset (`ERR_CONNECTION_RESET`) and cannot reach the site. There is **no custom
-   block page** for HTTPS (that would require MITM, which FitShield refuses).
-4. **Allowed** — a `protect()`ed socket is opened to the same destination IP and
-   the connection is relayed transparently, exactly as if FitShield were absent.
-
-**QUIC / IPv6:** QUIC (UDP/443) is dropped so browsers fall back to TCP where the
-SNI is visible; other UDP is relayed. **IPv6 is parsed and filtered on the same
-terms as IPv4** — it used to be captured and discarded, which left an IPv6-only
-network with no working connection at all while the filter was on. See the
-Limitations note in this section for why the `::/0` route stayed.
-
-**Scope difference from the browser path:** the VPN-based filter is **system-
-wide** (any app/browser on the device), whereas the Firefox-for-Android
-extension only blocks inside Firefox.
+- No website blocking on Android (see above); the extension blocks sites.
+- No block page for websites, no country-based site policy, no Custom URLs.
+- The pause screen suggests an alternative matched to the blocked **brand**; it
+  does not know the user's diet, allergens or kitchen (the Android app asks for
+  none), and it shows title, total time and description rather than the
+  extension's full recipe card.
+- A temporary pass is scoped to the single brand that was opened; the pause
+  screen does not state its duration.
+- Schedule boundaries match the extension exactly: inclusive start, exclusive
+  end, and `start == end` means all day (`Schedule.withinWindow`).
+- `timerSeconds` is held to 10–900 and the pass length to 1–240 minutes, the same
+  ranges the extension's core enforces.
 
 ---
 
-## 3b. Native app blocking (AccessibilityService)
+## 3. App blocking (AccessibilityService)
 
-The VPN handles *network* traffic (websites, in-app requests). A separate,
-independent **AccessibilityService** handles *native apps*: when a blocked
-food-delivery / fast-food app comes to the foreground, FitShield shows a native
-intervention screen ([BlockActivity]) that mirrors the browser block page. Both
-run together; neither depends on the other.
+When a blocked food-delivery or fast-food app comes to the foreground,
+FitShield shows a native pause screen ([BlockActivity]) that mirrors the browser
+block page.
 
 **Data pipeline (one source of truth, no duplication):**
 
 ```
-data/blocklists/*.json  (canonical brands: name, domain, type, countries, …)
+data/blocklists/*.json  (canonical brands)
         +
-data/android/delivery-apps.json + fast-food-apps.json
-        (minimal: brandId → packageIds only; NO duplicated metadata)
-        │  tools/generate-android-packages.js  (deterministic)
+data/android/delivery-apps.json + fast-food-apps.json  (brandId -> packageIds only)
+        │  tools/generate-android-packages.js (deterministic)
         ▼
 data/generated/android-packages.json ── bundled ──▶ assets/android-packages.json
-        │                                                       │
-        │ tools/validate-android-packages.js                    │ PackageBlocklist.kt
-        ▼ (in validate-all: schema, orphans, dup brand/package, ▼ (packageId → brand,
-          packageStatus, determinism, drift)                       O(1) lookup)
+        │ tools/validate-android-packages.js          │ PackageBlocklist.kt (O(1) lookup)
 ```
 
-- Each app entry references a brand by its **canonical source domain** (`brandId`,
-  e.g. `doordash.com`), so every package maps back to exactly one blocklist brand.
-  All display metadata is generated from the blocklists — never re-authored.
-- Package IDs that are not confidently known use `packageStatus:"needs_review"`
-  with empty `packageIds` (**never guessed**); the validator enforces this.
-  Research resolves each brand to a verified terminal status: `active`
-  (confirmed packages), `no_app` (verified no official Android app), or
-  `shared_app` (the brand's official app is another blocked brand's package —
-  e.g. a platform's country storefront — recorded once on the owning brand so
-  every package ID maps to exactly one brand). The current split — 1,511 packages
-  across 1,445 brands; 757 `no_app`; 266 `shared_app`; 37 `needs_review` — is
-  re-derived from the data by
-  `test/play-release.test.js`, and the full table with the curated-brand
-  denominator is in
+- Each entry references a brand by its canonical source domain (`brandId`), so
+  every package maps to exactly one blocklist brand; display metadata is
+  generated from the blocklists, never re-authored.
+- A package ID that is not confidently known uses `packageStatus:"needs_review"`
+  with empty `packageIds` (**never guessed**). Terminal statuses: `active`
+  (confirmed packages), `no_app` (verified no official Android app) and
+  `shared_app` (the brand's official app is another blocked brand's package).
+- **Coverage:** 2,505 curated brands; 1,512 unique package IDs across 1,446
+  brands; 757 `no_app`; 266 `shared_app`; 36 `needs_review`. These are re-derived
+  from the data by `test/play-release.test.js`; the full table is in
   [PLAY_STORE_RELEASE_CHECKLIST.md §9](PLAY_STORE_RELEASE_CHECKLIST.md#9-app-blocking-coverage-numbers-re-derived).
-  (These five numbers read 1,545 / 1,474 / 777 / 283 / 38 here for a whole
-  release after the catalog had moved past every one of them, which is why they
-  are now asserted rather than written.)
-- Designed to scale to thousands of packages: add entries to the app files and
-  rebuild; everything flows through the generated dataset (no hardcoded checks).
-- **Additive port:** `tools/port-android-apps.js` (`npm run port:android-apps`)
-  mirrors EVERY enabled brand from the blocklists into the app files (one entry
-  per brand), preserving confirmed package IDs across runs. The full ported
-  record (all ~2.5k brands + metadata) lives in `data/generated/`; only
-  the small package map is bundled into the APK.
-- **Categories** are derived from each brand's authoritative source `category`
-  (coffee / dessert / grocery / restaurant / meal_kit, else the file default —
-  delivery / fast_food), never guessed from specialties. They drive the
-  per-category Settings toggles and the block-screen messaging. A `convenience`
-  grouping existed until 0.55 and was removed: no blocklist row ever carried it,
-  so its pill was a control that could never match an app. The groupings, the
-  pills, the `CATS` map in `web/app.js` and `AppBlockPolicy.categoryEnabled` are
-  now held to each other in both directions by `test/android-controls.test.js`.
-- On-device parity is asserted by an instrumented test (`PackageMatcherTest`):
-  every package in the bundled dataset must resolve to the same brand through the
-  Kotlin `PackageBlocklist`, and an unlisted package must not match.
+  `shared_app` and `needs_review` brands carry no package, so on Android they are
+  not blocked at all — do not describe app coverage as catalog coverage.
+- `tools/port-android-apps.js` (`npm run port:android-apps`) mirrors every
+  enabled brand into the app files, preserving confirmed package IDs.
+- **Categories** come from each brand's source `category` (coffee / dessert /
+  grocery / restaurant / meal_kit, else the file default delivery / fast_food)
+  and drive the per-category toggles. The groupings, the pills, the `CATS` map in
+  `web/app.js` and `AppBlockPolicy.categoryEnabled` are held to each other by
+  `test/android-controls.test.js`.
 
 **Runtime flow:**
 
-1. `FitShieldAccessibilityService` receives a `TYPE_WINDOW_STATE_CHANGED` event
-   and reads **only the foreground package name** (config
-   `canRetrieveWindowContent="false"` — no screen content, ever).
-2. `PackageBlocklist.match(pkg)` looks up the brand; `AppBlockPolicy` checks the
-   opt-in enable flag, the per-category toggle, the schedule window, and any
-   active temporary unlock.
-3. If it should block, the service first sends the blocked app to the background
-   (`performGlobalAction(GLOBAL_ACTION_HOME)`) and then launches `BlockActivity`.
-   This is essential: a blocked app that is already running re-launches its own
-   activity (`BAL_ALLOW_FOREGROUND`) the instant a block screen covers it and
-   steals the foreground back — so the screen would just flash and vanish. A
-   backgrounded app can't win that race, so the pause screen stays put.
-4. `BlockActivity` (a WebView on the shared design system) shows the pause screen —
-   mirroring the extension's block page: FitShield branding, the blocked brand
-   name, a **block reason**, category-aware message, **schedule status**,
-   the interruption count, a quick alternative, a reflection countdown, a localized
-   **"Learn more" link to fitshield.net** (opens in an external browser), and
-   **Not now** / **Open anyway** / **Open FitShield**.
-5. **Not now** sends the user to the launcher (never back into the app) and
-   records nothing here — the interruption was already counted when the pause appeared (see `recordInterruption()`), so **Open anyway** no longer escapes the count. The private
-   "most-blocked apps" breakdown). **Open anyway** grants a temporary unlock
-   (minutes) and **re-opens the app by its launch intent** (it was sent to the
-   background in step 3, so it is no longer behind the screen) — recording
-   nothing (they proceeded). A narrowly scoped `<queries>` (MAIN/LAUNCHER only,
-   **not** `QUERY_ALL_PACKAGES`) lets `getLaunchIntentForPackage` resolve the app
-   to re-open; it grants no access to any app's data.
+1. `FitShieldAccessibilityService` receives `TYPE_WINDOW_STATE_CHANGED` and reads
+   **only the foreground package name** (`canRetrieveWindowContent="false"`).
+2. `PackageBlocklist.match(pkg)` finds the brand; `AppBlockPolicy` checks the
+   enable flag, the category toggle, the per-app allow, the schedule window and
+   any active temporary unlock.
+3. To block, the service first sends the blocked app home
+   (`performGlobalAction(GLOBAL_ACTION_HOME)`) and then launches `BlockActivity`
+   — otherwise a running app would re-launch itself over the pause screen.
+4. `BlockActivity` shows the brand, the reason, the schedule status, the
+   interruption count, a quick alternative, a reflection countdown, a localized
+   "Learn more" link to fitshield.net, and **Not now** / **Open anyway** /
+   **Open FitShield**.
+5. **Not now** goes to the launcher. **Open anyway** grants a temporary unlock
+   and re-opens the app by its launch intent. The interruption is counted when
+   the pause appears, so "Open anyway" does not escape the count. A narrowly
+   scoped `<queries>` (MAIN/LAUNCHER only, **not** `QUERY_ALL_PACKAGES`) lets the
+   launch intent resolve.
 
-**Controls:** per-category toggles (Delivery / Fast food / Restaurant / Coffee /
-Dessert / Grocery / Meal kit), a searchable **per-app** allow list
-(opt a specific app out even when its category is on), temporary-unlock duration,
-and schedule awareness (shared with the VPN's schedule). All stored locally; the
-service reads them fresh each event.
+**Loop and battery safety:** own-package events are ignored; a per-package
+cooldown debounces repeats; the service exits early when app blocking is off;
+`BlockActivity` is its own task, excluded from recents.
 
-**Loop / battery safety:** own-package events are ignored; a per-package cooldown
-debounces repeat window events; the service exits early when app blocking is off;
-BlockActivity is its own task + excluded from recents so dismissing it can't bounce
-back into the app.
+**Overlay permission (opt-in):** `SYSTEM_ALERT_WINDOW` lets the pause screen
+launch reliably over a blocked app (background-activity-launch exemption). It is
+optional, and FitShield never draws an overlay window.
 
-**Permissions:** `BIND_ACCESSIBILITY_SERVICE` (declared on the service; the OS
-grants it, and the user must opt in from system Accessibility settings) and the
-optional `SYSTEM_ALERT_WINDOW` ("display over other apps"). No
-`QUERY_ALL_PACKAGES` — the foreground package comes from the event itself. The
-`tools/android-audit.js` guardrail deliberately allows this one accessibility
-service (read-only, foreground-package-name only) while still forbidding
-usage-access, package-visibility, boot receivers, and device admin.
+**Background protection (opt-in, OFF by default):** the accessibility service is
+system-bound and re-bound by Android, including after a restart, so app blocking
+needs no help. For phones that aggressively freeze idle apps, an opt-in "Extra
+reliability" toggle starts `AppBlockKeepAliveService`, a `START_STICKY`
+`specialUse` foreground service that only shows a quiet `IMPORTANCE_MIN`
+notification. It does no work and reads nothing.
 
-**Overlay permission + status (opt-in):** `SYSTEM_ALERT_WINDOW` lets the block
-screen launch reliably over a blocked app (background-activity-launch exemption).
-It is **optional** — blocking still works without it on most devices, and the
-launch is wrapped so a missing permission never crashes or loops. The dashboard's
-app-blocking panel shows three live **status indicators** — Accessibility service,
-Site blocking (VPN), and Display over other apps — and, when overlay is missing,
-a card that explains (privacy: *used only to show the block screen for the food
-apps you choose; never reads screen or message content*) with a button that opens
-`ACTION_MANAGE_OVERLAY_PERMISSION`. Status refreshes when returning from settings.
-
-**Background protection (opt-in hardening, OFF by default):** the accessibility
-service is system-bound and self-recovering (it survives its process being killed —
-the OS rebinds it), so app blocking already runs in the background without help.
-For phones that aggressively freeze idle apps, the app-blocking panel offers an
-opt-in **"Extra reliability"** toggle that starts `AppBlockKeepAliveService` — a
-`START_STICKY` `specialUse` foreground service that runs only a quiet
-`IMPORTANCE_MIN` notification to keep the process resident. It does no work and
-reads nothing. The same card surfaces the **battery-optimization** status and an
-"Allow unrestricted battery" button that opens
-`ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS` (the permission-free settings list —
-never the one-tap `ACTION_REQUEST_…` dialog, which would need an extra permission).
-No new manifest permission is added (the service reuses `FOREGROUND_SERVICE` /
-`FOREGROUND_SERVICE_SPECIAL_USE` / `POST_NOTIFICATIONS`).
-
-**Cross-platform "Learn more":** both the extension block page (`warning.html`)
-and the Android block screen (`block.html`) show a localized "Learn more" pointer
-to **fitshield.net** (privacy, blocking behavior, setup) — opened in a browser tab
-on the extension, via an external `ACTION_VIEW` intent on Android.
+Force-stopping the app makes Android drop the AccessibilityService; app blocking
+stays off until the user re-enables it in system Accessibility settings. The
+dashboard says so rather than failing silently.
 
 ---
 
 ## 4. Privacy
 
-Identical posture to the rest of FitShield — local-first, on both Android paths.
+- **No network at all.** The manifest does not request `INTERNET`; the app
+  cannot open a connection. No telemetry, no accounts, no analytics.
+- The `AccessibilityService` is opt-in, reads only the foreground package name,
+  and uses it in memory; nothing is logged in release builds or transmitted.
+- Settings and statistics live in private `SharedPreferences`;
+  `android:allowBackup="false"` keeps them off Google's cloud backup.
+- Content stays behavioural: FitShield is a decision-friction tool, not a medical
+  or weight-loss product.
 
-- ✅ No telemetry, analytics, crash/usage reporting, accounts, cloud, sync, ads,
-  or tracking.
-- ✅ App blocking reads **only the foreground package name** (never screen
-  content — `canRetrieveWindowContent="false"`); the package name is never logged
-  or transmitted. It is an opt-in the user enables in Accessibility settings.
-- ✅ No browsing-history upload. **DNS is never intercepted, altered, or logged.**
-  Filtering decisions are made on-device from the cleartext SNI/Host and are never
-  transmitted, persisted off-device, or written to logcat (visited hostnames are
-  never logged). Allowed traffic is relayed opaquely; TLS payloads are never read.
-- ✅ No hidden background services beyond the foreground `VpnService` the user
-  explicitly starts (with the system VPN-consent dialog).
-- ✅ **No data sent to FitShield.** There are no FitShield servers. The adapter
-  **never forwards DNS anywhere** — DNS stays entirely with the system resolver /
-  Private DNS, untouched. Allowed connections are relayed opaquely to the exact
-  destination IP the client already chose, over a `protect()`ed socket — never to
-  any FitShield server, and never inspected. The browser extension makes zero
-  network requests. No analytics dependency is allowed in the Android build
-  (enforced by `tools/android-audit.js`).
+The Data safety answers and the accessibility disclosure wording are in
+[PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md).
 
 ---
 
 ## 5. Permissions
 
-### Native APK (Android OS permissions)
+### Native app (Android OS permissions)
 
-| Permission | Why it exists | Depends on it | If denied |
-| --- | --- | --- | --- |
-| `INTERNET` | relay **allowed** connections to the destination IP the client already chose | any allowed site loading | allowed sites can't load |
-| `FOREGROUND_SERVICE` + `FOREGROUND_SERVICE_SPECIAL_USE` | run the `VpnService` (and the optional keep-alive) as a foreground service; Android 14 requires the `specialUse` type | the filter / keep-alive staying alive | service can't run |
-| `POST_NOTIFICATIONS` | the required ongoing foreground-service notification (Android 13+) | user-visible "on" state | notification suppressed (the service still runs) |
-| `SYSTEM_ALERT_WINDOW` (optional, user-granted) | "display over other apps" so the app-block screen launches reliably; used **only** to show the block screen for the food apps you choose | more reliable app-block launch | app blocking still works on most devices |
-| `BIND_VPN_SERVICE` (on the `<service>`) | the OS gate for any `VpnService` | starting the site filter | (OS-enforced; not user-grantable) |
-| `BIND_ACCESSIBILITY_SERVICE` (on the `<service>`) | the OS gate for the **opt-in** app-blocking AccessibilityService; the user enables it in system Accessibility settings. Reads **only** the foreground package name (`canRetrieveWindowContent="false"`) — never screen/message content | native app blocking | app blocking off (websites still filtered) |
+| Permission | Why |
+| --- | --- |
+| `FOREGROUND_SERVICE` + `FOREGROUND_SERVICE_SPECIAL_USE` | the optional keep-alive service (Android 14+ requires the type) |
+| `POST_NOTIFICATIONS` | the keep-alive's quiet notification (Android 13+) |
+| `SYSTEM_ALERT_WINDOW` | optional; lets the pause screen launch over a blocked app |
+| `BIND_ACCESSIBILITY_SERVICE` (on the `<service>`) | the OS gate for the opt-in app-blocking service |
 
-Plus the runtime **VPN consent dialog** Android shows before any VpnService
-starts — the user must explicitly approve.
-
-**Intentionally NOT requested (enforced by `tools/android-audit.js`):**
-`RECEIVE_BOOT_COMPLETED` (no boot startup), `PACKAGE_USAGE_STATS` (no usage
-access), `QUERY_ALL_PACKAGES` (a narrowly scoped `<queries>` for launchable apps
-is used instead, so "Open anyway" can re-open the app — see §3b), device admin,
-and any location / contacts / phone / SMS / broad-storage permission. The single
-AccessibilityService is a **deliberate, user opt-in** (foreground-package-name
-only) — not a hidden capability; the audit allows exactly that one service.
+Not requested: `INTERNET`, `RECEIVE_BOOT_COMPLETED`, `BIND_VPN_SERVICE`,
+`QUERY_ALL_PACKAGES`, `PACKAGE_USAGE_STATS`, location, contacts, phone, SMS,
+storage, camera, microphone. `tools/android-audit.js` and
+`test/play-release.test.js` hold the manifest to this list.
 
 ### Browser path
-The Firefox-for-Android extension uses only WebExtension permissions
-(`declarativeNetRequest`, `storage`, `alarms`, `host_permissions: <all_urls>`,
-`web_accessible_resources: warning.html`) — no Android OS permissions.
+
+The extension requests exactly `storage`, `declarativeNetRequest` and `alarms`.
 
 ---
 
 ## 6. Build
 
-### Browser (Chrome / Firefox / Firefox for Android extension)
-- Requirements: Node.js 18+, no dependencies.
-- `node build.js` → `dist/chrome/`, `dist/firefox/`, and the store zips. The
-  build is validation-gated (includes the Android audit, so the browser build
-  fails if the Android ruleset drifts from canonical data).
+### Browser
 
-### Native Android APK
-- **Generate rules:** `npm run generate:android` (engine → generated asset).
-- **Validate:** `npm run validate:android` (or `npm run validate` / `npm test`).
-- **Build/export:** `npm run build:android` →
-  - always regenerates + validates and stages `dist/android/` (rules +
-    `BUILD.txt` with the exact local command + a device-test checklist);
-  - **if the Android SDK + Gradle are present**, builds a **debug** APK and
-    copies it to `dist/android/FitShield-<version>-debug.apk`. It never fakes
-    success when tooling is absent.
-- **Requirements for the APK:** Android SDK (compileSdk 34, minSdk 26) and Gradle
-  (AGP 8.5.x, Kotlin 1.9.x). No Gradle wrapper is committed (the wrapper jar is a
-  binary); create one once with a system Gradle, then build:
-  ```
-  cd android
-  gradle wrapper            # one-time, needs a system Gradle
-  ./gradlew :app:assembleDebug
-  ```
-  Or, with Gradle on PATH, just `npm run build:android`.
-- **Install on a device** (USB debugging on):
-  ```
-  adb install -r dist/android/FitShield-<version>-debug.apk
-  ```
-- **Output structure:**
-  ```
-  dist/
-    FitShield-<version>-chrome.zip
-    FitShield-<version>-firefox.zip
-    android/
-      fitshield-rules.json
-      BUILD.txt
-      FitShield-<version>-debug.apk   (only when built with the SDK/Gradle)
-  ```
-- **Version:** all outputs use the single `extension/manifest.json` version
-  (`build-android` injects `-PfitshieldVersionName`), so the three platforms
-  never diverge.
-- **Debug signing only** — uses Android's default debug keystore. No release
-  signing/keystores are configured or committed.
+`node build.js` → `dist/chrome/`, `dist/firefox/` and the store zips. The build is
+validation-gated (it includes the Android audit).
 
-### Manual device test checklist (native APK)
-A copy of this ships in `dist/android/BUILD.txt`:
-- [ ] APK installs (`adb install -r …`); app opens and shows the loaded host count
-- [ ] Enable triggers the VPN-consent dialog; after consent the VPN starts and
-      the OS VPN indicator + foreground notification appear
-- [ ] `doordash.com`, `ubereats.com`, `grubhub.com` are blocked (connection reset
-      / `ERR_CONNECTION_RESET`) — **even though DNS still resolves normally**
-- [ ] Normal sites load fine (e.g. `wikipedia.org`, `github.com`); works with
-      strict Private DNS / NextDNS still on
-- [ ] Disabling stops filtering; uninstalling stops filtering
-- [ ] (app blocking) enable the opt-in AccessibilityService → opening a blocked
-      food app shows the FitShield pause screen; a non-food app is ignored
-- [ ] (app blocking) "Open anyway" re-opens the app for the unlock window; "Not
-      now" returns to the launcher; no loop
-- [ ] "Extra reliability" keep-alive is OFF by default; turning it on adds the
-      quiet foreground notification and turning it off removes it
-- [ ] No boot startup; no usage-access / location / contacts / phone / SMS /
-      storage permission requested. Accessibility is a user opt-in, not automatic
-- [ ] Small-screen UI is usable; no unexpected network calls (allowed traffic is
-      relayed to its real destination; no DNS is forwarded anywhere)
-- [ ] (optional) `./gradlew connectedAndroidTest` passes `SemanticsParityTest`
-      (Kotlin matcher == engine) and `PackageMatcherTest` (packageId → brand)
+### Native Android app
+
+- `npm run validate:android` — the Android audit (also part of `npm run validate`
+  and `npm test`).
+- `npm run build:android` — validates, stages `dist/android/` (`BUILD.txt` with the
+  exact local command and a device-test checklist) and, if the Android toolchain
+  is present, builds a **debug** APK to `dist/android/FitShield-<version>-debug.apk`.
+  It never fakes success when tooling is absent. `npm run toolchain:android`
+  provisions a JDK and the Android SDK.
+- `node tools/build-android.js --bundle --versionCode=<int>` builds the signed
+  release AAB (`dist/android/FitShield-<version>-<versionCode>.aab`) and fails
+  rather than report success if it comes out unsigned. Release signing is
+  described in [PLAY_STORE_RELEASE_CHECKLIST.md](PLAY_STORE_RELEASE_CHECKLIST.md) §3.
+- **Version:** every output uses the single `extension/manifest.json` version
+  (`-PfitshieldVersionName` is injected), so the platforms never diverge.
+  Recorded pairs: 0.54 ↔ 1, 0.56 ↔ 8 (rejected), **1.0 ↔ 9**.
+- Install a debug build: `adb install -r dist/android/FitShield-<version>-debug.apk`.
+
+### Manual device test checklist (native app)
+
+- [ ] Installs over 0.56 with the user's settings intact; no VPN entry remains.
+- [ ] Enable FitShield; open the app-blocking panel; read the disclosure; enable
+      the accessibility service; open a blocked food app → the pause screen
+      appears and stays.
+- [ ] Not now / Open anyway (timer, then a temporary unlock scoped to that app).
+- [ ] A non-food app is never interrupted; no accessibility/overlay loop.
+- [ ] Schedule on/off, per-app allow, keep-alive on/off, battery optimisation.
+- [ ] A browser opens a blocked brand's website normally (Android does not block
+      websites).
+- [ ] Reboot with app blocking on: blocking is back without opening FitShield.
 
 ---
 
 ## 7. Security
 
-**Threat model.** FitShield is a self-control / mindfulness tool, not an
-adversarial blocker. It assumes a cooperative user on their own device. It is
-not designed to stop a determined user.
+**Trust assumptions.** The OS enforces the accessibility permission model; the
+device is not rooted.
 
-**Trust assumptions.** The OS enforces `VpnService` correctly; the device/profile
-are the user's; the curated datasets are accurate (validated) but not exhaustive.
+**Threat notes.** The app is cooperative, not enforced: a user can disable the
+accessibility service, force-stop or uninstall. That is by design — FitShield is a
+decision-friction tool, and it says so. The service reads no screen content and
+the app has no network permission, so there is nothing to exfiltrate and no
+remote surface to attack. Release builds are not minified, deliberately: the
+project ships auditable source.
 
-**Connection-filter model (native path).** A local `VpnService` routes traffic
-through a userspace filter that reads **only the cleartext destination host** the
-client already sends — the TLS SNI (443) or HTTP Host (80). Blocked hosts get a
-TCP **RST**; everything else is relayed byte-for-byte to the IP the client chose
-over a `protect()`ed socket. **DNS is never read, intercepted, or altered**; no
-traffic is tunnelled to any server; TLS payloads are never decrypted. A separate,
-opt-in AccessibilityService blocks native *apps* by their foreground package name
-(§3b) — additive to, never a replacement for, the connection filter.
-
-**Limitations — be honest.**
-
-Two things that were listed here as limitations were defects wearing the word,
-and both are **fixed as of 2026-08-26**. They are recorded rather than deleted so
-that nobody re-derives them as tradeoffs, and both are bound to
-`test/play-release.test.js` in both directions — this section cannot claim a
-limitation the code no longer has, and cannot drop one that comes back.
-
-- **IPv6 is filtered, not dropped.** It used to be captured and discarded, which
-  degraded silently to IPv4 on a dual-stack network and left an IPv6-only carrier
-  with **no working internet at all** while FitShield was on. It is now parsed
-  and subjected to the same SNI/Host decision. Simply removing the `::/0` route
-  would have restored connectivity by letting IPv6 bypass the filter, turning a
-  visible failure into an invisible one — a blocked brand reachable over IPv6
-  would just not be blocked — so the packets are handled instead. QUIC (UDP/443)
-  is still dropped deliberately, so browsers fall back to TCP where the SNI is
-  visible; that part is by design.
-- **The filter comes back after a restart.** `BootReceiver` handles
-  `BOOT_COMPLETED` and `MY_PACKAGE_REPLACED`, and restores the tunnel only for a
-  user whose stored instruction says they had it on and whose VPN consent Android
-  still holds; otherwise it posts one notification rather than starting anything.
-  Before this, app blocking silently resumed (the OS re-binds the
-  AccessibilityService) while site blocking silently did not, so the user saw
-  FitShield working and reasonably concluded all of it was.
-
-The rest are genuine properties of the design:
-
-- **Preview-quality** — implemented and verified on-device (Samsung, Android 14),
-  but debug-signed with no store release; treat it as a preview, not a 1.0.
-- **Cooperative, not enforced** — a user can stop the VPN, disable the
-  AccessibilityService, uninstall, or use a browser/protocol that hides the SNI.
-- **Curated coverage, and the two halves differ** — site blocking covers every
-  curated brand, because it filters by host. App blocking covers only the brands
-  that have a known Android package: a brand marked `no_app`, `shared_app` or
-  `needs_review` carries no package ID and is therefore **not** blocked as an
-  app, though its sites still are. The exact split is in
-  [PLAY_STORE_RELEASE_CHECKLIST.md §9](PLAY_STORE_RELEASE_CHECKLIST.md#9-app-blocking-coverage-numbers-re-derived),
-  where it is re-derived from the data by a test rather than written down here
-  to go stale.
-- **No traffic protection** — FitShield provides no encryption/anonymity; it is
-  not a privacy VPN and makes no such claim.
-- **Browser path** blocks only inside Firefox for Android, and its on-device DNR
-  behavior is not yet verified.
-
-**Android platform limitations.** Only one active VPN at a time (FitShield
-conflicts with another VPN app); foreground-service and notification policies
-vary by OS version; encrypted DNS can route around a local filter.
-
-**Known unsupported / unverified cases.** Encrypted ClientHello (ECH) would hide
-the SNI and bypass the host filter; on-device DNR on Firefox for Android; any
-non-Firefox Android browser for the extension path. (Encrypted DNS — DoH/DoT/
-Private DNS — is *not* a problem: the filter reads the connection host, not DNS,
-so it works with Private DNS on.) IPv6-only networks are no longer on this list:
-they are filtered like any other, and what remains is on-device confirmation.
-
-**Future improvements.** Broaden device/network testing, produce the first signed
-release bundle — the signing *configuration* has been in the tree since 0.53, but
-no bundle has ever been built or uploaded, and no repository command builds one
-(see [PLAY_STORE_RELEASE_CHECKLIST.md §3](PLAY_STORE_RELEASE_CHECKLIST.md#3-signing-and-the-release-bundle))
-— and verify the Firefox-for-Android DNR path on-device.
+**Platform limitations.** Coverage is curated: only brands with a confirmed app
+package are blocked as apps, and the app cannot block a brand it has no package
+for. OEM battery managers may pause the accessibility service; the opt-in
+keep-alive and the battery-optimisation shortcut exist for that.
 
 ---
 
 ## 8. Release documentation
 
 Every release is recorded in [`../changelog/`](../changelog/) (canonical) and
-summarized in `changelog.json`. For Android, each release should answer:
+summarised in `changelog.json`. Play submission steps are in
+[PLAY_STORE_RELEASE_CHECKLIST.md](PLAY_STORE_RELEASE_CHECKLIST.md); the exact 1.0
+resubmission actions are in [PLAY_1.0_RESUBMISSION.md](PLAY_1.0_RESUBMISSION.md).
 
-- **What changed?** — the per-release `changelog/<version>.md`.
-- **Why?** — rationale / design notes alongside the change.
-- **How was it validated?** — `npm test`, `npm run validate` (incl. the Android
-  audit), `node build.js`, `npm run build:android`, plus any on-device notes.
-- **What platforms were tested?** — state Chrome/Firefox desktop, and explicitly
-  whether Firefox for Android (extension) and the native APK were tested
-  **on-device** or only built/validated.
-- **What still requires manual verification?** — currently: on-device DNR on
-  Firefox for Android, IPv6-only networks, behaviour across a reboot, and broader
-  device/OS coverage for the native connection filter + app blocker (verified so
-  far on Samsung, Android 14).
-- **For a Play upload specifically** — every gate, declaration and human step is
-  in [PLAY_STORE_RELEASE_CHECKLIST.md](PLAY_STORE_RELEASE_CHECKLIST.md), and the
-  parts of it that can be checked mechanically are checked by
-  `test/play-release.test.js`.
+On-device verification that this repository cannot do: the accessibility
+app-block flow on a physical phone, across OEMs and Android versions.
 
-> Maintainer note: the Android rules asset is **generated** — never hand-edit it.
-> If canonical data changes, run `npm run generate:android` (and the audit/tests
-> will fail until you do). Keep code and docs evolving together.
+> Maintainer note: `data/generated/android-packages.json` and the bundled
+> `android-packages.json` are **generated** — never hand-edit them. After editing
+> `data/android/*.json`, run `npm run generate:android-packages`.

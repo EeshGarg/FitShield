@@ -1,13 +1,14 @@
 # FitShield Android — Privacy & Play Data Safety Notes
 
 _Source-of-truth notes for the Google Play **Data safety** form, the privacy
-policy, and the required Accessibility/VPN disclosures. Everything here is
+policy, and the required Accessibility disclosure. Everything here is
 verifiable in the code (`android/app/src/main/java/com/usha/fitshield/`) and is
 enforced by `tools/android-audit.js` (no analytics dependency) and the
 permission allowlist._
 
 FitShield is **local-first**: it is a self-control / mindfulness tool that adds
-friction before opening food-delivery and fast-food **apps and sites**.
+friction before opening food-delivery and fast-food **apps** (the Android app
+does not block websites; that is the browser extension's job).
 Everything happens **on the device**.
 
 ---
@@ -49,7 +50,7 @@ specifically exists not to send.
 
 | Play's question | Answer | Why this is the true answer |
 | --- | --- | --- |
-| Does your app collect or share any of the required user data types? | **No** | Nothing is transmitted anywhere. There are no FitShield servers, no accounts, no analytics or crash-reporting SDK, and no advertising SDK. The only network traffic the app produces is relaying the user's own already-chosen connections to the destination they already chose. |
+| Does your app collect or share any of the required user data types? | **No** | Nothing is transmitted anywhere. There are no FitShield servers, no accounts, no analytics or crash-reporting SDK, and no advertising SDK. The app does not request the `INTERNET` permission (removed in 1.0), so it cannot open a network connection at all. |
 | Is all of the user data collected by your app encrypted in transit? | **not asked** | The form only asks this after a Yes above. If you find yourself answering it, you have answered the first question wrong. |
 | Do you provide a way for users to request that their data is deleted? | **not asked** | Same — only asked after a Yes. For the record: everything lives in the app's private `SharedPreferences`, the in-app **Reset & Data** panel clears it, and uninstalling removes it. |
 
@@ -61,8 +62,8 @@ the permissions and wonder:
 
 | Data type | Answer | The thing a reviewer might expect instead |
 | --- | --- | --- |
-| **App activity** (app interactions, other user-generated content) | not collected, not shared | The app counts ordering pages it interrupted and keeps a most-blocked breakdown by site, app, category and country. All of it is written to private `SharedPreferences`, read back by the same device, and never sent anywhere. |
-| **Web browsing history** | not collected, not shared | The connection filter reads the cleartext destination host (TLS SNI / HTTP `Host`) of each connection to decide block or allow. It is used in memory for that decision, is not written to logcat in release builds, and never leaves the device. FitShield does not build or retain a browsing history. |
+| **App activity** (app interactions, other user-generated content) | not collected, not shared | The app keeps a count of pauses (`blockedVisits`) and a per-app count (`blockedByApp`). All of it is written to private `SharedPreferences`, read back by the same device, and never sent anywhere. |
+| **Web browsing history** | not collected, not shared | As of 1.0 the Android app has no connection filter and sees no network traffic or browsing at all (it contains no `VpnService`). FitShield does not build or retain a browsing history. |
 | **App info and performance** (crash logs, diagnostics) | not collected, not shared | There is no crash-reporting or diagnostics SDK of any kind. |
 | **Device or other IDs** | not collected, not shared | No advertising ID, no `AD_ID` permission, no device identifier is read. |
 | **Personal info, financial info, health and fitness, messages, photos and videos, audio, files, calendar, contacts, location** | not collected, not shared | None of these is read at all, and no permission that would allow it is requested. The AccessibilityService is configured `canRetrieveWindowContent="false"`, so it cannot read messages or on-screen text even in principle. |
@@ -86,21 +87,20 @@ phone without a server, so it does not change the answer either.)
 ### Data stored on-device only (never transmitted)
 - **Settings**: which categories/apps/domains to block, schedule, timer/unlock
   durations, theme, language — plain app preferences.
-- **Local statistics**: a count of ordering pages interrupted, plus a private
-  "most-blocked" breakdown by app/site/category/country. No savings or calorie
+- **Local statistics**: a count of pauses shown (`blockedVisits`), plus a per-app
+  count (`blockedByApp`), stored on-device only. No savings or calorie
   estimate is computed or stored. These are aggregate counters, computed and
   shown **on the device**; they are never uploaded.
 
 ### Network behavior (be precise)
-- The optional **VpnService is a local, on-device connection filter**. It reads
-  only the **cleartext destination host** the client already sends — the **TLS
-  SNI** (443) or **HTTP Host** header (80) — to decide block vs allow. It **does
-  not**: decrypt TLS, inspect payloads, install any certificate/MITM, intercept
-  or alter DNS, tunnel traffic through any server, or send anything off-device.
-- **Blocked** connections get a TCP reset locally. **Allowed** connections are
-  relayed **byte-for-byte to the exact destination IP the client chose**, over a
-  `protect()`ed socket — i.e. normal internet, as if FitShield were absent.
-- **Nothing is logged off-device, and no hostnames or filtering decisions are
+- As of **1.0 the Android app contains no `VpnService`, requests no `INTERNET`
+  permission and has no network code**. It cannot send or receive anything;
+  it does not inspect, filter, relay or log any network traffic, and it does not
+  touch DNS or Private DNS.
+- The previous connection filter (0.56 and earlier) was removed because Google
+  Play does not permit `VpnService` for this use case. Website blocking is now
+  provided only by the FitShield browser extension.
+- **Nothing is logged off-device, and no package names or filtering decisions are
   written to logcat in release builds** (debug-only, gated by `BuildConfig.DEBUG`).
 
 ## Accessibility Service disclosure (required prominent disclosure)
@@ -140,40 +140,19 @@ FitShield does **not** set `isAccessibilityTool`. That flag is reserved for apps
 whose core function is directly supporting people with disabilities, and
 FitShield is not one. Its absence is correct and deliberate, not an omission.
 
-## VPN disclosure
+## No VPN
 
-- FitShield uses Android's `VpnService` as a **local content filter only**, not a
-  VPN tunnel. It provides **no** encryption, anonymity, IP masking, or remote
-  server — and makes no such claim.
-- Android shows the **one-time system VPN-consent dialog** before it can start,
-  and the persistent VPN key/notification while active. Only one VPN can be
-  active at a time (FitShield conflicts with other VPN apps).
-- DNS and Private DNS are **untouched**; the app works with strict Private DNS
-  (e.g. NextDNS) enabled.
-
-**Answering Play's encryption question honestly.** The VpnService policy says
-apps "must encrypt the data from the device to the VPN tunnel endpoint". FitShield
-has no tunnel and no endpoint, so the box is the wrong shape for the app and the
-right move is to say so rather than tick it:
-
-> FitShield's `VpnService` is a local, on-device connection filter. There is no
-> tunnel and no remote endpoint — no traffic is sent to any FitShield server,
-> because there are none. Blocked connections are reset locally; allowed
-> connections are relayed byte-for-byte to the exact destination IP the client
-> already chose, over a `protect()`ed socket. FitShield never terminates,
-> decrypts, re-encrypts or modifies TLS, so the user's existing end-to-end
-> encryption is preserved unchanged. The app is never an endpoint.
-
-The policy's permitted use cases include device-security apps — explicitly
-naming firewalls — and parental control. **A local firewall / content filter is
-the accurate description; "VPN" is not.** Say the former on the form.
+FitShield 1.0 does not use Android's `VpnService`. There is no VPN consent
+dialog, no VPN key icon, and no declaration form to file. Users who ran 0.56 or
+earlier will see the VPN entry disappear after updating.
 
 ## Permissions rationale (user-facing)
 
 See the table in [PLAY_STORE_RELEASE_CHECKLIST.md](PLAY_STORE_RELEASE_CHECKLIST.md#5-permissions).
-Every permission is either an OS gate (`BIND_VPN_SERVICE`,
-`BIND_ACCESSIBILITY_SERVICE`), a foreground-service requirement, or an optional
-user-granted convenience (`SYSTEM_ALERT_WINDOW`). No location, contacts, phone,
+Every permission is either an OS gate (`BIND_ACCESSIBILITY_SERVICE`), a
+foreground-service requirement for the opt-in keep-alive, the notification
+permission for that keep-alive's notice, or an optional user-granted convenience
+(`SYSTEM_ALERT_WINDOW`). `INTERNET` and `RECEIVE_BOOT_COMPLETED` are not requested. No location, contacts, phone,
 SMS, storage, camera, microphone, usage-access, or `QUERY_ALL_PACKAGES`
 permission is requested.
 
@@ -190,8 +169,7 @@ reflex.*
 
 ---
 
-_Last verified against the implementation on 2026-08-26, and against Google's own
-policy pages on the same day. Update this file in the same change as any behavior
+_Last verified against the implementation on 2026-11-25 (release 1.0). Update this file in the same change as any behavior
 it describes. The statements here that can be checked mechanically are checked by
 `test/play-release.test.js` — the permission set, the statistics the app keeps,
 the accessibility configuration, and `allowBackup="false"`._

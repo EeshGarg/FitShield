@@ -70,8 +70,6 @@ const GITIGNORE = read(".gitignore");
 const ANDROID_INDEX = read("android", "app", "src", "main", "assets", "web", "index.html");
 const ANDROID_APP_JS = read("android", "app", "src", "main", "assets", "web", "app.js");
 const ANDROID_BLOCK_JS = read("android", "app", "src", "main", "assets", "web", "block.js");
-const TUN2FILTER = read("android", "app", "src", "main", "java", "com", "usha", "fitshield", "Tun2Filter.kt");
-const IPPACKET = read("android", "app", "src", "main", "java", "com", "usha", "fitshield", "IpPacket.kt");
 
 /**
  * XML comments in this manifest deliberately NAME permissions the app refuses to
@@ -535,7 +533,7 @@ test("the docs say whether the app can actually post a notification", () => {
    * `notify()` is a no-op — which the app's own `RestoreNotice` comment admits.
    *
    * The foreground-service notification going missing is cosmetic (the OS still
-   * shows the VPN key and a Task Manager entry). The boot-restore notice going
+   * shows the VPN key and a Task Manager entry). The notice going
    * missing is not: it is the whole fallback for "the device restarted but VPN
    * consent has lapsed", and without it the user is silently unprotected again.
    *
@@ -573,8 +571,8 @@ test("the docs say whether the app can actually post a notification", () => {
     assert.ok(
       docsWarn,
       "nothing in the app requests POST_NOTIFICATIONS, so on Android 13+ it is denied and every notification " +
-        "the app posts is a no-op — including the boot-restore notice that is the only fallback when VPN " +
-        "consent has lapsed. The checklist no longer says so."
+        "the app posts is a no-op, including the keep-alive foreground notification. " +
+        "Either request it at runtime or the checklist must say so."
     );
     assert.ok(
       !/\|\s*`POST_NOTIFICATIONS`\s*\|[^|]*\|\s*runtime prompt\s*\|/.test(CHECKLIST),
@@ -835,8 +833,8 @@ test("the Data safety answers match the statistics the app actually keeps", () =
   );
 
   assert.ok(
-    /ordering pages interrupted/i.test(PRIVACY),
-    "the Data safety notes no longer name the one counter the app keeps"
+    /`blockedVisits`/.test(PRIVACY) && /`blockedByApp`/.test(PRIVACY),
+    "the Data safety notes no longer name the counters the app keeps (blockedVisits and blockedByApp)"
   );
 });
 
@@ -1342,117 +1340,4 @@ test("the temporary pass is scoped the way the listing says it is", () => {
   );
 });
 
-// ---------------------------------------------------------------------------
-// Behaviour the documentation is bound to, in both directions
-// ---------------------------------------------------------------------------
 
-test("the docs describe IPv6 exactly as the filter handles it", () => {
-  /*
-   * This one was filed as a "known non-blocker" while it meant an IPv6-only
-   * carrier had NO working internet for as long as FitShield was on. It is fixed,
-   * and this assertion exists so that neither the fix nor the honesty can rot:
-   * the documentation may not keep claiming a limitation the code dropped, and
-   * may not go quiet if the drop comes back.
-   */
-  /*
-   * Read from IpPacket.kt, which is where IP version parsing lives. This used to
-   * grep Tun2Filter.kt for `if (version != 4) return`, and the word "version"
-   * does not occur in that file at all any more — so `dropsIpv6` was permanently
-   * false, the `if (dropsIpv6)` branch below could never execute, and the
-   * "may not go quiet if the drop comes back" half this test advertises was dead.
-   * A guard that can only take one branch is testing one thing while claiming two.
-   *
-   * The positive fact is asserted instead of the absent one: IpPacket parses a v6
-   * header and hands back `version = 6`. If IPv6 is ever dropped again that
-   * constructor is what goes, and this flips — which is the direction that
-   * matters, because dropping IPv6 on an IPv6-only network is a total loss of
-   * connectivity and the docs must say so.
-   */
-  assert.match(
-    IPPACKET,
-    /version\s*=\s*6/,
-    "IpPacket.kt no longer builds an IPv6 header — this guard cannot tell whether IPv6 is filtered or dropped"
-  );
-  const dropsIpv6 = !/version\s*=\s*6/.test(IPPACKET);
-
-  const documents = [
-    ["docs/ANDROID.md", ANDROID_DOC],
-    ["docs/PLAY_STORE_RELEASE_CHECKLIST.md", CHECKLIST]
-  ];
-
-  for (const [where, document] of documents) {
-    const claims = withoutQuotes(document);
-
-    if (dropsIpv6) {
-      assert.ok(
-        /IPv6[^.]{0,40}(dropped|not yet supported)/i.test(claims),
-        `${where} no longer records that the filter drops IPv6, and Tun2Filter still does. On an IPv6-only ` +
-          "network that is a total loss of connectivity, not a degraded one."
-      );
-    } else {
-      assert.ok(
-        /IPv6 is (parsed and )?filtered/i.test(claims),
-        `${where} does not state that IPv6 is filtered, and Tun2Filter now filters it`
-      );
-      assert.ok(
-        !/IPv6 is currently[^.]{0,40}dropped/i.test(claims),
-        `${where} still describes IPv6 as currently dropped. Tun2Filter parses it — the sentence is now false.`
-      );
-      assert.ok(
-        !/IPv6-only networks are not yet supported/i.test(claims),
-        `${where} still lists IPv6-only networks as unsupported; they are filtered like any other`
-      );
-    }
-  }
-});
-
-test("the docs describe the reboot behaviour the app actually has", () => {
-  /*
-   * The mirror of the above. "Reboot VPN auto-restart is intentionally manual"
-   * described a user turning protection on, restarting overnight, and waking up
-   * unprotected with nothing said. Calling that intentional is what let it sit.
-   */
-  const restoresOnBoot =
-    /android\.intent\.action\.BOOT_COMPLETED/.test(MANIFEST) && exists("android", "app", "src", "main", "java", "com", "usha", "fitshield", "BootReceiver.kt");
-
-  const documents = [
-    ["docs/ANDROID.md", ANDROID_DOC],
-    ["docs/PLAY_STORE_RELEASE_CHECKLIST.md", CHECKLIST]
-  ];
-
-  for (const [where, document] of documents) {
-    const claims = withoutQuotes(document);
-
-    if (restoresOnBoot) {
-      assert.ok(
-        /comes back after a restart/i.test(claims),
-        `${where} does not state that protection returns after a restart, and BootReceiver now restores it`
-      );
-      assert.ok(
-        !/(VPN re-enable is manual by design|does not come back after a (restart|reboot))/i.test(claims),
-        `${where} still says protection has to be re-enabled by hand after a restart. It does not.`
-      );
-    } else {
-      assert.ok(
-        /does not come back after a (restart|reboot)/i.test(claims),
-        `${where} claims protection survives a restart, but nothing handles BOOT_COMPLETED. A blocker that ` +
-          "silently stops overnight is worse than one that was never on."
-      );
-    }
-  }
-
-  if (restoresOnBoot) {
-    // The rule that makes the restore safe rather than presumptuous.
-    const policy = read("android", "app", "src", "main", "java", "com", "usha", "fitshield", "RestorePolicy.kt");
-    assert.ok(
-      /Event\.USER_DISABLED\s*->\s*false/.test(policy),
-      "the boot-restore policy no longer records an explicit user disable as off, so a restart could turn " +
-        "protection on for someone who turned it off"
-    );
-    assert.ok(
-      /Event\.SERVICE_DESTROYED\s*->\s*null/.test(policy),
-      "a destroyed service now overwrites the user's stored instruction; a reboot or a low-memory kill would " +
-        "then leave protection off forever with nobody having asked"
-    );
-  }
-});

@@ -39,11 +39,11 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 
 ## Short description (80 chars max)
 
-> Pause before you order. Block food delivery & fast-food apps and sites — locally.
+> Pause before you order. Block food delivery & fast-food apps. A mindful pause, locally.
 
 (79 chars. Alternates:
-- "Block food delivery & fast-food apps/sites. A mindful pause, 100% on-device."
-- "Make ordering a choice, not a reflex. Local food-app & site blocker.")
+- "Block food delivery & fast-food apps. A mindful pause, 100% on-device."
+- "Make ordering a choice, not a reflex. Local food-app blocker.")
 
 ## Full description (4000 chars max)
 
@@ -56,28 +56,25 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 > in control; FitShield just adds friction.
 >
 > **What it does**
-> • Blocks food-delivery & fast-food **websites** system-wide with a local,
-> on-device connection filter (works with Private DNS / NextDNS enabled)
-> • Blocks food **apps** you choose, with a pause screen instead of the app
-> (opt-in Accessibility service)
+> • Blocks food-delivery & fast-food **apps** you choose, with a pause screen
+> instead of the app (opt-in Accessibility service)
 > • 2,500+ curated brands across delivery, fast food, coffee, dessert, grocery
-> and meal kits — every one of them blockable as a **site**, and the ones that
-> have their own Android app blockable as an **app** as well
-> • Add your own domains for anything the catalog misses
+> and meal kits — the ones that have their own Android app are blockable here
+> • Blocks apps only; to block the same brands' **websites**, use the FitShield
+> browser extension (Chrome, Firefox)
 > • Schedules for the hours that actually catch you out, reflection timers, and
 > temporary passes scoped to the one brand you opened, not a blanket switch-off
 > • 88 at-home alternatives — the pause screen suggests one matched to the brand
 > you were about to order from, with how long it takes, instead of just a wall
-> • One honest number: ordering pages interrupted. Plus a private breakdown of
+> • One honest number: ordering pages interrupted. Plus a private per-app count of
 > what you were blocked from most — computed on your phone, shown only to you,
 > never uploaded. No invented savings, no invented calories
 > • 83 languages, dark/light themes with full color customization
 >
 > **Privacy first — everything stays on your device**
 > • No account, no cloud, no ads, no analytics, no telemetry
-> • The VPN is a local filter only: it never tunnels your traffic to any server,
-> never decrypts HTTPS, never touches DNS, and sends nothing to FitShield —
-> there are no FitShield servers
+> • No internet access at all — the app does not request the INTERNET
+> permission, so nothing can be sent anywhere
 > • The optional Accessibility service reads only which app comes to the
 > foreground — never screen content, messages, or passwords
 > • Free and open source
@@ -109,7 +106,7 @@ guaranteed weight-loss language** — FitShield is a mindfulness/friction tool._
 > allergens, pantry, equipment or available time. Those are the `settings`
 > argument, and Android passes `{}` because the Android app has no kitchen,
 > diet or allergen preferences at all. **Never put an allergen-matching claim on
-> this listing**, and phrase the matching as "matched to the site you were about
+> this listing**, and phrase the matching as "matched to the brand you were about
 > to order from" rather than to the person.
 >
 > *May not be, and this is newer:* that the pause screen shows **ingredient
@@ -157,7 +154,8 @@ status/nav bars look best). Suggested set, in order:
    count line reading how many of how many match.
 6. **Theme customization** — color pickers mid-edit, a non-default accent.
 7. **Language picker** — showing localization breadth.
-8. **Stats detail** — most-blocked sites / categories / countries / apps.
+8. **Stats detail** — most-blocked apps. Do not use any shot
+   that shows website blocking or a "Site blocking (VPN)" row.
 
 Overlay short captions (≤6 words) per screenshot, e.g. "Pause before you
 order", "Your stats stay on-device".
@@ -184,12 +182,20 @@ order", "Your stats stay on-device".
 
 ## Release notes — "What's new" (500 chars max per entry)
 
+**versionName 1.0 (versionCode 9):**
+
+> • FitShield now blocks food-delivery and fast-food apps only. Website
+> blocking has been removed from the Android app, along with the internet and
+> boot permissions
+> • Website blocking stays available in the FitShield browser extension
+> • Your settings, schedules, timers and allowed apps carry over unchanged
+
 **versionName 0.55 (versionCode assigned at upload — it must strictly increase):**
 
 > • A calmer pause screen: what was interrupted, how long is left, and one thing
 > you could make instead
 > • Honest statistics — one counter for ordering pages interrupted, plus a
-> private breakdown of what blocked you most. No invented savings or calories
+> private per-app count of what blocked you most. No invented savings or calories
 > • Temporary passes are scoped to the one app you opened, never a blanket
 > switch-off
 > • The pause screen suggests something matched to the brand you opened
@@ -204,8 +210,8 @@ injects it, so there is no number to maintain here; this draft said `0.54` for
 three releases):
 
 > First release of FitShield for Android.
-> • Blocks food-delivery & fast-food websites with a local, on-device filter — no traffic ever leaves your phone
-> • Optional app blocking with a mindful pause screen, stats, and recipe ideas
+> • Blocks food-delivery & fast-food apps with a mindful pause screen
+> • Stats and recipe ideas on the pause screen
 > • 2,500+ curated brands, with app mappings researched by hand
 > • 83 languages, dark/light themes
 > • No account, no ads, no analytics — everything stays on your device
@@ -223,18 +229,16 @@ Full wording and the exact form answers live in
 [PLAY_STORE_RELEASE_CHECKLIST.md §7](PLAY_STORE_RELEASE_CHECKLIST.md#7-play-console-declarations)
 and [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md). Summary:
 
-- **Developer account must be an organization**, not a personal one — Google
-  requires it for apps approved to use `VpnService`, and it cannot be changed
-  after signup. This gates everything else on this page.
+- **No `VpnService` since 1.0**, so no VpnService declaration and no
+  organization-account requirement on that basis. Earlier artifacts that
+  declared it must be replaced or deactivated on every track — see
+  [PLAY_1.0_RESUBMISSION.md](PLAY_1.0_RESUBMISSION.md).
 - **Data safety:** no data collected, none shared, on-device only. Because
   collection is No, Play never asks the encryption-in-transit or
   deletion-request follow-ups.
-- **VpnService:** declare it as a **local firewall / content filter**, not a VPN.
-  No tunnel, no endpoint, no inspection beyond the cleartext destination host,
-  no DNS changes.
 - **AccessibilityService:** reads the foreground package name only; user opt-in;
   `isAccessibilityTool` deliberately not claimed. A demo video is required.
-- **Foreground services:** `specialUse` ×2 (VPN filter, optional keep-alive) with
+- **Foreground services:** `specialUse` ×1 (the optional keep-alive) with
   the manifest `<property>` justifications quoted verbatim.
 - **Ads:** none. **Advertising ID:** none. **IAP:** none. **Target audience:**
   adults, not child-directed. **Content rating:** complete IARC (expect
@@ -244,42 +248,35 @@ and [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md). Summary:
 - **App access notes for reviewers:** "All features work without an account.
   To see app blocking: Settings → enable app blocking → enable the FitShield
   accessibility service when prompted → open any blocked food app (e.g.
-  McDonald's). To see site blocking: tap Enable FitShield → accept the VPN
-  consent → visit doordash.com in any browser. The release build is not
+  McDonald's). The app blocks apps only. The release build is not
   minified; this is deliberate, as the project ships auditable source."
-- **Say this before the reviewer has to ask it.** `VpnService` +
-  `AccessibilityService` + display-over-other-apps + a boot receiver + a
-  foreground service is, in combination, the permission profile of stalkerware.
-  Volunteer the shape of it: every one of the five is user-initiated and
+- **Say this before the reviewer has to ask it.** `AccessibilityService` +
+  display-over-other-apps + a foreground service is a profile a reviewer will
+  look at twice. Volunteer the shape of it: each is user-initiated and
   individually revocable, the accessibility service is configured
-  `canRetrieveWindowContent="false"` so it cannot read screen content at all, the
-  VPN has no remote endpoint and relays allowed traffic byte-for-byte to the
-  destination the client chose, the overlay permission draws nothing (it is held
-  only so the pause screen may be launched from the background), the boot
-  receiver restores only the setting the user themselves last chose, and the
-  whole thing is open source with no network destination of its own.
+  `canRetrieveWindowContent="false"` so it cannot read screen content at all,
+  the overlay permission draws nothing (it is held only so the pause screen may
+  be launched from the background), the foreground service is opt-in and does no
+  work, and the app requests no `INTERNET` permission, so it cannot transmit
+  anything. The whole thing is open source.
 
 ## Closed testing instructions (for testers)
 
 1. Join the closed track via the opt-in link (Play Console → Testing → Closed).
 2. Install FitShield from Play.
-3. Site blocking: tap **Enable FitShield**, accept the one-time VPN dialog, then
-   try `doordash.com` in your browser → it should fail to connect
-   (ERR_CONNECTION_RESET) while normal sites load. Works with Private DNS on.
-4. App blocking: open **Block apps on this phone**, toggle **Enable app
+3. App blocking: open **Block apps on this phone**, toggle **Enable app
    blocking**, tap **Open Accessibility settings** and enable FitShield, then
    open a blocked food app → the pause screen should appear and stay.
-5. Try: "Not now", "Open anyway" (timer, then temporary unlock — it should
+4. Try: "Not now", "Open anyway" (timer, then temporary unlock — it should
    unlock only the app you opened, not everything), schedule on/off, keep-alive
    toggle, battery optimization on/off. **Report whether you ever see any
-   FitShield notification at all** — on Android 13+ the app has never asked
-   for notification permission, so you probably will not, and we need to know
-   which devices that bites on.
-6. **Reboot the phone and then check both halves of blocking separately.** Both
-   should come back on their own. Then turn FitShield **off**, reboot again, and
-   confirm it stays off — it must never switch itself on for someone who turned
-   it off.
-7. Report: device model, Android version, and any case where a *non-food* app
+   FitShield notification at all** — on Android 13+ the app asks for notification
+   permission only for the opt-in keep-alive's quiet notice, so you may not see
+   one, and we need to know which devices that bites on.
+5. **Reboot the phone** with app blocking on and confirm it is still blocking
+   without opening FitShield. Then turn FitShield **off**, reboot again, and
+   confirm it stays off.
+6. Report: device model, Android version, and any case where a *non-food* app
    was blocked (should never happen) or a block screen flashed and vanished.
 
 ## Production rollout plan
@@ -289,13 +286,12 @@ and [PRIVACY_POLICY_ANDROID_NOTES.md](PRIVACY_POLICY_ANDROID_NOTES.md). Summary:
    budget device).
 2. **Closed beta** — 2+ weeks: watch the pre-launch report, ANR/crash-free
    ≥99.5%. Play's "12 testers opted in for 14 continuous days" rule applies only
-   to *personal* accounts created after 13 November 2023, and `VpnService`
-   forces an organization account, so it does not apply here. Do a closed beta
-   anyway — real devices are the only place the VPN-consent and accessibility
-   flows get exercised.
+   to *personal* accounts created after 13 November 2023. Do a closed beta
+   anyway — real devices are the only place the accessibility flow gets
+   exercised.
 3. **Production, staged:** 10% → 3 days clean → 50% → 3 days → 100%.
-4. **Halt criteria:** any false-positive blocking of non-food apps, VPN
-   breaking general connectivity, accessibility loop, or crash-free <99%.
+4. **Halt criteria:** any false-positive blocking of non-food apps,
+   accessibility loop, or crash-free <99%.
 5. Each release: bump `versionCode`, tag `versionName` in `changelog/`, rebuild
    AAB with the exact command in the release checklist §9.
 

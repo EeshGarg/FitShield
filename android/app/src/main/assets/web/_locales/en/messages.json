@@ -9,7 +9,7 @@
   },
   "androidAppTagline": {
     "message": "Stay mindful of food delivery and fast-food ordering.",
-    "description": "Android: the one-line tagline under the app name on the dashboard. appDescription calls FitShield a browser extension, which is true in a browser and false in the APK, where it is a native app with a VpnService — so the native UI uses this key instead."
+    "description": "Android: the one-line tagline under the app name on the dashboard. appDescription calls FitShield a browser extension, which is true in a browser and false in the APK, where it is a native app that pauses food-delivery apps — so the native UI uses this key instead."
   },
   "actionTitle": {
     "message": "FitShield",

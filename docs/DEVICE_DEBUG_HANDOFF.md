@@ -1,5 +1,19 @@
 # Device debug handoff
 
+> **Release 1.0 note.** This file is the record of a **0.56** device session. It
+> describes a connection filter (`VpnService`, `Tun2Filter`), boot restore and
+> IPv6/Private DNS behaviour that **no longer exist**: Google Play rejected the
+> `VpnService`, and 1.0 removed it, the boot receiver, `INTERNET` and the
+> generated rules asset. Android 1.0 blocks apps only, through the
+> AccessibilityService. Read §3.1 (icon), §3.5 (notification permission, in so far
+> as it concerns the keep-alive), §3.6 (app blocking and the accessibility
+> disclosure), §3.7 (pause screen), §3.8 (statistics) and §3.9 (battery) as
+> current; read §3.2-§3.4 as history. For the 1.0 on-device check, test only:
+> install over 0.56 (settings survive, the VPN entry is gone), enable the
+> accessibility service, open a blocked food app and confirm the pause screen,
+> reboot, and confirm a browser can open a blocked brand's site (Android does
+> not block websites).
+
 **This has now been run on a phone** — a Samsung Galaxy S24 Ultra (SM-S928U1) on
 Android 16 / One UI 8.5, over ADB. [§3](#3-what-the-device-settled) is the
 record of what each item actually did.
@@ -109,10 +123,10 @@ So the session does not re-derive it:
 
 - The APK builds here (`npm run build:android`), and a signed AAB builds with
   `node tools/build-android.js --bundle --versionCode=<int>`.
-- 2,505 curated brands reach the phone as 1,511 app packages plus a rules
-  asset; the packaged data hash-matches the repository's canonical files.
+- 2,505 curated brands reach the phone as 1,512 app packages (the 1.0 build
+  ships no rules asset); the packaged data hash-matches the repository's canonical files.
 - `targetSdk` / `compileSdk` are 36, `minSdk` 26.
-- Six `uses-permission` entries, no `QUERY_ALL_PACKAGES`, `allowBackup="false"`.
+- Four `uses-permission` entries (as of 1.0; this session ran with six), no `QUERY_ALL_PACKAGES`, `allowBackup="false"`.
 - The launcher icon is generated from `brand/fitshield-f-512.png` by
   `tools/make-android-icon.js` and is present in the APK at
   `res/drawable-nodpi-v4/ic_launcher_foreground.png`.

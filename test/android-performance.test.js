@@ -42,7 +42,7 @@ const core = require("../extension/fitshield-core.js");
 const SEEDED = Object.freeze({
   androidWelcomed: true,
   blockedVisits: 137,
-  blockedByDomain: { "doordash.com": 9, "mcdonalds.com": 4 }
+  blockedByApp: { "DoorDash": 9, "McDonald's": 4 }
 });
 
 /** The minimum `AndroidBlock` the pause screen needs to render. */
@@ -112,7 +112,7 @@ test("coming back to the app refreshes the statistics, not only the permission r
 
   page.document.hidden = true;
   page.store.blockedVisits = 424;
-  page.store.blockedByDomain = { "ubereats.com": 41 };
+  page.store.blockedByApp = { "Uber Eats": 41 };
   await page.tick();
 
   // …and the user comes back.
@@ -124,7 +124,7 @@ test("coming back to the app refreshes the statistics, not only the permission r
     "the statistics were stale on resume. With the poll paused while hidden, a resume handler that covers only the " +
       "permission rows leaves most of the screen showing whatever it showed when the user left."
   );
-  assert.match(page.text("mostBlocked"), /ubereats\.com/, "the ranked list was stale on resume");
+  assert.match(page.text("mostBlockedApps"), /Uber Eats/, "the ranked list was stale on resume");
 });
 
 test("a tick while visible does pick new statistics up", async () => {
@@ -159,7 +159,7 @@ test("a tick while visible does pick new statistics up", async () => {
 test("a tick that finds nothing new does not rebuild the ranked lists", async () => {
   const page = await loadPage({ page: "index.html", script: "app.js", store: { ...SEEDED } });
 
-  const list = page.document.getElementById("mostBlocked");
+  const list = page.document.getElementById("mostBlockedApps");
   const rowsBefore = list.childNodes.slice();
   assert.ok(rowsBefore.length > 0, "the ranked list needs rows before this can assert anything about rebuilding them");
 
@@ -175,14 +175,14 @@ test("a tick that finds nothing new does not rebuild the ranked lists", async ()
 test("a tick that finds new counts DOES rebuild them", async () => {
   const page = await loadPage({ page: "index.html", script: "app.js", store: { ...SEEDED } });
 
-  const list = page.document.getElementById("mostBlocked");
+  const list = page.document.getElementById("mostBlockedApps");
   const rowsBefore = list.childNodes.slice();
 
-  page.store.blockedByDomain = { "ubereats.com": 41 };
+  page.store.blockedByApp = { "Uber Eats": 41 };
   await page.tick();
 
   assert.notDeepEqual(list.childNodes, rowsBefore, "write-if-changed must still write when there is something to write");
-  assert.match(page.text("mostBlocked"), /ubereats\.com/);
+  assert.match(page.text("mostBlockedApps"), /Uber Eats/);
 });
 
 test("a tick that finds nothing new does not rewrite the headline either", async () => {
@@ -206,16 +206,16 @@ test("a tick that finds nothing new does not rewrite the headline either", async
 // The version/host line is built from two values that cannot change while the
 // process lives — the APK's own versionName and the size of a packaged asset — so
 // it is derived once. It still has to be RIGHT, which is the half a memo can break.
-test("the version and blocked-domain line is rendered, and survives the poll", async () => {
+test("the footer version is rendered and survives the poll; no blocked-domain count is shown", async () => {
   const page = await loadPage({ page: "index.html", script: "app.js", store: { ...SEEDED } });
 
-  const meta = page.text("meta");
-  assert.match(meta, /blocked domains/, "the headline should say how many domains are blockable");
-  assert.match(meta, /rules v/, "…and which rules version is on the device");
-
+  assert.match(page.text("footerVersion"), /FitShield \d/, "the footer version should be rendered");
   await page.tick();
-  assert.equal(page.text("meta"), meta, "memoising the immutable values must not blank the line they build");
-  assert.match(page.text("footerVersion"), /FitShield \d/, "the footer version survives too");
+  assert.match(page.text("footerVersion"), /FitShield \d/, "the footer version survives the poll");
+  assert.ok(
+    !page.document.getElementById("meta"),
+    "the 'N blocked domains / rules v' line came back; Android no longer blocks domains"
+  );
 });
 
 // ---------------------------------------------------------------------------
@@ -550,11 +550,12 @@ test("a pause length above the product's range is clamped before it is stored", 
   assert.equal((await setNumber(page, "timerSeconds", 1)).timerSeconds, 10, "…and below it, to the minimum");
 });
 
-test("the pass duration is clamped at both ends too", async () => {
-  const page = await loadPage({ page: "index.html", script: "app.js", store: { ...SEEDED } });
+test("the per-app unlock duration is clamped at both ends too", async () => {
+  const page = await loadPage({ page: "index.html", script: "app.js", store: { ...SEEDED }, appBlocking: appBlockingWith(1512) });
 
-  assert.equal((await setNumber(page, "passMinutes", 999)).passDurationMinutes, 240);
-  assert.equal((await setNumber(page, "passMinutes", 120)).passDurationMinutes, 120);
+  assert.equal((await setNumber(page, "appUnlockMinutes", 999)).appUnlockMinutes, 240);
+  assert.equal((await setNumber(page, "appUnlockMinutes", 120)).appUnlockMinutes, 120);
+  assert.equal((await setNumber(page, "appUnlockMinutes", 0)).appUnlockMinutes, 1);
 });
 
 // The same numbers core would store, for the same input, including the two edges
@@ -564,7 +565,7 @@ test("the pass duration is clamped at both ends too", async () => {
 // is wrong on its own; the two platforms answering differently is the bug this row
 // of §2e exists for.
 test("the dashboard stores exactly what fitshield-core would store, edges included", async () => {
-  const page = await loadPage({ page: "index.html", script: "app.js", store: { ...SEEDED } });
+  const page = await loadPage({ page: "index.html", script: "app.js", store: { ...SEEDED }, appBlocking: appBlockingWith(1512) });
 
   for (const typed of [0, 1, 9, 10, 11, 60, 600, 900, 901, 4000, "", "abc", "45.7"]) {
     assert.equal(
@@ -576,9 +577,9 @@ test("the dashboard stores exactly what fitshield-core would store, edges includ
 
   for (const typed of [0, 1, 5, 240, 241, 999, "abc"]) {
     assert.equal(
-      (await setNumber(page, "passMinutes", typed)).passDurationMinutes,
+      (await setNumber(page, "appUnlockMinutes", typed)).appUnlockMinutes,
       core.normalizePassDurationMinutes(typed === "abc" ? undefined : typed),
-      `the dashboard and fitshield-core disagree about what to store for a typed pass duration of ${JSON.stringify(typed)}`
+      `the dashboard and fitshield-core disagree about what to store for a typed unlock duration of ${JSON.stringify(typed)}`
     );
   }
 });
@@ -604,7 +605,6 @@ const appBlockingWith = (count) => ({
   list: () => Promise.resolve([]),
   packageCount: () => Promise.resolve(count),
   accessibilityEnabled: () => Promise.resolve(true),
-  vpnEnabled: () => Promise.resolve(true),
   overlayEnabled: () => Promise.resolve(true),
   notificationsEnabled: () => Promise.resolve(true),
   batteryUnrestricted: () => Promise.resolve(true),
@@ -639,8 +639,8 @@ test("zero blockable apps is reported, not left blank", async () => {
     `the line says "${line}", which does not tell the user app blocking cannot work`
   );
   assert.match(
-    line, /[Ss]ite blocking is unaffected/,
-    "it must also say what still works, or the user reads it as FitShield being broken outright"
+    line, /[Rr]einstall/,
+    "it must also say what to do, or the user reads it as FitShield being broken outright"
   );
 });
 

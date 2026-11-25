@@ -5,8 +5,8 @@
   "generator": "tools/generate-android-packages.js",
   "counts": {
     "brands": 2505,
-    "packages": 1511,
-    "needsReview": 37,
+    "packages": 1512,
+    "needsReview": 36,
     "noApp": 757,
     "sharedApp": 266
   },
@@ -11092,6 +11092,18 @@
       "foodCategory": "fast_casual",
       "foodType": "fast_food",
       "specialties": []
+    },
+    "com.sweetgreen.android.app": {
+      "brandId": "sweetgreen.com",
+      "displayName": "Sweetgreen",
+      "category": "fast_food",
+      "foodCategory": "fast_casual",
+      "foodType": "fast_food",
+      "specialties": [
+        "salads",
+        "grain bowls",
+        "warm bowls"
+      ]
     },
     "com.swensens1112.swensens": {
       "brandId": "swensens1112.com",

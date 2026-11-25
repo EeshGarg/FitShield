@@ -22,6 +22,14 @@ and the Data safety answers) and [STORE_LISTING_DRAFT.md](STORE_LISTING_DRAFT.md
 >   do (it needs the Play Console, a signing key, a device, or a person), with
 >   the exact action written out.
 >
+> **1.0 (2026-11-25).** Google Play rejected versionCode 8 (0.56): _"Use of
+> VpnService is not a permitted use case."_ FitShield 1.0 removes `VpnService`
+> entirely, together with the boot receiver and the `INTERNET` permission.
+> Android now blocks food-delivery and fast-food **apps** only (through the
+> opt-in AccessibilityService); Android no longer blocks websites — that stays
+> with the Chrome/Firefox extension. The exact Console steps for the
+> resubmission are in [PLAY_1.0_RESUBMISSION.md](PLAY_1.0_RESUBMISSION.md).
+>
 > A line with neither fails `test/play-release.test.js` ›
 > _"every checklist line carries evidence or is marked HUMAN"_. That is the
 > whole point: prose is how the numbers rotted last time.
@@ -38,20 +46,13 @@ These five get a submission rejected, blocked, or — in the last case — quiet
 uninstallable months after it ships. Everything else in this file is downstream
 of them.
 
-- [ ] **Developer account must be an ORGANIZATION, not a personal account.**
-      `HUMAN — Play Console, before anything else.` Google requires an
-      organization account for "apps approved to use the `VpnService` class"
-      (alongside financial, health and government apps). FitShield uses
-      `VpnService`, so this applies. An organization account needs a **D-U-N-S
-      number**, and **you cannot convert a personal account to an organization
-      account later** — choosing wrong at signup means starting over with a new
-      account and a new $25 fee.
-      Source: [Play Console requirements](https://support.google.com/googleplay/android-developer/answer/10788890).
-      - Side effect, and a welcome one: the "12 testers opted in for 14
-        continuous days" closed-testing requirement applies **only to personal
-        accounts created after 13 November 2023**. An organization account is
-        exempt and may publish straight to production.
-        Source: [App testing requirements for new personal developer accounts](https://support.google.com/googleplay/android-developer/answer/14151465).
+- [ ] **Developer account type.** `HUMAN — Play Console.` As of 1.0 the app
+      declares no `VpnService`, so Google's organization-account requirement for
+      VPN apps no longer applies. A personal account created after 13 November
+      2023 must still run a closed test with 12 testers opted in for 14
+      continuous days before it can apply for production access; an account that
+      is not subject to that requirement may publish straight to production.
+      Source: [App testing requirements for new personal developer accounts](https://support.google.com/googleplay/android-developer/answer/14151465).
 
 - [x] **Target API level.** Play requires **API 36 (Android 16) for new apps and
       updates submitted from 31 August 2026**; API 35 is accepted only until
@@ -76,10 +77,15 @@ of them.
       signing steps it still needs from you.
       _Evidence: `test/play-release.test.js` › "the checklist does not claim a release-bundle command the tooling does not have"._
 
-- [ ] **`VpnService` declaration form completed and approved.** `HUMAN — Play
-      Console.` Mandatory for every app that uses `VpnService`; §7 has the exact
-      answers to give. Source:
-      [Understanding Google Play's VpnService policy](https://support.google.com/googleplay/android-developer/answer/12564964).
+- [x] **No `VpnService` anywhere in the manifest, for every artifact on every
+      track.** Play's rejection of versionCode 8 said exactly this: remove the
+      service element "for all artifacts across all release tracks". 1.0
+      removes the service, `BIND_VPN_SERVICE`, the boot receiver and `INTERNET`.
+      Any earlier release still live on a track keeps the violation until it is
+      replaced or deactivated — see
+      [PLAY_1.0_RESUBMISSION.md](PLAY_1.0_RESUBMISSION.md). No VpnService
+      declaration form is filed or needed.
+      _Evidence: `test/play-release.test.js` — the manifest tests assert the declared permission set and the absence of the VPN service._
 
 - [ ] **Register the package name for Android developer verification.**
       `HUMAN — Play Console home page.` From **30 September 2026**, an app not
@@ -172,7 +178,8 @@ of them.
       used the default twice.** Play rejects a re-used `versionCode` and there
       is no way to reclaim one.
 - [ ] **Record the `versionName` ↔ `versionCode` pair** in
-      `changelog/<versionName>.md` at upload time. `HUMAN — the pair is only
+      `changelog/<versionName>.md` at upload time (1.0 ↔ 9; 0.56 ↔ 8 was the
+      rejected build and is burned). `HUMAN — the pair is only
       known once you choose it.`
 - [x] The version is stated identically in `extension/manifest.json`,
       `package.json`, `changelog.json` and `changelog/<version>.md`.
@@ -243,9 +250,8 @@ build is left **unsigned** — a deliberate safe default, not a failure.
       `setWebContentsDebuggingEnabled(true)` is guarded by `BuildConfig.DEBUG` in
       both `MainActivity` and `BlockActivity`.
       _Evidence: `tools/android-audit.js` (fails an unguarded call) and `test/play-release.test.js` › "release hygiene: no debug artefacts, minification stated honestly"._
-- [x] **No hostnames or filtering decisions reach release logcat.** WebView
-      console logging and `Tun2Filter`'s per-connection RST log — which names the
-      blocked host — are both inside `if (BuildConfig.DEBUG)`.
+- [x] **No package names or blocking decisions reach release logcat.** WebView
+      console logging and any per-event logging are inside `if (BuildConfig.DEBUG)`.
       _Evidence: `test/play-release.test.js` › "release hygiene: no debug artefacts, minification stated honestly"._
 - [x] **The manifest never forces `android:debuggable="true"`.** AGP sets it false
       for release.
@@ -267,44 +273,25 @@ fails the test, and so does the reverse.
 
 | Permission | Why | What the user sees |
 | --- | --- | --- |
-| `INTERNET` | relay allowed connections to the destination the client already chose | — |
-| `FOREGROUND_SERVICE` | the VpnService and the optional keep-alive run as foreground services | an ongoing notification, *if* notification permission was granted — see below |
-| `FOREGROUND_SERVICE_SPECIAL_USE` | required on Android 14+ for the `specialUse` FGS type both services declare | — |
-| `POST_NOTIFICATIONS` | the foreground-service notification, the opt-in keep-alive notice, and the boot-restore notice (Android 13+) | nothing — see below |
+| `FOREGROUND_SERVICE` | the optional keep-alive runs as a foreground service | an ongoing notification, *if* notification permission was granted — see below |
+| `FOREGROUND_SERVICE_SPECIAL_USE` | required on Android 14+ for the `specialUse` FGS type the keep-alive declares | — |
+| `POST_NOTIFICATIONS` | the opt-in keep-alive's foreground-service notification (Android 13+) | nothing — see below |
 | `SYSTEM_ALERT_WINDOW` | optional "display over other apps", so the block screen launches reliably over a blocked app | user-granted in system settings, explained in-app |
-| `RECEIVE_BOOT_COMPLETED` | bring the connection filter back after a restart or an app update — and only for a user who had it on | protection is simply still there |
 
-`RECEIVE_BOOT_COMPLETED` is worth a sentence to a reviewer, because a boot
-receiver that starts a foreground service is a pattern Play looks at. FitShield's
-starts nothing unless the stored instruction — written only by an explicit
-enable or disable in the app — says the user had the filter on, and unless
-Android still holds their VPN consent. If consent has lapsed it posts one
-notification instead of starting anything. `BOOT_COMPLETED` and
-`MY_PACKAGE_REPLACED` are both protected system broadcasts and both sit on
-Android's exemption list for starting a foreground service from the background,
-so the restore is legal rather than a loophole.
+**Not requested, as of 1.0:** `INTERNET` (the app has no network code and makes
+no connection at all), `RECEIVE_BOOT_COMPLETED` (there is nothing to restore —
+the accessibility service is re-bound by Android itself, and no connection
+filter exists), and `BIND_VPN_SERVICE` (no `VpnService`). They were removed
+together with the VPN service for Play policy compliance.
 
 **`POST_NOTIFICATIONS` is requested at runtime, at the moment it can be
-justified.** `MainActivity.requestVpnEnable()` asks for it immediately before
-the VPN consent dialog — the first time the user turns filtering on — and
-continues into the consent flow whether the answer is yes or no, so a decline
-never blocks protection. Android shows that dialog once; FitShield never asks
-again.
-
-If the user declines, or turns notifications off later, the dashboard says what
-stops working rather than leaving it to be discovered:
-`WebAppBridge.notificationsEnabled()` reports the state and the app-blocking
-panel explains that the boot-restore notice cannot appear, with a button to the
-system setting. The order of seriousness is worth keeping in the reviewer notes:
-
-- the foreground-service notification not appearing is cosmetic — the service
-  still runs, and the OS still shows the VPN key and a Task Manager entry;
-- the opt-in keep-alive's quiet notice not appearing is harmless;
-- **the boot-restore notice not appearing is not.** It is the entire fallback
-  for a restart where VPN consent has lapsed, so a device that refused
-  notification permission must be told the fallback is unavailable.
+justified.** If the user declines, or turns notifications off later, the
+dashboard says so rather than leaving it to be discovered, and the only thing
+that changes is that the opt-in keep-alive's quiet notice does not appear; app
+blocking itself is unaffected.
 
 _Evidence: `test/play-release.test.js` › "the docs say whether the app can actually post a notification"; `test/android-release-hardening.test.js` › "POST_NOTIFICATIONS is requested at runtime, not merely declared"._
+
 **`SYSTEM_ALERT_WINDOW` never actually draws an overlay, and saying so is worth
 more than justifying one.** The app holds the permission only for the
 side effect that holding it grants: on Android 10+ an app with "display over
@@ -315,25 +302,22 @@ only place the permission is touched at all is a `Settings.canDrawOverlays()`
 check in `WebAppBridge`, used to tell the user whether the feature will be
 reliable. Nothing is ever drawn on top of another app's UI.
 
-**Expect the permission profile itself to draw attention.** `VpnService` +
-`AccessibilityService` + "display over other apps" + a boot receiver + a
-foreground service is, in combination, the exact shape of stalkerware, and a
-reviewer who pattern-matches on it is doing their job. Get in front of it in the
-reviewer notes: every one of the five is user-initiated and individually
-revocable, the accessibility service cannot read window content, the VPN has no
-remote endpoint, the overlay permission draws nothing, the boot receiver only
-restores a setting the user themselves last set, and the app is open source with
-no network destination of its own. The individual justifications are in §7; this
-paragraph is about the picture they make together.
+**Expect the permission profile itself to draw attention.**
+`AccessibilityService` + "display over other apps" + a foreground service is
+still a combination a reviewer will look at twice. Get in front of it in the
+reviewer notes: each is user-initiated and individually revocable, the
+accessibility service cannot read window content (it receives only the
+foreground package name), the overlay permission draws nothing, the foreground
+service is opt-in and does no work, and the app requests no network permission
+at all, so it cannot transmit anything. The individual justifications are in §7.
 
-Two more are **OS gates declared on the services**, not requested from the user:
+One more is an **OS gate declared on the service**, not requested from the user:
 
 | Gate | On | What the user sees |
 | --- | --- | --- |
-| `BIND_VPN_SERVICE` | `FitShieldVpnService` | the one-time system VPN consent dialog |
 | `BIND_ACCESSIBILITY_SERVICE` | `FitShieldAccessibilityService` | opt-in in system Accessibility settings |
 
-- [x] **The manifest declares exactly those six `uses-permission` entries and no
+- [x] **The manifest declares exactly those four `uses-permission` entries and no
       others**, and the audit's allowlist agrees with this table.
       _Evidence: `test/play-release.test.js` › "the permission table names exactly the permissions the manifest declares"._
 - [x] **Package visibility is a scoped `<queries>` for MAIN/LAUNCHER, not
@@ -341,11 +325,6 @@ Two more are **OS gates declared on the services**, not requested from the user:
       `QUERY_ALL_PACKAGES` would trigger a Play declaration form that FitShield
       then does not have to file.
       _Evidence: `test/play-release.test.js` › "the permission table names exactly the permissions the manifest declares"._
-- [ ] **Nothing requests `POST_NOTIFICATIONS`, so on Android 13+ it is denied
-      and the boot-restore notice cannot be seen.** `HUMAN — routed to the Android
-      lane.` See the note above for why this matters more than a missing
-      foreground-service notification would.
-      _Evidence: `test/play-release.test.js` › "the docs say whether the app can actually post a notification"._
 - [x] **No overlay window is ever created**, so the "display over other apps"
       permission is held for the background-activity-launch exemption alone.
       _Evidence: `test/play-release.test.js` › "the overlay permission draws nothing, which is the strongest thing to tell a reviewer"._
@@ -362,23 +341,19 @@ Two more are **OS gates declared on the services**, not requested from the user:
 These cannot be asserted from a repository. Each needs a phone.
 
 - [ ] **A fresh install blocks nothing until the user turns it on.** `HUMAN — device.`
-      Nothing is blocked before consent, and both halves are gated by a
-      permission only the user can grant: site blocking needs the one-time VPN
-      consent dialog, and app blocking needs the accessibility service, which is
-      a system opt-in shown after the in-app disclosure.
-      `appBlockingEnabled` itself defaults **true** as of 0.56 — every
-      `appBlock*` category already did, and the master switch defaulting false
-      meant a user who enabled FitShield and granted accessibility still had
-      every food app open normally, with no visible reason why. The default
-      grants nothing on its own: with no accessibility service there is nothing
-      to act on it.
-- [ ] **Enable/disable cycles, VPN restarts, Accessibility toggles.** `HUMAN — device.`
-- [ ] **Reboot, twice.** `HUMAN — device.` Once with the filter **on** — it must
-      come back by itself — and once with it **off**, which must stay off. Then
-      revoke VPN consent (Settings → VPN → forget FitShield) and reboot again:
-      the app must post a single notification offering one tap rather than
-      starting anything or staying silent. Also reboot with app blocking on, and
-      confirm both halves are back rather than just the accessibility one.
+      Nothing is blocked before consent: app blocking is gated by the
+      accessibility service, a system opt-in shown after the in-app disclosure.
+      `appBlockingEnabled` itself defaults **true** — the default grants nothing
+      on its own, because with no accessibility service there is nothing to act
+      on it.
+- [ ] **Enable/disable cycles and Accessibility toggles.** `HUMAN — device.` The
+      main "Enable FitShield" switch controls app blocking.
+- [ ] **Upgrade from 0.56 keeps the user's settings.** `HUMAN — device.` Install
+      0.56, change a few settings, install 1.0 over it: preferences, schedules
+      and per-app allows survive, and no VPN entry or VPN key remains.
+- [ ] **Reboot with app blocking on.** `HUMAN — device.` Android re-binds the
+      accessibility service itself; confirm blocking is back without opening
+      FitShield.
 - [ ] **Battery optimisation on and off**, with and without the opt-in keep-alive.
       `HUMAN — device.`
 - [ ] **Keep-alive is off by default**, and when on does no work. `HUMAN — device.`
@@ -388,45 +363,28 @@ These cannot be asserted from a repository. Each needs a phone.
 - [ ] **No false blocks.** A non-food app must never be interrupted, and there
       must be no accessibility/overlay loop. `HUMAN — device.` This is also the
       first halt criterion in the rollout plan.
-- [ ] **Blocking works with strict Private DNS on** (e.g. NextDNS). `HUMAN — device.`
-      The filter reads TLS SNI / HTTP Host and never touches DNS, so it should —
-      but "should" is why this line exists.
-- [ ] **An IPv6-only network still has working internet, and is still filtered.**
-      `HUMAN — device.` Both halves matter: the filter now parses IPv6 rather
-      than dropping it, so a mobile network with no IPv4 must neither go dark nor
-      let a blocked brand through.
+- [ ] **Websites are not blocked by the Android app, and the UI does not claim
+      they are.** `HUMAN — device.` Open a blocked brand's website in a browser:
+      it loads. Site blocking on Android is available only through the
+      extension on Firefox for Android.
 
 ## 7. Play Console declarations
 
 Everything here is `HUMAN — Play Console`. The wording is drafted so it can be
 pasted, and the parts that quote the app are checked against the app.
 
-### 7.1 `VpnService` declaration
+### 7.1 `VpnService` — removed, nothing to declare
 
-Mandatory for every app using `VpnService`.
-Source: [VpnService policy](https://support.google.com/googleplay/android-developer/answer/12564964).
+FitShield 1.0 contains no `VpnService`. If a `VpnService` declaration form was
+ever filed for this app, withdraw it or let it lapse — see
+[PLAY_1.0_RESUBMISSION.md](PLAY_1.0_RESUBMISSION.md).
 
-- [ ] **Declare the use case.** `HUMAN — Play Console.` The policy's permitted non-VPN uses are parental
-      control and enterprise management, app usage tracking, device security
-      (anti-virus, MDM, **firewall**), network tools, web browsing apps, and
-      carrier apps. FitShield's honest fit is **a local firewall / content
-      filter** — say that, not "VPN".
-- [ ] **Answer the encryption question precisely.** `HUMAN — Play Console.` The policy says apps "must
-      encrypt the data from the device to the VPN tunnel endpoint". FitShield has
-      no tunnel endpoint, and the right answer is to say so rather than to tick a
-      box: _"FitShield's `VpnService` is a local, on-device connection filter with
-      no tunnel and no remote endpoint. No traffic is sent to any FitShield
-      server — there are none. Blocked connections are reset locally; allowed
-      connections are relayed byte-for-byte to the exact destination IP the
-      client already chose, over a `protect()`ed socket, so the app never
-      terminates, decrypts, re-encrypts or modifies TLS. End-to-end encryption is
-      preserved unchanged because FitShield is never an endpoint."_
-- [ ] **State what is read.** `HUMAN — Play Console.` Only the cleartext destination host the client
-      already sends — TLS SNI on 443, HTTP `Host` on 80. No payload inspection,
-      no certificate installation, no MITM, no DNS interception or forwarding.
-- [ ] **Document the VPN use in the store listing itself.** `HUMAN — Play Console.` The policy
-      requires separately from the form. The full description in
-      [STORE_LISTING_DRAFT.md](STORE_LISTING_DRAFT.md) carries this.
+- [ ] **Replace or deactivate every earlier artifact that still declares the
+      service.** `HUMAN — Play Console.` Google's rejection applies to "all
+      artifacts across all release tracks", so a still-live versionCode 8 (or
+      earlier) release on production, open, closed or internal testing keeps the
+      violation. Upload 1.0 (versionCode 9) to those tracks or retire the old
+      releases.
 
 ### 7.2 `AccessibilityService` declaration
 
@@ -484,20 +442,18 @@ string from the manifest.
 Source: [Foreground service types](https://developer.android.com/develop/background-work/services/fgs/service-types)
 and [Foreground service requirements](https://support.google.com/googleplay/android-developer/answer/13392821).
 
-- [ ] **Declare both `specialUse` services** on the App content page.
-      `HUMAN — Play Console.` Quote the manifest's own justifications verbatim:
-      - `FitShieldVpnService` — _"Local on-device TLS-SNI/HTTP-Host connection
-        filtering for mindful food-ordering blocking"_
+- [ ] **Declare the `specialUse` keep-alive service** on the App content page.
+      `HUMAN — Play Console.` Quote the manifest's own justification verbatim:
       - `AppBlockKeepAliveService` — _"Keeps on-device food-app blocking
         responsive in the background"_
-      The keep-alive is the weaker of the two to justify, because "stay resident"
+      The keep-alive is the weaker thing to justify, because "stay resident"
       is close to the thing FGS review exists to catch. Strengthen it in the form:
       it is **opt-in and off by default**, it exists only because some OEM battery
       managers pause the accessibility service after long idle, it posts an
       `IMPORTANCE_MIN` notification, and it performs no work of any kind while
       running. If the reviewer pushes back, the feature can be dropped without
       breaking app blocking on stock Android.
-- [x] **Every `specialUse` service in the manifest carries a
+- [x] **Every `specialUse` service in the manifest (now only the keep-alive) carries a
       `PROPERTY_SPECIAL_USE_FGS_SUBTYPE` property**, and the strings quoted above
       are the strings the manifest holds.
       _Evidence: `test/play-release.test.js` › "every specialUse foreground service declares the subtype the checklist quotes"._
@@ -516,7 +472,7 @@ and [Foreground service requirements](https://support.google.com/googleplay/andr
       listing points at fitshield.net.
 - [x] **The Data safety answers match what the app actually stores and shows.**
       Android keeps settings and one counter — ordering pages interrupted — plus
-      a private most-blocked breakdown, in the app's private `SharedPreferences`.
+      a per-app count (`blockedByApp`), in the app's private `SharedPreferences`.
       No savings figure and no calorie figure are computed or stored, and nothing
       is uploaded.
       _Evidence: `test/play-release.test.js` › "the Data safety answers match the statistics the app actually keeps"._
@@ -567,7 +523,7 @@ and [Foreground service requirements](https://support.google.com/googleplay/andr
 
 ## 9. App-blocking coverage (numbers, re-derived)
 
-Stated as of **2026-08-26**, from `data/generated/android-packages.json`. These
+Stated as of **2026-11-25**, from `data/generated/android-packages.json`. These
 are asserted against the data, never against another document — the previous
 version of this file quoted a catalog that had moved on twice.
 
@@ -575,103 +531,70 @@ version of this file quoted a catalog that had moved on twice.
 | --- | --- |
 | Curated brands in the blocklists | 2,505 |
 | Brands with an Android port record | 2,505 |
-| Brands that carry at least one app package | 1,445 |
-| Unique Android package IDs bundled | 1,511 |
+| Brands that carry at least one app package | 1,446 |
+| Unique Android package IDs bundled | 1,512 |
 | Brands verified as having no app (`no_app`) | 757 |
 | Brands whose only app is a shared platform storefront (`shared_app`) | 266 |
-| Brands still `needs_review` | 37 |
+| Brands still `needs_review` | 36 |
 
 - [x] Those seven numbers are the data's own.
       _Evidence: `test/play-release.test.js` › "the coverage table states the counts the generated Android bundle holds"._
 - [x] `shared_app` and `needs_review` brands carry **no** package IDs, so they are
-      **not** blocked as apps. Site blocking still covers them. Do not describe
-      app coverage as if it were catalog coverage.
+      **not** blocked as apps, and Android no longer blocks websites, so on Android
+      they are not blocked at all (the browser extension still blocks their
+      sites). Do not describe app coverage as if it were catalog coverage.
       _Evidence: `test/play-release.test.js` › "the coverage table states the counts the generated Android bundle holds"._
 
 ## 10. Rollout
 
 - [ ] **Internal testing** first — up to 100 testers, install path and every §6
       behaviour on at least three OEMs. `HUMAN — Play Console.`
-- [ ] **Closed testing.** `HUMAN — Play Console.` Not mandatory on an organization
-      account (see §0), but do it anyway: the pre-launch report and real devices
-      are the only place the VPN-consent and accessibility flows get exercised.
+- [ ] **Closed testing.** `HUMAN — Play Console.` Whether it is mandatory depends on
+      the account (see §0); do it anyway — the pre-launch report and real devices
+      are the only place the accessibility flow gets exercised.
 - [ ] **Production, staged:** 10% → three clean days → 50% → three days → 100%.
       `HUMAN — Play Console.`
 - [ ] **Halt criteria**, decided before launch, not during: any false block of a
-      non-food app, the VPN breaking general connectivity, an accessibility loop,
+      non-food app, an accessibility loop,
       or crash-free below 99%. `HUMAN — judgement.`
 - [ ] **Review the pre-launch report** on each track. `HUMAN — Play Console.`
 - [ ] **Keep the upload keystore backed up.** `HUMAN — you.` Repeated here because
       it is the one mistake with no recovery.
 
-## 11. Two things this file used to call "known non-blockers"
+## 11. History: the VPN-era limitations, and why they are gone
 
-They were not non-blockers. An earlier version of this checklist listed both
-under that heading, which is how a defect gets to look like a decision:
-
-> - IPv6-only networks: the connection filter currently drops IPv6 (forces IPv4).
-> - Reboot VPN auto-restart is intentionally manual.
-
-The first meant a user on an IPv6-only carrier lost **all** connectivity while
-FitShield was on — not filtered, none. The second meant a user turned protection
-on, their phone restarted overnight, and in the morning nothing was blocked and
-nothing had said so. Neither is something a user would recognise as a design
-choice, so neither was one.
-
-**Both are fixed in the code as of 2026-08-26**, and the fixes are bound to tests
-so that this section cannot drift in either direction — it cannot keep claiming a
-limitation the code no longer has, and it cannot quietly drop one that comes back.
-
-- [x] **IPv6 is filtered, not dropped.** `Tun2Filter` parses IPv6 packets and
-      applies the same SNI/Host decision to them. Deleting the `::/0` route was
-      the tempting fix and the wrong one: it would have restored connectivity by
-      letting IPv6 bypass the filter entirely, turning a visible failure into an
-      invisible one where a blocked brand reachable over IPv6 simply is not
-      blocked. QUIC (UDP/443) is still dropped deliberately and separately, so
-      browsers fall back to TCP where the SNI is visible.
-      _Evidence: `test/play-release.test.js` › "the docs describe IPv6 exactly as the filter handles it" — bidirectional._
-- [x] **Protection comes back after a restart, for the user who asked for it.**
-      `BootReceiver` handles `BOOT_COMPLETED` and `MY_PACKAGE_REPLACED`, reads
-      the stored instruction, and starts the filter only when that says the user
-      had it on **and** Android still holds VPN consent. Otherwise it posts one
-      notification rather than starting anything. The decision is a pure function
-      (`BootRestore.decide`) so the rule that matters — never turn protection on
-      for someone who turned it off — is executed by tests rather than trusted.
-      _Evidence: `test/play-release.test.js` › "the docs describe the reboot behaviour the app actually has" — bidirectional._
-- [ ] **Confirm both on a device before submitting.** `HUMAN — device.` The §6
-      reboot and IPv6 lines are where. Code that is right in the repository and
-      wrong on a phone is the failure mode a VPN app has most of.
+Before 1.0 this section tracked two defects of the connection filter (IPv6-only
+networks were dropped; protection did not return after a reboot) and their
+fixes. FitShield 1.0 removed the `VpnService`, `Tun2Filter`, `BootReceiver` and
+every boot-restore path, so neither concern exists any more: there is no filter
+to drop IPv6 and no filter to restore. The historical record is in
+[`changelog/0.56.md`](../changelog/0.56.md) and
+[`changelog/1.0.md`](../changelog/1.0.md).
 
 ---
 
 ## 12. What you personally have to do
 
-Condensed from the `HUMAN` lines above, in the order they block each other.
+Condensed from the `HUMAN` lines above, in the order they block each other. The
+resubmission-specific steps are in [PLAY_1.0_RESUBMISSION.md](PLAY_1.0_RESUBMISSION.md).
 
-1. **Register an organization Play developer account** with a D-U-N-S number.
-   Not a personal account — `VpnService` makes that a hard requirement, and it
-   cannot be changed later.
-2. **Generate and back up the upload keystore**, then write
+1. **Generate and back up the upload keystore**, then write
    `android/keystore.properties`. If that file already exists on your machine,
    this step is done — it is gitignored, so nobody but you can tell, and nothing
    here has opened it.
-3. **Decide the target API level**, which is really deciding the submission date:
-   the build targets API 36, so the 31 August 2026 deadline is met whenever the
-   submission lands.
-4. **Build and sign the AAB by hand** with the §3 command, and verify it with
-   `jarsigner -verify`.
-5. **Complete four declarations**: `VpnService`, `AccessibilityService` (with a
-   demo video), foreground service `specialUse` ×2, and Data safety.
-6. **Host the privacy policy** somewhere public and link it.
-7. **Commission the icon artwork — twice.** The 512×512 store icon, and the
-   **launcher icon the app does not currently have at all** (§8). Without the
-   second one FitShield installs as a grey Android silhouette.
-8. **Capture the phone screenshots and the feature graphic.**
-9. **Run the §6 device checks** on at least three OEMs.
-10. **Roll out in stages** and watch the pre-launch report.
+2. **Build and sign the AAB** with `node tools/build-android.js --bundle
+   --versionCode=9`, and verify it with `jarsigner -verify`.
+3. **Upload it to every track** that still holds a `VpnService` artifact, or
+   retire those releases.
+4. **Complete the remaining declarations**: `AccessibilityService` (with a demo
+   video), foreground service `specialUse` (the keep-alive), and Data safety.
+   Remove any `VpnService` declaration.
+5. **Host the privacy policy** somewhere public and link it.
+6. **Capture the phone screenshots and the feature graphic**, with none that
+   show website blocking or "Site blocking (VPN)".
+7. **Run the §6 device checks.**
+8. **Roll out in stages** and watch the pre-launch report.
 
-Steps 3 and 7 have repository halves — the API-36 bump in §1 and the launcher
-icon resources in §8 — both written out for the lanes that own those files.
-Everything else needs your Play Console, your signing key, your phone or your
-judgement, and none of it is attempted here. This checklist is preparation; the
-submission is yours.
+Everything here needs your Play Console, your signing key, your phone or your
+judgement, and none of it is attempted by the repository. This checklist is
+preparation; the submission is yours.

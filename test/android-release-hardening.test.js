@@ -166,15 +166,9 @@ test("POST_NOTIFICATIONS is requested at runtime, not merely declared", () => {
   const activity = kotlin("MainActivity.kt");
   assert.match(activity, /requestPermissions\s*\(/,
     "POST_NOTIFICATIONS is declared and never requested — Android 13+ denies it, and every notification " +
-    "this app posts, including the restore notice, goes nowhere");
+    "this app posts, including the keep-alive notice, goes nowhere");
   assert.match(activity, /POST_NOTIFICATIONS/);
-  assert.match(activity, /onRequestPermissionsResult/,
-    "nothing resumes the enable flow after the permission dialog is answered");
-
-  // Asked once, in the flow that needs it, and never made a blocker: a decline
-  // must still let the user turn protection on.
-  assert.match(activity, /if \(requestCode == REQUEST_NOTIFICATIONS\) continueVpnEnable\(\)/,
-    "a declined notification permission must not abandon the VPN enable flow");
+  // Asked, never made a blocker: nothing else depends on the answer.
 });
 
 test("the dashboard says what a declined notification permission costs", async () => {

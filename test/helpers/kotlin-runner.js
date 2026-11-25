@@ -2,12 +2,8 @@
 /**
  * Compiles and runs the Android adapter's pure Kotlin logic on this machine.
  *
- * Why this exists: the packet filter's correctness is the one part of the
- * Android target where a source grep is worthless. "Does an IPv6 packet with a
- * Hop-by-Hop header yield the right transport offset" and "does a truncated
- * packet return null instead of throwing out of the tun read loop" are questions
- * only execution answers, and both are answerable without a device because
- * IpPacket / HostPeek / BootRestore / VpnIntent import nothing from Android.
+ * Why this exists: a source grep cannot say what a schedule window decides.
+ * Only Kotlin that imports nothing from Android (Schedule) can be run here.
  *
  * No new dependency is introduced. The JDK comes from the project's own
  * `npm run toolchain:android`, and the Kotlin compiler is the one the Android
@@ -29,11 +25,7 @@ const KOTLIN_DIR = path.join(ROOT, "android", "app", "src", "main", "java", "com
 
 /** The pure sources under test, plus the harness that drives them. */
 const SOURCES = [
-  path.join(KOTLIN_DIR, "IpPacket.kt"),
-  path.join(KOTLIN_DIR, "RestorePolicy.kt"),
-  path.join(KOTLIN_DIR, "HostMatch.kt"),
   path.join(KOTLIN_DIR, "Schedule.kt"),
-  path.join(KOTLIN_DIR, "BlockDecision.kt"),
   path.join(__dirname, "NativeLogicHarness.kt")
 ];
 

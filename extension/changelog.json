@@ -2,6 +2,19 @@
   "_note": "Local changelog rendered by whats-new.html. No network fetch — privacy-first. The full, canonical release history lives in changelog/*.md.",
   "entries": [
     {
+      "version": "1.0",
+      "date": "2026-11-25",
+      "title": "Final release: Google Play compliance",
+      "changes": [
+        "Google Play rejected 0.56 because the Android app used VpnService, which is not a permitted use case. 1.0 removes it, along with the boot receiver and the INTERNET and RECEIVE_BOOT_COMPLETED permissions. The Android app now makes no network connection at all.",
+        "Android no longer blocks websites. It blocks food-delivery and fast-food apps only, through the opt-in AccessibilityService, which reads just the foreground package name. Websites are blocked by the FitShield extension in Chrome, Firefox and Firefox for Android, which is unchanged apart from its version.",
+        "On Android the main Enable FitShield switch now controls app blocking. The site-blocking status, always-allow domains, custom URLs and domain tester are gone from the Android app, because they only served the connection filter.",
+        "App blocking, schedules, the pause timer, categories, per-app allow, the opt-in keep-alive, all 83 languages, settings export and import, and your stored data are unchanged. Updating from 0.56 keeps your settings.",
+        "The catalog is unchanged: 2,505 brands across 111 markets in 21 curated categories, answered by 88 alternatives - 46 full recipes and 42 quick fixes. On Android it is now used for app blocking only; the extension still blocks the websites.",
+        "1.0 is the final feature release. FitShield now enters maintenance mode: fixes, data corrections and store-policy compliance only."
+      ]
+    },
+    {
       "version": "0.57",
       "date": "2026-09-22",
       "title": "Less machinery behind the same product",

@@ -5,10 +5,11 @@
  * the SAME canonical data as the browser — not a fork.
  *
  * Errors:
- *  - generated rules asset missing, unmarked, or DRIFTED from the engine output
+ *  - the manifest or any Kotlin source mentions VpnService / BIND_VPN_SERVICE /
+ *    INTERNET / RECEIVE_BOOT_COMPLETED (Google Play rejected the VPN: "Use of
+ *    VpnService is not a permitted use case"; FitShield is now app blocking only)
+ *  - AndroidManifest declares anything outside the four approved permissions
  *  - a hand-maintained Android blocklist exists (any rules JSON not marked generated)
- *  - AndroidManifest uses a non-approved permission, a boot receiver,
- *    usage-access, or package-visibility
  *  - the bundled app-package dataset drifts from the generated output
  *  - analytics/telemetry dependency in the Android build
  *
@@ -22,7 +23,6 @@ const fs = require("fs");
 const path = require("path");
 const { Reporter, runCli } = require("./lib/report");
 const load = require("./lib/load");
-const gen = require("./generate-android-rules");
 const genPackages = require("./generate-android-packages");
 const { WEB_COPIES, WEB_DIR_COPIES, WEB_DIR } = require("./lib/android-web");
 
@@ -31,29 +31,23 @@ const MANIFEST = path.join(ANDROID_DIR, "app", "src", "main", "AndroidManifest.x
 const APP_GRADLE = path.join(ANDROID_DIR, "app", "build.gradle");
 
 // The ONLY permissions the Android adapter is allowed to declare.
+// INTERNET and RECEIVE_BOOT_COMPLETED are deliberately absent: there is no VPN
+// and no boot restore any more, and the app makes no network calls.
 const APPROVED_PERMISSIONS = new Set([
-  "android.permission.INTERNET",                       // open the protected sockets that relay ALLOWED traffic (including plain DNS datagrams, byte-for-byte and unread) to the destination the client chose
-  "android.permission.FOREGROUND_SERVICE",             // run the VpnService as a foreground service
+  "android.permission.FOREGROUND_SERVICE",             // keep-alive foreground service for app blocking
   "android.permission.FOREGROUND_SERVICE_SPECIAL_USE", // required for the specialUse FGS type (Android 14+)
-  "android.permission.POST_NOTIFICATIONS",             // the required ongoing VPN notification (Android 13+)
-  "android.permission.SYSTEM_ALERT_WINDOW",            // "display over other apps": reliably show the block screen over a blocked app (user-granted, optional)
-  "android.permission.RECEIVE_BOOT_COMPLETED"          // restore the user's OWN setting after a restart — constrained by bootRestoreAudit() below
+  "android.permission.POST_NOTIFICATIONS",             // the required ongoing keep-alive notification (Android 13+)
+  "android.permission.SYSTEM_ALERT_WINDOW"             // "display over other apps": reliably show the block screen over a blocked app (user-granted, optional)
 ]);
 
 // Permissions/components that must NEVER appear (checked against the manifest
 // with XML comments stripped, so documentation that names them does not trip it).
-//
-// RECEIVE_BOOT_COMPLETED used to sit in this list, and the product paid for it:
-// a reboot killed the VpnService, nothing restarted it, and nothing told the
-// user, so a blocker whose promise is being there while you are not thinking
-// about it simply stopped. The permission is now allowed and *constrained*
-// instead — see bootRestoreAudit(), which is stricter than the ban was: it
-// requires the boot path to be gated on the user's own stored instruction,
-// forbids the receiver from starting anything before that gate, forbids it from
-// launching an Activity at all, forbids any other broadcast being smuggled into
-// the same receiver, and forbids the service from erasing the instruction when
-// the OS ends it.
 const FORBIDDEN = [
+  ["VpnService", /VpnService/],
+  ["BIND_VPN_SERVICE permission", /BIND_VPN_SERVICE/],
+  ["INTERNET permission", /android\.permission\.INTERNET\b/],
+  ["RECEIVE_BOOT_COMPLETED permission", /RECEIVE_BOOT_COMPLETED/],
+  ["boot receiver", /BOOT_COMPLETED|BootReceiver/],
   ["usage access", /PACKAGE_USAGE_STATS/],
   ["package visibility", /QUERY_ALL_PACKAGES/],
   ["device admin", /BIND_DEVICE_ADMIN|device_admin/i],
@@ -64,6 +58,40 @@ const FORBIDDEN = [
   ["broad storage permission", /READ_EXTERNAL_STORAGE|WRITE_EXTERNAL_STORAGE|MANAGE_EXTERNAL_STORAGE/],
   ["notification listener", /BIND_NOTIFICATION_LISTENER_SERVICE|NotificationListenerService/]
 ];
+
+// Same bans applied to Kotlin source (comments stripped).
+const FORBIDDEN_SOURCE = [
+  ["android.net.VpnService / VpnService", /\bVpnService\b/],
+  ["VpnService.Builder / prepare()", /VpnService\.(Builder|prepare)/],
+  ["BIND_VPN_SERVICE", /BIND_VPN_SERVICE/],
+  ["INTERNET permission", /permission\.INTERNET\b/],
+  ["RECEIVE_BOOT_COMPLETED", /RECEIVE_BOOT_COMPLETED/],
+  ["a BOOT_COMPLETED receiver", /ACTION_BOOT_COMPLETED|BOOT_COMPLETED/]
+];
+
+/**
+ * Check manifest text (any string) against every rule that does not need the
+ * file system. Returns an array of failure messages. Exported so the suite can
+ * hand it a fixture and prove it refuses a VpnService manifest.
+ */
+function manifestViolations(rawXml) {
+  const xml = String(rawXml).replace(/<!--[\s\S]*?-->/g, "");
+  const failures = [];
+  const declared = [...xml.matchAll(/<uses-permission[^>]*android:name="([^"]+)"/g)].map((m) => m[1]);
+  declared.forEach((perm) => {
+    if (!APPROVED_PERMISSIONS.has(perm)) failures.push(`manifest declares non-approved permission: ${perm}`);
+  });
+  FORBIDDEN.forEach(([label, re]) => {
+    if (re.test(xml)) failures.push(`manifest contains forbidden ${label}`);
+  });
+  return failures;
+}
+
+/** Same for one Kotlin source's text. */
+function sourceViolations(name, rawSource) {
+  const source = stripKotlinComments(String(rawSource));
+  return FORBIDDEN_SOURCE.filter(([, re]) => re.test(source)).map(([label]) => `${name}: Kotlin source references ${label}`);
+}
 
 // The target API level Play accepts for a new submission. See
 // docs/PLAY_STORE_RELEASE_CHECKLIST.md §1 for the deadline this tracks.
@@ -79,33 +107,8 @@ function androidAudit() {
     return reporter;
   }
 
-  // 1. Generated asset exists, is marked generated, and MATCHES the engine.
-  if (!fs.existsSync(gen.ASSET_PATH)) {
-    reporter.fail(`generated rules asset missing: ${path.relative(load.ROOT, gen.ASSET_PATH)} (run npm run generate:android)`);
-  } else {
-    let asset;
-    try {
-      asset = JSON.parse(fs.readFileSync(gen.ASSET_PATH, "utf8"));
-    } catch (error) {
-      reporter.fail(`rules asset invalid JSON: ${error.message}`);
-    }
-
-    if (asset) {
-      if (asset._generated !== true) {
-        reporter.fail("rules asset is not marked _generated:true (looks hand-maintained)");
-      }
-      // Re-derive from canonical data via the separated engine and compare.
-      // This is the core anti-divergence proof.
-      // (deasync-free: caller wraps in the async runner below.)
-      reporter._assetForDrift = asset;
-    }
-  }
-
   // 2. No OTHER blocklist-like JSON in android/ (no Android-only data fork).
   walkJson(ANDROID_DIR).forEach((file) => {
-    if (path.resolve(file) === path.resolve(gen.ASSET_PATH)) {
-      return;
-    }
     let data;
     try {
       data = JSON.parse(fs.readFileSync(file, "utf8"));
@@ -115,7 +118,7 @@ function androidAudit() {
     const looksLikeRules = data && typeof data === "object" &&
       (Array.isArray(data.hosts) || Array.isArray(data.domains) || Array.isArray(data.entries) || Array.isArray(data.blocklist));
     if (looksLikeRules && data._generated !== true) {
-      reporter.fail(`hand-maintained blocklist found: ${path.relative(load.ROOT, file)} (Android must use only the generated asset)`);
+      reporter.fail(`hand-maintained blocklist found: ${path.relative(load.ROOT, file)} (Android has no rules asset; website blocking was removed with the VPN)`);
     }
   });
 
@@ -127,22 +130,10 @@ function androidAudit() {
     // permissions (e.g. "Deliberately NOT requested: …") never trips the checks.
     const xml = fs.readFileSync(MANIFEST, "utf8").replace(/<!--[\s\S]*?-->/g, "");
     const declared = [...xml.matchAll(/<uses-permission[^>]*android:name="([^"]+)"/g)].map((m) => m[1]);
-    declared.forEach((perm) => {
-      if (!APPROVED_PERMISSIONS.has(perm)) {
-        reporter.fail(`manifest declares non-approved permission: ${perm}`);
-      }
+    manifestViolations(xml).forEach((message) => reporter.fail(message));
+    kotlinSources().forEach((file) => {
+      sourceViolations(path.basename(file), fs.readFileSync(file, "utf8")).forEach((message) => reporter.fail(message));
     });
-    FORBIDDEN.forEach(([label, re]) => {
-      if (re.test(xml)) {
-        reporter.fail(`manifest contains forbidden ${label}`);
-      }
-    });
-    // The VpnService must be guarded by BIND_VPN_SERVICE (how Android enforces it).
-    if (!/android:permission="android\.permission\.BIND_VPN_SERVICE"/.test(xml)) {
-      reporter.warn("VpnService should declare android:permission=\"android.permission.BIND_VPN_SERVICE\"");
-    }
-    bootRestoreAudit(reporter, xml, declared);
-    ipFamilyAudit(reporter);
     launcherIconAudit(reporter, xml);
     runtimePermissionAudit(reporter, declared);
     disclosureAudit(reporter, xml);
@@ -303,20 +294,15 @@ function androidAudit() {
       }
     });
   });
-  // Verbose logging must be gated too, and this used to be asserted by nothing
-  // while the note below reported it as checked. Two kinds ship in this app and
-  // neither belongs in a release: the WebView console bridge, which copies every
-  // console.* line out of the page, and the per-connection RST line in
-  // Tun2Filter, which names a host for every connection the filter refuses —
-  // logcat is readable by the user and by anything with an adb shell, so that
-  // one is a record of where they browse.
+  // The WebView console bridge copies every console.* line out of the page, so
+  // it must be debug-only.
   let gatedLogs = 0;
   kotlinSources().forEach((file) => {
     fs.readFileSync(file, "utf8").split(/\r?\n/).forEach((line, i) => {
       const isConsoleBridge = /Log\.[a-z]+\(\s*"FitShieldWeb"\s*,[\s\S]*m\.message\(\)/.test(line);
       const isPerConnection = /Log\.[a-z]+\(\s*TAG\s*,\s*"RST /.test(line);
 
-      if (!isConsoleBridge && !isPerConnection) return;
+      if (!isConsoleBridge) return;
 
       if (/BuildConfig\.DEBUG/.test(line)) {
         gatedLogs++;
@@ -324,7 +310,7 @@ function androidAudit() {
       }
 
       reporter.fail(
-        `${path.basename(file)}:${i + 1}: ${isConsoleBridge ? "WebView console" : "per-connection RST"} ` +
+        `${path.basename(file)}:${i + 1}: WebView console ` +
           "logging must be guarded by BuildConfig.DEBUG — it ships in release otherwise"
       );
     });
@@ -346,132 +332,6 @@ function androidAudit() {
   );
 
   return reporter;
-}
-
-/**
- * Boot restart, constrained.
- *
- * Starting at boot is the right behaviour and a real risk at the same time: it
- * is exactly the capability a user would resent being used for anything other
- * than restoring what they themselves switched on. So the permission is allowed
- * only alongside every structural guarantee that keeps it honest:
- *
- *  1. permission and receiver come as a pair — no orphan permission, no
- *     unpermissioned receiver;
- *  2. the receiver listens to nothing but the two protected system broadcasts
- *     that actually end the VpnService without the user asking;
- *  3. the decision is delegated to BootRestore.decide, whose truth table the
- *     test suite executes;
- *  4. nothing is started before that decision is taken;
- *  5. the receiver never launches an Activity (a background app that throws a
- *     screen at you after a reboot is malware behaviour);
- *  6. the service never erases the user's instruction from onDestroy — which
- *     fires on reboot, on a low-memory kill and on an app update, and would
- *     otherwise silently convert "the OS stopped us" into "the user said no".
- */
-function bootRestoreAudit(reporter, xml, declared) {
-  const hasPermission = declared.includes("android.permission.RECEIVE_BOOT_COMPLETED");
-  const receivers = [...xml.matchAll(/<receiver[\s\S]*?<\/receiver>/g)].map((m) => m[0]);
-  const bootReceivers = receivers.filter((r) => /android\.intent\.action\.BOOT_COMPLETED/.test(r));
-
-  if (!hasPermission && bootReceivers.length === 0) {
-    return; // no boot path at all — nothing to constrain
-  }
-  if (hasPermission && bootReceivers.length === 0) {
-    reporter.fail("manifest declares RECEIVE_BOOT_COMPLETED but registers no BOOT_COMPLETED receiver (unused permission)");
-    return;
-  }
-  if (!hasPermission) {
-    reporter.fail("manifest registers a BOOT_COMPLETED receiver without declaring RECEIVE_BOOT_COMPLETED (it will never fire)");
-    return;
-  }
-  if (bootReceivers.length > 1) {
-    reporter.fail(`manifest registers ${bootReceivers.length} BOOT_COMPLETED receivers; exactly one boot path is allowed`);
-    return;
-  }
-
-  // 2. Only the two protected broadcasts that end the VpnService unasked.
-  const ALLOWED_BOOT_ACTIONS = new Set([
-    "android.intent.action.BOOT_COMPLETED",
-    "android.intent.action.MY_PACKAGE_REPLACED"
-  ]);
-  const actions = [...bootReceivers[0].matchAll(/<action[^>]*android:name="([^"]+)"/g)].map((m) => m[1]);
-  const smuggled = actions.filter((a) => !ALLOWED_BOOT_ACTIONS.has(a));
-  if (smuggled.length > 0) {
-    reporter.fail(`boot receiver also listens for: ${smuggled.join(", ")} — it may only handle ${[...ALLOWED_BOOT_ACTIONS].join(" and ")}`);
-  }
-
-  const receiverName = (bootReceivers[0].match(/android:name="\.?([A-Za-z0-9_.]+)"/) || [])[1];
-  const receiverFile = receiverName
-    ? kotlinSources().find((f) => path.basename(f) === `${receiverName.split(".").pop()}.kt`)
-    : null;
-  if (!receiverFile) {
-    reporter.fail(`boot receiver ${receiverName || "(unnamed)"} has no Kotlin source in the main source set`);
-    return;
-  }
-
-  const receiverSource = stripKotlinComments(fs.readFileSync(receiverFile, "utf8"));
-  const decideAt = receiverSource.indexOf("BootRestore.decide");
-  if (decideAt < 0) {
-    reporter.fail(`${path.basename(receiverFile)}: boot restart must go through BootRestore.decide (the gate the suite executes)`);
-  }
-  [...receiverSource.matchAll(/\bstart(?:Foreground)?Service\s*\(/g)].forEach((m) => {
-    if (decideAt < 0 || m.index < decideAt) {
-      reporter.fail(`${path.basename(receiverFile)}: starts a service before consulting BootRestore.decide — boot restart must be gated on the user's own setting`);
-    }
-  });
-  if (/\bstartActivity\s*\(/.test(receiverSource)) {
-    reporter.fail(`${path.basename(receiverFile)}: a boot receiver must never launch an Activity`);
-  }
-
-  // 6. onDestroy must not touch the stored instruction.
-  const serviceFile = kotlinSources().find((f) => path.basename(f) === "FitShieldVpnService.kt");
-  if (serviceFile) {
-    const service = stripKotlinComments(fs.readFileSync(serviceFile, "utf8"));
-    if (!/VpnIntent\.KEY/.test(service)) {
-      reporter.fail("FitShieldVpnService.kt: nothing records the user's on/off instruction, so a restart has nothing safe to restore from");
-    }
-    const onDestroy = functionBody(service, "onDestroy");
-    if (onDestroy && /(recordIntent|VpnIntent)/.test(onDestroy)) {
-      reporter.fail("FitShieldVpnService.kt: onDestroy writes the stored instruction — a reboot or low-memory kill would be recorded as the user turning FitShield off");
-    }
-  }
-
-  reporter.note(`boot restart: gated on the user's stored setting via BootRestore.decide, ${actions.length} protected broadcast(s), no Activity launch`);
-}
-
-/**
- * A routed address family the filter cannot parse is worse than not routing it:
- * the packets are captured and then dropped, so a dual-stack network degrades
- * and an IPv6-only carrier loses the internet entirely. If the tunnel claims
- * ::/0, the filter has to mean it.
- */
-function ipFamilyAudit(reporter) {
-  const sources = kotlinSources();
-  const serviceFile = sources.find((f) => path.basename(f) === "FitShieldVpnService.kt");
-  if (!serviceFile) return;
-  const service = stripKotlinComments(fs.readFileSync(serviceFile, "utf8"));
-  const routesV6 = /addRoute\s*\(\s*"::"/.test(service);
-  if (!routesV6) return;
-
-  const parser = sources.find((f) => path.basename(f) === "IpPacket.kt");
-  if (!parser) {
-    reporter.fail("the tunnel routes ::/0 but there is no IpPacket.kt to parse IPv6 — captured IPv6 would be dropped, which is no internet on an IPv6-only network");
-    return;
-  }
-  const parserSource = stripKotlinComments(fs.readFileSync(parser, "utf8"));
-  if (!/\b6\s*->\s*parseV6/.test(parserSource)) {
-    reporter.fail("IpPacket.parse does not dispatch version 6 — routed IPv6 would be captured and dropped");
-    return;
-  }
-  const filterFile = sources.find((f) => path.basename(f) === "Tun2Filter.kt");
-  if (filterFile) {
-    const filter = stripKotlinComments(fs.readFileSync(filterFile, "utf8"));
-    if (/version\s*!=\s*4/.test(filter)) {
-      reporter.fail("Tun2Filter still drops by IP version — the ::/0 route would be captured and discarded");
-    }
-  }
-  reporter.note("IPv6 is routed AND parsed (extension-header chain walked to the transport header), not captured and dropped");
 }
 
 /**
@@ -648,46 +508,9 @@ function walkJson(dir, out = []) {
   return out;
 }
 
-// Async wrapper so the engine re-derivation (drift proof) can be awaited.
+// Kept async so callers (validate-all, tests) keep awaiting it.
 async function audit() {
-  const reporter = androidAudit();
-  const asset = reporter._assetForDrift;
-  delete reporter._assetForDrift;
-
-  if (asset) {
-    const derived = await gen.derive();
-    if (asset.sha256 !== derived.sha256) {
-      reporter.fail(`rules asset DRIFTED from engine output (asset ${String(asset.sha256).slice(0, 12)}… vs engine ${derived.sha256.slice(0, 12)}…) — run npm run generate:android`);
-    } else if (JSON.stringify(asset.hosts) !== JSON.stringify(derived.hosts)) {
-      reporter.fail("rules asset host list does not match the engine output");
-    } else {
-      // EVERY field, not just the host list.
-      //
-      // `sha256` is a hash of `hosts` alone, so those two checks together proved
-      // exactly one thing about the asset and said "DRIFTED from the engine
-      // output" as though they had proved all of it. `meta` — the per-host
-      // country, food category and brand id the VpnService records statistics and
-      // resolves temporary unlocks from — was compared by nothing, so a change to
-      // how it is derived left a stale map on disk, shipped it into the APK, and
-      // passed. The brandId the alias-unlock fix depends on was added that way.
-      //
-      // The mismatching keys are named because the remedy differs by field: a
-      // `meta` or `hosts` difference means the canonical data or this generator
-      // moved, while `appVersion` / `datasetVersions` usually means a version bump
-      // landed without the asset being regenerated after it.
-      const drifted = [...new Set([...Object.keys(derived), ...Object.keys(asset)])]
-        .filter((key) => JSON.stringify(asset[key]) !== JSON.stringify(derived[key]))
-        .sort();
-      if (drifted.length) {
-        reporter.fail(`rules asset DRIFTED from engine output in ${drifted.join(", ")} — run npm run generate:android`);
-      } else {
-        reporter.note(`${derived.count} hosts match the separated engine (sha256 ${derived.sha256.slice(0, 12)}…)`);
-        reporter.note(`rules asset matches the engine in every field, including the ${Object.keys(derived.meta).length}-host meta map`);
-        reporter.note(`derived from canonical data v${Object.values(derived.datasetVersions).join("/")} via ${derived.engine}`);
-      }
-    }
-  }
-  return reporter;
+  return androidAudit();
 }
 
 if (require.main === module) {
@@ -699,7 +522,6 @@ if (require.main === module) {
 
 module.exports = audit;
 module.exports.sync = androidAudit;
-// Exported so the suite can drive the boot-permission gate with a synthetic
-// manifest and prove it actually refuses the shapes it claims to refuse.
-module.exports.bootRestoreAudit = bootRestoreAudit;
+module.exports.manifestViolations = manifestViolations;
+module.exports.sourceViolations = sourceViolations;
 module.exports.APPROVED_PERMISSIONS = APPROVED_PERMISSIONS;

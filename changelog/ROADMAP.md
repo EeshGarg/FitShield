@@ -4,11 +4,24 @@ Living documentation of where FitShield is and where it's heading. This file is
 meant to evolve with the project — update it whenever direction changes. It
 avoids speculative promises; "Future ideas" are candidates, not commitments.
 
-_Last updated: 2026-09-22 (0.57)_
+_Last updated: 2026-11-25 (1.0)_
 
 ## Current version
 
-**0.57 — Less machinery behind the same product.** See [0.57.md](0.57.md). The last
+**1.0 — Final release: Google Play compliance.** See [1.0.md](1.0.md). Google Play
+rejected 0.56 because the Android app used `VpnService`, which is not a permitted
+use case. 1.0 removes it, with the boot receiver and the `INTERNET` and
+`RECEIVE_BOOT_COMPLETED` permissions. The Android app now blocks food-delivery and
+fast-food **apps** only (opt-in AccessibilityService, foreground package name
+only); it **no longer blocks websites** — the Chrome and Firefox extension does,
+and is unchanged. App blocking, schedules, the pause timer, categories, per-app
+allow, the keep-alive, 83 locales, export/import and stored data are unchanged.
+The catalog is unchanged: 2,505 brands across 111 markets, in 21 curated
+categories, answered by 88 alternatives. FitShield now enters maintenance mode.
+
+## Previous version
+
+**0.57 — Less machinery behind the same product.** See [0.57.md](0.57.md). The
 release before 1.0, and deliberately boring from the outside: every feature,
 screen and stored setting is unchanged. Underneath, the service worker stopped
 parsing 814 KB of blocklist JSON on every wake-up to discover it had nothing to
@@ -28,7 +41,7 @@ mention Safari, because they were accurate when written.
 The catalog is unchanged by this release: 2,505 brands across 111 markets,
 in 21 curated categories, answered by 88 alternatives.
 
-## Previous version
+## Earlier version
 
 **0.56 — Contact with a real phone.** See [0.56.md](0.56.md). FitShield ran on
 real Android hardware for the first time, and seven defects that no test could
@@ -68,41 +81,17 @@ the suite rather than inferred from source.
   head-office pages. The catalog is 2,505 brands across 111 markets, in 21
   curated categories.
 
-## Next planned version (1.0)
+## Maintenance mode (after 1.0)
 
-0.57 was the last pre-1.0 release, and it was spent on leanness rather than
-features. What is left for 1.0 is mostly execution that needs people, hardware or
-a store console rather than more code.
+FitShield 1.0 is the final feature release. From here the project is in
+**maintenance mode**: fixes, data corrections (the `needs_review` app tail,
+delisted-app re-verification, wrong-country metadata), platform and store-policy
+compliance, and translation fixes. No new features are planned.
 
-Themes under consideration (subject to change):
-
-- **Google Play rollout.** Console-side execution: an **organization** developer
-  account with a D-U-N-S number (Google requires one for any app using
-  `VpnService`, and a personal account cannot be converted afterwards), the four
-  declarations (Data safety, VpnService, AccessibilityService, foreground
-  services), listing assets (screenshots, feature graphic), and an internal →
-  closed → staged production rollout per
-  [PLAY_STORE_RELEASE_CHECKLIST.md](../docs/PLAY_STORE_RELEASE_CHECKLIST.md).
-  Any submission from 31 August 2026 must also target API 36.
-  The store listing copy in
-  [STORE_LISTING_DRAFT.md](../docs/STORE_LISTING_DRAFT.md) still needs screenshots
-  and a feature graphic before it can be submitted.
-- **Android hardening.** What is left is broader device/OEM testing (including an
-  IPv6-only network and a reboot on real hardware) and instrumented-test runs in
-  CI.
-- **Two Android divergences 0.57 documented rather than settled**, both in
-  [docs/ANDROID.md](../docs/ANDROID.md) §2e: the schedule's day-of-week list has
-  no Android equivalent (unreachable today, because the Android schedule UI is a
-  single start/end pair), and marking an app "Allowed" stops the pause screen
-  while the traffic filter decides separately.
-- **Data quality pass.** Continue the `needs_review` app-status tail; audit the
-  wrong-country metadata cluster the 0.54 sweep flagged (many entries tagged
-  `["JP"]` that are not Japanese); periodic re-verification of delisted apps.
-- **Verify Firefox for Android** on-device (extension DNR path).
-- **Delete the retired-Safari cleanup from `build.js`.** `removeRetiredAppleArtifacts`
-  and `RETIRED_SAFARI_ZIP` exist only to sweep a `dist/` that last built at 0.56,
-  and they are the one remaining reason the word "safari" appears in the build. At
-  1.0 that case is not worth carrying code for; remove them with their test.
+What the owner still has to do for 1.0 is Play Console work, listed in
+[PLAY_1.0_RESUBMISSION.md](../docs/PLAY_1.0_RESUBMISSION.md). On-device
+verification of the accessibility app-block flow, and of Firefox for Android's
+`declarativeNetRequest` path, needs real hardware.
 
 ## Earlier milestone detail (0.53 Android steps)
 
@@ -121,7 +110,7 @@ Themes under consideration (subject to change):
     language picker, settings **import** via the document picker (export already
     shipped), an optional Buy Me a Coffee link, and a one-time welcome overlay.
     Verified on-device (Samsung, Android 14).
-  - *Step 2 (enforcement — connection filtering, done):* blocking now works by
+  - *Step 2 (enforcement — connection filtering, done; **removed in 1.0**: Google Play does not permit `VpnService` for this use case):* blocking worked by
     **TLS SNI / HTTP Host at the connection layer**, not DNS (`Tun2Filter.kt`).
     FitShield routes all traffic through a local userspace filter, reads the
     destination host the client sends in the clear, **resets** blocked connections
@@ -194,6 +183,9 @@ sprawl.
 
 ## Completed milestones
 
+- **1.0** — Removed `VpnService` and the connection filter, the boot receiver and
+  the `INTERNET` / `RECEIVE_BOOT_COMPLETED` permissions for Google Play policy
+  compliance; Android blocks apps only; maintenance mode begins.
 - **0.56** — First contact with real hardware (Galaxy S24 Ultra, Android 16 /
   One UI 8.5): seven device-only defects fixed, including IPv6 connections being
   accepted and reset on networks without IPv6 (which broke unrelated browsing),

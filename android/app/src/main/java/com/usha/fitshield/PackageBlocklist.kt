@@ -94,13 +94,12 @@ class PackageBlocklist private constructor(
                 // pair.
                 //
                 // Open: this is loaded by [FitShieldAccessibilityService.onServiceConnected].
-                // Throwing here, the way [RuleEngine.fromAssets] does, would take the
+                // Throwing here would take the
                 // accessibility service down every time the system reconnected it —
                 // a crash-looping accessibility service, which the user cannot
                 // diagnose and which is a worse outcome than app blocking being off.
-                // RuleEngine can afford to throw because a VpnService that refuses to
-                // start is visibly off in the UI; an AccessibilityService that dies on
-                // connect looks exactly like one that is running.
+                // An AccessibilityService that dies on connect looks exactly like one
+                // that is running, so absorb the failure rather than throw.
                 //
                 // Loud: it used to return this silently, so a malformed asset meant
                 // "block no apps" with every pill still showing on and nothing,

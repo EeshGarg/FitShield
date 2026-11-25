@@ -211,7 +211,7 @@ The rule, in both platforms:
   `appBlockingEnabled` plus every `appBlock*` category (Android,
   `AppBlockPolicy.kt`). Absent from storage must read as **enabled**.
 - **Permissions are the only gate.** A default of `true` grants nothing by
-  itself: site blocking still needs the VPN consent dialog, and app blocking
+  itself: app blocking
   still needs the AccessibilityService, which only the user can turn on and only
   after the in-app disclosure. "Blocks nothing until you turn it on" is enforced
   by the permission, not by a preference being off.
@@ -223,14 +223,14 @@ The rule, in both platforms:
   holds the category lists together; the master switch is asserted alongside them.
 - **Say what is still missing, on the dashboard.** App blocking needs a
   permission the user grants elsewhere, so the main status card carries the
-  prompt for it (`#appBlockSetup`), shown only when site blocking is running and
+  prompt for it (`#appBlockSetup`), shown only when app blocking is enabled and
   the accessibility service is not. It routes through the same disclosure gate as
   the settings-panel button — a second entry point that skipped the disclosure
   would be a Play violation, not a shortcut.
 - **Permission rows are polled, not latched.** `refreshPermissionStatuses()` runs
   on the same 2s interval as the headline and after the main toggle. It used to
-  run only on load and on `visibilitychange`, so granting VPN consent left every
-  permission row reading "Off" next to a dashboard already reading "On".
+  run only on load and on `visibilitychange`, so granting the accessibility permission left
+  the permission row reading "Off" next to a dashboard already reading "On".
 
 Force-stopping the app (Settings → Force stop, or an aggressive task killer)
 makes Android drop the AccessibilityService: `enabled_accessibility_services`

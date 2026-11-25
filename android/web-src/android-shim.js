@@ -3,7 +3,7 @@
  *
  * Implements the SAME `fitshield.*` contract as extension/browser-shim.js, but
  * delegates to a native bridge object (`Android`, an @JavascriptInterface)
- * backed by SharedPreferences + the FitShieldVpnService. This keeps the web UI
+ * backed by SharedPreferences + the app-blocking AccessibilityService. This keeps the web UI
  * identical across platforms; only this shim and the native bridge are
  * Android-specific.
  *
@@ -47,7 +47,7 @@
    *
    * `storageGet` costs one synchronous @JavascriptInterface call plus one
    * JSON.parse PER KEY. `renderAppBlocking` asks for 9 keys, so 9 hops; the
-   * domain-list editors ask for 1 each; and `stats.get()` asks for 5 — on the
+   * list editors ask for 1 each; and `stats.get()` asks for 5 — on the
    * dashboard's 2s status poll, which made it 2.5 bridge hops a second for the
    * whole time the app was open. WebAppBridge answers from the in-memory
    * SharedPreferences map, so serving all of them together costs it one
@@ -144,35 +144,19 @@
 
   // ---- values that cannot change while this process lives -------------------
   //
-  // Both of these sat on the dashboard's 2s status poll, and both answer with
-  // something fixed at process start:
-  //
-  //   A.getVersion()  the APK's own versionName, which the native side reads via
-  //     PackageManager.getPackageInfo — a real binder round-trip to system_server.
-  //     It cannot change without this process being replaced, because installing
-  //     a new version kills it. It was being fetched twice a second, from three
-  //     callers (blocking.rulesVersion, runtime.getManifest, version.get).
-  //   A.ruleCount()   the size of the host set RuleEngine parses ONCE from a
-  //     read-only packaged asset when the service starts.
-  //
-  // Memoising them removes the PackageManager IPC from the poll entirely. Only a
-  // usable answer is cached, so a bridge that is not ready yet is asked again
-  // rather than pinned to "" or 0 for the rest of the session.
+  // A.getVersion() is the APK's own versionName, which the native side reads via
+  // PackageManager.getPackageInfo — a real binder round-trip to system_server.
+  // It cannot change without this process being replaced, because installing a
+  // new version kills it. Memoised so the dashboard's 2s poll never pays for it.
+  // Only a usable answer is cached, so a bridge that is not ready yet is asked
+  // again rather than pinned to "" for the rest of the session.
   let cachedVersion = null;
-  let cachedHostCount = 0;
 
   function appVersion() {
     if (!cachedVersion) {
       cachedVersion = A.getVersion();
     }
     return cachedVersion;
-  }
-
-  function hostCount() {
-    if (!cachedHostCount) {
-      cachedHostCount = A.ruleCount();
-    }
-    return cachedHostCount;
   }
 
   global.fitshield = {
@@ -189,8 +173,8 @@
     },
 
     runtime: {
-      // No background service worker on Android; the UI talks to the VPN via
-      // fitshield.vpn (below). Kept as a resolved no-op for API parity.
+      // No background service worker on Android. Kept as a resolved no-op for
+      // API parity.
       sendMessage: () => Promise.resolve(null),
       onMessage: () => {},
       // The WebView base is the bundled web/ dir, so relative paths resolve to
@@ -225,8 +209,8 @@
       consentGiven: () => Promise.resolve(!!(A.accessibilityConsentGiven && A.accessibilityConsentGiven())),
       recordConsent: () => { if (A.recordAccessibilityConsent) A.recordAccessibilityConsent(); return Promise.resolve(); },
       clearConsent: () => { if (A.clearAccessibilityConsent) A.clearAccessibilityConsent(); return Promise.resolve(); },
-      // Whether FitShield may post notifications at all. The restore notice
-      // after a reboot is the one that matters — see MainActivity.
+      // Whether FitShield may post notifications at all (the keep-alive
+      // notification is the one that needs it).
       notificationsEnabled: () => Promise.resolve(A.notificationsEnabled ? !!A.notificationsEnabled() : true),
       openNotificationSettings: () => { if (A.openNotificationSettings) A.openNotificationSettings(); return Promise.resolve(); },
       packageCount: () => Promise.resolve(A.appPackageCount ? A.appPackageCount() : 0),
@@ -234,7 +218,6 @@
       // "Display over other apps" — makes the block screen launch reliably.
       overlayEnabled: () => Promise.resolve(!!(A.overlayEnabled && A.overlayEnabled())),
       openOverlaySettings: () => { if (A.openOverlaySettings) A.openOverlaySettings(); return Promise.resolve(); },
-      vpnEnabled: () => Promise.resolve(!!(A.vpnEnabled && A.vpnEnabled())),
       // Optional "background protection": an opt-in keep-alive foreground service
       // + battery-optimization exemption, for devices that freeze idle apps.
       keepAliveEnabled: () => Promise.resolve(!!(A.keepAliveEnabled && A.keepAliveEnabled())),
@@ -243,23 +226,27 @@
       openBatterySettings: () => { if (A.openBatterySettings) A.openBatterySettings(); return Promise.resolve(); }
     },
 
-    // Domain-oriented surfaces — same shape as browser-shim.js. On Android,
-    // blocking is the local DNS-filtering VpnService.
+    // Master switch for app blocking. Android blocks food-delivery APPS only (via
+    // the AccessibilityService); websites are blocked by the browser extension.
+    // The switch is the SharedPreferences key `appBlockingEnabled`, which
+    // AppBlockPolicy.shouldBlock honours. Absent means ON, exactly like
+    // AppBlockPolicy.isEnabled in Kotlin; only a stored `false` turns it off.
     blocking: {
-      isEnabled: () => Promise.resolve(A.vpnIsEnabled()),
-      enable: () => { A.vpnEnable(); return Promise.resolve(); },
-      disable: () => { A.vpnDisable(); return Promise.resolve(); },
-      // Memoised: see appVersion()/hostCount() above. Both of these are polled
-      // every 2s by the dashboard and neither can change while this process runs.
-      rulesVersion: () => Promise.resolve(appVersion()),
-      hostCount: () => Promise.resolve(hostCount()),
-      privateDnsActive: () => Promise.resolve(A.privateDnsActive()),
-      // Convenience domain checker (reuses the on-device engine). Returns the
-      // matched curated apex, or null when not blocked.
-      check: (host) => {
-        const apex = A.checkHost(String(host || ""));
-        return Promise.resolve(apex ? { blocked: true, apex } : { blocked: false, apex: null });
-      }
+      // Read RAW and decided exactly as AppBlockPolicy.bool() decides it: absent
+      // means ON; otherwise ON only when the value, with surrounding quotes
+      // trimmed, is "true" (any case). Going through parseValue would read a
+      // malformed value (e.g. from an imported backup) as absent, i.e. ON, while
+      // Kotlin reads it as OFF — the dashboard would claim blocking that is not
+      // happening.
+      isEnabled: () => {
+        const raw = A.storageGet("appBlockingEnabled");
+        if (raw === null || raw === undefined) return Promise.resolve(true);
+        return Promise.resolve(String(raw).replace(/^"+|"+$/g, "").toLowerCase() === "true");
+      },
+      enable: () => storageSet({ appBlockingEnabled: true }),
+      disable: () => storageSet({ appBlockingEnabled: false }),
+      // Memoised: see appVersion() above. Polled every 2s by the dashboard.
+      rulesVersion: () => Promise.resolve(appVersion())
     },
 
     // Only what a surface actually renders. `caloriesAvoided`, `avgMealCost`,
@@ -275,17 +262,8 @@
       ])
     },
 
-    // Engine-derived country/category metadata from the native bridge (which
-    // reads it out of the generated rules asset). Selections are stored locally;
-    // enforcement is wired in the later DNS step.
+    // Selections are stored locally (the app-blocking categories live in the UI).
     filters: {
-      metadata: () => {
-        try {
-          return Promise.resolve(JSON.parse(A.getRulesMetadata() || "{}"));
-        } catch (e) {
-          return Promise.resolve({});
-        }
-      },
       getSelected: () => storageGet(["enabledCountries", "enabledCategories"]),
       setSelected: (sel) => storageSet(sel || {})
     },

@@ -968,21 +968,5 @@ test("a grocer refiled in the catalog is refiled in the Android app catalog too"
   assert.deepEqual(wrong, [], `the two catalogs disagree:\n  ${wrong.join("\n  ")}`);
 });
 
-test("Android blocks exactly the hosts the extension blocks", async () => {
-  // Two generators, one dataset. The Android VPN rule file is built from the
-  // same blocklists as the extension's dynamic rules, and a drift between them
-  // is a brand that is interrupted on the desktop and not on the phone — which
-  // no test on either side alone can see.
-  const rules = JSON.parse(
-    fs.readFileSync(path.join(ROOT, "android", "app", "src", "main", "assets", "fitshield-rules.json"), "utf8")
-  );
-
-  const android = new Set((rules.hosts || []).map(asciiHost));
-  const extension = new Set(await blockedHosts());
-
-  const onlyExtension = [...extension].filter((host) => !android.has(host));
-  const onlyAndroid = [...android].filter((host) => !extension.has(host));
-
-  assert.deepEqual(onlyExtension, [], `blocked in the browser and not on Android: ${onlyExtension.join(", ")}`);
-  assert.deepEqual(onlyAndroid, [], `blocked on Android and not in the browser: ${onlyAndroid.join(", ")}`);
-});
+// Android no longer blocks hosts (the VpnService was removed for Google Play), so there is
+// no host list to compare with the extension; app coverage is checked in android-packages.test.js.

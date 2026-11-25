@@ -116,7 +116,13 @@ async function launchFirefox({
     args.unshift("--headless");
   }
 
-  const proc = spawn(binary, args, { stdio: ["ignore", "pipe", "pipe"] });
+  // Newer Firefox builds gate the same system access on an environment variable
+  // as well as the flag ("Start Firefox with MOZ_REMOTE_ALLOW_SYSTEM_ACCESS=1"),
+  // so set both; each is ignored by builds that do not know it.
+  const proc = spawn(binary, args, {
+    stdio: ["ignore", "pipe", "pipe"],
+    env: { ...process.env, MOZ_REMOTE_ALLOW_SYSTEM_ACCESS: "1" }
+  });
   let stderr = "";
   proc.stderr.on("data", (chunk) => {
     stderr += chunk.toString();

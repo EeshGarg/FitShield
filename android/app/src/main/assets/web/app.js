@@ -2,8 +2,8 @@
  * FitShield Android UI logic. Talks ONLY to the platform-agnostic fitshield.*
  * API (implemented by android-shim.js over the narrow native bridge) plus the
  * reused FitShieldI18n module. No chrome.*, no direct
- * Android calls. Blocking-config controls are persisted via fitshield.storage;
- * enforcement of timing/filters is wired in the later DNS step (labelled in UI).
+ * Android calls. Settings are persisted via fitshield.storage; the Android app
+ * blocks food-delivery APPS only (websites are the browser extension's job).
  */
 (function () {
   "use strict";
@@ -18,42 +18,6 @@
   // builds a new one. Most callers below sit on the 2s status poll, where the
   // string is identical to the one already on screen almost every time.
   const setText = (node, text) => { if (node && node.textContent !== text) node.textContent = text; };
-
-  function normalizeDomain(v) {
-    let d = String(v || "").trim().toLowerCase();
-    if (!d) return "";
-    d = d.replace(/^[a-z]+:\/\//, "").split("/")[0].split("?")[0].replace(/^www\./, "");
-    return /^[a-z0-9.-]+\.[a-z0-9.-]+$/.test(d) ? d : "";
-  }
-  // Countries are named by the SAME function as everywhere else, for the same
-  // reason `categoryName` below delegates — and this one was simply missed when
-  // that fix landed. What sat here was a bare `Intl.DisplayNames`, with its own
-  // locale helper and its own memo, and no curated overrides: so "Most blocked
-  // countries" and the country picker rendered Intl's "Hong Kong SAR China"
-  // where every extension surface says "Hong Kong". FitShieldI18n.countryName
-  // carries the curated short forms (mirroring FS Engine's COUNTRY_NAMES), keys
-  // its own Intl memo by locale so a language change invalidates it without
-  // anyone remembering to, and upper-cases/echoes unknown codes. Delegating
-  // deletes a namer, a memo and the `locale()` helper that existed only to feed
-  // them.
-  function countryName(code) {
-    return (self.FitShieldI18n && self.FitShieldI18n.countryName)
-      ? self.FitShieldI18n.countryName(code)
-      : String(code || "");
-  }
-  // One namer for the whole product, and it lives in i18n.js — which this page
-  // already loads, immediately above this file. The local copy that used to sit
-  // here had drifted twice over: its fallback branch dropped the `.filter(Boolean)`
-  // the canonical prettifier has, so an empty or leading-underscore category id
-  // reached `w[0].toUpperCase()` on `undefined` and threw; and resolving `t()`
-  // itself meant any future change to the rule in i18n.js silently stopped at
-  // the extension. Delegating is what keeps Android, the block page and Settings
-  // saying one word for one category.
-  function categoryName(id) {
-    return (self.FitShieldI18n && self.FitShieldI18n.categoryName)
-      ? self.FitShieldI18n.categoryName(id)
-      : String(id || "");
-  }
 
   // ---- dashboard / status --------------------------------------------------
   //
@@ -70,46 +34,34 @@
   let statusMetaDrawn = false;
   async function renderStatus() {
     const enabled = await fs.blocking.isEnabled();
-    const pdns = fs.blocking.privateDnsActive ? await fs.blocking.privateDnsActive() : false;
+    appBlockingOn = enabled;
+    let a11y = false;
+    try { a11y = !!(await fs.appBlocking.accessibilityEnabled()); } catch (e) {}
 
     // IMMUTABLE for the life of the process, so derived once rather than per
-    // tick: `rulesVersion` is the APK's own version string, and `hostCount` is
-    // the count in a packaged read-only asset. Neither can change without the
-    // process being replaced. (The shim memoises both bridge calls too — see
-    // android-shim.js — which is what takes the PackageManager binder IPC out of
-    // the poll entirely.) `statusMetaDrawn` is only latched once a version has
-    // actually come back, so a bridge that is not ready yet is retried instead
-    // of pinning an empty line forever.
+    // tick: `rulesVersion` is the APK's own version string. (The shim memoises
+    // the bridge call too, which takes the PackageManager binder IPC out of the
+    // poll.) `statusMetaDrawn` is only latched once a version has actually come
+    // back, so a bridge that is not ready yet is retried.
     if (!statusMetaDrawn) {
-      const [version, hosts] = await Promise.all([fs.blocking.rulesVersion(), fs.blocking.hostCount()]);
-      const parts = [];
-      if (hosts != null) parts.push(`${Number(hosts).toLocaleString()} blocked domains`);
-      if (version) parts.push(`rules v${version}`);
-      $("meta").textContent = parts.join(" · ");
+      const version = await fs.blocking.rulesVersion();
       $("footerVersion").textContent = version ? `FitShield ${version}` : "FitShield";
       statusMetaDrawn = !!version;
     }
 
-    const sig = `${enabled}|${pdns}`;
+    const sig = `${enabled}|${a11y}`;
     if (sig === statusSig) return;
     statusSig = sig;
 
-    $("status").className = enabled ? "status on" : "status";
-    document.documentElement.classList.toggle("on", enabled); // context-aware accent lighting
+    // "On" claims blocking only when it can actually happen: app blocking needs
+    // the accessibility service.
+    const active = enabled && a11y;
+    $("status").className = active ? "status on" : "status";
+    document.documentElement.classList.toggle("on", active); // context-aware accent lighting
 
-    $("statusText").textContent = enabled ? "On — blocking locally" : "Off";
+    $("statusText").textContent = !enabled ? "Off"
+      : (a11y ? "On — blocking apps" : "On — turn on the accessibility service to block apps");
     $("toggle").textContent = enabled ? "Disable FitShield" : "Enable FitShield";
-
-    // FitShield blocks by the connection's site name (TLS SNI / HTTP Host), not
-    // DNS — so it works alongside encrypted / Private DNS, which it never touches.
-    // When Private DNS is active, reassure the user their DNS is untouched.
-    const note = $("dnsNote");
-    if (pdns && enabled) {
-      note.hidden = false;
-      note.textContent = "Your encrypted Private DNS is untouched — FitShield blocks by each connection's site name, so it works alongside your DNS provider.";
-    } else {
-      note.hidden = true;
-    }
   }
 
   // ---- stats (observed counts only; parity with the extension) -------------
@@ -190,92 +142,17 @@
     // reset a number the user has watched grow.
     animateNumber($("visits"), Number(data.blockedVisits) || 0);
 
-    renderMostBlocked("mostBlocked", "mostBlockedWrap", data.blockedByDomain, (h) => h);
-    renderMostBlocked("mostBlockedCat", "mostBlockedCatWrap", data.blockedByCategory, categoryName);
-    renderMostBlocked("mostBlockedCountry", "mostBlockedCountryWrap", data.blockedByCountry, countryName);
     renderMostBlocked("mostBlockedApps", "mostBlockedAppsWrap", data.blockedByApp, (n) => n);
   }
   // Re-render dynamic strings/values (called after language change / reset).
-  // There is no namer to invalidate here any more: FitShieldI18n.countryName keys
-  // its own Intl memo by locale, and renderMostBlocked's signature is built from
-  // the rendered labels, so a language change redraws the ranked lists by itself.
+  // renderMostBlocked's signature is built from the rendered labels, so a
+  // language change redraws the ranked lists by itself.
   async function refresh() {
     renderStatus();
     renderStats();
   }
 
-  // ---- country / category filters (selections stored; enforcement: DNS step)
-  async function renderFilters() {
-    const meta = (await fs.filters.metadata()) || {};
-    const sel = await fs.filters.getSelected();
-    const selCountries = new Set(sel.enabledCountries || []);
-    const selCategories = new Set(sel.enabledCategories || []);
-
-    function pickerInto(listEl, searchEl, items, labelFor, selectedSet, storageKey) {
-      function draw() {
-        const q = searchEl.value.trim().toLowerCase();
-        listEl.replaceChildren();
-        items.filter((it) => labelFor(it.id).toLowerCase().includes(q) || it.id.toLowerCase().includes(q))
-          .slice(0, 60)
-          .forEach((it) => {
-            const row = el("li", "item");
-            row.append(el("span", null, `${labelFor(it.id)} · ${it.count}`));
-            const on = selectedSet.has(it.id);
-            const pill = el("button", on ? "pill on" : "pill", on ? "On" : "Off");
-            pill.addEventListener("click", () => {
-              if (selectedSet.has(it.id)) selectedSet.delete(it.id); else selectedSet.add(it.id);
-              fs.filters.setSelected({ [storageKey]: [...selectedSet] });
-              draw();
-            });
-            row.appendChild(pill);
-            listEl.appendChild(row);
-          });
-      }
-      searchEl.addEventListener("input", draw);
-      draw();
-    }
-    pickerInto($("countryResults"), $("countrySearch"),
-      (meta.countries || []).map((c) => ({ id: c.code, count: c.count })), countryName, selCountries, "enabledCountries");
-    pickerInto($("categoryResults"), $("categorySearch"),
-      (meta.categories || []).map((c) => ({ id: c.id, count: c.count })), categoryName, selCategories, "enabledCategories");
-  }
-
-  // ---- domain lists (custom blocklist + allow list) ------------------------
-  function listEditor(inputId, addId, listId, storageKey, mapItem) {
-    async function read() { return (await fs.storage.get([storageKey]))[storageKey] || []; }
-    async function draw() {
-      const items = await read();
-      const list = $(listId); list.replaceChildren();
-      if (!items.length) { list.appendChild(el("li", "item muted", "None yet.")); return; }
-      items.forEach((raw) => {
-        const domain = mapItem(raw);
-        const row = el("li", "item");
-        row.append(el("span", null, domain));
-        const rm = el("button", "pill", t("removeButton") || "Remove");
-        rm.addEventListener("click", async () => {
-          const cur = await read();
-          await fs.storage.set({ [storageKey]: cur.filter((x) => mapItem(x) !== domain) });
-          draw();
-        });
-        row.appendChild(rm);
-        list.appendChild(row);
-      });
-    }
-    $(addId).addEventListener("click", async () => {
-      const d = normalizeDomain($(inputId).value);
-      if (!d) return;
-      const cur = await read();
-      if (!cur.some((x) => mapItem(x) === d)) {
-        const next = storageKey === "customSites" ? [...cur, { domain: d, enabled: true }] : [...cur, d];
-        await fs.storage.set({ [storageKey]: next });
-      }
-      $(inputId).value = "";
-      draw();
-    });
-    draw();
-  }
-
-  // ---- timer / schedule / post-timer (stored; enforcement: DNS step) -------
+  // ---- timer / schedule (stored; read by the app-blocking policy) ---------
 
   // The product's ranges, stated ONCE for the Android UI.
   //
@@ -290,7 +167,7 @@
   //     BlockActivity.timerSeconds() applied `.coerceIn(0, 300)` and counted down
   //     for five minutes. The setting was accepted, persisted, displayed, and
   //     silently not honoured.
-  //   `passDurationMinutes`  same open top against AppBlockPolicy.unlockMinutes'
+  //   `appUnlockMinutes`  same open top against AppBlockPolicy.unlockMinutes'
   //     `.coerceIn(1, 240)`.
   //
   // ARCHITECTURE.md states the failure mode for the neighbouring case: when the
@@ -302,7 +179,7 @@
   // instead. All three layers (the input's min/max, this clamp, the Kotlin
   // coerceIn) now carry the same two numbers, and test/android-controls.test.js
   // reads core's exported constants and holds every layer to them.
-  const LIMITS = { timerSeconds: [10, 900], passDurationMinutes: [1, 240], appUnlockMinutes: [1, 240] };
+  const LIMITS = { timerSeconds: [10, 900], appUnlockMinutes: [1, 240] };
   // `clampInt` from extension/fitshield-core.js, to the letter: parse as an
   // integer, fall back only when that is not a number at all, and otherwise clamp.
   //
@@ -319,20 +196,18 @@
   };
 
   async function renderTiming() {
-    const s = await fs.storage.get(["timerSeconds", "passDurationMinutes", "scheduleEnabled", "scheduleStart", "scheduleEnd"]);
+    const s = await fs.storage.get(["timerSeconds", "scheduleEnabled", "scheduleStart", "scheduleEnd"]);
     $("timerSeconds").value = Number(s.timerSeconds) || 60;
-    $("passMinutes").value = Number(s.passDurationMinutes) || 5;
     $("scheduleEnabled").checked = !!s.scheduleEnabled;
     $("scheduleStart").value = s.scheduleStart || "18:00";
     $("scheduleEnd").value = s.scheduleEnd || "23:00";
     const save = () => fs.storage.set({
       timerSeconds: clampLimit("timerSeconds", $("timerSeconds").value, 60),
-      passDurationMinutes: clampLimit("passDurationMinutes", $("passMinutes").value, 5),
       scheduleEnabled: $("scheduleEnabled").checked,
       scheduleStart: $("scheduleStart").value || "18:00",
       scheduleEnd: $("scheduleEnd").value || "23:00"
     });
-    ["timerSeconds", "passMinutes", "scheduleStart", "scheduleEnd"].forEach((id) => $(id).addEventListener("change", save));
+    ["timerSeconds", "scheduleStart", "scheduleEnd"].forEach((id) => $(id).addEventListener("change", save));
     $("scheduleEnabled").addEventListener("change", save);
   }
 
@@ -534,7 +409,7 @@
         const pill = el("button", on ? "pill on" : "pill", on ? "✓" : "Use");
         pill.addEventListener("click", async () => {
           await i18n.setLanguage(o.value, { persist: true }); // re-localizes static labels
-          refresh(); renderFilters(); renderRecipes(); draw(); // re-render dynamic strings
+          refresh(); renderRecipes(); draw(); // re-render dynamic strings
         });
         row.appendChild(pill);
         list.appendChild(row);
@@ -564,7 +439,7 @@
     // longer a headline number, but it is their data"). Listing it here is what
     // makes it the USER's to clear: drop it and the value is orphaned on the
     // device with no control anywhere that can reach it.
-    const STATS = ["blockedVisits", "blockedByDomain", "blockedByCategory", "blockedByCountry", "caloriesAvoided", "recipesChosen"];
+    const STATS = ["blockedVisits", "blockedByApp", "blockedByDomain", "blockedByCategory", "blockedByCountry", "caloriesAvoided", "recipesChosen"];
     // `avgMealCost`, `avgMealCalories`, `mealStatsCustomized` and `currency` are
     // legacy for the same reason: the estimate row they fed is gone, and the
     // values stay on the device until the user asks for them to go.
@@ -632,10 +507,8 @@
   //
   // It used to be reachable only from inside that function and from a
   // `visibilitychange` listener, and the 2s interval refreshed the headline and
-  // the stats but none of the permission rows. So granting VPN consent left
-  // "Site blocking (VPN) · Off" on screen next to a dashboard that already said
-  // "On — blocking locally", until the app happened to be backgrounded and
-  // brought back. Every row this function owns had the same staleness.
+  // the stats but none of the permission rows, so a granted permission stayed
+  // shown as "Off" until the app was backgrounded and brought back.
   let refreshPermissionStatuses = () => {};
 
   // Mirrors the stored `appBlockingEnabled`, defaulting ON like AppBlockPolicy.
@@ -680,12 +553,10 @@
       wrap.setAttribute("aria-label", `${label}: ${on ? "on" : "off"}`);
     }
     async function refreshStatuses() {
-      let a11y = false, vpn = false, overlay = false;
+      let a11y = false, overlay = false;
       try { a11y = await ab.accessibilityEnabled(); } catch (e) {}
-      try { vpn = await ab.vpnEnabled(); } catch (e) {}
       try { overlay = await ab.overlayEnabled(); } catch (e) {}
       mark("stAccessibility", a11y, "Accessibility service");
-      mark("stVpn", vpn, "Site blocking (VPN)");
       mark("stOverlay", overlay, "Display over other apps");
       setText($("a11yStatus"), a11y
         ? "Accessibility service is on — app blocking can run."
@@ -699,33 +570,27 @@
       // nothing and there is otherwise no sign of why.
       const setup = $("appBlockSetup");
       if (setup) {
-        // `vpn` matters as well as `a11y`: before FitShield is switched on at
-        // all, nothing is blocked, and a card opening "Sites are blocked" over
-        // a dashboard reading "Off" would be the product contradicting itself
-        // on its own front page.
-        setup.hidden = a11y || !appBlockingOn || !vpn;
+        setup.hidden = a11y || !appBlockingOn;
         if (!setup.hidden) {
           setText($("appBlockSetupText"),
-            "Sites are blocked. To also pause food APPS on this phone, FitShield needs Android's " +
+            "To pause food apps on this phone, FitShield needs Android's " +
             "accessibility service — it only reads which app comes to the front, never screen content.");
         }
       }
 
-      // Notifications. POST_NOTIFICATIONS was declared and never requested, so on
-      // Android 13+ it was denied on every device — and the notice that says
-      // "protection is off after your restart" was posting into nothing. It is
-      // requested now when site blocking is first enabled; this is what happens
-      // when the user declines, or turns notifications off later.
+      // Notifications. The optional keep-alive notification needs the permission
+      // on Android 13+; say so when it is off.
       if ($("notifStatus") && ab.notificationsEnabled) {
+        // Only relevant once the user has opted in to the keep-alive.
         let notifications = true;
-        try { notifications = await ab.notificationsEnabled(); } catch (e) {}
+        let keepAlive = false;
+        try { keepAlive = ab.keepAliveEnabled ? await ab.keepAliveEnabled() : false; } catch (e) {}
+        try { notifications = !keepAlive || await ab.notificationsEnabled(); } catch (e) {}
         $("notifStatus").hidden = notifications;
         $("notifOpen").hidden = notifications;
         if (!notifications) {
           setText($("notifStatus"),
-            "Notifications are turned off for FitShield. If your phone restarts and Android needs your VPN " +
-            "confirmation again, FitShield cannot tell you that site blocking stopped — you would find out by " +
-            "opening a site that should have been blocked.");
+            "Notifications are turned off for FitShield, so the optional background-reliability notification cannot be shown.");
         }
       }
       // Optional background-protection status (battery-optimization exemption).
@@ -777,8 +642,8 @@
         ab.openSettings();
       });
       $("a11yDecline").addEventListener("click", () => {
-        // Declining records nothing and enables nothing. App blocking stays off
-        // and site blocking is unaffected.
+        // Declining records nothing and enables nothing. The accessibility
+        // service stays off, so no app is blocked.
         disclosure.hidden = true;
       });
     }
@@ -820,7 +685,7 @@
       setText($("appBlockCount"), n
         ? `${n} app${n === 1 ? "" : "s"} can be blocked (more brands added over time).`
         : "No apps can be blocked on this build — FitShield could not read its bundled app list, so app blocking " +
-          "is inactive. Site blocking is unaffected. Reinstalling the app should restore it.");
+          "is inactive. Reinstalling the app should restore it.");
     } catch (e) {}
 
     // Read the key for EVERY pill, not a hand-written subset. This listed four of
@@ -829,18 +694,10 @@
     // Coffee off and reopened Settings was shown Coffee on, while the policy —
     // which reads the stored value — was still not blocking it. The switch and
     // the behaviour disagreed, and only the switch was visible.
-    const s = await fs.storage.get(["appBlockingEnabled", "appUnlockMinutes", ...Object.values(CATS)]);
-    // Defaults ON when absent, matching AppBlockPolicy.isEnabled and the pills
-    // below. `!!s.appBlockingEnabled` showed a fresh install this switch OFF
-    // while every category under it read ON — the same switch-disagrees-with-
-    // behaviour bug the pills had, in the opposite direction.
-    $("appBlockingEnabled").checked = s.appBlockingEnabled !== false;
-    appBlockingOn = s.appBlockingEnabled !== false;
-    $("appBlockingEnabled").addEventListener("change", () => {
-      appBlockingOn = $("appBlockingEnabled").checked;
-      fs.storage.set({ appBlockingEnabled: appBlockingOn });
-      refreshA11y();
-    });
+    // The master switch is the dashboard toggle (fs.blocking), not a second
+    // control here. Defaults ON when absent, matching AppBlockPolicy.isEnabled.
+    const s = await fs.storage.get(["appUnlockMinutes", ...Object.values(CATS)]);
+    appBlockingOn = await fs.blocking.isEnabled();
 
     document.querySelectorAll("#appBlockPanel .pill[data-cat]").forEach((pill) => {
       const key = CATS[pill.dataset.cat];
@@ -896,24 +753,16 @@
   function wire() {
     $("toggle").addEventListener("click", async () => {
       (await fs.blocking.isEnabled()) ? await fs.blocking.disable() : await fs.blocking.enable();
-      // The permission rows move with this too — turning FitShield on is exactly
-      // when "Site blocking (VPN)" becomes true.
-      setTimeout(() => { renderStatus(); refreshPermissionStatuses(); }, 600);
+      // The setup prompt follows the switch too.
+      await renderStatus();
+      refreshPermissionStatuses();
     });
-    $("checkBtn").addEventListener("click", runCheck);
-    $("checkInput").addEventListener("keydown", (e) => { if (e.key === "Enter") runCheck(); });
     $("exportBtn").addEventListener("click", () => fs.importExport.export());
     const importBtn = $("importBtn");
     if (importBtn) importBtn.addEventListener("click", () => fs.importExport.import());
     const bmc = $("bmcBtn");
     if (bmc) bmc.addEventListener("click", () => { if (fs.tabs && fs.tabs.create) fs.tabs.create("https://buymeacoffee.com/eeshgarg"); });
   }
-  async function runCheck() {
-    const host = normalizeDomain($("checkInput").value) || $("checkInput").value.trim();
-    const r = await fs.blocking.check(host);
-    $("checkResult").innerHTML = !r ? "Checking isn't available here." : (r.blocked ? `<span class="ok">Blocked</span> — matches ${r.apex}` : `<span class="muted">Not blocked</span>`);
-  }
-
   // ---- first-run welcome (shown once) --------------------------------------
   async function renderWelcome() {
     const overlay = $("welcome");
@@ -934,11 +783,8 @@
     renderAppBlocking();
     renderStatus();
     renderStats();
-    renderFilters();
     renderTiming();
     renderRecipes();
-    listEditor("customInput", "customAdd", "customList", "customSites", (x) => (x && x.domain) ? x.domain : String(x));
-    listEditor("allowInput", "allowAdd", "allowList", "androidAllowlist", (x) => String(x));
     initTilt();
 
     // Everything the poll refreshes, in one place, so the poll and the resume

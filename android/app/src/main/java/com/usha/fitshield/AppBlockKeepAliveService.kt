@@ -54,8 +54,7 @@ class AppBlockKeepAliveService : Service() {
     }
 
     companion object {
-        // 1 = FitShieldVpnService, 2 = this, 3 = RestoreNotice. The comment used
-        // to name only the VpnService, and RestoreNotice was given 2 as well.
+        // Notification id: 2 = this keep-alive service (the only notification FitShield posts).
         private const val NOTIF_ID = 2
 
         fun start(context: Context) {

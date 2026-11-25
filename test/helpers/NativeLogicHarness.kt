@@ -5,147 +5,21 @@ package com.usha.fitshield
  * suite can assert on what it really does, rather than on what its source looks
  * like it does.
  *
- * There is no emulator here, and a grep over Kotlin cannot tell you whether an
- * IPv6 packet with a Hop-by-Hop header yields the right transport offset, or
- * whether a truncated one returns null instead of throwing out of the tun read
- * loop. Both are answerable off-device, because IpPacket / HostPeek /
- * BootRestore / VpnIntent deliberately import nothing from Android.
+ * Only sources that import nothing from Android can be compiled here (today:
+ * Schedule). The VPN-era packet, host-match and boot-restore logic is gone with
+ * the VpnService Google Play rejected.
  *
  * This file is TEST SCAFFOLDING. It is not in the app's source set and never
  * ships in the APK; it is compiled on demand by test/helpers/kotlin-runner.js
  * together with the real sources it exercises.
  *
  * Protocol: one command per stdin line, one result per stdout line, in order.
- * Byte strings travel as lowercase hex both ways, and every returned *text*
- * value is hex-encoded too, so no separator can ever appear inside a value. Any
- * command that throws answers "ERR:<class>" — which is how "a malformed packet
- * cannot crash the filter" is asserted rather than assumed.
+ * Any command that throws answers "ERR:<class>".
  */
-private fun hex(bytes: ByteArray): String {
-    val sb = StringBuilder(bytes.size * 2)
-    for (b in bytes) {
-        val v = b.toInt() and 0xFF
-        if (v < 16) sb.append('0')
-        sb.append(Integer.toHexString(v))
-    }
-    return sb.toString()
-}
-
-private fun unhex(text: String): ByteArray {
-    if (text == "-") return ByteArray(0)
-    val out = ByteArray(text.length / 2)
-    for (i in out.indices) {
-        out[i] = ((Character.digit(text[i * 2], 16) shl 4) or Character.digit(text[i * 2 + 1], 16)).toByte()
-    }
-    return out
-}
-
-private fun hexText(s: String) = hex(s.toByteArray(Charsets.UTF_8))
-
 private fun run(line: String): String {
-    // Padded so an omitted or empty trailing argument reads as "-" (absent)
-    // instead of walking off the end of the token list.
+    // Padded so an omitted trailing argument reads as "-" (absent).
     val a = line.trim().split(" ") + List(16) { "-" }
     return when (a[0]) {
-        // parse <packetHex> [len]
-        "parse" -> {
-            val pkt = unhex(a[1])
-            val len = if (a[2] == "-") pkt.size else a[2].toInt()
-            val h = IpPacket.parse(pkt, len)
-            if (h == null) "null"
-            else "v=${h.version} p=${h.protocol} off=${h.transportOffset} src=${hex(h.src)} dst=${hex(h.dst)}"
-        }
-
-        // sni <payloadHex>  /  host <payloadHex>
-        "sni", "host" -> {
-            val b = unhex(a[1])
-            val r = if (a[0] == "sni") HostPeek.tlsSni(b, b.size) else HostPeek.httpHost(b, b.size)
-            when {
-                r == null -> "need"
-                r.isEmpty() -> "none"
-                else -> "host=${hexText(r)}"
-            }
-        }
-
-        // key <addrHex>
-        "key" -> "k=${hexText(IpPacket.addressKey(unhex(a[1])))}"
-
-        // tcp <srcHex> <dstHex> <sport> <dport> <seq> <ack> <flags> <win> <payloadHex|-> <mss|->
-        "tcp" -> {
-            val payload = if (a[9] == "-") null else unhex(a[9])
-            val mss = if (a[10] == "-") null else a[10].toInt()
-            val pkt = IpPacket.buildTcp(
-                unhex(a[1]), unhex(a[2]), a[3].toInt(), a[4].toInt(),
-                a[5].toInt(), a[6].toInt(), a[7].toInt(), a[8].toInt(), payload, mss
-            )
-            "pkt=${hex(pkt)}"
-        }
-
-        // udp <srcHex> <dstHex> <sport> <dport> <payloadHex>
-        "udp" -> {
-            val payload = unhex(a[5])
-            "pkt=${hex(IpPacket.buildUdp(unhex(a[1]), unhex(a[2]), a[3].toInt(), a[4].toInt(), payload, payload.size))}"
-        }
-
-        // decide <storedIntent|-> <consentHeld>
-        "decide" -> BootRestore.decide(
-            if (a[1] == "-") null else String(unhex(a[1]), Charsets.UTF_8),
-            a[2] == "true"
-        ).name
-
-        // record <EVENT>
-        "record" -> VpnIntent.record(VpnIntent.Event.valueOf(a[1]))?.toString() ?: "null"
-
-        // encode <true|false>  /  decode <storedIntent|->
-        "encode" -> "s=${hexText(VpnIntent.encode(a[1] == "true"))}"
-        "decode" -> VpnIntent.decode(if (a[1] == "-") null else String(unhex(a[1]), Charsets.UTF_8)).toString()
-
-        "key_name" -> "s=${hexText(VpnIntent.KEY)}"
-
-        // apex <apexesHex|-> <allowHex|-> <hostHex> [customHex|-]
-        // The real host matcher, allow layer included. All three travel as hex
-        // (the sets are comma-joined first) so a value may contain a space, which
-        // is exactly the case that must not be lost: a blank allow entry.
-        "apex" -> {
-            val apexes = if (a[1] == "-") emptySet()
-                else String(unhex(a[1]), Charsets.UTF_8).split(",").toSet()
-            val allow = if (a[2] == "-") emptySet()
-                else HostMatch.allowSet(String(unhex(a[2]), Charsets.UTF_8).split(","))
-            val host = String(unhex(a[3]), Charsets.UTF_8)
-            val custom = if (a.size < 5 || a[4] == "-") emptySet()
-                else HostMatch.customSet(String(unhex(a[4]), Charsets.UTF_8).split(","))
-            HostMatch.blockedApex(apexes, custom, allow, host)?.let { "apex=${hexText(it)}" } ?: "null"
-        }
-
-        // norm <hostHex>
-        // HostMatch.normalize on its own, so it can be held against the JS
-        // engine's normalizeHostname case for case. It is reached through
-        // `apex` as well, but only for inputs that are already clean hostnames —
-        // and the inputs that were broken are the ones a USER types into the
-        // allow list or the domain tester: a pasted URL, a port, a trailing dot.
-        // Kotlin's null ("no host") travels as the literal "null"; the engine
-        // spells the same answer "".
-        "norm" -> HostMatch.normalize(String(unhex(a[1]), Charsets.UTF_8))
-            ?.let { "host=${hexText(it)}" } ?: "null"
-
-        // notice <afterReboot>
-        "notice" -> "s=${hexText(BootRestore.noticeText(a[1] == "true"))}"
-
-        // refuse <destIsIpv6> <ipv6Upstream>
-        "refuse" -> BlockDecision.shouldRefuseSyn(a[1] == "true", a[2] == "true").toString()
-
-        // reset <apexHex|-> <scheduleAllows> <unlockedUntil|-> <now> [brandAllowed]
-        // `brandAllowed` is LAST and defaults to absent ("-" -> false) so every
-        // command string written before the per-app allow list reached the filter
-        // still means what it meant.
-        "reset" -> BlockDecision.shouldReset(
-            if (a[1] == "-") null else String(unhex(a[1]), Charsets.UTF_8),
-            a[2] == "true",
-            a[5] == "true",
-            if (a[3] == "-") null else a[3].toLong(),
-            a[4].toLong()
-        ).toString()
-
         // sched <true|false> <start> <end> <nowMinutes>
         "sched" -> Schedule.withinWindow(a[1] == "true", a[2], a[3], a[4].toInt()).toString()
 

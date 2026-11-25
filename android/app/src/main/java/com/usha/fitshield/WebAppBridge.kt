@@ -13,17 +13,15 @@ import org.json.JSONObject
  * Native bridge exposed to the WebView as `Android`. android-shim.js builds the
  * platform-agnostic `fitshield.*` API on top of these synchronous methods.
  *
- * - storage*  -> SharedPreferences ("fitshield"), the SAME store the VpnService
- *   writes stats into, so the reused web UI shows live numbers.
- * - vpn*      -> start/stop FitShieldVpnService (enable routes through the
- *   Activity for the system VPN-consent dialog).
- * - privateDns* -> detect + open the system Private DNS setting (detect & guide).
+ * - storage*  -> SharedPreferences ("fitshield"), the SAME store the app-blocking
+ *   service reads its settings from.
+ * - accessibility*, overlay*, notification*, battery*, keepAlive* -> state and
+ *   deep links for the app-blocking permissions and the opt-in keep-alive.
  */
 class WebAppBridge(private val activity: AppCompatActivity) {
 
     private val context: Context = activity.applicationContext
     private val prefs = context.getSharedPreferences("fitshield", Context.MODE_PRIVATE)
-    private val engine by lazy { runCatching { RuleEngine.fromAssets(context) }.getOrNull() }
 
     /**
      * The SAME loader the AccessibilityService uses, parsed once for this bridge.
@@ -177,11 +175,8 @@ class WebAppBridge(private val activity: AppCompatActivity) {
     /**
      * True when this app may actually post notifications.
      *
-     * POST_NOTIFICATIONS is a runtime grant on Android 13+, and it was declared
-     * and never requested — so it was denied on every modern device. The ongoing
-     * foreground notice going missing is cosmetic; the "protection is off after
-     * your restart" notice going missing is not, so the dashboard needs to be
-     * able to say when it cannot appear.
+     * POST_NOTIFICATIONS is a runtime grant on Android 13+; without it the
+     * keep-alive foreground notice is not shown, so the dashboard reports it.
      */
     @JavascriptInterface
     fun notificationsEnabled(): Boolean = runCatching {
@@ -232,10 +227,6 @@ class WebAppBridge(private val activity: AppCompatActivity) {
         }
     }
 
-    /** True when the local VPN (SNI/DNS site blocking) is running. */
-    @JavascriptInterface
-    fun vpnEnabled(): Boolean = FitShieldVpnService.isRunning
-
     /** Number of Android app packages FitShield can block (from the generated set). */
     @JavascriptInterface
     fun appPackageCount(): Int = packages.size
@@ -266,6 +257,9 @@ class WebAppBridge(private val activity: AppCompatActivity) {
     fun setKeepAlive(on: Boolean) {
         prefs.edit().putString("keepAliveEnabled", on.toString()).apply()
         activity.runOnUiThread {
+            // The keep-alive is the one thing that posts a notification, so this
+            // is where Android 13+ is asked for permission to show it.
+            if (on) (activity as? MainActivity)?.requestNotificationPermission()
             runCatching {
                 if (on) AppBlockKeepAliveService.start(context) else AppBlockKeepAliveService.stop(context)
             }
@@ -310,58 +304,6 @@ class WebAppBridge(private val activity: AppCompatActivity) {
                 )
             }
         }
-    }
-
-    // ---- vpn (backs fitshield.vpn) ------------------------------------------
-
-    @JavascriptInterface
-    fun vpnIsEnabled(): Boolean = FitShieldVpnService.isRunning
-
-    @JavascriptInterface
-    fun vpnEnable() {
-        activity.runOnUiThread { (activity as? MainActivity)?.requestVpnEnable() }
-    }
-
-    @JavascriptInterface
-    fun vpnDisable() {
-        context.startService(
-            Intent(context, FitShieldVpnService::class.java).setAction(FitShieldVpnService.ACTION_STOP)
-        )
-    }
-
-    @JavascriptInterface
-    fun ruleCount(): Int = engine?.count ?: 0
-
-    /** True when the system has Private DNS (Automatic or a hostname) active.
-     *  Read-only, for a neutral UI note explaining that local filtering is
-     *  paused; FitShield never changes this setting. */
-    @JavascriptInterface
-    fun privateDnsActive(): Boolean {
-        return runCatching {
-            val mode = Settings.Global.getString(context.contentResolver, "private_dns_mode")
-            mode != null && mode != "off"
-        }.getOrDefault(false)
-    }
-
-    /** Convenience domain checker for the in-app tester. Returns the matched
-     *  curated apex, or "" when the host is not blocked. Read-only; no side effects. */
-    @JavascriptInterface
-    fun checkHost(host: String): String = engine?.blockedApex(host) ?: ""
-
-    /** Engine-derived filter metadata (version, host count, countries, categories)
-     *  read straight from the generated rules asset. */
-    @JavascriptInterface
-    fun getRulesMetadata(): String {
-        return runCatching {
-            val raw = context.assets.open(RuleEngine.ASSET_NAME).use { it.readBytes().toString(Charsets.UTF_8) }
-            val asset = JSONObject(raw)
-            JSONObject()
-                .put("version", asset.optString("appVersion"))
-                .put("count", asset.optInt("count"))
-                .put("countries", asset.optJSONArray("countries") ?: JSONArray())
-                .put("categories", asset.optJSONArray("categories") ?: JSONArray())
-                .toString()
-        }.getOrDefault("{}")
     }
 
     /** Export all local settings + stats as a JSON backup via the system share

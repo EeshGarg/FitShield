@@ -82,13 +82,16 @@ costume:
   (`npm run validate:a11y`), which is most of what "screen-reader validation"
   was standing in for.
 
-What is left: a physical Android device for the VPN-consent flow, a person
+What is left: a physical Android device to check the accessibility app-block flow on-device, a person
 listening with a screen reader to judge whether the announcements are *useful*
 rather than merely present, and a person answering the four questions in
 `docs/ACCEPTANCE.md`.
 
 Before writing any item down as external, try it. These never justify leaving
 unrelated repository work unfinished.
+
+FitShield 1.0 is the final feature release; afterwards the project is in
+maintenance mode (fixes and policy compliance only, no new features).
 
 ---
 

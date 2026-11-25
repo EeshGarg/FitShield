@@ -7,9 +7,9 @@
  *   node tools/build-android.js --bundle --versionCode=7     -> release AAB
  *
  * Always (no Android tooling needed):
- *   1. Regenerate the rules asset from the canonical engine.
+ *   1. Refresh the reused web files and the app-package dataset from canonical data.
  *   2. Run the Android audit (engine reuse, no fork, approved permissions).
- *   3. Stage dist/android/ (rules + BUILD.txt with the exact local command).
+ *   3. Stage dist/android/ (BUILD.txt with the exact local command).
  *
  * When the Android SDK + Gradle are available:
  *   4a. default   — build a DEBUG APK  -> dist/android/FitShield-<version>-debug.apk
@@ -31,7 +31,6 @@ const path = require("path");
 const { spawnSync } = require("child_process");
 
 const load = require("./lib/load");
-const gen = require("./generate-android-rules");
 const genPackages = require("./generate-android-packages");
 const androidAudit = require("./android-audit");
 
@@ -80,10 +79,6 @@ async function main() {
   const apkName = `FitShield-${version}-debug.apk`;
   const aabName = `FitShield-${version}-${args.versionCode}.aab`;
 
-  // 1. Regenerate from canonical data via the separated engine.
-  const { asset } = await gen.generate();
-  console.log(`Generated ${asset.count} hosts from ${asset.engine} (canonical data v${Object.values(asset.datasetVersions).join("/")}).`);
-
   // 1b. Refresh the reused web files (no fork).
   bundleWeb();
 
@@ -105,7 +100,6 @@ async function main() {
 
   // 3. Stage outputs.
   fs.mkdirSync(DIST_ANDROID, { recursive: true });
-  fs.copyFileSync(gen.ASSET_PATH, path.join(DIST_ANDROID, "fitshield-rules.json"));
 
   // 4. Build if tooling is present.
   const gradle = findGradle();
@@ -113,6 +107,7 @@ async function main() {
   let gradleStatus = null;
   let artifactFound = false;
   let signed = false;
+  let forbiddenFound = [];
 
   const target = args.bundle
     ? { task: ":app:bundleRelease", label: "release AAB", name: aabName, outDir: ["bundle", "release"], ext: ".aab" }
@@ -141,11 +136,19 @@ async function main() {
       artifactFound = !!artifact;
       if (artifact) {
         signed = !args.bundle || isBundleSigned(artifact);
-        fs.copyFileSync(artifact, path.join(DIST_ANDROID, target.name));
+        if (args.bundle) {
+          forbiddenFound = bundleForbiddenViolations(artifact);
+          if (forbiddenFound.length) {
+            console.error("\nRefusing to stage the bundle:\n  - " + forbiddenFound.join("\n  - "));
+          }
+        }
+        if (forbiddenFound.length === 0) {
+          fs.copyFileSync(artifact, path.join(DIST_ANDROID, target.name));
+        }
         // The file is copied even when unsigned: it is still a valid local
         // "does it assemble" artefact, and deleting it would hide the evidence.
         // What it is NOT is a success, which the outcome below says plainly.
-        built = signed;
+        built = signed && forbiddenFound.length === 0;
         const where = path.relative(load.ROOT, path.join(DIST_ANDROID, target.name)).split(path.sep).join("/");
         console.log(`\n${signed ? "Built" : "Produced (UNSIGNED)"} ${target.name} -> ${where}`);
       } else {
@@ -156,16 +159,16 @@ async function main() {
     }
   } else {
     console.log(`\nAndroid SDK/Gradle not found in this environment — ${target.label} NOT built here.`);
-    console.log("Generated + validated rules and staged dist/android/. See dist/android/BUILD.txt.");
+    console.log("Validated the adapter and staged dist/android/. See dist/android/BUILD.txt.");
   }
 
   writeBuildTxt({
-    version, apkName, aabName, built, hasGradle: !!gradle, asset,
+    version, apkName, aabName, built, hasGradle: !!gradle,
     bundle: args.bundle, versionCode: args.versionCode, signed
   });
 
   const outcome = args.bundle
-    ? bundleOutcome({ hasGradle: !!gradle, gradleStatus, bundleFound: artifactFound, signed })
+    ? bundleOutcome({ hasGradle: !!gradle, gradleStatus, bundleFound: artifactFound, signed, forbidden: forbiddenFound })
     : apkOutcome({ hasGradle: !!gradle, gradleStatus, apkFound: artifactFound });
   if (!built) {
     console.log("\nTo build locally, run the command in dist/android/BUILD.txt.");
@@ -205,7 +208,7 @@ function releaseSigningConfigured() {
  * rejects that upload, so calling it a successful build would be this command
  * lying about the one thing it was run to do.
  */
-function bundleOutcome({ hasGradle, gradleStatus, bundleFound, signed }) {
+function bundleOutcome({ hasGradle, gradleStatus, bundleFound, signed, forbidden = [] }) {
   if (!hasGradle) {
     return { exitCode: 0, built: false, reason: "Android SDK/Gradle absent — bundle skipped, not failed." };
   }
@@ -215,6 +218,13 @@ function bundleOutcome({ hasGradle, gradleStatus, bundleFound, signed }) {
   if (!bundleFound) {
     return { exitCode: 1, built: false, reason: "Android bundle FAILED: Gradle reported success but produced no .aab." };
   }
+  if (forbidden.length > 0) {
+    return {
+      exitCode: 1,
+      built: false,
+      reason: "Android bundle FAILED: the produced bundle contains what Google Play rejected FitShield for.\n  - " + forbidden.join("\n  - ")
+    };
+  }
   if (!signed) {
     return {
       exitCode: 1,
@@ -223,6 +233,86 @@ function bundleOutcome({ hasGradle, gradleStatus, bundleFound, signed }) {
     };
   }
   return { exitCode: 0, built: true, reason: "Release bundle built and signed." };
+}
+
+/**
+ * What Google Play rejected FitShield for, and what must never reach a bundle
+ * again. Matched against the manifest's raw bytes: in an AAB the manifest is a
+ * protobuf, in which every class and permission name is still a plain UTF-8
+ * string, so no protobuf decoder (and no dependency) is needed.
+ */
+const BUNDLE_FORBIDDEN = [
+  ["VpnService", "VpnService"],
+  ["BIND_VPN_SERVICE", "BIND_VPN_SERVICE"],
+  ["android.permission.INTERNET", "android.permission.INTERNET"],
+  ["RECEIVE_BOOT_COMPLETED", "RECEIVE_BOOT_COMPLETED"]
+];
+
+/** The decompressed bytes of one zip entry, or null when it is absent/unreadable. */
+function zipReadEntry(buf, wanted) {
+  const EOCD = 0x06054b50;
+  let eocd = -1;
+  for (let i = buf.length - 22; i >= 0 && i >= buf.length - 66000; i -= 1) {
+    if (buf.readUInt32LE(i) === EOCD) { eocd = i; break; }
+  }
+  if (eocd < 0) return null;
+  const count = buf.readUInt16LE(eocd + 10);
+  let offset = buf.readUInt32LE(eocd + 16);
+  for (let i = 0; i < count; i += 1) {
+    if (offset + 46 > buf.length || buf.readUInt32LE(offset) !== 0x02014b50) return null;
+    const method = buf.readUInt16LE(offset + 10);
+    const compressedSize = buf.readUInt32LE(offset + 20);
+    const nameLen = buf.readUInt16LE(offset + 28);
+    const extraLen = buf.readUInt16LE(offset + 30);
+    const commentLen = buf.readUInt16LE(offset + 32);
+    const local = buf.readUInt32LE(offset + 42);
+    const name = buf.toString("utf8", offset + 46, offset + 46 + nameLen);
+    if (name === wanted) {
+      const dataStart = local + 30 + buf.readUInt16LE(local + 26) + buf.readUInt16LE(local + 28);
+      const raw = buf.subarray(dataStart, dataStart + compressedSize);
+      if (method === 0) return raw;
+      if (method === 8) return require("zlib").inflateRawSync(raw);
+      return null;
+    }
+    offset += 46 + nameLen + extraLen + commentLen;
+  }
+  return null;
+}
+
+/** Forbidden names found in manifest bytes (a Buffer or string). Pure. */
+function forbiddenInManifest(bytes) {
+  const text = Buffer.isBuffer(bytes) ? bytes.toString("latin1") : String(bytes);
+  return BUNDLE_FORBIDDEN.filter(([, needle]) => text.includes(needle)).map(([label]) => label);
+}
+
+/**
+ * Artifact check for the release bundle: fails (returns messages) when the AAB's
+ * base manifest, or the merged manifest Gradle left on disk, names VpnService,
+ * BIND_VPN_SERVICE, INTERNET or RECEIVE_BOOT_COMPLETED. An unreadable manifest is
+ * itself a violation — the check never passes by not looking.
+ */
+function bundleForbiddenViolations(aabFile, mergedManifestFile) {
+  const out = [];
+  let manifest = null;
+  try {
+    manifest = zipReadEntry(fs.readFileSync(aabFile), "base/manifest/AndroidManifest.xml");
+  } catch (error) {
+    out.push(`could not read ${path.basename(aabFile)}: ${error.message}`);
+  }
+  if (!manifest && out.length === 0) {
+    out.push("base/manifest/AndroidManifest.xml could not be read from the bundle, so it cannot be verified");
+  }
+  if (manifest) {
+    forbiddenInManifest(manifest).forEach((label) => out.push(`bundle manifest contains ${label}`));
+  }
+  const merged = mergedManifestFile || path.join(
+    ANDROID_DIR, "app", "build", "intermediates", "bundle_manifest", "release",
+    "processApplicationManifestReleaseForBundle", "AndroidManifest.xml"
+  );
+  if (fs.existsSync(merged)) {
+    forbiddenInManifest(fs.readFileSync(merged, "utf8")).forEach((label) => out.push(`merged manifest contains ${label}`));
+  }
+  return out;
 }
 
 /**
@@ -283,7 +373,7 @@ function zipEntryNames(buf) {
  * "Gradle said OK but produced no APK" case.
  *
  * Absent tooling stays exit 0 on purpose — this environment genuinely has no
- * Android SDK, and the rules/bundle/audit steps above are still worth running
+ * Android SDK, and the bundle/audit steps above are still worth running
  * everywhere. Anything that actually RAN and did not produce an APK is a
  * failure.
  */
@@ -330,7 +420,7 @@ function buildCommand(bundle, versionCode) {
   ].join("\n  ");
 }
 
-function writeBuildTxt({ version, apkName, aabName, built, hasGradle, asset, bundle, versionCode, signed }) {
+function writeBuildTxt({ version, apkName, aabName, built, hasGradle, bundle, versionCode, signed }) {
   const artifact = bundle ? aabName : apkName;
   const lines = [
     bundle ? "FitShield Android — RELEASE bundle (Play upload)" : "FitShield Android — debug build",
@@ -343,7 +433,6 @@ function writeBuildTxt({ version, apkName, aabName, built, hasGradle, asset, bun
     `Built here:         ${built ? "YES" : "NO"}`,
     bundle ? `Signed:             ${signed ? "YES" : "NO — Play will reject this upload"}` : "Signed:             debug key",
     `Build tooling found: ${hasGradle ? "yes (Gradle)" : "no (Android SDK/Gradle absent in this environment)"}`,
-    `Rules:              ${asset.count} hosts, sha256 ${asset.sha256.slice(0, 16)}… (generated from ${asset.engine} over canonical data v${Object.values(asset.datasetVersions).join("/")})`,
     "",
     "Exact build command (run on a machine with the Android SDK + Gradle):",
     "  " + buildCommand(bundle, versionCode),
@@ -351,49 +440,30 @@ function writeBuildTxt({ version, apkName, aabName, built, hasGradle, asset, bun
     "Or, once Gradle is on PATH, simply:",
     bundle
       ? `  node tools/build-android.js --bundle --versionCode=${versionCode || "<int>"}`
-      : "  npm run generate:android && npm run validate:android && npm run build:android",
+      : "  npm run validate:android && npm run build:android",
     "",
     bundle
       ? "Upload dist/android/" + artifact + " to the Play Console. A versionCode may never be re-used."
       : "Install on a device (USB debugging on):\n  adb install -r dist/android/" + artifact,
     "",
-    "KNOWN PREVIEW LIMITATIONS",
-    "  - PREVIEW/TEST quality.",
-    "  - Blocks by TLS SNI (443) / HTTP Host (80) at the connection layer, NOT DNS.",
-    "    Works with Private DNS / NextDNS on; DNS is never intercepted or altered.",
-    "  - No HTTPS block page (no MITM) — blocked sites fail to connect (RST).",
-    "  - IPv6 is parsed and filtered on the same terms as IPv4 (it used to be",
-    "    captured and dropped, which left an IPv6-only network with no working",
-    "    connection at all). QUIC (UDP/443) is still dropped to force TCP, where",
-    "    the SNI is visible — that part is deliberate.",
-    "  - TLS with Encrypted Client Hello (ECH) hides the SNI and can bypass.",
-    "  - One active VPN at a time (conflicts with another VPN app).",
+    "WHAT THIS BUILD DOES",
+    "  - Blocks selected apps via an AccessibilityService (opt-in, foreground package name only).",
+    "  - NO VpnService, NO website blocking, NO INTERNET permission, NO boot receiver.",
+    "    Google Play rejected the VPN (\"Use of VpnService is not a permitted use case\").",
     "",
     "MANUAL DEVICE TESTING CHECKLIST",
     "  [ ] Launcher icon is the FitShield icon, not Android's grey placeholder",
     "  [ ] APK installs (adb install -r ...)",
-    "  [ ] App opens and shows the FitShield screen + loaded host count",
-    "  [ ] Tapping Enable triggers the system VPN-consent dialog",
-    "  [ ] After consent, the VPN starts and the OS VPN key/indicator appears",
-    "  [ ] Foreground notification is shown and understandable",
-    "  [ ] doordash.com is blocked (ERR_CONNECTION_RESET), WITH Private DNS on",
-    "  [ ] ubereats.com is blocked",
-    "  [ ] grubhub.com is blocked",
-    "  [ ] Normal sites load fine (e.g. wikipedia.org, github.com)",
-    "  [ ] Internet + DNS unaffected; Private DNS setting unchanged",
-    "  [ ] Disabling stops filtering (blocked sites load again)",
-    "  [ ] Uninstalling stops filtering",
-    "  [ ] Restart the phone with FitShield ON -> site blocking is ON again by",
-    "      itself; or exactly one notification offers to restore it",
-    "  [ ] Restart the phone with FitShield OFF -> still off, and NO notification",
-    "  [ ] Update the app over itself -> same two outcomes as a restart",
+    "  [ ] No VPN consent dialog and no VPN key in the status bar, ever",
+    "  [ ] App opens and shows the app-blocking screen",
     "  [ ] Accessibility is never enabled without the in-app consent step first,",
     "      and declining it leaves the service off",
+    "  [ ] A blocked app is covered by the FitShield block screen; allowed apps are untouched",
+    "  [ ] Foreground notification is shown and understandable",
     "  [ ] No usage-access requested",
     "  [ ] No location / contacts / phone / SMS / storage permission requested",
     "  [ ] Small-screen UI is usable",
-    "  [ ] No unexpected network; no visited hostnames in logcat",
-    "  [ ] (optional) ./gradlew connectedAndroidTest passes the engine-parity test",
+    "  [ ] No network permission in Settings > Apps > FitShield",
     ""
   ];
   fs.writeFileSync(path.join(DIST_ANDROID, "BUILD.txt"), lines.join("\n"));
@@ -489,7 +559,8 @@ function newestArtifact(dir, ext) {
 // failed on drift after every ordinary data or locale edit.
 module.exports = {
   bundleWeb, WEB_COPIES, WEB_DIR_COPIES, WEB_DIR,
-  apkOutcome, bundleOutcome, parseArgs, isBundleSigned, zipEntryNames
+  apkOutcome, bundleOutcome, parseArgs, isBundleSigned, zipEntryNames,
+  bundleForbiddenViolations, forbiddenInManifest, zipReadEntry
 };
 
 if (require.main === module) {

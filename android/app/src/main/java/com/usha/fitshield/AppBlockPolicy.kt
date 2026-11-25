@@ -17,9 +17,8 @@ object AppBlockPolicy {
 
     private const val PREFS = "fitshield"
     private const val KEY_UNLOCKS = "appUnlocks"          // { brandId: expiryEpochMs }
-    /** Brands the user switched to "Allowed". Public because the connection filter
-     *  watches this key for changes — see [FitShieldVpnService]. */
-    const val KEY_ALLOW_BRANDS = "appAllowBrands"          // [ brandId, … ]
+    /** Brands the user switched to "Allowed". */
+    private const val KEY_ALLOW_BRANDS = "appAllowBrands"          // [ brandId, … ]
 
     fun prefs(context: Context): SharedPreferences =
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
@@ -95,16 +94,6 @@ object AppBlockPolicy {
         Calendar.getInstance().let { it.get(Calendar.HOUR_OF_DAY) * 60 + it.get(Calendar.MINUTE) }
     )
 
-    /**
-     * Whether the schedule permits blocking right now.
-     *
-     * Exposed because "Block only during scheduled hours" sits in Blocking
-     * Options, which reads as covering everything FitShield blocks — and it did
-     * not: app blocking honoured it while the connection filter kept resetting
-     * sites around the clock. One switch, two answers, and nothing said so.
-     */
-    fun scheduleAllows(context: Context): Boolean = withinSchedule(prefs(context))
-
     // ---- temporary unlock ----------------------------------------------------
 
     private fun unlocks(p: SharedPreferences): JSONObject = try {
@@ -116,10 +105,8 @@ object AppBlockPolicy {
         return expiry > System.currentTimeMillis()
     }
 
-    /** When [brandId]'s temporary unlock expires, or null when it has none.
-     *  Exposed so the connection filter can honour the same unlock the pause
-     *  screen granted, instead of resetting the app the user just chose to open. */
-    fun unlockExpiry(context: Context, brandId: String): Long? {
+    /** When [brandId]'s temporary unlock expires, or null when it has none. */
+    private fun unlockExpiry(context: Context, brandId: String): Long? {
         val expiry = unlocks(prefs(context)).optLong(brandId, 0L)
         return if (expiry > 0L) expiry else null
     }
@@ -131,24 +118,6 @@ object AppBlockPolicy {
             (0 until arr.length()).map { arr.getString(it) }.toSet()
         } catch (e: Exception) { emptySet() }
     }
-
-    /**
-     * The same list, for the CONNECTION FILTER.
-     *
-     * It was private, and only this file read it — so the per-app "Allowed" pill
-     * stopped the AccessibilityService showing the pause screen while the
-     * VpnService went on resetting that brand's domains. The app opened and could
-     * not reach its own servers: the user was told the app was allowed, and got a
-     * broken app rather than either the block they had turned off or the app they
-     * had asked for. That is worse than either honest outcome, and CLAUDE.md §5
-     * forbids a dead customer-facing control — this one was not dead so much as
-     * overruled by a layer it never mentioned.
-     *
-     * [FitShieldVpnService] caches the result and refreshes it from the same
-     * preference listener that already watches the domain lists, so the filter
-     * does not parse JSON per connection.
-     */
-    fun allowedBrands(context: Context): Set<String> = allowedBrands(prefs(context))
 
     /** Record a temporary unlock for [brandId] lasting [minutes]. */
     fun unlock(context: Context, brandId: String, minutes: Int) {

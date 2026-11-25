@@ -84,26 +84,10 @@ function makeBridge(store, options = {}) {
       note("getVersion");
       return "0.57";
     },
-    ruleCount() {
-      note("ruleCount");
-      return 2512;
-    },
     getUiLanguage() {
       note("getUiLanguage");
       return "en";
     },
-    vpnIsEnabled() {
-      note("vpnIsEnabled");
-      return true;
-    },
-    privateDnsActive() {
-      note("privateDnsActive");
-      return false;
-    },
-    checkHost(host) {
-      note("checkHost");
-      return host === "doordash.com" ? "doordash.com" : "";
-    }
   };
 
   if (options.many !== false) {
@@ -283,33 +267,19 @@ test("the app version is fetched once however often it is asked for", async () =
   );
 });
 
-test("the blockable-host count is fetched once", async () => {
-  const { fs: shim, bridge } = loadShim();
-
-  for (let i = 0; i < 5; i += 1) {
-    assert.equal(await shim.blocking.hostCount(), 2512);
-  }
-  assert.equal(bridge.count("ruleCount"), 1);
-});
-
 test("a bridge that is not ready yet is asked again rather than pinned to an empty answer", async () => {
   const { fs: shim, bridge } = loadShim();
   let ready = false;
   bridge.getVersion = () => { bridge.calls.push("getVersion"); return ready ? "0.57" : ""; };
-  bridge.ruleCount = () => { bridge.calls.push("ruleCount"); return ready ? 2512 : 0; };
 
   assert.equal(await shim.blocking.rulesVersion(), "");
-  assert.equal(await shim.blocking.hostCount(), 0);
 
   ready = true;
   assert.equal(await shim.blocking.rulesVersion(), "0.57", "an empty first answer must not be cached for the session");
-  assert.equal(await shim.blocking.hostCount(), 2512);
 
-  // …and once a real answer arrives it IS cached.
+  // ...and once a real answer arrives it IS cached.
   await shim.blocking.rulesVersion();
-  await shim.blocking.hostCount();
   assert.equal(bridge.count("getVersion"), 2);
-  assert.equal(bridge.count("ruleCount"), 2);
 });
 
 // ---------------------------------------------------------------------------
@@ -329,12 +299,66 @@ test("writes and removals still reach the bridge one key at a time", async () =>
   assert.equal(bridge.count("storageRemove"), 1);
 });
 
-test("the platform identity and the domain checker are unchanged", async () => {
+test("the platform identity is unchanged and the website-blocking surface is gone", async () => {
   const { fs: shim } = loadShim();
 
   assert.equal(shim.platform, "android");
-  assert.deepEqual(plain(await shim.blocking.check("doordash.com")), { blocked: true, apex: "doordash.com" });
-  assert.deepEqual(plain(await shim.blocking.check("example.com")), { blocked: false, apex: null });
+  // Google Play rejected the VpnService, so nothing website-shaped may be offered.
+  ["check", "hostCount", "privateDnsActive"].forEach((name) => {
+    assert.ok(!(name in shim.blocking), `fitshield.blocking.${name} survived the VPN removal`);
+  });
+  assert.ok(!("vpnEnabled" in shim.appBlocking), "fitshield.appBlocking.vpnEnabled survived the VPN removal");
+  assert.ok(!("metadata" in shim.filters), "fitshield.filters.metadata survived the VPN removal");
+});
+
+// ---------------------------------------------------------------------------
+// The master switch: blocking.isEnabled / enable / disable, backed by the
+// "appBlockingEnabled" preference and ON by default
+// ---------------------------------------------------------------------------
+
+test("blocking.isEnabled: an absent preference means ON", async () => {
+  const { fs: shim } = loadShim();
+  assert.equal(await shim.blocking.isEnabled(), true);
+});
+
+test("blocking.isEnabled: only a stored false turns it off", async () => {
+  assert.equal(await loadShim({ appBlockingEnabled: false }).fs.blocking.isEnabled(), false);
+  assert.equal(await loadShim({ appBlockingEnabled: true }).fs.blocking.isEnabled(), true);
+  // stored as the bare strings the Kotlin side writes
+  assert.equal(await loadShim({}, { raw: { appBlockingEnabled: "false" } }).fs.blocking.isEnabled(), false);
+  assert.equal(await loadShim({}, { raw: { appBlockingEnabled: "true" } }).fs.blocking.isEnabled(), true);
+});
+
+// The dashboard and the blocker must agree for EVERY stored value, not just the
+// well-formed ones: an imported backup can carry anything. AppBlockPolicy.bool()
+// reads absent -> default (true), otherwise `raw.trim('"').equals("true",
+// ignoreCase = true)`. The shim once read a malformed value as absent (ON) while
+// Kotlin read it as OFF, so the dashboard said "On" while nothing was blocked.
+test("blocking.isEnabled agrees with AppBlockPolicy for malformed stored values", async () => {
+  const policy = fs.readFileSync(
+    path.join(__dirname, "..", "android", "app", "src", "main", "java", "com", "usha", "fitshield", "AppBlockPolicy.kt"), "utf8");
+  assert.match(policy, /raw\.trim\('"'\)\.equals\("true", ignoreCase = true\)/,
+    "AppBlockPolicy.bool() changed — re-derive the expectations below from it");
+  assert.match(policy, /bool\(p, "appBlockingEnabled", true\)/);
+
+  const kotlin = (raw) => raw === undefined ? true : raw.replace(/^"+|"+$/g, "").toLowerCase() === "true";
+  for (const raw of ["true", "false", "TRUE", "\"false\"", "\"true\"", "banana", "0", "1", "null", "yes", ""]) {
+    const got = await loadShim({}, { raw: { appBlockingEnabled: raw } }).fs.blocking.isEnabled();
+    assert.equal(got, kotlin(raw), `stored ${JSON.stringify(raw)}: shim says ${got}, Kotlin says ${kotlin(raw)}`);
+  }
+  assert.equal(await loadShim().fs.blocking.isEnabled(), kotlin(undefined));
+});
+
+test("blocking.disable / enable write the JSON booleans and round-trip", async () => {
+  const { fs: shim, store } = loadShim();
+
+  await shim.blocking.disable();
+  assert.equal(store.appBlockingEnabled, "false");
+  assert.equal(await shim.blocking.isEnabled(), false);
+
+  await shim.blocking.enable();
+  assert.equal(store.appBlockingEnabled, "true");
+  assert.equal(await shim.blocking.isEnabled(), true);
 });
 
 // The shim must not install itself in a browser — browser-shim.js owns that, and

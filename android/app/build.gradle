@@ -73,7 +73,7 @@ android {
     buildFeatures {
         // BuildConfig.DEBUG gates dev-only behavior (WebView remote debugging and
         // verbose console / per-connection logging) so none of it ships in a
-        // release build. See MainActivity / BlockActivity / Tun2Filter.
+        // release build. See MainActivity / BlockActivity.
         buildConfig true
     }
 

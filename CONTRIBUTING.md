@@ -37,7 +37,7 @@ audit fails the build if the acceptance report claims completion while its own
 repository-local queue is non-empty, or if it contains an unverified
 "probably fixed". The only unfinished items a report may carry are the three this
 machine physically cannot do, and they are **hardware and people, not tooling**:
-a physical Android device for the VPN-consent flow and on-device blocking, a
+a physical Android device to check the accessibility app-block flow on-device, a
 person listening with a screen reader to judge whether the announcements are
 *useful* rather than merely present, and a person answering the four questions in
 [`docs/ACCEPTANCE.md`](docs/ACCEPTANCE.md).

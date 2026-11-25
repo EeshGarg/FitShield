@@ -17,8 +17,7 @@ import android.view.accessibility.AccessibilityEvent
  * events (see res/xml/accessibility_service_config.xml, canRetrieveWindowContent
  * = false). It never reads screen content, and NEVER logs the package name.
  *
- * This runs ALONGSIDE the VPN/SNI network blocker — the VPN handles websites and
- * network traffic; this handles launching native apps. They are independent.
+ * It handles launching native apps only; FitShield does not filter network traffic.
  */
 class FitShieldAccessibilityService : AccessibilityService() {
 

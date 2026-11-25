@@ -172,14 +172,13 @@ test("a calorie total already on the phone is left exactly where it is", async (
   );
 });
 
-test("neither Android service manufactures a calorie figure any more", () => {
+test("the Android block screen does not manufacture a calorie figure any more", () => {
   /*
    * Keeping a number the user can no longer see is not the same as continuing to
    * compute one nobody measured. The stored total stays; the multiplication
-   * stops. Both writers have to stop, because either one alone keeps the figure
-   * growing invisibly for any future export or migration to present as data.
+   * stops. The block screen is the only writer left (the VPN service is gone).
    */
-  for (const file of ["FitShieldVpnService.kt", "BlockActivity.kt"]) {
+  for (const file of ["BlockActivity.kt"]) {
     const source = stripComments(read(path.join(KOTLIN_DIR, file)));
 
     assert.ok(

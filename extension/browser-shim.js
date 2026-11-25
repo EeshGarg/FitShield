@@ -83,7 +83,6 @@
       list: () => Promise.resolve([]),
       overlayEnabled: () => Promise.resolve(false),
       openOverlaySettings: () => Promise.resolve(),
-      vpnEnabled: () => Promise.resolve(false),
       keepAliveEnabled: () => Promise.resolve(false),
       setKeepAlive: () => Promise.resolve(),
       batteryUnrestricted: () => Promise.resolve(false),
