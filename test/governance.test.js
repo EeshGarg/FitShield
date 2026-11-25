@@ -81,7 +81,7 @@ test("the repository currently satisfies its own governance", () => {
 // policy-audit reads from the repo root, so a probe is written in place and
 // removed again. Each one is the literal thing that slipped through last time.
 function withReport(contents, fn) {
-  const file = path.join(ROOT, "SKEPTICAL_BUYER_ACCEPTANCE_REPORT.md");
+  const file = path.join(ROOT, "docs", "history", "SKEPTICAL_BUYER_ACCEPTANCE_REPORT.md");
   const had = fs.existsSync(file);
   const previous = had ? fs.readFileSync(file, "utf8") : null;
 

@@ -55,7 +55,7 @@ const README = read("README.md");
 const CONTRIBUTING = read("CONTRIBUTING.md");
 const ROADMAP = read("changelog", "ROADMAP.md");
 const CHANGELOG_INDEX = read("changelog", "README.md");
-const ACCEPTANCE_REPORT = read("SKEPTICAL_BUYER_ACCEPTANCE_REPORT.md");
+const ACCEPTANCE_REPORT = read("docs/history/SKEPTICAL_BUYER_ACCEPTANCE_REPORT.md");
 const STORE_LISTING = read("docs", "STORE_LISTING_DRAFT.md");
 
 const VERSION = manifest.version;

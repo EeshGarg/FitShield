@@ -97,7 +97,7 @@ test("the skip pattern does not swallow a real finding", () => {
     // more; the only tool that says it says it about a REAL packaging defect, so
     // the skip pattern must not claim it.
     "extension/ambient.js is not staged by build.js — ship it or delete it",
-    "Branding/ is missing or empty",
+    "brand/ is missing or empty",
     "missing top-level README.md",
     "missing changelog/README.md index",
     "2 locale(s) are missing keys the English file defines",

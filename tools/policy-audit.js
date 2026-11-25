@@ -29,7 +29,7 @@ const { Reporter, runCli } = require("./lib/report.js");
 const ROOT = path.join(__dirname, "..");
 const POLICY_FILE = path.join(ROOT, "development-policy.json");
 const GOVERNANCE_FILE = path.join(ROOT, "CLAUDE.md");
-const REPORT_FILE = path.join(ROOT, "SKEPTICAL_BUYER_ACCEPTANCE_REPORT.md");
+const REPORT_FILE = path.join(ROOT, "docs", "history", "SKEPTICAL_BUYER_ACCEPTANCE_REPORT.md");
 const AGENTS_DIR = path.join(ROOT, ".claude", "agents");
 
 // Instruction files that must not re-introduce a stopping condition. `.claude/`

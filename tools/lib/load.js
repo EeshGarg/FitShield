@@ -20,7 +20,7 @@ const BLOCKLISTS_DIR = path.join(DATA_DIR, "blocklists");
 const LOCALES_DIR = path.join(EXTENSION_DIR, "_locales");
 const CHANGELOG_DIR = path.join(ROOT, "changelog");
 const ICONS_DIR = path.join(EXTENSION_DIR, "icons");
-const BRANDING_DIR = path.join(ROOT, "Branding");
+const BRANDING_DIR = path.join(ROOT, "brand");
 
 const DATASET_FILES = ["fast-food.json", "delivery.json"];
 

@@ -74,7 +74,7 @@ test("the docs state the real Firefox background.scripts value", () => {
     build.BACKGROUND_SCRIPTS.map((s) => `"${s}"`).join(",")
   ];
 
-  for (const doc of ["docs/EXTENSION.md", "docs/PRODUCT_AUDIT.md"]) {
+  for (const doc of ["docs/EXTENSION.md", "docs/history/PRODUCT_AUDIT.md"]) {
     const text = fs.readFileSync(path.join(ROOT, doc), "utf8");
 
     assert.ok(

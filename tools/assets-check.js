@@ -83,8 +83,8 @@ function assetsCheck() {
   }
 
   // Branding (warning only — not bundled into the package).
-  if (!load.exists("Branding") || fs.readdirSync(load.BRANDING_DIR).length === 0) {
-    reporter.warn("Branding/ is missing or empty");
+  if (!load.exists("brand") || fs.readdirSync(load.BRANDING_DIR).length === 0) {
+    reporter.warn("brand/ is missing or empty");
   }
 
   reporter.note(`${REQUIRED_FILES.length} files, ${REQUIRED_DIRS.length} dirs, ${iconPaths.size} icon(s) checked`);
